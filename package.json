@@ -1,0 +1,30 @@
+{
+  "name": "aspect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm run asbuild && npm run tsc && node script/test",
+    "asbuild": "asc assembly/tests.ts -b build/tests.wasm -t build/tests.wat --sourceMap --validate --debug",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtenner/aspect.git"
+  },
+  "author": "Joshua <tenner.joshua@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jtenner/aspect/issues"
+  },
+  "homepage": "https://github.com/jtenner/aspect#readme",
+  "devDependencies": {
+    "@types/node": "^10.12.24",
+    "@types/webassembly-js-api": "0.0.2",
+    "assemblyscript": "github:assemblyscript/assemblyscript",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2"
+  }
+}
