@@ -1,8 +1,9 @@
 {
-  "name": "aspect",
-  "version": "1.0.0",
+  "name": "as-pect",
+  "version": "0.0.1-alpha.0",
   "description": "",
   "main": "lib/index.js",
+  "types": "./assembly/types.d.ts",
   "scripts": {
     "test": "npm run asbuild && npm run tsc && node script/test",
     "asbuild": "asc assembly/tests.ts -b build/tests.wasm -t build/tests.wat --sourceMap --validate --debug",

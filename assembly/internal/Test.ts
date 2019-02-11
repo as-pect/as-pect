@@ -1,4 +1,4 @@
-import { closure } from "./Describe";
+import { closures } from "./Describe";
 import { noOp } from "./noOp";
 
 export class Test {
@@ -11,11 +11,15 @@ export class Test {
   }
 }
 
+// @ts-ignore: decorators *are* valid here
+@global
 export function it(description: string, runner: () => void): void {
   test(description, runner);
 }
 
+// @ts-ignore: decorators *are* valid here
+@global
 export function test(description: string, runner: () => void): void {
-  if (closure.tests == null) throw new Error("Cannot add test when there is no description to add to.");
-  closure.tests.push(new Test(description, runner));
+  if (closures.length == 0) throw new Error("please use the describe function");
+  closures[closures.length - 1].tests.push(new Test(description, runner));
 }

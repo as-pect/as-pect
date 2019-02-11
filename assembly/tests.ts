@@ -1,6 +1,5 @@
 import "allocator/arena";
-
-import { expect, describe, it } from "./index";
+import { expect, it, describe } from "./index";
 
 class Vec3 {
   x: f64;
@@ -153,5 +152,9 @@ describe("ASpect", (): void => {
 
   it("should expect a reftype not to be null", (): void => {
     expect<Vec3>(new Vec3(1, 2, 3)).not.toBeNull();
+  });
+
+  it("should report a failure message (this is expected to fail)", (): void => {
+    expect<bool>(false).toBeTruthy("This is an expected error message!");
   });
 });
