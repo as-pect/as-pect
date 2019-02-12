@@ -7,6 +7,7 @@ import glob from "glob";
 // import { TestRunner } from "./test/TestRunner";
 import asc from "assemblyscript/cli/asc";
 import { TestRunner } from "./test/TestRunner";
+import fs from "fs";
 
 const pkg = require("../package.json");
 
@@ -29,6 +30,37 @@ program
 
 if (program.init) {
   console.log(chalk`{bgWhite.black [Log]} Initializing test suite`);
+
+  // Create the test folder
+  const testFolder = path.join(process.cwd(), "assembly", "__tests__");
+  if (!fs.existsSync(testFolder)) {
+    console.log(chalk`{bgWhite.black [Log]} Creating folder: assembly/__tests__`);
+    fs.mkdirSync(testFolder);
+  }
+
+  const exampleFile = path.join(testFolder, "example.spec.ts");
+  const exampleFileSource = path.join(__dirname, "init", "example.spec.ts");
+  if (!fs.existsSync(exampleFile)) {
+    console.log(chalk`{bgWhite.black [Log]} Creating file: assembly/__tests__/example.spec.ts`);
+    fs.createReadStream(exampleFileSource, "utf-8")
+      .pipe(fs.createWriteStream(exampleFile, "utf-8"));
+  }
+
+  const typesFileSource = path.join(__dirname, "init", "as-pect.d.ts");
+  const typesFile = path.join(testFolder, "as-pect.d.ts");
+  if (!fs.existsSync(typesFile)) {
+    console.log(chalk`{bgWhite.black [Log]} Creating file: assembly/__tests__/as-pect.d.ts`);
+    fs.createReadStream(typesFileSource, "utf-8")
+      .pipe(fs.createWriteStream(typesFile, "utf-8"));
+  }
+
+  const configFile = path.join(process.cwd(), "as-pect.config.js");
+  const configFileSource = path.join(__dirname, "init", "as-pect.config.js");
+  if (!fs.existsSync(configFile)) {
+    console.log(chalk`{bgWhite.black [Log]} Creating file: as-pect.config.js`);
+    fs.createReadStream(configFileSource, "utf-8")
+      .pipe(fs.createWriteStream(configFile, "utf-8"));
+  }
 }
 
 const configurationPath = path.resolve(process.cwd(), program.config);
