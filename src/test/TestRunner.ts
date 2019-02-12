@@ -153,8 +153,13 @@ export class TestRunner {
     suite.afterAll = cb;
   }
   reportExpectedReference(expected: number, actual: number, offset: number, negated: number): void {
-    this.expected = (negated ? "not " : "" ) + Array.from(this.wasm.U8.slice(expected, expected + offset)).map(hex).join(" ");
-    this.actual =  Array.from(this.wasm.U8.slice(actual, actual + offset)).map(hex).join(" ");
+    this.expected = (negated === 1 ? "not " : "" ) +
+    (expected === 0
+      ? "null"
+      : Array.from(this.wasm.U8.slice(expected, expected + offset)).map(hex).join(" "));
+    this.actual = (actual === 0
+      ? "null"
+      : Array.from(this.wasm.U8.slice(actual, actual + offset)).map(hex).join(" "));
   }
   reportExpectedValue(expected: number, actual: number, negated: number): void {
     this.expected = (negated ? "not " : "" ) + expected.toString();

@@ -1,32 +1,5 @@
 
 describe("ASpect", (): void => {
-  
-
-  it("should detect greater than or equal to values", (): void => {
-    expect<i32>(1).toBeGreaterThanOrEqualTo(1);
-    expect<i32>(1).toBeGreaterThanOrEqualTo(0);
-  });
-
-  it("should detect greater than or equal to values", (): void => {
-    expect<i32>(1).not.toBeGreaterThanOrEqualTo(2);
-  });
-
-  it("should detect less than values", (): void => {
-    expect<i32>(0).toBeLessThan(1);
-  });
-
-  it("should detect negated less than values", (): void => {
-    expect<i32>(2).not.toBeLessThan(1);
-  });
-
-  it("should detect less than or equal to values", (): void => {
-    expect<i32>(1).toBeLessThanOrEqualTo(1);
-    expect<i32>(1).toBeLessThanOrEqualTo(2);
-  });
-
-  it("should detect negated less than or equal values", (): void => {
-    expect<i32>(1).not.toBeLessThanOrEqualTo(0);
-  });
 
   it("should detect reftype nulls", (): void => {
     expect<Vec3>(null).toBeNull();
