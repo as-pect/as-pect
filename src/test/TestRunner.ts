@@ -82,12 +82,10 @@ export class TestRunner {
         } else {
           failed += 1;
           this.passed = false;
-          console.log("");
-          console.log(chalk` {bgRedBright.black [Failure]} ✖ ${testName}`);
-          console.log(chalk`    {bgWhite.black [Reason]} ${this.reason}`);
-          console.log(chalk`    {bgWhite.black [Actual]} {red ${this.actual}}`);
-          console.log(chalk`    {bgWhite.black [Expected]} {greenBright ${this.actual}}`);
-          console.log("");
+          console.log(chalk`  {bgRedBright.black [Failure]} ✖ ${testName}`);
+          console.log(chalk`   {bgWhite.black [Reason]} ${this.reason}`);
+          console.log(chalk`   {bgWhite.black [Actual]} {red ${this.actual}}`);
+          console.log(chalk` {bgWhite.black [Expected]} {greenBright ${this.actual}}`);
           console.log("");
         }
 
@@ -155,12 +153,12 @@ export class TestRunner {
     suite.afterAll = cb;
   }
   reportExpectedReference(expected: number, actual: number, offset: number, negated: number): void {
-    this.expected = Array.from(this.wasm.U8.slice(expected, expected + offset)).map(hex).join(" ");
-    this.actual = (negated ? "not " : "" ) + Array.from(this.wasm.U8.slice(actual, actual + offset)).map(hex).join(" ");
+    this.expected = (negated ? "not " : "" ) + Array.from(this.wasm.U8.slice(expected, expected + offset)).map(hex).join(" ");
+    this.actual =  Array.from(this.wasm.U8.slice(actual, actual + offset)).map(hex).join(" ");
   }
   reportExpectedValue(expected: number, actual: number, negated: number): void {
-    this.expected = expected.toString();
-    this.actual = (negated ? "not " : "" ) + actual.toString();
+    this.expected = (negated ? "not " : "" ) + expected.toString();
+    this.actual = actual.toString();
   }
   reportTodo(description: number): void {
     var suite = this.suites[this.suites.length - 1];

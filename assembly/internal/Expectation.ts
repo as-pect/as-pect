@@ -80,13 +80,20 @@ export class Expectation<T> {
 
   @inline
   public toBeFalsy(message: string = ""): void {
-    this.report(null);
-    if (isReference<T>() && this.value == null) return;
+    reportExpectedValue<bool>(true, false, this._not);
+
     if (this.value instanceof String) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
       assert(this._not ^ (this.value.length == 0), message);
       return;
     }
+
+    if (isReference<T>()) {
+      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
+      assert(this._not ^ (this.value == null), message);
+      return;
+    }
+
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (!this.value), message);
   }

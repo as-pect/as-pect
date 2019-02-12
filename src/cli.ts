@@ -47,6 +47,8 @@ if (!(typeof configuration === "object")) {
 }
 
 console.log(chalk`{bgWhite.black [Log]} including files ${configuration!.include.join(", ")}`);
+console.log("");
+console.log("");
 
 const files: string[] = [];
 
