@@ -1,55 +1,5 @@
-import "allocator/arena";
-import { expect, it, describe } from "./index";
-
-class Vec3 {
-  x: f64;
-  y: f64;
-  z: f64;
-
-  constructor(x: f64, y: f64, z: f64) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-  }
-}
 
 describe("ASpect", (): void => {
-  it("should create an expectation with a value", (): void => {
-    var result = expect<i32>(1);
-    assert(result.value == 1, "The expect function does not report values correctly.");
-  });
-
-  it("should negate the _not property", (): void => {
-    var result = expect<i32>(1).not;
-    assert(result._not);
-  });
-
-  it("should correctly assert toStrictEqual assertions for value types", (): void => {
-    expect<i32>(3).toStrictEqual(3);
-  });
-
-  it("should correctly assert toStrictEqual assertions for reftypes", (): void => {
-    expect<Vec3>(new Vec3(1, 2, 3)).toStrictEqual(new Vec3(1, 2, 3));
-  });
-
-  it("should correctly assert toStrictEqual for reftypes that are null", (): void => {
-    expect<Vec3>(null).toStrictEqual(null);
-  });
-
-  it("should correctly assert negated toStrictEqual assertions for value types", (): void => {
-    expect<i32>(3).not.toStrictEqual(4);
-  });
-
-  it("should correctly assert negated toStrictEqual assertions for null comparisons", (): void => {
-    expect<Vec3>(null).not.toStrictEqual(new Vec3(1, 2, 3));
-  });
-
-  it("should correctly assert negated toStrictEqual assertions for unequal reftypes", (): void => {
-    var left = new Vec3(4, 5, 6);
-    var right = new Vec3(1, 2, 3);
-    expect<Vec3>(left).not.toStrictEqual(right);
-  });
-
   it("should correctly assert truthy values", (): void => {
     expect<i32>(1).toBeTruthy();
     expect<bool>(true).toBeTruthy();

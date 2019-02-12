@@ -6,8 +6,9 @@ declare function beforeAll(callback: () => void): void;
 declare function afterEach(callback: () => void): void;
 declare function afterAll(callback: () => void): void;
 declare class Expectation<T> {
-  toBe(value: T | null): void;
-  toThrow(): void;
+  toBe(value: T | null, message?: string): void;
+  toStrictEqual(value: T | null, message?: string): void;
+  toThrow(message?: string): void;
   not: Expectation<T>;
   value: T | null;
   _not: bool;

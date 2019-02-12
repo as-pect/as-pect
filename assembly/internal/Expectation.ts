@@ -27,7 +27,10 @@ export class Expectation<T> {
   @inline
   public toStrictEqual(value: T | null, message: string = ""): void {
     // fast path, the value is itself
-    if (value == this.value) return;
+    if (value == this.value) {
+      assert(!this._not, message);
+      return;
+    }
 
     // fast path, both values aren't null together, so if any of them are null, they do not equal
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
