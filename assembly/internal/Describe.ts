@@ -8,4 +8,5 @@ declare function reportDescribe(suiteName: string): void;
 @global
 export function describe(name: string = "", tests: () => void = noOp): void {
   reportDescribe(name);
+  tests();
 }

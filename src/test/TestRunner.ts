@@ -1,6 +1,7 @@
 import { TestSuite } from "./TestSuite";
 import chalk from "chalk";
 import { ASUtil, instantiateBuffer } from "assemblyscript/lib/loader";
+const { performance } = require('perf_hooks');
 
 const hex = (value: number) => {
   var result: string = value.toString(16);
@@ -37,13 +38,14 @@ export class TestRunner {
     return imports;
   }
   run() {
-    var start = Date.now();
+    var start = performance.now();
     var failed = 0;
     var success = 0;
     var total = 0;
     for (let suite of this.suites) {
+      let suiteName = this.wasm.getString(suite.describe);
       console.log("");
-      console.log(chalk`Describe {bold ${suite.describe}}:`);
+      console.log(chalk`Describe {bold ${suiteName}}:`);
 
       for (const todo of suite.todos) {
         console.log(chalk`  {bgWhite.black [TODO]} ${this.wasm.getString(todo)}`);
@@ -53,19 +55,19 @@ export class TestRunner {
       const beforeAllResult = this.tryCall(suite.beforeAll);
 
       if (beforeAllResult === 0) {
-        console.log(chalk`  {bgBrightRed.black [Failure]} Test suite ${suite.describe} failed in beforeAll callback.`);
+        console.log(chalk`  {bgBrightRed.black [Failure]} Test suite ${this.wasm.getString(suite.describe)} failed in beforeAll callback.`);
         console.log(chalk`    {bgWhite.black [Reason]} ${this.reason}`);
       }
 
       for (let i = 0; i < suite.tests.length; i++) {
         let beforeEachResult = this.tryCall(suite.beforeEach);
         if (beforeEachResult === 0) {
-          console.log(chalk`  {beRedBright.black [Failure]} Test suite ${suite.describe} failed in beforeEach callback.`);
+          console.log(chalk`  {beRedBright.black [Failure]} Test suite ${this.wasm.getString(suite.describe)} failed in beforeEach callback.`);
           console.log(chalk`    {bgWhite.black [Reason]} ${this.reason}`);
           break;
         }
 
-        let testName = suite.testNames[i];
+        let testName = this.wasm.getString(suite.testNames[i]);
         let testResult = this.tryCall(suite.tests[i]);
         total += 1;
         if (testResult === 1) {
@@ -85,19 +87,19 @@ export class TestRunner {
 
         let afterEachResult = this.tryCall(suite.afterEach);
         if (afterEachResult === 0) {
-          console.log(chalk`  {beRedBright.black [Failure]} Test suite ${suite.describe} failed in afterEach callback.`);
+          console.log(chalk`  {beRedBright.black [Failure]} Test suite ${suiteName} failed in afterEach callback.`);
           console.log(chalk`    {bgWhite.black [Reason]} ${this.reason}`);
           break;
         }
       }
 
     }
-    var end = Date.now();
+    var end = performance.now();
     console.log("");
     console.log("");
-    console.log(`Test suite: ${this.passed ? chalk`{bgGreenBright.black PASS}` : chalk`{bgRedBright.white FAIL}`}`);
-    console.log(`Tests:      ${success} passed, ${failed} failed, ${total} total`);
-    console.log(`Time:       ${end - start}ms`);
+    console.log(`Test Suite: ${this.passed ? chalk`{bgGreenBright.black PASS}` : chalk`{bgRedBright.white FAIL}`}`);
+    console.log(`Tests     : ${success} passed, ${failed} failed, ${total} total`);
+    console.log(`Time      : ${end - start}ms`);
     console.log("");
   }
   tryCall(pointer: number): 1 | 0 {
@@ -113,13 +115,13 @@ export class TestRunner {
   }
   reportDescribe(suiteName: number): void {
     var suite = new TestSuite();
-    suite.describe = this.wasm.getString(suiteName);
+    suite.describe = suiteName;
     this.suites.push(suite);
   }
   reportTest(testName: number, callback: number): void {
     var suite = this.suites[this.suites.length - 1];
     suite.tests.push(callback);
-    suite.testNames.push(this.wasm.getString(testName));
+    suite.testNames.push(testName);
   }
   reportBeforeEach(cb: number): void {
     var suite = this.suites[this.suites.length - 1];

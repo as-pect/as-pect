@@ -1,3 +1,6 @@
 module.exports = {
-  include: ["assembly/tests/**/*.ts"]
+  include: ["assembly/tests/**/*.spec.ts"],
+  imports: {
+
+  },
 };

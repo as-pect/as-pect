@@ -24,28 +24,6 @@ describe("ASpect", (): void => {
     assert(result._not);
   });
 
-  it("should correctly assert toBe assertions for value types", (): void => {
-    expect<i32>(1).toBe(1);
-  });
-
-  it("should correctly assert toBe assertions for reftypes", (): void => {
-    var vec: Vec3 = new Vec3(1, 2, 3);
-    expect<Vec3>(vec).toBe(vec);
-  });
-
-  it("should correctly assert null equality", (): void => {
-    expect<Vec3>(null).toBe(null);
-  });
-
-  it("should correctly assert negated toBe assertions for value types", (): void => {
-    expect<i32>(1).not.toBe(2);
-  });
-
-  it("should correctly assert negative toBe assertions for reftypes", (): void => {
-    var vec: Vec3 = new Vec3(1, 2, 3);
-    expect<Vec3>(vec).not.toBe(new Vec3(1, 2, 3));
-  });
-
   it("should correctly assert toStrictEqual assertions for value types", (): void => {
     expect<i32>(3).toStrictEqual(3);
   });

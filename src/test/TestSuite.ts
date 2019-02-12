@@ -1,9 +1,9 @@
 export class TestSuite {
-  describe: string = "";
+  describe: number = -1;
   beforeAll: number = -1;
   beforeEach: number = -1;
   tests: number[] = [];
-  testNames: string[] = [];
+  testNames: number[] = [];
   afterEach: number = -1;
   afterAll: number = -1;
   todos: number[] = [];
