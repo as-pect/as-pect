@@ -12,6 +12,7 @@ declare class Expectation<T> {
   toBeTruthy(message?: string): void;
   toBeFalsy(message?: string): void;
   toBeGreaterThan(value: T | null, message?: string): void;
+  toBeLessThan(value: T | null, message?: string): void;
   toBeGreaterThanOrEqualTo(value: T | null, message?: string): void;
   not: Expectation<T>;
   value: T | null;
