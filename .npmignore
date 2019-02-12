@@ -1,6 +1,5 @@
 src
 node_modules
-build
-as-spect.config.js
+as-pect.config.js
 tsconfig.json
 .travis.yml
