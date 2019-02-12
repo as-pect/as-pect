@@ -39,14 +39,14 @@ if (program.init) {
   }
 
   const exampleFile = path.join(testFolder, "example.spec.ts");
-  const exampleFileSource = path.join(__dirname, "init", "example.spec.ts");
+  const exampleFileSource = path.join(__dirname, "..", "init", "example.spec.ts");
   if (!fs.existsSync(exampleFile)) {
     console.log(chalk`{bgWhite.black [Log]} Creating file: assembly/__tests__/example.spec.ts`);
     fs.createReadStream(exampleFileSource, "utf-8")
       .pipe(fs.createWriteStream(exampleFile, "utf-8"));
   }
 
-  const typesFileSource = path.join(__dirname, "init", "as-pect.d.ts");
+  const typesFileSource = path.join(__dirname, "..", "init", "as-pect.d.ts");
   const typesFile = path.join(testFolder, "as-pect.d.ts");
   if (!fs.existsSync(typesFile)) {
     console.log(chalk`{bgWhite.black [Log]} Creating file: assembly/__tests__/as-pect.d.ts`);
@@ -55,7 +55,7 @@ if (program.init) {
   }
 
   const configFile = path.join(process.cwd(), "as-pect.config.js");
-  const configFileSource = path.join(__dirname, "init", "as-pect.config.js");
+  const configFileSource = path.join(__dirname, "..", "init", "as-pect.config.js");
   if (!fs.existsSync(configFile)) {
     console.log(chalk`{bgWhite.black [Log]} Creating file: as-pect.config.js`);
     fs.createReadStream(configFileSource, "utf-8")
