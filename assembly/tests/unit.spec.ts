@@ -1,5 +1,5 @@
 
-describe("types", (): void => {
+describe("unit types", (): void => {
   it("should create instanceof Expectation<T>", (): void => {
     var result: Expectation<i32> = expect<i32>(1);
     // @ts-ignore: instanceof checks must include type generics if they are in the definition

@@ -34,6 +34,8 @@ export class TestRunner {
       reportAfterEach: this.reportAfterEach.bind(this),
       reportAfterAll: this.reportAfterAll.bind(this),
       reportTodo: this.reportTodo.bind(this),
+      reportExpectedReference: this.reportExpectedReference.bind(this),
+      reportExpectedValue: this.reportExpectedValue.bind(this),
     };
     return imports;
   }
@@ -152,13 +154,13 @@ export class TestRunner {
     var suite = this.suites[this.suites.length - 1];
     suite.afterAll = cb;
   }
-  reportExpectedReference(expected: number, actual: number, offset: number): void {
+  reportExpectedReference(expected: number, actual: number, offset: number, negated: number): void {
     this.expected = Array.from(this.wasm.U8.slice(expected, expected + offset)).map(hex).join(" ");
-    this.actual = Array.from(this.wasm.U8.slice(actual, actual + offset)).map(hex).join(" ");
+    this.actual = (negated ? "not " : "" ) + Array.from(this.wasm.U8.slice(actual, actual + offset)).map(hex).join(" ");
   }
-  reportExpectedValue(expected: number, actual: number): void {
+  reportExpectedValue(expected: number, actual: number, negated: number): void {
     this.expected = expected.toString();
-    this.actual = actual.toString();
+    this.actual = (negated ? "not " : "" ) + actual.toString();
   }
   reportTodo(description: number): void {
     var suite = this.suites[this.suites.length - 1];

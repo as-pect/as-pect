@@ -17,8 +17,8 @@ export declare class TestRunner {
     reportBeforeAll(cb: number): void;
     reportAfterEach(cb: number): void;
     reportAfterAll(cb: number): void;
-    reportExpectedReference(expected: number, actual: number, offset: number): void;
-    reportExpectedValue(expected: number, actual: number): void;
+    reportExpectedReference(expected: number, actual: number, offset: number, negated: number): void;
+    reportExpectedValue(expected: number, actual: number, negated: number): void;
     reportTodo(description: number): void;
     abort(reasonPointer: number, _fileNamePointer: number, _c: number, _d: number): void;
 }

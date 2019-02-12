@@ -9,6 +9,7 @@ declare class Expectation<T> {
   toBe(value: T | null, message?: string): void;
   toStrictEqual(value: T | null, message?: string): void;
   toThrow(message?: string): void;
+  toBeTruthy(message?: string): void;
   not: Expectation<T>;
   value: T | null;
   _not: bool;

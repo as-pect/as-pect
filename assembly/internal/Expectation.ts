@@ -3,6 +3,15 @@
 @external("__aspect", "tryCall")
 declare function tryCall(func: () => void): bool;
 
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedValue")
+declare function reportExpectedValue<T>(actual: T, expected: T, negated: bool): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedReference")
+declare function reportExpectedReference<T>(actual: T, expected: T, offset: i32, negated: bool): void;
+
 // @ts-ignore: Decorators *are* valid here
 @global
 export class Expectation<T> {
@@ -20,12 +29,15 @@ export class Expectation<T> {
 
   @inline
   public toBe(value: T | null, message: string = ""): void {
+    this.report(value);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (value == this.value), message);
   }
 
   @inline
   public toStrictEqual(value: T | null, message: string = ""): void {
+    this.report(value);
+
     // fast path, the value is itself
     if (value == this.value) {
       assert(!this._not, message);
@@ -55,6 +67,8 @@ export class Expectation<T> {
 
   @inline
   public toBeTruthy(message: string = ""): void {
+    reportExpectedValue<bool>(false, true, this._not);
+
     if (this.value instanceof String) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
       assert(this._not ^ (this.value != null && this.value.length > 0), message);
@@ -66,6 +80,7 @@ export class Expectation<T> {
 
   @inline
   public toBeFalsy(message: string = ""): void {
+    this.report(null);
     if (isReference<T>() && this.value == null) return;
     if (this.value instanceof String) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
@@ -78,6 +93,7 @@ export class Expectation<T> {
 
   @inline
   public toThrow(message: string = ""): void {
+    reportExpectedValue<bool>(false, true, this._not);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (!tryCall(this.value)), message);
   }
@@ -91,6 +107,7 @@ export class Expectation<T> {
 
   @inline
   public toBeGreaterThanOrEqualTo(value: T | null, message: string = ""): void {
+    this.report(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value >= value), message);
@@ -98,6 +115,7 @@ export class Expectation<T> {
 
   @inline
   public toBeLessThan(value: T | null, message: string = ""): void {
+    this.report(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value < value), message);
@@ -105,6 +123,7 @@ export class Expectation<T> {
 
   @inline
   public toBeLessThanOrEqualTo(value: T | null, message: string = ""): void {
+    this.report(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value <= value), message);
@@ -112,9 +131,19 @@ export class Expectation<T> {
 
   @inline
   public toBeNull(message: string = ""): void {
+    this.report(null);
     if (isReference<T>()) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
       assert(this._not ^ (this.value == null), message);
+    }
+  }
+
+  @inline
+  public report(value: T | null): void {
+    if (isReference<T>()) {
+      reportExpectedReference(this.value, value, offsetof<T>(), this._not);
+    } else {
+      reportExpectedValue(this.value, value, this._not);
     }
   }
 }

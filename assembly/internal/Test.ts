@@ -22,7 +22,7 @@ declare function reportAfterAll(callback: () => void): void;
 @external("__aspect", "reportTodo")
 declare function reportTodo(description: string): void;
 
-
+@global
 export function todo(description: string): void {
   reportTodo(description);
 }
