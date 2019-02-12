@@ -54,47 +54,51 @@ for (const pattern of configuration!.include) {
   files.push(...glob.sync(pattern));
 }
 
-let binary: Uint8Array;
+let binaries: { [i: number]: Uint8Array } = {};
 
 const entryPath = path.join(__dirname, "../assembly/index.ts");
 const relativePath = path.relative(process.cwd(), entryPath);
 
-asc.main([
-  ...files, relativePath,
-  "--validate",
-  "--debug",
-  "--measure",
-  "--binaryFile", "output.wasm",
-], {
-  // @ts-ignore this is fine
-  stdout: process.stdout,
-  // @ts-ignore this is fine
-  stderr: process.stderr,
-  writeFile(name: string, contents: Uint8Array) {
-    if (path.extname(name) === ".wasm") {
-      binary = contents;
+let failed = false;
+let count = files.length;
+files.forEach((file: string, i: number) => {
+  asc.main([
+    file, relativePath,
+    "--validate",
+    "--debug",
+    "--measure",
+    "--binaryFile", "output.wasm",
+  ], {
+    // @ts-ignore this is fine
+    stdout: process.stdout,
+    // @ts-ignore this is fine
+    stderr: process.stderr,
+    writeFile(name: string, contents: Uint8Array) {
+      if (path.extname(name) === ".wasm") {
+        binaries[i] = contents;
+      }
     }
-  }
-}, function (error: Error): void {
-  if (error) {
-    console.log(chalk`{bgRedBright.black [Error]} There was a compilation error when trying to create the wasm binary.`);
-    console.log(error);
-    process.exit(1);
-    return;
-  }
+  }, function (error: Error): void {
+    if (error) {
+      console.log(chalk`{bgRedBright.black [Error]} There was a compilation error when trying to create the wasm binary for file: ${file}.`);
+      console.log(error);
+      process.exit(1);
+      return;
+    }
 
-  if (!binary) {
-    console.log(chalk`{bgRedBright.black [Error]} There was no output binary file.`);
-    process.exit(1);
-    return;
-  }
+    if (!binaries[i]) {
+      console.log(chalk`{bgRedBright.black [Error]} There was no output binary file: ${file}.`);
+      process.exit(1);
+      return;
+    }
 
-  const runner = new TestRunner(binary, Object.assign({}, configuration!.imports));
-  runner.run();
+    const runner = new TestRunner(binaries[i], Object.assign({}, configuration!.imports));
+    runner.run();
+    count -= 1;
+    failed = failed || !runner.passed;
 
-  if (runner.passed) {
-    process.exit(0);
-  } else {
-    process.exit(1);
-  }
+    if (count === 0 && failed) {
+      process.exit(1);
+    }
+  });
 });

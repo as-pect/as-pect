@@ -38,10 +38,13 @@ export class TestRunner {
     return imports;
   }
   run() {
-    var start = performance.now();
+    var start = 0;
+    var end = 0;
     var failed = 0;
     var success = 0;
     var total = 0;
+    var time = 0;
+
     for (let suite of this.suites) {
       let suiteName = this.wasm.getString(suite.describe);
       console.log("");
@@ -60,6 +63,7 @@ export class TestRunner {
       }
 
       for (let i = 0; i < suite.tests.length; i++) {
+        start = performance.now();
         let beforeEachResult = this.tryCall(suite.beforeEach);
         if (beforeEachResult === 0) {
           console.log(chalk`  {beRedBright.black [Failure]} Test suite ${this.wasm.getString(suite.describe)} failed in beforeEach callback.`);
@@ -72,12 +76,12 @@ export class TestRunner {
         total += 1;
         if (testResult === 1) {
           success += 1;
-          console.log(chalk`  {bgWhite.black [Success]} ${testName}`);
+          console.log(chalk`  {bgGreenBright.black [Success]} ✔ ${testName}`);
         } else {
           failed += 1;
           this.passed = false;
           console.log("");
-          console.log(chalk` {bgRedBright.black [Failure]} ${testName}`);
+          console.log(chalk` {bgRedBright.black [Failure]} ✖ ${testName}`);
           console.log(chalk`    {bgWhite.black [Reason]} ${this.reason}`);
           console.log(chalk`    {bgWhite.black [Actual]} {red ${this.actual}}`);
           console.log(chalk`    {bgWhite.black [Expected]} {greenBright ${this.actual}}`);
@@ -89,17 +93,26 @@ export class TestRunner {
         if (afterEachResult === 0) {
           console.log(chalk`  {beRedBright.black [Failure]} Test suite ${suiteName} failed in afterEach callback.`);
           console.log(chalk`    {bgWhite.black [Reason]} ${this.reason}`);
+          this.passed = false;
           break;
         }
       }
 
+      const afterAllResult = this.tryCall(suite.afterAll);
+      if (afterAllResult === 0) {
+        console.log(chalk`  {beRedBright.black [Failure]} Test suite ${suiteName} failed in afterAll callback.`);
+        console.log(chalk`    {bgWhite.black [Reason]} ${this.reason}`);
+        this.passed = false;
+      }
+      end = performance.now();
+      time = Math.round((end - start) * 1000) / 1000;
+      console.log("");
+      console.log(`Suite     : ${suiteName}`);
+      console.log(`Test Suite: ${this.passed ? chalk`✔ {bgGreenBright.black PASS}` : chalk`✖ {bgRedBright.white FAIL}`}`);
+      console.log(`Tests     : ${success} passed, ${failed} failed, ${total} total`);
+      console.log(`Time      : ${time}ms`);
+      console.log("");
     }
-    var end = performance.now();
-    console.log("");
-    console.log("");
-    console.log(`Test Suite: ${this.passed ? chalk`{bgGreenBright.black PASS}` : chalk`{bgRedBright.white FAIL}`}`);
-    console.log(`Tests     : ${success} passed, ${failed} failed, ${total} total`);
-    console.log(`Time      : ${end - start}ms`);
     console.log("");
   }
   tryCall(pointer: number): 1 | 0 {

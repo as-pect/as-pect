@@ -17,16 +17,40 @@ describe("toBe", (): void => {
     expect<Vec3>(vec1).toBe(vec1);
   });
 
+  it("should throw for toBe assertions that aren't true", (): void => {
+    expect<() => void>((): void => {
+      expect<Vec3>(vec1).toBe(vec2);
+    });
+  });
+
   it("should correctly assert null equality", (): void => {
     expect<Vec3>(null).toBe(null);
+  });
+
+  it("should correctly throw for toBe(null) assertions for reftypes", (): void => {
+    expect<() => void>((): void => {
+      expect<Vec3>(vec1).toBe(null);
+    });
   });
 
   it("should correctly assert negated toBe assertions for value types", (): void => {
     expect<i32>(1).not.toBe(2);
   });
 
+  it("should correctly throw for not.toBe assertions for value types", (): void => {
+    expect<() => void>((): void => {
+      expect<i32>(1).not.toBe(1);
+    }).toThrow();
+  });
+
   it("should correctly assert negative toBe assertions for reftypes", (): void => {
     var vec: Vec3 = new Vec3(1, 2, 3);
-    expect<Vec3>(vec).not.toBe(new Vec3(1, 2, 3));
+    expect<Vec3>(vec).not.toBe(vec2);
+  });
+
+  it("should correctly throw for not.toBe assertions for reftypes", (): void => {
+    expect<() => void>((): void => {
+      expect<Vec3>(vec1).not.toBe(vec1);
+    }).toThrow();
   });
 });

@@ -9,6 +9,7 @@ declare class Expectation<T> {
   toBe(value: T | null): void;
   toThrow(): void;
   not: Expectation<T>;
-
+  value: T | null;
+  _not: bool;
 }
 declare function expect<T>(value: T | null): Expectation<T>;
