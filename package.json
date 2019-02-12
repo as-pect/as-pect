@@ -9,7 +9,7 @@
     "tsc": "tsc"
   },
   "bin": {
-    "asp": "lib/cli"
+    "asp": "lib/cli.js"
   },
   "repository": {
     "type": "git",
