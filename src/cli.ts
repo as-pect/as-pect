@@ -24,7 +24,12 @@ function identity<T>(value: T): T { return value; }
 program
   .version(pkg.version)
   .option("-c, --config", "The as-spect configuration location", identity, "as-spect.config.js")
+  .option("-i, --init", "Initialize an as-pect test suite")
   .parse(process.argv);
+
+if (program.init) {
+  console.log(chalk`{bgWhite.black [Log]} Initializing test suite`);
+}
 
 const configurationPath = path.resolve(process.cwd(), program.config);
 console.log(chalk`{bgWhite.black [Log]} using configuration ${configurationPath}`);
@@ -64,6 +69,8 @@ const relativePath = path.relative(process.cwd(), entryPath);
 let failed = false;
 let count = files.length;
 files.forEach((file: string, i: number) => {
+  console.log(chalk`{bgWhite.black [Log]} Compiling: ${file} ${(i + 1).toString()} / ${files.length.toString()}`);
+  console.log("");
   asc.main([
     file, relativePath,
     "--validate",
@@ -71,9 +78,9 @@ files.forEach((file: string, i: number) => {
     "--measure",
     "--binaryFile", "output.wasm",
   ], {
-    // @ts-ignore this is fine
+    // @ts-ignore: this is fine
     stdout: process.stdout,
-    // @ts-ignore this is fine
+    // @ts-ignore: this is fine
     stderr: process.stderr,
     writeFile(name: string, contents: Uint8Array) {
       if (path.extname(name) === ".wasm") {
