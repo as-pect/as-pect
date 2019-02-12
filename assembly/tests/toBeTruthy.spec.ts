@@ -73,8 +73,13 @@ describe("toBeTruthy", (): void => {
     }).toThrow();
   });
 
-  it("should correctly assert negated truthy values", (): void => {
-    expect<Vec3>(null).not.toBeTruthy();
+  it("should assert negated strings of length 0 to be not truthy", (): void => {
     expect<string>("").not.toBeTruthy();
+  });
+
+  it("should assert negated strings of length 1 or greater to be truthy", (): void => {
+    expect<() => void>((): void => {
+      expect<string>("test!").not.toBeTruthy();
+    }).toThrow();
   });
 });
