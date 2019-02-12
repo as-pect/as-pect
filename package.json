@@ -5,9 +5,11 @@
   "main": "lib/index.js",
   "types": "./assembly/types.d.ts",
   "scripts": {
-    "test": "npm run asbuild && npm run tsc && node script/test",
-    "asbuild": "asc assembly/tests.ts -b build/tests.wasm -t build/tests.wat --sourceMap --validate --debug",
+    "test": "npm run tsc && node lib/cli --config ./as-spect.config.js",
     "tsc": "tsc"
+  },
+  "bin": {
+    "asp": "lib/cli.js"
   },
   "repository": {
     "type": "git",
@@ -20,12 +22,15 @@
   },
   "homepage": "https://github.com/jtenner/aspect#readme",
   "devDependencies": {
+    "@types/glob": "^7.1.1",
     "@types/node": "^10.12.24",
     "@types/webassembly-js-api": "0.0.2",
-    "assemblyscript": "github:assemblyscript/assemblyscript",
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "chalk": "^2.4.2"
+    "assemblyscript": "github:assemblyscript/assemblyscript",
+    "chalk": "^2.4.2",
+    "commander": "^2.19.0",
+    "glob": "^7.1.3"
   }
 }
