@@ -24,7 +24,7 @@ function identity<T>(value: T): T { return value; }
 
 program
   .version(pkg.version)
-  .option("-c, --config", "The as-spect configuration location", identity, "as-spect.config.js")
+  .option("-c, --config <path>", "The as-spect configuration location", identity)
   .option("-i, --init", "Initialize an as-pect test suite")
   .parse(process.argv);
 
@@ -61,6 +61,8 @@ if (program.init) {
     fs.createReadStream(configFileSource, "utf-8")
       .pipe(fs.createWriteStream(configFile, "utf-8"));
   }
+
+  process.exit(0);
 }
 
 const configurationPath = path.resolve(process.cwd(), program.config);
