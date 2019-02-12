@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "./assembly/types.d.ts",
   "scripts": {
-    "test": "npm run tsc && node lib/cli --config ./as-spect.config.js",
+    "test": "npm run tsc && node lib/cli --config ./as-pect.config.js",
     "tsc": "tsc"
   },
   "bin": {
