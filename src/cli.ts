@@ -65,8 +65,29 @@ export default function asp(args: string[]) {
       fs.createReadStream(configFileSource, "utf-8")
         .pipe(fs.createWriteStream(configFile, "utf-8"));
     }
-  } else if (yargs.argv.c || yargs.argv.config) {
-    const configurationPath = path.resolve(process.cwd(), (yargs.argv.c as string) || (yargs.argv.config as string));
+  } else if (yargs.argv.v || yargs.argv.version) {
+    console.log(pkg.version);
+  } else if (yargs.argv.help || yargs.argv.h) {
+    console.log(chalk`
+  {bold.blueBright SYNTAX}
+    {bold.green asp} --config as-pect.config.js
+    {bold.green asp} -c as-pect.config.js
+    {bold.green asp} --init
+    {bold.green asp} -i
+    {bold.green asp} --version
+    {bold.green asp} -v
+
+  {bold.blueBright OPTIONS}
+    {bold.green --version, -v}         Prints the package version and exits.
+    {bold.green --help, -h}            Prints this message and exits.
+    {bold.green --config, -c}          Accepts a configuration file and runs the tests.
+    {bold.green --init, -i}            Creates a test config, an assembly/__tests__ folder and exits.
+  `);
+  } else {
+    const configurationPath = path.resolve(
+      process.cwd(),
+      (yargs.argv.c as string) || (yargs.argv.config as string) || "./as-pect.config.js",
+    );
     console.log(chalk`{bgWhite.black [Log]} using configuration ${configurationPath}`);
 
     let configuration: IConfiguration | null = null;
@@ -75,7 +96,7 @@ export default function asp(args: string[]) {
       configuration = require(configurationPath);
     } catch (ex) {
       console.log("");
-      console.log(chalk`{bgRedBright.black [Error]} problem loading {bold [${configurationPath}]}.`);
+      console.log(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${configurationPath}]}.`);
       console.log(ex);
       process.exit(1);
     }
@@ -155,23 +176,5 @@ export default function asp(args: string[]) {
         }
       });
     });
-  } else if (yargs.argv.v || yargs.argv.version) {
-    console.log(pkg.version);
-  } else {
-    console.log(chalk`
-  {bold.blueBright SYNTAX}
-    {bold.green asp} --config as-pect.config.js
-    {bold.green asp} -c as-pect.config.js
-    {bold.green asp} --init
-    {bold.green asp} -i
-    {bold.green asp} --version
-    {bold.green asp} -v
-
-  {bold.blueBright OPTIONS}
-    {bold.green --version, -v}         Prints the package version and exits.
-    {bold.green --help, -h}            Prints this message and exits.
-    {bold.green --config, -c}          Accepts a configuration file and runs the tests.
-    {bold.green --init, -i}            Creates a test config, an assembly/__tests__ folder and exits.
-  `)
   }
 }
