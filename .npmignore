@@ -3,3 +3,4 @@ node_modules
 as-pect.config.js
 tsconfig.json
 .travis.yml
+!init/as-pect.config.js
