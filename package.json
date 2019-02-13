@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "./assembly/types.d.ts",
   "scripts": {
-    "test": "npm run tsc && node lib/test run --config ./as-pect.config.js",
+    "test": "npm run tsc && node lib/test",
     "tsc": "tsc && tsc --outfile lib/as-pect.amd.js --module amd",
     "gh-pages": "git subtree push --prefix lib origin gh-pages"
   },
