@@ -11,14 +11,20 @@ import fs from "fs";
 
 const pkg = require("../package.json");
 
-console.log(chalk`{bold.bgWhite.black ${""
+yargs.help(false);
+
+if (!(yargs.argv.v || yargs.argv.version)) {
+  console.log(chalk`{bold.bgWhite.black ${""
 }     ___   _____                       __  
     /   | / ___/      ____  ___  _____/ /_ 
    / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/ 
   / ___ |___/ /_____/ /_/ /  __/ /__/ /_   
  /_/  |_/____/     / .___/\\___/\\___/\\__/   
-                  /_/                      } AS-pect Test suite runner {bgGreenBright.black [${pkg.version}]}
+                  /_/                      }
+
+AS-pect Test suite runner {bgGreenBright.black [${pkg.version}]}
 `);
+}
 
 if (yargs.argv.i || yargs.argv.init) {
   console.log("");
@@ -80,11 +86,15 @@ if (yargs.argv.i || yargs.argv.init) {
   console.log("");
   console.log("");
 
-  const files: string[] = [];
+  let files: string[] = [];
 
   for (const pattern of configuration!.include) {
     files.push(...glob.sync(pattern));
   }
+  const disclude: RegExp[] = configuration!.disclude || [];
+  disclude.forEach(regexp => {
+    files = files.filter(file => !regexp.test(file));
+  });;
 
   let binaries: { [i: number]: Uint8Array } = {};
 
@@ -136,12 +146,22 @@ if (yargs.argv.i || yargs.argv.init) {
       }
     });
   });
+} else if (yargs.argv.v || yargs.argv.version) {
+  console.log(pkg.version);
 } else {
-  console.log("");
-  console.log(chalk`asp --help`);
-  console.log("")
-  console.log(chalk`  {bold --config, -c <configuration>}`);
-  console.log(chalk`    If a configuration is supplied, the command will run the test suite.`);
-  console.log(chalk`  {bold --init, -i}`);
-  console.log(chalk`    The init option will initialize a test suite.`);
+  console.log(chalk`
+{bold.blueBright SYNTAX}
+  {bold.green asp} --config as-pect.config.js
+  {bold.green asp} -c as-pect.config.js
+  {bold.green asp} --init
+  {bold.green asp} -i
+  {bold.green asp} --version
+  {bold.green asp} -v
+
+{bold.blueBright OPTIONS}
+  {bold.green --version, -v}         Prints the package version and exits.
+  {bold.green --help, -h}            Prints this message and exits.
+  {bold.green --config, -c}          Accepts a configuration file and runs the tests.
+  {bold.green --init, -i}            Creates a test config, an assembly/__tests__ folder and exits.
+`)
 }
