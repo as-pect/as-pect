@@ -5,7 +5,7 @@ A simple test runner for *AssemblyScript*.
 # Usage
 
 To install `as-pect`, install the latest version from github. Once `assemblyscript` is more stable,
-`as-spect` will be published to npm.
+`as-pect` will be published to npm.
 
 ```
 $ npm install jtenner/as-pect
@@ -36,16 +36,23 @@ You must place all relevant closures for a test suite into the describe closure.
 var vec: Vec3;
 // be explicit about every callback type
 describe("my module", (): void => {
+  // this runs before each test function
   beforeEach((): void => {
     vec = new Vec3(1, 2, 3);
   });
+
+  // this runs after each test function
   afterEach((): void => {
     memory.free(changetype<usize>(vec));
     vec = null;
   });
 
+  // use `test()` or `it()` to run a test
   test("vec should not be null", (): void => {
     expect<Vec3>(vec).not.toBeNull();
   });
 });
 ```
+
+Special thanks to the `AssemblyScript` team for creating one of the best computer languages that
+compile to web assembly.
