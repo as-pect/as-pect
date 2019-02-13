@@ -6,5 +6,4 @@ export * from "./util/IConfiguration";
 export * from "./reporter/DefaultReporter";
 export * from "./reporter/Reporter";
 import asp from "./cli";
-export { asp };
-//# sourceMappingURL=index.d.ts.map
+export { asp }
