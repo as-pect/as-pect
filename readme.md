@@ -30,6 +30,17 @@ and provided to you in the form of an `as-pect.d.ts` file in the `__test__` fold
 
 # notes
 
+## allocator
+
+`as-pect` will automatically include the arena allocator for you, so it's not necessary for you to
+include this at the top of each test.
+
+```ts
+import "allocator/arena";
+```
+
+## closures
+
 You must place all relevant closures for a test suite into the describe closure.
 
 ```ts
