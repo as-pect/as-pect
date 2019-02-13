@@ -6,7 +6,8 @@
   "types": "./assembly/types.d.ts",
   "scripts": {
     "test": "npm run tsc && node lib/test run --config ./as-pect.config.js",
-    "tsc": "tsc"
+    "tsc": "tsc && tsc --outfile lib/as-pect.amd.js --module amd",
+    "gh-pages": "git subtree push --prefix dist origin gh-pages"
   },
   "bin": {
     "asp": "bin/asp"
