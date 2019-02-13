@@ -2,7 +2,7 @@
   "name": "as-pect",
   "version": "0.0.1-alpha.0",
   "description": "",
-  "main": "lib/as-pect.js",
+  "main": "lib/index.js",
   "types": "./assembly/types.d.ts",
   "scripts": {
     "test": "npm run tsc && node lib/test run --config ./as-pect.config.js",
