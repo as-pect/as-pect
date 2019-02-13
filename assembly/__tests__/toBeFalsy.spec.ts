@@ -25,13 +25,13 @@ describe("toBeFalsy", (): void => {
     }).toThrow();
   });
 
-  it("should assert true is truthy", (): void => {
+  it("should assert true is not falsy", (): void => {
     expect<() => void>((): void => {
       expect<bool>(true).toBeFalsy();
     }).toThrow();
   });
 
-  it("should assert a reftype is truthy", (): void => {
+  it("should assert a reftype is not falsy", (): void => {
     expect<() => void>((): void => {
       expect<Vec3>(vec).toBeFalsy();
     }).toThrow();
