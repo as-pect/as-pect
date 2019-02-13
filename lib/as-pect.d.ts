@@ -5,6 +5,5 @@ export * from "./test/TestSuite";
 export * from "./util/IConfiguration";
 export * from "./reporter/DefaultReporter";
 export * from "./reporter/Reporter";
-import asp from "./cli";
-export { asp };
+export * from "./cli";
 //# sourceMappingURL=as-pect.d.ts.map

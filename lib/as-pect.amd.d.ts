@@ -108,7 +108,7 @@ declare module "util/IConfiguration" {
     }
 }
 declare module "cli" {
-    export default function asp(args: string[]): void;
+    export function asp(args: string[]): void;
 }
 declare module "as-pect" {
     export * from "test/TestGroup";
@@ -118,8 +118,7 @@ declare module "as-pect" {
     export * from "util/IConfiguration";
     export * from "reporter/DefaultReporter";
     export * from "reporter/Reporter";
-    import asp from "cli";
-    export { asp };
+    export * from "cli";
 }
 declare module "test" { }
 //# sourceMappingURL=as-pect.amd.d.ts.map

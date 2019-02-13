@@ -12,7 +12,7 @@ import fs from "fs";
 
 const pkg = require("../package.json");
 
-export default function asp(args: string[]) {
+export function asp(args: string[]) {
   const yargs = {
     argv: yargsparser(args),
   };

@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require("../lib/cli.js")(process.argv.slice(2));
+require("../lib/cli.js").asp(process.argv.slice(2));

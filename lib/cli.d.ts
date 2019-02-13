@@ -1,2 +1,2 @@
-export default function asp(args: string[]): void;
+export declare function asp(args: string[]): void;
 //# sourceMappingURL=cli.d.ts.map
