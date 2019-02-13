@@ -1,15 +1,16 @@
 import { TestSuite } from "./TestSuite";
 import { ASUtil } from "assemblyscript/lib/loader";
+import { Reporter } from "../reporter/Reporter";
 export declare class TestRunner {
-    constructor(buffer: Uint8Array, imports: any);
+    constructor();
     reason: string;
-    suites: TestSuite[];
-    wasm: ASUtil;
+    suite: TestSuite | null;
     actual: string;
     expected: string;
     passed: boolean;
+    wasm: ASUtil | null;
     createImports(imports?: any): any;
-    run(): void;
+    run(filename: string, buffer: Uint8Array, imports?: any, reporter?: Reporter): void;
     tryCall(pointer: number): 1 | 0;
     reportDescribe(suiteName: number): void;
     reportTest(testName: number, callback: number): void;
@@ -20,6 +21,8 @@ export declare class TestRunner {
     reportExpectedReference(expected: number, actual: number, offset: number, negated: number): void;
     reportExpectedValue(expected: number, actual: number, negated: number): void;
     reportTodo(description: number): void;
+    reportExpectedNull(negated: number): void;
+    clearExpected(): void;
     abort(reasonPointer: number, _fileNamePointer: number, _c: number, _d: number): void;
 }
 //# sourceMappingURL=TestRunner.d.ts.map

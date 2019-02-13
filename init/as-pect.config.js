@@ -11,4 +11,8 @@ module.exports = {
    * Add your required AssemblyScript imports here.
    */
   imports: {},
+  /**
+   * Add a custom reporter here if you want one
+   */
+  // reporter: new CustomReporter(),
 };

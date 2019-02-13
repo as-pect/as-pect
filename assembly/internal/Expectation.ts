@@ -12,6 +12,13 @@ declare function reportExpectedValue<T>(actual: T, expected: T, negated: bool): 
 @external("__aspect", "reportExpectedReference")
 declare function reportExpectedReference<T>(actual: T, expected: T, offset: i32, negated: bool): void;
 
+@external("__aspect", "reportExpectedNull")
+declare function reportExpectedNull(negated: bool): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "clearExpected")
+declare function clearExpected(): void;
+
 // @ts-ignore: Decorators *are* valid here
 @global
 export class Expectation<T> {
@@ -32,6 +39,7 @@ export class Expectation<T> {
     this.report(value);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (value == this.value), message);
+    clearExpected();
   }
 
   @inline
@@ -63,6 +71,7 @@ export class Expectation<T> {
     } else {
       this.toBe(value);
     }
+    clearExpected();
   }
 
   @inline
@@ -76,6 +85,7 @@ export class Expectation<T> {
     }
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (!!this.value), message);
+    clearExpected();
   }
 
   @inline
@@ -96,6 +106,7 @@ export class Expectation<T> {
 
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (!this.value), message);
+    clearExpected();
   }
 
   @inline
@@ -103,13 +114,16 @@ export class Expectation<T> {
     reportExpectedValue<bool>(false, true, this._not);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (!tryCall(this.value)), message);
+    clearExpected();
   }
 
   @inline
   public toBeGreaterThan(value: T | null, message: string = ""): void {
+    this.report(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value > value), message);
+    clearExpected();
   }
 
   @inline
@@ -118,6 +132,7 @@ export class Expectation<T> {
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value >= value), message);
+    clearExpected();
   }
 
   @inline
@@ -126,6 +141,7 @@ export class Expectation<T> {
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value < value), message);
+    clearExpected();
   }
 
   @inline
@@ -134,23 +150,27 @@ export class Expectation<T> {
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value <= value), message);
+    clearExpected();
   }
 
   @inline
   public toBeNull(message: string = ""): void {
-    this.report(null);
+    reportExpectedNull(this._not);
     if (isReference<T>()) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
       assert(this._not ^ (this.value == null), message);
+    } else {
+      assert(this._not, message);
     }
+    clearExpected();
   }
 
   @inline
-  public report(value: T | null): void {
+  public report(expected: T | null): void {
     if (isReference<T>()) {
-      reportExpectedReference(this.value, value, offsetof<T>(), this._not);
+      reportExpectedReference(this.value, expected, offsetof<T>(), this._not);
     } else {
-      reportExpectedValue(this.value, value, this._not);
+      reportExpectedValue(this.value, expected, this._not);
     }
   }
 }
