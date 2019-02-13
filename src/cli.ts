@@ -1,4 +1,4 @@
-import program from "commander";
+import yargs from "yargs";
 import chalk from "chalk";
 import path from "path";
 import { IConfiguration } from "./util/IConfiguration";
@@ -20,16 +20,10 @@ console.log(chalk`{bold.bgWhite.black ${""
                   /_/                      } AS-pect Test suite runner {bgGreenBright.black [${pkg.version}]}
 `);
 
-function identity<T>(value: T): T { return value; }
-
-program
-  .version(pkg.version)
-  .option("-c, --config <path>", "The as-spect configuration location", identity)
-  .option("-i, --init", "Initialize an as-pect test suite")
-  .parse(process.argv);
-
-if (program.init) {
-  console.log(chalk`{bgWhite.black [Log]} Initializing test suite`);
+if (yargs.argv.i || yargs.argv.init) {
+  console.log("");
+  console.log(chalk`{bgWhite.black [Log]} Initializing test suite files.`);
+  console.log("");
 
   // Create the test folder
   const testFolder = path.join(process.cwd(), "assembly", "__tests__");
@@ -61,87 +55,93 @@ if (program.init) {
     fs.createReadStream(configFileSource, "utf-8")
       .pipe(fs.createWriteStream(configFile, "utf-8"));
   }
+} else if (yargs.argv.c || yargs.argv.config) {
+  const configurationPath = path.resolve(process.cwd(), (yargs.argv.c as string) || (yargs.argv.config as string));
+  console.log(chalk`{bgWhite.black [Log]} using configuration ${configurationPath}`);
 
-  process.exit(0);
-}
+  let configuration: IConfiguration | null = null;
 
-const configurationPath = path.resolve(process.cwd(), program.config);
-console.log(chalk`{bgWhite.black [Log]} using configuration ${configurationPath}`);
+  try {
+    configuration = require(configurationPath);
+  } catch (ex) {
+    console.log("");
+    console.log(chalk`{bgRedBright.black [Error]} problem loading {bold [${configurationPath}]}.`);
+    console.log(ex);
+    process.exit(1);
+  }
 
-let configuration: IConfiguration | null = null;
+  if (!(typeof configuration === "object")) {
+    console.log("");
+    console.log(chalk`{bgRedBright.black [Error]} configuration at {bold [${configurationPath}]} is null or not an object.`);
+    process.exit(1);
+  }
 
-try {
-  configuration = require(configurationPath);
-} catch (ex) {
+  console.log(chalk`{bgWhite.black [Log]} including files ${configuration!.include.join(", ")}`);
   console.log("");
-  console.log(chalk`{bgRedBright.black [Error]} problem loading {bold [${configurationPath}]}.`);
-  console.log(ex);
-  process.exit(1);
-}
-
-if (!(typeof configuration === "object")) {
   console.log("");
-  console.log(chalk`{bgRedBright.black [Error]} configuration at {bold [${configurationPath}]} is null or not an object.`);
-  process.exit(1);
-}
 
-console.log(chalk`{bgWhite.black [Log]} including files ${configuration!.include.join(", ")}`);
-console.log("");
-console.log("");
+  const files: string[] = [];
 
-const files: string[] = [];
+  for (const pattern of configuration!.include) {
+    files.push(...glob.sync(pattern));
+  }
 
-for (const pattern of configuration!.include) {
-  files.push(...glob.sync(pattern));
-}
+  let binaries: { [i: number]: Uint8Array } = {};
 
-let binaries: { [i: number]: Uint8Array } = {};
+  const entryPath = path.join(__dirname, "../assembly/index.ts");
+  const relativePath = path.relative(process.cwd(), entryPath);
 
-const entryPath = path.join(__dirname, "../assembly/index.ts");
-const relativePath = path.relative(process.cwd(), entryPath);
-
-let failed = false;
-let count = files.length;
-files.forEach((file: string, i: number) => {
-  console.log(chalk`{bgWhite.black [Log]} Compiling: ${file} ${(i + 1).toString()} / ${files.length.toString()}`);
-  console.log("");
-  asc.main([
-    file, relativePath,
-    "--validate",
-    "--debug",
-    "--measure",
-    "--binaryFile", "output.wasm",
-  ], {
-    // @ts-ignore: this is fine
-    stdout: process.stdout,
-    // @ts-ignore: this is fine
-    stderr: process.stderr,
-    writeFile(name: string, contents: Uint8Array) {
-      if (path.extname(name) === ".wasm") {
-        binaries[i] = contents;
+  let failed = false;
+  let count = files.length;
+  files.forEach((file: string, i: number) => {
+    console.log(chalk`{bgWhite.black [Log]} Compiling: ${file} ${(i + 1).toString()} / ${files.length.toString()}`);
+    console.log("");
+    asc.main([
+      file, relativePath,
+      "--validate",
+      "--debug",
+      "--measure",
+      "--binaryFile", "output.wasm",
+    ], {
+      // @ts-ignore: this is fine
+      stdout: process.stdout,
+      // @ts-ignore: this is fine
+      stderr: process.stderr,
+      writeFile(name: string, contents: Uint8Array) {
+        if (path.extname(name) === ".wasm") {
+          binaries[i] = contents;
+        }
       }
-    }
-  }, function (error: Error): void {
-    if (error) {
-      console.log(chalk`{bgRedBright.black [Error]} There was a compilation error when trying to create the wasm binary for file: ${file}.`);
-      console.log(error);
-      process.exit(1);
-      return;
-    }
+    }, function (error: Error): void {
+      if (error) {
+        console.log(chalk`{bgRedBright.black [Error]} There was a compilation error when trying to create the wasm binary for file: ${file}.`);
+        console.log(error);
+        process.exit(1);
+        return;
+      }
 
-    if (!binaries[i]) {
-      console.log(chalk`{bgRedBright.black [Error]} There was no output binary file: ${file}.`);
-      process.exit(1);
-      return;
-    }
+      if (!binaries[i]) {
+        console.log(chalk`{bgRedBright.black [Error]} There was no output binary file: ${file}.`);
+        process.exit(1);
+        return;
+      }
 
-    const runner = new TestRunner(binaries[i], Object.assign({}, configuration!.imports));
-    runner.run();
-    count -= 1;
-    failed = failed || !runner.passed;
+      const runner = new TestRunner(binaries[i], Object.assign({}, configuration!.imports));
+      runner.run();
+      count -= 1;
+      failed = failed || !runner.passed;
 
-    if (count === 0 && failed) {
-      process.exit(1);
-    }
+      if (count === 0 && failed) {
+        process.exit(1);
+      }
+    });
   });
-});
+} else {
+  console.log("");
+  console.log(chalk`asp --help`);
+  console.log("")
+  console.log(chalk`  {bold --config, -c <configuration>}`);
+  console.log(chalk`    If a configuration is supplied, the command will run the test suite.`);
+  console.log(chalk`  {bold --init, -i}`);
+  console.log(chalk`    The init option will initialize a test suite.`);
+}
