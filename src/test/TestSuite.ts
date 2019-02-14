@@ -1,11 +1,12 @@
 import { TestGroup } from "./TestGroup";
 
 export class TestSuite {
-  groups: TestGroup[] = [];
-  total: number = 0;
-  success: number = 0;
-  fail: number = 0;
+  testGroups: TestGroup[] = [];
+  totalTests: number = 0;
+  successCount: number = 0;
+  failCount: number = 0;
+  todoCount: number = 0;
   filename: string = "";
   time: number = 0;
-  passed: boolean = false;
+  pass: boolean = false;
 }

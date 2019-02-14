@@ -20,7 +20,8 @@ export class DefaultReporter extends Reporter {
 
     console.log("");
     console.log(chalk`  [Result]: ${result}`);
-    console.log(chalk`   [Tests]: ${group.success.toString()} pass, ${group.fail.toString()} fail, ${group.total.toString()} total`);
+    console.log(chalk`   [Tests]: ${group.successCount.toString()} pass, ${group.failCount.toString()} fail, ${group.totalCount.toString()} total`);
+    console.log(chalk`    [Todo]: ${group.todoCount.toString()} tests`);
     console.log(chalk`    [Time]: ${group.time.toString()}ms`);
   }
   onTestStart(_group: TestGroup, _test: TestResult): void {}
@@ -36,15 +37,19 @@ export class DefaultReporter extends Reporter {
     }
   }
   onFinish(suite: TestSuite): void {
-    const result = suite.passed
+    const result = suite.pass
       ? chalk`{green ✔ Pass} `
       : chalk`{red ✖ Fail}`;
 
     console.log("");
     console.log(chalk`    [File]: ${suite.filename}`);
     console.log(chalk`  [Result]: ${result}`);
-    console.log(chalk` [Summary]: ${suite.success.toString()} pass, ${suite.fail.toString()} fail, ${suite.total.toString()} total`);
+    console.log(chalk` [Summary]: ${suite.successCount.toString()} pass, ${suite.failCount.toString()} fail, ${suite.totalTests.toString()} total`);
+    console.log(chalk`    [Todo]: ${suite.todoCount.toString()} tests`);
     console.log(chalk`    [Time]: ${suite.time.toString()}ms`);
     console.log("");
+  }
+  onTodo(_group: TestGroup, todo: string): void {
+    console.log(chalk`    {yellow [Todo]}: ${todo}`);
   }
 }
