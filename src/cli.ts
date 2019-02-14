@@ -34,7 +34,7 @@ export function asp(args: string[]) {
    /_/  |_/____/     / .___/\\___/\\___/\\__/   
                     /_/                      }
 
-  AS-pect Test suite runner {bgGreenBright.black [${pkg.version}]}
+  ⚡AS-pect⚡ Test suite runner {bgGreenBright.black [${pkg.version}]}
   `);
   }
 
