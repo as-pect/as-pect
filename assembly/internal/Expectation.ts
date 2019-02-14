@@ -136,10 +136,12 @@ export class Expectation<T> {
 
   @inline
   public toThrow(message: string = ""): void {
-    reportActualString<string>("does not throw");
+    // @ts-ignore: this.value is a function, we have to assume it's not null
+    var throws: bool = !tryCall(this.value);
+    reportActualString<string>(throws ? "throws" : "not throws");
     reportExpectedString("throws", this._not);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    assert(this._not ^ (!tryCall(this.value)), message);
+    assert(this._not ^ throws, message);
     clearExpected();
   }
 
