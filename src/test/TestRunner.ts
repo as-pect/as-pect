@@ -136,6 +136,7 @@ export class TestRunner {
           result.actual = this.actual;
           result.expected = this.expected;
           group.fail++;
+          group.pass = false;
           this.suite.fail++;
           this.passed = false;
         }
