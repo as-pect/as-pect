@@ -143,11 +143,18 @@ declare function expect<T>(value: T | null): Expectation<T>;
 declare function expectFn(cb: () => void): Expectation<() => void>;
 
 declare class Expectation<T> {
+  /**
+   * Create a new expectation.
+   *
+   * @param {T | null} value - The actual value of the expectation.
+   */
+  constructor(value: T | null);
+
 
   /**
    * This expectation performs a strict equality on value types and reference types.
    *
-   * @param {T} value - The value to be compared.
+   * @param {T | null} value - The value to be compared.
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
@@ -161,7 +168,7 @@ declare class Expectation<T> {
    * reference types. If the reference type T has reference types as properties, the comparison does
    * not perform property traversal. It will only compare the pointer values in the memory block.
    *
-   * @param {T} value - The value to be compared.
+   * @param {T | null} value - The value to be compared.
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
@@ -173,7 +180,7 @@ declare class Expectation<T> {
    * If the value is callable, it calls the function, and fails the expectation if it throws, or hits
    * an unreachable().
    *
-   * @param message - The optional message that describes the expectation.
+   * @param {string} message - The optional message that describes the expectation.
    *
    * @example
    * expectFn((): void => unreachable()).toThrow("unreachable() should throw.");
@@ -183,14 +190,118 @@ declare class Expectation<T> {
    */
   toThrow(message?: string): void;
 
+  /**
+   * This expecation asserts that the value is truthy, like in javascript. If the value is a string,
+   * then strings of length 0 are not truthy.
+   *
+   * @param {string} message - The optional message that describes the expectation.
+   *
+   * @example
+   * expect<bool>(true).toBeTruthy("true is truthy.");
+   * expect<i32>(1).toBeTruthy("numeric values that are not 0 are truthy.");
+   * expect<Vec3>(new Vec3(1, 2, 3)).toBeTruthy("reference types that aren't null are truthy.");
+   * expect<bool>(false).not.toBeTruthy("false is not truthy.");
+   * expect<i32>(0).not.toBeTruthy("0 is not truthy.");
+   * expect<Vec3>(null).not.toBeTruthy("null is not truthy.");
+   */
   toBeTruthy(message?: string): void;
+
+  /**
+   * This expectation tests the value to see if it is null. If the value is a value type, it is
+   * never null. If the value is a reference type, it performs a strict null comparison.
+   *
+   * @param {string} message - The optional message that describes the expectation.
+   *
+   * @example
+   * expect<i32>(0).not.toBeNull("numbers are never null");
+   * expect<Vec3>(null).toBeNull("null reference types are null.");
+   */
   toBeNull(message?: string): void;
+
+  /**
+   * This expecation assert that the value is falsy, like in javascript. If the value is a string,
+   * then strings of length 0 are falsy.
+   *
+   * @param {string} message - The optional message that describes the expectation.
+   *
+   * @example
+   * expect<bool>(false).toBeFalsy("false is falsy.");
+   * expect<i32>(0).toBeFalsy("0 is falsy.");
+   * expect<Vec3>(null).toBeFalsy("null is falsy.");
+   * expect<bool>(true).not.toBeFalsy("true is not falsy.");
+   * expect<i32>(1).not.toBeFalsy("numeric values that are not 0 are not falsy.");
+   * expect<Vec3>(new Vec3(1, 2, 3)).not.toBeFalsy("reference types that aren't null are not falsy.");
+   */
   toBeFalsy(message?: string): void;
+
+  /**
+   * This expectation asserts that the value is greater than the expected value. Since operators can
+   * be overloaded in assemblyscript, it's possible for this to work on reference types.
+   *
+   * @param {T | null} value - The expected value that the actual value should be greater than.
+   * @param {string} message - The optional message that describes this expectation.
+   *
+   * @example
+   * expect<i32>(10).toBeGreaterThan(4);
+   * expect<i32>(12).not.toBeGreaterThan(42);
+   */
   toBeGreaterThan(value: T | null, message?: string): void;
+
+  /**
+   * This expectation asserts that the value is less than the expected value. Since operators can
+   * be overloaded in assemblyscript, it's possible for this to work on reference types.
+   *
+   * @param {T | null} value - The expected value that the actual value should be less than.
+   * @param {string} message - The optional message that describes this expectation.
+   *
+   * @example
+   * expect<i32>(10).not.toBeLessThan(4);
+   * expect<i32>(12).toBeLessThan(42);
+   */
   toBeLessThan(value: T | null, message?: string): void;
+
+  /**
+   * This expectation asserts that the value is greater than or equal to the expected value. Since
+   * operators can be overloaded in assemblyscript, it's possible for this to work on reference
+   * types.
+   *
+   * @param {T | null} value - The expected value that the actual value should be greater than or
+   * equal to.
+   * @param {string} message - The optional message that describes this expectation.
+   *
+   * @example
+   * expect<i32>(42).toBeGreaterThanOrEqualTo(42);
+   * expect<i32>(10).toBeGreaterThanOrEqualTo(4);
+   * expect<i32>(12).not.toBeGreaterThanOrEqualTo(42);
+   */
   toBeGreaterThanOrEqualTo(value: T | null, message?: string): void;
+
+  /**
+   * This expectation asserts that the value is less than or equal to the expected value. Since
+   * operators can be overloaded in assemblyscript, it's possible for this to work on reference
+   * types.
+   *
+   * @param {T | null} value - The expected value that the actual value should be less than or equal
+   * to.
+   * @param {string} message - The optional message that describes this expectation.
+   *
+   * @example
+   * expect<i32>(42).toBeLessThanOrEqualTo(42);
+   * expect<i32>(10).not.toBeLessThanOrEqualTo(4);
+   * expect<i32>(12).toBeLessThanOrEqualTo(42);
+   */
   toBeLessThanOrEqualTo(value: T | null, message?: string): void;
+
+  /**
+   * This computed property is chainable, and negates the existing expectation. It returns itself.
+   *
+   * @type {Expectation<T>}
+   */
   not: Expectation<T>;
+
+  /**
+   * The actual value of the expectation.
+   */
   value: T | null;
-  _not: bool;
+  private _not: bool;
 }
