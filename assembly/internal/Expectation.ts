@@ -7,7 +7,6 @@ declare function tryCall(func: () => void): bool;
 @external("__aspect", "clearExpected")
 declare function clearExpected(): void;
 
-
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualNull")
 declare function reportActualNull(): void;
@@ -39,6 +38,14 @@ declare function reportActualString<T>(value: T): void;
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedString")
 declare function reportExpectedString<T>(value: T, negated: bool): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedTruthy")
+declare function reportExpectedTruthy(negated: bool): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedFalsy")
+declare function reportExpectedFalsy(negated: bool): void;
 
 // @ts-ignore: Decorators *are* valid here
 @global
@@ -100,6 +107,7 @@ export class Expectation<T> {
   @inline
   public toBeTruthy(message: string = ""): void {
     this.reportActual();
+    reportExpectedTruthy(this._not);
     reportExpectedString<string>("truthy", this._not);
 
     if (this.value instanceof String) {
@@ -115,7 +123,7 @@ export class Expectation<T> {
   @inline
   public toBeFalsy(message: string = ""): void {
     this.reportActual();
-    reportExpectedString<string>("falsy", this._not);
+    reportExpectedFalsy(this._not);
 
     if (this.value instanceof String) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly

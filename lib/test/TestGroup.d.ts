@@ -1,6 +1,6 @@
 import { TestResult } from "./TestResult";
 export declare class TestGroup {
-    describe: number;
+    suiteNamePointer: number;
     beforeAll: number;
     beforeEach: number;
     testFunctionPointers: number[];

@@ -1,7 +1,7 @@
 import { TestResult } from "./TestResult";
 
 export class TestGroup {
-  describe: number = -1;
+  suiteNamePointer: number = -1;
   beforeAll: number = -1;
   beforeEach: number = -1;
   testFunctionPointers: number[] = [];
