@@ -27,13 +27,14 @@ export class DefaultReporter extends Reporter {
   onTestStart(_group: TestGroup, _test: TestResult): void {}
   onTestFinish(_group: TestGroup, test: TestResult): void {
     if (test.pass) {
-      console.log(chalk`  {green [Success] ✔} ${test.description}`);
+      console.log(chalk`  {green [Success] ✔} ${test.testName}`);
     } else {
       console.log("");
-      console.log(chalk`     {red [Fail] ✖} ${test.description}`);
+      console.log(chalk`     {red [Fail] ✖} ${test.testName}`);
       console.log("");
       console.log(chalk`   [Actual]: {red ${test.actual}}`);
-      console.log(chalk` [Expected]: {green ${test.expected}}`)
+      console.log(chalk` [Expected]: {green ${test.expected}}`);
+      console.log(chalk`  [Message]: {yellow ${test.message}}`);
     }
   }
   onFinish(suite: TestSuite): void {

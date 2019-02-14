@@ -198,7 +198,7 @@ export class TestRunner {
         // create a new test result
         const result = new TestResult();
         const testname = wasm.getString(group.testNamePointers[i]);
-        result.description = testname;
+        result.testName = testname;
 
         // run beforeEach
         const beforeEachResult = this.tryCall(group.beforeEachPointer);
@@ -241,7 +241,7 @@ export class TestRunner {
         } else { // the test failed
           // fail the test
           result.pass = false;
-          result.reason = this.message;
+          result.message = this.message;
           result.actual = this.actual;
           result.expected = this.expected;
 
