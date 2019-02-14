@@ -39,9 +39,14 @@ export class TestRunner {
       reportAfterEach: this.reportAfterEach.bind(this),
       reportAfterAll: this.reportAfterAll.bind(this),
       reportTodo: this.reportTodo.bind(this),
-      reportExpectedReference: this.reportExpectedReference.bind(this),
-      reportExpectedValue: this.reportExpectedValue.bind(this),
+      reportActualNull: this.reportActualNull.bind(this),
       reportExpectedNull: this.reportExpectedNull.bind(this),
+      reportActualValue: this.reportActualValue.bind(this),
+      reportExpectedValue: this.reportExpectedValue.bind(this),
+      reportActualReference: this.reportActualReference.bind(this),
+      reportExpectedReference: this.reportExpectedReference.bind(this),
+      reportActualString: this.reportActualString.bind(this),
+      reportExpectedString: this.reportExpectedString.bind(this),
     };
     return imports;
   }
@@ -205,38 +210,55 @@ export class TestRunner {
     var group = this.suite!.groups[this.suite!.groups.length - 1];
     group.afterEach = cb;
   }
+
   reportAfterAll(cb: number): void {
     var group = this.suite!.groups[this.suite!.groups.length - 1];
     group.afterAll = cb;
   }
-  reportExpectedReference(expected: number, actual: number, offset: number, negated: number): void {
-    this.expected = (negated === 1 ? "not " : "" ) +
-    (expected === 0
-      ? "null"
-      : Array.from(this.wasm!.U8.slice(expected, expected + offset)).map(hex).join(" "));
-    this.actual = (actual === 0
-      ? "null"
-      : Array.from(this.wasm!.U8.slice(actual, actual + offset)).map(hex).join(" "));
-  }
-  reportExpectedValue(expected: number, actual: number, negated: number): void {
-    this.expected = (negated ? "not " : "" ) + expected.toString();
-    this.actual = actual.toString();
+
+  reportTodo(value: number): void {
+    var group = this.suite!.groups[this.suite!.groups.length -1];
+    group.todoPointers.push(value);
   }
 
-  reportTodo(description: number): void {
-    var group = this.suite!.groups[this.suite!.groups.length - 1];
-    group.todoPointers.push(description);
+  reportActualString(value: number): void {
+    this.actual = `"${this.wasm!.getString(value)}`;
   }
 
-  reportExpectedNull(negated: number): void {
-    this.expected = negated ? "not null" : "null";
-    this.actual = negated ? "null" : "not null";
+  reportExpectedString(value: number, negated: 1 | 0): void {
+    this.expected = (negated === 1 ? "not " : "") + `"${this.wasm!.getString(value)}`;
+  }
+
+  reportActualNull(): void {
+    this.actual = "null";
+  }
+
+  reportExpectedNull(negated: 1 | 0): void {
+    this.expected = (negated === 1 ? "not " : "") + "null";
+  }
+
+  reportActualValue(value: number): void {
+    this.actual = value.toString();
+  }
+
+  reportExpectedValue(value: number, negated: 0 | 1): void {
+    this.expected = (negated === 1 ? "not " : "") + value.toString();
+  }
+
+  reportActualReference(value: number, offset: number): void {
+    this.actual = Array.from(this.wasm!.U8.slice(value, value + offset)).map(hex).join(" ");
+  }
+
+  reportExpectedReference(value: number, offset: number, negated: 1 | 0): void {
+    this.expected = (negated === 1 ? "not " : "" )
+      + Array.from(this.wasm!.U8.slice(value, value + offset)).map(hex).join(" ");
   }
 
   clearExpected(): void {
     this.expected = "";
     this.actual = "";
   }
+
   abort(reasonPointer: number, _fileNamePointer: number, _c: number, _d: number): void {
     this.reason = this.wasm!.getString(reasonPointer);
   }

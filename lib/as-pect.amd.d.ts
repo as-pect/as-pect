@@ -90,10 +90,15 @@ declare module "test/TestRunner" {
         reportBeforeAll(cb: number): void;
         reportAfterEach(cb: number): void;
         reportAfterAll(cb: number): void;
-        reportExpectedReference(expected: number, actual: number, offset: number, negated: number): void;
-        reportExpectedValue(expected: number, actual: number, negated: number): void;
-        reportTodo(description: number): void;
-        reportExpectedNull(negated: number): void;
+        reportTodo(value: number): void;
+        reportActualString(value: number): void;
+        reportExpectedString(value: number, negated: 1 | 0): void;
+        reportActualNull(): void;
+        reportExpectedNull(negated: 1 | 0): void;
+        reportActualValue(value: number): void;
+        reportExpectedValue(value: number, negated: 0 | 1): void;
+        reportActualReference(value: number, offset: number): void;
+        reportExpectedReference(value: number, offset: number, negated: 1 | 0): void;
         clearExpected(): void;
         abort(reasonPointer: number, _fileNamePointer: number, _c: number, _d: number): void;
     }

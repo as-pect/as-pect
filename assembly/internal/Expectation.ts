@@ -3,21 +3,42 @@
 @external("__aspect", "tryCall")
 declare function tryCall(func: () => void): bool;
 
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedValue")
-declare function reportExpectedValue<T>(actual: T, expected: T, negated: bool): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedReference")
-declare function reportExpectedReference<T>(actual: T, expected: T, offset: i32, negated: bool): void;
-
-@external("__aspect", "reportExpectedNull")
-declare function reportExpectedNull(negated: bool): void;
-
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "clearExpected")
 declare function clearExpected(): void;
+
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualNull")
+declare function reportActualNull(): void;
+
+  // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedNull")
+declare function reportExpectedNull(negated: bool): void;
+
+  // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualValue")
+declare function reportActualValue<T>(value: T): void;
+
+  // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedValue")
+declare function reportExpectedValue<T>(value: T, negated: bool): void;
+
+  // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualReference")
+declare function reportActualReference<T>(value: T, offset: i32): void;
+
+  // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedReference")
+declare function reportExpectedReference<T>(value: T, offset: i32, negated: bool): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualString")
+declare function reportActualString<T>(value: T): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedString")
+declare function reportExpectedString<T>(value: T, negated: bool): void;
 
 // @ts-ignore: Decorators *are* valid here
 @global
@@ -36,7 +57,8 @@ export class Expectation<T> {
 
   @inline
   public toBe(value: T | null, message: string = ""): void {
-    this.report(value);
+    this.reportActual();
+    this.reportExpected(value);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (value == this.value), message);
     clearExpected();
@@ -44,7 +66,8 @@ export class Expectation<T> {
 
   @inline
   public toStrictEqual(value: T | null, message: string = ""): void {
-    this.report(value);
+    this.reportActual();
+    this.reportExpected(value);
 
     // fast path, the value is itself
     if (value == this.value) {
@@ -76,7 +99,8 @@ export class Expectation<T> {
 
   @inline
   public toBeTruthy(message: string = ""): void {
-    reportExpectedValue<bool>(false, true, this._not);
+    this.reportActual();
+    reportExpectedString<string>("truthy", this._not);
 
     if (this.value instanceof String) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
@@ -90,7 +114,8 @@ export class Expectation<T> {
 
   @inline
   public toBeFalsy(message: string = ""): void {
-    reportExpectedValue<bool>(true, false, this._not);
+    this.reportActual();
+    reportExpectedString<string>("falsy", this._not);
 
     if (this.value instanceof String) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
@@ -111,7 +136,8 @@ export class Expectation<T> {
 
   @inline
   public toThrow(message: string = ""): void {
-    reportExpectedValue<bool>(false, true, this._not);
+    reportActualString<string>("does not throw");
+    reportExpectedString("throws", this._not);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (!tryCall(this.value)), message);
     clearExpected();
@@ -119,7 +145,8 @@ export class Expectation<T> {
 
   @inline
   public toBeGreaterThan(value: T | null, message: string = ""): void {
-    this.report(value);
+    this.reportActual();
+    this.reportExpected(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value > value), message);
@@ -128,7 +155,8 @@ export class Expectation<T> {
 
   @inline
   public toBeGreaterThanOrEqualTo(value: T | null, message: string = ""): void {
-    this.report(value);
+    this.reportActual();
+    this.reportExpected(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value >= value), message);
@@ -137,7 +165,8 @@ export class Expectation<T> {
 
   @inline
   public toBeLessThan(value: T | null, message: string = ""): void {
-    this.report(value);
+    this.reportActual();
+    this.reportExpected(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value < value), message);
@@ -146,7 +175,8 @@ export class Expectation<T> {
 
   @inline
   public toBeLessThanOrEqualTo(value: T | null, message: string = ""): void {
-    this.report(value);
+    this.reportActual();
+    this.reportExpected(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value <= value), message);
@@ -155,6 +185,7 @@ export class Expectation<T> {
 
   @inline
   public toBeNull(message: string = ""): void {
+    this.reportActual();
     reportExpectedNull(this._not);
     if (isReference<T>()) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
@@ -165,12 +196,42 @@ export class Expectation<T> {
     clearExpected();
   }
 
-  @inline
-  public report(expected: T | null): void {
-    if (isReference<T>()) {
-      reportExpectedReference(this.value, expected, offsetof<T>(), this._not);
+
+  private reportActual(): void {
+    if (this.value instanceof String) {
+      if (this.value == null) {
+        reportActualNull();
+      } else {
+        reportActualString<T>(this.value);
+      }
+    } else if (isReference<T>()) {
+      if (this.value == null) {
+        reportActualNull();
+      } else {
+        reportActualReference<T>(this.value, offsetof<T>());
+      }
     } else {
-      reportExpectedValue(this.value, expected, this._not);
+      // @ts-ignore: value can't be null
+      reportActualValue<T>(this.value);
+    }
+  }
+
+  private reportExpected(value: T | null): void {
+    if (this.value instanceof String) {
+      if (this.value == null) {
+        reportExpectedNull(this._not);
+      } else {
+        reportExpectedString(value, this._not);
+      }
+    } else if (isReference<T>()) {
+      if (value == null) {
+        reportExpectedNull(this._not);
+      } else {
+        reportExpectedReference<T>(value, offsetof<T>(), this._not);
+      }
+    } else {
+      // @ts-ignore: value can't be null
+      reportExpectedValue<T>(value, this._not);
     }
   }
 }
