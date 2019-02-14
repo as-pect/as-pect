@@ -142,6 +142,13 @@ declare function expect<T>(value: T | null): Expectation<T>;
  */
 declare function expectFn(cb: () => void): Expectation<() => void>;
 
+/**
+ * Describes a test that needs to be written.
+ *
+ * @param {string} description - The description of the test that needs to be written.
+ */
+declare function todo(description: string): void;
+
 declare class Expectation<T> {
   /**
    * Create a new expectation.
