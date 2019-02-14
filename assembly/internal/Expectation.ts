@@ -180,3 +180,9 @@ export class Expectation<T> {
 export function expect<T>(value: T | null): Expectation<T> {
   return new Expectation<T>(value);
 }
+
+// @ts-ignore: decorators *are* valid here
+@global
+export function expectFn(cb: () => void): Expectation<() => void> {
+  return new Expectation<() => void>(cb);
+}
