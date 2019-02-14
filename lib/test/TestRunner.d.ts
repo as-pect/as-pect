@@ -68,6 +68,8 @@ export declare class TestRunner {
      *
      * @param {number} pointer - The function pointer to call. It must accept no parameters and return
      * void.
+     * @returns {1 | 0} - If the callback was run successfully without error, it returns 1, else it
+     * returns 0.
      */
     tryCall(pointer: number): 1 | 0;
     /**
@@ -88,22 +90,116 @@ export declare class TestRunner {
      * @param {number} callback - The test's function.
      */
     reportTest(testNamePointer: number, callback: number): void;
-    reportBeforeEach(cb: number): void;
-    reportBeforeAll(cb: number): void;
-    reportAfterEach(cb: number): void;
-    reportAfterAll(cb: number): void;
-    reportTodo(value: number): void;
-    reportActualString(value: number): void;
+    /**
+     * This web assembly linked function sets the group's "beforeEach" callback pointer.
+     *
+     * @param {number} callbackPointer - The callback that should run before each test.
+     */
+    reportBeforeEach(callbackPointer: number): void;
+    /**
+     * This web assembly linked function sets the group's "beforeAll" callback pointer.
+     *
+     * @param {number} callbackPointer - The callback that should run before each test group.
+     */
+    reportBeforeAll(callbackPointer: number): void;
+    /**
+     * This web assembly linked function sets the group's "afterEach" callback pointer.
+     *
+     * @param {number} callbackPointer - The callback that should run before each test group.
+     */
+    reportAfterEach(callbackPointer: number): void;
+    /**
+     * This web assembly linked function sets the group's "afterAll" callback pointer.
+     *
+     * @param {number} callbackPointer - The callback that should run before each test group.
+     */
+    reportAfterAll(callbackPointer: number): void;
+    /**
+     * This function reports a single "todo" item in a test suite.
+     *
+     * @param {number} todoPointer - The todo description string pointer.
+     */
+    reportTodo(todoPointer: number): void;
+    /**
+     * This function reports an actual string value.
+     *
+     * @param {number} stringPointer - A pointer that points to the actual string.
+     */
+    reportActualString(stringPointer: number): void;
+    /**
+     * This function reports an expected string value.
+     *
+     * @param {number} stringPointer - A pointer that points to the expected string.
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
     reportExpectedString(value: number, negated: 1 | 0): void;
+    /**
+     * This function reports an actual null value.
+     */
     reportActualNull(): void;
+    /**
+     * This function reports an expected null value.
+     *
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
     reportExpectedNull(negated: 1 | 0): void;
+    /**
+     * This function reports an actual numeric value.
+     *
+     * @param {number} value - The value to be expected.
+     */
     reportActualValue(value: number): void;
+    /**
+     * This function reports an expected numeric value.
+     *
+     * @param {number} value - The value to be expected
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
     reportExpectedValue(value: number, negated: 0 | 1): void;
-    reportActualReference(value: number, offset: number): void;
-    reportExpectedReference(value: number, offset: number, negated: 1 | 0): void;
+    /**
+     * This function reports an actual reference value. It converts the reference to a string of hex
+     * characters with a space between each `u8` value.
+     *
+     * @param {number} referencePointer - The actual reference pointer.
+     * @param {number} offset - The size of the reference in bytes.
+     */
+    reportActualReference(referencePointer: number, offset: number): void;
+    /**
+     * This function reports an expected reference value. It converts the reference to a string of hex
+     * characters with a space between each `u8` value.
+     *
+     * @param {number} referencePointer - The expected reference pointer.
+     * @param {number} offset - The size of the reference in bytes.
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
+    reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0): void;
+    /**
+     * This function reports an expected truthy value.
+     *
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
     reportExpectedTruthy(negated: 1 | 0): void;
+    /**
+     * This function reports an expected falsy value.
+     *
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
     reportExpectedFalsy(negated: 1 | 0): void;
+    /**
+     * This function is called after each expectation if the expectation passes. This prevents other
+     * unreachable() conditions that throw errors to report actual and expected values too.
+     */
     clearExpected(): void;
-    abort(reasonPointer: number, _fileNamePointer: number, _c: number, _d: number): void;
+    /**
+     * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
+     * reasons.
+     *
+     * @param {number} reasonPointer - This points to the message value that causes the expectation to
+     * fail.
+     * @param {number} _fileNamePointer - The file name that reported the error. (Ignored)
+     * @param {number} _line - The line that reported the error. (Ignored)
+     * @param {number} _col - The column that reported the error. (Ignored)
+     */
+    abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void;
 }
 //# sourceMappingURL=TestRunner.d.ts.map

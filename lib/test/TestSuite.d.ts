@@ -1,11 +1,12 @@
 import { TestGroup } from "./TestGroup";
 export declare class TestSuite {
-    groups: TestGroup[];
-    total: number;
-    success: number;
-    fail: number;
+    testGroups: TestGroup[];
+    totalTests: number;
+    successCount: number;
+    failCount: number;
+    todoCount: number;
     filename: string;
     time: number;
-    passed: boolean;
+    pass: boolean;
 }
 //# sourceMappingURL=TestSuite.d.ts.map

@@ -1,45 +1,120 @@
 declare module "test/TestResult" {
     export class TestResult {
-        description: string;
+        /**
+         * The actual test's name or description.
+         */
+        testName: string;
+        /**
+         * The indicator to see if the test passed.
+         */
         pass: boolean;
+        /**
+         * The time in milliseconds indicating how long the test ran.
+         */
         time: number;
+        /**
+         * The reported actual value description.
+         */
         actual: string;
+        /**
+         * The reported expected value description.
+         */
         expected: string;
-        reason: string;
+        /**
+         * If the test failed, this is the message describing why the test failed.
+         */
+        message: string;
     }
 }
 declare module "test/TestGroup" {
     import { TestResult } from "test/TestResult";
     export class TestGroup {
+        /**
+         * A pointer that points to the test suite name.
+         */
         suiteNamePointer: number;
-        beforeAll: number;
-        beforeEach: number;
+        /**
+         * A pointer that points to the beforeAll callback for this test group.
+         */
+        beforeAllPointer: number;
+        /**
+         * A pointer that points to the beforeEach callback for this test group.
+         */
+        beforeEachPointer: number;
+        /**
+         * A pointer that points to the afterEach callback for this test group.
+         */
+        afterEachPointer: number;
+        /**
+         * A pointer that points to the afterAll callback for this test group.
+         */
+        afterAllPointer: number;
+        /**
+         * A pointer[] that points to each test function.
+         */
         testFunctionPointers: number[];
+        /**
+         * A pointer[] that points to all the test names.
+         */
         testNamePointers: number[];
-        success: number;
-        fail: number;
-        total: number;
-        afterEach: number;
-        afterAll: number;
+        /**
+         * A count of how many successful tests ran in this test group.
+         */
+        successCount: number;
+        /**
+         * A count of how many failed tests ran in this test group.
+         */
+        failCount: number;
+        /**
+         * A count of how many tests ran in this test group. This may be different that the actual test
+         * count because the test suite ends if any setup functions throw an error.
+         */
+        totalCount: number;
+        /**
+         * A pointer array that points to the todo string references.
+         */
         todoPointers: number[];
+        /**
+         * The name of this test group. (e.g. `describe("test-group-name")`)
+         */
         name: string;
+        /**
+         * A boolean which indicates if the test group passed.
+         */
         pass: boolean;
+        /**
+         * How long the test group ran in milliseconds rounded to the nearest thousanth.
+         */
         time: number;
+        /**
+         * An array of test results.
+         */
         results: TestResult[];
+        /**
+         * A resolved list of todos.
+         */
         todos: string[];
+        /**
+         * The number of todo items.
+         */
+        todoCount: number;
+        /**
+         * The reason this test group failed.
+         */
         reason: string;
     }
 }
 declare module "test/TestSuite" {
     import { TestGroup } from "test/TestGroup";
     export class TestSuite {
-        groups: TestGroup[];
-        total: number;
-        success: number;
-        fail: number;
+        testGroups: TestGroup[];
+        totalTests: number;
+        successCount: number;
+        failCount: number;
+        todoCount: number;
         filename: string;
         time: number;
-        passed: boolean;
+        pass: boolean;
     }
 }
 declare module "reporter/Reporter" {
@@ -47,12 +122,51 @@ declare module "reporter/Reporter" {
     import { TestResult } from "test/TestResult";
     import { TestSuite } from "test/TestSuite";
     export abstract class Reporter {
+        /**
+         * A function that is called when a test suite starts.
+         *
+         * @param {TestSuite} suite - The started test suite.
+         */
         abstract onStart(suite: TestSuite): void;
+        /**
+         * A function that is called when a test group starts.
+         *
+         * @param {TestGroup} group - The started test group.
+         */
         abstract onGroupStart(group: TestGroup): void;
+        /**
+         * A function that is called when a test group ends.
+         *
+         * @param {TestGroup} group - The ended test group.
+         */
         abstract onGroupFinish(group: TestGroup): void;
-        abstract onTestStart(group: TestGroup, test: TestResult): void;
-        abstract onTestFinish(group: TestGroup, test: TestResult): void;
+        /**
+         * A function that is called when a test starts.
+         *
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The generated test result reference that will be used for the test.
+         */
+        abstract onTestStart(group: TestGroup, result: TestResult): void;
+        /**
+         * A function that is called when a test ends.
+         *
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The generated test result reference.
+         */
+        abstract onTestFinish(group: TestGroup, result: TestResult): void;
+        /**
+         * A function that is called when a test suite ends.
+         *
+         * @param {TestSuite} suite - The ended test suite.
+         */
         abstract onFinish(suite: TestSuite): void;
+        /**
+         * A function that is called when a test group reports a "todo" item.
+         *
+         * @param {TestGroup} group - The current test group.
+         * @param {string} todo - The todo description.
+         */
+        abstract onTodo(group: TestGroup, todo: string): void;
     }
 }
 declare module "reporter/DefaultReporter" {
@@ -67,6 +181,7 @@ declare module "reporter/DefaultReporter" {
         onTestStart(_group: TestGroup, _test: TestResult): void;
         onTestFinish(_group: TestGroup, test: TestResult): void;
         onFinish(suite: TestSuite): void;
+        onTodo(_group: TestGroup, todo: string): void;
     }
 }
 declare module "test/TestRunner" {
@@ -140,6 +255,8 @@ declare module "test/TestRunner" {
          *
          * @param {number} pointer - The function pointer to call. It must accept no parameters and return
          * void.
+         * @returns {1 | 0} - If the callback was run successfully without error, it returns 1, else it
+         * returns 0.
          */
         tryCall(pointer: number): 1 | 0;
         /**
@@ -160,23 +277,117 @@ declare module "test/TestRunner" {
          * @param {number} callback - The test's function.
          */
         reportTest(testNamePointer: number, callback: number): void;
-        reportBeforeEach(cb: number): void;
-        reportBeforeAll(cb: number): void;
-        reportAfterEach(cb: number): void;
-        reportAfterAll(cb: number): void;
-        reportTodo(value: number): void;
-        reportActualString(value: number): void;
+        /**
+         * This web assembly linked function sets the group's "beforeEach" callback pointer.
+         *
+         * @param {number} callbackPointer - The callback that should run before each test.
+         */
+        reportBeforeEach(callbackPointer: number): void;
+        /**
+         * This web assembly linked function sets the group's "beforeAll" callback pointer.
+         *
+         * @param {number} callbackPointer - The callback that should run before each test group.
+         */
+        reportBeforeAll(callbackPointer: number): void;
+        /**
+         * This web assembly linked function sets the group's "afterEach" callback pointer.
+         *
+         * @param {number} callbackPointer - The callback that should run before each test group.
+         */
+        reportAfterEach(callbackPointer: number): void;
+        /**
+         * This web assembly linked function sets the group's "afterAll" callback pointer.
+         *
+         * @param {number} callbackPointer - The callback that should run before each test group.
+         */
+        reportAfterAll(callbackPointer: number): void;
+        /**
+         * This function reports a single "todo" item in a test suite.
+         *
+         * @param {number} todoPointer - The todo description string pointer.
+         */
+        reportTodo(todoPointer: number): void;
+        /**
+         * This function reports an actual string value.
+         *
+         * @param {number} stringPointer - A pointer that points to the actual string.
+         */
+        reportActualString(stringPointer: number): void;
+        /**
+         * This function reports an expected string value.
+         *
+         * @param {number} stringPointer - A pointer that points to the expected string.
+         * @param {1 | 0} negated - An indicator if the expectation is negated.
+         */
         reportExpectedString(value: number, negated: 1 | 0): void;
+        /**
+         * This function reports an actual null value.
+         */
         reportActualNull(): void;
+        /**
+         * This function reports an expected null value.
+         *
+         * @param {1 | 0} negated - An indicator if the expectation is negated.
+         */
         reportExpectedNull(negated: 1 | 0): void;
+        /**
+         * This function reports an actual numeric value.
+         *
+         * @param {number} value - The value to be expected.
+         */
         reportActualValue(value: number): void;
+        /**
+         * This function reports an expected numeric value.
+         *
+         * @param {number} value - The value to be expected
+         * @param {1 | 0} negated - An indicator if the expectation is negated.
+         */
         reportExpectedValue(value: number, negated: 0 | 1): void;
-        reportActualReference(value: number, offset: number): void;
-        reportExpectedReference(value: number, offset: number, negated: 1 | 0): void;
+        /**
+         * This function reports an actual reference value. It converts the reference to a string of hex
+         * characters with a space between each `u8` value.
+         *
+         * @param {number} referencePointer - The actual reference pointer.
+         * @param {number} offset - The size of the reference in bytes.
+         */
+        reportActualReference(referencePointer: number, offset: number): void;
+        /**
+         * This function reports an expected reference value. It converts the reference to a string of hex
+         * characters with a space between each `u8` value.
+         *
+         * @param {number} referencePointer - The expected reference pointer.
+         * @param {number} offset - The size of the reference in bytes.
+         * @param {1 | 0} negated - An indicator if the expectation is negated.
+         */
+        reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0): void;
+        /**
+         * This function reports an expected truthy value.
+         *
+         * @param {1 | 0} negated - An indicator if the expectation is negated.
+         */
         reportExpectedTruthy(negated: 1 | 0): void;
+        /**
+         * This function reports an expected falsy value.
+         *
+         * @param {1 | 0} negated - An indicator if the expectation is negated.
+         */
         reportExpectedFalsy(negated: 1 | 0): void;
+        /**
+         * This function is called after each expectation if the expectation passes. This prevents other
+         * unreachable() conditions that throw errors to report actual and expected values too.
+         */
         clearExpected(): void;
-        abort(reasonPointer: number, _fileNamePointer: number, _c: number, _d: number): void;
+        /**
+         * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
+         * reasons.
+         *
+         * @param {number} reasonPointer - This points to the message value that causes the expectation to
+         * fail.
+         * @param {number} _fileNamePointer - The file name that reported the error. (Ignored)
+         * @param {number} _line - The line that reported the error. (Ignored)
+         * @param {number} _col - The column that reported the error. (Ignored)
+         */
+        abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void;
     }
 }
 declare module "util/IConfiguration" {

@@ -3,6 +3,7 @@ import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
 import { TestSuite } from "../test/TestSuite";
 import chalk from "chalk";
+
 export class DefaultReporter extends Reporter {
   onStart(suite: TestSuite): void {
     console.log("");
@@ -46,11 +47,11 @@ export class DefaultReporter extends Reporter {
     console.log(chalk`    [File]: ${suite.filename}`);
     console.log(chalk`  [Result]: ${result}`);
     console.log(chalk` [Summary]: ${suite.successCount.toString()} pass, ${suite.failCount.toString()} fail, ${suite.totalTests.toString()} total`);
-    console.log(chalk`    [Todo]: ${suite.todoCount.toString()} tests`);
+    console.log(chalk`    [Todo]: ${suite.todoCount.toString()} test` + (suite.todoCount === 1 ? "s" : ""));
     console.log(chalk`    [Time]: ${suite.time.toString()}ms`);
     console.log("");
   }
   onTodo(_group: TestGroup, todo: string): void {
-    console.log(chalk`    {yellow [Todo]}: ${todo}`);
+    console.log(chalk`    {yellow [Todo] ☐} ${todo}`);
   }
 }
