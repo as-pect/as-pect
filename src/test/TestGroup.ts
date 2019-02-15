@@ -1,4 +1,5 @@
 import { TestResult } from "./TestResult";
+import { LogValue } from "../util/LogValue";
 
 export class TestGroup {
   /**
@@ -74,4 +75,8 @@ export class TestGroup {
    * The reason this test group failed.
    */
   reason: string = "";
+  /**
+   * The logged items in the current testGroup.
+   */
+  log: LogValue[] = [];
 }

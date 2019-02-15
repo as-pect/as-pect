@@ -16,11 +16,18 @@ To initialize a test suite, run `npx asp --init`. It will create the following f
 ```
 $ npx asp --init
 
-C ./assembly/ (If your assembly folder does not exist, it will create one for you)
-C ./assembly/__tests__/ (put your tests here in this folder)
-C ./assembly/__tests__/as-pect.d.ts (This file will provide you with types tooling.)
-C ./assembly/__tests__/example.spec.ts (This file is created if your tests folder does not exist)
-C ./as-pect.config.js (This will provide a default configuration file for your AssemblyScript test suite)
+# It will create the following folders if they don't exist
+C ./assembly/
+C ./assembly/__tests__/
+
+# The as-pect types file will be created here if it doesn't exist
+C ./assembly/__tests__/as-pect.d.ts
+
+# An example test file will be created here if the __tests__ folder does not exist
+C ./assembly/__tests__/example.spec.ts
+
+# The default configuration file will be created here if it doesn't exist
+C ./as-pect.config.js
 ```
 
 To run `as-pect`, use the command line, or create an npm script.
@@ -44,13 +51,13 @@ $ npx asp --config as-pect.config.js
 
 Currently `as-pect` will compile each file that matches each `Glob` in the `include` property of
 your configuration. The default include is `"assembly/__tests__/**/*.spec.ts"`. It must compile each
-file seperately, and run each binary seperately. This is a limitation of AssemblyScript, not of
-`as-pect`, because seperate modules that share imports are buggy. Also, compiling the binaries in
-tandem speeds up the testing process.
+file, and run each binary seperately. This is a limitation of AssemblyScript, not of `as-pect`,
+because seperate modules that share imports are buggy. Also, compiling the binaries in tandem speeds
+up the testing process.
 
 A single TypeScript file is added to the compilation to add all the global test functions like
 `describe`, `it`, `test`, and `expect`. All of these functions are placed conveniently into a
-`as-pect.d.ts` file in the `__test__` folder when the test suite is initialized.
+`as-pect.d.ts` file in the `__tests__` folder when the test suite is initialized.
 
 ## Configuration Files
 
@@ -151,6 +158,18 @@ describe("vectors", (): void => {
     expect<Vec3>(vec).not.toBeNull();
   });
 });
+```
+
+## Logging
+
+To use the global `log` function provided by `as-pect`, simply give it the type you want to log, and
+it will report a `[Log]` item in whatever reporter utility is reporting logged values.
+
+```ts
+log<string>("This will log a string");
+log<f64>(0.4); // this logs a float value
+log<i32>(42); // this logs the meaning of life
+log<Vec3>(new Vec3(1, 2, 3)); // this logs every byte in the reference
 ```
 
 ## Expectations

@@ -149,6 +149,23 @@ declare function expectFn(cb: () => void): Expectation<() => void>;
  */
 declare function todo(description: string): void;
 
+/**
+ * Logs a single value to the logger, and is stringified. It works for references, values, and
+ * strings.
+ *
+ * @type {T} - The type to be logged.
+ * @param {T | null} value - The value to be logged.
+ * @example
+ * log<string>("This is a logged value.");
+ * log<i32>(42);
+ * log<Vec3>(new Vec(1, 2, 3));
+ * log<Vec3>(null);
+ */
+declare function log<T>(value: T | null): void;
+
+/**
+ * An expectation for a value.
+ */
 declare class Expectation<T> {
   /**
    * Create a new expectation.
