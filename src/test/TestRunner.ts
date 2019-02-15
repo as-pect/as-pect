@@ -483,9 +483,7 @@ export class TestRunner {
    * @param {number} offset - The size of the reference in bytes.
    */
   reportActualReference(referencePointer: number, offset: number): void {
-    this.actual = Array.from(this.wasm!.U8.slice(referencePointer, referencePointer + offset))
-      .map(hex)
-      .join(" ");
+    this.actual = this.createReferenceString(referencePointer, offset);
   }
 
   /**
@@ -498,7 +496,7 @@ export class TestRunner {
    */
   reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0): void {
     this.expected = (negated === 1 ? "not " : "")
-      + Array.from(this.wasm!.U8.slice(referencePointer, referencePointer + offset)).map(hex).join(" ");
+      + this.createReferenceString(referencePointer, offset);
   }
 
   /**
@@ -562,10 +560,8 @@ export class TestRunner {
    */
   logReference(referencePointer: number, offset: number): void {
     if (this.currentTest) {
-      this.currentTest.log.push(
-        Array.from(this.wasm!.U8.slice(referencePointer, referencePointer + offset))
-          .map(hex)
-          .join(" ") + "\n" + this.getStackTrace(),
+      this.currentTest.log.push("Reference Type\n" +
+        this.createReferenceString(referencePointer, offset) + "\n" + this.getStackTrace(),
       );
     }
   }
@@ -602,5 +598,26 @@ export class TestRunner {
         .slice(3, -6)
         .join("\n");
     }
+  }
+
+  /**
+   * This function returns a string that formats the bytes into rows of 8 bytes with a space between
+   * byte 4 and 5 on each row.
+   *
+   * @param {number} pointer - The pointer of the reference.
+   * @param {number} offset - The offset of the reference.
+   */
+  createReferenceString(pointer: number, offset: number): string {
+    let result = "  ";
+    for (let i = 0; i < offset; i++) {
+      result += hex(this.wasm!.U8[pointer + i]) + " ";
+      if (i % 8 === 7) {
+        result += "\n  ";
+      } else if (i % 4 === 3) {
+        result += " ";
+      }
+    }
+
+    return result;
   }
 }

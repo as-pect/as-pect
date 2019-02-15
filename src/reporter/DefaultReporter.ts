@@ -6,9 +6,7 @@ import chalk from "chalk";
 
 export class DefaultReporter extends Reporter {
   onStart(suite: TestSuite): void {
-    console.log("");
-    console.log(chalk`[Log] Running: ${suite.filename}`);
-    console.log("");
+    this.onLog(null, `Running tests in: ${suite.filename}`);
   }
   onGroupStart(group: TestGroup): void {
     console.log(chalk`[Describe]: ${group.name}`);

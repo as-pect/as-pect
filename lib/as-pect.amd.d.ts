@@ -268,7 +268,7 @@ declare module "test/TestRunner" {
         /**
          * The stack trace generated when the currently running test threw.
          */
-        stack: string | null;
+        stack: string;
         /**
          * This function generates web assembly imports object.
          *
@@ -467,6 +467,14 @@ declare module "test/TestRunner" {
          * Gets a stack trace.
          */
         getStackTrace(): string;
+        /**
+         * This function returns a string that formats the bytes into rows of 8 bytes with a space between
+         * byte 4 and 5 on each row.
+         *
+         * @param {number} pointer - The pointer of the reference.
+         * @param {number} offset - The offset of the reference.
+         */
+        createReferenceString(pointer: number, offset: number): string;
     }
 }
 declare module "util/IConfiguration" {
