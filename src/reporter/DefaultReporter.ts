@@ -53,7 +53,7 @@ function hex(value: number): string {
 function createReferenceString(bytes: number[], pointer: number, offset: number): string {
   const referenceEnd = pointer + offset;
   // start with a tabbed out string
-  let result = `Range: [${pointer.toString()}~${referenceEnd.toString()}] [hex: 0x${pointer.toString(16)}~0x${referenceEnd.toString(16)}]`;
+  let result = `Range: [dec: ${pointer.toString()}~${referenceEnd.toString()}] [hex: 0x${pointer.toString(16)}~0x${referenceEnd.toString(16)}]`;
   result += "\n07 06 05 04   03 02 01 00";
   result += "\n~~~~~~~~~~~~~~~~~~~~~~~~~";
   result += "\n";
@@ -144,10 +144,9 @@ export class DefaultReporter extends Reporter {
     // if there are bytes to show, create a logging representation of the bytes
     if (logValue.bytes.length > 0) {
       const value = createReferenceString(logValue.bytes, logValue.pointer, logValue.offset);
-      console.log(chalk`{blueBright ${value}}`);
-      console.log("");
+      console.log(chalk`           {blueBright ${value.split("\n").join("\n           ")}}`);
     }
 
-    console.log("       " + logValue.stack.split("\n").join("\n       "));
+    console.log(chalk`       {yellow ${logValue.stack.split("\n").join("\n       ")}}\n`);
   }
 }
