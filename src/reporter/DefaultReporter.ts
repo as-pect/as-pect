@@ -118,6 +118,7 @@ export class DefaultReporter extends Reporter {
       : chalk`{red ✖ Fail}`;
 
     console.log("");
+    console.log("~".repeat(process.stdout.columns! - 10));
     console.log(chalk`    [File]: ${suite.filename}`);
     console.log(chalk`  [Result]: ${result}`);
     console.log(chalk` [Summary]: ${suite.successCount.toString()} pass, ${suite.failCount.toString()} fail, ${suite.totalTests.toString()} total`);
