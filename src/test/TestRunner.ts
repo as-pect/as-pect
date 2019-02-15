@@ -57,6 +57,16 @@ export class TestRunner {
   public wasm: ASUtil | null = null;
 
   /**
+   * The currently running test.
+   */
+  public currentTest: TestResult | null = null;
+
+  /**
+   * The stack trace generated when the currently running test threw.
+   */
+  public stack: string = "";
+
+  /**
    * This function generates web assembly imports object.
    *
    * @param {any} imports - The web assembly imports to be mixed in.
@@ -68,6 +78,10 @@ export class TestRunner {
     imports.__aspect = {
       clearExpected: this.clearExpected.bind(this),
       tryCall: this.tryCall.bind(this),
+      logNull: this.logNull.bind(this),
+      logReference: this.logReference.bind(this),
+      logString: this.logString.bind(this),
+      logValue: this.logValue.bind(this),
       reportDescribe: this.reportDescribe.bind(this),
       reportTest: this.reportTest.bind(this),
       reportBeforeEach: this.reportBeforeEach.bind(this),
@@ -197,6 +211,8 @@ export class TestRunner {
 
         // create a new test result
         const result = new TestResult();
+        this.currentTest = result;
+
         const testname = wasm.getString(group.testNamePointers[i]);
         result.testName = testname;
 
@@ -244,6 +260,7 @@ export class TestRunner {
           result.message = this.message;
           result.actual = this.actual;
           result.expected = this.expected;
+          result.stack = this.stack;
 
           // fail the group
           group.failCount++;
@@ -266,6 +283,11 @@ export class TestRunner {
 
         // report test finish
         reporter.onTestFinish(group, result);
+
+        for (const logValue of result.log) {
+          reporter.onLog(result, logValue);
+        }
+        this.currentTest = null;
       }
 
       // run afterAll
@@ -315,6 +337,7 @@ export class TestRunner {
     try {
       func();
     } catch (ex){
+      this.stack = ex.stack.toString();
       return 0;
     }
     return 1;
@@ -503,6 +526,7 @@ export class TestRunner {
   clearExpected(): void {
     this.expected = "";
     this.actual = "";
+    this.stack = "";
   }
 
   /**
@@ -517,5 +541,66 @@ export class TestRunner {
    */
   abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void {
     this.message = this.wasm!.getString(reasonPointer);
+  }
+
+  /**
+   * This adds a logged string to the current test.
+   *
+   * @param {number} pointer - The pointer to the logged string reference.
+   */
+  logString(pointer: number): void {
+    if (this.currentTest) {
+      this.currentTest.log.push(this.wasm!.getString(pointer) + "\n" + this.getStackTrace());
+    }
+  }
+
+  /**
+   * Log a reference to the reporter.
+   *
+   * @param {number} referencePointer - The pointer to the reference.
+   * @param {number} offset - The offset of the reference.
+   */
+  logReference(referencePointer: number, offset: number): void {
+    if (this.currentTest) {
+      this.currentTest.log.push(
+        Array.from(this.wasm!.U8.slice(referencePointer, referencePointer + offset))
+          .map(hex)
+          .join(" ") + "\n" + this.getStackTrace(),
+      );
+    }
+  }
+
+  /**
+   * Log a numeric value to the reporter.
+   *
+   * @param {number} value - The value to be logged.
+   */
+  logValue(value: number): void {
+    if (this.currentTest) {
+      this.currentTest.log.push(value.toString() + "\n" + this.getStackTrace());
+    }
+  }
+
+  /**
+   * Log a null value to the reporter.
+   */
+  logNull(): void {
+    if (this.currentTest) {
+      this.currentTest.log.push("null" + "\n" + this.getStackTrace());
+    }
+  }
+
+  /**
+   * Gets a stack trace.
+   */
+  getStackTrace(): string {
+    try {
+      throw new Error("Get stack trace.");
+    } catch (ex) {
+      return ex.stack.toString()
+        .split("\n")
+        .slice(3, -6)
+        .join("\n");
+    }
   }
 }

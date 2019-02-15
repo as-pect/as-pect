@@ -23,5 +23,13 @@ export declare class TestResult {
      * If the test failed, this is the message describing why the test failed.
      */
     message: string;
+    /**
+     * A set of strings logged by the test itself.
+     */
+    log: string[];
+    /**
+     * The generated stack trace if the test errored.
+     */
+    stack: string | null;
 }
 //# sourceMappingURL=TestResult.d.ts.map

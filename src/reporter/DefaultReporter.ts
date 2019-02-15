@@ -28,14 +28,15 @@ export class DefaultReporter extends Reporter {
   onTestStart(_group: TestGroup, _test: TestResult): void {}
   onTestFinish(_group: TestGroup, test: TestResult): void {
     if (test.pass) {
-      console.log(chalk`  {green [Success] ✔} ${test.testName}`);
+      console.log(chalk` {green [Success]: ✔} ${test.testName}`);
     } else {
       console.log("");
-      console.log(chalk`     {red [Fail] ✖} ${test.testName}`);
+      console.log(chalk`    {red [Fail]: ✖} ${test.testName}`);
       console.log("");
       console.log(chalk`   [Actual]: {red ${test.actual}}`);
       console.log(chalk` [Expected]: {green ${test.expected}}`);
       console.log(chalk`  [Message]: {yellow ${test.message}}`);
+      console.log(chalk`    [Stack]: ${test.stack!}`);
     }
   }
   onFinish(suite: TestSuite): void {
@@ -52,6 +53,10 @@ export class DefaultReporter extends Reporter {
     console.log("");
   }
   onTodo(_group: TestGroup, todo: string): void {
-    console.log(chalk`    {yellow [Todo] ☐} ${todo}`);
+    console.log(chalk`    {yellow [Todo]:} ${todo}`);
+  }
+  onLog(_result: TestResult | null, logValue: string): void {
+    console.log(chalk`     {yellow [Log]:} ${logValue}`);
+    console.log("");
   }
 }

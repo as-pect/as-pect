@@ -55,4 +55,14 @@ export abstract class Reporter {
    * @param {string} todo - The todo description.
    */
   public abstract onTodo(group: TestGroup, todo: string): void;
+
+  /**
+   * Whenever a value is logged to the test suite, this function is called after the test has
+   * completed for each logged value.
+   *
+   * @param {TestResult | null} result - The generated test result that is logging the value, or
+   * null if the command line interface is logging a string.
+   * @param {string} logValue - The string that should be logged.
+   */
+  public abstract onLog(test: TestResult | null, logValue: string): void;
 }

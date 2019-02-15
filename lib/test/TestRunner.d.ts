@@ -1,5 +1,6 @@
 import { TestSuite } from "./TestSuite";
 import { ASUtil } from "assemblyscript/lib/loader";
+import { TestResult } from "./TestResult";
 import { Reporter } from "../reporter/Reporter";
 /**
  * The test class that hooks up the web assembly imports, and runs each test group in a file.
@@ -30,6 +31,14 @@ export declare class TestRunner {
      * This is the web assembly module.
      */
     wasm: ASUtil | null;
+    /**
+     * The currently running test.
+     */
+    currentTest: TestResult | null;
+    /**
+     * The stack trace generated when the currently running test threw.
+     */
+    stack: string | null;
     /**
      * This function generates web assembly imports object.
      *
@@ -201,5 +210,32 @@ export declare class TestRunner {
      * @param {number} _col - The column that reported the error. (Ignored)
      */
     abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void;
+    /**
+     * This adds a logged string to the current test.
+     *
+     * @param {number} pointer - The pointer to the logged string reference.
+     */
+    logString(pointer: number): void;
+    /**
+     * Log a reference to the reporter.
+     *
+     * @param {number} referencePointer - The pointer to the reference.
+     * @param {number} offset - The offset of the reference.
+     */
+    logReference(referencePointer: number, offset: number): void;
+    /**
+     * Log a numeric value to the reporter.
+     *
+     * @param {number} value - The value to be logged.
+     */
+    logValue(value: number): void;
+    /**
+     * Log a null value to the reporter.
+     */
+    logNull(): void;
+    /**
+     * Gets a stack trace.
+     */
+    getStackTrace(): string;
 }
 //# sourceMappingURL=TestRunner.d.ts.map

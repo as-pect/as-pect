@@ -10,6 +10,7 @@ import uniq from "lodash.uniq";
 import asc from "assemblyscript/cli/asc";
 import { TestRunner } from "./test/TestRunner";
 import fs from "fs";
+import { DefaultReporter } from "./reporter/DefaultReporter";
 
 const pkg = require("../package.json");
 
@@ -123,16 +124,14 @@ export function asp(args: string[]) {
     }
 
     // configuration must be an object
-    if (!(typeof configuration === "object")) {
-      console.log("");
+    if (!configuration) {
       console.log(chalk`{bgRedBright.black [Error]} configuration at {bold [${configurationPath}]} is null or not an object.`);
       process.exit(1);
     }
 
+    const reporter = configuration!.reporter || new DefaultReporter();
     // include all the file globs
-    console.log(chalk`[Log] including files ${configuration!.include.join(", ")}`);
-    console.log("");
-    console.log("");
+    reporter.onLog(null, chalk`including files ${configuration!.include.join(", ")}`);
 
     let files: string[] = [];
 
@@ -166,8 +165,7 @@ export function asp(args: string[]) {
 
     // for each file, synchronously run each test
     files.forEach((file: string, i: number) => {
-      console.log(chalk`[Log] Compiling: ${file} ${(i + 1).toString()} / ${files.length.toString()}`);
-      console.log("");
+      reporter.onLog(null, chalk`Compiling: ${file} ${(i + 1).toString()} / ${files.length.toString()}`);
 
       // TODO: add compiler options?
       asc.main([
@@ -190,15 +188,15 @@ export function asp(args: string[]) {
       }, function (error: Error): void {
         // if there are any compilation errors, stop the test suite
         if (error) {
-          console.log(chalk`{red [Error]} There was a compilation error when trying to create the wasm binary for file: ${file}.`);
-          console.log(error);
+          reporter.onLog(null, chalk`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
+          console.error(error);
           process.exit(1);
           return;
         }
 
         // if the binary wasn't emitted, stop the test suite
         if (!binaries[i]) {
-          console.log(chalk`{red [Error]} There was no output binary file: ${file}. Did you forget to emit the binary?`);
+          reporter.onLog(null, chalk`There was no output binary file: ${file}. Did you forget to emit the binary?`);
           process.exit(1);
           return;
         }

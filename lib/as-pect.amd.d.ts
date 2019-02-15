@@ -24,6 +24,14 @@ declare module "test/TestResult" {
          * If the test failed, this is the message describing why the test failed.
          */
         message: string;
+        /**
+         * A set of strings logged by the test itself.
+         */
+        log: string[];
+        /**
+         * The generated stack trace if the test errored.
+         */
+        stack: string | null;
     }
 }
 declare module "test/TestGroup" {
@@ -192,6 +200,15 @@ declare module "reporter/Reporter" {
          * @param {string} todo - The todo description.
          */
         abstract onTodo(group: TestGroup, todo: string): void;
+        /**
+         * Whenever a value is logged to the test suite, this function is called after the test has
+         * completed for each logged value.
+         *
+         * @param {TestResult | null} result - The generated test result that is logging the value, or
+         * null if the command line interface is logging a string.
+         * @param {string} logValue - The string that should be logged.
+         */
+        abstract onLog(test: TestResult | null, logValue: string): void;
     }
 }
 declare module "reporter/DefaultReporter" {
@@ -207,11 +224,13 @@ declare module "reporter/DefaultReporter" {
         onTestFinish(_group: TestGroup, test: TestResult): void;
         onFinish(suite: TestSuite): void;
         onTodo(_group: TestGroup, todo: string): void;
+        onLog(_result: TestResult | null, logValue: string): void;
     }
 }
 declare module "test/TestRunner" {
     import { TestSuite } from "test/TestSuite";
     import { ASUtil } from "assemblyscript/lib/loader";
+    import { TestResult } from "test/TestResult";
     import { Reporter } from "reporter/Reporter";
     /**
      * The test class that hooks up the web assembly imports, and runs each test group in a file.
@@ -242,6 +261,14 @@ declare module "test/TestRunner" {
          * This is the web assembly module.
          */
         wasm: ASUtil | null;
+        /**
+         * The currently running test.
+         */
+        currentTest: TestResult | null;
+        /**
+         * The stack trace generated when the currently running test threw.
+         */
+        stack: string | null;
         /**
          * This function generates web assembly imports object.
          *
@@ -413,6 +440,33 @@ declare module "test/TestRunner" {
          * @param {number} _col - The column that reported the error. (Ignored)
          */
         abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void;
+        /**
+         * This adds a logged string to the current test.
+         *
+         * @param {number} pointer - The pointer to the logged string reference.
+         */
+        logString(pointer: number): void;
+        /**
+         * Log a reference to the reporter.
+         *
+         * @param {number} referencePointer - The pointer to the reference.
+         * @param {number} offset - The offset of the reference.
+         */
+        logReference(referencePointer: number, offset: number): void;
+        /**
+         * Log a numeric value to the reporter.
+         *
+         * @param {number} value - The value to be logged.
+         */
+        logValue(value: number): void;
+        /**
+         * Log a null value to the reporter.
+         */
+        logNull(): void;
+        /**
+         * Gets a stack trace.
+         */
+        getStackTrace(): string;
     }
 }
 declare module "util/IConfiguration" {
