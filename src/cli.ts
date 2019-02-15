@@ -131,7 +131,7 @@ export function asp(args: string[]) {
 
     const reporter = configuration!.reporter || new DefaultReporter();
     // include all the file globs
-    reporter.onLog(null, chalk`including files ${configuration!.include.join(", ")}`);
+    console.log(`including files ${configuration!.include.join(", ")}`);
 
     let files: string[] = [];
 
@@ -165,7 +165,7 @@ export function asp(args: string[]) {
 
     // for each file, synchronously run each test
     files.forEach((file: string, i: number) => {
-      reporter.onLog(null, chalk`Compiling: ${file} ${(i + 1).toString()} / ${files.length.toString()}`);
+      console.log(`Compiling: ${file} ${(i + 1).toString()} / ${files.length.toString()}`);
 
       // TODO: add compiler options?
       asc.main([
@@ -188,7 +188,7 @@ export function asp(args: string[]) {
       }, function (error: Error): void {
         // if there are any compilation errors, stop the test suite
         if (error) {
-          reporter.onLog(null, chalk`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
+          console.log(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
           console.error(error);
           process.exit(1);
           return;
@@ -196,7 +196,7 @@ export function asp(args: string[]) {
 
         // if the binary wasn't emitted, stop the test suite
         if (!binaries[i]) {
-          reporter.onLog(null, chalk`There was no output binary file: ${file}. Did you forget to emit the binary?`);
+          console.log(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
           process.exit(1);
           return;
         }
@@ -206,7 +206,7 @@ export function asp(args: string[]) {
           file,
           binaries[i],
           Object.assign({}, configuration!.imports),
-          configuration!.reporter || void 0,
+          reporter,
         );
 
         count -= 1;

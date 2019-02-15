@@ -1,6 +1,7 @@
 import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
 import { TestSuite } from "../test/TestSuite";
+import { LogValue } from "../util/LogValue";
 export declare abstract class Reporter {
     /**
      * A function that is called when a test suite starts.
@@ -51,10 +52,9 @@ export declare abstract class Reporter {
      * Whenever a value is logged to the test suite, this function is called after the test has
      * completed for each logged value.
      *
-     * @param {TestResult | null} result - The generated test result that is logging the value, or
-     * null if the command line interface is logging a string.
-     * @param {string} logValue - The string that should be logged.
+     * @param {LogValue} logValue - The generated log value with some metadata about where it was
+     * generated.
      */
-    abstract onLog(test: TestResult | null, logValue: string): void;
+    abstract onLog(logValue: LogValue): void;
 }
 //# sourceMappingURL=Reporter.d.ts.map

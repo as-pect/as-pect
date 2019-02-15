@@ -1,7 +1,9 @@
 import { TestSuite } from "./TestSuite";
+import { TestGroup } from "./TestGroup";
 import { ASUtil } from "assemblyscript/lib/loader";
 import { TestResult } from "./TestResult";
 import { Reporter } from "../reporter/Reporter";
+import { ActualValue } from "../util/ActualValue";
 /**
  * The test class that hooks up the web assembly imports, and runs each test group in a file.
  */
@@ -16,13 +18,13 @@ export declare class TestRunner {
      */
     suite: TestSuite | null;
     /**
-     * This is the string that represents the current actual value reported by the module.
+     * This is the ActualValue that represents the current actual value reported by an expectation.
      */
-    actual: string;
+    actual: ActualValue | null;
     /**
-     * This is the string that represents the current expected value reported by the module.
+     * This is the ActualValue that represents the current expected value reported by an expectation.
      */
-    expected: string;
+    expected: ActualValue | null;
     /**
      * This boolean is set to true for every run, and is true if the test suite passed.
      */
@@ -35,6 +37,18 @@ export declare class TestRunner {
      * The currently running test.
      */
     currentTest: TestResult | null;
+    /**
+     * The currently running test group.
+     */
+    currentGroup: TestGroup | null;
+    /**
+     * The index of the next group log to be logged to the reporter.
+     */
+    groupLogIndex: number;
+    /**
+     * The current reporter.
+     */
+    reporter: Reporter | null;
     /**
      * The stack trace generated when the currently running test threw.
      */
@@ -70,7 +84,11 @@ export declare class TestRunner {
      * @param {string} filename - The name of the test file.
      * @param {Reporter} reporter - The reporter that reports each test and fail.
      */
-    run(filename: string, reporter?: Reporter): void;
+    run(filename: string): void;
+    /**
+     * Flush all the collected log values to the logger.
+     */
+    flushGroupLogs(): void;
     /**
      * This is a web assembly utility function that wraps a function call in a try catch block to
      * report success or failure.
@@ -141,7 +159,7 @@ export declare class TestRunner {
      * @param {number} stringPointer - A pointer that points to the expected string.
      * @param {1 | 0} negated - An indicator if the expectation is negated.
      */
-    reportExpectedString(value: number, negated: 1 | 0): void;
+    reportExpectedString(stringPointer: number, negated: 1 | 0): void;
     /**
      * This function reports an actual null value.
      */
@@ -155,27 +173,25 @@ export declare class TestRunner {
     /**
      * This function reports an actual numeric value.
      *
-     * @param {number} value - The value to be expected.
+     * @param {number} numericValue - The value to be expected.
      */
-    reportActualValue(value: number): void;
+    reportActualValue(numericValue: number): void;
     /**
      * This function reports an expected numeric value.
      *
-     * @param {number} value - The value to be expected
+     * @param {number} numericValue - The value to be expected
      * @param {1 | 0} negated - An indicator if the expectation is negated.
      */
-    reportExpectedValue(value: number, negated: 0 | 1): void;
+    reportExpectedValue(numericValue: number, negated: 0 | 1): void;
     /**
-     * This function reports an actual reference value. It converts the reference to a string of hex
-     * characters with a space between each `u8` value.
+     * This function reports an actual reference value.
      *
      * @param {number} referencePointer - The actual reference pointer.
      * @param {number} offset - The size of the reference in bytes.
      */
     reportActualReference(referencePointer: number, offset: number): void;
     /**
-     * This function reports an expected reference value. It converts the reference to a string of hex
-     * characters with a space between each `u8` value.
+     * This function reports an expected reference value.
      *
      * @param {number} referencePointer - The expected reference pointer.
      * @param {number} offset - The size of the reference in bytes.
@@ -224,26 +240,22 @@ export declare class TestRunner {
      */
     logReference(referencePointer: number, offset: number): void;
     /**
-     * Log a numeric value to the reporter.
+     * Log a numevalueric value to the reporter.
      *
      * @param {number} value - The value to be logged.
      */
-    logValue(value: number): void;
+    logValue(numericValue: number): void;
     /**
      * Log a null value to the reporter.
      */
     logNull(): void;
     /**
-     * Gets a stack trace.
+     * Gets a log stack trace.
      */
-    getStackTrace(): string;
+    getLogStackTrace(): string;
     /**
-     * This function returns a string that formats the bytes into rows of 8 bytes with a space between
-     * byte 4 and 5 on each row.
-     *
-     * @param {number} pointer - The pointer of the reference.
-     * @param {number} offset - The offset of the reference.
+     * Gets an error stack trace.
      */
-    createReferenceString(pointer: number, offset: number): string;
+    getErrorStackTrace(ex: Error): string;
 }
 //# sourceMappingURL=TestRunner.d.ts.map

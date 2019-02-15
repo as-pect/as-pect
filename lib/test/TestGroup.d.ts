@@ -1,4 +1,5 @@
 import { TestResult } from "./TestResult";
+import { LogValue } from "../util/LogValue";
 export declare class TestGroup {
     /**
      * A pointer that points to the test suite name.
@@ -73,5 +74,9 @@ export declare class TestGroup {
      * The reason this test group failed.
      */
     reason: string;
+    /**
+     * The logged items in the current testGroup.
+     */
+    log: LogValue[];
 }
 //# sourceMappingURL=TestGroup.d.ts.map

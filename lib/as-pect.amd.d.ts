@@ -1,4 +1,25 @@
+declare module "util/LogValue" {
+    import { TestResult } from "test/TestResult";
+    import { TestGroup } from "test/TestGroup";
+    export class LogValue {
+        pointer: number;
+        offset: number;
+        bytes: number[];
+        message: string;
+        stack: string;
+        test: TestResult | null;
+        group: TestGroup | null;
+    }
+}
+declare module "util/ActualValue" {
+    import { LogValue } from "util/LogValue";
+    export class ActualValue extends LogValue {
+        negated: boolean;
+    }
+}
 declare module "test/TestResult" {
+    import { LogValue } from "util/LogValue";
+    import { ActualValue } from "util/ActualValue";
     export class TestResult {
         /**
          * The actual test's name or description.
@@ -15,11 +36,11 @@ declare module "test/TestResult" {
         /**
          * The reported actual value description.
          */
-        actual: string;
+        actual: ActualValue | null;
         /**
          * The reported expected value description.
          */
-        expected: string;
+        expected: ActualValue | null;
         /**
          * If the test failed, this is the message describing why the test failed.
          */
@@ -27,7 +48,7 @@ declare module "test/TestResult" {
         /**
          * A set of strings logged by the test itself.
          */
-        log: string[];
+        log: LogValue[];
         /**
          * The generated stack trace if the test errored.
          */
@@ -36,6 +57,7 @@ declare module "test/TestResult" {
 }
 declare module "test/TestGroup" {
     import { TestResult } from "test/TestResult";
+    import { LogValue } from "util/LogValue";
     export class TestGroup {
         /**
          * A pointer that points to the test suite name.
@@ -110,6 +132,10 @@ declare module "test/TestGroup" {
          * The reason this test group failed.
          */
         reason: string;
+        /**
+         * The logged items in the current testGroup.
+         */
+        log: LogValue[];
     }
 }
 declare module "test/TestSuite" {
@@ -154,6 +180,7 @@ declare module "reporter/Reporter" {
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
     import { TestSuite } from "test/TestSuite";
+    import { LogValue } from "util/LogValue";
     export abstract class Reporter {
         /**
          * A function that is called when a test suite starts.
@@ -204,11 +231,10 @@ declare module "reporter/Reporter" {
          * Whenever a value is logged to the test suite, this function is called after the test has
          * completed for each logged value.
          *
-         * @param {TestResult | null} result - The generated test result that is logging the value, or
-         * null if the command line interface is logging a string.
-         * @param {string} logValue - The string that should be logged.
+         * @param {LogValue} logValue - The generated log value with some metadata about where it was
+         * generated.
          */
-        abstract onLog(test: TestResult | null, logValue: string): void;
+        abstract onLog(logValue: LogValue): void;
     }
 }
 declare module "reporter/DefaultReporter" {
@@ -216,6 +242,7 @@ declare module "reporter/DefaultReporter" {
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
     import { TestSuite } from "test/TestSuite";
+    import { LogValue } from "util/LogValue";
     export class DefaultReporter extends Reporter {
         onStart(suite: TestSuite): void;
         onGroupStart(group: TestGroup): void;
@@ -224,14 +251,16 @@ declare module "reporter/DefaultReporter" {
         onTestFinish(_group: TestGroup, test: TestResult): void;
         onFinish(suite: TestSuite): void;
         onTodo(_group: TestGroup, todo: string): void;
-        onLog(_result: TestResult | null, logValue: string): void;
+        onLog(logValue: LogValue): void;
     }
 }
 declare module "test/TestRunner" {
     import { TestSuite } from "test/TestSuite";
+    import { TestGroup } from "test/TestGroup";
     import { ASUtil } from "assemblyscript/lib/loader";
     import { TestResult } from "test/TestResult";
     import { Reporter } from "reporter/Reporter";
+    import { ActualValue } from "util/ActualValue";
     /**
      * The test class that hooks up the web assembly imports, and runs each test group in a file.
      */
@@ -246,13 +275,13 @@ declare module "test/TestRunner" {
          */
         suite: TestSuite | null;
         /**
-         * This is the string that represents the current actual value reported by the module.
+         * This is the ActualValue that represents the current actual value reported by an expectation.
          */
-        actual: string;
+        actual: ActualValue | null;
         /**
-         * This is the string that represents the current expected value reported by the module.
+         * This is the ActualValue that represents the current expected value reported by an expectation.
          */
-        expected: string;
+        expected: ActualValue | null;
         /**
          * This boolean is set to true for every run, and is true if the test suite passed.
          */
@@ -265,6 +294,18 @@ declare module "test/TestRunner" {
          * The currently running test.
          */
         currentTest: TestResult | null;
+        /**
+         * The currently running test group.
+         */
+        currentGroup: TestGroup | null;
+        /**
+         * The index of the next group log to be logged to the reporter.
+         */
+        groupLogIndex: number;
+        /**
+         * The current reporter.
+         */
+        reporter: Reporter | null;
         /**
          * The stack trace generated when the currently running test threw.
          */
@@ -300,7 +341,11 @@ declare module "test/TestRunner" {
          * @param {string} filename - The name of the test file.
          * @param {Reporter} reporter - The reporter that reports each test and fail.
          */
-        run(filename: string, reporter?: Reporter): void;
+        run(filename: string): void;
+        /**
+         * Flush all the collected log values to the logger.
+         */
+        flushGroupLogs(): void;
         /**
          * This is a web assembly utility function that wraps a function call in a try catch block to
          * report success or failure.
@@ -371,7 +416,7 @@ declare module "test/TestRunner" {
          * @param {number} stringPointer - A pointer that points to the expected string.
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
-        reportExpectedString(value: number, negated: 1 | 0): void;
+        reportExpectedString(stringPointer: number, negated: 1 | 0): void;
         /**
          * This function reports an actual null value.
          */
@@ -385,27 +430,25 @@ declare module "test/TestRunner" {
         /**
          * This function reports an actual numeric value.
          *
-         * @param {number} value - The value to be expected.
+         * @param {number} numericValue - The value to be expected.
          */
-        reportActualValue(value: number): void;
+        reportActualValue(numericValue: number): void;
         /**
          * This function reports an expected numeric value.
          *
-         * @param {number} value - The value to be expected
+         * @param {number} numericValue - The value to be expected
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
-        reportExpectedValue(value: number, negated: 0 | 1): void;
+        reportExpectedValue(numericValue: number, negated: 0 | 1): void;
         /**
-         * This function reports an actual reference value. It converts the reference to a string of hex
-         * characters with a space between each `u8` value.
+         * This function reports an actual reference value.
          *
          * @param {number} referencePointer - The actual reference pointer.
          * @param {number} offset - The size of the reference in bytes.
          */
         reportActualReference(referencePointer: number, offset: number): void;
         /**
-         * This function reports an expected reference value. It converts the reference to a string of hex
-         * characters with a space between each `u8` value.
+         * This function reports an expected reference value.
          *
          * @param {number} referencePointer - The expected reference pointer.
          * @param {number} offset - The size of the reference in bytes.
@@ -454,27 +497,23 @@ declare module "test/TestRunner" {
          */
         logReference(referencePointer: number, offset: number): void;
         /**
-         * Log a numeric value to the reporter.
+         * Log a numevalueric value to the reporter.
          *
          * @param {number} value - The value to be logged.
          */
-        logValue(value: number): void;
+        logValue(numericValue: number): void;
         /**
          * Log a null value to the reporter.
          */
         logNull(): void;
         /**
-         * Gets a stack trace.
+         * Gets a log stack trace.
          */
-        getStackTrace(): string;
+        getLogStackTrace(): string;
         /**
-         * This function returns a string that formats the bytes into rows of 8 bytes with a space between
-         * byte 4 and 5 on each row.
-         *
-         * @param {number} pointer - The pointer of the reference.
-         * @param {number} offset - The offset of the reference.
+         * Gets an error stack trace.
          */
-        createReferenceString(pointer: number, offset: number): string;
+        getErrorStackTrace(ex: Error): string;
     }
 }
 declare module "util/IConfiguration" {
