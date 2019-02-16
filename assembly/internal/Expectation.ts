@@ -1,4 +1,3 @@
-
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "tryCall")
 declare function tryCall(func: () => void): bool;
@@ -53,26 +52,58 @@ export class Expectation<T> {
   _not: bool = false;
   value: T | null;
 
+  /**
+   * Construct an assertion.
+   *
+   * @param {T | null} value - The actual value.
+   */
   constructor(value: T | null) {
     this.value = value;
   }
 
+  /**
+   * This property negates the assertion.
+   */
   public get not(): Expectation<T> {
     this._not = true;
     return this;
   }
 
+  /**
+   * This method reports value and reference equality.
+   *
+   * @param {T | null} value - The expected value.
+   * @param {string} message - The message that describes this assertion.
+   */
   @inline
   public toBe(value: T | null, message: string = ""): void {
+    // use default reporting methods
     this.reportActual();
     this.reportExpected(value);
+
+    // assert value or reference equality
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (value == this.value), message);
+
+    // clear the expected messages in case an unreachable() occurs later.
     clearExpected();
   }
 
+  /**
+   * This method reports strict equality on bytes. It has a special path for ArrayBuffers.
+   *
+   * @param {T | null} value - The expected value.
+   * @param {string} message - The message that describes this assertion.
+   */
   @inline
   public toStrictEqual(value: T | null, message: string = ""): void {
+
+    // special path for strict equality on ArrayBuffer
+    if (value instanceof ArrayBuffer) {
+      this.toStrictEqualArrayBuffer(value, message);
+      return;
+    }
+
     this.reportActual();
     this.reportExpected(value);
 
@@ -104,11 +135,43 @@ export class Expectation<T> {
     clearExpected();
   }
 
+  private toStrictEqualArrayBuffer(value: T | null, message: string = ""): void {
+    // cast the values
+    let expectedBuff: ArrayBuffer | null = changetype<ArrayBuffer>(changetype<usize>(value));
+    let actualBuff: ArrayBuffer | null = changetype<ArrayBuffer>(changetype<usize>(this.value));
+
+    // report the values
+    if (expectedBuff == null) {
+      reportExpectedNull(this._not);
+    } else {
+      reportExpectedReference(expectedBuff.data, expectedBuff.byteLength, this._not);
+    }
+
+    if (actualBuff == null) {
+      reportActualNull();
+    } else {
+      reportActualReference(actualBuff.data, actualBuff.byteLength);
+    }
+
+    if (expectedBuff == null || actualBuff == null) {
+      // @ts-ignore: Bitwise xor on a boolean works as expected
+      assert(this._not ^ !(expectedBuff == null ^ actualBuff == null), message);
+    } else {
+      let lengthEqual = actualBuff.byteLength == expectedBuff.byteLength;
+      // @ts-ignore: Bitwise xor on a boolean works as expected
+      assert(this._not ^ lengthEqual, message);
+
+      let bytesEqual = memory.compare(changetype<usize>(actualBuff), changetype<usize>(expectedBuff), actualBuff.byteLength) == 0;
+      // @ts-ignore: Bitwise xor on a boolean works as expected
+      assert(this._not ^ lengthEqual, message);
+    }
+    clearExpected();
+  }
+
   @inline
   public toBeTruthy(message: string = ""): void {
     this.reportActual();
     reportExpectedTruthy(this._not);
-    reportExpectedString<string>("truthy", this._not);
 
     if (this.value instanceof String) {
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
