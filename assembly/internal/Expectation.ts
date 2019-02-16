@@ -163,7 +163,7 @@ export class Expectation<T> {
 
       let bytesEqual = memory.compare(changetype<usize>(actualBuff), changetype<usize>(expectedBuff), actualBuff.byteLength) == 0;
       // @ts-ignore: Bitwise xor on a boolean works as expected
-      assert(this._not ^ lengthEqual, message);
+      assert(this._not ^ bytesEqual, message);
     }
     clearExpected();
   }
