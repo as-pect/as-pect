@@ -218,9 +218,14 @@ export class Expectation<T> {
   public toBeGreaterThan(value: T | null, message: string = ""): void {
     this.reportActual();
     this.reportExpected(value);
-    if (isReference<T>() && (value == null || this.value == null)) assert(false, "Reference comparison fails, reftype is null");
 
-    // float NaN expectation
+    // Compare the reference types
+    if (isReference<T>()) {
+      assert(value != null, "Reference comparison fails, expected value is null.");
+      assert(this.value != null, "Reference comparison fails, actual value is null.");
+    }
+
+    // Compare float types
     if (isFloat<T>(this.value)) {
       // @ts-ignore: value types cannot be null
       assert(!isNaN<T>(value), "Value comparison fails, expected value is NaN.");
@@ -236,10 +241,14 @@ export class Expectation<T> {
   public toBeGreaterThanOrEqualTo(value: T | null, message: string = ""): void {
     this.reportActual();
     this.reportExpected(value);
-    if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
 
-    // float NaN expectation
+    // Compare the reference types
+    if (isReference<T>()) {
+      assert(value != null, "Reference comparison fails, expected value is null.");
+      assert(this.value != null, "Reference comparison fails, actual value is null.");
+    }
+
+    // Compare float types
     if (isFloat<T>(this.value)) {
       // @ts-ignore: value types cannot be null
       assert(!isNaN<T>(value), "Value comparison fails, expected value is NaN.");
@@ -255,10 +264,14 @@ export class Expectation<T> {
   public toBeLessThan(value: T | null, message: string = ""): void {
     this.reportActual();
     this.reportExpected(value);
-    if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
 
-    // float NaN expectation
+    // Compare the reference types
+    if (isReference<T>()) {
+      assert(value != null, "Reference comparison fails, expected value is null.");
+      assert(this.value != null, "Reference comparison fails, actual value is null.");
+    }
+
+    // Compare float types
     if (isFloat<T>(this.value)) {
       // @ts-ignore: value types cannot be null
       assert(!isNaN<T>(value), "Value comparison fails, expected value is NaN.");
@@ -274,10 +287,14 @@ export class Expectation<T> {
   public toBeLessThanOrEqualTo(value: T | null, message: string = ""): void {
     this.reportActual();
     this.reportExpected(value);
-    if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
 
-    // float NaN expectation
+    // Compare the reference types
+    if (isReference<T>()) {
+      assert(value != null, "Reference comparison fails, expected value is null.");
+      assert(this.value != null, "Reference comparison fails, actual value is null.");
+    }
+
+    // Compare float types
     if (isFloat<T>(this.value)) {
       // @ts-ignore: value types cannot be null
       assert(!isNaN<T>(value), "Value comparison fails, expected value is NaN.");
