@@ -106,7 +106,7 @@ export class DefaultReporter extends Reporter {
       console.log(` [Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}`);
 
       if (test.message) {
-        console.log(`  [Message]: {yellow ${test.message}}`);
+        console.log(chalk`  [Message]: {yellow ${test.message}}`);
       }
 
       console.log(`    [Stack]: ${test.stack!.split("\n").join("\n           ")}`);
@@ -114,7 +114,7 @@ export class DefaultReporter extends Reporter {
   }
   onFinish(suite: TestSuite): void {
     const result = suite.pass
-      ? chalk`{green ✔ Pass} `
+      ? chalk`{green ✔ Pass}`
       : chalk`{red ✖ Fail}`;
 
     console.log("");

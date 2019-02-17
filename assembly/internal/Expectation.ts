@@ -158,12 +158,10 @@ export class Expectation<T> {
       assert(this._not ^ !(expectedBuff == null ^ actualBuff == null), message);
     } else {
       let lengthEqual = actualBuff.byteLength == expectedBuff.byteLength;
-      // @ts-ignore: Bitwise xor on a boolean works as expected
-      assert(this._not ^ lengthEqual, message);
-
       let bytesEqual = memory.compare(changetype<usize>(actualBuff), changetype<usize>(expectedBuff), actualBuff.byteLength) == 0;
+
       // @ts-ignore: Bitwise xor on a boolean works as expected
-      assert(this._not ^ bytesEqual, message);
+      assert(this._not ^ (lengthEqual && bytesEqual), message);
     }
     clearExpected();
   }
@@ -269,6 +267,27 @@ export class Expectation<T> {
     clearExpected();
   }
 
+  @inline
+  public toBeCloseTo(value: T, decimalPlaces: i32 = 2, message: string = ""): void {
+    this.reportActual();
+    this.reportExpected(value);
+
+    if (isReference<T>()) assert(false, "toBeCloseTo is only meant for value types.");
+
+    // must be a float value
+    var isFloat: bool = value instanceof f64 || value instanceof f32;
+    assert(isFloat, "toBeCloseTo muse be used with float values.");
+
+    // @ts-ignore: Number.isFinite is defined.
+    var isFinite: bool = Number.isFinite(this.value) && Number.isFinite(value);
+
+    // @ts-ignore T is definitely a numeric value
+    var isClose: bool = abs<T>(value - this.value) < Math.pow(0.1, decimalPlaces);
+
+    // @ts-ignore bitwise xor works here
+    assert(this._not ^ (isClose && isFinite), message);
+    clearExpected();
+  }
 
   private reportActual(): void {
     if (this.value instanceof String) {

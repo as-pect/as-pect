@@ -272,55 +272,66 @@ declare class Expectation<T> {
   toBeGreaterThan(value: T | null, message?: string): void;
 
   /**
-  * This expectation asserts that the value is less than the expected value. Since operators can
-  * be overloaded in assemblyscript, it's possible for this to work on reference types.
-  *
-  * @param {T | null} value - The expected value that the actual value should be less than.
-  * @param {string} message - The optional message that describes this expectation.
-  *
-  * @example
-  * expect<i32>(10).not.toBeLessThan(4);
-  * expect<i32>(12).toBeLessThan(42);
-  */
+   * This expectation asserts that the value is less than the expected value. Since operators can
+   * be overloaded in assemblyscript, it's possible for this to work on reference types.
+   *
+   * @param {T | null} value - The expected value that the actual value should be less than.
+   * @param {string} message - The optional message that describes this expectation.
+   *
+   * @example
+   * expect<i32>(10).not.toBeLessThan(4);
+   * expect<i32>(12).toBeLessThan(42);
+   */
   toBeLessThan(value: T | null, message?: string): void;
 
   /**
-  * This expectation asserts that the value is greater than or equal to the expected value. Since
-  * operators can be overloaded in assemblyscript, it's possible for this to work on reference
-  * types.
-  *
-  * @param {T | null} value - The expected value that the actual value should be greater than or
-  * equal to.
-  * @param {string} message - The optional message that describes this expectation.
-  *
-  * @example
-  * expect<i32>(42).toBeGreaterThanOrEqualTo(42);
-  * expect<i32>(10).toBeGreaterThanOrEqualTo(4);
-  * expect<i32>(12).not.toBeGreaterThanOrEqualTo(42);
-  */
+   * This expectation asserts that the value is greater than or equal to the expected value. Since
+   * operators can be overloaded in assemblyscript, it's possible for this to work on reference
+   * types.
+   *
+   * @param {T | null} value - The expected value that the actual value should be greater than or
+   * equal to.
+   * @param {string} message - The optional message that describes this expectation.
+   *
+   * @example
+   * expect<i32>(42).toBeGreaterThanOrEqualTo(42);
+   * expect<i32>(10).toBeGreaterThanOrEqualTo(4);
+   * expect<i32>(12).not.toBeGreaterThanOrEqualTo(42);
+   */
   toBeGreaterThanOrEqualTo(value: T | null, message?: string): void;
 
   /**
-  * This expectation asserts that the value is less than or equal to the expected value. Since
-  * operators can be overloaded in assemblyscript, it's possible for this to work on reference
-  * types.
-  *
-  * @param {T | null} value - The expected value that the actual value should be less than or equal
-  * to.
-  * @param {string} message - The optional message that describes this expectation.
-  *
-  * @example
-  * expect<i32>(42).toBeLessThanOrEqualTo(42);
-  * expect<i32>(10).not.toBeLessThanOrEqualTo(4);
-  * expect<i32>(12).toBeLessThanOrEqualTo(42);
-  */
+   * This expectation asserts that the value is less than or equal to the expected value. Since
+   * operators can be overloaded in assemblyscript, it's possible for this to work on reference
+   * types.
+   *
+   * @param {T | null} value - The expected value that the actual value should be less than or equal
+   * to.
+   * @param {string} message - The optional message that describes this expectation.
+   *
+   * @example
+   * expect<i32>(42).toBeLessThanOrEqualTo(42);
+   * expect<i32>(10).not.toBeLessThanOrEqualTo(4);
+   * expect<i32>(12).toBeLessThanOrEqualTo(42);
+   */
   toBeLessThanOrEqualTo(value: T | null, message?: string): void;
 
   /**
-  * This computed property is chainable, and negates the existing expectation. It returns itself.
-  *
-  * @type {Expectation<T>}
-  */
+   * This expectation asserts that the value is close to another value. Both numbers must be finite,
+   * and T must extend f64 or f32.
+   *
+   * @param {T extends f64 | f32} value - The expected value to be close to.
+   * @param {i32} decimalPlaces - The number of decimal places used to calculate epsilon. Default is
+   * 2.
+   * @param {string} message - The optional message that describes this expectation.
+   */
+  toBeCloseTo(value: T, decimalPlaces?: i32, message?: string): void;
+
+  /**
+   * This computed property is chainable, and negates the existing expectation. It returns itself.
+   *
+   * @type {Expectation<T>}
+   */
   not: Expectation<T>;
 
   /**
