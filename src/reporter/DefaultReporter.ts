@@ -94,6 +94,7 @@ export class DefaultReporter extends Reporter {
     console.log(chalk`   [Tests]: ${group.successCount.toString()} pass, ${group.failCount.toString()} fail, ${group.totalCount.toString()} total`);
     console.log(chalk`    [Todo]: ${group.todoCount.toString()} tests`);
     console.log(chalk`    [Time]: ${group.time.toString()}ms`);
+    console.log("");
   }
   onTestStart(_group: TestGroup, _test: TestResult): void {}
   onTestFinish(_group: TestGroup, test: TestResult): void {

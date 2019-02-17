@@ -1,5 +1,4 @@
 describe("unreachable", (): void => {
-
   it("should expect functions to be unreachable", (): void => {
     expect<() => void>((): void => {
       unreachable();
