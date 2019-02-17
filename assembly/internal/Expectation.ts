@@ -218,7 +218,15 @@ export class Expectation<T> {
   public toBeGreaterThan(value: T | null, message: string = ""): void {
     this.reportActual();
     this.reportExpected(value);
-    if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
+    if (isReference<T>() && (value == null || this.value == null)) assert(false, "Reference comparison fails, reftype is null");
+
+    // float NaN expectation
+    if (isFloat<T>(this.value)) {
+      // @ts-ignore: value types cannot be null
+      assert(!isNaN<T>(value), "Value comparison fails, expected value is NaN.");
+      assert(!isNaN<T>(this.value), "Value comparison fails, actual value is NaN.");
+    }
+
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value > value), message);
     clearExpected();
@@ -230,6 +238,15 @@ export class Expectation<T> {
     this.reportExpected(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
+
+    // float NaN expectation
+    if (isFloat<T>(this.value)) {
+      // @ts-ignore: value types cannot be null
+      assert(!isNaN<T>(value), "Value comparison fails, expected value is NaN.");
+      assert(!isNaN<T>(this.value), "Value comparison fails, actual value is NaN.");
+    }
+
+    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value >= value), message);
     clearExpected();
   }
@@ -240,6 +257,15 @@ export class Expectation<T> {
     this.reportExpected(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
+
+    // float NaN expectation
+    if (isFloat<T>(this.value)) {
+      // @ts-ignore: value types cannot be null
+      assert(!isNaN<T>(value), "Value comparison fails, expected value is NaN.");
+      assert(!isNaN<T>(this.value), "Value comparison fails, actual value is NaN.");
+    }
+
+    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value < value), message);
     clearExpected();
   }
@@ -249,6 +275,15 @@ export class Expectation<T> {
     this.reportActual();
     this.reportExpected(value);
     if (isReference<T>() && (value == null || this.value == null)) assert(false, message);
+    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
+
+    // float NaN expectation
+    if (isFloat<T>(this.value)) {
+      // @ts-ignore: value types cannot be null
+      assert(!isNaN<T>(value), "Value comparison fails, expected value is NaN.");
+      assert(!isNaN<T>(this.value), "Value comparison fails, actual value is NaN.");
+    }
+
     // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
     assert(this._not ^ (this.value <= value), message);
     clearExpected();
@@ -303,6 +338,7 @@ export class Expectation<T> {
       assert(!this._not, message);
     } else {
       var isnan: bool = isNaN<T>(this.value);
+      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
       assert(this._not ^ isnan, message);
     }
     clearExpected();
