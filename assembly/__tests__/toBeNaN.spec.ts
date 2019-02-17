@@ -26,4 +26,10 @@ describe("toBeNaN", (): void => {
       expect<f64>(1).toBeNaN();
     }).toThrow("1 is not NaN");
   });
+
+  it("should throw when type is not float", (): void => {
+    expectFn((): void => {
+      expect<i32>(1).not.toBeNaN();
+    }).toThrow("1 is not NaN");
+  });
 });

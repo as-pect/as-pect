@@ -275,8 +275,7 @@ export class Expectation<T> {
     if (isReference<T>()) assert(false, "toBeCloseTo is only meant for value types.");
 
     // must be a float value
-    var isFloat: bool = value instanceof f64 || value instanceof f32;
-    assert(isFloat, "toBeCloseTo muse be used with float values.");
+    assert(isFloat<T>(this.value), "toBeCloseTo assertion must be called on a float value.");
 
     // @ts-ignore: Number.isFinite is defined.
     var isFinite: bool = Number.isFinite(this.value) && Number.isFinite(value);
@@ -293,7 +292,13 @@ export class Expectation<T> {
   public toBeNaN(message: string = ""): void {
     this.reportActual();
     reportExpectedValue<f64>(NaN, this._not);
-    if (isReference<T>()) assert(false, "toBeNaN must be called on value types");
+
+    // must not be a reference type
+    assert(!isReference<T>(), "toBeNaN must be called on value types");
+
+    // must be a float value
+    assert(isFloat<T>(this.value), "toBeNaN assertion must be called on a float value.");
+
     if (this.value == null) { // if it's 0
       assert(!this._not, message);
     } else {

@@ -55,13 +55,9 @@ describe("toBeCloseTo", (): void => {
     }).toThrow("value is not finite, it should throw");
   });
 
-  todo("test throw if generic type is not a float value");
-  /**
-   * The following test fails because instanceof checked do not work for number types.
-   */
-  // it("should throw if value type is not a float", (): void => {
-  //   expectFn((): void => {
-  //     expect<i32>(0).toBeCloseTo(0);
-  //   }).toThrow("integer values should throw on toBeCloseTo assertions");
-  // });
+  it("should throw if value type is not a float", (): void => {
+    expectFn((): void => {
+      expect<i32>(0).toBeCloseTo(0);
+    }).toThrow("integer values should throw on toBeCloseTo assertions");
+  });
 });
