@@ -1,5 +1,3 @@
-import { afterEach } from "../internal/Test";
-
 var beforeEachRan: i32 = 0;
 var beforeAllRan: i32 = 0;
 var afterEachRan: i32 = 0;
