@@ -8,11 +8,12 @@ describe("unit types", (): void => {
 
   it("should create an expectation with a value", (): void => {
     var result = expect<i32>(1);
-    assert(result.value == 1, "The expect function does not report values correctly.");
+    assert(result.actual == 1, "The expect function does not report values correctly.");
   });
 
   it("should negate the _not property", (): void => {
     var result = expect<i32>(1).not;
-    assert(result._not, "The expect function was not negated.");
+    var notValue: bool = load<bool>(changetype<usize>(result) + offsetof<Expectation<i32>>("_not"));
+    assert(notValue, "The expect function was not negated.");
   });
 });
