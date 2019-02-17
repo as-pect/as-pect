@@ -328,6 +328,16 @@ declare class Expectation<T> {
   toBeCloseTo(value: T, decimalPlaces?: i32, message?: string): void;
 
   /**
+   * This function asserts the float type value is NaN.
+   *
+   * @param {string} message - The optional message the describes this expectation.
+   * @example
+   * expect<f64>(NaN).toBeNaN();
+   * expect<f32>(42).not.toBeNaN();
+   */
+  toBeNaN(message?: string): void;
+
+  /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
    *
    * @type {Expectation<T>}

@@ -289,6 +289,20 @@ export class Expectation<T> {
     clearExpected();
   }
 
+  @inline
+  public toBeNaN(message: string = ""): void {
+    this.reportActual();
+    reportExpectedValue<f64>(NaN, this._not);
+    if (isReference<T>()) assert(false, "toBeNaN must be called on value types");
+    if (this.value == null) { // if it's 0
+      assert(!this._not, message);
+    } else {
+      var isnan: bool = isNaN<T>(this.value);
+      assert(this._not ^ isnan, message);
+    }
+    clearExpected();
+  }
+
   private reportActual(): void {
     if (this.value instanceof String) {
       if (this.value == null) {
