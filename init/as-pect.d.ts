@@ -327,13 +327,23 @@ declare class Expectation<T> {
 
   /**
    * This function asserts the float type value is NaN.
-    *
-    * @param {string} message - The optional message the describes this expectation.
-    * @example
-    * expect<f64>(NaN).toBeNaN();
-    * expect<f32>(42).not.toBeNaN();
-    */
+   *
+   * @param {string} message - The optional message the describes this expectation.
+   * @example
+   * expect<f64>(NaN).toBeNaN();
+   * expect<f32>(42).not.toBeNaN();
+   */
   toBeNaN(message?: string): void;
+
+  /**
+   * This function asserts a float is finite.
+   *
+   * @param {string} message - The optional message the describes this expectation.
+   * @example
+   * expect<f32>(42).toBeFinite();
+   * expect<f64>(Infinity).not.toBeFinite();
+   */
+  toBeFinite(message?: string): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.

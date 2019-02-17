@@ -46,6 +46,10 @@ declare function reportExpectedTruthy(negated: bool): void;
 @external("__aspect", "reportExpectedFalsy")
 declare function reportExpectedFalsy(negated: bool): void;
 
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedFinite")
+declare function reportExpectedFinite(negated: bool): void;
+
 // @ts-ignore: Decorators *are* valid here
 @global
 export class Expectation<T> {
@@ -342,23 +346,47 @@ export class Expectation<T> {
 
   @inline
   public toBeNaN(message: string = ""): void {
-    this.reportActual();
-    reportExpectedValue<f64>(NaN, this._not);
-
-    // must not be a reference type
-    assert(!isReference<T>(), "toBeNaN must be called on value types");
-
-    // must be a float value
-    assert(isFloat<T>(this.value), "toBeNaN assertion must be called on a float value.");
-
-    if (this.value == null) { // if it's 0
-      assert(!this._not, message);
+    if (isReference<T>()) {
+      assert(false, "toBeNaN must be called using value types.");
+      return;
     } else {
-      var isnan: bool = isNaN<T>(this.value);
+      this.reportActual();
+      reportExpectedValue<f64>(NaN, this._not);
+
+      // must be a float value
+      assert(isFloat<T>(this.value), "toBeNaN assertion must be called on a float value.");
+
+      // @ts-ignore value types cannot be null
+      let isnan: bool = isNaN<T>(this.value);
+
       // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
       assert(this._not ^ isnan, message);
+
+      clearExpected();
     }
-    clearExpected();
+
+  }
+
+
+  @inline
+  public toBeFinite(message: string = ""): void {
+    if (isReference<T>()) {
+      assert(false, "toBeFinite must be called using value types.");
+    } else {
+      this.reportActual();
+      reportExpectedFinite(this._not);
+
+      // must be a float value
+      assert(isFloat<T>(this.value), "toBeFinite must only assert float value types.");
+
+      // @ts-ignore value types can never be null
+      let finite: bool = isFinite<T>(this.value);
+
+      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
+      assert(this._not ^ finite, message);
+
+      clearExpected();
+    }
   }
 
   private reportActual(): void {
