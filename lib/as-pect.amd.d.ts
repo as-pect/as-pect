@@ -502,6 +502,12 @@ declare module "test/TestRunner" {
          */
         reportExpectedFalsy(negated: 1 | 0): void;
         /**
+         * This function reports an expected finite value.
+         *
+         * @param {1 | 0} negated - An indicator if the expectation is negated.
+         */
+        reportExpectedFinite(negated: 1 | 0): void;
+        /**
          * This function is called after each expectation if the expectation passes. This prevents other
          * unreachable() conditions that throw errors to report actual and expected values too.
          */
@@ -552,11 +558,22 @@ declare module "test/TestRunner" {
 }
 declare module "util/IConfiguration" {
     import { Reporter } from "reporter/Reporter";
+    export interface ICompilerFlags {
+        [flag: string]: string[];
+    }
     export interface IConfiguration {
         /**
          * A string of globs to find the files that will be included in the test suite.
          */
-        include: string[];
+        include?: string[];
+        /**
+         * A set of globs passed to the glob package that quality files to be added to each test.
+         */
+        add?: string[];
+        /**
+         * All the compiler flags needed for this test suite. Make sure that a binary file is output.
+         */
+        flags?: ICompilerFlags;
         /**
          * And array of regular expressions that are tested against the file names. If they match, the
          * files will be discluded.

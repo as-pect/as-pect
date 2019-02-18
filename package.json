@@ -1,7 +1,7 @@
 {
   "name": "as-pect",
-  "version": "0.0.1-alpha.2",
-  "description": "",
+  "version": "0.0.1-alpha.3",
+  "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "./assembly/types.d.ts",
   "scripts": {
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/jtenner/aspect/issues"
   },
-  "homepage": "https://github.com/jtenner/aspect#readme",
+  "homepage": "https://github.com/jtenner/as-pect#readme",
   "devDependencies": {
     "@types/glob": "^7.1.1",
     "@types/lodash.uniq": "^4.5.5",

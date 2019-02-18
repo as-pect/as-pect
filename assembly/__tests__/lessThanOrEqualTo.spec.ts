@@ -28,4 +28,16 @@ describe("less than or equal to", (): void => {
       expect<i32>(1).toBeLessThanOrEqualTo(1);
     }).not.toThrow("equal values should not throw");
   });
+
+  it("should throw if actual value is NaN", (): void => {
+    expectFn((): void => {
+      expect<f32>(NaN).toBeLessThanOrEqualTo(1);
+    }).toThrow("NaN values cannot be compared and should throw");
+  });
+
+  it("should throw if expected value is NaN", (): void => {
+    expectFn((): void => {
+      expect<f32>(1).toBeLessThanOrEqualTo(NaN);
+    }).toThrow("NaN values cannot be compared and should throw");
+  });
 });

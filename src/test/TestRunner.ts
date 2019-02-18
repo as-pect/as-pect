@@ -107,6 +107,7 @@ export class TestRunner {
       reportExpectedString: this.reportExpectedString.bind(this),
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
       reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
+      reportExpectedFinite: this.reportExpectedFinite.bind(this),
     };
     return imports;
   }
@@ -596,7 +597,7 @@ export class TestRunner {
   reportExpectedTruthy(negated: 1 | 0): void {
     const value = new ActualValue();
     value.group = this.currentGroup;
-    value.message = `truthy`;
+    value.message = `truthy value`;
     value.stack = this.getLogStackTrace();
     value.test = this.currentTest;
     value.negated = negated === 1;
@@ -611,7 +612,22 @@ export class TestRunner {
   reportExpectedFalsy(negated: 1 | 0): void {
     const value = new ActualValue();
     value.group = this.currentGroup;
-    value.message = `falsy`;
+    value.message = "falsy value";
+    value.stack = this.getLogStackTrace();
+    value.test = this.currentTest;
+    value.negated = negated === 1;
+    this.expected = value;
+  }
+
+  /**
+   * This function reports an expected finite value.
+   *
+   * @param {1 | 0} negated - An indicator if the expectation is negated.
+   */
+  reportExpectedFinite(negated: 1 | 0): void {
+    const value = new ActualValue();
+    value.group = this.currentGroup;
+    value.message = "finite value";
     value.stack = this.getLogStackTrace();
     value.test = this.currentTest;
     value.negated = negated === 1;

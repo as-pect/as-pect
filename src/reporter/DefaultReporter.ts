@@ -94,6 +94,7 @@ export class DefaultReporter extends Reporter {
     console.log(chalk`   [Tests]: ${group.successCount.toString()} pass, ${group.failCount.toString()} fail, ${group.totalCount.toString()} total`);
     console.log(chalk`    [Todo]: ${group.todoCount.toString()} tests`);
     console.log(chalk`    [Time]: ${group.time.toString()}ms`);
+    console.log("");
   }
   onTestStart(_group: TestGroup, _test: TestResult): void {}
   onTestFinish(_group: TestGroup, test: TestResult): void {
@@ -106,7 +107,7 @@ export class DefaultReporter extends Reporter {
       console.log(` [Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}`);
 
       if (test.message) {
-        console.log(`  [Message]: {yellow ${test.message}}`);
+        console.log(chalk`  [Message]: {yellow ${test.message}}`);
       }
 
       console.log(`    [Stack]: ${test.stack!.split("\n").join("\n           ")}`);
@@ -114,7 +115,7 @@ export class DefaultReporter extends Reporter {
   }
   onFinish(suite: TestSuite): void {
     const result = suite.pass
-      ? chalk`{green ✔ Pass} `
+      ? chalk`{green ✔ Pass}`
       : chalk`{red ✖ Fail}`;
 
     console.log("");

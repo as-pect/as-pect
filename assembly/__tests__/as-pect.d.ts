@@ -28,7 +28,6 @@ declare function describe(description: string, callback: () => void): void;
  */
 declare function it(description: string, callback: () => void): void;
 
-
 /**
  * This function creates a test inside the given test group. It must be placed inside a describe
  * block.
@@ -99,7 +98,6 @@ declare function beforeAll(callback: () => void): void;
  */
 declare function afterEach(callback: () => void): void;
 
-
 /**
  * This function creates a callback that is called after the whole test group is run, and only
  * once.
@@ -121,13 +119,13 @@ declare function afterAll(callback: () => void): void;
  * Describes a value and returns an expectation to test the value.
  *
  * @type {T} - The expected type
- * @param {T} value - The value being tested.
+ * @param {T} expected - The value being tested.
  *
  * @example
  * expect<i32>(42).not.toBe(-1, "42 should not be -1");
  * expect<i32>(19 + 23).toBe(42, "19 + 23 should equal 42");
  */
-declare function expect<T>(value: T | null): Expectation<T>;
+declare function expect<T>(expected: T | null): Expectation<T>;
 
 /**
  * Describes a function and returns an expectation to test the function.
@@ -164,41 +162,41 @@ declare function todo(description: string): void;
 declare function log<T>(value: T | null): void;
 
 /**
- * An expectation for a value.
- */
+* An expectation for a value.
+*/
 declare class Expectation<T> {
+
   /**
    * Create a new expectation.
    *
-   * @param {T | null} value - The actual value of the expectation.
+   * @param {T | null} actual - The actual value of the expectation.
    */
-  constructor(value: T | null);
-
+  constructor(actual: T | null);
 
   /**
    * This expectation performs a strict equality on value types and reference types.
    *
-   * @param {T | null} value - The value to be compared.
+   * @param {T | null} expected - The value to be compared.
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
    * expect<i32>(42).not.toBe(-1, "42 should not be -1");
    * expect<i32>(19 + 23).toBe(42, "19 + 23 should equal 42");
    */
-  toBe(value: T | null, message?: string): void;
+  toBe(expected: T | null, message?: string): void;
 
   /**
    * This expectation performs a strict equality on value types and performs a memcompare on
    * reference types. If the reference type T has reference types as properties, the comparison does
    * not perform property traversal. It will only compare the pointer values in the memory block.
    *
-   * @param {T | null} value - The value to be compared.
+   * @param {T | null} expected - The value to be compared.
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
    * expect<Vec3>(new Vec3(1, 2, 3)).toStrictEqual(new Vec(1, 2, 3), "Vectors of the same shape should be equal");
    */
-  toStrictEqual(value: T | null, message?: string): void;
+  toStrictEqual(expected: T | null, message?: string): void;
 
   /**
    * If the value is callable, it calls the function, and fails the expectation if it throws, or hits
@@ -262,14 +260,14 @@ declare class Expectation<T> {
    * This expectation asserts that the value is greater than the expected value. Since operators can
    * be overloaded in assemblyscript, it's possible for this to work on reference types.
    *
-   * @param {T | null} value - The expected value that the actual value should be greater than.
+   * @param {T | null} expected - The expected value that the actual value should be greater than.
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
    * expect<i32>(10).toBeGreaterThan(4);
    * expect<i32>(12).not.toBeGreaterThan(42);
    */
-  toBeGreaterThan(value: T | null, message?: string): void;
+  toBeGreaterThan(expected: T | null, message?: string): void;
 
   /**
    * This expectation asserts that the value is less than the expected value. Since operators can
@@ -282,7 +280,7 @@ declare class Expectation<T> {
    * expect<i32>(10).not.toBeLessThan(4);
    * expect<i32>(12).toBeLessThan(42);
    */
-  toBeLessThan(value: T | null, message?: string): void;
+  toBeLessThan(expected: T | null, message?: string): void;
 
   /**
    * This expectation asserts that the value is greater than or equal to the expected value. Since
@@ -298,7 +296,7 @@ declare class Expectation<T> {
    * expect<i32>(10).toBeGreaterThanOrEqualTo(4);
    * expect<i32>(12).not.toBeGreaterThanOrEqualTo(42);
    */
-  toBeGreaterThanOrEqualTo(value: T | null, message?: string): void;
+  toBeGreaterThanOrEqualTo(expected: T | null, message?: string): void;
 
   /**
    * This expectation asserts that the value is less than or equal to the expected value. Since
@@ -314,18 +312,49 @@ declare class Expectation<T> {
    * expect<i32>(10).not.toBeLessThanOrEqualTo(4);
    * expect<i32>(12).toBeLessThanOrEqualTo(42);
    */
-  toBeLessThanOrEqualTo(value: T | null, message?: string): void;
+  toBeLessThanOrEqualTo(expected: T | null, message?: string): void;
+
+  /**
+   * This expectation asserts that the value is close to another value. Both numbers must be finite,
+   * and T must extend f64 or f32.
+   *
+   * @param {T extends f64 | f32} value - The expected value to be close to.
+   * @param {i32} decimalPlaces - The number of decimal places used to calculate epsilon. Default is
+   * 2.
+   * @param {string} message - The optional message that describes this expectation.
+   */
+  toBeCloseTo(expected: T, decimalPlaces?: number, message?: string): void;
+
+  /**
+   * This function asserts the float type value is NaN.
+   *
+   * @param {string} message - The optional message the describes this expectation.
+   * @example
+   * expect<f64>(NaN).toBeNaN();
+   * expect<f32>(42).not.toBeNaN();
+   */
+  toBeNaN(message?: string): void;
+
+  /**
+   * This function asserts a float is finite.
+   *
+   * @param {string} message - The optional message the describes this expectation.
+   * @example
+   * expect<f32>(42).toBeFinite();
+   * expect<f64>(Infinity).not.toBeFinite();
+   */
+  toBeFinite(message?: string): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
-   *
-   * @type {Expectation<T>}
-   */
+    *
+    * @type {Expectation<T>}
+    */
   not: Expectation<T>;
 
   /**
-   * The actual value of the expectation.
-   */
-  value: T | null;
-  private _not: bool;
+  * The actual value of the expectation.
+  */
+  actual: T | null;
+  private _not: boolean;
 }

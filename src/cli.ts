@@ -1,7 +1,7 @@
 
 import chalk from "chalk";
 import path from "path";
-import { IConfiguration } from "./util/IConfiguration";
+import { IConfiguration, ICompilerFlags } from "./util/IConfiguration";
 import glob from "glob";
 import yargsparser from "yargs-parser";
 import uniq from "lodash.uniq";
@@ -69,7 +69,7 @@ export function asp(args: string[]) {
     }
 
     // create the types file if it doesn't exist for typescript tooling users
-    const typesFileSource = path.join(__dirname, "..", "init", "as-pect.d.ts");
+    const typesFileSource = path.join(__dirname, "..", "assembly", "__tests__", "as-pect.d.ts");
     const typesFile = path.join(testFolder, "as-pect.d.ts");
     if (!fs.existsSync(typesFile)) {
       console.log(chalk`[Log] Creating file: assembly/__tests__/as-pect.d.ts`);
@@ -112,10 +112,10 @@ export function asp(args: string[]) {
     );
     console.log(chalk`{bgWhite.black [Log]} using configuration ${configurationPath}`);
 
-    let configuration: IConfiguration | null = null;
+    let configuration: IConfiguration = {};
 
     try {
-      configuration = require(configurationPath);
+      configuration = require(configurationPath) || {};
     } catch (ex) {
       console.log("");
       console.log(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${configurationPath}]}.`);
@@ -129,26 +129,42 @@ export function asp(args: string[]) {
       process.exit(1);
     }
 
-    const reporter = configuration!.reporter || new DefaultReporter();
-    // include all the file globs
-    console.log(`including files ${configuration!.include.join(", ")}`);
+    const reporter = configuration.reporter || new DefaultReporter();
+    const include: string[] = configuration.include || ["assembly/__tests__/**/*.spec.ts"];
+    const add: string[] = configuration.add || ["assembly/__tests__/**/*.include.ts"];
+    const flags: ICompilerFlags = configuration.flags || {
+      "--validate": [],
+      "--debug": [],
+      "--measure": [],
+      /** This is required. Do not change this. */
+      "--binaryFile": ["output.wasm"],
+    };
+    const disclude: RegExp[] = configuration.disclude || [];
 
-    let files: string[] = [];
+    // include all the file globs
+    console.log(`including files ${include.join(", ")}`);
+
+    let testEntryFiles: string[] = [];
+    let addedTestEntryFiles: string[] = [];
+
 
     // for each pattern
-    for (const pattern of configuration!.include) {
+    for (const pattern of include) {
+      // push all the resulting files so that each file gets tested individually
+      testEntryFiles.push(...glob.sync(pattern));
+    }
 
-      // push all the resulting files
-      files.push(...glob.sync(pattern));
+    for (const pattern of add) {
+      // push all the added files to the added entry point list
+      addedTestEntryFiles.push(...glob.sync(pattern));
     }
 
     // remove duplicate file locations
-    files = uniq(files);
+    testEntryFiles = uniq(testEntryFiles);
 
     // run the regex tests to find excluded tests
-    const disclude: RegExp[] = configuration!.disclude || [];
     disclude.forEach(regexp => {
-      files = files.filter(file => !regexp.test(file));
+      testEntryFiles = testEntryFiles.filter(file => !regexp.test(file));
     });;
 
     // loop over each file and create a binary, index it on binaries
@@ -158,23 +174,25 @@ export function asp(args: string[]) {
     const entryPath = path.join(__dirname, "../assembly/index.ts");
     const relativeEntryPath = path.relative(process.cwd(), entryPath);
 
+    // add the relativeEntryPath of as-pect to the list of compiled files for each test
+    addedTestEntryFiles.push(relativeEntryPath);
+
     // Create a test runner, and run each test
     let failed = false;
-    let count = files.length;
+    let count = testEntryFiles.length;
     const runner = new TestRunner();
 
+    // create the array of compiler flags from the flags object
+    const flagList: string[] = Object.entries(flags).reduce((args: string[], [flag, options]) => {
+      return args.concat(flag, options);
+    }, []);
+
     // for each file, synchronously run each test
-    files.forEach((file: string, i: number) => {
-      console.log(`Compiling: ${file} ${(i + 1).toString()} / ${files.length.toString()}`);
+    testEntryFiles.forEach((file: string, i: number) => {
+      console.log(`Compiling: ${file} ${(i + 1).toString()} / ${testEntryFiles.length.toString()}`);
 
       // TODO: add compiler options?
-      asc.main([
-        file, relativeEntryPath,
-        "--validate",
-        "--debug",
-        "--measure",
-        "--binaryFile", "output.wasm",
-      ], {
+      asc.main([file, ...addedTestEntryFiles, ...flagList], {
         // @ts-ignore: this is fine
         stdout: process.stdout,
         // @ts-ignore: this is fine
