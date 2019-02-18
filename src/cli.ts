@@ -69,7 +69,7 @@ export function asp(args: string[]) {
     }
 
     // create the types file if it doesn't exist for typescript tooling users
-    const typesFileSource = path.join(__dirname, "..", "init", "as-pect.d.ts");
+    const typesFileSource = path.join(__dirname, "..", "assembly", "__tests__", "as-pect.d.ts");
     const typesFile = path.join(testFolder, "as-pect.d.ts");
     if (!fs.existsSync(typesFile)) {
       console.log(chalk`[Log] Creating file: assembly/__tests__/as-pect.d.ts`);
