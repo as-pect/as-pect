@@ -23,6 +23,11 @@ declare function reportAfterAll(callback: () => void): void;
 declare function reportTodo(description: string): void;
 
 // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "debug")
+@global
+export declare function debug(): void;
+
+// @ts-ignore: Decorators *are* valid here!
 @global
 export function todo(description: string): void {
   reportTodo(description);

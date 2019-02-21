@@ -136,6 +136,7 @@ export function asp(args: string[]) {
       "--validate": [],
       "--debug": [],
       "--measure": [],
+      "--sourceMap":[],
       /** This is required. Do not change this. */
       "--binaryFile": ["output.wasm"],
     };

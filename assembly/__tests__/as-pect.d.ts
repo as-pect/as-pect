@@ -358,3 +358,8 @@ declare class Expectation<T> {
   actual: T | null;
   private _not: boolean;
 }
+
+/**
+ * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
+ */
+declare function debug(): void;

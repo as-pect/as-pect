@@ -85,6 +85,7 @@ export class TestRunner {
     };
     imports.__aspect = {
       clearExpected: this.clearExpected.bind(this),
+      debug: this.debug.bind(this),
       tryCall: this.tryCall.bind(this),
       logNull: this.logNull.bind(this),
       logReference: this.logReference.bind(this),
@@ -643,6 +644,13 @@ export class TestRunner {
     this.actual = null;
     this.stack = "";
   }
+
+  /**
+   * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
+   */
+   debug(): void {
+     debugger;
+   }
 
   /**
    * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
