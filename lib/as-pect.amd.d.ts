@@ -513,6 +513,10 @@ declare module "test/TestRunner" {
          */
         clearExpected(): void;
         /**
+         * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
+         */
+        debug(): void;
+        /**
          * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
          * reasons.
          *
