@@ -29,6 +29,24 @@ declare function describe(description: string, callback: () => void): void;
 declare function it(description: string, callback: () => void): void;
 
 /**
+ * A test that does not run, and is longhand equivalent to using todo function without a
+ * callback. This test does not get run and is reported like a todo.
+ *
+ * @param {string} description - This is the name of the test, and should describe a behavior.
+ * @param {string} callback - A function that contains a set of expectations for this test.
+ */
+declare function xit(description: string, callback: () => void): void;
+
+/**
+ * A test that does not run, and is longhand equivalent to using todo function without a
+ * callback. This test does not get run and is reported like a todo.
+ *
+ * @param {string} description - This is the name of the test, and should describe a behavior.
+ * @param {string} callback - A function that contains a set of expectations for this test.
+ */
+declare function xtest(description: string, callback: () => void): void;
+
+/**
  * This function creates a test inside the given test group. It must be placed inside a describe
  * block.
  *
@@ -363,5 +381,3 @@ declare class Expectation<T> {
  * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
  */
 declare function debug(): void;
-
-declare function isNullable<T>(): bool;

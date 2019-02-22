@@ -35,6 +35,18 @@ export function todo(description: string): void {
 
 // @ts-ignore: decorators *are* valid here
 @global
+export function xit(description: string, callback: () => void): void {
+  todo(description);
+}
+
+// @ts-ignore: decorators *are* valid here
+@global
+export function xtest(description: string, callback: () => void): void {
+  todo(description);
+}
+
+// @ts-ignore: decorators *are* valid here
+@global
 export function it(description: string, runner: () => void): void {
   test(description, runner);
 }

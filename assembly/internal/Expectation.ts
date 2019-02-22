@@ -269,12 +269,12 @@ export class Expectation<T> {
 
     // Compare float types
     if (isFloat<T>(this.actual)) {
-      assert(!isNaN<T>(expected!), "Value comparison fails, expected value is NaN.");
+      assert(!isNaN<T>(expected), "Value comparison fails, expected value is NaN.");
       assert(!isNaN<T>(this.actual), "Value comparison fails, actual value is NaN.");
     }
 
     // do actual greater than comparison
-    assert(this._not ^ i32(this.actual! > expected!), message);
+    assert(this._not ^ i32(this.actual > expected), message);
     this.cleanup();
   }
 
@@ -291,38 +291,34 @@ export class Expectation<T> {
 
     // Compare float types
     if (isFloat<T>(this.actual)) {
-      assert(!isNaN<T>(expected!), "Value comparison fails, expected value is NaN.");
+      assert(!isNaN<T>(expected), "Value comparison fails, expected value is NaN.");
       assert(!isNaN<T>(this.actual), "Value comparison fails, actual value is NaN.");
     }
 
-    // do actual greater than comparison
-    assert(this._not ^ i32(this.actual! >= expected!), message);
+    // do actual greater than or equal to comparison
+    assert(this._not ^ i32(this.actual >= expected), message);
     this.cleanup();
   }
 
-
   @inline
   public toBeLessThan(expected: T, message: string = ""): void {
-    // report the values
     this.reportActual();
     this.reportExpected(expected);
 
-    if (isNullable<T>()) {
+    if (isReference<T>()) {
       // Perform reference type null checks
-      if (isReference<T>()) {
-        assert(expected != null, "Reference comparison fails, expected value is null.");
-        assert(this.actual != null, "Reference comparison fails, actual value is null.");
-      }
+      assert(expected != null, "Nullable comparison fails, expected value is null.");
+      assert(this.actual != null, "Nullable comparison fails, actual value is null.");
     }
 
     // Compare float types
     if (isFloat<T>(this.actual)) {
-      assert(!isNaN<T>(expected!), "Value comparison fails, expected value is NaN.");
+      assert(!isNaN<T>(expected), "Value comparison fails, expected value is NaN.");
       assert(!isNaN<T>(this.actual), "Value comparison fails, actual value is NaN.");
     }
 
     // do actual less than comparison
-    assert(this._not ^ i32(this.actual! < expected!), message);
+    assert(this._not ^ i32(this.actual < expected), message);
     this.cleanup();
   }
 
@@ -331,22 +327,20 @@ export class Expectation<T> {
     this.reportActual();
     this.reportExpected(expected);
 
-    if (isNullable<T>()) {
+    if (isReference<T>()) {
       // Perform reference type null checks
-      if (isReference<T>()) {
-        assert(expected != null, "Reference comparison fails, expected value is null.");
-        assert(this.actual != null, "Reference comparison fails, actual value is null.");
-      }
+      assert(expected != null, "Nullable comparison fails, expected value is null.");
+      assert(this.actual != null, "Nullable comparison fails, actual value is null.");
     }
 
     // Compare float types
     if (isFloat<T>(this.actual)) {
-      assert(!isNaN<T>(expected!), "Value comparison fails, expected value is NaN.");
+      assert(!isNaN<T>(expected), "Value comparison fails, expected value is NaN.");
       assert(!isNaN<T>(this.actual), "Value comparison fails, actual value is NaN.");
     }
 
-    // do actual less than or equal to comparison
-    assert(this._not ^ i32(this.actual! <= expected!), message);
+    // do actual less than comparison
+    assert(this._not ^ i32(this.actual <= expected), message);
     this.cleanup();
   }
 
@@ -354,7 +348,7 @@ export class Expectation<T> {
   public toBeNull(message: string = ""): void {
     this.reportActual();
     reportExpectedNull(this._not);
-    if (isNullable<T>()) {
+    if (isReference<T>()) {
       assert(this._not ^ i32(this.actual == null), message);
     } else {
       /**
@@ -382,10 +376,10 @@ export class Expectation<T> {
       assert(isFloat<T>(this.actual), "toBeCloseTo assertion must be called on a float value.");
 
       // actual must be finite
-      assert(isFinite<T>(this.actual!), "toBeCloseTo assertion fails because a actual value is not finite");
+      assert(isFinite<T>(this.actual), "toBeCloseTo assertion fails because a actual value is not finite");
 
       // expected must be finite
-      assert(isFinite<T>(expected!), "toBeCloseTo assertion fails because expected value is not finite.");
+      assert(isFinite<T>(expected), "toBeCloseTo assertion fails because expected value is not finite.");
 
       /**
        * isCloseTo assertion is calculated by using the formula `|expected - actual| < epsilon`.
@@ -413,7 +407,7 @@ export class Expectation<T> {
       // must be a float value
       assert(isFloat<T>(this.actual), "toBeNaN assertion must be called on a float value.");
 
-      let isnan: bool = isNaN<T>(this.actual!);
+      let isnan: bool = isNaN<T>(this.actual);
 
       // Perform the actual isClose assertion
       assert(this._not ^ i32(isnan), message);
@@ -435,7 +429,7 @@ export class Expectation<T> {
       // must be a float value
       assert(isFloat<T>(this.actual), "toBeFinite must only be called with float value types.");
 
-      let finite: bool = isFinite<T>(this.actual!);
+      let finite: bool = isFinite<T>(this.actual);
 
       // perfor the actual assertion
       assert(this._not ^ i32(finite), message);
@@ -477,33 +471,33 @@ export class Expectation<T> {
   }
 
   /**
-   * This function performs reporting to javascript what the actual value of this expectation is.
+   * This function performs reporting to javascript what the expected value of this expectation is.
    */
   private reportExpected(expected: T): void {
     // if T is a reference type...
     if (isReference<T>()) {
       // check to see if it's null
       if (expected == null) {
-        reportActualNull();
+        reportExpectedNull(this._not);
         // otherwise it might be a string
       } else if (expected instanceof String) {
         // @ts-ignore this is already a string, and we can pass up the string reference quickly
-        reportActualString(<string>expected);
+        reportExpectedString(<string>expected, this._not);
         // it also might be an array buffer
       } else if (expected instanceof ArrayBuffer) {
         // reporting the reference is as simple as using the pointer and the byteLength property.
-        reportActualReference<usize>(expected.data, expected.byteLength);
+        reportExpectedReference<usize>(expected.data, expected.byteLength, this._not);
       } else {
         // otherwise report the reference in a default way
-        reportActualReference<T>(expected, offsetof<T>());
+        reportExpectedReference<T>(expected, offsetof<T>(), this._not);
       }
     } else {
       if (isFloat<T>()) {
         // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
-        reportActualFloat(<f64>expected);
+        reportExpectedFloat(<f64>expected, this._not);
       } else {
         // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
-        reportActualInteger(<i32>expected);
+        reportExpectedInteger(<i32>expected, this._not);
       }
     }
   }
@@ -513,6 +507,9 @@ export class Expectation<T> {
    * Expectation<T> reference to prevent memory leaks.
    */
   private cleanup(): void {
+    /**
+     * This method clears the actual and expected values from the expectation from the host's cache.
+     */
     clearExpected();
     if (!isManaged<Expectation<T>>()) {
       memory.free(changetype<usize>(this));
