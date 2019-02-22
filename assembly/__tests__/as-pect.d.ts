@@ -118,14 +118,14 @@ declare function afterAll(callback: () => void): void;
 /**
  * Describes a value and returns an expectation to test the value.
  *
- * @type {T} - The expected type
- * @param {T} expected - The value being tested.
+ * @type {T} - The test's type
+ * @param {T} actual - The value being tested.
  *
  * @example
  * expect<i32>(42).not.toBe(-1, "42 should not be -1");
  * expect<i32>(19 + 23).toBe(42, "19 + 23 should equal 42");
  */
-declare function expect<T>(expected: T | null): Expectation<T>;
+declare function expect<T>(actual: T | null): Expectation<T>;
 
 /**
  * Describes a function and returns an expectation to test the function.

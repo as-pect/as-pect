@@ -10,33 +10,33 @@ declare function clearExpected(): void;
 @external("__aspect", "reportActualNull")
 declare function reportActualNull(): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedNull")
 declare function reportExpectedNull(negated: i32): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualValue")
 declare function reportActualFloat(value: f64): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualValue")
 declare function reportActualInteger(value: i32): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedValue")
 declare function reportExpectedFloat(value: f64, negated: i32): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedValue")
 declare function reportExpectedInteger(value: i32, negated: i32): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualReference")
-declare function reportActualReference(value: usize, offset: i32): void;
+declare function reportActualReference<T>(value: T, offset: i32): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedReference")
-declare function reportExpectedReference(value: usize, offset: i32, negated: i32): void;
+declare function reportExpectedReference<T>(value: T, offset: i32, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualString")
@@ -261,12 +261,10 @@ export class Expectation<T> {
     this.reportActual();
     this.reportExpected(expected);
 
-    if (isNullable<T>()) {
+    if (isReference<T>()) {
       // Perform reference type null checks
-      if (isReference<T>()) {
-        assert(expected != null, "Reference comparison fails, expected value is null.");
-        assert(this.actual != null, "Reference comparison fails, actual value is null.");
-      }
+      assert(expected != null, "Nullable comparison fails, expected value is null.");
+      assert(this.actual != null, "Nullable comparison fails, actual value is null.");
     }
 
     // Compare float types
@@ -282,16 +280,13 @@ export class Expectation<T> {
 
   @inline
   public toBeGreaterThanOrEqualTo(expected: T, message: string = ""): void {
-    // report the values
     this.reportActual();
     this.reportExpected(expected);
 
-    if (isNullable<T>()) {
+    if (isReference<T>()) {
       // Perform reference type null checks
-      if (isReference<T>()) {
-        assert(expected != null, "Reference comparison fails, expected value is null.");
-        assert(this.actual != null, "Reference comparison fails, actual value is null.");
-      }
+      assert(expected != null, "Nullable comparison fails, expected value is null.");
+      assert(this.actual != null, "Nullable comparison fails, actual value is null.");
     }
 
     // Compare float types
@@ -300,10 +295,11 @@ export class Expectation<T> {
       assert(!isNaN<T>(this.actual), "Value comparison fails, actual value is NaN.");
     }
 
-    // do actual greater than or equal to comparison
+    // do actual greater than comparison
     assert(this._not ^ i32(this.actual! >= expected!), message);
     this.cleanup();
   }
+
 
   @inline
   public toBeLessThan(expected: T, message: string = ""): void {
@@ -448,56 +444,66 @@ export class Expectation<T> {
     }
   }
 
+  /**
+   * This function performs reporting to javascript what the actual value of this expectation is.
+   */
   private reportActual(): void {
-    if (isNullable<T>()) {
-      if (this.actual instanceof String) {
-        if (this.actual == null) {
-          reportActualNull();
-        } else {
-          // @ts-ignore this is already a string
-          reportActualString(<string>this.actual);
-        }
-      } else if (isReference<T>()) {
-        if (this.actual == null) {
-          reportActualNull();
-        } else {
-          reportActualReference(changetype<usize>(this.actual), offsetof<T>());
-        }
+    // if T is a reference type...
+    if (isReference<T>()) {
+      // check to see if it's null
+      if (this.actual == null) {
+        reportActualNull();
+        // otherwise it might be a string
+      } else if (this.actual instanceof String) {
+        // @ts-ignore this is already a string, and we can pass up the string reference quickly
+        reportActualString(<string>this.actual);
+        // it also might be an array buffer
+      } else if (this.actual instanceof ArrayBuffer) {
+        // reporting the reference is as simple as using the pointer and the byteLength property.
+        reportActualReference<usize>(this.actual.data, this.actual.byteLength);
+      } else {
+        // otherwise report the reference in a default way
+        reportActualReference<T>(this.actual, offsetof<T>());
       }
     } else {
       if (isFloat<T>()) {
-        // @ts-ignore: this cast is valid because it's already a float
+        // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
         reportActualFloat(<f64>this.actual);
       } else {
-        // @ts-ignore: this cast is valid because it's already an integer
+        // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
         reportActualInteger(<i32>this.actual);
       }
     }
   }
 
+  /**
+   * This function performs reporting to javascript what the actual value of this expectation is.
+   */
   private reportExpected(expected: T): void {
-    if (isNullable<T>()) {
-      if (this.actual instanceof String) {
-        if (this.actual == null) {
-          reportExpectedNull(this._not);
-        } else {
-          // @ts-ignore: this cast is valid because it's already a string
-          reportExpectedString(<string>expected, this._not);
-        }
-      } else if (isReference<T>()) {
-        if (expected == null) {
-          reportExpectedNull(this._not);
-        } else {
-          reportExpectedReference(changetype<usize>(expected), offsetof<T>(), this._not);
-        }
+    // if T is a reference type...
+    if (isReference<T>()) {
+      // check to see if it's null
+      if (expected == null) {
+        reportActualNull();
+        // otherwise it might be a string
+      } else if (expected instanceof String) {
+        // @ts-ignore this is already a string, and we can pass up the string reference quickly
+        reportActualString(<string>expected);
+        // it also might be an array buffer
+      } else if (expected instanceof ArrayBuffer) {
+        // reporting the reference is as simple as using the pointer and the byteLength property.
+        reportActualReference<usize>(expected.data, expected.byteLength);
+      } else {
+        // otherwise report the reference in a default way
+        reportActualReference<T>(expected, offsetof<T>());
       }
     } else {
       if (isFloat<T>()) {
-        // @ts-ignore: this cast is valid because it's already a float
-        reportExpectedFloat(<f64>expected, this._not);
+        // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
+        reportActualFloat(<f64>expected);
       } else {
-        // @ts-ignore: this cast is valid because it's already an integer
-        reportExpectedInteger(<i32>expected, this._not);
+        // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
+        reportActualInteger(<i32>expected);
       }
     }
   }
