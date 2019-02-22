@@ -225,14 +225,14 @@ export function asp(args: string[]) {
           console.log(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
           console.error(error);
           count -= 1;
-          return 0;
+          process.exit(1);
         }
 
         // if the binary wasn't emitted, stop the test suite
         if (!binaries[i]) {
           console.log(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
           count -= 1;
-          return 0;
+          process.exit(1);
         }
 
         // call run buffer because it's already compiled

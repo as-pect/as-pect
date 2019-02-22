@@ -363,3 +363,5 @@ declare class Expectation<T> {
  * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
  */
 declare function debug(): void;
+
+declare function isNullable<T>(): bool;
