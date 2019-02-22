@@ -87,6 +87,10 @@ declare module "test/TestResult" {
          * The generated stack trace if the test errored.
          */
         stack: string | null;
+        /**
+         * This value is set to true if the test is expected to throw.
+         */
+        negated: boolean;
     }
 }
 declare module "test/TestGroup" {
@@ -170,6 +174,11 @@ declare module "test/TestGroup" {
          * The logged items in the current testGroup.
          */
         log: LogValue[];
+        throws: boolean[];
+        /**
+         * This is the message to be displayed if the test is expected to fail, and it does not.
+         */
+        testMessages: number[];
     }
 }
 declare module "test/TestSuite" {
@@ -408,6 +417,15 @@ declare module "test/TestRunner" {
          * @param {number} callback - The test's function.
          */
         reportTest(testNamePointer: number, callback: number): void;
+        /**
+         * This web assembly linked function is responsible for reporting tests that are expected
+         * to fail. This is useful for verifying that specific application states will throw.
+         *
+         * @param {number} testNamePointer - The test's name pointer.
+         * @param {number} callback - The test's function.
+         * @param {number} message - The message associated with this test if it does not throw.
+         */
+        reportNegatedTest(testNamePointer: number, callback: number, message: number): void;
         /**
          * This web assembly linked function sets the group's "beforeEach" callback pointer.
          *

@@ -12,6 +12,14 @@ describe("unreachable", (): void => {
   });
 
   /**
+   * This test verifies that a throws function is successful despite being unreachable.
+   */
+  throws("garunteed unreachable", (): void => {
+    counter = 1;
+    unreachable();
+  }, "This test should throw");
+
+  /**
    * This test verifies that an unreachable() instruction causes the toThrow assertion to
    * be valid.
    */

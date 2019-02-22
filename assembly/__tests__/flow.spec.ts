@@ -40,6 +40,11 @@ describe("example test", (): void => {
     expect<i32>(1).toBe(1);
     testCount += 1;
   });
+
+  throws("this test should run", (): void => {
+    testCount += 1;
+    unreachable();
+  });
 });
 
 
@@ -51,10 +56,10 @@ describe("example test", (): void => {
 describe("flow", (): void => {
   /**
    * The beforeEach function runs before each test, therefore we should expect the beforeEachRan
-   * value to be exactly 3.
+   * value to be exactly 4.
    */
   it("should call beforeEach twice", (): void => {
-    expect<i32>(beforeEachRan).toBe(3);
+    expect<i32>(beforeEachRan).toBe(4);
   });
 
   /**
@@ -67,10 +72,10 @@ describe("flow", (): void => {
 
   /**
    * The afterEach function runs before each test, therefore we should expect the afterEachRan
-   * value to be exactly 3.
+   * value to be exactly 4.
    */
   it("should call afterEach twice", (): void => {
-    expect<i32>(afterEachRan).toBe(3);
+    expect<i32>(afterEachRan).toBe(4);
   });
 
   /**
@@ -82,9 +87,9 @@ describe("flow", (): void => {
   });
 
   /**
-   * Since there are 3 tests, we should expect the the test count to be 3.
+   * Since there are 4 tests, we should expect the the test count to be 4.
    */
-  it("should call all 3 tests", (): void => {
-    expect<i32>(testCount).toBe(3);
+  it("should call all 4 tests", (): void => {
+    expect<i32>(testCount).toBe(4);
   });
 });

@@ -103,8 +103,10 @@ export class DefaultReporter extends Reporter {
     } else {
       console.log(chalk`    {red [Fail]: ✖} ${test.testName}`);
       console.log("");
-      console.log(`   [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}`);
-      console.log(` [Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}`);
+      if (!test.negated) {
+        console.log(`   [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}`);
+        console.log(` [Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}`);
+      }
 
       if (test.message) {
         console.log(chalk`  [Message]: {yellow ${test.message}}`);

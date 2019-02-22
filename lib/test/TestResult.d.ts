@@ -33,5 +33,9 @@ export declare class TestResult {
      * The generated stack trace if the test errored.
      */
     stack: string | null;
+    /**
+     * This value is set to true if the test is expected to throw.
+     */
+    negated: boolean;
 }
 //# sourceMappingURL=TestResult.d.ts.map

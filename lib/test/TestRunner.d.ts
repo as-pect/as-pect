@@ -118,6 +118,15 @@ export declare class TestRunner {
      */
     reportTest(testNamePointer: number, callback: number): void;
     /**
+     * This web assembly linked function is responsible for reporting tests that are expected
+     * to fail. This is useful for verifying that specific application states will throw.
+     *
+     * @param {number} testNamePointer - The test's name pointer.
+     * @param {number} callback - The test's function.
+     * @param {number} message - The message associated with this test if it does not throw.
+     */
+    reportNegatedTest(testNamePointer: number, callback: number, message: number): void;
+    /**
      * This web assembly linked function sets the group's "beforeEach" callback pointer.
      *
      * @param {number} callbackPointer - The callback that should run before each test.

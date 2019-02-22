@@ -2,7 +2,7 @@
  * This function creates a test group in the test loader.
  *
  * @param {string} description  - This is the name of the test group.
- * @param {function} callback - A function that contains all of the closures for this test group.
+ * @param {() => void} callback - A function that contains all of the closures for this test group.
  *
  * @example
  * describe("my test suite", (): void => {
@@ -16,7 +16,7 @@ declare function describe(description: string, callback: () => void): void;
  * block.
  *
  * @param {string} description - This is the name of the test, and should describe a behavior.
- * @param {string} callback - A function that contains a set of expectations for this test.
+ * @param {() => void} callback - A function that contains a set of expectations for this test.
  *
  * @example
  * describe("the meaning of life", (): void => {
@@ -33,7 +33,7 @@ declare function it(description: string, callback: () => void): void;
  * callback. This test does not get run and is reported like a todo.
  *
  * @param {string} description - This is the name of the test, and should describe a behavior.
- * @param {string} callback - A function that contains a set of expectations for this test.
+ * @param {() => void} callback - A function that contains a set of expectations for this test.
  */
 declare function xit(description: string, callback: () => void): void;
 
@@ -42,7 +42,7 @@ declare function xit(description: string, callback: () => void): void;
  * callback. This test does not get run and is reported like a todo.
  *
  * @param {string} description - This is the name of the test, and should describe a behavior.
- * @param {string} callback - A function that contains a set of expectations for this test.
+ * @param {() => void} callback - A function that contains a set of expectations for this test.
  */
 declare function xtest(description: string, callback: () => void): void;
 
@@ -51,7 +51,7 @@ declare function xtest(description: string, callback: () => void): void;
  * block.
  *
  * @param {string} description - This is the name of the test, and should describe a behavior.
- * @param {string} callback - A function that contains a set of expectations for this test.
+ * @param {() => void} callback - A function that contains a set of expectations for this test.
  *
  * @example
  * describe("the meaning of life", (): void => {
@@ -62,6 +62,23 @@ declare function xtest(description: string, callback: () => void): void;
  * });
  */
 declare function test(description: string, callback: () => void): void;
+
+/**
+ * This function creates a test that is expected to fail. This is useful to verify if a given
+ * behavior is expected to throw.
+ *
+ * @param {string} description - This is the name of the test, and should describe a behavior.
+ * @param {() => void} callback - A function that contains a set of expectations for this test.
+ * @param {string?} message - A message that describes why the test should fail.
+ * @example
+ * describe("the meaning of life", (): void => {
+  *   throws("the value should be 42", (): void => {
+  *     // put your expectations here
+  *     expect<i32>(29 + 13).toBe(42);
+  *   });
+  * });
+  */
+ declare function throws(description: string, callback: () => void, message?: string): void;
 
 /**
  * This function creates a callback that is called before each individual test is run in this test

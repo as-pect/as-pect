@@ -79,4 +79,9 @@ export class TestGroup {
    * The logged items in the current testGroup.
    */
   log: LogValue[] = [];
+  throws: boolean[] = [];
+  /**
+   * This is the message to be displayed if the test is expected to fail, and it does not.
+   */
+  testMessages: number[] = [];
 }
