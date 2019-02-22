@@ -20,11 +20,9 @@ describe("LessThan (<)", (): void => {
   /**
    * This test verifies the negated version of the previous test actually throws an error.
    */
-  it("should throw when the expected value is less than the actual value", (): void => {
-    expectFn((): void => {
+  throws("should throw when the expected value is less than the actual value", (): void => {
       expect<i32>(0).not.toBeLessThan(42);
-    }).toThrow("Negated toBeLessThan assertions should throw when the actual value is less than the expected value.");
-  });
+  }, "Negated toBeLessThan assertions should throw when the actual value is less than the expected value.");
 
   /**
    * This test is the contrapositive of the first test, and should be valid as well.
@@ -36,11 +34,9 @@ describe("LessThan (<)", (): void => {
   /**
    * This test verifies that the negated version of the previous test actualy throws an error.
    */
-  it("should throw when the expected value is not less than the actual value", (): void => {
-    expectFn((): void => {
-      expect<i32>(42).toBeLessThan(0);
-    }).toThrow("It should throw when the actual value is less than the expected value.")
-  });
+  throws("should throw when the expected value is not less than the actual value", (): void => {
+    expect<i32>(42).toBeLessThan(0);
+  }, "It should throw when the actual value is less than the expected value.");
 
   /**
    * This test verifies that when values are equal, the negated expectation is successful.
@@ -52,29 +48,23 @@ describe("LessThan (<)", (): void => {
   /**
    * This test verifies that when values are equal, the expectation throws.
    */
-  it("should throw when the values are equal", (): void => {
-    expectFn((): void => {
-      expect<i32>(42).toBeLessThan(42);
-    }).toThrow("It should throw when the actual value equals the expected value.");
-  });
+  throws("should throw when the values are equal", (): void => {
+    expect<i32>(42).toBeLessThan(42);
+  }, "It should throw when the actual value equals the expected value.");
 
   /**
    * This test verifies that when the actual value is NaN, the expectation throws.
    */
-  it("should throw when the actual value is NaN", (): void => {
-    expectFn((): void => {
-      expect<f64>(NaN).toBeLessThan(0);
-    }).toThrow("It should throw when the actual value is NaN.");
-  });
+  throws("should throw when the actual value is NaN", (): void => {
+    expect<f64>(NaN).toBeLessThan(0);
+  }, "It should throw when the actual value is NaN.");
 
   /**
    * This test verifies that when the expected value is NaN, the expectation throws.
    */
-  it("should throw when the expected value is NaN", (): void => {
-    expectFn((): void => {
-      expect<f64>(0).toBeLessThan(NaN);
-    }).toThrow("It should throw when the expected value is NaN.");
-  });
+  throws("should throw when the expected value is NaN", (): void => {
+    expect<f64>(0).toBeLessThan(NaN);
+  }, "It should throw when the expected value is NaN.");
 
   /**
    * This test verifies that reference types can be less than others when operator overloading
@@ -88,18 +78,14 @@ describe("LessThan (<)", (): void => {
   /**
    * This test verifies that toBeLessThan throws when the actual value is null.
    */
-  it("should throw if the actual value is null", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(null).toBeLessThan(vec3);
-    }).toThrow("The toBeLessThan function should throw if the actual value is null.");
-  });
+  throws("should throw if the actual value is null", (): void => {
+    expect<Vec3>(null).toBeLessThan(vec3);
+  }, "The toBeLessThan function should throw if the actual value is null.");
 
   /**
    * This test verifies that toBeLessThan throws when the expected value is null.
    */
-  it("should throw if the expected value is null", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(vec3).toBeLessThan(null);
-    }).toThrow("The toBeLessThan function should throw if the expected value is null.");
-  });
+  throws("should throw if the expected value is null", (): void => {
+    expect<Vec3>(vec3).toBeLessThan(null);
+  }, "The toBeLessThan function should throw if the expected value is null.");
 });

@@ -17,11 +17,9 @@ describe("toBe", (): void => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  it("should throw if value types are equal", (): void => {
-    expectFn((): void => {
-      expect<i32>(42).not.toBe(42);
-    }).toThrow("Negated toBe assertions with equal values should throw.");
-  });
+  throws("should throw if value types are equal", (): void => {
+    expect<i32>(42).not.toBe(42);
+  }, "Negated toBe assertions with equal values should throw.");
 
   /**
    * This test validates value type expectations of inequality.
@@ -33,11 +31,9 @@ describe("toBe", (): void => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  it("should throw if value types are unequal", (): void => {
-    expectFn((): void => {
-      expect<i32>(0).toBe(42);
-    }).toThrow("toBe assertions with unequal values should throw.");
-  });
+  throws("should throw if value types are unequal", (): void => {
+    expect<i32>(0).toBe(42);
+  }, "toBe assertions with unequal values should throw.");
 
   /**
    * This test validates a reference equals itself.
@@ -49,11 +45,9 @@ describe("toBe", (): void => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  it("should throw if a reference is itself", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(vec1).not.toBe(vec1);
-    }).toThrow("Negated toBe assertions of equal pointers should throw");
-  });
+  throws("should throw if a reference is itself", (): void => {
+    expect<Vec3>(vec1).not.toBe(vec1);
+  }, "Negated toBe assertions of equal pointers should throw");
 
   /**
    * This test validates that a reference is not expected to be itself.
@@ -65,11 +59,9 @@ describe("toBe", (): void => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  it("should throw if a reference is itself", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(vec1).toBe(vec2);
-    }).toThrow("toBe assertions of unequal pointers should throw");
-  });
+  throws("should throw if a reference is itself", (): void => {
+    expect<Vec3>(vec1).toBe(vec2);
+  }, "toBe assertions of unequal pointers should throw");
 
   /**
    * It should validate a null reference is expected to be null.
@@ -81,11 +73,9 @@ describe("toBe", (): void => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  it("should throw if null is not expected to be null", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(null).not.toBe(null);
-    }).toThrow("Negated toBe expectations of null should throw.")
-  });
+  throws("should throw if null is not expected to be null", (): void => {
+    expect<Vec3>(null).not.toBe(null);
+  }, "Negated toBe expectations of null should throw.");
 
   /**
    * It should expect references not to be null.
@@ -97,37 +87,29 @@ describe("toBe", (): void => {
   /**
    * This test is the contrapositive to the previous test.
    */
-  it("should throw if reference type is not null", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(vec1).toBe(null);
-    }).toThrow("A reference type expection to throw if it's not null.");
-  });
+  throws("should throw if reference type is not null", (): void => {
+    expect<Vec3>(vec1).toBe(null);
+  }, "A reference type expection to throw if it's not null.");
 
   /**
    * NaN comparisons should always throw for actual values.
    */
-  it("should always throw if actual value is NaN", (): void => {
-    expectFn((): void => {
-      expect<f64>(NaN).toBe(0);
-    }).toThrow("An actual value can never be NaN.");
-  });
+  throws("should always throw if actual value is NaN", (): void => {
+    expect<f64>(NaN).toBe(0);
+  }, "An actual value can never be NaN, and never equals anything.");
 
   /**
    * NaN comparisons should always throw for expected values.
    */
-  it("should always throw if expected value is NaN", (): void => {
-    expectFn((): void => {
-      expect<f64>(0).toBe(NaN);
-    }).toThrow("An expected value can never be NaN.");
-  });
+  throws("should always throw if expected value is NaN", (): void => {
+    expect<f64>(0).toBe(NaN);
+  }, "An expected value can never be NaN, and never equals anything.");
 
   /**
    * NaN values should alway throw.
    */
-  it("should always throw if both values are NaN", (): void => {
-    expectFn((): void => {
-      expect<f64>(NaN).toBe(NaN);
-    }).toThrow("NaN is not ever equal to NaN.");
-  });
+  throws("should always throw if both values are NaN", (): void => {
+    expect<f64>(NaN).toBe(NaN);
+  }, "NaN is not ever equal to NaN.");
 });
 

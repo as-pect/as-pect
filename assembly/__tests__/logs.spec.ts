@@ -47,5 +47,5 @@ describe("logs", (): void => {
     log<Vec3>(null);
   });
 
-  todo("make a test!");
+  todo("This should be a valid todo.");
 });
