@@ -226,19 +226,28 @@ export class Expectation<T> {
     this.reportActual();
     reportExpectedFalsy(this._not);
 
-    if (isNullable<T>()) {
-      if (this.actual instanceof String) {
+    if (isReference<T>()) {
+      // if the reference is null
+      if (this.actual == null) {
+        // it should throw if it's not negated
+        assert(!this._not, message);
+      } else if (this.actual instanceof String) {
+        // it should throw if it's an empty string
         assert(this._not ^ i32(this.actual.length == 0), message);
-        return;
+      } else {
+        // it should throw it's not negated
+        assert(this._not, message);
+      }
+    } else {
+      if (isFloat<T>()) {
+        // @ts-ignore T is a float type
+        var isFalsy = isNaN<T>(this.actual) || this.actual == <T>0;
+        assert(this._not ^ i32(isFalsy), message);
+      } else {
+        assert(this._not ^ i32(!this.actual), message);
       }
     }
 
-    if (isReference<T>()) {
-      assert(this._not ^ i32(this.actual == null), message);
-      return;
-    }
-
-    assert(this._not ^ i32(!this.actual), message);
     this.cleanup();
   }
 
@@ -426,13 +435,13 @@ export class Expectation<T> {
       this.reportActual();
       reportExpectedFinite(this._not);
 
-      // must be a float value
-      assert(isFloat<T>(this.actual), "toBeFinite must only be called with float value types.");
-
-      let finite: bool = isFinite<T>(this.actual);
-
-      // perfor the actual assertion
-      assert(this._not ^ i32(finite), message);
+      if (isFloat<T>()) {
+        let finite: bool = isFinite<T>(this.actual);
+        assert(this._not ^ i32(finite), message);
+      } else {
+        // must be a float value
+        assert(false, "toBeFinite must only be called with float value types.");
+      }
 
       this.cleanup();
     }

@@ -32,9 +32,10 @@ describe("unreachable", (): void => {
   });
 
   /**
-   * This test validates that a negated toThrow assertion throws when the callback itself throws.
+   * This test validates that a negated toThrow assertion throws when the callback
+   * itself throws.
    */
-  it("should should throw", (): void => {
+  it("expectFn.not should throw if the callback throws", (): void => {
     expectFn((): void => {
       expectFn((): void => {
         counter = 1;
@@ -46,7 +47,7 @@ describe("unreachable", (): void => {
   /**
    * This test validates that a toThrow assertion throws when the callback does not throw.
    */
-  it("should should throw", (): void => {
+  it("expectFn should throw if the callback does not throw", (): void => {
     expectFn((): void => {
       expectFn((): void => {
         counter = 1;
