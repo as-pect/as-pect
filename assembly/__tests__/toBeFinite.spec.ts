@@ -16,29 +16,23 @@ describe("toBeFinite", (): void => {
   /**
    * This is the contrapositive version of the previous test.
    */
-  it("should throw if a normal float value is not finite", (): void => {
-    expectFn((): void => {
-      expect<f64>(10.0).not.toBeFinite();
-    }).toThrow("Normal float values should be finite.");
-  });
+  throws("should throw if a normal float value is not finite", (): void => {
+    expect<f64>(10.0).not.toBeFinite();
+  }, "Normal float values should be finite.");
 
   /**
    * This assertion should not be used with integer values.
    */
-  it("should throw for integer values", (): void => {
-    expectFn((): void => {
-      expect<i32>(0).toBeFinite();
-    }).toThrow("Integer types should cause this assertion to throw.");
-  });
+  throws("should throw for integer values", (): void => {
+    expect<i32>(0).toBeFinite();
+  }, "Integer types should cause this assertion to throw.");
 
   /**
    * This assertion should not be used with integer values even if the assertion is negated.
    */
-  it("should throw for integer values even if it's negated", (): void => {
-    expectFn((): void => {
-      expect<i32>(0).not.toBeFinite();
-    }).toThrow("Integer types should cause this assertion to throw.");
-  });
+  throws("should throw for integer values even if it's negated", (): void => {
+    expect<i32>(0).not.toBeFinite();
+  }, "Integer types should cause this assertion to throw.");
 
   /**
    * Infinity is never finite.
@@ -50,11 +44,9 @@ describe("toBeFinite", (): void => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  it("should throw if an actual infinity is expected to be finite", (): void => {
-    expectFn((): void => {
-      expect<f64>(Infinity).toBeFinite();
-    }).toThrow("Infinity is never finite.");
-  });
+  throws("should throw if an actual infinity is expected to be finite", (): void => {
+    expect<f64>(Infinity).toBeFinite();
+  }, "Infinity is never finite.");
 
   /**
    * NaN is never finite.
@@ -66,28 +58,22 @@ describe("toBeFinite", (): void => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  it("should throw if an actual NaN is expected to be finite", (): void => {
-    expectFn((): void => {
-      expect<f64>(NaN).toBeFinite();
-    }).toThrow("Infinity is never finite.");
-  });
+  throws("should throw if an actual NaN is expected to be finite", (): void => {
+    expect<f64>(NaN).toBeFinite();
+  }, "NaN is never finite.");
 
   /**
    * This test asserts reference types always throw when used with toBeFinite.
    */
-  it("should throw if a reference type is used with toBeFinite", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(null).toBeFinite();
-    }).toThrow("toBeFinite should throw when used with reference types.");
-  });
+  throws("should throw if a reference type is used with toBeFinite", (): void => {
+    expect<Vec3>(null).toBeFinite();
+  }, "toBeFinite should throw when used with reference types.");
 
   /**
    * This test asserts reference types always throw when used with toBeFinite, even if the
    * assertion is negated.
    */
-  it("should throw if a reference type is used with toBeFinite on a negated assertion", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(null).not.toBeFinite();
-    }).toThrow("toBeFinite should throw when used with reference types.");
-  });
+  throws("should throw if a reference type is used with toBeFinite on a negated assertion", (): void => {
+    expect<Vec3>(null).not.toBeFinite();
+  }, "toBeFinite should throw when used with reference types.");
 });

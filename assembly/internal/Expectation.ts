@@ -199,25 +199,36 @@ export class Expectation<T> {
     this.cleanup();
   }
 
-  /**
-   * This method expects values to be truthy.
-   *
-   * @param {string} message - The message that describes the expectation.
-   */
+
   @inline
   public toBeTruthy(message: string = ""): void {
     this.reportActual();
     reportExpectedTruthy(this._not);
 
-    if (isNullable<T>()) {
-      if (this.actual instanceof String) {
-        assert(this._not ^ i32(this.actual != null && this.actual.length > 0), message);
-        return;
+    if (isReference<T>()) {
+      // if the reference is null
+      if (this.actual == null) {
+        // it should throw if it's not negated
+        assert(this._not, message);
+      } else if (this.actual instanceof String) {
+        // it should throw if it's an empty string
+        assert(this._not ^ i32(this.actual.length != 0), message);
+      } else {
+        // it should throw it's negated
+        assert(!this._not, message);
+      }
+    } else {
+      if (isFloat<T>()) {
+        // @ts-ignore T is a float type
+        let isFalsy: bool = isNaN<T>(this.actual) || this.actual == <T>0;
+        assert(this._not ^ i32(!isFalsy), message);
+      } else {
+        // @ts-ignore: T is integer type and the cast is safe
+        let isFalsy: bool = this.actual == <T>0;
+        assert(this._not ^ i32(!isFalsy), message);
       }
     }
 
-    // value/reference truthiness, because a null reference will be 0
-    assert(this._not ^ i32(!!this.actual), message);
     this.cleanup();
   }
 

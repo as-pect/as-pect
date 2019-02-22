@@ -16,11 +16,9 @@ describe("toBeFalsy", (): void => {
   /**
    * This is the contrapositive of the previous test.
    */
-  it("should error if 0 is fasly", (): void => {
-    expectFn((): void => {
-      expect<i32>(0).not.toBeFalsy();
-    }).toThrow("0 is falsy");
-  });
+  throws("should error if 0 is fasly", (): void => {
+    expect<i32>(0).not.toBeFalsy();
+  }, "0 is falsy");
 
   /**
    * False should be falsy by definition.
@@ -32,11 +30,9 @@ describe("toBeFalsy", (): void => {
   /**
    * This is the contrapositive of the previous test.
    */
-  it("should throw if 0 is fasly", (): void => {
-    expectFn((): void => {
-      expect<bool>(false).not.toBeFalsy();
-    }).toThrow("false is falsy");
-  });
+  throws("should throw if 0 is fasly", (): void => {
+    expect<bool>(false).not.toBeFalsy();
+  }, "false is falsy");
 
   /**
    * Any value that is numerically not 0 should be truthy, and thus, not falsy.
@@ -48,11 +44,9 @@ describe("toBeFalsy", (): void => {
   /**
    * This is the contrapositive of the previous test.
    */
-  it("should throw if 1 is not fasly", (): void => {
-    expectFn((): void => {
-      expect<i32>(1).toBeFalsy();
-    }).toThrow("1 is not falsy");
-  });
+  throws("should throw if 1 is not fasly", (): void => {
+    expect<i32>(1).toBeFalsy();
+  }, "1 is not falsy");
 
   /**
    * True should not be falsy by definition.
@@ -64,11 +58,9 @@ describe("toBeFalsy", (): void => {
   /**
    * This is the contrapositive of the previous test.
    */
-  it("should throw if true is fasly", (): void => {
-    expectFn((): void => {
-      expect<bool>(true).toBeFalsy();
-    }).toThrow("true is not falsy");
-  });
+  throws("should throw if true is fasly", (): void => {
+    expect<bool>(true).toBeFalsy();
+  }, "true is not falsy");
 
   /**
    * NaN is always falsy.
@@ -80,11 +72,9 @@ describe("toBeFalsy", (): void => {
   /**
    * This is the contrapositive of the previous test.
    */
-  it("should throw if NaN is not fasly", (): void => {
-    expectFn((): void => {
-      expect<f64>(NaN).not.toBeFalsy();
-    }).toThrow("NaN is falsy");
-  });
+  throws("should throw if NaN is not fasly", (): void => {
+    expect<f64>(NaN).not.toBeFalsy();
+  }, "NaN is falsy");
 
   /**
    * Null by definition is falsy.
@@ -96,11 +86,9 @@ describe("toBeFalsy", (): void => {
   /**
    * This is the contrapositive of the previous test.
    */
-  it("should throw if null is not fasly", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(null).not.toBeFalsy();
-    }).toThrow("Null is falsy");
-  });
+  throws("should throw if null is not fasly", (): void => {
+    expect<Vec3>(null).not.toBeFalsy();
+  }, "Null is falsy");
 
   /**
    * This test verifies non-null references are not falsy.
@@ -112,9 +100,7 @@ describe("toBeFalsy", (): void => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  it("should throw if non-null references are falsy", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(vec1).toBeFalsy();
-    }).toThrow("Non-null references are not falsy.");
-  });
+  throws("should throw if non-null references are falsy", (): void => {
+    expect<Vec3>(vec1).toBeFalsy();
+  }, "Non-null references are not falsy.");
 });

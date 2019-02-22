@@ -15,11 +15,9 @@ describe("toBeNaN", (): void => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  it("should throw if NaN is not NaN", (): void => {
-    expectFn((): void => {
-      expect<f64>(NaN).not.toBeNaN();
-    }).toThrow("NaN must be NaN");
-  });
+  throws("should throw if NaN is not NaN", (): void => {
+    expect<f64>(NaN).not.toBeNaN();
+  }, "NaN must be NaN");
 
   /**
    * This test verifies that normal float values are not NaN values.
@@ -31,46 +29,36 @@ describe("toBeNaN", (): void => {
   /**
    * This test verifies that normal values are not NaN values, and also throw.
    */
-  it("should throw if a normal float value is expected to be NaN", (): void => {
-    expectFn((): void => {
-      expect<f64>(10.0).toBeNaN();
-    }).toThrow("Normal float values are not NaN values.");
-  });
+  throws("should throw if a normal float value is expected to be NaN", (): void => {
+    expect<f64>(10.0).toBeNaN();
+  }, "Normal float values are not NaN values.");
 
   /**
    * This test verifies that using integer types throw when using toBeNaN().
    */
-  it("should throw when using toBeNaN on an integer type", (): void => {
-    expectFn((): void => {
-      expect<i32>(10).toBeNaN();
-    }).toThrow("Normal integer values always throw.");
-  });
+  throws("should throw when using toBeNaN on an integer type", (): void => {
+    expect<i32>(10).toBeNaN();
+  }, "Normal integer values always throw.");
 
   /**
    * This test verifies that using integer types throw when using toBeNaN(), even if the
    * assertion is negated.
    */
-  it("should throw when using toBeNaN on an integer type, even if the assertion is negated", (): void => {
-    expectFn((): void => {
-      expect<i32>(10).not.toBeNaN();
-    }).toThrow("Normal integer values should always throw with toBeNaN.");
-  });
+  throws("should throw when using toBeNaN on an integer type, even if the assertion is negated", (): void => {
+    expect<i32>(10).not.toBeNaN();
+  }, "Normal integer values should always throw with toBeNaN.");
 
   /**
    * This test verifies that using reference types with toBeNaN throws.
    */
-  it("should throw if a reference type is used with toBeNaN", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(null).toBeNaN();
-    }).toThrow("Reference types should throw when used with toBeNaN.");
-  });
+  throws("should throw if a reference type is used with toBeNaN", (): void => {
+    expect<Vec3>(null).toBeNaN();
+  }, "Reference types should throw when used with toBeNaN.");
 
   /**
    * This test verifies that using reference types with toBeNaN throws.
    */
-  it("should throw if a reference type is used with toBeNaN, even if the assertion is negated", (): void => {
-    expectFn((): void => {
-      expect<Vec3>(null).not.toBeNaN();
-    }).toThrow("Reference types should throw when used with toBeNaN, even if the assertion is negated.");
-  });
+  throws("should throw if a reference type is used with toBeNaN, even if the assertion is negated", (): void => {
+    expect<Vec3>(null).not.toBeNaN();
+  }, "Reference types should throw when used with toBeNaN, even if the assertion is negated.");
 });
