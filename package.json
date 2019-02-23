@@ -31,6 +31,7 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
+    "assemblyscript": "github:assemblyscript/assemblyscript",
     "chalk": "^2.4.2",
     "glob": "^7.1.3",
     "lodash.uniq": "^4.5.0",

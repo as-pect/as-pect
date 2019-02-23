@@ -32,11 +32,11 @@ declare function reportExpectedInteger(value: i32, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualReference")
-declare function reportActualReference<T>(value: T, offset: i32): void;
+declare function reportActualReference(value: usize, offset: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedReference")
-declare function reportExpectedReference<T>(value: T, offset: i32, negated: i32): void;
+declare function reportExpectedReference(value: usize, offset: i32, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualString")
@@ -133,18 +133,15 @@ export class Expectation<T> {
       this.cleanup();
       return;
     }
-
-    if (isNullable<T>()) {
+    // slow path, assert a memcompare
+    if (isReference<T>()) {
       // fast path, both values aren't null together, so if any of them are null, they do not equal
       if (expected == null || this.actual == null) {
         assert(this._not, message);
         this.cleanup();
         return;
       }
-    }
 
-    // slow path, assert a memcompare
-    if (isReference<T>()) {
       let compareResult = memory.compare(
         changetype<usize>(expected),
         changetype<usize>(this.actual),
@@ -266,16 +263,18 @@ export class Expectation<T> {
   public toThrow(message: string = ""): void {
     // todo: Follow up support on this
 
-    if(isFunction<T>()) {
-      // @ts-ignore: this.value is assumed to be a function, and this could cause many problems
-      var throws: bool = !tryCall(this.actual);
-      reportActualString(throws ? "throws" : "not throws");
-      reportExpectedString("throws", this._not);
-      assert(this._not ^ i32(throws), message);
-      this.cleanup();
+    // @ts-ignore: this.value is assumed to be a function, and this could cause many problems
+    var throws: bool = !tryCall(this.actual);
+    reportActualString(throws ? "throws" : "not throws");
+    reportExpectedString((this._not ? "not throws" : "throws"), this._not);
+    assert(this._not ^ i32(throws), message);
+    this.cleanup();
+
+    /*if(isFunction<T>()) {
+      
     } else {
       assert(false, "toThrow must be called with an actual function.");
-    }
+    }*/
     // assert(isFunction<T>(), "toThrow expectation must be called on a function type.");
 
   }
@@ -478,10 +477,10 @@ export class Expectation<T> {
         // it also might be an array buffer
       } else if (this.actual instanceof ArrayBuffer) {
         // reporting the reference is as simple as using the pointer and the byteLength property.
-        reportActualReference<usize>(this.actual.data, this.actual.byteLength);
+        reportActualReference(changetype<usize>(this.actual.data), this.actual.byteLength);
       } else {
         // otherwise report the reference in a default way
-        reportActualReference<T>(this.actual, offsetof<T>());
+        reportActualReference(changetype<usize>(this.actual), offsetof<T>());
       }
     } else {
       if (isFloat<T>()) {
@@ -510,10 +509,10 @@ export class Expectation<T> {
         // it also might be an array buffer
       } else if (expected instanceof ArrayBuffer) {
         // reporting the reference is as simple as using the pointer and the byteLength property.
-        reportExpectedReference<usize>(expected.data, expected.byteLength, this._not);
+        reportExpectedReference(expected.data, expected.byteLength, this._not);
       } else {
         // otherwise report the reference in a default way
-        reportExpectedReference<T>(expected, offsetof<T>(), this._not);
+        reportExpectedReference(changetype<usize>(expected), offsetof<T>(), this._not);
       }
     } else {
       if (isFloat<T>()) {

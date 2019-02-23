@@ -4,7 +4,7 @@ declare function logString(value: string): void;
 
 // @ts-ignore: decorators *are* valid here
 @external("__aspect", "logReference")
-declare function logReference<T>(value: T, offset: i32): void;
+declare function logReference(value: usize, offset: i32): void;
 
 // @ts-ignore: decorators *are* valid here
 @external("__aspect", "logValue")
@@ -29,9 +29,9 @@ export function log<T>(value: T): void {
       // @ts-ignore: this cast is valid because it's already a string
       logString(<string>value);
     } else if (value instanceof ArrayBuffer) {
-      logReference<usize>(value.data, value.byteLength);
+      logReference(value.data, value.byteLength);
     } else {
-      logReference<T>(value, offsetof<T>());
+      logReference(changetype<usize>(value), offsetof<T>());
     }
   } else {
     if (isFloat<T>()) {
