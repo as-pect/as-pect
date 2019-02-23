@@ -381,6 +381,14 @@ declare class Expectation<T> {
   toBeFinite(message?: string): void;
 
   /**
+   * This method asserts the item has the expected length.
+   *
+   * @param {i32} expected - The expected length.
+   * @param {string} message - The optional message the describes this expectation.
+   */
+  toHaveLength(expected: i32, message?: string): void;
+
+  /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
     *
     * @type {Expectation<T>}

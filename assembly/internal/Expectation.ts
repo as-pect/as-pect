@@ -461,6 +461,48 @@ export class Expectation<T> {
     }
   }
 
+  @inline
+  public toHaveLength(expected: i32, message: string = ""): void {
+    if (this.actual instanceof Uint8Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Uint8ClampedArray) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Int8Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Uint16Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Int16Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Uint32Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Int32Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Uint64Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Int64Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Float32Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof Float64Array) {
+      this.assertLength(this.actual.length, expected, message);
+    } else if (this.actual instanceof ArrayBuffer) {
+      this.assertLength(this.actual.byteLength, expected, message);
+    } else if (isArray<T>()) {
+      // @ts-ignore this value is an array
+      this.assertLength(this.actual.length, expected, message);
+    } else {
+      assert(false, "toHaveLength should be called on TypedArrays, ArrayBuffers, and Arrays");
+    }
+  }
+
+  @inline
+  private assertLength(actual: i32, expected: i32, message: string): void {
+    reportActualInteger(actual);
+    reportExpectedInteger(expected, this._not);
+    assert(this._not ^ i32(actual == expected), message);
+    this.cleanup();
+  }
+
   /**
    * This function performs reporting to javascript what the actual value of this expectation is.
    */
