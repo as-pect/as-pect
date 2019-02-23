@@ -265,15 +265,19 @@ export class Expectation<T> {
   @inline
   public toThrow(message: string = ""): void {
     // todo: Follow up support on this
+
+    if(isFunction<T>()) {
+      // @ts-ignore: this.value is assumed to be a function, and this could cause many problems
+      var throws: bool = !tryCall(this.actual);
+      reportActualString(throws ? "throws" : "not throws");
+      reportExpectedString("throws", this._not);
+      assert(this._not ^ i32(throws), message);
+      this.cleanup();
+    } else {
+      assert(false, "toThrow must be called with an actual function.");
+    }
     // assert(isFunction<T>(), "toThrow expectation must be called on a function type.");
 
-    // @ts-ignore: this.value is assumed to be a function, and this could cause many problems
-    var throws: bool = !tryCall(this.actual);
-    reportActualString(throws ? "throws" : "not throws");
-    reportExpectedString("throws", this._not);
-
-    assert(this._not ^ i32(throws), message);
-    this.cleanup();
   }
 
   @inline
