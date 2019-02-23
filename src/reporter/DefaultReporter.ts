@@ -111,8 +111,9 @@ export class DefaultReporter extends Reporter {
       if (test.message) {
         console.log(chalk`  [Message]: {yellow ${test.message}}`);
       }
-
-      console.log(`    [Stack]: ${test.stack!.split("\n").join("\n           ")}`);
+      if (test.stack) {
+        console.log(`    [Stack]: ${test.stack.split("\n").join("\n           ")}`);
+      }
     }
   }
   onFinish(suite: TestSuite): void {
