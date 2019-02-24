@@ -390,14 +390,14 @@ declare class Expectation<T> {
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
-    *
-    * @type {Expectation<T>}
-    */
+   *
+   * @type {Expectation<T>}
+   */
   not: Expectation<T>;
 
   /**
-  * The actual value of the expectation.
-  */
+   * The actual value of the expectation.
+   */
   actual: T | null;
   private _not: boolean;
 }
