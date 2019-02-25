@@ -67,15 +67,15 @@ describe("toHaveLength custom classes", (): void => {
     expect<Example>(customExample).toHaveLength(3);
   });
 
-  throws("should throw when expected length should not equal the same value", (): void => {
+  throws("when expected length should not equal the same value", (): void => {
     expect<Example>(customExample).not.toHaveLength(3);
   }, "When length is equal, negated assertions should throw.");
 
-  throws("should throw when reference type is null", (): void => {
+  throws("when reference type is null", (): void => {
     expect<Example>(null).toHaveLength(3);
   }, "When the reference type is null, it should throw an error.");
 
-  throws("should throw when reference type is null and assertion is negated", (): void => {
+  throws("when reference type is null and assertion is negated", (): void => {
     expect<Example>(null).not.toHaveLength(3);
   }, "When the reference type is null, it should throw an error.");
 });

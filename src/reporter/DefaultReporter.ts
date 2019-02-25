@@ -140,8 +140,7 @@ export class DefaultReporter extends Reporter {
 
     // log the log message
     if (logValue.pointer > 0) {
-      console.log(chalk`     {yellow [Log]:} at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}`);
-      console.log("");
+      console.log(chalk`     {yellow [Log]:} Reference at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}`);
     } else {
       console.log(chalk`     {yellow [Log]:} ${logValue.message}`);
     }
@@ -149,9 +148,9 @@ export class DefaultReporter extends Reporter {
     // if there are bytes to show, create a logging representation of the bytes
     if (logValue.bytes.length > 0) {
       const value = createReferenceString(logValue.bytes, logValue.pointer, logValue.offset);
-      console.log(chalk`           {blueBright ${value.split("\n").join("\n           ")}}`);
+      console.log(chalk`            {blueBright ${value.split("\n").join("\n            ")}}`);
     }
 
-    console.log(chalk`       {yellow ${logValue.stack.split("\n").join("\n       ")}}\n`);
+    console.log(chalk`        {yellow ${logValue.stack.split("\n").join("\n        ")}}\n`);
   }
 }
