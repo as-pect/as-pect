@@ -14,7 +14,6 @@ module.exports = {
     "--validate": [],
     "--debug": [],
     "--measure": [],
-    "--sourceMap": [],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
   },
