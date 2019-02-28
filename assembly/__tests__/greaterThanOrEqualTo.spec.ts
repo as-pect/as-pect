@@ -1,43 +1,91 @@
-describe("greater than", (): void => {
-  it("should detect greater than values", (): void => {
-    expect<i32>(1).toBeGreaterThanOrEqualTo(0, "1 should be greater than 0");
+import { Vec3 } from "./setup/Vec3";
+
+var vec1 = new Vec3(1, 2, 3);
+var vec2 = new Vec3(1, 2, 3);
+var vec3 = new Vec3(4, 5, 6);
+
+/**
+ * This test suite is designed to test the AssemblyScript semantics of the greaterThanOrEqualTo
+ * operator (>=). It performs simple expectations, and asserts that specific conditions actually
+ * throw an `unreachable()` condition.
+ */
+describe("GreaterThanOrEqualTo (>=)", (): void => {
+  /**
+   * This test is the idiomatic greaterThanOrEqualTo test.
+   */
+  it("should validate that the actual value is greater than or equal to the expected value", (): void => {
+    expect<i32>(42).toBeGreaterThanOrEqualTo(0, "Assertions with larger actual values should not throw.");
   });
 
-  it("should detect negated greater than values", (): void => {
-    expect<i32>(1).not.toBeGreaterThanOrEqualTo(2, "1 should not be greater than 0");
+  /**
+   * This test verifies the negated version of the previous test actually throws an error.
+   */
+  throws("should throw when the expected value is less than the actual value", (): void => {
+    expect<i32>(42).not.toBeGreaterThanOrEqualTo(0);
+  }, "Negated toBeGreaterThanOrEqualTo assertions should throw when the actual value is less than the expected value.");
+
+  /**
+   * This test is the contrapositive of the first test, and should be valid as well.
+   */
+  it("should validate that the actual value is not greater than or equal to the expected value", (): void => {
+    expect<i32>(0).not.toBeGreaterThanOrEqualTo(42);
   });
 
-  it("should be greater than or equal to values when they are equal", (): void => {
-    expect<i32>(1).toBeGreaterThanOrEqualTo(1, "1 should be greaterThatOrEqualTo 1");
+  /**
+   * This test verifies that the negated version of the previous test actualy throws an error.
+   */
+  throws("should throw when the expected value is not greater than or equal to the actual value", (): void => {
+    expect<i32>(0).toBeGreaterThanOrEqualTo(42);
+  }, "It should throw when the actual value is less than the expected value.");
+
+  /**
+   * This test verifies that when values are equal, the negated expectation is successful.
+   */
+  it("should validate that equal values are greater than or equal to each other", (): void => {
+    expect<i32>(42).toBeGreaterThanOrEqualTo(42);
   });
 
-  it("should throw when the value is not expected to be greater than the actual value", (): void => {
-    expect<() => void>((): void => {
-      expect<i32>(1).not.toBeGreaterThanOrEqualTo(0);
-    }).toThrow("negated greater than values should throw");
+  /**
+   * This test verifies that when values are equal, the expectation throws.
+   */
+  throws("should throw when the values are equal", (): void => {
+    expect<i32>(42).not.toBeGreaterThanOrEqualTo(42);
+  }, "It should throw when the actual value equals the expected value.");
+
+  /**
+   * This test verifies that when the actual value is NaN, the expectation throws.
+   */
+  throws("should throw when the actual value is NaN", (): void => {
+    expect<f64>(NaN).toBeGreaterThanOrEqualTo(0);
+  }, "It should throw when the actual value is NaN.");
+
+  /**
+   * This test verifies that when the expected value is NaN, the expectation throws.
+   */
+  throws("should throw when the expected value is NaN", (): void => {
+    expect<f64>(0).toBeGreaterThanOrEqualTo(NaN);
+  }, "It should throw when the expected value is NaN.");
+
+  /**
+   * This test verifies that reference types can be greater than others when operator overloading
+   * is used.
+   */
+  it("should verify one reference is greater than another", (): void => {
+    expect<Vec3>(vec3)
+      .toBeGreaterThanOrEqualTo(vec1, "Operator overloading should allow references to verify that one reference is greater than another value");
   });
 
-  it("should throw when the value is expected to be greater than the actual value", (): void => {
-    expect<() => void>((): void => {
-      expect<i32>(1).toBeGreaterThanOrEqualTo(2);
-    }).toThrow("negated greater than values should throw");
-  });
+  /**
+   * This test verifies that toBeGreaterThanOrEqualTo throws when the actual value is null.
+   */
+  throws("should throw if the actual value is null", (): void => {
+    expect<Vec3>(null).toBeGreaterThanOrEqualTo(vec3);
+  }, "The toBeGreaterThanOrEqualTo function should throw if the actual value is null.");
 
-  it("should not throw when the value is expected to be greater than the same value", (): void => {
-    expect<() => void>((): void => {
-      expect<i32>(1).toBeGreaterThanOrEqualTo(1);
-    }).not.toThrow("negated greater than values should throw");
-  });
-
-  it("should throw if actual value is NaN", (): void => {
-    expectFn((): void => {
-      expect<f32>(NaN).toBeGreaterThanOrEqualTo(1);
-    }).toThrow("NaN values cannot be compared and should throw");
-  });
-
-  it("should throw if expected value is NaN", (): void => {
-    expectFn((): void => {
-      expect<f32>(1).toBeGreaterThanOrEqualTo(NaN);
-    }).toThrow("NaN values cannot be compared and should throw");
-  });
+  /**
+   * This test verifies that toBeGreaterThanOrEqualTo throws when the expected value is null.
+   */
+  throws("should throw if the expected value is null", (): void => {
+    expect<Vec3>(vec3).toBeGreaterThanOrEqualTo(null);
+  }, "The toBeGreaterThanOrEqualTo function should throw if the expected value is null.");
 });

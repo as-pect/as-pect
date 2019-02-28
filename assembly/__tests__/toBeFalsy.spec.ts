@@ -1,85 +1,106 @@
 import { Vec3 } from "./setup/Vec3";
 
-var vec: Vec3 = new Vec3(1, 2, 3);
+var vec1 = new Vec3(1, 2, 3);
 
+/**
+ * This test suite is designed to test the toBeFalsy assertion.
+ */
 describe("toBeFalsy", (): void => {
-  it("should assert falsy value types", (): void => {
-    expect<i32>(0).toBeFalsy("zero value types should be falsy");
+  /**
+   * This performs javascript-like assertions, so 0 should be falsy.
+   */
+  it("should expect 0 to be falsy", (): void => {
+    expect<i32>(0).toBeFalsy();
   });
 
-  it("should assert false is falsy", (): void => {
-    expect<bool>(false).toBeFalsy("false should be falsy");
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should error if 0 is fasly", (): void => {
+    expect<i32>(0).not.toBeFalsy();
+  }, "0 is falsy");
+
+  /**
+   * False should be falsy by definition.
+   */
+  it("should expect false to be falsy", (): void => {
+    expect<bool>(false).toBeFalsy("False is falsy by definition");
   });
 
-  it("should assert a null reftype is falsy", (): void => {
-    expect<Vec3>(null).toBeFalsy("null reftypes should be falsy.");
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if 0 is fasly", (): void => {
+    expect<bool>(false).not.toBeFalsy();
+  }, "false is falsy");
+
+  /**
+   * Any value that is numerically not 0 should be truthy, and thus, not falsy.
+   */
+  it("should expect non-zero numbers not to be falsy", (): void => {
+    expect<i32>(1).not.toBeFalsy("1 is not falsy");
   });
 
-  it("should assert empty strings are falsy", (): void => {
-    expect<string>("").toBeFalsy();
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if 1 is not fasly", (): void => {
+    expect<i32>(1).toBeFalsy();
+  }, "1 is not falsy");
+
+  /**
+   * True should not be falsy by definition.
+   */
+  it("should expect true not to be falsy", (): void => {
+    expect<bool>(true).not.toBeFalsy("True is not falsy by definition");
   });
 
-  it("should assert non-zero value types are truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<i32>(1).toBeFalsy();
-    }).toThrow();
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if true is fasly", (): void => {
+    expect<bool>(true).toBeFalsy();
+  }, "true is not falsy");
+
+  /**
+   * NaN is always falsy.
+   */
+  it("should expect NaN to be falsy", (): void => {
+    expect<f64>(NaN).toBeFalsy("NaN is always falsy");
   });
 
-  it("should assert true is not falsy", (): void => {
-    expect<() => void>((): void => {
-      expect<bool>(true).toBeFalsy();
-    }).toThrow();
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if NaN is not fasly", (): void => {
+    expect<f64>(NaN).not.toBeFalsy();
+  }, "NaN is falsy");
+
+  /**
+   * Null by definition is falsy.
+   */
+  it("should expect null to be falsy", (): void => {
+    expect<Vec3>(null).toBeFalsy("Null is falsy");
   });
 
-  it("should assert a reftype is not falsy", (): void => {
-    expect<() => void>((): void => {
-      expect<Vec3>(vec).toBeFalsy();
-    }).toThrow();
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if null is not fasly", (): void => {
+    expect<Vec3>(null).not.toBeFalsy();
+  }, "Null is falsy");
+
+  /**
+   * This test verifies non-null references are not falsy.
+   */
+  it("should expect non-null references not to be falsy", (): void => {
+    expect<Vec3>(vec1).not.toBeFalsy("Non-null references are not falsy.");
   });
 
-  it("should assert strings of length 1 or greater not to be truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<string>("test!").toBeFalsy();
-    }).toThrow("strings of length 1 or greater should throw");
-  });
-
-  it("should assert negated value types of non-zero to be truthy", (): void => {
-    expect<i32>(1).not.toBeFalsy("1 should not be falsy");
-  });
-
-  it("should assert negated value types of 0 to be falsy", (): void => {
-    expect<() => void>((): void => {
-      expect<i32>(0).not.toBeFalsy();
-    }).toThrow("0 is falsy, this should throw");
-  });
-
-  it("should assert negated value types of true not to be falsy", (): void => {
-    expect<bool>(true).not.toBeFalsy("true should not be falsy");
-  });
-
-  it("should assert false is falsy", (): void => {
-    expect<() => void>((): void => {
-      expect<bool>(false).not.toBeFalsy();
-    }).toThrow();
-  });
-
-  it("should assert negated reftypes of reftypes not to be falsy", (): void => {
-    expect<Vec3>(vec).not.toBeFalsy();
-  });
-
-  it("should assert negated reftypes of null values to be falsy", (): void => {
-    expect<() => void>((): void => {
-      expect<Vec3>(null).not.toBeFalsy();
-    }).toThrow();
-  });
-
-  it("should assert negated strings of length 1 or greater not to be falsy", (): void => {
-    expect<string>("test!").not.toBeFalsy();
-  });
-
-  it("should assert negated strings of length 0 to be falsy", (): void => {
-    expect<() => void>((): void => {
-      expect<string>("").not.toBeFalsy();
-    }).toThrow();
-  });
+  /**
+   * This test is the contrapositive of the previous test.
+   */
+  throws("should throw if non-null references are falsy", (): void => {
+    expect<Vec3>(vec1).toBeFalsy();
+  }, "Non-null references are not falsy.");
 });

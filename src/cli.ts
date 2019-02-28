@@ -170,6 +170,7 @@ export function asp(args: string[]) {
 
     // loop over each file and create a binary, index it on binaries
     let binaries: { [i: number]: Uint8Array } = {};
+    let sourcemaps: { [inex: string]: Uint8Array } = {};
 
     // must include the assembly/index.ts file located in the package
     const entryPath = path.join(__dirname, "../assembly/index.ts");
@@ -188,36 +189,50 @@ export function asp(args: string[]) {
       return args.concat(flag, options);
     }, []);
 
+    require("source-map-support").install({
+      retrieveSourceMap(source: string): any {
+        console.log(source);
+        if (sourcemaps.hasOwnProperty(source)) {
+          return {
+            url: source,
+            map: sourcemaps[source],
+          };
+        }
+        return null;
+      }
+    });
+
     // for each file, synchronously run each test
     testEntryFiles.forEach((file: string, i: number) => {
       console.log(`Compiling: ${file} ${(i + 1).toString()} / ${testEntryFiles.length.toString()}`);
 
-      // TODO: add compiler options?
       asc.main([file, ...addedTestEntryFiles, ...flagList], {
-        // @ts-ignore: this is fine
-        stdout: process.stdout,
-        // @ts-ignore: this is fine
-        stderr: process.stderr,
+        stdout: process.stdout as any, // use any type to quelch error
+        stderr: process.stderr as any,
         writeFile(name: string, contents: Uint8Array) {
           // get the wasm file
           if (path.extname(name) === ".wasm") {
             binaries[i] = contents;
           }
+
+          if (path.extname(name) === ".map") {
+            sourcemaps[name] = contents;
+          }
         }
-      }, function (error: Error): void {
+      }, function (error: Error | null): number {
         // if there are any compilation errors, stop the test suite
         if (error) {
           console.log(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
           console.error(error);
+          count -= 1;
           process.exit(1);
-          return;
         }
 
         // if the binary wasn't emitted, stop the test suite
         if (!binaries[i]) {
           console.log(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
+          count -= 1;
           process.exit(1);
-          return;
         }
 
         // call run buffer because it's already compiled
@@ -235,6 +250,7 @@ export function asp(args: string[]) {
         if (count === 0 && failed) {
           process.exit(1);
         }
+        return 0;
       });
     });
   }

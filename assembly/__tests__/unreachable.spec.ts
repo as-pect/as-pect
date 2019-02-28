@@ -1,23 +1,73 @@
+/**
+ * This test suite is responsible for verifying that functions are called, and that when they
+ * hit unreachable instructions, they throw errors.
+ */
+var counter = 0;
 describe("unreachable", (): void => {
-  it("should expect functions to be unreachable", (): void => {
-    expect<() => void>((): void => {
+  /**
+   * This setup function verifies the test callback counter is set to 0.
+   */
+  beforeEach((): void => {
+    counter = 0;
+  });
+
+  /**
+   * This test verifies that a throws function is successful despite being unreachable.
+   */
+  throws("garunteed unreachable", (): void => {
+    counter = 1;
+    unreachable();
+  }, "This test should throw");
+
+  /**
+   * This test verifies that an unreachable() instruction causes the toThrow assertion to
+   * be valid.
+   */
+  it("should should throw", (): void => {
+    expectFn((): void => {
+      counter = 1;
       unreachable();
-    }).toThrow("a function with unreachable should throw");
+    }).toThrow("unreachable instructions should throw.");
   });
 
-  it("should expect functions not to throw", (): void => {
-    expect<() => void>((): void => {}).not.toThrow("an empty function should not throw");
+  /**
+   * This test validates that a negated toThrow assertion is valid.
+   */
+  it("should run normally", (): void => {
+    expectFn((): void => {
+      counter = 1;
+    }).not.toThrow("unreachable instructions should throw.");
   });
 
-  it("should throw when a function that is expected to throw doesn't throw", (): void => {
-    expect<() => void>((): void => {
-      expect<() => void>((): void => {}).toThrow();
-    }).toThrow("functions that don't throw should throw");
+  /**
+   * This test validates that a negated toThrow assertion throws when the callback
+   * itself throws.
+   */
+  it("expectFn.not should throw if the callback throws", (): void => {
+    expectFn((): void => {
+      expectFn((): void => {
+        counter = 1;
+        unreachable();
+      }).not.toThrow();
+    }).toThrow("unreachable should cause negated toThrow assertions to throw.");
   });
 
-  it("should not throw when a function that is expected to throw does throw", (): void => {
-    expect<() => void>((): void => {
-      expect<() => void>((): void => { unreachable(); }).toThrow();
-    }).not.toThrow("functions that throw should throw");
+  /**
+   * This test validates that a toThrow assertion throws when the callback does not throw.
+   */
+  it("expectFn should throw if the callback does not throw", (): void => {
+    expectFn((): void => {
+      expectFn((): void => {
+        counter = 1;
+      }).toThrow();
+    }).toThrow("functions that do not throw should cause toThrow assertions to throw.");
+  });
+
+  /**
+   * This after each setup function validates that the callback was run, and the test results
+   * are reliable.
+   */
+  afterEach((): void => {
+    expect<i32>(counter).toBe(1);
   });
 });

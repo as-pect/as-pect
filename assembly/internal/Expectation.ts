@@ -10,45 +10,53 @@ declare function clearExpected(): void;
 @external("__aspect", "reportActualNull")
 declare function reportActualNull(): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedNull")
-declare function reportExpectedNull(negated: bool): void;
+declare function reportExpectedNull(negated: i32): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualValue")
-declare function reportActualValue<T>(value: T): void;
+declare function reportActualFloat(value: f64): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualValue")
+declare function reportActualInteger(value: i32): void;
+
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedValue")
-declare function reportExpectedValue<T>(value: T, negated: bool): void;
+declare function reportExpectedFloat(value: f64, negated: i32): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedValue")
+declare function reportExpectedInteger(value: i32, negated: i32): void;
+
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualReference")
-declare function reportActualReference<T>(value: T, offset: i32): void;
+declare function reportActualReference(value: usize, offset: i32): void;
 
-  // @ts-ignore: Decorators *are* valid here!
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedReference")
-declare function reportExpectedReference<T>(value: T, offset: i32, negated: bool): void;
+declare function reportExpectedReference(value: usize, offset: i32, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualString")
-declare function reportActualString<T>(value: T): void;
+declare function reportActualString(value: string): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedString")
-declare function reportExpectedString<T>(value: T, negated: bool): void;
+declare function reportExpectedString(value: string, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedTruthy")
-declare function reportExpectedTruthy(negated: bool): void;
+declare function reportExpectedTruthy(negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedFalsy")
-declare function reportExpectedFalsy(negated: bool): void;
+declare function reportExpectedFalsy(negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedFinite")
-declare function reportExpectedFinite(negated: bool): void;
+declare function reportExpectedFinite(negated: i32): void;
 
 /**
  * The AssemblyScript class that represents an expecation.
@@ -56,18 +64,21 @@ declare function reportExpectedFinite(negated: bool): void;
 // @ts-ignore: Decorators *are* valid here
 @global
 export class Expectation<T> {
-  /** This bool is set to true if the expectation is negated. */
-  _not: bool = false;
+  /**
+   * This i32 is set to 1 if the expectation is negated. Using the _not (xor) condition assertion
+   * makes assertions very easy to write and understand.
+   */
+  _not: i32 = 0;
 
   /** This is the actual value. */
-  actual: T | null;
+  actual: T;
 
   /**
    * Construct an assertion.
    *
-   * @param {T | null} actual - The actual value.
+   * @param {T} actual - The actual value.
    */
-  constructor(actual: T | null) {
+  constructor(actual: T) {
     this.actual = actual;
   }
 
@@ -75,38 +86,36 @@ export class Expectation<T> {
    * This property negates the assertion by setting the internal _not property.
    */
   public get not(): Expectation<T> {
-    this._not = true;
+    this._not = 1;
     return this;
   }
 
   /**
    * This method reports value and reference equality.
    *
-   * @param {T | null} expected - The expected value.
+   * @param {T} expected - The expected value.
    * @param {string} message - The message that describes this assertion.
    */
   @inline
-  public toBe(expected: T | null, message: string = ""): void {
+  public toBe(expected: T, message: string = ""): void {
     // use default reporting methods
     this.reportActual();
     this.reportExpected(expected);
 
     // assert value or reference equality
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    assert(this._not ^ (expected == this.actual), message);
+    assert(this._not ^ i32(expected == this.actual), message);
 
-    // clear the expected messages in case an unreachable() occurs later.
-    clearExpected();
+    this.cleanup();
   }
 
   /**
    * This method reports strict equality on bytes. It has a special path for ArrayBuffers.
    *
-   * @param {T | null} expected - The expected value.
+   * @param {T} expected - The expected value.
    * @param {string} message - The message that describes this assertion.
    */
   @inline
-  public toStrictEqual(expected: T | null, message: string = ""): void {
+  public toStrictEqual(expected: T, message: string = ""): void {
 
     // special path for strict equality on ArrayBuffer
     if (expected instanceof ArrayBuffer) {
@@ -121,29 +130,29 @@ export class Expectation<T> {
     // fast path, the value is itself
     if (expected == this.actual) {
       assert(!this._not, message);
+      this.cleanup();
       return;
     }
-
-    // fast path, both values aren't null together, so if any of them are null, they do not equal
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    if (isReference<T>() && (expected == null || this.actual == null)) {
-      assert(this._not, message);
-      return;
-    }
-
     // slow path, assert a memcompare
     if (isReference<T>()) {
+      // fast path, both values aren't null together, so if any of them are null, they do not equal
+      if (expected == null || this.actual == null) {
+        assert(this._not, message);
+        this.cleanup();
+        return;
+      }
+
       let compareResult = memory.compare(
         changetype<usize>(expected),
         changetype<usize>(this.actual),
         offsetof<T>(),
       );
-      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-      assert(this._not ^ (compareResult == 0), message);
-    } else {
+      assert(this._not ^ i32(compareResult == 0), message);
+      this.cleanup();
+      return;
+    } else { // delegate toBe
       this.toBe(expected);
     }
-    clearExpected();
   }
 
   /**
@@ -153,7 +162,7 @@ export class Expectation<T> {
    * @param {string} message - The message that describes this expectation.
    */
   @inline
-  private toStrictEqualArrayBuffer(expected: T | null, message: string = ""): void {
+  private toStrictEqualArrayBuffer(expected: T, message: string = ""): void {
     // cast the values to ArrayBuffer | null
     let expectedBuff: ArrayBuffer | null = changetype<ArrayBuffer>(changetype<usize>(expected));
     let actualBuff: ArrayBuffer | null = changetype<ArrayBuffer>(changetype<usize>(this.actual));
@@ -172,40 +181,52 @@ export class Expectation<T> {
       reportActualReference(actualBuff.data, actualBuff.byteLength);
     }
 
-    var expectedNull: bool = expectedBuff == null;
-    var actualNull: bool = actualBuff == null;
+    var expectedNull: i32 = i32(expectedBuff == null);
+    var actualNull: i32 = i32(actualBuff == null);
 
-    // @ts-ignore: Bitwise xor on a boolean works as expected
     if (expectedNull ^ actualNull) {
       assert(this._not, message);
     } else {
       let lengthEqual = actualBuff.byteLength == expectedBuff.byteLength;
       let bytesEqual = memory.compare(changetype<usize>(actualBuff), changetype<usize>(expectedBuff), actualBuff.byteLength) == 0;
 
-      // @ts-ignore: Bitwise xor on a boolean works as expected
-      assert(this._not ^ (lengthEqual && bytesEqual), message);
+
+      assert(this._not ^ i32(lengthEqual && bytesEqual), message);
     }
-    clearExpected();
+    this.cleanup();
   }
 
-  /**
-   * This method expects values to be truthy.
-   *
-   * @param {string} message - The message that describes the expectation.
-   */
+
   @inline
   public toBeTruthy(message: string = ""): void {
     this.reportActual();
     reportExpectedTruthy(this._not);
 
-    if (this.actual instanceof String) {
-      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-      assert(this._not ^ (this.actual != null && this.actual.length > 0), message);
-      return;
+    if (isReference<T>()) {
+      // if the reference is null
+      if (this.actual == null) {
+        // it should throw if it's not negated
+        assert(this._not, message);
+      } else if (this.actual instanceof String) {
+        // it should throw if it's an empty string
+        assert(this._not ^ i32(this.actual.length != 0), message);
+      } else {
+        // it should throw it's negated
+        assert(!this._not, message);
+      }
+    } else {
+      if (isFloat<T>()) {
+        // @ts-ignore T is a float type
+        let isFalsy: bool = isNaN<T>(this.actual) || this.actual == <T>0;
+        assert(this._not ^ i32(!isFalsy), message);
+      } else {
+        // @ts-ignore: T is integer type and the cast is safe
+        let isFalsy: bool = this.actual == <T>0;
+        assert(this._not ^ i32(!isFalsy), message);
+      }
     }
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    assert(this._not ^ (!!this.actual), message);
-    clearExpected();
+
+    this.cleanup();
   }
 
   @inline
@@ -213,126 +234,137 @@ export class Expectation<T> {
     this.reportActual();
     reportExpectedFalsy(this._not);
 
-    if (this.actual instanceof String) {
-      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-      assert(this._not ^ (this.actual.length == 0), message);
-      return;
-    }
-
     if (isReference<T>()) {
-      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-      assert(this._not ^ (this.actual == null), message);
-      return;
+      // if the reference is null
+      if (this.actual == null) {
+        // it should throw if it's not negated
+        assert(!this._not, message);
+      } else if (this.actual instanceof String) {
+        // it should throw if it's an empty string
+        assert(this._not ^ i32(this.actual.length == 0), message);
+      } else {
+        // it should throw it's not negated
+        assert(this._not, message);
+      }
+    } else {
+      if (isFloat<T>()) {
+        // @ts-ignore T is a float type
+        var isFalsy = isNaN<T>(this.actual) || this.actual == <T>0;
+        assert(this._not ^ i32(isFalsy), message);
+      } else {
+        assert(this._not ^ i32(!this.actual), message);
+      }
     }
 
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    assert(this._not ^ (!this.actual), message);
-    clearExpected();
+    this.cleanup();
   }
 
   @inline
   public toThrow(message: string = ""): void {
-    // @ts-ignore: this.value is a function, we have to assume it's not null
+    // todo: Follow up support on this
+
+    // @ts-ignore: this.value is assumed to be a function, and this could cause many problems
     var throws: bool = !tryCall(this.actual);
-    reportActualString<string>(throws ? "throws" : "not throws");
-    reportExpectedString("throws", this._not);
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    assert(this._not ^ throws, message);
-    clearExpected();
+    reportActualString(throws ? "throws" : "not throws");
+    reportExpectedString((this._not ? "not throws" : "throws"), this._not);
+    assert(this._not ^ i32(throws), message);
+    this.cleanup();
+
+    /*if(isFunction<T>()) {
+      
+    } else {
+      assert(false, "toThrow must be called with an actual function.");
+    }*/
+    // assert(isFunction<T>(), "toThrow expectation must be called on a function type.");
+
   }
 
   @inline
-  public toBeGreaterThan(expected: T | null, message: string = ""): void {
+  public toBeGreaterThan(expected: T, message: string = ""): void {
     this.reportActual();
     this.reportExpected(expected);
 
-    // Compare the reference types
     if (isReference<T>()) {
-      assert(expected != null, "Reference comparison fails, expected value is null.");
-      assert(this.actual != null, "Reference comparison fails, actual value is null.");
+      // Perform reference type null checks
+      assert(expected != null, "Nullable comparison fails, expected value is null.");
+      assert(this.actual != null, "Nullable comparison fails, actual value is null.");
     }
 
     // Compare float types
     if (isFloat<T>(this.actual)) {
-      // @ts-ignore: value types cannot be null
       assert(!isNaN<T>(expected), "Value comparison fails, expected value is NaN.");
       assert(!isNaN<T>(this.actual), "Value comparison fails, actual value is NaN.");
     }
 
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    assert(this._not ^ (this.actual > expected), message);
-    clearExpected();
+    // do actual greater than comparison
+    assert(this._not ^ i32(this.actual > expected), message);
+    this.cleanup();
   }
 
   @inline
-  public toBeGreaterThanOrEqualTo(expected: T | null, message: string = ""): void {
-    // report the values
+  public toBeGreaterThanOrEqualTo(expected: T, message: string = ""): void {
     this.reportActual();
     this.reportExpected(expected);
 
-    // Compare the reference types
     if (isReference<T>()) {
-      assert(expected != null, "Reference comparison fails, expected value is null.");
-      assert(this.actual != null, "Reference comparison fails, actual value is null.");
+      // Perform reference type null checks
+      assert(expected != null, "Nullable comparison fails, expected value is null.");
+      assert(this.actual != null, "Nullable comparison fails, actual value is null.");
     }
 
     // Compare float types
     if (isFloat<T>(this.actual)) {
-      // @ts-ignore: value types cannot be null
       assert(!isNaN<T>(expected), "Value comparison fails, expected value is NaN.");
       assert(!isNaN<T>(this.actual), "Value comparison fails, actual value is NaN.");
     }
 
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    assert(this._not ^ (this.actual >= expected), message);
-    clearExpected();
+    // do actual greater than or equal to comparison
+    assert(this._not ^ i32(this.actual >= expected), message);
+    this.cleanup();
   }
 
   @inline
-  public toBeLessThan(expected: T | null, message: string = ""): void {
-    // report the values
+  public toBeLessThan(expected: T, message: string = ""): void {
     this.reportActual();
     this.reportExpected(expected);
 
-    // Compare the reference types
     if (isReference<T>()) {
-      assert(expected != null, "Reference comparison fails, expected value is null.");
-      assert(this.actual != null, "Reference comparison fails, actual value is null.");
+      // Perform reference type null checks
+      assert(expected != null, "Nullable comparison fails, expected value is null.");
+      assert(this.actual != null, "Nullable comparison fails, actual value is null.");
     }
 
     // Compare float types
     if (isFloat<T>(this.actual)) {
-      // @ts-ignore: value types cannot be null
       assert(!isNaN<T>(expected), "Value comparison fails, expected value is NaN.");
       assert(!isNaN<T>(this.actual), "Value comparison fails, actual value is NaN.");
     }
 
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    assert(this._not ^ (this.actual < expected), message);
-    clearExpected();
+    // do actual less than comparison
+    assert(this._not ^ i32(this.actual < expected), message);
+    this.cleanup();
   }
 
   @inline
-  public toBeLessThanOrEqualTo(expected: T | null, message: string = ""): void {
+  public toBeLessThanOrEqualTo(expected: T, message: string = ""): void {
     this.reportActual();
     this.reportExpected(expected);
 
-    // Compare the reference types
     if (isReference<T>()) {
-      assert(expected != null, "Reference comparison fails, expected value is null.");
-      assert(this.actual != null, "Reference comparison fails, actual value is null.");
+      // Perform reference type null checks
+      assert(expected != null, "Nullable comparison fails, expected value is null.");
+      assert(this.actual != null, "Nullable comparison fails, actual value is null.");
     }
 
     // Compare float types
     if (isFloat<T>(this.actual)) {
-      // @ts-ignore: value types cannot be null
       assert(!isNaN<T>(expected), "Value comparison fails, expected value is NaN.");
       assert(!isNaN<T>(this.actual), "Value comparison fails, actual value is NaN.");
     }
 
-    // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-    assert(this._not ^ (this.actual <= expected), message);
-    clearExpected();
+    // do actual less than comparison
+    assert(this._not ^ i32(this.actual <= expected), message);
+    this.cleanup();
   }
 
   @inline
@@ -340,12 +372,18 @@ export class Expectation<T> {
     this.reportActual();
     reportExpectedNull(this._not);
     if (isReference<T>()) {
-      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-      assert(this._not ^ (this.actual == null), message);
+      assert(this._not ^ i32(this.actual == null), message);
     } else {
+      /**
+       * Numbers are never null, so the following example is what this line tests for. If this
+       * assertion is not negated for value types, it will throw.
+       *
+       * @example
+       * expect<i32>(1).not.toBeNull();
+       */
       assert(this._not, message);
     }
-    clearExpected();
+    this.cleanup();
   }
 
   @inline
@@ -360,22 +398,22 @@ export class Expectation<T> {
       // must be a float value
       assert(isFloat<T>(this.actual), "toBeCloseTo assertion must be called on a float value.");
 
-      // @ts-ignore Number.isFinite is defined
+      // actual must be finite
       assert(isFinite<T>(this.actual), "toBeCloseTo assertion fails because a actual value is not finite");
 
-      // @ts-ignore Number.isFinite is defined
+      // expected must be finite
       assert(isFinite<T>(expected), "toBeCloseTo assertion fails because expected value is not finite.");
 
       /**
        * isCloseTo assertion is calculated by using the formula `|expected - actual| < epsilon`.
        * Epsilon is calculated by using `1 / numberOfDigits` or just `Math.pow(0.1, decimalPlaces)`.
        */
-      // @ts-ignore T is definitely a numeric value
+
+      // @ts-ignore tooling errors because T does not extend a numeric value type. This compiles just fine.
       var isClose: bool = abs<T>(expected - this.actual) < Math.pow(0.1, decimalPlaces);
 
-      // @ts-ignore bitwise xor works here
-      assert(this._not ^ isClose, message);
-      clearExpected();
+      assert(this._not ^ i32(isClose), message);
+      this.cleanup();
     }
 
   }
@@ -387,20 +425,18 @@ export class Expectation<T> {
       assert(false, "toBeNaN must be called using value types.");
     } else {
       this.reportActual();
-      reportExpectedValue<f64>(NaN, this._not);
+      reportExpectedFloat(NaN, this._not);
 
       // must be a float value
       assert(isFloat<T>(this.actual), "toBeNaN assertion must be called on a float value.");
 
-      // @ts-ignore value types cannot be null
       let isnan: bool = isNaN<T>(this.actual);
 
-      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-      assert(this._not ^ isnan, message);
+      // Perform the actual isClose assertion
+      assert(this._not ^ i32(isnan), message);
 
-      clearExpected();
+      this.cleanup();
     }
-
   }
 
 
@@ -408,59 +444,150 @@ export class Expectation<T> {
   public toBeFinite(message: string = ""): void {
     // toBeFinite should not be called on a reference type
     if (isReference<T>()) {
-      assert(false, "toBeFinite must be called using value types.");
+      assert(false, "toBeFinite must not be called on reference types.");
     } else {
       this.reportActual();
       reportExpectedFinite(this._not);
 
-      // must be a float value
-      assert(isFloat<T>(this.actual), "toBeFinite must only assert float value types.");
+      if (isFloat<T>()) {
+        let finite: bool = isFinite<T>(this.actual);
+        assert(this._not ^ i32(finite), message);
+      } else {
+        // must be a float value
+        assert(false, "toBeFinite must only be called with float value types.");
+      }
 
-      // @ts-ignore value types can never be null
-      let finite: bool = isFinite<T>(this.actual);
-
-      // @ts-ignore: bool is a number type that returns 1, and thus `^` compiles properly
-      assert(this._not ^ finite, message);
-
-      clearExpected();
+      this.cleanup();
     }
   }
 
-  private reportActual(): void {
-    if (this.actual instanceof String) {
+  @inline
+  public toHaveLength(expected: i32, message: string = ""): void {
+    if (isReference<T>()) {
       if (this.actual == null) {
-        reportActualNull();
+        assert(false, "toHaveLength assertion called on null actual value.");
+      } else if (this.actual instanceof Uint8Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Uint8ClampedArray) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Int8Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Uint16Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Int16Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Uint32Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Int32Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Uint64Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Int64Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Float32Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof Float64Array) {
+        this.assertLength(this.actual.length, expected, message);
+      } else if (this.actual instanceof ArrayBuffer) {
+        this.assertLength(this.actual.byteLength, expected, message);
+      } else if (isArray<T>()) {
+        // @ts-ignore this value is an array
+        this.assertLength(this.actual.length, expected, message);
       } else {
-        reportActualString<T>(this.actual);
-      }
-    } else if (isReference<T>()) {
-      if (this.actual == null) {
-        reportActualNull();
-      } else {
-        reportActualReference<T>(this.actual, offsetof<T>());
+        this.assertLength(
+          load<i32>(changetype<usize>(this.actual), offsetof<T>("length")),
+          expected,
+          message,
+        );
       }
     } else {
-      // @ts-ignore: value can't be null
-      reportActualValue<T>(this.actual);
+      assert(false, "toHaveLength should be called on TypedArrays, ArrayBuffers, Arrays, and classes that have a length property.");
     }
   }
 
-  private reportExpected(expected: T | null): void {
-    if (this.actual instanceof String) {
+  @inline
+  private assertLength(actual: i32, expected: i32, message: string): void {
+    reportActualInteger(actual);
+    reportExpectedInteger(expected, this._not);
+    assert(this._not ^ i32(actual == expected), message);
+    this.cleanup();
+  }
+
+  /**
+   * This function performs reporting to javascript what the actual value of this expectation is.
+   */
+  private reportActual(): void {
+    // if T is a reference type...
+    if (isReference<T>()) {
+      // check to see if it's null
       if (this.actual == null) {
-        reportExpectedNull(this._not);
+        reportActualNull();
+        // otherwise it might be a string
+      } else if (this.actual instanceof String) {
+        // @ts-ignore this is already a string, and we can pass up the string reference quickly
+        reportActualString(<string>this.actual);
+        // it also might be an array buffer
+      } else if (this.actual instanceof ArrayBuffer) {
+        // reporting the reference is as simple as using the pointer and the byteLength property.
+        reportActualReference(changetype<usize>(this.actual.data), this.actual.byteLength);
       } else {
-        reportExpectedString(expected, this._not);
+        // otherwise report the reference in a default way
+        reportActualReference(changetype<usize>(this.actual), offsetof<T>());
       }
-    } else if (isReference<T>()) {
+    } else {
+      if (isFloat<T>()) {
+        // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
+        reportActualFloat(<f64>this.actual);
+      } else {
+        // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
+        reportActualInteger(<i32>this.actual);
+      }
+    }
+  }
+
+  /**
+   * This function performs reporting to javascript what the expected value of this expectation is.
+   */
+  private reportExpected(expected: T): void {
+    // if T is a reference type...
+    if (isReference<T>()) {
+      // check to see if it's null
       if (expected == null) {
         reportExpectedNull(this._not);
+        // otherwise it might be a string
+      } else if (expected instanceof String) {
+        // @ts-ignore this is already a string, and we can pass up the string reference quickly
+        reportExpectedString(<string>expected, this._not);
+        // it also might be an array buffer
+      } else if (expected instanceof ArrayBuffer) {
+        // reporting the reference is as simple as using the pointer and the byteLength property.
+        reportExpectedReference(expected.data, expected.byteLength, this._not);
       } else {
-        reportExpectedReference<T>(expected, offsetof<T>(), this._not);
+        // otherwise report the reference in a default way
+        reportExpectedReference(changetype<usize>(expected), offsetof<T>(), this._not);
       }
     } else {
-      // @ts-ignore: value can't be null
-      reportExpectedValue<T>(expected, this._not);
+      if (isFloat<T>()) {
+        // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
+        reportExpectedFloat(<f64>expected, this._not);
+      } else {
+        // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
+        reportExpectedInteger(<i32>expected, this._not);
+      }
+    }
+  }
+
+  /**
+   * This private function removes all the actual and expected values from the host, then frees the
+   * Expectation<T> reference to prevent memory leaks.
+   */
+  private cleanup(): void {
+    /**
+     * This method clears the actual and expected values from the expectation from the host's cache.
+     */
+    clearExpected();
+    if (!isManaged<Expectation<T>>()) {
+      memory.free(changetype<usize>(this));
     }
   }
 }
@@ -468,11 +595,11 @@ export class Expectation<T> {
 /**
  * Global exported function expected. Used to describe an expectation.
  *
- * @param {T | null} actual - The actual value of the expectation
+ * @param {T} actual - The actual value of the expectation
  */
 // @ts-ignore: decorators *are* valid here
 @global
-export function expect<T>(actual: T | null): Expectation<T> {
+export function expect<T>(actual: T): Expectation<T> {
   return new Expectation<T>(actual);
 }
 

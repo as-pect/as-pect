@@ -1,5 +1,8 @@
 import { Vec3 } from "./setup/Vec3";
 
+/**
+ * This test suite verifies that the log functions do not error when they are called.
+ */
 describe("logs", (): void => {
 
   beforeAll((): void => {
@@ -26,6 +29,16 @@ describe("logs", (): void => {
     log<i32>(42);
   });
 
+  test("log an ArrayBuffer", (): void => {
+    var array = new Uint8Array(8);
+    for (let i = 0; i < 8; i++) {
+      unchecked(array[i] = <u8>i);
+    }
+    log<ArrayBuffer>(array.buffer);
+    memory.free(changetype<usize>(array.buffer));
+    memory.free(changetype<usize>(array));
+  });
+
   test("log a reference", (): void => {
     log<Vec3>(new Vec3(1, 2, 3));
   });
@@ -34,5 +47,5 @@ describe("logs", (): void => {
     log<Vec3>(null);
   });
 
-  todo("make a test!");
+  todo("This should be a valid todo.");
 });

@@ -1,33 +1,91 @@
-describe("less than", (): void => {
-  it("should detect less than values", (): void => {
-    expect<i32>(1).toBeLessThan(2, "1 should be less than 2");
+import { Vec3 } from "./setup/Vec3";
+
+var vec1 = new Vec3(1, 2, 3);
+var vec2 = new Vec3(1, 2, 3);
+var vec3 = new Vec3(4, 5, 6);
+
+/**
+ * This test suite is designed to test the AssemblyScript semantics of the lessThan operator (>).
+ * It performs simple expectations, and asserts that specific conditions actually throw an
+ * `unreachable()` condition.
+ */
+describe("LessThan (<)", (): void => {
+  /**
+   * This test is the idiomatic lessThan test.
+   */
+  it("should validate that the actual value is less than the expected value", (): void => {
+    expect<i32>(0).toBeLessThan(42, "Assertions with smaller actual values should not throw.");
   });
 
-  it("should detect negated greater than values", (): void => {
-    expect<i32>(1).not.toBeLessThan(0, "1 should not be less than 0");
+  /**
+   * This test verifies the negated version of the previous test actually throws an error.
+   */
+  throws("should throw when the expected value is less than the actual value", (): void => {
+      expect<i32>(0).not.toBeLessThan(42);
+  }, "Negated toBeLessThan assertions should throw when the actual value is less than the expected value.");
+
+  /**
+   * This test is the contrapositive of the first test, and should be valid as well.
+   */
+  it("should validate that the actual value is not less than the expected value", (): void => {
+    expect<i32>(42).not.toBeLessThan(0);
   });
 
-  it("should throw when the value is not expected to be less than the actual value", (): void => {
-    expect<() => void>((): void => {
-      expect<i32>(1).not.toBeLessThan(2);
-    }).toThrow("negated less than values should throw");
+  /**
+   * This test verifies that the negated version of the previous test actualy throws an error.
+   */
+  throws("should throw when the expected value is not less than the actual value", (): void => {
+    expect<i32>(42).toBeLessThan(0);
+  }, "It should throw when the actual value is less than the expected value.");
+
+  /**
+   * This test verifies that when values are equal, the negated expectation is successful.
+   */
+  it("should validate that equal values are not less than each other", (): void => {
+    expect<i32>(42).not.toBeLessThan(42);
   });
 
-  it("should throw when the value is expected to be less than the actual value", (): void => {
-    expect<() => void>((): void => {
-      expect<i32>(1).toBeLessThan(0);
-    }).toThrow("negated less than values should throw");
+  /**
+   * This test verifies that when values are equal, the expectation throws.
+   */
+  throws("should throw when the values are equal", (): void => {
+    expect<i32>(42).toBeLessThan(42);
+  }, "It should throw when the actual value equals the expected value.");
+
+  /**
+   * This test verifies that when the actual value is NaN, the expectation throws.
+   */
+  throws("should throw when the actual value is NaN", (): void => {
+    expect<f64>(NaN).toBeLessThan(0);
+  }, "It should throw when the actual value is NaN.");
+
+  /**
+   * This test verifies that when the expected value is NaN, the expectation throws.
+   */
+  throws("should throw when the expected value is NaN", (): void => {
+    expect<f64>(0).toBeLessThan(NaN);
+  }, "It should throw when the expected value is NaN.");
+
+  /**
+   * This test verifies that reference types can be less than others when operator overloading
+   * is used.
+   */
+  it("should verify one reference is less than another", (): void => {
+    expect<Vec3>(vec1)
+      .toBeLessThan(vec3, "Operator overloading should allow references to verify that one reference is less than another value");
   });
 
-  it("should throw if actual value is NaN", (): void => {
-    expectFn((): void => {
-      expect<f32>(NaN).toBeLessThan(1);
-    }).toThrow("NaN values cannot be compared and should throw");
-  });
+  /**
+   * This test verifies that toBeLessThan throws when the actual value is null.
+   */
+  throws("should throw if the actual value is null", (): void => {
+    expect<Vec3>(null).toBeLessThan(vec3);
+  }, "The toBeLessThan function should throw if the actual value is null.");
 
-  it("should throw if expected value is NaN", (): void => {
-    expectFn((): void => {
-      expect<f32>(1).toBeLessThan(NaN);
-    }).toThrow("NaN values cannot be compared and should throw");
-  });
+  /**
+   * This test verifies that toBeLessThan throws when the expected value is null.
+   */
+  throws("should throw if the expected value is null", (): void => {
+    expect<Vec3>(vec3).toBeLessThan(null);
+  }, "The toBeLessThan function should throw if the expected value is null.");
 });

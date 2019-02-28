@@ -8,4 +8,40 @@ export class Vec3 {
     this.y = y;
     this.z = z;
   }
+
+  magnitude(): f64 {
+    return sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+  }
+
+  @inline
+  @operator(">")
+  protected __greaterThan(reference: Vec3): bool {
+    var magnitude = this.magnitude();
+    var refmagnitude = reference.magnitude();
+    return magnitude > refmagnitude;
+  }
+
+  @inline
+  @operator(">=")
+  protected __greaterThanOrEqualTo(reference: Vec3): bool {
+    var magnitude = this.magnitude();
+    var refmagnitude = reference.magnitude();
+    return magnitude >= refmagnitude;
+  }
+
+  @inline
+  @operator("<")
+  protected __lessThan(reference: Vec3): bool {
+    var magnitude = this.magnitude();
+    var refmagnitude = reference.magnitude();
+    return magnitude < refmagnitude;
+  }
+
+  @inline
+  @operator("<=")
+  protected __lessThanOrEqualTo(reference: Vec3): bool {
+    var magnitude = this.magnitude();
+    var refmagnitude = reference.magnitude();
+    return magnitude <= refmagnitude;
+  }
 }

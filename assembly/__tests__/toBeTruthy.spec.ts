@@ -1,85 +1,106 @@
 import { Vec3 } from "./setup/Vec3";
 
-var vec: Vec3 = new Vec3(1, 2, 3);
+var vec1 = new Vec3(1, 2, 3);
 
+/**
+ * This test suite is designed to test the toBeTruthy assertion.
+ */
 describe("toBeTruthy", (): void => {
-  it("should assert truthy value types", (): void => {
-    expect<i32>(1).toBeTruthy("nonzero value types should be truthy");
+  /**
+   * This performs javascript-like assertions, so 1 should be truthy.
+   */
+  it("should expect 1 to be truthy", (): void => {
+    expect<i32>(1).toBeTruthy();
   });
 
-  it("should assert true is truthy", (): void => {
-    expect<bool>(true).toBeTruthy("true should be truthy");
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should error if 1 is fasly", (): void => {
+    expect<i32>(1).not.toBeTruthy();
+  }, "1 is truthy");
+
+  /**
+   * True should be truthy by definition.
+   */
+  it("should expect true to be truthy", (): void => {
+    expect<bool>(true).toBeTruthy("True is truthy by definition");
   });
 
-  it("should assert a non-null reftype is truthy", (): void => {
-    expect<Vec3>(vec).toBeTruthy("non-null reftypes should be truthy.");
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if true is not truthy", (): void => {
+    expect<bool>(true).not.toBeTruthy();
+  }, "true is truthy");
+
+  /**
+   * Any value that is numerically 0 should be falsy, and thus, not truthy.
+   */
+  it("should expect zero numbers not to be truthy", (): void => {
+    expect<i32>(0).not.toBeTruthy("0 is not truthy");
   });
 
-  it("should assert strings of length 1 or greater to be truthy", (): void => {
-    expect<string>("Test!").toBeTruthy();
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if 0 is not truthy", (): void => {
+    expect<i32>(0).toBeTruthy();
+  }, "0 is not truthy");
+
+  /**
+   * False should not be truthy by definition.
+   */
+  it("should expect false not to be truthy", (): void => {
+    expect<bool>(false).not.toBeTruthy("False is not truthy by definition");
   });
 
-  it("should assert 0 value type are not truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<i32>(0).toBeTruthy();
-    }).toThrow();
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if false is not truthy", (): void => {
+    expect<bool>(false).toBeTruthy();
+  }, "false is not truthy");
+
+  /**
+   * NaN is always falsy.
+   */
+  it("should expect NaN not to be truthy", (): void => {
+    expect<f64>(NaN).not.toBeTruthy("NaN is always not truthy");
   });
 
-  it("should assert false is not truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<bool>(false).toBeTruthy();
-    }).toThrow();
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if NaN is not fasly", (): void => {
+    expect<f64>(NaN).toBeTruthy("NaN is always not truthy");
+  }, "NaN is not truthy");
+
+  /**
+   * Null by definition is falsy.
+   */
+  it("should expect null not to be truthy", (): void => {
+    expect<Vec3>(null).not.toBeTruthy("Null is not truthy");
   });
 
-  it("should assert a null reftype is not truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<Vec3>(null).toBeTruthy();
-    }).toThrow();
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if null is not truthy", (): void => {
+    expect<Vec3>(null).toBeTruthy();
+  }, "Null is not truthy");
+
+  /**
+   * This test verifies non-null references are truthy.
+   */
+  it("should expect non-null references to be truthy", (): void => {
+    expect<Vec3>(vec1).toBeTruthy("Non-null references are truthy.");
   });
 
-  it("should assert strings of length 0 not to be truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<string>("").toBeTruthy();
-    }).toThrow();
-  });
-
-  it("should assert negated value types of 0 to be not truthy", (): void => {
-    expect<i32>(0).not.toBeTruthy();
-  });
-
-  it("should assert negated value types of non-zero to be truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<i32>(1).not.toBeTruthy();
-    }).toThrow();
-  });
-
-  it("should assert negated value types of false to be not truthy", (): void => {
-    expect<bool>(false).not.toBeTruthy();
-  });
-
-  it("should assert negated value types of non-zero to be truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<bool>(true).not.toBeTruthy();
-    }).toThrow();
-  });
-
-  it("should assert negated reftypes of null to be not truthy", (): void => {
-    expect<Vec3>(null).not.toBeTruthy();
-  });
-
-  it("should assert negated reftypes of non-null values to be truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<Vec3>(vec).not.toBeTruthy();
-    }).toThrow();
-  });
-
-  it("should assert negated strings of length 0 to be not truthy", (): void => {
-    expect<string>("").not.toBeTruthy();
-  });
-
-  it("should assert negated strings of length 1 or greater to be truthy", (): void => {
-    expect<() => void>((): void => {
-      expect<string>("test!").not.toBeTruthy();
-    }).toThrow();
-  });
+  /**
+   * This test is the contrapositive of the previous test.
+   */
+  throws("should throw if non-null references are expected not to be truthy", (): void => {
+    expect<Vec3>(vec1).not.toBeTruthy();
+  }, "Non-null references are truthy.");
 });

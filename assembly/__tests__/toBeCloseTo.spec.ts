@@ -1,63 +1,95 @@
+import { Vec3 } from "./setup/Vec3";
+
+var vec1: Vec3 = new Vec3(1, 2, 3);
+
+/**
+ * This test suite is designed to test the toBeClose to expectation assertion.
+ */
 describe("toBeCloseTo", (): void => {
-  it("should be close to float values", (): void => {
-    expect<f64>(1.0).toBeCloseTo(1.000001, 2, "1.000001 is close to 1.0");
+
+  /**
+   * This test uses default values to verify that a float value is close to
+   * another float value.
+   */
+  it("should expect values that are close", (): void => {
+    expect<f64>(1.0).toBeCloseTo(1.00001, 2, "1.000001 is close to 1.0");
   });
 
-  it("should not be close to another float value", (): void => {
-    expect<f64>(1.0).not.toBeCloseTo(39.0, 2, "39 and 1 are not close.");
+  /**
+   * This test is the contrapositive of the previous test.
+   */
+  throws("should throw if the expected values are close", (): void => {
+    expect<f64>(1.0).not.toBeCloseTo(1.00001, 2);
+  }, "1.000001 is close to 1.0, and should throw");
+
+  /**
+   * This test verifies that a value is not close to an expected value of a
+   * much higher magnitude.
+   */
+  it("should assert if the expected value is not close", (): void => {
+    expect<f64>(1.0).not.toBeCloseTo(100.0, 2, "100.0 is not close to 1.0");
   });
 
-  it("should throw if the value is close, but the assertion is negatated", (): void => {
-    expectFn((): void => {
-      expect<f64>(1.0).not.toBeCloseTo(1.00000001);
-    }).toThrow("close negated assertions on values should throw");
-  });
+  /**
+   * This test is the contrapositive of the previous test.
+   */
+  throws("should throw if the expected value is not close", (): void => {
+    expect<f64>(1.0).toBeCloseTo(100.0, 2);
+  }, "1.0 is not close to 100.0, and should throw");
 
-  it("should throw if the value is not close, but the assertion is negated", (): void => {
-    expectFn((): void => {
-      expect<f64>(1.0).toBeCloseTo(20);
-    }).toThrow("not close assertions on values should throw");
-  });
+  /**
+   * A NaN actual value should cause the expectation to throw.
+   */
+  throws("should throw if the actual value is NaN", (): void => {
+    expect<f64>(NaN).toBeCloseTo(0.0);
+  }, "The actual value NaN should cause the expectation to throw.");
 
-  it("should throw if actual value is not finite", (): void => {
-    expectFn((): void => {
-      expect<f64>(Infinity).toBeCloseTo(0);
-    }).toThrow("value is not finite, it should throw");
-  });
+  /**
+   * A NaN expected value should cause the expectation to throw.
+   */
+  throws("should throw if the actual value is NaN", (): void => {
+    expect<f64>(0.0).toBeCloseTo(NaN);
+  }, "The expected value NaN should cause the expectation to throw.");
 
-  it("should throw if actual value is not finite", (): void => {
-    expectFn((): void => {
-      expect<f64>(-Infinity).toBeCloseTo(0);
-    }).toThrow("value is not finite, it should throw");
-  });
+  /**
+   * If both values are NaN, the expectation should throw.
+   */
+  throws("should throw if both values are NaN", (): void => {
+    expect<f64>(NaN).toBeCloseTo(NaN);
+  }, "The expected and actual value should cause the expectation to throw.");
 
-  it("should throw if actual value is not finite", (): void => {
-    expectFn((): void => {
-      expect<f64>(NaN).toBeCloseTo(0);
-    }).toThrow("value is not finite, it should throw");
-  });
+  /**
+   * A NaN actual value should cause the negated expectation to throw.
+   */
+  throws("should throw if the actual value is NaN", (): void => {
+    expect<f64>(NaN).not.toBeCloseTo(0.0);
+  }, "The actual value NaN should cause the expectation to throw.");
 
-  it("should throw if expected value is not finite", (): void => {
-    expectFn((): void => {
-      expect<f64>(0).toBeCloseTo(Infinity);
-    }).toThrow("value is not finite, it should throw");
-  });
+  /**
+   * A NaN expected value should cause the negated expectation to throw.
+   */
+  throws("should throw if the actual value is NaN", (): void => {
+    expect<f64>(0.0).not.toBeCloseTo(NaN);
+  }, "The expected value NaN should cause the negated expectation to throw.");
 
-  it("should throw if expected value is not finite", (): void => {
-    expectFn((): void => {
-      expect<f64>(0).toBeCloseTo(-Infinity);
-    }).toThrow("value is not finite, it should throw");
-  });
+  /**
+   * If both values are NaN, the expectation should throw.
+   */
+  throws("should throw if both values are NaN", (): void => {
+    expect<f64>(NaN).not.toBeCloseTo(NaN);
+  }, "The expected and actual value should cause the negated expectation to throw.");
 
-  it("should throw if expected value is not finite", (): void => {
-    expectFn((): void => {
-      expect<f64>(0).toBeCloseTo(NaN);
-    }).toThrow("value is not finite, it should throw");
-  });
+  /**
+   * A reference type should not be used with toBeCloseTo assertions.
+   */
+  throws("should throw if a reference type is used for a toBeCloseTo assertion", (): void => {
+    expect<Vec3>(vec1).toBeCloseTo(vec1);
+  }, "Reference types should throw when used with toBeCloseTo assertions.");
 
-  it("should throw if value type is not a float", (): void => {
-    expectFn((): void => {
-      expect<i32>(0).toBeCloseTo(0);
-    }).toThrow("integer values should throw on toBeCloseTo assertions");
-  });
+  /**
+   * A reference type should not be used with toBeCloseTo assertions.
+   */
+  throws("should throw if a reference type is used for a negated toBeCloseTo assertion", (): void => {
+    expect<Vec3>(vec1).not.toBeCloseTo(vec1);
+  }, "Reference types should throw when used with toBeCloseTo assertions.");
 });

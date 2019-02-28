@@ -109,6 +109,7 @@ export class TestRunner {
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
       reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
       reportExpectedFinite: this.reportExpectedFinite.bind(this),
+      reportNegatedTest: this.reportNegatedTest.bind(this),
     };
     return imports;
   }
@@ -271,25 +272,33 @@ export class TestRunner {
 
         // calculate test time
         const testtime = Math.round((testend - teststart) * 1000) / 1000;
+        const throws = group.throws[i];
 
-        // the test passed!
-        if (testCallResult === 1) {
-          // pass the test
-          result.pass = true;
+        // the test passes if it throws and threw, or if it doesn't throw and it didn't throw
+        result.pass = throws ? (testCallResult === 0) : (testCallResult === 1);
+        result.negated = throws;
+
+        // if the test actually passed
+        if (result.pass) {
+          // set the test time
           result.time = testtime;
 
           // increase group success count
           group.successCount++;
-
           // increase test suite success count
           suite.successCount++;
         } else { // the test failed
-          // collect the metadata
-          result.pass = false;
-          result.message = this.message;
-          result.actual = this.actual;
-          result.expected = this.expected;
-          result.stack = this.stack;
+          // if it throws...
+          if (throws) {
+            // only set the message
+            result.message = this.wasm!.getString(group.testMessages[i]);
+          } else {
+            // set the message, the actual, expected, and stack values
+            result.message = this.message;
+            result.actual = this.actual;
+            result.expected = this.expected;
+            result.stack = this.stack;
+          }
 
           // fail the group
           group.failCount++;
@@ -411,8 +420,25 @@ export class TestRunner {
     var group = this.suite!.testGroups[this.suite!.testGroups.length - 1];
     group.testFunctionPointers.push(callback);
     group.testNamePointers.push(testNamePointer);
+    group.testMessages.push(-1);
+    group.throws.push(false);
   }
 
+  /**
+   * This web assembly linked function is responsible for reporting tests that are expected
+   * to fail. This is useful for verifying that specific application states will throw.
+   *
+   * @param {number} testNamePointer - The test's name pointer.
+   * @param {number} callback - The test's function.
+   * @param {number} message - The message associated with this test if it does not throw.
+   */
+  reportNegatedTest(testNamePointer: number, callback: number, message: number): void {
+    var group = this.suite!.testGroups[this.suite!.testGroups.length - 1];
+    group.testFunctionPointers.push(callback);
+    group.testNamePointers.push(testNamePointer);
+    group.testMessages.push(message);
+    group.throws.push(true);
+  }
   /**
    * This web assembly linked function sets the group's "beforeEach" callback pointer.
    *
