@@ -27,17 +27,14 @@ describe("example test", (): void => {
   });
 
   it("should run this example test", (): void => {
-    expect<bool>(true).toBeTruthy();
     testCount += 1;
   });
 
   it("should run this example test", (): void => {
-    expect<bool>(false).toBeFalsy();
     testCount += 1;
   });
 
   it("should run this example test", (): void => {
-    expect<i32>(1).toBe(1);
     testCount += 1;
   });
 
@@ -59,7 +56,7 @@ describe("flow", (): void => {
    * value to be exactly 4.
    */
   it("should call beforeEach twice", (): void => {
-    expect<i32>(beforeEachRan).toBe(4);
+    assert(beforeEachRan == 4, "beforeEach run count should be 4");
   });
 
   /**
@@ -67,7 +64,7 @@ describe("flow", (): void => {
    * expect the beforeAllRan value to be exactly 1.
    */
   it("should call beforeAll once", (): void => {
-    expect<i32>(beforeAllRan).toBe(1);
+    assert(beforeAllRan == 1, "beforeAll run count should be 1");
   });
 
   /**
@@ -75,7 +72,7 @@ describe("flow", (): void => {
    * value to be exactly 4.
    */
   it("should call afterEach twice", (): void => {
-    expect<i32>(afterEachRan).toBe(4);
+    assert(afterEachRan == 4, "afterEach run count should be 4");
   });
 
   /**
@@ -83,13 +80,13 @@ describe("flow", (): void => {
    * afterAllRan value to be exactly 1.
    */
   it("should call afterAll once", (): void => {
-    expect<i32>(afterAllRan).toBe(1);
+    assert(afterAllRan == 1, "afterAll run count should be 1");
   });
 
   /**
    * Since there are 4 tests, we should expect the the test count to be 4.
    */
   it("should call all 4 tests", (): void => {
-    expect<i32>(testCount).toBe(4);
+    assert(testCount == 4, "test run count should be 4");
   });
 });
