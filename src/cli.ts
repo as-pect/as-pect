@@ -189,19 +189,6 @@ export function asp(args: string[]) {
       return args.concat(flag, options);
     }, []);
 
-    require("source-map-support").install({
-      retrieveSourceMap(source: string): any {
-        console.log(source);
-        if (sourcemaps.hasOwnProperty(source)) {
-          return {
-            url: source,
-            map: sourcemaps[source],
-          };
-        }
-        return null;
-      }
-    });
-
     // for each file, synchronously run each test
     testEntryFiles.forEach((file: string, i: number) => {
       console.log(`Compiling: ${file} ${(i + 1).toString()} / ${testEntryFiles.length.toString()}`);
