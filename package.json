@@ -28,10 +28,10 @@
     "@types/node": "^10.12.24",
     "@types/webassembly-js-api": "0.0.2",
     "@types/yargs-parser": "^11.0.2",
-    "assemblyscript": "github:assemblyscript/assemblyscript",
     "typescript": "^3.3.3"
   },
   "dependencies": {
+    "assemblyscript": "github:assemblyscript/assemblyscript",
     "chalk": "^2.4.2",
     "glob": "^7.1.3",
     "lodash.uniq": "^4.5.0",
