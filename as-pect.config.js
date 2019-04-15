@@ -4,7 +4,7 @@ module.exports = {
    */
   include: ["assembly/__tests__/**/*.spec.ts"],
   /**
-   * A set of globs passed to the glob package that quality files to be added to each test.
+   * A set of globs passed to the glob package that qualify files to be added to each test.
    */
   add: ["assembly/__tests__/**/*.include.ts"],
   /**
