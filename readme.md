@@ -149,7 +149,7 @@ This ultimately makes your test suite cleanner and require less imports.
 ## Closures
 
 AssemblyScript currently does not support closure, however, you must place all relevant tests and
-setup function calls for a test suite into the corresponding describe closure.
+setup function calls for a test suite into the corresponding describe block.
 
 ```ts
 var vec: Vec3;
@@ -174,6 +174,19 @@ describe("vectors", (): void => {
   });
 });
 ```
+Currently, `as-pect` cannot handle nested describe blocks. Please avoid nesting `describe` functions like this:
+
+```ts
+describe("vector", (): void => {
+  describe("addition", (): void => {
+    it("should add vectors together", (): void => {
+       expect<Vec3>(vec1.add(vec2)).toStrictEqual(new Vec3(1, 2, 3));
+    });
+  });
+});
+```
+
+This is a limitation of the testing algorithm, and will be fixed in a later backwards compatible rewrite.
 
 ## Logging
 
@@ -187,7 +200,7 @@ log<i32>(42); // this logs the meaning of life
 log<Vec3>(new Vec3(1, 2, 3)); // this logs every byte in the reference
 ```
 
-## Expectations
+## Special Thanks
 
 Special thanks to the `AssemblyScript` team for creating one of the best computer languages that
 compile to web assembly.
