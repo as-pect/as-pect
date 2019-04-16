@@ -1,4 +1,4 @@
-import { Reporter } from "../reporter/Reporter";
+import { TestReporter } from "../test/TestReporter";
 
 export interface ICompilerFlags {
   [flag: string]: string[];
@@ -27,8 +27,8 @@ export interface IConfiguration {
    */
   imports?: any;
   /**
-   * A custom reporter that extends the `Reporter` class, and is responsible for generating log
+   * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
    * output.
    */
-  reporter?: Reporter;
+  reporter?: TestReporter;
 }

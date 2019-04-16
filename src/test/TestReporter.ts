@@ -1,15 +1,16 @@
-import { TestGroup } from "../test/TestGroup";
-import { TestResult } from "../test/TestResult";
-import { TestSuite } from "../test/TestSuite";
+import { TestContext } from "./TestContext";
+import { TestGroup } from "./TestGroup";
+import { TestResult } from "./TestResult";
 import { LogValue } from "../util/LogValue";
 
-export abstract class Reporter {
+
+export abstract class TestReporter {
   /**
    * A function that is called when a test suite starts.
    *
    * @param {TestSuite} suite - The started test suite.
    */
-  public abstract onStart(suite: TestSuite): void;
+  public abstract onStart(suite: TestContext): void;
 
   /**
    * A function that is called when a test group starts.
@@ -47,7 +48,7 @@ export abstract class Reporter {
    *
    * @param {TestSuite} suite - The ended test suite.
    */
-  public abstract onFinish(suite: TestSuite): void;
+  public abstract onFinish(suite: TestContext): void;
 
   /**
    * A function that is called when a test group reports a "todo" item.

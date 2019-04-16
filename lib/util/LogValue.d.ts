@@ -1,5 +1,4 @@
-import { TestResult } from "../test/TestResult";
-import { TestGroup } from "../test/TestGroup";
+import { ILogTarget } from "./ILogTarget";
 /**
  * A virtual representation of a discrete value logged to from AssemblyScript.
  */
@@ -28,12 +27,8 @@ export declare class LogValue {
      */
     stack: string;
     /**
-     * This is the referenced test, if it was generated during a test.
+     * This is the referenced log target.
      */
-    test: TestResult | null;
-    /**
-     * This is the referenced group, if it was generated during a describe group.
-     */
-    group: TestGroup | null;
+    target: ILogTarget | null;
 }
 //# sourceMappingURL=LogValue.d.ts.map

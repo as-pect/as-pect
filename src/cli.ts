@@ -8,9 +8,11 @@ import uniq from "lodash.uniq";
 
 // import { TestRunner } from "./test/TestRunner";
 import asc from "assemblyscript/cli/asc";
-import { TestRunner } from "./test/TestRunner";
+import { TestContext } from "./test/TestContext";
 import fs from "fs";
-import { DefaultReporter } from "./reporter/DefaultReporter";
+import { instantiateBuffer } from "assemblyscript/lib/loader";
+import { TestReporter } from "./test/TestReporter";
+import { DefaultTestReporter } from "./reporter/DefaultTestReporter";
 
 const pkg = require("../package.json");
 
@@ -129,7 +131,6 @@ export function asp(args: string[]) {
       process.exit(1);
     }
 
-    const reporter = configuration.reporter || new DefaultReporter();
     const include: string[] = configuration.include || ["assembly/__tests__/**/*.spec.ts"];
     const add: string[] = configuration.add || ["assembly/__tests__/**/*.include.ts"];
     const flags: ICompilerFlags = configuration.flags || {
@@ -138,9 +139,10 @@ export function asp(args: string[]) {
       "--measure": [],
       "--sourceMap":[],
       /** This is required. Do not change this. */
-      "--binaryFile": ["output.wasm"],
+      "--binaryFile": ["outpfrut.wasm"],
     };
     const disclude: RegExp[] = configuration.disclude || [];
+    const reporter: TestReporter = configuration.reporter || new DefaultTestReporter();
 
     // include all the file globs
     console.log(`including files ${include.join(", ")}`);
@@ -182,7 +184,7 @@ export function asp(args: string[]) {
     // Create a test runner, and run each test
     let failed = false;
     let count = testEntryFiles.length;
-    const runner = new TestRunner();
+    const runner = new TestContext();
 
     // create the array of compiler flags from the flags object
     const flagList: string[] = Object.entries(flags).reduce((args: string[], [flag, options]) => {
@@ -222,16 +224,14 @@ export function asp(args: string[]) {
           process.exit(1);
         }
 
+        const imports = runner.createImports(configuration!.imports || {});
+        const wasm = instantiateBuffer(binaries[i], imports);
+
         // call run buffer because it's already compiled
-        runner.runBuffer(
-          file,
-          binaries[i],
-          Object.assign({}, configuration!.imports),
-          reporter,
-        );
+        runner.run(wasm, reporter);
 
         count -= 1;
-        failed = failed || !runner.passed;
+        failed = failed || !runner.pass;
 
         // if any tests failed, and they all ran, exit(1)
         if (count === 0 && failed) {
