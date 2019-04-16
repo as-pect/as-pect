@@ -226,15 +226,13 @@ export function asp(args: string[]) {
         if (error) {
           console.log(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
           console.error(error);
-          count -= 1;
-          process.exit(1);
+          return process.exit(1);
         }
 
         // if the binary wasn't emitted, stop the test suite
         if (!binaries[i]) {
           console.log(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
-          count -= 1;
-          process.exit(1);
+          return process.exit(1);
         }
 
         const runner = new TestContext();
