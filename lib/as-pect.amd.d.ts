@@ -197,11 +197,15 @@ declare module "reporter/DefaultTestReporter" {
         onLog(logValue: LogValue): void;
     }
 }
+declare module "util/timeDifference" {
+    export const timeDifference: (end: number, start: number) => number;
+}
 declare module "test/TestContext" {
     import { ASUtil } from "assemblyscript/lib/loader";
     import { TestGroup } from "test/TestGroup";
     import { TestReporter } from "test/TestReporter";
     export class TestContext {
+        file: string;
         private groupStack;
         testGroups: TestGroup[];
         private logTarget;
@@ -215,7 +219,7 @@ declare module "test/TestContext" {
         /**
          * Run the tests on the wasm module.
          */
-        run(wasm: ASUtil, reporter?: TestReporter): void;
+        run(wasm: ASUtil, reporter?: TestReporter, file?: string): void;
         /**
          * This method creates a WebAssembly imports object with all the TestContext functions
          * bound to the TestContext.

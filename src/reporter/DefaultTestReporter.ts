@@ -81,6 +81,7 @@ export class DefaultTestReporter extends TestReporter {
 
   }
   onGroupStart(group: TestGroup): void {
+    console.log("");
     console.log(chalk`[Describe]: ${group.name}`);
     console.log("");
   }
@@ -101,7 +102,6 @@ export class DefaultTestReporter extends TestReporter {
     console.log(chalk`   [Tests]: ${successCount.toString()} pass, ${(count - successCount).toString()} fail, ${count.toString()} total`);
     console.log(chalk`    [Todo]: ${todoCount.toString()} tests`);
     console.log(chalk`    [Time]: ${group.time.toString()}ms`);
-    console.log("");
   }
   onTestStart(_group: TestGroup, _test: TestResult): void {}
   onTestFinish(_group: TestGroup, test: TestResult): void {
@@ -140,6 +140,8 @@ export class DefaultTestReporter extends TestReporter {
       .reduce((a, b) => a + b);
     console.log("");
     console.log("~".repeat(process.stdout.columns! - 10));
+    console.log("");
+    console.log(chalk`    [File]: ${suite.file}`);
     console.log(chalk`  [Result]: ${result}`);
     console.log(chalk` [Summary]: ${successCount.toString()} pass, ${(count - successCount).toString()} fail, ${count.toString()} total`);
     console.log(chalk`    [Time]: ${suite.time.toString()}ms`);

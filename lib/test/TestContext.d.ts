@@ -2,6 +2,7 @@ import { ASUtil } from "assemblyscript/lib/loader";
 import { TestGroup } from "./TestGroup";
 import { TestReporter } from "./TestReporter";
 export declare class TestContext {
+    file: string;
     private groupStack;
     testGroups: TestGroup[];
     private logTarget;
@@ -15,7 +16,7 @@ export declare class TestContext {
     /**
      * Run the tests on the wasm module.
      */
-    run(wasm: ASUtil, reporter?: TestReporter): void;
+    run(wasm: ASUtil, reporter?: TestReporter, file?: string): void;
     /**
      * This method creates a WebAssembly imports object with all the TestContext functions
      * bound to the TestContext.

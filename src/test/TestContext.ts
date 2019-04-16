@@ -7,11 +7,13 @@ import { TestReporter } from "./TestReporter";
 import { TestResult } from "./TestResult";
 import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
+import { timeDifference } from "../util/timeDifference";
 
 const wasmFilter = (input: string): boolean => /wasm/i.test(input);
-const timeDifference = (end: number, start: number) => Math.round((end - start) * 1000) / 1000;
 
 export class TestContext {
+
+  public file: string = "";
 
   private groupStack: TestGroup[] = [new TestGroup()];
   public testGroups: TestGroup[] = [];
@@ -31,8 +33,10 @@ export class TestContext {
   /**
    * Run the tests on the wasm module.
    */
-  public run(wasm: ASUtil, reporter: TestReporter = new DefaultTestReporter()): void {
+  public run(wasm: ASUtil, reporter: TestReporter = new DefaultTestReporter(), file: string = ""): void {
     this.wasm = wasm;
+    this.file = file;
+
     let start = 0;
     let end = 0;
     let groupstart = 0;
