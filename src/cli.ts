@@ -184,7 +184,6 @@ export function asp(args: string[]) {
     // Create a test runner, and run each test
     let failed = false;
     let count = testEntryFiles.length;
-    const runner = new TestContext();
 
     // create the array of compiler flags from the flags object
     const flagList: string[] = Object.entries(flags).reduce((args: string[], [flag, options]) => {
@@ -229,6 +228,7 @@ export function asp(args: string[]) {
           process.exit(1);
         }
 
+        const runner = new TestContext();
         const imports = runner.createImports(configuration!.imports || {});
         const wasm = instantiateBuffer(binaries[i], imports);
 
