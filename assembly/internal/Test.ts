@@ -52,7 +52,7 @@ export function xtest(description: string, callback: () => void): void {
 // @ts-ignore: decorators *are* valid here
 @global
 export function it(description: string, runner: () => void): void {
-  test(description, runner);
+  reportTest(description, runner);
 }
 
 // @ts-ignore: decorators *are* valid here

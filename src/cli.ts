@@ -139,7 +139,7 @@ export function asp(args: string[]) {
       "--measure": [],
       "--sourceMap":[],
       /** This is required. Do not change this. */
-      "--binaryFile": ["outpfrut.wasm"],
+      "--binaryFile": ["output.wasm"],
     };
     const disclude: RegExp[] = configuration.disclude || [];
     const reporter: TestReporter = configuration.reporter || new DefaultTestReporter();
@@ -199,14 +199,19 @@ export function asp(args: string[]) {
         stdout: process.stdout as any, // use any type to quelch error
         stderr: process.stderr as any,
         writeFile(name: string, contents: Uint8Array) {
+          const ext = path.extname(name)
           // get the wasm file
-          if (path.extname(name) === ".wasm") {
+          if (ext === ".wasm") {
             binaries[i] = contents;
+            return;
           }
 
-          if (path.extname(name) === ".map") {
+          if (ext === ".map") {
             sourcemaps[name] = contents;
+            return;
           }
+          const outfileName = path.join(path.dirname(file), path.basename(file, path.extname(file)) + ext);
+          fs.writeFileSync(outfileName, contents);
         }
       }, function (error: Error | null): number {
         // if there are any compilation errors, stop the test suite
