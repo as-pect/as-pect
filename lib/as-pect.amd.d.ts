@@ -1,6 +1,11 @@
+declare module "util/ILogTarget" {
+    import { LogValue } from "util/LogValue";
+    export interface ILogTarget {
+        logs: LogValue[];
+    }
+}
 declare module "util/LogValue" {
-    import { TestResult } from "test/TestResult";
-    import { TestGroup } from "test/TestGroup";
+    import { ILogTarget } from "util/ILogTarget";
     /**
      * A virtual representation of a discrete value logged to from AssemblyScript.
      */
@@ -29,13 +34,9 @@ declare module "util/LogValue" {
          */
         stack: string;
         /**
-         * This is the referenced test, if it was generated during a test.
+         * This is the referenced log target.
          */
-        test: TestResult | null;
-        /**
-         * This is the referenced group, if it was generated during a describe group.
-         */
-        group: TestGroup | null;
+        target: ILogTarget | null;
     }
 }
 declare module "util/ActualValue" {
@@ -54,7 +55,8 @@ declare module "util/ActualValue" {
 declare module "test/TestResult" {
     import { LogValue } from "util/LogValue";
     import { ActualValue } from "util/ActualValue";
-    export class TestResult {
+    import { ILogTarget } from "util/ILogTarget";
+    export class TestResult implements ILogTarget {
         /**
          * The actual test's name or description.
          */
@@ -82,7 +84,7 @@ declare module "test/TestResult" {
         /**
          * A set of strings logged by the test itself.
          */
-        log: LogValue[];
+        logs: LogValue[];
         /**
          * The generated stack trace if the test errored.
          */
@@ -94,143 +96,41 @@ declare module "test/TestResult" {
     }
 }
 declare module "test/TestGroup" {
-    import { TestResult } from "test/TestResult";
     import { LogValue } from "util/LogValue";
-    export class TestGroup {
-        /**
-         * A pointer that points to the test suite name.
-         */
-        suiteNamePointer: number;
-        /**
-         * A pointer that points to the beforeAll callback for this test group.
-         */
-        beforeAllPointer: number;
-        /**
-         * A pointer that points to the beforeEach callback for this test group.
-         */
-        beforeEachPointer: number;
-        /**
-         * A pointer that points to the afterEach callback for this test group.
-         */
-        afterEachPointer: number;
-        /**
-         * A pointer that points to the afterAll callback for this test group.
-         */
-        afterAllPointer: number;
-        /**
-         * A pointer[] that points to each test function.
-         */
+    import { ILogTarget } from "util/ILogTarget";
+    import { TestResult } from "test/TestResult";
+    export class TestGroup implements ILogTarget {
+        describePointers: number[];
+        beforeEachPointers: number[];
+        afterEachPointers: number[];
+        beforeAllPointers: number[];
+        afterAllPointers: number[];
         testFunctionPointers: number[];
-        /**
-         * A pointer[] that points to all the test names.
-         */
         testNamePointers: number[];
-        /**
-         * A count of how many successful tests ran in this test group.
-         */
-        successCount: number;
-        /**
-         * A count of how many failed tests ran in this test group.
-         */
-        failCount: number;
-        /**
-         * A count of how many tests ran in this test group. This may be different that the actual test
-         * count because the test suite ends if any setup functions throw an error.
-         */
-        totalCount: number;
-        /**
-         * A pointer array that points to the todo string references.
-         */
-        todoPointers: number[];
-        /**
-         * The name of this test group. (e.g. `describe("test-group-name")`)
-         */
+        testMessagePointers: number[];
+        testThrows: boolean[];
+        tests: TestResult[];
+        todos: number[];
+        logs: LogValue[];
         name: string;
-        /**
-         * A boolean which indicates if the test group passed.
-         */
         pass: boolean;
-        /**
-         * How long the test group ran in milliseconds rounded to the nearest thousanth.
-         */
-        time: number;
-        /**
-         * An array of test results.
-         */
-        results: TestResult[];
-        /**
-         * A resolved list of todos.
-         */
-        todos: string[];
-        /**
-         * The number of todo items.
-         */
-        todoCount: number;
-        /**
-         * The reason this test group failed.
-         */
         reason: string;
-        /**
-         * The logged items in the current testGroup.
-         */
-        log: LogValue[];
-        throws: boolean[];
-        /**
-         * This is the message to be displayed if the test is expected to fail, and it does not.
-         */
-        testMessages: number[];
-    }
-}
-declare module "test/TestSuite" {
-    import { TestGroup } from "test/TestGroup";
-    export class TestSuite {
-        /**
-         * All the test groups in this test suite.
-         */
-        testGroups: TestGroup[];
-        /**
-         * The total number tests run in this test suite.
-         */
-        totalTests: number;
-        /**
-         * The total number test successes in this test suite.
-         */
-        successCount: number;
-        /**
-         * The total number of test fails in this test suite.
-         */
-        failCount: number;
-        /**
-         * The total number to todos left to complete in this test suite.
-         */
-        todoCount: number;
-        /**
-         * The test suite filename.
-         */
-        filename: string;
-        /**
-         * The total time it took for this test suite to run in milliseconds rounded to the nearest
-         * thousandth.
-         */
         time: number;
-        /**
-         * An indicator if the test suite passed.
-         */
-        pass: boolean;
+        fork(): TestGroup;
     }
 }
-declare module "reporter/Reporter" {
+declare module "test/TestReporter" {
+    import { TestContext } from "test/TestContext";
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
-    import { TestSuite } from "test/TestSuite";
     import { LogValue } from "util/LogValue";
-    export abstract class Reporter {
+    export abstract class TestReporter {
         /**
          * A function that is called when a test suite starts.
          *
          * @param {TestSuite} suite - The started test suite.
          */
-        abstract onStart(suite: TestSuite): void;
+        abstract onStart(suite: TestContext): void;
         /**
          * A function that is called when a test group starts.
          *
@@ -262,7 +162,7 @@ declare module "reporter/Reporter" {
          *
          * @param {TestSuite} suite - The ended test suite.
          */
-        abstract onFinish(suite: TestSuite): void;
+        abstract onFinish(suite: TestContext): void;
         /**
          * A function that is called when a test group reports a "todo" item.
          *
@@ -280,115 +180,97 @@ declare module "reporter/Reporter" {
         abstract onLog(logValue: LogValue): void;
     }
 }
-declare module "reporter/DefaultReporter" {
-    import { Reporter } from "reporter/Reporter";
+declare module "reporter/DefaultTestReporter" {
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
-    import { TestSuite } from "test/TestSuite";
+    import { TestContext } from "test/TestContext";
     import { LogValue } from "util/LogValue";
-    export class DefaultReporter extends Reporter {
-        onStart(suite: TestSuite): void;
+    import { TestReporter } from "test/TestReporter";
+    export class DefaultTestReporter extends TestReporter {
+        onStart(_suite: TestContext): void;
         onGroupStart(group: TestGroup): void;
         onGroupFinish(group: TestGroup): void;
         onTestStart(_group: TestGroup, _test: TestResult): void;
         onTestFinish(_group: TestGroup, test: TestResult): void;
-        onFinish(suite: TestSuite): void;
+        onFinish(suite: TestContext): void;
         onTodo(_group: TestGroup, todo: string): void;
         onLog(logValue: LogValue): void;
     }
 }
-declare module "test/TestRunner" {
-    import { TestSuite } from "test/TestSuite";
-    import { TestGroup } from "test/TestGroup";
+declare module "util/timeDifference" {
+    export const timeDifference: (end: number, start: number) => number;
+}
+declare module "test/TestContext" {
     import { ASUtil } from "assemblyscript/lib/loader";
-    import { TestResult } from "test/TestResult";
-    import { Reporter } from "reporter/Reporter";
-    import { ActualValue } from "util/ActualValue";
-    /**
-     * The test class that hooks up the web assembly imports, and runs each test group in a file.
-     */
-    export class TestRunner {
-        constructor();
+    import { TestGroup } from "test/TestGroup";
+    import { TestReporter } from "test/TestReporter";
+    export class TestContext {
+        file: string;
+        private groupStack;
+        testGroups: TestGroup[];
+        private logTarget;
+        private wasm;
+        private stack;
+        private message;
+        private actual;
+        private expected;
+        time: number;
+        pass: boolean;
         /**
-         * This is the value set by the web assembly module whenever an expectation fails.
+         * Run the tests on the wasm module.
          */
-        message: string;
+        run(wasm: ASUtil, reporter?: TestReporter, file?: string): void;
         /**
-         * This is the currently running TestSuite.
-         */
-        suite: TestSuite | null;
-        /**
-         * This is the ActualValue that represents the current actual value reported by an expectation.
-         */
-        actual: ActualValue | null;
-        /**
-         * This is the ActualValue that represents the current expected value reported by an expectation.
-         */
-        expected: ActualValue | null;
-        /**
-         * This boolean is set to true for every run, and is true if the test suite passed.
-         */
-        passed: boolean;
-        /**
-         * This is the web assembly module.
-         */
-        wasm: ASUtil | null;
-        /**
-         * The currently running test.
-         */
-        currentTest: TestResult | null;
-        /**
-         * The currently running test group.
-         */
-        currentGroup: TestGroup | null;
-        /**
-         * The index of the next group log to be logged to the reporter.
-         */
-        groupLogIndex: number;
-        /**
-         * The current reporter.
-         */
-        reporter: Reporter | null;
-        /**
-         * The stack trace generated when the currently running test threw.
-         */
-        stack: string;
-        /**
-         * This function generates web assembly imports object.
+         * This method creates a WebAssembly imports object with all the TestContext functions
+         * bound to the TestContext.
          *
-         * @param {any} imports - The web assembly imports to be mixed in.
+         * @param {any[]} imports - Every import item specified.
          */
-        createImports(imports?: any): any;
+        createImports(...imports: any[]): any;
         /**
-         * Runs a test suite from a compiled AssemblyScript module buffer.
+         * This web assembly linked function creates a test group. It's called when the test suite calls
+         * the describe("test", callback) function from within AssemblyScript. It receives a pointer to
+         * the description of the tests, forks the top level test group, pushes the suiteName to a list,
+         * then pushes the forked group to the top of the test context stack.
          *
-         * @param {string} filename - The name of the file.
-         * @param {Uint8Array} buffer - The buffer containing the AssemblyScript module.
-         * @param {any} imports - Custom web assembly imports object.
-         * @param {Reporter} reporter - The reporter that reports each test and fail.
+         * @param {number} suiteNamePointer
          */
-        runBuffer(filename: string, buffer: Uint8Array, imports?: any, reporter?: Reporter): void;
+        private reportDescribe;
         /**
-         * Runs a test suite from a fetched reponse object that resolves to an AssemblyScript module.
+         * This web assembly linked function finishes a test group. It's called when the test suite calls
+         * the describe("test", callback) function from within AssemblyScript. It pops the current
+         * test group from the test context stack and pushes it to the final test group list.
+         */
+        private reportEndDescribe;
+        /**
+         * This web assembly linked function sets the group's "beforeEach" callback pointer to
+         * the current groupStackItem.
          *
-         * @param {string} filename - The name of the file.
-         * @param {Promise<Response>} response - The buffer containing the AssemblyScript module.
-         * @param {any} imports - Custom web assembly imports object.
-         * @param {Reporter} reporter - The reporter that reports each test and fail.
+         * @param {number} callbackPointer - The callback that should run before each test.
          */
-        runStreaming(filename: string, response: Promise<Response>, imports?: any, reporter?: Reporter): Promise<void>;
+        private reportBeforeEach;
         /**
-         * This function should be called after the test suite is initialized and the web assembly module
-         * has been instantiated.
+         * This web assembly linked function adds the group's "beforeAll" callback pointer to
+         * the current groupStackItem.
          *
-         * @param {string} filename - The name of the test file.
-         * @param {Reporter} reporter - The reporter that reports each test and fail.
+         * @param {number} callbackPointer - The callback that should run before each test in the
+         * current context.
          */
-        run(filename: string): void;
+        private reportBeforeAll;
         /**
-         * Flush all the collected log values to the logger.
+         * This web assembly linked function sets the group's "afterEach" callback pointer.
+         *
+         * @param {number} callbackPointer - The callback that should run before each test group.
          */
-        flushGroupLogs(): void;
+        private reportAfterEach;
+        /**
+         * This web assembly linked function adds the group's "afterAll" callback pointer to
+         * the current groupStackItem.
+         *
+         * @param {number} callbackPointer - The callback that should run before each test in the
+         * current context.
+         */
+        private reportAfterAll;
         /**
          * This is a web assembly utility function that wraps a function call in a try catch block to
          * report success or failure.
@@ -398,15 +280,42 @@ declare module "test/TestRunner" {
          * @returns {1 | 0} - If the callback was run successfully without error, it returns 1, else it
          * returns 0.
          */
-        tryCall(pointer: number): 1 | 0;
+        private tryCall;
         /**
-         * This web assembly linked function creates a test group. It's called when the test suite calls
-         * the describe("test", callback) function from within AssemblyScript. It returns a pointer to the
-         * suiteName string.
+         * This adds a logged string to the current test.
          *
-         * @param {number} suiteNamePointer
+         * @param {number} pointer - The pointer to the logged string reference.
          */
-        reportDescribe(suiteNamePointer: number): void;
+        private logString;
+        /**
+         * Log a reference to the reporter.
+         *
+         * @param {number} referencePointer - The pointer to the reference.
+         * @param {number} offset - The offset of the reference.
+         */
+        private logReference;
+        /**
+         * Log a numevalueric value to the reporter.
+         *
+         * @param {number} value - The value to be logged.
+         */
+        private logValue;
+        /**
+         * Log a null value to the reporter.
+         */
+        private logNull;
+        /**
+         * Gets a log stack trace.
+         */
+        private getLogStackTrace;
+        /**
+         * Gets an error stack trace.
+         */
+        private getErrorStackTrace;
+        /**
+         * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
+         */
+        private debug;
         /**
          * This web assembly linked function creates a test from the callback and the testNamePointer in
          * the current group. It assumes that the group has already been created with the describe
@@ -416,7 +325,7 @@ declare module "test/TestRunner" {
          * @param {number} testNamePointer - The test's name pointer.
          * @param {number} callback - The test's function.
          */
-        reportTest(testNamePointer: number, callback: number): void;
+        private reportTest;
         /**
          * This web assembly linked function is responsible for reporting tests that are expected
          * to fail. This is useful for verifying that specific application states will throw.
@@ -425,80 +334,48 @@ declare module "test/TestRunner" {
          * @param {number} callback - The test's function.
          * @param {number} message - The message associated with this test if it does not throw.
          */
-        reportNegatedTest(testNamePointer: number, callback: number, message: number): void;
-        /**
-         * This web assembly linked function sets the group's "beforeEach" callback pointer.
-         *
-         * @param {number} callbackPointer - The callback that should run before each test.
-         */
-        reportBeforeEach(callbackPointer: number): void;
-        /**
-         * This web assembly linked function sets the group's "beforeAll" callback pointer.
-         *
-         * @param {number} callbackPointer - The callback that should run before each test group.
-         */
-        reportBeforeAll(callbackPointer: number): void;
-        /**
-         * This web assembly linked function sets the group's "afterEach" callback pointer.
-         *
-         * @param {number} callbackPointer - The callback that should run before each test group.
-         */
-        reportAfterEach(callbackPointer: number): void;
-        /**
-         * This web assembly linked function sets the group's "afterAll" callback pointer.
-         *
-         * @param {number} callbackPointer - The callback that should run before each test group.
-         */
-        reportAfterAll(callbackPointer: number): void;
+        private reportNegatedTest;
         /**
          * This function reports a single "todo" item in a test suite.
          *
          * @param {number} todoPointer - The todo description string pointer.
          */
-        reportTodo(todoPointer: number): void;
+        private reportTodo;
         /**
-         * This function reports an actual string value.
-         *
-         * @param {number} stringPointer - A pointer that points to the actual string.
-         */
-        reportActualString(stringPointer: number): void;
-        /**
-         * This function reports an expected string value.
-         *
-         * @param {number} stringPointer - A pointer that points to the expected string.
-         * @param {1 | 0} negated - An indicator if the expectation is negated.
-         */
-        reportExpectedString(stringPointer: number, negated: 1 | 0): void;
+          * This function is called after each expectation if the expectation passes. This prevents other
+          * unreachable() conditions that throw errors to report actual and expected values too.
+          */
+        private clearExpected;
         /**
          * This function reports an actual null value.
          */
-        reportActualNull(): void;
+        private reportActualNull;
         /**
          * This function reports an expected null value.
          *
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
-        reportExpectedNull(negated: 1 | 0): void;
+        private reportExpectedNull;
         /**
          * This function reports an actual numeric value.
          *
          * @param {number} numericValue - The value to be expected.
          */
-        reportActualValue(numericValue: number): void;
+        private reportActualValue;
         /**
          * This function reports an expected numeric value.
          *
          * @param {number} numericValue - The value to be expected
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
-        reportExpectedValue(numericValue: number, negated: 0 | 1): void;
+        private reportExpectedValue;
         /**
          * This function reports an actual reference value.
          *
          * @param {number} referencePointer - The actual reference pointer.
          * @param {number} offset - The size of the reference in bytes.
          */
-        reportActualReference(referencePointer: number, offset: number): void;
+        private reportActualReference;
         /**
          * This function reports an expected reference value.
          *
@@ -506,34 +383,38 @@ declare module "test/TestRunner" {
          * @param {number} offset - The size of the reference in bytes.
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
-        reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0): void;
+        private reportExpectedReference;
         /**
          * This function reports an expected truthy value.
          *
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
-        reportExpectedTruthy(negated: 1 | 0): void;
+        private reportExpectedTruthy;
         /**
          * This function reports an expected falsy value.
          *
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
-        reportExpectedFalsy(negated: 1 | 0): void;
+        private reportExpectedFalsy;
         /**
          * This function reports an expected finite value.
          *
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
-        reportExpectedFinite(negated: 1 | 0): void;
+        private reportExpectedFinite;
         /**
-         * This function is called after each expectation if the expectation passes. This prevents other
-         * unreachable() conditions that throw errors to report actual and expected values too.
+         * This function reports an actual string value.
+         *
+         * @param {number} stringPointer - A pointer that points to the actual string.
          */
-        clearExpected(): void;
+        private reportActualString;
         /**
-         * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
+         * This function reports an expected string value.
+         *
+         * @param {number} stringPointer - A pointer that points to the expected string.
+         * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
-        debug(): void;
+        private reportExpectedString;
         /**
          * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
          * reasons.
@@ -544,42 +425,11 @@ declare module "test/TestRunner" {
          * @param {number} _line - The line that reported the error. (Ignored)
          * @param {number} _col - The column that reported the error. (Ignored)
          */
-        abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void;
-        /**
-         * This adds a logged string to the current test.
-         *
-         * @param {number} pointer - The pointer to the logged string reference.
-         */
-        logString(pointer: number): void;
-        /**
-         * Log a reference to the reporter.
-         *
-         * @param {number} referencePointer - The pointer to the reference.
-         * @param {number} offset - The offset of the reference.
-         */
-        logReference(referencePointer: number, offset: number): void;
-        /**
-         * Log a numevalueric value to the reporter.
-         *
-         * @param {number} value - The value to be logged.
-         */
-        logValue(numericValue: number): void;
-        /**
-         * Log a null value to the reporter.
-         */
-        logNull(): void;
-        /**
-         * Gets a log stack trace.
-         */
-        getLogStackTrace(): string;
-        /**
-         * Gets an error stack trace.
-         */
-        getErrorStackTrace(ex: Error): string;
+        private abort;
     }
 }
 declare module "util/IConfiguration" {
-    import { Reporter } from "reporter/Reporter";
+    import { TestReporter } from "test/TestReporter";
     export interface ICompilerFlags {
         [flag: string]: string[];
     }
@@ -606,10 +456,10 @@ declare module "util/IConfiguration" {
          */
         imports?: any;
         /**
-         * A custom reporter that extends the `Reporter` class, and is responsible for generating log
+         * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
          * output.
          */
-        reporter?: Reporter;
+        reporter?: TestReporter;
     }
 }
 declare module "cli" {
@@ -621,13 +471,15 @@ declare module "cli" {
     export function asp(args: string[]): void;
 }
 declare module "as-pect" {
+    export * from "test/TestContext";
     export * from "test/TestGroup";
+    export * from "test/TestReporter";
     export * from "test/TestResult";
-    export * from "test/TestRunner";
-    export * from "test/TestSuite";
+    export * from "reporter/DefaultTestReporter";
+    export * from "util/ActualValue";
     export * from "util/IConfiguration";
-    export * from "reporter/DefaultReporter";
-    export * from "reporter/Reporter";
+    export * from "util/ILogTarget";
+    export * from "util/LogValue";
     export * from "cli";
 }
 declare module "test" { }

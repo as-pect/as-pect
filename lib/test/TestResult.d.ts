@@ -1,6 +1,7 @@
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
-export declare class TestResult {
+import { ILogTarget } from "../util/ILogTarget";
+export declare class TestResult implements ILogTarget {
     /**
      * The actual test's name or description.
      */
@@ -28,7 +29,7 @@ export declare class TestResult {
     /**
      * A set of strings logged by the test itself.
      */
-    log: LogValue[];
+    logs: LogValue[];
     /**
      * The generated stack trace if the test errored.
      */

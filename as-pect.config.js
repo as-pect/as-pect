@@ -16,6 +16,7 @@ module.exports = {
     "--measure": [],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
+    "--textFile": ["output.wat"],
   },
   /**
    * A set of regexp that will disclude source files from testing.

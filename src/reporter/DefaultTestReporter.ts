@@ -1,10 +1,11 @@
-import { Reporter } from "./Reporter";
+
 import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
-import { TestSuite } from "../test/TestSuite";
+import { TestContext } from "../test/TestContext";
 import chalk from "chalk";
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
+import { TestReporter } from "../test/TestReporter";
 
 const enum ValueType {
   Actual,
@@ -75,12 +76,12 @@ function createReferenceString(bytes: number[], pointer: number, offset: number)
   return result.trimRight();
 }
 
-export class DefaultReporter extends Reporter {
-  onStart(suite: TestSuite): void {
-    console.log(chalk`     {yellow [Log]:} ${suite.filename}`);
-    console.log("");
+export class DefaultTestReporter extends TestReporter {
+  onStart(_suite: TestContext): void {
+
   }
   onGroupStart(group: TestGroup): void {
+    console.log("");
     console.log(chalk`[Describe]: ${group.name}`);
     console.log("");
   }
@@ -88,13 +89,19 @@ export class DefaultReporter extends Reporter {
     const result = group.pass
       ? chalk`{green ✔ PASS}`
       : chalk`{red ✖ FAIL}`;
+    const todoCount = group.todos.length;
+    const successCount = group.tests.filter(e => e.pass).length;
+    const count = group.tests.length;
+
+    for (const logValue of group.logs) {
+      this.onLog(logValue);
+    }
 
     console.log("");
     console.log(chalk`  [Result]: ${result}`);
-    console.log(chalk`   [Tests]: ${group.successCount.toString()} pass, ${group.failCount.toString()} fail, ${group.totalCount.toString()} total`);
-    console.log(chalk`    [Todo]: ${group.todoCount.toString()} tests`);
+    console.log(chalk`   [Tests]: ${successCount.toString()} pass, ${(count - successCount).toString()} fail, ${count.toString()} total`);
+    console.log(chalk`    [Todo]: ${todoCount.toString()} tests`);
     console.log(chalk`    [Time]: ${group.time.toString()}ms`);
-    console.log("");
   }
   onTestStart(_group: TestGroup, _test: TestResult): void {}
   onTestFinish(_group: TestGroup, test: TestResult): void {
@@ -115,18 +122,29 @@ export class DefaultReporter extends Reporter {
         console.log(`    [Stack]: ${test.stack.split("\n").join("\n           ")}`);
       }
     }
+
+    for (const logValue of test.logs) {
+      this.onLog(logValue);
+    }
   }
-  onFinish(suite: TestSuite): void {
+  onFinish(suite: TestContext): void {
     const result = suite.pass
       ? chalk`{green ✔ Pass}`
       : chalk`{red ✖ Fail}`;
 
+    const count = suite.testGroups
+      .map(e => e.tests.length)
+      .reduce((a, b) => a + b);
+    const successCount = suite.testGroups
+      .map(e => e.tests.filter(f => f.pass).length)
+      .reduce((a, b) => a + b);
     console.log("");
     console.log("~".repeat(process.stdout.columns! - 10));
-    console.log(chalk`    [File]: ${suite.filename}`);
+    console.log("");
+    console.log(chalk`    [File]: ${suite.file}`);
+    console.log(chalk`  [Groups]: ${suite.testGroups.filter(e => e.pass).length.toString()} pass, ${suite.testGroups.length.toString()} total`);
     console.log(chalk`  [Result]: ${result}`);
-    console.log(chalk` [Summary]: ${suite.successCount.toString()} pass, ${suite.failCount.toString()} fail, ${suite.totalTests.toString()} total`);
-    console.log(chalk`    [Todo]: ${suite.todoCount.toString()} test` + (suite.todoCount === 1 ? "s" : ""));
+    console.log(chalk` [Summary]: ${successCount.toString()} pass, ${(count - successCount).toString()} fail, ${count.toString()} total`);
     console.log(chalk`    [Time]: ${suite.time.toString()}ms`);
     console.log("");
   }

@@ -4,13 +4,16 @@ import path from "path";
 import { IConfiguration, ICompilerFlags } from "./util/IConfiguration";
 import glob from "glob";
 import yargsparser from "yargs-parser";
-import uniq from "lodash.uniq";
 
 // import { TestRunner } from "./test/TestRunner";
 import asc from "assemblyscript/cli/asc";
-import { TestRunner } from "./test/TestRunner";
+import { TestContext } from "./test/TestContext";
 import fs from "fs";
-import { DefaultReporter } from "./reporter/DefaultReporter";
+import { instantiateBuffer } from "assemblyscript/lib/loader";
+import { TestReporter } from "./test/TestReporter";
+import { DefaultTestReporter } from "./reporter/DefaultTestReporter";
+import { performance } from "perf_hooks";
+import { timeDifference } from "./util/timeDifference";
 
 const pkg = require("../package.json");
 
@@ -104,7 +107,7 @@ export function asp(args: string[]) {
     {bold.green --init, -i}            Creates a test config, an assembly/__tests__ folder and exits.
   `);
   } else { // run the compiler and test suite
-
+    const start = performance.now();
     // obtain the configuration file
     const configurationPath = path.resolve(
       process.cwd(),
@@ -129,7 +132,6 @@ export function asp(args: string[]) {
       process.exit(1);
     }
 
-    const reporter = configuration.reporter || new DefaultReporter();
     const include: string[] = configuration.include || ["assembly/__tests__/**/*.spec.ts"];
     const add: string[] = configuration.add || ["assembly/__tests__/**/*.include.ts"];
     const flags: ICompilerFlags = configuration.flags || {
@@ -141,32 +143,36 @@ export function asp(args: string[]) {
       "--binaryFile": ["output.wasm"],
     };
     const disclude: RegExp[] = configuration.disclude || [];
+    const reporter: TestReporter = configuration.reporter || new DefaultTestReporter();
 
     // include all the file globs
     console.log(`including files ${include.join(", ")}`);
 
-    let testEntryFiles: string[] = [];
-    let addedTestEntryFiles: string[] = [];
+    let testEntryFiles: Set<string> = new Set<string>();
+    let addedTestEntryFiles: Set<string> = new Set<string>();
 
 
     // for each pattern
     for (const pattern of include) {
       // push all the resulting files so that each file gets tested individually
-      testEntryFiles.push(...glob.sync(pattern));
+      entry:
+      for (const entry of glob.sync(pattern)) {
+        // test for discludes
+        for (const test of disclude) {
+          if (test.test(entry)) continue entry;
+        }
+        testEntryFiles.add(entry);
+      }
     }
 
     for (const pattern of add) {
       // push all the added files to the added entry point list
-      addedTestEntryFiles.push(...glob.sync(pattern));
+      for (const entry of glob.sync(pattern)) {
+        addedTestEntryFiles.add(entry);
+      }
     }
 
-    // remove duplicate file locations
-    testEntryFiles = uniq(testEntryFiles);
 
-    // run the regex tests to find excluded tests
-    disclude.forEach(regexp => {
-      testEntryFiles = testEntryFiles.filter(file => !regexp.test(file));
-    });;
 
     // loop over each file and create a binary, index it on binaries
     let binaries: { [i: number]: Uint8Array } = {};
@@ -177,65 +183,88 @@ export function asp(args: string[]) {
     const relativeEntryPath = path.relative(process.cwd(), entryPath);
 
     // add the relativeEntryPath of as-pect to the list of compiled files for each test
-    addedTestEntryFiles.push(relativeEntryPath);
+    addedTestEntryFiles.add(relativeEntryPath);
 
     // Create a test runner, and run each test
-    let failed = false;
-    let count = testEntryFiles.length;
-    const runner = new TestRunner();
+    let count = testEntryFiles.size;
 
     // create the array of compiler flags from the flags object
     const flagList: string[] = Object.entries(flags).reduce((args: string[], [flag, options]) => {
       return args.concat(flag, options);
     }, []);
 
-    // for each file, synchronously run each test
-    testEntryFiles.forEach((file: string, i: number) => {
-      console.log(`Compiling: ${file} ${(i + 1).toString()} / ${testEntryFiles.length.toString()}`);
+    let testCount = 0;
+    let successCount = 0;
+    let groupSuccessCount = 0;
+    let groupCount = 0;
 
-      asc.main([file, ...addedTestEntryFiles, ...flagList], {
+    // for each file, synchronously run each test
+    Array.from(testEntryFiles).forEach((file: string, i: number) => {
+      console.log(`Compiling: ${file} ${(i + 1).toString()} / ${testEntryFiles.size.toString()}`);
+
+      asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList], {
         stdout: process.stdout as any, // use any type to quelch error
         stderr: process.stderr as any,
         writeFile(name: string, contents: Uint8Array) {
+          const ext = path.extname(name)
           // get the wasm file
-          if (path.extname(name) === ".wasm") {
+          if (ext === ".wasm") {
             binaries[i] = contents;
+            return;
           }
 
-          if (path.extname(name) === ".map") {
+          if (ext === ".map") {
             sourcemaps[name] = contents;
+            return;
           }
+          const outfileName = path.join(path.dirname(file), path.basename(file, path.extname(file)) + ext);
+          fs.writeFileSync(outfileName, contents);
         }
       }, function (error: Error | null): number {
         // if there are any compilation errors, stop the test suite
         if (error) {
           console.log(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
           console.error(error);
-          count -= 1;
-          process.exit(1);
+          return process.exit(1);
         }
 
         // if the binary wasn't emitted, stop the test suite
         if (!binaries[i]) {
           console.log(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
-          count -= 1;
-          process.exit(1);
+          return process.exit(1);
         }
 
+        const runner = new TestContext();
+        const imports = runner.createImports(configuration!.imports || {});
+        const wasm = instantiateBuffer(binaries[i], imports);
+
         // call run buffer because it's already compiled
-        runner.runBuffer(
-          file,
-          binaries[i],
-          Object.assign({}, configuration!.imports),
-          reporter,
-        );
+        runner.run(wasm, reporter, file);
 
         count -= 1;
-        failed = failed || !runner.passed;
 
+        testCount += runner.testGroups.reduce((left, right) => left + right.tests.length, 0);
+        successCount += runner.testGroups
+          .reduce((left, right) => left + right.tests.filter(e => e.pass).length, 0);
+        groupCount += runner.testGroups.length;
+        groupSuccessCount = runner.testGroups.reduce((left, right) => left + (right.pass ? 1 : 0), groupSuccessCount);
         // if any tests failed, and they all ran, exit(1)
-        if (count === 0 && failed) {
-          process.exit(1);
+        if (count === 0) {
+          const end = performance.now();
+          const failed = testCount !== successCount;
+          const result = failed
+            ? chalk`{red ✖ FAIL}`
+            : chalk`{green ✔ PASS}`;
+          console.log("~".repeat(process.stdout.columns! - 10));
+          console.log(`
+  [Result]: ${result}
+   [Files]: ${testEntryFiles.size} total
+  [Groups]: ${groupCount} count, ${groupSuccessCount} pass
+ [Summary]: ${successCount.toString()} pass, ${(testCount - successCount).toString()} fail, ${testCount.toString()} total
+    [Time]: ${timeDifference(end, start).toString()}ms`);
+          if (failed) {
+            process.exit(1);
+          }
         }
         return 0;
       });
