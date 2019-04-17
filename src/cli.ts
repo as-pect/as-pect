@@ -186,7 +186,6 @@ export function asp(args: string[]) {
     addedTestEntryFiles.add(relativeEntryPath);
 
     // Create a test runner, and run each test
-    let failed = false;
     let count = testEntryFiles.size;
 
     // create the array of compiler flags from the flags object
@@ -243,7 +242,6 @@ export function asp(args: string[]) {
         runner.run(wasm, reporter, file);
 
         count -= 1;
-        failed = failed || !runner.pass;
 
         testCount += runner.testGroups.reduce((left, right) => left + right.tests.length, 0);
         successCount += runner.testGroups
@@ -253,6 +251,7 @@ export function asp(args: string[]) {
         // if any tests failed, and they all ran, exit(1)
         if (count === 0) {
           const end = performance.now();
+          const failed = testCount !== successCount;
           const result = failed
             ? chalk`{red ✖ FAIL}`
             : chalk`{green ✔ PASS}`;
