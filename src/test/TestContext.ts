@@ -264,7 +264,11 @@ export class TestContext {
    */
   private reportEndDescribe(): void {
     const next = this.groupStack.pop()!;
-    this.testGroups.push(next);
+    /**
+     * If a describe finishes first, it happens BEFORE other describes. This means
+     * inner describe blocks run at lower priority than outer describe blocks.
+     */
+    this.testGroups.unshift(next);
     this.logTarget = this.groupStack[this.groupStack.length - 1];
   }
 
