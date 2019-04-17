@@ -174,7 +174,8 @@ describe("vectors", (): void => {
   });
 });
 ```
-Currently, `as-pect` cannot handle nested describe blocks. Please avoid nesting `describe` functions like this:
+
+This tool currently supports nested describes, and the outer describe should be evaluated first.
 
 ```ts
 describe("vector", (): void => {
