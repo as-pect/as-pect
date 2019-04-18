@@ -123,7 +123,6 @@ declare module "test/TestReporter" {
     import { TestContext } from "test/TestContext";
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
-    import { LogValue } from "util/LogValue";
     export abstract class TestReporter {
         /**
          * A function that is called when a test suite starts.
@@ -170,14 +169,6 @@ declare module "test/TestReporter" {
          * @param {string} todo - The todo description.
          */
         abstract onTodo(group: TestGroup, todo: string): void;
-        /**
-         * Whenever a value is logged to the test suite, this function is called after the test has
-         * completed for each logged value.
-         *
-         * @param {LogValue} logValue - The generated log value with some metadata about where it was
-         * generated.
-         */
-        abstract onLog(logValue: LogValue): void;
     }
 }
 declare module "reporter/DefaultTestReporter" {
@@ -480,6 +471,31 @@ declare module "util/IConfiguration" {
          * If the test module requires a set of imports to be loaded, it can be set here.
          */
         imports?: any;
+        /**
+         * Set the default performance measurement values.
+         */
+        performance?: {
+            /** Enable performance statistics gathering. */
+            enabled?: boolean;
+            /** Set the minimum number of samples to run for each test in milliseconds. */
+            minSamples?: number;
+            /** Set the maximum number of samples to run for each test. */
+            maxSamples?: number;
+            /** Set the minimum test run time in milliseconds. */
+            minTestRunTime?: number;
+            /** Set the maximum test run time in milliseconds. */
+            maxTestRunTime?: number;
+            /** Report the median time in the default reporter. */
+            reportMedian?: boolean;
+            /** Report the average time in milliseconds. */
+            reportAverage?: boolean;
+            /** Report the standard deviation. */
+            reportStandardDeviation?: boolean;
+            /** Report the maximum run time in milliseconds. */
+            reportMax?: boolean;
+            /** Report the minimum run time in milliseconds. */
+            reportMin?: boolean;
+        };
         /**
          * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
          * output.

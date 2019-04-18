@@ -25,6 +25,31 @@ export interface IConfiguration {
      */
     imports?: any;
     /**
+     * Set the default performance measurement values.
+     */
+    performance?: {
+        /** Enable performance statistics gathering. */
+        enabled?: boolean;
+        /** Set the minimum number of samples to run for each test in milliseconds. */
+        minSamples?: number;
+        /** Set the maximum number of samples to run for each test. */
+        maxSamples?: number;
+        /** Set the minimum test run time in milliseconds. */
+        minTestRunTime?: number;
+        /** Set the maximum test run time in milliseconds. */
+        maxTestRunTime?: number;
+        /** Report the median time in the default reporter. */
+        reportMedian?: boolean;
+        /** Report the average time in milliseconds. */
+        reportAverage?: boolean;
+        /** Report the standard deviation. */
+        reportStandardDeviation?: boolean;
+        /** Report the maximum run time in milliseconds. */
+        reportMax?: boolean;
+        /** Report the minimum run time in milliseconds. */
+        reportMin?: boolean;
+    };
+    /**
      * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
      * output.
      */

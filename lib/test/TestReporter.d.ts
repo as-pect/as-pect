@@ -1,7 +1,6 @@
 import { TestContext } from "./TestContext";
 import { TestGroup } from "./TestGroup";
 import { TestResult } from "./TestResult";
-import { LogValue } from "../util/LogValue";
 export declare abstract class TestReporter {
     /**
      * A function that is called when a test suite starts.
@@ -48,13 +47,5 @@ export declare abstract class TestReporter {
      * @param {string} todo - The todo description.
      */
     abstract onTodo(group: TestGroup, todo: string): void;
-    /**
-     * Whenever a value is logged to the test suite, this function is called after the test has
-     * completed for each logged value.
-     *
-     * @param {LogValue} logValue - The generated log value with some metadata about where it was
-     * generated.
-     */
-    abstract onLog(logValue: LogValue): void;
 }
 //# sourceMappingURL=TestReporter.d.ts.map
