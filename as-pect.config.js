@@ -16,6 +16,8 @@ module.exports = {
     "--measure": [],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
+    /** This will output the wat files for inspection. */
+    "--textFile": ["output.wat"],
   },
   /**
    * A set of regexp that will disclude source files from testing.
@@ -26,7 +28,43 @@ module.exports = {
    */
   imports: {},
   /**
-   * Add a custom reporter here if you want one
+   * All performance statistics reporting can be configured here.
+   */
+  performance: {
+    /** Enable performance statistics gathering. */
+    enabled: true,
+    /** Set the minimum number of samples to run for each test in milliseconds. */
+    minSamples: 10,
+    /** Set the maximum number of samples to run for each test. */
+    maxSamples: Infinity,
+    /** Set the minimum test run time in milliseconds. */
+    minTestRunTime: 1000,
+    /** Report the median time in the default reporter. */
+    reportMedian: true,
+    /** Report the average time in milliseconds. */
+    reportAverage: true,
+    /** Report the standard deviation. */
+    reportStandardDeviation: false,
+    /** Report the maximum run time in milliseconds. */
+    reportMax: false,
+    /** Report the minimum run time in milliseconds. */
+    reportMin: false,
+  },
+  /**
+   * Add a custom reporter here if you want one.
+   *
+   * @example
+   * import { TestReporter, TestGroup, TestResult, TestContext } from "as-pect";
+   *
+   * export class CustomReporter extends TestReporter {
+   *   // implement each abstract method here
+   *   public abstract onStart(suite: TestContext): void;
+   *   public abstract onGroupStart(group: TestGroup): void;
+   *   public abstract onGroupFinish(group: TestGroup): void;
+   *   public abstract onTestStart(group: TestGroup, result: TestResult): void;
+   *   public abstract onTestFinish(group: TestGroup, result: TestResult): void;
+   *   public abstract onFinish(suite: TestContext): void;
+   * }
    */
   // reporter: new CustomReporter(),
 };
