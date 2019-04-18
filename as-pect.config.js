@@ -2,9 +2,9 @@ module.exports = {
   /**
    * A set of globs passed to the glob package that qualify typescript files for testing.
    */
-  include: ["assembly/__tests__/**/*.spec.ts"],
+  include: ["assembly/__tests__/**/*.ts", "assembly/**/*.spec.ts"],
   /**
-   * A set of globs passed to the glob package that qualify files to be added to each test.
+   * A set of globs passed to the glob package that quality files to be added to each test.
    */
   add: ["assembly/__tests__/**/*.include.ts"],
   /**
@@ -16,7 +16,6 @@ module.exports = {
     "--measure": [],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
-    "--textFile": ["output.wat"],
   },
   /**
    * A set of regexp that will disclude source files from testing.

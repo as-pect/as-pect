@@ -85,7 +85,6 @@ export class TestContext {
         }
       }
 
-      test:
       for (let i = 0; i < group.testFunctionPointers.length; i++) {
         const testFunctionCallback = group.testFunctionPointers[i];
 
