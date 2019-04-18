@@ -227,6 +227,11 @@ declare module "reporter/DefaultTestReporter" {
         onTestFinish(_group: TestGroup, test: TestResult): void;
         onFinish(suite: TestContext): void;
         onTodo(_group: TestGroup, todo: string): void;
+        /**
+         * A custom logger function for the default reporter that writes the log values using `console.log()`
+         *
+         * @param {LogValue} logValue - A value to be logged to the console
+         */
         onLog(logValue: LogValue): void;
     }
 }

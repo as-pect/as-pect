@@ -415,44 +415,45 @@ declare function debug(): void;
 declare function performanceEnabled(enabled: bool): void;
 
 /**
- * This function call sets the minimum number of samples required to complete this test.
+ * This function call sets the minimum number of samples required to complete the following test.
  *
  * @param {f64} count - The number of samples required.
  */
 declare function minSamples(count: f64): void;
 
 /**
- * This function call sets the maximum number of samples to complete this test.
+ * This function call sets the maximum number of samples to complete the following test.
  *
  * @param {f64} count - The maximum number of samples required.
  */
 declare function maxSamples(count: f64): void;
 
 /**
- * This function call will set the minimum amount of time that a test should run before it can stop
- * gathering samples.
+ * This function call will set the minimum amount of time that should pass before it can stop
+ * gathering samples for the following test.
  *
  * @param {f64} time - The ammount of time in milliseconds.
  */
 declare function minTestRunTime(time: f64): void;
 
 /**
- * this function call will set the maximum amount of time that a test should run before it can stop
- * gathering samples.
+ * This function call will set the maximum amount of time that should pass before it can stop
+ * gathering samples for the following test.
  *
  * @param {f64} time - The ammount of time in milliseconds.
  */
 declare function maxTestRunTime(time: f64): void;
 
 /**
- * This function call enables gathering the average/mean run time of each sample.
+ * This function call enables gathering the average/mean run time of each sample for the following
+ * test.
  *
  * @param {bool} enabled - The bool to indicate if the average/mean should be gathered.
  */
 declare function reportAverage(enabled: bool): void;
 
 /**
- * This function call enables gathering the median run time of each sample.
+ * This function call enables gathering the median run time of each sample for the following test.
  *
  * @param {bool} enabled - The bool to indicate if the median should be gathered.
  */
@@ -460,21 +461,23 @@ declare function reportMedian(value: bool): void;
 
 /**
  * This function call enables gathering the standard deviation of the run times of the samples
- * collected.
+ * collected for the following test.
  *
  * @param {bool} enabled - The bool to indicate if the standard deviation should be gathered.
  */
 declare function reportStdDev(value: bool): void;
 
 /**
- * This function call enables gathering the largest run time of the samples collected.
+ * This function call enables gathering the largest run time of the samples collected for the
+ * following test.
  *
  * @param {bool} enabled - The bool to indicate if the max should be gathered.
  */
 declare function reportMax(value: bool): void;
 
 /**
- * This function call enables gathering the smallest run time of the samples collected.
+ * This function call enables gathering the smallest run time of the samples collected for the
+ * following test.
  *
  * @param {bool} enabled - The bool to indicate if the min should be gathered.
  */
