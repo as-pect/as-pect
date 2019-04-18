@@ -181,7 +181,6 @@ export class TestContext {
       this.runTestCall(runContext, group, result, testIndex);
       this.runAfterEach(runContext, group, result);
       if (runContext.endGroup) return;
-
     }
 
     return result;
