@@ -17,6 +17,10 @@ export declare class TestContext {
      * Run the tests on the wasm module.
      */
     run(wasm: ASUtil, reporter?: TestReporter, file?: string): void;
+    private runGroup;
+    private runTest;
+    private runAfterAll;
+    private runBeforeAll;
     /**
      * This method creates a WebAssembly imports object with all the TestContext functions
      * bound to the TestContext.

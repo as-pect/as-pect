@@ -106,9 +106,9 @@ export class DefaultTestReporter extends TestReporter {
   onTestStart(_group: TestGroup, _test: TestResult): void {}
   onTestFinish(_group: TestGroup, test: TestResult): void {
     if (test.pass) {
-      console.log(chalk` {green [Success]: ✔} ${test.testName}`);
+      console.log(chalk` {green [Success]: ✔} ${test.name}`);
     } else {
-      console.log(chalk`    {red [Fail]: ✖} ${test.testName}`);
+      console.log(chalk`    {red [Fail]: ✖} ${test.name}`);
       console.log("");
       if (!test.negated) {
         console.log(`   [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}`);

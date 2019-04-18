@@ -60,7 +60,7 @@ declare module "test/TestResult" {
         /**
          * The actual test's name or description.
          */
-        testName: string;
+        name: string;
         /**
          * The indicator to see if the test passed.
          */
@@ -200,6 +200,27 @@ declare module "reporter/DefaultTestReporter" {
 declare module "util/timeDifference" {
     export const timeDifference: (end: number, start: number) => number;
 }
+declare module "test/RunContext" {
+    import { ASUtil } from "assemblyscript/lib/loader";
+    import { TestReporter } from "test/TestReporter";
+    /**
+     * This class is a test runner helper class that contains a set of useful properties
+     * to help reduce run function size.
+     */
+    export class RunContext {
+        wasm: ASUtil;
+        reporter: TestReporter;
+        start: number;
+        end: number;
+        groupstart: number;
+        groupend: number;
+        teststart: number;
+        testend: number;
+        passed: boolean;
+        endGroup: boolean;
+        constructor(wasm: ASUtil, reporter: TestReporter);
+    }
+}
 declare module "test/TestContext" {
     import { ASUtil } from "assemblyscript/lib/loader";
     import { TestGroup } from "test/TestGroup";
@@ -220,6 +241,10 @@ declare module "test/TestContext" {
          * Run the tests on the wasm module.
          */
         run(wasm: ASUtil, reporter?: TestReporter, file?: string): void;
+        private runGroup;
+        private runTest;
+        private runAfterAll;
+        private runBeforeAll;
         /**
          * This method creates a WebAssembly imports object with all the TestContext functions
          * bound to the TestContext.

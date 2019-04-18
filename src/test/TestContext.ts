@@ -8,6 +8,7 @@ import { TestResult } from "./TestResult";
 import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
+import { RunContext } from "./RunContext";
 
 const wasmFilter = (input: string): boolean => /wasm/i.test(input);
 
@@ -37,159 +38,177 @@ export class TestContext {
     this.wasm = wasm;
     this.file = file;
 
-    let start = 0;
-    let end = 0;
-    let groupstart = 0;
-    let groupend = 0;
-    let teststart = 0;
-    let testend = 0;
-    let passed = true;
+    const runContext = new RunContext(wasm, reporter);
 
     // start the test suite
     reporter.onStart(this);
-    start = performance.now();
+    runContext.start = performance.now();
 
     testgroup:
     for (const group of this.testGroups) {
-      // get the group's name
-      const groupName = group.describePointers
-        .map(pointer => wasm.getString(pointer))
-        .join(" ");
-      group.name = groupName;
-
-      // report the group as started
-      reporter.onGroupStart(group);
-
-      for (const todo of group.todos) {
-        reporter.onTodo(group, wasm.getString(todo));
-      }
-
-      groupstart = performance.now();
-
-      // set the log target
-      this.logTarget = group;
-
-      // for each beforeAllCallback
-      for (const beforeAllCallback of group.beforeAllPointers) {
-        // call each beforeAll callback
-        const beforeAllResult = this.tryCall(beforeAllCallback);
-
-        // if the test fails
-        if (beforeAllResult === 0) {
-          groupend = performance.now();
-          group.pass = false;
-          group.reason = `Test suite ${groupName} failed in beforeAll callback.`;
-          passed = false;
-          group.time = timeDifference(groupend, groupstart);
-          continue testgroup;
-        }
-      }
-
-      for (let i = 0; i < group.testFunctionPointers.length; i++) {
-        const testFunctionCallback = group.testFunctionPointers[i];
-
-        // create the test result
-        const result = new TestResult();
-        group.tests.push(result);
-        this.logTarget = result;
-        result.testName = wasm.getString(group.testNamePointers[i]);
-        reporter.onTestStart(group, result);
-        teststart = performance.now();
-
-        // for each beforeEach callback function pointer
-        for (const beforeEachCallback of group.beforeEachPointers) {
-          const beforeEachResult = this.tryCall(beforeEachCallback);
-
-          // if beforeEach fails
-          if (beforeEachResult === 0) {
-            testend = performance.now();
-            groupend = performance.now();
-            group.pass = false;
-            group.reason = group.reason = `Test suite ${groupName} failed in beforeEach callback.`;
-            result.pass = false;
-            group.time = timeDifference(groupend, groupstart);
-            result.time = timeDifference(testend, teststart);
-            reporter.onTestFinish(group, result);
-            reporter.onGroupFinish(group);
-            continue testgroup;
-          }
-        }
-
-        const testCallResult = this.tryCall(testFunctionCallback);
-        const throws = group.testThrows[i]
-        testend = performance.now();
-        result.time = timeDifference(testend, teststart);
-        result.pass = throws
-          ? (testCallResult === 0)
-          : (testCallResult === 1)
-        result.negated = throws;
-
-        if (!result.pass) {
-          // if it throws...
-          if (throws) {
-            // only set the message
-            result.message = this.wasm!.getString(group.testMessagePointers[i]);
-          } else {
-            // set the message, the actual, expected, and stack values
-            result.message = this.message;
-            result.actual = this.actual;
-            result.expected = this.expected;
-            result.stack = this.stack;
-          }
-        }
-
-        // for each afterEach callback function pointer
-        for (const afterEachCallback of group.afterEachPointers) {
-          const afterEachResult = this.tryCall(afterEachCallback);
-
-          // if afterEach fails
-          if (afterEachResult === 0) {
-            testend = performance.now();
-            groupend = performance.now();
-            group.pass = false;
-            group.reason = group.reason = `Test suite ${groupName} failed in afterEach callback.`;
-            result.pass = false;
-            group.time = timeDifference(groupend, groupstart);
-            result.time = timeDifference(testend, teststart);
-            reporter.onTestFinish(group, result);
-            reporter.onGroupFinish(group);
-            continue testgroup;
-          }
-        }
-
-        reporter.onTestFinish(group, result);
-        this.logTarget = group;
-      }
-
-      // for each afterAllCallback
-      for (const afterAllCallback of group.afterAllPointers) {
-        // call each afterAll callback
-        const afterAllResult = this.tryCall(afterAllCallback);
-
-        // if the test fails
-        if (afterAllResult === 0) {
-          groupend = performance.now();
-          group.pass = false;
-          group.reason = `Test suite ${groupName} failed in beforeAll callback.`;
-          passed = false;
-          group.time = timeDifference(groupend, groupstart);
-          reporter.onGroupFinish(group);
-          continue testgroup;
-        }
-      }
-
-      // finish the group
-      groupend = performance.now();
-      group.time = timeDifference(groupend, groupstart);
-      group.reason = `Test suite ${groupName} passed successfully.`;
-      reporter.onGroupFinish(group);
+      this.runGroup(runContext, group);
     }
 
-    end = performance.now();
-    this.time = timeDifference(end, start);
-    this.pass = passed;
+    runContext.end = performance.now();
+    this.time = timeDifference(runContext.end, runContext.start);
+    this.pass = runContext.passed;
 
     reporter.onFinish(this);
+  }
+
+  private runGroup(runContext: RunContext, group: TestGroup): void {
+    // get the group's name
+    const groupName = group.describePointers
+      .map(pointer => runContext.wasm.getString(pointer))
+      .join(" ");
+    group.name = groupName;
+    runContext.endGroup = false;
+
+    // report the group as started
+    runContext.reporter.onGroupStart(group);
+
+    for (const todo of group.todos) {
+      runContext.reporter.onTodo(group, runContext.wasm.getString(todo));
+    }
+
+    runContext.groupstart = performance.now();
+
+    // set the log target
+    this.logTarget = group;
+
+    // for each beforeAllCallback
+    this.runBeforeAll(runContext, group);
+    if (runContext.endGroup) return;
+
+    for (let i = 0; i < group.testFunctionPointers.length; i++) {
+      const result = this.runTest(runContext, group, i);
+      if (runContext.endGroup) return;
+      runContext.reporter.onTestFinish(group, result!);
+      this.logTarget = group;
+    }
+
+    // for each afterAllCallback
+    this.runAfterAll(runContext, group);
+    if (runContext.endGroup) return;
+
+    // finish the group
+    runContext.groupend = performance.now();
+    group.time = timeDifference(runContext.groupend, runContext.groupstart);
+    group.reason = `Test suite ${groupName} passed successfully.`;
+    runContext.reporter.onGroupFinish(group);
+  }
+
+  private runTest(runContext: RunContext, group: TestGroup, i: number) {
+    const testFunctionCallback = group.testFunctionPointers[i];
+
+    // create the test result
+    const result = new TestResult();
+    group.tests.push(result);
+
+    // set the log target
+    this.logTarget = result;
+
+    // initialize the test name
+    result.name = runContext.wasm.getString(group.testNamePointers[i]);
+    runContext.reporter.onTestStart(group, result);
+    runContext.teststart = performance.now();
+
+    // for each beforeEach callback function pointer
+    for (const beforeEachCallback of group.beforeEachPointers) {
+      const beforeEachResult = this.tryCall(beforeEachCallback);
+      // if beforeEach fails
+      if (beforeEachResult === 0) {
+        runContext.testend = performance.now();
+        runContext.groupend = performance.now();
+        group.pass = false;
+        group.reason = group.reason = `Test suite ${group.name} failed in beforeEach callback.`;
+        result.pass = false;
+        group.time = timeDifference(runContext.groupend, runContext.groupstart);
+        result.time = timeDifference(runContext.testend, runContext.teststart);
+        runContext.reporter.onTestFinish(group, result);
+        runContext.reporter.onGroupFinish(group);
+        runContext.endGroup = true;
+        return;
+      }
+    }
+    const testCallResult = this.tryCall(testFunctionCallback);
+    const throws = group.testThrows[i];
+    runContext.testend = performance.now();
+    result.time = timeDifference(runContext.testend, runContext.teststart);
+    result.pass = throws
+      ? (testCallResult === 0)
+      : (testCallResult === 1);
+    result.negated = throws;
+    if (!result.pass) {
+      // if it throws...
+      if (throws) {
+        // only set the message
+        result.message = runContext.wasm.getString(group.testMessagePointers[i]);
+      }
+      else {
+        // set the message, the actual, expected, and stack values
+        result.message = this.message;
+        result.actual = this.actual;
+        result.expected = this.expected;
+        result.stack = this.stack;
+      }
+    }
+
+    // for each afterEach callback function pointer
+    for (const afterEachCallback of group.afterEachPointers) {
+      const afterEachResult = this.tryCall(afterEachCallback);
+      // if afterEach fails
+      if (afterEachResult === 0) {
+        runContext.testend = performance.now();
+        runContext.groupend = performance.now();
+        group.pass = false;
+        group.reason = group.reason = `Test suite ${group.name} failed in afterEach callback.`;
+        result.pass = false;
+        group.time = timeDifference(runContext.groupend, runContext.groupstart);
+        result.time = timeDifference(runContext.testend, runContext.teststart);
+        runContext.reporter.onTestFinish(group, result);
+        runContext.reporter.onGroupFinish(group);
+        runContext.endGroup = true;
+        return;
+      }
+    }
+
+    return result;
+  }
+
+  private runAfterAll(runContext: RunContext, group: TestGroup): void {
+    for (const afterAllCallback of group.afterAllPointers) {
+      // call each afterAll callback
+      const afterAllResult = this.tryCall(afterAllCallback);
+      // if the test fails
+      if (afterAllResult === 0) {
+        runContext.groupend = performance.now();
+        group.pass = false;
+        group.reason = `Test suite ${group.name} failed in beforeAll callback.`;
+        runContext.passed = false;
+        group.time = timeDifference(runContext.groupend, runContext.groupstart);
+        runContext.reporter.onGroupFinish(group);
+        runContext.endGroup = true;
+        return;
+      }
+    }
+  }
+
+  private runBeforeAll(runContext: RunContext, group: TestGroup): void {
+    for (const beforeAllCallback of group.beforeAllPointers) {
+      // call each beforeAll callback
+      const beforeAllResult = this.tryCall(beforeAllCallback);
+      // if the test fails
+      if (beforeAllResult === 0) {
+        runContext.groupend = performance.now();
+        group.pass = false;
+        group.reason = `Test suite ${group.name} failed in beforeAll callback.`;
+        runContext.passed = false;
+        group.time = timeDifference(runContext.groupend, runContext.groupstart);
+        runContext.endGroup = true;
+        return;
+      }
+    }
   }
 
   /**

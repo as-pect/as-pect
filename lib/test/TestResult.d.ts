@@ -5,7 +5,7 @@ export declare class TestResult implements ILogTarget {
     /**
      * The actual test's name or description.
      */
-    testName: string;
+    name: string;
     /**
      * The indicator to see if the test passed.
      */
