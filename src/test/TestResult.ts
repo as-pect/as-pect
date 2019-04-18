@@ -9,45 +9,45 @@ import { std, mean, median } from "mathjs";
  */
 export class TestResult implements ILogTarget {
   /** The actual test's name or description. */
-  name: string = "";
+  public name: string = "";
   /** The indicator to see if the test passed. */
-  pass: boolean = false;
+  public pass: boolean = false;
   /** The time in milliseconds indicating how long the test ran for each run. */
-  times: number[] = [];
+  public times: number[] = [];
   /** The reported actual value description. */
-  actual: ActualValue | null = null;
+  public actual: ActualValue | null = null;
   /** The reported expected value description. */
-  expected: ActualValue | null = null;
+  public expected: ActualValue | null = null;
   /** If the test failed, this is the message describing why the test failed. */
-  message: string = "";
+  public message: string = "";
   /** A set of strings logged by the test itself. */
-  logs: LogValue[] = [];
+  public logs: LogValue[] = [];
   /** The generated stack trace if the test errored. */
-  stack: string | null = null;
+  public stack: string | null = null;
   /** This value is set to true if the test is expected to throw. */
-  negated: boolean = false;
+  public negated: boolean = false;
   /** This value indicates if performance statistics were collected for this test. */
-  performance: boolean = false;
+  public performance: boolean = false;
   /** This value indicates if an average was calculated. */
-  hasAverage: boolean = false;
+  public hasAverage: boolean = false;
   /** This is the average (mean) value. */
-  average: number = 0;
+  public average: number = 0;
   /** This value indicates if a max was calculated. */
-  hasMax: boolean = false;
+  public hasMax: boolean = false;
   /** This is the max time. */
-  max: number = 0;
+  public max: number = 0;
   /** This value indicates if a median value was calculated. */
-  hasMedian: boolean = false;
+  public hasMedian: boolean = false;
   /** This is the calculated median time. */
-  median: number = 0;
+  public median: number = 0;
   /** This value indicates if a min value was calculated. */
-  hasMin: boolean = false;
+  public hasMin: boolean = false;
   /** This is the calculated min time. */
-  min: number = 0;
+  public min: number = 0;
   /** This value indicates if a standard deviation value was calculated. */
-  hasStdDev: boolean = false;
+  public hasStdDev: boolean = false;
   /** This is the calculated standard deviation of the times collected. */
-  stdDev: number = 0;
+  public stdDev: number = 0;
 
   /**
    * Caclculate the average value of the collected times.

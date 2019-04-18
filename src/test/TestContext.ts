@@ -953,5 +953,4 @@ export class TestContext {
   private reportMin(value: 1 | 0): void {
     this.recordMinValue = value === 1;
   }
-
 }
