@@ -32,25 +32,25 @@ module.exports = {
    */
   performance: {
     /** Enable performance statistics gathering. */
-    enabled: true,
+    enabled: false,
     /** Set the minimum number of samples to run for each test in milliseconds. */
     minSamples: 10,
     /** Set the maximum number of samples to run for each test. */
-    maxSamples: Infinity,
+    maxSamples: 100,
     /** Set the minimum test run time in milliseconds. */
     minTestRunTime: 1000,
     /** Set the maximum test run time in milliseconds. */
-    maxTestRunTime: 2000,
+    maxTestRunTime: Infinity,
     /** Report the median time in the default reporter. */
     reportMedian: true,
     /** Report the average time in milliseconds. */
     reportAverage: true,
     /** Report the standard deviation. */
-    reportStandardDeviation: false,
+    reportStandardDeviation: true,
     /** Report the maximum run time in milliseconds. */
-    reportMax: false,
+    reportMax: true,
     /** Report the minimum run time in milliseconds. */
-    reportMin: false,
+    reportMin: true,
   },
   /**
    * Add a custom reporter here if you want one.

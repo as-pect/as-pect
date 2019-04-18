@@ -9,12 +9,11 @@ import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
 import { RunContext } from "./RunContext";
+import { IPerformanceConfiguration, createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 
 const wasmFilter = (input: string): boolean => /wasm/i.test(input);
 
 export class TestContext {
-
-  public file: string = "";
 
   private groupStack: TestGroup[] = [new TestGroup()];
   public testGroups: TestGroup[] = [];
@@ -31,17 +30,35 @@ export class TestContext {
   public time: number = 0;
   public pass: boolean = true;
 
+  private performanceEnabledValue: boolean | undefined;
+  private minSamplesValue: number | undefined;
+  private maxSamplesValue: number | undefined;
+  private minTestRunTimeValue: number | undefined;
+  private maxTestRunTimeValue: number | undefined;
+  private recordAverageValue: boolean | undefined;
+  private recordMedianValue: boolean | undefined;
+  private recordStdDevValue: boolean | undefined;
+  private recordMaxValue: boolean | undefined;
+  private recordMinValue: boolean | undefined;
+
+  constructor(
+    public reporter: TestReporter = new DefaultTestReporter(),
+    public file: string = "",
+    public performanceConfiguration: IPerformanceConfiguration = createDefaultPerformanceConfiguration(),
+  ) {
+    this.resetPerformanceValues();
+  }
+
   /**
    * Run the tests on the wasm module.
    */
-  public run(wasm: ASUtil, reporter: TestReporter = new DefaultTestReporter(), file: string = ""): void {
+  public run(wasm: ASUtil): void {
     this.wasm = wasm;
-    this.file = file;
 
-    const runContext = new RunContext(wasm, reporter);
+    const runContext = new RunContext(wasm, this.reporter);
 
     // start the test suite
-    reporter.onStart(this);
+    this.reporter.onStart(this);
     runContext.start = performance.now();
 
     testgroup:
@@ -53,7 +70,7 @@ export class TestContext {
     this.time = timeDifference(runContext.end, runContext.start);
     this.pass = runContext.passed;
 
-    reporter.onFinish(this);
+    this.reporter.onFinish(this);
   }
 
   private runGroup(runContext: RunContext, group: TestGroup): void {
@@ -65,10 +82,10 @@ export class TestContext {
     runContext.endGroup = false;
 
     // report the group as started
-    runContext.reporter.onGroupStart(group);
+    this.reporter.onGroupStart(group);
 
     for (const todo of group.todos) {
-      runContext.reporter.onTodo(group, runContext.wasm.getString(todo));
+      this.reporter.onTodo(group, runContext.wasm.getString(todo));
     }
 
     runContext.groupstart = performance.now();
@@ -83,7 +100,7 @@ export class TestContext {
     for (let i = 0; i < group.testFunctionPointers.length; i++) {
       const result = this.runTest(runContext, group, i);
       if (runContext.endGroup) return;
-      runContext.reporter.onTestFinish(group, result!);
+      this.reporter.onTestFinish(group, result!);
       this.logTarget = group;
     }
 
@@ -95,55 +112,107 @@ export class TestContext {
     runContext.groupend = performance.now();
     group.time = timeDifference(runContext.groupend, runContext.groupstart);
     group.reason = `Test suite ${groupName} passed successfully.`;
-    runContext.reporter.onGroupFinish(group);
+    this.reporter.onGroupFinish(group);
   }
 
-  private runTest(runContext: RunContext, group: TestGroup, i: number) {
-    const testFunctionCallback = group.testFunctionPointers[i];
-
+  /**
+   * Run a given test.
+   *
+   * @param {RunContext} runContext - The current run context.
+   * @param {TestGroup} group - The current run group.
+   * @param {number} testIndex - The current test index.
+   */
+  private runTest(runContext: RunContext, group: TestGroup, testIndex: number) {
     // create the test result
     const result = new TestResult();
+
+    const performanceEnabled = group.performanceEnabled[testIndex];
+
     group.tests.push(result);
 
     // set the log target
     this.logTarget = result;
-
     // initialize the test name
-    result.name = runContext.wasm.getString(group.testNamePointers[i]);
-    runContext.reporter.onTestStart(group, result);
-    runContext.teststart = performance.now();
+    result.name = runContext.wasm.getString(group.testNamePointers[testIndex]);
 
-    // for each beforeEach callback function pointer
-    for (const beforeEachCallback of group.beforeEachPointers) {
-      const beforeEachResult = this.tryCall(beforeEachCallback);
-      // if beforeEach fails
-      if (beforeEachResult === 0) {
-        runContext.testend = performance.now();
-        runContext.groupend = performance.now();
-        group.pass = false;
-        group.reason = group.reason = `Test suite ${group.name} failed in beforeEach callback.`;
-        result.pass = false;
-        group.time = timeDifference(runContext.groupend, runContext.groupstart);
-        result.time = timeDifference(runContext.testend, runContext.teststart);
-        runContext.reporter.onTestFinish(group, result);
-        runContext.reporter.onGroupFinish(group);
-        runContext.endGroup = true;
-        return;
+    this.reporter.onTestStart(group, result);
+
+    // If performance is enabled, use the performance values, otherwise, just run once.
+    if (performanceEnabled) {
+      let runCount = 0;
+      result.performance = true;
+
+      // collect performance variables
+      const reportAverage = group.reportAverage[testIndex];
+      const reportMax = group.reportMax[testIndex];
+      const reportMedian = group.reportMedian[testIndex];
+      const reportMin = group.reportMin[testIndex];
+      const reportStandardDeviation = group.reportStandardDeviation[testIndex];
+      const maxSamples = group.maxSamples[testIndex];
+      const minSamples = group.minSamples[testIndex];
+      const maxTestRuntime = group.maxTestRuntime[testIndex];
+      const minTestRuntime = group.minTestRuntime[testIndex];
+
+      const start = performance.now();
+
+      // run the test loop
+      while (true) { // always run at least once
+        runCount += 1;
+        this.runBeforeEach(runContext, group, result);
+        if (runContext.endGroup) return;
+        this.runTestCall(runContext, group, result, testIndex);
+        this.runAfterEach(runContext, group, result);
+        if (runContext.endGroup) return;
+        const runTime = performance.now() - start;
+        if (minSamples !== void 0 && runCount < minSamples) continue; // running if we haven't reached the minimum sample count
+        if (maxSamples !== void 0 && runCount >= maxSamples) break; // if we have reached the max sample count
+        if (minTestRuntime !== void 0 && runTime < minTestRuntime) continue; // running if we can run more samples for this test
+        if (maxTestRuntime !== void 0 && runTime >= maxTestRuntime) break; // weve collected enough samples and the test is over
       }
+
+      if (reportAverage) result.calculateAverage();
+      if (reportMax) result.calculateMax();
+      if (reportMedian) result.calculateMedian();
+      if (reportMin) result.calculateMin();
+      if (reportStandardDeviation) result.calculateStandardDeviation();
+    } else {
+      this.runBeforeEach(runContext, group, result);
+      if (runContext.endGroup) return;
+      this.runTestCall(runContext, group, result, testIndex);
+      this.runAfterEach(runContext, group, result);
+      if (runContext.endGroup) return;
+
     }
+
+    return result;
+  }
+
+  /**
+   * Run the current test once and collect statistics.
+   *
+   * @param {RunContext} runContext - The current run context.
+   * @param {TestGroup} group - The current test group.
+   * @param {TestResult} result - The current test result.
+   * @param {number} testIndex - The current test index.
+   */
+  private runTestCall(runContext: RunContext, group: TestGroup, result: TestResult, testIndex: number): void {
+    const testFunctionCallback = group.testFunctionPointers[testIndex];
+    const start = performance.now();
     const testCallResult = this.tryCall(testFunctionCallback);
-    const throws = group.testThrows[i];
+    const end = performance.now();
+    const throws = group.testThrows[testIndex];
     runContext.testend = performance.now();
-    result.time = timeDifference(runContext.testend, runContext.teststart);
+    result.times.push(timeDifference(end, start));
     result.pass = throws
       ? (testCallResult === 0)
       : (testCallResult === 1);
     result.negated = throws;
     if (!result.pass) {
+      group.pass = false;
       // if it throws...
       if (throws) {
         // only set the message
-        result.message = runContext.wasm.getString(group.testMessagePointers[i]);
+        result.message = runContext.wasm.getString(group.testMessagePointers[testIndex]);
       }
       else {
         // set the message, the actual, expected, and stack values
@@ -153,7 +222,16 @@ export class TestContext {
         result.stack = this.stack;
       }
     }
+  }
 
+  /**
+   * Run the afterEach callbacks before running the test.
+   *
+   * @param {RunContext} runContext - The current run context.
+   * @param {TestGroup} group - The current test group.
+   * @param {TestResult} result - The current test result.
+   */
+  private runAfterEach(runContext: RunContext, group: TestGroup, result: TestResult): void {
     // for each afterEach callback function pointer
     for (const afterEachCallback of group.afterEachPointers) {
       const afterEachResult = this.tryCall(afterEachCallback);
@@ -165,17 +243,47 @@ export class TestContext {
         group.reason = group.reason = `Test suite ${group.name} failed in afterEach callback.`;
         result.pass = false;
         group.time = timeDifference(runContext.groupend, runContext.groupstart);
-        result.time = timeDifference(runContext.testend, runContext.teststart);
-        runContext.reporter.onTestFinish(group, result);
-        runContext.reporter.onGroupFinish(group);
+        this.reporter.onTestFinish(group, result);
+        this.reporter.onGroupFinish(group);
         runContext.endGroup = true;
         return;
       }
     }
-
-    return result;
   }
 
+  /**
+   * Run the beforeEach callbacks before running the test.
+   *
+   * @param {RunContext} runContext - The current run context.
+   * @param {TestGroup} group - The current test group.
+   * @param {TestResult} result - The current test result.
+   */
+  private runBeforeEach(runContext: RunContext, group: TestGroup, result: TestResult): void {
+    // for each beforeEach callback function pointer
+    for (const beforeEachCallback of group.beforeEachPointers) {
+      const beforeEachResult = this.tryCall(beforeEachCallback);
+      // if beforeEach fails
+      if (beforeEachResult === 0) {
+        runContext.testend = performance.now();
+        runContext.groupend = performance.now();
+        group.pass = false;
+        group.reason = group.reason = `Test suite ${group.name} failed in beforeEach callback.`;
+        result.pass = false;
+        group.time = timeDifference(runContext.groupend, runContext.groupstart);
+        this.reporter.onTestFinish(group, result);
+        this.reporter.onGroupFinish(group);
+        runContext.endGroup = true;
+        return;
+      }
+    }
+  }
+
+  /**
+   * Run the afterAll callbacks with the given runContext and group.
+   *
+   * @param {RunContext} runContext - The current run context.
+   * @param {TestGroup} group - The current test group.
+   */
   private runAfterAll(runContext: RunContext, group: TestGroup): void {
     for (const afterAllCallback of group.afterAllPointers) {
       // call each afterAll callback
@@ -184,16 +292,22 @@ export class TestContext {
       if (afterAllResult === 0) {
         runContext.groupend = performance.now();
         group.pass = false;
-        group.reason = `Test suite ${group.name} failed in beforeAll callback.`;
+        group.reason = `Test suite ${group.name} failed in afterAll callback.`;
         runContext.passed = false;
         group.time = timeDifference(runContext.groupend, runContext.groupstart);
-        runContext.reporter.onGroupFinish(group);
+        this.reporter.onGroupFinish(group);
         runContext.endGroup = true;
         return;
       }
     }
   }
 
+  /**
+   * Run the beforeAll callbacks with the given runContext and group.
+   *
+   * @param {RunContext} runContext - The current run context.
+   * @param {TestGroup} group - The current test group.
+   */
   private runBeforeAll(runContext: RunContext, group: TestGroup): void {
     for (const beforeAllCallback of group.beforeAllPointers) {
       // call each beforeAll callback
@@ -247,6 +361,16 @@ export class TestContext {
         reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
         reportExpectedFinite: this.reportExpectedFinite.bind(this),
         reportNegatedTest: this.reportNegatedTest.bind(this),
+        performanceEnabled: this.performanceEnabled.bind(this),
+        minSamples: this.minSamples.bind(this),
+        maxSamples: this.maxSamples.bind(this),
+        minTestRunTime: this.minTestRunTime.bind(this),
+        maxTestRunTime: this.maxTestRunTime.bind(this),
+        reportAverage: this.reportAverage.bind(this),
+        reportMedian: this.reportMedian.bind(this),
+        reportStdDev: this.reportStdDev.bind(this),
+        reportMax: this.reportMax.bind(this),
+        reportMin: this.reportMin.bind(this),
       },
     });
     result.env = result.env || {};
@@ -474,6 +598,20 @@ export class TestContext {
     group.testNamePointers.push(testNamePointer);
     group.testMessagePointers.push(-1);
     group.testThrows.push(false);
+    if (this.performanceEnabledValue) {
+      console.log("Enabled for test:", testNamePointer, callback);
+    }
+    group.performanceEnabled.push(this.performanceEnabledValue);
+    group.minSamples.push(this.minSamplesValue);
+    group.maxSamples.push(this.maxSamplesValue);
+    group.minTestRuntime.push(this.minTestRunTimeValue);
+    group.maxTestRuntime.push(this.maxTestRunTimeValue);
+    group.reportAverage.push(this.recordAverageValue);
+    group.reportMedian.push(this.recordMedianValue);
+    group.reportStandardDeviation.push(this.recordStdDevValue);
+    group.reportMax.push(this.recordMaxValue);
+    group.reportMin.push(this.recordMinValue);
+    this.resetPerformanceValues();
   }
 
   /**
@@ -490,6 +628,20 @@ export class TestContext {
     group.testNamePointers.push(testNamePointer);
     group.testMessagePointers.push(message);
     group.testThrows.push(true);
+    if (this.performanceEnabledValue) {
+      console.log("Enabled for test:", testNamePointer, callback, message);
+    }
+    group.performanceEnabled.push(this.performanceEnabledValue);
+    group.minSamples.push(this.minSamplesValue);
+    group.maxSamples.push(this.maxSamplesValue);
+    group.minTestRuntime.push(this.minTestRunTimeValue);
+    group.maxTestRuntime.push(this.maxTestRunTimeValue);
+    group.reportAverage.push(this.recordAverageValue);
+    group.reportMedian.push(this.recordMedianValue);
+    group.reportStandardDeviation.push(this.recordStdDevValue);
+    group.reportMax.push(this.recordMaxValue);
+    group.reportMin.push(this.recordMinValue);
+    this.resetPerformanceValues();
   }
 
   /**
@@ -686,4 +838,121 @@ export class TestContext {
   private abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void {
     this.message = this.wasm!.getString(reasonPointer);
   }
+
+  /**
+   * Reset all the performance values to the configured values.
+   */
+  private resetPerformanceValues(): void {
+    this.performanceEnabledValue = this.performanceConfiguration.enabled;
+    this.minSamplesValue = this.performanceConfiguration.minSamples;
+    this.maxSamplesValue = this.performanceConfiguration.maxSamples;
+    this.minTestRunTimeValue = this.performanceConfiguration.minTestRunTime;
+    this.maxTestRunTimeValue = this.performanceConfiguration.maxTestRunTime;
+    this.recordAverageValue = this.performanceConfiguration.reportAverage;
+    this.recordMedianValue = this.performanceConfiguration.reportMedian;
+    this.recordStdDevValue = this.performanceConfiguration.reportStandardDeviation;
+    this.recordMaxValue = this.performanceConfiguration.reportMax;
+    this.recordMinValue = this.performanceConfiguration.reportMin;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to enable
+   * performance for the following test.
+   *
+   * @param {1 | 0} value - A value indicating if performance should be enabled.
+   */
+  private performanceEnabled(value: 1 | 0): void {
+    this.performanceEnabledValue = value === 1;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to set the minimum number of
+   * samples for the following test.
+   *
+   * @param {number} value - The minimum number of samples to collect for the following test.
+   */
+  private minSamples(value: number): void {
+    this.minSamplesValue = value;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to set the maximum number of
+   * samples for the following test.
+   *
+   * @param {number} value - The maximum number of samples to collect for the following test.
+   */
+  private maxSamples(value: number): void {
+    this.maxSamplesValue = value;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to set the minimum amount of
+   * time to run the following test in milliseconds
+   *
+   * @param {number} value - The minimum number of milliseconds to run the following test.
+   */
+  private minTestRunTime(value: number): void {
+    this.minTestRunTimeValue = value;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to set the maximum amount of
+   * time to run the following test in milliseconds
+   *
+   * @param {number} value - The maximum number of milliseconds to run the following test.
+   */
+  private maxTestRunTime(value: number): void {
+    this.maxTestRunTimeValue = value;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to cause the next test to report
+   * an average run time.
+   *
+   * @param {1 | 0} value - A boolean indicating if the average should be reported.
+   */
+  private reportAverage(value: 1 | 0): void {
+    this.recordAverageValue = value === 1;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to cause the next test to report
+   * an median run time.
+   *
+   * @param {1 | 0} value - A boolean indicating if the median should be reported.
+   */
+  private reportMedian(value: 1 | 0): void {
+    this.recordMedianValue = value === 1;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to cause the next test to report
+   * a standard deviation calculation on the run times.
+   *
+   * @param {1 | 0} value - A boolean indicating if the standard deviation should be reported.
+   */
+  private reportStdDev(value: 1 | 0): void {
+    this.recordStdDevValue = value === 1;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to cause the next test to report
+   * the maximum run time for this test.
+   *
+   * @param {1 | 0} value - A boolean indicating if the max should be reported.
+   */
+  private reportMax(value: 1 | 0): void {
+    this.recordMaxValue = value === 1;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to cause the next test to report
+   * the minimum run time for this test.
+   *
+   * @param {1 | 0} value - A boolean indicating if the min should be reported.
+   */
+  private reportMin(value: 1 | 0): void {
+    this.recordMinValue = value === 1;
+  }
+
 }

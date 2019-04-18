@@ -56,49 +56,81 @@ declare module "test/TestResult" {
     import { LogValue } from "util/LogValue";
     import { ActualValue } from "util/ActualValue";
     import { ILogTarget } from "util/ILogTarget";
+    /**
+     * This is the data class that contains all the data about each `test()` or `it()` function defined
+     * in the `AssemblyScript` module.
+     */
     export class TestResult implements ILogTarget {
-        /**
-         * The actual test's name or description.
-         */
+        /** The actual test's name or description. */
         name: string;
-        /**
-         * The indicator to see if the test passed.
-         */
+        /** The indicator to see if the test passed. */
         pass: boolean;
-        /**
-         * The time in milliseconds indicating how long the test ran.
-         */
-        time: number;
-        /**
-         * The reported actual value description.
-         */
+        /** The time in milliseconds indicating how long the test ran for each run. */
+        times: number[];
+        /** The reported actual value description. */
         actual: ActualValue | null;
-        /**
-         * The reported expected value description.
-         */
+        /** The reported expected value description. */
         expected: ActualValue | null;
-        /**
-         * If the test failed, this is the message describing why the test failed.
-         */
+        /** If the test failed, this is the message describing why the test failed. */
         message: string;
-        /**
-         * A set of strings logged by the test itself.
-         */
+        /** A set of strings logged by the test itself. */
         logs: LogValue[];
-        /**
-         * The generated stack trace if the test errored.
-         */
+        /** The generated stack trace if the test errored. */
         stack: string | null;
-        /**
-         * This value is set to true if the test is expected to throw.
-         */
+        /** This value is set to true if the test is expected to throw. */
         negated: boolean;
+        /** This value indicates if performance statistics were collected for this test. */
+        performance: boolean;
+        /** This value indicates if an average was calculated. */
+        hasAverage: boolean;
+        /** This is the average (mean) value. */
+        average: number;
+        /** This value indicates if a max was calculated. */
+        hasMax: boolean;
+        /** This is the max time. */
+        max: number;
+        /** This value indicates if a median value was calculated. */
+        hasMedian: boolean;
+        /** This is the calculated median time. */
+        median: number;
+        /** This value indicates if a min value was calculated. */
+        hasMin: boolean;
+        /** This is the calculated min time. */
+        min: number;
+        /** This value indicates if a standard deviation value was calculated. */
+        hasStdDev: boolean;
+        /** This is the calculated standard deviation of the times collected. */
+        stdDev: number;
+        /**
+         * Caclculate the average value of the collected times.
+         */
+        calculateAverage(): void;
+        /**
+         * Calculate the max time of the collected times.
+         */
+        calculateMax(): void;
+        /**
+         * Calculate the median value of the collected times.
+         */
+        calculateMedian(): void;
+        /**
+         * Calculate the min value of the collected times.
+         */
+        calculateMin(): void;
+        /**
+         * Calculate the standard deviation of the collected times.
+         */
+        calculateStandardDeviation(): void;
     }
 }
 declare module "test/TestGroup" {
     import { LogValue } from "util/LogValue";
     import { ILogTarget } from "util/ILogTarget";
     import { TestResult } from "test/TestResult";
+    /**
+     * This test group class is designed with a data oriented layout in mind. Each test property is
+     * represented by an array.
+     */
     export class TestGroup implements ILogTarget {
         describePointers: number[];
         beforeEachPointers: number[];
@@ -116,6 +148,16 @@ declare module "test/TestGroup" {
         pass: boolean;
         reason: string;
         time: number;
+        performanceEnabled: Array<boolean | undefined>;
+        minSamples: Array<number | undefined>;
+        maxSamples: Array<number | undefined>;
+        minTestRuntime: Array<number | undefined>;
+        maxTestRuntime: Array<number | undefined>;
+        reportAverage: Array<boolean | undefined>;
+        reportMedian: Array<boolean | undefined>;
+        reportStandardDeviation: Array<boolean | undefined>;
+        reportMax: Array<boolean | undefined>;
+        reportMin: Array<boolean | undefined>;
         fork(): TestGroup;
     }
 }
@@ -212,12 +254,44 @@ declare module "test/RunContext" {
         constructor(wasm: ASUtil, reporter: TestReporter);
     }
 }
+declare module "util/IPerformanceConfiguration" {
+    /**
+     * This is the interface for performance configuration provided to the TestContext object, before
+     * tests are run.
+     */
+    export interface IPerformanceConfiguration {
+        /** Enable performance statistics gathering. */
+        enabled?: boolean;
+        /** Set the minimum number of samples to run for each test in milliseconds. */
+        minSamples?: number;
+        /** Set the maximum number of samples to run for each test. */
+        maxSamples?: number;
+        /** Set the minimum test run time in milliseconds. */
+        minTestRunTime?: number;
+        /** Set the maximum test run time in milliseconds. */
+        maxTestRunTime?: number;
+        /** Report the median time in the default reporter. */
+        reportMedian?: boolean;
+        /** Report the average time in milliseconds. */
+        reportAverage?: boolean;
+        /** Report the standard deviation. */
+        reportStandardDeviation?: boolean;
+        /** Report the maximum run time in milliseconds. */
+        reportMax?: boolean;
+        /** Report the minimum run time in milliseconds. */
+        reportMin?: boolean;
+    }
+    export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
+}
 declare module "test/TestContext" {
     import { ASUtil } from "assemblyscript/lib/loader";
     import { TestGroup } from "test/TestGroup";
     import { TestReporter } from "test/TestReporter";
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
     export class TestContext {
+        reporter: TestReporter;
         file: string;
+        performanceConfiguration: IPerformanceConfiguration;
         private groupStack;
         testGroups: TestGroup[];
         private logTarget;
@@ -228,13 +302,68 @@ declare module "test/TestContext" {
         private expected;
         time: number;
         pass: boolean;
+        private performanceEnabledValue;
+        private minSamplesValue;
+        private maxSamplesValue;
+        private minTestRunTimeValue;
+        private maxTestRunTimeValue;
+        private recordAverageValue;
+        private recordMedianValue;
+        private recordStdDevValue;
+        private recordMaxValue;
+        private recordMinValue;
+        constructor(reporter?: TestReporter, file?: string, performanceConfiguration?: IPerformanceConfiguration);
         /**
          * Run the tests on the wasm module.
          */
-        run(wasm: ASUtil, reporter?: TestReporter, file?: string): void;
+        run(wasm: ASUtil): void;
         private runGroup;
+        /**
+         * Run a given test.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current run group.
+         * @param {number} testIndex - The current test index.
+         */
         private runTest;
+        /**
+         * Run the current test once and collect statistics.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The current test result.
+         * @param {number} testIndex - The current test index.
+         */
+        private runTestCall;
+        /**
+         * Run the afterEach callbacks before running the test.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The current test result.
+         */
+        private runAfterEach;
+        /**
+         * Run the beforeEach callbacks before running the test.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The current test result.
+         */
+        private runBeforeEach;
+        /**
+         * Run the afterAll callbacks with the given runContext and group.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         */
         private runAfterAll;
+        /**
+         * Run the beforeAll callbacks with the given runContext and group.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         */
         private runBeforeAll;
         /**
          * This method creates a WebAssembly imports object with all the TestContext functions
@@ -442,10 +571,85 @@ declare module "test/TestContext" {
          * @param {number} _col - The column that reported the error. (Ignored)
          */
         private abort;
+        /**
+         * Reset all the performance values to the configured values.
+         */
+        private resetPerformanceValues;
+        /**
+         * This web assembly linked function modifies the state machine to enable
+         * performance for the following test.
+         *
+         * @param {1 | 0} value - A value indicating if performance should be enabled.
+         */
+        private performanceEnabled;
+        /**
+         * This web assembly linked function modifies the state machine to set the minimum number of
+         * samples for the following test.
+         *
+         * @param {number} value - The minimum number of samples to collect for the following test.
+         */
+        private minSamples;
+        /**
+         * This web assembly linked function modifies the state machine to set the maximum number of
+         * samples for the following test.
+         *
+         * @param {number} value - The maximum number of samples to collect for the following test.
+         */
+        private maxSamples;
+        /**
+         * This web assembly linked function modifies the state machine to set the minimum amount of
+         * time to run the following test in milliseconds
+         *
+         * @param {number} value - The minimum number of milliseconds to run the following test.
+         */
+        private minTestRunTime;
+        /**
+         * This web assembly linked function modifies the state machine to set the maximum amount of
+         * time to run the following test in milliseconds
+         *
+         * @param {number} value - The maximum number of milliseconds to run the following test.
+         */
+        private maxTestRunTime;
+        /**
+         * This web assembly linked function modifies the state machine to cause the next test to report
+         * an average run time.
+         *
+         * @param {1 | 0} value - A boolean indicating if the average should be reported.
+         */
+        private reportAverage;
+        /**
+         * This web assembly linked function modifies the state machine to cause the next test to report
+         * an median run time.
+         *
+         * @param {1 | 0} value - A boolean indicating if the median should be reported.
+         */
+        private reportMedian;
+        /**
+         * This web assembly linked function modifies the state machine to cause the next test to report
+         * a standard deviation calculation on the run times.
+         *
+         * @param {1 | 0} value - A boolean indicating if the standard deviation should be reported.
+         */
+        private reportStdDev;
+        /**
+         * This web assembly linked function modifies the state machine to cause the next test to report
+         * the maximum run time for this test.
+         *
+         * @param {1 | 0} value - A boolean indicating if the max should be reported.
+         */
+        private reportMax;
+        /**
+         * This web assembly linked function modifies the state machine to cause the next test to report
+         * the minimum run time for this test.
+         *
+         * @param {1 | 0} value - A boolean indicating if the min should be reported.
+         */
+        private reportMin;
     }
 }
 declare module "util/IConfiguration" {
     import { TestReporter } from "test/TestReporter";
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
     export interface ICompilerFlags {
         [flag: string]: string[];
     }
@@ -474,28 +678,7 @@ declare module "util/IConfiguration" {
         /**
          * Set the default performance measurement values.
          */
-        performance?: {
-            /** Enable performance statistics gathering. */
-            enabled?: boolean;
-            /** Set the minimum number of samples to run for each test in milliseconds. */
-            minSamples?: number;
-            /** Set the maximum number of samples to run for each test. */
-            maxSamples?: number;
-            /** Set the minimum test run time in milliseconds. */
-            minTestRunTime?: number;
-            /** Set the maximum test run time in milliseconds. */
-            maxTestRunTime?: number;
-            /** Report the median time in the default reporter. */
-            reportMedian?: boolean;
-            /** Report the average time in milliseconds. */
-            reportAverage?: boolean;
-            /** Report the standard deviation. */
-            reportStandardDeviation?: boolean;
-            /** Report the maximum run time in milliseconds. */
-            reportMax?: boolean;
-            /** Report the minimum run time in milliseconds. */
-            reportMin?: boolean;
-        };
+        performance?: IPerformanceConfiguration;
         /**
          * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
          * output.

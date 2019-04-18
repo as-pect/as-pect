@@ -93,8 +93,10 @@ export class DefaultTestReporter extends TestReporter {
     const successCount = group.tests.filter(e => e.pass).length;
     const count = group.tests.length;
 
-    for (const logValue of group.logs) {
-      this.onLog(logValue);
+    if (!group.performanceEnabled) {
+      for (const logValue of group.logs) {
+        this.onLog(logValue);
+      }
     }
 
     console.log("");
@@ -123,8 +125,34 @@ export class DefaultTestReporter extends TestReporter {
       }
     }
 
-    for (const logValue of test.logs) {
-      this.onLog(logValue);
+    if (test.performance) {
+      console.log(chalk` {yellow [Samples]}: ${test.times.length.toString()}`);
+
+      // log statistics
+      if (test.hasAverage) {
+        console.log(chalk`    {yellow [Mean]}: ${test.average.toString()}ms`);
+      }
+
+      if (test.hasMedian) {
+        console.log(chalk`  {yellow [Median]}: ${test.median.toString()}ms`);
+      }
+
+      if (test.hasStdDev) {
+        console.log(chalk`  {yellow [StdDev]}: ${test.stdDev.toString()}ms`);
+      }
+
+      if (test.hasMax) {
+        console.log(chalk`     {yellow [Max]}: ${test.max.toString()}ms`);
+      }
+
+      if (test.hasMin) {
+        console.log(chalk`     {yellow [Min]}: ${test.min.toString()}ms`);
+      }
+    } else {
+      // log the log values
+      for (const logValue of test.logs) {
+        this.onLog(logValue);
+      }
     }
   }
   onFinish(suite: TestContext): void {

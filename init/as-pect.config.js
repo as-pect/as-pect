@@ -30,7 +30,7 @@ module.exports = {
    */
   performance: {
     /** Enable performance statistics gathering. */
-    enabled: true,
+    enabled: false,
     /** Set the minimum number of samples to run for each test in milliseconds. */
     minSamples: 10,
     /** Set the maximum number of samples to run for each test. */

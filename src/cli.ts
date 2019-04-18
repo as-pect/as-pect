@@ -14,6 +14,7 @@ import { TestReporter } from "./test/TestReporter";
 import { DefaultTestReporter } from "./reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "./util/timeDifference";
+import { createDefaultPerformanceConfiguration } from "./util/IPerformanceConfiguration";
 
 const pkg = require("../package.json");
 
@@ -101,16 +102,16 @@ export function asp(args: string[]) {
     {bold.green asp} -v
 
   {bold.blueBright TEST OPTIONS}
-    {bold.green --performance}                        Enable performance statistics. {yellow (Default: true)}
+    {bold.green --performance}                        Enable performance statistics. {yellow (Default: false)}
     {bold.green --min-samples [number]}               Set the minimum number of samples to run for each test. {yellow (Default: 10)}
     {bold.green --max-samples [number]}               Set the maximum number of samples to run for each test. {yellow (Default: Infinity)}
     {bold.green --min-test-run-time [number]}         Set the minimum test run time in milliseconds. {yellow (Default: 1000ms)}
     {bold.green --max-test-run-time [number]}         Set the maximum test run time in milliseconds. {yellow (Default: 2000ms)}
     {bold.green --report-median(=false)?}             Enable/Disable reporting of the median time. {yellow (Default: true)}
-    {bold.green --report-average(=false)?}            Enable reporting of the average time. {yellow (Default: true)}
-    {bold.green --report-standard-deviation(=false)?} Enable reporting of the standard deviation. {yellow (Default: false)}
-    {bold.green --report-max(=false)?}                Enable reporting of the largest run time. {yellow (Default: false)}
-    {bold.green --report-min(=false)?}                Enable reporting of the smallest run time. {yellow (Default: false)}
+    {bold.green --report-average(=false)?}            Enable/Disable reporting of the average time. {yellow (Default: true)}
+    {bold.green --report-standard-deviation(=false)?} Enable/Disable reporting of the standard deviation. {yellow (Default: false)}
+    {bold.green --report-max(=false)?}                Enable/Disable reporting of the largest run time. {yellow (Default: false)}
+    {bold.green --report-min(=false)?}                Enable/Disable reporting of the smallest run time. {yellow (Default: false)}
   `);
   } else { // run the compiler and test suite
     const start = performance.now();
@@ -151,28 +152,7 @@ export function asp(args: string[]) {
     const disclude: RegExp[] = configuration.disclude || [];
     const reporter: TestReporter = configuration.reporter || new DefaultTestReporter();
 
-    const performanceConfiguration = configuration.performance || {
-      /** Enable performance statistics gathering. */
-      enabled: true,
-      /** Set the minimum number of samples to run for each test in milliseconds. */
-      minSamples: 10,
-      /** Set the maximum number of samples to run for each test. */
-      maxSamples: Infinity,
-      /** Set the minimum test run time in milliseconds. */
-      minTestRunTime: 1000,
-      /** Set the maximum test run time in milliseconds. */
-      maxTestRunTime: 2000,
-      /** Report the median time in the default reporter. */
-      reportMedian: true,
-      /** Report the average time in milliseconds. */
-      reportAverage: true,
-      /** Report the standard deviation. */
-      reportStandardDeviation: false,
-      /** Report the maximum run time in milliseconds. */
-      reportMax: false,
-      /** Report the minimum run time in milliseconds. */
-      reportMin: false,
-    };
+    const performanceConfiguration = configuration.performance || createDefaultPerformanceConfiguration();
 
     // setup performance options, overriding configured values if the flag is passed to the cli
     if (yargs.argv.hasOwnProperty("performance")) performanceConfiguration.enabled = yargs.argv.performance !== "false";
@@ -283,12 +263,12 @@ export function asp(args: string[]) {
           return process.exit(1);
         }
 
-        const runner = new TestContext();
+        const runner = new TestContext(reporter, file, performanceConfiguration);
         const imports = runner.createImports(configuration!.imports || {});
         const wasm = instantiateBuffer(binaries[i], imports);
 
         // call run buffer because it's already compiled
-        runner.run(wasm, reporter, file);
+        runner.run(wasm, );
 
         count -= 1;
 
