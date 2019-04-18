@@ -93,18 +93,24 @@ export function asp(args: string[]) {
   } else if (yargs.argv.help || yargs.argv.h) { // display the help file
     console.log(chalk`
   {bold.blueBright SYNTAX}
-    {bold.green asp} --config as-pect.config.js
-    {bold.green asp} -c as-pect.config.js
-    {bold.green asp} --init
+    {bold.green asp} --init                          Create a test config, an assembly/__tests__ folder and exit.
     {bold.green asp} -i
-    {bold.green asp} --version
+    {bold.green asp} --config as-pect.config.js      Use a specified configuration
+    {bold.green asp} -c as-pect.config.js
+    {bold.green asp} --version                       View the version.
     {bold.green asp} -v
 
-  {bold.blueBright OPTIONS}
-    {bold.green --version, -v}         Prints the package version and exits.
-    {bold.green --help, -h}            Prints this message and exits.
-    {bold.green --config, -c}          Accepts a configuration file and runs the tests.
-    {bold.green --init, -i}            Creates a test config, an assembly/__tests__ folder and exits.
+  {bold.blueBright TEST OPTIONS}
+    {bold.green --performance}                        Enable performance statistics. {yellow (Default: true)}
+    {bold.green --min-samples [number]}               Set the minimum number of samples to run for each test. {yellow (Default: 10)}
+    {bold.green --max-samples [number]}               Set the maximum number of samples to run for each test. {yellow (Default: Infinity)}
+    {bold.green --min-test-run-time [number]}         Set the minimum test run time in milliseconds. {yellow (Default: 1000ms)}
+    {bold.green --max-test-run-time [number]}         Set the maximum test run time in milliseconds. {yellow (Default: 2000ms)}
+    {bold.green --report-median(=false)?}             Enable/Disable reporting of the median time. {yellow (Default: true)}
+    {bold.green --report-average(=false)?}            Enable reporting of the average time. {yellow (Default: true)}
+    {bold.green --report-standard-deviation(=false)?} Enable reporting of the standard deviation. {yellow (Default: false)}
+    {bold.green --report-max(=false)?}                Enable reporting of the largest run time. {yellow (Default: false)}
+    {bold.green --report-min(=false)?}                Enable reporting of the smallest run time. {yellow (Default: false)}
   `);
   } else { // run the compiler and test suite
     const start = performance.now();
