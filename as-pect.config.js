@@ -39,6 +39,8 @@ module.exports = {
     maxSamples: Infinity,
     /** Set the minimum test run time in milliseconds. */
     minTestRunTime: 1000,
+    /** Set the maximum test run time in milliseconds. */
+    maxTestRunTime: 2000,
     /** Report the median time in the default reporter. */
     reportMedian: true,
     /** Report the average time in milliseconds. */

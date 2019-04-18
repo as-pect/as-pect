@@ -145,12 +145,57 @@ export function asp(args: string[]) {
     const disclude: RegExp[] = configuration.disclude || [];
     const reporter: TestReporter = configuration.reporter || new DefaultTestReporter();
 
+    const performanceConfiguration = configuration.performance || {
+      /** Enable performance statistics gathering. */
+      enabled: true,
+      /** Set the minimum number of samples to run for each test in milliseconds. */
+      minSamples: 10,
+      /** Set the maximum number of samples to run for each test. */
+      maxSamples: Infinity,
+      /** Set the minimum test run time in milliseconds. */
+      minTestRunTime: 1000,
+      /** Set the maximum test run time in milliseconds. */
+      maxTestRunTime: 2000,
+      /** Report the median time in the default reporter. */
+      reportMedian: true,
+      /** Report the average time in milliseconds. */
+      reportAverage: true,
+      /** Report the standard deviation. */
+      reportStandardDeviation: false,
+      /** Report the maximum run time in milliseconds. */
+      reportMax: false,
+      /** Report the minimum run time in milliseconds. */
+      reportMin: false,
+    };
+
+    // setup performance options, overriding configured values if the flag is passed to the cli
+    if (yargs.argv.hasOwnProperty("performance")) performanceConfiguration.enabled = yargs.argv.performance !== "false";
+
+    // if performance is enabled, gather all the flags
+    if (performanceConfiguration.enabled) {
+      console.log(chalk`{bgWhite.black [Log]} Performance has been enabled on this test suite.`);
+
+      if (yargs.argv.hasOwnProperty("minSamples")) performanceConfiguration.minSamples = parseFloat(yargs.argv.minSamples.toString());
+      if (yargs.argv.hasOwnProperty("maxSamples")) performanceConfiguration.maxSamples = parseFloat(yargs.argv.maxSamples.toString());
+      if (yargs.argv.hasOwnProperty("minTestRunTime")) performanceConfiguration.minTestRunTime = parseFloat(yargs.argv.minTestRunTime.toString());
+      if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
+      if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
+      if (yargs.argv.hasOwnProperty("reportMedian")) performanceConfiguration.reportMedian = yargs.argv.reportMedian !== "false";
+      if (yargs.argv.hasOwnProperty("reportAverage")) performanceConfiguration.reportAverage = yargs.argv.reportAverage !== "false";
+      if (yargs.argv.hasOwnProperty("reportStandardDeviation")) performanceConfiguration.reportStandardDeviation = yargs.argv.reportStandardDeviation !== "false";
+      if (yargs.argv.hasOwnProperty("reportMax")) performanceConfiguration.reportMax = yargs.argv.reportMax !== "false";
+      if (yargs.argv.hasOwnProperty("reportMin")) performanceConfiguration.reportMin = yargs.argv.reportMin !== "false";
+    }
+
+
     // include all the file globs
-    console.log(`including files ${include.join(", ")}`);
+    console.log(chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`);
 
-    let testEntryFiles: Set<string> = new Set<string>();
-    let addedTestEntryFiles: Set<string> = new Set<string>();
+    // add a line seperator between the next line and this line
+    console.log("");
 
+    const testEntryFiles: Set<string> = new Set<string>();
+    const addedTestEntryFiles: Set<string> = new Set<string>();
 
     // for each pattern
     for (const pattern of include) {
@@ -171,8 +216,6 @@ export function asp(args: string[]) {
         addedTestEntryFiles.add(entry);
       }
     }
-
-
 
     // loop over each file and create a binary, index it on binaries
     let binaries: { [i: number]: Uint8Array } = {};
