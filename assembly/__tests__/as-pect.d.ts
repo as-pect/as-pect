@@ -415,26 +415,11 @@ declare function debug(): void;
 declare function performanceEnabled(enabled: bool): void;
 
 /**
- * This function call sets the minimum number of samples required to complete the following test.
- *
- * @param {f64} count - The number of samples required.
- */
-declare function minSamples(count: f64): void;
-
-/**
  * This function call sets the maximum number of samples to complete the following test.
  *
  * @param {f64} count - The maximum number of samples required.
  */
 declare function maxSamples(count: f64): void;
-
-/**
- * This function call will set the minimum amount of time that should pass before it can stop
- * gathering samples for the following test.
- *
- * @param {f64} time - The ammount of time in milliseconds.
- */
-declare function minTestRunTime(time: f64): void;
 
 /**
  * This function call will set the maximum amount of time that should pass before it can stop

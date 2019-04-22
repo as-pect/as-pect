@@ -13,11 +13,9 @@ import { IPerformanceConfiguration, createDefaultPerformanceConfiguration } from
 
 const wasmFilter = (input: string): boolean => /wasm/i.test(input);
 
-const performanceLimits = {
-  maxSamples: 10000,
-  minSamples: 0,
-  maxTestRuntime: 5000,
-  minTestRuntime: 0,
+const enum PerformanceLimits {
+  MaxSamples = 10000,
+  MaxTestRuntime = 5000,
 };
 
 export class TestContext {
@@ -38,9 +36,7 @@ export class TestContext {
   public pass: boolean = true;
 
   private performanceEnabledValue: boolean | undefined;
-  private minSamplesValue: number | undefined;
   private maxSamplesValue: number | undefined;
-  private minTestRunTimeValue: number | undefined;
   private maxTestRunTimeValue: number | undefined;
   private recordAverageValue: boolean | undefined;
   private recordMedianValue: boolean | undefined;
@@ -158,38 +154,36 @@ export class TestContext {
 
       // sample collection configuration
       const maxSamplesValue = group.maxSamples[testIndex];
-      const minSamplesValue = group.minSamples[testIndex];
       const maxTestRuntimeValue = group.maxTestRuntime[testIndex];
-      const minTestRuntimeValue = group.minTestRuntime[testIndex];
 
+      // calculate effective values
       const maxSamples = !isFinite(maxSamplesValue!)
-        ? performanceLimits.maxSamples
-        : Math.min(maxSamplesValue!, performanceLimits.maxSamples);
-      const minSamples = !isFinite(minSamplesValue!)
-        ? performanceLimits.minSamples
-        : Math.max(minSamplesValue!, performanceLimits.minSamples);
+        ? PerformanceLimits.MaxSamples
+        : Math.min(maxSamplesValue!, PerformanceLimits.MaxSamples);
       const maxTestRuntime = !isFinite(maxTestRuntimeValue!)
-        ? performanceLimits.maxTestRuntime
-        : Math.max(maxTestRuntimeValue!, performanceLimits.maxTestRuntime);
-        const minTestRuntime = !isFinite(minTestRuntimeValue!)
-        ? performanceLimits.minTestRuntime
-        : Math.max(minTestRuntimeValue!, performanceLimits.minTestRuntime);
+        ? PerformanceLimits.MaxTestRuntime
+        : Math.max(maxTestRuntimeValue!, PerformanceLimits.MaxTestRuntime);
 
-      const start = performance.now();
-
+      const testStartTime = performance.now();
+      let currentTestRunTime = 0;
       // run the test loop
       while (true) { // always run at least once
-        runCount += 1;
         this.runBeforeEach(runContext, group, result);
+        /**
+         * Especially because the performance functions are run repeatedly, if an error occurs, assume the
+         * worst and skip the test group. These functions definitely are assumed to be safe by the test context.
+         */
         if (runContext.endGroup) return;
         this.runTestCall(runContext, group, result, testIndex);
         this.runAfterEach(runContext, group, result);
-        if (runContext.endGroup) return;
-        const runTime = performance.now() - start;
+        if (runContext.endGroup) return; // check to see if the afterEach functions errored (see above)
+
+        currentTestRunTime = performance.now() - testStartTime; // calculate how long the current test has run
+
+        runCount += 1;  // increase the run count
+
         if (maxSamples !== void 0 && runCount >= maxSamples) break; // if we have reached the max sample count
-        if (maxTestRuntime !== void 0 && runTime >= maxTestRuntime) break; // weve collected enough samples and the test is over
-        if (minSamples !== void 0 && runCount < minSamples) continue; // running if we haven't reached the minimum sample count
-        if (minTestRuntime !== void 0 && runTime < minTestRuntime) continue; // running if we can run more samples for this test
+        if (maxTestRuntime !== void 0 && currentTestRunTime >= maxTestRuntime) break; // weve collected enough samples and the test is over
       }
 
       if (reportAverage) result.calculateAverage();
@@ -383,9 +377,7 @@ export class TestContext {
         reportExpectedFinite: this.reportExpectedFinite.bind(this),
         reportNegatedTest: this.reportNegatedTest.bind(this),
         performanceEnabled: this.performanceEnabled.bind(this),
-        minSamples: this.minSamples.bind(this),
         maxSamples: this.maxSamples.bind(this),
-        minTestRunTime: this.minTestRunTime.bind(this),
         maxTestRunTime: this.maxTestRunTime.bind(this),
         reportAverage: this.reportAverage.bind(this),
         reportMedian: this.reportMedian.bind(this),
@@ -623,9 +615,7 @@ export class TestContext {
       console.log("Enabled for test:", testNamePointer, callback);
     }
     group.performanceEnabled.push(this.performanceEnabledValue);
-    group.minSamples.push(this.minSamplesValue);
     group.maxSamples.push(this.maxSamplesValue);
-    group.minTestRuntime.push(this.minTestRunTimeValue);
     group.maxTestRuntime.push(this.maxTestRunTimeValue);
     group.reportAverage.push(this.recordAverageValue);
     group.reportMedian.push(this.recordMedianValue);
@@ -653,9 +643,7 @@ export class TestContext {
       console.log("Enabled for test:", testNamePointer, callback, message);
     }
     group.performanceEnabled.push(this.performanceEnabledValue);
-    group.minSamples.push(this.minSamplesValue);
     group.maxSamples.push(this.maxSamplesValue);
-    group.minTestRuntime.push(this.minTestRunTimeValue);
     group.maxTestRuntime.push(this.maxTestRunTimeValue);
     group.reportAverage.push(this.recordAverageValue);
     group.reportMedian.push(this.recordMedianValue);
@@ -865,9 +853,7 @@ export class TestContext {
    */
   private resetPerformanceValues(): void {
     this.performanceEnabledValue = this.performanceConfiguration.enabled;
-    this.minSamplesValue = this.performanceConfiguration.minSamples;
     this.maxSamplesValue = this.performanceConfiguration.maxSamples;
-    this.minTestRunTimeValue = this.performanceConfiguration.minTestRunTime;
     this.maxTestRunTimeValue = this.performanceConfiguration.maxTestRunTime;
     this.recordAverageValue = this.performanceConfiguration.reportAverage;
     this.recordMedianValue = this.performanceConfiguration.reportMedian;
@@ -887,16 +873,6 @@ export class TestContext {
   }
 
   /**
-   * This web assembly linked function modifies the state machine to set the minimum number of
-   * samples for the following test.
-   *
-   * @param {number} value - The minimum number of samples to collect for the following test.
-   */
-  private minSamples(value: number): void {
-    this.minSamplesValue = value;
-  }
-
-  /**
    * This web assembly linked function modifies the state machine to set the maximum number of
    * samples for the following test.
    *
@@ -904,16 +880,6 @@ export class TestContext {
    */
   private maxSamples(value: number): void {
     this.maxSamplesValue = value;
-  }
-
-  /**
-   * This web assembly linked function modifies the state machine to set the minimum amount of
-   * time to run the following test in milliseconds
-   *
-   * @param {number} value - The minimum number of milliseconds to run the following test.
-   */
-  private minTestRunTime(value: number): void {
-    this.minTestRunTimeValue = value;
   }
 
   /**

@@ -17,9 +17,7 @@ export declare class TestContext {
     time: number;
     pass: boolean;
     private performanceEnabledValue;
-    private minSamplesValue;
     private maxSamplesValue;
-    private minTestRunTimeValue;
     private maxTestRunTimeValue;
     private recordAverageValue;
     private recordMedianValue;
@@ -297,26 +295,12 @@ export declare class TestContext {
      */
     private performanceEnabled;
     /**
-     * This web assembly linked function modifies the state machine to set the minimum number of
-     * samples for the following test.
-     *
-     * @param {number} value - The minimum number of samples to collect for the following test.
-     */
-    private minSamples;
-    /**
      * This web assembly linked function modifies the state machine to set the maximum number of
      * samples for the following test.
      *
      * @param {number} value - The maximum number of samples to collect for the following test.
      */
     private maxSamples;
-    /**
-     * This web assembly linked function modifies the state machine to set the minimum amount of
-     * time to run the following test in milliseconds
-     *
-     * @param {number} value - The minimum number of milliseconds to run the following test.
-     */
-    private minTestRunTime;
     /**
      * This web assembly linked function modifies the state machine to set the maximum amount of
      * time to run the following test in milliseconds

@@ -3,16 +3,8 @@
 export declare function performanceEnabled(value: bool): void;
 
 // @ts-ignore decorators are valid here
-@external("__aspect", "minSamples") @global
-export declare function minSamples(value: f64): void;
-
-// @ts-ignore decorators are valid here
 @external("__aspect", "maxSamples") @global
 export declare function maxSamples(value: f64): void;
-
-// @ts-ignore decorators are valid here
-@external("__aspect", "minTestRunTime") @global
-export declare function minTestRunTime(value: f64): void;
 
 // @ts-ignore decorators are valid here
 @external("__aspect", "maxTestRunTime") @global

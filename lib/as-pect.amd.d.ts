@@ -268,11 +268,7 @@ declare module "util/IPerformanceConfiguration" {
         /** Enable performance statistics gathering. */
         enabled?: boolean;
         /** Set the minimum number of samples to run for each test in milliseconds. */
-        minSamples?: number;
-        /** Set the maximum number of samples to run for each test. */
         maxSamples?: number;
-        /** Set the minimum test run time in milliseconds. */
-        minTestRunTime?: number;
         /** Set the maximum test run time in milliseconds. */
         maxTestRunTime?: number;
         /** Report the median time in the default reporter. */
@@ -308,9 +304,7 @@ declare module "test/TestContext" {
         time: number;
         pass: boolean;
         private performanceEnabledValue;
-        private minSamplesValue;
         private maxSamplesValue;
-        private minTestRunTimeValue;
         private maxTestRunTimeValue;
         private recordAverageValue;
         private recordMedianValue;
@@ -588,26 +582,12 @@ declare module "test/TestContext" {
          */
         private performanceEnabled;
         /**
-         * This web assembly linked function modifies the state machine to set the minimum number of
-         * samples for the following test.
-         *
-         * @param {number} value - The minimum number of samples to collect for the following test.
-         */
-        private minSamples;
-        /**
          * This web assembly linked function modifies the state machine to set the maximum number of
          * samples for the following test.
          *
          * @param {number} value - The maximum number of samples to collect for the following test.
          */
         private maxSamples;
-        /**
-         * This web assembly linked function modifies the state machine to set the minimum amount of
-         * time to run the following test in milliseconds
-         *
-         * @param {number} value - The minimum number of milliseconds to run the following test.
-         */
-        private minTestRunTime;
         /**
          * This web assembly linked function modifies the state machine to set the maximum amount of
          * time to run the following test in milliseconds

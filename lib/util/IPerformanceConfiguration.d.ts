@@ -6,11 +6,7 @@ export interface IPerformanceConfiguration {
     /** Enable performance statistics gathering. */
     enabled?: boolean;
     /** Set the minimum number of samples to run for each test in milliseconds. */
-    minSamples?: number;
-    /** Set the maximum number of samples to run for each test. */
     maxSamples?: number;
-    /** Set the minimum test run time in milliseconds. */
-    minTestRunTime?: number;
     /** Set the maximum test run time in milliseconds. */
     maxTestRunTime?: number;
     /** Report the median time in the default reporter. */

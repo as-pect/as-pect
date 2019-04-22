@@ -5,9 +5,7 @@ import { test, it, afterAll, afterEach, beforeAll, beforeEach, todo } from "./in
 import { log } from "./internal/log";
 import {
   performanceEnabled,
-  minSamples,
   maxSamples,
-  minTestRunTime,
   maxTestRunTime,
   reportAverage,
   reportMedian,

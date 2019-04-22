@@ -103,10 +103,8 @@ export function asp(args: string[]) {
 
   {bold.blueBright TEST OPTIONS}
     {bold.green --performance}                        Enable performance statistics. {yellow (Default: false)}
-    {bold.green --min-samples [number]}               Set the minimum number of samples to run for each test. {yellow (Default: 10)}
-    {bold.green --max-samples [number]}               Set the maximum number of samples to run for each test. {yellow (Default: Infinity)}
-    {bold.green --min-test-run-time [number]}         Set the minimum test run time in milliseconds. {yellow (Default: 1000ms)}
-    {bold.green --max-test-run-time [number]}         Set the maximum test run time in milliseconds. {yellow (Default: 2000ms)}
+    {bold.green --max-samples=[number]}               Set the maximum number of samples to run for each test. {yellow (Default: 10000 samples)}
+    {bold.green --max-test-run-time=[number]}         Set the maximum test run time in milliseconds. {yellow (Default: 2000ms)}
     {bold.green --report-median(=false)?}             Enable/Disable reporting of the median time. {yellow (Default: true)}
     {bold.green --report-average(=false)?}            Enable/Disable reporting of the average time. {yellow (Default: true)}
     {bold.green --report-standard-deviation(=false)?} Enable/Disable reporting of the standard deviation. {yellow (Default: false)}
@@ -161,9 +159,7 @@ export function asp(args: string[]) {
     if (performanceConfiguration.enabled) {
       console.log(chalk`{bgWhite.black [Log]} Performance has been enabled on this test suite.`);
 
-      if (yargs.argv.hasOwnProperty("minSamples")) performanceConfiguration.minSamples = parseFloat(yargs.argv.minSamples.toString());
       if (yargs.argv.hasOwnProperty("maxSamples")) performanceConfiguration.maxSamples = parseFloat(yargs.argv.maxSamples.toString());
-      if (yargs.argv.hasOwnProperty("minTestRunTime")) performanceConfiguration.minTestRunTime = parseFloat(yargs.argv.minTestRunTime.toString());
       if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
       if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
       if (yargs.argv.hasOwnProperty("reportMedian")) performanceConfiguration.reportMedian = yargs.argv.reportMedian !== "false";

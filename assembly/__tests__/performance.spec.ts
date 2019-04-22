@@ -1,6 +1,5 @@
 describe("performance", (): void => {
   performanceEnabled(true);
-  minSamples(1000);
   maxSamples(1001);
   test("This is a test with some performance values", (): void => {
     var a: f64 = 1;

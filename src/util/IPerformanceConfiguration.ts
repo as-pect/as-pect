@@ -6,11 +6,7 @@ export interface IPerformanceConfiguration {
   /** Enable performance statistics gathering. */
   enabled?: boolean;
   /** Set the minimum number of samples to run for each test in milliseconds. */
-  minSamples?: number;
-  /** Set the maximum number of samples to run for each test. */
   maxSamples?: number;
-  /** Set the minimum test run time in milliseconds. */
-  minTestRunTime?: number;
   /** Set the maximum test run time in milliseconds. */
   maxTestRunTime?: number;
   /** Report the median time in the default reporter. */
@@ -29,12 +25,8 @@ export function createDefaultPerformanceConfiguration(): IPerformanceConfigurati
   return {
     /** Enable performance statistics gathering. */
     enabled: false, // the default must be false because of backwards compatibility
-    /** Set the minimum number of samples to run for each test in milliseconds. */
-    minSamples: 10,
     /** Set the maximum number of samples to run for each test. */
-    maxSamples: Infinity,
-    /** Set the minimum test run time in milliseconds. */
-    minTestRunTime: 1000,
+    maxSamples: 10000,
     /** Set the maximum test run time in milliseconds. */
     maxTestRunTime: 2000,
     /** Report the median time in the default reporter. */

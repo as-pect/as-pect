@@ -6,7 +6,6 @@
  (type $FUNCSIG$iii (func (param i32 i32) (result i32)))
  (type $FUNCSIG$iiiiii (func (param i32 i32 i32 i32 i32) (result i32)))
  (import "__aspect" "performanceEnabled" (func $assembly/internal/performance/performanceEnabled (param i32)))
- (import "__aspect" "minSamples" (func $assembly/internal/performance/minSamples (param f64)))
  (import "__aspect" "maxSamples" (func $assembly/internal/performance/maxSamples (param f64)))
  (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
  (import "__aspect" "logNull" (func $assembly/internal/log/logNull))
@@ -30,7 +29,7 @@
  (export "table" (table $0))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
  (start $start)
- (func $start:assembly/__tests__/performance.spec~anonymous|0~anonymous|0 (; 8 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/performance.spec~anonymous|0~anonymous|0 (; 7 ;) (type $FUNCSIG$v)
   (local $0 f64)
   (local $1 i32)
   f64.const 1
@@ -63,12 +62,12 @@
    unreachable
   end
  )
- (func $assembly/internal/Test/test (; 9 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/test (; 8 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   local.get $1
   call $assembly/internal/Test/reportTest
  )
- (func $~lib/internal/string/compareUnsafe (; 10 ;) (type $FUNCSIG$iiiiii) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $~lib/internal/string/compareUnsafe (; 9 ;) (type $FUNCSIG$iiiiii) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
@@ -121,7 +120,7 @@
   end
   local.get $5
  )
- (func $~lib/string/String.__eq (; 11 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/string/String.__eq (; 10 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -165,7 +164,7 @@
   call $~lib/internal/string/compareUnsafe
   i32.eqz
  )
- (func $start:assembly/__tests__/performance.spec~anonymous|0~anonymous|1 (; 12 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/performance.spec~anonymous|0~anonymous|1 (; 11 ;) (type $FUNCSIG$v)
   (local $0 i32)
   i32.const 224
   local.set $0
@@ -179,11 +178,9 @@
    call $assembly/internal/log/logString
   end
  )
- (func $start:assembly/__tests__/performance.spec~anonymous|0 (; 13 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/performance.spec~anonymous|0 (; 12 ;) (type $FUNCSIG$v)
   i32.const 1
   call $assembly/internal/performance/performanceEnabled
-  f64.const 1e3
-  call $assembly/internal/performance/minSamples
   f64.const 1001
   call $assembly/internal/performance/maxSamples
   i32.const 40
@@ -195,10 +192,10 @@
   i32.const 2
   call $assembly/internal/Test/test
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 14 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 13 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 15 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 14 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $assembly/internal/Describe/reportDescribe
   i32.const 0
@@ -207,12 +204,12 @@
   call_indirect (type $FUNCSIG$v)
   call $assembly/internal/Describe/reportEndDescribe
  )
- (func $start:assembly/__tests__/performance.spec (; 16 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/performance.spec (; 15 ;) (type $FUNCSIG$v)
   i32.const 8
   i32.const 3
   call $assembly/internal/Describe/describe
  )
- (func $start:~lib/allocator/arena (; 17 ;) (type $FUNCSIG$v)
+ (func $start:~lib/allocator/arena (; 16 ;) (type $FUNCSIG$v)
   global.get $~lib/memory/HEAP_BASE
   i32.const 7
   i32.add
@@ -224,13 +221,13 @@
   global.get $~lib/allocator/arena/startOffset
   global.set $~lib/allocator/arena/offset
  )
- (func $start:assembly/index (; 18 ;) (type $FUNCSIG$v)
+ (func $start:assembly/index (; 17 ;) (type $FUNCSIG$v)
   call $start:~lib/allocator/arena
  )
- (func $start (; 19 ;) (type $FUNCSIG$v)
+ (func $start (; 18 ;) (type $FUNCSIG$v)
   call $start:assembly/__tests__/performance.spec
   call $start:assembly/index
  )
- (func $null (; 20 ;) (type $FUNCSIG$v)
+ (func $null (; 19 ;) (type $FUNCSIG$v)
  )
 )
