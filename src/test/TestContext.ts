@@ -16,6 +16,8 @@ const wasmFilter = (input: string): boolean => /wasm/i.test(input);
 const enum PerformanceLimits {
   MaxSamples = 10000,
   MaxTestRuntime = 5000,
+  MinimumDecimalPlaces = 0,
+  MaximumDecimalPlaces = 10,
 };
 
 export class TestContext {
@@ -38,11 +40,13 @@ export class TestContext {
   private performanceEnabledValue: boolean | undefined;
   private maxSamplesValue: number | undefined;
   private maxTestRunTimeValue: number | undefined;
+  private roundDecimalPlacesValue: number | undefined;
   private recordAverageValue: boolean | undefined;
   private recordMedianValue: boolean | undefined;
   private recordStdDevValue: boolean | undefined;
   private recordMaxValue: boolean | undefined;
   private recordMinValue: boolean | undefined;
+  private recordVariance: boolean | undefined;
 
   constructor(
     public reporter: TestReporter = new DefaultTestReporter(),
@@ -150,11 +154,13 @@ export class TestContext {
       const reportMax = group.reportMax[testIndex];
       const reportMedian = group.reportMedian[testIndex];
       const reportMin = group.reportMin[testIndex];
+      const reportVariance = group.reportVariance[testIndex];
       const reportStandardDeviation = group.reportStandardDeviation[testIndex];
 
       // sample collection configuration
       const maxSamplesValue = group.maxSamples[testIndex];
       const maxTestRuntimeValue = group.maxTestRuntime[testIndex];
+      const decimalPlacesValue = group.roundDecimalPlaces[testIndex];
 
       // calculate effective values
       const maxSamples = !isFinite(maxSamplesValue!)
@@ -163,7 +169,11 @@ export class TestContext {
       const maxTestRuntime = !isFinite(maxTestRuntimeValue!)
         ? PerformanceLimits.MaxTestRuntime
         : Math.max(maxTestRuntimeValue!, PerformanceLimits.MaxTestRuntime);
+      const decimalPlaces = !isFinite(decimalPlacesValue!)
+        ? 3
+        : Math.max(PerformanceLimits.MaximumDecimalPlaces, Math.min(decimalPlacesValue!, PerformanceLimits.MinimumDecimalPlaces));
 
+      result.decimalPlaces = Math.round(decimalPlaces); // could be a float number
       const testStartTime = performance.now();
       let currentTestRunTime = 0;
       // run the test loop
@@ -190,6 +200,7 @@ export class TestContext {
       if (reportMax) result.calculateMax();
       if (reportMedian) result.calculateMedian();
       if (reportMin) result.calculateMin();
+      if (reportVariance) result.calculateVariance();
       if (reportStandardDeviation) result.calculateStandardDeviation();
     } else {
       this.runBeforeEach(runContext, group, result);
@@ -379,11 +390,13 @@ export class TestContext {
         performanceEnabled: this.performanceEnabled.bind(this),
         maxSamples: this.maxSamples.bind(this),
         maxTestRunTime: this.maxTestRunTime.bind(this),
+        roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
         reportAverage: this.reportAverage.bind(this),
         reportMedian: this.reportMedian.bind(this),
         reportStdDev: this.reportStdDev.bind(this),
         reportMax: this.reportMax.bind(this),
         reportMin: this.reportMin.bind(this),
+        reportVariance: this.reportVariance.bind(this),
       },
     });
     result.env = result.env || {};
@@ -622,6 +635,7 @@ export class TestContext {
     group.reportStandardDeviation.push(this.recordStdDevValue);
     group.reportMax.push(this.recordMaxValue);
     group.reportMin.push(this.recordMinValue);
+    group.reportVariance.push(this.recordVariance);
     this.resetPerformanceValues();
   }
 
@@ -645,11 +659,13 @@ export class TestContext {
     group.performanceEnabled.push(this.performanceEnabledValue);
     group.maxSamples.push(this.maxSamplesValue);
     group.maxTestRuntime.push(this.maxTestRunTimeValue);
+    group.roundDecimalPlaces.push(this.roundDecimalPlacesValue);
     group.reportAverage.push(this.recordAverageValue);
     group.reportMedian.push(this.recordMedianValue);
     group.reportStandardDeviation.push(this.recordStdDevValue);
     group.reportMax.push(this.recordMaxValue);
     group.reportMin.push(this.recordMinValue);
+    group.reportVariance.push(this.recordVariance);
     this.resetPerformanceValues();
   }
 
@@ -855,11 +871,13 @@ export class TestContext {
     this.performanceEnabledValue = this.performanceConfiguration.enabled;
     this.maxSamplesValue = this.performanceConfiguration.maxSamples;
     this.maxTestRunTimeValue = this.performanceConfiguration.maxTestRunTime;
+    this.roundDecimalPlacesValue = this.performanceConfiguration.roundDecimalPlaces;
     this.recordAverageValue = this.performanceConfiguration.reportAverage;
     this.recordMedianValue = this.performanceConfiguration.reportMedian;
     this.recordStdDevValue = this.performanceConfiguration.reportStandardDeviation;
     this.recordMaxValue = this.performanceConfiguration.reportMax;
     this.recordMinValue = this.performanceConfiguration.reportMin;
+    this.recordVariance = this.performanceConfiguration.reportVariance;
   }
 
   /**
@@ -890,6 +908,16 @@ export class TestContext {
    */
   private maxTestRunTime(value: number): void {
     this.maxTestRunTimeValue = value;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to set the number of decimal places
+   * to round all the statistics to.
+   *
+   * @param {number} value - The number of decimal places to round to.
+   */
+  private roundDecimalPlaces(value: number): void {
+    this.roundDecimalPlacesValue = value;
   }
 
   /**
@@ -940,5 +968,15 @@ export class TestContext {
    */
   private reportMin(value: 1 | 0): void {
     this.recordMinValue = value === 1;
+  }
+
+  /**
+   * This web assembly linked function modifies the state machine to cause the next test to report
+   * the variance of the run times for this test.
+   *
+   * @param {1 | 0} value - A boolean indicating if the min should be reported.
+   */
+  private reportVariance(value: 1 | 0): void {
+    this.recordVariance = value === 1;
   }
 }

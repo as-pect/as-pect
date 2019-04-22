@@ -26,6 +26,8 @@ export declare class TestResult implements ILogTarget {
     negated: boolean;
     /** This value indicates if performance statistics were collected for this test. */
     performance: boolean;
+    /** The number of decimal places used for rounding. */
+    decimalPlaces: number;
     /** This value indicates if an average was calculated. */
     hasAverage: boolean;
     /** This is the average (mean) value. */
@@ -46,6 +48,12 @@ export declare class TestResult implements ILogTarget {
     hasStdDev: boolean;
     /** This is the calculated standard deviation of the times collected. */
     stdDev: number;
+    /** A boolean indicating if the variance was calcluated. */
+    hasVariance: boolean;
+    /** The raw variance calculation before rounding was applied. */
+    rawVariance: number;
+    /** This value indicates the calculated variance used for standard deviation calculations. */
+    variance: number;
     /**
      * Caclculate the average value of the collected times.
      */
@@ -66,5 +74,9 @@ export declare class TestResult implements ILogTarget {
      * Calculate the standard deviation of the collected times.
      */
     calculateStandardDeviation(): void;
+    /**
+     * Calculate the variance.
+     */
+    calculateVariance(): void;
 }
 //# sourceMappingURL=TestResult.d.ts.map

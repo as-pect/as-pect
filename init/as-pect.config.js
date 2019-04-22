@@ -14,9 +14,9 @@ module.exports = {
     "--validate": [],
     "--debug": [],
     "--measure": [],
-    /** This is required. Do not change this. */
+    /** This is required. Do not change this. The filename is ignored, but required by the compiler. */
     "--binaryFile": ["output.wasm"],
-    /** To enable wat file output, use the following flag. */
+    /** To enable wat file output, use the following flag. The filename is ignored, but required by the compiler. */
     // "--textFile": ["output.wat"],
   },
   /**
@@ -37,6 +37,8 @@ module.exports = {
     maxSamples: 10000,
     /** Set the maximum test run time in milliseconds. */
     maxTestRunTime: 2000,
+    /** Set the number of decimal places to round to. */
+    roundDecimalPlaces: 3,
     /** Report the median time in the default reporter. */
     reportMedian: true,
     /** Report the average time in milliseconds. */
@@ -47,6 +49,8 @@ module.exports = {
     reportMax: false,
     /** Report the minimum run time in milliseconds. */
     reportMin: false,
+    /** Report the variance. */
+    reportVariance: false,
   },
   /**
    * Add a custom reporter here if you want one. The following example is in typescript.

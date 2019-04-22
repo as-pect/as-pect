@@ -1,7 +1,7 @@
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { ILogTarget } from "../util/ILogTarget";
-import { mean, median, var as variance } from "mathjs";
+import { mean, median, var as variance, round } from "mathjs";
 
 /**
  * This is the data class that contains all the data about each `test()` or `it()` function defined
@@ -28,6 +28,8 @@ export class TestResult implements ILogTarget {
   public negated: boolean = false;
   /** This value indicates if performance statistics were collected for this test. */
   public performance: boolean = false;
+  /** The number of decimal places used for rounding. */
+  public decimalPlaces: number = 3;
   /** This value indicates if an average was calculated. */
   public hasAverage: boolean = false;
   /** This is the average (mean) value. */
@@ -76,7 +78,7 @@ export class TestResult implements ILogTarget {
    */
   public calculateMedian(): void {
     this.hasMedian = true;
-    this.median = Math.round(1000 * median(this.times)) / 1000;
+    this.median = round(median(this.times), this.decimalPlaces) as number;
   }
 
   /**
@@ -95,7 +97,7 @@ export class TestResult implements ILogTarget {
       this.calculateVariance();
     }
     this.hasStdDev = true;
-    this.stdDev = Math.round(1000 * Math.sqrt(this.rawVariance)) / 1000;
+    this.stdDev = round(Math.sqrt(this.rawVariance), this.decimalPlaces) as number;
   }
 
   /**
@@ -105,6 +107,6 @@ export class TestResult implements ILogTarget {
     if (this.hasVariance) return;
     this.hasVariance = true;
     this.rawVariance = variance(this.times, "biased");
-    this.variance = Math.round(1000 * this.rawVariance) / 1000;
+    this.variance = round(this.rawVariance, this.decimalPlaces) as number;
   }
 }

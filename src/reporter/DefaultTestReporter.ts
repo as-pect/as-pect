@@ -137,6 +137,10 @@ export class DefaultTestReporter extends TestReporter {
         console.log(chalk`  {yellow [Median]}: ${test.median.toString()}ms`);
       }
 
+      if (test.hasVariance) {
+        console.log(chalk`{yellow [Variance]}: ${test.variance.toString()}ms`);
+      }
+
       if (test.hasStdDev) {
         console.log(chalk`  {yellow [StdDev]}: ${test.stdDev.toString()}ms`);
       }

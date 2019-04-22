@@ -11,6 +11,10 @@ export declare function maxSamples(value: f64): void;
 export declare function maxTestRunTime(value: f64): void;
 
 // @ts-ignore decorators are valid here
+@external("__aspect", "roundDecimalPlaces") @global
+export declare function roundDecimalPlaces(value: i32): void;
+
+// @ts-ignore decorators are valid here
 @external("__aspect", "reportAverage") @global
 export declare function reportAverage(value: bool): void;
 
@@ -29,3 +33,7 @@ export declare function reportMax(value: bool): void;
 // @ts-ignore decorators are valid here
 @external("__aspect", "reportMin") @global
 export declare function reportMin(value: bool): void;
+
+// @ts-ignore decorators are valid here
+@external("__aspect", "reportVariance") @global
+export declare function reportVariance(value: bool): void;

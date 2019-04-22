@@ -7,9 +7,11 @@ import {
   performanceEnabled,
   maxSamples,
   maxTestRunTime,
+  roundDecimalPlaces,
   reportAverage,
   reportMedian,
   reportStdDev,
   reportMax,
   reportMin,
+  reportVariance,
 } from "./internal/performance";

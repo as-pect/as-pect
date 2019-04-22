@@ -19,6 +19,10 @@ export interface IPerformanceConfiguration {
     reportMax?: boolean;
     /** Report the minimum run time in milliseconds. */
     reportMin?: boolean;
+    /** Report the variance. */
+    reportVariance?: boolean;
+    /** Set the number of decimal places to round to. */
+    roundDecimalPlaces?: number;
 }
 export declare function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
 //# sourceMappingURL=IPerformanceConfiguration.d.ts.map

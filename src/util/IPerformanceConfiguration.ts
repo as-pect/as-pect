@@ -19,6 +19,10 @@ export interface IPerformanceConfiguration {
   reportMax?: boolean;
   /** Report the minimum run time in milliseconds. */
   reportMin?: boolean;
+  /** Report the variance. */
+  reportVariance?: boolean;
+  /** Set the number of decimal places to round to. */
+  roundDecimalPlaces?: number;
 }
 
 export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration {
@@ -29,6 +33,8 @@ export function createDefaultPerformanceConfiguration(): IPerformanceConfigurati
     maxSamples: 10000,
     /** Set the maximum test run time in milliseconds. */
     maxTestRunTime: 2000,
+    /** Set the number of decimal places to round to. */
+    roundDecimalPlaces: 3,
     /** Report the median time in the default reporter. */
     reportMedian: true,
     /** Report the average time in milliseconds. */
@@ -39,5 +45,7 @@ export function createDefaultPerformanceConfiguration(): IPerformanceConfigurati
     reportMax: false,
     /** Report the minimum run time in milliseconds. */
     reportMin: false,
+    /** Report the variance/ */
+    reportVariance: false,
   };
 }

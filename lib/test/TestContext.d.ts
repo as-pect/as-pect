@@ -19,11 +19,13 @@ export declare class TestContext {
     private performanceEnabledValue;
     private maxSamplesValue;
     private maxTestRunTimeValue;
+    private roundDecimalPlacesValue;
     private recordAverageValue;
     private recordMedianValue;
     private recordStdDevValue;
     private recordMaxValue;
     private recordMinValue;
+    private recordVariance;
     constructor(reporter?: TestReporter, file?: string, performanceConfiguration?: IPerformanceConfiguration);
     /**
      * Run the tests on the wasm module.
@@ -309,6 +311,13 @@ export declare class TestContext {
      */
     private maxTestRunTime;
     /**
+     * This web assembly linked function modifies the state machine to set the number of decimal places
+     * to round all the statistics to.
+     *
+     * @param {number} value - The number of decimal places to round to.
+     */
+    private roundDecimalPlaces;
+    /**
      * This web assembly linked function modifies the state machine to cause the next test to report
      * an average run time.
      *
@@ -343,5 +352,12 @@ export declare class TestContext {
      * @param {1 | 0} value - A boolean indicating if the min should be reported.
      */
     private reportMin;
+    /**
+     * This web assembly linked function modifies the state machine to cause the next test to report
+     * the variance of the run times for this test.
+     *
+     * @param {1 | 0} value - A boolean indicating if the min should be reported.
+     */
+    private reportVariance;
 }
 //# sourceMappingURL=TestContext.d.ts.map

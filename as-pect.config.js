@@ -37,6 +37,8 @@ module.exports = {
     minSamples: 10,
     /** Set the maximum number of samples to run for each test. */
     maxSamples: 100,
+    /** Set the number of decimal places to round to. */
+    roundDecimalPlaces: 3,
     /** Set the minimum test run time in milliseconds. */
     minTestRunTime: 1000,
     /** Set the maximum test run time in milliseconds. */
@@ -51,6 +53,8 @@ module.exports = {
     reportMax: true,
     /** Report the minimum run time in milliseconds. */
     reportMin: true,
+    /** Report the variance. */
+    reportVariance: true,
   },
   /**
    * Add a custom reporter here if you want one.

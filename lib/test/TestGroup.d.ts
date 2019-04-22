@@ -23,15 +23,15 @@ export declare class TestGroup implements ILogTarget {
     reason: string;
     time: number;
     performanceEnabled: Array<boolean | undefined>;
-    minSamples: Array<number | undefined>;
     maxSamples: Array<number | undefined>;
-    minTestRuntime: Array<number | undefined>;
+    roundDecimalPlaces: Array<number | undefined>;
     maxTestRuntime: Array<number | undefined>;
     reportAverage: Array<boolean | undefined>;
     reportMedian: Array<boolean | undefined>;
     reportStandardDeviation: Array<boolean | undefined>;
     reportMax: Array<boolean | undefined>;
     reportMin: Array<boolean | undefined>;
+    reportVariance: Array<boolean | undefined>;
     fork(): TestGroup;
 }
 //# sourceMappingURL=TestGroup.d.ts.map

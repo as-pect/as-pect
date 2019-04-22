@@ -81,6 +81,8 @@ declare module "test/TestResult" {
         negated: boolean;
         /** This value indicates if performance statistics were collected for this test. */
         performance: boolean;
+        /** The number of decimal places used for rounding. */
+        decimalPlaces: number;
         /** This value indicates if an average was calculated. */
         hasAverage: boolean;
         /** This is the average (mean) value. */
@@ -101,6 +103,12 @@ declare module "test/TestResult" {
         hasStdDev: boolean;
         /** This is the calculated standard deviation of the times collected. */
         stdDev: number;
+        /** A boolean indicating if the variance was calcluated. */
+        hasVariance: boolean;
+        /** The raw variance calculation before rounding was applied. */
+        rawVariance: number;
+        /** This value indicates the calculated variance used for standard deviation calculations. */
+        variance: number;
         /**
          * Caclculate the average value of the collected times.
          */
@@ -121,6 +129,10 @@ declare module "test/TestResult" {
          * Calculate the standard deviation of the collected times.
          */
         calculateStandardDeviation(): void;
+        /**
+         * Calculate the variance.
+         */
+        calculateVariance(): void;
     }
 }
 declare module "test/TestGroup" {
@@ -149,15 +161,15 @@ declare module "test/TestGroup" {
         reason: string;
         time: number;
         performanceEnabled: Array<boolean | undefined>;
-        minSamples: Array<number | undefined>;
         maxSamples: Array<number | undefined>;
-        minTestRuntime: Array<number | undefined>;
+        roundDecimalPlaces: Array<number | undefined>;
         maxTestRuntime: Array<number | undefined>;
         reportAverage: Array<boolean | undefined>;
         reportMedian: Array<boolean | undefined>;
         reportStandardDeviation: Array<boolean | undefined>;
         reportMax: Array<boolean | undefined>;
         reportMin: Array<boolean | undefined>;
+        reportVariance: Array<boolean | undefined>;
         fork(): TestGroup;
     }
 }
@@ -281,6 +293,10 @@ declare module "util/IPerformanceConfiguration" {
         reportMax?: boolean;
         /** Report the minimum run time in milliseconds. */
         reportMin?: boolean;
+        /** Report the variance. */
+        reportVariance?: boolean;
+        /** Set the number of decimal places to round to. */
+        roundDecimalPlaces?: number;
     }
     export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
 }
@@ -306,11 +322,13 @@ declare module "test/TestContext" {
         private performanceEnabledValue;
         private maxSamplesValue;
         private maxTestRunTimeValue;
+        private roundDecimalPlacesValue;
         private recordAverageValue;
         private recordMedianValue;
         private recordStdDevValue;
         private recordMaxValue;
         private recordMinValue;
+        private recordVariance;
         constructor(reporter?: TestReporter, file?: string, performanceConfiguration?: IPerformanceConfiguration);
         /**
          * Run the tests on the wasm module.
@@ -596,6 +614,13 @@ declare module "test/TestContext" {
          */
         private maxTestRunTime;
         /**
+         * This web assembly linked function modifies the state machine to set the number of decimal places
+         * to round all the statistics to.
+         *
+         * @param {number} value - The number of decimal places to round to.
+         */
+        private roundDecimalPlaces;
+        /**
          * This web assembly linked function modifies the state machine to cause the next test to report
          * an average run time.
          *
@@ -630,6 +655,13 @@ declare module "test/TestContext" {
          * @param {1 | 0} value - A boolean indicating if the min should be reported.
          */
         private reportMin;
+        /**
+         * This web assembly linked function modifies the state machine to cause the next test to report
+         * the variance of the run times for this test.
+         *
+         * @param {1 | 0} value - A boolean indicating if the min should be reported.
+         */
+        private reportVariance;
     }
 }
 declare module "util/IConfiguration" {
