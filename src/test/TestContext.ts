@@ -13,6 +13,13 @@ import { IPerformanceConfiguration, createDefaultPerformanceConfiguration } from
 
 const wasmFilter = (input: string): boolean => /wasm/i.test(input);
 
+const performanceLimits = {
+  maxSamples: 10000,
+  minSamples: 0,
+  maxTestRuntime: 5000,
+  minTestRuntime: 0,
+};
+
 export class TestContext {
 
   private groupStack: TestGroup[] = [new TestGroup()];
@@ -148,10 +155,25 @@ export class TestContext {
       const reportMedian = group.reportMedian[testIndex];
       const reportMin = group.reportMin[testIndex];
       const reportStandardDeviation = group.reportStandardDeviation[testIndex];
-      const maxSamples = group.maxSamples[testIndex];
-      const minSamples = group.minSamples[testIndex];
-      const maxTestRuntime = group.maxTestRuntime[testIndex];
-      const minTestRuntime = group.minTestRuntime[testIndex];
+
+      // sample collection configuration
+      const maxSamplesValue = group.maxSamples[testIndex];
+      const minSamplesValue = group.minSamples[testIndex];
+      const maxTestRuntimeValue = group.maxTestRuntime[testIndex];
+      const minTestRuntimeValue = group.minTestRuntime[testIndex];
+
+      const maxSamples = !isFinite(maxSamplesValue!)
+        ? performanceLimits.maxSamples
+        : Math.min(maxSamplesValue!, performanceLimits.maxSamples);
+      const minSamples = !isFinite(minSamplesValue!)
+        ? performanceLimits.minSamples
+        : Math.max(minSamplesValue!, performanceLimits.minSamples);
+      const maxTestRuntime = !isFinite(maxTestRuntimeValue!)
+        ? performanceLimits.maxTestRuntime
+        : Math.max(maxTestRuntimeValue!, performanceLimits.maxTestRuntime);
+        const minTestRuntime = !isFinite(minTestRuntimeValue!)
+        ? performanceLimits.minTestRuntime
+        : Math.max(minTestRuntimeValue!, performanceLimits.minTestRuntime);
 
       const start = performance.now();
 
@@ -164,10 +186,10 @@ export class TestContext {
         this.runAfterEach(runContext, group, result);
         if (runContext.endGroup) return;
         const runTime = performance.now() - start;
-        if (minSamples !== void 0 && runCount < minSamples) continue; // running if we haven't reached the minimum sample count
         if (maxSamples !== void 0 && runCount >= maxSamples) break; // if we have reached the max sample count
-        if (minTestRuntime !== void 0 && runTime < minTestRuntime) continue; // running if we can run more samples for this test
         if (maxTestRuntime !== void 0 && runTime >= maxTestRuntime) break; // weve collected enough samples and the test is over
+        if (minSamples !== void 0 && runCount < minSamples) continue; // running if we haven't reached the minimum sample count
+        if (minTestRuntime !== void 0 && runTime < minTestRuntime) continue; // running if we can run more samples for this test
       }
 
       if (reportAverage) result.calculateAverage();

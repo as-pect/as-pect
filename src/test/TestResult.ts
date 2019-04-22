@@ -86,6 +86,6 @@ export class TestResult implements ILogTarget {
    */
   public calculateStandardDeviation(): void {
     this.hasStdDev = true;
-    this.stdDev = Math.round(1000 * std(this.times, "biased"));
+    this.stdDev = Math.round(1000 * std(this.times, "biased")) / 1000;
   }
 }
