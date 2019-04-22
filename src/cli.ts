@@ -100,6 +100,8 @@ export function asp(args: string[]) {
     {bold.green asp} -c as-pect.config.js
     {bold.green asp} --version                       View the version.
     {bold.green asp} -v
+    {bold.green asp} --help                          Show this help screen.
+    {bold.green asp} -h
 
   {bold.blueBright TEST OPTIONS}
     {bold.green --performance}                        Enable performance statistics. {yellow (Default: false)}

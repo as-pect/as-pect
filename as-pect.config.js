@@ -33,14 +33,10 @@ module.exports = {
   performance: {
     /** Enable performance statistics gathering. */
     enabled: false,
-    /** Set the minimum number of samples to run for each test in milliseconds. */
-    minSamples: 10,
     /** Set the maximum number of samples to run for each test. */
-    maxSamples: 100,
+    maxSamples: 1000,
     /** Set the number of decimal places to round to. */
     roundDecimalPlaces: 3,
-    /** Set the minimum test run time in milliseconds. */
-    minTestRunTime: 1000,
     /** Set the maximum test run time in milliseconds. */
     maxTestRunTime: Infinity,
     /** Report the median time in the default reporter. */
@@ -56,21 +52,4 @@ module.exports = {
     /** Report the variance. */
     reportVariance: true,
   },
-  /**
-   * Add a custom reporter here if you want one.
-   *
-   * @example
-   * import { TestReporter, TestGroup, TestResult, TestContext } from "as-pect";
-   *
-   * export class CustomReporter extends TestReporter {
-   *   // implement each abstract method here
-   *   public abstract onStart(suite: TestContext): void;
-   *   public abstract onGroupStart(group: TestGroup): void;
-   *   public abstract onGroupFinish(group: TestGroup): void;
-   *   public abstract onTestStart(group: TestGroup, result: TestResult): void;
-   *   public abstract onTestFinish(group: TestGroup, result: TestResult): void;
-   *   public abstract onFinish(suite: TestContext): void;
-   * }
-   */
-  // reporter: new CustomReporter(),
 };

@@ -103,9 +103,9 @@ module.exports = {
     "--validate": [],
     "--debug": [],
     "--measure": [],
-    /** The as-pect cli must intercept the wasm binary, in order to test it. Do not forget this. */
+    /** This is required. Do not change this. The filename is ignored, but required by the compiler. */
     "--binaryFile": ["output.wasm"],
-    /** To enable wat file output, use the following flag. */
+    /** To enable wat file output, use the following flag. The filename is ignored, but required by the compiler. */
     // "--textFile": ["output.wat"],
   },
   /**
@@ -126,6 +126,8 @@ module.exports = {
     maxSamples: 10000,
     /** Set the maximum test run time in milliseconds. */
     maxTestRunTime: 2000,
+    /** Set the number of decimal places to round to. */
+    roundDecimalPlaces: 3,
     /** Report the median time in the default reporter. */
     reportMedian: true,
     /** Report the average time in milliseconds. */
@@ -136,13 +138,11 @@ module.exports = {
     reportMax: false,
     /** Report the minimum run time in milliseconds. */
     reportMin: false,
+    /** Report the variance. */
+    reportVariance: false,
   },
-  /**
-   * Add a custom reporter here if you want one. The following example is in typescript.
-   */
   // reporter: new CustomReporter(),
 };
-
 ```
 
 If your module requires a set of imported functions, it's okay to mock them here in the `imports`
@@ -178,6 +178,9 @@ class, since `Reporter` does not have one.
 If no reporter is provided to the configuration, one will be provided that uses `console.log()` and
 `chalk` to provide colored output.
 
+If performance is enabled, then the `times` array will be populated with the runtime values measured
+in milliseconds.
+
 # Notes
 
 ## Do Not Import An Allocator
@@ -190,7 +193,8 @@ include this at the top of each test.
 import "allocator/arena";
 ```
 
-This ultimately makes your test suite cleanner and require less imports.
+This will be replaced with a `--allocator` flag that specifies the test memory allocator. The default
+will be backwards compatible and be specified as the `arena` allocator.
 
 ## Closures
 
