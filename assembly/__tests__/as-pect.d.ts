@@ -422,6 +422,13 @@ declare function performanceEnabled(enabled: bool): void;
 declare function maxSamples(count: f64): void;
 
 /**
+ * This function call sets the number of decimal places to round to for the following test.
+ *
+ * @param {i32} deicmalPlaces - The number of decimal places to round to
+ */
+declare function roundDecimalPlaces(count: i32): void;
+
+/**
  * This function call will set the maximum amount of time that should pass before it can stop
  * gathering samples for the following test.
  *
@@ -467,3 +474,10 @@ declare function reportMax(value: bool): void;
  * @param {bool} enabled - The bool to indicate if the min should be gathered.
  */
 declare function reportMin(value: bool): void;
+
+/**
+ * This function call enables gathering the varaince of the samples collected for the following test.
+ *
+ * @param {bool} enabled - The bool to indicate if the variance should be calculated.
+ */
+declare function reportVariance(value: bool): void;
