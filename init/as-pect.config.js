@@ -2,7 +2,7 @@ module.exports = {
   /**
    * A set of globs passed to the glob package that qualify typescript files for testing.
    */
-  include: ["assembly/__tests__/**/*.ts", "assembly/**/*.spec.ts"],
+  include: ["assembly/__tests__/**/*.spec.ts"],
   /**
    * A set of globs passed to the glob package that quality files to be added to each test.
    */
@@ -16,6 +16,8 @@ module.exports = {
     "--measure": [],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
+    /** To enable wat file output, use the following flag. */
+    // "--textFile": ["output.wat"],
   },
   /**
    * A set of regexp that will disclude source files from testing.
@@ -32,7 +34,7 @@ module.exports = {
     /** Enable performance statistics gathering. */
     enabled: false,
     /** Set the maximum number of samples to run for each test. */
-    maxSamples: Infinity,
+    maxSamples: 10000,
     /** Set the maximum test run time in milliseconds. */
     maxTestRunTime: 2000,
     /** Report the median time in the default reporter. */
@@ -47,7 +49,7 @@ module.exports = {
     reportMin: false,
   },
   /**
-   * Add a custom reporter here if you want one.
+   * Add a custom reporter here if you want one. The following example is in typescript.
    *
    * @example
    * import { TestReporter, TestGroup, TestResult, TestContext } from "as-pect";

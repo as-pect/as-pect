@@ -47,13 +47,36 @@ test configuration. Otherwise, you can specify a configuration like this:
 $ npx asp --config as-pect.config.js
 ```
 
+# CLI
+
+This is the CLI help displayed when using the `asp` help flag.
+
+```
+  SYNTAX
+    asp --init                          Create a test config, an assembly/__tests__ folder and exit.
+    asp -i
+    asp --config as-pect.config.js      Use a specified configuration
+    asp -c as-pect.config.js
+    asp --version                       View the version.
+    asp -v
+
+  TEST OPTIONS
+    --performance                        Enable performance statistics. (Default: false)
+    --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
+    --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
+    --report-median(=false)?             Enable/Disable reporting of the median time. (Default: true)
+    --report-average(=false)?            Enable/Disable reporting of the average time. (Default: true)
+    --report-standard-deviation(=false)? Enable/Disable reporting of the standard deviation. (Default: false)
+    --report-max(=false)?                Enable/Disable reporting of the largest run time. (Default: false)
+    --report-min(=false)?                Enable/Disable reporting of the smallest run time. (Default: false)
+```
+
 # Configuration
 
 Currently `as-pect` will compile each file that matches each `Glob` in the `include` property of
 your configuration. The default include is `"assembly/__tests__/**/*.spec.ts"`. It must compile each
-file, and run each binary seperately. This is a limitation of AssemblyScript, not of `as-pect`,
-because seperate modules that share imports are buggy. Also, compiling the binaries in tandem speeds
-up the testing process.
+file, and run each binary seperately in it's own `TestContext`. This is a limitation of AssemblyScript,
+not of `as-pect`, because seperate modules that share imports are buggy.
 
 A single TypeScript file is added to the compilation to add all the global test functions like
 `describe`, `it`, `test`, and `expect`. All of these functions are placed conveniently into a
@@ -80,9 +103,10 @@ module.exports = {
     "--validate": [],
     "--debug": [],
     "--measure": [],
-    "--sourcemap": [],
-    /** This is required. Do not change this. */
+    /** The as-pect cli must intercept the wasm binary, in order to test it. Do not forget this. */
     "--binaryFile": ["output.wasm"],
+    /** To enable wat file output, use the following flag. */
+    // "--textFile": ["output.wat"],
   },
   /**
    * A set of regexp that will disclude source files from testing.
@@ -93,10 +117,32 @@ module.exports = {
    */
   imports: {},
   /**
-   * Add a custom reporter here if you want one
+   * All performance statistics reporting can be configured here.
+   */
+  performance: {
+    /** Enable performance statistics gathering. */
+    enabled: false,
+    /** Set the maximum number of samples to run for each test. */
+    maxSamples: 10000,
+    /** Set the maximum test run time in milliseconds. */
+    maxTestRunTime: 2000,
+    /** Report the median time in the default reporter. */
+    reportMedian: true,
+    /** Report the average time in milliseconds. */
+    reportAverage: true,
+    /** Report the standard deviation. */
+    reportStandardDeviation: false,
+    /** Report the maximum run time in milliseconds. */
+    reportMax: false,
+    /** Report the minimum run time in milliseconds. */
+    reportMin: false,
+  },
+  /**
+   * Add a custom reporter here if you want one. The following example is in typescript.
    */
   // reporter: new CustomReporter(),
 };
+
 ```
 
 If your module requires a set of imported functions, it's okay to mock them here in the `imports`
@@ -199,6 +245,106 @@ log<string>("This will log a string");
 log<f64>(0.4); // this logs a float value
 log<i32>(42); // this logs the meaning of life
 log<Vec3>(new Vec3(1, 2, 3)); // this logs every byte in the reference
+```
+
+## Performance Testing
+
+It's possible to switch a test to performance mode, and instead of collecting log values, collect statistics on
+how fast the test runs.
+
+### Performance Enabling Via API
+
+To enable performance using the global test functions, call the `performanceEnabled()` function with a `true` value.
+
+```ts
+describe("my test suite", (): void => {
+  performanceEnabled(true);
+  test("", (): void => {
+    // some performance sensitive code
+  });
+});
+```
+
+Note that each of the following performance functions must be called before the test is declared in the same `describe`
+block to override the default configuration values on a test by test basis.
+
+To override the maximum number of samples collected, use the `maxSample` function.
+
+```ts
+maxSamples(10000); // 10000 is the maximum value
+it("should collect only 10000 samples at most", (): void => {});
+```
+
+To override the maximum test run time (including test logic), use the `maxRunTime` function.
+
+```ts
+maxRunTime(5000); // 5000 ms, or 5 seconds of test run time
+it("should have a maxRunTime of 5 seconds", (): void => {});
+```
+
+To force reporting of the median test runtime, use the `reportMedian` function.
+
+```ts
+reportMedian(true); // false will disable reporting of the median
+it("should report the median", (): void => {});
+```
+
+To force reporting of the average, or mean test runtime, use the `reportAverage` function.
+
+```ts
+reportAverage(true); // false will disable reporting of the mean
+it("should report the average", (): void => {});
+```
+
+To force reporting of the standard deviation of the runTime sample, use the `reportStdDev` function.
+
+```ts
+reportStdDev(true); // false will disable reporting of the standard deviation
+it("should report the standard deviation", (): void => {});
+```
+
+To force reporting of the maximum runTime value, use the `reportMax` function.
+
+```ts
+reportMax(true); // false will disable reporting of the max
+it("should report the max", (): void => {});
+```
+
+To force reporting of the minimum runTime value, use the `reportMin` function.
+
+```ts
+reportMin(true); // false will disable reporting of the min
+it("should report the min", (): void => {});
+```
+
+### Performance Enabling Via Configuration
+
+Providing these values inside an `as-pect.config.js` configuration will set these as global defaults.
+
+Note that when using the `cli`, the cli flag inputs will override these default values.
+
+```js
+// in as-pect.config.js
+module.exports = {
+  performance: {
+    /** Enable performance statistics gathering for each test. */
+    enabled: false,
+    /** Set the maximum number of samples to run for each test. */
+    maxSamples: 10000,
+    /** Set the maximum test run time in milliseconds. */
+    maxTestRunTime: 2000,
+    /** Report the median time in the default reporter. */
+    reportMedian: true,
+    /** Report the average time in milliseconds. */
+    reportAverage: true,
+    /** Report the standard deviation. */
+    reportStandardDeviation: false,
+    /** Report the maximum run time in milliseconds. */
+    reportMax: false,
+    /** Report the minimum run time in milliseconds. */
+    reportMin: false,
+  },
+}
 ```
 
 ## Special Thanks
