@@ -270,7 +270,7 @@ export function asp(args: string[]) {
         const wasm = instantiateBuffer(binaries[i], imports);
 
         // call run buffer because it's already compiled
-        runner.run(wasm, );
+        runner.run(wasm);
 
         count -= 1;
 

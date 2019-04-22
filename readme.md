@@ -4,7 +4,7 @@ Write your module in TypeScript and get blazing fast testing with web assembly s
 
 # Usage
 
-To install `as-pect`, install the latest version from github. Once `AssemblyScript` is more stable,
+To install `as-pect`, install the latest version from github. Once `AssemblyScript` becomes more stable,
 `as-pect` will be published to npm.
 
 ```
@@ -30,7 +30,7 @@ C ./assembly/__tests__/example.spec.ts
 C ./as-pect.config.js
 ```
 
-To run `as-pect`, use the command line, or create an npm script.
+To run `as-pect`, use the command line: `npx asp`, or create an npm script.
 
 ```json
 {
@@ -40,12 +40,14 @@ To run `as-pect`, use the command line, or create an npm script.
 }
 ```
 
-Run asp from the command line using npx without any parameters to use `./as-pect.config.js` as your
+Run `asp` from the command line using npx without any parameters to use `./as-pect.config.js` as your
 test configuration. Otherwise, you can specify a configuration like this:
 
 ```
 $ npx asp --config as-pect.config.js
 ```
+
+All of the values configured in the configuration are overridable via the command line.
 
 # CLI
 
@@ -59,6 +61,8 @@ This is the CLI help displayed when using the `asp` help flag.
     asp -c as-pect.config.js
     asp --version                       View the version.
     asp -v
+    asp --help                          Show this help screen.
+    asp -h
 
   TEST OPTIONS
     --performance                        Enable performance statistics. (Default: false)
@@ -75,8 +79,8 @@ This is the CLI help displayed when using the `asp` help flag.
 
 Currently `as-pect` will compile each file that matches each `Glob` in the `include` property of
 your configuration. The default include is `"assembly/__tests__/**/*.spec.ts"`. It must compile each
-file, and run each binary seperately in it's own `TestContext`. This is a limitation of AssemblyScript,
-not of `as-pect`, because seperate modules that share imports are buggy.
+file, and run each binary seperately inside it's own `TestContext`. This is a limitation of
+AssemblyScript, not of `as-pect`.
 
 A single TypeScript file is added to the compilation to add all the global test functions like
 `describe`, `it`, `test`, and `expect`. All of these functions are placed conveniently into a
@@ -151,9 +155,10 @@ code 1 so it can be used for travis builds.
 
 ## Reporters
 
-Reporters are the way tests get reported. The test suite will never log out test results, only to
-reporters. If you want to use a custom reporter, you can create your own by extending the abstract
-reporter class.
+Reporters are the way tests get reported. When running the CLI, the `DefaultReporter` is used and
+all the values will be logged to the console. The test suite itself does not log out test results.
+If you want to use a custom reporter, you can create your own by extending the abstract reporter
+class.
 
 ```ts
 export abstract class Reporter {
@@ -183,10 +188,54 @@ in milliseconds.
 
 # Notes
 
+## Using as-pect as a Package
+
+This is a typescript example that should work even when run in the browser.
+
+```ts
+import { TestContext, IPerformanceConfiguration, EmptyReporter } from "as-pect";
+
+const perf: IPerformanceConfiguration = {
+  // put performance configuration values here
+};
+const reporter = new EmptyReporter();
+const runner = new TestContext(reporter, file, performanceConfiguration);
+const imports = runner.createImports({
+  // put your assemblyscript imports here
+});
+
+// instantiate your module here via instantiateStreaming, instantiateBuffer, or instantiateModule
+const wasm = instantiateBuffer(buffer, imports);
+
+runner.run(wasm); // run the tests synchronously
+
+for (const group of runner.testGroups) { // for each group
+  for (const test of runner.tests) { // for each reporter
+    console.log(test.name, test.pass ? "pass" : "fail");
+  }
+}
+```
+
+The imports must be created before the module is instantiated, because each top level statement that
+runs modifies the `TestContext` state machine. Once the module is instantiated, then the tests can
+be run. The only thing that it needs is the wasm `ASUtil` object provided by the
+`assemblyscript/lib/loader` package.
+
+In order to pre-compile tests manually, it's important to include all necesary entry points provided
+by `as-pect` manually. The following files are auto-included by the `cli` and are required for in
+browser testing as entry points.
+
+```
+./node_modules/as-pect/assembly/index.ts
+```
+
+When the allocator becomes configurable, there will be more optional files to include, but the
+`assembly/index.ts` file contains all the required global functions to setup tests.
+
 ## Do Not Import An Allocator
 
-`as-pect` will automatically include the `arena` allocator for you, so it's not necessary for you to
-include this at the top of each test.
+The `as-pect` cli will automatically include the `arena` allocator for you (for now!), so it's not necessary
+for you to include this at the top of each test.
 
 ```ts
 // Do not do this, since it's done for you automatically
@@ -202,8 +251,9 @@ AssemblyScript currently does not support closure, however, you must place all r
 setup function calls for a test suite into the corresponding describe block.
 
 ```ts
+// setup a global vector reference
 var vec: Vec3;
-// be explicit about every callback type
+
 describe("vectors", (): void => {
   // this runs before each test function, and must be placed within the describe function
   beforeEach((): void => {
@@ -225,11 +275,15 @@ describe("vectors", (): void => {
 });
 ```
 
-This tool currently supports nested describes, and the outer describe should be evaluated first.
+Nested describes are supported and the outer describe should be evaluated first.
 
 ```ts
 describe("vector", (): void => {
+  // this test block runs first
+  it("should run first", (): void => {});
+
   describe("addition", (): void => {
+    // this test block runs second
     it("should add vectors together", (): void => {
        expect<Vec3>(vec1.add(vec2)).toStrictEqual(new Vec3(1, 2, 3));
     });
@@ -237,15 +291,14 @@ describe("vector", (): void => {
 });
 ```
 
-This is a limitation of the testing algorithm, and will be fixed in a later backwards compatible rewrite.
-
 ## Logging
 
-To use the global `log` function provided by `as-pect`, simply give it the type you want to log, and
-it will report a `[Log]` item in whatever reporter utility is reporting logged values.
+To use the global `log<T>(value: T): void` function provided by `as-pect`, simply give it the type
+you want to log, and it will append a `[Log]` item to the `test.logs` value, or the `group.logs`
+value depending on when the `log` function was called.
 
 ```ts
-log<string>("This will log a string");
+log<string>("This will log a string"); // Remember, strings are references
 log<f64>(0.4); // this logs a float value
 log<i32>(42); // this logs the meaning of life
 log<Vec3>(new Vec3(1, 2, 3)); // this logs every byte in the reference
@@ -253,8 +306,9 @@ log<Vec3>(new Vec3(1, 2, 3)); // this logs every byte in the reference
 
 ## Performance Testing
 
-It's possible to switch a test to performance mode, and instead of collecting log values, collect statistics on
-how fast the test runs.
+It's possible to switch a test to performance mode. The `DefaultReporter` will, instead of logging
+each `log()`ed value, it will report the performance statistics calculated at the end of sample
+collection.
 
 ### Performance Enabling Via API
 
@@ -263,7 +317,9 @@ To enable performance using the global test functions, call the `performanceEnab
 ```ts
 describe("my test suite", (): void => {
   performanceEnabled(true);
-  test("", (): void => {
+  maxSamples(2000); // limit the sample size upper bound
+  maxRunTime(4000); // only run for 4 seconds
+  test("some performance test", (): void => {
     // some performance sensitive code
   });
 });
@@ -286,6 +342,13 @@ maxRunTime(5000); // 5000 ms, or 5 seconds of test run time
 it("should have a maxRunTime of 5 seconds", (): void => {});
 ```
 
+To override how many decimal places are rounded to, use the `roundDecimalPlaces` function.
+
+```ts
+roundDecimalPlaces(4); // 3 is the default
+it("should round to 4 decimal places", (): void => {});
+```
+
 To force reporting of the median test runtime, use the `reportMedian` function.
 
 ```ts
@@ -300,7 +363,15 @@ reportAverage(true); // false will disable reporting of the mean
 it("should report the average", (): void => {});
 ```
 
+To force reporting of the variance in the runTime sample, use the `reportVariance` function.
+
+```ts
+reportVariance(true); // false will disable reporting of the variance
+it("should report the variance deviation", (): void => {});
+```
+
 To force reporting of the standard deviation of the runTime sample, use the `reportStdDev` function.
+This method implies the use of the variance calculation, and will auto-include it in the test result.
 
 ```ts
 reportStdDev(true); // false will disable reporting of the standard deviation
@@ -325,7 +396,8 @@ it("should report the min", (): void => {});
 
 Providing these values inside an `as-pect.config.js` configuration will set these as global defaults.
 
-Note that when using the `cli`, the cli flag inputs will override these default values.
+Note that when using the `cli`, the cli flag inputs will override these default values in the `asp`
+command line tool.
 
 ```js
 // in as-pect.config.js
