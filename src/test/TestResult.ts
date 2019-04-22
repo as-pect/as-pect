@@ -1,7 +1,7 @@
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { ILogTarget } from "../util/ILogTarget";
-import { std, mean, median } from "mathjs";
+import { mean, median, var as variance } from "mathjs";
 
 /**
  * This is the data class that contains all the data about each `test()` or `it()` function defined
@@ -48,6 +48,12 @@ export class TestResult implements ILogTarget {
   public hasStdDev: boolean = false;
   /** This is the calculated standard deviation of the times collected. */
   public stdDev: number = 0;
+  /** A boolean indicating if the variance was calcluated. */
+  public hasVariance: boolean = false;
+  /** The raw variance calculation before rounding was applied. */
+  public rawVariance: number =  0;
+  /** This value indicates the calculated variance used for standard deviation calculations. */
+  public variance: number = 0;
 
   /**
    * Caclculate the average value of the collected times.
@@ -85,7 +91,20 @@ export class TestResult implements ILogTarget {
    * Calculate the standard deviation of the collected times.
    */
   public calculateStandardDeviation(): void {
+    if (!this.hasVariance) {
+      this.calculateVariance();
+    }
     this.hasStdDev = true;
-    this.stdDev = Math.round(1000 * std(this.times, "biased")) / 1000;
+    this.stdDev = Math.round(1000 * Math.sqrt(this.rawVariance)) / 1000;
+  }
+
+  /**
+   * Calculate the variance.
+   */
+  public calculateVariance(): void {
+    if (this.hasVariance) return;
+    this.hasVariance = true;
+    this.rawVariance = variance(this.times, "biased");
+    this.variance = Math.round(1000 * this.rawVariance) / 1000;
   }
 }
