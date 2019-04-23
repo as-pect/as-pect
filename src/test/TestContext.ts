@@ -516,7 +516,7 @@ export class TestContext {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.message = `"${this.wasm!.getString(pointer).replace(`"`, `\\"`)}"`;
+    value.message = `"${this.wasm!.getString(pointer).replace(/"/g, `\\"`)}"`;
     value.offset = 0;
     value.pointer = pointer;
     value.stack = this.getLogStackTrace();
