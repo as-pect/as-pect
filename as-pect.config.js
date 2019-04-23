@@ -22,7 +22,7 @@ module.exports = {
   /**
    * A set of regexp that will disclude source files from testing.
    */
-  disclude: [],
+  disclude: [/node_modules/i],
   /**
    * Add your required AssemblyScript imports here.
    */

@@ -43,21 +43,47 @@ export function asp(args: string[]) {
   `);
   }
 
-  // init script
-  if (yargs.argv.i || yargs.argv.init) {
+  const assemblyFolder = path.join(process.cwd(), "assembly");
+  const testFolder = path.join(process.cwd(), "assembly", "__tests__");
+  const typesFileSource = path.join(__dirname, "..", "assembly", "__tests__", "as-pect.d.ts");
+  const typesFile = path.join(testFolder, "as-pect.d.ts");
+
+  if (yargs.argv.t || yargs.argv.types) {
     console.log("");
-    console.log(chalk`[Log] Initializing test suite files.`);
+    console.log(chalk`[Log] Initializing types.`);
     console.log("");
 
-    // create the assembly folder if it doesn't exist
-    const assemblyFolder = path.join(process.cwd(), "assembly");
+    // Create the assembly folder if it doesn't exist
     if (!fs.existsSync(assemblyFolder)) {
       console.log(chalk`[Log] Creating folder: ./assembly/`);
       fs.mkdirSync(assemblyFolder);
     }
 
     // Create the test folder if it doesn't exist
-    const testFolder = path.join(process.cwd(), "assembly", "__tests__");
+    if (!fs.existsSync(testFolder)) {
+      console.log(chalk`[Log] Creating folder: ./assembly/__tests__/`);
+      fs.mkdirSync(testFolder);
+    }
+
+    // Create the types file if it doesn't exist
+    if (!fs.existsSync(typesFile)) {
+      console.log(chalk`[Log] Creating file: assembly/__tests__/as-pect.d.ts`);
+      fs.createReadStream(typesFileSource, "utf-8")
+        .pipe(fs.createWriteStream(typesFile, "utf-8"));
+    }
+  } else if (yargs.argv.i || yargs.argv.init) {
+    // init script
+    console.log("");
+    console.log(chalk`[Log] Initializing test suite files.`);
+    console.log("");
+
+    // create the assembly folder if it doesn't exist
+    if (!fs.existsSync(assemblyFolder)) {
+      console.log(chalk`[Log] Creating folder: ./assembly/`);
+      fs.mkdirSync(assemblyFolder);
+    }
+
+    // Create the test folder if it doesn't exist
     if (!fs.existsSync(testFolder)) {
       console.log(chalk`[Log] Creating folder: ./assembly/__tests__/`);
       fs.mkdirSync(testFolder);
@@ -73,8 +99,6 @@ export function asp(args: string[]) {
     }
 
     // create the types file if it doesn't exist for typescript tooling users
-    const typesFileSource = path.join(__dirname, "..", "assembly", "__tests__", "as-pect.d.ts");
-    const typesFile = path.join(testFolder, "as-pect.d.ts");
     if (!fs.existsSync(typesFile)) {
       console.log(chalk`[Log] Creating file: assembly/__tests__/as-pect.d.ts`);
       fs.createReadStream(typesFileSource, "utf-8")
@@ -102,6 +126,8 @@ export function asp(args: string[]) {
     {bold.green asp} -v
     {bold.green asp} --help                          Show this help screen.
     {bold.green asp} -h
+    {bold.green asp} --types                         Copy the types file to assembly/__tests__/as-pect.d.ts
+    {bold.green asp} -t
 
   {bold.blueBright TEST OPTIONS}
     {bold.green --performance}                        Enable performance statistics. {yellow (Default: false)}

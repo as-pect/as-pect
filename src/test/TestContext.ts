@@ -11,7 +11,7 @@ import { timeDifference } from "../util/timeDifference";
 import { RunContext } from "./RunContext";
 import { IPerformanceConfiguration, createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 
-const wasmFilter = (input: string): boolean => /wasm/i.test(input);
+const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
 const enum PerformanceLimits {
   MaxSamples = 10000,
@@ -516,7 +516,7 @@ export class TestContext {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.message = `"${this.wasm!.getString(pointer).replace(`"`, `\\"`)}"`;
+    value.message = `"${this.wasm!.getString(pointer).replace(/"/g, `\\"`)}"`;
     value.offset = 0;
     value.pointer = pointer;
     value.stack = this.getLogStackTrace();
