@@ -1,5 +1,7 @@
 # as-pect
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jtenner/as-pect.svg)](https://greenkeeper.io/)
+
 Write your module in TypeScript and get blazing fast testing with web assembly speeds!
 
 # Usage
