@@ -11,7 +11,7 @@ import { timeDifference } from "../util/timeDifference";
 import { RunContext } from "./RunContext";
 import { IPerformanceConfiguration, createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 
-const wasmFilter = (input: string): boolean => /wasm/i.test(input);
+const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
 const enum PerformanceLimits {
   MaxSamples = 10000,
