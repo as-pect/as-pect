@@ -63,6 +63,8 @@ This is the CLI help displayed when using the `asp` help flag.
     asp -v
     asp --help                          Show this help screen.
     asp -h
+    asp --types                         Copy the types file to assembly/__tests__/as-pect.d.ts
+    asp -t
 
   TEST OPTIONS
     --performance                        Enable performance statistics. (Default: false)
