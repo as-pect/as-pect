@@ -291,8 +291,24 @@ export function asp(args: string[]) {
           return process.exit(1);
         }
 
+        // create a test runner
         const runner = new TestContext(reporter, file, performanceConfiguration);
-        const imports = runner.createImports(configuration!.imports || {});
+
+        // detect custom imports
+        const customImportFileLocation = path.resolve(
+          path.join(
+            path.dirname(file),
+            path.basename(file, path.extname(file)) + ".imports.js",
+          ),
+        );
+        const imports = runner.createImports(
+          (fs.existsSync(customImportFileLocation)
+            ? require(customImportFileLocation)
+            : configuration!.imports
+          ) || {},
+        );
+
+        // instantiate the module
         const wasm = instantiateBuffer(binaries[i], imports);
 
         // call run buffer because it's already compiled
