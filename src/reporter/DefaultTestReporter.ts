@@ -166,10 +166,10 @@ export class DefaultTestReporter extends TestReporter {
 
     const count = suite.testGroups
       .map(e => e.tests.length)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
     const successCount = suite.testGroups
       .map(e => e.tests.filter(f => f.pass).length)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
     console.log("");
     console.log("~".repeat(process.stdout.columns! - 10));
     console.log("");
