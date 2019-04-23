@@ -188,8 +188,6 @@ If no reporter is provided to the configuration, one will be provided that uses 
 If performance is enabled, then the `times` array will be populated with the runtime values measured
 in milliseconds.
 
-# Notes
-
 ## Using as-pect as a Package
 
 This is a typescript example that should work even when run in the browser.
@@ -394,7 +392,7 @@ reportMin(true); // false will disable reporting of the min
 it("should report the min", (): void => {});
 ```
 
-### Performance Enabling Via Configuration
+## Performance Enabling Via Configuration
 
 Providing these values inside an `as-pect.config.js` configuration will set these as global defaults.
 
@@ -424,6 +422,17 @@ module.exports = {
   },
 }
 ```
+
+## Custom Imports Using CLI
+
+If a set of custom imports are required for your module, and they also conflict with `as-pect.config.js`'s
+imports object, then it's possible to provide a set of imports for a given test file.
+
+If your test is located at `assembly/__tests__/customImports.spec.ts`, then use filename
+`assembly/__tests__/customImports.spec.imports.js` to export your module's imports. This file will be required
+by the cli before the module is instantiated to be used **_instead_** of the `as-pect.config.js`'s imports.
+
+Please see the provided example located in `assembly/__tests__/customImports.spec.ts`.
 
 ## Special Thanks
 
