@@ -406,3 +406,78 @@ declare class Expectation<T> {
  * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
  */
 declare function debug(): void;
+
+/**
+ * This function call enables performance statistics gathering for the following test.
+ *
+ * @param {bool} enabled - The bool to indicate if performance statistics should be gathered.
+ */
+declare function performanceEnabled(enabled: bool): void;
+
+/**
+ * This function call sets the maximum number of samples to complete the following test.
+ *
+ * @param {f64} count - The maximum number of samples required.
+ */
+declare function maxSamples(count: f64): void;
+
+/**
+ * This function call sets the number of decimal places to round to for the following test.
+ *
+ * @param {i32} deicmalPlaces - The number of decimal places to round to
+ */
+declare function roundDecimalPlaces(count: i32): void;
+
+/**
+ * This function call will set the maximum amount of time that should pass before it can stop
+ * gathering samples for the following test.
+ *
+ * @param {f64} time - The ammount of time in milliseconds.
+ */
+declare function maxTestRunTime(time: f64): void;
+
+/**
+ * This function call enables gathering the average/mean run time of each sample for the following
+ * test.
+ *
+ * @param {bool} enabled - The bool to indicate if the average/mean should be gathered.
+ */
+declare function reportAverage(enabled: bool): void;
+
+/**
+ * This function call enables gathering the median run time of each sample for the following test.
+ *
+ * @param {bool} enabled - The bool to indicate if the median should be gathered.
+ */
+declare function reportMedian(value: bool): void;
+
+/**
+ * This function call enables gathering the standard deviation of the run times of the samples
+ * collected for the following test.
+ *
+ * @param {bool} enabled - The bool to indicate if the standard deviation should be gathered.
+ */
+declare function reportStdDev(value: bool): void;
+
+/**
+ * This function call enables gathering the largest run time of the samples collected for the
+ * following test.
+ *
+ * @param {bool} enabled - The bool to indicate if the max should be gathered.
+ */
+declare function reportMax(value: bool): void;
+
+/**
+ * This function call enables gathering the smallest run time of the samples collected for the
+ * following test.
+ *
+ * @param {bool} enabled - The bool to indicate if the min should be gathered.
+ */
+declare function reportMin(value: bool): void;
+
+/**
+ * This function call enables gathering the varaince of the samples collected for the following test.
+ *
+ * @param {bool} enabled - The bool to indicate if the variance should be calculated.
+ */
+declare function reportVariance(value: bool): void;

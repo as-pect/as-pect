@@ -1,8 +1,11 @@
 import { ASUtil } from "assemblyscript/lib/loader";
 import { TestGroup } from "./TestGroup";
 import { TestReporter } from "./TestReporter";
+import { IPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 export declare class TestContext {
+    reporter: TestReporter;
     file: string;
+    performanceConfiguration: IPerformanceConfiguration;
     private groupStack;
     testGroups: TestGroup[];
     private logTarget;
@@ -13,10 +16,69 @@ export declare class TestContext {
     private expected;
     time: number;
     pass: boolean;
+    private performanceEnabledValue;
+    private maxSamplesValue;
+    private maxTestRunTimeValue;
+    private roundDecimalPlacesValue;
+    private recordAverageValue;
+    private recordMedianValue;
+    private recordStdDevValue;
+    private recordMaxValue;
+    private recordMinValue;
+    private recordVariance;
+    constructor(reporter?: TestReporter, file?: string, performanceConfiguration?: IPerformanceConfiguration);
     /**
      * Run the tests on the wasm module.
      */
-    run(wasm: ASUtil, reporter?: TestReporter, file?: string): void;
+    run(wasm: ASUtil): void;
+    private runGroup;
+    /**
+     * Run a given test.
+     *
+     * @param {RunContext} runContext - The current run context.
+     * @param {TestGroup} group - The current run group.
+     * @param {number} testIndex - The current test index.
+     */
+    private runTest;
+    /**
+     * Run the current test once and collect statistics.
+     *
+     * @param {RunContext} runContext - The current run context.
+     * @param {TestGroup} group - The current test group.
+     * @param {TestResult} result - The current test result.
+     * @param {number} testIndex - The current test index.
+     */
+    private runTestCall;
+    /**
+     * Run the afterEach callbacks before running the test.
+     *
+     * @param {RunContext} runContext - The current run context.
+     * @param {TestGroup} group - The current test group.
+     * @param {TestResult} result - The current test result.
+     */
+    private runAfterEach;
+    /**
+     * Run the beforeEach callbacks before running the test.
+     *
+     * @param {RunContext} runContext - The current run context.
+     * @param {TestGroup} group - The current test group.
+     * @param {TestResult} result - The current test result.
+     */
+    private runBeforeEach;
+    /**
+     * Run the afterAll callbacks with the given runContext and group.
+     *
+     * @param {RunContext} runContext - The current run context.
+     * @param {TestGroup} group - The current test group.
+     */
+    private runAfterAll;
+    /**
+     * Run the beforeAll callbacks with the given runContext and group.
+     *
+     * @param {RunContext} runContext - The current run context.
+     * @param {TestGroup} group - The current test group.
+     */
+    private runBeforeAll;
     /**
      * This method creates a WebAssembly imports object with all the TestContext functions
      * bound to the TestContext.
@@ -223,5 +285,79 @@ export declare class TestContext {
      * @param {number} _col - The column that reported the error. (Ignored)
      */
     private abort;
+    /**
+     * Reset all the performance values to the configured values.
+     */
+    private resetPerformanceValues;
+    /**
+     * This web assembly linked function modifies the state machine to enable
+     * performance for the following test.
+     *
+     * @param {1 | 0} value - A value indicating if performance should be enabled.
+     */
+    private performanceEnabled;
+    /**
+     * This web assembly linked function modifies the state machine to set the maximum number of
+     * samples for the following test.
+     *
+     * @param {number} value - The maximum number of samples to collect for the following test.
+     */
+    private maxSamples;
+    /**
+     * This web assembly linked function modifies the state machine to set the maximum amount of
+     * time to run the following test in milliseconds
+     *
+     * @param {number} value - The maximum number of milliseconds to run the following test.
+     */
+    private maxTestRunTime;
+    /**
+     * This web assembly linked function modifies the state machine to set the number of decimal places
+     * to round all the statistics to.
+     *
+     * @param {number} value - The number of decimal places to round to.
+     */
+    private roundDecimalPlaces;
+    /**
+     * This web assembly linked function modifies the state machine to cause the next test to report
+     * an average run time.
+     *
+     * @param {1 | 0} value - A boolean indicating if the average should be reported.
+     */
+    private reportAverage;
+    /**
+     * This web assembly linked function modifies the state machine to cause the next test to report
+     * an median run time.
+     *
+     * @param {1 | 0} value - A boolean indicating if the median should be reported.
+     */
+    private reportMedian;
+    /**
+     * This web assembly linked function modifies the state machine to cause the next test to report
+     * a standard deviation calculation on the run times.
+     *
+     * @param {1 | 0} value - A boolean indicating if the standard deviation should be reported.
+     */
+    private reportStdDev;
+    /**
+     * This web assembly linked function modifies the state machine to cause the next test to report
+     * the maximum run time for this test.
+     *
+     * @param {1 | 0} value - A boolean indicating if the max should be reported.
+     */
+    private reportMax;
+    /**
+     * This web assembly linked function modifies the state machine to cause the next test to report
+     * the minimum run time for this test.
+     *
+     * @param {1 | 0} value - A boolean indicating if the min should be reported.
+     */
+    private reportMin;
+    /**
+     * This web assembly linked function modifies the state machine to cause the next test to report
+     * the variance of the run times for this test.
+     *
+     * @param {1 | 0} value - A boolean indicating if the min should be reported.
+     */
+    private reportVariance;
 }
 //# sourceMappingURL=TestContext.d.ts.map

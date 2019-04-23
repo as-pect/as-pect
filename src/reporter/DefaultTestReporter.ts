@@ -77,15 +77,15 @@ function createReferenceString(bytes: number[], pointer: number, offset: number)
 }
 
 export class DefaultTestReporter extends TestReporter {
-  onStart(_suite: TestContext): void {
+  public onStart(_suite: TestContext): void {
 
   }
-  onGroupStart(group: TestGroup): void {
+  public onGroupStart(group: TestGroup): void {
     console.log("");
     console.log(chalk`[Describe]: ${group.name}`);
     console.log("");
   }
-  onGroupFinish(group: TestGroup): void {
+  public onGroupFinish(group: TestGroup): void {
     const result = group.pass
       ? chalk`{green ✔ PASS}`
       : chalk`{red ✖ FAIL}`;
@@ -93,8 +93,10 @@ export class DefaultTestReporter extends TestReporter {
     const successCount = group.tests.filter(e => e.pass).length;
     const count = group.tests.length;
 
-    for (const logValue of group.logs) {
-      this.onLog(logValue);
+    if (!group.performanceEnabled) {
+      for (const logValue of group.logs) {
+        this.onLog(logValue);
+      }
     }
 
     console.log("");
@@ -103,12 +105,12 @@ export class DefaultTestReporter extends TestReporter {
     console.log(chalk`    [Todo]: ${todoCount.toString()} tests`);
     console.log(chalk`    [Time]: ${group.time.toString()}ms`);
   }
-  onTestStart(_group: TestGroup, _test: TestResult): void {}
-  onTestFinish(_group: TestGroup, test: TestResult): void {
+  public onTestStart(_group: TestGroup, _test: TestResult): void {}
+  public onTestFinish(_group: TestGroup, test: TestResult): void {
     if (test.pass) {
-      console.log(chalk` {green [Success]: ✔} ${test.testName}`);
+      console.log(chalk` {green [Success]: ✔} ${test.name}`);
     } else {
-      console.log(chalk`    {red [Fail]: ✖} ${test.testName}`);
+      console.log(chalk`    {red [Fail]: ✖} ${test.name}`);
       console.log("");
       if (!test.negated) {
         console.log(`   [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}`);
@@ -123,11 +125,41 @@ export class DefaultTestReporter extends TestReporter {
       }
     }
 
-    for (const logValue of test.logs) {
-      this.onLog(logValue);
+    if (test.performance) {
+      console.log(chalk` {yellow [Samples]}: ${test.times.length.toString()}`);
+
+      // log statistics
+      if (test.hasAverage) {
+        console.log(chalk`    {yellow [Mean]}: ${test.average.toString()}ms`);
+      }
+
+      if (test.hasMedian) {
+        console.log(chalk`  {yellow [Median]}: ${test.median.toString()}ms`);
+      }
+
+      if (test.hasVariance) {
+        console.log(chalk`{yellow [Variance]}: ${test.variance.toString()}ms`);
+      }
+
+      if (test.hasStdDev) {
+        console.log(chalk`  {yellow [StdDev]}: ${test.stdDev.toString()}ms`);
+      }
+
+      if (test.hasMax) {
+        console.log(chalk`     {yellow [Max]}: ${test.max.toString()}ms`);
+      }
+
+      if (test.hasMin) {
+        console.log(chalk`     {yellow [Min]}: ${test.min.toString()}ms`);
+      }
+    } else {
+      // log the log values
+      for (const logValue of test.logs) {
+        this.onLog(logValue);
+      }
     }
   }
-  onFinish(suite: TestContext): void {
+  public onFinish(suite: TestContext): void {
     const result = suite.pass
       ? chalk`{green ✔ Pass}`
       : chalk`{red ✖ Fail}`;
@@ -148,10 +180,16 @@ export class DefaultTestReporter extends TestReporter {
     console.log(chalk`    [Time]: ${suite.time.toString()}ms`);
     console.log("");
   }
-  onTodo(_group: TestGroup, todo: string): void {
+  public onTodo(_group: TestGroup, todo: string): void {
     console.log(chalk`    {yellow [Todo]:} ${todo}`);
   }
-  onLog(logValue: LogValue): void {
+
+  /**
+   * A custom logger function for the default reporter that writes the log values using `console.log()`
+   *
+   * @param {LogValue} logValue - A value to be logged to the console
+   */
+  public onLog(logValue: LogValue): void {
     // create string representations of the pointer
     var pointer: string = logValue.pointer.toString();
     var hexPointer: string = logValue.pointer.toString(16);

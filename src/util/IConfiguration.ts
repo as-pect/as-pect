@@ -1,4 +1,5 @@
 import { TestReporter } from "../test/TestReporter";
+import { IPerformanceConfiguration } from "./IPerformanceConfiguration";
 
 export interface ICompilerFlags {
   [flag: string]: string[];
@@ -26,6 +27,10 @@ export interface IConfiguration {
    * If the test module requires a set of imports to be loaded, it can be set here.
    */
   imports?: any;
+  /**
+   * Set the default performance measurement values.
+   */
+  performance?: IPerformanceConfiguration;
   /**
    * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
    * output.

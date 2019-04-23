@@ -8,5 +8,5 @@ export class ActualValue extends LogValue {
   /**
    * An indicator if the actual expected value is negated.
    */
-  negated: boolean = false;
+  public negated: boolean = false;
 }

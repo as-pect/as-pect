@@ -4,7 +4,7 @@ module.exports = {
    */
   include: ["assembly/__tests__/**/*.spec.ts"],
   /**
-   * A set of globs passed to the glob package that qualify files to be added to each test.
+   * A set of globs passed to the glob package that quality files to be added to each test.
    */
   add: ["assembly/__tests__/**/*.include.ts"],
   /**
@@ -16,6 +16,7 @@ module.exports = {
     "--measure": [],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
+    /** This will output the wat files for inspection. */
     "--textFile": ["output.wat"],
   },
   /**
@@ -27,7 +28,28 @@ module.exports = {
    */
   imports: {},
   /**
-   * Add a custom reporter here if you want one
+   * All performance statistics reporting can be configured here.
    */
-  // reporter: new CustomReporter(),
+  performance: {
+    /** Enable performance statistics gathering. */
+    enabled: false,
+    /** Set the maximum number of samples to run for each test. */
+    maxSamples: 1000,
+    /** Set the number of decimal places to round to. */
+    roundDecimalPlaces: 3,
+    /** Set the maximum test run time in milliseconds. */
+    maxTestRunTime: Infinity,
+    /** Report the median time in the default reporter. */
+    reportMedian: true,
+    /** Report the average time in milliseconds. */
+    reportAverage: true,
+    /** Report the standard deviation. */
+    reportStandardDeviation: true,
+    /** Report the maximum run time in milliseconds. */
+    reportMax: true,
+    /** Report the minimum run time in milliseconds. */
+    reportMin: true,
+    /** Report the variance. */
+    reportVariance: true,
+  },
 };
