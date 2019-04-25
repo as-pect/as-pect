@@ -36,4 +36,9 @@ export class LogValue {
    * This is the referenced log target.
    */
   public target: ILogTarget | null = null;
+
+  /**
+   * This is the raw logged value.
+   */
+  public value: number | null = null;
 }
