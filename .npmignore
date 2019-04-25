@@ -4,6 +4,7 @@ as-pect.config.js
 tsconfig.json
 .travis.yml
 assembly/__tests__
+coverage
 
 # used for --init flag
 !init/as-pect.config.js

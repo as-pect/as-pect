@@ -1,5 +1,8 @@
 # as-pect
 
+[![Build Status](https://travis-ci.org/jtenner/as-pect.svg?branch=master)](https://travis-ci.org/jtenner/as-pect)
+[![Coverage Status](https://coveralls.io/repos/github/jtenner/as-pect/badge.svg?branch=master)](https://coveralls.io/github/jtenner/as-pect?branch=master)
+
 Write your module in TypeScript and get blazing fast testing with web assembly speeds!
 
 # Usage
