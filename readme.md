@@ -1,5 +1,8 @@
 # as-pect
 
+[![Build Status](https://travis-ci.org/jtenner/as-pect.svg?branch=master)](https://travis-ci.org/jtenner/as-pect)
+[![Coverage Status](https://coveralls.io/repos/github/jtenner/as-pect/badge.svg?branch=master)](https://coveralls.io/github/jtenner/as-pect?branch=master)
+
 Write your module in TypeScript and get blazing fast testing with web assembly speeds!
 
 # Usage
@@ -193,18 +196,23 @@ in milliseconds.
 This is a typescript example that should work even when run in the browser.
 
 ```ts
+import { instantiateBuffer } from "assemblyscript/lib/loader";
 import { TestContext, IPerformanceConfiguration, EmptyReporter } from "as-pect";
 
 const perf: IPerformanceConfiguration = {
   // put performance configuration values here
 };
+
+// The EmptyReporter is a shell with a bunch of empty functions
 const reporter = new EmptyReporter();
+
+// create a test context using the empty reporter, the file's name, and an empty performance config
 const runner = new TestContext(reporter, file, performanceConfiguration);
 const imports = runner.createImports({
   // put your assemblyscript imports here
 });
 
-// instantiate your module here via instantiateStreaming, instantiateBuffer, or instantiateModule
+// instantiate your test module here via the "assemblyscript/lib/loader" module
 const wasm = instantiateBuffer(buffer, imports);
 
 runner.run(wasm); // run the tests synchronously
