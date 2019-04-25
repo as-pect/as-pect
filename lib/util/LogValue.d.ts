@@ -30,5 +30,9 @@ export declare class LogValue {
      * This is the referenced log target.
      */
     target: ILogTarget | null;
+    /**
+     * This is the raw logged value.
+     */
+    value: number | null;
 }
 //# sourceMappingURL=LogValue.d.ts.map
