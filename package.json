@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/jtenner/aspect.git"
   },
-  "author": "Joshua <tenner.joshua@gmail.com>",
+  "author": "Joshua Tenner <tenner.joshua@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jtenner/aspect/issues"
