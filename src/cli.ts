@@ -211,14 +211,24 @@ export function asp(args: string[]) {
 
       // get relative reporters
       if (targetReporter.startsWith(".")) {
-        const result = require(path.join(process.cwd(), targetReporter));
-
-        if (result && typeof result === "function") { // instantiate it if it's a default exported class
-          reporter = new result();
-        } if (result && typeof result.default === "function") {
-          reporter = new result.default();
-        } else {
-          reporter = result ? (result.default || result) : reporter;
+        try {
+          const result = require(path.join(process.cwd(), targetReporter));
+          // if something is returned
+          if (result) {
+            if (typeof result === "function") { // instantiate it if it's a default exported class
+              reporter = new result();
+            } if (typeof result.default === "function") {
+              reporter = new result.default();
+            } else {
+              reporter = result.default || result;
+            }
+          } else {
+            reporter = new DefaultTestReporter();
+          }
+        } catch(ex) {
+          console.log("Cannot find target reporter at", path.join(process.cwd(), targetReporter));
+          console.log(ex);
+          process.exit(1);
         }
       } else if (targetReporter === "EmptyReporter") {
         reporter = new EmptyReporter();
