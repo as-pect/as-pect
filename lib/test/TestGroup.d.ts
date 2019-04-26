@@ -16,7 +16,8 @@ export declare class TestGroup implements ILogTarget {
     testMessagePointers: number[];
     testThrows: boolean[];
     tests: TestResult[];
-    todos: number[];
+    todoPointers: number[];
+    todos: string[];
     logs: LogValue[];
     name: string;
     pass: boolean;

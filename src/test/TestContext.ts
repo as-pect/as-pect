@@ -88,12 +88,14 @@ export class TestContext {
     group.name = groupName;
     runContext.endGroup = false;
 
+    for (const todoPointer of group.todoPointers) {
+      const todo = runContext.wasm.getString(todoPointer);
+      group.todos.push(todo);
+      this.reporter.onTodo(group, todo);
+    }
+
     // report the group as started
     this.reporter.onGroupStart(group);
-
-    for (const todo of group.todos) {
-      this.reporter.onTodo(group, runContext.wasm.getString(todo));
-    }
 
     runContext.groupstart = performance.now();
 
@@ -677,7 +679,7 @@ export class TestContext {
    */
   private reportTodo(todoPointer: number): void {
     var group = this.groupStack[this.groupStack.length - 1];
-    group.todos.push(todoPointer);
+    group.todoPointers.push(todoPointer);
   }
 
 /**

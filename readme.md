@@ -70,6 +70,12 @@ This is the CLI help displayed when using the `asp` help flag.
     asp -t
 
   TEST OPTIONS
+    --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
+      --reporter=SummaryTestReporter     Use the summary reporter.
+      --reporter=DefaultTestReporter     Use the default reporter.
+      --reporter=EmptyReporter           Use the empty reporter. (This reporter reports nothing)
+      --reporter=./path/to/reporter.js   Use the default exported object from this module as the reporter.
+
     --performance                        Enable performance statistics. (Default: false)
     --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
     --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
@@ -111,7 +117,6 @@ module.exports = {
   flags: {
     "--validate": [],
     "--debug": [],
-    "--measure": [],
     /** This is required. Do not change this. The filename is ignored, but required by the compiler. */
     "--binaryFile": ["output.wasm"],
     /** To enable wat file output, use the following flag. The filename is ignored, but required by the compiler. */
