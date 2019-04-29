@@ -98,6 +98,8 @@ describe("A test Suite", (): void => {
   todo("this should be a todo");
 });
 
+let globalValue: i32 = 0;
+
 describe("A second test Suite", (): void => {
   performanceEnabled(true);
   test("this should have performance enabled", (): void => {
