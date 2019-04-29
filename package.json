@@ -1,6 +1,6 @@
 {
   "name": "as-pect",
-  "version": "0.4.0-beta",
+  "version": "0.5.0-beta",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "./assembly/types.d.ts",
@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/jtenner/aspect.git"
   },
-  "author": "Joshua <tenner.joshua@gmail.com>",
+  "author": "Joshua Tenner <tenner.joshua@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jtenner/aspect/issues"

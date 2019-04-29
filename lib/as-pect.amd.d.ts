@@ -164,7 +164,8 @@ declare module "test/TestGroup" {
         testMessagePointers: number[];
         testThrows: boolean[];
         tests: TestResult[];
-        todos: number[];
+        todoPointers: number[];
+        todos: string[];
         logs: LogValue[];
         name: string;
         pass: boolean;
@@ -686,6 +687,20 @@ declare module "reporter/EmptyReporter" {
         onTodo(): void;
     }
 }
+declare module "reporter/SummaryTestReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { TestContext } from "test/TestContext";
+    export class SummaryTestReporter extends TestReporter {
+        onStart(): void;
+        onGroupStart(): void;
+        onGroupFinish(): void;
+        onTestStart(): void;
+        onTestFinish(): void;
+        onTodo(): void;
+        constructor();
+        onFinish(suite: TestContext): void;
+    }
+}
 declare module "util/IConfiguration" {
     import { TestReporter } from "test/TestReporter";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
@@ -740,6 +755,7 @@ declare module "as-pect" {
     export * from "test/TestResult";
     export * from "reporter/DefaultTestReporter";
     export * from "reporter/EmptyReporter";
+    export * from "reporter/SummaryTestReporter";
     export * from "util/ActualValue";
     export * from "util/IConfiguration";
     export * from "util/ILogTarget";

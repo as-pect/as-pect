@@ -11,7 +11,6 @@ export function createModule(linked: any, callback: TestContextCallback): void {
   main([
     "--validate",
     "--debug",
-    "--measure",
     "--binaryFile", "output.wasm",
     "./assembly/jest.ts",
     "./assembly/index.ts",

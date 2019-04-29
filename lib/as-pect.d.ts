@@ -4,6 +4,7 @@ export * from "./test/TestReporter";
 export * from "./test/TestResult";
 export * from "./reporter/DefaultTestReporter";
 export * from "./reporter/EmptyReporter";
+export * from "./reporter/SummaryTestReporter";
 export * from "./util/ActualValue";
 export * from "./util/IConfiguration";
 export * from "./util/ILogTarget";

@@ -1,3 +1,5 @@
+const { SummaryReporter } = require("./lib/reporter/SummaryReporter");
+
 module.exports = {
   /**
    * A set of globs passed to the glob package that qualify typescript files for testing.
@@ -13,7 +15,6 @@ module.exports = {
   flags: {
     "--validate": [],
     "--debug": [],
-    "--measure": [],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
     /** This will output the wat files for inspection. */
@@ -52,4 +53,6 @@ module.exports = {
     /** Report the variance. */
     reportVariance: true,
   },
+  /** Use the summary reporter. */
+  reporter: new SummaryReporter(),
 };

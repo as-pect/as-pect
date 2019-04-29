@@ -13,7 +13,6 @@ module.exports = {
   flags: {
     "--validate": [],
     "--debug": [],
-    "--measure": [],
     /** This is required. Do not change this. The filename is ignored, but required by the compiler. */
     "--binaryFile": ["output.wasm"],
     /** To enable wat file output, use the following flag. The filename is ignored, but required by the compiler. */
