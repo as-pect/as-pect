@@ -1,6 +1,9 @@
 # as-pect
 
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/jtenner/as-pect.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/jtenner/as-pect.svg?branch=master)](https://travis-ci.org/jtenner/as-pect)
+[![Coverage Status](https://coveralls.io/repos/github/jtenner/as-pect/badge.svg?branch=master)](https://coveralls.io/github/jtenner/as-pect?branch=master)
 
 Write your module in TypeScript and get blazing fast testing with web assembly speeds!
 
@@ -69,6 +72,12 @@ This is the CLI help displayed when using the `asp` help flag.
     asp -t
 
   TEST OPTIONS
+    --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
+      --reporter=SummaryTestReporter     Use the summary reporter.
+      --reporter=DefaultTestReporter     Use the default reporter.
+      --reporter=EmptyReporter           Use the empty reporter. (This reporter reports nothing)
+      --reporter=./path/to/reporter.js   Use the default exported object from this module as the reporter.
+
     --performance                        Enable performance statistics. (Default: false)
     --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
     --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
@@ -110,7 +119,6 @@ module.exports = {
   flags: {
     "--validate": [],
     "--debug": [],
-    "--measure": [],
     /** This is required. Do not change this. The filename is ignored, but required by the compiler. */
     "--binaryFile": ["output.wasm"],
     /** To enable wat file output, use the following flag. The filename is ignored, but required by the compiler. */
@@ -190,25 +198,28 @@ If no reporter is provided to the configuration, one will be provided that uses 
 If performance is enabled, then the `times` array will be populated with the runtime values measured
 in milliseconds.
 
-# Notes
-
 ## Using as-pect as a Package
 
 This is a typescript example that should work even when run in the browser.
 
 ```ts
+import { instantiateBuffer } from "assemblyscript/lib/loader";
 import { TestContext, IPerformanceConfiguration, EmptyReporter } from "as-pect";
 
 const perf: IPerformanceConfiguration = {
   // put performance configuration values here
 };
+
+// The EmptyReporter is a shell with a bunch of empty functions
 const reporter = new EmptyReporter();
+
+// create a test context using the empty reporter, the file's name, and an empty performance config
 const runner = new TestContext(reporter, file, performanceConfiguration);
 const imports = runner.createImports({
   // put your assemblyscript imports here
 });
 
-// instantiate your module here via instantiateStreaming, instantiateBuffer, or instantiateModule
+// instantiate your test module here via the "assemblyscript/lib/loader" module
 const wasm = instantiateBuffer(buffer, imports);
 
 runner.run(wasm); // run the tests synchronously
@@ -396,7 +407,7 @@ reportMin(true); // false will disable reporting of the min
 it("should report the min", (): void => {});
 ```
 
-### Performance Enabling Via Configuration
+## Performance Enabling Via Configuration
 
 Providing these values inside an `as-pect.config.js` configuration will set these as global defaults.
 
@@ -426,6 +437,17 @@ module.exports = {
   },
 }
 ```
+
+## Custom Imports Using CLI
+
+If a set of custom imports are required for your module, and they also conflict with `as-pect.config.js`'s
+imports object, then it's possible to provide a set of imports for a given test file.
+
+If your test is located at `assembly/__tests__/customImports.spec.ts`, then use filename
+`assembly/__tests__/customImports.spec.imports.js` to export your module's imports. This file will be required
+by the cli before the module is instantiated to be used **_instead_** of the `as-pect.config.js`'s imports.
+
+Please see the provided example located in `assembly/__tests__/customImports.spec.ts`.
 
 ## Special Thanks
 

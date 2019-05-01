@@ -15,6 +15,8 @@ import { DefaultTestReporter } from "./reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "./util/timeDifference";
 import { createDefaultPerformanceConfiguration } from "./util/IPerformanceConfiguration";
+import { EmptyReporter } from "./reporter/EmptyReporter";
+import { SummaryTestReporter } from "./reporter/SummaryTestReporter";
 
 const pkg = require("../package.json");
 
@@ -120,7 +122,7 @@ export function asp(args: string[]) {
   {bold.blueBright SYNTAX}
     {bold.green asp} --init                          Create a test config, an assembly/__tests__ folder and exit.
     {bold.green asp} -i
-    {bold.green asp} --config as-pect.config.js      Use a specified configuration
+    {bold.green asp} --config=as-pect.config.js      Use a specified configuration
     {bold.green asp} -c as-pect.config.js
     {bold.green asp} --version                       View the version.
     {bold.green asp} -v
@@ -130,6 +132,12 @@ export function asp(args: string[]) {
     {bold.green asp} -t
 
   {bold.blueBright TEST OPTIONS}
+    {bold.green --reporter}                           Define the reporter to be used. {yellow (Default: DefaultTestReporter)}
+      {bold.green --reporter=SummaryTestReporter}     Use the summary reporter.
+      {bold.green --reporter=DefaultTestReporter}     Use the default test reporter.
+      {bold.green --reporter=EmptyReporter}           Use the empty reporter. {yellow (This reporter reports nothing)}
+      {bold.green --reporter=./path/to/reporter.js}   Use the default exported object from this module as the reporter.
+
     {bold.green --performance}                        Enable performance statistics. {yellow (Default: false)}
     {bold.green --max-samples=[number]}               Set the maximum number of samples to run for each test. {yellow (Default: 10000 samples)}
     {bold.green --max-test-run-time=[number]}         Set the maximum test run time in milliseconds. {yellow (Default: 2000ms)}
@@ -178,29 +186,58 @@ export function asp(args: string[]) {
       "--binaryFile": ["output.wasm"],
     };
     const disclude: RegExp[] = configuration.disclude || [];
-    const reporter: TestReporter = configuration.reporter || new DefaultTestReporter();
+    let reporter: TestReporter = configuration.reporter || new DefaultTestReporter();
 
     const performanceConfiguration = configuration.performance || createDefaultPerformanceConfiguration();
 
     // setup performance options, overriding configured values if the flag is passed to the cli
     if (yargs.argv.hasOwnProperty("performance")) performanceConfiguration.enabled = yargs.argv.performance !== "false";
 
-    // if performance is enabled, gather all the flags
-    if (performanceConfiguration.enabled) {
-      console.log(chalk`{bgWhite.black [Log]} Performance has been enabled on this test suite.`);
+    // gather all the flags
+    if (yargs.argv.hasOwnProperty("maxSamples")) performanceConfiguration.maxSamples = parseFloat(yargs.argv.maxSamples.toString());
+    if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
+    if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
+    if (yargs.argv.hasOwnProperty("roundDecimalPlaces")) performanceConfiguration.roundDecimalPlaces = parseFloat(yargs.argv.roundDecimalPlaces.toString());
+    if (yargs.argv.hasOwnProperty("reportMedian")) performanceConfiguration.reportMedian = yargs.argv.reportMedian !== "false";
+    if (yargs.argv.hasOwnProperty("reportAverage")) performanceConfiguration.reportAverage = yargs.argv.reportAverage !== "false";
+    if (yargs.argv.hasOwnProperty("reportStandardDeviation")) performanceConfiguration.reportStandardDeviation = yargs.argv.reportStandardDeviation !== "false";
+    if (yargs.argv.hasOwnProperty("reportMax")) performanceConfiguration.reportMax = yargs.argv.reportMax !== "false";
+    if (yargs.argv.hasOwnProperty("reportMin")) performanceConfiguration.reportMin = yargs.argv.reportMin !== "false";
+    if (yargs.argv.hasOwnProperty("reportVariance")) performanceConfiguration.reportVariance = yargs.argv.reportVariance !== "false";
 
-      if (yargs.argv.hasOwnProperty("maxSamples")) performanceConfiguration.maxSamples = parseFloat(yargs.argv.maxSamples.toString());
-      if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
-      if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
-      if (yargs.argv.hasOwnProperty("roundDecimalPlaces")) performanceConfiguration.roundDecimalPlaces = parseFloat(yargs.argv.roundDecimalPlaces.toString());
-      if (yargs.argv.hasOwnProperty("reportMedian")) performanceConfiguration.reportMedian = yargs.argv.reportMedian !== "false";
-      if (yargs.argv.hasOwnProperty("reportAverage")) performanceConfiguration.reportAverage = yargs.argv.reportAverage !== "false";
-      if (yargs.argv.hasOwnProperty("reportStandardDeviation")) performanceConfiguration.reportStandardDeviation = yargs.argv.reportStandardDeviation !== "false";
-      if (yargs.argv.hasOwnProperty("reportMax")) performanceConfiguration.reportMax = yargs.argv.reportMax !== "false";
-      if (yargs.argv.hasOwnProperty("reportMin")) performanceConfiguration.reportMin = yargs.argv.reportMin !== "false";
-      if (yargs.argv.hasOwnProperty("reportVariance")) performanceConfiguration.reportVariance = yargs.argv.reportVariance !== "false";
+    // if a reporter is specified in cli arguments, override configuration
+    if (yargs.argv.reporter || yargs.argv.r) {
+      const targetReporter: string = yargs.argv.reporter || yargs.argv.r;
+
+      // get relative reporters
+      if (targetReporter.startsWith(".")) {
+        try {
+          const result = require(path.join(process.cwd(), targetReporter));
+          // if something is returned
+          if (result) {
+            if (typeof result === "function") { // instantiate it if it's a default exported class
+              reporter = new result();
+            } if (typeof result.default === "function") {
+              reporter = new result.default();
+            } else {
+              reporter = result.default || result;
+            }
+          } else {
+            reporter = new DefaultTestReporter();
+          }
+        } catch(ex) {
+          console.log("Cannot find target reporter at", path.join(process.cwd(), targetReporter));
+          console.log(ex);
+          process.exit(1);
+        }
+      } else if (targetReporter === "EmptyReporter") {
+        reporter = new EmptyReporter();
+      } else if (targetReporter === "SummaryTestReporter") {
+        reporter = new SummaryTestReporter();
+      } else {
+        reporter = new DefaultTestReporter();
+      }
     }
-
 
     // include all the file globs
     console.log(chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`);
@@ -257,8 +294,6 @@ export function asp(args: string[]) {
 
     // for each file, synchronously run each test
     Array.from(testEntryFiles).forEach((file: string, i: number) => {
-      console.log(`Compiling: ${file} ${(i + 1).toString()} / ${testEntryFiles.size.toString()}`);
-
       asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList], {
         stdout: process.stdout as any, // use any type to quelch error
         stderr: process.stderr as any,
@@ -291,8 +326,24 @@ export function asp(args: string[]) {
           return process.exit(1);
         }
 
+        // create a test runner
         const runner = new TestContext(reporter, file, performanceConfiguration);
-        const imports = runner.createImports(configuration!.imports || {});
+
+        // detect custom imports
+        const customImportFileLocation = path.resolve(
+          path.join(
+            path.dirname(file),
+            path.basename(file, path.extname(file)) + ".imports.js",
+          ),
+        );
+        const imports = runner.createImports(
+          (fs.existsSync(customImportFileLocation)
+            ? require(customImportFileLocation)
+            : configuration!.imports
+          ) || {},
+        );
+
+        // instantiate the module
         const wasm = instantiateBuffer(binaries[i], imports);
 
         // call run buffer because it's already compiled

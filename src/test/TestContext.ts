@@ -17,7 +17,6 @@ const enum PerformanceLimits {
   MaxSamples = 10000,
   MaxTestRuntime = 5000,
   MinimumDecimalPlaces = 0,
-  MaximumDecimalPlaces = 10,
 };
 
 export class TestContext {
@@ -47,6 +46,7 @@ export class TestContext {
   private recordMaxValue: boolean | undefined;
   private recordMinValue: boolean | undefined;
   private recordVariance: boolean | undefined;
+
 
   constructor(
     public reporter: TestReporter = new DefaultTestReporter(),
@@ -88,12 +88,14 @@ export class TestContext {
     group.name = groupName;
     runContext.endGroup = false;
 
+    for (const todoPointer of group.todoPointers) {
+      const todo = runContext.wasm.getString(todoPointer);
+      group.todos.push(todo);
+      this.reporter.onTodo(group, todo);
+    }
+
     // report the group as started
     this.reporter.onGroupStart(group);
-
-    for (const todo of group.todos) {
-      this.reporter.onTodo(group, runContext.wasm.getString(todo));
-    }
 
     runContext.groupstart = performance.now();
 
@@ -143,6 +145,7 @@ export class TestContext {
     result.name = runContext.wasm.getString(group.testNamePointers[testIndex]);
 
     this.reporter.onTestStart(group, result);
+    result.start = performance.now();
 
     // If performance is enabled, use the performance values, otherwise, just run once.
     if (performanceEnabled) {
@@ -168,10 +171,10 @@ export class TestContext {
         : Math.min(maxSamplesValue!, PerformanceLimits.MaxSamples);
       const maxTestRuntime = !isFinite(maxTestRuntimeValue!)
         ? PerformanceLimits.MaxTestRuntime
-        : Math.max(maxTestRuntimeValue!, PerformanceLimits.MaxTestRuntime);
+        : Math.min(maxTestRuntimeValue!, PerformanceLimits.MaxTestRuntime);
       const decimalPlaces = !isFinite(decimalPlacesValue!)
         ? 3
-        : Math.max(PerformanceLimits.MaximumDecimalPlaces, Math.min(decimalPlacesValue!, PerformanceLimits.MinimumDecimalPlaces));
+        : Math.max(decimalPlacesValue!, PerformanceLimits.MinimumDecimalPlaces);
 
       result.decimalPlaces = Math.round(decimalPlaces); // could be a float number
       const testStartTime = performance.now();
@@ -192,8 +195,8 @@ export class TestContext {
 
         runCount += 1;  // increase the run count
 
-        if (maxSamples !== void 0 && runCount >= maxSamples) break; // if we have reached the max sample count
-        if (maxTestRuntime !== void 0 && currentTestRunTime >= maxTestRuntime) break; // weve collected enough samples and the test is over
+        if (runCount >= maxSamples) break; // if we have reached the max sample count
+        if (currentTestRunTime >= maxTestRuntime) break; // weve collected enough samples and the test is over
       }
 
       if (reportAverage) result.calculateAverage();
@@ -210,6 +213,8 @@ export class TestContext {
       if (runContext.endGroup) return;
     }
 
+    result.end = performance.now();
+    result.runTime = result.start - result.end;
     return result;
   }
 
@@ -516,11 +521,12 @@ export class TestContext {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.message = `"${this.wasm!.getString(pointer).replace(/"/g, `\\"`)}"`;
+    value.message = this.wasm!.getString(pointer);
     value.offset = 0;
     value.pointer = pointer;
     value.stack = this.getLogStackTrace();
     value.target = target;
+    value.value = pointer;
 
     // push the log value to the logs
     target.logs.push(value);
@@ -542,6 +548,7 @@ export class TestContext {
     value.pointer = referencePointer;
     value.stack = this.getLogStackTrace();
     value.target = target;
+    value.value = referencePointer;
 
     // push the log value to the logs
     target.logs.push(value);
@@ -558,6 +565,7 @@ export class TestContext {
 
     value.stack = this.getLogStackTrace();
     value.message = `Value ${numericValue.toString()}`;
+    value.value = numericValue;
     value.target = target;
 
     // push the log value to the logs
@@ -624,12 +632,10 @@ export class TestContext {
     group.testNamePointers.push(testNamePointer);
     group.testMessagePointers.push(-1);
     group.testThrows.push(false);
-    if (this.performanceEnabledValue) {
-      console.log("Enabled for test:", testNamePointer, callback);
-    }
     group.performanceEnabled.push(this.performanceEnabledValue);
     group.maxSamples.push(this.maxSamplesValue);
     group.maxTestRuntime.push(this.maxTestRunTimeValue);
+    group.roundDecimalPlaces.push(this.roundDecimalPlacesValue);
     group.reportAverage.push(this.recordAverageValue);
     group.reportMedian.push(this.recordMedianValue);
     group.reportStandardDeviation.push(this.recordStdDevValue);
@@ -653,9 +659,6 @@ export class TestContext {
     group.testNamePointers.push(testNamePointer);
     group.testMessagePointers.push(message);
     group.testThrows.push(true);
-    if (this.performanceEnabledValue) {
-      console.log("Enabled for test:", testNamePointer, callback, message);
-    }
     group.performanceEnabled.push(this.performanceEnabledValue);
     group.maxSamples.push(this.maxSamplesValue);
     group.maxTestRuntime.push(this.maxTestRunTimeValue);
@@ -676,7 +679,7 @@ export class TestContext {
    */
   private reportTodo(todoPointer: number): void {
     var group = this.groupStack[this.groupStack.length - 1];
-    group.todos.push(todoPointer);
+    group.todoPointers.push(todoPointer);
   }
 
 /**
@@ -697,6 +700,7 @@ export class TestContext {
     value.message = `null`;
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
+    value.value = null;
     this.actual = value;
   }
 
@@ -711,6 +715,7 @@ export class TestContext {
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
     value.negated = negated === 1;
+    value.value = null;
     this.expected = value;
   }
 
@@ -724,6 +729,7 @@ export class TestContext {
     value.message = numericValue.toString();
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
+    value.value = numericValue;
     this.actual = value;
   }
 
@@ -739,6 +745,7 @@ export class TestContext {
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
     value.negated = negated === 1;
+    value.value = numericValue;
     this.expected = value;
   }
 
@@ -750,12 +757,13 @@ export class TestContext {
   */
  private reportActualReference(referencePointer: number, offset: number): void {
    const value = new ActualValue();
-   value.message = "Reference Type";
+   value.message = "Reference Value";
    value.stack = this.getLogStackTrace();
    value.target = this.logTarget;
    value.pointer = referencePointer;
    value.offset = offset;
    value.bytes = Array.from(this.wasm!.U8.slice(referencePointer, referencePointer + offset));
+   value.value = referencePointer;
    this.actual = value;
  }
 
@@ -768,13 +776,14 @@ export class TestContext {
   */
  private reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0): void {
    const value = new ActualValue();
-   value.message = "Reference Type";
+   value.message = "Reference Value";
    value.stack = this.getLogStackTrace();
    value.target = this.logTarget;
    value.pointer = referencePointer;
    value.offset = offset;
    value.bytes = Array.from(this.wasm!.U8.slice(referencePointer, referencePointer + offset));
    value.negated = negated === 1;
+   value.value = referencePointer;
    this.expected = value;
  }
 
@@ -785,7 +794,7 @@ export class TestContext {
    */
   private reportExpectedTruthy(negated: 1 | 0): void {
     const value = new ActualValue();
-    value.message = `truthy value`;
+    value.message = "Truthy Value";
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
     value.negated = negated === 1;
@@ -799,7 +808,7 @@ export class TestContext {
    */
   private reportExpectedFalsy(negated: 1 | 0): void {
     const value = new ActualValue();
-    value.message = "falsy value";
+    value.message = "Falsy Value";
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
     value.negated = negated === 1;
@@ -813,7 +822,7 @@ export class TestContext {
    */
   private reportExpectedFinite(negated: 1 | 0): void {
     const value = new ActualValue();
-    value.message = "finite value";
+    value.message = "Finite Value";
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
     value.negated = negated === 1;
@@ -827,10 +836,11 @@ export class TestContext {
    */
   private reportActualString(stringPointer: number): void {
     const value = new ActualValue();
-    value.message = `"${this.wasm!.getString(stringPointer).replace(`"`, `\\"`)}"`;
+    value.message = this.wasm!.getString(stringPointer);
     value.pointer = stringPointer;
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
+    value.value = stringPointer;
     this.actual = value;
   }
 
@@ -842,11 +852,12 @@ export class TestContext {
    */
   private reportExpectedString(stringPointer: number, negated: 1 | 0): void {
     const value = new ActualValue();
-    value.message = `"${this.wasm!.getString(stringPointer).replace(`"`, `\\"`)}"`;
+    value.message = this.wasm!.getString(stringPointer);
     value.pointer = stringPointer;
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
     value.negated = negated === 1;
+    value.value = stringPointer;
     this.expected = value;
   }
 

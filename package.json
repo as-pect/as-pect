@@ -1,13 +1,14 @@
 {
   "name": "as-pect",
-  "version": "0.3.0-beta",
+  "version": "0.5.0-beta",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "./assembly/types.d.ts",
   "scripts": {
-    "test": "npm run tsc && node lib/test",
+    "test": "npm run tsc && node lib/test && jest",
     "tsc": "tsc && tsc --outfile lib/as-pect.amd.js --module amd",
-    "gh-pages": "git subtree push --prefix lib origin gh-pages"
+    "gh-pages": "git subtree push --prefix lib origin gh-pages",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "bin": {
     "asp": "bin/asp"
@@ -16,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/jtenner/aspect.git"
   },
-  "author": "Joshua <tenner.joshua@gmail.com>",
+  "author": "Joshua Tenner <tenner.joshua@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jtenner/aspect/issues"
@@ -24,11 +25,15 @@
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "devDependencies": {
     "@types/glob": "^7.1.1",
+    "@types/jest": "^24.0.12",
     "@types/mathjs": "^5.0.1",
-    "@types/node": "^11.13.4",
-    "@types/webassembly-js-api": "2.0.0",
+    "@types/node": "^11.13.8",
+    "@types/webassembly-js-api": "0.0.3",
     "@types/yargs-parser": "^13.0.0",
-    "typescript": "^3.4.3"
+    "coveralls": "^3.0.3",
+    "jest": "^24.7.1",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
   },
   "dependencies": {
     "assemblyscript": "github:assemblyscript/assemblyscript",

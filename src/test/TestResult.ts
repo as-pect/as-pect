@@ -56,6 +56,12 @@ export class TestResult implements ILogTarget {
   public rawVariance: number =  0;
   /** This value indicates the calculated variance used for standard deviation calculations. */
   public variance: number = 0;
+  /** This is the timestamp for when the test started in milliseconds. */
+  public start: number = 0;
+  /** This is the timestamp for when the test ended in milliseconds. */
+  public end: number = 0;
+  /** This is the run time for the test in milliseconds. */
+  public runTime: number = 0;
 
   /**
    * Caclculate the average value of the collected times.

@@ -23,7 +23,8 @@ export class TestGroup implements ILogTarget {
 
   // tests and todos
   public tests: TestResult[] = [];
-  public todos: number[] = [];
+  public todoPointers: number[] = [];
+  public todos: string[] = [];
 
   // logs
   public logs: LogValue[] = [];

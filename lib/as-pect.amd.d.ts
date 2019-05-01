@@ -37,6 +37,10 @@ declare module "util/LogValue" {
          * This is the referenced log target.
          */
         target: ILogTarget | null;
+        /**
+         * This is the raw logged value.
+         */
+        value: number | null;
     }
 }
 declare module "util/ActualValue" {
@@ -109,6 +113,12 @@ declare module "test/TestResult" {
         rawVariance: number;
         /** This value indicates the calculated variance used for standard deviation calculations. */
         variance: number;
+        /** This is the timestamp for when the test started in milliseconds. */
+        start: number;
+        /** This is the timestamp for when the test ended in milliseconds. */
+        end: number;
+        /** This is the run time for the test in milliseconds. */
+        runTime: number;
         /**
          * Caclculate the average value of the collected times.
          */
@@ -154,7 +164,8 @@ declare module "test/TestGroup" {
         testMessagePointers: number[];
         testThrows: boolean[];
         tests: TestResult[];
-        todos: number[];
+        todoPointers: number[];
+        todos: string[];
         logs: LogValue[];
         name: string;
         pass: boolean;
@@ -664,6 +675,32 @@ declare module "test/TestContext" {
         private reportVariance;
     }
 }
+declare module "reporter/EmptyReporter" {
+    import { TestReporter } from "test/TestReporter";
+    export class EmptyReporter extends TestReporter {
+        onFinish(): void;
+        onGroupFinish(): void;
+        onGroupStart(): void;
+        onStart(): void;
+        onTestFinish(): void;
+        onTestStart(): void;
+        onTodo(): void;
+    }
+}
+declare module "reporter/SummaryTestReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { TestContext } from "test/TestContext";
+    export class SummaryTestReporter extends TestReporter {
+        onStart(): void;
+        onGroupStart(): void;
+        onGroupFinish(): void;
+        onTestStart(): void;
+        onTestFinish(): void;
+        onTodo(): void;
+        constructor();
+        onFinish(suite: TestContext): void;
+    }
+}
 declare module "util/IConfiguration" {
     import { TestReporter } from "test/TestReporter";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
@@ -717,6 +754,8 @@ declare module "as-pect" {
     export * from "test/TestReporter";
     export * from "test/TestResult";
     export * from "reporter/DefaultTestReporter";
+    export * from "reporter/EmptyReporter";
+    export * from "reporter/SummaryTestReporter";
     export * from "util/ActualValue";
     export * from "util/IConfiguration";
     export * from "util/ILogTarget";
