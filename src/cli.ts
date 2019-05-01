@@ -17,6 +17,7 @@ import { timeDifference } from "./util/timeDifference";
 import { createDefaultPerformanceConfiguration } from "./util/IPerformanceConfiguration";
 import { EmptyReporter } from "./reporter/EmptyReporter";
 import { SummaryTestReporter } from "./reporter/SummaryTestReporter";
+import { IAspectExports } from "./util/IAspectExports";
 
 const pkg = require("../package.json");
 
@@ -344,7 +345,7 @@ export function asp(args: string[]) {
         );
 
         // instantiate the module
-        const wasm = instantiateBuffer(binaries[i], imports);
+        const wasm = instantiateBuffer<IAspectExports>(binaries[i], imports);
 
         // call run buffer because it's already compiled
         runner.run(wasm);

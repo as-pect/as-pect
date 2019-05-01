@@ -29,7 +29,8 @@ export function log<T>(value: T): void {
       // @ts-ignore: this cast is valid because it's already a string
       logString(<string>value);
     } else if (value instanceof ArrayBuffer) {
-      logReference(value.data, value.byteLength);
+      let buff = changetype<ArrayBuffer>(changetype<usize>(value));
+      logReference(changetype<usize>(buff), buff.byteLength);
     } else {
       logReference(changetype<usize>(value), offsetof<T>());
     }

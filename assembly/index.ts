@@ -15,3 +15,4 @@ import {
   reportMin,
   reportVariance,
 } from "./internal/performance";
+export { __call } from "./internal/call";

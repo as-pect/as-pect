@@ -164,21 +164,21 @@ export class Expectation<T> {
   @inline
   private toStrictEqualArrayBuffer(expected: T, message: string = ""): void {
     // cast the values to ArrayBuffer | null
-    let expectedBuff: ArrayBuffer | null = changetype<ArrayBuffer>(changetype<usize>(expected));
-    let actualBuff: ArrayBuffer | null = changetype<ArrayBuffer>(changetype<usize>(this.actual));
+    let expectedBuff: ArrayBuffer | null = changetype<ArrayBuffer>(expected);
+    let actualBuff: ArrayBuffer | null = changetype<ArrayBuffer>(this.actual);
 
     // report the expected rederence
     if (expectedBuff == null) {
       reportExpectedNull(this._not);
     } else {
-      reportExpectedReference(expectedBuff.data, expectedBuff.byteLength, this._not);
+      reportExpectedReference(changetype<usize>(expectedBuff), expectedBuff.byteLength, this._not);
     }
 
     // report the actual reference
     if (actualBuff == null) {
       reportActualNull();
     } else {
-      reportActualReference(actualBuff.data, actualBuff.byteLength);
+      reportActualReference(changetype<usize>(actualBuff), actualBuff.byteLength);
     }
 
     var expectedNull: i32 = i32(expectedBuff == null);
@@ -208,8 +208,9 @@ export class Expectation<T> {
         // it should throw if it's not negated
         assert(this._not, message);
       } else if (this.actual instanceof String) {
+        let value = changetype<string>(changetype<usize>(this.actual));
         // it should throw if it's an empty string
-        assert(this._not ^ i32(this.actual.length != 0), message);
+        assert(this._not ^ i32(value.length != 0), message);
       } else {
         // it should throw it's negated
         assert(!this._not, message);
@@ -240,8 +241,9 @@ export class Expectation<T> {
         // it should throw if it's not negated
         assert(!this._not, message);
       } else if (this.actual instanceof String) {
+        let value = changetype<string>(changetype<usize>(this.actual));
         // it should throw if it's an empty string
-        assert(this._not ^ i32(this.actual.length == 0), message);
+        assert(this._not ^ i32(value.length == 0), message);
       } else {
         // it should throw it's not negated
         assert(this._not, message);
@@ -271,7 +273,7 @@ export class Expectation<T> {
     this.cleanup();
 
     /*if(isFunction<T>()) {
-      
+
     } else {
       assert(false, "toThrow must be called with an actual function.");
     }*/
@@ -489,13 +491,17 @@ export class Expectation<T> {
       } else if (this.actual instanceof Float64Array) {
         this.assertLength(this.actual.length, expected, message);
       } else if (this.actual instanceof ArrayBuffer) {
-        this.assertLength(this.actual.byteLength, expected, message);
+        let buff = changetype<ArrayBuffer>(this.actual);
+        this.assertLength(buff.byteLength, expected, message);
       } else if (isArray<T>()) {
         // @ts-ignore this value is an array
         this.assertLength(this.actual.length, expected, message);
       } else {
+        let self: T = this.actual;
+
         this.assertLength(
-          load<i32>(changetype<usize>(this.actual), offsetof<T>("length")),
+          // @ts-ignore self must have property length
+          self.length,
           expected,
           message,
         );
@@ -528,8 +534,9 @@ export class Expectation<T> {
         reportActualString(<string>this.actual);
         // it also might be an array buffer
       } else if (this.actual instanceof ArrayBuffer) {
+        let buff = changetype<ArrayBuffer>(this.actual);
         // reporting the reference is as simple as using the pointer and the byteLength property.
-        reportActualReference(changetype<usize>(this.actual.data), this.actual.byteLength);
+        reportActualReference(changetype<usize>(buff), buff.byteLength);
       } else {
         // otherwise report the reference in a default way
         reportActualReference(changetype<usize>(this.actual), offsetof<T>());
@@ -560,8 +567,9 @@ export class Expectation<T> {
         reportExpectedString(<string>expected, this._not);
         // it also might be an array buffer
       } else if (expected instanceof ArrayBuffer) {
+        let buff = changetype<ArrayBuffer>(expected);
         // reporting the reference is as simple as using the pointer and the byteLength property.
-        reportExpectedReference(expected.data, expected.byteLength, this._not);
+        reportExpectedReference(changetype<usize>(buff), buff.byteLength, this._not);
       } else {
         // otherwise report the reference in a default way
         reportExpectedReference(changetype<usize>(expected), offsetof<T>(), this._not);

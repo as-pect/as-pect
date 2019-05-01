@@ -2,6 +2,7 @@ import { ASUtil } from "assemblyscript/lib/loader";
 import { TestGroup } from "./TestGroup";
 import { TestReporter } from "./TestReporter";
 import { IPerformanceConfiguration } from "../util/IPerformanceConfiguration";
+import { IAspectExports } from "../util/IAspectExports";
 export declare class TestContext {
     reporter: TestReporter;
     file: string;
@@ -30,7 +31,7 @@ export declare class TestContext {
     /**
      * Run the tests on the wasm module.
      */
-    run(wasm: ASUtil): void;
+    run(wasm: ASUtil & IAspectExports): void;
     private runGroup;
     /**
      * Run a given test.

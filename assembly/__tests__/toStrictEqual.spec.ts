@@ -1,6 +1,10 @@
 import { Vec3 } from "./setup/Vec3";
 // @ts-ignore: we are going to use internal store to set arraybuffer contents
-import { STORE } from "internal/arraybuffer";
+
+@inline
+function STORE<T>(ptr: ArrayBuffer, index: usize, value: T, byteOffset: usize = 0): void {
+   store<T>(changetype<usize>(ptr) + (index << alignof<T>()) + byteOffset, value);
+}
 
 var vec1: Vec3 = new Vec3(1, 2, 3);
 var vec2: Vec3 = new Vec3(4, 5, 6);
