@@ -8,7 +8,7 @@ import yargsparser from "yargs-parser";
 // import { TestRunner } from "./test/TestRunner";
 import asc from "assemblyscript/cli/asc";
 import { TestContext } from "./test/TestContext";
-import fs from "fs";
+import * as fs from "fs";
 import { instantiateBuffer } from "assemblyscript/lib/loader";
 import { TestReporter } from "./test/TestReporter";
 import { DefaultTestReporter } from "./reporter/DefaultTestReporter";
@@ -34,11 +34,11 @@ export function asp(args: string[]) {
   // Skip ascii art if asked for the version
   if (!(yargs.argv.v || yargs.argv.version)) {
     console.log(chalk`{bold.bgWhite.black ${""
-  }       ___   _____                       __  
-      /   | / ___/      ____  ___  _____/ /_ 
-     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/ 
-    / ___ |___/ /_____/ /_/ /  __/ /__/ /_   
-   /_/  |_/____/     / .___/\\___/\\___/\\__/   
+  }       ___   _____                       __
+      /   | / ___/      ____  ___  _____/ /_
+     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/
+    / ___ |___/ /_____/ /_/ /  __/ /__/ /_
+   /_/  |_/____/     / .___/\\___/\\___/\\__/
                     /_/                      }
 
   ⚡AS-pect⚡ Test suite runner {bgGreenBright.black [${pkg.version}]}
@@ -130,6 +130,8 @@ export function asp(args: string[]) {
     {bold.green asp} -h
     {bold.green asp} --types                         Copy the types file to assembly/__tests__/as-pect.d.ts
     {bold.green asp} -t
+    {bold.green asp} --file                          Run a file matching the passed regex
+    {bold.green asp} -f
 
   {bold.blueBright TEST OPTIONS}
     {bold.green --reporter}                           Define the reporter to be used. {yellow (Default: DefaultTestReporter)}
@@ -247,7 +249,7 @@ export function asp(args: string[]) {
 
     const testEntryFiles: Set<string> = new Set<string>();
     const addedTestEntryFiles: Set<string> = new Set<string>();
-
+    let fileRegex: RegExp = new RegExp(yargs.argv.file || yargs.argv.f || ".*")
     // for each pattern
     for (const pattern of include) {
       // push all the resulting files so that each file gets tested individually
@@ -255,7 +257,7 @@ export function asp(args: string[]) {
       for (const entry of glob.sync(pattern)) {
         // test for discludes
         for (const test of disclude) {
-          if (test.test(entry)) continue entry;
+          if (test.test(entry) || !fileRegex.test(entry)) continue entry;
         }
         testEntryFiles.add(entry);
       }
