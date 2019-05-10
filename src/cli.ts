@@ -257,9 +257,9 @@ export function asp(args: string[]) {
       for (const entry of glob.sync(pattern)) {
         // test for discludes
         for (const test of disclude) {
-          if (test.test(entry) || !fileRegex.test(entry)) continue entry;
+          if (test.test(entry)) continue entry;
         }
-        testEntryFiles.add(entry);
+        if (fileRegex.test(entry)) testEntryFiles.add(entry);
       }
     }
 

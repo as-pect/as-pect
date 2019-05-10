@@ -1,5 +1,1 @@
-<<<<<<< master
-{"version":3,"file":"cli.d.ts","sourceRoot":"","sources":["../src/cli.ts"],"names":[],"mappings":"AAsBA;;;;GAIG;AACH,wBAAgB,GAAG,CAAC,IAAI,EAAE,MAAM,EAAE,QAiWjC"}
-=======
-{"version":3,"file":"cli.d.ts","sourceRoot":"","sources":["../src/cli.ts"],"names":[],"mappings":"AAoBA;;;;GAIG;AACH,wBAAgB,GAAG,CAAC,IAAI,EAAE,MAAM,EAAE,QAkTjC"}
->>>>>>> Added File flag
+{"version":3,"file":"cli.d.ts","sourceRoot":"","sources":["../src/cli.ts"],"names":[],"mappings":"AAsBA;;;;GAIG;AACH,wBAAgB,GAAG,CAAC,IAAI,EAAE,MAAM,EAAE,QAmWjC"}
