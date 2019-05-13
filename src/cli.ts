@@ -34,13 +34,12 @@ export function asp(args: string[]) {
   // Skip ascii art if asked for the version
   if (!(yargs.argv.v || yargs.argv.version)) {
     console.log(chalk`{bold.bgWhite.black ${""
-  }       ___   _____                       __
-      /   | / ___/      ____  ___  _____/ /_
-     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/
-    / ___ |___/ /_____/ /_/ /  __/ /__/ /_
-   /_/  |_/____/     / .___/\\___/\\___/\\__/
+  }       ___   _____                       __  
+      /   | / ___/      ____  ___  _____/ /_ 
+     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/ 
+    / ___ |___/ /_____/ /_/ /  __/ /__/ /_   
+   /_/  |_/____/     / .___/\\___/\\___/\\__/   
                     /_/                      }
-
   ⚡AS-pect⚡ Test suite runner {bgGreenBright.black [${pkg.version}]}
   `);
   }
@@ -130,10 +129,11 @@ export function asp(args: string[]) {
     {bold.green asp} -h
     {bold.green asp} --types                         Copy the types file to assembly/__tests__/as-pect.d.ts
     {bold.green asp} -t
-    {bold.green asp} --file                          Run a file matching the passed regex
-    {bold.green asp} -f
 
-  {bold.blueBright TEST OPTIONS}
+    {bold.blueBright TEST OPTIONS}
+    {bold.green --file=[regex]}                       Run the tests of each file that matches this regex. {yellow (Default: .)}
+      {bold.green -f=[regex]}
+
     {bold.green --reporter}                           Define the reporter to be used. {yellow (Default: DefaultTestReporter)}
       {bold.green --reporter=SummaryTestReporter}     Use the summary reporter.
       {bold.green --reporter=DefaultTestReporter}     Use the default test reporter.
@@ -249,8 +249,15 @@ export function asp(args: string[]) {
 
     const testEntryFiles: Set<string> = new Set<string>();
     const addedTestEntryFiles: Set<string> = new Set<string>();
-    let fileRegex: RegExp = new RegExp(yargs.argv.file || yargs.argv.f || ".*")
-    // for each pattern
+
+    /**
+     * Read in the file regex arg. Only test files that match this regular expression will have
+     * their tests run.
+     */
+    const fileRegexArg = yargs.argv.file || yargs.argv.f || ".*";
+    const fileRegex: RegExp = new RegExp(fileRegexArg);
+
+    // for each pattern to be included
     for (const pattern of include) {
       // push all the resulting files so that each file gets tested individually
       entry:
@@ -259,6 +266,8 @@ export function asp(args: string[]) {
         for (const test of disclude) {
           if (test.test(entry)) continue entry;
         }
+
+        // if the fileRegex matches the test, add it to the entry file Set
         if (fileRegex.test(entry)) testEntryFiles.add(entry);
       }
     }
@@ -307,10 +316,12 @@ export function asp(args: string[]) {
             return;
           }
 
+          // capture the sourcemap, not sure what to do with this yet.
           if (ext === ".map") {
             sourcemaps[name] = contents;
             return;
           }
+
           const outfileName = path.join(path.dirname(file), path.basename(file, path.extname(file)) + ext);
           fs.writeFileSync(outfileName, contents);
         }

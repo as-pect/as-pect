@@ -72,6 +72,9 @@ This is the CLI help displayed when using the `asp` help flag.
     asp -t
 
   TEST OPTIONS
+    --file=[regex]                       Run the tests of each file that matches this regex. (Default: .)
+      -f=[regex]
+
     --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
       --reporter=SummaryTestReporter     Use the summary reporter.
       --reporter=DefaultTestReporter     Use the default reporter.
