@@ -3,7 +3,7 @@
   "version": "0.5.0-beta",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
-  "types": "./assembly/types.d.ts",
+  "types": "./assembly/__tests__/as-pect.d.ts",
   "scripts": {
     "test": "npm run tsc && node lib/test && jest",
     "tsc": "tsc && tsc --outfile lib/as-pect.amd.js --module amd",
