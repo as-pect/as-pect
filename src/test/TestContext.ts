@@ -10,6 +10,7 @@ import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
 import { RunContext } from "./RunContext";
 import { IPerformanceConfiguration, createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";
+import { IWarning } from "./IWarning";
 
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
@@ -47,6 +48,15 @@ export class TestContext {
   private recordMinValue: boolean | undefined;
   private recordVariance: boolean | undefined;
 
+  /**
+   * This value is used to detect if an `expect()` function call was used outside of a test
+   * function. If a reportExpected or reportActual function is called before the `context.run()`
+   * method is called, it should prevent the `run()` method from running the tests and report a
+   * failure.
+   */
+  private ready: boolean = false;
+
+  public errors: IWarning[] = [];
 
   constructor(
     public reporter: TestReporter = new DefaultTestReporter(),
@@ -60,6 +70,8 @@ export class TestContext {
    * Run the tests on the wasm module.
    */
   public run(wasm: ASUtil): void {
+    if (this.errors.length > 0) return;
+    this.ready = true;
     this.wasm = wasm;
 
     const runContext = new RunContext(wasm, this.reporter);
@@ -696,6 +708,10 @@ export class TestContext {
    * This function reports an actual null value.
    */
   private reportActualNull(): void {
+    if (!this.ready) {
+      this.reportInvalidExpectCall();
+      return;
+    }
     const value = new ActualValue();
     value.message = `null`;
     value.stack = this.getLogStackTrace();
@@ -725,6 +741,10 @@ export class TestContext {
    * @param {number} numericValue - The value to be expected.
    */
   private reportActualValue(numericValue: number): void {
+    if (!this.ready) {
+      this.reportInvalidExpectCall();
+      return;
+    }
     const value = new ActualValue();
     value.message = numericValue.toString();
     value.stack = this.getLogStackTrace();
@@ -756,6 +776,10 @@ export class TestContext {
   * @param {number} offset - The size of the reference in bytes.
   */
  private reportActualReference(referencePointer: number, offset: number): void {
+   if (!this.ready) {
+     this.reportInvalidExpectCall();
+     return;
+   }
    const value = new ActualValue();
    value.message = "Reference Value";
    value.stack = this.getLogStackTrace();
@@ -835,6 +859,10 @@ export class TestContext {
    * @param {number} stringPointer - A pointer that points to the actual string.
    */
   private reportActualString(stringPointer: number): void {
+    if (!this.ready) {
+      this.reportInvalidExpectCall();
+      return;
+    }
     const value = new ActualValue();
     value.message = this.wasm!.getString(stringPointer);
     value.pointer = stringPointer;
@@ -989,5 +1017,17 @@ export class TestContext {
    */
   private reportVariance(value: 1 | 0): void {
     this.recordVariance = value === 1;
+  }
+
+  /**
+   * This method reports to the TestContext that an expect function call was used outside of the
+   * intended test functions.
+   */
+  private reportInvalidExpectCall(): void {
+    this.errors.push({
+      type: "InvalidExpectCall",
+      message: `An expect() function call was used outside of a test function in ${this.file}.`,
+      stackTrace: this.getLogStackTrace(),
+    });
   }
 }

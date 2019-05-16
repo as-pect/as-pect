@@ -17,6 +17,7 @@ import { timeDifference } from "./util/timeDifference";
 import { createDefaultPerformanceConfiguration } from "./util/IPerformanceConfiguration";
 import { EmptyReporter } from "./reporter/EmptyReporter";
 import { SummaryTestReporter } from "./reporter/SummaryTestReporter";
+import { IWarning } from "./test/IWarning";
 
 const pkg = require("../package.json");
 
@@ -302,6 +303,7 @@ export function asp(args: string[]) {
     let successCount = 0;
     let groupSuccessCount = 0;
     let groupCount = 0;
+    let errors: IWarning[] = [];
 
     // for each file, synchronously run each test
     Array.from(testEntryFiles).forEach((file: string, i: number) => {
@@ -359,24 +361,35 @@ export function asp(args: string[]) {
         // instantiate the module
         const wasm = instantiateBuffer(binaries[i], imports);
 
-        // call run buffer because it's already compiled
-        runner.run(wasm);
+        if (runner.errors.length > 0) {
+          errors.push(...runner.errors);
+        } else {
+          // call run buffer because it's already compiled
+          runner.run(wasm);
+          testCount += runner.testGroups.reduce((left, right) => left + right.tests.length, 0);
+          successCount += runner.testGroups
+            .reduce((left, right) => left + right.tests.filter(e => e.pass).length, 0);
+          groupCount += runner.testGroups.length;
+          groupSuccessCount = runner.testGroups.reduce((left, right) => left + (right.pass ? 1 : 0), groupSuccessCount);
+        }
 
         count -= 1;
 
-        testCount += runner.testGroups.reduce((left, right) => left + right.tests.length, 0);
-        successCount += runner.testGroups
-          .reduce((left, right) => left + right.tests.filter(e => e.pass).length, 0);
-        groupCount += runner.testGroups.length;
-        groupSuccessCount = runner.testGroups.reduce((left, right) => left + (right.pass ? 1 : 0), groupSuccessCount);
         // if any tests failed, and they all ran, exit(1)
         if (count === 0) {
           const end = performance.now();
-          const failed = testCount !== successCount;
+          const failed = testCount !== successCount || errors.length > 0;
           const result = failed
             ? chalk`{red ✖ FAIL}`
             : chalk`{green ✔ PASS}`;
           console.log("~".repeat(process.stdout.columns! - 10));
+
+          for (const error of errors) {
+            console.log(chalk`
+   [Error]: {red ${error.type}}: ${error.message}
+   [Stack]: {yellow ${error.stackTrace.split("\n").join("\n            ")}}
+`)
+          }
           console.log(`
   [Result]: ${result}
    [Files]: ${testEntryFiles.size} total

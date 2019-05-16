@@ -311,11 +311,19 @@ declare module "util/IPerformanceConfiguration" {
     }
     export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
 }
+declare module "test/IWarning" {
+    export interface IWarning {
+        type: string;
+        message: string;
+        stackTrace: string;
+    }
+}
 declare module "test/TestContext" {
     import { ASUtil } from "assemblyscript/lib/loader";
     import { TestGroup } from "test/TestGroup";
     import { TestReporter } from "test/TestReporter";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    import { IWarning } from "test/IWarning";
     export class TestContext {
         reporter: TestReporter;
         file: string;
@@ -340,6 +348,14 @@ declare module "test/TestContext" {
         private recordMaxValue;
         private recordMinValue;
         private recordVariance;
+        /**
+         * This value is used to detect if an `expect()` function call was used outside of a test
+         * function. If a reportExpected or reportActual function is called before the `context.run()`
+         * method is called, it should prevent the `run()` method from running the tests and report a
+         * failure.
+         */
+        private ready;
+        errors: IWarning[];
         constructor(reporter?: TestReporter, file?: string, performanceConfiguration?: IPerformanceConfiguration);
         /**
          * Run the tests on the wasm module.
@@ -673,6 +689,11 @@ declare module "test/TestContext" {
          * @param {1 | 0} value - A boolean indicating if the min should be reported.
          */
         private reportVariance;
+        /**
+         * This method reports to the TestContext that an expect function call was used outside of the
+         * intended test functions.
+         */
+        private reportInvalidExpectCall;
     }
 }
 declare module "reporter/EmptyReporter" {
