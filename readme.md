@@ -260,21 +260,19 @@ browser testing as entry points.
 ./node_modules/as-pect/assembly/index.ts
 ```
 
-When the allocator becomes configurable, there will be more optional files to include, but the
-`assembly/index.ts` file contains all the required global functions to setup tests.
-
 ## Do Not Import An Allocator
 
-The `as-pect` cli will automatically include the `arena` allocator for you (for now!), so it's not necessary
-for you to include this at the top of each test.
+The `as-pect` cli will automatically include the `arena` allocator for you (for now!), so it's not
+necessary for you to include this at the top of each test. Once runtime hits, allocators and runtime
+flags will be configurable to you from the compiler arguments in the `./as-pect.config.js` file.
 
 ```ts
-// Do not do this, since it's done for you automatically
+/**
+ * Do not do this at the top of your tests since ./node_modules/as-pect/assembly/index.ts
+ * does this already.
+ */
 import "allocator/arena";
 ```
-
-This will be replaced with a `--allocator` flag that specifies the test memory allocator. The default
-will be backwards compatible and be specified as the `arena` allocator.
 
 ## Closures
 
