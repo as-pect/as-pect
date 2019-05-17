@@ -8,18 +8,15 @@ import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
 import { createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";
-import { EmptyReporter } from "../reporter/EmptyReporter";
-import { SummaryTestReporter } from "../reporter/SummaryTestReporter";
 import { IWarning } from "../test/IWarning";
-import yargsparser from "yargs-parser";
 import * as path from "path";
 import chalk from "chalk";
 import { IConfiguration, ICompilerFlags } from "../util/IConfiguration";
 import glob from "glob";
-
-interface IYargs {
-  argv: yargsparser.Arguments;
-}
+import { collectPerformanceConfiguration } from "./util/collectPerformanceConfiguration";
+import { collectReporter } from "./util/collectReporter";
+import { getTestEntryFiles } from "./util/getTestEntryFiles";
+import { IYargs } from "./util/IYargs";
 
 export function run(yargs: IYargs): void {
   const start = performance.now();
@@ -58,58 +55,16 @@ export function run(yargs: IYargs): void {
     "--binaryFile": ["output.wasm"],
   };
   const disclude: RegExp[] = configuration.disclude || [];
-  let reporter: TestReporter = configuration.reporter || new DefaultTestReporter();
+
+  // if a reporter is specified in cli arguments, override configuration
+  const  reporter: TestReporter = (yargs.argv.reporter || yargs.argv.r)
+    ? collectReporter(yargs)
+    : configuration.reporter || new DefaultTestReporter();
 
   const performanceConfiguration = configuration.performance || createDefaultPerformanceConfiguration();
 
   // setup performance options, overriding configured values if the flag is passed to the cli
-  if (yargs.argv.hasOwnProperty("performance")) performanceConfiguration.enabled = yargs.argv.performance !== "false";
-
-  // gather all the flags
-  if (yargs.argv.hasOwnProperty("maxSamples")) performanceConfiguration.maxSamples = parseFloat(yargs.argv.maxSamples.toString());
-  if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
-  if (yargs.argv.hasOwnProperty("maxTestRunTime")) performanceConfiguration.maxTestRunTime = parseFloat(yargs.argv.maxTestRunTime.toString());
-  if (yargs.argv.hasOwnProperty("roundDecimalPlaces")) performanceConfiguration.roundDecimalPlaces = parseFloat(yargs.argv.roundDecimalPlaces.toString());
-  if (yargs.argv.hasOwnProperty("reportMedian")) performanceConfiguration.reportMedian = yargs.argv.reportMedian !== "false";
-  if (yargs.argv.hasOwnProperty("reportAverage")) performanceConfiguration.reportAverage = yargs.argv.reportAverage !== "false";
-  if (yargs.argv.hasOwnProperty("reportStandardDeviation")) performanceConfiguration.reportStandardDeviation = yargs.argv.reportStandardDeviation !== "false";
-  if (yargs.argv.hasOwnProperty("reportMax")) performanceConfiguration.reportMax = yargs.argv.reportMax !== "false";
-  if (yargs.argv.hasOwnProperty("reportMin")) performanceConfiguration.reportMin = yargs.argv.reportMin !== "false";
-  if (yargs.argv.hasOwnProperty("reportVariance")) performanceConfiguration.reportVariance = yargs.argv.reportVariance !== "false";
-
-  // if a reporter is specified in cli arguments, override configuration
-  if (yargs.argv.reporter || yargs.argv.r) {
-    const targetReporter: string = yargs.argv.reporter || yargs.argv.r;
-
-    // get relative reporters
-    if (targetReporter.startsWith(".")) {
-      try {
-        const result = require(path.join(process.cwd(), targetReporter));
-        // if something is returned
-        if (result) {
-          if (typeof result === "function") { // instantiate it if it's a default exported class
-            reporter = new result();
-          } if (typeof result.default === "function") {
-            reporter = new result.default();
-          } else {
-            reporter = result.default || result;
-          }
-        } else {
-          reporter = new DefaultTestReporter();
-        }
-      } catch(ex) {
-        console.log("Cannot find target reporter at", path.join(process.cwd(), targetReporter));
-        console.log(ex);
-        process.exit(1);
-      }
-    } else if (targetReporter === "EmptyReporter") {
-      reporter = new EmptyReporter();
-    } else if (targetReporter === "SummaryTestReporter") {
-      reporter = new SummaryTestReporter();
-    } else {
-      reporter = new DefaultTestReporter();
-    }
-  }
+  collectPerformanceConfiguration(yargs, performanceConfiguration);
 
   // include all the file globs
   console.log(chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`);
@@ -117,30 +72,10 @@ export function run(yargs: IYargs): void {
   // add a line seperator between the next line and this line
   console.log("");
 
-  const testEntryFiles: Set<string> = new Set<string>();
   const addedTestEntryFiles: Set<string> = new Set<string>();
 
-  /**
-   * Read in the file regex arg. Only test files that match this regular expression will have
-   * their tests run.
-   */
-  const fileRegexArg = yargs.argv.file || yargs.argv.f || ".*";
-  const fileRegex: RegExp = new RegExp(fileRegexArg);
-
-  // for each pattern to be included
-  for (const pattern of include) {
-    // push all the resulting files so that each file gets tested individually
-    entry:
-    for (const entry of glob.sync(pattern)) {
-      // test for discludes
-      for (const test of disclude) {
-        if (test.test(entry)) continue entry;
-      }
-
-      // if the fileRegex matches the test, add it to the entry file Set
-      if (fileRegex.test(entry)) testEntryFiles.add(entry);
-    }
-  }
+  /** Get all the test entry files. */
+  const testEntryFiles = getTestEntryFiles(yargs, include, disclude);
 
   for (const pattern of add) {
     // push all the added files to the added entry point list
@@ -150,8 +85,7 @@ export function run(yargs: IYargs): void {
   }
 
   // loop over each file and create a binary, index it on binaries
-  let binaries: { [i: number]: Uint8Array } = {};
-  let sourcemaps: { [inex: string]: Uint8Array } = {};
+  const binaries: { [i: number]: Uint8Array } = {};
 
   // must include the assembly/index.ts file located in the package
   const entryPath = path.join(__dirname, "../../assembly/index.ts");
@@ -184,12 +118,6 @@ export function run(yargs: IYargs): void {
         // get the wasm file
         if (ext === ".wasm") {
           binaries[i] = contents;
-          return;
-        }
-
-        // capture the sourcemap, not sure what to do with this yet.
-        if (ext === ".map") {
-          sourcemaps[name] = contents;
           return;
         }
 
@@ -263,7 +191,7 @@ export function run(yargs: IYargs): void {
 [Result]: ${result}
  [Files]: ${testEntryFiles.size} total
 [Groups]: ${groupCount} count, ${groupSuccessCount} pass
-[Summary]: ${successCount.toString()} pass, ${(testCount - successCount).toString()} fail, ${testCount.toString()} total
+ [Tests]: ${successCount.toString()} pass, ${(testCount - successCount).toString()} fail, ${testCount.toString()} total
   [Time]: ${timeDifference(end, start).toString()}ms`);
         if (failed) {
           process.exit(1);
