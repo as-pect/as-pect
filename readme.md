@@ -320,6 +320,11 @@ describe("vector", (): void => {
 });
 ```
 
+## Expectations
+
+Calling the `expect<T>(value: T)` function outside of a test function, or a setup function will
+cause unexpected behavior. If this happens, the test suite will fail before it runs in the CLI.
+
 ## Logging
 
 To use the global `log<T>(value: T): void` function provided by `as-pect`, simply give it the type
