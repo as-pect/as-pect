@@ -1,3 +1,4 @@
+/// <reference types="yargs-parser" />
 declare module "util/ILogTarget" {
     import { LogValue } from "util/LogValue";
     export interface ILogTarget {
@@ -761,7 +762,23 @@ declare module "util/IConfiguration" {
         reporter?: TestReporter;
     }
 }
-declare module "cli" {
+declare module "cli/types" {
+    export function types(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
+}
+declare module "cli/init" {
+    export function init(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
+}
+declare module "cli/help" {
+    export function help(): void;
+}
+declare module "cli/run" {
+    import yargsparser from "yargs-parser";
+    interface IYargs {
+        argv: yargsparser.Arguments;
+    }
+    export function run(yargs: IYargs): void;
+}
+declare module "cli/cli" {
     /**
      * This is the cli entry point and expects an array of arguments from the command line.
      *
@@ -781,7 +798,7 @@ declare module "as-pect" {
     export * from "util/IConfiguration";
     export * from "util/ILogTarget";
     export * from "util/LogValue";
-    export * from "cli";
+    export * from "cli/cli";
 }
 declare module "test" { }
 //# sourceMappingURL=as-pect.amd.d.ts.map

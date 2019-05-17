@@ -9,5 +9,5 @@ export * from "./util/ActualValue";
 export * from "./util/IConfiguration";
 export * from "./util/ILogTarget";
 export * from "./util/LogValue";
-export * from "./cli";
+export * from "./cli/cli";
 //# sourceMappingURL=as-pect.d.ts.map
