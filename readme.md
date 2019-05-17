@@ -81,7 +81,7 @@ This is the CLI help displayed when using the `asp` help flag.
       --reporter=EmptyReporter           Use the empty reporter. (This reporter reports nothing)
       --reporter=./path/to/reporter.js   Use the default exported object from this module as the reporter.
 
-    --performance                        Enable performance statistics. (Default: false)
+    --performance                        Enable performance statistics for every test. (Default: false)
     --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
     --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
     --report-median(=false)?             Enable/Disable reporting of the median time. (Default: true)

@@ -24,7 +24,7 @@ export function help() {
       {bold.green --reporter=EmptyReporter}           Use the empty reporter. {yellow (This reporter reports nothing)}
       {bold.green --reporter=./path/to/reporter.js}   Use the default exported object from this module as the reporter.
 
-    {bold.green --performance}                        Enable performance statistics. {yellow (Default: false)}
+    {bold.green --performance}                        Enable performance statistics for {bold every} test. {yellow (Default: false)}
     {bold.green --max-samples=[number]}               Set the maximum number of samples to run for each test. {yellow (Default: 10000 samples)}
     {bold.green --max-test-run-time=[number]}         Set the maximum test run time in milliseconds. {yellow (Default: 2000ms)}
     {bold.green --round-decimal-places=[number]}      Set the number of decimal places to round to. {yellow (Default: 3)}
