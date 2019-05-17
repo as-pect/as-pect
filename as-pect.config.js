@@ -1,4 +1,4 @@
-const { SummaryReporter } = require("./lib/reporter/SummaryReporter");
+const { SummaryTestReporter } = require("./lib/reporter/SummaryTestReporter");
 
 module.exports = {
   /**
@@ -54,5 +54,5 @@ module.exports = {
     reportVariance: true,
   },
   /** Use the summary reporter. */
-  reporter: new SummaryReporter(),
+  reporter: new SummaryTestReporter(),
 };

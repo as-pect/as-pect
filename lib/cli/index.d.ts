@@ -4,4 +4,4 @@
  * @param {string[]} args - The arguments from the command line
  */
 export declare function asp(args: string[]): void;
-//# sourceMappingURL=cli.d.ts.map
+//# sourceMappingURL=index.d.ts.map
