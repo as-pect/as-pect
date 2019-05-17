@@ -771,11 +771,28 @@ declare module "cli/init" {
 declare module "cli/help" {
     export function help(): void;
 }
-declare module "cli/run" {
+declare module "cli/util/IYargs" {
     import yargsparser from "yargs-parser";
-    interface IYargs {
+    export interface IYargs {
         argv: yargsparser.Arguments;
     }
+}
+declare module "cli/util/collectPerformanceConfiguration" {
+    import { IYargs } from "cli/util/IYargs";
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: IPerformanceConfiguration): void;
+}
+declare module "cli/util/collectReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { IYargs } from "cli/util/IYargs";
+    export function collectReporter(yargs: IYargs): TestReporter;
+}
+declare module "cli/util/getTestEntryFiles" {
+    import { IYargs } from "cli/util/IYargs";
+    export function getTestEntryFiles(yargs: IYargs, include: string[], disclude: RegExp[]): Set<string>;
+}
+declare module "cli/run" {
+    import { IYargs } from "cli/util/IYargs";
     export function run(yargs: IYargs): void;
 }
 declare module "cli/index" {
@@ -800,5 +817,4 @@ declare module "as-pect" {
     export * from "util/LogValue";
     export * from "cli/index";
 }
-declare module "test" { }
 //# sourceMappingURL=as-pect.amd.d.ts.map

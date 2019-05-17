@@ -30,26 +30,22 @@ module.exports = {
    * All performance statistics reporting can be configured here.
    */
   performance: {
-    /** Enable performance statistics gathering. */
+    /** Enable performance statistics gathering for every test. */
     enabled: false,
-    /** Set the maximum number of samples to run for each test. */
+    /** Set the maximum number of samples to run for every test. */
     maxSamples: 10000,
-    /** Set the maximum test run time in milliseconds. */
+    /** Set the maximum test run time in milliseconds for every test. */
     maxTestRunTime: 2000,
-    /** Set the number of decimal places to round to. */
-    roundDecimalPlaces: 3,
-    /** Report the median time in the default reporter. */
+    /** Report the median time in the default reporter for every test. */
     reportMedian: true,
-    /** Report the average time in milliseconds. */
+    /** Report the average time in milliseconds for every test. */
     reportAverage: true,
-    /** Report the standard deviation. */
+    /** Report the standard deviation for every test. */
     reportStandardDeviation: false,
-    /** Report the maximum run time in milliseconds. */
+    /** Report the maximum run time in milliseconds for every test. */
     reportMax: false,
-    /** Report the minimum run time in milliseconds. */
+    /** Report the minimum run time in milliseconds for every test. */
     reportMin: false,
-    /** Report the variance. */
-    reportVariance: false,
   },
   /**
    * Add a custom reporter here if you want one. The following example is in typescript.
