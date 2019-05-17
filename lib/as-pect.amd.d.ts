@@ -779,7 +779,8 @@ declare module "cli/util/IYargs" {
 }
 declare module "cli/util/collectPerformanceConfiguration" {
     import { IYargs } from "cli/util/IYargs";
-    export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: import("util/IPerformanceConfiguration").IPerformanceConfiguration): void;
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: IPerformanceConfiguration): void;
 }
 declare module "cli/util/collectReporter" {
     import { TestReporter } from "test/TestReporter";

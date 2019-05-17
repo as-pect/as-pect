@@ -1,6 +1,7 @@
 import { IYargs } from "./IYargs";
+import { IPerformanceConfiguration } from "../../util/IPerformanceConfiguration";
 
-export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: import("c:/Users/jtenner/Desktop/projects/as-pect/src/util/IPerformanceConfiguration").IPerformanceConfiguration) {
+export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: IPerformanceConfiguration) {
   if (yargs.argv.hasOwnProperty("performance"))
     performanceConfiguration.enabled = yargs.argv.performance !== "false";
   // gather all the flags
