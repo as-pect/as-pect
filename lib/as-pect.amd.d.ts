@@ -778,7 +778,7 @@ declare module "cli/run" {
     }
     export function run(yargs: IYargs): void;
 }
-declare module "cli/cli" {
+declare module "cli/index" {
     /**
      * This is the cli entry point and expects an array of arguments from the command line.
      *
@@ -798,7 +798,7 @@ declare module "as-pect" {
     export * from "util/IConfiguration";
     export * from "util/ILogTarget";
     export * from "util/LogValue";
-    export * from "cli/cli";
+    export * from "cli/index";
 }
 declare module "test" { }
 //# sourceMappingURL=as-pect.amd.d.ts.map
