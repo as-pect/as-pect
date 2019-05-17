@@ -344,6 +344,9 @@ It's possible to switch a test to performance mode. The `DefaultReporter` will, 
 each `log()`ed value, it will report the performance statistics calculated at the end of sample
 collection.
 
+Logs are not supported in this mode, because running 10000 samples of a function that collects logs
+will result in a large amount of memory usage.
+
 ### Performance Enabling Via API
 
 To enable performance using the global test functions, call the `performanceEnabled()` function with a `true` value.
@@ -437,21 +440,21 @@ command line tool.
 // in as-pect.config.js
 module.exports = {
   performance: {
-    /** Enable performance statistics gathering for each test. */
+    /** Enable performance statistics gathering for every test. */
     enabled: false,
-    /** Set the maximum number of samples to run for each test. */
+    /** Set the maximum number of samples to run for every test. */
     maxSamples: 10000,
-    /** Set the maximum test run time in milliseconds. */
+    /** Set the maximum test run time in milliseconds for every test. */
     maxTestRunTime: 2000,
-    /** Report the median time in the default reporter. */
+    /** Report the median time in the default reporter for every test. */
     reportMedian: true,
-    /** Report the average time in milliseconds. */
+    /** Report the average time in milliseconds for every test. */
     reportAverage: true,
-    /** Report the standard deviation. */
+    /** Report the standard deviation for every test. */
     reportStandardDeviation: false,
-    /** Report the maximum run time in milliseconds. */
+    /** Report the maximum run time in milliseconds for every test. */
     reportMax: false,
-    /** Report the minimum run time in milliseconds. */
+    /** Report the minimum run time in milliseconds for every test. */
     reportMin: false,
   },
 }
