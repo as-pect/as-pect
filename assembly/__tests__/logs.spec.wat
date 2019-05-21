@@ -22,28 +22,30 @@
  (import "__aspect" "reportDescribe" (func $assembly/internal/Describe/reportDescribe (param i32)))
  (import "__aspect" "reportEndDescribe" (func $assembly/internal/Describe/reportEndDescribe))
  (memory $0 1)
- (data (i32.const 8) "\04\00\00\00l\00o\00g\00s\00")
- (data (i32.const 24) "\n\00\00\00B\00e\00f\00o\00r\00e\00 \00A\00l\00l\00")
- (data (i32.const 48) "\t\00\00\00A\00f\00t\00e\00r\00 \00A\00l\00l\00")
- (data (i32.const 72) "\0b\00\00\00B\00e\00f\00o\00r\00e\00 \00E\00a\00c\00h\00")
- (data (i32.const 104) "\n\00\00\00A\00f\00t\00e\00r\00 \00E\00a\00c\00h\00")
- (data (i32.const 128) "\0c\00\00\00l\00o\00g\00 \00a\00 \00s\00t\00r\00i\00n\00g\00")
- (data (i32.const 160) "\11\00\00\00S\00o\00m\00e\00 \00s\00t\00r\00i\00n\00g\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 200) "\0c\00\00\00l\00o\00g\00 \00a\00 \00n\00u\00m\00b\00e\00r\00")
- (data (i32.const 232) "\12\00\00\00l\00o\00g\00 \00a\00n\00 \00A\00r\00r\00a\00y\00B\00u\00f\00f\00e\00r\00")
- (data (i32.const 272) "\1b\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s\00")
- (data (i32.const 336) "\1c\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
- (data (i32.const 400) "\0f\00\00\00l\00o\00g\00 \00a\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00")
- (data (i32.const 440) "\n\00\00\00l\00o\00g\00 \00a\00 \00n\00u\00l\00l\00")
- (data (i32.const 464) "\1c\00\00\00T\00h\00i\00s\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00a\00 \00v\00a\00l\00i\00d\00 \00t\00o\00d\00o\00.\00")
- (table $0 12 funcref)
- (elem (i32.const 0) $null $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|8 $start:assembly/__tests__/logs.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
+ (data (i32.const 8) "\1b\00\00\00b\00e\00f\00o\00r\00e\00 \00a\00l\00l\00 \00o\00u\00t\00s\00i\00d\00e\00 \00d\00e\00s\00c\00r\00i\00b\00e\00")
+ (data (i32.const 72) "\1a\00\00\00a\00f\00t\00e\00r\00 \00a\00l\00l\00 \00o\00u\00t\00s\00i\00d\00e\00 \00d\00e\00s\00c\00r\00i\00b\00e\00")
+ (data (i32.const 128) "\04\00\00\00l\00o\00g\00s\00")
+ (data (i32.const 144) "\n\00\00\00B\00e\00f\00o\00r\00e\00 \00A\00l\00l\00")
+ (data (i32.const 168) "\t\00\00\00A\00f\00t\00e\00r\00 \00A\00l\00l\00")
+ (data (i32.const 192) "\0b\00\00\00B\00e\00f\00o\00r\00e\00 \00E\00a\00c\00h\00")
+ (data (i32.const 224) "\n\00\00\00A\00f\00t\00e\00r\00 \00E\00a\00c\00h\00")
+ (data (i32.const 248) "\0c\00\00\00l\00o\00g\00 \00a\00 \00s\00t\00r\00i\00n\00g\00")
+ (data (i32.const 280) "\11\00\00\00S\00o\00m\00e\00 \00s\00t\00r\00i\00n\00g\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 320) "\0c\00\00\00l\00o\00g\00 \00a\00 \00n\00u\00m\00b\00e\00r\00")
+ (data (i32.const 352) "\12\00\00\00l\00o\00g\00 \00a\00n\00 \00A\00r\00r\00a\00y\00B\00u\00f\00f\00e\00r\00")
+ (data (i32.const 392) "\1b\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s\00")
+ (data (i32.const 456) "\1c\00\00\00~\00l\00i\00b\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
+ (data (i32.const 520) "\0f\00\00\00l\00o\00g\00 \00a\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00")
+ (data (i32.const 560) "\n\00\00\00l\00o\00g\00 \00a\00 \00n\00u\00l\00l\00")
+ (data (i32.const 584) "\1c\00\00\00T\00h\00i\00s\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00a\00 \00v\00a\00l\00i\00d\00 \00t\00o\00d\00o\00.\00")
+ (table $0 14 funcref)
+ (elem (i32.const 0) $null $start:assembly/__tests__/logs.spec~anonymous|0 $start:assembly/__tests__/logs.spec~anonymous|1 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|0 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|1 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|2 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|3 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|4 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|5 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|6 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|7 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|8 $start:assembly/__tests__/logs.spec~anonymous|2 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/allocator/arena/startOffset (mut i32) (i32.const 0))
  (global $~lib/allocator/arena/offset (mut i32) (i32.const 0))
- (global $assembly/internal/noOp/noOp i32 (i32.const 11))
+ (global $assembly/internal/noOp/noOp i32 (i32.const 13))
  (global $~lib/argc (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
- (global $~lib/memory/HEAP_BASE i32 (i32.const 524))
+ (global $~lib/memory/HEAP_BASE i32 (i32.const 644))
  (export "memory" (memory $0))
  (export "table" (table $0))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
@@ -145,9 +147,9 @@
   call $~lib/internal/string/compareUnsafe
   i32.eqz
  )
- (func $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|0 (; 15 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec~anonymous|0 (; 15 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  i32.const 24
+  i32.const 8
   local.set $0
   local.get $0
   i32.const 0
@@ -163,9 +165,9 @@
   local.get $0
   call $assembly/internal/Test/reportBeforeAll
  )
- (func $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|1 (; 17 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec~anonymous|1 (; 17 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  i32.const 48
+  i32.const 72
   local.set $0
   local.get $0
   i32.const 0
@@ -181,9 +183,9 @@
   local.get $0
   call $assembly/internal/Test/reportAfterAll
  )
- (func $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|2 (; 19 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|0 (; 19 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  i32.const 72
+  i32.const 144
   local.set $0
   local.get $0
   i32.const 0
@@ -195,13 +197,41 @@
    call $assembly/internal/log/logString
   end
  )
- (func $assembly/internal/Test/beforeEach (; 20 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|1 (; 20 ;) (type $FUNCSIG$v)
+  (local $0 i32)
+  i32.const 168
+  local.set $0
+  local.get $0
+  i32.const 0
+  call $~lib/string/String.__eq
+  if
+   call $assembly/internal/log/logNull
+  else   
+   local.get $0
+   call $assembly/internal/log/logString
+  end
+ )
+ (func $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|2 (; 21 ;) (type $FUNCSIG$v)
+  (local $0 i32)
+  i32.const 192
+  local.set $0
+  local.get $0
+  i32.const 0
+  call $~lib/string/String.__eq
+  if
+   call $assembly/internal/log/logNull
+  else   
+   local.get $0
+   call $assembly/internal/log/logString
+  end
+ )
+ (func $assembly/internal/Test/beforeEach (; 22 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportBeforeEach
  )
- (func $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|3 (; 21 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|3 (; 23 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  i32.const 104
+  i32.const 224
   local.set $0
   local.get $0
   i32.const 0
@@ -213,13 +243,13 @@
    call $assembly/internal/log/logString
   end
  )
- (func $assembly/internal/Test/afterEach (; 22 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/afterEach (; 24 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportAfterEach
  )
- (func $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|4 (; 23 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|4 (; 25 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  i32.const 160
+  i32.const 280
   local.set $0
   local.get $0
   i32.const 0
@@ -231,19 +261,19 @@
    call $assembly/internal/log/logString
   end
  )
- (func $assembly/internal/Test/test (; 24 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/test (; 26 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   local.get $1
   call $assembly/internal/Test/reportTest
  )
- (func $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|5 (; 25 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|5 (; 27 ;) (type $FUNCSIG$v)
   (local $0 i32)
   i32.const 42
   local.set $0
   local.get $0
   call $assembly/internal/log/logInteger
  )
- (func $~lib/internal/arraybuffer/computeSize (; 26 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/internal/arraybuffer/computeSize (; 28 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 1
   i32.const 32
   local.get $0
@@ -255,7 +285,7 @@
   i32.sub
   i32.shl
  )
- (func $start:~lib/allocator/arena (; 27 ;) (type $FUNCSIG$v)
+ (func $start:~lib/allocator/arena (; 29 ;) (type $FUNCSIG$v)
   global.get $~lib/memory/HEAP_BASE
   i32.const 7
   i32.add
@@ -267,7 +297,7 @@
   global.get $~lib/allocator/arena/startOffset
   global.set $~lib/allocator/arena/offset
  )
- (func $~lib/allocator/arena/__memory_allocate (; 28 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/allocator/arena/__memory_allocate (; 30 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -346,7 +376,7 @@
   global.set $~lib/allocator/arena/offset
   local.get $1
  )
- (func $~lib/internal/arraybuffer/allocateUnsafe (; 29 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/internal/arraybuffer/allocateUnsafe (; 31 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -355,7 +385,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 336
+   i32.const 456
    i32.const 26
    i32.const 2
    call $~lib/env/abort
@@ -375,7 +405,7 @@
   i32.store
   local.get $1
  )
- (func $~lib/internal/memory/memset (; 30 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/internal/memory/memset (; 32 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i64)
@@ -629,12 +659,12 @@
    end
   end
  )
- (func $~lib/memory/memory.allocate (; 31 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/memory/memory.allocate (; 33 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/allocator/arena/__memory_allocate
   return
  )
- (func $~lib/internal/typedarray/TypedArray<u8>#constructor (; 32 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/internal/typedarray/TypedArray<u8>#constructor (; 34 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -645,7 +675,7 @@
   i32.gt_u
   if
    i32.const 0
-   i32.const 272
+   i32.const 392
    i32.const 23
    i32.const 34
    call $~lib/env/abort
@@ -701,7 +731,7 @@
   i32.store offset=8
   local.get $0
  )
- (func $~lib/typedarray/Uint8Array#constructor (; 33 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint8Array#constructor (; 35 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.eqz
   if
@@ -715,7 +745,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/internal/typedarray/TypedArray<u8>#__unchecked_set (; 34 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/internal/typedarray/TypedArray<u8>#__unchecked_set (; 36 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -740,7 +770,7 @@
   local.get $5
   i32.store8 offset=8
  )
- (func $~lib/internal/typedarray/TypedArray<u8>#__unchecked_get (; 35 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/internal/typedarray/TypedArray<u8>#__unchecked_get (; 37 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -761,10 +791,7 @@
   i32.add
   i32.load8_u offset=8
  )
- (func $~lib/allocator/arena/__memory_free (; 36 ;) (type $FUNCSIG$vi) (param $0 i32)
-  nop
- )
- (func $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|6 (; 37 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|6 (; 38 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -827,23 +854,8 @@
     call $assembly/internal/log/logReference
    end
   end
-  block $~lib/memory/memory.free|inlined.0
-   local.get $0
-   i32.load
-   local.set $1
-   local.get $1
-   call $~lib/allocator/arena/__memory_free
-   br $~lib/memory/memory.free|inlined.0
-  end
-  block $~lib/memory/memory.free|inlined.1
-   local.get $0
-   local.set $1
-   local.get $1
-   call $~lib/allocator/arena/__memory_free
-   br $~lib/memory/memory.free|inlined.1
-  end
  )
- (func $assembly/__tests__/setup/Vec3/Vec3#constructor (; 38 ;) (type $FUNCSIG$iiddd) (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (result i32)
+ (func $assembly/__tests__/setup/Vec3/Vec3#constructor (; 39 ;) (type $FUNCSIG$iiddd) (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -873,7 +885,7 @@
   f64.store offset=16
   local.get $0
  )
- (func $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|7 (; 39 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|7 (; 40 ;) (type $FUNCSIG$v)
   (local $0 i32)
   i32.const 0
   f64.const 1
@@ -892,7 +904,7 @@
    call $assembly/internal/log/logReference
   end
  )
- (func $start:assembly/__tests__/logs.spec~anonymous|0~anonymous|8 (; 40 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|8 (; 41 ;) (type $FUNCSIG$v)
   (local $0 i32)
   i32.const 0
   local.set $0
@@ -907,41 +919,41 @@
    call $assembly/internal/log/logReference
   end
  )
- (func $assembly/internal/Test/todo (; 41 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/todo (; 42 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportTodo
  )
- (func $start:assembly/__tests__/logs.spec~anonymous|0 (; 42 ;) (type $FUNCSIG$v)
-  i32.const 1
-  call $assembly/internal/Test/beforeAll
-  i32.const 2
-  call $assembly/internal/Test/afterAll
+ (func $start:assembly/__tests__/logs.spec~anonymous|2 (; 43 ;) (type $FUNCSIG$v)
   i32.const 3
-  call $assembly/internal/Test/beforeEach
+  call $assembly/internal/Test/beforeAll
   i32.const 4
-  call $assembly/internal/Test/afterEach
-  i32.const 128
+  call $assembly/internal/Test/afterAll
   i32.const 5
-  call $assembly/internal/Test/test
-  i32.const 200
+  call $assembly/internal/Test/beforeEach
   i32.const 6
-  call $assembly/internal/Test/test
-  i32.const 232
+  call $assembly/internal/Test/afterEach
+  i32.const 248
   i32.const 7
   call $assembly/internal/Test/test
-  i32.const 400
+  i32.const 320
   i32.const 8
   call $assembly/internal/Test/test
-  i32.const 440
+  i32.const 352
   i32.const 9
   call $assembly/internal/Test/test
-  i32.const 464
+  i32.const 520
+  i32.const 10
+  call $assembly/internal/Test/test
+  i32.const 560
+  i32.const 11
+  call $assembly/internal/Test/test
+  i32.const 584
   call $assembly/internal/Test/todo
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 43 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 44 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 44 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 45 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $assembly/internal/Describe/reportDescribe
   i32.const 0
@@ -950,15 +962,19 @@
   call_indirect (type $FUNCSIG$v)
   call $assembly/internal/Describe/reportEndDescribe
  )
- (func $start:assembly/__tests__/logs.spec (; 45 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/logs.spec (; 46 ;) (type $FUNCSIG$v)
+  i32.const 1
+  call $assembly/internal/Test/beforeAll
+  i32.const 2
+  call $assembly/internal/Test/afterAll
   call $start:~lib/allocator/arena
-  i32.const 8
-  i32.const 10
+  i32.const 128
+  i32.const 12
   call $assembly/internal/Describe/describe
  )
- (func $start (; 46 ;) (type $FUNCSIG$v)
+ (func $start (; 47 ;) (type $FUNCSIG$v)
   call $start:assembly/__tests__/logs.spec
  )
- (func $null (; 47 ;) (type $FUNCSIG$v)
+ (func $null (; 48 ;) (type $FUNCSIG$v)
  )
 )

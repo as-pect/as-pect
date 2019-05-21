@@ -76,6 +76,8 @@ function createReferenceString(bytes: number[], pointer: number, offset: number)
   return result.trimRight();
 }
 
+const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
+
 export class DefaultTestReporter extends TestReporter {
   public onStart(_suite: TestContext): void {
 
@@ -84,6 +86,12 @@ export class DefaultTestReporter extends TestReporter {
     console.log("");
     console.log(chalk`[Describe]: ${group.name}`);
     console.log("");
+
+    for (const logValue of group.logs) {
+      this.onLog(logValue);
+    }
+    groupLogIndex.set(group, group.logs.length);
+
   }
   public onGroupFinish(group: TestGroup): void {
     const result = group.pass
@@ -93,10 +101,8 @@ export class DefaultTestReporter extends TestReporter {
     const successCount = group.tests.filter(e => e.pass).length;
     const count = group.tests.length;
 
-    if (!group.performanceEnabled) {
-      for (const logValue of group.logs) {
-        this.onLog(logValue);
-      }
+    for (const logValue of group.logs.slice(groupLogIndex.get(group) || 0)) {
+      this.onLog(logValue);
     }
 
     console.log("");

@@ -106,9 +106,6 @@ export class TestContext {
       this.reporter.onTodo(group, todo);
     }
 
-    // report the group as started
-    this.reporter.onGroupStart(group);
-
     runContext.groupstart = performance.now();
 
     // set the log target
@@ -116,6 +113,10 @@ export class TestContext {
 
     // for each beforeAllCallback
     this.runBeforeAll(runContext, group);
+
+    // report the group as started, and log all the beforeAll logs outside the describe block
+    this.reporter.onGroupStart(group);
+
     if (runContext.endGroup) return;
 
     for (let i = 0; i < group.testFunctionPointers.length; i++) {

@@ -54,5 +54,5 @@ module.exports = {
     reportVariance: true,
   },
   /** Use the summary reporter. */
-  reporter: new SummaryTestReporter(),
+  // reporter: new SummaryTestReporter(),
 };
