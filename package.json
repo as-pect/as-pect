@@ -48,5 +48,14 @@
     "mathjs": "^5.10.0",
     "ts-node": "^8.1.0",
     "yargs-parser": "^13.1.0"
-  }
+  },
+  "files": [
+    "init/",
+    "lib/",
+    "assembly/__tests__/as-pect.d.ts",
+    "assembly/internal/",
+    "assembly/index.ts",
+    "assembly/tsconfig.json",
+    "bin/"
+  ]
 }
