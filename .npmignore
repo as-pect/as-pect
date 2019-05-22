@@ -1,10 +1,23 @@
+# src is compiled to the lib folder using tsc
 src
+
+# node_modules is handled by npm
 node_modules
+
+# dev test configurations
 as-pect.config.js
+jest.config.js
+
+# ts configuration
 tsconfig.json
+
+# travis config and coverage
 .travis.yml
-assembly/__tests__
 coverage
+
+# remove as-pect self tests and jest tests
+__tests__
+assembly/__tests__
 
 # used for --init flag
 !init/as-pect.config.js
