@@ -1,5 +1,13 @@
 import { Vec3 } from "./setup/Vec3";
 
+beforeAll((): void => {
+  log<string>("before all outside describe");
+});
+
+afterAll((): void => {
+  log<string>("after all outside describe");
+});
+
 /**
  * This test suite verifies that the log functions do not error when they are called.
  */
@@ -35,8 +43,6 @@ describe("logs", (): void => {
       unchecked(array[i] = <u8>i);
     }
     log<ArrayBuffer>(array.buffer);
-    memory.free(changetype<usize>(array.buffer));
-    memory.free(changetype<usize>(array));
   });
 
   test("log a reference", (): void => {
