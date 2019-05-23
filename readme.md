@@ -126,6 +126,8 @@ module.exports = {
     "--binaryFile": ["output.wasm"],
     /** To enable wat file output, use the following flag. The filename is ignored, but required by the compiler. */
     // "--textFile": ["output.wat"],
+    /** To select an appropriate runtime, use the --runtime compiler flag. */
+    "--runtime": ["full"] // Acceptable values are: full, half, stub (arena), and none
   },
   /**
    * A set of regexp that will disclude source files from testing.
@@ -139,7 +141,7 @@ module.exports = {
    * All performance statistics reporting can be configured here.
    */
   performance: {
-    /** Enable performance statistics gathering. */
+    /** Enable performance statistics gathering for every test. */
     enabled: false,
     /** Set the maximum number of samples to run for each test. */
     maxSamples: 10000,
