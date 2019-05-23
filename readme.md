@@ -222,7 +222,12 @@ This is a typescript example that should work even when run in the browser.
 
 ```ts
 import { instantiateBuffer } from "assemblyscript/lib/loader";
-import { TestContext, IPerformanceConfiguration, EmptyReporter } from "as-pect";
+import {
+  TestContext,
+  IPerformanceConfiguration,
+  EmptyReporter,
+  IAspectExports,
+} from "as-pect";
 
 const perf: IPerformanceConfiguration = {
   // put performance configuration values here
@@ -238,8 +243,9 @@ const imports = runner.createImports({
 });
 
 // instantiate your test module here via the "assemblyscript/lib/loader" module
-const wasm = instantiateBuffer(buffer, imports);
+const wasm = instantiateBuffer<IAspectExports>(buffer, imports);
 
+//don't forget the `IAspectExports` interface for the `runner.run()` function
 runner.run(wasm); // run the tests synchronously
 
 for (const group of runner.testGroups) { // for each group
