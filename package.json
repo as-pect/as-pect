@@ -1,6 +1,6 @@
 {
   "name": "as-pect",
-  "version": "0.6.3-beta",
+  "version": "0.7.0-beta",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "./assembly/__tests__/as-pect.d.ts",
@@ -42,7 +42,7 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "assemblyscript": "github:jtenner/assemblyscript",
+    "assemblyscript": "github:assemblyscript/assemblyscript#792b366769679a994e44a1aca7caf74364e2e071",
     "chalk": "^2.4.2",
     "glob": "^7.1.4",
     "mathjs": "^5.10.0",
