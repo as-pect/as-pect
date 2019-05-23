@@ -16,9 +16,21 @@ describe("TestResult", (): void => {
     expect(t.hasStdDev).toBeTruthy();
   });
 
-  // this test is purely for test coverage
-  it("should not calculate variance again if variance is asked for after std deviation", (): void => {
+  /**
+   * There is a branch that bypasses variance calculation if the standard deviation was calculated
+   * already. This test causes that branch to be executed.
+   */
+  it("should not calculate variance again if calculateVariance is called after calculateStandardDeviation", (): void => {
     t.calculateStandardDeviation();
     t.calculateVariance();
+  });
+
+  /**
+   * There is a branch that bypasses variance calculation for the standard deviation if the variance was
+   * already calculated. This test causes that branch to be executed.
+   */
+  it("should not calculate variance again if calculateVariance is called after calculateStandardDeviation", (): void => {
+    t.calculateVariance();
+    t.calculateStandardDeviation();
   });
 });

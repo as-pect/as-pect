@@ -1,3 +1,4 @@
+/// <reference types="yargs-parser" />
 declare module "util/ILogTarget" {
     import { LogValue } from "util/LogValue";
     export interface ILogTarget {
@@ -316,12 +317,20 @@ declare module "util/IAspectExports" {
         __call(pointer: number): void;
     }
 }
+declare module "test/IWarning" {
+    export interface IWarning {
+        type: string;
+        message: string;
+        stackTrace: string;
+    }
+}
 declare module "test/TestContext" {
     import { ASUtil } from "assemblyscript/lib/loader";
     import { TestGroup } from "test/TestGroup";
     import { TestReporter } from "test/TestReporter";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
     import { IAspectExports } from "util/IAspectExports";
+    import { IWarning } from "test/IWarning";
     export class TestContext {
         reporter: TestReporter;
         file: string;
@@ -346,6 +355,14 @@ declare module "test/TestContext" {
         private recordMaxValue;
         private recordMinValue;
         private recordVariance;
+        /**
+         * This value is used to detect if an `expect()` function call was used outside of a test
+         * function. If a reportExpected or reportActual function is called before the `context.run()`
+         * method is called, it should prevent the `run()` method from running the tests and report a
+         * failure.
+         */
+        private ready;
+        errors: IWarning[];
         constructor(reporter?: TestReporter, file?: string, performanceConfiguration?: IPerformanceConfiguration);
         /**
          * Run the tests on the wasm module.
@@ -679,6 +696,11 @@ declare module "test/TestContext" {
          * @param {1 | 0} value - A boolean indicating if the min should be reported.
          */
         private reportVariance;
+        /**
+         * This method reports to the TestContext that an expect function call was used outside of the
+         * intended test functions.
+         */
+        private reportInvalidExpectCall;
     }
 }
 declare module "reporter/EmptyReporter" {
@@ -768,5 +790,45 @@ declare module "as-pect" {
     export * from "util/LogValue";
     export * from "cli";
 }
-declare module "test" { }
+declare module "cli/help" {
+    export function help(): void;
+}
+declare module "cli/types" {
+    export function types(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
+}
+declare module "cli/init" {
+    export function init(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
+}
+declare module "cli/util/IYargs" {
+    import yargsparser from "yargs-parser";
+    export interface IYargs {
+        argv: yargsparser.Arguments;
+    }
+}
+declare module "cli/util/collectPerformanceConfiguration" {
+    import { IYargs } from "cli/util/IYargs";
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: IPerformanceConfiguration): void;
+}
+declare module "cli/util/collectReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { IYargs } from "cli/util/IYargs";
+    export function collectReporter(yargs: IYargs): TestReporter;
+}
+declare module "cli/util/getTestEntryFiles" {
+    import { IYargs } from "cli/util/IYargs";
+    export function getTestEntryFiles(yargs: IYargs, include: string[], disclude: RegExp[]): Set<string>;
+}
+declare module "cli/run" {
+    import { IYargs } from "cli/util/IYargs";
+    export function run(yargs: IYargs): void;
+}
+declare module "cli/index" {
+    /**
+     * This is the cli entry point and expects an array of arguments from the command line.
+     *
+     * @param {string[]} args - The arguments from the command line
+     */
+    export function asp(args: string[]): void;
+}
 //# sourceMappingURL=as-pect.amd.d.ts.map
