@@ -1,4 +1,11 @@
 /// <reference types="yargs-parser" />
+declare module "test/IWarning" {
+    export interface IWarning {
+        type: string;
+        message: string;
+        stackTrace: string;
+    }
+}
 declare module "util/ILogTarget" {
     import { LogValue } from "util/LogValue";
     export interface ILogTarget {
@@ -315,13 +322,6 @@ declare module "util/IPerformanceConfiguration" {
 declare module "util/IAspectExports" {
     export interface IAspectExports {
         __call(pointer: number): void;
-    }
-}
-declare module "test/IWarning" {
-    export interface IWarning {
-        type: string;
-        message: string;
-        stackTrace: string;
     }
 }
 declare module "test/TestContext" {
@@ -777,6 +777,7 @@ declare module "cli" {
     export function asp(args: string[]): void;
 }
 declare module "as-pect" {
+    export * from "test/IWarning";
     export * from "test/TestContext";
     export * from "test/TestGroup";
     export * from "test/TestReporter";
@@ -785,8 +786,10 @@ declare module "as-pect" {
     export * from "reporter/EmptyReporter";
     export * from "reporter/SummaryTestReporter";
     export * from "util/ActualValue";
+    export * from "util/IAspectExports";
     export * from "util/IConfiguration";
     export * from "util/ILogTarget";
+    export * from "util/IPerformanceConfiguration";
     export * from "util/LogValue";
     export * from "cli";
 }
