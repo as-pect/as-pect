@@ -15,12 +15,6 @@ import { IWarning } from "./IWarning";
 
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
-function getString(wasm: ASUtil, pointer: number): string {
-  const start = pointer >>> 1;
-  const length = wasm.U32[(pointer >>> 2) - 3] >> 1;
-  // @ts-ignore
-  return String.fromCharCode.apply(String, wasm.U16.slice(start, start + length));
-}
 
 const enum PerformanceLimits {
   MaxSamples = 10000,
@@ -103,13 +97,13 @@ export class TestContext {
   private runGroup(runContext: RunContext, group: TestGroup): void {
     // get the group's name
     const groupName = group.describePointers
-      .map(pointer => getString(runContext.wasm, pointer))
+      .map(pointer => this.wasm!.getString(pointer))
       .join(" ");
     group.name = groupName;
     runContext.endGroup = false;
 
     for (const todoPointer of group.todoPointers) {
-      const todo = getString(runContext.wasm, todoPointer);
+      const todo = this.wasm!.getString(todoPointer);
       group.todos.push(todo);
       this.reporter.onTodo(group, todo);
     }
@@ -163,7 +157,7 @@ export class TestContext {
     // set the log target
     this.logTarget = result;
     // initialize the test name
-    result.name = getString(runContext.wasm, group.testNamePointers[testIndex]);
+    result.name = this.wasm!.getString(group.testNamePointers[testIndex]);
 
     this.reporter.onTestStart(group, result);
     result.start = performance.now();
@@ -264,7 +258,7 @@ export class TestContext {
       // if it throws...
       if (throws) {
         // only set the message
-        result.message = getString(runContext.wasm, group.testMessagePointers[testIndex]);
+        result.message = this.wasm!.getString(group.testMessagePointers[testIndex]);
       }
       else {
         // set the message, the actual, expected, and stack values
@@ -541,7 +535,7 @@ export class TestContext {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.message = getString(this.wasm!, pointer);
+    value.message = this.wasm!.getString(pointer);
     value.offset = 0;
     value.pointer = pointer;
     value.stack = this.getLogStackTrace();
@@ -872,7 +866,7 @@ export class TestContext {
       return;
     }
     const value = new ActualValue();
-    value.message = getString(this.wasm!, stringPointer);
+    value.message = this.wasm!.getString(stringPointer);
     value.pointer = stringPointer;
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
@@ -888,7 +882,7 @@ export class TestContext {
    */
   private reportExpectedString(stringPointer: number, negated: 1 | 0): void {
     const value = new ActualValue();
-    value.message = getString(this.wasm!, stringPointer);
+    value.message = this.wasm!.getString(stringPointer);
     value.pointer = stringPointer;
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
@@ -908,7 +902,7 @@ export class TestContext {
    * @param {number} _col - The column that reported the error. (Ignored)
    */
   private abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void {
-    this.message = getString(this.wasm!, reasonPointer);
+    this.message = this.wasm!.getString(reasonPointer);
   }
 
   /**

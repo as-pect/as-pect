@@ -12,15 +12,6 @@ runTypedArrayTest<Float64Array, f64>("Float64Array");
 
 // @ts-ignore: decorators are valid here
 @inline
-function free<T extends TypedArray<U>, U>(array: T): void {
-  if (isManaged<T>()) {
-    memory.free(changetype<usize>(array.buffer));
-    memory.free(changetype<usize>(array));
-  }
-}
-
-// @ts-ignore: decorators are valid here
-@inline
 function create<T extends TypedArray<U>, U extends number>(): T {
   var value: T = instantiate<T>(3);
   value[0] = <U>0;
@@ -34,7 +25,6 @@ function runTypedArrayTest<T extends TypedArray<U>, U extends number>(typedArray
     it("should assert expected length", (): void => {
       var created: T = create<T, U>();
       expect<T>(created).toHaveLength(3);
-      free<T, U>(created);
     });
 
     throws("should throw when expected length should not equal the same value", (): void => {
