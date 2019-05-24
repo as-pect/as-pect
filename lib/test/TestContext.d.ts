@@ -18,6 +18,7 @@ export declare class TestContext {
     private expected;
     time: number;
     pass: boolean;
+    startupTime: number;
     private performanceEnabledValue;
     private maxSamplesValue;
     private maxTestRunTimeValue;

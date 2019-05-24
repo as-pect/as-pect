@@ -168,8 +168,8 @@ declare module "test/TestGroup" {
         beforeAllPointers: number[];
         afterAllPointers: number[];
         testFunctionPointers: number[];
-        testNamePointers: number[];
-        testMessagePointers: number[];
+        testNames: string[];
+        testMessages: string[];
         testThrows: boolean[];
         tests: TestResult[];
         todoPointers: number[];
@@ -322,6 +322,7 @@ declare module "util/IPerformanceConfiguration" {
 declare module "util/IAspectExports" {
     export interface IAspectExports {
         __call(pointer: number): void;
+        __main(): void;
     }
 }
 declare module "test/TestContext" {
@@ -345,6 +346,7 @@ declare module "test/TestContext" {
         private expected;
         time: number;
         pass: boolean;
+        startupTime: number;
         private performanceEnabledValue;
         private maxSamplesValue;
         private maxTestRunTimeValue;
