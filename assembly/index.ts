@@ -15,3 +15,7 @@ import {
   reportVariance,
 } from "./internal/performance";
 export { __call } from "./internal/call";
+
+// @ts-ignore: Decorators *are* valid here
+@start
+export function __main(): void {}

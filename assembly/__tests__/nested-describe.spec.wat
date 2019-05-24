@@ -8,9 +8,9 @@
  (type $FUNCSIG$viii (func (param i32 i32 i32)))
  (type $FUNCSIG$vi (func (param i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
- (import "__aspect" "reportActualValue" (func $assembly/internal/Expectation/reportActualInteger (param i32)))
- (import "__aspect" "reportExpectedTruthy" (func $assembly/internal/Expectation/reportExpectedTruthy (param i32)))
- (import "__aspect" "clearExpected" (func $assembly/internal/Expectation/clearExpected))
+ (import "__aspect" "reportActualValue" (func $assembly/internal/report/reportActual/reportActualInteger (param i32)))
+ (import "__aspect" "reportExpectedTruthy" (func $assembly/internal/comparison/truthyComparison/reportExpectedTruthy (param i32)))
+ (import "__aspect" "clearExpected" (func $assembly/internal/comparison/truthyComparison/clearExpected))
  (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
  (import "__aspect" "reportDescribe" (func $assembly/internal/Describe/reportDescribe (param i32)))
  (import "__aspect" "reportEndDescribe" (func $assembly/internal/Describe/reportEndDescribe))
@@ -28,17 +28,17 @@
  (data (i32.const 304) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00i\00n\00n\00e\00r\00 \00d\00e\00s\00c\00r\00i\00b\00e\00")
  (data (i32.const 352) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00 \00t\00h\00e\00 \00i\00n\00n\00e\00r\00 \00t\00e\00s\00t\00")
  (data (i32.const 424) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 440) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00E\00x\00p\00e\00c\00t\00a\00t\00i\00o\00n\00.\00t\00s\00")
- (data (i32.const 520) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00n\00e\00s\00t\00e\00d\00 \00c\00o\00n\00t\00r\00o\00l\00 \00f\00l\00o\00w\00")
- (data (i32.const 576) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00r\00u\00n\00s\00 \00s\00e\00c\00o\00n\00d\00")
- (data (i32.const 616) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00s\00e\00c\00o\00n\00d\00T\00e\00s\00t\00")
- (data (i32.const 656) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
- (data (i32.const 728) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00a\00f\00t\00e\00r\00A\00l\00l\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
- (data (i32.const 800) "\n\00\00\00\01\00\00\00\01\00\00\00\n\00\00\00i\00n\00n\00e\00r\00")
- (data (i32.const 832) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00f\00i\00r\00s\00t\00T\00e\00s\00t\00")
- (data (i32.const 872) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
- (data (i32.const 944) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
- (data (i32.const 1016) "\05\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00")
+ (data (i32.const 440) "`\00\00\00\01\00\00\00\01\00\00\00`\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00t\00r\00u\00t\00h\00y\00C\00o\00m\00p\00a\00r\00i\00s\00o\00n\00.\00t\00s\00")
+ (data (i32.const 552) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00n\00e\00s\00t\00e\00d\00 \00c\00o\00n\00t\00r\00o\00l\00 \00f\00l\00o\00w\00")
+ (data (i32.const 608) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00r\00u\00n\00s\00 \00s\00e\00c\00o\00n\00d\00")
+ (data (i32.const 648) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00s\00e\00c\00o\00n\00d\00T\00e\00s\00t\00")
+ (data (i32.const 688) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
+ (data (i32.const 760) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00a\00f\00t\00e\00r\00A\00l\00l\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
+ (data (i32.const 832) "\n\00\00\00\01\00\00\00\01\00\00\00\n\00\00\00i\00n\00n\00e\00r\00")
+ (data (i32.const 864) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00f\00i\00r\00s\00t\00T\00e\00s\00t\00")
+ (data (i32.const 904) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
+ (data (i32.const 976) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
+ (data (i32.const 1048) "\05\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00")
  (table $0 14 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5 $start:assembly/__tests__/nested-describe.spec~anonymous|1)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -53,8 +53,9 @@
  (global $assembly/__tests__/nested-describe.spec/afterEachFlag (mut i32) (i32.const 0))
  (global $assembly/__tests__/nested-describe.spec/afterAllFlag (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
- (global $~lib/rt/RTTI_BASE i32 (i32.const 1016))
- (global $~lib/heap/HEAP_BASE i32 (i32.const 1060))
+ (global $~lib/started (mut i32) (i32.const 0))
+ (global $~lib/rt/RTTI_BASE i32 (i32.const 1048))
+ (global $~lib/heap/HEAP_BASE i32 (i32.const 1092))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
  (export "__realloc" (func $~lib/rt/tlsf/__realloc))
@@ -65,8 +66,8 @@
  (export "__instanceof" (func $~lib/rt/__instanceof))
  (export "__typeinfo" (func $~lib/rt/__typeinfo))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
+ (export "__main" (func $assembly/index/__main))
  (export "__call" (func $assembly/internal/call/__call))
- (start $start)
  (func $~lib/rt/tlsf/removeBlock (; 11 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -2440,21 +2441,48 @@
   local.get $0
   call $assembly/internal/Expectation/Expectation<bool>#constructor
  )
- (func $assembly/internal/Expectation/Expectation<bool>#reportActual (; 41 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/comparison/truthyComparison/truthyComparison<bool> (; 41 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  local.get $2
+  call $~lib/rt/pure/__retain
+  drop
+  block $assembly/internal/report/reportActual/reportActual<bool>|inlined.0
+   local.get $0
+   local.set $3
+   local.get $3
+   i32.const 0
+   i32.ne
+   call $assembly/internal/report/reportActual/reportActualInteger
+  end
+  local.get $1
+  call $assembly/internal/comparison/truthyComparison/reportExpectedTruthy
   local.get $0
-  i32.load8_u offset=4
   i32.const 0
   i32.ne
-  call $assembly/internal/Expectation/reportActualInteger
+  i32.const 0
+  i32.eq
+  local.set $3
+  local.get $1
+  local.get $3
+  i32.eqz
+  i32.xor
+  i32.eqz
+  if
+   local.get $2
+   i32.const 456
+   i32.const 38
+   i32.const 6
+   call $~lib/builtins/abort
+   unreachable
+  end
+  call $assembly/internal/comparison/truthyComparison/clearExpected
+  local.get $2
+  call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<bool>#cleanup (; 42 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0~anonymous|0 (; 43 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0~anonymous|0 (; 42 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
-  (local $3 i32)
   block $assembly/internal/Expectation/Expectation<bool>#toBeTruthy|inlined.0
    global.get $assembly/__tests__/nested-describe.spec/outer
    call $assembly/internal/Expectation/expect<bool>
@@ -2464,40 +2492,18 @@
    call $~lib/rt/pure/__retain
    local.set $1
    local.get $2
-   call $assembly/internal/Expectation/Expectation<bool>#reportActual
-   local.get $2
-   i32.load
-   call $assembly/internal/Expectation/reportExpectedTruthy
-   local.get $2
    i32.load8_u offset=4
-   i32.const 0
-   i32.ne
-   i32.const 0
-   i32.eq
-   local.set $3
    local.get $2
    i32.load
-   local.get $3
-   i32.eqz
-   i32.xor
-   i32.eqz
-   if
-    local.get $1
-    i32.const 456
-    i32.const 226
-    i32.const 8
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $2
-   call $assembly/internal/Expectation/Expectation<bool>#cleanup
+   local.get $1
+   call $assembly/internal/comparison/truthyComparison/truthyComparison<bool>
    local.get $1
    call $~lib/rt/pure/__release
   end
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 44 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 43 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -2507,15 +2513,15 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0 (; 45 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0 (; 44 ;) (type $FUNCSIG$v)
   i32.const 368
   i32.const 1
   call $assembly/internal/Test/it
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 46 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 45 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 47 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 46 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -2529,52 +2535,52 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|0 (; 48 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|0 (; 47 ;) (type $FUNCSIG$v)
   i32.const 320
   i32.const 2
   call $assembly/internal/Describe/describe
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|0 (; 49 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|0 (; 48 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/nested-describe.spec/beforeEachFlag
   i32.const 1
   i32.add
   global.set $assembly/__tests__/nested-describe.spec/beforeEachFlag
  )
- (func $assembly/internal/Test/beforeEach (; 50 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/beforeEach (; 49 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportBeforeEach
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|1 (; 51 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|1 (; 50 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/nested-describe.spec/beforeAllFlag
   i32.const 1
   i32.add
   global.set $assembly/__tests__/nested-describe.spec/beforeAllFlag
  )
- (func $assembly/internal/Test/beforeAll (; 52 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/beforeAll (; 51 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportBeforeAll
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|2 (; 53 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|2 (; 52 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/nested-describe.spec/afterEachFlag
   i32.const 1
   i32.add
   global.set $assembly/__tests__/nested-describe.spec/afterEachFlag
  )
- (func $assembly/internal/Test/afterEach (; 54 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/afterEach (; 53 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportAfterEach
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|3 (; 55 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|3 (; 54 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/nested-describe.spec/afterAllFlag
   i32.const 1
   i32.add
   global.set $assembly/__tests__/nested-describe.spec/afterAllFlag
  )
- (func $assembly/internal/Test/afterAll (; 56 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/afterAll (; 55 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportAfterAll
  )
- (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 57 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 56 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -2597,59 +2603,64 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<i32> (; 58 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<i32> (; 57 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
   local.get $0
   call $assembly/internal/Expectation/Expectation<i32>#constructor
  )
- (func $assembly/internal/Expectation/Expectation<i32>#reportActual (; 59 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/comparison/truthyComparison/truthyComparison<i32> (; 58 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  local.get $2
+  call $~lib/rt/pure/__retain
+  drop
+  block $assembly/internal/report/reportActual/reportActual<i32>|inlined.0
+   local.get $0
+   local.set $3
+   local.get $3
+   call $assembly/internal/report/reportActual/reportActualInteger
+  end
+  local.get $1
+  call $assembly/internal/comparison/truthyComparison/reportExpectedTruthy
   local.get $0
-  i32.load offset=4
-  call $assembly/internal/Expectation/reportActualInteger
+  i32.const 0
+  i32.eq
+  local.set $3
+  local.get $1
+  local.get $3
+  i32.eqz
+  i32.xor
+  i32.eqz
+  if
+   local.get $2
+   i32.const 456
+   i32.const 38
+   i32.const 6
+   call $~lib/builtins/abort
+   unreachable
+  end
+  call $assembly/internal/comparison/truthyComparison/clearExpected
+  local.get $2
+  call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<i32>#cleanup (; 60 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4~anonymous|0 (; 61 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4~anonymous|0 (; 59 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
-  (local $4 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toBeTruthy|inlined.0
    global.get $assembly/__tests__/nested-describe.spec/afterEachFlag
    call $assembly/internal/Expectation/expect<i32>
    local.tee $0
    local.set $2
-   i32.const 672
+   i32.const 704
    call $~lib/rt/pure/__retain
    local.set $1
    local.get $2
-   call $assembly/internal/Expectation/Expectation<i32>#reportActual
-   local.get $2
-   i32.load
-   call $assembly/internal/Expectation/reportExpectedTruthy
-   local.get $2
    i32.load offset=4
-   i32.const 0
-   i32.eq
-   local.set $3
    local.get $2
    i32.load
-   local.get $3
-   i32.eqz
-   i32.xor
-   i32.eqz
-   if
-    local.get $1
-    i32.const 456
-    i32.const 226
-    i32.const 8
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $2
-   call $assembly/internal/Expectation/Expectation<i32>#cleanup
+   local.get $1
+   call $assembly/internal/comparison/truthyComparison/truthyComparison<i32>
    local.get $1
    call $~lib/rt/pure/__release
   end
@@ -2658,35 +2669,15 @@
    call $assembly/internal/Expectation/expect<i32>
    local.tee $1
    local.set $3
-   i32.const 744
+   i32.const 776
    call $~lib/rt/pure/__retain
    local.set $2
    local.get $3
-   call $assembly/internal/Expectation/Expectation<i32>#reportActual
-   local.get $3
-   i32.load
-   call $assembly/internal/Expectation/reportExpectedTruthy
-   local.get $3
    i32.load offset=4
-   i32.const 0
-   i32.eq
-   local.set $4
    local.get $3
    i32.load
-   local.get $4
-   i32.eqz
-   i32.xor
-   i32.eqz
-   if
-    local.get $2
-    i32.const 456
-    i32.const 226
-    i32.const 8
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $3
-   call $assembly/internal/Expectation/Expectation<i32>#cleanup
+   local.get $2
+   call $assembly/internal/comparison/truthyComparison/truthyComparison<i32>
    local.get $2
    call $~lib/rt/pure/__release
   end
@@ -2695,7 +2686,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/test (; 62 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/test (; 60 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -2705,51 +2696,30 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4 (; 63 ;) (type $FUNCSIG$v)
-  i32.const 632
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4 (; 61 ;) (type $FUNCSIG$v)
+  i32.const 664
   i32.const 9
   call $assembly/internal/Test/test
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5~anonymous|0 (; 64 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5~anonymous|0 (; 62 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
-  (local $4 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toBeTruthy|inlined.2
    global.get $assembly/__tests__/nested-describe.spec/beforeEachFlag
    call $assembly/internal/Expectation/expect<i32>
    local.tee $0
    local.set $2
-   i32.const 888
+   i32.const 920
    call $~lib/rt/pure/__retain
    local.set $1
    local.get $2
-   call $assembly/internal/Expectation/Expectation<i32>#reportActual
-   local.get $2
-   i32.load
-   call $assembly/internal/Expectation/reportExpectedTruthy
-   local.get $2
    i32.load offset=4
-   i32.const 0
-   i32.eq
-   local.set $3
    local.get $2
    i32.load
-   local.get $3
-   i32.eqz
-   i32.xor
-   i32.eqz
-   if
-    local.get $1
-    i32.const 456
-    i32.const 226
-    i32.const 8
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $2
-   call $assembly/internal/Expectation/Expectation<i32>#cleanup
+   local.get $1
+   call $assembly/internal/comparison/truthyComparison/truthyComparison<i32>
    local.get $1
    call $~lib/rt/pure/__release
   end
@@ -2758,35 +2728,15 @@
    call $assembly/internal/Expectation/expect<i32>
    local.tee $1
    local.set $3
-   i32.const 960
+   i32.const 992
    call $~lib/rt/pure/__retain
    local.set $2
    local.get $3
-   call $assembly/internal/Expectation/Expectation<i32>#reportActual
-   local.get $3
-   i32.load
-   call $assembly/internal/Expectation/reportExpectedTruthy
-   local.get $3
    i32.load offset=4
-   i32.const 0
-   i32.eq
-   local.set $4
    local.get $3
    i32.load
-   local.get $4
-   i32.eqz
-   i32.xor
-   i32.eqz
-   if
-    local.get $2
-    i32.const 456
-    i32.const 226
-    i32.const 8
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $3
-   call $assembly/internal/Expectation/Expectation<i32>#cleanup
+   local.get $2
+   call $assembly/internal/comparison/truthyComparison/truthyComparison<i32>
    local.get $2
    call $~lib/rt/pure/__release
   end
@@ -2795,12 +2745,12 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5 (; 65 ;) (type $FUNCSIG$v)
-  i32.const 848
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5 (; 63 ;) (type $FUNCSIG$v)
+  i32.const 880
   i32.const 11
   call $assembly/internal/Test/test
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1 (; 66 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1 (; 64 ;) (type $FUNCSIG$v)
   i32.const 5
   call $assembly/internal/Test/beforeEach
   i32.const 6
@@ -2809,31 +2759,40 @@
   call $assembly/internal/Test/afterEach
   i32.const 8
   call $assembly/internal/Test/afterAll
-  i32.const 592
+  i32.const 624
   i32.const 10
   call $assembly/internal/Describe/describe
-  i32.const 816
+  i32.const 848
   i32.const 12
   call $assembly/internal/Describe/describe
  )
- (func $start:assembly/__tests__/nested-describe.spec (; 67 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec (; 65 ;) (type $FUNCSIG$v)
   i32.const 272
   i32.const 4
   call $assembly/internal/Describe/describe
-  i32.const 536
+  i32.const 568
   i32.const 13
   call $assembly/internal/Describe/describe
  )
- (func $assembly/internal/call/__call (; 68 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/index/__main (; 66 ;) (type $FUNCSIG$v)
+  global.get $~lib/started
+  i32.eqz
+  if
+   call $start
+   i32.const 1
+   global.set $~lib/started
+  end
+ )
+ (func $assembly/internal/call/__call (; 67 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $start (; 69 ;) (type $FUNCSIG$v)
+ (func $start (; 68 ;) (type $FUNCSIG$v)
   call $start:assembly/__tests__/nested-describe.spec
  )
- (func $~lib/rt/pure/__visit (; 70 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 69 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -2987,7 +2946,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 71 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 70 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block
   end
@@ -3044,6 +3003,6 @@
    unreachable
   end
  )
- (func $null (; 72 ;) (type $FUNCSIG$v)
+ (func $null (; 71 ;) (type $FUNCSIG$v)
  )
 )

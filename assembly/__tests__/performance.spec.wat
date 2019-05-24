@@ -38,6 +38,7 @@
  (global $assembly/internal/noOp/noOp i32 (i32.const 4))
  (global $~lib/argc (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
+ (global $~lib/started (mut i32) (i32.const 0))
  (global $~lib/rt/RTTI_BASE i32 (i32.const 568))
  (global $~lib/heap/HEAP_BASE i32 (i32.const 596))
  (export "memory" (memory $0))
@@ -50,8 +51,8 @@
  (export "__instanceof" (func $~lib/rt/__instanceof))
  (export "__typeinfo" (func $~lib/rt/__typeinfo))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
+ (export "__main" (func $assembly/index/__main))
  (export "__call" (func $assembly/internal/call/__call))
- (start $start)
  (func $~lib/rt/tlsf/removeBlock (; 9 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -2673,16 +2674,25 @@
   i32.const 3
   call $assembly/internal/Describe/describe
  )
- (func $assembly/internal/call/__call (; 48 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/index/__main (; 48 ;) (type $FUNCSIG$v)
+  global.get $~lib/started
+  i32.eqz
+  if
+   call $start
+   i32.const 1
+   global.set $~lib/started
+  end
+ )
+ (func $assembly/internal/call/__call (; 49 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $start (; 49 ;) (type $FUNCSIG$v)
+ (func $start (; 50 ;) (type $FUNCSIG$v)
   call $start:assembly/__tests__/performance.spec
  )
- (func $~lib/rt/pure/__visit (; 50 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 51 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -2836,7 +2846,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 51 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 52 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block
   end
@@ -2893,6 +2903,6 @@
    unreachable
   end
  )
- (func $null (; 52 ;) (type $FUNCSIG$v)
+ (func $null (; 53 ;) (type $FUNCSIG$v)
  )
 )

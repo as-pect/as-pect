@@ -10,9 +10,9 @@
  (type $FUNCSIG$i (func (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "linked" "getValue" (func $assembly/__tests__/customImports.spec/getValue (result i32)))
- (import "__aspect" "reportActualValue" (func $assembly/internal/Expectation/reportActualInteger (param i32)))
- (import "__aspect" "reportExpectedValue" (func $assembly/internal/Expectation/reportExpectedInteger (param i32 i32)))
- (import "__aspect" "clearExpected" (func $assembly/internal/Expectation/clearExpected))
+ (import "__aspect" "reportActualValue" (func $assembly/internal/report/reportActual/reportActualInteger (param i32)))
+ (import "__aspect" "reportExpectedValue" (func $assembly/internal/report/reportExpected/reportExpectedInteger (param i32 i32)))
+ (import "__aspect" "clearExpected" (func $assembly/internal/comparison/exactComparison/clearExpected))
  (import "__aspect" "logValue" (func $assembly/internal/log/logInteger (param i32)))
  (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
  (import "__aspect" "reportDescribe" (func $assembly/internal/Describe/reportDescribe (param i32)))
@@ -26,8 +26,8 @@
  (data (i32.const 256) " \00\00\00\01\00\00\00\01\00\00\00 \00\00\00l\00i\00n\00k\00e\00d\00 \00f\00u\00n\00c\00t\00i\00o\00n\00s\00")
  (data (i32.const 304) " \00\00\00\01\00\00\00\01\00\00\00 \00\00\00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00l\00i\00n\00k\00e\00d\00")
  (data (i32.const 352) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 368) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00E\00x\00p\00e\00c\00t\00a\00t\00i\00o\00n\00.\00t\00s\00")
- (data (i32.const 448) "\04\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00")
+ (data (i32.const 368) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00e\00x\00a\00c\00t\00C\00o\00m\00p\00a\00r\00i\00s\00o\00n\00.\00t\00s\00")
+ (data (i32.const 480) "\04\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00")
  (table $0 4 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/customImports.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/customImports.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -37,8 +37,9 @@
  (global $assembly/internal/noOp/noOp i32 (i32.const 3))
  (global $~lib/argc (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
- (global $~lib/rt/RTTI_BASE i32 (i32.const 448))
- (global $~lib/heap/HEAP_BASE i32 (i32.const 484))
+ (global $~lib/started (mut i32) (i32.const 0))
+ (global $~lib/rt/RTTI_BASE i32 (i32.const 480))
+ (global $~lib/heap/HEAP_BASE i32 (i32.const 516))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
  (export "__realloc" (func $~lib/rt/tlsf/__realloc))
@@ -49,8 +50,8 @@
  (export "__instanceof" (func $~lib/rt/__instanceof))
  (export "__typeinfo" (func $~lib/rt/__typeinfo))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
+ (export "__main" (func $assembly/index/__main))
  (export "__call" (func $assembly/internal/call/__call))
- (start $start)
  (func $~lib/rt/tlsf/removeBlock (; 9 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -2424,26 +2425,18 @@
   local.get $0
   call $assembly/internal/Expectation/Expectation<i32>#constructor
  )
- (func $assembly/internal/Expectation/Expectation<i32>#reportActual (; 39 ;) (type $FUNCSIG$vi) (param $0 i32)
-  local.get $0
-  i32.load offset=4
-  call $assembly/internal/Expectation/reportActualInteger
- )
- (func $assembly/internal/Expectation/Expectation<i32>#reportExpected (; 40 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
-  local.get $1
-  local.get $0
-  i32.load
-  call $assembly/internal/Expectation/reportExpectedInteger
- )
- (func $assembly/internal/Expectation/Expectation<i32>#cleanup (; 41 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $start:assembly/__tests__/customImports.spec~anonymous|0~anonymous|0 (; 42 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/customImports.spec~anonymous|0~anonymous|0 (; 39 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
   call $assembly/__tests__/customImports.spec/getValue
   local.set $0
   block $assembly/internal/Expectation/Expectation<i32>#toBe|inlined.0
@@ -2456,29 +2449,51 @@
    i32.const 368
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $4
-   call $assembly/internal/Expectation/Expectation<i32>#reportActual
-   local.get $4
-   local.get $3
-   call $assembly/internal/Expectation/Expectation<i32>#reportExpected
-   local.get $4
-   i32.load
-   local.get $3
-   local.get $4
-   i32.load offset=4
-   i32.eq
-   i32.xor
-   i32.eqz
-   if
+   block $assembly/internal/comparison/exactComparison/exactComparison<i32>|inlined.0
+    local.get $4
+    i32.load offset=4
+    local.set $8
+    local.get $3
+    local.set $7
+    local.get $4
+    i32.load
+    local.set $6
     local.get $2
-    i32.const 384
-    i32.const 106
-    i32.const 4
-    call $~lib/builtins/abort
-    unreachable
+    call $~lib/rt/pure/__retain
+    local.set $5
+    block $assembly/internal/report/reportActual/reportActual<i32>|inlined.0
+     local.get $8
+     local.set $9
+     local.get $9
+     call $assembly/internal/report/reportActual/reportActualInteger
+    end
+    block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
+     local.get $7
+     local.set $10
+     local.get $6
+     local.set $9
+     local.get $10
+     local.get $9
+     call $assembly/internal/report/reportExpected/reportExpectedInteger
+    end
+    local.get $6
+    local.get $7
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $5
+     i32.const 384
+     i32.const 17
+     i32.const 2
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/exactComparison/clearExpected
+    local.get $5
+    call $~lib/rt/pure/__release
    end
-   local.get $4
-   call $assembly/internal/Expectation/Expectation<i32>#cleanup
    local.get $2
    call $~lib/rt/pure/__release
   end
@@ -2491,7 +2506,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 43 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 40 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -2501,15 +2516,15 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/customImports.spec~anonymous|0 (; 44 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/customImports.spec~anonymous|0 (; 41 ;) (type $FUNCSIG$v)
   i32.const 320
   i32.const 1
   call $assembly/internal/Test/it
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 45 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 42 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 46 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 43 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -2523,21 +2538,30 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/customImports.spec (; 47 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/customImports.spec (; 44 ;) (type $FUNCSIG$v)
   i32.const 272
   i32.const 2
   call $assembly/internal/Describe/describe
  )
- (func $assembly/internal/call/__call (; 48 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/index/__main (; 45 ;) (type $FUNCSIG$v)
+  global.get $~lib/started
+  i32.eqz
+  if
+   call $start
+   i32.const 1
+   global.set $~lib/started
+  end
+ )
+ (func $assembly/internal/call/__call (; 46 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $start (; 49 ;) (type $FUNCSIG$v)
+ (func $start (; 47 ;) (type $FUNCSIG$v)
   call $start:assembly/__tests__/customImports.spec
  )
- (func $~lib/rt/pure/__visit (; 50 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 48 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -2691,7 +2715,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 51 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 49 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block
   end
@@ -2748,6 +2772,6 @@
    unreachable
   end
  )
- (func $null (; 52 ;) (type $FUNCSIG$v)
+ (func $null (; 50 ;) (type $FUNCSIG$v)
  )
 )

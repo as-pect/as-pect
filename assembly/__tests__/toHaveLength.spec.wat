@@ -11,9 +11,9 @@
  (type $FUNCSIG$viif (func (param i32 i32 f32)))
  (type $FUNCSIG$viid (func (param i32 i32 f64)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
- (import "__aspect" "reportActualValue" (func $assembly/internal/Expectation/reportActualInteger (param i32)))
- (import "__aspect" "reportExpectedValue" (func $assembly/internal/Expectation/reportExpectedInteger (param i32 i32)))
- (import "__aspect" "clearExpected" (func $assembly/internal/Expectation/clearExpected))
+ (import "__aspect" "reportActualValue" (func $assembly/internal/comparison/lengthComparison/reportActualInteger (param i32)))
+ (import "__aspect" "reportExpectedValue" (func $assembly/internal/comparison/lengthComparison/reportExpectedInteger (param i32 i32)))
+ (import "__aspect" "clearExpected" (func $assembly/internal/comparison/lengthComparison/clearExpected))
  (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
  (import "__aspect" "reportNegatedTest" (func $assembly/internal/Test/reportNegatedTest (param i32 i32 i32)))
  (import "__aspect" "reportDescribe" (func $assembly/internal/Describe/reportDescribe (param i32)))
@@ -33,32 +33,32 @@
  (data (i32.const 544) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
  (data (i32.const 600) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00~\00l\00i\00b\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s\00")
  (data (i32.const 656) "f\00\00\00\01\00\00\00\01\00\00\00f\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00 \00c\00a\00l\00l\00e\00d\00 \00o\00n\00 \00n\00u\00l\00l\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00.\00")
- (data (i32.const 776) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00E\00x\00p\00e\00c\00t\00a\00t\00i\00o\00n\00.\00t\00s\00")
- (data (i32.const 856) "\82\00\00\00\01\00\00\00\01\00\00\00\82\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00l\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00e\00q\00u\00a\00l\00 \00t\00h\00e\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 1008) "l\00\00\00\01\00\00\00\01\00\00\00l\00\00\00W\00h\00e\00n\00 \00l\00e\00n\00g\00t\00h\00 \00i\00s\00 \00e\00q\00u\00a\00l\00,\00 \00n\00e\00g\00a\00t\00e\00d\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00.\00")
- (data (i32.const 1136) "\"\00\00\00\01\00\00\00\01\00\00\00\"\00\00\00U\00i\00n\00t\008\00C\00l\00a\00m\00p\00e\00d\00A\00r\00r\00a\00y\00")
- (data (i32.const 1192) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00I\00n\00t\008\00A\00r\00r\00a\00y\00")
- (data (i32.const 1232) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\001\006\00A\00r\00r\00a\00y\00")
- (data (i32.const 1272) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\001\006\00A\00r\00r\00a\00y\00")
- (data (i32.const 1312) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\003\002\00A\00r\00r\00a\00y\00")
- (data (i32.const 1352) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\003\002\00A\00r\00r\00a\00y\00")
- (data (i32.const 1392) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\006\004\00A\00r\00r\00a\00y\00")
- (data (i32.const 1432) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\006\004\00A\00r\00r\00a\00y\00")
- (data (i32.const 1472) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00F\00l\00o\00a\00t\003\002\00A\00r\00r\00a\00y\00")
- (data (i32.const 1512) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00F\00l\00o\00a\00t\006\004\00A\00r\00r\00a\00y\00")
- (data (i32.const 1552) "\0c\00\00\00\01\00\00\00\00\00\00\00\0c\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00")
- (data (i32.const 1584) "\10\00\00\00\01\00\00\00\19\00\00\00\10\00\00\00 \06\00\00 \06\00\00\0c\00\00\00\03\00\00\00")
- (data (i32.const 1616) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00A\00r\00r\00a\00y\00s\00")
- (data (i32.const 1672) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00c\00u\00s\00t\00o\00m\00 \00c\00l\00a\00s\00s\00e\00s\00")
- (data (i32.const 1744) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00w\00h\00e\00n\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00l\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00e\00q\00u\00a\00l\00 \00t\00h\00e\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 1864) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00w\00h\00e\00n\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
- (data (i32.const 1936) "t\00\00\00\01\00\00\00\01\00\00\00t\00\00\00W\00h\00e\00n\00 \00t\00h\00e\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00,\00 \00i\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00a\00n\00 \00e\00r\00r\00o\00r\00.\00")
- (data (i32.const 2072) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00w\00h\00e\00n\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00 \00a\00n\00d\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00 \00i\00s\00 \00n\00e\00g\00a\00t\00e\00d\00")
- (data (i32.const 2192) "D\00\00\00\01\00\00\00\01\00\00\00D\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00")
- (data (i32.const 2280) "|\00\00\00\01\00\00\00\01\00\00\00|\00\00\00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00a\00r\00e\00 \00u\00s\00e\00d\00")
- (data (i32.const 2424) "\d8\00\00\00\01\00\00\00\01\00\00\00\d8\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00c\00a\00l\00l\00e\00d\00 \00o\00n\00 \00T\00y\00p\00e\00d\00A\00r\00r\00a\00y\00s\00,\00 \00A\00r\00r\00a\00y\00B\00u\00f\00f\00e\00r\00s\00,\00 \00A\00r\00r\00a\00y\00s\00,\00 \00a\00n\00d\00 \00c\00l\00a\00s\00s\00e\00s\00 \00t\00h\00a\00t\00 \00h\00a\00v\00e\00 \00a\00 \00l\00e\00n\00g\00t\00h\00 \00p\00r\00o\00p\00e\00r\00t\00y\00.\00")
- (data (i32.const 2656) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00o\00n\00 \00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00s\00.\00")
- (data (i32.const 2776) "\1e\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00I\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00")
+ (data (i32.const 776) "`\00\00\00\01\00\00\00\01\00\00\00`\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00l\00e\00n\00g\00t\00h\00C\00o\00m\00p\00a\00r\00i\00s\00o\00n\00.\00t\00s\00")
+ (data (i32.const 888) "\82\00\00\00\01\00\00\00\01\00\00\00\82\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00l\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00e\00q\00u\00a\00l\00 \00t\00h\00e\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 1040) "l\00\00\00\01\00\00\00\01\00\00\00l\00\00\00W\00h\00e\00n\00 \00l\00e\00n\00g\00t\00h\00 \00i\00s\00 \00e\00q\00u\00a\00l\00,\00 \00n\00e\00g\00a\00t\00e\00d\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00.\00")
+ (data (i32.const 1168) "\"\00\00\00\01\00\00\00\01\00\00\00\"\00\00\00U\00i\00n\00t\008\00C\00l\00a\00m\00p\00e\00d\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1224) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00I\00n\00t\008\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1264) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\001\006\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1304) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\001\006\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1344) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\003\002\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1384) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\003\002\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1424) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\006\004\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1464) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\006\004\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1504) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00F\00l\00o\00a\00t\003\002\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1544) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00F\00l\00o\00a\00t\006\004\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1584) "\0c\00\00\00\01\00\00\00\00\00\00\00\0c\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00")
+ (data (i32.const 1616) "\10\00\00\00\01\00\00\00\19\00\00\00\10\00\00\00@\06\00\00@\06\00\00\0c\00\00\00\03\00\00\00")
+ (data (i32.const 1648) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00A\00r\00r\00a\00y\00s\00")
+ (data (i32.const 1704) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00c\00u\00s\00t\00o\00m\00 \00c\00l\00a\00s\00s\00e\00s\00")
+ (data (i32.const 1776) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00w\00h\00e\00n\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00l\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00e\00q\00u\00a\00l\00 \00t\00h\00e\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 1896) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00w\00h\00e\00n\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
+ (data (i32.const 1968) "t\00\00\00\01\00\00\00\01\00\00\00t\00\00\00W\00h\00e\00n\00 \00t\00h\00e\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00,\00 \00i\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00a\00n\00 \00e\00r\00r\00o\00r\00.\00")
+ (data (i32.const 2104) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00w\00h\00e\00n\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00 \00a\00n\00d\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00 \00i\00s\00 \00n\00e\00g\00a\00t\00e\00d\00")
+ (data (i32.const 2224) "D\00\00\00\01\00\00\00\01\00\00\00D\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00")
+ (data (i32.const 2312) "|\00\00\00\01\00\00\00\01\00\00\00|\00\00\00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00a\00r\00e\00 \00u\00s\00e\00d\00")
+ (data (i32.const 2456) "\d8\00\00\00\01\00\00\00\01\00\00\00\d8\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00c\00a\00l\00l\00e\00d\00 \00o\00n\00 \00T\00y\00p\00e\00d\00A\00r\00r\00a\00y\00s\00,\00 \00A\00r\00r\00a\00y\00B\00u\00f\00f\00e\00r\00s\00,\00 \00A\00r\00r\00a\00y\00s\00,\00 \00a\00n\00d\00 \00c\00l\00a\00s\00s\00e\00s\00 \00t\00h\00a\00t\00 \00h\00a\00v\00e\00 \00a\00 \00l\00e\00n\00g\00t\00h\00 \00p\00r\00o\00p\00e\00r\00t\00y\00.\00")
+ (data (i32.const 2688) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00o\00n\00 \00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00s\00.\00")
+ (data (i32.const 2808) "\1e\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00I\00\00\00\02\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00")
  (table $0 45 funcref)
  (elem (i32.const 0) $null $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/toHaveLength.spec~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/toHaveLength.spec~anonymous|1 $start:assembly/__tests__/toHaveLength.spec~anonymous|2~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|2)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -67,11 +67,12 @@
  (global $~lib/rt/pure/ROOTS (mut i32) (i32.const 0))
  (global $assembly/internal/noOp/noOp i32 (i32.const 4))
  (global $~lib/argc (mut i32) (i32.const 0))
- (global $assembly/__tests__/toHaveLength.spec/valueArray (mut i32) (i32.const 1600))
+ (global $assembly/__tests__/toHaveLength.spec/valueArray (mut i32) (i32.const 1632))
  (global $assembly/__tests__/toHaveLength.spec/customExample (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
- (global $~lib/rt/RTTI_BASE i32 (i32.const 2776))
- (global $~lib/heap/HEAP_BASE i32 (i32.const 3020))
+ (global $~lib/started (mut i32) (i32.const 0))
+ (global $~lib/rt/RTTI_BASE i32 (i32.const 2808))
+ (global $~lib/heap/HEAP_BASE i32 (i32.const 3052))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
  (export "__realloc" (func $~lib/rt/tlsf/__realloc))
@@ -82,8 +83,8 @@
  (export "__instanceof" (func $~lib/rt/__instanceof))
  (export "__typeinfo" (func $~lib/rt/__typeinfo))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
+ (export "__main" (func $assembly/index/__main))
  (export "__call" (func $assembly/internal/call/__call))
- (start $start)
  (func $~lib/rt/tlsf/removeBlock (; 8 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -2702,16 +2703,7 @@
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup (; 47 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $~lib/arraybuffer/ArrayBuffer#get:byteLength (; 48 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  local.get $0
-  i32.const 16
-  i32.sub
-  i32.load offset=12
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|0 (; 49 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|0 (; 47 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -2761,612 +2753,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint8Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
-     i32.const 1
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Uint8Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
+     i32.const 0
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Uint8Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Uint8Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Uint8Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Uint8Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Uint8Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Uint8Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Uint8Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Uint8Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Uint8Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Uint8Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Uint8Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Uint8Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -3378,7 +2835,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 50 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 48 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3388,14 +2845,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#get:not (; 51 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#get:not (; 49 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|1 (; 52 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|1 (; 50 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3448,612 +2905,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint8Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
-     i32.const 1
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Uint8Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
+     i32.const 0
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Uint8Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Uint8Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Uint8Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Uint8Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Uint8Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Uint8Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Uint8Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Uint8Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Uint8Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Uint8Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Uint8Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Uint8Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -4067,7 +2989,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/throws (; 53 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Test/throws (; 51 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -4083,19 +3005,19 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0 (; 54 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0 (; 52 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 1
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 2
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 55 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 53 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 56 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 54 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -4109,7 +3031,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8> (; 57 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8> (; 55 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4125,7 +3047,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Uint8ClampedArray#constructor (; 58 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint8ClampedArray#constructor (; 56 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
@@ -4143,7 +3065,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint8ClampedArray#__set (; 59 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Uint8ClampedArray#__set (; 57 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -4175,7 +3097,7 @@
   i32.and
   i32.store8
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#constructor (; 60 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#constructor (; 58 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -4185,7 +3107,7 @@
    i32.eqz
    if
     i32.const 8
-    i32.const 15
+    i32.const 6
     call $~lib/rt/tlsf/__alloc
     call $~lib/rt/pure/__retain
     local.set $0
@@ -4206,7 +3128,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint8ClampedArray> (; 61 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint8ClampedArray> (; 59 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4219,14 +3141,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Uint8ClampedArray#get:length (; 62 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint8ClampedArray#get:length (; 60 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup (; 63 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|0 (; 64 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|0 (; 61 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4276,612 +3195,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint8ClampedArray>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Uint8ClampedArray#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
-      i32.const 1
+      i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Uint8ClampedArray#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Uint8ClampedArray#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Uint8ClampedArray#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Uint8ClampedArray#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Uint8ClampedArray#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Uint8ClampedArray#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Uint8ClampedArray#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Uint8ClampedArray#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Uint8ClampedArray#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Uint8ClampedArray#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Uint8ClampedArray#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Uint8ClampedArray#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -4893,14 +3277,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#get:not (; 65 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#get:not (; 62 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|1 (; 66 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|1 (; 63 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4953,612 +3337,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint8ClampedArray>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Uint8ClampedArray#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
-      i32.const 1
+      i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Uint8ClampedArray#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Uint8ClampedArray#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Uint8ClampedArray#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Uint8ClampedArray#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Uint8ClampedArray#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Uint8ClampedArray#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Uint8ClampedArray#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Uint8ClampedArray#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Uint8ClampedArray#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Uint8ClampedArray#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Uint8ClampedArray#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Uint8ClampedArray#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -5572,16 +3421,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0 (; 67 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0 (; 64 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 5
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 6
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8> (; 68 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8> (; 65 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5597,14 +3446,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Int8Array#constructor (; 69 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Int8Array#constructor (; 66 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
   else   
    i32.const 12
-   i32.const 6
+   i32.const 7
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -5615,7 +3464,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Int8Array#__set (; 70 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Int8Array#__set (; 67 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -5635,7 +3484,7 @@
   local.get $2
   i32.store8
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#constructor (; 71 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#constructor (; 68 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -5645,7 +3494,7 @@
    i32.eqz
    if
     i32.const 8
-    i32.const 16
+    i32.const 8
     call $~lib/rt/tlsf/__alloc
     call $~lib/rt/pure/__retain
     local.set $0
@@ -5666,7 +3515,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Int8Array> (; 72 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Int8Array> (; 69 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5679,14 +3528,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Int8Array#get:length (; 73 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Int8Array#get:length (; 70 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup (; 74 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|0 (; 75 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|0 (; 71 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5736,612 +3582,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int8Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Int8Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Int8Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 1
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Int8Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Int8Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Int8Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Int8Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Int8Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Int8Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Int8Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Int8Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Int8Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Int8Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Int8Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -6353,14 +3664,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#get:not (; 76 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#get:not (; 72 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|1 (; 77 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|1 (; 73 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6413,612 +3724,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int8Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Int8Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Int8Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 1
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Int8Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Int8Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Int8Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Int8Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Int8Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Int8Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Int8Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Int8Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Int8Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Int8Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Int8Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -7032,16 +3808,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0 (; 78 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0 (; 74 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 8
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 9
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8> (; 79 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8> (; 75 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -7057,14 +3833,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Uint16Array#constructor (; 80 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint16Array#constructor (; 76 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
   else   
    i32.const 12
-   i32.const 7
+   i32.const 9
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -7075,7 +3851,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint16Array#__set (; 81 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Uint16Array#__set (; 77 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -7099,7 +3875,7 @@
   local.get $2
   i32.store16
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#constructor (; 82 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#constructor (; 78 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -7109,7 +3885,7 @@
    i32.eqz
    if
     i32.const 8
-    i32.const 17
+    i32.const 10
     call $~lib/rt/tlsf/__alloc
     call $~lib/rt/pure/__retain
     local.set $0
@@ -7130,7 +3906,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint16Array> (; 83 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint16Array> (; 79 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -7143,16 +3919,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Uint16Array#get:length (; 84 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint16Array#get:length (; 80 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
   i32.const 1
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup (; 85 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|0 (; 86 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|0 (; 81 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7202,612 +3975,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint16Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Uint16Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Uint16Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Uint16Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 1
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Uint16Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Uint16Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Uint16Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Uint16Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Uint16Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Uint16Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Uint16Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Uint16Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Uint16Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Uint16Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -7819,14 +4057,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#get:not (; 87 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#get:not (; 82 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|1 (; 88 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|1 (; 83 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7879,612 +4117,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint16Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Uint16Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Uint16Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Uint16Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 1
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Uint16Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Uint16Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Uint16Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Uint16Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Uint16Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Uint16Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Uint16Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Uint16Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Uint16Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Uint16Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -8498,16 +4201,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0 (; 89 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0 (; 84 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 11
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 12
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16> (; 90 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16> (; 85 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -8523,14 +4226,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Int16Array#constructor (; 91 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Int16Array#constructor (; 86 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
   else   
    i32.const 12
-   i32.const 8
+   i32.const 11
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -8541,7 +4244,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Int16Array#__set (; 92 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Int16Array#__set (; 87 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -8565,7 +4268,7 @@
   local.get $2
   i32.store16
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#constructor (; 93 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#constructor (; 88 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -8575,7 +4278,7 @@
    i32.eqz
    if
     i32.const 8
-    i32.const 18
+    i32.const 12
     call $~lib/rt/tlsf/__alloc
     call $~lib/rt/pure/__retain
     local.set $0
@@ -8596,7 +4299,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Int16Array> (; 94 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Int16Array> (; 89 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -8609,16 +4312,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Int16Array#get:length (; 95 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Int16Array#get:length (; 90 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
   i32.const 1
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup (; 96 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|0 (; 97 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|0 (; 91 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -8668,612 +4368,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int16Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Int16Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Int16Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Int16Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Int16Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 1
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Int16Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Int16Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Int16Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Int16Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Int16Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Int16Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Int16Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Int16Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Int16Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -9285,14 +4450,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#get:not (; 98 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#get:not (; 92 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|1 (; 99 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|1 (; 93 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -9345,612 +4510,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int16Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Int16Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Int16Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Int16Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Int16Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 1
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Int16Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Int16Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Int16Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Int16Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Int16Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Int16Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Int16Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Int16Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Int16Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -9964,16 +4594,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0 (; 100 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0 (; 94 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 14
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 15
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16> (; 101 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16> (; 95 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -9989,14 +4619,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Uint32Array#constructor (; 102 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint32Array#constructor (; 96 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
   else   
    i32.const 12
-   i32.const 9
+   i32.const 13
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -10007,7 +4637,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint32Array#__set (; 103 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Uint32Array#__set (; 97 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -10031,7 +4661,7 @@
   local.get $2
   i32.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#constructor (; 104 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#constructor (; 98 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -10041,7 +4671,7 @@
    i32.eqz
    if
     i32.const 8
-    i32.const 19
+    i32.const 14
     call $~lib/rt/tlsf/__alloc
     call $~lib/rt/pure/__retain
     local.set $0
@@ -10062,7 +4692,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint32Array> (; 105 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint32Array> (; 99 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -10075,16 +4705,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Uint32Array#get:length (; 106 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint32Array#get:length (; 100 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
   i32.const 2
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup (; 107 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|0 (; 108 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|0 (; 101 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -10134,612 +4761,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint32Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Uint32Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Uint32Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Uint32Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Uint32Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Uint32Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 1
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Uint32Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Uint32Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Uint32Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Uint32Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Uint32Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Uint32Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Uint32Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Uint32Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -10751,14 +4843,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#get:not (; 109 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#get:not (; 102 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|1 (; 110 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|1 (; 103 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -10811,612 +4903,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint32Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Uint32Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Uint32Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Uint32Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Uint32Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Uint32Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 1
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Uint32Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Uint32Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Uint32Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Uint32Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Uint32Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Uint32Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Uint32Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Uint32Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -11430,16 +4987,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0 (; 111 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0 (; 104 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 17
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 18
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32> (; 112 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32> (; 105 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -11455,14 +5012,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Int32Array#constructor (; 113 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Int32Array#constructor (; 106 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
   else   
    i32.const 12
-   i32.const 10
+   i32.const 15
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -11473,7 +5030,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Int32Array#__set (; 114 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Int32Array#__set (; 107 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -11497,7 +5054,7 @@
   local.get $2
   i32.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#constructor (; 115 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#constructor (; 108 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -11507,7 +5064,7 @@
    i32.eqz
    if
     i32.const 8
-    i32.const 20
+    i32.const 16
     call $~lib/rt/tlsf/__alloc
     call $~lib/rt/pure/__retain
     local.set $0
@@ -11528,7 +5085,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Int32Array> (; 116 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Int32Array> (; 109 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -11541,16 +5098,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Int32Array#get:length (; 117 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Int32Array#get:length (; 110 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
   i32.const 2
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup (; 118 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|0 (; 119 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|0 (; 111 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -11600,612 +5154,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int32Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Int32Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Int32Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Int32Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Int32Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Int32Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Int32Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 1
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Int32Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Int32Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Int32Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Int32Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Int32Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Int32Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Int32Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -12217,14 +5236,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#get:not (; 120 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#get:not (; 112 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|1 (; 121 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|1 (; 113 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -12277,612 +5296,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int32Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Int32Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Int32Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Int32Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Int32Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Int32Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Int32Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 1
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Int32Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Int32Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Int32Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Int32Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Int32Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Int32Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Int32Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -12896,16 +5380,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0 (; 122 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0 (; 114 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 20
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 21
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32> (; 123 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32> (; 115 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -12921,14 +5405,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Uint64Array#constructor (; 124 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint64Array#constructor (; 116 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
   else   
    i32.const 12
-   i32.const 11
+   i32.const 17
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -12939,7 +5423,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint64Array#__set (; 125 ;) (type $FUNCSIG$viij) (param $0 i32) (param $1 i32) (param $2 i64)
+ (func $~lib/typedarray/Uint64Array#__set (; 117 ;) (type $FUNCSIG$viij) (param $0 i32) (param $1 i32) (param $2 i64)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -12963,7 +5447,7 @@
   local.get $2
   i64.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#constructor (; 126 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#constructor (; 118 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -12973,7 +5457,7 @@
    i32.eqz
    if
     i32.const 8
-    i32.const 21
+    i32.const 18
     call $~lib/rt/tlsf/__alloc
     call $~lib/rt/pure/__retain
     local.set $0
@@ -12994,7 +5478,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint64Array> (; 127 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint64Array> (; 119 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -13007,16 +5491,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Uint64Array#get:length (; 128 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint64Array#get:length (; 120 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
   i32.const 3
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup (; 129 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|0 (; 130 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|0 (; 121 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -13066,612 +5547,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint64Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Uint64Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Uint64Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Uint64Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Uint64Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Uint64Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Uint64Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Uint64Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 1
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Uint64Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Uint64Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Uint64Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Uint64Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Uint64Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Uint64Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -13683,14 +5629,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#get:not (; 131 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#get:not (; 122 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|1 (; 132 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|1 (; 123 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -13743,612 +5689,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint64Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Uint64Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Uint64Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Uint64Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Uint64Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Uint64Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Uint64Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Uint64Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 1
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Uint64Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Uint64Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Uint64Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Uint64Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Uint64Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Uint64Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -14362,16 +5773,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0 (; 133 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0 (; 124 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 23
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 24
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64> (; 134 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64> (; 125 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -14387,14 +5798,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Int64Array#constructor (; 135 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Int64Array#constructor (; 126 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
   else   
    i32.const 12
-   i32.const 12
+   i32.const 19
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -14405,7 +5816,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Int64Array#__set (; 136 ;) (type $FUNCSIG$viij) (param $0 i32) (param $1 i32) (param $2 i64)
+ (func $~lib/typedarray/Int64Array#__set (; 127 ;) (type $FUNCSIG$viij) (param $0 i32) (param $1 i32) (param $2 i64)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -14429,7 +5840,7 @@
   local.get $2
   i64.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#constructor (; 137 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#constructor (; 128 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -14439,7 +5850,7 @@
    i32.eqz
    if
     i32.const 8
-    i32.const 22
+    i32.const 20
     call $~lib/rt/tlsf/__alloc
     call $~lib/rt/pure/__retain
     local.set $0
@@ -14460,7 +5871,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Int64Array> (; 138 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Int64Array> (; 129 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -14473,16 +5884,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Int64Array#get:length (; 139 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Int64Array#get:length (; 130 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
   i32.const 3
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup (; 140 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|0 (; 141 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|0 (; 131 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -14532,612 +5940,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int64Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Int64Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Int64Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Int64Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Int64Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Int64Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Int64Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Int64Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Int64Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 1
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Int64Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Int64Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Int64Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Int64Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Int64Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -15149,14 +6022,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#get:not (; 142 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#get:not (; 132 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|1 (; 143 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|1 (; 133 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -15209,612 +6082,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int64Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Int64Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Int64Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Int64Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Int64Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Int64Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Int64Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Int64Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Int64Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 1
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Int64Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Int64Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Int64Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Int64Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Int64Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -15828,16 +6166,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0 (; 144 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0 (; 134 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 26
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 27
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64> (; 145 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64> (; 135 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -15853,14 +6191,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Float32Array#constructor (; 146 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Float32Array#constructor (; 136 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
   else   
    i32.const 12
-   i32.const 13
+   i32.const 21
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -15871,7 +6209,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Float32Array#__set (; 147 ;) (type $FUNCSIG$viif) (param $0 i32) (param $1 i32) (param $2 f32)
+ (func $~lib/typedarray/Float32Array#__set (; 137 ;) (type $FUNCSIG$viif) (param $0 i32) (param $1 i32) (param $2 f32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -15895,7 +6233,7 @@
   local.get $2
   f32.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#constructor (; 148 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#constructor (; 138 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -15905,7 +6243,7 @@
    i32.eqz
    if
     i32.const 8
-    i32.const 23
+    i32.const 22
     call $~lib/rt/tlsf/__alloc
     call $~lib/rt/pure/__retain
     local.set $0
@@ -15926,7 +6264,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Float32Array> (; 149 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Float32Array> (; 139 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -15939,16 +6277,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Float32Array#get:length (; 150 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Float32Array#get:length (; 140 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
   i32.const 2
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup (; 151 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|0 (; 152 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|0 (; 141 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -15998,612 +6333,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Float32Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Float32Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Float32Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Float32Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Float32Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Float32Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Float32Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Float32Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Float32Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Float32Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 1
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Float32Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Float32Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Float32Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Float32Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -16615,14 +6415,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#get:not (; 153 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#get:not (; 142 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|1 (; 154 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|1 (; 143 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -16675,612 +6475,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Float32Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Float32Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Float32Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Float32Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Float32Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Float32Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Float32Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Float32Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Float32Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Float32Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 1
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Float32Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Float32Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Float32Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Float32Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -17294,16 +6559,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0 (; 155 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0 (; 144 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 29
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 30
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32> (; 156 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32> (; 145 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -17319,14 +6584,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Float64Array#constructor (; 157 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Float64Array#constructor (; 146 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
   else   
    i32.const 12
-   i32.const 14
+   i32.const 23
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -17337,7 +6602,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Float64Array#__set (; 158 ;) (type $FUNCSIG$viid) (param $0 i32) (param $1 i32) (param $2 f64)
+ (func $~lib/typedarray/Float64Array#__set (; 147 ;) (type $FUNCSIG$viid) (param $0 i32) (param $1 i32) (param $2 f64)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -17361,7 +6626,7 @@
   local.get $2
   f64.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#constructor (; 159 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#constructor (; 148 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -17392,7 +6657,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Float64Array> (; 160 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Float64Array> (; 149 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -17405,16 +6670,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Float64Array#get:length (; 161 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Float64Array#get:length (; 150 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
   i32.const 3
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup (; 162 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|0 (; 163 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|0 (; 151 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -17464,612 +6726,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $5
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Float64Array>|inlined.0
+    local.get $5
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    local.set $8
+    local.get $5
+    i32.load
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     i32.const 0
-    i32.eqz
+    local.set $10
+    local.get $9
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $5
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $5
-     local.set $9
-     local.get $5
-     i32.load offset=4
-     call $~lib/typedarray/Float64Array#get:length
-     local.set $8
-     local.get $4
-     local.set $7
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $6
-     local.get $8
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $7
-     local.get $9
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $9
-     i32.load
-     local.get $8
-     local.get $7
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $6
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $9
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-     local.get $6
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $5
-      i32.load offset=4
+      local.get $9
       drop
       i32.const 0
      end
      if
-      local.get $5
-      local.set $9
-      local.get $5
-      i32.load offset=4
-      call $~lib/typedarray/Float64Array#get:length
-      local.set $8
-      local.get $4
-      local.set $7
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $6
-      local.get $8
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $7
       local.get $9
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $9
-      i32.load
-      local.get $8
-      local.get $7
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $6
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $9
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-      local.get $6
-      call $~lib/rt/pure/__release
+      local.set $10
      else      
-      block (result i32)
-       local.get $5
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $5
-       local.set $9
-       local.get $5
-       i32.load offset=4
-       call $~lib/typedarray/Float64Array#get:length
-       local.set $8
-       local.get $4
-       local.set $7
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $6
-       local.get $8
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $7
-       local.get $9
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $9
-       i32.load
-       local.get $8
-       local.get $7
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $6
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $9
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-       local.get $6
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $5
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $5
-        local.set $9
-        local.get $5
-        i32.load offset=4
-        call $~lib/typedarray/Float64Array#get:length
-        local.set $8
-        local.get $4
-        local.set $7
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $6
-        local.get $8
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $7
-        local.get $9
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $9
-        i32.load
-        local.get $8
-        local.get $7
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $6
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $9
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-        local.get $6
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $5
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $5
-         local.set $9
-         local.get $5
-         i32.load offset=4
-         call $~lib/typedarray/Float64Array#get:length
-         local.set $8
-         local.get $4
-         local.set $7
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $6
-         local.get $8
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $7
-         local.get $9
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $9
-         i32.load
-         local.get $8
-         local.get $7
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $6
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $9
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-         local.get $6
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $5
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $5
-          local.set $9
-          local.get $5
-          i32.load offset=4
-          call $~lib/typedarray/Float64Array#get:length
-          local.set $8
-          local.get $4
-          local.set $7
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $6
-          local.get $8
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $7
-          local.get $9
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $9
-          i32.load
-          local.get $8
-          local.get $7
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $6
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $9
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-          local.get $6
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $5
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $5
-           local.set $9
-           local.get $5
-           i32.load offset=4
-           call $~lib/typedarray/Float64Array#get:length
-           local.set $8
-           local.get $4
-           local.set $7
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $6
-           local.get $8
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $7
-           local.get $9
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $9
-           i32.load
-           local.get $8
-           local.get $7
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $6
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $9
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-           local.get $6
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $5
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $5
-            local.set $9
-            local.get $5
-            i32.load offset=4
-            call $~lib/typedarray/Float64Array#get:length
-            local.set $8
-            local.get $4
-            local.set $7
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $6
-            local.get $8
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $7
-            local.get $9
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $9
-            i32.load
-            local.get $8
-            local.get $7
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $6
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $9
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-            local.get $6
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $5
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $5
-             local.set $9
-             local.get $5
-             i32.load offset=4
-             call $~lib/typedarray/Float64Array#get:length
-             local.set $8
-             local.get $4
-             local.set $7
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $6
-             local.get $8
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $7
-             local.get $9
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $9
-             i32.load
-             local.get $8
-             local.get $7
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $6
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $9
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-             local.get $6
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $5
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $5
-              local.set $9
-              local.get $5
-              i32.load offset=4
-              call $~lib/typedarray/Float64Array#get:length
-              local.set $8
-              local.get $4
-              local.set $7
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $6
-              local.get $8
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $7
-              local.get $9
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $9
-              i32.load
-              local.get $8
-              local.get $7
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $6
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $9
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-              local.get $6
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $5
-               i32.load offset=4
-               drop
-               i32.const 1
-              end
-              if
-               local.get $5
-               local.set $9
-               local.get $5
-               i32.load offset=4
-               call $~lib/typedarray/Float64Array#get:length
-               local.set $8
-               local.get $4
-               local.set $7
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $6
-               local.get $8
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $7
-               local.get $9
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $9
-               i32.load
-               local.get $8
-               local.get $7
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $6
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $9
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-               local.get $6
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $5
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#assertLength|inlined.11
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               else                
-                local.get $5
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $6
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#assertLength|inlined.12
-                 local.get $5
-                 local.set $10
-                 local.get $6
-                 call $~lib/typedarray/Float64Array#get:length
-                 local.set $9
-                 local.get $4
-                 local.set $8
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $7
-                 local.get $9
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $8
-                 local.get $10
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $10
-                 i32.load
-                 local.get $9
-                 local.get $8
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $7
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $10
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-                 local.get $7
-                 call $~lib/rt/pure/__release
-                end
-                local.get $6
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $9
+      call $~lib/typedarray/Float64Array#get:length
+      local.set $10
      end
     end
+    local.get $10
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $8
+    local.get $7
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $7
+    local.get $10
+    local.get $8
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $6
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $9
+    call $~lib/rt/pure/__release
+    local.get $6
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -18081,14 +6808,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#get:not (; 164 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#get:not (; 152 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|1 (; 165 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|1 (; 153 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -18141,612 +6868,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $4
-   local.get $6
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Float64Array>|inlined.1
+    local.get $6
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $5
+    local.set $9
+    local.get $6
+    i32.load
+    local.set $8
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $7
     i32.const 0
-    i32.eqz
+    local.set $11
+    local.get $10
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $6
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $6
-     local.set $10
-     local.get $6
-     i32.load offset=4
-     call $~lib/typedarray/Float64Array#get:length
-     local.set $9
-     local.get $5
-     local.set $8
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $7
-     local.get $9
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $8
-     local.get $10
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $10
-     i32.load
-     local.get $9
-     local.get $8
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $7
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $10
-     call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-     local.get $7
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $6
-      i32.load offset=4
+      local.get $10
       drop
       i32.const 0
      end
      if
-      local.get $6
-      local.set $10
-      local.get $6
-      i32.load offset=4
-      call $~lib/typedarray/Float64Array#get:length
-      local.set $9
-      local.get $5
-      local.set $8
-      local.get $4
-      call $~lib/rt/pure/__retain
-      local.set $7
-      local.get $9
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $8
       local.get $10
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $10
-      i32.load
-      local.get $9
-      local.get $8
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $7
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $10
-      call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-      local.get $7
-      call $~lib/rt/pure/__release
+      local.set $11
      else      
-      block (result i32)
-       local.get $6
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $6
-       local.set $10
-       local.get $6
-       i32.load offset=4
-       call $~lib/typedarray/Float64Array#get:length
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $4
-       call $~lib/rt/pure/__retain
-       local.set $7
-       local.get $9
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $8
-       local.get $10
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $10
-       i32.load
-       local.get $9
-       local.get $8
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $7
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $10
-       call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-       local.get $7
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $6
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $6
-        local.set $10
-        local.get $6
-        i32.load offset=4
-        call $~lib/typedarray/Float64Array#get:length
-        local.set $9
-        local.get $5
-        local.set $8
-        local.get $4
-        call $~lib/rt/pure/__retain
-        local.set $7
-        local.get $9
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $8
-        local.get $10
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $10
-        i32.load
-        local.get $9
-        local.get $8
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $7
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $10
-        call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-        local.get $7
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $6
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $6
-         local.set $10
-         local.get $6
-         i32.load offset=4
-         call $~lib/typedarray/Float64Array#get:length
-         local.set $9
-         local.get $5
-         local.set $8
-         local.get $4
-         call $~lib/rt/pure/__retain
-         local.set $7
-         local.get $9
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $8
-         local.get $10
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $10
-         i32.load
-         local.get $9
-         local.get $8
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $7
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $10
-         call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-         local.get $7
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $6
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $6
-          local.set $10
-          local.get $6
-          i32.load offset=4
-          call $~lib/typedarray/Float64Array#get:length
-          local.set $9
-          local.get $5
-          local.set $8
-          local.get $4
-          call $~lib/rt/pure/__retain
-          local.set $7
-          local.get $9
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $8
-          local.get $10
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $10
-          i32.load
-          local.get $9
-          local.get $8
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $7
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $10
-          call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-          local.get $7
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $6
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $6
-           local.set $10
-           local.get $6
-           i32.load offset=4
-           call $~lib/typedarray/Float64Array#get:length
-           local.set $9
-           local.get $5
-           local.set $8
-           local.get $4
-           call $~lib/rt/pure/__retain
-           local.set $7
-           local.get $9
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $8
-           local.get $10
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $10
-           i32.load
-           local.get $9
-           local.get $8
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $7
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $10
-           call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-           local.get $7
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $6
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $6
-            local.set $10
-            local.get $6
-            i32.load offset=4
-            call $~lib/typedarray/Float64Array#get:length
-            local.set $9
-            local.get $5
-            local.set $8
-            local.get $4
-            call $~lib/rt/pure/__retain
-            local.set $7
-            local.get $9
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $8
-            local.get $10
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $10
-            i32.load
-            local.get $9
-            local.get $8
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $7
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $10
-            call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-            local.get $7
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $6
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $6
-             local.set $10
-             local.get $6
-             i32.load offset=4
-             call $~lib/typedarray/Float64Array#get:length
-             local.set $9
-             local.get $5
-             local.set $8
-             local.get $4
-             call $~lib/rt/pure/__retain
-             local.set $7
-             local.get $9
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $8
-             local.get $10
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $10
-             i32.load
-             local.get $9
-             local.get $8
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $7
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $10
-             call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-             local.get $7
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $6
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $6
-              local.set $10
-              local.get $6
-              i32.load offset=4
-              call $~lib/typedarray/Float64Array#get:length
-              local.set $9
-              local.get $5
-              local.set $8
-              local.get $4
-              call $~lib/rt/pure/__retain
-              local.set $7
-              local.get $9
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $8
-              local.get $10
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $10
-              i32.load
-              local.get $9
-              local.get $8
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $7
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $10
-              call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-              local.get $7
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $6
-               i32.load offset=4
-               drop
-               i32.const 1
-              end
-              if
-               local.get $6
-               local.set $10
-               local.get $6
-               i32.load offset=4
-               call $~lib/typedarray/Float64Array#get:length
-               local.set $9
-               local.get $5
-               local.set $8
-               local.get $4
-               call $~lib/rt/pure/__retain
-               local.set $7
-               local.get $9
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $8
-               local.get $10
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $10
-               i32.load
-               local.get $9
-               local.get $8
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $7
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $10
-               call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-               local.get $7
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $6
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#assertLength|inlined.24
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               else                
-                local.get $6
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $7
-                block $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#assertLength|inlined.25
-                 local.get $6
-                 local.set $11
-                 local.get $7
-                 call $~lib/typedarray/Float64Array#get:length
-                 local.set $10
-                 local.get $5
-                 local.set $9
-                 local.get $4
-                 call $~lib/rt/pure/__retain
-                 local.set $8
-                 local.get $10
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $9
-                 local.get $11
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $11
-                 i32.load
-                 local.get $10
-                 local.get $9
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $8
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $11
-                 call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#cleanup
-                 local.get $8
-                 call $~lib/rt/pure/__release
-                end
-                local.get $7
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $10
+      call $~lib/typedarray/Float64Array#get:length
+      local.set $11
      end
     end
+    local.get $11
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $9
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $8
+    local.get $11
+    local.get $9
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $7
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $10
+    call $~lib/rt/pure/__release
+    local.get $7
+    call $~lib/rt/pure/__release
    end
    local.get $4
    call $~lib/rt/pure/__release
@@ -18760,16 +6952,16 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0 (; 166 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0 (; 154 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 32
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 33
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64> (; 167 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64> (; 155 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -18785,7 +6977,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#constructor (; 168 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#constructor (; 156 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -18816,7 +7008,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/array/Array<i32>> (; 169 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/array/Array<i32>> (; 157 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -18829,14 +7021,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/array/Array<i32>#get:length (; 170 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/array/Array<i32>#get:length (; 158 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=12
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup (; 171 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|0 (; 172 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|0 (; 159 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -18856,605 +7045,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $1
-   local.get $3
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/array/Array<i32>>|inlined.0
+    local.get $3
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $7
+    local.get $2
+    local.set $6
+    local.get $3
+    i32.load
+    local.set $5
+    local.get $1
+    call $~lib/rt/pure/__retain
+    local.set $4
     i32.const 0
-    i32.eqz
+    local.set $8
+    local.get $7
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $3
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $3
-     local.set $7
-     local.get $3
-     i32.load offset=4
-     call $~lib/array/Array<i32>#get:length
-     local.set $6
-     local.get $2
-     local.set $5
-     local.get $1
-     call $~lib/rt/pure/__retain
-     local.set $4
-     local.get $6
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $5
-     local.get $7
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $7
-     i32.load
-     local.get $6
-     local.get $5
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $4
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $7
-     call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-     local.get $4
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $3
-      i32.load offset=4
+      local.get $7
       drop
       i32.const 0
      end
      if
-      local.get $3
-      local.set $7
-      local.get $3
-      i32.load offset=4
-      call $~lib/array/Array<i32>#get:length
-      local.set $6
-      local.get $2
-      local.set $5
-      local.get $1
-      call $~lib/rt/pure/__retain
-      local.set $4
-      local.get $6
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $5
       local.get $7
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $7
-      i32.load
-      local.get $6
-      local.get $5
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $4
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $7
-      call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-      local.get $4
-      call $~lib/rt/pure/__release
+      local.set $8
      else      
-      block (result i32)
-       local.get $3
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $3
-       local.set $7
-       local.get $3
-       i32.load offset=4
-       call $~lib/array/Array<i32>#get:length
-       local.set $6
-       local.get $2
-       local.set $5
-       local.get $1
-       call $~lib/rt/pure/__retain
-       local.set $4
-       local.get $6
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $5
-       local.get $7
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $7
-       i32.load
-       local.get $6
-       local.get $5
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $4
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $7
-       call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-       local.get $4
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $3
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $3
-        local.set $7
-        local.get $3
-        i32.load offset=4
-        call $~lib/array/Array<i32>#get:length
-        local.set $6
-        local.get $2
-        local.set $5
-        local.get $1
-        call $~lib/rt/pure/__retain
-        local.set $4
-        local.get $6
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $5
-        local.get $7
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $7
-        i32.load
-        local.get $6
-        local.get $5
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $4
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $7
-        call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-        local.get $4
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $3
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $3
-         local.set $7
-         local.get $3
-         i32.load offset=4
-         call $~lib/array/Array<i32>#get:length
-         local.set $6
-         local.get $2
-         local.set $5
-         local.get $1
-         call $~lib/rt/pure/__retain
-         local.set $4
-         local.get $6
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $5
-         local.get $7
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $7
-         i32.load
-         local.get $6
-         local.get $5
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $4
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $7
-         call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-         local.get $4
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $3
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $3
-          local.set $7
-          local.get $3
-          i32.load offset=4
-          call $~lib/array/Array<i32>#get:length
-          local.set $6
-          local.get $2
-          local.set $5
-          local.get $1
-          call $~lib/rt/pure/__retain
-          local.set $4
-          local.get $6
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $5
-          local.get $7
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $7
-          i32.load
-          local.get $6
-          local.get $5
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $4
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $7
-          call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-          local.get $4
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $3
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $3
-           local.set $7
-           local.get $3
-           i32.load offset=4
-           call $~lib/array/Array<i32>#get:length
-           local.set $6
-           local.get $2
-           local.set $5
-           local.get $1
-           call $~lib/rt/pure/__retain
-           local.set $4
-           local.get $6
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $5
-           local.get $7
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $7
-           i32.load
-           local.get $6
-           local.get $5
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $4
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $7
-           call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-           local.get $4
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $3
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $3
-            local.set $7
-            local.get $3
-            i32.load offset=4
-            call $~lib/array/Array<i32>#get:length
-            local.set $6
-            local.get $2
-            local.set $5
-            local.get $1
-            call $~lib/rt/pure/__retain
-            local.set $4
-            local.get $6
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $5
-            local.get $7
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $7
-            i32.load
-            local.get $6
-            local.get $5
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $4
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $7
-            call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-            local.get $4
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $3
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $3
-             local.set $7
-             local.get $3
-             i32.load offset=4
-             call $~lib/array/Array<i32>#get:length
-             local.set $6
-             local.get $2
-             local.set $5
-             local.get $1
-             call $~lib/rt/pure/__retain
-             local.set $4
-             local.get $6
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $5
-             local.get $7
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $7
-             i32.load
-             local.get $6
-             local.get $5
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $4
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $7
-             call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-             local.get $4
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $3
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $3
-              local.set $7
-              local.get $3
-              i32.load offset=4
-              call $~lib/array/Array<i32>#get:length
-              local.set $6
-              local.get $2
-              local.set $5
-              local.get $1
-              call $~lib/rt/pure/__retain
-              local.set $4
-              local.get $6
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $5
-              local.get $7
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $7
-              i32.load
-              local.get $6
-              local.get $5
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $4
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $7
-              call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-              local.get $4
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $3
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $3
-               local.set $7
-               local.get $3
-               i32.load offset=4
-               call $~lib/array/Array<i32>#get:length
-               local.set $6
-               local.get $2
-               local.set $5
-               local.get $1
-               call $~lib/rt/pure/__retain
-               local.set $4
-               local.get $6
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $5
-               local.get $7
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $7
-               i32.load
-               local.get $6
-               local.get $5
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $4
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $7
-               call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-               local.get $4
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $3
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $3
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $4
-                block $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#assertLength|inlined.11
-                 local.get $3
-                 local.set $8
-                 local.get $4
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $7
-                 local.get $2
-                 local.set $6
-                 local.get $1
-                 call $~lib/rt/pure/__retain
-                 local.set $5
-                 local.get $7
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $6
-                 local.get $8
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $8
-                 i32.load
-                 local.get $7
-                 local.get $6
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $5
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $8
-                 call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-                 local.get $5
-                 call $~lib/rt/pure/__release
-                end
-                local.get $4
-                call $~lib/rt/pure/__release
-               else                
-                local.get $3
-                local.set $7
-                local.get $3
-                i32.load offset=4
-                call $~lib/array/Array<i32>#get:length
-                local.set $6
-                local.get $2
-                local.set $5
-                local.get $1
-                call $~lib/rt/pure/__retain
-                local.set $4
-                local.get $6
-                call $assembly/internal/Expectation/reportActualInteger
-                local.get $5
-                local.get $7
-                i32.load
-                call $assembly/internal/Expectation/reportExpectedInteger
-                local.get $7
-                i32.load
-                local.get $6
-                local.get $5
-                i32.eq
-                i32.xor
-                i32.eqz
-                if
-                 local.get $4
-                 i32.const 792
-                 i32.const 518
-                 i32.const 4
-                 call $~lib/builtins/abort
-                 unreachable
-                end
-                local.get $7
-                call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-                local.get $4
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $7
+      call $~lib/array/Array<i32>#get:length
+      local.set $8
      end
     end
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $6
+    local.get $5
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $5
+    local.get $8
+    local.get $6
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $4
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $7
+    call $~lib/rt/pure/__release
+    local.get $4
+    call $~lib/rt/pure/__release
    end
    local.get $1
    call $~lib/rt/pure/__release
@@ -19462,14 +7123,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#get:not (; 173 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#get:not (; 160 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|1 (; 174 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|1 (; 161 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -19492,605 +7153,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $4
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/array/Array<i32>>|inlined.1
+    local.get $4
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $8
+    local.get $3
+    local.set $7
+    local.get $4
+    i32.load
+    local.set $6
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $5
     i32.const 0
-    i32.eqz
+    local.set $9
+    local.get $8
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $4
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $4
-     local.set $8
-     local.get $4
-     i32.load offset=4
-     call $~lib/array/Array<i32>#get:length
-     local.set $7
-     local.get $3
-     local.set $6
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $5
-     local.get $7
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $6
-     local.get $8
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $8
-     i32.load
-     local.get $7
-     local.get $6
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $5
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $8
-     call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-     local.get $5
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $4
-      i32.load offset=4
+      local.get $8
       drop
       i32.const 0
      end
      if
-      local.get $4
-      local.set $8
-      local.get $4
-      i32.load offset=4
-      call $~lib/array/Array<i32>#get:length
-      local.set $7
-      local.get $3
-      local.set $6
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $5
-      local.get $7
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $6
       local.get $8
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $8
-      i32.load
-      local.get $7
-      local.get $6
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $5
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $8
-      call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-      local.get $5
-      call $~lib/rt/pure/__release
+      local.set $9
      else      
-      block (result i32)
-       local.get $4
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $4
-       local.set $8
-       local.get $4
-       i32.load offset=4
-       call $~lib/array/Array<i32>#get:length
-       local.set $7
-       local.get $3
-       local.set $6
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $5
-       local.get $7
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $6
-       local.get $8
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $8
-       i32.load
-       local.get $7
-       local.get $6
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $5
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $8
-       call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-       local.get $5
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $4
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $4
-        local.set $8
-        local.get $4
-        i32.load offset=4
-        call $~lib/array/Array<i32>#get:length
-        local.set $7
-        local.get $3
-        local.set $6
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $5
-        local.get $7
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $6
-        local.get $8
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $8
-        i32.load
-        local.get $7
-        local.get $6
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $5
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $8
-        call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-        local.get $5
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $4
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $4
-         local.set $8
-         local.get $4
-         i32.load offset=4
-         call $~lib/array/Array<i32>#get:length
-         local.set $7
-         local.get $3
-         local.set $6
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $5
-         local.get $7
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $6
-         local.get $8
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $8
-         i32.load
-         local.get $7
-         local.get $6
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $5
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $8
-         call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-         local.get $5
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $4
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $4
-          local.set $8
-          local.get $4
-          i32.load offset=4
-          call $~lib/array/Array<i32>#get:length
-          local.set $7
-          local.get $3
-          local.set $6
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $5
-          local.get $7
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $6
-          local.get $8
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $8
-          i32.load
-          local.get $7
-          local.get $6
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $5
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $8
-          call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-          local.get $5
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $4
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $4
-           local.set $8
-           local.get $4
-           i32.load offset=4
-           call $~lib/array/Array<i32>#get:length
-           local.set $7
-           local.get $3
-           local.set $6
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $5
-           local.get $7
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $6
-           local.get $8
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $8
-           i32.load
-           local.get $7
-           local.get $6
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $5
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $8
-           call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-           local.get $5
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $4
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $4
-            local.set $8
-            local.get $4
-            i32.load offset=4
-            call $~lib/array/Array<i32>#get:length
-            local.set $7
-            local.get $3
-            local.set $6
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $5
-            local.get $7
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $6
-            local.get $8
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $8
-            i32.load
-            local.get $7
-            local.get $6
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $5
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $8
-            call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-            local.get $5
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $4
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $4
-             local.set $8
-             local.get $4
-             i32.load offset=4
-             call $~lib/array/Array<i32>#get:length
-             local.set $7
-             local.get $3
-             local.set $6
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $5
-             local.get $7
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $6
-             local.get $8
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $8
-             i32.load
-             local.get $7
-             local.get $6
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $5
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $8
-             call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-             local.get $5
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $4
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $4
-              local.set $8
-              local.get $4
-              i32.load offset=4
-              call $~lib/array/Array<i32>#get:length
-              local.set $7
-              local.get $3
-              local.set $6
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $5
-              local.get $7
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $6
-              local.get $8
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $8
-              i32.load
-              local.get $7
-              local.get $6
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $5
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $8
-              call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-              local.get $5
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $4
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $4
-               local.set $8
-               local.get $4
-               i32.load offset=4
-               call $~lib/array/Array<i32>#get:length
-               local.set $7
-               local.get $3
-               local.set $6
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $5
-               local.get $7
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $6
-               local.get $8
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $8
-               i32.load
-               local.get $7
-               local.get $6
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $5
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $8
-               call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-               local.get $5
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $4
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $4
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $5
-                block $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#assertLength|inlined.24
-                 local.get $4
-                 local.set $9
-                 local.get $5
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $8
-                 local.get $3
-                 local.set $7
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $6
-                 local.get $8
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $7
-                 local.get $9
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $9
-                 i32.load
-                 local.get $8
-                 local.get $7
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $6
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $9
-                 call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-                 local.get $6
-                 call $~lib/rt/pure/__release
-                end
-                local.get $5
-                call $~lib/rt/pure/__release
-               else                
-                local.get $4
-                local.set $8
-                local.get $4
-                i32.load offset=4
-                call $~lib/array/Array<i32>#get:length
-                local.set $7
-                local.get $3
-                local.set $6
-                local.get $2
-                call $~lib/rt/pure/__retain
-                local.set $5
-                local.get $7
-                call $assembly/internal/Expectation/reportActualInteger
-                local.get $6
-                local.get $8
-                i32.load
-                call $assembly/internal/Expectation/reportExpectedInteger
-                local.get $8
-                i32.load
-                local.get $7
-                local.get $6
-                i32.eq
-                i32.xor
-                i32.eqz
-                if
-                 local.get $5
-                 i32.const 792
-                 i32.const 518
-                 i32.const 4
-                 call $~lib/builtins/abort
-                 unreachable
-                end
-                local.get $8
-                call $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#cleanup
-                local.get $5
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $8
+      call $~lib/array/Array<i32>#get:length
+      local.set $9
      end
     end
+    local.get $9
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $7
+    local.get $6
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $6
+    local.get $9
+    local.get $7
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $5
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $8
+    call $~lib/rt/pure/__release
+    local.get $5
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -20100,16 +7233,16 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0 (; 175 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0 (; 162 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 35
   call $assembly/internal/Test/it
-  i32.const 872
+  i32.const 904
   i32.const 36
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/Example#constructor (; 176 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/__tests__/toHaveLength.spec/Example#constructor (; 163 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
@@ -20124,7 +7257,7 @@
   i32.store
   local.get $0
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#constructor (; 177 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#constructor (; 164 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -20155,7 +7288,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example> (; 178 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example> (; 165 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -20168,10 +7301,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup (; 179 ;) (type $FUNCSIG$vi) (param $0 i32)
-  call $assembly/internal/Expectation/clearExpected
- )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|0 (; 180 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|0 (; 166 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -20191,612 +7321,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $1
-   local.get $3
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<assembly/__tests__/toHaveLength.spec/Example>|inlined.0
+    local.get $3
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $7
+    local.get $2
+    local.set $6
+    local.get $3
+    i32.load
+    local.set $5
+    local.get $1
+    call $~lib/rt/pure/__retain
+    local.set $4
     i32.const 0
-    i32.eqz
+    local.set $8
+    local.get $7
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $3
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $3
-     local.set $7
-     local.get $3
-     i32.load offset=4
-     i32.load
-     local.set $6
-     local.get $2
-     local.set $5
-     local.get $1
-     call $~lib/rt/pure/__retain
-     local.set $4
-     local.get $6
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $5
-     local.get $7
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $7
-     i32.load
-     local.get $6
-     local.get $5
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $4
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $7
-     call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-     local.get $4
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $3
-      i32.load offset=4
+      local.get $7
       drop
       i32.const 0
      end
      if
-      local.get $3
-      local.set $7
-      local.get $3
-      i32.load offset=4
-      i32.load
-      local.set $6
-      local.get $2
-      local.set $5
-      local.get $1
-      call $~lib/rt/pure/__retain
-      local.set $4
-      local.get $6
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $5
       local.get $7
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $7
-      i32.load
-      local.get $6
-      local.get $5
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $4
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $7
-      call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-      local.get $4
-      call $~lib/rt/pure/__release
+      local.set $8
      else      
-      block (result i32)
-       local.get $3
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $3
-       local.set $7
-       local.get $3
-       i32.load offset=4
-       i32.load
-       local.set $6
-       local.get $2
-       local.set $5
-       local.get $1
-       call $~lib/rt/pure/__retain
-       local.set $4
-       local.get $6
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $5
-       local.get $7
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $7
-       i32.load
-       local.get $6
-       local.get $5
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $4
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $7
-       call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-       local.get $4
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $3
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $3
-        local.set $7
-        local.get $3
-        i32.load offset=4
-        i32.load
-        local.set $6
-        local.get $2
-        local.set $5
-        local.get $1
-        call $~lib/rt/pure/__retain
-        local.set $4
-        local.get $6
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $5
-        local.get $7
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $7
-        i32.load
-        local.get $6
-        local.get $5
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $4
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $7
-        call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-        local.get $4
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $3
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $3
-         local.set $7
-         local.get $3
-         i32.load offset=4
-         i32.load
-         local.set $6
-         local.get $2
-         local.set $5
-         local.get $1
-         call $~lib/rt/pure/__retain
-         local.set $4
-         local.get $6
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $5
-         local.get $7
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $7
-         i32.load
-         local.get $6
-         local.get $5
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $4
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $7
-         call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-         local.get $4
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $3
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $3
-          local.set $7
-          local.get $3
-          i32.load offset=4
-          i32.load
-          local.set $6
-          local.get $2
-          local.set $5
-          local.get $1
-          call $~lib/rt/pure/__retain
-          local.set $4
-          local.get $6
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $5
-          local.get $7
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $7
-          i32.load
-          local.get $6
-          local.get $5
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $4
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $7
-          call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-          local.get $4
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $3
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $3
-           local.set $7
-           local.get $3
-           i32.load offset=4
-           i32.load
-           local.set $6
-           local.get $2
-           local.set $5
-           local.get $1
-           call $~lib/rt/pure/__retain
-           local.set $4
-           local.get $6
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $5
-           local.get $7
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $7
-           i32.load
-           local.get $6
-           local.get $5
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $4
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $7
-           call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-           local.get $4
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $3
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $3
-            local.set $7
-            local.get $3
-            i32.load offset=4
-            i32.load
-            local.set $6
-            local.get $2
-            local.set $5
-            local.get $1
-            call $~lib/rt/pure/__retain
-            local.set $4
-            local.get $6
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $5
-            local.get $7
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $7
-            i32.load
-            local.get $6
-            local.get $5
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $4
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $7
-            call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-            local.get $4
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $3
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $3
-             local.set $7
-             local.get $3
-             i32.load offset=4
-             i32.load
-             local.set $6
-             local.get $2
-             local.set $5
-             local.get $1
-             call $~lib/rt/pure/__retain
-             local.set $4
-             local.get $6
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $5
-             local.get $7
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $7
-             i32.load
-             local.get $6
-             local.get $5
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $4
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $7
-             call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-             local.get $4
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $3
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $3
-              local.set $7
-              local.get $3
-              i32.load offset=4
-              i32.load
-              local.set $6
-              local.get $2
-              local.set $5
-              local.get $1
-              call $~lib/rt/pure/__retain
-              local.set $4
-              local.get $6
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $5
-              local.get $7
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $7
-              i32.load
-              local.get $6
-              local.get $5
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $4
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $7
-              call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-              local.get $4
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $3
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $3
-               local.set $7
-               local.get $3
-               i32.load offset=4
-               i32.load
-               local.set $6
-               local.get $2
-               local.set $5
-               local.get $1
-               call $~lib/rt/pure/__retain
-               local.set $4
-               local.get $6
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $5
-               local.get $7
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $7
-               i32.load
-               local.get $6
-               local.get $5
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $4
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $7
-               call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-               local.get $4
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $3
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $3
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $4
-                block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#assertLength|inlined.11
-                 local.get $3
-                 local.set $8
-                 local.get $4
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $7
-                 local.get $2
-                 local.set $6
-                 local.get $1
-                 call $~lib/rt/pure/__retain
-                 local.set $5
-                 local.get $7
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $6
-                 local.get $8
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $8
-                 i32.load
-                 local.get $7
-                 local.get $6
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $5
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $8
-                 call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-                 local.get $5
-                 call $~lib/rt/pure/__release
-                end
-                local.get $4
-                call $~lib/rt/pure/__release
-               else                
-                local.get $3
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $4
-                block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#assertLength|inlined.12
-                 local.get $3
-                 local.set $8
-                 local.get $4
-                 i32.load
-                 local.set $7
-                 local.get $2
-                 local.set $6
-                 local.get $1
-                 call $~lib/rt/pure/__retain
-                 local.set $5
-                 local.get $7
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $6
-                 local.get $8
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $8
-                 i32.load
-                 local.get $7
-                 local.get $6
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $5
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $8
-                 call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-                 local.get $5
-                 call $~lib/rt/pure/__release
-                end
-                local.get $4
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $7
+      i32.load
+      local.set $8
      end
     end
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $6
+    local.get $5
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $5
+    local.get $8
+    local.get $6
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $4
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $7
+    call $~lib/rt/pure/__release
+    local.get $4
+    call $~lib/rt/pure/__release
    end
    local.get $1
    call $~lib/rt/pure/__release
@@ -20804,14 +7399,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#get:not (; 181 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#get:not (; 167 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|1 (; 182 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|1 (; 168 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -20834,612 +7429,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $4
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<assembly/__tests__/toHaveLength.spec/Example>|inlined.1
+    local.get $4
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $8
+    local.get $3
+    local.set $7
+    local.get $4
+    i32.load
+    local.set $6
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $5
     i32.const 0
-    i32.eqz
+    local.set $9
+    local.get $8
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $4
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $4
-     local.set $8
-     local.get $4
-     i32.load offset=4
-     i32.load
-     local.set $7
-     local.get $3
-     local.set $6
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $5
-     local.get $7
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $6
-     local.get $8
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $8
-     i32.load
-     local.get $7
-     local.get $6
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $5
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $8
-     call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-     local.get $5
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $4
-      i32.load offset=4
+      local.get $8
       drop
       i32.const 0
      end
      if
-      local.get $4
-      local.set $8
-      local.get $4
-      i32.load offset=4
-      i32.load
-      local.set $7
-      local.get $3
-      local.set $6
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $5
-      local.get $7
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $6
       local.get $8
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $8
-      i32.load
-      local.get $7
-      local.get $6
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $5
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $8
-      call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-      local.get $5
-      call $~lib/rt/pure/__release
+      local.set $9
      else      
-      block (result i32)
-       local.get $4
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $4
-       local.set $8
-       local.get $4
-       i32.load offset=4
-       i32.load
-       local.set $7
-       local.get $3
-       local.set $6
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $5
-       local.get $7
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $6
-       local.get $8
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $8
-       i32.load
-       local.get $7
-       local.get $6
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $5
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $8
-       call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-       local.get $5
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $4
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $4
-        local.set $8
-        local.get $4
-        i32.load offset=4
-        i32.load
-        local.set $7
-        local.get $3
-        local.set $6
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $5
-        local.get $7
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $6
-        local.get $8
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $8
-        i32.load
-        local.get $7
-        local.get $6
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $5
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $8
-        call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-        local.get $5
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $4
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $4
-         local.set $8
-         local.get $4
-         i32.load offset=4
-         i32.load
-         local.set $7
-         local.get $3
-         local.set $6
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $5
-         local.get $7
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $6
-         local.get $8
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $8
-         i32.load
-         local.get $7
-         local.get $6
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $5
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $8
-         call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-         local.get $5
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $4
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $4
-          local.set $8
-          local.get $4
-          i32.load offset=4
-          i32.load
-          local.set $7
-          local.get $3
-          local.set $6
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $5
-          local.get $7
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $6
-          local.get $8
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $8
-          i32.load
-          local.get $7
-          local.get $6
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $5
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $8
-          call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-          local.get $5
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $4
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $4
-           local.set $8
-           local.get $4
-           i32.load offset=4
-           i32.load
-           local.set $7
-           local.get $3
-           local.set $6
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $5
-           local.get $7
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $6
-           local.get $8
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $8
-           i32.load
-           local.get $7
-           local.get $6
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $5
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $8
-           call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-           local.get $5
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $4
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $4
-            local.set $8
-            local.get $4
-            i32.load offset=4
-            i32.load
-            local.set $7
-            local.get $3
-            local.set $6
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $5
-            local.get $7
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $6
-            local.get $8
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $8
-            i32.load
-            local.get $7
-            local.get $6
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $5
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $8
-            call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-            local.get $5
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $4
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $4
-             local.set $8
-             local.get $4
-             i32.load offset=4
-             i32.load
-             local.set $7
-             local.get $3
-             local.set $6
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $5
-             local.get $7
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $6
-             local.get $8
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $8
-             i32.load
-             local.get $7
-             local.get $6
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $5
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $8
-             call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-             local.get $5
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $4
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $4
-              local.set $8
-              local.get $4
-              i32.load offset=4
-              i32.load
-              local.set $7
-              local.get $3
-              local.set $6
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $5
-              local.get $7
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $6
-              local.get $8
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $8
-              i32.load
-              local.get $7
-              local.get $6
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $5
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $8
-              call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-              local.get $5
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $4
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $4
-               local.set $8
-               local.get $4
-               i32.load offset=4
-               i32.load
-               local.set $7
-               local.get $3
-               local.set $6
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $5
-               local.get $7
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $6
-               local.get $8
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $8
-               i32.load
-               local.get $7
-               local.get $6
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $5
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $8
-               call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-               local.get $5
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $4
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $4
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $5
-                block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#assertLength|inlined.24
-                 local.get $4
-                 local.set $9
-                 local.get $5
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $8
-                 local.get $3
-                 local.set $7
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $6
-                 local.get $8
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $7
-                 local.get $9
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $9
-                 i32.load
-                 local.get $8
-                 local.get $7
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $6
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $9
-                 call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-                 local.get $6
-                 call $~lib/rt/pure/__release
-                end
-                local.get $5
-                call $~lib/rt/pure/__release
-               else                
-                local.get $4
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $5
-                block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#assertLength|inlined.25
-                 local.get $4
-                 local.set $9
-                 local.get $5
-                 i32.load
-                 local.set $8
-                 local.get $3
-                 local.set $7
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $6
-                 local.get $8
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $7
-                 local.get $9
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $9
-                 i32.load
-                 local.get $8
-                 local.get $7
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $6
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $9
-                 call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-                 local.get $6
-                 call $~lib/rt/pure/__release
-                end
-                local.get $5
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $8
+      i32.load
+      local.set $9
      end
     end
+    local.get $9
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $7
+    local.get $6
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $6
+    local.get $9
+    local.get $7
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $5
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $8
+    call $~lib/rt/pure/__release
+    local.get $5
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -21449,7 +7509,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|2 (; 183 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|2 (; 169 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -21469,612 +7529,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $1
-   local.get $3
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<assembly/__tests__/toHaveLength.spec/Example>|inlined.2
+    local.get $3
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $7
+    local.get $2
+    local.set $6
+    local.get $3
+    i32.load
+    local.set $5
+    local.get $1
+    call $~lib/rt/pure/__retain
+    local.set $4
     i32.const 0
-    i32.eqz
+    local.set $8
+    local.get $7
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $3
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $3
-     local.set $7
-     local.get $3
-     i32.load offset=4
-     i32.load
-     local.set $6
-     local.get $2
-     local.set $5
-     local.get $1
-     call $~lib/rt/pure/__retain
-     local.set $4
-     local.get $6
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $5
-     local.get $7
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $7
-     i32.load
-     local.get $6
-     local.get $5
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $4
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $7
-     call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-     local.get $4
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $3
-      i32.load offset=4
+      local.get $7
       drop
       i32.const 0
      end
      if
-      local.get $3
-      local.set $7
-      local.get $3
-      i32.load offset=4
-      i32.load
-      local.set $6
-      local.get $2
-      local.set $5
-      local.get $1
-      call $~lib/rt/pure/__retain
-      local.set $4
-      local.get $6
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $5
       local.get $7
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $7
-      i32.load
-      local.get $6
-      local.get $5
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $4
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $7
-      call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-      local.get $4
-      call $~lib/rt/pure/__release
+      local.set $8
      else      
-      block (result i32)
-       local.get $3
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $3
-       local.set $7
-       local.get $3
-       i32.load offset=4
-       i32.load
-       local.set $6
-       local.get $2
-       local.set $5
-       local.get $1
-       call $~lib/rt/pure/__retain
-       local.set $4
-       local.get $6
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $5
-       local.get $7
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $7
-       i32.load
-       local.get $6
-       local.get $5
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $4
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $7
-       call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-       local.get $4
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $3
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $3
-        local.set $7
-        local.get $3
-        i32.load offset=4
-        i32.load
-        local.set $6
-        local.get $2
-        local.set $5
-        local.get $1
-        call $~lib/rt/pure/__retain
-        local.set $4
-        local.get $6
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $5
-        local.get $7
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $7
-        i32.load
-        local.get $6
-        local.get $5
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $4
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $7
-        call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-        local.get $4
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $3
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $3
-         local.set $7
-         local.get $3
-         i32.load offset=4
-         i32.load
-         local.set $6
-         local.get $2
-         local.set $5
-         local.get $1
-         call $~lib/rt/pure/__retain
-         local.set $4
-         local.get $6
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $5
-         local.get $7
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $7
-         i32.load
-         local.get $6
-         local.get $5
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $4
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $7
-         call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-         local.get $4
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $3
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $3
-          local.set $7
-          local.get $3
-          i32.load offset=4
-          i32.load
-          local.set $6
-          local.get $2
-          local.set $5
-          local.get $1
-          call $~lib/rt/pure/__retain
-          local.set $4
-          local.get $6
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $5
-          local.get $7
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $7
-          i32.load
-          local.get $6
-          local.get $5
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $4
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $7
-          call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-          local.get $4
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $3
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $3
-           local.set $7
-           local.get $3
-           i32.load offset=4
-           i32.load
-           local.set $6
-           local.get $2
-           local.set $5
-           local.get $1
-           call $~lib/rt/pure/__retain
-           local.set $4
-           local.get $6
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $5
-           local.get $7
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $7
-           i32.load
-           local.get $6
-           local.get $5
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $4
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $7
-           call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-           local.get $4
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $3
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $3
-            local.set $7
-            local.get $3
-            i32.load offset=4
-            i32.load
-            local.set $6
-            local.get $2
-            local.set $5
-            local.get $1
-            call $~lib/rt/pure/__retain
-            local.set $4
-            local.get $6
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $5
-            local.get $7
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $7
-            i32.load
-            local.get $6
-            local.get $5
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $4
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $7
-            call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-            local.get $4
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $3
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $3
-             local.set $7
-             local.get $3
-             i32.load offset=4
-             i32.load
-             local.set $6
-             local.get $2
-             local.set $5
-             local.get $1
-             call $~lib/rt/pure/__retain
-             local.set $4
-             local.get $6
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $5
-             local.get $7
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $7
-             i32.load
-             local.get $6
-             local.get $5
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $4
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $7
-             call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-             local.get $4
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $3
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $3
-              local.set $7
-              local.get $3
-              i32.load offset=4
-              i32.load
-              local.set $6
-              local.get $2
-              local.set $5
-              local.get $1
-              call $~lib/rt/pure/__retain
-              local.set $4
-              local.get $6
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $5
-              local.get $7
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $7
-              i32.load
-              local.get $6
-              local.get $5
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $4
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $7
-              call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-              local.get $4
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $3
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $3
-               local.set $7
-               local.get $3
-               i32.load offset=4
-               i32.load
-               local.set $6
-               local.get $2
-               local.set $5
-               local.get $1
-               call $~lib/rt/pure/__retain
-               local.set $4
-               local.get $6
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $5
-               local.get $7
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $7
-               i32.load
-               local.get $6
-               local.get $5
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $4
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $7
-               call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-               local.get $4
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $3
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $3
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $4
-                block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#assertLength|inlined.37
-                 local.get $3
-                 local.set $8
-                 local.get $4
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $7
-                 local.get $2
-                 local.set $6
-                 local.get $1
-                 call $~lib/rt/pure/__retain
-                 local.set $5
-                 local.get $7
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $6
-                 local.get $8
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $8
-                 i32.load
-                 local.get $7
-                 local.get $6
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $5
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $8
-                 call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-                 local.get $5
-                 call $~lib/rt/pure/__release
-                end
-                local.get $4
-                call $~lib/rt/pure/__release
-               else                
-                local.get $3
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $4
-                block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#assertLength|inlined.38
-                 local.get $3
-                 local.set $8
-                 local.get $4
-                 i32.load
-                 local.set $7
-                 local.get $2
-                 local.set $6
-                 local.get $1
-                 call $~lib/rt/pure/__retain
-                 local.set $5
-                 local.get $7
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $6
-                 local.get $8
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $8
-                 i32.load
-                 local.get $7
-                 local.get $6
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $5
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $8
-                 call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-                 local.get $5
-                 call $~lib/rt/pure/__release
-                end
-                local.get $4
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $7
+      i32.load
+      local.set $8
      end
     end
+    local.get $8
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $6
+    local.get $5
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $5
+    local.get $8
+    local.get $6
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $4
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $7
+    call $~lib/rt/pure/__release
+    local.get $4
+    call $~lib/rt/pure/__release
    end
    local.get $1
    call $~lib/rt/pure/__release
@@ -22082,7 +7607,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|3 (; 184 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|3 (; 170 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -22105,612 +7630,77 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $2
-   local.get $4
-   i32.load offset=4
-   i32.const 0
-   i32.eq
-   if
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<assembly/__tests__/toHaveLength.spec/Example>|inlined.3
+    local.get $4
+    i32.load offset=4
+    call $~lib/rt/pure/__retain
+    local.set $8
+    local.get $3
+    local.set $7
+    local.get $4
+    i32.load
+    local.set $6
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $5
     i32.const 0
-    i32.eqz
+    local.set $9
+    local.get $8
+    i32.const 0
+    i32.eq
     if
-     i32.const 672
-     i32.const 792
-     i32.const 470
-     i32.const 8
-     call $~lib/builtins/abort
-     unreachable
-    end
-   else    
-    block (result i32)
-     local.get $4
-     i32.load offset=4
-     drop
      i32.const 0
-    end
-    if
-     local.get $4
-     local.set $8
-     local.get $4
-     i32.load offset=4
-     i32.load
-     local.set $7
-     local.get $3
-     local.set $6
-     local.get $2
-     call $~lib/rt/pure/__retain
-     local.set $5
-     local.get $7
-     call $assembly/internal/Expectation/reportActualInteger
-     local.get $6
-     local.get $8
-     i32.load
-     call $assembly/internal/Expectation/reportExpectedInteger
-     local.get $8
-     i32.load
-     local.get $7
-     local.get $6
-     i32.eq
-     i32.xor
      i32.eqz
      if
-      local.get $5
+      i32.const 672
       i32.const 792
-      i32.const 518
-      i32.const 4
+      i32.const 19
+      i32.const 6
       call $~lib/builtins/abort
       unreachable
      end
-     local.get $8
-     call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-     local.get $5
-     call $~lib/rt/pure/__release
     else     
      block (result i32)
-      local.get $4
-      i32.load offset=4
+      local.get $8
       drop
       i32.const 0
      end
      if
-      local.get $4
-      local.set $8
-      local.get $4
-      i32.load offset=4
-      i32.load
-      local.set $7
-      local.get $3
-      local.set $6
-      local.get $2
-      call $~lib/rt/pure/__retain
-      local.set $5
-      local.get $7
-      call $assembly/internal/Expectation/reportActualInteger
-      local.get $6
       local.get $8
+      i32.const 4
+      i32.sub
       i32.load
-      call $assembly/internal/Expectation/reportExpectedInteger
-      local.get $8
-      i32.load
-      local.get $7
-      local.get $6
-      i32.eq
-      i32.xor
-      i32.eqz
-      if
-       local.get $5
-       i32.const 792
-       i32.const 518
-       i32.const 4
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $8
-      call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-      local.get $5
-      call $~lib/rt/pure/__release
+      local.set $9
      else      
-      block (result i32)
-       local.get $4
-       i32.load offset=4
-       drop
-       i32.const 0
-      end
-      if
-       local.get $4
-       local.set $8
-       local.get $4
-       i32.load offset=4
-       i32.load
-       local.set $7
-       local.get $3
-       local.set $6
-       local.get $2
-       call $~lib/rt/pure/__retain
-       local.set $5
-       local.get $7
-       call $assembly/internal/Expectation/reportActualInteger
-       local.get $6
-       local.get $8
-       i32.load
-       call $assembly/internal/Expectation/reportExpectedInteger
-       local.get $8
-       i32.load
-       local.get $7
-       local.get $6
-       i32.eq
-       i32.xor
-       i32.eqz
-       if
-        local.get $5
-        i32.const 792
-        i32.const 518
-        i32.const 4
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $8
-       call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-       local.get $5
-       call $~lib/rt/pure/__release
-      else       
-       block (result i32)
-        local.get $4
-        i32.load offset=4
-        drop
-        i32.const 0
-       end
-       if
-        local.get $4
-        local.set $8
-        local.get $4
-        i32.load offset=4
-        i32.load
-        local.set $7
-        local.get $3
-        local.set $6
-        local.get $2
-        call $~lib/rt/pure/__retain
-        local.set $5
-        local.get $7
-        call $assembly/internal/Expectation/reportActualInteger
-        local.get $6
-        local.get $8
-        i32.load
-        call $assembly/internal/Expectation/reportExpectedInteger
-        local.get $8
-        i32.load
-        local.get $7
-        local.get $6
-        i32.eq
-        i32.xor
-        i32.eqz
-        if
-         local.get $5
-         i32.const 792
-         i32.const 518
-         i32.const 4
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $8
-        call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-        local.get $5
-        call $~lib/rt/pure/__release
-       else        
-        block (result i32)
-         local.get $4
-         i32.load offset=4
-         drop
-         i32.const 0
-        end
-        if
-         local.get $4
-         local.set $8
-         local.get $4
-         i32.load offset=4
-         i32.load
-         local.set $7
-         local.get $3
-         local.set $6
-         local.get $2
-         call $~lib/rt/pure/__retain
-         local.set $5
-         local.get $7
-         call $assembly/internal/Expectation/reportActualInteger
-         local.get $6
-         local.get $8
-         i32.load
-         call $assembly/internal/Expectation/reportExpectedInteger
-         local.get $8
-         i32.load
-         local.get $7
-         local.get $6
-         i32.eq
-         i32.xor
-         i32.eqz
-         if
-          local.get $5
-          i32.const 792
-          i32.const 518
-          i32.const 4
-          call $~lib/builtins/abort
-          unreachable
-         end
-         local.get $8
-         call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-         local.get $5
-         call $~lib/rt/pure/__release
-        else         
-         block (result i32)
-          local.get $4
-          i32.load offset=4
-          drop
-          i32.const 0
-         end
-         if
-          local.get $4
-          local.set $8
-          local.get $4
-          i32.load offset=4
-          i32.load
-          local.set $7
-          local.get $3
-          local.set $6
-          local.get $2
-          call $~lib/rt/pure/__retain
-          local.set $5
-          local.get $7
-          call $assembly/internal/Expectation/reportActualInteger
-          local.get $6
-          local.get $8
-          i32.load
-          call $assembly/internal/Expectation/reportExpectedInteger
-          local.get $8
-          i32.load
-          local.get $7
-          local.get $6
-          i32.eq
-          i32.xor
-          i32.eqz
-          if
-           local.get $5
-           i32.const 792
-           i32.const 518
-           i32.const 4
-           call $~lib/builtins/abort
-           unreachable
-          end
-          local.get $8
-          call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-          local.get $5
-          call $~lib/rt/pure/__release
-         else          
-          block (result i32)
-           local.get $4
-           i32.load offset=4
-           drop
-           i32.const 0
-          end
-          if
-           local.get $4
-           local.set $8
-           local.get $4
-           i32.load offset=4
-           i32.load
-           local.set $7
-           local.get $3
-           local.set $6
-           local.get $2
-           call $~lib/rt/pure/__retain
-           local.set $5
-           local.get $7
-           call $assembly/internal/Expectation/reportActualInteger
-           local.get $6
-           local.get $8
-           i32.load
-           call $assembly/internal/Expectation/reportExpectedInteger
-           local.get $8
-           i32.load
-           local.get $7
-           local.get $6
-           i32.eq
-           i32.xor
-           i32.eqz
-           if
-            local.get $5
-            i32.const 792
-            i32.const 518
-            i32.const 4
-            call $~lib/builtins/abort
-            unreachable
-           end
-           local.get $8
-           call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-           local.get $5
-           call $~lib/rt/pure/__release
-          else           
-           block (result i32)
-            local.get $4
-            i32.load offset=4
-            drop
-            i32.const 0
-           end
-           if
-            local.get $4
-            local.set $8
-            local.get $4
-            i32.load offset=4
-            i32.load
-            local.set $7
-            local.get $3
-            local.set $6
-            local.get $2
-            call $~lib/rt/pure/__retain
-            local.set $5
-            local.get $7
-            call $assembly/internal/Expectation/reportActualInteger
-            local.get $6
-            local.get $8
-            i32.load
-            call $assembly/internal/Expectation/reportExpectedInteger
-            local.get $8
-            i32.load
-            local.get $7
-            local.get $6
-            i32.eq
-            i32.xor
-            i32.eqz
-            if
-             local.get $5
-             i32.const 792
-             i32.const 518
-             i32.const 4
-             call $~lib/builtins/abort
-             unreachable
-            end
-            local.get $8
-            call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-            local.get $5
-            call $~lib/rt/pure/__release
-           else            
-            block (result i32)
-             local.get $4
-             i32.load offset=4
-             drop
-             i32.const 0
-            end
-            if
-             local.get $4
-             local.set $8
-             local.get $4
-             i32.load offset=4
-             i32.load
-             local.set $7
-             local.get $3
-             local.set $6
-             local.get $2
-             call $~lib/rt/pure/__retain
-             local.set $5
-             local.get $7
-             call $assembly/internal/Expectation/reportActualInteger
-             local.get $6
-             local.get $8
-             i32.load
-             call $assembly/internal/Expectation/reportExpectedInteger
-             local.get $8
-             i32.load
-             local.get $7
-             local.get $6
-             i32.eq
-             i32.xor
-             i32.eqz
-             if
-              local.get $5
-              i32.const 792
-              i32.const 518
-              i32.const 4
-              call $~lib/builtins/abort
-              unreachable
-             end
-             local.get $8
-             call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-             local.get $5
-             call $~lib/rt/pure/__release
-            else             
-             block (result i32)
-              local.get $4
-              i32.load offset=4
-              drop
-              i32.const 0
-             end
-             if
-              local.get $4
-              local.set $8
-              local.get $4
-              i32.load offset=4
-              i32.load
-              local.set $7
-              local.get $3
-              local.set $6
-              local.get $2
-              call $~lib/rt/pure/__retain
-              local.set $5
-              local.get $7
-              call $assembly/internal/Expectation/reportActualInteger
-              local.get $6
-              local.get $8
-              i32.load
-              call $assembly/internal/Expectation/reportExpectedInteger
-              local.get $8
-              i32.load
-              local.get $7
-              local.get $6
-              i32.eq
-              i32.xor
-              i32.eqz
-              if
-               local.get $5
-               i32.const 792
-               i32.const 518
-               i32.const 4
-               call $~lib/builtins/abort
-               unreachable
-              end
-              local.get $8
-              call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-              local.get $5
-              call $~lib/rt/pure/__release
-             else              
-              block (result i32)
-               local.get $4
-               i32.load offset=4
-               drop
-               i32.const 0
-              end
-              if
-               local.get $4
-               local.set $8
-               local.get $4
-               i32.load offset=4
-               i32.load
-               local.set $7
-               local.get $3
-               local.set $6
-               local.get $2
-               call $~lib/rt/pure/__retain
-               local.set $5
-               local.get $7
-               call $assembly/internal/Expectation/reportActualInteger
-               local.get $6
-               local.get $8
-               i32.load
-               call $assembly/internal/Expectation/reportExpectedInteger
-               local.get $8
-               i32.load
-               local.get $7
-               local.get $6
-               i32.eq
-               i32.xor
-               i32.eqz
-               if
-                local.get $5
-                i32.const 792
-                i32.const 518
-                i32.const 4
-                call $~lib/builtins/abort
-                unreachable
-               end
-               local.get $8
-               call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-               local.get $5
-               call $~lib/rt/pure/__release
-              else               
-               block (result i32)
-                local.get $4
-                i32.load offset=4
-                drop
-                i32.const 0
-               end
-               if
-                local.get $4
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $5
-                block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#assertLength|inlined.50
-                 local.get $4
-                 local.set $9
-                 local.get $5
-                 call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-                 local.set $8
-                 local.get $3
-                 local.set $7
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $6
-                 local.get $8
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $7
-                 local.get $9
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $9
-                 i32.load
-                 local.get $8
-                 local.get $7
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $6
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $9
-                 call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-                 local.get $6
-                 call $~lib/rt/pure/__release
-                end
-                local.get $5
-                call $~lib/rt/pure/__release
-               else                
-                local.get $4
-                i32.load offset=4
-                call $~lib/rt/pure/__retain
-                local.set $5
-                block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#assertLength|inlined.51
-                 local.get $4
-                 local.set $9
-                 local.get $5
-                 i32.load
-                 local.set $8
-                 local.get $3
-                 local.set $7
-                 local.get $2
-                 call $~lib/rt/pure/__retain
-                 local.set $6
-                 local.get $8
-                 call $assembly/internal/Expectation/reportActualInteger
-                 local.get $7
-                 local.get $9
-                 i32.load
-                 call $assembly/internal/Expectation/reportExpectedInteger
-                 local.get $9
-                 i32.load
-                 local.get $8
-                 local.get $7
-                 i32.eq
-                 i32.xor
-                 i32.eqz
-                 if
-                  local.get $6
-                  i32.const 792
-                  i32.const 518
-                  i32.const 4
-                  call $~lib/builtins/abort
-                  unreachable
-                 end
-                 local.get $9
-                 call $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#cleanup
-                 local.get $6
-                 call $~lib/rt/pure/__release
-                end
-                local.get $5
-                call $~lib/rt/pure/__release
-               end
-              end
-             end
-            end
-           end
-          end
-         end
-        end
-       end
-      end
+      local.get $8
+      i32.load
+      local.set $9
      end
     end
+    local.get $9
+    call $assembly/internal/comparison/lengthComparison/reportActualInteger
+    local.get $7
+    local.get $6
+    call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
+    local.get $6
+    local.get $9
+    local.get $7
+    i32.eq
+    i32.xor
+    i32.eqz
+    if
+     local.get $5
+     i32.const 792
+     i32.const 29
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    call $assembly/internal/comparison/lengthComparison/clearExpected
+    local.get $8
+    call $~lib/rt/pure/__release
+    local.get $5
+    call $~lib/rt/pure/__release
    end
    local.get $2
    call $~lib/rt/pure/__release
@@ -22720,24 +7710,24 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1 (; 185 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1 (; 171 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 38
   call $assembly/internal/Test/it
-  i32.const 1760
+  i32.const 1792
   i32.const 39
-  i32.const 1024
+  i32.const 1056
   call $assembly/internal/Test/throws
-  i32.const 1880
+  i32.const 1912
   i32.const 40
-  i32.const 1952
+  i32.const 1984
   call $assembly/internal/Test/throws
-  i32.const 2088
+  i32.const 2120
   i32.const 41
-  i32.const 1952
+  i32.const 1984
   call $assembly/internal/Test/throws
  )
- (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 186 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 172 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -22760,16 +7750,21 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<i32> (; 187 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<i32> (; 173 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
   local.get $0
   call $assembly/internal/Expectation/Expectation<i32>#constructor
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|2~anonymous|0 (; 188 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|2~anonymous|0 (; 174 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toHaveLength|inlined.0
    i32.const 3
    call $assembly/internal/Expectation/expect<i32>
@@ -22780,15 +7775,32 @@
    i32.const 416
    call $~lib/rt/pure/__retain
    local.set $1
-   i32.const 0
-   i32.eqz
-   if
-    i32.const 2440
-    i32.const 792
-    i32.const 510
-    i32.const 6
-    call $~lib/builtins/abort
-    unreachable
+   block $assembly/internal/comparison/lengthComparison/lengthComparison<i32>|inlined.0
+    local.get $3
+    i32.load offset=4
+    local.set $7
+    local.get $2
+    local.set $6
+    local.get $3
+    i32.load
+    local.set $5
+    local.get $1
+    call $~lib/rt/pure/__retain
+    local.set $4
+    i32.const 0
+    local.set $8
+    i32.const 0
+    i32.eqz
+    if
+     i32.const 2472
+     i32.const 792
+     i32.const 32
+     i32.const 4
+     call $~lib/builtins/abort
+     unreachable
+    end
+    local.get $4
+    call $~lib/rt/pure/__release
    end
    local.get $1
    call $~lib/rt/pure/__release
@@ -22796,63 +7808,72 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|2 (; 189 ;) (type $FUNCSIG$v)
-  i32.const 2296
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|2 (; 175 ;) (type $FUNCSIG$v)
+  i32.const 2328
   i32.const 43
-  i32.const 2672
+  i32.const 2704
   call $assembly/internal/Test/throws
  )
- (func $start:assembly/__tests__/toHaveLength.spec (; 190 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec (; 176 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   i32.const 272
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>
-  i32.const 1152
+  i32.const 1184
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>
-  i32.const 1208
+  i32.const 1240
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>
-  i32.const 1248
+  i32.const 1280
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>
-  i32.const 1288
+  i32.const 1320
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>
-  i32.const 1328
+  i32.const 1360
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>
-  i32.const 1368
+  i32.const 1400
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>
-  i32.const 1408
+  i32.const 1440
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>
-  i32.const 1448
+  i32.const 1480
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>
-  i32.const 1488
+  i32.const 1520
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>
-  i32.const 1528
+  i32.const 1560
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>
-  i32.const 1632
+  i32.const 1664
   i32.const 37
   call $assembly/internal/Describe/describe
   i32.const 0
   call $assembly/__tests__/toHaveLength.spec/Example#constructor
   global.set $assembly/__tests__/toHaveLength.spec/customExample
-  i32.const 1688
+  i32.const 1720
   i32.const 42
   call $assembly/internal/Describe/describe
-  i32.const 2208
+  i32.const 2240
   i32.const 44
   call $assembly/internal/Describe/describe
  )
- (func $assembly/internal/call/__call (; 191 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/index/__main (; 177 ;) (type $FUNCSIG$v)
+  global.get $~lib/started
+  i32.eqz
+  if
+   call $start
+   i32.const 1
+   global.set $~lib/started
+  end
+ )
+ (func $assembly/internal/call/__call (; 178 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $start (; 192 ;) (type $FUNCSIG$v)
+ (func $start (; 179 ;) (type $FUNCSIG$v)
   call $start:assembly/__tests__/toHaveLength.spec
  )
- (func $~lib/array/Array<i32>#__visit_impl (; 193 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<i32>#__visit_impl (; 180 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/pure/__visit (; 194 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 181 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -23006,7 +8027,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 195 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 182 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block
@@ -23021,7 +8042,7 @@
          i32.const 8
          i32.sub
          i32.load
-         br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$6 $switch$1$case$6 $switch$1$case$6 $switch$1$case$6 $switch$1$case$6 $switch$1$case$6 $switch$1$case$6 $switch$1$case$6 $switch$1$case$6 $switch$1$case$6 $switch$1$case$27 $switch$1$case$6 $switch$1$case$2 $switch$1$case$6 $switch$1$case$2 $switch$1$default
+         br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$4 $switch$1$case$6 $switch$1$case$27 $switch$1$case$6 $switch$1$case$2 $switch$1$case$6 $switch$1$case$2 $switch$1$default
         end
         block
          block
@@ -23107,6 +8128,6 @@
   end
   unreachable
  )
- (func $null (; 196 ;) (type $FUNCSIG$v)
+ (func $null (; 183 ;) (type $FUNCSIG$v)
  )
 )
