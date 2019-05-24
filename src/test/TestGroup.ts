@@ -17,8 +17,8 @@ export class TestGroup implements ILogTarget {
 
   // test properties
   public testFunctionPointers: number[] = [];
-  public testNamePointers: number[] = [];
-  public testMessagePointers: number[] = [];
+  public testNames: string[] = [];
+  public testMessages: string[] = [];
   public testThrows: boolean[] = [];
 
   // tests and todos

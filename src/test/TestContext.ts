@@ -38,6 +38,7 @@ export class TestContext {
 
   public time: number = 0;
   public pass: boolean = true;
+  public startupTime: number = 0;
 
   private performanceEnabledValue: boolean | undefined;
   private maxSamplesValue: number | undefined;
@@ -72,15 +73,26 @@ export class TestContext {
    * Run the tests on the wasm module.
    */
   public run(wasm: ASUtil & IAspectExports): void {
-    if (this.errors.length > 0) return;
-    this.ready = true;
+    // create a test context
+    const runContext = new RunContext(wasm, this.reporter);
+
+    // set wasm
     this.wasm = wasm;
 
-    const runContext = new RunContext(wasm, this.reporter);
+    // start the timer
+    runContext.start = performance.now();
+
+    // start the module up
+    wasm.__main();
+
+    // calculate startuptime
+    this.startupTime = timeDifference(performance.now(), runContext.start);
+
+    if (this.errors.length > 0) return;
+    this.ready = true;
 
     // start the test suite
     this.reporter.onStart(this);
-    runContext.start = performance.now();
 
     testgroup:
     for (const group of this.testGroups) {
@@ -96,18 +108,9 @@ export class TestContext {
 
   private runGroup(runContext: RunContext, group: TestGroup): void {
     // get the group's name
-    const groupName = group.describePointers
-      .map(pointer => this.wasm!.getString(pointer))
-      .join(" ");
-    group.name = groupName;
     runContext.endGroup = false;
 
-    for (const todoPointer of group.todoPointers) {
-      const todo = this.wasm!.getString(todoPointer);
-      group.todos.push(todo);
-      this.reporter.onTodo(group, todo);
-    }
-
+    // set the group starttime
     runContext.groupstart = performance.now();
 
     // set the log target
@@ -135,7 +138,7 @@ export class TestContext {
     // finish the group
     runContext.groupend = performance.now();
     group.time = timeDifference(runContext.groupend, runContext.groupstart);
-    group.reason = `Test suite ${groupName} passed successfully.`;
+    group.reason = `Test suite ${group.name} passed successfully.`;
     this.reporter.onGroupFinish(group);
   }
 
@@ -157,7 +160,7 @@ export class TestContext {
     // set the log target
     this.logTarget = result;
     // initialize the test name
-    result.name = this.wasm!.getString(group.testNamePointers[testIndex]);
+    result.name = group.testNames[testIndex];
 
     this.reporter.onTestStart(group, result);
     result.start = performance.now();
@@ -258,7 +261,7 @@ export class TestContext {
       // if it throws...
       if (throws) {
         // only set the message
-        result.message = this.wasm!.getString(group.testMessagePointers[testIndex]);
+        result.message = group.testMessages[testIndex];
       }
       else {
         // set the message, the actual, expected, and stack values
@@ -440,7 +443,7 @@ export class TestContext {
   private reportDescribe(suiteNamePointer: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     const nextGroup = group.fork();
-    nextGroup.describePointers.push(suiteNamePointer);
+    nextGroup.name = group.name + this.wasm!.getString(suiteNamePointer);
     this.groupStack.push(nextGroup);
     this.logTarget = nextGroup;
   }
@@ -641,10 +644,10 @@ export class TestContext {
    * @param {number} callback - The test's function.
    */
   private reportTest(testNamePointer: number, callback: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];
+    const group = this.groupStack[this.groupStack.length - 1];
     group.testFunctionPointers.push(callback);
-    group.testNamePointers.push(testNamePointer);
-    group.testMessagePointers.push(-1);
+    group.testNames.push(this.wasm!.getString(testNamePointer));
+    group.testMessages.push("");
     group.testThrows.push(false);
     group.performanceEnabled.push(this.performanceEnabledValue);
     group.maxSamples.push(this.maxSamplesValue);
@@ -668,10 +671,10 @@ export class TestContext {
    * @param {number} message - The message associated with this test if it does not throw.
    */
   private reportNegatedTest(testNamePointer: number, callback: number, message: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];
+    const group = this.groupStack[this.groupStack.length - 1];
     group.testFunctionPointers.push(callback);
-    group.testNamePointers.push(testNamePointer);
-    group.testMessagePointers.push(message);
+    group.testNames.push(this.wasm!.getString(testNamePointer));
+    group.testMessages.push(this.wasm!.getString(message));
     group.testThrows.push(true);
     group.performanceEnabled.push(this.performanceEnabledValue);
     group.maxSamples.push(this.maxSamplesValue);
@@ -693,7 +696,7 @@ export class TestContext {
    */
   private reportTodo(todoPointer: number): void {
     var group = this.groupStack[this.groupStack.length - 1];
-    group.todoPointers.push(todoPointer);
+    group.todos.push(this.wasm!.getString(todoPointer));
   }
 
 /**
