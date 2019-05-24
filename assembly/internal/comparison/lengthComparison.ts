@@ -18,7 +18,7 @@ export function lengthComparison<T>(actual: T, expected: i32, negated: i32, mess
     if (actual == null) {
       assert(false, "toHaveLength assertion called on null actual value.");
     } else if (actual instanceof ArrayBuffer) {
-      length = actual.byteLength;
+      length = changetype<ArrayBuffer>(actual).byteLength;
     } else {
       // @ts-ignore self must have property length, which will result in a compile time error
       length = actual.length;
