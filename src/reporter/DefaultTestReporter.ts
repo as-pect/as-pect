@@ -183,6 +183,7 @@ export class DefaultTestReporter extends TestReporter {
     console.log(chalk`  [Groups]: ${suite.testGroups.filter(e => e.pass).length.toString()} pass, ${suite.testGroups.length.toString()} total`);
     console.log(chalk`  [Result]: ${result}`);
     console.log(chalk` [Summary]: ${successCount.toString()} pass, ${(count - successCount).toString()} fail, ${count.toString()} total`);
+    console.log(chalk` [Startup]: ${suite.startupTime.toString()}ms`)
     console.log(chalk`    [Time]: ${suite.time.toString()}ms`);
     console.log("");
   }
