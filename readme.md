@@ -479,6 +479,10 @@ by the cli before the module is instantiated to be used **_instead_** of the `as
 
 Please see the provided example located in `assembly/__tests__/customImports.spec.ts`.
 
+## Please Do Not Use @start
+
+The `@start` decorator helps declare a method that can be called to start up the module. The `as-pect` internal modules use this to help enable a 6% speedup on test gathering and execution.
+
 ## Special Thanks
 
 Special thanks to the `AssemblyScript` team for creating one of the best computer languages that
