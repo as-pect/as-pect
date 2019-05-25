@@ -42,7 +42,7 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "assemblyscript": "github:assemblyscript/assemblyscript#bd9d77e151ecc7f98cd267bc3e3432a0d20e9699",
+    "assemblyscript": "github:assemblyscript/assemblyscript#bc294203bf3367be92f0d51b8c88b1f501fa8ab5",
     "chalk": "^2.4.2",
     "glob": "^7.1.4",
     "mathjs": "^5.10.3",
