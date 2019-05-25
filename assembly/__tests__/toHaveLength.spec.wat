@@ -3088,7 +3088,7 @@
    local.get $0
    i32.load offset=8
    call $~lib/rt/__typeinfo
-   i32.const 8
+   i32.const 16
    i32.and
    i32.eqz
    if
@@ -3781,7 +3781,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -3931,7 +3931,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -4219,7 +4219,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -4359,7 +4359,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -4602,7 +4602,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -4742,7 +4742,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -4991,7 +4991,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -5131,7 +5131,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -5380,7 +5380,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -5520,7 +5520,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -5769,7 +5769,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -5909,7 +5909,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -6158,7 +6158,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -6298,7 +6298,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -6547,7 +6547,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -6687,7 +6687,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -6936,7 +6936,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -7076,7 +7076,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -7325,7 +7325,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -7465,7 +7465,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -7714,7 +7714,7 @@
     if
      local.get $6
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -7854,7 +7854,7 @@
     if
      local.get $7
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -8029,7 +8029,7 @@
     if
      local.get $4
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -8135,7 +8135,7 @@
     if
      local.get $5
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -8301,7 +8301,7 @@
     if
      local.get $4
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -8407,7 +8407,7 @@
     if
      local.get $5
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -8505,7 +8505,7 @@
     if
      local.get $4
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -8604,7 +8604,7 @@
     if
      local.get $5
      i32.const 792
-     i32.const 30
+     i32.const 29
      i32.const 4
      call $~lib/builtins/abort
      unreachable
@@ -8707,7 +8707,7 @@
     if
      i32.const 2472
      i32.const 792
-     i32.const 33
+     i32.const 32
      i32.const 4
      call $~lib/builtins/abort
      unreachable

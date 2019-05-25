@@ -443,7 +443,7 @@ export class TestContext {
   private reportDescribe(suiteNamePointer: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     const nextGroup = group.fork();
-    nextGroup.name = group.name + this.wasm!.getString(suiteNamePointer);
+    nextGroup.name = group.name + this.wasm!.__getString(suiteNamePointer);
     this.groupStack.push(nextGroup);
     this.logTarget = nextGroup;
   }
@@ -538,7 +538,7 @@ export class TestContext {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.message = this.wasm!.getString(pointer);
+    value.message = this.wasm!.__getString(pointer);
     value.offset = 0;
     value.pointer = pointer;
     value.stack = this.getLogStackTrace();
@@ -646,7 +646,7 @@ export class TestContext {
   private reportTest(testNamePointer: number, callback: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     group.testFunctionPointers.push(callback);
-    group.testNames.push(this.wasm!.getString(testNamePointer));
+    group.testNames.push(this.wasm!.__getString(testNamePointer));
     group.testMessages.push("");
     group.testThrows.push(false);
     group.performanceEnabled.push(this.performanceEnabledValue);
@@ -673,8 +673,8 @@ export class TestContext {
   private reportNegatedTest(testNamePointer: number, callback: number, message: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     group.testFunctionPointers.push(callback);
-    group.testNames.push(this.wasm!.getString(testNamePointer));
-    group.testMessages.push(this.wasm!.getString(message));
+    group.testNames.push(this.wasm!.__getString(testNamePointer));
+    group.testMessages.push(this.wasm!.__getString(message));
     group.testThrows.push(true);
     group.performanceEnabled.push(this.performanceEnabledValue);
     group.maxSamples.push(this.maxSamplesValue);
@@ -696,7 +696,7 @@ export class TestContext {
    */
   private reportTodo(todoPointer: number): void {
     var group = this.groupStack[this.groupStack.length - 1];
-    group.todos.push(this.wasm!.getString(todoPointer));
+    group.todos.push(this.wasm!.__getString(todoPointer));
   }
 
 /**
@@ -869,7 +869,7 @@ export class TestContext {
       return;
     }
     const value = new ActualValue();
-    value.message = this.wasm!.getString(stringPointer);
+    value.message = this.wasm!.__getString(stringPointer);
     value.pointer = stringPointer;
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
@@ -885,7 +885,7 @@ export class TestContext {
    */
   private reportExpectedString(stringPointer: number, negated: 1 | 0): void {
     const value = new ActualValue();
-    value.message = this.wasm!.getString(stringPointer);
+    value.message = this.wasm!.__getString(stringPointer);
     value.pointer = stringPointer;
     value.stack = this.getLogStackTrace();
     value.target = this.logTarget;
@@ -905,7 +905,7 @@ export class TestContext {
    * @param {number} _col - The column that reported the error. (Ignored)
    */
   private abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void {
-    this.message = this.wasm!.getString(reasonPointer);
+    this.message = this.wasm!.__getString(reasonPointer);
   }
 
   /**
