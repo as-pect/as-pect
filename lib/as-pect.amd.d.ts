@@ -179,6 +179,7 @@ declare module "test/TestGroup" {
         pass: boolean;
         reason: string;
         time: number;
+        willRun: boolean;
         performanceEnabled: Array<boolean | undefined>;
         maxSamples: Array<number | undefined>;
         roundDecimalPlaces: Array<number | undefined>;
@@ -357,6 +358,8 @@ declare module "test/TestContext" {
         private recordMaxValue;
         private recordMinValue;
         private recordVariance;
+        testRegex: RegExp;
+        groupRegex: RegExp;
         /**
          * This value is used to detect if an `expect()` function call was used outside of a test
          * function. If a reportExpected or reportActual function is called before the `context.run()`
@@ -768,41 +771,24 @@ declare module "util/IConfiguration" {
          * output.
          */
         reporter?: TestReporter;
+        /**
+         * A regular expression that instructs the TestContext to only run tests that match this regex.
+         */
+        testRegex?: RegExp;
+        /**
+         * A regular expression that instructs the TestContext to only run groups that match this regex.
+         */
+        groupRegex?: RegExp;
     }
-}
-declare module "cli" {
-    /**
-     * This is the cli entry point and expects an array of arguments from the command line.
-     *
-     * @param {string[]} args - The arguments from the command line
-     */
-    export function asp(args: string[]): void;
-}
-declare module "as-pect" {
-    export * from "test/IWarning";
-    export * from "test/TestContext";
-    export * from "test/TestGroup";
-    export * from "test/TestReporter";
-    export * from "test/TestResult";
-    export * from "reporter/DefaultTestReporter";
-    export * from "reporter/EmptyReporter";
-    export * from "reporter/SummaryTestReporter";
-    export * from "util/ActualValue";
-    export * from "util/IAspectExports";
-    export * from "util/IConfiguration";
-    export * from "util/ILogTarget";
-    export * from "util/IPerformanceConfiguration";
-    export * from "util/LogValue";
-    export * from "cli";
-}
-declare module "cli/help" {
-    export function help(): void;
 }
 declare module "cli/types" {
     export function types(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
 }
 declare module "cli/init" {
     export function init(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
+}
+declare module "cli/help" {
+    export function help(): void;
 }
 declare module "cli/util/IYargs" {
     import yargsparser from "yargs-parser";
@@ -835,5 +821,22 @@ declare module "cli/index" {
      * @param {string[]} args - The arguments from the command line
      */
     export function asp(args: string[]): void;
+}
+declare module "as-pect" {
+    export * from "test/IWarning";
+    export * from "test/TestContext";
+    export * from "test/TestGroup";
+    export * from "test/TestReporter";
+    export * from "test/TestResult";
+    export * from "reporter/DefaultTestReporter";
+    export * from "reporter/EmptyReporter";
+    export * from "reporter/SummaryTestReporter";
+    export * from "util/ActualValue";
+    export * from "util/IAspectExports";
+    export * from "util/IConfiguration";
+    export * from "util/ILogTarget";
+    export * from "util/IPerformanceConfiguration";
+    export * from "util/LogValue";
+    export * from "cli/index";
 }
 //# sourceMappingURL=as-pect.amd.d.ts.map

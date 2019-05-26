@@ -33,6 +33,7 @@ export class TestGroup implements ILogTarget {
   public pass: boolean = true;
   public reason: string = "";
   public time: number = 0;
+  public willRun: boolean = true;
 
   // individual test performance configurations
   public performanceEnabled: Array<boolean | undefined> = [];

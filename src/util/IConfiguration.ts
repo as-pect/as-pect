@@ -36,4 +36,12 @@ export interface IConfiguration {
    * output.
    */
   reporter?: TestReporter;
+  /**
+   * A regular expression that instructs the TestContext to only run tests that match this regex.
+   */
+  testRegex?: RegExp;
+  /**
+   * A regular expression that instructs the TestContext to only run groups that match this regex.
+   */
+  groupRegex?: RegExp;
 }

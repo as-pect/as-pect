@@ -166,6 +166,7 @@ export class DefaultTestReporter extends TestReporter {
     }
   }
   public onFinish(suite: TestContext): void {
+    if (suite.testGroups.length === 0) return;
     const result = suite.pass
       ? chalk`{green ✔ Pass}`
       : chalk`{red ✖ Fail}`;

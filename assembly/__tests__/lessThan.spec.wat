@@ -62,7 +62,7 @@
  (data (i32.const 3264) "\86\00\00\00\01\00\00\00\01\00\00\00\86\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00L\00e\00s\00s\00T\00h\00a\00n\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
  (data (i32.const 3416) "T\00\00\00\01\00\00\00\01\00\00\00T\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
  (data (i32.const 3520) "\8a\00\00\00\01\00\00\00\01\00\00\00\8a\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00L\00e\00s\00s\00T\00h\00a\00n\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
- (data (i32.const 3680) "\07\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00")
+ (data (i32.const 3680) "\07\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00")
  (table $0 14 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|8 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|9 $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|10 $start:assembly/__tests__/lessThan.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -2962,7 +2962,44 @@
    end
   end
  )
- (func $~lib/rt/pure/growRoots (; 32 ;) (type $FUNCSIG$v)
+ (func $~lib/rt/tlsf/__free (; 32 ;) (type $FUNCSIG$vi) (param $0 i32)
+  global.get $~lib/rt/tlsf/ROOT
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 24
+   i32.const 561
+   i32.const 13
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+  i32.const 0
+  i32.ne
+  if (result i32)
+   local.get $0
+   i32.const 15
+   i32.and
+   i32.eqz
+  else   
+   i32.const 0
+  end
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 24
+   i32.const 562
+   i32.const 2
+   call $~lib/builtins/abort
+   unreachable
+  end
+  global.get $~lib/rt/tlsf/ROOT
+  local.get $0
+  i32.const 16
+  i32.sub
+  call $~lib/rt/tlsf/freeBlock
+ )
+ (func $~lib/rt/pure/growRoots (; 33 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -2996,6 +3033,11 @@
   local.get $0
   local.get $1
   call $~lib/memory/memory.copy
+  local.get $0
+  if
+   local.get $0
+   call $~lib/rt/tlsf/__free
+  end
   local.get $5
   global.set $~lib/rt/pure/ROOTS
   local.get $5
@@ -3007,7 +3049,7 @@
   i32.add
   global.set $~lib/rt/pure/END
  )
- (func $~lib/rt/pure/appendRoot (; 33 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/appendRoot (; 34 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   global.get $~lib/rt/pure/CUR
   local.set $1
@@ -3023,11 +3065,11 @@
   local.get $0
   i32.store
   local.get $1
-  i32.const 1
+  i32.const 4
   i32.add
   global.set $~lib/rt/pure/CUR
  )
- (func $~lib/rt/pure/decrement (; 34 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 35 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -3129,7 +3171,7 @@
    end
   end
  )
- (func $~lib/rt/pure/__release (; 35 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/__release (; 36 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   global.get $~lib/heap/HEAP_BASE
   i32.gt_u
@@ -3140,7 +3182,7 @@
    call $~lib/rt/pure/decrement
   end
  )
- (func $~lib/rt/pure/markGray (; 36 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/markGray (; 37 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -3167,7 +3209,7 @@
    call $~lib/rt/__visit_members
   end
  )
- (func $~lib/rt/pure/scanBlack (; 37 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/scanBlack (; 38 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   local.get $0
   i32.load offset=4
@@ -3184,7 +3226,7 @@
   i32.const 4
   call $~lib/rt/__visit_members
  )
- (func $~lib/rt/pure/scan (; 38 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/scan (; 39 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -3221,7 +3263,7 @@
    end
   end
  )
- (func $~lib/rt/pure/collectWhite (; 39 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/collectWhite (; 40 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -3241,16 +3283,25 @@
   end
   if
    local.get $0
+   local.get $1
+   i32.const 1879048192
+   i32.const -1
+   i32.xor
+   i32.and
+   i32.const 0
+   i32.or
+   i32.store offset=4
+   local.get $0
    i32.const 16
    i32.add
    i32.const 5
    call $~lib/rt/__visit_members
+   global.get $~lib/rt/tlsf/ROOT
+   local.get $0
+   call $~lib/rt/tlsf/freeBlock
   end
-  global.get $~lib/rt/tlsf/ROOT
-  local.get $0
-  call $~lib/rt/tlsf/freeBlock
  )
- (func $~lib/rt/pure/__collect (; 40 ;) (type $FUNCSIG$v)
+ (func $~lib/rt/pure/__collect (; 41 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3398,7 +3449,7 @@
   local.get $0
   global.set $~lib/rt/pure/CUR
  )
- (func $assembly/__tests__/setup/Vec3/Vec3#constructor (; 41 ;) (type $FUNCSIG$iiddd) (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (result i32)
+ (func $assembly/__tests__/setup/Vec3/Vec3#constructor (; 42 ;) (type $FUNCSIG$iiddd) (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -3430,7 +3481,7 @@
   f64.store offset=16
   local.get $0
  )
- (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 42 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 43 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -3453,12 +3504,12 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<i32> (; 43 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<i32> (; 44 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
   local.get $0
   call $assembly/internal/Expectation/Expectation<i32>#constructor
  )
- (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|0 (; 44 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|0 (; 45 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3530,7 +3581,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 45 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 46 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3540,14 +3591,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<i32>#get:not (; 46 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<i32>#get:not (; 47 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|1 (; 47 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|1 (; 48 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3624,7 +3675,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/throws (; 48 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Test/throws (; 49 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3640,7 +3691,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|2 (; 49 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|2 (; 50 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3717,7 +3768,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|3 (; 50 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|3 (; 51 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3789,7 +3840,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|4 (; 51 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|4 (; 52 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3866,7 +3917,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|5 (; 52 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|5 (; 53 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3938,7 +3989,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<f64>#constructor (; 53 ;) (type $FUNCSIG$iid) (param $0 i32) (param $1 f64) (result i32)
+ (func $assembly/internal/Expectation/Expectation<f64>#constructor (; 54 ;) (type $FUNCSIG$iid) (param $0 i32) (param $1 f64) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -3961,17 +4012,17 @@
   f64.store offset=8
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<f64> (; 54 ;) (type $FUNCSIG$id) (param $0 f64) (result i32)
+ (func $assembly/internal/Expectation/expect<f64> (; 55 ;) (type $FUNCSIG$id) (param $0 f64) (result i32)
   i32.const 0
   local.get $0
   call $assembly/internal/Expectation/Expectation<f64>#constructor
  )
- (func $~lib/builtins/isNaN<f64> (; 55 ;) (type $FUNCSIG$id) (param $0 f64) (result i32)
+ (func $~lib/builtins/isNaN<f64> (; 56 ;) (type $FUNCSIG$id) (param $0 f64) (result i32)
   local.get $0
   local.get $0
   f64.ne
  )
- (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|6 (; 56 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|6 (; 57 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 f64)
   (local $2 i32)
@@ -4067,7 +4118,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|7 (; 57 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/lessThan.spec~anonymous|0~anonymous|7 (; 58 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 f64)
   (local $2 i32)
@@ -4163,37 +4214,9 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/rt/pure/__retainRelease (; 58 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  local.get $1
-  local.get $0
-  i32.ne
-  if
-   global.get $~lib/heap/HEAP_BASE
-   local.set $2
-   local.get $1
-   local.get $2
-   i32.gt_u
-   if
-    local.get $1
-    i32.const 16
-    i32.sub
-    call $~lib/rt/pure/increment
-   end
-   local.get $0
-   local.get $2
-   i32.gt_u
-   if
-    local.get $0
-    i32.const 16
-    i32.sub
-    call $~lib/rt/pure/decrement
-   end
-  end
-  local.get $1
- )
  (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#constructor (; 59 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
+  (local $3 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   drop
@@ -4216,10 +4239,22 @@
    local.get $0
   end
   local.tee $2
-  local.get $2
-  i32.load offset=4
-  local.get $1
-  call $~lib/rt/pure/__retainRelease
+  block (result i32)
+   local.get $1
+   local.tee $3
+   local.get $2
+   i32.load offset=4
+   local.tee $2
+   i32.ne
+   if
+    local.get $3
+    call $~lib/rt/pure/__retain
+    drop
+    local.get $2
+    call $~lib/rt/pure/__release
+   end
+   local.get $3
+  end
   i32.store offset=4
   local.get $0
  )

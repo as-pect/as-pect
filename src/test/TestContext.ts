@@ -51,6 +51,9 @@ export class TestContext {
   private recordMinValue: boolean | undefined;
   private recordVariance: boolean | undefined;
 
+  public testRegex: RegExp = new RegExp("");
+  public groupRegex: RegExp = new RegExp("");
+
   /**
    * This value is used to detect if an `expect()` function call was used outside of a test
    * function. If a reportExpected or reportActual function is called before the `context.run()`
@@ -107,6 +110,8 @@ export class TestContext {
   }
 
   private runGroup(runContext: RunContext, group: TestGroup): void {
+    if (group.testFunctionPointers.length === 0) return;
+
     // get the group's name
     runContext.endGroup = false;
 
@@ -444,6 +449,7 @@ export class TestContext {
     const group = this.groupStack[this.groupStack.length - 1];
     const nextGroup = group.fork();
     nextGroup.name = group.name + this.wasm!.__getString(suiteNamePointer);
+    nextGroup.willRun = this.groupRegex.test(nextGroup.name);
     this.groupStack.push(nextGroup);
     this.logTarget = nextGroup;
   }
@@ -455,11 +461,15 @@ export class TestContext {
    */
   private reportEndDescribe(): void {
     const next = this.groupStack.pop()!;
+
+    const testCount = next.testFunctionPointers.length;
+
     /**
      * If a describe finishes first, it happens BEFORE other describes. This means
-     * inner describe blocks run at lower priority than outer describe blocks.
+     * inner describe blocks run at lower priority than outer describe blocks. It also should be
+     * pushed if it willRun.
      */
-    this.testGroups.unshift(next);
+    if (next.willRun && testCount > 0) this.testGroups.unshift(next);
     this.logTarget = this.groupStack[this.groupStack.length - 1];
   }
 
@@ -645,8 +655,12 @@ export class TestContext {
    */
   private reportTest(testNamePointer: number, callback: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
+    if (!group.willRun) return;
+    const name = this.wasm!.__getString(testNamePointer);
+    if (!this.testRegex.test(name)) return;
+
     group.testFunctionPointers.push(callback);
-    group.testNames.push(this.wasm!.__getString(testNamePointer));
+    group.testNames.push(name);
     group.testMessages.push("");
     group.testThrows.push(false);
     group.performanceEnabled.push(this.performanceEnabledValue);
@@ -672,8 +686,12 @@ export class TestContext {
    */
   private reportNegatedTest(testNamePointer: number, callback: number, message: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
+    if (!group.willRun) return;
+    const name = this.wasm!.__getString(testNamePointer);
+    if (!this.testRegex.test(name)) return;
+
     group.testFunctionPointers.push(callback);
-    group.testNames.push(this.wasm!.__getString(testNamePointer));
+    group.testNames.push(name);
     group.testMessages.push(this.wasm!.__getString(message));
     group.testThrows.push(true);
     group.performanceEnabled.push(this.performanceEnabledValue);

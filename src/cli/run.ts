@@ -70,6 +70,19 @@ export function run(yargs: IYargs): void {
   // include all the file globs
   console.log(chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`);
 
+  // Create the test and group matchers
+  if (!configuration.testRegex) {
+    const testRegex = new RegExp(yargs.argv.tests || yargs.argv.test || yargs.argv.t || ".*", "i");
+    configuration.testRegex = testRegex;
+    console.log(chalk`{bgWhite.black [Log]} Running tests that match: ${testRegex.source}`);
+  }
+
+  if (!configuration.groupRegex) {
+    const groupRegex = new RegExp(yargs.argv.groups || yargs.argv.group || yargs.argv.g || ".*", "i");
+    configuration.groupRegex = groupRegex;
+    console.log(chalk`{bgWhite.black [Log]} Running groups that match: ${groupRegex.source}`);
+  }
+
   // add a line seperator between the next line and this line
   console.log("");
 
@@ -141,6 +154,10 @@ export function run(yargs: IYargs): void {
 
       // create a test runner
       const runner = new TestContext(reporter, file, performanceConfiguration);
+
+      // set the test and group filters
+      runner.testRegex = configuration.testRegex || new RegExp("");
+      runner.groupRegex = configuration.groupRegex || new RegExp("");
 
       // detect custom imports
       const customImportFileLocation = path.resolve(

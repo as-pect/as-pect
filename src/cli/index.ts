@@ -25,12 +25,13 @@ export function asp(args: string[]) {
   // Skip ascii art if asked for the version
   if (!(yargs.argv.v || yargs.argv.version)) {
     console.log(chalk`{bold.bgWhite.black ${""
-  }       ___   _____                       __  
-      /   | / ___/      ____  ___  _____/ /_ 
-     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/ 
-    / ___ |___/ /_____/ /_/ /  __/ /__/ /_   
-   /_/  |_/____/     / .___/\\___/\\___/\\__/   
-                    /_/                      }
+  }       ___   _____                       __    
+      /   | / ___/      ____  ___  _____/ /_   
+     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/   
+    / ___ |___/ /_____/ /_/ /  __/ /__/ /_     
+   /_/  |_/____/     / .___/\\___/\\___/\\__/     
+                    /_/                        }
+
   ⚡AS-pect⚡ Test suite runner {bgGreenBright.black [${pkg.version}]}
   `);
   }

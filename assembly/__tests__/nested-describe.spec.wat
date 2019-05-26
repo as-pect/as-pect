@@ -38,7 +38,7 @@
  (data (i32.const 864) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00f\00i\00r\00s\00t\00T\00e\00s\00t\00")
  (data (i32.const 904) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
  (data (i32.const 976) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
- (data (i32.const 1048) "\05\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00\08\00\00\00\00\00\00\00")
+ (data (i32.const 1048) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00")
  (table $0 14 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5~anonymous|0 $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5 $start:assembly/__tests__/nested-describe.spec~anonymous|1)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -2940,7 +2940,44 @@
    end
   end
  )
- (func $~lib/rt/pure/growRoots (; 27 ;) (type $FUNCSIG$v)
+ (func $~lib/rt/tlsf/__free (; 27 ;) (type $FUNCSIG$vi) (param $0 i32)
+  global.get $~lib/rt/tlsf/ROOT
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 24
+   i32.const 561
+   i32.const 13
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+  i32.const 0
+  i32.ne
+  if (result i32)
+   local.get $0
+   i32.const 15
+   i32.and
+   i32.eqz
+  else   
+   i32.const 0
+  end
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 24
+   i32.const 562
+   i32.const 2
+   call $~lib/builtins/abort
+   unreachable
+  end
+  global.get $~lib/rt/tlsf/ROOT
+  local.get $0
+  i32.const 16
+  i32.sub
+  call $~lib/rt/tlsf/freeBlock
+ )
+ (func $~lib/rt/pure/growRoots (; 28 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -2974,6 +3011,11 @@
   local.get $0
   local.get $1
   call $~lib/memory/memory.copy
+  local.get $0
+  if
+   local.get $0
+   call $~lib/rt/tlsf/__free
+  end
   local.get $5
   global.set $~lib/rt/pure/ROOTS
   local.get $5
@@ -2985,7 +3027,7 @@
   i32.add
   global.set $~lib/rt/pure/END
  )
- (func $~lib/rt/pure/appendRoot (; 28 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/appendRoot (; 29 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   global.get $~lib/rt/pure/CUR
   local.set $1
@@ -3001,11 +3043,11 @@
   local.get $0
   i32.store
   local.get $1
-  i32.const 1
+  i32.const 4
   i32.add
   global.set $~lib/rt/pure/CUR
  )
- (func $~lib/rt/pure/decrement (; 29 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 30 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -3107,7 +3149,7 @@
    end
   end
  )
- (func $~lib/rt/pure/__release (; 30 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/__release (; 31 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   global.get $~lib/heap/HEAP_BASE
   i32.gt_u
@@ -3118,7 +3160,7 @@
    call $~lib/rt/pure/decrement
   end
  )
- (func $~lib/rt/pure/markGray (; 31 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/markGray (; 32 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -3145,7 +3187,7 @@
    call $~lib/rt/__visit_members
   end
  )
- (func $~lib/rt/pure/scanBlack (; 32 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/scanBlack (; 33 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   local.get $0
   i32.load offset=4
@@ -3162,7 +3204,7 @@
   i32.const 4
   call $~lib/rt/__visit_members
  )
- (func $~lib/rt/pure/scan (; 33 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/scan (; 34 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -3199,7 +3241,7 @@
    end
   end
  )
- (func $~lib/rt/pure/collectWhite (; 34 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/collectWhite (; 35 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -3219,16 +3261,25 @@
   end
   if
    local.get $0
+   local.get $1
+   i32.const 1879048192
+   i32.const -1
+   i32.xor
+   i32.and
+   i32.const 0
+   i32.or
+   i32.store offset=4
+   local.get $0
    i32.const 16
    i32.add
    i32.const 5
    call $~lib/rt/__visit_members
+   global.get $~lib/rt/tlsf/ROOT
+   local.get $0
+   call $~lib/rt/tlsf/freeBlock
   end
-  global.get $~lib/rt/tlsf/ROOT
-  local.get $0
-  call $~lib/rt/tlsf/freeBlock
  )
- (func $~lib/rt/pure/__collect (; 35 ;) (type $FUNCSIG$v)
+ (func $~lib/rt/pure/__collect (; 36 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3376,7 +3427,7 @@
   local.get $0
   global.set $~lib/rt/pure/CUR
  )
- (func $assembly/internal/Expectation/Expectation<bool>#constructor (; 36 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<bool>#constructor (; 37 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -3399,12 +3450,12 @@
   i32.store8 offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<bool> (; 37 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<bool> (; 38 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
   local.get $0
   call $assembly/internal/Expectation/Expectation<bool>#constructor
  )
- (func $assembly/internal/comparison/truthyComparison/truthyComparison<bool> (; 38 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/comparison/truthyComparison/truthyComparison<bool> (; 39 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   local.get $2
   call $~lib/rt/pure/__retain
@@ -3442,7 +3493,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0~anonymous|0 (; 39 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0~anonymous|0 (; 40 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3466,7 +3517,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 40 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 41 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3476,15 +3527,15 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0 (; 41 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|0~anonymous|0 (; 42 ;) (type $FUNCSIG$v)
   i32.const 368
   i32.const 1
   call $assembly/internal/Test/it
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 42 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 43 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 43 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 44 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3498,52 +3549,52 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|0 (; 44 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|0 (; 45 ;) (type $FUNCSIG$v)
   i32.const 320
   i32.const 2
   call $assembly/internal/Describe/describe
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|0 (; 45 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|0 (; 46 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/nested-describe.spec/beforeEachFlag
   i32.const 1
   i32.add
   global.set $assembly/__tests__/nested-describe.spec/beforeEachFlag
  )
- (func $assembly/internal/Test/beforeEach (; 46 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/beforeEach (; 47 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportBeforeEach
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|1 (; 47 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|1 (; 48 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/nested-describe.spec/beforeAllFlag
   i32.const 1
   i32.add
   global.set $assembly/__tests__/nested-describe.spec/beforeAllFlag
  )
- (func $assembly/internal/Test/beforeAll (; 48 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/beforeAll (; 49 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportBeforeAll
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|2 (; 49 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|2 (; 50 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/nested-describe.spec/afterEachFlag
   i32.const 1
   i32.add
   global.set $assembly/__tests__/nested-describe.spec/afterEachFlag
  )
- (func $assembly/internal/Test/afterEach (; 50 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/afterEach (; 51 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportAfterEach
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|3 (; 51 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|3 (; 52 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/nested-describe.spec/afterAllFlag
   i32.const 1
   i32.add
   global.set $assembly/__tests__/nested-describe.spec/afterAllFlag
  )
- (func $assembly/internal/Test/afterAll (; 52 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/afterAll (; 53 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportAfterAll
  )
- (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 53 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 54 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -3566,12 +3617,12 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<i32> (; 54 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<i32> (; 55 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
   local.get $0
   call $assembly/internal/Expectation/Expectation<i32>#constructor
  )
- (func $assembly/internal/comparison/truthyComparison/truthyComparison<i32> (; 55 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/comparison/truthyComparison/truthyComparison<i32> (; 56 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   local.get $2
   call $~lib/rt/pure/__retain
@@ -3605,7 +3656,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4~anonymous|0 (; 56 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4~anonymous|0 (; 57 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3649,7 +3700,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/test (; 57 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/test (; 58 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3659,12 +3710,12 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4 (; 58 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|4 (; 59 ;) (type $FUNCSIG$v)
   i32.const 664
   i32.const 9
   call $assembly/internal/Test/test
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5~anonymous|0 (; 59 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5~anonymous|0 (; 60 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3708,12 +3759,12 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5 (; 60 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1~anonymous|5 (; 61 ;) (type $FUNCSIG$v)
   i32.const 880
   i32.const 11
   call $assembly/internal/Test/test
  )
- (func $start:assembly/__tests__/nested-describe.spec~anonymous|1 (; 61 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec~anonymous|1 (; 62 ;) (type $FUNCSIG$v)
   i32.const 5
   call $assembly/internal/Test/beforeEach
   i32.const 6
@@ -3729,7 +3780,7 @@
   i32.const 12
   call $assembly/internal/Describe/describe
  )
- (func $start:assembly/__tests__/nested-describe.spec (; 62 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/nested-describe.spec (; 63 ;) (type $FUNCSIG$v)
   i32.const 272
   i32.const 4
   call $assembly/internal/Describe/describe
@@ -3737,7 +3788,7 @@
   i32.const 13
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__main (; 63 ;) (type $FUNCSIG$v)
+ (func $assembly/index/__main (; 64 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   i32.eqz
   if
@@ -3746,16 +3797,16 @@
    global.set $~lib/started
   end
  )
- (func $assembly/internal/call/__call (; 64 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/call/__call (; 65 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $start (; 65 ;) (type $FUNCSIG$v)
+ (func $start (; 66 ;) (type $FUNCSIG$v)
   call $start:assembly/__tests__/nested-describe.spec
  )
- (func $~lib/rt/pure/__visit (; 66 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 67 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -3909,7 +3960,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 67 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 68 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block
   end
@@ -3966,6 +4017,6 @@
    unreachable
   end
  )
- (func $null (; 68 ;) (type $FUNCSIG$v)
+ (func $null (; 69 ;) (type $FUNCSIG$v)
  )
 )

@@ -23,6 +23,7 @@ export declare class TestGroup implements ILogTarget {
     pass: boolean;
     reason: string;
     time: number;
+    willRun: boolean;
     performanceEnabled: Array<boolean | undefined>;
     maxSamples: Array<number | undefined>;
     roundDecimalPlaces: Array<number | undefined>;

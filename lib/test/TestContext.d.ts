@@ -29,6 +29,8 @@ export declare class TestContext {
     private recordMaxValue;
     private recordMinValue;
     private recordVariance;
+    testRegex: RegExp;
+    groupRegex: RegExp;
     /**
      * This value is used to detect if an `expect()` function call was used outside of a test
      * function. If a reportExpected or reportActual function is called before the `context.run()`

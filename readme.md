@@ -59,36 +59,48 @@ All of the values configured in the configuration are overridable via the comman
 This is the CLI help displayed when using the `asp` help flag.
 
 ```
-  SYNTAX
-    asp --init                          Create a test config, an assembly/__tests__ folder and exit.
-    asp -i
-    asp --config as-pect.config.js      Use a specified configuration
-    asp -c as-pect.config.js
-    asp --version                       View the version.
-    asp -v
-    asp --help                          Show this help screen.
-    asp -h
-    asp --types                         Copy the types file to assembly/__tests__/as-pect.d.ts
-    asp -t
+SYNTAX
+  asp --init                          Create a test config, an assembly/__tests__ folder and exit.
+  asp -i
+  asp --config=as-pect.config.js      Use a specified configuration
+  asp -c as-pect.config.js
+  asp --version                       View the version.
+  asp -v
+  asp --help                          Show this help screen.
+  asp -h
+  asp --types                         Copy the types file to assembly/__tests__/as-pect.d.ts
+  asp -t
 
-  TEST OPTIONS
-    --file=[regex]                       Run the tests of each file that matches this regex. (Default: .)
-      -f=[regex]
+TEST OPTIONS
+  --file=[regex]                       Run the tests of each file that matches this regex. (Default: /./)
+    --files=[regex]
+    -f=[regex]
 
-    --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
-      --reporter=SummaryTestReporter     Use the summary reporter.
-      --reporter=DefaultTestReporter     Use the default reporter.
-      --reporter=EmptyReporter           Use the empty reporter. (This reporter reports nothing)
-      --reporter=./path/to/reporter.js   Use the default exported object from this module as the reporter.
+  --group=[regex]                      Run each describe block that matches this regex (Default: /(:?)/)
+    --groups=[regex]
+    -g=[regex]
 
-    --performance                        Enable performance statistics for every test. (Default: false)
-    --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
-    --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
-    --report-median(=false)?             Enable/Disable reporting of the median time. (Default: true)
-    --report-average(=false)?            Enable/Disable reporting of the average time. (Default: true)
-    --report-standard-deviation(=false)? Enable/Disable reporting of the standard deviation. (Default: false)
-    --report-max(=false)?                Enable/Disable reporting of the largest run time. (Default: false)
-    --report-min(=false)?                Enable/Disable reporting of the smallest run time. (Default: false)
+  --test=[regex]                       Run each test that matches this regex (Default: /(:?)/)
+    --tests=[regex]
+    -t=[regex]
+
+  --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
+    --reporter=SummaryTestReporter     Use the summary reporter.
+    --reporter=DefaultTestReporter     Use the default test reporter.
+    --reporter=EmptyReporter           Use the empty reporter. (This reporter reports nothing)
+    --reporter=./path/to/reporter.js   Use the default exported object from this module as the reporter.
+
+PERFORMANCE OPTIONS
+  --performance                        Enable performance statistics for every test. (Default: false)
+  --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
+  --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
+  --round-decimal-places=[number]      Set the number of decimal places to round to. (Default: 3)
+  --report-median(=false)?             Enable/Disable reporting of the median time. (Default: true)
+  --report-average(=false)?            Enable/Disable reporting of the average time. (Default: true)
+  --report-standard-deviation(=false)? Enable/Disable reporting of the standard deviation. (Default: false)
+  --report-max(=false)?                Enable/Disable reporting of the largest run time. (Default: false)
+  --report-min(=false)?                Enable/Disable reporting of the smallest run time. (Default: false)
+  --report-variance(=false)?           Enable/Disable reporting of the variance. (Default: false)
 ```
 
 # Configuration
