@@ -110,8 +110,6 @@ export class TestContext {
   }
 
   private runGroup(runContext: RunContext, group: TestGroup): void {
-    if (group.testFunctionPointers.length === 0) return;
-
     // get the group's name
     runContext.endGroup = false;
 
