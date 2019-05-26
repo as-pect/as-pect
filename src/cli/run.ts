@@ -83,6 +83,8 @@ export function run(yargs: IYargs): void {
     console.log(chalk`{bgWhite.black [Log]} Running groups that match: ${groupRegex.source}`);
   }
 
+  const outputBinary: boolean = !!(yargs.argv.outputBinary || yargs.argv.o || configuration.outputBinary);
+
   // add a line seperator between the next line and this line
   console.log("");
 
@@ -132,7 +134,7 @@ export function run(yargs: IYargs): void {
         // get the wasm file
         if (ext === ".wasm") {
           binaries[i] = contents;
-          return;
+          if (!outputBinary) return;
         }
 
         const outfileName = path.join(path.dirname(file), path.basename(file, path.extname(file)) + ext);

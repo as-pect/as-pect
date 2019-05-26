@@ -42,5 +42,9 @@ export interface IConfiguration {
      * A regular expression that instructs the TestContext to only run groups that match this regex.
      */
     groupRegex?: RegExp;
+    /**
+     * Specifies if a wasm binary should be output. Default is false.
+     */
+    outputBinary?: boolean;
 }
 //# sourceMappingURL=IConfiguration.d.ts.map

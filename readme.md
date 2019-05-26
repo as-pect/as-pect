@@ -175,6 +175,10 @@ module.exports = {
     reportVariance: false,
   },
   // reporter: new CustomReporter(),
+  /**
+   * Specify if the binary wasm file should be written to the file system.
+   */
+  outputBinary: false,
 };
 ```
 
