@@ -27,6 +27,9 @@ export function help() {
       {bold.green --tests=[regex]}
       {bold.green -t=[regex]}
 
+    {bold.green --output-binary}                      Create a (.wasm) file can contains all the tests to be run later.
+      {bold.green -o}
+
     {bold.green --reporter}                           Define the reporter to be used. {yellow (Default: DefaultTestReporter)}
       {bold.green --reporter=SummaryTestReporter}     Use the summary reporter.
       {bold.green --reporter=DefaultTestReporter}     Use the default test reporter.

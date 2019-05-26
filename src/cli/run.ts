@@ -84,6 +84,9 @@ export function run(yargs: IYargs): void {
   }
 
   const outputBinary: boolean = !!(yargs.argv.outputBinary || yargs.argv.o || configuration.outputBinary);
+  if (outputBinary) {
+    console.log(chalk`{bgWhite.black [Log]} Outputing Binary *.wasm files.`);
+  }
 
   // add a line seperator between the next line and this line
   console.log("");

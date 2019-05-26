@@ -84,6 +84,9 @@ TEST OPTIONS
     --tests=[regex]
     -t=[regex]
 
+  --output-binary                      Create a (.wasm) file can contains all the tests to be run later.
+    -o
+
   --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
     --reporter=SummaryTestReporter     Use the summary reporter.
     --reporter=DefaultTestReporter     Use the default test reporter.
