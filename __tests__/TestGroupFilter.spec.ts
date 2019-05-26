@@ -23,18 +23,22 @@ describe("TestGroup filtering", () => {
   test("group filtering", (): void => {
     context.groupRegex = /two/i;
     context.run(wasm);
-    expect(context.testGroups).toMatchSnapshot();
+    expect(context.testGroups).toHaveLength(1);
   });
 
   test("test filtering", (): void => {
     context.testRegex = /two/i;
     context.run(wasm);
-    expect(context.testGroups).toMatchSnapshot();
+    expect(context.testGroups).toHaveLength(3);
+
+    context.testGroups.forEach(group => {
+      expect(group.tests).toHaveLength(1);
+    });
   });
 
   test("test filtering with no test matching", () => {
-    context.testRegex = /four/i;
+    context.testRegex = /five/i;
     context.run(wasm);
-    expect(context.testGroups).toMatchSnapshot();
+    expect(context.testGroups).toHaveLength(0);
   });
 });

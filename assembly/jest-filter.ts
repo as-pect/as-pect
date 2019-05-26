@@ -11,9 +11,9 @@ describe("group one", (): void => {
     assert(true);
   });
 
-  throws("test two", (): void => {
+  throws("test four", (): void => {
     assert(false);
-  })
+  });
 });
 
 describe("group two", (): void => {
@@ -28,6 +28,10 @@ describe("group two", (): void => {
   throws("test three", (): void => {
     assert(true);
   });
+
+  throws("test four", (): void => {
+    assert(false);
+  });
 });
 
 describe("group three", (): void => {
@@ -41,5 +45,9 @@ describe("group three", (): void => {
 
   throws("test three", (): void => {
     assert(true);
+  });
+
+  throws("test four", (): void => {
+    assert(false);
   });
 });
