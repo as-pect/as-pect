@@ -814,6 +814,9 @@ declare module "cli/util/getTestEntryFiles" {
     import { IYargs } from "cli/util/IYargs";
     export function getTestEntryFiles(yargs: IYargs, include: string[], disclude: RegExp[]): Set<string>;
 }
+declare module "cli/util/writeFile" {
+    export function writeFile(file: string, contents: Uint8Array): Promise<void>;
+}
 declare module "cli/run" {
     import { IYargs } from "cli/util/IYargs";
     export function run(yargs: IYargs): void;

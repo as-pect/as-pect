@@ -87,6 +87,9 @@ TEST OPTIONS
   --output-binary                      Create a (.wasm) file can contains all the tests to be run later.
     -o
 
+  --norun                              Skip running tests and output the compiler files.
+    -n
+
   --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
     --reporter=SummaryTestReporter     Use the summary reporter.
     --reporter=DefaultTestReporter     Use the default test reporter.

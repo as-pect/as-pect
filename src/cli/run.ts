@@ -18,6 +18,7 @@ import { collectReporter } from "./util/collectReporter";
 import { getTestEntryFiles } from "./util/getTestEntryFiles";
 import { IYargs } from "./util/IYargs";
 import { IAspectExports } from "../util/IAspectExports";
+import { writeFile } from "./util/writeFile";
 
 export function run(yargs: IYargs): void {
   const start = performance.now();
@@ -83,9 +84,20 @@ export function run(yargs: IYargs): void {
     console.log(chalk`{bgWhite.black [Log]} Running groups that match: ${groupRegex.source}`);
   }
 
+  /**
+   * Check to see if the binary files should be written to the fileSystem.
+   */
   const outputBinary: boolean = !!(yargs.argv.outputBinary || yargs.argv.o || configuration.outputBinary);
   if (outputBinary) {
     console.log(chalk`{bgWhite.black [Log]} Outputing Binary *.wasm files.`);
+  }
+
+  /**
+   * Check to see if the tests should be run in the first place.
+   */
+  const runTests: boolean = !(yargs.argv.norun || yargs.argv.n);
+  if (!runTests) {
+    console.log(chalk`{bgWhite.black [Log]} Not running tests, only outputting files.`);
   }
 
   // add a line seperator between the next line and this line
@@ -126,7 +138,8 @@ export function run(yargs: IYargs): void {
   let groupSuccessCount = 0;
   let groupCount = 0;
   let errors: IWarning[] = [];
-
+  let filePromises: Promise<void>[] = [];
+  let failed = false;
   // for each file, synchronously run each test
   Array.from(testEntryFiles).forEach((file: string, i: number) => {
     asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList], {
@@ -141,7 +154,7 @@ export function run(yargs: IYargs): void {
         }
 
         const outfileName = path.join(path.dirname(file), path.basename(file, path.extname(file)) + ext);
-        fs.writeFileSync(outfileName, contents);
+        filePromises.push(writeFile(outfileName, contents));
       }
     }, function (error: Error | null): number {
       // if there are any compilation errors, stop the test suite
@@ -157,68 +170,72 @@ export function run(yargs: IYargs): void {
         return process.exit(1);
       }
 
-      // create a test runner
-      const runner = new TestContext(reporter, file, performanceConfiguration);
+      if (runTests) {
+        // create a test runner
+        const runner = new TestContext(reporter, file, performanceConfiguration);
 
-      // set the test and group filters
-      runner.testRegex = configuration.testRegex || new RegExp("");
-      runner.groupRegex = configuration.groupRegex || new RegExp("");
+        // set the test and group filters
+        runner.testRegex = configuration.testRegex || new RegExp("");
+        runner.groupRegex = configuration.groupRegex || new RegExp("");
 
-      // detect custom imports
-      const customImportFileLocation = path.resolve(
-        path.join(
-          path.dirname(file),
-          path.basename(file, path.extname(file)) + ".imports.js",
-        ),
-      );
-      const imports = runner.createImports(
-        (fs.existsSync(customImportFileLocation)
-          ? require(customImportFileLocation)
-          : configuration!.imports
-        ) || {},
-      );
+        // detect custom imports
+        const customImportFileLocation = path.resolve(
+          path.join(
+            path.dirname(file),
+            path.basename(file, path.extname(file)) + ".imports.js",
+          ),
+        );
+        const imports = runner.createImports(
+          (fs.existsSync(customImportFileLocation)
+            ? require(customImportFileLocation)
+            : configuration!.imports
+          ) || {},
+        );
 
-      // instantiate the module
-      const wasm = instantiateBuffer<IAspectExports>(binaries[i], imports);
+        // instantiate the module
+        const wasm = instantiateBuffer<IAspectExports>(binaries[i], imports);
 
-      if (runner.errors.length > 0) {
-        errors.push(...runner.errors);
-      } else {
-        // call run buffer because it's already compiled
-        runner.run(wasm);
-        testCount += runner.testGroups.reduce((left, right) => left + right.tests.length, 0);
-        successCount += runner.testGroups
-          .reduce((left, right) => left + right.tests.filter(e => e.pass).length, 0);
-        groupCount += runner.testGroups.length;
-        groupSuccessCount = runner.testGroups.reduce((left, right) => left + (right.pass ? 1 : 0), groupSuccessCount);
+        if (runner.errors.length > 0) {
+          errors.push(...runner.errors);
+        } else {
+          // call run buffer because it's already compiled
+          runner.run(wasm);
+          testCount += runner.testGroups.reduce((left, right) => left + right.tests.length, 0);
+          successCount += runner.testGroups
+            .reduce((left, right) => left + right.tests.filter(e => e.pass).length, 0);
+          groupCount += runner.testGroups.length;
+          groupSuccessCount = runner.testGroups.reduce((left, right) => left + (right.pass ? 1 : 0), groupSuccessCount);
+        }
       }
 
       count -= 1;
 
       // if any tests failed, and they all ran, exit(1)
       if (count === 0) {
-        const end = performance.now();
-        const failed = testCount !== successCount || errors.length > 0;
-        const result = failed
-          ? chalk`{red ✖ FAIL}`
-          : chalk`{green ✔ PASS}`;
-        console.log("~".repeat(process.stdout.columns! - 10));
+        if (runTests) {
+          const end = performance.now();
+          failed = testCount !== successCount || errors.length > 0;
+          const result = failed
+            ? chalk`{red ✖ FAIL}`
+            : chalk`{green ✔ PASS}`;
+          console.log("~".repeat(process.stdout.columns! - 10));
 
-        for (const error of errors) {
-          console.log(chalk`
- [Error]: {red ${error.type}}: ${error.message}
- [Stack]: {yellow ${error.stackTrace.split("\n").join("\n            ")}}
-`)
+          for (const error of errors) {
+            console.log(chalk`
+   [Error]: {red ${error.type}}: ${error.message}
+   [Stack]: {yellow ${error.stackTrace.split("\n").join("\n            ")}}
+  `)
+          }
+          console.log(`
+  [Result]: ${result}
+   [Files]: ${testEntryFiles.size} total
+  [Groups]: ${groupCount} count, ${groupSuccessCount} pass
+   [Tests]: ${successCount.toString()} pass, ${(testCount - successCount).toString()} fail, ${testCount.toString()} total
+    [Time]: ${timeDifference(end, start).toString()}ms`);
         }
-        console.log(`
-[Result]: ${result}
- [Files]: ${testEntryFiles.size} total
-[Groups]: ${groupCount} count, ${groupSuccessCount} pass
- [Tests]: ${successCount.toString()} pass, ${(testCount - successCount).toString()} fail, ${testCount.toString()} total
-  [Time]: ${timeDifference(end, start).toString()}ms`);
-        if (failed) {
-          process.exit(1);
-        }
+        Promise.all(filePromises).then(() => {
+          if (failed) process.exit(1);
+        });
       }
       return 0;
     });
