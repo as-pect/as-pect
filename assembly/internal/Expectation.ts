@@ -13,6 +13,7 @@ import { closeToComparison } from "./comparison/closeToComparison";
 import { isNaNComparison } from "./comparison/isNaNComparison";
 import { finiteComparison } from "./comparison/finiteComparison";
 import { lengthComparison } from "./comparison/lengthComparison";
+import { toIncludeComparison } from "./comparison/toIncludeComparison";
 
 /**
  * The AssemblyScript class that represents an expecation.
@@ -145,6 +146,16 @@ export class Expectation<T> {
   @inline
   public toHaveLength(expected: i32, message: string = ""): void {
     lengthComparison<T>(this.actual, expected, this._not, message);
+  }
+
+  @inline
+  public toInclude<U>(expected: U, message: string = ""): void {
+    if (isArray<T>(this.actual)) {
+      // @ts-ignore Array<U> instanceof check
+      toIncludeComparison<T, U>(this.actual, expected, this._not, message);
+    } else {
+      assert(false, "toInclude expression called on non-Array.");
+    }
   }
 }
 
