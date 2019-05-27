@@ -37,15 +37,15 @@ describe("toInclude reference arrays", () => {
     expect<Vec3[]>(referenceTester).toInclude<Vec3>(two, "referenceTester should include reference two");
   });
 
-  throws("when numberTester doesn't include a reference", () => {
+  throws("when referenceTester doesn't include a reference", () => {
     expect<Vec3[]>(referenceTester).toInclude<Vec3>(four);
-  }, "numberTester should not include 4");
+  }, "numberTester should not include four");
 
-  it("should not include numbers", () => {
-    expect<Vec3[]>(referenceTester).not.toInclude<Vec3>(four, "numberTester should not include reference four");
+  it("should not include a reference", () => {
+    expect<Vec3[]>(referenceTester).not.toInclude<Vec3>(four, "referenceTester should not include reference four");
   });
 
-  throws("when numberTester includes a number but the expectation is negated", () => {
+  throws("when referenceTester includes a reference but the expectation is negated", () => {
     expect<Vec3[]>(referenceTester).not.toInclude<Vec3>(two);
   });
 });
