@@ -1,5 +1,6 @@
 
 import asc from "assemblyscript/cli/asc";
+import {parse, Result, Config} from "assemblyscript/cli/util/options";
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
 import { instantiateBuffer } from "assemblyscript/lib/loader";
@@ -48,14 +49,22 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
 
   const include: string[] = configuration.include || ["assembly/__tests__/**/*.spec.ts"];
   const add: string[] = configuration.add || ["assembly/__tests__/**/*.include.ts"];
-  const flags: ICompilerFlags = configuration.flags || {
+
+  // parse passed cli compiler arguments and let them override defaults.
+  const parsedAscArgs: Result = parse(compilerArgs, asc.options as Config);
+  if (parsedAscArgs.unknown.length > 0) {
+    console.log(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${parsedAscArgs.unknown.join(", ")}]}.`)
+    process.exit(1);
+  }
+  const flags: ICompilerFlags = Object.assign(parsedAscArgs.options, configuration.flags, {
     "--validate": [],
     "--debug": [],
     "--measure": [],
     "--sourceMap":[],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
-  };
+  });
+
   const disclude: RegExp[] = configuration.disclude || [];
 
   // if a reporter is specified in cli arguments, override configuration
@@ -146,7 +155,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   let failed = false;
   // for each file, synchronously run each test
   Array.from(testEntryFiles).forEach((file: string, i: number) => {
-    asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList, ...compilerArgs], {
+    asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList], {
       stdout: process.stdout as any, // use any type to quelch error
       stderr: process.stderr as any,
       writeFile(name: string, contents: Uint8Array) {
