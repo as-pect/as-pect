@@ -8,7 +8,9 @@
     "test": "run-s tsc asp jest",
     "asp": "node lib/test",
     "jest": "jest",
-    "tsc": "run-p tsc:default tsc:amd",
+    "rimraf": "rimraf lib/*",
+    "tsc": "run-s rimraf tsc:all",
+    "tsc:all": "run-p tsc:default tsc:amd",
     "tsc:default": "tsc",
     "tsc:amd": "tsc --outfile lib/as-pect.amd.js --module amd",
     "gh-pages": "git subtree push --prefix lib origin gh-pages",
@@ -39,10 +41,11 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^1.17.1",
     "ts-jest": "^24.0.2",
+    "rimraf": "^2.6.3",
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "assemblyscript": "github:assemblyscript/assemblyscript#fe70f1d863c43fe1e4ecd8862cb3402f6dd9caa6",
+    "assemblyscript": "github:willemneal/assemblyscript#1a779e29c6b7640bc739f45ddc11a098060f74ac",
     "chalk": "^2.4.2",
     "glob": "^7.1.4",
     "mathjs": "^5.10.3",
