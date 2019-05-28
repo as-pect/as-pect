@@ -28,8 +28,8 @@ export function collectReporter(yargs: IYargs): TestReporter {
       }
     }
     catch (ex) {
-      console.log("Cannot find target reporter at", path.join(process.cwd(), targetReporter));
-      console.log(ex);
+      console.error("Cannot find target reporter at", path.join(process.cwd(), targetReporter));
+      console.error(ex);
       process.exit(1);
       // @ts-ignore: the process has exited
       return null;

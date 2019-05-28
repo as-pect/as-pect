@@ -35,15 +35,15 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   try {
     configuration = require(configurationPath) || {};
   } catch (ex) {
-    console.log("");
-    console.log(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${configurationPath}]}.`);
-    console.log(ex);
+    console.error("");
+    console.error(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${configurationPath}]}.`);
+    console.error(ex);
     process.exit(1);
   }
 
   // configuration must be an object
   if (!configuration) {
-    console.log(chalk`{bgRedBright.black [Error]} Configuration at {bold [${configurationPath}]} is null or not an object.`);
+    console.error(chalk`{bgRedBright.black [Error]} Configuration at {bold [${configurationPath}]} is null or not an object.`);
     process.exit(1);
   }
 
@@ -53,7 +53,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   // parse passed cli compiler arguments and let them override defaults.
   const {options:ascOptions, unknown} = compilerArgs.length > 0 ? parse(compilerArgs, asc.options as Config) : {options:{}, unknown:[]};
   if (unknown.length > 0) {
-    console.log(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(", ")}]}.`)
+    console.error(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(", ")}]}.`)
     process.exit(1);
   }
   const flags: ICompilerFlags = Object.assign(ascOptions, configuration.flags, {
@@ -170,14 +170,14 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
     }, function (error: Error | null): number {
       // if there are any compilation errors, stop the test suite
       if (error) {
-        console.log(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
+        console.error(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
         console.error(error);
         return process.exit(1);
       }
 
       // if the binary wasn't emitted, stop the test suite
       if (!binaries[i]) {
-        console.log(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
+        console.error(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
         return process.exit(1);
       }
 
