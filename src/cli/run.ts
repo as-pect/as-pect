@@ -59,8 +59,6 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   const flags: ICompilerFlags = Object.assign(ascOptions, configuration.flags, {
     "--validate": [],
     "--debug": [],
-    "--measure": [],
-    "--sourceMap":[],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
   });
