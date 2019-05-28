@@ -20,14 +20,14 @@ import { IYargs } from "./util/IYargs";
 import { IAspectExports } from "../util/IAspectExports";
 import { writeFile } from "./util/writeFile";
 
-export function run(yargs: IYargs): void {
+export function run(yargs: IYargs, compilerArgs: string[]): void {
   const start = performance.now();
   // obtain the configuration file
   const configurationPath = path.resolve(
     process.cwd(),
     (yargs.argv.c as string) || (yargs.argv.config as string) || "./as-pect.config.js",
   );
-  console.log(chalk`{bgWhite.black [Log]} using configuration ${configurationPath}`);
+  console.log(chalk`{bgWhite.black [Log]} Using configuration ${configurationPath}`);
 
   let configuration: IConfiguration = {};
 
@@ -42,7 +42,7 @@ export function run(yargs: IYargs): void {
 
   // configuration must be an object
   if (!configuration) {
-    console.log(chalk`{bgRedBright.black [Error]} configuration at {bold [${configurationPath}]} is null or not an object.`);
+    console.log(chalk`{bgRedBright.black [Error]} Configuration at {bold [${configurationPath}]} is null or not an object.`);
     process.exit(1);
   }
 
@@ -100,6 +100,10 @@ export function run(yargs: IYargs): void {
     console.log(chalk`{bgWhite.black [Log]} Not running tests, only outputting files.`);
   }
 
+  if (compilerArgs.length > 0) {
+    console.log(chalk`{bgWhite.black [Log]} Adding compiler arguments: ` + compilerArgs.join(" "));
+  }
+
   // add a line seperator between the next line and this line
   console.log("");
 
@@ -142,7 +146,7 @@ export function run(yargs: IYargs): void {
   let failed = false;
   // for each file, synchronously run each test
   Array.from(testEntryFiles).forEach((file: string, i: number) => {
-    asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList], {
+    asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList, ...compilerArgs], {
       stdout: process.stdout as any, // use any type to quelch error
       stderr: process.stderr as any,
       writeFile(name: string, contents: Uint8Array) {

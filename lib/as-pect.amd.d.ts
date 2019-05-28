@@ -819,7 +819,7 @@ declare module "cli/util/writeFile" {
 }
 declare module "cli/run" {
     import { IYargs } from "cli/util/IYargs";
-    export function run(yargs: IYargs): void;
+    export function run(yargs: IYargs, compilerArgs: string[]): void;
 }
 declare module "cli/index" {
     /**
