@@ -1,5 +1,6 @@
 
 import asc from "assemblyscript/cli/asc";
+import {parse, Config} from "assemblyscript/cli/util/options";
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
 import { instantiateBuffer } from "assemblyscript/lib/loader";
@@ -34,28 +35,34 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   try {
     configuration = require(configurationPath) || {};
   } catch (ex) {
-    console.log("");
-    console.log(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${configurationPath}]}.`);
-    console.log(ex);
+    console.error("");
+    console.error(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${configurationPath}]}.`);
+    console.error(ex);
     process.exit(1);
   }
 
   // configuration must be an object
   if (!configuration) {
-    console.log(chalk`{bgRedBright.black [Error]} Configuration at {bold [${configurationPath}]} is null or not an object.`);
+    console.error(chalk`{bgRedBright.black [Error]} Configuration at {bold [${configurationPath}]} is null or not an object.`);
     process.exit(1);
   }
 
   const include: string[] = configuration.include || ["assembly/__tests__/**/*.spec.ts"];
   const add: string[] = configuration.add || ["assembly/__tests__/**/*.include.ts"];
-  const flags: ICompilerFlags = configuration.flags || {
+
+  // parse passed cli compiler arguments and let them override defaults.
+  const {options:ascOptions, unknown} = compilerArgs.length > 0 ? parse(compilerArgs, asc.options as Config) : {options:{}, unknown:[]};
+  if (unknown.length > 0) {
+    console.error(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(", ")}]}.`)
+    process.exit(1);
+  }
+  const flags: ICompilerFlags = Object.assign(ascOptions, configuration.flags, {
     "--validate": [],
     "--debug": [],
-    "--measure": [],
-    "--sourceMap":[],
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
-  };
+  });
+
   const disclude: RegExp[] = configuration.disclude || [];
 
   // if a reporter is specified in cli arguments, override configuration
@@ -146,7 +153,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   let failed = false;
   // for each file, synchronously run each test
   Array.from(testEntryFiles).forEach((file: string, i: number) => {
-    asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList, ...compilerArgs], {
+    asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList], {
       stdout: process.stdout as any, // use any type to quelch error
       stderr: process.stderr as any,
       writeFile(name: string, contents: Uint8Array) {
@@ -163,14 +170,14 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
     }, function (error: Error | null): number {
       // if there are any compilation errors, stop the test suite
       if (error) {
-        console.log(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
+        console.error(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
         console.error(error);
         return process.exit(1);
       }
 
       // if the binary wasn't emitted, stop the test suite
       if (!binaries[i]) {
-        console.log(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
+        console.error(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
         return process.exit(1);
       }
 
