@@ -799,14 +799,12 @@ export class TestCollector {
    * Gets a log stack trace.
    */
   private getLogStackTrace(): string {
-    try {
-      throw new Error("Get stack trace.");
-    } catch (ex) {
-      return ex.stack.toString()
-        .split("\n")
-        .slice(1)
-        .filter(wasmFilter)
-        .join("\n");
-    }
+    return new Error("Get stack trace.")
+      .stack!
+      .toString()
+      .split("\n")
+      .slice(1)
+      .filter(wasmFilter)
+      .join("\n");
   }
 }
