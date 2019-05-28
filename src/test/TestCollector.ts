@@ -73,11 +73,13 @@ export class TestCollector {
 
   constructor(props?: ITestCollectorParameters) {
     if (props) {
+      /* istanbul ignore next */
       if (props.fileName) this.fileName = props.fileName;
       /* istanbul ignore next */
       if (props.testRegex) this.testRegex = props.testRegex;
       /* istanbul ignore next */
       if (props.groupRegex) this.groupRegex = props.groupRegex;
+      /* istanbul ignore next */
       if (props.performanceConfiguration) this.performanceConfiguration = props.performanceConfiguration;
     }
   }

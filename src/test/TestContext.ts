@@ -25,6 +25,7 @@ export class TestContext extends TestCollector {
     super(props);
 
     if (props) {
+      /* istanbul ignore next */
       if (props.reporter) this.reporter = props.reporter;
     }
   }
