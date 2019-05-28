@@ -1,6 +1,6 @@
 
 import asc from "assemblyscript/cli/asc";
-import {parse, Result, Config} from "assemblyscript/cli/util/options";
+import {parse, Config} from "assemblyscript/cli/util/options";
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
 import { instantiateBuffer } from "assemblyscript/lib/loader";
@@ -51,12 +51,12 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   const add: string[] = configuration.add || ["assembly/__tests__/**/*.include.ts"];
 
   // parse passed cli compiler arguments and let them override defaults.
-  const parsedAscArgs: Result = parse(compilerArgs, asc.options as Config);
-  if (parsedAscArgs.unknown.length > 0) {
-    console.log(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${parsedAscArgs.unknown.join(", ")}]}.`)
+  const {options:ascOptions, unknown} = compilerArgs.length > 0 ? parse(compilerArgs, asc.options as Config) : {options:{}, unknown:[]};
+  if (unknown.length > 0) {
+    console.log(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(", ")}]}.`)
     process.exit(1);
   }
-  const flags: ICompilerFlags = Object.assign(parsedAscArgs.options, configuration.flags, {
+  const flags: ICompilerFlags = Object.assign(ascOptions, configuration.flags, {
     "--validate": [],
     "--debug": [],
     "--measure": [],
