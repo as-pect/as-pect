@@ -52,7 +52,6 @@ export class TestContext extends TestCollector {
     // start the test suite
     this.reporter.onStart(this);
 
-    testgroup:
     for (const group of this.testGroups) {
       this.runGroup(group);
     }
