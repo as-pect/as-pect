@@ -4,6 +4,8 @@ import { EmptyReporter } from "../../reporter/EmptyReporter";
 import { SummaryTestReporter } from "../../reporter/SummaryTestReporter";
 import { IYargs } from "./IYargs";
 import path from "path";
+import { CSVTestReporter } from "../../reporter/CSVTestReporter";
+import { JSONTestReporter } from "../../reporter/JSONTestReporter";
 
 export function collectReporter(yargs: IYargs): TestReporter {
   const targetReporter: string = yargs.argv.reporter || yargs.argv.r;
@@ -40,6 +42,12 @@ export function collectReporter(yargs: IYargs): TestReporter {
   }
   else if (targetReporter === "SummaryTestReporter") {
     return new SummaryTestReporter();
+  }
+  else if (targetReporter === "CSVTestReporter") {
+    return new CSVTestReporter();
+  }
+  else if (targetReporter === "JSONTestReporter") {
+    return new JSONTestReporter();
   }
   else {
     return new DefaultTestReporter();

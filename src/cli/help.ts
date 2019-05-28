@@ -36,6 +36,8 @@ export function help() {
     {bold.green --reporter}                           Define the reporter to be used. {yellow (Default: DefaultTestReporter)}
       {bold.green --reporter=SummaryTestReporter}     Use the summary reporter.
       {bold.green --reporter=DefaultTestReporter}     Use the default test reporter.
+      {bold.green --reporter=JSONTestReporter}        Use the JSON reporter (output results to json files.)
+      {bold.green --reporter=CSVTestReporter}         Use the empty reporter (output results to csv files.)
       {bold.green --reporter=EmptyReporter}           Use the empty reporter. {yellow (This reporter reports nothing)}
       {bold.green --reporter=./path/to/reporter.js}   Use the default exported object from this module as the reporter.
 
