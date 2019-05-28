@@ -93,6 +93,8 @@ TEST OPTIONS
   --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
     --reporter=SummaryTestReporter     Use the summary reporter.
     --reporter=DefaultTestReporter     Use the default test reporter.
+    --reporter=JSONTestReporter        Use the JSON reporter (output results to json files.)
+    --reporter=CSVTestReporter         Use the empty reporter (output results to csv files.)
     --reporter=EmptyReporter           Use the empty reporter. (This reporter reports nothing)
     --reporter=./path/to/reporter.js   Use the default exported object from this module as the reporter.
 
