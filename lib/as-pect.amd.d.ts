@@ -1,4 +1,5 @@
 /// <reference types="yargs-parser" />
+/// <reference types="node" />
 declare module "test/IWarning" {
     export interface IWarning {
         type: string;
@@ -879,5 +880,42 @@ declare module "as-pect" {
     export * from "util/IPerformanceConfiguration";
     export * from "util/LogValue";
     export * from "cli/index";
+}
+declare module "reporter/CSVTestReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { TestContext } from "test/TestContext";
+    import { Stringifier } from "csv-stringify";
+    import { WriteStream } from "fs";
+    import { TestGroup } from "test/TestGroup";
+    import { TestResult } from "test/TestResult";
+    export class CSVTestReporter extends TestReporter {
+        protected output: Stringifier | null;
+        protected fileName: WriteStream | null;
+        onStart(suite: TestContext): void;
+        onGroupStart(): void;
+        onGroupFinish(): void;
+        onFinish(): void;
+        onTestStart(): void;
+        onTestFinish(group: TestGroup, result: TestResult): void;
+        onTodo(group: TestGroup, desc: string): void;
+    }
+}
+declare module "reporter/JSONTestReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { TestContext } from "test/TestContext";
+    import { WriteStream } from "fs";
+    import { TestGroup } from "test/TestGroup";
+    import { TestResult } from "test/TestResult";
+    export class JSONTestReporter extends TestReporter {
+        protected file: WriteStream | null;
+        private first;
+        onStart(suite: TestContext): void;
+        onGroupStart(): void;
+        onGroupFinish(): void;
+        onFinish(): void;
+        onTestStart(): void;
+        onTestFinish(group: TestGroup, result: TestResult): void;
+        onTodo(group: TestGroup, desc: string): void;
+    }
 }
 //# sourceMappingURL=as-pect.amd.d.ts.map

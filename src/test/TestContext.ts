@@ -152,7 +152,7 @@ export class TestContext extends TestCollector {
     }
 
     result.end = performance.now();
-    result.runTime = result.start - result.end;
+    result.runTime = timeDifference(result.end, result.start);
   }
 
   /**
