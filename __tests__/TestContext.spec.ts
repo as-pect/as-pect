@@ -306,7 +306,11 @@ describe("fail afterEach in performance", (): void => {
 });
 
 describe("other specs", (): void => {
-  const t = new TestContext(new EmptyReporter(), "empty.ts", { enabled: false });
+  const t = new TestContext({
+    reporter: new EmptyReporter(),
+    fileName: "empty.ts",
+    performanceConfiguration: { enabled: false }
+  });
   it("should return 1 when tryCall is passed -1", (): void => {
     // @ts-ignore
     expect(t.tryCall(-1)).toBe(1);
