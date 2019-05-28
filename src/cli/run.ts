@@ -176,11 +176,13 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
 
       if (runTests) {
         // create a test runner
-        const runner = new TestContext(reporter, file, performanceConfiguration);
-
-        // set the test and group filters
-        runner.testRegex = configuration.testRegex || new RegExp("");
-        runner.groupRegex = configuration.groupRegex || new RegExp("");
+        const runner = new TestContext({
+          fileName: file,
+          groupRegex: configuration.groupRegex,
+          testRegex: configuration.testRegex,
+          performanceConfiguration,
+          reporter,
+        });
 
         // detect custom imports
         const customImportFileLocation = path.resolve(

@@ -64,6 +64,13 @@ declare module "util/ActualValue" {
         negated: boolean;
     }
 }
+declare module "test/PerformanceLimits" {
+    export const enum PerformanceLimits {
+        MaxSamples = 10000,
+        MaxTestRuntime = 5000,
+        MinimumDecimalPlaces = 0
+    }
+}
 declare module "test/TestResult" {
     import { LogValue } from "util/LogValue";
     import { ActualValue } from "util/ActualValue";
@@ -73,10 +80,14 @@ declare module "test/TestResult" {
      * in the `AssemblyScript` module.
      */
     export class TestResult implements ILogTarget {
+        /** This is the test function pointer. */
+        functionPointer: number;
         /** The actual test's name or description. */
         name: string;
         /** The indicator to see if the test passed. */
         pass: boolean;
+        /** The indicated to see if a test actually ran. */
+        ran: boolean;
         /** The time in milliseconds indicating how long the test ran for each run. */
         times: number[];
         /** The reported actual value description. */
@@ -93,28 +104,44 @@ declare module "test/TestResult" {
         negated: boolean;
         /** This value indicates if performance statistics were collected for this test. */
         performance: boolean;
+        /** This value indicates the maximum number of samples to collect. */
+        maxSamples: number;
+        /** This value indicates the maximum test runtime. */
+        maxRuntime: number;
         /** The number of decimal places used for rounding. */
         decimalPlaces: number;
+        /** This value indicates if an average should be calculated */
+        calculateAverageValue: boolean;
         /** This value indicates if an average was calculated. */
         hasAverage: boolean;
         /** This is the average (mean) value. */
         average: number;
+        /** This value indicates if a max value should be calculated. */
+        calculateMaxValue: boolean;
         /** This value indicates if a max was calculated. */
         hasMax: boolean;
         /** This is the max time. */
         max: number;
+        /** This value indicates if a median value should be calculated. */
+        calculateMedianValue: boolean;
         /** This value indicates if a median value was calculated. */
         hasMedian: boolean;
         /** This is the calculated median time. */
         median: number;
+        /** This value indicated if a min value should be calculated. */
+        calculateMinValue: boolean;
         /** This value indicates if a min value was calculated. */
         hasMin: boolean;
         /** This is the calculated min time. */
         min: number;
+        /** This value indicates if a standard deviation value should be calculated. */
+        calculateStandardDeviationValue: boolean;
         /** This value indicates if a standard deviation value was calculated. */
         hasStdDev: boolean;
         /** This is the calculated standard deviation of the times collected. */
         stdDev: number;
+        /** This value indicates if the variance should be calculated. */
+        calculateVarianceValue: boolean;
         /** A boolean indicating if the variance was calcluated. */
         hasVariance: boolean;
         /** The raw variance calculation before rounding was applied. */
@@ -162,17 +189,11 @@ declare module "test/TestGroup" {
      * represented by an array.
      */
     export class TestGroup implements ILogTarget {
-        describePointers: number[];
         beforeEachPointers: number[];
         afterEachPointers: number[];
         beforeAllPointers: number[];
         afterAllPointers: number[];
-        testFunctionPointers: number[];
-        testNames: string[];
-        testMessages: string[];
-        testThrows: boolean[];
         tests: TestResult[];
-        todoPointers: number[];
         todos: string[];
         logs: LogValue[];
         name: string;
@@ -190,6 +211,8 @@ declare module "test/TestGroup" {
         reportMax: Array<boolean | undefined>;
         reportMin: Array<boolean | undefined>;
         reportVariance: Array<boolean | undefined>;
+        start: number;
+        end: number;
         fork(): TestGroup;
     }
 }
@@ -270,25 +293,10 @@ declare module "reporter/DefaultTestReporter" {
 declare module "util/timeDifference" {
     export const timeDifference: (end: number, start: number) => number;
 }
-declare module "test/RunContext" {
-    import { ASUtil } from "assemblyscript/lib/loader";
-    import { TestReporter } from "test/TestReporter";
-    /**
-     * This class is a test runner helper class that contains a set of useful properties
-     * to help reduce run function size.
-     */
-    export class RunContext {
-        wasm: ASUtil;
-        reporter: TestReporter;
-        start: number;
-        end: number;
-        groupstart: number;
-        groupend: number;
-        teststart: number;
-        testend: number;
-        passed: boolean;
-        endGroup: boolean;
-        constructor(wasm: ASUtil, reporter: TestReporter);
+declare module "util/IAspectExports" {
+    export interface IAspectExports {
+        __call(pointer: number): void;
+        __main(): void;
     }
 }
 declare module "util/IPerformanceConfiguration" {
@@ -320,34 +328,34 @@ declare module "util/IPerformanceConfiguration" {
     }
     export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
 }
-declare module "util/IAspectExports" {
-    export interface IAspectExports {
-        __call(pointer: number): void;
-        __main(): void;
-    }
-}
-declare module "test/TestContext" {
+declare module "test/TestCollector" {
     import { ASUtil } from "assemblyscript/lib/loader";
-    import { TestGroup } from "test/TestGroup";
-    import { TestReporter } from "test/TestReporter";
-    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
     import { IAspectExports } from "util/IAspectExports";
+    import { ActualValue } from "util/ActualValue";
+    import { TestGroup } from "test/TestGroup";
+    import { ILogTarget } from "util/ILogTarget";
     import { IWarning } from "test/IWarning";
-    export class TestContext {
-        reporter: TestReporter;
-        file: string;
-        performanceConfiguration: IPerformanceConfiguration;
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    export interface ITestCollectorParameters {
+        performanceConfiguration?: IPerformanceConfiguration;
+        testRegex?: RegExp;
+        groupRegex?: RegExp;
+        fileName?: string;
+    }
+    /**
+     * This class is responsible for collecting all the tests in a test binary.
+     */
+    export class TestCollector {
+        protected wasm: (ASUtil & IAspectExports) | null;
         private groupStack;
         testGroups: TestGroup[];
-        private logTarget;
-        private wasm;
-        private stack;
-        private message;
-        private actual;
-        private expected;
-        time: number;
-        pass: boolean;
-        startupTime: number;
+        protected logTarget: ILogTarget;
+        errors: IWarning[];
+        fileName: string;
+        protected stack: string;
+        protected message: string;
+        protected actual: ActualValue | null;
+        protected expected: ActualValue | null;
         private performanceEnabledValue;
         private maxSamplesValue;
         private maxTestRunTimeValue;
@@ -358,69 +366,26 @@ declare module "test/TestContext" {
         private recordMaxValue;
         private recordMinValue;
         private recordVariance;
-        testRegex: RegExp;
-        groupRegex: RegExp;
+        private performanceConfiguration;
         /**
          * This value is used to detect if an `expect()` function call was used outside of a test
          * function. If a reportExpected or reportActual function is called before the `context.run()`
          * method is called, it should prevent the `run()` method from running the tests and report a
          * failure.
          */
-        private ready;
-        errors: IWarning[];
-        constructor(reporter?: TestReporter, file?: string, performanceConfiguration?: IPerformanceConfiguration);
+        protected ready: boolean;
         /**
-         * Run the tests on the wasm module.
+         * These are the test and group filters for the binary. They must be provided before collection
+         * begins.
          */
-        run(wasm: ASUtil & IAspectExports): void;
-        private runGroup;
+        protected testRegex: RegExp;
+        protected groupRegex: RegExp;
+        constructor(props?: ITestCollectorParameters);
         /**
-         * Run a given test.
-         *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current run group.
-         * @param {number} testIndex - The current test index.
+         * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
+         * process of test collection.
          */
-        private runTest;
-        /**
-         * Run the current test once and collect statistics.
-         *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
-         * @param {TestResult} result - The current test result.
-         * @param {number} testIndex - The current test index.
-         */
-        private runTestCall;
-        /**
-         * Run the afterEach callbacks before running the test.
-         *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
-         * @param {TestResult} result - The current test result.
-         */
-        private runAfterEach;
-        /**
-         * Run the beforeEach callbacks before running the test.
-         *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
-         * @param {TestResult} result - The current test result.
-         */
-        private runBeforeEach;
-        /**
-         * Run the afterAll callbacks with the given runContext and group.
-         *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
-         */
-        private runAfterAll;
-        /**
-         * Run the beforeAll callbacks with the given runContext and group.
-         *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
-         */
-        private runBeforeAll;
+        protected collectTests(): void;
         /**
          * This method creates a WebAssembly imports object with all the TestContext functions
          * bound to the TestContext.
@@ -428,6 +393,48 @@ declare module "test/TestContext" {
          * @param {any[]} imports - Every import item specified.
          */
         createImports(...imports: any[]): any;
+        /**
+         * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
+         */
+        private debug;
+        /**
+         * This is a web assembly utility function that wraps a function call in a try catch block to
+         * report success or failure.
+         *
+         * @param {number} pointer - The function pointer to call. It must accept no parameters and return
+         * void.
+         * @returns {1 | 0} - If the callback was run successfully without error, it returns 1, else it
+         * returns 0.
+         */
+        protected tryCall(pointer: number): 1 | 0;
+        /**
+         * Log a null value to the reporter.
+         */
+        private logNull;
+        /**
+         * This function is called after each expectation if the expectation passes. This prevents other
+         * unreachable() conditions that throw errors to report actual and expected values too.
+         */
+        private clearExpected;
+        /**
+         * Log a reference to the reporter.
+         *
+         * @param {number} referencePointer - The pointer to the reference.
+         * @param {number} offset - The offset of the reference.
+         */
+        private logReference;
+        /**
+         * This adds a logged string to the current test.
+         *
+         * @param {number} pointer - The pointer to the logged string reference.
+         */
+        private logString;
+        /**
+         * Log a numevalueric value to the reporter.
+         *
+         * @param {number} value - The value to be logged.
+         */
+        private logValue;
         /**
          * This web assembly linked function creates a test group. It's called when the test suite calls
          * the describe("test", callback) function from within AssemblyScript. It receives a pointer to
@@ -473,51 +480,6 @@ declare module "test/TestContext" {
          */
         private reportAfterAll;
         /**
-         * This is a web assembly utility function that wraps a function call in a try catch block to
-         * report success or failure.
-         *
-         * @param {number} pointer - The function pointer to call. It must accept no parameters and return
-         * void.
-         * @returns {1 | 0} - If the callback was run successfully without error, it returns 1, else it
-         * returns 0.
-         */
-        private tryCall;
-        /**
-         * This adds a logged string to the current test.
-         *
-         * @param {number} pointer - The pointer to the logged string reference.
-         */
-        private logString;
-        /**
-         * Log a reference to the reporter.
-         *
-         * @param {number} referencePointer - The pointer to the reference.
-         * @param {number} offset - The offset of the reference.
-         */
-        private logReference;
-        /**
-         * Log a numevalueric value to the reporter.
-         *
-         * @param {number} value - The value to be logged.
-         */
-        private logValue;
-        /**
-         * Log a null value to the reporter.
-         */
-        private logNull;
-        /**
-         * Gets a log stack trace.
-         */
-        private getLogStackTrace;
-        /**
-         * Gets an error stack trace.
-         */
-        private getErrorStackTrace;
-        /**
-         * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
-         */
-        private debug;
-        /**
          * This web assembly linked function creates a test from the callback and the testNamePointer in
          * the current group. It assumes that the group has already been created with the describe
          * function. It is called when `it("description", callback)` or `test("description", callback)`
@@ -542,11 +504,6 @@ declare module "test/TestContext" {
          * @param {number} todoPointer - The todo description string pointer.
          */
         private reportTodo;
-        /**
-          * This function is called after each expectation if the expectation passes. This prevents other
-          * unreachable() conditions that throw errors to report actual and expected values too.
-          */
-        private clearExpected;
         /**
          * This function reports an actual null value.
          */
@@ -628,10 +585,6 @@ declare module "test/TestContext" {
          */
         private abort;
         /**
-         * Reset all the performance values to the configured values.
-         */
-        private resetPerformanceValues;
-        /**
          * This web assembly linked function modifies the state machine to enable
          * performance for the following test.
          *
@@ -706,6 +659,87 @@ declare module "test/TestContext" {
          * intended test functions.
          */
         private reportInvalidExpectCall;
+        /**
+         * Gets an error stack trace.
+         */
+        private getErrorStackTrace;
+        /**
+         * Reset all the performance values to the configured values.
+         */
+        private resetPerformanceValues;
+        /**
+         * Gets a log stack trace.
+         */
+        private getLogStackTrace;
+    }
+}
+declare module "test/TestContext" {
+    import { ASUtil } from "assemblyscript/lib/loader";
+    import { TestReporter } from "test/TestReporter";
+    import { IAspectExports } from "util/IAspectExports";
+    import { TestCollector, ITestCollectorParameters } from "test/TestCollector";
+    export interface ITestContextParameters extends ITestCollectorParameters {
+        reporter?: TestReporter;
+    }
+    export class TestContext extends TestCollector {
+        time: number;
+        pass: boolean;
+        startupTime: number;
+        reporter: TestReporter;
+        private endGroup;
+        constructor(props?: ITestContextParameters);
+        /**
+         * Run the tests on the wasm module.
+         */
+        run(wasm: ASUtil & IAspectExports): void;
+        private runGroup;
+        /**
+         * Run a given test.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current run group.
+         * @param {number} testIndex - The current test index.
+         */
+        private runTest;
+        /**
+         * Run the current test once and collect statistics.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The current test result.
+         * @param {number} testIndex - The current test index.
+         */
+        private runTestCall;
+        /**
+         * Run the afterEach callbacks before running the test.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The current test result.
+         */
+        private runAfterEach;
+        /**
+         * Run the beforeEach callbacks before running the test.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The current test result.
+         */
+        private runBeforeEach;
+        /**
+         * Run the afterAll callbacks with the given runContext and group.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         */
+        private runAfterAll;
+        /**
+         * Run the beforeAll callbacks with the given runContext and group.
+         *
+         * @param {RunContext} runContext - The current run context.
+         * @param {TestGroup} group - The current test group.
+         */
+        private runBeforeAll;
     }
 }
 declare module "reporter/EmptyReporter" {

@@ -24,7 +24,11 @@ export function createTestGroupFilterModule(linked: any, callback: TestContextCa
   ], {
     writeFile(fileName: string, contents: Uint8Array) {
       if (fileName === "output.wasm") {
-        context = new TestContext(new EmptyReporter(), "assembly/jest.ts", { enabled: false });
+        context = new TestContext({
+          reporter: new EmptyReporter(),
+          fileName: "assembly/jest-filter.ts",
+          performanceConfiguration: { enabled: false },
+        });
         wasm = instantiateBuffer<IAspectExports>(contents, context.createImports(linked));
       }
     }

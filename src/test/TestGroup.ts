@@ -7,7 +7,7 @@ import { TestResult } from "./TestResult";
  * represented by an array.
  */
 export class TestGroup implements ILogTarget {
-  public describePointers: number[] = [];
+
 
   // callback properties
   public beforeEachPointers: number[] = [];
@@ -15,15 +15,8 @@ export class TestGroup implements ILogTarget {
   public beforeAllPointers: number[] = [];
   public afterAllPointers: number[] = [];
 
-  // test properties
-  public testFunctionPointers: number[] = [];
-  public testNames: string[] = [];
-  public testMessages: string[] = [];
-  public testThrows: boolean[] = [];
-
   // tests and todos
   public tests: TestResult[] = [];
-  public todoPointers: number[] = [];
   public todos: string[] = [];
 
   // logs
@@ -47,9 +40,11 @@ export class TestGroup implements ILogTarget {
   public reportMin: Array<boolean | undefined> = [];
   public reportVariance: Array<boolean | undefined> = [];
 
+  public start: number = 0;
+  public end: number = 0;
+
   public fork(): TestGroup {
     const forked = new TestGroup();
-    forked.describePointers = this.describePointers.slice();
     forked.beforeEachPointers = this.beforeEachPointers.slice();
     forked.afterEachPointers = this.afterEachPointers.slice();
     forked.beforeAllPointers = this.beforeAllPointers.slice();

@@ -21,12 +21,14 @@ beforeEach(() => {
 
 describe("TestGroup filtering", () => {
   test("group filtering", (): void => {
+    // @ts-ignore setting the protected groupRegex property is just for testing
     context.groupRegex = /two/i;
     context.run(wasm);
     expect(context.testGroups).toHaveLength(1);
   });
 
   test("test filtering", (): void => {
+    // @ts-ignore setting the protected testRegex property is just for testing
     context.testRegex = /two/i;
     context.run(wasm);
     expect(context.testGroups).toHaveLength(3);
@@ -37,6 +39,7 @@ describe("TestGroup filtering", () => {
   });
 
   test("test filtering with no test matching", () => {
+    // @ts-ignore setting the protected testRegex property is just for testing
     context.testRegex = /five/i;
     context.run(wasm);
     expect(context.testGroups).toHaveLength(0);

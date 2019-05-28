@@ -180,7 +180,7 @@ export class DefaultTestReporter extends TestReporter {
     console.log("");
     console.log("~".repeat(process.stdout.columns! - 10));
     console.log("");
-    console.log(chalk`    [File]: ${suite.file}`);
+    console.log(chalk`    [File]: ${suite.fileName}`);
     console.log(chalk`  [Groups]: ${suite.testGroups.filter(e => e.pass).length.toString()} pass, ${suite.testGroups.length.toString()} total`);
     console.log(chalk`  [Result]: ${result}`);
     console.log(chalk` [Summary]: ${successCount.toString()} pass, ${(count - successCount).toString()} fail, ${count.toString()} total`);

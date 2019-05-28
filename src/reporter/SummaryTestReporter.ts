@@ -20,11 +20,11 @@ export class SummaryTestReporter extends TestReporter {
     const pass = tests.reduce((left, right) => right.pass ? left + 1 : left, 0);
     if (pass === total) {
       console.log(
-        chalk`{green.bold ✔ ${suite.file}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms`,
+        chalk`{green.bold ✔ ${suite.fileName}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms`,
       );
     } else {
       console.log(
-        chalk`{red.bold ❌ ${suite.file}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms`,
+        chalk`{red.bold ❌ ${suite.fileName}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms`,
       );
 
       for (const group of suite.testGroups) {
