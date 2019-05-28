@@ -4,7 +4,7 @@ import { reportExpected } from "../report/reportExpected";
 // @ts-ignore decorators *are* valid here
 @inline
 export function toIncludeComparison<T extends Array<U>, U>(actual: T, expected: U, negated: i32, message: string): void {
-  reportActual<T>(actual);
+  reportActual<string>("included");
   reportExpected<U>(expected, negated);
   let includes: bool = false;
 

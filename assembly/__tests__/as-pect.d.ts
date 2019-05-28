@@ -401,9 +401,22 @@ declare class Expectation<T> {
   toHaveLength(expected: i32, message?: string): void;
 
   /**
-   * This method asserts that an Array<T> has a value/reference in it's indicies.
+   * This method asserts that a given T that extends Array<U> has a value/reference included.
+   *
+   * @param {i32} expected - The expected item to be included in the Array.
+   * @param {string} message - The optional message the describes this expectation.
    */
   toInclude<U>(expected: U, message?: string): void;
+
+
+  /**
+   * This method asserts that a given T that extends Array<U> has a value/reference included and
+   * compared via memory.compare().
+   *
+   * @param {i32} expected - The expected item to be included in the Array.
+   * @param {string} message - The optional message the describes this expectation.
+   */
+  toIncludeEqual<U>(expected: U, message?: string): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.

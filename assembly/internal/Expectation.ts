@@ -14,6 +14,7 @@ import { isNaNComparison } from "./comparison/isNaNComparison";
 import { finiteComparison } from "./comparison/finiteComparison";
 import { lengthComparison } from "./comparison/lengthComparison";
 import { toIncludeComparison } from "./comparison/toIncludeComparison";
+import { toIncludeEqualComparison } from "./comparison/toIncludeEqualComparison";
 
 /**
  * The AssemblyScript class that represents an expecation.
@@ -155,6 +156,16 @@ export class Expectation<T> {
       toIncludeComparison<T, U>(this.actual, expected, this._not, message);
     } else {
       assert(false, "toInclude expression called on non-Array.");
+    }
+  }
+
+  @inline
+  public toIncludeEqual<U>(expected: U, message: string = ""): void {
+    if (isArray<T>(this.actual)) {
+      // @ts-ignore Array<U> instanceof check
+      toIncludeEqualComparison<T, U>(this.actual, expected, this._not, message);
+    } else {
+      assert(false, "toIncludeEqual expression call on non-Array");
     }
   }
 }
