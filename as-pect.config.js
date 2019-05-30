@@ -1,4 +1,4 @@
-const { JSONTestReporter } = require("./lib/reporter/JSONTestReporter");
+const { SummaryTestReporter } = require("./lib/reporter/SummaryTestReporter");
 
 module.exports = {
   /**
@@ -56,5 +56,5 @@ module.exports = {
     reportVariance: true,
   },
   /** Use the summary reporter. */
-  //reporter: new JSONTestReporter(),
+  reporter: new SummaryTestReporter(),
 };
