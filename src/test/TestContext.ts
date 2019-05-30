@@ -22,8 +22,8 @@ export class TestContext extends TestCollector {
   public startupTime: number = 0;
   public reporter: TestReporter = new DefaultTestReporter();
 
-  public stdout: IWritable = process.stdout;
-  public stderr: IWritable = process.stderr;
+  public stdout: IWritable | null = process ? process.stdout : null;
+  public stderr: IWritable | null = process.stderr ? process.stderr : null;
 
   private endGroup: boolean = false;
 

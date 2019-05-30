@@ -6,6 +6,7 @@ import chalk from "chalk";
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { TestReporter } from "../test/TestReporter";
+import { IWritable } from "./IWriteable";
 
 const enum ValueType {
   Actual,
@@ -79,13 +80,13 @@ function createReferenceString(bytes: number[], pointer: number, offset: number)
 const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
 
 export class DefaultTestReporter extends TestReporter {
-  protected suite: TestContext | null = null;
+  protected stdout: IWritable | null= null;
 
   public onStart(suite: TestContext): void {
-    this.suite = suite;
+    this.stdout = suite.stdout || process.stdout;
   }
   public onGroupStart(group: TestGroup): void {
-    this.suite!.stdout.write(chalk`\n[Describe]: ${group.name}\n\n`);
+    this.stdout!.write(chalk`\n[Describe]: ${group.name}\n\n`);
 
     for (const logValue of group.logs) {
       this.onLog(logValue);
@@ -113,56 +114,56 @@ export class DefaultTestReporter extends TestReporter {
     [Todo]: ${todoCount.toString()} tests
     [Time]: ${group.time.toString()}ms
 `;
-    this.suite!.stdout.write(output);
+    this.stdout!.write(output);
   }
   public onTestStart(_group: TestGroup, _test: TestResult): void {}
   public onTestFinish(_group: TestGroup, test: TestResult): void {
     if (test.pass) {
-      this.suite!.stdout.write(chalk` {green [Success]: ✔} ${test.name}\n`);
+      this.stdout!.write(chalk` {green [Success]: ✔} ${test.name}\n`);
     } else {
-      this.suite!.stdout.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
+      this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
       if (!test.negated) {
-        this.suite!.stdout.write(`
+        this.stdout!.write(`
    [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}
  [Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}
 `);
       }
 
       if (test.message) {
-        this.suite!.stdout.write(chalk`  [Message]: {yellow ${test.message}}\n`);
+        this.stdout!.write(chalk`  [Message]: {yellow ${test.message}}\n`);
       }
       if (test.stack) {
-        this.suite!.stdout.write(`    [Stack]: ${test.stack.split("\n").join("\n           ")}\n`);
+        this.stdout!.write(`    [Stack]: ${test.stack.split("\n").join("\n           ")}\n`);
       }
     }
 
     if (test.performance) {
-      this.suite!.stdout.write(chalk` {yellow [Samples]}: ${test.times.length.toString()} runs\n`);
+      this.stdout!.write(chalk` {yellow [Samples]}: ${test.times.length.toString()} runs\n`);
 
       // log statistics
       if (test.hasAverage) {
-        this.suite!.stdout.write(chalk`    {yellow [Mean]}: ${test.average.toString()}ms\n`);
+        this.stdout!.write(chalk`    {yellow [Mean]}: ${test.average.toString()}ms\n`);
       }
 
       if (test.hasMedian) {
-        this.suite!.stdout.write(chalk`  {yellow [Median]}: ${test.median.toString()}ms\n`);
+        this.stdout!.write(chalk`  {yellow [Median]}: ${test.median.toString()}ms\n`);
       }
 
       if (test.hasVariance) {
-        this.suite!.stdout.write(chalk`{yellow [Variance]}: ${test.variance.toString()}ms\n`);
+        this.stdout!.write(chalk`{yellow [Variance]}: ${test.variance.toString()}ms\n`);
       }
 
       if (test.hasStdDev) {
-        this.suite!.stdout.write(chalk`  {yellow [StdDev]}: ${test.stdDev.toString()}ms\n`);
+        this.stdout!.write(chalk`  {yellow [StdDev]}: ${test.stdDev.toString()}ms\n`);
       }
 
       if (test.hasMax) {
-        this.suite!.stdout.write(chalk`     {yellow [Max]}: ${test.max.toString()}ms\n`);
+        this.stdout!.write(chalk`     {yellow [Max]}: ${test.max.toString()}ms\n`);
       }
 
       if (test.hasMin) {
-        this.suite!.stdout.write(chalk`     {yellow [Min]}: ${test.min.toString()}ms\n`);
+        this.stdout!.write(chalk`     {yellow [Min]}: ${test.min.toString()}ms\n`);
       }
     } else {
       // log the log values
@@ -188,7 +189,7 @@ export class DefaultTestReporter extends TestReporter {
       ? `0 fail`
       : chalk`{red ${(count - successCount).toString()} fail}`;
 
-    this.suite!.stdout.write(`
+    this.stdout!.write(`
 ${"~".repeat(process.stdout.columns! - 10)}
 
     [File]: ${suite.fileName}
@@ -201,7 +202,7 @@ ${"~".repeat(process.stdout.columns! - 10)}
 
   }
   public onTodo(_group: TestGroup, todo: string): void {
-    this.suite!.stdout.write(chalk`    {yellow [Todo]:} ${todo}\n`);
+    this.stdout!.write(chalk`    {yellow [Todo]:} ${todo}\n`);
   }
 
   /**
@@ -216,17 +217,17 @@ ${"~".repeat(process.stdout.columns! - 10)}
 
     // log the log message
     if (logValue.pointer > 0) {
-      this.suite!.stdout.write(chalk`     {yellow [Log]:} Reference at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}\n`);
+      this.stdout!.write(chalk`     {yellow [Log]:} Reference at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}\n`);
     } else {
-      this.suite!.stdout.write(chalk`     {yellow [Log]:} ${logValue.message}\n`);
+      this.stdout!.write(chalk`     {yellow [Log]:} ${logValue.message}\n`);
     }
 
     // if there are bytes to show, create a logging representation of the bytes
     if (logValue.bytes.length > 0) {
       const value = createReferenceString(logValue.bytes, logValue.pointer, logValue.offset);
-      this.suite!.stdout.write(chalk`            {blueBright ${value.split("\n").join("\n            ")}}\n`);
+      this.stdout!.write(chalk`            {blueBright ${value.split("\n").join("\n            ")}}\n`);
     }
 
-    this.suite!.stdout.write(chalk`        {yellow ${logValue.stack.split("\n").join("\n        ")}}\n\n`);
+    this.stdout!.write(chalk`        {yellow ${logValue.stack.split("\n").join("\n        ")}}\n\n`);
   }
 }

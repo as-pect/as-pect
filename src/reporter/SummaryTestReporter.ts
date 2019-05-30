@@ -19,23 +19,23 @@ export class SummaryTestReporter extends TestReporter {
     const total = tests.length;
     const pass = tests.reduce((left, right) => right.pass ? left + 1 : left, 0);
     if (pass === total) {
-      suite.stdout.write(
+      suite.stdout!.write(
         chalk`{green.bold ✔ ${suite.fileName}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
       );
     } else {
-      suite.stdout.write(
+      suite.stdout!.write(
         chalk`{red.bold ❌ ${suite.fileName}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
       );
 
       for (const group of suite.testGroups) {
         if (group.pass) continue;
-        suite.stdout.write(chalk`  ${group.name}\n`);
+        suite.stdout!.write(chalk`  ${group.name}\n`);
         inner:
         for (const test of group.tests) {
           if (test.pass) continue inner;
-          suite.stdout.write(chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`);
-          if (test.expected !== null) suite.stdout.write(chalk`      {green.bold [Expected]:} ${test.expected.message}\n`);
-          if (test.actual !== null) suite.stdout.write(chalk`      {red.bold [Actual]  :} ${test.actual.message}\n`);
+          suite.stdout!.write(chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`);
+          if (test.expected !== null) suite.stdout!.write(chalk`      {green.bold [Expected]:} ${test.expected.message}\n`);
+          if (test.actual !== null) suite.stdout!.write(chalk`      {red.bold [Actual]  :} ${test.actual.message}\n`);
         }
       }
     }
