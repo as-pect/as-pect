@@ -6,7 +6,9 @@
   "types": "./assembly/__tests__/as-pect.d.ts",
   "scripts": {
     "test": "run-s tsc asp jest",
+    "test:ci": "run-s asp:ci jest",
     "asp": "node lib/test",
+    "asp:ci": "node lib/test --reporter=SummaryTestReporter",
     "jest": "jest",
     "rimraf": "rimraf lib/*",
     "tsc": "run-s rimraf tsc:all",
