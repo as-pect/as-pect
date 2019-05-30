@@ -2,14 +2,19 @@ import { ASUtil } from "assemblyscript/lib/loader";
 import { TestReporter } from "./TestReporter";
 import { IAspectExports } from "../util/IAspectExports";
 import { TestCollector, ITestCollectorParameters } from "./TestCollector";
+import { IWritable } from "../reporter/IWriteable";
 export interface ITestContextParameters extends ITestCollectorParameters {
     reporter?: TestReporter;
+    stdout?: IWritable;
+    stderr?: IWritable;
 }
 export declare class TestContext extends TestCollector {
     time: number;
     pass: boolean;
     startupTime: number;
     reporter: TestReporter;
+    stdout: IWritable;
+    stderr: IWritable;
     private endGroup;
     constructor(props?: ITestContextParameters);
     /**

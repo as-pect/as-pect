@@ -1,5 +1,5 @@
-/// <reference types="yargs-parser" />
 /// <reference types="node" />
+/// <reference types="yargs-parser" />
 declare module "test/IWarning" {
     export interface IWarning {
         type: string;
@@ -276,7 +276,8 @@ declare module "reporter/DefaultTestReporter" {
     import { LogValue } from "util/LogValue";
     import { TestReporter } from "test/TestReporter";
     export class DefaultTestReporter extends TestReporter {
-        onStart(_suite: TestContext): void;
+        protected suite: TestContext | null;
+        onStart(suite: TestContext): void;
         onGroupStart(group: TestGroup): void;
         onGroupFinish(group: TestGroup): void;
         onTestStart(_group: TestGroup, _test: TestResult): void;
@@ -674,19 +675,29 @@ declare module "test/TestCollector" {
         private getLogStackTrace;
     }
 }
+declare module "reporter/IWriteable" {
+    export interface IWritable {
+        write(chunk: string): void;
+    }
+}
 declare module "test/TestContext" {
     import { ASUtil } from "assemblyscript/lib/loader";
     import { TestReporter } from "test/TestReporter";
     import { IAspectExports } from "util/IAspectExports";
     import { TestCollector, ITestCollectorParameters } from "test/TestCollector";
+    import { IWritable } from "reporter/IWriteable";
     export interface ITestContextParameters extends ITestCollectorParameters {
         reporter?: TestReporter;
+        stdout?: IWritable;
+        stderr?: IWritable;
     }
     export class TestContext extends TestCollector {
         time: number;
         pass: boolean;
         startupTime: number;
         reporter: TestReporter;
+        stdout: IWritable;
+        stderr: IWritable;
         private endGroup;
         constructor(props?: ITestContextParameters);
         /**
@@ -743,6 +754,25 @@ declare module "test/TestContext" {
         private runBeforeAll;
     }
 }
+declare module "reporter/CSVTestReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { TestContext } from "test/TestContext";
+    import { Stringifier } from "csv-stringify";
+    import { WriteStream } from "fs";
+    import { TestGroup } from "test/TestGroup";
+    import { TestResult } from "test/TestResult";
+    export class CSVTestReporter extends TestReporter {
+        protected output: Stringifier | null;
+        protected fileName: WriteStream | null;
+        onStart(suite: TestContext): void;
+        onGroupStart(): void;
+        onGroupFinish(): void;
+        onFinish(): void;
+        onTestStart(): void;
+        onTestFinish(group: TestGroup, result: TestResult): void;
+        onTodo(group: TestGroup, desc: string): void;
+    }
+}
 declare module "reporter/EmptyReporter" {
     import { TestReporter } from "test/TestReporter";
     export class EmptyReporter extends TestReporter {
@@ -753,6 +783,24 @@ declare module "reporter/EmptyReporter" {
         onTestFinish(): void;
         onTestStart(): void;
         onTodo(): void;
+    }
+}
+declare module "reporter/JSONTestReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { TestContext } from "test/TestContext";
+    import { WriteStream } from "fs";
+    import { TestGroup } from "test/TestGroup";
+    import { TestResult } from "test/TestResult";
+    export class JSONTestReporter extends TestReporter {
+        protected file: WriteStream | null;
+        private first;
+        onStart(suite: TestContext): void;
+        onGroupStart(): void;
+        onGroupFinish(): void;
+        onFinish(): void;
+        onTestStart(): void;
+        onTestFinish(group: TestGroup, result: TestResult): void;
+        onTodo(group: TestGroup, desc: string): void;
     }
 }
 declare module "reporter/SummaryTestReporter" {
@@ -840,43 +888,6 @@ declare module "cli/util/collectPerformanceConfiguration" {
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
     export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: IPerformanceConfiguration): void;
 }
-declare module "reporter/CSVTestReporter" {
-    import { TestReporter } from "test/TestReporter";
-    import { TestContext } from "test/TestContext";
-    import { Stringifier } from "csv-stringify";
-    import { WriteStream } from "fs";
-    import { TestGroup } from "test/TestGroup";
-    import { TestResult } from "test/TestResult";
-    export class CSVTestReporter extends TestReporter {
-        protected output: Stringifier | null;
-        protected fileName: WriteStream | null;
-        onStart(suite: TestContext): void;
-        onGroupStart(): void;
-        onGroupFinish(): void;
-        onFinish(): void;
-        onTestStart(): void;
-        onTestFinish(group: TestGroup, result: TestResult): void;
-        onTodo(group: TestGroup, desc: string): void;
-    }
-}
-declare module "reporter/JSONTestReporter" {
-    import { TestReporter } from "test/TestReporter";
-    import { TestContext } from "test/TestContext";
-    import { WriteStream } from "fs";
-    import { TestGroup } from "test/TestGroup";
-    import { TestResult } from "test/TestResult";
-    export class JSONTestReporter extends TestReporter {
-        protected file: WriteStream | null;
-        private first;
-        onStart(suite: TestContext): void;
-        onGroupStart(): void;
-        onGroupFinish(): void;
-        onFinish(): void;
-        onTestStart(): void;
-        onTestFinish(group: TestGroup, result: TestResult): void;
-        onTodo(group: TestGroup, desc: string): void;
-    }
-}
 declare module "cli/util/collectReporter" {
     import { TestReporter } from "test/TestReporter";
     import { IYargs } from "cli/util/IYargs";
@@ -907,8 +918,10 @@ declare module "as-pect" {
     export * from "test/TestGroup";
     export * from "test/TestReporter";
     export * from "test/TestResult";
+    export * from "reporter/CSVTestReporter";
     export * from "reporter/DefaultTestReporter";
     export * from "reporter/EmptyReporter";
+    export * from "reporter/JSONTestReporter";
     export * from "reporter/SummaryTestReporter";
     export * from "util/ActualValue";
     export * from "util/IAspectExports";

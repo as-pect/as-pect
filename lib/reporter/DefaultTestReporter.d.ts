@@ -4,7 +4,8 @@ import { TestContext } from "../test/TestContext";
 import { LogValue } from "../util/LogValue";
 import { TestReporter } from "../test/TestReporter";
 export declare class DefaultTestReporter extends TestReporter {
-    onStart(_suite: TestContext): void;
+    protected suite: TestContext | null;
+    onStart(suite: TestContext): void;
     onGroupStart(group: TestGroup): void;
     onGroupFinish(group: TestGroup): void;
     onTestStart(_group: TestGroup, _test: TestResult): void;
