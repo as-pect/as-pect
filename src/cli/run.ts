@@ -1,6 +1,7 @@
 
-import asc from "assemblyscript/cli/asc";
-import {parse, Config} from "assemblyscript/cli/util/options";
+// @ts-ignore
+import asc from "assemblyscript/dist/asc";
+import { parse, Config } from "assemblyscript/cli/util/options";
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
 import { instantiateBuffer } from "assemblyscript/lib/loader";
@@ -151,11 +152,43 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   let errors: IWarning[] = [];
   let filePromises: Promise<void>[] = [];
   let failed = false;
+
+  const folderMap = new Map<string, string[]>();
+  const fileMap = new Map<string, string>();
+
   // for each file, synchronously run each test
   Array.from(testEntryFiles).forEach((file: string, i: number) => {
     asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList], {
       stdout: process.stdout as any, // use any type to quelch error
       stderr: process.stderr as any,
+      listFiles(dirname: string, baseDir: string): string[] {
+        const folder = path.join(baseDir, dirname);
+        if (folderMap.has(folder)) {
+          return folderMap.get(folder)!;
+        }
+
+        try {
+          const results = fs.readdirSync(folder).filter(file => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
+          folderMap.set(folder, results);
+          return results;
+        } catch (e) {
+          return [];
+        }
+      },
+      readFile(filename: string, baseDir: string) {
+        const fileName = path.join(baseDir, filename);
+        if (fileMap.has(fileName)){
+          return fileMap.get(fileName)!;
+        }
+
+        try {
+          const contents = fs.readFileSync(fileName, { encoding: "utf8" });
+          fileMap.set(fileName, contents);
+          return contents;
+        } catch (e) {
+          return null;
+        }
+      },
       writeFile(name: string, contents: Uint8Array) {
         const ext = path.extname(name)
         // get the wasm file
