@@ -13,8 +13,8 @@ export declare class TestContext extends TestCollector {
     pass: boolean;
     startupTime: number;
     reporter: TestReporter;
-    stdout: IWritable;
-    stderr: IWritable;
+    stdout: IWritable | null;
+    stderr: IWritable | null;
     private endGroup;
     constructor(props?: ITestContextParameters);
     /**

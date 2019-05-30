@@ -3,8 +3,9 @@ import { TestResult } from "../test/TestResult";
 import { TestContext } from "../test/TestContext";
 import { LogValue } from "../util/LogValue";
 import { TestReporter } from "../test/TestReporter";
+import { IWritable } from "./IWriteable";
 export declare class DefaultTestReporter extends TestReporter {
-    protected suite: TestContext | null;
+    protected stdout: IWritable | null;
     onStart(suite: TestContext): void;
     onGroupStart(group: TestGroup): void;
     onGroupFinish(group: TestGroup): void;

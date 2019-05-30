@@ -269,14 +269,20 @@ declare module "test/TestReporter" {
         abstract onTodo(group: TestGroup, todo: string): void;
     }
 }
+declare module "reporter/IWriteable" {
+    export interface IWritable {
+        write(chunk: string): void;
+    }
+}
 declare module "reporter/DefaultTestReporter" {
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
     import { TestContext } from "test/TestContext";
     import { LogValue } from "util/LogValue";
     import { TestReporter } from "test/TestReporter";
+    import { IWritable } from "reporter/IWriteable";
     export class DefaultTestReporter extends TestReporter {
-        protected suite: TestContext | null;
+        protected stdout: IWritable | null;
         onStart(suite: TestContext): void;
         onGroupStart(group: TestGroup): void;
         onGroupFinish(group: TestGroup): void;
@@ -675,11 +681,6 @@ declare module "test/TestCollector" {
         private getLogStackTrace;
     }
 }
-declare module "reporter/IWriteable" {
-    export interface IWritable {
-        write(chunk: string): void;
-    }
-}
 declare module "test/TestContext" {
     import { ASUtil } from "assemblyscript/lib/loader";
     import { TestReporter } from "test/TestReporter";
@@ -696,8 +697,8 @@ declare module "test/TestContext" {
         pass: boolean;
         startupTime: number;
         reporter: TestReporter;
-        stdout: IWritable;
-        stderr: IWritable;
+        stdout: IWritable | null;
+        stderr: IWritable | null;
         private endGroup;
         constructor(props?: ITestContextParameters);
         /**

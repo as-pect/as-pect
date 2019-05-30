@@ -22,7 +22,9 @@ export class TestContext extends TestCollector {
   public startupTime: number = 0;
   public reporter: TestReporter = new DefaultTestReporter();
 
+  /* istanbul ignore next */
   public stdout: IWritable | null = process ? process.stdout : null;
+  /* istanbul ignore next */
   public stderr: IWritable | null = process.stderr ? process.stderr : null;
 
   private endGroup: boolean = false;
