@@ -7,9 +7,12 @@ import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
 import { IAspectExports } from "../util/IAspectExports";
 import { TestCollector, ITestCollectorParameters } from "./TestCollector";
+import { IWritable } from "../reporter/IWriteable";
 
 export interface ITestContextParameters extends ITestCollectorParameters {
   reporter?: TestReporter;
+  stdout?: IWritable;
+  stderr?: IWritable;
 }
 
 export class TestContext extends TestCollector {
@@ -19,6 +22,9 @@ export class TestContext extends TestCollector {
   public startupTime: number = 0;
   public reporter: TestReporter = new DefaultTestReporter();
 
+  public stdout: IWritable = process.stdout;
+  public stderr: IWritable = process.stderr;
+
   private endGroup: boolean = false;
 
   constructor(props?: ITestContextParameters) {
@@ -27,6 +33,11 @@ export class TestContext extends TestCollector {
     if (props) {
       /* istanbul ignore next */
       if (props.reporter) this.reporter = props.reporter;
+      /* istanbul ignore next */
+      if (props.stdout) this.stdout = props.stdout;
+      /* istanbul ignore next */
+      if (props.stderr) this.stderr = props.stderr;
+
     }
   }
 
