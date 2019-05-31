@@ -1,12 +1,6 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedTruthy")
-declare function reportExpectedTruthy(negated: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "clearExpected")
-declare function clearExpected(): void;
-
 import { reportActual } from "../report/reportActual";
+import { clearExpected } from "../report/clearExpected";
+import { reportExpectedTruthy } from "../report/reportExpectedTruthy";
 
 export function truthyComparison<T>(actual: T, negated: i32, message: string): void {
   reportActual<T>(actual);

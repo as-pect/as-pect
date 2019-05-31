@@ -1,22 +1,8 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedNull")
-declare function reportExpectedNull(negated: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedValue")
-declare function reportExpectedFloat(value: f64, negated: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedValue")
-declare function reportExpectedInteger(value: i32, negated: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedReference")
-declare function reportExpectedReference(value: usize, offset: i32, negated: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedString")
-declare function reportExpectedString(value: string, negated: i32): void;
+import { reportExpectedString } from "./reportExpectedString";
+import { reportExpectedReference } from "./reportExpectedReference";
+import { reportExpectedInteger } from "./reportExpectedInteger";
+import { reportExpectedFloat } from "./reportExpectedFloat";
+import { reportExpectedNull } from "./reportExpectedNull";
 
 /**
  * This function performs reporting to javascript what the expected value of this expectation is.

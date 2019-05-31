@@ -1,22 +1,8 @@
-// @ts-ignore: decorators *are* valid here
-@external("__aspect", "logString")
-declare function logString(value: string): void;
-
-// @ts-ignore: decorators *are* valid here
-@external("__aspect", "logReference")
-declare function logReference(value: usize, offset: i32): void;
-
-// @ts-ignore: decorators *are* valid here
-@external("__aspect", "logValue")
-declare function logFloat(value: f64): void;
-
-// @ts-ignore: decorators *are* valid here
-@external("__aspect", "logValue")
-declare function logInteger(value: i32): void;
-
-// @ts-ignore: decorators *are* valid here
-@external("__aspect", "logNull")
-declare function logNull(): void;
+import { logNull } from "./logNull";
+import { logInteger } from "./logInteger";
+import { logString } from "./logString";
+import { logReference } from "./logReference";
+import { logFloat } from "./logFloat";
 
 // @ts-ignore: decorators *are* valid here
 @global

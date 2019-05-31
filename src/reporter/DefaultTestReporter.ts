@@ -196,7 +196,6 @@ ${"~".repeat(process.stdout.columns! - 10)}
   [Groups]: {green ${suite.testGroups.filter(e => e.pass).length.toString()} pass}, ${suite.testGroups.length.toString()} total
   [Result]: ${result}
  [Summary]: {green ${successCount.toString()} pass},  ${fail}, ${count.toString()} total
- [Startup]: ${suite.startupTime.toString()}ms
     [Time]: ${suite.time.toString()}ms
 `);
 

@@ -1,9 +1,6 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "clearExpected")
-declare function clearExpected(): void;
-
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
+import { clearExpected } from "../report/clearExpected";
 
 // @ts-ignore: Decorators *are* valid here!
 @inline
@@ -33,6 +30,6 @@ export function closeToComparison<T>(actual: T, expected: T, negated: i32, decim
     var isClose: bool = abs<T>(expected - actual) < Math.pow(0.1, decimalPlaces);
 
     assert(negated ^ i32(isClose), message);
-    clearExpected()
+    clearExpected();
   }
 }

@@ -1,9 +1,6 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "clearExpected")
-declare function clearExpected(): void;
-
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
+import { clearExpected } from "../report/clearExpected";
 
 /**
  * This method performs a greaterThanOrEqualTo comparison between two values.

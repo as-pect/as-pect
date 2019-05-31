@@ -36,7 +36,6 @@ export class CSVTestReporter extends TestReporter {
   public onTestFinish(group: TestGroup, result: TestResult) {
     this.output!.write([
       group.name,
-      result.ran ? "RAN" : "NOT RUN",
       result.name,
       result.pass ? "PASS" : "FAIL",
       result.runTime.toString(),

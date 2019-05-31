@@ -6,10 +6,6 @@ import { TestResult } from "./TestResult";
  * represented by an array.
  */
 export declare class TestGroup implements ILogTarget {
-    beforeEachPointers: number[];
-    afterEachPointers: number[];
-    beforeAllPointers: number[];
-    afterAllPointers: number[];
     tests: TestResult[];
     todos: string[];
     logs: LogValue[];
@@ -17,19 +13,7 @@ export declare class TestGroup implements ILogTarget {
     pass: boolean;
     reason: string;
     time: number;
-    willRun: boolean;
-    performanceEnabled: Array<boolean | undefined>;
-    maxSamples: Array<number | undefined>;
-    roundDecimalPlaces: Array<number | undefined>;
-    maxTestRuntime: Array<number | undefined>;
-    reportAverage: Array<boolean | undefined>;
-    reportMedian: Array<boolean | undefined>;
-    reportStandardDeviation: Array<boolean | undefined>;
-    reportMax: Array<boolean | undefined>;
-    reportMin: Array<boolean | undefined>;
-    reportVariance: Array<boolean | undefined>;
     start: number;
     end: number;
-    fork(): TestGroup;
 }
 //# sourceMappingURL=TestGroup.d.ts.map

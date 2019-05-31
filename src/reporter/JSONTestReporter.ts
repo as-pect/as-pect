@@ -38,7 +38,6 @@ export class JSONTestReporter extends TestReporter {
       (this.first ? "\n" : ",\n") + JSON.stringify({
         group: group.name,
         name: result.name,
-        ran: result.ran,
         pass: result.pass,
         runtime: result.runTime,
         message: result.message,

@@ -1,18 +1,10 @@
+import { reportActualString } from "../report/reportActualString";
+import { reportExpectedString } from "../report/reportExpectedString";
+import { clearExpected } from "../report/clearExpected";
+
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "tryCall")
 declare function tryCall(func: () => void): bool;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "clearExpected")
-declare function clearExpected(): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportActualString")
-declare function reportActualString(value: string): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedString")
-declare function reportExpectedString(value: string, negated: i32): void;
 
 /**
  * This method is responsible for actually calling a provided function and asserting if it throws or

@@ -1,7 +1,7 @@
 import { describe } from "./internal/test/Describe";
 import { expect, Expectation } from "./internal/test/Expectation";
 import { test, it, afterAll, afterEach, beforeAll, beforeEach, todo } from "./internal/test/Test";
-import { log } from "./internal/log";
+import { log } from "./internal/log/log";
 import {
   performanceEnabled,
   maxSamples,
@@ -45,6 +45,6 @@ export { __call } from "./internal/call";
 
 // @ts-ignore: Decorators *are* valid here
 
-export function __main(): void {
+export function __run(): void {
   //todo: run all the tests
 }

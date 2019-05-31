@@ -4,6 +4,8 @@ import { IPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 import { EmptyReporter } from "../reporter/EmptyReporter";
 import { ASUtil } from "assemblyscript/lib/loader";
 import { IAspectExports } from "../util/IAspectExports";
+import { TestGroup } from "./TestGroup";
+import { IWarning } from "./IWarning";
 
 export interface ITestContextParameters {
   reporter?: TestReporter;
@@ -21,6 +23,10 @@ export class TestContext {
   private wasm: (ASUtil & IAspectExports) | null = null;
   public reporter: TestReporter = new EmptyReporter();
 
+  public time: number = 0;
+  public pass: boolean = true;
+
+  public errors: IWarning[] = [];
   // stdout emulation
   public stdoutChunks: string[] = [];
   public stdout: IWritable = typeof process !== "undefined"
@@ -42,6 +48,8 @@ export class TestContext {
   public groupRegex: RegExp = new RegExp("");
   public fileName: string = "";
 
+  public testGroups: TestGroup[] = [];
+
   constructor(props: ITestContextParameters) {
     /* istanbul ignore next */
     if (props) {
@@ -62,7 +70,30 @@ export class TestContext {
     }
   }
 
-  run(wasm: ASUtil & IAspectExports) {
+  /**
+   * This method creates a WebAssembly imports object with all the TestContext functions
+   * bound to the TestContext.
+   *
+   * @param {any[]} imports - Every import item specified.
+   */
+  public createImports(...imports: any[]): any {
+    const result = Object.assign({}, ...imports, {
+      __aspect: {
+        tryCall: this.tryCall.bind(this),
+      },
+    });
+    result.env = result.env || {};
+    const previousAbort = (result.env.abort) || (() => {});
+    result.env.abort = (...args: any[]) => {
+      previousAbort(...args);
+      // @ts-ignore
+      this.abort(...args);
+    };
+    return result;
+  }
+
+
+  public run(wasm: ASUtil & IAspectExports) {
     this.wasm = wasm;
     // setup performance values
     if (this.performanceConfiguration) {
@@ -98,5 +129,23 @@ export class TestContext {
       }
     }
     wasm.__run();
+  }
+  /**
+   * This is a web assembly utility function that wraps a function call in a try catch block to
+   * report success or failure.
+   *
+   * @param {number} pointer - The function pointer to call. It must accept no parameters and return
+   * void.
+   * @returns {1 | 0} - If the callback was run successfully without error, it returns 1, else it
+   * returns 0.
+   */
+  private tryCall(pointer: number): 1 | 0 {
+    if (pointer === -1) return 1;
+    try {
+      this.wasm!.__call(pointer)
+    } catch (ex){
+      return 0;
+    }
+    return 1;
   }
 }

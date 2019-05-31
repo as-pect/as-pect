@@ -1,20 +1,8 @@
 import { exactComparison } from "./exactComparison";
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportActualNull")
-declare function reportActualNull(): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedNull")
-declare function reportExpectedNull(negated: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportActualReference")
-declare function reportActualReference(value: usize, offset: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedReference")
-declare function reportExpectedReference(value: usize, offset: i32, negated: i32): void;
+import { reportExpectedNull } from "../report/reportExpectedNull";
+import { reportExpectedReference } from "../report/reportExpectedReference";
+import { reportActualNull } from "../report/reportActualNull";
+import { reportActualReference } from "../report/reportActualReference";
 
 // @ts-ignore inline is valid here in AssemblyScript
 @inline

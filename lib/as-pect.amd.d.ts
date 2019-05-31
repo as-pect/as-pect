@@ -7,35 +7,6 @@ declare module "test/IWarning" {
         stackTrace: string;
     }
 }
-declare module "util/IPerformanceConfiguration" {
-    /**
-     * This is the interface for performance configuration provided to the TestContext object, before
-     * tests are run.
-     */
-    export interface IPerformanceConfiguration {
-        /** Enable performance statistics gathering. */
-        enabled?: boolean;
-        /** Set the minimum number of samples to run for each test in milliseconds. */
-        maxSamples?: number;
-        /** Set the maximum test run time in milliseconds. */
-        maxTestRunTime?: number;
-        /** Report the median time in the default reporter. */
-        reportMedian?: boolean;
-        /** Report the average time in milliseconds. */
-        reportAverage?: boolean;
-        /** Report the standard deviation. */
-        reportStandardDeviation?: boolean;
-        /** Report the maximum run time in milliseconds. */
-        reportMax?: boolean;
-        /** Report the minimum run time in milliseconds. */
-        reportMin?: boolean;
-        /** Report the variance. */
-        reportVariance?: boolean;
-        /** Set the number of decimal places to round to. */
-        roundDecimalPlaces?: number;
-    }
-    export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
-}
 declare module "reporter/IWriteable" {
     export interface IWritable {
         write(chunk: string): void;
@@ -44,9 +15,7 @@ declare module "reporter/IWriteable" {
 declare module "util/ILogTarget" {
     import { LogValue } from "util/LogValue";
     export interface ILogTarget {
-        message: string;
         logs: LogValue[];
-        stack: string;
     }
 }
 declare module "util/LogValue" {
@@ -117,14 +86,10 @@ declare module "test/TestResult" {
      * in the `AssemblyScript` module.
      */
     export class TestResult implements ILogTarget {
-        /** This is the test function pointer. */
-        functionPointer: number;
         /** The actual test's name or description. */
         name: string;
         /** The indicator to see if the test passed. */
         pass: boolean;
-        /** The indicated to see if a test actually ran. */
-        ran: boolean;
         /** The time in milliseconds indicating how long the test ran for each run. */
         times: number[];
         /** The reported actual value description. */
@@ -147,38 +112,26 @@ declare module "test/TestResult" {
         maxRuntime: number;
         /** The number of decimal places used for rounding. */
         decimalPlaces: number;
-        /** This value indicates if an average should be calculated */
-        calculateAverageValue: boolean;
         /** This value indicates if an average was calculated. */
         hasAverage: boolean;
         /** This is the average (mean) value. */
         average: number;
-        /** This value indicates if a max value should be calculated. */
-        calculateMaxValue: boolean;
         /** This value indicates if a max was calculated. */
         hasMax: boolean;
         /** This is the max time. */
         max: number;
-        /** This value indicates if a median value should be calculated. */
-        calculateMedianValue: boolean;
         /** This value indicates if a median value was calculated. */
         hasMedian: boolean;
         /** This is the calculated median time. */
         median: number;
-        /** This value indicated if a min value should be calculated. */
-        calculateMinValue: boolean;
-        /** This value indicates if a min value was calculated. */
+        /** This value indicated if a min value was calculated. */
         hasMin: boolean;
-        /** This is the calculated min time. */
+        /** This calculated minimum value of the times collected.. */
         min: number;
-        /** This value indicates if a standard deviation value should be calculated. */
-        calculateStandardDeviationValue: boolean;
         /** This value indicates if a standard deviation value was calculated. */
         hasStdDev: boolean;
-        /** This is the calculated standard deviation of the times collected. */
+        /** The calculated standard deviation of the times collected. */
         stdDev: number;
-        /** This value indicates if the variance should be calculated. */
-        calculateVarianceValue: boolean;
         /** A boolean indicating if the variance was calcluated. */
         hasVariance: boolean;
         /** The raw variance calculation before rounding was applied. */
@@ -226,10 +179,6 @@ declare module "test/TestGroup" {
      * represented by an array.
      */
     export class TestGroup implements ILogTarget {
-        beforeEachPointers: number[];
-        afterEachPointers: number[];
-        beforeAllPointers: number[];
-        afterAllPointers: number[];
         tests: TestResult[];
         todos: string[];
         logs: LogValue[];
@@ -237,20 +186,8 @@ declare module "test/TestGroup" {
         pass: boolean;
         reason: string;
         time: number;
-        willRun: boolean;
-        performanceEnabled: Array<boolean | undefined>;
-        maxSamples: Array<number | undefined>;
-        roundDecimalPlaces: Array<number | undefined>;
-        maxTestRuntime: Array<number | undefined>;
-        reportAverage: Array<boolean | undefined>;
-        reportMedian: Array<boolean | undefined>;
-        reportStandardDeviation: Array<boolean | undefined>;
-        reportMax: Array<boolean | undefined>;
-        reportMin: Array<boolean | undefined>;
-        reportVariance: Array<boolean | undefined>;
         start: number;
         end: number;
-        fork(): TestGroup;
     }
 }
 declare module "test/TestReporter" {
@@ -305,6 +242,35 @@ declare module "test/TestReporter" {
         abstract onTodo(group: TestGroup, todo: string): void;
     }
 }
+declare module "util/IPerformanceConfiguration" {
+    /**
+     * This is the interface for performance configuration provided to the TestContext object, before
+     * tests are run.
+     */
+    export interface IPerformanceConfiguration {
+        /** Enable performance statistics gathering. */
+        enabled?: boolean;
+        /** Set the minimum number of samples to run for each test in milliseconds. */
+        maxSamples?: number;
+        /** Set the maximum test run time in milliseconds. */
+        maxTestRunTime?: number;
+        /** Report the median time in the default reporter. */
+        reportMedian?: boolean;
+        /** Report the average time in milliseconds. */
+        reportAverage?: boolean;
+        /** Report the standard deviation. */
+        reportStandardDeviation?: boolean;
+        /** Report the maximum run time in milliseconds. */
+        reportMax?: boolean;
+        /** Report the minimum run time in milliseconds. */
+        reportMin?: boolean;
+        /** Report the variance. */
+        reportVariance?: boolean;
+        /** Set the number of decimal places to round to. */
+        roundDecimalPlaces?: number;
+    }
+    export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
+}
 declare module "reporter/EmptyReporter" {
     import { TestReporter } from "test/TestReporter";
     export class EmptyReporter extends TestReporter {
@@ -320,15 +286,27 @@ declare module "reporter/EmptyReporter" {
 declare module "util/IAspectExports" {
     export interface IAspectExports {
         __call(pointer: number): void;
-        __main(): void;
+        __run(): void;
+        __set_performanceEnabled(value: 1 | 0): void;
+        __set_maxSamples(value: number): void;
+        __set_maxTestRunTime(value: number): void;
+        __set_roundDecimalPlaces(value: number): void;
+        __set_recordAverage(value: 1 | 0): void;
+        __set_recordMedian(value: 1 | 0): void;
+        __set_recordStdDev(value: 1 | 0): void;
+        __set_recordMax(value: 1 | 0): void;
+        __set_recordMin(value: 1 | 0): void;
+        __set_recordVar(value: 1 | 0): void;
     }
 }
 declare module "test/TestContext" {
-    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
     import { IWritable } from "reporter/IWriteable";
     import { TestReporter } from "test/TestReporter";
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
     import { ASUtil } from "assemblyscript/lib/loader";
     import { IAspectExports } from "util/IAspectExports";
+    import { TestGroup } from "test/TestGroup";
+    import { IWarning } from "test/IWarning";
     export interface ITestContextParameters {
         reporter?: TestReporter;
         stdout?: IWritable;
@@ -339,18 +317,21 @@ declare module "test/TestContext" {
         fileName?: string;
     }
     export class TestContext {
-        private reporter;
-        stdout: IWritable | null;
-        stderr: IWritable | null;
-        private performanceConfiguration;
+        private wasm;
+        reporter: TestReporter;
+        time: number;
+        pass: boolean;
+        errors: IWarning[];
+        stdoutChunks: string[];
+        stdout: IWritable;
+        stderrChunks: string[];
+        stderr: IWritable;
+        performanceConfiguration: IPerformanceConfiguration | null;
         testRegex: RegExp;
         groupRegex: RegExp;
         fileName: string;
-        wasm: (ASUtil & IAspectExports) | null;
-        private actual;
-        private expected;
-        private logTarget;
-        constructor(props?: ITestContextParameters);
+        testGroups: TestGroup[];
+        constructor(props: ITestContextParameters);
         /**
          * This method creates a WebAssembly imports object with all the TestContext functions
          * bound to the TestContext.
@@ -358,98 +339,7 @@ declare module "test/TestContext" {
          * @param {any[]} imports - Every import item specified.
          */
         createImports(...imports: any[]): any;
-        /**
-         * This function reports an actual null value.
-         */
-        private reportActualNull;
-        /**
-         * This function reports an expected null value.
-         *
-         * @param {1 | 0} negated - An indicator if the expectation is negated.
-         */
-        private reportExpectedNull;
-        /**
-         * This function reports an actual numeric value.
-         *
-         * @param {number} numericValue - The value to be expected.
-         */
-        private reportActualValue;
-        /**
-         * This function reports an expected numeric value.
-         *
-         * @param {number} numericValue - The value to be expected
-         * @param {1 | 0} negated - An indicator if the expectation is negated.
-         */
-        private reportExpectedValue;
-        /**
-         * This function reports an actual reference value.
-         *
-         * @param {number} referencePointer - The actual reference pointer.
-         * @param {number} offset - The size of the reference in bytes.
-         */
-        private reportActualReference;
-        /**
-         * This function reports an expected reference value.
-         *
-         * @param {number} referencePointer - The expected reference pointer.
-         * @param {number} offset - The size of the reference in bytes.
-         * @param {1 | 0} negated - An indicator if the expectation is negated.
-         */
-        private reportExpectedReference;
-        /**
-         * This function reports an expected truthy value.
-         *
-         * @param {1 | 0} negated - An indicator if the expectation is negated.
-         */
-        private reportExpectedTruthy;
-        /**
-         * This function reports an expected falsy value.
-         *
-         * @param {1 | 0} negated - An indicator if the expectation is negated.
-         */
-        private reportExpectedFalsy;
-        /**
-         * This function reports an expected finite value.
-         *
-         * @param {1 | 0} negated - An indicator if the expectation is negated.
-         */
-        private reportExpectedFinite;
-        /**
-         * This function reports an actual string value.
-         *
-         * @param {number} stringPointer - A pointer that points to the actual string.
-         */
-        private reportActualString;
-        /**
-         * This function reports an expected string value.
-         *
-         * @param {number} stringPointer - A pointer that points to the expected string.
-         * @param {1 | 0} negated - An indicator if the expectation is negated.
-         */
-        private reportExpectedString;
-        /**
-         * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
-         * reasons.
-         *
-         * @param {number} reasonPointer - This points to the message value that causes the expectation to
-         * fail.
-         * @param {number} _fileNamePointer - The file name that reported the error. (Ignored)
-         * @param {number} _line - The line that reported the error. (Ignored)
-         * @param {number} _col - The column that reported the error. (Ignored)
-         */
-        private abort;
-        /**
-         * Gets a log stack trace.
-         */
-        private getLogStackTrace;
-        /**
-         * Gets an error stack trace.
-         */
-        private getErrorStackTrace;
-        /**
-         * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
-         */
-        private debug;
+        run(wasm: ASUtil & IAspectExports): void;
         /**
          * This is a web assembly utility function that wraps a function call in a try catch block to
          * report success or failure.
@@ -459,35 +349,7 @@ declare module "test/TestContext" {
          * @returns {1 | 0} - If the callback was run successfully without error, it returns 1, else it
          * returns 0.
          */
-        protected tryCall(pointer: number): 1 | 0;
-        /**
-         * Log a null value to the reporter.
-         */
-        private logNull;
-        /**
-         * This function is called after each expectation if the expectation passes. This prevents other
-         * unreachable() conditions that throw errors to report actual and expected values too.
-         */
-        private clearExpected;
-        /**
-         * Log a reference to the reporter.
-         *
-         * @param {number} referencePointer - The pointer to the reference.
-         * @param {number} offset - The offset of the reference.
-         */
-        private logReference;
-        /**
-         * This adds a logged string to the current test.
-         *
-         * @param {number} pointer - The pointer to the logged string reference.
-         */
-        private logString;
-        /**
-         * Log a numevalueric value to the reporter.
-         *
-         * @param {number} value - The value to be logged.
-         */
-        private logValue;
+        private tryCall;
     }
 }
 declare module "reporter/CSVTestReporter" {

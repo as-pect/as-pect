@@ -1,5 +1,6 @@
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
+import { clearExpected } from "../report/clearExpected";
 
 // @ts-ignore decorators *are* valid here
 @inline
@@ -17,4 +18,5 @@ export function toIncludeComparison<T extends Array<U>, U>(actual: T, expected: 
   }
 
   assert(negated ^ i32(includes), message);
+  clearExpected();
 }

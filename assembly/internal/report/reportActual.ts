@@ -1,22 +1,8 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportActualNull")
-declare function reportActualNull(): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportActualValue")
-declare function reportActualFloat(value: f64): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportActualValue")
-declare function reportActualInteger(value: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportActualReference")
-declare function reportActualReference(value: usize, offset: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportActualString")
-declare function reportActualString(value: string): void;
+import { reportActualString } from "./reportActualString";
+import { reportActualNull } from "./reportActualNull";
+import { reportActualReference } from "./reportActualReference";
+import { reportActualInteger } from "./reportActualInteger";
+import { reportActualFloat } from "./reportActualFloat";
 
 /**
  * This function performs reporting to javascript what the actual value of this expectation is.

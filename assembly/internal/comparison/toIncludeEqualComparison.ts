@@ -1,6 +1,7 @@
 import { toIncludeComparison } from "./toIncludeComparison";
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
+import { clearExpected } from "../report/clearExpected";
 
 // @ts-ignore Decorators *are* valid here
 @inline
@@ -34,4 +35,5 @@ export function toIncludeEqualComparison<T extends Array<U>, U>(actual: T, expec
   }
 
   assert(i32(included) ^ negated, message);
+  clearExpected();
 }

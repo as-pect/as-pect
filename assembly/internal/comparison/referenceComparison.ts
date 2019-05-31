@@ -1,10 +1,7 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "clearExpected")
-declare function clearExpected(): void;
-
 import { exactComparison } from "./exactComparison";
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
+import { clearExpected } from "../report/clearExpected";
 
 export function referenceComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
   if (!isReference<T>()) {

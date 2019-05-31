@@ -1,12 +1,6 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedFalsy")
-declare function reportExpectedFalsy(negated: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "clearExpected")
-declare function clearExpected(): void;
-
 import { reportActual } from "../report/reportActual";
+import { reportExpectedFalsy } from "../report/reportExpectedFalsy";
+import { clearExpected } from "../report/clearExpected";
 
 // @ts-ignore: Decorators *are* valid here!
 @inline
