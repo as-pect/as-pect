@@ -16,7 +16,6 @@ import {
 } from "./internal/test/Performance";
 import {
   Collector,
-  collector,
   __set_performanceEnabled,
   __set_maxSamples,
   __set_maxTestRunTime,
@@ -28,6 +27,7 @@ import {
   __set_recordMin,
   __set_recordVar,
 } from "./internal/test/Collector";
+import { TestGroup } from "./internal/test/TestGroup";
 export {
   __set_performanceEnabled,
   __set_maxSamples,
@@ -38,13 +38,22 @@ export {
   __set_recordStdDev,
   __set_recordMax,
   __set_recordMin,
-  __set_recordVar
+  __set_recordVar,
 };
 
 export { __call } from "./internal/call";
 
 // @ts-ignore: Decorators *are* valid here
+@start
+export function __init(): void {}
 
 export function __run(): void {
-  //todo: run all the tests
+  let groups = Collector.groups;
+  if (!groups) return;
+  let length = groups.length;
+  let group: TestGroup;
+  for (let i = 0; i < length; i++) {
+    group = unchecked(groups[i]);
+    group.run();
+  }
 }

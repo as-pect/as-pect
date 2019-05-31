@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "./assembly/__tests__/as-pect.d.ts",
   "scripts": {
-    "test": "run-s tsc asp jest",
+    "test": "run-s tsc asp",
     "test:ci": "run-s asp:ci jest",
     "asp": "node lib/test",
     "asp:ci": "node lib/test --reporter=SummaryTestReporter",
@@ -47,7 +47,7 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "assemblyscript": "github:willemneal/assemblyscript#1a779e29c6b7640bc739f45ddc11a098060f74ac",
+    "assemblyscript": "github:assemblyscript/assemblyscript#b19005f5bb9b0b8b8a44829354c0e90b20f392be",
     "chalk": "^2.4.2",
     "csv-stringify": "^5.3.0",
     "glob": "^7.1.4",

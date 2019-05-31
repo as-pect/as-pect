@@ -24,11 +24,15 @@ export declare class TestContext {
     stdout: IWritable;
     stderrChunks: string[];
     stderr: IWritable;
-    performanceConfiguration: IPerformanceConfiguration | null;
+    performanceConfiguration: IPerformanceConfiguration;
     testRegex: RegExp;
     groupRegex: RegExp;
     fileName: string;
     testGroups: TestGroup[];
+    private currentGroup;
+    private currentTest;
+    private logTarget;
+    startupTime: number;
     constructor(props: ITestContextParameters);
     /**
      * This method creates a WebAssembly imports object with all the TestContext functions
@@ -48,5 +52,55 @@ export declare class TestContext {
      * returns 0.
      */
     private tryCall;
+    /**
+     * This method checks to see if the provided string matches the test regular expression.
+     *
+     * @param {number} descriptionPointer - The pointer to the test's name.
+     * @returns {1 | 0} - The return value is a bool in AssemblyScript.
+     */
+    private testCanRun;
+    /**
+     * This method checks to see if the provided string matches the group regular expression.
+     *
+     * @param {number} descriptionPointer - The pointer to the test's name.
+     * @returns {1 | 0} - The return value is a bool in AssemblyScript.
+     */
+    private groupCanRun;
+    /**
+     * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
+     * reasons.
+     *
+     * @param {number} reasonPointer - This points to the message value that causes the expectation to
+     * fail.
+     * @param {number} _fileNamePointer - The file name that reported the error. (Ignored)
+     * @param {number} _line - The line that reported the error. (Ignored)
+     * @param {number} _col - The column that reported the error. (Ignored)
+     */
+    private abort;
+    /**
+     * Gets an error stack trace.
+     */
+    private getErrorStackTrace;
+    /**
+     * Starts the next group and starts the timer.
+     *
+     * @param {number} descriptionPointer - The pointer to the name of the group.
+     */
+    private groupStart;
+    /**
+     * Reports a todo.
+     *
+     * @param {number} descriptionPointer - A pointer to the todo description.
+     */
+    private reportTodo;
+    /**
+     * This method is linked to web assembly, and will be called when a group has ended. It also
+     * stops the timer and calculated the runtime for the group.
+     */
+    private groupEnd;
+    /**
+     * This linked function returns the current time.
+     */
+    private now;
 }
 //# sourceMappingURL=TestContext.d.ts.map

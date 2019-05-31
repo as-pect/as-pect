@@ -1,7 +1,6 @@
 
 // @ts-ignore
 import asc from "assemblyscript/dist/asc";
-import { parse, Config } from "assemblyscript/cli/util/options";
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
 import { instantiateBuffer } from "assemblyscript/lib/loader";
@@ -21,6 +20,7 @@ import { getTestEntryFiles } from "./util/getTestEntryFiles";
 import { IYargs } from "./util/IYargs";
 import { IAspectExports } from "../util/IAspectExports";
 import { writeFile } from "./util/writeFile";
+const { parse, options } = require("assemblyscript/cli/util/options");
 
 export function run(yargs: IYargs, compilerArgs: string[]): void {
   const start = performance.now();
@@ -52,7 +52,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   const add: string[] = configuration.add || ["assembly/__tests__/**/*.include.ts"];
 
   // parse passed cli compiler arguments and let them override defaults.
-  const {options:ascOptions, unknown} = compilerArgs.length > 0 ? parse(compilerArgs, asc.options as Config) : {options:{}, unknown:[]};
+  const {options:ascOptions, unknown} = compilerArgs.length > 0 ? parse(compilerArgs, options) : {options:{}, unknown:[]};
   if (unknown.length > 0) {
     console.error(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(", ")}]}.`)
     process.exit(1);

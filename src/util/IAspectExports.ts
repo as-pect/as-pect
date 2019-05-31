@@ -1,5 +1,6 @@
 export interface IAspectExports {
   __call(pointer: number): void;
+  __init(): void;
   __run(): void;
   __set_performanceEnabled(value: 1 | 0): void;
   __set_maxSamples(value: number): void;
