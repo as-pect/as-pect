@@ -47,7 +47,7 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "assemblyscript": "github:willemneal/assemblyscript#1a779e29c6b7640bc739f45ddc11a098060f74ac",
+    "assemblyscript": "github:AssemblyScript/assemblyscript#dev",
     "chalk": "^2.4.2",
     "csv-stringify": "^5.3.0",
     "glob": "^7.1.4",
