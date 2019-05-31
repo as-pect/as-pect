@@ -9,14 +9,10 @@ import { PerformanceLimits } from "./PerformanceLimits";
  * in the `AssemblyScript` module.
  */
 export class TestResult implements ILogTarget {
-  /** This is the test function pointer. */
-  public functionPointer: number = -1;
   /** The actual test's name or description. */
   public name: string = "";
   /** The indicator to see if the test passed. */
   public pass: boolean = false;
-  /** The indicated to see if a test actually ran. */
-  public ran: boolean = false;
   /** The time in milliseconds indicating how long the test ran for each run. */
   public times: number[] = [];
   /** The reported actual value description. */
@@ -39,38 +35,26 @@ export class TestResult implements ILogTarget {
   public maxRuntime: number = PerformanceLimits.MaxTestRuntime;
   /** The number of decimal places used for rounding. */
   public decimalPlaces: number = PerformanceLimits.MinimumDecimalPlaces;
-  /** This value indicates if an average should be calculated */
-  public calculateAverageValue: boolean = false;
   /** This value indicates if an average was calculated. */
   public hasAverage: boolean = false;
   /** This is the average (mean) value. */
   public average: number = 0;
-  /** This value indicates if a max value should be calculated. */
-  public calculateMaxValue: boolean = false;
   /** This value indicates if a max was calculated. */
   public hasMax: boolean = false;
   /** This is the max time. */
   public max: number = 0;
-  /** This value indicates if a median value should be calculated. */
-  public calculateMedianValue: boolean = false;
   /** This value indicates if a median value was calculated. */
   public hasMedian: boolean = false;
   /** This is the calculated median time. */
   public median: number = 0;
-  /** This value indicated if a min value should be calculated. */
-  public calculateMinValue: boolean = false;
-  /** This value indicates if a min value was calculated. */
+  /** This value indicated if a min value was calculated. */
   public hasMin: boolean = false;
-  /** This is the calculated min time. */
+  /** This calculated minimum value of the times collected.. */
   public min: number = 0;
-  /** This value indicates if a standard deviation value should be calculated. */
-  public calculateStandardDeviationValue: boolean = false;
   /** This value indicates if a standard deviation value was calculated. */
   public hasStdDev: boolean = false;
-  /** This is the calculated standard deviation of the times collected. */
+  /** The calculated standard deviation of the times collected. */
   public stdDev: number = 0;
-  /** This value indicates if the variance should be calculated. */
-  public calculateVarianceValue: boolean = false;
   /** A boolean indicating if the variance was calcluated. */
   public hasVariance: boolean = false;
   /** The raw variance calculation before rounding was applied. */

@@ -7,10 +7,46 @@ declare module "test/IWarning" {
         stackTrace: string;
     }
 }
+declare module "util/IPerformanceConfiguration" {
+    /**
+     * This is the interface for performance configuration provided to the TestContext object, before
+     * tests are run.
+     */
+    export interface IPerformanceConfiguration {
+        /** Enable performance statistics gathering. */
+        enabled?: boolean;
+        /** Set the minimum number of samples to run for each test in milliseconds. */
+        maxSamples?: number;
+        /** Set the maximum test run time in milliseconds. */
+        maxTestRunTime?: number;
+        /** Report the median time in the default reporter. */
+        reportMedian?: boolean;
+        /** Report the average time in milliseconds. */
+        reportAverage?: boolean;
+        /** Report the standard deviation. */
+        reportStandardDeviation?: boolean;
+        /** Report the maximum run time in milliseconds. */
+        reportMax?: boolean;
+        /** Report the minimum run time in milliseconds. */
+        reportMin?: boolean;
+        /** Report the variance. */
+        reportVariance?: boolean;
+        /** Set the number of decimal places to round to. */
+        roundDecimalPlaces?: number;
+    }
+    export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
+}
+declare module "reporter/IWriteable" {
+    export interface IWritable {
+        write(chunk: string): void;
+    }
+}
 declare module "util/ILogTarget" {
     import { LogValue } from "util/LogValue";
     export interface ILogTarget {
+        message: string;
         logs: LogValue[];
+        stack: string;
     }
 }
 declare module "util/LogValue" {
@@ -269,37 +305,17 @@ declare module "test/TestReporter" {
         abstract onTodo(group: TestGroup, todo: string): void;
     }
 }
-declare module "reporter/IWriteable" {
-    export interface IWritable {
-        write(chunk: string): void;
-    }
-}
-declare module "reporter/DefaultTestReporter" {
-    import { TestGroup } from "test/TestGroup";
-    import { TestResult } from "test/TestResult";
-    import { TestContext } from "test/TestContext";
-    import { LogValue } from "util/LogValue";
+declare module "reporter/EmptyReporter" {
     import { TestReporter } from "test/TestReporter";
-    import { IWritable } from "reporter/IWriteable";
-    export class DefaultTestReporter extends TestReporter {
-        protected stdout: IWritable | null;
-        onStart(suite: TestContext): void;
-        onGroupStart(group: TestGroup): void;
-        onGroupFinish(group: TestGroup): void;
-        onTestStart(_group: TestGroup, _test: TestResult): void;
-        onTestFinish(_group: TestGroup, test: TestResult): void;
-        onFinish(suite: TestContext): void;
-        onTodo(_group: TestGroup, todo: string): void;
-        /**
-         * A custom logger function for the default reporter that writes the log values using `console.log()`
-         *
-         * @param {LogValue} logValue - A value to be logged to the console
-         */
-        onLog(logValue: LogValue): void;
+    export class EmptyReporter extends TestReporter {
+        onFinish(): void;
+        onGroupFinish(): void;
+        onGroupStart(): void;
+        onStart(): void;
+        onTestFinish(): void;
+        onTestStart(): void;
+        onTodo(): void;
     }
-}
-declare module "util/timeDifference" {
-    export const timeDifference: (end: number, start: number) => number;
 }
 declare module "util/IAspectExports" {
     export interface IAspectExports {
@@ -307,93 +323,34 @@ declare module "util/IAspectExports" {
         __main(): void;
     }
 }
-declare module "util/IPerformanceConfiguration" {
-    /**
-     * This is the interface for performance configuration provided to the TestContext object, before
-     * tests are run.
-     */
-    export interface IPerformanceConfiguration {
-        /** Enable performance statistics gathering. */
-        enabled?: boolean;
-        /** Set the minimum number of samples to run for each test in milliseconds. */
-        maxSamples?: number;
-        /** Set the maximum test run time in milliseconds. */
-        maxTestRunTime?: number;
-        /** Report the median time in the default reporter. */
-        reportMedian?: boolean;
-        /** Report the average time in milliseconds. */
-        reportAverage?: boolean;
-        /** Report the standard deviation. */
-        reportStandardDeviation?: boolean;
-        /** Report the maximum run time in milliseconds. */
-        reportMax?: boolean;
-        /** Report the minimum run time in milliseconds. */
-        reportMin?: boolean;
-        /** Report the variance. */
-        reportVariance?: boolean;
-        /** Set the number of decimal places to round to. */
-        roundDecimalPlaces?: number;
-    }
-    export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
-}
-declare module "test/TestCollector" {
+declare module "test/TestContext" {
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    import { IWritable } from "reporter/IWriteable";
+    import { TestReporter } from "test/TestReporter";
     import { ASUtil } from "assemblyscript/lib/loader";
     import { IAspectExports } from "util/IAspectExports";
-    import { ActualValue } from "util/ActualValue";
-    import { TestGroup } from "test/TestGroup";
-    import { ILogTarget } from "util/ILogTarget";
-    import { IWarning } from "test/IWarning";
-    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
-    export interface ITestCollectorParameters {
+    export interface ITestContextParameters {
+        reporter?: TestReporter;
+        stdout?: IWritable;
+        stderr?: IWritable;
         performanceConfiguration?: IPerformanceConfiguration;
         testRegex?: RegExp;
         groupRegex?: RegExp;
         fileName?: string;
     }
-    /**
-     * This class is responsible for collecting all the tests in a test binary.
-     */
-    export class TestCollector {
-        protected wasm: (ASUtil & IAspectExports) | null;
-        private groupStack;
-        testGroups: TestGroup[];
-        protected logTarget: ILogTarget;
-        errors: IWarning[];
-        fileName: string;
-        protected stack: string;
-        protected message: string;
-        protected actual: ActualValue | null;
-        protected expected: ActualValue | null;
-        private performanceEnabledValue;
-        private maxSamplesValue;
-        private maxTestRunTimeValue;
-        private roundDecimalPlacesValue;
-        private recordAverageValue;
-        private recordMedianValue;
-        private recordStdDevValue;
-        private recordMaxValue;
-        private recordMinValue;
-        private recordVariance;
+    export class TestContext {
+        private reporter;
+        stdout: IWritable | null;
+        stderr: IWritable | null;
         private performanceConfiguration;
-        /**
-         * This value is used to detect if an `expect()` function call was used outside of a test
-         * function. If a reportExpected or reportActual function is called before the `context.run()`
-         * method is called, it should prevent the `run()` method from running the tests and report a
-         * failure.
-         */
-        protected ready: boolean;
-        /**
-         * These are the test and group filters for the binary. They must be provided before collection
-         * begins.
-         */
-        protected testRegex: RegExp;
-        protected groupRegex: RegExp;
-        constructor(props?: ITestCollectorParameters);
-        /**
-         * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
-         * process of test collection.
-         */
-        protected collectTests(): void;
+        testRegex: RegExp;
+        groupRegex: RegExp;
+        fileName: string;
+        wasm: (ASUtil & IAspectExports) | null;
+        private actual;
+        private expected;
+        private logTarget;
+        constructor(props?: ITestContextParameters);
         /**
          * This method creates a WebAssembly imports object with all the TestContext functions
          * bound to the TestContext.
@@ -401,117 +358,6 @@ declare module "test/TestCollector" {
          * @param {any[]} imports - Every import item specified.
          */
         createImports(...imports: any[]): any;
-        /**
-         * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
-         */
-        private debug;
-        /**
-         * This is a web assembly utility function that wraps a function call in a try catch block to
-         * report success or failure.
-         *
-         * @param {number} pointer - The function pointer to call. It must accept no parameters and return
-         * void.
-         * @returns {1 | 0} - If the callback was run successfully without error, it returns 1, else it
-         * returns 0.
-         */
-        protected tryCall(pointer: number): 1 | 0;
-        /**
-         * Log a null value to the reporter.
-         */
-        private logNull;
-        /**
-         * This function is called after each expectation if the expectation passes. This prevents other
-         * unreachable() conditions that throw errors to report actual and expected values too.
-         */
-        private clearExpected;
-        /**
-         * Log a reference to the reporter.
-         *
-         * @param {number} referencePointer - The pointer to the reference.
-         * @param {number} offset - The offset of the reference.
-         */
-        private logReference;
-        /**
-         * This adds a logged string to the current test.
-         *
-         * @param {number} pointer - The pointer to the logged string reference.
-         */
-        private logString;
-        /**
-         * Log a numevalueric value to the reporter.
-         *
-         * @param {number} value - The value to be logged.
-         */
-        private logValue;
-        /**
-         * This web assembly linked function creates a test group. It's called when the test suite calls
-         * the describe("test", callback) function from within AssemblyScript. It receives a pointer to
-         * the description of the tests, forks the top level test group, pushes the suiteName to a list,
-         * then pushes the forked group to the top of the test context stack.
-         *
-         * @param {number} suiteNamePointer
-         */
-        private reportDescribe;
-        /**
-         * This web assembly linked function finishes a test group. It's called when the test suite calls
-         * the describe("test", callback) function from within AssemblyScript. It pops the current
-         * test group from the test context stack and pushes it to the final test group list.
-         */
-        private reportEndDescribe;
-        /**
-         * This web assembly linked function sets the group's "beforeEach" callback pointer to
-         * the current groupStackItem.
-         *
-         * @param {number} callbackPointer - The callback that should run before each test.
-         */
-        private reportBeforeEach;
-        /**
-         * This web assembly linked function adds the group's "beforeAll" callback pointer to
-         * the current groupStackItem.
-         *
-         * @param {number} callbackPointer - The callback that should run before each test in the
-         * current context.
-         */
-        private reportBeforeAll;
-        /**
-         * This web assembly linked function sets the group's "afterEach" callback pointer.
-         *
-         * @param {number} callbackPointer - The callback that should run before each test group.
-         */
-        private reportAfterEach;
-        /**
-         * This web assembly linked function adds the group's "afterAll" callback pointer to
-         * the current groupStackItem.
-         *
-         * @param {number} callbackPointer - The callback that should run before each test in the
-         * current context.
-         */
-        private reportAfterAll;
-        /**
-         * This web assembly linked function creates a test from the callback and the testNamePointer in
-         * the current group. It assumes that the group has already been created with the describe
-         * function. It is called when `it("description", callback)` or `test("description", callback)`
-         * is called.
-         *
-         * @param {number} testNamePointer - The test's name pointer.
-         * @param {number} callback - The test's function.
-         */
-        private reportTest;
-        /**
-         * This web assembly linked function is responsible for reporting tests that are expected
-         * to fail. This is useful for verifying that specific application states will throw.
-         *
-         * @param {number} testNamePointer - The test's name pointer.
-         * @param {number} callback - The test's function.
-         * @param {number} message - The message associated with this test if it does not throw.
-         */
-        private reportNegatedTest;
-        /**
-         * This function reports a single "todo" item in a test suite.
-         *
-         * @param {number} todoPointer - The todo description string pointer.
-         */
-        private reportTodo;
         /**
          * This function reports an actual null value.
          */
@@ -593,166 +439,55 @@ declare module "test/TestCollector" {
          */
         private abort;
         /**
-         * This web assembly linked function modifies the state machine to enable
-         * performance for the following test.
-         *
-         * @param {1 | 0} value - A value indicating if performance should be enabled.
+         * Gets a log stack trace.
          */
-        private performanceEnabled;
-        /**
-         * This web assembly linked function modifies the state machine to set the maximum number of
-         * samples for the following test.
-         *
-         * @param {number} value - The maximum number of samples to collect for the following test.
-         */
-        private maxSamples;
-        /**
-         * This web assembly linked function modifies the state machine to set the maximum amount of
-         * time to run the following test in milliseconds
-         *
-         * @param {number} value - The maximum number of milliseconds to run the following test.
-         */
-        private maxTestRunTime;
-        /**
-         * This web assembly linked function modifies the state machine to set the number of decimal places
-         * to round all the statistics to.
-         *
-         * @param {number} value - The number of decimal places to round to.
-         */
-        private roundDecimalPlaces;
-        /**
-         * This web assembly linked function modifies the state machine to cause the next test to report
-         * an average run time.
-         *
-         * @param {1 | 0} value - A boolean indicating if the average should be reported.
-         */
-        private reportAverage;
-        /**
-         * This web assembly linked function modifies the state machine to cause the next test to report
-         * an median run time.
-         *
-         * @param {1 | 0} value - A boolean indicating if the median should be reported.
-         */
-        private reportMedian;
-        /**
-         * This web assembly linked function modifies the state machine to cause the next test to report
-         * a standard deviation calculation on the run times.
-         *
-         * @param {1 | 0} value - A boolean indicating if the standard deviation should be reported.
-         */
-        private reportStdDev;
-        /**
-         * This web assembly linked function modifies the state machine to cause the next test to report
-         * the maximum run time for this test.
-         *
-         * @param {1 | 0} value - A boolean indicating if the max should be reported.
-         */
-        private reportMax;
-        /**
-         * This web assembly linked function modifies the state machine to cause the next test to report
-         * the minimum run time for this test.
-         *
-         * @param {1 | 0} value - A boolean indicating if the min should be reported.
-         */
-        private reportMin;
-        /**
-         * This web assembly linked function modifies the state machine to cause the next test to report
-         * the variance of the run times for this test.
-         *
-         * @param {1 | 0} value - A boolean indicating if the min should be reported.
-         */
-        private reportVariance;
-        /**
-         * This method reports to the TestContext that an expect function call was used outside of the
-         * intended test functions.
-         */
-        private reportInvalidExpectCall;
+        private getLogStackTrace;
         /**
          * Gets an error stack trace.
          */
         private getErrorStackTrace;
         /**
-         * Reset all the performance values to the configured values.
+         * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
          */
-        private resetPerformanceValues;
+        private debug;
         /**
-         * Gets a log stack trace.
-         */
-        private getLogStackTrace;
-    }
-}
-declare module "test/TestContext" {
-    import { ASUtil } from "assemblyscript/lib/loader";
-    import { TestReporter } from "test/TestReporter";
-    import { IAspectExports } from "util/IAspectExports";
-    import { TestCollector, ITestCollectorParameters } from "test/TestCollector";
-    import { IWritable } from "reporter/IWriteable";
-    export interface ITestContextParameters extends ITestCollectorParameters {
-        reporter?: TestReporter;
-        stdout?: IWritable;
-        stderr?: IWritable;
-    }
-    export class TestContext extends TestCollector {
-        time: number;
-        pass: boolean;
-        startupTime: number;
-        reporter: TestReporter;
-        stdout: IWritable | null;
-        stderr: IWritable | null;
-        private endGroup;
-        constructor(props?: ITestContextParameters);
-        /**
-         * Run the tests on the wasm module.
-         */
-        run(wasm: ASUtil & IAspectExports): void;
-        private runGroup;
-        /**
-         * Run a given test.
+         * This is a web assembly utility function that wraps a function call in a try catch block to
+         * report success or failure.
          *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current run group.
-         * @param {number} testIndex - The current test index.
+         * @param {number} pointer - The function pointer to call. It must accept no parameters and return
+         * void.
+         * @returns {1 | 0} - If the callback was run successfully without error, it returns 1, else it
+         * returns 0.
          */
-        private runTest;
+        protected tryCall(pointer: number): 1 | 0;
         /**
-         * Run the current test once and collect statistics.
-         *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
-         * @param {TestResult} result - The current test result.
-         * @param {number} testIndex - The current test index.
+         * Log a null value to the reporter.
          */
-        private runTestCall;
+        private logNull;
         /**
-         * Run the afterEach callbacks before running the test.
-         *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
-         * @param {TestResult} result - The current test result.
+         * This function is called after each expectation if the expectation passes. This prevents other
+         * unreachable() conditions that throw errors to report actual and expected values too.
          */
-        private runAfterEach;
+        private clearExpected;
         /**
-         * Run the beforeEach callbacks before running the test.
+         * Log a reference to the reporter.
          *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
-         * @param {TestResult} result - The current test result.
+         * @param {number} referencePointer - The pointer to the reference.
+         * @param {number} offset - The offset of the reference.
          */
-        private runBeforeEach;
+        private logReference;
         /**
-         * Run the afterAll callbacks with the given runContext and group.
+         * This adds a logged string to the current test.
          *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
+         * @param {number} pointer - The pointer to the logged string reference.
          */
-        private runAfterAll;
+        private logString;
         /**
-         * Run the beforeAll callbacks with the given runContext and group.
+         * Log a numevalueric value to the reporter.
          *
-         * @param {RunContext} runContext - The current run context.
-         * @param {TestGroup} group - The current test group.
+         * @param {number} value - The value to be logged.
          */
-        private runBeforeAll;
+        private logValue;
     }
 }
 declare module "reporter/CSVTestReporter" {
@@ -774,16 +509,28 @@ declare module "reporter/CSVTestReporter" {
         onTodo(group: TestGroup, desc: string): void;
     }
 }
-declare module "reporter/EmptyReporter" {
+declare module "reporter/DefaultTestReporter" {
+    import { TestGroup } from "test/TestGroup";
+    import { TestResult } from "test/TestResult";
+    import { TestContext } from "test/TestContext";
+    import { LogValue } from "util/LogValue";
     import { TestReporter } from "test/TestReporter";
-    export class EmptyReporter extends TestReporter {
-        onFinish(): void;
-        onGroupFinish(): void;
-        onGroupStart(): void;
-        onStart(): void;
-        onTestFinish(): void;
-        onTestStart(): void;
-        onTodo(): void;
+    import { IWritable } from "reporter/IWriteable";
+    export class DefaultTestReporter extends TestReporter {
+        protected stdout: IWritable | null;
+        onStart(suite: TestContext): void;
+        onGroupStart(group: TestGroup): void;
+        onGroupFinish(group: TestGroup): void;
+        onTestStart(_group: TestGroup, _test: TestResult): void;
+        onTestFinish(_group: TestGroup, test: TestResult): void;
+        onFinish(suite: TestContext): void;
+        onTodo(_group: TestGroup, todo: string): void;
+        /**
+         * A custom logger function for the default reporter that writes the log values using `console.log()`
+         *
+         * @param {LogValue} logValue - A value to be logged to the console
+         */
+        onLog(logValue: LogValue): void;
     }
 }
 declare module "reporter/JSONTestReporter" {
@@ -877,6 +624,9 @@ declare module "cli/init" {
 }
 declare module "cli/help" {
     export function help(): void;
+}
+declare module "util/timeDifference" {
+    export const timeDifference: (end: number, start: number) => number;
 }
 declare module "cli/util/IYargs" {
     import yargsparser from "yargs-parser";
