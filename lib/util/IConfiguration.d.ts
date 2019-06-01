@@ -9,7 +9,7 @@ export interface IConfiguration {
      */
     include?: string[];
     /**
-     * A set of globs passed to the glob package that quality files to be added to each test.
+     * A set of globs passed to the glob package that qualify files to be added to each test.
      */
     add?: string[];
     /**
@@ -22,7 +22,7 @@ export interface IConfiguration {
      */
     disclude?: RegExp[];
     /**
-     * If the test module requires a set of imports to be loaded, it can be set here.
+     * If the test module requires a set of imports to be loaded, they can be set here.
      */
     imports?: any;
     /**
