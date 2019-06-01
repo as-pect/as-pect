@@ -1,14 +1,42 @@
-// @ts-ignore: Decorators *are* valid here
-@external("__aspect", "testFail")
-declare function testFail(): void
+
+import { noOp } from "../noOp";
+import { TestGroup } from "./TestGroup";
+import { ValueType, Expected, Actual } from "../value";
 
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "testStart")
 declare function testStart(description: string): void;
 
 // @ts-ignore: Decorators *are* valid here
+@external("__aspect", "testFail")
+declare function testFail(
+  actualType: ValueType,
+  actualValue: f64,
+  actualReference: ArrayBuffer,
+  actualOffset: i32,
+  actualStack: i32,
+  expectedType: ValueType,
+  expectedValue: f64,
+  expectedReference: ArrayBuffer,
+  expectedOffset: i32,
+  expectedStack: i32,
+  negated: i32,
+): void
+
+// @ts-ignore: Decorators *are* valid here
 @external("__aspect", "testPass")
-declare function testPass(): void;
+declare function testPass(
+  times: f64[],
+  performanceEnabled: bool,
+  roundDecimalPlaces: i32,
+  recordAverage: bool,
+  recordMedian: bool,
+  recordMax: bool,
+  recordMin: bool,
+  recordStdDev: bool,
+  recordVariance: bool,
+  negated: i32,
+): void;
 
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "tryCall")
@@ -18,17 +46,15 @@ declare function tryCall(func: () => void): bool;
 @external("__aspect", "now")
 declare function now(): f64;
 
-
-import { noOp } from "../noOp";
-import { TestGroup } from "./TestGroup";
 type Callback = () => void;
 
 export class TestResult {
   public callback: Callback = noOp;
   public pass: bool = false;
-  public negated: bool = false;
+  public negated: i32 = 0;
   public name: string = "";
   public message: string = "";
+  public times: f64[] = new Array<f64>(0);
 
   // performance values
   public performanceEnabled: bool;
@@ -42,55 +68,86 @@ export class TestResult {
   public recordMin: bool;
   public recordVariance: bool;
 
+  private start: f64;
+
   public run(group: TestGroup): bool {
-    let pass: bool = false;
-    let times: f64[] = new Array<f64>(0);
     testStart(this.name);
-    let start: f64 = now();
+    this.start = now();
 
     if (this.performanceEnabled) {
-      times = new Array<f64>(0);
       let count: i32 = 0;
 
-      while (true) {
-
+      while (count < this.maxSamples) {
+        if (!this.runInstance(group)) return false;
+        if (!this.pass) break;
+        if (this.maxTestRunTime <= (now() - this.start)) break;
       }
     } else {
-      // run beforeEach
-      if (!group.runBeforeEach()) {
-        testFail();
-        return false;
-      }
-
-      pass = bool(i32(this.negated) ^ i32(tryCall(this.callback)));
-
-      if (!group.runAfterEach()) {
-        testFail();
-        return false;
-      }
-
-      times.push(now() - start);
+      if (!this.runInstance(group)) return false;
     }
 
-    if (pass)  {
-      testPass(
-        times,
-        this.performanceEnabled,
-        this.maxSamples,
-        this.maxTestRunTime,
-        this.roundDecimalPlaces,
-        this.recordAverage,
-        this.recordMedian,
-        this.recordStdDev,
-        this.recordMax,
-        this.recordMin,
-        this.recordVariance,
-      );
+    if (this.pass)  {
+      this.passTest();
     } else {
-      testFail();
+      this.failTest();
     }
 
     // the groups did not error, always return true here
     return true;
+  }
+
+  @inline
+  private runInstance(group: TestGroup): bool {
+    // run beforeEach
+    if (!group.runBeforeEach()) {
+      this.pass = false;
+      this.failTest();
+      return false;
+    }
+
+    let runStart: f64 = now();
+    this.pass = bool(this.negated ^ i32(tryCall(this.callback)));
+    this.times.push(now() - runStart);
+
+    if (!group.runAfterEach()) {
+      this.pass = false;
+      this.failTest();
+      return false;
+    }
+
+    return true;
+  }
+
+  @inline
+  private passTest(): void {
+    testPass(
+      this.times,
+      this.performanceEnabled,
+      this.roundDecimalPlaces,
+      this.recordAverage,
+      this.recordMedian,
+      this.recordMax,
+      this.recordMin,
+      this.recordStdDev,
+      this.recordVariance,
+      this.negated,
+    );
+  }
+
+  @inline
+  private failTest(): void {
+    testFail(
+      Actual.type,
+      Actual.value,
+      Actual.reference,
+      Actual.offset,
+      Actual.stack,
+      Expected.type,
+      Expected.value,
+      Expected.reference,
+      Expected.offset,
+      Expected.stack,
+      this.negated,
+    );
   }
 }

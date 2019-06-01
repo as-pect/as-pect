@@ -32,9 +32,6 @@ export class Collector {
   public static recordMinValue: bool;
   public static recordVarianceValue: bool;
 
-  public static actual: ActualValue;
-  public static expected: ActualValue;
-
   /**
    * Get the currentGroup on the top of the stack.
    */

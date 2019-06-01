@@ -38,7 +38,7 @@ export function it(description: string, runner: () => void): void {
   let result = new TestResult();
   result.name = description;
   result.callback = runner;
-  result.negated = false;
+  result.negated = 0;
 
   result.performanceEnabled = Collector.performanceEnabledValue;
   result.maxSamples = Collector.maxSamplesValue;
@@ -51,8 +51,6 @@ export function it(description: string, runner: () => void): void {
   result.recordMin = Collector.recordMinValue;
   result.recordVariance = Collector.recordVarianceValue;
   Collector.resetPerformanceValues();
-
-  assert(group.tests, "tests is null");
   group.tests.push(result);
 }
 
@@ -99,7 +97,7 @@ export function throws(description: string, callback: () => void, message: strin
   let result = new TestResult();
   result.name = description;
   result.callback = callback;
-  result.negated = true;
+  result.negated = 1;
   result.message = message;
 
   result.performanceEnabled = Collector.performanceEnabledValue;

@@ -10,6 +10,7 @@ import { TestResult } from "./TestResult";
 import { timeDifference } from "../util/timeDifference";
 import { ILogTarget } from "../util/ILogTarget";
 import { performance } from "perf_hooks";
+import { ValueType, ActualValue } from "../util/ActualValue";
 
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
@@ -56,7 +57,11 @@ export class TestContext {
 
   private currentGroup: TestGroup | null = null;
   private currentTest: TestResult | null = null;
+
   private logTarget: ILogTarget | null = null;
+
+  private traceMaps: Map<number, string> = new Map();
+  private stackTraceIndex: number = 0;
 
   public startupTime: number = 0;
 
@@ -92,10 +97,14 @@ export class TestContext {
         tryCall: this.tryCall.bind(this),
         testCanRun: this.testCanRun.bind(this),
         groupCanRun: this.groupCanRun.bind(this),
+        testStart: this.testStart.bind(this),
+        testFail: this.testFail.bind(this),
+        testPass: this.testPass.bind(this),
         groupStart: this.groupStart.bind(this),
         reportTodo: this.reportTodo.bind(this),
         groupEnd: this.groupEnd.bind(this),
         now: this.now.bind(this),
+        getLogStackTrace: this.getLogStackTrace.bind(this),
       },
     });
     result.env = result.env || {};
@@ -226,6 +235,23 @@ export class TestContext {
     this.logTarget = group;
 
     this.reporter.onGroupStart(group);
+    this.testGroups.push(group);
+  }
+
+  /**
+   * Starts a new test.
+   *
+   * @param {number} descriptionPointer - The pointer to the test description.
+   */
+  public testStart(descriptionPointer: number): void {
+    const test = new TestResult();
+    test.name = descriptionPointer === 0
+      ? ""
+      : this.wasm!.__getString(descriptionPointer);
+    this.logTarget = test;
+    this.currentTest = test;
+    this.currentGroup!.tests.push(test);
+    this.reporter.onTestStart(this.currentGroup!, test);
   }
 
   /**
@@ -260,5 +286,93 @@ export class TestContext {
    */
   private now(): number {
     return performance.now();
+  }
+
+  private testFail(
+    actualType: ValueType,
+    actualValue: number,
+    actualReference: number,
+    actualOffset: number,
+    actualStack: number,
+    expectedType: ValueType,
+    expectedValue: number,
+    expectedReference: number,
+    expectedOffset: number,
+    expectedStack: number,
+    negated: 0 | 1,
+  ): void {
+    const test = this.currentTest!;
+    test.pass = false;
+    test.negated = (negated === 1);
+
+    test.actual = new ActualValue(
+      this.wasm!,
+      actualType,
+      actualValue,
+      actualReference,
+      actualOffset,
+      this.traceMaps.get(actualStack)!,
+      0,
+    );
+
+    test.expected = new ActualValue(
+      this.wasm!,
+      expectedType,
+      expectedValue,
+      expectedReference,
+      expectedOffset,
+      this.traceMaps.get(expectedStack)!,
+      negated,
+    );
+
+    this.reporter.onTestFinish(this.currentGroup!, test);
+  }
+
+  public testPass(
+    times: number,
+    performanceEnabled: 0 | 1,
+    roundDecimalPlaces: 0 | 1,
+    recordAverage: 0 | 1,
+    recordMedian: 0 | 1,
+    recordMax: 0 | 1,
+    recordMin: 0 | 1,
+    recordStdDev: 0 | 1,
+    recordVariance: 0 | 1,
+    negated: 0 | 1,
+  ): void {
+    const test = this.currentTest!;
+
+    test.times = this.wasm!.__getArray(times);
+    test.negated = (negated === 1);
+    test.pass = true;
+    if (performanceEnabled === 1) {
+      test.performance = true;
+      test.decimalPlaces = roundDecimalPlaces;
+      if (recordAverage === 1) test.calculateAverage();
+      if (recordMedian === 1) test.calculateMedian();
+      if (recordMax === 1) test.calculateMax();
+      if (recordMin === 1) test.calculateMin();
+      if (recordVariance === 1) test.calculateVariance();
+      if (recordStdDev === 1) test.calculateStandardDeviation();
+    }
+
+    this.reporter.onTestFinish(this.currentGroup!, test);
+  }
+
+  /**
+   * This method creates a stack trace, filters the relevant functions, then returns an index to
+   * the stack trace. Since this value is only read outside of Web Assembly when generating host
+   * objects, this prevents the need for strings to be passed into and out of Web Assembly.
+   */
+  private getLogStackTrace(): number {
+    const trace = new Error("Stack Trace")
+      .stack!
+      .split("\n")
+      .filter(wasmFilter)
+      .join("\n");
+    const nextID = this.stackTraceIndex + 1;
+    this.stackTraceIndex = nextID;
+    this.traceMaps.set(nextID, trace);
+    return nextID;
   }
 }

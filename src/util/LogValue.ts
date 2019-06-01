@@ -1,9 +1,53 @@
 import { ILogTarget } from "./ILogTarget";
+import { ValueType } from "./ActualValue";
+import { ASUtil } from "assemblyscript/lib/loader";
+import { IAspectExports } from "./IAspectExports";
 
 /**
  * A virtual representation of a discrete value logged to from AssemblyScript.
  */
 export class LogValue {
+  constructor(
+    wasm: ASUtil & IAspectExports,
+    type: ValueType,
+    value: number,
+    reference: number,
+    offset: number,
+    stack: string,
+   ) {
+     this.stack = stack;
+
+     if (type === ValueType.Null) {
+       this.message = "null";
+       this.value = null;
+     } else if (type === ValueType.Float) {
+       this.message = value.toString();
+       this.value = value;
+     } else if (type === ValueType.Reference ) {
+       this.message = "Reference Value";
+       this.pointer = reference;
+       this.offset = offset;
+       this.bytes = Array.from(wasm.U8.slice(reference, reference + offset));
+     } else if (type === ValueType.Truthy) {
+       this.message = "Truthy Value";
+     } else if (type === ValueType.Falsy) {
+       this.message = "Falsy Value";
+     } else if (type === ValueType.Finite) {
+       this.message = "Finite Value";
+     } else if (type === ValueType.Array) {
+       this.message = "Array Value";
+       this.pointer = reference;
+       this.offset = offset;
+       this.bytes = wasm.__getArray(reference);
+     } else if (type === ValueType.String) {
+       this.message = wasm.__getString(reference);
+       this.pointer = reference;
+       this.offset = offset;
+     } else if (type === ValueType.None) {
+       this.message = "No Value Was Expected";
+     }
+
+   }
   /**
    * If a pointer is referenced, this is the precise memory location of the referenced block of
    * data.
@@ -31,11 +75,6 @@ export class LogValue {
    * This is the relevant stack trace, filtered with the `/wasm/i` regex.
    */
   public stack: string = "";
-
-  /**
-   * This is the referenced log target.
-   */
-  public target: ILogTarget | null = null;
 
   /**
    * This is the raw logged value.

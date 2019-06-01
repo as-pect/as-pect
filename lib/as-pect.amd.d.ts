@@ -18,12 +18,62 @@ declare module "util/ILogTarget" {
         logs: LogValue[];
     }
 }
+declare module "util/IAspectExports" {
+    export interface IAspectExports {
+        __call(pointer: number): void;
+        __init(): void;
+        __run(): void;
+        __set_performanceEnabled(value: 1 | 0): void;
+        __set_maxSamples(value: number): void;
+        __set_maxTestRunTime(value: number): void;
+        __set_roundDecimalPlaces(value: number): void;
+        __set_recordAverage(value: 1 | 0): void;
+        __set_recordMedian(value: 1 | 0): void;
+        __set_recordStdDev(value: 1 | 0): void;
+        __set_recordMax(value: 1 | 0): void;
+        __set_recordMin(value: 1 | 0): void;
+        __set_recordVar(value: 1 | 0): void;
+    }
+}
+declare module "util/ActualValue" {
+    import { LogValue } from "util/LogValue";
+    import { ASUtil } from "assemblyscript/lib/loader";
+    import { IAspectExports } from "util/IAspectExports";
+    /**
+     * All the value types.
+     */
+    export const enum ValueType {
+        None = 0,
+        Float = 1,
+        Reference = 2,
+        String = 3,
+        Array = 4,
+        Null = 5,
+        Falsy = 6,
+        Truthy = 7,
+        Finite = 8
+    }
+    /**
+     * A class representing a reported expected or actual value. It shares a lot of properties with
+     * LogValue, so those are copied over.
+     */
+    export class ActualValue extends LogValue {
+        constructor(wasm: ASUtil & IAspectExports, type: ValueType, value: number, reference: number, offset: number, stack: string, negated: 0 | 1);
+        /**
+         * An indicator if the actual expected value is negated.
+         */
+        negated: boolean;
+    }
+}
 declare module "util/LogValue" {
-    import { ILogTarget } from "util/ILogTarget";
+    import { ValueType } from "util/ActualValue";
+    import { ASUtil } from "assemblyscript/lib/loader";
+    import { IAspectExports } from "util/IAspectExports";
     /**
      * A virtual representation of a discrete value logged to from AssemblyScript.
      */
     export class LogValue {
+        constructor(wasm: ASUtil & IAspectExports, type: ValueType, value: number, reference: number, offset: number, stack: string);
         /**
          * If a pointer is referenced, this is the precise memory location of the referenced block of
          * data.
@@ -48,26 +98,9 @@ declare module "util/LogValue" {
          */
         stack: string;
         /**
-         * This is the referenced log target.
-         */
-        target: ILogTarget | null;
-        /**
          * This is the raw logged value.
          */
         value: number | null;
-    }
-}
-declare module "util/ActualValue" {
-    import { LogValue } from "util/LogValue";
-    /**
-     * A class representing a reported expected or actual value. It shares a lot of properties with
-     * LogValue, so those are copied over.
-     */
-    export class ActualValue extends LogValue {
-        /**
-         * An indicator if the actual expected value is negated.
-         */
-        negated: boolean;
     }
 }
 declare module "test/PerformanceLimits" {
@@ -283,23 +316,6 @@ declare module "reporter/EmptyReporter" {
         onTodo(): void;
     }
 }
-declare module "util/IAspectExports" {
-    export interface IAspectExports {
-        __call(pointer: number): void;
-        __init(): void;
-        __run(): void;
-        __set_performanceEnabled(value: 1 | 0): void;
-        __set_maxSamples(value: number): void;
-        __set_maxTestRunTime(value: number): void;
-        __set_roundDecimalPlaces(value: number): void;
-        __set_recordAverage(value: 1 | 0): void;
-        __set_recordMedian(value: 1 | 0): void;
-        __set_recordStdDev(value: 1 | 0): void;
-        __set_recordMax(value: 1 | 0): void;
-        __set_recordMin(value: 1 | 0): void;
-        __set_recordVar(value: 1 | 0): void;
-    }
-}
 declare module "util/timeDifference" {
     export const timeDifference: (end: number, start: number) => number;
 }
@@ -338,6 +354,8 @@ declare module "test/TestContext" {
         private currentGroup;
         private currentTest;
         private logTarget;
+        private traceMaps;
+        private stackTraceIndex;
         startupTime: number;
         constructor(props: ITestContextParameters);
         /**
@@ -394,6 +412,12 @@ declare module "test/TestContext" {
          */
         private groupStart;
         /**
+         * Starts a new test.
+         *
+         * @param {number} descriptionPointer - The pointer to the test description.
+         */
+        testStart(descriptionPointer: number): void;
+        /**
          * Reports a todo.
          *
          * @param {number} descriptionPointer - A pointer to the todo description.
@@ -408,6 +432,14 @@ declare module "test/TestContext" {
          * This linked function returns the current time.
          */
         private now;
+        private testFail;
+        testPass(times: number, performanceEnabled: 0 | 1, roundDecimalPlaces: 0 | 1, recordAverage: 0 | 1, recordMedian: 0 | 1, recordMax: 0 | 1, recordMin: 0 | 1, recordStdDev: 0 | 1, recordVariance: 0 | 1, negated: 0 | 1): void;
+        /**
+         * This method creates a stack trace, filters the relevant functions, then returns an index to
+         * the stack trace. Since this value is only read outside of Web Assembly when generating host
+         * objects, this prevents the need for strings to be passed into and out of Web Assembly.
+         */
+        private getLogStackTrace;
     }
 }
 declare module "reporter/CSVTestReporter" {

@@ -1,8 +1,11 @@
-import { ILogTarget } from "./ILogTarget";
+import { ValueType } from "./ActualValue";
+import { ASUtil } from "assemblyscript/lib/loader";
+import { IAspectExports } from "./IAspectExports";
 /**
  * A virtual representation of a discrete value logged to from AssemblyScript.
  */
 export declare class LogValue {
+    constructor(wasm: ASUtil & IAspectExports, type: ValueType, value: number, reference: number, offset: number, stack: string);
     /**
      * If a pointer is referenced, this is the precise memory location of the referenced block of
      * data.
@@ -26,10 +29,6 @@ export declare class LogValue {
      * This is the relevant stack trace, filtered with the `/wasm/i` regex.
      */
     stack: string;
-    /**
-     * This is the referenced log target.
-     */
-    target: ILogTarget | null;
     /**
      * This is the raw logged value.
      */

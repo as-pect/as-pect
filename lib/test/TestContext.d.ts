@@ -32,6 +32,8 @@ export declare class TestContext {
     private currentGroup;
     private currentTest;
     private logTarget;
+    private traceMaps;
+    private stackTraceIndex;
     startupTime: number;
     constructor(props: ITestContextParameters);
     /**
@@ -88,6 +90,12 @@ export declare class TestContext {
      */
     private groupStart;
     /**
+     * Starts a new test.
+     *
+     * @param {number} descriptionPointer - The pointer to the test description.
+     */
+    testStart(descriptionPointer: number): void;
+    /**
      * Reports a todo.
      *
      * @param {number} descriptionPointer - A pointer to the todo description.
@@ -102,5 +110,13 @@ export declare class TestContext {
      * This linked function returns the current time.
      */
     private now;
+    private testFail;
+    testPass(times: number, performanceEnabled: 0 | 1, roundDecimalPlaces: 0 | 1, recordAverage: 0 | 1, recordMedian: 0 | 1, recordMax: 0 | 1, recordMin: 0 | 1, recordStdDev: 0 | 1, recordVariance: 0 | 1, negated: 0 | 1): void;
+    /**
+     * This method creates a stack trace, filters the relevant functions, then returns an index to
+     * the stack trace. Since this value is only read outside of Web Assembly when generating host
+     * objects, this prevents the need for strings to be passed into and out of Web Assembly.
+     */
+    private getLogStackTrace;
 }
 //# sourceMappingURL=TestContext.d.ts.map
