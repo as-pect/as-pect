@@ -433,7 +433,7 @@ declare module "test/TestContext" {
          */
         private now;
         private testFail;
-        testPass(times: number, performanceEnabled: 0 | 1, roundDecimalPlaces: 0 | 1, recordAverage: 0 | 1, recordMedian: 0 | 1, recordMax: 0 | 1, recordMin: 0 | 1, recordStdDev: 0 | 1, recordVariance: 0 | 1, negated: 0 | 1): void;
+        testPass(timesPointer: number, performanceEnabled: 0 | 1, roundDecimalPlaces: 0 | 1, recordAverage: 0 | 1, recordMedian: 0 | 1, recordMax: 0 | 1, recordMin: 0 | 1, recordStdDev: 0 | 1, recordVariance: 0 | 1, negated: 0 | 1): void;
         /**
          * This method creates a stack trace, filters the relevant functions, then returns an index to
          * the stack trace. Since this value is only read outside of Web Assembly when generating host

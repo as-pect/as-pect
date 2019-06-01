@@ -325,7 +325,7 @@ export class TestContext {
   }
 
   public testPass(
-    times: number,
+    timesPointer: number,
     performanceEnabled: 0 | 1,
     roundDecimalPlaces: 0 | 1,
     recordAverage: 0 | 1,
@@ -336,9 +336,10 @@ export class TestContext {
     recordVariance: 0 | 1,
     negated: 0 | 1,
   ): void {
+    const wasm = this.wasm!;
     const test = this.currentTest!;
 
-    test.times = this.wasm!.__getArray(times);
+    // test.times = this.wasm!.__getArray(times);
     test.negated = (negated === 1);
     test.pass = true;
     if (performanceEnabled === 1) {

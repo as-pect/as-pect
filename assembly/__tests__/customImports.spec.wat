@@ -98,14 +98,14 @@
  (global $~lib/argc (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
  (global $~lib/started (mut i32) (i32.const 0))
- (global $~lib/rt/RTTI_BASE i32 (i32.const 1400))
- (global $~lib/heap/HEAP_BASE i32 (i32.const 1492))
+ (global $~lib/rt/__rtti_base i32 (i32.const 1400))
+ (global $~lib/heap/__heap_base i32 (i32.const 1492))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
  (export "__retain" (func $~lib/rt/pure/__retain))
  (export "__release" (func $~lib/rt/pure/__release))
  (export "__collect" (func $~lib/rt/pure/__collect))
- (export "__rtti" (global $~lib/rt/RTTI_BASE))
+ (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
  (export "__init" (func $assembly/index/__init))
  (export "__run" (func $assembly/index/__run))
@@ -298,30 +298,30 @@
      i32.add
      i32.load offset=4
     end
-    local.set $8
+    local.set $9
     block $~lib/rt/tlsf/SETSL|inlined.1
      local.get $0
-     local.set $11
+     local.set $8
      local.get $4
-     local.set $10
-     local.get $8
+     local.set $11
+     local.get $9
      i32.const 1
      local.get $5
      i32.shl
      i32.const -1
      i32.xor
      i32.and
-     local.tee $8
-     local.set $9
+     local.tee $9
+     local.set $10
+     local.get $8
      local.get $11
-     local.get $10
      i32.const 2
      i32.shl
      i32.add
-     local.get $9
+     local.get $10
      i32.store offset=4
     end
-    local.get $8
+    local.get $9
     i32.eqz
     if
      local.get $0
@@ -453,17 +453,17 @@
   if
    block $~lib/rt/tlsf/GETFREELEFT|inlined.0 (result i32)
     local.get $1
-    local.set $3
-    local.get $3
+    local.set $6
+    local.get $6
     i32.const 4
     i32.sub
     i32.load
    end
-   local.set $3
-   local.get $3
-   i32.load
    local.set $6
    local.get $6
+   i32.load
+   local.set $3
+   local.get $3
    i32.const 1
    i32.and
    i32.eqz
@@ -475,7 +475,7 @@
     call $~lib/builtins/abort
     unreachable
    end
-   local.get $6
+   local.get $3
    i32.const 3
    i32.const -1
    i32.xor
@@ -494,17 +494,17 @@
    i32.lt_u
    if
     local.get $0
-    local.get $3
-    call $~lib/rt/tlsf/removeBlock
-    local.get $3
     local.get $6
+    call $~lib/rt/tlsf/removeBlock
+    local.get $6
+    local.get $3
     i32.const 3
     i32.and
     local.get $7
     i32.or
     local.tee $2
     i32.store
-    local.get $3
+    local.get $6
     local.set $1
    end
   end
@@ -613,16 +613,16 @@
   end
   block $~lib/rt/tlsf/GETHEAD|inlined.1 (result i32)
    local.get $0
-   local.set $3
-   local.get $9
-   local.set $6
-   local.get $10
    local.set $7
+   local.get $9
+   local.set $3
+   local.get $10
+   local.set $6
+   local.get $7
    local.get $3
-   local.get $6
    i32.const 4
    i32.shl
-   local.get $7
+   local.get $6
    i32.add
    i32.const 2
    i32.shl
@@ -646,21 +646,21 @@
    local.get $0
    local.set $12
    local.get $9
-   local.set $3
-   local.get $10
-   local.set $6
-   local.get $1
    local.set $7
+   local.get $10
+   local.set $3
+   local.get $1
+   local.set $6
    local.get $12
-   local.get $3
+   local.get $7
    i32.const 4
    i32.shl
-   local.get $6
+   local.get $3
    i32.add
    i32.const 2
    i32.shl
    i32.add
-   local.get $7
+   local.get $6
    i32.store offset=96
   end
   local.get $0
@@ -673,16 +673,16 @@
   i32.store
   block $~lib/rt/tlsf/SETSL|inlined.2
    local.get $0
-   local.set $3
+   local.set $13
    local.get $9
-   local.set $6
+   local.set $12
    block $~lib/rt/tlsf/GETSL|inlined.1 (result i32)
     local.get $0
-    local.set $13
+    local.set $3
     local.get $9
-    local.set $12
-    local.get $13
-    local.get $12
+    local.set $6
+    local.get $3
+    local.get $6
     i32.const 2
     i32.shl
     i32.add
@@ -693,8 +693,8 @@
    i32.shl
    i32.or
    local.set $7
-   local.get $3
-   local.get $6
+   local.get $13
+   local.get $12
    i32.const 2
    i32.shl
    i32.add
@@ -865,7 +865,7 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
-  global.get $~lib/heap/HEAP_BASE
+  global.get $~lib/heap/__heap_base
   i32.const 15
   i32.add
   i32.const 15
@@ -919,9 +919,9 @@
   end
   block $break|0
    i32.const 0
-   local.set $4
+   local.set $5
    loop $repeat|0
-    local.get $4
+    local.get $5
     i32.const 23
     i32.lt_u
     i32.eqz
@@ -929,23 +929,23 @@
     block $~lib/rt/tlsf/SETSL|inlined.0
      local.get $3
      local.set $7
-     local.get $4
+     local.get $5
      local.set $6
      i32.const 0
-     local.set $5
+     local.set $4
      local.get $7
      local.get $6
      i32.const 2
      i32.shl
      i32.add
-     local.get $5
+     local.get $4
      i32.store offset=4
     end
     block $break|1
      i32.const 0
-     local.set $5
+     local.set $7
      loop $repeat|1
-      local.get $5
+      local.get $7
       i32.const 16
       i32.lt_u
       i32.eqz
@@ -953,37 +953,37 @@
       block $~lib/rt/tlsf/SETHEAD|inlined.0
        local.get $3
        local.set $9
-       local.get $4
-       local.set $8
        local.get $5
-       local.set $7
-       i32.const 0
+       local.set $8
+       local.get $7
        local.set $6
+       i32.const 0
+       local.set $4
        local.get $9
        local.get $8
        i32.const 4
        i32.shl
-       local.get $7
+       local.get $6
        i32.add
        i32.const 2
        i32.shl
        i32.add
-       local.get $6
+       local.get $4
        i32.store offset=96
       end
-      local.get $5
+      local.get $7
       i32.const 1
       i32.add
-      local.set $5
+      local.set $7
       br $repeat|1
       unreachable
      end
      unreachable
     end
-    local.get $4
+    local.get $5
     i32.const 1
     i32.add
-    local.set $4
+    local.set $5
     br $repeat|0
     unreachable
    end
@@ -1149,23 +1149,23 @@
    i32.add
    i32.shl
    i32.and
-   local.set $4
-   local.get $4
+   local.set $5
+   local.get $5
    i32.eqz
    if
     i32.const 0
     local.set $7
    else    
-    local.get $4
+    local.get $5
     i32.ctz
     local.set $2
     block $~lib/rt/tlsf/GETSL|inlined.3 (result i32)
      local.get $0
      local.set $8
      local.get $2
-     local.set $5
+     local.set $4
      local.get $8
-     local.get $5
+     local.get $4
      i32.const 2
      i32.shl
      i32.add
@@ -1189,12 +1189,12 @@
      local.set $8
      local.get $6
      i32.ctz
-     local.set $5
+     local.set $4
      local.get $9
      local.get $8
      i32.const 4
      i32.shl
-     local.get $5
+     local.get $4
      i32.add
      i32.const 2
      i32.shl
@@ -1206,14 +1206,14 @@
   else   
    block $~lib/rt/tlsf/GETHEAD|inlined.3 (result i32)
     local.get $0
-    local.set $8
+    local.set $9
     local.get $2
-    local.set $5
+    local.set $8
     local.get $6
     i32.ctz
     local.set $4
+    local.get $9
     local.get $8
-    local.get $5
     i32.const 4
     i32.shl
     local.get $4
@@ -1514,7 +1514,7 @@
  )
  (func $~lib/rt/pure/__retain (; 26 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  global.get $~lib/heap/HEAP_BASE
+  global.get $~lib/heap/__heap_base
   i32.gt_u
   if
    local.get $0
@@ -1553,7 +1553,7 @@
  )
  (func $~lib/rt/__typeinfo (; 28 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
-  global.get $~lib/rt/RTTI_BASE
+  global.get $~lib/rt/__rtti_base
   local.set $1
   local.get $0
   local.get $1
@@ -3205,7 +3205,7 @@
  )
  (func $~lib/rt/pure/__release (; 35 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
-  global.get $~lib/heap/HEAP_BASE
+  global.get $~lib/heap/__heap_base
   i32.gt_u
   if
    local.get $0
@@ -3529,22 +3529,22 @@
    local.get $0
    call $assembly/internal/test/Expectation/expect<i32>
    local.tee $1
-   local.set $4
-   i32.const 42
    local.set $3
+   i32.const 42
+   local.set $2
    i32.const 368
    call $~lib/rt/pure/__retain
-   local.set $2
+   local.set $4
    block $assembly/internal/comparison/exactComparison/exactComparison<i32>|inlined.0
-    local.get $4
+    local.get $3
     i32.load offset=4
     local.set $8
-    local.get $3
+    local.get $2
     local.set $7
-    local.get $4
+    local.get $3
     i32.load
     local.set $6
-    local.get $2
+    local.get $4
     call $~lib/rt/pure/__retain
     local.set $5
     block $assembly/internal/report/reportActual/reportActual<i32>|inlined.0
@@ -3564,13 +3564,13 @@
     end
     block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
      local.get $7
-     local.set $10
-     local.get $6
      local.set $9
+     local.get $6
+     local.set $10
      block $assembly/internal/report/reportExpectedInteger/reportExpectedInteger|inlined.0
-      local.get $10
-      local.set $12
       local.get $9
+      local.set $12
+      local.get $10
       local.set $11
       i32.const 1
       global.set $assembly/internal/value/index/Expected.type
@@ -3606,15 +3606,15 @@
     local.get $5
     call $~lib/rt/pure/__release
    end
-   local.get $2
+   local.get $4
    call $~lib/rt/pure/__release
   end
   block $assembly/internal/log/log/log<i32>|inlined.0
    local.get $0
-   local.set $2
+   local.set $11
    block $assembly/internal/log/logInteger/logInteger|inlined.0
-    local.get $2
-    local.set $3
+    local.get $11
+    local.set $12
    end
   end
   local.get $1
@@ -5072,7 +5072,7 @@
   if
    i32.const 1192
    i32.const 712
-   i32.const 258
+   i32.const 266
    i32.const 20
    call $~lib/builtins/abort
    unreachable
@@ -5722,10 +5722,10 @@
       i32.eqz
       if
        i32.const 0
-       local.set $3
+       local.set $4
        local.get $1
        call $~lib/rt/pure/__release
-       local.get $3
+       local.get $4
        return
       end
       local.get $0
@@ -5757,8 +5757,8 @@
     local.set $3
     local.get $1
     call $~lib/rt/pure/__retain
-    local.set $2
-    local.get $2
+    local.set $5
+    local.get $5
     call $assembly/internal/test/TestGroup/TestGroup#runBeforeEach
     i32.eqz
     if
@@ -5784,7 +5784,7 @@
      end
      i32.const 0
      local.set $4
-     local.get $2
+     local.get $5
      call $~lib/rt/pure/__release
      local.get $4
      br $assembly/internal/test/TestResult/TestResult#runInstance|inlined.1
@@ -5808,7 +5808,7 @@
     f64.sub
     call $~lib/array/Array<f64>#push
     drop
-    local.get $2
+    local.get $5
     call $assembly/internal/test/TestGroup/TestGroup#runAfterEach
     i32.eqz
     if
@@ -5817,7 +5817,7 @@
      i32.store8 offset=4
      block $assembly/internal/test/TestResult/TestResult#failTest|inlined.3
       local.get $3
-      local.set $4
+      local.set $2
       global.get $assembly/internal/value/index/Actual.type
       global.get $assembly/internal/value/index/Actual.value
       global.get $assembly/internal/value/index/Actual.reference
@@ -5828,32 +5828,32 @@
       global.get $assembly/internal/value/index/Expected.reference
       global.get $assembly/internal/value/index/Expected.offset
       global.get $assembly/internal/value/index/Expected.stack
-      local.get $4
+      local.get $2
       i32.load offset=8
       call $assembly/internal/test/TestResult/testFail
      end
      i32.const 0
-     local.set $4
-     local.get $2
+     local.set $2
+     local.get $5
      call $~lib/rt/pure/__release
-     local.get $4
+     local.get $2
      br $assembly/internal/test/TestResult/TestResult#runInstance|inlined.1
     end
     i32.const 1
-    local.set $4
-    local.get $2
+    local.set $2
+    local.get $5
     call $~lib/rt/pure/__release
-    local.get $4
+    local.get $2
    end
    i32.const 0
    i32.ne
    i32.eqz
    if
     i32.const 0
-    local.set $2
+    local.set $3
     local.get $1
     call $~lib/rt/pure/__release
-    local.get $2
+    local.get $3
     return
    end
   end
@@ -5861,26 +5861,26 @@
   i32.load8_u offset=4
   if
    local.get $0
-   local.set $2
-   local.get $2
+   local.set $4
+   local.get $4
    i32.load offset=20
-   local.get $2
+   local.get $4
    i32.load8_u offset=24
-   local.get $2
+   local.get $4
    i32.load offset=36
-   local.get $2
+   local.get $4
    i32.load8_u offset=40
-   local.get $2
+   local.get $4
    i32.load8_u offset=41
-   local.get $2
+   local.get $4
    i32.load8_u offset=43
-   local.get $2
+   local.get $4
    i32.load8_u offset=44
-   local.get $2
+   local.get $4
    i32.load8_u offset=42
-   local.get $2
+   local.get $4
    i32.load8_u offset=45
-   local.get $2
+   local.get $4
    i32.load offset=8
    call $assembly/internal/test/TestResult/testPass
   else   
@@ -6251,7 +6251,7 @@
   (local $2 i32)
   (local $3 i32)
   local.get $0
-  global.get $~lib/heap/HEAP_BASE
+  global.get $~lib/heap/__heap_base
   i32.lt_u
   if
    return

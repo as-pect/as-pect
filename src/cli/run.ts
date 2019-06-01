@@ -1,5 +1,5 @@
 
-// @ts-ignore
+//@ts-ignore
 import asc from "assemblyscript/dist/asc";
 //@ts-ignore
 const parse = require("assemblyscript/cli/util/options").parse;
