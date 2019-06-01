@@ -7,8 +7,10 @@ declare function getLogStackTrace(): i32;
 // @ts-ignore: Decorators *are* valid here!
 @inline
 export function reportActualReference(value: usize, offset: i32): void {
+  __retain(value);
   Actual.type = ValueType.Reference;
-  Actual.reference = changetype<ArrayBuffer>(value);
+  __release(Actual.reference);
+  Actual.reference = value;
   Actual.offset = offset;
   Actual.stack = getLogStackTrace();
 }

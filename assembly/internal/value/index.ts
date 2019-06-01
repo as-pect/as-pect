@@ -12,7 +12,7 @@ export const enum ValueType {
 
 export class Actual {
   public static type: ValueType;
-  public static reference: ArrayBuffer;
+  public static reference: usize;
   public static value: f64;
   public static offset: i32;
   public static stack: i32;
@@ -20,7 +20,7 @@ export class Actual {
 
 export class Expected {
   public static type: ValueType;
-  public static reference: ArrayBuffer;
+  public static reference: usize;
   public static value: f64;
   public static offset: i32;
   public static stack: i32;

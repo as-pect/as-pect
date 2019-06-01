@@ -7,7 +7,10 @@ declare function getLogStackTrace(): i32;
 // @ts-ignore: Decorators *are* valid here!
 @inline
 export function reportActualString(value: string): void {
+  let pointer: usize = changetype<usize>(value);
+  __retain(pointer);
   Actual.type = ValueType.String;
-  Actual.reference = changetype<ArrayBuffer>(value);
+  __release(Actual.reference);
+  Actual.reference = pointer;
   Actual.stack = getLogStackTrace();
 }

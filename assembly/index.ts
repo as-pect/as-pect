@@ -1,3 +1,5 @@
+/// <reference path="../node_modules/assemblyscript/std/assembly/rt/index.d.ts" />
+
 import { describe } from "./internal/test/Describe";
 import { expect, Expectation } from "./internal/test/Expectation";
 import { test, it, afterAll, afterEach, beforeAll, beforeEach, todo } from "./internal/test/Test";

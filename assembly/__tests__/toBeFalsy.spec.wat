@@ -6238,8 +6238,6 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
   block $assembly/internal/test/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeFalsy|inlined.0
    i32.const 0
    call $assembly/internal/test/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
@@ -6281,23 +6279,16 @@
        local.get $6
        call $~lib/rt/pure/__retain
        local.set $7
+       local.get $7
+       local.set $8
+       local.get $8
+       call $~lib/rt/pure/__retain
+       drop
        i32.const 3
        global.set $assembly/internal/value/index/Actual.type
-       block (result i32)
-        local.get $7
-        local.tee $8
-        global.get $assembly/internal/value/index/Actual.reference
-        local.tee $9
-        i32.ne
-        if
-         local.get $8
-         call $~lib/rt/pure/__retain
-         drop
-         local.get $9
-         call $~lib/rt/pure/__release
-        end
-        local.get $8
-       end
+       global.get $assembly/internal/value/index/Actual.reference
+       call $~lib/rt/pure/__release
+       local.get $8
        global.set $assembly/internal/value/index/Actual.reference
        call $assembly/internal/report/reportActualString/getLogStackTrace
        global.set $assembly/internal/value/index/Actual.stack
@@ -6312,62 +6303,44 @@
        if
         local.get $6
         call $~lib/rt/pure/__retain
-        local.set $7
+        local.set $8
         block $assembly/internal/report/reportActualReference/reportActualReference|inlined.0
-         local.get $7
-         local.set $8
-         local.get $7
-         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+         local.get $8
          local.set $9
+         local.get $8
+         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+         local.set $7
+         local.get $9
+         call $~lib/rt/pure/__retain
+         drop
          i32.const 2
          global.set $assembly/internal/value/index/Actual.type
-         block (result i32)
-          local.get $8
-          local.tee $10
-          global.get $assembly/internal/value/index/Actual.reference
-          local.tee $11
-          i32.ne
-          if
-           local.get $10
-           call $~lib/rt/pure/__retain
-           drop
-           local.get $11
-           call $~lib/rt/pure/__release
-          end
-          local.get $10
-         end
-         global.set $assembly/internal/value/index/Actual.reference
+         global.get $assembly/internal/value/index/Actual.reference
+         call $~lib/rt/pure/__release
          local.get $9
+         global.set $assembly/internal/value/index/Actual.reference
+         local.get $7
          global.set $assembly/internal/value/index/Actual.offset
          call $assembly/internal/report/reportActualReference/getLogStackTrace
          global.set $assembly/internal/value/index/Actual.stack
         end
-        local.get $7
+        local.get $8
         call $~lib/rt/pure/__release
        else        
         local.get $6
-        local.set $10
+        local.set $9
         i32.const 24
-        local.set $11
+        local.set $7
+        local.get $9
+        call $~lib/rt/pure/__retain
+        drop
         i32.const 2
         global.set $assembly/internal/value/index/Actual.type
-        block (result i32)
-         local.get $10
-         local.tee $9
-         global.get $assembly/internal/value/index/Actual.reference
-         local.tee $7
-         i32.ne
-         if
-          local.get $9
-          call $~lib/rt/pure/__retain
-          drop
-          local.get $7
-          call $~lib/rt/pure/__release
-         end
-         local.get $9
-        end
+        global.get $assembly/internal/value/index/Actual.reference
+        call $~lib/rt/pure/__release
+        local.get $9
         global.set $assembly/internal/value/index/Actual.reference
-        local.get $11
+        local.get $7
         global.set $assembly/internal/value/index/Actual.offset
         call $assembly/internal/report/reportActualReference/getLogStackTrace
         global.set $assembly/internal/value/index/Actual.stack
@@ -6478,8 +6451,6 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
   block $assembly/internal/test/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeFalsy|inlined.1
    i32.const 0
    call $assembly/internal/test/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
@@ -6523,23 +6494,16 @@
        local.get $7
        call $~lib/rt/pure/__retain
        local.set $8
+       local.get $8
+       local.set $9
+       local.get $9
+       call $~lib/rt/pure/__retain
+       drop
        i32.const 3
        global.set $assembly/internal/value/index/Actual.type
-       block (result i32)
-        local.get $8
-        local.tee $9
-        global.get $assembly/internal/value/index/Actual.reference
-        local.tee $10
-        i32.ne
-        if
-         local.get $9
-         call $~lib/rt/pure/__retain
-         drop
-         local.get $10
-         call $~lib/rt/pure/__release
-        end
-        local.get $9
-       end
+       global.get $assembly/internal/value/index/Actual.reference
+       call $~lib/rt/pure/__release
+       local.get $9
        global.set $assembly/internal/value/index/Actual.reference
        call $assembly/internal/report/reportActualString/getLogStackTrace
        global.set $assembly/internal/value/index/Actual.stack
@@ -6554,62 +6518,44 @@
        if
         local.get $7
         call $~lib/rt/pure/__retain
-        local.set $8
+        local.set $9
         block $assembly/internal/report/reportActualReference/reportActualReference|inlined.2
-         local.get $8
-         local.set $9
-         local.get $8
-         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+         local.get $9
          local.set $10
+         local.get $9
+         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+         local.set $8
+         local.get $10
+         call $~lib/rt/pure/__retain
+         drop
          i32.const 2
          global.set $assembly/internal/value/index/Actual.type
-         block (result i32)
-          local.get $9
-          local.tee $11
-          global.get $assembly/internal/value/index/Actual.reference
-          local.tee $12
-          i32.ne
-          if
-           local.get $11
-           call $~lib/rt/pure/__retain
-           drop
-           local.get $12
-           call $~lib/rt/pure/__release
-          end
-          local.get $11
-         end
-         global.set $assembly/internal/value/index/Actual.reference
+         global.get $assembly/internal/value/index/Actual.reference
+         call $~lib/rt/pure/__release
          local.get $10
+         global.set $assembly/internal/value/index/Actual.reference
+         local.get $8
          global.set $assembly/internal/value/index/Actual.offset
          call $assembly/internal/report/reportActualReference/getLogStackTrace
          global.set $assembly/internal/value/index/Actual.stack
         end
-        local.get $8
+        local.get $9
         call $~lib/rt/pure/__release
        else        
         local.get $7
-        local.set $11
+        local.set $10
         i32.const 24
-        local.set $12
+        local.set $8
+        local.get $10
+        call $~lib/rt/pure/__retain
+        drop
         i32.const 2
         global.set $assembly/internal/value/index/Actual.type
-        block (result i32)
-         local.get $11
-         local.tee $10
-         global.get $assembly/internal/value/index/Actual.reference
-         local.tee $8
-         i32.ne
-         if
-          local.get $10
-          call $~lib/rt/pure/__retain
-          drop
-          local.get $8
-          call $~lib/rt/pure/__release
-         end
-         local.get $10
-        end
+        global.get $assembly/internal/value/index/Actual.reference
+        call $~lib/rt/pure/__release
+        local.get $10
         global.set $assembly/internal/value/index/Actual.reference
-        local.get $12
+        local.get $8
         global.set $assembly/internal/value/index/Actual.offset
         call $assembly/internal/report/reportActualReference/getLogStackTrace
         global.set $assembly/internal/value/index/Actual.stack
@@ -6715,8 +6661,6 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
   block $assembly/internal/test/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeFalsy|inlined.2
    global.get $assembly/__tests__/toBeFalsy.spec/vec1
    call $assembly/internal/test/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
@@ -6760,23 +6704,16 @@
        local.get $7
        call $~lib/rt/pure/__retain
        local.set $8
+       local.get $8
+       local.set $9
+       local.get $9
+       call $~lib/rt/pure/__retain
+       drop
        i32.const 3
        global.set $assembly/internal/value/index/Actual.type
-       block (result i32)
-        local.get $8
-        local.tee $9
-        global.get $assembly/internal/value/index/Actual.reference
-        local.tee $10
-        i32.ne
-        if
-         local.get $9
-         call $~lib/rt/pure/__retain
-         drop
-         local.get $10
-         call $~lib/rt/pure/__release
-        end
-        local.get $9
-       end
+       global.get $assembly/internal/value/index/Actual.reference
+       call $~lib/rt/pure/__release
+       local.get $9
        global.set $assembly/internal/value/index/Actual.reference
        call $assembly/internal/report/reportActualString/getLogStackTrace
        global.set $assembly/internal/value/index/Actual.stack
@@ -6791,62 +6728,44 @@
        if
         local.get $7
         call $~lib/rt/pure/__retain
-        local.set $8
+        local.set $9
         block $assembly/internal/report/reportActualReference/reportActualReference|inlined.4
-         local.get $8
-         local.set $9
-         local.get $8
-         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+         local.get $9
          local.set $10
+         local.get $9
+         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+         local.set $8
+         local.get $10
+         call $~lib/rt/pure/__retain
+         drop
          i32.const 2
          global.set $assembly/internal/value/index/Actual.type
-         block (result i32)
-          local.get $9
-          local.tee $11
-          global.get $assembly/internal/value/index/Actual.reference
-          local.tee $12
-          i32.ne
-          if
-           local.get $11
-           call $~lib/rt/pure/__retain
-           drop
-           local.get $12
-           call $~lib/rt/pure/__release
-          end
-          local.get $11
-         end
-         global.set $assembly/internal/value/index/Actual.reference
+         global.get $assembly/internal/value/index/Actual.reference
+         call $~lib/rt/pure/__release
          local.get $10
+         global.set $assembly/internal/value/index/Actual.reference
+         local.get $8
          global.set $assembly/internal/value/index/Actual.offset
          call $assembly/internal/report/reportActualReference/getLogStackTrace
          global.set $assembly/internal/value/index/Actual.stack
         end
-        local.get $8
+        local.get $9
         call $~lib/rt/pure/__release
        else        
         local.get $7
-        local.set $11
+        local.set $10
         i32.const 24
-        local.set $12
+        local.set $8
+        local.get $10
+        call $~lib/rt/pure/__retain
+        drop
         i32.const 2
         global.set $assembly/internal/value/index/Actual.type
-        block (result i32)
-         local.get $11
-         local.tee $10
-         global.get $assembly/internal/value/index/Actual.reference
-         local.tee $8
-         i32.ne
-         if
-          local.get $10
-          call $~lib/rt/pure/__retain
-          drop
-          local.get $8
-          call $~lib/rt/pure/__release
-         end
-         local.get $10
-        end
+        global.get $assembly/internal/value/index/Actual.reference
+        call $~lib/rt/pure/__release
+        local.get $10
         global.set $assembly/internal/value/index/Actual.reference
-        local.get $12
+        local.get $8
         global.set $assembly/internal/value/index/Actual.offset
         call $assembly/internal/report/reportActualReference/getLogStackTrace
         global.set $assembly/internal/value/index/Actual.stack
@@ -6951,8 +6870,6 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
   block $assembly/internal/test/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeFalsy|inlined.3
    global.get $assembly/__tests__/toBeFalsy.spec/vec1
    call $assembly/internal/test/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
@@ -6994,23 +6911,16 @@
        local.get $6
        call $~lib/rt/pure/__retain
        local.set $7
+       local.get $7
+       local.set $8
+       local.get $8
+       call $~lib/rt/pure/__retain
+       drop
        i32.const 3
        global.set $assembly/internal/value/index/Actual.type
-       block (result i32)
-        local.get $7
-        local.tee $8
-        global.get $assembly/internal/value/index/Actual.reference
-        local.tee $9
-        i32.ne
-        if
-         local.get $8
-         call $~lib/rt/pure/__retain
-         drop
-         local.get $9
-         call $~lib/rt/pure/__release
-        end
-        local.get $8
-       end
+       global.get $assembly/internal/value/index/Actual.reference
+       call $~lib/rt/pure/__release
+       local.get $8
        global.set $assembly/internal/value/index/Actual.reference
        call $assembly/internal/report/reportActualString/getLogStackTrace
        global.set $assembly/internal/value/index/Actual.stack
@@ -7025,62 +6935,44 @@
        if
         local.get $6
         call $~lib/rt/pure/__retain
-        local.set $7
+        local.set $8
         block $assembly/internal/report/reportActualReference/reportActualReference|inlined.6
-         local.get $7
-         local.set $8
-         local.get $7
-         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+         local.get $8
          local.set $9
+         local.get $8
+         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+         local.set $7
+         local.get $9
+         call $~lib/rt/pure/__retain
+         drop
          i32.const 2
          global.set $assembly/internal/value/index/Actual.type
-         block (result i32)
-          local.get $8
-          local.tee $10
-          global.get $assembly/internal/value/index/Actual.reference
-          local.tee $11
-          i32.ne
-          if
-           local.get $10
-           call $~lib/rt/pure/__retain
-           drop
-           local.get $11
-           call $~lib/rt/pure/__release
-          end
-          local.get $10
-         end
-         global.set $assembly/internal/value/index/Actual.reference
+         global.get $assembly/internal/value/index/Actual.reference
+         call $~lib/rt/pure/__release
          local.get $9
+         global.set $assembly/internal/value/index/Actual.reference
+         local.get $7
          global.set $assembly/internal/value/index/Actual.offset
          call $assembly/internal/report/reportActualReference/getLogStackTrace
          global.set $assembly/internal/value/index/Actual.stack
         end
-        local.get $7
+        local.get $8
         call $~lib/rt/pure/__release
        else        
         local.get $6
-        local.set $10
+        local.set $9
         i32.const 24
-        local.set $11
+        local.set $7
+        local.get $9
+        call $~lib/rt/pure/__retain
+        drop
         i32.const 2
         global.set $assembly/internal/value/index/Actual.type
-        block (result i32)
-         local.get $10
-         local.tee $9
-         global.get $assembly/internal/value/index/Actual.reference
-         local.tee $7
-         i32.ne
-         if
-          local.get $9
-          call $~lib/rt/pure/__retain
-          drop
-          local.get $7
-          call $~lib/rt/pure/__release
-         end
-         local.get $9
-        end
+        global.get $assembly/internal/value/index/Actual.reference
+        call $~lib/rt/pure/__release
+        local.get $9
         global.set $assembly/internal/value/index/Actual.reference
-        local.get $11
+        local.get $7
         global.set $assembly/internal/value/index/Actual.offset
         call $assembly/internal/report/reportActualReference/getLogStackTrace
         global.set $assembly/internal/value/index/Actual.stack
