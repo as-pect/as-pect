@@ -321,8 +321,6 @@ export class TestContext {
       this.traceMaps.get(expectedStack)!,
       negated,
     );
-
-    console.log(test.stack);
     this.reporter.onTestFinish(this.currentGroup!, test);
   }
 
