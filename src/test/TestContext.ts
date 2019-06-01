@@ -158,15 +158,12 @@ export class TestContext {
   private tryCall(pointer: number): 1 | 0 {
     if (pointer === -1) return 1;
     try {
-      this.wasm!.__call(pointer)
+      this.wasm!.__call(pointer);
+      return 1;
     } catch (ex) {
-      if (this.currentTest) {
-        this.currentTest.stack = this.getErrorStackTrace(ex);
-      } else {
-        console.log(ex);
-      }
+      this.currentTest!.stack = this.getErrorStackTrace(ex);
+      return 0;
     }
-    return 1;
   }
 
   /**
@@ -201,7 +198,7 @@ export class TestContext {
    */
   private abort(reasonPointer: number, fileNamePointer: number, line: number, col: number): void {
     if (this.currentTest) {
-      this.currentTest!.message = reasonPointer !== 0 ? this.wasm!.__getString(reasonPointer) : "";
+      this.currentTest.message = reasonPointer !== 0 ? this.wasm!.__getString(reasonPointer) : "";
     } else {
       console.log(this.fileName);
       let reason = reasonPointer !== 0 ? this.wasm!.__getString(reasonPointer) : "";
@@ -325,6 +322,7 @@ export class TestContext {
       negated,
     );
 
+    console.log(test.stack);
     this.reporter.onTestFinish(this.currentGroup!, test);
   }
 

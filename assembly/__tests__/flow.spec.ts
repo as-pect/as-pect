@@ -5,6 +5,47 @@ var afterAllRan: i32 = 0;
 var testCount: i32 = 0;
 
 /**
+ * Describe blocks that finish last run first, so that inner describe blocks run *after* their
+ * parent runs.
+ *
+ * In this case, this second describe block will run first, and set the global values.
+ */
+describe("example test", (): void => {
+  beforeAll((): void => {
+    beforeAllRan += 1;
+  });
+
+  beforeEach((): void => {
+    beforeEachRan += 1;
+  });
+
+  afterEach((): void => {
+    afterEachRan += 1;
+  });
+
+  afterAll((): void => {
+    afterAllRan += 1;
+  });
+
+  it("should run this example test", (): void => {
+    testCount += 1;
+  });
+
+  it("should run this example test", (): void => {
+    testCount += 1;
+  });
+
+  it("should run this example test", (): void => {
+    testCount += 1;
+  });
+
+  throws("this test should run", (): void => {
+    testCount += 1;
+    unreachable();
+  });
+});
+
+/**
  * This test suite is designed to test how the test flow functions work. There are two describe
  * blocks. The first describe block runs three fake tests, to call the control flow functions. Each
  * control flow function increments a value, and those values are tested below.
@@ -50,46 +91,5 @@ describe("flow", (): void => {
    */
   it("should call all 4 tests", (): void => {
     assert(testCount == 4, "test run count should be 4");
-  });
-});
-
-/**
- * Describe blocks that finish last run first, so that inner describe blocks run *after* their
- * parent runs.
- *
- * In this case, this second describe block will run first, and set the global values.
- */
-describe("example test", (): void => {
-  beforeAll((): void => {
-    beforeAllRan += 1;
-  });
-
-  beforeEach((): void => {
-    beforeEachRan += 1;
-  });
-
-  afterEach((): void => {
-    afterEachRan += 1;
-  });
-
-  afterAll((): void => {
-    afterAllRan += 1;
-  });
-
-  it("should run this example test", (): void => {
-    testCount += 1;
-  });
-
-  it("should run this example test", (): void => {
-    testCount += 1;
-  });
-
-  it("should run this example test", (): void => {
-    testCount += 1;
-  });
-
-  throws("this test should run", (): void => {
-    testCount += 1;
-    unreachable();
   });
 });

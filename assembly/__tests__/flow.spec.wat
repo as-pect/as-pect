@@ -29,40 +29,40 @@
  (data (i32.const 112) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00p\00u\00r\00e\00.\00t\00s\00")
  (data (i32.const 160) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
  (data (i32.const 216) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
- (data (i32.const 256) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00f\00l\00o\00w\00")
- (data (i32.const 280) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
- (data (i32.const 352) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
- (data (i32.const 432) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00f\00l\00o\00w\00.\00s\00p\00e\00c\00.\00t\00s\00")
- (data (i32.const 512) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
- (data (i32.const 560) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
- (data (i32.const 616) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00E\00l\00e\00m\00e\00n\00t\00 \00t\00y\00p\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00n\00u\00l\00l\00a\00b\00l\00e\00 \00i\00f\00 \00a\00r\00r\00a\00y\00 \00i\00s\00 \00h\00o\00l\00e\00y\00")
- (data (i32.const 728) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00")
- (data (i32.const 776) "\02\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00 \00")
- (data (i32.const 800) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00n\00u\00l\00l\00")
- (data (i32.const 824) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 840) "Z\00\00\00\01\00\00\00\01\00\00\00Z\00\00\00I\00n\00t\00e\00r\00n\00a\00l\00 \00a\00s\00-\00p\00e\00c\00t\00 \00E\00r\00r\00o\00r\00:\00 \00G\00r\00o\00u\00p\00 \00s\00t\00a\00c\00k\00 \00i\00s\00 \00e\00m\00p\00t\00y\00.\00")
- (data (i32.const 952) "F\00\00\00\01\00\00\00\01\00\00\00F\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00e\00s\00t\00/\00C\00o\00l\00l\00e\00c\00t\00o\00r\00.\00t\00s\00")
- (data (i32.const 1040) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00g\00r\00o\00u\00p\00 \00i\00s\00 \00n\00u\00l\00l\00")
- (data (i32.const 1088) "<\00\00\00\01\00\00\00\01\00\00\00<\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00e\00s\00t\00/\00T\00e\00s\00t\00.\00t\00s\00")
- (data (i32.const 1168) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00o\00n\00c\00e\00")
- (data (i32.const 1240) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
- (data (i32.const 1320) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
- (data (i32.const 1392) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
- (data (i32.const 1472) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00A\00l\00l\00 \00o\00n\00c\00e\00")
- (data (i32.const 1544) "<\00\00\00\01\00\00\00\01\00\00\00<\00\00\00a\00f\00t\00e\00r\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
- (data (i32.const 1624) ".\00\00\00\01\00\00\00\01\00\00\00.\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00l\00l\00 \004\00 \00t\00e\00s\00t\00s\00")
- (data (i32.const 1688) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00t\00e\00s\00t\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
- (data (i32.const 1760) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00g\00r\00o\00u\00p\00S\00t\00a\00c\00k\00 \00i\00s\00 \00n\00u\00l\00l\00")
- (data (i32.const 1816) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00A\00r\00r\00a\00y\00 \00i\00s\00 \00e\00m\00p\00t\00y\00")
- (data (i32.const 1864) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
- (data (i32.const 1904) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00 \00t\00h\00i\00s\00 \00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
- (data (i32.const 1976) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00t\00h\00i\00s\00 \00t\00e\00s\00t\00 \00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00")
+ (data (i32.const 256) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
+ (data (i32.const 296) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
+ (data (i32.const 344) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
+ (data (i32.const 400) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00E\00l\00e\00m\00e\00n\00t\00 \00t\00y\00p\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00n\00u\00l\00l\00a\00b\00l\00e\00 \00i\00f\00 \00a\00r\00r\00a\00y\00 \00i\00s\00 \00h\00o\00l\00e\00y\00")
+ (data (i32.const 512) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00.\00t\00s\00")
+ (data (i32.const 560) "\02\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00 \00")
+ (data (i32.const 584) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00n\00u\00l\00l\00")
+ (data (i32.const 608) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
+ (data (i32.const 624) "Z\00\00\00\01\00\00\00\01\00\00\00Z\00\00\00I\00n\00t\00e\00r\00n\00a\00l\00 \00a\00s\00-\00p\00e\00c\00t\00 \00E\00r\00r\00o\00r\00:\00 \00G\00r\00o\00u\00p\00 \00s\00t\00a\00c\00k\00 \00i\00s\00 \00e\00m\00p\00t\00y\00.\00")
+ (data (i32.const 736) "F\00\00\00\01\00\00\00\01\00\00\00F\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00e\00s\00t\00/\00C\00o\00l\00l\00e\00c\00t\00o\00r\00.\00t\00s\00")
+ (data (i32.const 824) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00 \00t\00h\00i\00s\00 \00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
+ (data (i32.const 896) "\1a\00\00\00\01\00\00\00\01\00\00\00\1a\00\00\00g\00r\00o\00u\00p\00 \00i\00s\00 \00n\00u\00l\00l\00")
+ (data (i32.const 944) "<\00\00\00\01\00\00\00\01\00\00\00<\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00e\00s\00t\00/\00T\00e\00s\00t\00.\00t\00s\00")
+ (data (i32.const 1024) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00t\00h\00i\00s\00 \00t\00e\00s\00t\00 \00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00")
+ (data (i32.const 1080) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00g\00r\00o\00u\00p\00S\00t\00a\00c\00k\00 \00i\00s\00 \00n\00u\00l\00l\00")
+ (data (i32.const 1136) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00A\00r\00r\00a\00y\00 \00i\00s\00 \00e\00m\00p\00t\00y\00")
+ (data (i32.const 1184) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00f\00l\00o\00w\00")
+ (data (i32.const 1208) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
+ (data (i32.const 1280) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
+ (data (i32.const 1360) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00f\00l\00o\00w\00.\00s\00p\00e\00c\00.\00t\00s\00")
+ (data (i32.const 1440) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00o\00n\00c\00e\00")
+ (data (i32.const 1512) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
+ (data (i32.const 1592) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
+ (data (i32.const 1664) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
+ (data (i32.const 1744) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00A\00l\00l\00 \00o\00n\00c\00e\00")
+ (data (i32.const 1816) "<\00\00\00\01\00\00\00\01\00\00\00<\00\00\00a\00f\00t\00e\00r\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
+ (data (i32.const 1896) ".\00\00\00\01\00\00\00\01\00\00\00.\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00l\00l\00 \004\00 \00t\00e\00s\00t\00s\00")
+ (data (i32.const 1960) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00t\00e\00s\00t\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
  (data (i32.const 2032) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00t\00e\00s\00t\00s\00 \00a\00r\00e\00 \00n\00u\00l\00l\00")
  (data (i32.const 2080) "F\00\00\00\01\00\00\00\01\00\00\00F\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00t\00e\00s\00t\00/\00T\00e\00s\00t\00G\00r\00o\00u\00p\00.\00t\00s\00")
  (data (i32.const 2168) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00t\00e\00s\00t\00 \00i\00s\00 \00n\00u\00l\00l\00")
  (data (i32.const 2208) "\n\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\13\0d\00\00\02\00\00\00\93 \00\00\02\00\00\00\93 \00\00\02\00\00\00\93 \00\00\02\00\00\00")
  (table $0 17 funcref)
- (elem (i32.const 0) $null $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|5 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|6 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|7 $start:assembly/__tests__/flow.spec~anonymous|1)
+ (elem (i32.const 0) $null $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/flow.spec~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|1)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/rt/pure/CUR (mut i32) (i32.const 0))
  (global $~lib/rt/pure/END (mut i32) (i32.const 0))
@@ -3495,18 +3495,10 @@
   global.set $~lib/rt/pure/CUR
  )
  (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 (; 38 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/beforeEachRan
-  i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 368
-   i32.const 448
-   i32.const 21
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
+  global.get $assembly/__tests__/flow.spec/beforeAllRan
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/beforeAllRan
  )
  (func $start:assembly/internal/noOp~anonymous|0 (; 39 ;) (type $FUNCSIG$v)
   nop
@@ -3521,8 +3513,8 @@
   i32.shr_u
   i32.gt_u
   if
-   i32.const 528
-   i32.const 576
+   i32.const 312
+   i32.const 360
    i32.const 14
    i32.const 56
    call $~lib/builtins/abort
@@ -3606,8 +3598,8 @@
    local.get $2
    call $~lib/rt/pure/__release
    block
-    i32.const 632
-    i32.const 744
+    i32.const 416
+    i32.const 528
     i32.const 56
     i32.const 20
     call $~lib/builtins/abort
@@ -3649,8 +3641,8 @@
    local.get $2
    call $~lib/rt/pure/__release
    block
-    i32.const 632
-    i32.const 744
+    i32.const 416
+    i32.const 528
     i32.const 56
     i32.const 20
     call $~lib/builtins/abort
@@ -3688,8 +3680,8 @@
    local.get $2
    call $~lib/rt/pure/__release
    block
-    i32.const 632
-    i32.const 744
+    i32.const 416
+    i32.const 528
     i32.const 56
     i32.const 20
     call $~lib/builtins/abort
@@ -3727,8 +3719,8 @@
    local.get $2
    call $~lib/rt/pure/__release
    block
-    i32.const 632
-    i32.const 744
+    i32.const 416
+    i32.const 528
     i32.const 56
     i32.const 20
     call $~lib/builtins/abort
@@ -3765,7 +3757,7 @@
   i32.eq
   if
    block (result i32)
-    i32.const 816
+    i32.const 600
     local.tee $2
     local.get $1
     local.tee $3
@@ -3799,7 +3791,7 @@
   i32.const 0
   i32.eq
   if
-   i32.const 840
+   i32.const 624
    call $~lib/rt/pure/__retain
    local.set $2
    local.get $1
@@ -3837,7 +3829,7 @@
   call $~lib/rt/pure/__retain
   drop
   local.get $0
-  i32.const 816
+  i32.const 600
   local.get $0
   i32.const 0
   i32.ne
@@ -3982,7 +3974,7 @@
    block (result i32)
     local.get $2
     i32.load
-    i32.const 792
+    i32.const 576
     call $~lib/string/String.__concat
     local.tee $3
     local.get $1
@@ -4505,8 +4497,8 @@
    i32.shr_u
    i32.gt_u
    if
+    i32.const 312
     i32.const 528
-    i32.const 744
     i32.const 14
     i32.const 47
     call $~lib/builtins/abort
@@ -4607,7 +4599,301 @@
   i32.load
   call $~lib/rt/pure/__retain
  )
- (func $~lib/array/Array<f64>#constructor (; 56 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func "$~lib/array/Array<() => void>#push" (; 56 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $0
+  i32.load offset=12
+  local.set $2
+  local.get $2
+  i32.const 1
+  i32.add
+  local.set $3
+  local.get $0
+  local.get $3
+  i32.const 2
+  call $~lib/array/ensureSize
+  local.get $0
+  i32.load offset=4
+  local.get $2
+  i32.const 2
+  i32.shl
+  i32.add
+  local.get $1
+  i32.store
+  local.get $0
+  local.get $3
+  i32.store offset=12
+  local.get $3
+ )
+ (func $assembly/internal/test/Test/beforeAll (; 57 ;) (type $FUNCSIG$vi) (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.0 (result i32)
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   i32.eqz
+   if
+    block (result i32)
+     i32.const 0
+     i32.const 0
+     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
+     local.set $1
+     global.get $assembly/internal/test/Collector/Collector.groupStack
+     call $~lib/rt/pure/__release
+     local.get $1
+    end
+    global.set $assembly/internal/test/Collector/Collector.groupStack
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
+   i32.const 0
+   i32.eq
+   if
+    global.get $assembly/internal/test/Collector/Collector.groupStack
+    i32.const 0
+    i32.const 624
+    i32.const 0
+    call $assembly/internal/test/TestGroup/TestGroup#constructor
+    local.tee $1
+    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
+    drop
+    local.get $1
+    call $~lib/rt/pure/__release
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   call $~lib/rt/pure/__retain
+   local.set $1
+   local.get $1
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
+   local.set $2
+   local.get $2
+   i32.const 0
+   i32.ne
+   i32.eqz
+   if
+    i32.const 640
+    i32.const 752
+    i32.const 44
+    i32.const 4
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $1
+   local.get $2
+   i32.const 1
+   i32.sub
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#__unchecked_get
+   local.tee $3
+   call $~lib/rt/pure/__retain
+   local.set $4
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $4
+  end
+  local.tee $3
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $2
+  i32.load offset=4
+  local.get $0
+  call "$~lib/array/Array<() => void>#push"
+  drop
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 (; 58 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/beforeEachRan
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/beforeEachRan
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 (; 59 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/afterEachRan
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/afterEachRan
+ )
+ (func $assembly/internal/test/Test/afterEach (; 60 ;) (type $FUNCSIG$vi) (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.2 (result i32)
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   i32.eqz
+   if
+    block (result i32)
+     i32.const 0
+     i32.const 0
+     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
+     local.set $1
+     global.get $assembly/internal/test/Collector/Collector.groupStack
+     call $~lib/rt/pure/__release
+     local.get $1
+    end
+    global.set $assembly/internal/test/Collector/Collector.groupStack
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
+   i32.const 0
+   i32.eq
+   if
+    global.get $assembly/internal/test/Collector/Collector.groupStack
+    i32.const 0
+    i32.const 624
+    i32.const 0
+    call $assembly/internal/test/TestGroup/TestGroup#constructor
+    local.tee $1
+    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
+    drop
+    local.get $1
+    call $~lib/rt/pure/__release
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   call $~lib/rt/pure/__retain
+   local.set $1
+   local.get $1
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
+   local.set $2
+   local.get $2
+   i32.const 0
+   i32.ne
+   i32.eqz
+   if
+    i32.const 640
+    i32.const 752
+    i32.const 44
+    i32.const 4
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $1
+   local.get $2
+   i32.const 1
+   i32.sub
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#__unchecked_get
+   local.tee $3
+   call $~lib/rt/pure/__retain
+   local.set $4
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $4
+  end
+  local.tee $3
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $2
+  i32.load offset=16
+  local.get $0
+  call "$~lib/array/Array<() => void>#push"
+  drop
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 (; 61 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/afterAllRan
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/afterAllRan
+ )
+ (func $assembly/internal/test/Test/afterAll (; 62 ;) (type $FUNCSIG$vi) (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.3 (result i32)
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   i32.eqz
+   if
+    block (result i32)
+     i32.const 0
+     i32.const 0
+     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
+     local.set $1
+     global.get $assembly/internal/test/Collector/Collector.groupStack
+     call $~lib/rt/pure/__release
+     local.get $1
+    end
+    global.set $assembly/internal/test/Collector/Collector.groupStack
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
+   i32.const 0
+   i32.eq
+   if
+    global.get $assembly/internal/test/Collector/Collector.groupStack
+    i32.const 0
+    i32.const 624
+    i32.const 0
+    call $assembly/internal/test/TestGroup/TestGroup#constructor
+    local.tee $1
+    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
+    drop
+    local.get $1
+    call $~lib/rt/pure/__release
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   call $~lib/rt/pure/__retain
+   local.set $1
+   local.get $1
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
+   local.set $2
+   local.get $2
+   i32.const 0
+   i32.ne
+   i32.eqz
+   if
+    i32.const 640
+    i32.const 752
+    i32.const 44
+    i32.const 4
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $1
+   local.get $2
+   i32.const 1
+   i32.sub
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#__unchecked_get
+   local.tee $3
+   call $~lib/rt/pure/__retain
+   local.set $4
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $4
+  end
+  local.tee $3
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $2
+  i32.load offset=8
+  local.get $0
+  call "$~lib/array/Array<() => void>#push"
+  drop
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 (; 63 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/testCount
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/testCount
+ )
+ (func $~lib/array/Array<f64>#constructor (; 64 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $0
   if (result i32)
@@ -4631,7 +4917,7 @@
   i32.store offset=12
   local.get $0
  )
- (func $assembly/internal/test/TestResult/TestResult#constructor (; 57 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/test/TestResult/TestResult#constructor (; 65 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   i32.eqz
@@ -4652,10 +4938,10 @@
   i32.const 0
   i32.store offset=8
   local.get $0
-  i32.const 840
+  i32.const 624
   i32.store offset=12
   local.get $0
-  i32.const 840
+  i32.const 624
   i32.store offset=16
   local.get $0
   i32.const 0
@@ -4698,7 +4984,7 @@
   f64.store offset=48
   local.get $0
  )
- (func $~lib/array/Array<assembly/internal/test/TestResult/TestResult>#push (; 58 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<assembly/internal/test/TestResult/TestResult>#push (; 66 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -4747,7 +5033,7 @@
   call $~lib/rt/pure/__release
   local.get $5
  )
- (func $assembly/internal/test/Test/it (; 59 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/test/Test/it (; 67 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -4757,7 +5043,7 @@
   local.get $0
   call $~lib/rt/pure/__retain
   drop
-  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.0 (result i32)
+  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.4 (result i32)
    global.get $assembly/internal/test/Collector/Collector.groupStack
    i32.eqz
    if
@@ -4779,7 +5065,7 @@
    if
     global.get $assembly/internal/test/Collector/Collector.groupStack
     i32.const 0
-    i32.const 840
+    i32.const 624
     i32.const 0
     call $assembly/internal/test/TestGroup/TestGroup#constructor
     local.tee $2
@@ -4799,8 +5085,8 @@
    i32.ne
    i32.eqz
    if
-    i32.const 856
-    i32.const 968
+    i32.const 640
+    i32.const 752
     i32.const 44
     i32.const 4
     call $~lib/builtins/abort
@@ -4826,8 +5112,8 @@
   local.get $3
   i32.eqz
   if
-   i32.const 1056
-   i32.const 1104
+   i32.const 912
+   i32.const 960
    i32.const 35
    i32.const 2
    call $~lib/builtins/abort
@@ -4943,592 +5229,26 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 (; 60 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/beforeAllRan
-  i32.const 1
-  i32.eq
-  i32.eqz
-  if
-   i32.const 1256
-   i32.const 448
-   i32.const 29
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 (; 61 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/afterEachRan
-  i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 1408
-   i32.const 448
-   i32.const 37
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 (; 62 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/afterAllRan
-  i32.const 1
-  i32.eq
-  i32.eqz
-  if
-   i32.const 1560
-   i32.const 448
-   i32.const 45
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 (; 63 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 1704
-   i32.const 448
-   i32.const 52
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0 (; 64 ;) (type $FUNCSIG$v)
-  i32.const 296
-  i32.const 1
-  call $assembly/internal/test/Test/it
-  i32.const 1184
-  i32.const 3
-  call $assembly/internal/test/Test/it
-  i32.const 1336
-  i32.const 4
-  call $assembly/internal/test/Test/it
-  i32.const 1488
-  i32.const 5
-  call $assembly/internal/test/Test/it
-  i32.const 1640
-  i32.const 6
-  call $assembly/internal/test/Test/it
- )
- (func $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#pop (; 65 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  i32.load offset=12
-  local.set $1
-  local.get $1
-  i32.const 1
-  i32.lt_s
-  if
-   i32.const 1832
-   i32.const 744
-   i32.const 258
-   i32.const 20
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  i32.const 1
-  i32.sub
-  local.tee $1
-  i32.const 2
-  i32.shl
-  i32.add
-  i32.load
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $0
-  local.get $1
-  i32.store offset=12
-  local.get $2
- )
- (func $~lib/array/Array<assembly/internal/test/TestResult/TestResult>#get:length (; 66 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  local.get $0
-  i32.load offset=12
- )
- (func $assembly/internal/test/Describe/describe (; 67 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  drop
-  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.1 (result i32)
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   i32.eqz
-   if
-    block (result i32)
-     i32.const 0
-     i32.const 0
-     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
-     local.set $2
-     global.get $assembly/internal/test/Collector/Collector.groupStack
-     call $~lib/rt/pure/__release
-     local.get $2
-    end
-    global.set $assembly/internal/test/Collector/Collector.groupStack
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
-   i32.const 0
-   i32.eq
-   if
-    global.get $assembly/internal/test/Collector/Collector.groupStack
-    i32.const 0
-    i32.const 840
-    i32.const 0
-    call $assembly/internal/test/TestGroup/TestGroup#constructor
-    local.tee $2
-    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
-    drop
-    local.get $2
-    call $~lib/rt/pure/__release
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   call $~lib/rt/pure/__retain
-   local.set $2
-   local.get $2
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
-   local.set $3
-   local.get $3
-   i32.const 0
-   i32.ne
-   i32.eqz
-   if
-    i32.const 856
-    i32.const 968
-    i32.const 44
-    i32.const 4
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $2
-   local.get $3
-   i32.const 1
-   i32.sub
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#__unchecked_get
-   local.tee $4
-   call $~lib/rt/pure/__retain
-   local.set $5
-   local.get $2
-   call $~lib/rt/pure/__release
-   local.get $4
-   call $~lib/rt/pure/__release
-   local.get $5
-  end
-  local.tee $4
-  call $~lib/rt/pure/__retain
-  local.set $3
-  i32.const 0
-  local.get $0
-  local.get $3
-  call $assembly/internal/test/TestGroup/TestGroup#constructor
-  local.set $2
-  block $assembly/internal/test/Collector/Collector.push|inlined.0
-   local.get $2
-   call $~lib/rt/pure/__retain
-   local.set $5
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   i32.eqz
-   if
-    i32.const 1776
-    i32.const 968
-    i32.const 55
-    i32.const 4
-    call $~lib/builtins/abort
-    unreachable
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   local.get $5
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
-   drop
-   local.get $5
-   call $~lib/rt/pure/__release
-  end
-  i32.const 0
-  global.set $~lib/argc
-  local.get $1
-  call_indirect (type $FUNCSIG$v)
-  block $assembly/internal/test/Collector/Collector.pop|inlined.0
-   global.get $assembly/internal/test/Collector/Collector.groups
-   i32.eqz
-   if
-    block (result i32)
-     i32.const 0
-     i32.const 0
-     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
-     local.set $5
-     global.get $assembly/internal/test/Collector/Collector.groups
-     call $~lib/rt/pure/__release
-     local.get $5
-    end
-    global.set $assembly/internal/test/Collector/Collector.groups
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#pop
-   local.set $5
-   local.get $5
-   i32.load
-   call $assembly/internal/test/Collector/groupCanRun
-   local.set $6
-   local.get $6
-   if (result i32)
-    local.get $5
-    i32.load offset=20
-    call $~lib/array/Array<assembly/internal/test/TestResult/TestResult>#get:length
-    i32.const 0
-    i32.gt_s
-   else    
-    i32.const 0
-   end
-   if
-    global.get $assembly/internal/test/Collector/Collector.groups
-    local.get $5
-    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
-    drop
-   end
-   local.get $5
-   call $~lib/rt/pure/__release
-  end
-  local.get $4
-  call $~lib/rt/pure/__release
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $0
-  call $~lib/rt/pure/__release
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 (; 68 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/beforeAllRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/beforeAllRan
- )
- (func "$~lib/array/Array<() => void>#push" (; 69 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  local.get $0
-  i32.load offset=12
-  local.set $2
-  local.get $2
-  i32.const 1
-  i32.add
-  local.set $3
-  local.get $0
-  local.get $3
-  i32.const 2
-  call $~lib/array/ensureSize
-  local.get $0
-  i32.load offset=4
-  local.get $2
-  i32.const 2
-  i32.shl
-  i32.add
-  local.get $1
-  i32.store
-  local.get $0
-  local.get $3
-  i32.store offset=12
-  local.get $3
- )
- (func $assembly/internal/test/Test/beforeAll (; 70 ;) (type $FUNCSIG$vi) (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.2 (result i32)
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   i32.eqz
-   if
-    block (result i32)
-     i32.const 0
-     i32.const 0
-     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
-     local.set $1
-     global.get $assembly/internal/test/Collector/Collector.groupStack
-     call $~lib/rt/pure/__release
-     local.get $1
-    end
-    global.set $assembly/internal/test/Collector/Collector.groupStack
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
-   i32.const 0
-   i32.eq
-   if
-    global.get $assembly/internal/test/Collector/Collector.groupStack
-    i32.const 0
-    i32.const 840
-    i32.const 0
-    call $assembly/internal/test/TestGroup/TestGroup#constructor
-    local.tee $1
-    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
-    drop
-    local.get $1
-    call $~lib/rt/pure/__release
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   call $~lib/rt/pure/__retain
-   local.set $1
-   local.get $1
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
-   local.set $2
-   local.get $2
-   i32.const 0
-   i32.ne
-   i32.eqz
-   if
-    i32.const 856
-    i32.const 968
-    i32.const 44
-    i32.const 4
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $1
-   local.get $2
-   i32.const 1
-   i32.sub
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#__unchecked_get
-   local.tee $3
-   call $~lib/rt/pure/__retain
-   local.set $4
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $3
-   call $~lib/rt/pure/__release
-   local.get $4
-  end
-  local.tee $3
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $2
-  i32.load offset=4
-  local.get $0
-  call "$~lib/array/Array<() => void>#push"
-  drop
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 (; 71 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/beforeEachRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/beforeEachRan
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 (; 72 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/afterEachRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/afterEachRan
- )
- (func $assembly/internal/test/Test/afterEach (; 73 ;) (type $FUNCSIG$vi) (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.4 (result i32)
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   i32.eqz
-   if
-    block (result i32)
-     i32.const 0
-     i32.const 0
-     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
-     local.set $1
-     global.get $assembly/internal/test/Collector/Collector.groupStack
-     call $~lib/rt/pure/__release
-     local.get $1
-    end
-    global.set $assembly/internal/test/Collector/Collector.groupStack
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
-   i32.const 0
-   i32.eq
-   if
-    global.get $assembly/internal/test/Collector/Collector.groupStack
-    i32.const 0
-    i32.const 840
-    i32.const 0
-    call $assembly/internal/test/TestGroup/TestGroup#constructor
-    local.tee $1
-    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
-    drop
-    local.get $1
-    call $~lib/rt/pure/__release
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   call $~lib/rt/pure/__retain
-   local.set $1
-   local.get $1
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
-   local.set $2
-   local.get $2
-   i32.const 0
-   i32.ne
-   i32.eqz
-   if
-    i32.const 856
-    i32.const 968
-    i32.const 44
-    i32.const 4
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $1
-   local.get $2
-   i32.const 1
-   i32.sub
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#__unchecked_get
-   local.tee $3
-   call $~lib/rt/pure/__retain
-   local.set $4
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $3
-   call $~lib/rt/pure/__release
-   local.get $4
-  end
-  local.tee $3
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $2
-  i32.load offset=16
-  local.get $0
-  call "$~lib/array/Array<() => void>#push"
-  drop
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 (; 74 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/afterAllRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/afterAllRan
- )
- (func $assembly/internal/test/Test/afterAll (; 75 ;) (type $FUNCSIG$vi) (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.5 (result i32)
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   i32.eqz
-   if
-    block (result i32)
-     i32.const 0
-     i32.const 0
-     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
-     local.set $1
-     global.get $assembly/internal/test/Collector/Collector.groupStack
-     call $~lib/rt/pure/__release
-     local.get $1
-    end
-    global.set $assembly/internal/test/Collector/Collector.groupStack
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
-   i32.const 0
-   i32.eq
-   if
-    global.get $assembly/internal/test/Collector/Collector.groupStack
-    i32.const 0
-    i32.const 840
-    i32.const 0
-    call $assembly/internal/test/TestGroup/TestGroup#constructor
-    local.tee $1
-    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
-    drop
-    local.get $1
-    call $~lib/rt/pure/__release
-   end
-   global.get $assembly/internal/test/Collector/Collector.groupStack
-   call $~lib/rt/pure/__retain
-   local.set $1
-   local.get $1
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
-   local.set $2
-   local.get $2
-   i32.const 0
-   i32.ne
-   i32.eqz
-   if
-    i32.const 856
-    i32.const 968
-    i32.const 44
-    i32.const 4
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $1
-   local.get $2
-   i32.const 1
-   i32.sub
-   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#__unchecked_get
-   local.tee $3
-   call $~lib/rt/pure/__retain
-   local.set $4
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $3
-   call $~lib/rt/pure/__release
-   local.get $4
-  end
-  local.tee $3
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $2
-  i32.load offset=8
-  local.get $0
-  call "$~lib/array/Array<() => void>#push"
-  drop
-  local.get $3
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 (; 76 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5 (; 68 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|5 (; 77 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6 (; 69 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|6 (; 78 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|7 (; 79 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7 (; 70 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
   unreachable
  )
- (func $assembly/internal/test/Test/throws (; 80 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/test/Test/throws (; 71 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -5541,7 +5261,7 @@
   local.get $2
   call $~lib/rt/pure/__retain
   drop
-  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.6 (result i32)
+  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.5 (result i32)
    global.get $assembly/internal/test/Collector/Collector.groupStack
    i32.eqz
    if
@@ -5563,7 +5283,7 @@
    if
     global.get $assembly/internal/test/Collector/Collector.groupStack
     i32.const 0
-    i32.const 840
+    i32.const 624
     i32.const 0
     call $assembly/internal/test/TestGroup/TestGroup#constructor
     local.tee $3
@@ -5583,8 +5303,8 @@
    i32.ne
    i32.eqz
    if
-    i32.const 856
-    i32.const 968
+    i32.const 640
+    i32.const 752
     i32.const 44
     i32.const 4
     call $~lib/builtins/abort
@@ -5740,18 +5460,18 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1 (; 81 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0 (; 72 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
-  i32.const 8
+  i32.const 1
   call $assembly/internal/test/Test/beforeAll
   block $assembly/internal/test/Test/beforeEach|inlined.0
-   i32.const 9
+   i32.const 3
    local.set $0
-   block $assembly/internal/test/Collector/Collector.currentGroup|inlined.3 (result i32)
+   block $assembly/internal/test/Collector/Collector.currentGroup|inlined.1 (result i32)
     global.get $assembly/internal/test/Collector/Collector.groupStack
     i32.eqz
     if
@@ -5773,7 +5493,7 @@
     if
      global.get $assembly/internal/test/Collector/Collector.groupStack
      i32.const 0
-     i32.const 840
+     i32.const 624
      i32.const 0
      call $assembly/internal/test/TestGroup/TestGroup#constructor
      local.tee $1
@@ -5793,8 +5513,8 @@
     i32.ne
     i32.eqz
     if
-     i32.const 856
-     i32.const 968
+     i32.const 640
+     i32.const 752
      i32.const 44
      i32.const 4
      call $~lib/builtins/abort
@@ -5827,29 +5547,309 @@
    local.get $2
    call $~lib/rt/pure/__release
   end
-  i32.const 10
+  i32.const 4
   call $assembly/internal/test/Test/afterEach
-  i32.const 11
+  i32.const 5
   call $assembly/internal/test/Test/afterAll
-  i32.const 1920
+  i32.const 840
+  i32.const 6
+  call $assembly/internal/test/Test/it
+  i32.const 840
+  i32.const 7
+  call $assembly/internal/test/Test/it
+  i32.const 840
+  i32.const 8
+  call $assembly/internal/test/Test/it
+  i32.const 1040
+  i32.const 9
+  i32.const 624
+  call $assembly/internal/test/Test/throws
+ )
+ (func $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#pop (; 73 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  local.get $0
+  i32.load offset=12
+  local.set $1
+  local.get $1
+  i32.const 1
+  i32.lt_s
+  if
+   i32.const 1152
+   i32.const 528
+   i32.const 258
+   i32.const 20
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.const 1
+  i32.sub
+  local.tee $1
+  i32.const 2
+  i32.shl
+  i32.add
+  i32.load
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $0
+  local.get $1
+  i32.store offset=12
+  local.get $2
+ )
+ (func $~lib/array/Array<assembly/internal/test/TestResult/TestResult>#get:length (; 74 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+  local.get $0
+  i32.load offset=12
+ )
+ (func $assembly/internal/test/Describe/describe (; 75 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  drop
+  block $assembly/internal/test/Collector/Collector.currentGroup|inlined.6 (result i32)
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   i32.eqz
+   if
+    block (result i32)
+     i32.const 0
+     i32.const 0
+     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
+     local.set $2
+     global.get $assembly/internal/test/Collector/Collector.groupStack
+     call $~lib/rt/pure/__release
+     local.get $2
+    end
+    global.set $assembly/internal/test/Collector/Collector.groupStack
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
+   i32.const 0
+   i32.eq
+   if
+    global.get $assembly/internal/test/Collector/Collector.groupStack
+    i32.const 0
+    i32.const 624
+    i32.const 0
+    call $assembly/internal/test/TestGroup/TestGroup#constructor
+    local.tee $2
+    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
+    drop
+    local.get $2
+    call $~lib/rt/pure/__release
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   call $~lib/rt/pure/__retain
+   local.set $2
+   local.get $2
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#get:length
+   local.set $3
+   local.get $3
+   i32.const 0
+   i32.ne
+   i32.eqz
+   if
+    i32.const 640
+    i32.const 752
+    i32.const 44
+    i32.const 4
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $2
+   local.get $3
+   i32.const 1
+   i32.sub
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#__unchecked_get
+   local.tee $4
+   call $~lib/rt/pure/__retain
+   local.set $5
+   local.get $2
+   call $~lib/rt/pure/__release
+   local.get $4
+   call $~lib/rt/pure/__release
+   local.get $5
+  end
+  local.tee $4
+  call $~lib/rt/pure/__retain
+  local.set $3
+  i32.const 0
+  local.get $0
+  local.get $3
+  call $assembly/internal/test/TestGroup/TestGroup#constructor
+  local.set $2
+  block $assembly/internal/test/Collector/Collector.push|inlined.0
+   local.get $2
+   call $~lib/rt/pure/__retain
+   local.set $5
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   i32.eqz
+   if
+    i32.const 1096
+    i32.const 752
+    i32.const 55
+    i32.const 4
+    call $~lib/builtins/abort
+    unreachable
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   local.get $5
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
+   drop
+   local.get $5
+   call $~lib/rt/pure/__release
+  end
+  i32.const 0
+  global.set $~lib/argc
+  local.get $1
+  call_indirect (type $FUNCSIG$v)
+  block $assembly/internal/test/Collector/Collector.pop|inlined.0
+   global.get $assembly/internal/test/Collector/Collector.groups
+   i32.eqz
+   if
+    block (result i32)
+     i32.const 0
+     i32.const 0
+     call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#constructor
+     local.set $5
+     global.get $assembly/internal/test/Collector/Collector.groups
+     call $~lib/rt/pure/__release
+     local.get $5
+    end
+    global.set $assembly/internal/test/Collector/Collector.groups
+   end
+   global.get $assembly/internal/test/Collector/Collector.groupStack
+   call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#pop
+   local.set $5
+   local.get $5
+   i32.load
+   call $assembly/internal/test/Collector/groupCanRun
+   local.set $6
+   local.get $6
+   if (result i32)
+    local.get $5
+    i32.load offset=20
+    call $~lib/array/Array<assembly/internal/test/TestResult/TestResult>#get:length
+    i32.const 0
+    i32.gt_s
+   else    
+    i32.const 0
+   end
+   if
+    global.get $assembly/internal/test/Collector/Collector.groups
+    local.get $5
+    call $~lib/array/Array<assembly/internal/test/TestGroup/TestGroup>#push
+    drop
+   end
+   local.get $5
+   call $~lib/rt/pure/__release
+  end
+  local.get $4
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 (; 76 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/beforeEachRan
+  i32.const 4
+  i32.eq
+  i32.eqz
+  if
+   i32.const 1296
+   i32.const 1376
+   i32.const 62
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 (; 77 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/beforeAllRan
+  i32.const 1
+  i32.eq
+  i32.eqz
+  if
+   i32.const 1528
+   i32.const 1376
+   i32.const 70
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 (; 78 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/afterEachRan
+  i32.const 4
+  i32.eq
+  i32.eqz
+  if
+   i32.const 1680
+   i32.const 1376
+   i32.const 78
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 (; 79 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/afterAllRan
+  i32.const 1
+  i32.eq
+  i32.eqz
+  if
+   i32.const 1832
+   i32.const 1376
+   i32.const 86
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 (; 80 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/testCount
+  i32.const 4
+  i32.eq
+  i32.eqz
+  if
+   i32.const 1976
+   i32.const 1376
+   i32.const 93
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1 (; 81 ;) (type $FUNCSIG$v)
+  i32.const 1224
+  i32.const 11
+  call $assembly/internal/test/Test/it
+  i32.const 1456
   i32.const 12
   call $assembly/internal/test/Test/it
-  i32.const 1920
+  i32.const 1608
   i32.const 13
   call $assembly/internal/test/Test/it
-  i32.const 1920
+  i32.const 1760
   i32.const 14
   call $assembly/internal/test/Test/it
-  i32.const 1992
+  i32.const 1912
   i32.const 15
-  i32.const 840
-  call $assembly/internal/test/Test/throws
+  call $assembly/internal/test/Test/it
  )
  (func $start:assembly/__tests__/flow.spec (; 82 ;) (type $FUNCSIG$v)
   i32.const 272
-  i32.const 7
+  i32.const 10
   call $assembly/internal/test/Describe/describe
-  i32.const 1880
+  i32.const 1200
   i32.const 16
   call $assembly/internal/test/Describe/describe
  )
@@ -5882,8 +5882,8 @@
   i32.load offset=12
   i32.ge_u
   if
-   i32.const 632
-   i32.const 744
+   i32.const 416
+   i32.const 528
    i32.const 97
    i32.const 45
    call $~lib/builtins/abort
@@ -5897,7 +5897,7 @@
   i32.ge_u
   if
    i32.const 176
-   i32.const 744
+   i32.const 528
    i32.const 100
    i32.const 61
    call $~lib/builtins/abort
@@ -6004,8 +6004,8 @@
   i32.load offset=12
   i32.ge_u
   if
-   i32.const 632
-   i32.const 744
+   i32.const 416
+   i32.const 528
    i32.const 97
    i32.const 45
    call $~lib/builtins/abort
@@ -6019,7 +6019,7 @@
   i32.ge_u
   if
    i32.const 176
-   i32.const 744
+   i32.const 528
    i32.const 100
    i32.const 61
    call $~lib/builtins/abort
