@@ -11,7 +11,7 @@
  (type $FUNCSIG$viif (func (param i32 i32 f32)))
  (type $FUNCSIG$viid (func (param i32 i32 f64)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
- (import "__aspect" "reportActualValue" (func $assembly/internal/comparison/lengthComparison/reportActualInteger (param i32)))
+ (import "__aspect" "reportActualValue" (func $assembly/internal/comparison/lengthComparison/reportActualInteger (param i32 i32)))
  (import "__aspect" "reportExpectedValue" (func $assembly/internal/comparison/lengthComparison/reportExpectedInteger (param i32 i32)))
  (import "__aspect" "clearExpected" (func $assembly/internal/comparison/lengthComparison/clearExpected))
  (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
@@ -33,32 +33,32 @@
  (data (i32.const 544) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
  (data (i32.const 600) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00~\00l\00i\00b\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s\00")
  (data (i32.const 656) "f\00\00\00\01\00\00\00\01\00\00\00f\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00 \00c\00a\00l\00l\00e\00d\00 \00o\00n\00 \00n\00u\00l\00l\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00.\00")
- (data (i32.const 776) "`\00\00\00\01\00\00\00\01\00\00\00`\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00l\00e\00n\00g\00t\00h\00C\00o\00m\00p\00a\00r\00i\00s\00o\00n\00.\00t\00s\00")
- (data (i32.const 888) "\82\00\00\00\01\00\00\00\01\00\00\00\82\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00l\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00e\00q\00u\00a\00l\00 \00t\00h\00e\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 1040) "l\00\00\00\01\00\00\00\01\00\00\00l\00\00\00W\00h\00e\00n\00 \00l\00e\00n\00g\00t\00h\00 \00i\00s\00 \00e\00q\00u\00a\00l\00,\00 \00n\00e\00g\00a\00t\00e\00d\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00.\00")
- (data (i32.const 1168) "\"\00\00\00\01\00\00\00\01\00\00\00\"\00\00\00U\00i\00n\00t\008\00C\00l\00a\00m\00p\00e\00d\00A\00r\00r\00a\00y\00")
- (data (i32.const 1224) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00I\00n\00t\008\00A\00r\00r\00a\00y\00")
- (data (i32.const 1264) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\001\006\00A\00r\00r\00a\00y\00")
- (data (i32.const 1304) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\001\006\00A\00r\00r\00a\00y\00")
- (data (i32.const 1344) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\003\002\00A\00r\00r\00a\00y\00")
- (data (i32.const 1384) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\003\002\00A\00r\00r\00a\00y\00")
- (data (i32.const 1424) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\006\004\00A\00r\00r\00a\00y\00")
- (data (i32.const 1464) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\006\004\00A\00r\00r\00a\00y\00")
- (data (i32.const 1504) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00F\00l\00o\00a\00t\003\002\00A\00r\00r\00a\00y\00")
- (data (i32.const 1544) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00F\00l\00o\00a\00t\006\004\00A\00r\00r\00a\00y\00")
- (data (i32.const 1584) "\0c\00\00\00\01\00\00\00\00\00\00\00\0c\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00")
- (data (i32.const 1616) "\10\00\00\00\01\00\00\00\19\00\00\00\10\00\00\00@\06\00\00@\06\00\00\0c\00\00\00\03\00\00\00")
- (data (i32.const 1648) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00A\00r\00r\00a\00y\00s\00")
- (data (i32.const 1704) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00c\00u\00s\00t\00o\00m\00 \00c\00l\00a\00s\00s\00e\00s\00")
- (data (i32.const 1776) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00w\00h\00e\00n\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00l\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00e\00q\00u\00a\00l\00 \00t\00h\00e\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 1896) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00w\00h\00e\00n\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
- (data (i32.const 1968) "t\00\00\00\01\00\00\00\01\00\00\00t\00\00\00W\00h\00e\00n\00 \00t\00h\00e\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00,\00 \00i\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00a\00n\00 \00e\00r\00r\00o\00r\00.\00")
- (data (i32.const 2104) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00w\00h\00e\00n\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00 \00a\00n\00d\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00 \00i\00s\00 \00n\00e\00g\00a\00t\00e\00d\00")
- (data (i32.const 2224) "D\00\00\00\01\00\00\00\01\00\00\00D\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00")
- (data (i32.const 2312) "|\00\00\00\01\00\00\00\01\00\00\00|\00\00\00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00a\00r\00e\00 \00u\00s\00e\00d\00")
- (data (i32.const 2456) "\d8\00\00\00\01\00\00\00\01\00\00\00\d8\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00c\00a\00l\00l\00e\00d\00 \00o\00n\00 \00T\00y\00p\00e\00d\00A\00r\00r\00a\00y\00s\00,\00 \00A\00r\00r\00a\00y\00B\00u\00f\00f\00e\00r\00s\00,\00 \00A\00r\00r\00a\00y\00s\00,\00 \00a\00n\00d\00 \00c\00l\00a\00s\00s\00e\00s\00 \00t\00h\00a\00t\00 \00h\00a\00v\00e\00 \00a\00 \00l\00e\00n\00g\00t\00h\00 \00p\00r\00o\00p\00e\00r\00t\00y\00.\00")
- (data (i32.const 2688) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00o\00n\00 \00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00s\00.\00")
- (data (i32.const 2808) "\1e\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\00\10\00\00\00\00\00\00\001\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00Q\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00Q\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\91\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\91\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\11\01\00\00\02\00\00\00\10\00\00\00\00\00\00\00\11\05\00\00\02\00\00\00\10\00\00\00\00\00\00\00\91\0c\00\00\02\00\00\00\10\00\00\00\00\00\00\00\11\0d\00\00\02\00\00\00\10\00\00\00\00\00\00\00\93\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00")
+ (data (i32.const 776) "L\00\00\00\01\00\00\00\01\00\00\00L\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
+ (data (i32.const 872) "\82\00\00\00\01\00\00\00\01\00\00\00\82\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00l\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00e\00q\00u\00a\00l\00 \00t\00h\00e\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 1024) "l\00\00\00\01\00\00\00\01\00\00\00l\00\00\00W\00h\00e\00n\00 \00l\00e\00n\00g\00t\00h\00 \00i\00s\00 \00e\00q\00u\00a\00l\00,\00 \00n\00e\00g\00a\00t\00e\00d\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00.\00")
+ (data (i32.const 1152) "\"\00\00\00\01\00\00\00\01\00\00\00\"\00\00\00U\00i\00n\00t\008\00C\00l\00a\00m\00p\00e\00d\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1208) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00I\00n\00t\008\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1248) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\001\006\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1288) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\001\006\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1328) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\003\002\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1368) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\003\002\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1408) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00U\00i\00n\00t\006\004\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1448) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00I\00n\00t\006\004\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1488) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00F\00l\00o\00a\00t\003\002\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1528) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00F\00l\00o\00a\00t\006\004\00A\00r\00r\00a\00y\00")
+ (data (i32.const 1568) "\0c\00\00\00\01\00\00\00\00\00\00\00\0c\00\00\00\01\00\00\00\02\00\00\00\03\00\00\00")
+ (data (i32.const 1600) "\10\00\00\00\01\00\00\00\19\00\00\00\10\00\00\000\06\00\000\06\00\00\0c\00\00\00\03\00\00\00")
+ (data (i32.const 1632) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00A\00r\00r\00a\00y\00s\00")
+ (data (i32.const 1688) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00c\00u\00s\00t\00o\00m\00 \00c\00l\00a\00s\00s\00e\00s\00")
+ (data (i32.const 1760) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00w\00h\00e\00n\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00l\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00e\00q\00u\00a\00l\00 \00t\00h\00e\00 \00s\00a\00m\00e\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 1880) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00w\00h\00e\00n\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
+ (data (i32.const 1952) "t\00\00\00\01\00\00\00\01\00\00\00t\00\00\00W\00h\00e\00n\00 \00t\00h\00e\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00,\00 \00i\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00a\00n\00 \00e\00r\00r\00o\00r\00.\00")
+ (data (i32.const 2088) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00w\00h\00e\00n\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00t\00y\00p\00e\00 \00i\00s\00 \00n\00u\00l\00l\00 \00a\00n\00d\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00 \00i\00s\00 \00n\00e\00g\00a\00t\00e\00d\00")
+ (data (i32.const 2208) "D\00\00\00\01\00\00\00\01\00\00\00D\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00")
+ (data (i32.const 2296) "|\00\00\00\01\00\00\00\01\00\00\00|\00\00\00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00a\00r\00e\00 \00u\00s\00e\00d\00")
+ (data (i32.const 2440) "\d8\00\00\00\01\00\00\00\01\00\00\00\d8\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00c\00a\00l\00l\00e\00d\00 \00o\00n\00 \00T\00y\00p\00e\00d\00A\00r\00r\00a\00y\00s\00,\00 \00A\00r\00r\00a\00y\00B\00u\00f\00f\00e\00r\00s\00,\00 \00A\00r\00r\00a\00y\00s\00,\00 \00a\00n\00d\00 \00c\00l\00a\00s\00s\00e\00s\00 \00t\00h\00a\00t\00 \00h\00a\00v\00e\00 \00a\00 \00l\00e\00n\00g\00t\00h\00 \00p\00r\00o\00p\00e\00r\00t\00y\00.\00")
+ (data (i32.const 2672) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00t\00o\00H\00a\00v\00e\00L\00e\00n\00g\00t\00h\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00o\00n\00 \00v\00a\00l\00u\00e\00 \00t\00y\00p\00e\00s\00.\00")
+ (data (i32.const 2792) "\1e\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\00\10\00\00\00\00\00\00\001\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00Q\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00Q\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\91\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\91\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\11\01\00\00\02\00\00\00\10\00\00\00\00\00\00\00\11\05\00\00\02\00\00\00\10\00\00\00\00\00\00\00\91\0c\00\00\02\00\00\00\10\00\00\00\00\00\00\00\11\0d\00\00\02\00\00\00\10\00\00\00\00\00\00\00\93\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00")
  (table $0 45 funcref)
  (elem (i32.const 0) $null $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/toHaveLength.spec~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/toHaveLength.spec~anonymous|1 $start:assembly/__tests__/toHaveLength.spec~anonymous|2~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|2)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -68,12 +68,12 @@
  (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $assembly/internal/noOp/noOp i32 (i32.const 4))
  (global $~lib/argc (mut i32) (i32.const 0))
- (global $assembly/__tests__/toHaveLength.spec/valueArray (mut i32) (i32.const 1632))
+ (global $assembly/__tests__/toHaveLength.spec/valueArray (mut i32) (i32.const 1616))
  (global $assembly/__tests__/toHaveLength.spec/customExample (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
  (global $~lib/started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 2808))
- (global $~lib/heap/__heap_base i32 (i32.const 3052))
+ (global $~lib/rt/__rtti_base i32 (i32.const 2792))
+ (global $~lib/heap/__heap_base i32 (i32.const 3036))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
  (export "__retain" (func $~lib/rt/pure/__retain))
@@ -3745,6 +3745,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint8Array,u8>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -3785,6 +3788,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint8Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -3797,21 +3803,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -3821,36 +3840,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Uint8Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.1
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -3893,6 +3930,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint8Array,u8>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -3935,6 +3975,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint8Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -3947,21 +3990,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -3971,36 +4027,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Uint8Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.3
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -4035,9 +4109,9 @@
   i32.const 432
   i32.const 1
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 2
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $start:assembly/internal/noOp~anonymous|0 (; 51 ;) (type $FUNCSIG$v)
@@ -4196,6 +4270,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint8ClampedArray,u8>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -4236,6 +4313,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint8ClampedArray>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -4248,21 +4328,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -4272,36 +4365,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Uint8ClampedArray#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.5
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -4334,6 +4445,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint8ClampedArray,u8>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -4376,6 +4490,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint8ClampedArray>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -4388,21 +4505,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -4412,36 +4542,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Uint8ClampedArray#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.7
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -4460,9 +4608,9 @@
   i32.const 432
   i32.const 5
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 6
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8> (; 63 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -4592,6 +4740,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Int8Array,i8>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -4632,6 +4783,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int8Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -4644,21 +4798,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -4668,36 +4835,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Int8Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.9
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -4730,6 +4915,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Int8Array,i8>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -4772,6 +4960,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int8Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -4784,21 +4975,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -4808,36 +5012,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Int8Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.11
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -4856,9 +5078,9 @@
   i32.const 432
   i32.const 8
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 9
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8> (; 73 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -4994,6 +5216,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint16Array,u16>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -5034,6 +5259,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint16Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -5046,21 +5274,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -5070,36 +5311,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Uint16Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.13
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -5132,6 +5391,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint16Array,u16>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -5174,6 +5436,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint16Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -5186,21 +5451,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -5210,36 +5488,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Uint16Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.15
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -5258,9 +5554,9 @@
   i32.const 432
   i32.const 11
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 12
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16> (; 83 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -5396,6 +5692,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Int16Array,i16>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -5436,6 +5735,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int16Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -5448,21 +5750,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -5472,36 +5787,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Int16Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.17
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -5534,6 +5867,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Int16Array,i16>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -5576,6 +5912,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int16Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -5588,21 +5927,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -5612,36 +5964,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Int16Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.19
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -5660,9 +6030,9 @@
   i32.const 432
   i32.const 14
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 15
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16> (; 93 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -5798,6 +6168,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint32Array,u32>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -5838,6 +6211,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint32Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -5850,21 +6226,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -5874,36 +6263,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Uint32Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.21
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -5936,6 +6343,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint32Array,u32>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -5978,6 +6388,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint32Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -5990,21 +6403,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -6014,36 +6440,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Uint32Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.23
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -6062,9 +6506,9 @@
   i32.const 432
   i32.const 17
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 18
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32> (; 103 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -6200,6 +6644,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Int32Array,i32>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -6240,6 +6687,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int32Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -6252,21 +6702,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -6276,36 +6739,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Int32Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.25
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -6338,6 +6819,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Int32Array,i32>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -6380,6 +6864,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int32Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -6392,21 +6879,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -6416,36 +6916,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Int32Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.27
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -6464,9 +6982,9 @@
   i32.const 432
   i32.const 20
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 21
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32> (; 113 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -6602,6 +7120,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint64Array,u64>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -6642,6 +7163,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint64Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -6654,21 +7178,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -6678,36 +7215,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Uint64Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.29
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -6740,6 +7295,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Uint64Array,u64>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -6782,6 +7340,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Uint64Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -6794,21 +7355,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -6818,36 +7392,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Uint64Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.31
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -6866,9 +7458,9 @@
   i32.const 432
   i32.const 23
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 24
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64> (; 123 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -7004,6 +7596,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Int64Array,i64>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -7044,6 +7639,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int64Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -7056,21 +7654,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -7080,36 +7691,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Int64Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.33
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -7142,6 +7771,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Int64Array,i64>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -7184,6 +7816,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Int64Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -7196,21 +7831,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -7220,36 +7868,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Int64Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.35
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -7268,9 +7934,9 @@
   i32.const 432
   i32.const 26
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 27
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64> (; 133 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -7406,6 +8072,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Float32Array,f32>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -7446,6 +8115,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Float32Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -7458,21 +8130,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -7482,36 +8167,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Float32Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.37
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -7544,6 +8247,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Float32Array,f32>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -7586,6 +8292,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Float32Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -7598,21 +8307,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -7622,36 +8344,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Float32Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.39
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -7670,9 +8410,9 @@
   i32.const 432
   i32.const 29
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 30
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32> (; 143 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -7808,6 +8548,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Float64Array,f64>|inlined.0 (result i32)
    i32.const 0
    i32.const 3
@@ -7848,6 +8591,9 @@
    local.set $5
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Float64Array>|inlined.0
     local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $10
+    local.get $4
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
@@ -7860,21 +8606,34 @@
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
-    local.set $10
+    local.set $11
     local.get $9
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $13
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $12
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $9
@@ -7884,36 +8643,54 @@
      if
       local.get $9
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $10
+      local.set $11
      else      
       local.get $9
       call $~lib/typedarray/Float64Array#get:length
-      local.set $10
+      local.set $11
      end
     end
+    local.get $11
     local.get $10
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $8
     local.get $7
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $7
-    local.get $10
-    local.get $8
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.41
+     local.get $7
+     local.get $11
+     local.get $8
+     i32.eq
+     i32.xor
+     local.set $13
      local.get $6
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $12
+     local.get $13
+     i32.eqz
+     if
+      local.get $12
+      call $~lib/rt/pure/__release
+      block
+       local.get $12
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $12
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $6
     call $~lib/rt/pure/__release
     local.get $9
+    call $~lib/rt/pure/__release
+    local.get $10
     call $~lib/rt/pure/__release
    end
    local.get $5
@@ -7946,6 +8723,9 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
+  (local $14 i32)
   block $assembly/__tests__/toHaveLength.spec/create<~lib/typedarray/Float64Array,f64>|inlined.1 (result i32)
    i32.const 0
    i32.const 3
@@ -7988,6 +8768,9 @@
    local.set $6
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/typedarray/Float64Array>|inlined.1
     local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $11
+    local.get $5
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
@@ -8000,21 +8783,34 @@
     call $~lib/rt/pure/__retain
     local.set $7
     i32.const 0
-    local.set $11
+    local.set $12
     local.get $10
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $14
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $13
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $10
@@ -8024,36 +8820,54 @@
      if
       local.get $10
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $11
+      local.set $12
      else      
       local.get $10
       call $~lib/typedarray/Float64Array#get:length
-      local.set $11
+      local.set $12
      end
     end
+    local.get $12
     local.get $11
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $8
-    local.get $11
-    local.get $9
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.43
+     local.get $8
+     local.get $12
+     local.get $9
+     i32.eq
+     i32.xor
+     local.set $14
      local.get $7
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $13
+     local.get $14
+     i32.eqz
+     if
+      local.get $13
+      call $~lib/rt/pure/__release
+      block
+       local.get $13
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $13
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $7
     call $~lib/rt/pure/__release
     local.get $10
+    call $~lib/rt/pure/__release
+    local.get $11
     call $~lib/rt/pure/__release
    end
    local.get $6
@@ -8072,9 +8886,9 @@
   i32.const 432
   i32.const 32
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 33
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64> (; 153 ;) (type $FUNCSIG$vi) (param $0 i32)
@@ -8164,6 +8978,9 @@
   (local $6 i32)
   (local $7 i32)
   (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toHaveLength|inlined.0
    global.get $assembly/__tests__/toHaveLength.spec/valueArray
    call $assembly/internal/Expectation/expect<~lib/array/Array<i32>>
@@ -8175,6 +8992,9 @@
    call $~lib/rt/pure/__retain
    local.set $3
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/array/Array<i32>>|inlined.0
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $2
     i32.load offset=4
     call $~lib/rt/pure/__retain
@@ -8188,21 +9008,34 @@
     call $~lib/rt/pure/__retain
     local.set $4
     i32.const 0
-    local.set $8
+    local.set $9
     local.get $7
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $11
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $10
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $7
@@ -8212,36 +9045,54 @@
      if
       local.get $7
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $8
+      local.set $9
      else      
       local.get $7
       call $~lib/array/Array<i32>#get:length
-      local.set $8
+      local.set $9
      end
     end
+    local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $6
     local.get $5
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $5
-    local.get $8
-    local.get $6
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.45
+     local.get $5
+     local.get $9
+     local.get $6
+     i32.eq
+     i32.xor
+     local.set $11
      local.get $4
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $4
     call $~lib/rt/pure/__release
     local.get $7
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $3
@@ -8268,6 +9119,9 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
   block $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toHaveLength|inlined.1
    global.get $assembly/__tests__/toHaveLength.spec/valueArray
    call $assembly/internal/Expectation/expect<~lib/array/Array<i32>>
@@ -8282,6 +9136,9 @@
    local.set $4
    block $assembly/internal/comparison/lengthComparison/lengthComparison<~lib/array/Array<i32>>|inlined.1
     local.get $3
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $3
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $8
@@ -8294,21 +9151,34 @@
     call $~lib/rt/pure/__retain
     local.set $5
     i32.const 0
-    local.set $9
+    local.set $10
     local.get $8
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $12
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $11
+     local.get $12
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $11
+      call $~lib/rt/pure/__release
+      block
+       local.get $11
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $11
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $8
@@ -8318,36 +9188,54 @@
      if
       local.get $8
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $9
+      local.set $10
      else      
       local.get $8
       call $~lib/array/Array<i32>#get:length
-      local.set $9
+      local.set $10
      end
     end
+    local.get $10
     local.get $9
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $7
     local.get $6
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $6
-    local.get $9
-    local.get $7
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.47
+     local.get $6
+     local.get $10
+     local.get $7
+     i32.eq
+     i32.xor
+     local.set $12
      local.get $5
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $11
+     local.get $12
+     i32.eqz
+     if
+      local.get $11
+      call $~lib/rt/pure/__release
+      block
+       local.get $11
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $11
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $5
     call $~lib/rt/pure/__release
     local.get $8
+    call $~lib/rt/pure/__release
+    local.get $9
     call $~lib/rt/pure/__release
    end
    local.get $4
@@ -8362,9 +9250,9 @@
   i32.const 432
   i32.const 35
   call $assembly/internal/Test/it
-  i32.const 904
+  i32.const 888
   i32.const 36
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
  )
  (func $assembly/__tests__/toHaveLength.spec/Example#constructor (; 161 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -8449,6 +9337,9 @@
   (local $6 i32)
   (local $7 i32)
   (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#toHaveLength|inlined.0
    global.get $assembly/__tests__/toHaveLength.spec/customExample
    call $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example>
@@ -8460,6 +9351,9 @@
    call $~lib/rt/pure/__retain
    local.set $3
    block $assembly/internal/comparison/lengthComparison/lengthComparison<assembly/__tests__/toHaveLength.spec/Example>|inlined.0
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $2
     i32.load offset=4
     call $~lib/rt/pure/__retain
@@ -8473,21 +9367,34 @@
     call $~lib/rt/pure/__retain
     local.set $4
     i32.const 0
-    local.set $8
+    local.set $9
     local.get $7
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $11
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $10
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $7
@@ -8497,36 +9404,54 @@
      if
       local.get $7
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $8
+      local.set $9
      else      
       local.get $7
       i32.load
-      local.set $8
+      local.set $9
      end
     end
+    local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $6
     local.get $5
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $5
-    local.get $8
-    local.get $6
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.49
+     local.get $5
+     local.get $9
+     local.get $6
+     i32.eq
+     i32.xor
+     local.set $11
      local.get $4
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $4
     call $~lib/rt/pure/__release
     local.get $7
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $3
@@ -8553,6 +9478,9 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
   block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#toHaveLength|inlined.1
    global.get $assembly/__tests__/toHaveLength.spec/customExample
    call $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example>
@@ -8567,6 +9495,9 @@
    local.set $4
    block $assembly/internal/comparison/lengthComparison/lengthComparison<assembly/__tests__/toHaveLength.spec/Example>|inlined.1
     local.get $3
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $3
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $8
@@ -8579,21 +9510,34 @@
     call $~lib/rt/pure/__retain
     local.set $5
     i32.const 0
-    local.set $9
+    local.set $10
     local.get $8
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $12
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $11
+     local.get $12
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $11
+      call $~lib/rt/pure/__release
+      block
+       local.get $11
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $11
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $8
@@ -8603,36 +9547,54 @@
      if
       local.get $8
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $9
+      local.set $10
      else      
       local.get $8
       i32.load
-      local.set $9
+      local.set $10
      end
     end
+    local.get $10
     local.get $9
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $7
     local.get $6
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $6
-    local.get $9
-    local.get $7
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.51
+     local.get $6
+     local.get $10
+     local.get $7
+     i32.eq
+     i32.xor
+     local.set $12
      local.get $5
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $11
+     local.get $12
+     i32.eqz
+     if
+      local.get $11
+      call $~lib/rt/pure/__release
+      block
+       local.get $11
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $11
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $5
     call $~lib/rt/pure/__release
     local.get $8
+    call $~lib/rt/pure/__release
+    local.get $9
     call $~lib/rt/pure/__release
    end
    local.get $4
@@ -8653,6 +9615,9 @@
   (local $6 i32)
   (local $7 i32)
   (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#toHaveLength|inlined.2
    i32.const 0
    call $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example>
@@ -8664,6 +9629,9 @@
    call $~lib/rt/pure/__retain
    local.set $3
    block $assembly/internal/comparison/lengthComparison/lengthComparison<assembly/__tests__/toHaveLength.spec/Example>|inlined.2
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $2
     i32.load offset=4
     call $~lib/rt/pure/__retain
@@ -8677,21 +9645,34 @@
     call $~lib/rt/pure/__retain
     local.set $4
     i32.const 0
-    local.set $8
+    local.set $9
     local.get $7
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $11
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $10
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $7
@@ -8701,36 +9682,54 @@
      if
       local.get $7
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $8
+      local.set $9
      else      
       local.get $7
       i32.load
-      local.set $8
+      local.set $9
      end
     end
+    local.get $9
     local.get $8
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $6
     local.get $5
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $5
-    local.get $8
-    local.get $6
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.53
+     local.get $5
+     local.get $9
+     local.get $6
+     i32.eq
+     i32.xor
+     local.set $11
      local.get $4
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $4
     call $~lib/rt/pure/__release
     local.get $7
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $3
@@ -8750,6 +9749,9 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
   block $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#toHaveLength|inlined.3
    i32.const 0
    call $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example>
@@ -8764,6 +9766,9 @@
    local.set $4
    block $assembly/internal/comparison/lengthComparison/lengthComparison<assembly/__tests__/toHaveLength.spec/Example>|inlined.3
     local.get $3
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $3
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $8
@@ -8776,21 +9781,34 @@
     call $~lib/rt/pure/__retain
     local.set $5
     i32.const 0
-    local.set $9
+    local.set $10
     local.get $8
     i32.const 0
     i32.eq
     if
      i32.const 0
+     local.set $12
+     i32.const 672
+     call $~lib/rt/pure/__retain
+     local.set $11
+     local.get $12
      i32.eqz
      if
-      i32.const 672
-      i32.const 792
-      i32.const 19
-      i32.const 6
-      call $~lib/builtins/abort
+      local.get $11
+      call $~lib/rt/pure/__release
+      block
+       local.get $11
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
       unreachable
      end
+     local.get $11
+     call $~lib/rt/pure/__release
     else     
      block (result i32)
       local.get $8
@@ -8800,36 +9818,54 @@
      if
       local.get $8
       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-      local.set $9
+      local.set $10
      else      
       local.get $8
       i32.load
-      local.set $9
+      local.set $10
      end
     end
+    local.get $10
     local.get $9
     call $assembly/internal/comparison/lengthComparison/reportActualInteger
     local.get $7
     local.get $6
     call $assembly/internal/comparison/lengthComparison/reportExpectedInteger
-    local.get $6
-    local.get $9
-    local.get $7
-    i32.eq
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.55
+     local.get $6
+     local.get $10
+     local.get $7
+     i32.eq
+     i32.xor
+     local.set $12
      local.get $5
-     i32.const 792
-     i32.const 29
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $11
+     local.get $12
+     i32.eqz
+     if
+      local.get $11
+      call $~lib/rt/pure/__release
+      block
+       local.get $11
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $11
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/lengthComparison/clearExpected
     local.get $5
     call $~lib/rt/pure/__release
     local.get $8
+    call $~lib/rt/pure/__release
+    local.get $9
     call $~lib/rt/pure/__release
    end
    local.get $4
@@ -8844,17 +9880,17 @@
   i32.const 432
   i32.const 38
   call $assembly/internal/Test/it
-  i32.const 1792
+  i32.const 1776
   i32.const 39
-  i32.const 1056
+  i32.const 1040
   call $assembly/internal/Test/throws
-  i32.const 1912
+  i32.const 1896
   i32.const 40
-  i32.const 1984
+  i32.const 1968
   call $assembly/internal/Test/throws
-  i32.const 2120
+  i32.const 2104
   i32.const 41
-  i32.const 1984
+  i32.const 1968
   call $assembly/internal/Test/throws
  )
  (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 170 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
@@ -8895,6 +9931,9 @@
   (local $6 i32)
   (local $7 i32)
   (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toHaveLength|inlined.0
    i32.const 3
    call $assembly/internal/Expectation/expect<i32>
@@ -8907,6 +9946,9 @@
    local.set $3
    block $assembly/internal/comparison/lengthComparison/lengthComparison<i32>|inlined.0
     local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
+    local.get $2
     i32.load offset=4
     local.set $7
     local.get $1
@@ -8918,18 +9960,35 @@
     call $~lib/rt/pure/__retain
     local.set $4
     i32.const 0
-    local.set $8
-    i32.const 0
-    i32.eqz
-    if
-     i32.const 2472
-     i32.const 792
-     i32.const 32
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    local.set $9
+    block $assembly/internal/comparison/assert/assert|inlined.56
+     i32.const 0
+     local.set $11
+     i32.const 2456
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 792
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     local.get $4
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $3
@@ -8939,9 +9998,9 @@
   call $~lib/rt/pure/__release
  )
  (func $start:assembly/__tests__/toHaveLength.spec~anonymous|2 (; 173 ;) (type $FUNCSIG$v)
-  i32.const 2328
+  i32.const 2312
   i32.const 43
-  i32.const 2704
+  i32.const 2688
   call $assembly/internal/Test/throws
  )
  (func $start:assembly/__tests__/toHaveLength.spec (; 174 ;) (type $FUNCSIG$v)
@@ -8949,36 +10008,36 @@
   (local $1 i32)
   i32.const 272
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>
-  i32.const 1184
+  i32.const 1168
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>
-  i32.const 1240
+  i32.const 1224
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>
-  i32.const 1280
+  i32.const 1264
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>
-  i32.const 1320
+  i32.const 1304
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>
-  i32.const 1360
+  i32.const 1344
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>
-  i32.const 1400
+  i32.const 1384
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>
-  i32.const 1440
+  i32.const 1424
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>
-  i32.const 1480
+  i32.const 1464
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>
-  i32.const 1520
+  i32.const 1504
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>
-  i32.const 1560
+  i32.const 1544
   call $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>
-  i32.const 1664
+  i32.const 1648
   i32.const 37
   call $assembly/internal/Describe/describe
   i32.const 0
   call $assembly/__tests__/toHaveLength.spec/Example#constructor
   global.set $assembly/__tests__/toHaveLength.spec/customExample
-  i32.const 1720
+  i32.const 1704
   i32.const 42
   call $assembly/internal/Describe/describe
-  i32.const 2240
+  i32.const 2224
   i32.const 44
   call $assembly/internal/Describe/describe
  )

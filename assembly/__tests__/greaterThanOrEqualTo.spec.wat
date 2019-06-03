@@ -10,20 +10,19 @@
  (type $FUNCSIG$iiddd (func (param i32 f64 f64 f64) (result i32)))
  (type $FUNCSIG$id (func (param f64) (result i32)))
  (type $FUNCSIG$iid (func (param i32 f64) (result i32)))
- (type $FUNCSIG$vd (func (param f64)))
  (type $FUNCSIG$vdi (func (param f64 i32)))
  (type $FUNCSIG$di (func (param i32) (result f64)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
- (import "__aspect" "reportActualValue" (func $assembly/internal/report/reportActual/reportActualInteger (param i32)))
+ (import "__aspect" "reportActualValue" (func $assembly/internal/report/reportActual/reportActualInteger (param i32 i32)))
  (import "__aspect" "reportExpectedValue" (func $assembly/internal/report/reportExpected/reportExpectedInteger (param i32 i32)))
  (import "__aspect" "clearExpected" (func $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected))
  (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
  (import "__aspect" "reportNegatedTest" (func $assembly/internal/Test/reportNegatedTest (param i32 i32 i32)))
- (import "__aspect" "reportActualValue" (func $assembly/internal/report/reportActual/reportActualFloat (param f64)))
+ (import "__aspect" "reportActualValue" (func $assembly/internal/report/reportActual/reportActualFloat (param f64 i32)))
  (import "__aspect" "reportExpectedValue" (func $assembly/internal/report/reportExpected/reportExpectedFloat (param f64 i32)))
- (import "__aspect" "reportActualNull" (func $assembly/internal/report/reportActual/reportActualNull))
- (import "__aspect" "reportActualString" (func $assembly/internal/report/reportActual/reportActualString (param i32)))
- (import "__aspect" "reportActualReference" (func $assembly/internal/report/reportActual/reportActualReference (param i32 i32)))
+ (import "__aspect" "reportActualNull" (func $assembly/internal/report/reportActual/reportActualNull (param i32)))
+ (import "__aspect" "reportActualString" (func $assembly/internal/report/reportActual/reportActualString (param i32 i32)))
+ (import "__aspect" "reportActualReference" (func $assembly/internal/report/reportActual/reportActualReference (param i32 i32 i32)))
  (import "__aspect" "reportExpectedNull" (func $assembly/internal/report/reportExpected/reportExpectedNull (param i32)))
  (import "__aspect" "reportExpectedString" (func $assembly/internal/report/reportExpected/reportExpectedString (param i32 i32)))
  (import "__aspect" "reportExpectedReference" (func $assembly/internal/report/reportExpected/reportExpectedReference (param i32 i32 i32)))
@@ -38,31 +37,31 @@
  (data (i32.const 256) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00G\00r\00e\00a\00t\00e\00r\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00(\00>\00=\00)\00")
  (data (i32.const 328) "\a8\00\00\00\01\00\00\00\01\00\00\00\a8\00\00\00s\00h\00o\00u\00l\00d\00 \00v\00a\00l\00i\00d\00a\00t\00e\00 \00t\00h\00a\00t\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00o\00r\00 \00e\00q\00u\00a\00l\00 \00t\00o\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00")
  (data (i32.const 512) "l\00\00\00\01\00\00\00\01\00\00\00l\00\00\00A\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00w\00i\00t\00h\00 \00l\00a\00r\00g\00e\00r\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00s\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00t\00h\00r\00o\00w\00.\00")
- (data (i32.const 640) "|\00\00\00\01\00\00\00\01\00\00\00|\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00g\00r\00e\00a\00t\00e\00r\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00C\00o\00m\00p\00a\00r\00i\00s\00o\00n\00.\00t\00s\00")
- (data (i32.const 784) "\84\00\00\00\01\00\00\00\01\00\00\00\84\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00l\00e\00s\00s\00 \00t\00h\00a\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 936) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 952) "\de\00\00\00\01\00\00\00\01\00\00\00\de\00\00\00N\00e\00g\00a\00t\00e\00d\00 \00t\00o\00B\00e\00G\00r\00e\00a\00t\00e\00r\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00l\00e\00s\00s\00 \00t\00h\00a\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00.\00")
- (data (i32.const 1192) "\b0\00\00\00\01\00\00\00\01\00\00\00\b0\00\00\00s\00h\00o\00u\00l\00d\00 \00v\00a\00l\00i\00d\00a\00t\00e\00 \00t\00h\00a\00t\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00o\00t\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00o\00r\00 \00e\00q\00u\00a\00l\00 \00t\00o\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 1384) "\aa\00\00\00\01\00\00\00\01\00\00\00\aa\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00o\00t\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00o\00r\00 \00e\00q\00u\00a\00l\00 \00t\00o\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 1576) "\8c\00\00\00\01\00\00\00\01\00\00\00\8c\00\00\00I\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00l\00e\00s\00s\00 \00t\00h\00a\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00.\00")
- (data (i32.const 1736) "\92\00\00\00\01\00\00\00\01\00\00\00\92\00\00\00s\00h\00o\00u\00l\00d\00 \00v\00a\00l\00i\00d\00a\00t\00e\00 \00t\00h\00a\00t\00 \00e\00q\00u\00a\00l\00 \00v\00a\00l\00u\00e\00s\00 \00a\00r\00e\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00o\00r\00 \00e\00q\00u\00a\00l\00 \00t\00o\00 \00e\00a\00c\00h\00 \00o\00t\00h\00e\00r\00")
- (data (i32.const 1904) "L\00\00\00\01\00\00\00\01\00\00\00L\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00v\00a\00l\00u\00e\00s\00 \00a\00r\00e\00 \00e\00q\00u\00a\00l\00")
- (data (i32.const 2000) "\80\00\00\00\01\00\00\00\01\00\00\00\80\00\00\00I\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00e\00q\00u\00a\00l\00s\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00.\00")
- (data (i32.const 2144) "R\00\00\00\01\00\00\00\01\00\00\00R\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00")
- (data (i32.const 2248) "\\\00\00\00\01\00\00\00\01\00\00\00\\\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
- (data (i32.const 2360) "X\00\00\00\01\00\00\00\01\00\00\00X\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
- (data (i32.const 2464) "Z\00\00\00\01\00\00\00\01\00\00\00Z\00\00\00I\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
- (data (i32.const 2576) "V\00\00\00\01\00\00\00\01\00\00\00V\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00")
- (data (i32.const 2680) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00I\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
- (data (i32.const 2792) "f\00\00\00\01\00\00\00\01\00\00\00f\00\00\00s\00h\00o\00u\00l\00d\00 \00v\00e\00r\00i\00f\00y\00 \00o\00n\00e\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00i\00s\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00a\00n\00o\00t\00h\00e\00r\00")
- (data (i32.const 2912) "\ce\00\00\00\01\00\00\00\01\00\00\00\ce\00\00\00O\00p\00e\00r\00a\00t\00o\00r\00 \00o\00v\00e\00r\00l\00o\00a\00d\00i\00n\00g\00 \00s\00h\00o\00u\00l\00d\00 \00a\00l\00l\00o\00w\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00s\00 \00t\00o\00 \00v\00e\00r\00i\00f\00y\00 \00t\00h\00a\00t\00 \00o\00n\00e\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00i\00s\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00a\00n\00o\00t\00h\00e\00r\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 3136) "d\00\00\00\01\00\00\00\01\00\00\00d\00\00\00N\00u\00l\00l\00a\00b\00l\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
- (data (i32.const 3256) "`\00\00\00\01\00\00\00\01\00\00\00`\00\00\00N\00u\00l\00l\00a\00b\00l\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
- (data (i32.const 3368) "P\00\00\00\01\00\00\00\01\00\00\00P\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
- (data (i32.const 3464) "\9e\00\00\00\01\00\00\00\01\00\00\00\9e\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00G\00r\00e\00a\00t\00e\00r\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
- (data (i32.const 3640) "T\00\00\00\01\00\00\00\01\00\00\00T\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
- (data (i32.const 3744) "\a2\00\00\00\01\00\00\00\01\00\00\00\a2\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00G\00r\00e\00a\00t\00e\00r\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
- (data (i32.const 3928) "\07\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00")
+ (data (i32.const 640) "L\00\00\00\01\00\00\00\01\00\00\00L\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
+ (data (i32.const 736) "\84\00\00\00\01\00\00\00\01\00\00\00\84\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00l\00e\00s\00s\00 \00t\00h\00a\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 888) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
+ (data (i32.const 904) "\de\00\00\00\01\00\00\00\01\00\00\00\de\00\00\00N\00e\00g\00a\00t\00e\00d\00 \00t\00o\00B\00e\00G\00r\00e\00a\00t\00e\00r\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00l\00e\00s\00s\00 \00t\00h\00a\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00.\00")
+ (data (i32.const 1144) "\b0\00\00\00\01\00\00\00\01\00\00\00\b0\00\00\00s\00h\00o\00u\00l\00d\00 \00v\00a\00l\00i\00d\00a\00t\00e\00 \00t\00h\00a\00t\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00o\00t\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00o\00r\00 \00e\00q\00u\00a\00l\00 \00t\00o\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 1336) "\aa\00\00\00\01\00\00\00\01\00\00\00\aa\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00o\00t\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00o\00r\00 \00e\00q\00u\00a\00l\00 \00t\00o\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 1528) "\8c\00\00\00\01\00\00\00\01\00\00\00\8c\00\00\00I\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00l\00e\00s\00s\00 \00t\00h\00a\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00.\00")
+ (data (i32.const 1688) "\92\00\00\00\01\00\00\00\01\00\00\00\92\00\00\00s\00h\00o\00u\00l\00d\00 \00v\00a\00l\00i\00d\00a\00t\00e\00 \00t\00h\00a\00t\00 \00e\00q\00u\00a\00l\00 \00v\00a\00l\00u\00e\00s\00 \00a\00r\00e\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00o\00r\00 \00e\00q\00u\00a\00l\00 \00t\00o\00 \00e\00a\00c\00h\00 \00o\00t\00h\00e\00r\00")
+ (data (i32.const 1856) "L\00\00\00\01\00\00\00\01\00\00\00L\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00v\00a\00l\00u\00e\00s\00 \00a\00r\00e\00 \00e\00q\00u\00a\00l\00")
+ (data (i32.const 1952) "\80\00\00\00\01\00\00\00\01\00\00\00\80\00\00\00I\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00e\00q\00u\00a\00l\00s\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00.\00")
+ (data (i32.const 2096) "R\00\00\00\01\00\00\00\01\00\00\00R\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00")
+ (data (i32.const 2200) "\\\00\00\00\01\00\00\00\01\00\00\00\\\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
+ (data (i32.const 2312) "X\00\00\00\01\00\00\00\01\00\00\00X\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
+ (data (i32.const 2416) "Z\00\00\00\01\00\00\00\01\00\00\00Z\00\00\00I\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
+ (data (i32.const 2528) "V\00\00\00\01\00\00\00\01\00\00\00V\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00")
+ (data (i32.const 2632) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00I\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00w\00h\00e\00n\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00.\00")
+ (data (i32.const 2744) "f\00\00\00\01\00\00\00\01\00\00\00f\00\00\00s\00h\00o\00u\00l\00d\00 \00v\00e\00r\00i\00f\00y\00 \00o\00n\00e\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00i\00s\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00a\00n\00o\00t\00h\00e\00r\00")
+ (data (i32.const 2864) "\ce\00\00\00\01\00\00\00\01\00\00\00\ce\00\00\00O\00p\00e\00r\00a\00t\00o\00r\00 \00o\00v\00e\00r\00l\00o\00a\00d\00i\00n\00g\00 \00s\00h\00o\00u\00l\00d\00 \00a\00l\00l\00o\00w\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00s\00 \00t\00o\00 \00v\00e\00r\00i\00f\00y\00 \00t\00h\00a\00t\00 \00o\00n\00e\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00i\00s\00 \00g\00r\00e\00a\00t\00e\00r\00 \00t\00h\00a\00n\00 \00a\00n\00o\00t\00h\00e\00r\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 3088) "d\00\00\00\01\00\00\00\01\00\00\00d\00\00\00N\00u\00l\00l\00a\00b\00l\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
+ (data (i32.const 3208) "`\00\00\00\01\00\00\00\01\00\00\00`\00\00\00N\00u\00l\00l\00a\00b\00l\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
+ (data (i32.const 3320) "P\00\00\00\01\00\00\00\01\00\00\00P\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
+ (data (i32.const 3416) "\9e\00\00\00\01\00\00\00\01\00\00\00\9e\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00G\00r\00e\00a\00t\00e\00r\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
+ (data (i32.const 3592) "T\00\00\00\01\00\00\00\01\00\00\00T\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
+ (data (i32.const 3696) "\a2\00\00\00\01\00\00\00\01\00\00\00\a2\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00G\00r\00e\00a\00t\00e\00r\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
+ (data (i32.const 3880) "\07\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00")
  (table $0 14 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|8 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|9 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0~anonymous|10 $start:assembly/__tests__/greaterThanOrEqualTo.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -77,8 +76,8 @@
  (global $~lib/argc (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
  (global $~lib/started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 3928))
- (global $~lib/heap/__heap_base i32 (i32.const 3988))
+ (global $~lib/rt/__rtti_base i32 (i32.const 3880))
+ (global $~lib/heap/__heap_base i32 (i32.const 3940))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
  (export "__retain" (func $~lib/rt/pure/__retain))
@@ -3520,6 +3519,7 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
+  (local $10 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toBeGreaterThanOrEqualTo|inlined.0
    i32.const 42
    call $assembly/internal/Expectation/expect<i32>
@@ -3531,6 +3531,9 @@
    call $~lib/rt/pure/__retain
    local.set $1
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<i32>|inlined.0
+    local.get $3
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $3
     i32.load offset=4
     local.set $7
@@ -3544,35 +3547,58 @@
     local.set $4
     block $assembly/internal/report/reportActual/reportActual<i32>|inlined.0
      local.get $7
-     local.set $8
+     local.set $10
      local.get $8
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     local.get $9
      call $assembly/internal/report/reportActual/reportActualInteger
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
      local.get $6
-     local.set $9
+     local.set $10
      local.get $5
-     local.set $8
+     local.set $9
+     local.get $10
      local.get $9
-     local.get $8
      call $assembly/internal/report/reportExpected/reportExpectedInteger
     end
-    local.get $5
-    local.get $7
-    local.get $6
-    i32.ge_s
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.0
+     local.get $5
+     local.get $7
+     local.get $6
+     i32.ge_s
+     i32.xor
+     local.set $10
      local.get $4
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $4
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $1
@@ -3610,6 +3636,7 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toBeGreaterThanOrEqualTo|inlined.1
    i32.const 42
    call $assembly/internal/Expectation/expect<i32>
@@ -3619,10 +3646,13 @@
    local.set $3
    i32.const 0
    local.set $2
-   i32.const 952
+   i32.const 904
    call $~lib/rt/pure/__retain
    local.set $4
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<i32>|inlined.1
+    local.get $3
+    call $~lib/rt/pure/__retain
+    local.set $9
     local.get $3
     i32.load offset=4
     local.set $8
@@ -3636,35 +3666,58 @@
     local.set $5
     block $assembly/internal/report/reportActual/reportActual<i32>|inlined.1
      local.get $8
-     local.set $9
+     local.set $11
      local.get $9
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     local.get $10
      call $assembly/internal/report/reportActual/reportActualInteger
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.1
      local.get $7
-     local.set $10
+     local.set $11
      local.get $6
-     local.set $9
+     local.set $10
+     local.get $11
      local.get $10
-     local.get $9
      call $assembly/internal/report/reportExpected/reportExpectedInteger
     end
-    local.get $6
-    local.get $8
-    local.get $7
-    i32.ge_s
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.1
+     local.get $6
+     local.get $8
+     local.get $7
+     i32.ge_s
+     i32.xor
+     local.set $11
      local.get $5
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $5
+    call $~lib/rt/pure/__release
+    local.get $9
     call $~lib/rt/pure/__release
    end
    local.get $4
@@ -3703,6 +3756,7 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toBeGreaterThanOrEqualTo|inlined.2
    i32.const 0
    call $assembly/internal/Expectation/expect<i32>
@@ -3712,10 +3766,13 @@
    local.set $3
    i32.const 42
    local.set $2
-   i32.const 952
+   i32.const 904
    call $~lib/rt/pure/__retain
    local.set $4
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<i32>|inlined.2
+    local.get $3
+    call $~lib/rt/pure/__retain
+    local.set $9
     local.get $3
     i32.load offset=4
     local.set $8
@@ -3729,35 +3786,58 @@
     local.set $5
     block $assembly/internal/report/reportActual/reportActual<i32>|inlined.2
      local.get $8
-     local.set $9
+     local.set $11
      local.get $9
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     local.get $10
      call $assembly/internal/report/reportActual/reportActualInteger
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.2
      local.get $7
-     local.set $10
+     local.set $11
      local.get $6
-     local.set $9
+     local.set $10
+     local.get $11
      local.get $10
-     local.get $9
      call $assembly/internal/report/reportExpected/reportExpectedInteger
     end
-    local.get $6
-    local.get $8
-    local.get $7
-    i32.ge_s
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.2
+     local.get $6
+     local.get $8
+     local.get $7
+     i32.ge_s
+     i32.xor
+     local.set $11
      local.get $5
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $5
+    call $~lib/rt/pure/__release
+    local.get $9
     call $~lib/rt/pure/__release
    end
    local.get $4
@@ -3779,6 +3859,7 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
+  (local $10 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toBeGreaterThanOrEqualTo|inlined.3
    i32.const 0
    call $assembly/internal/Expectation/expect<i32>
@@ -3786,10 +3867,13 @@
    local.set $2
    i32.const 42
    local.set $1
-   i32.const 952
+   i32.const 904
    call $~lib/rt/pure/__retain
    local.set $3
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<i32>|inlined.3
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $2
     i32.load offset=4
     local.set $7
@@ -3803,35 +3887,58 @@
     local.set $4
     block $assembly/internal/report/reportActual/reportActual<i32>|inlined.3
      local.get $7
-     local.set $8
+     local.set $10
      local.get $8
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     local.get $9
      call $assembly/internal/report/reportActual/reportActualInteger
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.3
      local.get $6
-     local.set $9
+     local.set $10
      local.get $5
-     local.set $8
+     local.set $9
+     local.get $10
      local.get $9
-     local.get $8
      call $assembly/internal/report/reportExpected/reportExpectedInteger
     end
-    local.get $5
-    local.get $7
-    local.get $6
-    i32.ge_s
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.3
+     local.get $5
+     local.get $7
+     local.get $6
+     i32.ge_s
+     i32.xor
+     local.set $10
      local.get $4
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $4
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $3
@@ -3851,6 +3958,7 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
+  (local $10 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toBeGreaterThanOrEqualTo|inlined.4
    i32.const 42
    call $assembly/internal/Expectation/expect<i32>
@@ -3858,10 +3966,13 @@
    local.set $2
    i32.const 42
    local.set $1
-   i32.const 952
+   i32.const 904
    call $~lib/rt/pure/__retain
    local.set $3
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<i32>|inlined.4
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $2
     i32.load offset=4
     local.set $7
@@ -3875,35 +3986,58 @@
     local.set $4
     block $assembly/internal/report/reportActual/reportActual<i32>|inlined.4
      local.get $7
-     local.set $8
+     local.set $10
      local.get $8
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     local.get $9
      call $assembly/internal/report/reportActual/reportActualInteger
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.4
      local.get $6
-     local.set $9
+     local.set $10
      local.get $5
-     local.set $8
+     local.set $9
+     local.get $10
      local.get $9
-     local.get $8
      call $assembly/internal/report/reportExpected/reportExpectedInteger
     end
-    local.get $5
-    local.get $7
-    local.get $6
-    i32.ge_s
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.4
+     local.get $5
+     local.get $7
+     local.get $6
+     i32.ge_s
+     i32.xor
+     local.set $10
      local.get $4
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $4
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $3
@@ -3924,6 +4058,7 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<i32>#toBeGreaterThanOrEqualTo|inlined.5
    i32.const 42
    call $assembly/internal/Expectation/expect<i32>
@@ -3933,10 +4068,13 @@
    local.set $3
    i32.const 42
    local.set $2
-   i32.const 952
+   i32.const 904
    call $~lib/rt/pure/__retain
    local.set $4
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<i32>|inlined.5
+    local.get $3
+    call $~lib/rt/pure/__retain
+    local.set $9
     local.get $3
     i32.load offset=4
     local.set $8
@@ -3950,35 +4088,58 @@
     local.set $5
     block $assembly/internal/report/reportActual/reportActual<i32>|inlined.5
      local.get $8
-     local.set $9
+     local.set $11
      local.get $9
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     local.get $10
      call $assembly/internal/report/reportActual/reportActualInteger
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.5
      local.get $7
-     local.set $10
+     local.set $11
      local.get $6
-     local.set $9
+     local.set $10
+     local.get $11
      local.get $10
-     local.get $9
      call $assembly/internal/report/reportExpected/reportExpectedInteger
     end
-    local.get $6
-    local.get $8
-    local.get $7
-    i32.ge_s
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.5
+     local.get $6
+     local.get $8
+     local.get $7
+     i32.ge_s
+     i32.xor
+     local.set $11
      local.get $5
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $5
+    call $~lib/rt/pure/__release
+    local.get $9
     call $~lib/rt/pure/__release
    end
    local.get $4
@@ -4031,8 +4192,10 @@
   (local $5 i32)
   (local $6 f64)
   (local $7 f64)
-  (local $8 f64)
+  (local $8 i32)
   (local $9 i32)
+  (local $10 f64)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeGreaterThanOrEqualTo|inlined.0
    f64.const nan:0x8000000000000
    call $assembly/internal/Expectation/expect<f64>
@@ -4040,10 +4203,13 @@
    local.set $2
    f64.const 0
    local.set $1
-   i32.const 952
+   i32.const 904
    call $~lib/rt/pure/__retain
    local.set $3
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<f64>|inlined.0
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $2
     f64.load offset=8
     local.set $7
@@ -4057,59 +4223,112 @@
     local.set $4
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.0
      local.get $7
-     local.set $8
+     local.set $10
      local.get $8
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     local.get $9
      call $assembly/internal/report/reportActual/reportActualFloat
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.0
      local.get $6
-     local.set $8
+     local.set $10
      local.get $5
      local.set $9
-     local.get $8
+     local.get $10
      local.get $9
      call $assembly/internal/report/reportExpected/reportExpectedFloat
     end
-    local.get $6
-    call $~lib/builtins/isNaN<f64>
-    i32.eqz
-    i32.eqz
-    if
-     i32.const 2264
-     i32.const 656
-     i32.const 25
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.6
+     local.get $6
+     call $~lib/builtins/isNaN<f64>
+     i32.eqz
+     local.set $11
+     i32.const 2216
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $11
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
-    local.get $7
-    call $~lib/builtins/isNaN<f64>
-    i32.eqz
-    i32.eqz
-    if
-     i32.const 2376
-     i32.const 656
-     i32.const 26
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.7
+     local.get $7
+     call $~lib/builtins/isNaN<f64>
+     i32.eqz
+     local.set $11
+     i32.const 2328
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $11
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
-    local.get $5
-    local.get $7
-    local.get $6
-    f64.ge
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.8
+     local.get $5
+     local.get $7
+     local.get $6
+     f64.ge
+     i32.xor
+     local.set $11
      local.get $4
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $11
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $4
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $3
@@ -4127,8 +4346,10 @@
   (local $5 i32)
   (local $6 f64)
   (local $7 f64)
-  (local $8 f64)
+  (local $8 i32)
   (local $9 i32)
+  (local $10 f64)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeGreaterThanOrEqualTo|inlined.1
    f64.const 0
    call $assembly/internal/Expectation/expect<f64>
@@ -4136,10 +4357,13 @@
    local.set $2
    f64.const nan:0x8000000000000
    local.set $1
-   i32.const 952
+   i32.const 904
    call $~lib/rt/pure/__retain
    local.set $3
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<f64>|inlined.1
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $2
     f64.load offset=8
     local.set $7
@@ -4153,59 +4377,112 @@
     local.set $4
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.1
      local.get $7
-     local.set $8
+     local.set $10
      local.get $8
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     local.get $9
      call $assembly/internal/report/reportActual/reportActualFloat
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.1
      local.get $6
-     local.set $8
+     local.set $10
      local.get $5
      local.set $9
-     local.get $8
+     local.get $10
      local.get $9
      call $assembly/internal/report/reportExpected/reportExpectedFloat
     end
-    local.get $6
-    call $~lib/builtins/isNaN<f64>
-    i32.eqz
-    i32.eqz
-    if
-     i32.const 2264
-     i32.const 656
-     i32.const 25
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.9
+     local.get $6
+     call $~lib/builtins/isNaN<f64>
+     i32.eqz
+     local.set $11
+     i32.const 2216
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $11
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
-    local.get $7
-    call $~lib/builtins/isNaN<f64>
-    i32.eqz
-    i32.eqz
-    if
-     i32.const 2376
-     i32.const 656
-     i32.const 26
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.10
+     local.get $7
+     call $~lib/builtins/isNaN<f64>
+     i32.eqz
+     local.set $11
+     i32.const 2328
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $11
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
-    local.get $5
-    local.get $7
-    local.get $6
-    f64.ge
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.11
+     local.get $5
+     local.get $7
+     local.get $6
+     f64.ge
+     i32.xor
+     local.set $11
      local.get $4
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $11
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $4
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $3
@@ -4330,6 +4607,7 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeGreaterThanOrEqualTo|inlined.0
    global.get $assembly/__tests__/greaterThanOrEqualTo.spec/vec3
    call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
@@ -4338,10 +4616,13 @@
    global.get $assembly/__tests__/greaterThanOrEqualTo.spec/vec1
    call $~lib/rt/pure/__retain
    local.set $2
-   i32.const 2928
+   i32.const 2880
    call $~lib/rt/pure/__retain
    local.set $1
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<assembly/__tests__/setup/Vec3/Vec3>|inlined.0
+    local.get $3
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $3
     i32.load offset=4
     call $~lib/rt/pure/__retain
@@ -4358,134 +4639,188 @@
     block $assembly/internal/report/reportActual/reportActual<assembly/__tests__/setup/Vec3/Vec3>|inlined.0
      local.get $7
      call $~lib/rt/pure/__retain
-     local.set $8
+     local.set $10
      local.get $8
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
      i32.const 0
      i32.eq
      if
+      local.get $9
       call $assembly/internal/report/reportActual/reportActualNull
      else      
       block (result i32)
-       local.get $8
+       local.get $10
        drop
        i32.const 0
       end
       if
-       local.get $8
+       local.get $10
+       local.get $9
        call $assembly/internal/report/reportActual/reportActualString
       else       
        block (result i32)
-        local.get $8
+        local.get $10
         drop
         i32.const 0
        end
        if
-        local.get $8
+        local.get $10
         call $~lib/rt/pure/__retain
-        local.set $9
-        local.get $9
-        local.get $9
+        local.set $11
+        local.get $11
+        local.get $11
         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        call $assembly/internal/report/reportActual/reportActualReference
         local.get $9
+        call $assembly/internal/report/reportActual/reportActualReference
+        local.get $11
         call $~lib/rt/pure/__release
        else        
-        local.get $8
+        local.get $10
         i32.const 24
+        local.get $9
         call $assembly/internal/report/reportActual/reportActualReference
        end
       end
      end
-     local.get $8
+     local.get $9
+     call $~lib/rt/pure/__release
+     local.get $10
      call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<assembly/__tests__/setup/Vec3/Vec3>|inlined.0
      local.get $6
      call $~lib/rt/pure/__retain
-     local.set $8
-     local.get $5
      local.set $9
-     local.get $8
+     local.get $5
+     local.set $11
+     local.get $9
      i32.const 0
      i32.eq
      if
-      local.get $9
+      local.get $11
       call $assembly/internal/report/reportExpected/reportExpectedNull
      else      
       block (result i32)
-       local.get $8
+       local.get $9
        drop
        i32.const 0
       end
       if
-       local.get $8
        local.get $9
+       local.get $11
        call $assembly/internal/report/reportExpected/reportExpectedString
       else       
        block (result i32)
-        local.get $8
+        local.get $9
         drop
         i32.const 0
        end
        if
-        local.get $8
+        local.get $9
         call $~lib/rt/pure/__retain
         local.set $10
         local.get $10
         local.get $10
         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        local.get $9
+        local.get $11
         call $assembly/internal/report/reportExpected/reportExpectedReference
         local.get $10
         call $~lib/rt/pure/__release
        else        
-        local.get $8
-        i32.const 24
         local.get $9
+        i32.const 24
+        local.get $11
         call $assembly/internal/report/reportExpected/reportExpectedReference
        end
       end
      end
-     local.get $8
+     local.get $9
      call $~lib/rt/pure/__release
     end
-    local.get $6
-    i32.const 0
-    i32.ne
-    i32.eqz
-    if
-     i32.const 3152
-     i32.const 656
-     i32.const 19
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.12
+     local.get $6
+     i32.const 0
+     i32.ne
+     local.set $11
+     i32.const 3104
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
-    local.get $7
-    i32.const 0
-    i32.ne
-    i32.eqz
-    if
-     i32.const 3272
-     i32.const 656
-     i32.const 20
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.13
+     local.get $7
+     i32.const 0
+     i32.ne
+     local.set $10
+     i32.const 3224
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
-    local.get $5
-    local.get $7
-    local.get $6
-    call $assembly/__tests__/setup/Vec3/Vec3#__greaterThanOrEqualTo
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.14
+     local.get $5
+     local.get $7
+     local.get $6
+     call $assembly/__tests__/setup/Vec3/Vec3#__greaterThanOrEqualTo
+     i32.xor
+     local.set $9
      local.get $4
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $11
+     local.get $9
+     i32.eqz
+     if
+      local.get $11
+      call $~lib/rt/pure/__release
+      block
+       local.get $11
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $11
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $4
@@ -4493,6 +4828,8 @@
     local.get $6
     call $~lib/rt/pure/__release
     local.get $7
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $1
@@ -4515,6 +4852,7 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeGreaterThanOrEqualTo|inlined.1
    i32.const 0
    call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
@@ -4523,10 +4861,13 @@
    global.get $assembly/__tests__/greaterThanOrEqualTo.spec/vec3
    call $~lib/rt/pure/__retain
    local.set $1
-   i32.const 952
+   i32.const 904
    call $~lib/rt/pure/__retain
    local.set $3
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<assembly/__tests__/setup/Vec3/Vec3>|inlined.1
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $2
     i32.load offset=4
     call $~lib/rt/pure/__retain
@@ -4543,134 +4884,188 @@
     block $assembly/internal/report/reportActual/reportActual<assembly/__tests__/setup/Vec3/Vec3>|inlined.1
      local.get $7
      call $~lib/rt/pure/__retain
-     local.set $8
+     local.set $10
      local.get $8
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
      i32.const 0
      i32.eq
      if
+      local.get $9
       call $assembly/internal/report/reportActual/reportActualNull
      else      
       block (result i32)
-       local.get $8
+       local.get $10
        drop
        i32.const 0
       end
       if
-       local.get $8
+       local.get $10
+       local.get $9
        call $assembly/internal/report/reportActual/reportActualString
       else       
        block (result i32)
-        local.get $8
+        local.get $10
         drop
         i32.const 0
        end
        if
-        local.get $8
+        local.get $10
         call $~lib/rt/pure/__retain
-        local.set $9
-        local.get $9
-        local.get $9
+        local.set $11
+        local.get $11
+        local.get $11
         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        call $assembly/internal/report/reportActual/reportActualReference
         local.get $9
+        call $assembly/internal/report/reportActual/reportActualReference
+        local.get $11
         call $~lib/rt/pure/__release
        else        
-        local.get $8
+        local.get $10
         i32.const 24
+        local.get $9
         call $assembly/internal/report/reportActual/reportActualReference
        end
       end
      end
-     local.get $8
+     local.get $9
+     call $~lib/rt/pure/__release
+     local.get $10
      call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<assembly/__tests__/setup/Vec3/Vec3>|inlined.1
      local.get $6
      call $~lib/rt/pure/__retain
-     local.set $8
-     local.get $5
      local.set $9
-     local.get $8
+     local.get $5
+     local.set $11
+     local.get $9
      i32.const 0
      i32.eq
      if
-      local.get $9
+      local.get $11
       call $assembly/internal/report/reportExpected/reportExpectedNull
      else      
       block (result i32)
-       local.get $8
+       local.get $9
        drop
        i32.const 0
       end
       if
-       local.get $8
        local.get $9
+       local.get $11
        call $assembly/internal/report/reportExpected/reportExpectedString
       else       
        block (result i32)
-        local.get $8
+        local.get $9
         drop
         i32.const 0
        end
        if
-        local.get $8
+        local.get $9
         call $~lib/rt/pure/__retain
         local.set $10
         local.get $10
         local.get $10
         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        local.get $9
+        local.get $11
         call $assembly/internal/report/reportExpected/reportExpectedReference
         local.get $10
         call $~lib/rt/pure/__release
        else        
-        local.get $8
-        i32.const 24
         local.get $9
+        i32.const 24
+        local.get $11
         call $assembly/internal/report/reportExpected/reportExpectedReference
        end
       end
      end
-     local.get $8
+     local.get $9
      call $~lib/rt/pure/__release
     end
-    local.get $6
-    i32.const 0
-    i32.ne
-    i32.eqz
-    if
-     i32.const 3152
-     i32.const 656
-     i32.const 19
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.15
+     local.get $6
+     i32.const 0
+     i32.ne
+     local.set $11
+     i32.const 3104
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
-    local.get $7
-    i32.const 0
-    i32.ne
-    i32.eqz
-    if
-     i32.const 3272
-     i32.const 656
-     i32.const 20
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.16
+     local.get $7
+     i32.const 0
+     i32.ne
+     local.set $10
+     i32.const 3224
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
-    local.get $5
-    local.get $7
-    local.get $6
-    call $assembly/__tests__/setup/Vec3/Vec3#__greaterThanOrEqualTo
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.17
+     local.get $5
+     local.get $7
+     local.get $6
+     call $assembly/__tests__/setup/Vec3/Vec3#__greaterThanOrEqualTo
+     i32.xor
+     local.set $9
      local.get $4
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $11
+     local.get $9
+     i32.eqz
+     if
+      local.get $11
+      call $~lib/rt/pure/__release
+      block
+       local.get $11
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $11
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $4
@@ -4678,6 +5073,8 @@
     local.get $6
     call $~lib/rt/pure/__release
     local.get $7
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $1
@@ -4700,6 +5097,7 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
   block $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeGreaterThanOrEqualTo|inlined.2
    global.get $assembly/__tests__/greaterThanOrEqualTo.spec/vec3
    call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
@@ -4708,10 +5106,13 @@
    i32.const 0
    call $~lib/rt/pure/__retain
    local.set $1
-   i32.const 952
+   i32.const 904
    call $~lib/rt/pure/__retain
    local.set $3
    block $assembly/internal/comparison/greaterThanOrEqualToComparison/greaterThanOrEqualToComparison<assembly/__tests__/setup/Vec3/Vec3>|inlined.2
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $8
     local.get $2
     i32.load offset=4
     call $~lib/rt/pure/__retain
@@ -4728,134 +5129,188 @@
     block $assembly/internal/report/reportActual/reportActual<assembly/__tests__/setup/Vec3/Vec3>|inlined.2
      local.get $7
      call $~lib/rt/pure/__retain
-     local.set $8
+     local.set $10
      local.get $8
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
      i32.const 0
      i32.eq
      if
+      local.get $9
       call $assembly/internal/report/reportActual/reportActualNull
      else      
       block (result i32)
-       local.get $8
+       local.get $10
        drop
        i32.const 0
       end
       if
-       local.get $8
+       local.get $10
+       local.get $9
        call $assembly/internal/report/reportActual/reportActualString
       else       
        block (result i32)
-        local.get $8
+        local.get $10
         drop
         i32.const 0
        end
        if
-        local.get $8
+        local.get $10
         call $~lib/rt/pure/__retain
-        local.set $9
-        local.get $9
-        local.get $9
+        local.set $11
+        local.get $11
+        local.get $11
         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        call $assembly/internal/report/reportActual/reportActualReference
         local.get $9
+        call $assembly/internal/report/reportActual/reportActualReference
+        local.get $11
         call $~lib/rt/pure/__release
        else        
-        local.get $8
+        local.get $10
         i32.const 24
+        local.get $9
         call $assembly/internal/report/reportActual/reportActualReference
        end
       end
      end
-     local.get $8
+     local.get $9
+     call $~lib/rt/pure/__release
+     local.get $10
      call $~lib/rt/pure/__release
     end
     block $assembly/internal/report/reportExpected/reportExpected<assembly/__tests__/setup/Vec3/Vec3>|inlined.2
      local.get $6
      call $~lib/rt/pure/__retain
-     local.set $8
-     local.get $5
      local.set $9
-     local.get $8
+     local.get $5
+     local.set $11
+     local.get $9
      i32.const 0
      i32.eq
      if
-      local.get $9
+      local.get $11
       call $assembly/internal/report/reportExpected/reportExpectedNull
      else      
       block (result i32)
-       local.get $8
+       local.get $9
        drop
        i32.const 0
       end
       if
-       local.get $8
        local.get $9
+       local.get $11
        call $assembly/internal/report/reportExpected/reportExpectedString
       else       
        block (result i32)
-        local.get $8
+        local.get $9
         drop
         i32.const 0
        end
        if
-        local.get $8
+        local.get $9
         call $~lib/rt/pure/__retain
         local.set $10
         local.get $10
         local.get $10
         call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        local.get $9
+        local.get $11
         call $assembly/internal/report/reportExpected/reportExpectedReference
         local.get $10
         call $~lib/rt/pure/__release
        else        
-        local.get $8
-        i32.const 24
         local.get $9
+        i32.const 24
+        local.get $11
         call $assembly/internal/report/reportExpected/reportExpectedReference
        end
       end
      end
-     local.get $8
+     local.get $9
      call $~lib/rt/pure/__release
     end
-    local.get $6
-    i32.const 0
-    i32.ne
-    i32.eqz
-    if
-     i32.const 3152
-     i32.const 656
-     i32.const 19
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.18
+     local.get $6
+     i32.const 0
+     i32.ne
+     local.set $11
+     i32.const 3104
+     call $~lib/rt/pure/__retain
+     local.set $10
+     local.get $11
+     i32.eqz
+     if
+      local.get $10
+      call $~lib/rt/pure/__release
+      block
+       local.get $10
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $10
+     call $~lib/rt/pure/__release
     end
-    local.get $7
-    i32.const 0
-    i32.ne
-    i32.eqz
-    if
-     i32.const 3272
-     i32.const 656
-     i32.const 20
-     i32.const 4
-     call $~lib/builtins/abort
-     unreachable
+    block $assembly/internal/comparison/assert/assert|inlined.19
+     local.get $7
+     i32.const 0
+     i32.ne
+     local.set $10
+     i32.const 3224
+     call $~lib/rt/pure/__retain
+     local.set $9
+     local.get $10
+     i32.eqz
+     if
+      local.get $9
+      call $~lib/rt/pure/__release
+      block
+       local.get $9
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $9
+     call $~lib/rt/pure/__release
     end
-    local.get $5
-    local.get $7
-    local.get $6
-    call $assembly/__tests__/setup/Vec3/Vec3#__greaterThanOrEqualTo
-    i32.xor
-    i32.eqz
-    if
+    block $assembly/internal/comparison/assert/assert|inlined.20
+     local.get $5
+     local.get $7
+     local.get $6
+     call $assembly/__tests__/setup/Vec3/Vec3#__greaterThanOrEqualTo
+     i32.xor
+     local.set $9
      local.get $4
-     i32.const 656
-     i32.const 30
-     i32.const 2
-     call $~lib/builtins/abort
-     unreachable
+     call $~lib/rt/pure/__retain
+     local.set $11
+     local.get $9
+     i32.eqz
+     if
+      local.get $11
+      call $~lib/rt/pure/__release
+      block
+       local.get $11
+       i32.const 656
+       i32.const 4
+       i32.const 18
+       call $~lib/builtins/abort
+       unreachable
+       unreachable
+      end
+      unreachable
+     end
+     local.get $11
+     call $~lib/rt/pure/__release
     end
     call $assembly/internal/comparison/greaterThanOrEqualToComparison/clearExpected
     local.get $4
@@ -4863,6 +5318,8 @@
     local.get $6
     call $~lib/rt/pure/__release
     local.get $7
+    call $~lib/rt/pure/__release
+    local.get $8
     call $~lib/rt/pure/__release
    end
    local.get $1
@@ -4877,42 +5334,42 @@
   i32.const 344
   i32.const 1
   call $assembly/internal/Test/it
-  i32.const 800
+  i32.const 752
   i32.const 2
-  i32.const 968
+  i32.const 920
   call $assembly/internal/Test/throws
-  i32.const 1208
+  i32.const 1160
   i32.const 3
   call $assembly/internal/Test/it
-  i32.const 1400
+  i32.const 1352
   i32.const 4
-  i32.const 1592
+  i32.const 1544
   call $assembly/internal/Test/throws
-  i32.const 1752
+  i32.const 1704
   i32.const 5
   call $assembly/internal/Test/it
-  i32.const 1920
+  i32.const 1872
   i32.const 6
-  i32.const 2016
+  i32.const 1968
   call $assembly/internal/Test/throws
-  i32.const 2160
+  i32.const 2112
   i32.const 7
-  i32.const 2480
+  i32.const 2432
   call $assembly/internal/Test/throws
-  i32.const 2592
+  i32.const 2544
   i32.const 8
-  i32.const 2696
+  i32.const 2648
   call $assembly/internal/Test/throws
-  i32.const 2808
+  i32.const 2760
   i32.const 9
   call $assembly/internal/Test/it
-  i32.const 3384
+  i32.const 3336
   i32.const 10
-  i32.const 3480
+  i32.const 3432
   call $assembly/internal/Test/throws
-  i32.const 3656
+  i32.const 3608
   i32.const 11
-  i32.const 3760
+  i32.const 3712
   call $assembly/internal/Test/throws
  )
  (func $start:assembly/internal/noOp~anonymous|0 (; 68 ;) (type $FUNCSIG$v)

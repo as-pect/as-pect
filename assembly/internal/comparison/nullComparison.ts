@@ -7,11 +7,13 @@ declare function reportExpectedNull(negated: i32): void;
 declare function clearExpected(): void;
 
 import { reportActual } from "../report/reportActual";
+import { Expectation } from "../Expectation";
+import { assert } from "./assert";
 
 // @ts-ignore: Decorators *are* valid here!
 @inline
-export function nullComparison<T>(actual: T, negated: i32, message: string): void {
-  reportActual<T>(actual);
+export function nullComparison<T>(expectation: Expectation<T>, actual: T, negated: i32, message: string): void {
+  reportActual<T>(actual, expectation);
   reportExpectedNull(negated);
   if (isReference<T>()) {
     assert(negated ^ i32(actual == null), message);

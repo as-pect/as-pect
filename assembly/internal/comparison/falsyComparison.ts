@@ -7,18 +7,20 @@ declare function reportExpectedFalsy(negated: i32): void;
 declare function clearExpected(): void;
 
 import { reportActual } from "../report/reportActual";
+import { Expectation } from "../Expectation";
+import { assert } from "./assert";
 
 // @ts-ignore: Decorators *are* valid here!
 @inline
-export function falsyComparison<T>(actual: T, negated: i32, message: string): void {
-  reportActual<T>(actual);
+export function falsyComparison<T>(expectation: Expectation<T>, actual: T, negated: i32, message: string): void {
+  reportActual<T>(actual, expectation);
   reportExpectedFalsy(negated);
 
   if (isReference<T>()) {
     // if the reference is null
     if (actual == null) {
       // it should throw if it's not negated
-      assert(!negated, message);
+      assert(i32(!negated), message);
     } else if (actual instanceof String) {
       let value = changetype<string>(changetype<usize>(actual));
       // it should throw if it's an empty string

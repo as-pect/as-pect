@@ -4,25 +4,27 @@ declare function clearExpected(): void;
 
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
+import { Expectation } from "../Expectation";
+import { assert } from "./assert";
 
 // @ts-ignore: Decorators *are* valid here!
 @inline
-export function closeToComparison<T>(actual: T, expected: T, negated: i32, decimalPlaces: i32, message: string): void {
+export function closeToComparison<T>(expecation: Expectation<T>, actual: T, expected: T, negated: i32, decimalPlaces: i32, message: string): void {
   // T must not be a reference
   if (isReference<T>()) {
-    assert(false, "toBeCloseTo cannot be called on value types.");
+    assert(i32(false), "toBeCloseTo cannot be called on value types.");
   } else {
-    reportActual<T>(actual);
+    reportActual<T>(actual, expecation);
     reportExpected<T>(expected, negated);
 
     // must be a float value
-    assert(isFloat<T>(actual), "toBeCloseTo assertion must be called on a float value.");
+    assert(i32(isFloat<T>(actual)), "toBeCloseTo assertion must be called on a float value.");
 
     // actual must be finite
-    assert(isFinite<T>(actual), "toBeCloseTo assertion fails because a actual value is not finite");
+    assert(i32(isFinite<T>(actual)), "toBeCloseTo assertion fails because a actual value is not finite");
 
     // expected must be finite
-    assert(isFinite<T>(expected), "toBeCloseTo assertion fails because expected value is not finite.");
+    assert(i32(isFinite<T>(expected)), "toBeCloseTo assertion fails because expected value is not finite.");
 
     /**
      * isCloseTo assertion is calculated by using the formula `|expected - actual| < epsilon`.

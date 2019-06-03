@@ -34,7 +34,7 @@ export function reportExpected<T>(expected: T, negated: i32): void {
     if (expected == null) {
       reportExpectedNull(negated);
       // otherwise it might be an array..
-    } else if (isArray<T>(expected)) {
+    } else if (isArray<T>()) {
       reportExpectedArray(changetype<usize>(expected), negated);
       // or a string...
     } else if (expected instanceof String) {

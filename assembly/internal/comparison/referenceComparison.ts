@@ -6,25 +6,27 @@ import { exactComparison } from "./exactComparison";
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
 import { arrayComparison } from "./arrayComparison";
+import { Expectation } from "../Expectation";
+import { assert } from "./assert";
 
-export function referenceComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
+export function referenceComparison<T>(expectation: Expectation<T>, actual: T, expected: T, negated: i32, message: string): void {
   if (!isReference<T>()) {
-    exactComparison<T>(actual, expected, negated, message);
+    exactComparison<T>(expectation, actual, expected, negated, message);
     return;
   }
 
   if (isArray<T>()) {
-    arrayComparison<T>(actual, expected, negated, message);
+    arrayComparison<T>(expectation, actual, expected, negated, message);
     return;
   }
 
   // report the actual and expected values
-  reportActual<T>(actual);
+  reportActual<T>(actual, expectation);
   reportExpected<T>(expected, negated);
 
   // fast path, the value is itself, or both values are null
   if (expected == actual) {
-    assert(!negated, message);
+    assert(i32(!negated), message);
     clearExpected();
     return;
   }

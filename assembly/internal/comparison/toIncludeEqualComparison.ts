@@ -1,16 +1,22 @@
 import { toIncludeComparison } from "./toIncludeComparison";
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
+import { Expectation } from "../Expectation";
+import { assert } from "./assert";
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualString")
+declare function reportActualString(value: string, expectation: usize): void;
 
 // @ts-ignore Decorators *are* valid here
 @inline
-export function toIncludeEqualComparison<T extends Array<U>, U>(actual: T, expected: U, negated: i32, message: string): void {
+export function toIncludeEqualComparison<T extends Array<U>, U>(expectation: Expectation<T>, actual: T, expected: U, negated: i32, message: string): void {
   if (!isReference<U>(expected)) {
-    toIncludeComparison<T, U>(actual, expected, negated, message);
+    toIncludeComparison<T, U>(expectation, actual, expected, negated, message);
     return;
   }
 
-  reportActual<string>("included reference");
+  reportActualString("included reference", changetype<usize>(expectation));
   reportExpected<U>(expected, negated);
 
   let included: bool = false;

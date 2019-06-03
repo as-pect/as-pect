@@ -1,8 +1,10 @@
 import { exactComparison } from "./exactComparison";
+import { Expectation } from "../Expectation";
+import { assert } from "./assert";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualNull")
-declare function reportActualNull(): void;
+declare function reportActualNull(expecation: usize): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedNull")
@@ -10,7 +12,7 @@ declare function reportExpectedNull(negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualReference")
-declare function reportActualReference(value: usize, offset: i32): void;
+declare function reportActualReference(value: usize, offset: i32, expectation: usize): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedReference")
@@ -18,10 +20,10 @@ declare function reportExpectedReference(value: usize, offset: i32, negated: i32
 
 // @ts-ignore inline is valid here in AssemblyScript
 @inline
-export function blockComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
+export function blockComparison<T>(expectation: Expectation<T>, actual: T, expected: T, negated: i32, message: string): void {
 
   if (actual == expected) {
-    exactComparison<T>(actual, expected, negated, message);
+    exactComparison<T>(expectation, actual, expected, negated, message);
     return;
   }
 
@@ -47,9 +49,9 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
 
   // report the actual reference
   if (actual == null) {
-    reportActualNull();
+    reportActualNull(changetype<usize>(expectation));
   } else {
-    reportActualReference(actualSize, actualSize);
+    reportActualReference(actualSize, actualSize, changetype<usize>(expectation));
   }
 
   // todo: make this const when const expressions are supported by AS

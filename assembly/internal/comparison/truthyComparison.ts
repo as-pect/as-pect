@@ -7,9 +7,11 @@ declare function reportExpectedTruthy(negated: i32): void;
 declare function clearExpected(): void;
 
 import { reportActual } from "../report/reportActual";
+import { Expectation } from "../Expectation";
+import { assert } from "./assert";
 
-export function truthyComparison<T>(actual: T, negated: i32, message: string): void {
-  reportActual<T>(actual);
+export function truthyComparison<T>(expected: Expectation<T>, actual: T, negated: i32, message: string): void {
+  reportActual<T>(actual, expected);
   reportExpectedTruthy(negated);
 
   if (isReference<T>()) {
@@ -23,7 +25,7 @@ export function truthyComparison<T>(actual: T, negated: i32, message: string): v
       assert(negated ^ i32(value.length != 0), message);
     } else {
       // it should throw it's negated
-      assert(!negated, message);
+      assert(i32(!negated), message);
     }
   } else {
     if (isFloat<T>()) {
