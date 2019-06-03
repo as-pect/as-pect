@@ -159,8 +159,8 @@ describe("TestContext test results", (): void => {
   it("should report an array of numbers", (): void => {
     const test = testGroup.tests[12];
     expect(test.pass).toBeFalsy();
-    expect(test.actual!.message).toMatchInlineSnapshot(`"[1,2,3]"`);
-    expect(test.expected!.message).toMatchInlineSnapshot(`"[4,5,6]"`);
+    expect(test.actual!.message).toBe("[1,2,3]");
+    expect(test.expected!.message).toBe("[4,5,6]");
   });
 });
 
