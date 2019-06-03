@@ -1,24 +1,20 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "clearExpected")
-declare function clearExpected(): void;
 
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedFinite")
-declare function reportExpectedFinite(negated: i32): void;
 
 import { reportActual } from "../report/reportActual";
-import { Expectation } from "../Expectation";
 import { assert } from "./assert";
+import { Expected } from "../report/reportExpected";
+import { ValueType } from "../report/ValueType";
 
 // @ts-ignore: Decorators *are* valid here!
 @inline
-export function finiteComparison<T>(expectation: Expectation<T>, actual: T, negated: i32, message: string): void {
+export function finiteComparison<T>(actual: T, negated: i32, message: string): void {
   // toBeFinite should not be called on a reference type
   if (isReference<T>()) {
     assert(i32(false), "toBeFinite must not be called on reference types.");
   } else {
-    reportActual<T>(actual, expectation);
-    reportExpectedFinite(negated);
+    reportActual<T>(actual);
+    Expected.type = ValueType.Finite;
+    Expected.negated = negated;
 
     if (isFloat<T>()) {
       let finite: bool = isFinite<T>(actual);
@@ -27,7 +23,5 @@ export function finiteComparison<T>(expectation: Expectation<T>, actual: T, nega
       // must be a float value
       assert(i32(false), "toBeFinite must only be called with float value types.");
     }
-
-    clearExpected();
   }
 }

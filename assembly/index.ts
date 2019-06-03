@@ -1,3 +1,5 @@
+/// <reference path="../node_modules/assemblyscript/std/assembly/rt/index.d.ts" />
+
 import { describe } from "./internal/Describe";
 import { expect, Expectation } from "./internal/Expectation";
 import { test, it, afterAll, afterEach, beforeAll, beforeEach, todo } from "./internal/Test";
@@ -14,8 +16,15 @@ import {
   reportMin,
   reportVariance,
 } from "./internal/performance";
+import { Expected } from "./internal/report/reportExpected";
 export { __call } from "./internal/call";
+export { __sendActual } from "./internal/report/reportActual";
+export { __sendExpected } from "./internal/report/reportExpected";
 
 // @ts-ignore: Decorators *are* valid here
 @start
 export function __main(): void {}
+
+export function __ready(): void {
+  Expected.ready = true;
+}

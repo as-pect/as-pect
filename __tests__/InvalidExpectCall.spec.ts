@@ -22,40 +22,11 @@ describe("an invalid expect call test suite", () => {
       Array [
         Object {
           "message": "An expect() function call was used outside of a test function in assembly/jest-invalid-expectation.ts.",
-          "stackTrace": "    at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[55]:73)
-          at assembly/internal/Describe/describe (wasm-function[57]:16)
-          at start:assembly/jest-invalid-expectation (wasm-function[58]:6)
-          at start (wasm-function[61]:1)
-          at assembly/index/__main (wasm-function[59]:6)",
-          "type": "InvalidExpectCall",
-        },
-        Object {
-          "message": "An expect() function call was used outside of a test function in assembly/jest-invalid-expectation.ts.",
-          "stackTrace": "    at assembly/internal/comparison/truthyComparison/truthyComparison<assembly/jest-invalid-expectation/SomeRef> (wasm-function[45]:98)
-          at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[55]:253)
-          at assembly/internal/Describe/describe (wasm-function[57]:16)
-          at start:assembly/jest-invalid-expectation (wasm-function[58]:6)
-          at start (wasm-function[61]:1)
-          at assembly/index/__main (wasm-function[59]:6)",
-          "type": "InvalidExpectCall",
-        },
-        Object {
-          "message": "An expect() function call was used outside of a test function in assembly/jest-invalid-expectation.ts.",
-          "stackTrace": "    at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[55]:329)
-          at assembly/internal/Describe/describe (wasm-function[57]:16)
-          at start:assembly/jest-invalid-expectation (wasm-function[58]:6)
-          at start (wasm-function[61]:1)
-          at assembly/index/__main (wasm-function[59]:6)",
-          "type": "InvalidExpectCall",
-        },
-        Object {
-          "message": "An expect() function call was used outside of a test function in assembly/jest-invalid-expectation.ts.",
-          "stackTrace": "    at assembly/internal/comparison/truthyComparison/truthyComparison<~lib/string/String> (wasm-function[52]:59)
-          at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[55]:451)
-          at assembly/internal/Describe/describe (wasm-function[57]:16)
-          at start:assembly/jest-invalid-expectation (wasm-function[58]:6)
-          at start (wasm-function[61]:1)
-          at assembly/index/__main (wasm-function[59]:6)",
+          "stackTrace": "    at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[61]:328)
+          at assembly/internal/Describe/describe (wasm-function[63]:16)
+          at start:assembly/jest-invalid-expectation (wasm-function[64]:6)
+          at start (wasm-function[70]:1)
+          at assembly/index/__main (wasm-function[65]:6)",
           "type": "InvalidExpectCall",
         },
       ]

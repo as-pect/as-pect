@@ -81,11 +81,6 @@ export declare class TestCollector {
      */
     private logNull;
     /**
-     * This function is called after each expectation if the expectation passes. This prevents other
-     * unreachable() conditions that throw errors to report actual and expected values too.
-     */
-    private clearExpected;
-    /**
      * Log a reference to the reporter.
      *
      * @param {number} referencePointer - The pointer to the reference.

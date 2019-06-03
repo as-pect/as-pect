@@ -305,6 +305,9 @@ declare module "util/IAspectExports" {
     export interface IAspectExports {
         __call(pointer: number): void;
         __main(): void;
+        __ready(): void;
+        __sendActual(): void;
+        __sendExpected(): void;
     }
 }
 declare module "util/IPerformanceConfiguration" {
@@ -419,11 +422,6 @@ declare module "test/TestCollector" {
          * Log a null value to the reporter.
          */
         private logNull;
-        /**
-         * This function is called after each expectation if the expectation passes. This prevents other
-         * unreachable() conditions that throw errors to report actual and expected values too.
-         */
-        private clearExpected;
         /**
          * Log a reference to the reporter.
          *

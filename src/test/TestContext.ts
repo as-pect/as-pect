@@ -60,7 +60,6 @@ export class TestContext extends TestCollector {
     this.startupTime = timeDifference(performance.now(), start);
 
     if (this.errors.length > 0) return;
-    this.ready = true;
 
     // start the test suite
     this.reporter.onStart(this);
@@ -192,10 +191,16 @@ export class TestContext extends TestCollector {
       group.pass = false;
       // if it's not negated then set the message, the actual, expected, and stack values
       if (!result.negated) {
-        result.message = this.message;
+        this.wasm!.__sendActual();
+        this.wasm!.__sendExpected();
         result.actual = this.actual;
         result.expected = this.expected;
+        result.message = this.message;
         result.stack = this.stack;
+        this.actual = null;
+        this.expected = null;
+        this.message = "";
+        this.stack = "";
       }
     }
   }

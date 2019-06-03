@@ -92,6 +92,7 @@ export class TestCollector {
     // reset the performance values first, then collect the tests by calling `__main()`
     this.resetPerformanceValues();
     this.wasm!.__main();
+    this.wasm!.__ready();
   }
 
   /**
@@ -103,13 +104,13 @@ export class TestCollector {
   public createImports(...imports: any[]): any {
     const result = Object.assign({}, ...imports, {
       __aspect: {
-        clearExpected: this.clearExpected.bind(this),
         debug: this.debug.bind(this),
         tryCall: this.tryCall.bind(this),
         logNull: this.logNull.bind(this),
         logReference: this.logReference.bind(this),
         logString: this.logString.bind(this),
         logValue: this.logValue.bind(this),
+        reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
         reportDescribe: this.reportDescribe.bind(this),
         reportEndDescribe: this.reportEndDescribe.bind(this),
         reportTest: this.reportTest.bind(this),
@@ -195,16 +196,6 @@ export class TestCollector {
 
     // push the log value to the logs
     target.logs.push(value);
-  }
-
-  /**
-   * This function is called after each expectation if the expectation passes. This prevents other
-   * unreachable() conditions that throw errors to report actual and expected values too.
-   */
-  private clearExpected(): void {
-    this.expected = null;
-    this.actual = null;
-    this.stack = "";
   }
 
   /**
@@ -466,10 +457,6 @@ export class TestCollector {
    * This function reports an actual null value.
    */
   private reportActualNull(): void {
-    if (!this.ready) {
-      this.reportInvalidExpectCall();
-      return;
-    }
     const value = new ActualValue();
     value.message = `null`;
     value.stack = this.getLogStackTrace();
@@ -499,10 +486,6 @@ export class TestCollector {
    * @param {number} numericValue - The value to be expected.
    */
   private reportActualValue(numericValue: number): void {
-    if (!this.ready) {
-      this.reportInvalidExpectCall();
-      return;
-    }
     const value = new ActualValue();
     value.message = numericValue.toString();
     value.stack = this.getLogStackTrace();
@@ -534,10 +517,6 @@ export class TestCollector {
   * @param {number} offset - The size of the reference in bytes.
   */
  private reportActualReference(referencePointer: number, offset: number): void {
-   if (!this.ready) {
-     this.reportInvalidExpectCall();
-     return;
-   }
    const value = new ActualValue();
    value.message = "Reference Value";
    value.stack = this.getLogStackTrace();
@@ -617,10 +596,6 @@ export class TestCollector {
    * @param {number} stringPointer - A pointer that points to the actual string.
    */
   private reportActualString(stringPointer: number): void {
-    if (!this.ready) {
-      this.reportInvalidExpectCall();
-      return;
-    }
     const value = new ActualValue();
     value.message = this.wasm!.__getString(stringPointer);
     value.pointer = stringPointer;
@@ -782,7 +757,6 @@ export class TestCollector {
     const array = this.wasm!.__getArray(arrayPointer);
     const value = new ActualValue();
     value.message = JSON.stringify(array);
-    value.pointer = arrayPointer;
     value.target = this.logTarget;
     this.actual = value;
   }
@@ -797,7 +771,6 @@ export class TestCollector {
     const array = this.wasm!.__getArray(arrayPointer);
     const value = new ActualValue();
     value.message = JSON.stringify(array);
-    value.pointer = arrayPointer;
     value.target = this.logTarget;
     value.negated = negated === 1;
     this.expected = value;

@@ -1,3 +1,5 @@
+import { ValueType } from "./ValueType";
+
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedNull")
 declare function reportExpectedNull(negated: i32): void;
@@ -12,7 +14,7 @@ declare function reportExpectedInteger(value: i32, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedReference")
-declare function reportExpectedReference(value: usize, offset: i32, negated: i32): void;
+declare function reportExpectedReferenceExternal(value: usize, offset: i32, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedString")
@@ -22,41 +24,129 @@ declare function reportExpectedString(value: string, negated: i32): void;
 @external("__aspect", "reportExpectedArray")
 declare function reportExpectedArray(value: usize, negated: i32): void;
 
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedFalsy")
+declare function reportExpectedFalsy(negated: i32): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedTruthy")
+declare function reportExpectedTruthy(negated: i32): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedFinite")
+declare function reportExpectedFinite(negated: i32): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportInvalidExpectCall")
+declare function reportInvalidExpectCall(): void;
+
+export class Expected {
+  static ready: bool = false;
+  static type: ValueType = ValueType.Null;
+  static float: f64 = 0;
+  static integer: i32 = 0;
+  static reference: usize;
+  static offset: i32 = 0;
+  static expectation: usize = 0;
+  static negated: i32 = 0;
+}
+
+export function __sendExpected(): void {
+  switch(Expected.type) {
+    case ValueType.Array:
+        reportExpectedArray(changetype<usize>(Expected.reference), Expected.negated);
+        break;
+    case ValueType.Float:
+        reportExpectedFloat(Expected.float, Expected.negated);
+        break;
+    case ValueType.Integer:
+        reportExpectedInteger(Expected.integer, Expected.negated);
+        break;
+    case ValueType.Null:
+        reportExpectedNull(Expected.negated);
+        break;
+    case ValueType.Reference:
+        reportExpectedReferenceExternal(Expected.reference, Expected.offset, Expected.negated);
+        break;
+    case ValueType.String:
+        reportExpectedString(changetype<string>(Expected.reference), Expected.negated);
+        break;
+    case ValueType.Falsy:
+        reportExpectedFalsy(Expected.negated);
+        break;
+    case ValueType.Finite:
+        reportExpectedFinite(Expected.negated);
+        break;
+    case ValueType.Truthy:
+        reportExpectedTruthy(Expected.negated);
+  }
+}
+
+
 /**
  * This function performs reporting to javascript what the expected value of this expectation is.
  */
 // @ts-ignore: Decorators *are* valid here!
 @inline
 export function reportExpected<T>(expected: T, negated: i32): void {
+  if (!Expected.ready) {
+    reportInvalidExpectCall();
+    return;
+  }
+
+  // set negated first
+  Expected.negated = negated;
+
   // if T is a reference type...
   if (isReference<T>()) {
     // check to see if it's null
     if (expected == null) {
-      reportExpectedNull(negated);
-      // otherwise it might be an array..
-    } else if (isArray<T>()) {
-      reportExpectedArray(changetype<usize>(expected), negated);
-      // or a string...
-    } else if (expected instanceof String) {
-      // @ts-ignore this is already a string, and we can pass up the string reference quickly
-      reportExpectedString(<string>expected, negated);
-      // it also might be an array buffer
-    } else if (expected instanceof ArrayBuffer) {
-      //todo: change this to const when AS supports it
-      let buff = changetype<ArrayBuffer>(expected);
-      // reporting the reference is as simple as using the pointer and the byteLength property.
-      reportExpectedReference(changetype<usize>(buff), buff.byteLength, negated);
+      Expected.type = ValueType.Null;
     } else {
-      // otherwise report the reference in a default way
-      reportExpectedReference(changetype<usize>(expected), offsetof<T>(), negated);
+      let ptr = changetype<usize>(expected);
+      __retain(ptr);
+      __release(Expected.reference);
+      Expected.reference = ptr;
+
+      // otherwise it might be an array..
+      if (isArray<T>()) {
+        Expected.type = ValueType.Array;
+        // or a string...
+      } else if (expected instanceof String) {
+        Expected.type = ValueType.String;
+        // it also might be an array buffer
+      } else if (expected instanceof ArrayBuffer) {
+        //todo: change this to const when AS supports it
+        let buff = changetype<ArrayBuffer>(expected);
+        Expected.type = ValueType.Reference;
+        // reporting the reference is as simple as using the pointer and the byteLength property.
+        Expected.offset = buff.byteLength;
+      } else {
+        // otherwise report the reference in a default way
+        Expected.type = ValueType.Reference;
+        Expected.offset = offsetof<T>();
+      }
     }
   } else {
     if (isFloat<T>()) {
+      Expected.type = ValueType.Float;
       // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
-      reportExpectedFloat(<f64>expected, negated);
+      Expected.float = <f64>expected;
     } else {
+      Expected.type = ValueType.Integer;
       // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
-      reportExpectedInteger(<i32>expected, negated);
+      Expected.integer = <i32>expected;
     }
   }
+}
+
+// @ts-ignore: Decorators *are* valid here
+@inline
+export function reportExpectedReference(ptr: usize, offset: i32, negated: i32): void {
+  Expected.type = ValueType.Reference;
+  __retain(ptr);
+  __release(Expected.reference);
+  Expected.reference = ptr;
+  Expected.offset = offset;
+  Expected.negated = negated;
 }

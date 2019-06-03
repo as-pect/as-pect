@@ -1,63 +1,118 @@
 import { Expectation } from "../Expectation";
+import { ValueType } from "./ValueType";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualNull")
-declare function reportActualNull(expectation: usize): void;
+declare function reportActualNull(): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualValue")
-declare function reportActualFloat(value: f64, expectation: usize): void;
+declare function reportActualFloat(value: f64): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualValue")
-declare function reportActualInteger(value: i32, expectation: usize): void;
+declare function reportActualInteger(value: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualReference")
-declare function reportActualReference(value: usize, offset: i32, expectation: usize): void;
+declare function reportActualReferenceExternal(value: usize, offset: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualString")
-declare function reportActualString(value: string, expectation: usize): void;
+declare function reportActualString(value: string): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualArray")
-declare function reportActualArray(value: usize, expectation: usize): void;
+declare function reportActualArray(value: usize): void;
+
+export class Actual {
+  static type: ValueType = ValueType.Null;
+  static float: f64 = 0;
+  static integer: i32 = 0;
+  static reference: usize;
+  static offset: i32 = 0;
+  static expectation: usize = 0;
+}
+
+export function __sendActual(): void {
+  switch (Actual.type) {
+    case ValueType.Array:
+        reportActualArray(changetype<usize>(Actual.reference));
+        break;
+    case ValueType.Float:
+        reportActualFloat(Actual.float);
+        break;
+    case ValueType.Integer:
+        reportActualInteger(Actual.integer);
+        break;
+    case ValueType.Null:
+        reportActualNull();
+        break;
+    case ValueType.Reference:
+        reportActualReferenceExternal(Actual.reference, Actual.offset);
+        break;
+    case ValueType.String:
+        reportActualString(changetype<string>(Actual.reference))
+        break;
+  }
+}
+
 
 /**
  * This function performs reporting to javascript what the actual value of this expectation is.
  */
 // @ts-ignore: Decorators *are* valid here!
 @inline
-export function reportActual<T>(actual: T, expectation: Expectation<T>): void {
+export function reportActual<T>(actual: T): void {
   // if T is a reference type...
   if (isReference<T>()) {
+    let ptr = changetype<usize>(actual);
     // check to see if it's null
     if (actual == null) {
-      reportActualNull(changetype<usize>(expectation));
-      // otherwise it might be an array...
-    } else if (isArray<T>()) {
-      reportActualArray(changetype<usize>(actual), changetype<usize>(expectation));
-      // or a string
-    } else if (actual instanceof String) {
-      // @ts-ignore this is already a string, and we can pass up the string reference quickly
-      reportActualString(<string>actual, changetype<usize>(expectation));
-      // it also might be an array buffer
-    } else if (actual instanceof ArrayBuffer) {
-      let buff = changetype<ArrayBuffer>(actual);
-      // reporting the reference is as simple as using the pointer and the byteLength property.
-      reportActualReference(changetype<usize>(buff), buff.byteLength, changetype<usize>(expectation));
+      Actual.type = ValueType.Null;
     } else {
-      // otherwise report the reference in a default way
-      reportActualReference(changetype<usize>(actual), offsetof<T>(), changetype<usize>(expectation));
+      // set the reference first
+      __retain(ptr);
+      __release(Actual.reference);
+      Actual.reference = ptr;
+      // it might be an array
+      if (isArray<T>()) {
+        Actual.type = ValueType.Array;
+        // or a string
+      } else if (actual instanceof String) {
+        Actual.type = ValueType.String;
+        // it also might be an array buffer
+      } else if (actual instanceof ArrayBuffer) {
+        Actual.type = ValueType.Reference;
+        let buff = changetype<ArrayBuffer>(ptr);
+        Actual.offset = buff.byteLength;
+        // reporting the reference is as simple as using the pointer and the byteLength property.
+      } else {
+        // otherwise report the reference in a default way
+        Actual.type = ValueType.Reference;
+        Actual.offset = offsetof<T>();
+      }
     }
   } else {
     if (isFloat<T>()) {
+      Actual.type = ValueType.Float;
       // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
-      reportActualFloat(<f64>actual, changetype<usize>(expectation));
+      Actual.float = <f64>actual;
     } else {
+      Actual.type = ValueType.Integer
       // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
-      reportActualInteger(<i32>actual, changetype<usize>(expectation));
+      Actual.integer = <i32>actual;
     }
   }
+}
+
+
+// @ts-ignore: Decorators *are* valid here
+@inline
+export function reportActualReference(ptr: usize, offset: i32): void {
+  Actual.type = ValueType.Reference;
+  __retain(ptr);
+  __release(Actual.reference);
+  Actual.reference = ptr;
+  Actual.offset = offset;
 }

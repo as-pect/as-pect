@@ -1,18 +1,12 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedTruthy")
-declare function reportExpectedTruthy(negated: i32): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "clearExpected")
-declare function clearExpected(): void;
-
 import { reportActual } from "../report/reportActual";
-import { Expectation } from "../Expectation";
 import { assert } from "./assert";
+import { Expected } from "../report/reportExpected";
+import { ValueType } from "../report/ValueType";
 
-export function truthyComparison<T>(expected: Expectation<T>, actual: T, negated: i32, message: string): void {
-  reportActual<T>(actual, expected);
-  reportExpectedTruthy(negated);
+export function truthyComparison<T>(actual: T, negated: i32, message: string): void {
+  reportActual<T>(actual);
+  Expected.type = ValueType.Truthy;
+  Expected.negated = negated;
 
   if (isReference<T>()) {
     // if the reference is null
@@ -40,6 +34,4 @@ export function truthyComparison<T>(expected: Expectation<T>, actual: T, negated
       assert(negated ^ i32(!isFalsy), message);
     }
   }
-
-  clearExpected();
 }

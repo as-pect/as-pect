@@ -96,7 +96,7 @@ describe("A test Suite", (): void => {
   });
 
   it("should report array values", () => {
-    expect<i32[]>([1, 2, 3]).toStrictEqual([1, 2, 3]);
+    expect<i32[]>([1, 2, 3]).toStrictEqual([4, 5, 6]);
   });
 
   todo("this should be a todo");

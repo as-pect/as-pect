@@ -1,20 +1,15 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "clearExpected")
-declare function clearExpected(): void;
-
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
-import { Expectation } from "../Expectation";
 import { assert } from "./assert";
 
 // @ts-ignore: Decorators *are* valid here!
 @inline
-export function closeToComparison<T>(expecation: Expectation<T>, actual: T, expected: T, negated: i32, decimalPlaces: i32, message: string): void {
+export function closeToComparison<T>(actual: T, expected: T, negated: i32, decimalPlaces: i32, message: string): void {
   // T must not be a reference
   if (isReference<T>()) {
     assert(i32(false), "toBeCloseTo cannot be called on value types.");
   } else {
-    reportActual<T>(actual, expecation);
+    reportActual<T>(actual);
     reportExpected<T>(expected, negated);
 
     // must be a float value
@@ -35,6 +30,5 @@ export function closeToComparison<T>(expecation: Expectation<T>, actual: T, expe
     var isClose: bool = abs<T>(expected - actual) < Math.pow(0.1, decimalPlaces);
 
     assert(negated ^ i32(isClose), message);
-    clearExpected()
   }
 }
