@@ -18,6 +18,10 @@ declare function reportExpectedReference(value: usize, offset: i32, negated: i32
 @external("__aspect", "reportExpectedString")
 declare function reportExpectedString(value: string, negated: i32): void;
 
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedArray")
+declare function reportExpectedArray(value: usize, negated: i32): void;
+
 /**
  * This function performs reporting to javascript what the expected value of this expectation is.
  */
@@ -29,7 +33,10 @@ export function reportExpected<T>(expected: T, negated: i32): void {
     // check to see if it's null
     if (expected == null) {
       reportExpectedNull(negated);
-      // otherwise it might be a string
+      // otherwise it might be an array..
+    } else if (isArray<T>(expected)) {
+      reportExpectedArray(changetype<usize>(expected), negated);
+      // or a string...
     } else if (expected instanceof String) {
       // @ts-ignore this is already a string, and we can pass up the string reference quickly
       reportExpectedString(<string>expected, negated);

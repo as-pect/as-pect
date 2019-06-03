@@ -66,14 +66,14 @@
  (global $~lib/argc (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
  (global $~lib/started (mut i32) (i32.const 0))
- (global $~lib/rt/RTTI_BASE i32 (i32.const 3144))
- (global $~lib/heap/HEAP_BASE i32 (i32.const 3196))
+ (global $~lib/rt/__rtti_base i32 (i32.const 3144))
+ (global $~lib/heap/__heap_base i32 (i32.const 3196))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
  (export "__retain" (func $~lib/rt/pure/__retain))
  (export "__release" (func $~lib/rt/pure/__release))
  (export "__collect" (func $~lib/rt/pure/__collect))
- (export "__rtti" (global $~lib/rt/RTTI_BASE))
+ (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
  (export "__main" (func $assembly/index/__main))
  (export "__call" (func $assembly/internal/call/__call))
@@ -255,30 +255,30 @@
      i32.add
      i32.load offset=4
     end
-    local.set $8
+    local.set $9
     block $~lib/rt/tlsf/SETSL|inlined.1
      local.get $0
-     local.set $11
+     local.set $8
      local.get $4
-     local.set $10
-     local.get $8
+     local.set $11
+     local.get $9
      i32.const 1
      local.get $5
      i32.shl
      i32.const -1
      i32.xor
      i32.and
-     local.tee $8
-     local.set $9
+     local.tee $9
+     local.set $10
+     local.get $8
      local.get $11
-     local.get $10
      i32.const 2
      i32.shl
      i32.add
-     local.get $9
+     local.get $10
      i32.store offset=4
     end
-    local.get $8
+    local.get $9
     i32.eqz
     if
      local.get $0
@@ -410,17 +410,17 @@
   if
    block $~lib/rt/tlsf/GETFREELEFT|inlined.0 (result i32)
     local.get $1
-    local.set $3
-    local.get $3
+    local.set $6
+    local.get $6
     i32.const 4
     i32.sub
     i32.load
    end
-   local.set $3
-   local.get $3
-   i32.load
    local.set $6
    local.get $6
+   i32.load
+   local.set $3
+   local.get $3
    i32.const 1
    i32.and
    i32.eqz
@@ -432,7 +432,7 @@
     call $~lib/builtins/abort
     unreachable
    end
-   local.get $6
+   local.get $3
    i32.const 3
    i32.const -1
    i32.xor
@@ -451,17 +451,17 @@
    i32.lt_u
    if
     local.get $0
-    local.get $3
-    call $~lib/rt/tlsf/removeBlock
-    local.get $3
     local.get $6
+    call $~lib/rt/tlsf/removeBlock
+    local.get $6
+    local.get $3
     i32.const 3
     i32.and
     local.get $7
     i32.or
     local.tee $2
     i32.store
-    local.get $3
+    local.get $6
     local.set $1
    end
   end
@@ -570,16 +570,16 @@
   end
   block $~lib/rt/tlsf/GETHEAD|inlined.1 (result i32)
    local.get $0
-   local.set $3
-   local.get $9
-   local.set $6
-   local.get $10
    local.set $7
+   local.get $9
+   local.set $3
+   local.get $10
+   local.set $6
+   local.get $7
    local.get $3
-   local.get $6
    i32.const 4
    i32.shl
-   local.get $7
+   local.get $6
    i32.add
    i32.const 2
    i32.shl
@@ -603,21 +603,21 @@
    local.get $0
    local.set $12
    local.get $9
-   local.set $3
-   local.get $10
-   local.set $6
-   local.get $1
    local.set $7
+   local.get $10
+   local.set $3
+   local.get $1
+   local.set $6
    local.get $12
-   local.get $3
+   local.get $7
    i32.const 4
    i32.shl
-   local.get $6
+   local.get $3
    i32.add
    i32.const 2
    i32.shl
    i32.add
-   local.get $7
+   local.get $6
    i32.store offset=96
   end
   local.get $0
@@ -630,16 +630,16 @@
   i32.store
   block $~lib/rt/tlsf/SETSL|inlined.2
    local.get $0
-   local.set $3
+   local.set $13
    local.get $9
-   local.set $6
+   local.set $12
    block $~lib/rt/tlsf/GETSL|inlined.1 (result i32)
     local.get $0
-    local.set $13
+    local.set $3
     local.get $9
-    local.set $12
-    local.get $13
-    local.get $12
+    local.set $6
+    local.get $3
+    local.get $6
     i32.const 2
     i32.shl
     i32.add
@@ -650,8 +650,8 @@
    i32.shl
    i32.or
    local.set $7
-   local.get $3
-   local.get $6
+   local.get $13
+   local.get $12
    i32.const 2
    i32.shl
    i32.add
@@ -822,7 +822,7 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
-  global.get $~lib/heap/HEAP_BASE
+  global.get $~lib/heap/__heap_base
   i32.const 15
   i32.add
   i32.const 15
@@ -876,9 +876,9 @@
   end
   block $break|0
    i32.const 0
-   local.set $4
+   local.set $5
    loop $repeat|0
-    local.get $4
+    local.get $5
     i32.const 23
     i32.lt_u
     i32.eqz
@@ -886,23 +886,23 @@
     block $~lib/rt/tlsf/SETSL|inlined.0
      local.get $3
      local.set $7
-     local.get $4
+     local.get $5
      local.set $6
      i32.const 0
-     local.set $5
+     local.set $4
      local.get $7
      local.get $6
      i32.const 2
      i32.shl
      i32.add
-     local.get $5
+     local.get $4
      i32.store offset=4
     end
     block $break|1
      i32.const 0
-     local.set $5
+     local.set $7
      loop $repeat|1
-      local.get $5
+      local.get $7
       i32.const 16
       i32.lt_u
       i32.eqz
@@ -910,37 +910,37 @@
       block $~lib/rt/tlsf/SETHEAD|inlined.0
        local.get $3
        local.set $9
-       local.get $4
-       local.set $8
        local.get $5
-       local.set $7
-       i32.const 0
+       local.set $8
+       local.get $7
        local.set $6
+       i32.const 0
+       local.set $4
        local.get $9
        local.get $8
        i32.const 4
        i32.shl
-       local.get $7
+       local.get $6
        i32.add
        i32.const 2
        i32.shl
        i32.add
-       local.get $6
+       local.get $4
        i32.store offset=96
       end
-      local.get $5
+      local.get $7
       i32.const 1
       i32.add
-      local.set $5
+      local.set $7
       br $repeat|1
       unreachable
      end
      unreachable
     end
-    local.get $4
+    local.get $5
     i32.const 1
     i32.add
-    local.set $4
+    local.set $5
     br $repeat|0
     unreachable
    end
@@ -1106,23 +1106,23 @@
    i32.add
    i32.shl
    i32.and
-   local.set $4
-   local.get $4
+   local.set $5
+   local.get $5
    i32.eqz
    if
     i32.const 0
     local.set $7
    else    
-    local.get $4
+    local.get $5
     i32.ctz
     local.set $2
     block $~lib/rt/tlsf/GETSL|inlined.3 (result i32)
      local.get $0
      local.set $8
      local.get $2
-     local.set $5
+     local.set $4
      local.get $8
-     local.get $5
+     local.get $4
      i32.const 2
      i32.shl
      i32.add
@@ -1146,12 +1146,12 @@
      local.set $8
      local.get $6
      i32.ctz
-     local.set $5
+     local.set $4
      local.get $9
      local.get $8
      i32.const 4
      i32.shl
-     local.get $5
+     local.get $4
      i32.add
      i32.const 2
      i32.shl
@@ -1163,14 +1163,14 @@
   else   
    block $~lib/rt/tlsf/GETHEAD|inlined.3 (result i32)
     local.get $0
-    local.set $8
+    local.set $9
     local.get $2
-    local.set $5
+    local.set $8
     local.get $6
     i32.ctz
     local.set $4
+    local.get $9
     local.get $8
-    local.get $5
     i32.const 4
     i32.shl
     local.get $4
@@ -1471,7 +1471,7 @@
  )
  (func $~lib/rt/pure/__retain (; 19 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  global.get $~lib/heap/HEAP_BASE
+  global.get $~lib/heap/__heap_base
   i32.gt_u
   if
    local.get $0
@@ -1510,7 +1510,7 @@
  )
  (func $~lib/rt/__typeinfo (; 21 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
-  global.get $~lib/rt/RTTI_BASE
+  global.get $~lib/rt/__rtti_base
   local.set $1
   local.get $0
   local.get $1
@@ -3162,7 +3162,7 @@
  )
  (func $~lib/rt/pure/__release (; 28 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
-  global.get $~lib/heap/HEAP_BASE
+  global.get $~lib/heap/__heap_base
   i32.gt_u
   if
    local.get $0
@@ -4679,15 +4679,15 @@
  )
  (func $start:assembly/__tests__/toBeCloseTo.spec~anonymous|0~anonymous|0 (; 40 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 f64)
+  (local $1 i32)
   (local $2 i32)
-  (local $3 i32)
+  (local $3 f64)
   (local $4 i32)
-  (local $5 f64)
-  (local $6 f64)
+  (local $5 i32)
+  (local $6 i32)
   (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
+  (local $8 f64)
+  (local $9 f64)
   (local $10 f64)
   (local $11 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.0
@@ -4696,36 +4696,36 @@
    local.tee $0
    local.set $4
    f64.const 1.00001
-   local.set $1
-   i32.const 2
    local.set $3
+   i32.const 2
+   local.set $2
    i32.const 400
    call $~lib/rt/pure/__retain
-   local.set $2
+   local.set $1
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.0
     local.get $4
     f64.load offset=8
-    local.set $6
-    local.get $1
-    local.set $5
-    local.get $4
-    i32.load
     local.set $9
     local.get $3
     local.set $8
-    local.get $2
-    call $~lib/rt/pure/__retain
+    local.get $4
+    i32.load
     local.set $7
+    local.get $2
+    local.set $6
+    local.get $1
+    call $~lib/rt/pure/__retain
+    local.set $5
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.0
-     local.get $6
+     local.get $9
      local.set $10
      local.get $10
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.0
-     local.get $5
+     local.get $8
      local.set $10
-     local.get $9
+     local.get $7
      local.set $11
      local.get $10
      local.get $11
@@ -4741,7 +4741,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -4752,7 +4752,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
+    local.get $8
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -4763,22 +4763,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
-    local.get $6
+    local.get $8
+    local.get $9
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $8
+    local.get $6
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $11
-    local.get $9
+    local.get $7
     local.get $11
     i32.xor
     i32.eqz
     if
-     local.get $7
+     local.get $5
      i32.const 592
      i32.const 35
      i32.const 4
@@ -4786,10 +4786,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $7
+    local.get $5
     call $~lib/rt/pure/__release
    end
-   local.get $2
+   local.get $1
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -4815,15 +4815,15 @@
  (func $start:assembly/__tests__/toBeCloseTo.spec~anonymous|0~anonymous|1 (; 43 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 f64)
-  (local $3 i32)
+  (local $2 i32)
+  (local $3 f64)
   (local $4 i32)
   (local $5 i32)
-  (local $6 f64)
-  (local $7 f64)
+  (local $6 i32)
+  (local $7 i32)
   (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
+  (local $9 f64)
+  (local $10 f64)
   (local $11 f64)
   (local $12 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.1
@@ -4832,38 +4832,38 @@
    local.tee $0
    call $assembly/internal/Expectation/Expectation<f64>#get:not
    local.tee $1
-   local.set $5
-   f64.const 1.00001
-   local.set $2
-   i32.const 2
    local.set $4
+   f64.const 1.00001
+   local.set $3
+   i32.const 2
+   local.set $2
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $3
+   local.set $5
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.1
-    local.get $5
-    f64.load offset=8
-    local.set $7
-    local.get $2
-    local.set $6
-    local.get $5
-    i32.load
-    local.set $10
     local.get $4
-    local.set $9
+    f64.load offset=8
+    local.set $10
     local.get $3
-    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $4
+    i32.load
     local.set $8
+    local.get $2
+    local.set $7
+    local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $6
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.1
-     local.get $7
+     local.get $10
      local.set $11
      local.get $11
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.1
-     local.get $6
+     local.get $9
      local.set $11
-     local.get $10
+     local.get $8
      local.set $12
      local.get $11
      local.get $12
@@ -4879,7 +4879,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $7
+    local.get $10
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -4890,7 +4890,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -4901,22 +4901,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
-    local.get $7
+    local.get $9
+    local.get $10
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $9
+    local.get $7
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $12
-    local.get $10
+    local.get $8
     local.get $12
     i32.xor
     i32.eqz
     if
-     local.get $8
+     local.get $6
      i32.const 592
      i32.const 35
      i32.const 4
@@ -4924,10 +4924,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $8
+    local.get $6
     call $~lib/rt/pure/__release
    end
-   local.get $3
+   local.get $5
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -4954,15 +4954,15 @@
  (func $start:assembly/__tests__/toBeCloseTo.spec~anonymous|0~anonymous|2 (; 45 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 f64)
+  (local $2 i32)
   (local $3 i32)
-  (local $4 i32)
+  (local $4 f64)
   (local $5 i32)
-  (local $6 f64)
-  (local $7 f64)
+  (local $6 i32)
+  (local $7 i32)
   (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
+  (local $9 f64)
+  (local $10 f64)
   (local $11 f64)
   (local $12 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.2
@@ -4973,36 +4973,36 @@
    local.tee $1
    local.set $5
    f64.const 100
-   local.set $2
-   i32.const 2
    local.set $4
+   i32.const 2
+   local.set $3
    i32.const 1352
    call $~lib/rt/pure/__retain
-   local.set $3
+   local.set $2
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.2
     local.get $5
     f64.load offset=8
-    local.set $7
-    local.get $2
-    local.set $6
-    local.get $5
-    i32.load
     local.set $10
     local.get $4
     local.set $9
-    local.get $3
-    call $~lib/rt/pure/__retain
+    local.get $5
+    i32.load
     local.set $8
+    local.get $3
+    local.set $7
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $6
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.2
-     local.get $7
+     local.get $10
      local.set $11
      local.get $11
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.2
-     local.get $6
+     local.get $9
      local.set $11
-     local.get $10
+     local.get $8
      local.set $12
      local.get $11
      local.get $12
@@ -5018,7 +5018,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $7
+    local.get $10
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5029,7 +5029,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5040,22 +5040,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
-    local.get $7
+    local.get $9
+    local.get $10
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $9
+    local.get $7
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $12
-    local.get $10
+    local.get $8
     local.get $12
     i32.xor
     i32.eqz
     if
-     local.get $8
+     local.get $6
      i32.const 592
      i32.const 35
      i32.const 4
@@ -5063,10 +5063,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $8
+    local.get $6
     call $~lib/rt/pure/__release
    end
-   local.get $3
+   local.get $2
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -5076,53 +5076,53 @@
  )
  (func $start:assembly/__tests__/toBeCloseTo.spec~anonymous|0~anonymous|3 (; 46 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 f64)
-  (local $2 i32)
+  (local $1 i32)
+  (local $2 f64)
   (local $3 i32)
   (local $4 i32)
-  (local $5 f64)
-  (local $6 f64)
+  (local $5 i32)
+  (local $6 i32)
   (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
+  (local $8 f64)
+  (local $9 f64)
   (local $10 f64)
   (local $11 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.3
    f64.const 1
    call $assembly/internal/Expectation/expect<f64>
    local.tee $0
-   local.set $4
-   f64.const 100
-   local.set $1
-   i32.const 2
    local.set $3
+   f64.const 100
+   local.set $2
+   i32.const 2
+   local.set $1
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $2
+   local.set $4
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.3
-    local.get $4
-    f64.load offset=8
-    local.set $6
-    local.get $1
-    local.set $5
-    local.get $4
-    i32.load
-    local.set $9
     local.get $3
-    local.set $8
+    f64.load offset=8
+    local.set $9
     local.get $2
-    call $~lib/rt/pure/__retain
+    local.set $8
+    local.get $3
+    i32.load
     local.set $7
+    local.get $1
+    local.set $6
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $5
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.3
-     local.get $6
+     local.get $9
      local.set $10
      local.get $10
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.3
-     local.get $5
+     local.get $8
      local.set $10
-     local.get $9
+     local.get $7
      local.set $11
      local.get $10
      local.get $11
@@ -5138,7 +5138,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5149,7 +5149,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
+    local.get $8
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5160,22 +5160,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
-    local.get $6
+    local.get $8
+    local.get $9
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $8
+    local.get $6
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $11
-    local.get $9
+    local.get $7
     local.get $11
     i32.xor
     i32.eqz
     if
-     local.get $7
+     local.get $5
      i32.const 592
      i32.const 35
      i32.const 4
@@ -5183,10 +5183,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $7
+    local.get $5
     call $~lib/rt/pure/__release
    end
-   local.get $2
+   local.get $4
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -5198,49 +5198,49 @@
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
-  (local $5 f64)
-  (local $6 f64)
+  (local $5 i32)
+  (local $6 i32)
   (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
+  (local $8 f64)
+  (local $9 f64)
   (local $10 f64)
   (local $11 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.4
    f64.const nan:0x8000000000000
    call $assembly/internal/Expectation/expect<f64>
    local.tee $0
-   local.set $4
+   local.set $2
    f64.const 0
    local.set $1
    i32.const 2
    local.set $3
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $2
+   local.set $4
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.4
-    local.get $4
+    local.get $2
     f64.load offset=8
-    local.set $6
-    local.get $1
-    local.set $5
-    local.get $4
-    i32.load
     local.set $9
-    local.get $3
+    local.get $1
     local.set $8
     local.get $2
-    call $~lib/rt/pure/__retain
+    i32.load
     local.set $7
+    local.get $3
+    local.set $6
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $5
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.4
-     local.get $6
+     local.get $9
      local.set $10
      local.get $10
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.4
-     local.get $5
+     local.get $8
      local.set $10
-     local.get $9
+     local.get $7
      local.set $11
      local.get $10
      local.get $11
@@ -5256,7 +5256,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5267,7 +5267,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
+    local.get $8
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5278,22 +5278,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
-    local.get $6
+    local.get $8
+    local.get $9
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $8
+    local.get $6
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $11
-    local.get $9
+    local.get $7
     local.get $11
     i32.xor
     i32.eqz
     if
-     local.get $7
+     local.get $5
      i32.const 592
      i32.const 35
      i32.const 4
@@ -5301,10 +5301,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $7
+    local.get $5
     call $~lib/rt/pure/__release
    end
-   local.get $2
+   local.get $4
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -5316,49 +5316,49 @@
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
-  (local $5 f64)
-  (local $6 f64)
+  (local $5 i32)
+  (local $6 i32)
   (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
+  (local $8 f64)
+  (local $9 f64)
   (local $10 f64)
   (local $11 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.5
    f64.const 0
    call $assembly/internal/Expectation/expect<f64>
    local.tee $0
-   local.set $4
+   local.set $2
    f64.const nan:0x8000000000000
    local.set $1
    i32.const 2
    local.set $3
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $2
+   local.set $4
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.5
-    local.get $4
+    local.get $2
     f64.load offset=8
-    local.set $6
-    local.get $1
-    local.set $5
-    local.get $4
-    i32.load
     local.set $9
-    local.get $3
+    local.get $1
     local.set $8
     local.get $2
-    call $~lib/rt/pure/__retain
+    i32.load
     local.set $7
+    local.get $3
+    local.set $6
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $5
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.5
-     local.get $6
+     local.get $9
      local.set $10
      local.get $10
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.5
-     local.get $5
+     local.get $8
      local.set $10
-     local.get $9
+     local.get $7
      local.set $11
      local.get $10
      local.get $11
@@ -5374,7 +5374,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5385,7 +5385,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
+    local.get $8
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5396,22 +5396,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
-    local.get $6
+    local.get $8
+    local.get $9
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $8
+    local.get $6
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $11
-    local.get $9
+    local.get $7
     local.get $11
     i32.xor
     i32.eqz
     if
-     local.get $7
+     local.get $5
      i32.const 592
      i32.const 35
      i32.const 4
@@ -5419,10 +5419,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $7
+    local.get $5
     call $~lib/rt/pure/__release
    end
-   local.get $2
+   local.get $4
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -5434,49 +5434,49 @@
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
-  (local $5 f64)
-  (local $6 f64)
+  (local $5 i32)
+  (local $6 i32)
   (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
+  (local $8 f64)
+  (local $9 f64)
   (local $10 f64)
   (local $11 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.6
    f64.const nan:0x8000000000000
    call $assembly/internal/Expectation/expect<f64>
    local.tee $0
-   local.set $4
+   local.set $2
    f64.const nan:0x8000000000000
    local.set $1
    i32.const 2
    local.set $3
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $2
+   local.set $4
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.6
-    local.get $4
+    local.get $2
     f64.load offset=8
-    local.set $6
-    local.get $1
-    local.set $5
-    local.get $4
-    i32.load
     local.set $9
-    local.get $3
+    local.get $1
     local.set $8
     local.get $2
-    call $~lib/rt/pure/__retain
+    i32.load
     local.set $7
+    local.get $3
+    local.set $6
+    local.get $4
+    call $~lib/rt/pure/__retain
+    local.set $5
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.6
-     local.get $6
+     local.get $9
      local.set $10
      local.get $10
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.6
-     local.get $5
+     local.get $8
      local.set $10
-     local.get $9
+     local.get $7
      local.set $11
      local.get $10
      local.get $11
@@ -5492,7 +5492,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5503,7 +5503,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
+    local.get $8
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5514,22 +5514,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $5
-    local.get $6
+    local.get $8
+    local.get $9
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $8
+    local.get $6
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $11
-    local.get $9
+    local.get $7
     local.get $11
     i32.xor
     i32.eqz
     if
-     local.get $7
+     local.get $5
      i32.const 592
      i32.const 35
      i32.const 4
@@ -5537,10 +5537,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $7
+    local.get $5
     call $~lib/rt/pure/__release
    end
-   local.get $2
+   local.get $4
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -5553,11 +5553,11 @@
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
-  (local $6 f64)
-  (local $7 f64)
+  (local $6 i32)
+  (local $7 i32)
   (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
+  (local $9 f64)
+  (local $10 f64)
   (local $11 f64)
   (local $12 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.7
@@ -5566,38 +5566,38 @@
    local.tee $0
    call $assembly/internal/Expectation/Expectation<f64>#get:not
    local.tee $1
-   local.set $5
+   local.set $3
    f64.const 0
    local.set $2
    i32.const 2
    local.set $4
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $3
+   local.set $5
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.7
-    local.get $5
+    local.get $3
     f64.load offset=8
-    local.set $7
-    local.get $2
-    local.set $6
-    local.get $5
-    i32.load
     local.set $10
-    local.get $4
+    local.get $2
     local.set $9
     local.get $3
-    call $~lib/rt/pure/__retain
+    i32.load
     local.set $8
+    local.get $4
+    local.set $7
+    local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $6
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.7
-     local.get $7
+     local.get $10
      local.set $11
      local.get $11
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.7
-     local.get $6
+     local.get $9
      local.set $11
-     local.get $10
+     local.get $8
      local.set $12
      local.get $11
      local.get $12
@@ -5613,7 +5613,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $7
+    local.get $10
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5624,7 +5624,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5635,22 +5635,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
-    local.get $7
+    local.get $9
+    local.get $10
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $9
+    local.get $7
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $12
-    local.get $10
+    local.get $8
     local.get $12
     i32.xor
     i32.eqz
     if
-     local.get $8
+     local.get $6
      i32.const 592
      i32.const 35
      i32.const 4
@@ -5658,10 +5658,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $8
+    local.get $6
     call $~lib/rt/pure/__release
    end
-   local.get $3
+   local.get $5
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -5676,11 +5676,11 @@
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
-  (local $6 f64)
-  (local $7 f64)
+  (local $6 i32)
+  (local $7 i32)
   (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
+  (local $9 f64)
+  (local $10 f64)
   (local $11 f64)
   (local $12 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.8
@@ -5689,38 +5689,38 @@
    local.tee $0
    call $assembly/internal/Expectation/Expectation<f64>#get:not
    local.tee $1
-   local.set $5
+   local.set $3
    f64.const nan:0x8000000000000
    local.set $2
    i32.const 2
    local.set $4
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $3
+   local.set $5
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.8
-    local.get $5
+    local.get $3
     f64.load offset=8
-    local.set $7
-    local.get $2
-    local.set $6
-    local.get $5
-    i32.load
     local.set $10
-    local.get $4
+    local.get $2
     local.set $9
     local.get $3
-    call $~lib/rt/pure/__retain
+    i32.load
     local.set $8
+    local.get $4
+    local.set $7
+    local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $6
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.8
-     local.get $7
+     local.get $10
      local.set $11
      local.get $11
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.8
-     local.get $6
+     local.get $9
      local.set $11
-     local.get $10
+     local.get $8
      local.set $12
      local.get $11
      local.get $12
@@ -5736,7 +5736,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $7
+    local.get $10
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5747,7 +5747,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5758,22 +5758,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
-    local.get $7
+    local.get $9
+    local.get $10
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $9
+    local.get $7
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $12
-    local.get $10
+    local.get $8
     local.get $12
     i32.xor
     i32.eqz
     if
-     local.get $8
+     local.get $6
      i32.const 592
      i32.const 35
      i32.const 4
@@ -5781,10 +5781,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $8
+    local.get $6
     call $~lib/rt/pure/__release
    end
-   local.get $3
+   local.get $5
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -5799,11 +5799,11 @@
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
-  (local $6 f64)
-  (local $7 f64)
+  (local $6 i32)
+  (local $7 i32)
   (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
+  (local $9 f64)
+  (local $10 f64)
   (local $11 f64)
   (local $12 i32)
   block $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo|inlined.9
@@ -5812,38 +5812,38 @@
    local.tee $0
    call $assembly/internal/Expectation/Expectation<f64>#get:not
    local.tee $1
-   local.set $5
+   local.set $3
    f64.const nan:0x8000000000000
    local.set $2
    i32.const 2
    local.set $4
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $3
+   local.set $5
    block $assembly/internal/comparison/closeToComparison/closeToComparison<f64>|inlined.9
-    local.get $5
+    local.get $3
     f64.load offset=8
-    local.set $7
-    local.get $2
-    local.set $6
-    local.get $5
-    i32.load
     local.set $10
-    local.get $4
+    local.get $2
     local.set $9
     local.get $3
-    call $~lib/rt/pure/__retain
+    i32.load
     local.set $8
+    local.get $4
+    local.set $7
+    local.get $5
+    call $~lib/rt/pure/__retain
+    local.set $6
     block $assembly/internal/report/reportActual/reportActual<f64>|inlined.9
-     local.get $7
+     local.get $10
      local.set $11
      local.get $11
      call $assembly/internal/report/reportActual/reportActualFloat
     end
     block $assembly/internal/report/reportExpected/reportExpected<f64>|inlined.9
-     local.get $6
+     local.get $9
      local.set $11
-     local.get $10
+     local.get $8
      local.set $12
      local.get $11
      local.get $12
@@ -5859,7 +5859,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $7
+    local.get $10
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5870,7 +5870,7 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
+    local.get $9
     call $~lib/builtins/isFinite<f64>
     i32.eqz
     if
@@ -5881,22 +5881,22 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $6
-    local.get $7
+    local.get $9
+    local.get $10
     f64.sub
     f64.abs
     f64.const 0.1
-    local.get $9
+    local.get $7
     f64.convert_i32_s
     call $~lib/math/NativeMath.pow
     f64.lt
     local.set $12
-    local.get $10
+    local.get $8
     local.get $12
     i32.xor
     i32.eqz
     if
-     local.get $8
+     local.get $6
      i32.const 592
      i32.const 35
      i32.const 4
@@ -5904,10 +5904,10 @@
      unreachable
     end
     call $assembly/internal/comparison/closeToComparison/clearExpected
-    local.get $8
+    local.get $6
     call $~lib/rt/pure/__release
    end
-   local.get $3
+   local.get $5
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -5987,29 +5987,29 @@
    global.get $assembly/__tests__/toBeCloseTo.spec/vec1
    call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
    local.tee $0
-   local.set $4
+   local.set $2
    global.get $assembly/__tests__/toBeCloseTo.spec/vec1
    call $~lib/rt/pure/__retain
-   local.set $3
+   local.set $1
    i32.const 2
-   local.set $2
+   local.set $3
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $1
+   local.set $4
    block $assembly/internal/comparison/closeToComparison/closeToComparison<assembly/__tests__/setup/Vec3/Vec3>|inlined.0
-    local.get $4
+    local.get $2
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $9
-    local.get $3
+    local.get $1
     call $~lib/rt/pure/__retain
     local.set $8
-    local.get $4
+    local.get $2
     i32.load
     local.set $7
-    local.get $2
+    local.get $3
     local.set $6
-    local.get $1
+    local.get $4
     call $~lib/rt/pure/__retain
     local.set $5
     i32.const 0
@@ -6022,16 +6022,16 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $9
+    local.get $5
     call $~lib/rt/pure/__release
     local.get $8
     call $~lib/rt/pure/__release
-    local.get $5
+    local.get $9
     call $~lib/rt/pure/__release
    end
-   local.get $3
-   call $~lib/rt/pure/__release
    local.get $1
+   call $~lib/rt/pure/__release
+   local.get $4
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -6062,29 +6062,29 @@
    local.tee $0
    call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#get:not
    local.tee $1
-   local.set $5
+   local.set $3
    global.get $assembly/__tests__/toBeCloseTo.spec/vec1
    call $~lib/rt/pure/__retain
-   local.set $4
+   local.set $2
    i32.const 2
-   local.set $3
+   local.set $4
    i32.const 1120
    call $~lib/rt/pure/__retain
-   local.set $2
+   local.set $5
    block $assembly/internal/comparison/closeToComparison/closeToComparison<assembly/__tests__/setup/Vec3/Vec3>|inlined.1
-    local.get $5
+    local.get $3
     i32.load offset=4
     call $~lib/rt/pure/__retain
     local.set $10
-    local.get $4
+    local.get $2
     call $~lib/rt/pure/__retain
     local.set $9
-    local.get $5
+    local.get $3
     i32.load
     local.set $8
-    local.get $3
+    local.get $4
     local.set $7
-    local.get $2
+    local.get $5
     call $~lib/rt/pure/__retain
     local.set $6
     i32.const 0
@@ -6097,16 +6097,16 @@
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $10
+    local.get $6
     call $~lib/rt/pure/__release
     local.get $9
     call $~lib/rt/pure/__release
-    local.get $6
+    local.get $10
     call $~lib/rt/pure/__release
    end
-   local.get $4
-   call $~lib/rt/pure/__release
    local.get $2
+   call $~lib/rt/pure/__release
+   local.get $5
    call $~lib/rt/pure/__release
   end
   local.get $0
@@ -6212,7 +6212,7 @@
   (local $2 i32)
   (local $3 i32)
   local.get $0
-  global.get $~lib/heap/HEAP_BASE
+  global.get $~lib/heap/__heap_base
   i32.lt_u
   if
    return

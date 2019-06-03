@@ -18,6 +18,10 @@ declare function reportActualReference(value: usize, offset: i32): void;
 @external("__aspect", "reportActualString")
 declare function reportActualString(value: string): void;
 
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualArray")
+declare function reportActualArray(value: usize): void;
+
 /**
  * This function performs reporting to javascript what the actual value of this expectation is.
  */
@@ -29,7 +33,10 @@ export function reportActual<T>(actual: T): void {
     // check to see if it's null
     if (actual == null) {
       reportActualNull();
-      // otherwise it might be a string
+      // otherwise it might be an array...
+    } else if (isArray<T>()) {
+      reportActualArray(changetype<usize>(actual));
+      // or a string
     } else if (actual instanceof String) {
       // @ts-ignore this is already a string, and we can pass up the string reference quickly
       reportActualString(<string>actual);

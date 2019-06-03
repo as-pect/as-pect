@@ -5,10 +5,16 @@ declare function clearExpected(): void;
 import { exactComparison } from "./exactComparison";
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
+import { arrayComparison } from "./arrayComparison";
 
 export function referenceComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
   if (!isReference<T>()) {
     exactComparison<T>(actual, expected, negated, message);
+    return;
+  }
+
+  if (isArray<T>()) {
+    arrayComparison<T>(actual, expected, negated, message);
     return;
   }
 

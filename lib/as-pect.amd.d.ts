@@ -668,6 +668,19 @@ declare module "test/TestCollector" {
          */
         private reportInvalidExpectCall;
         /**
+         * This method reports an actual array value.
+         *
+         * @param {number} arrayPointer - The Array pointer.
+         */
+        private reportActualArray;
+        /**
+         * This  method reports an expected array value.
+         *
+         * @param {number} arrayPointer - The Array pointer.
+         * @param {1 | 0} negated - Is `1` if the expectation is negated.
+         */
+        private reportExpectedArray;
+        /**
          * Gets an error stack trace.
          */
         private getErrorStackTrace;
