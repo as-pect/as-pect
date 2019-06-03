@@ -19,12 +19,17 @@ declare function logInteger(value: i32): void;
 declare function logNull(): void;
 
 // @ts-ignore: decorators *are* valid here
-@global
-@inline
+@external("__aspect", "logArray")
+declare function logArray(value: usize): void;
+
+// @ts-ignore: decorators *are* valid here
+@global @inline
 export function log<T>(value: T): void {
   if (isReference<T>()) {
     if (value == null) {
       logNull();
+    } else if (isArray<T>()) {
+      logArray(changetype<usize>(value));
     } else if (value instanceof String) {
       // @ts-ignore: this cast is valid because it's already a string
       logString(<string>value);

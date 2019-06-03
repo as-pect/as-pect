@@ -423,6 +423,12 @@ declare module "test/TestCollector" {
          */
         private logNull;
         /**
+         * Log an array to the reporter.
+         *
+         * @param arrayPointer - The array pointer.
+         */
+        private logArray;
+        /**
          * Log a reference to the reporter.
          *
          * @param {number} referencePointer - The pointer to the reference.

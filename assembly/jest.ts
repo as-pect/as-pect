@@ -57,6 +57,7 @@ describe("A test Suite", (): void => {
     log<i32>(42);
     log<Vec3>(null);
     log<Vec3>(new Vec3());
+    log<i32[]>([1, 2, 3]);
   });
 
   it("should expect strings", (): void => {

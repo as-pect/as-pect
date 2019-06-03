@@ -106,6 +106,7 @@ export class TestCollector {
       __aspect: {
         debug: this.debug.bind(this),
         tryCall: this.tryCall.bind(this),
+        logArray: this.logArray.bind(this),
         logNull: this.logNull.bind(this),
         logReference: this.logReference.bind(this),
         logString: this.logString.bind(this),
@@ -197,6 +198,23 @@ export class TestCollector {
     // push the log value to the logs
     target.logs.push(value);
   }
+
+  /**
+   * Log an array to the reporter.
+   *
+   * @param arrayPointer - The array pointer.
+   */
+  private logArray(arrayPointer: number): void {
+    const value = new LogValue();
+    const target = this.logTarget;
+
+    value.stack = this.getLogStackTrace();
+    value.message = JSON.stringify(this.wasm!.__getArray(arrayPointer));
+    value.target = target;
+
+    target.logs.push(value);
+  }
+
 
   /**
    * Log a reference to the reporter.

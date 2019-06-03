@@ -292,20 +292,6 @@ browser testing as entry points.
 ./node_modules/as-pect/assembly/index.ts
 ```
 
-## Do Not Import An Allocator
-
-The `as-pect` cli will automatically include the `arena` allocator for you (for now!), so it's not
-necessary for you to include this at the top of each test. Once runtime hits, allocators and runtime
-flags will be configurable to you from the compiler arguments in the `./as-pect.config.js` file.
-
-```ts
-/**
- * Do not do this at the top of your tests since ./node_modules/as-pect/assembly/index.ts
- * does this already.
- */
-import "allocator/arena";
-```
-
 ## Closures
 
 AssemblyScript currently does not support closure, however, you must place all relevant tests and
@@ -354,8 +340,15 @@ describe("vector", (): void => {
 
 ## Expectations
 
-Calling the `expect<T>(value: T)` function outside of a test function, or a setup function will
-cause unexpected behavior. If this happens, the test suite will fail before it runs in the CLI.
+Calling the `expect<T>(value: T)` function outside of a test function or a setup function will
+cause unexpected behavior. If this happens, the test suite will fail before it runs in the CLI, and
+the `Error` will be reported to the console.
+
+Also, if an expectation fails and hits an `unreachable()` instruction, any unreleased references in
+the function call stack will be held indefinitely as a memory leak. Tests don't stop running if they
+fail the test callback. However, tests will stop if they fail inside the `beforeEach()`, `beforeAll()`,
+`afterEach()`, and `afterAll()` callbacks.
+
 
 ## Logging
 
