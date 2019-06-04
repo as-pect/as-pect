@@ -1,5 +1,6 @@
 import { Expectation } from "../Expectation";
 import { ValueType } from "./ValueType";
+import { Box } from "./Box";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualNull")
@@ -24,6 +25,10 @@ declare function reportActualString(value: string): void;
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualArray")
 declare function reportActualArray(value: usize): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualLong")
+declare function reportActualLong(value: usize, signed: bool): void;
 
 export class Actual {
   static type: ValueType = ValueType.Null;
@@ -53,6 +58,10 @@ export function __sendActual(): void {
         break;
     case ValueType.String:
         reportActualString(changetype<string>(Actual.reference))
+        break;
+    case ValueType.UnsignedLong:
+    case ValueType.SignedLong:
+        reportActualLong(Actual.reference, Actual.type == ValueType.SignedLong);
         break;
   }
 }
@@ -98,6 +107,15 @@ export function reportActual<T>(actual: T): void {
       Actual.type = ValueType.Float;
       // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
       Actual.float = <f64>actual;
+    } else if (actual instanceof i64 || actual instanceof u64) {
+      Actual.type = actual instanceof i64
+        ? ValueType.SignedLong
+        : ValueType.UnsignedLong;
+      let ref = new Box<T>(actual);
+      let ptr = changetype<usize>(ref);
+      __retain(ptr);
+      __release(Actual.reference);
+      Actual.reference = ptr;
     } else {
       Actual.type = ValueType.Integer
       // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion

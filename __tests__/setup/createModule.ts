@@ -4,7 +4,6 @@ import { TestContext } from "../../src/test/TestContext";
 import { EmptyReporter } from "../../src/reporter/EmptyReporter";
 import { IAspectExports } from "../../src/util/IAspectExports";
 
-
 type TestContextCallback = (err: Error | null, result?: TestContext) => void;
 
 export function createModule(linked: any, callback: TestContextCallback): void {

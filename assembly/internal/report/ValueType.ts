@@ -8,4 +8,6 @@ export const enum ValueType {
   Falsy = 6,
   Truthy = 7,
   Finite = 8,
+  SignedLong = 9,
+  UnsignedLong = 10,
 }

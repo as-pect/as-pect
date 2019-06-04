@@ -1,4 +1,5 @@
 import { ValueType } from "./ValueType";
+import { Box } from "./Box";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedNull")
@@ -40,6 +41,10 @@ declare function reportExpectedFinite(negated: i32): void;
 @external("__aspect", "reportInvalidExpectCall")
 declare function reportInvalidExpectCall(): void;
 
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedLong")
+declare function reportExpectedLong(pointer: usize, signed: bool, negated: i32): void;
+
 export class Expected {
   static ready: bool = false;
   static type: ValueType = ValueType.Null;
@@ -79,6 +84,10 @@ export function __sendExpected(): void {
         break;
     case ValueType.Truthy:
         reportExpectedTruthy(Expected.negated);
+    case ValueType.UnsignedLong:
+    case ValueType.SignedLong:
+        reportExpectedLong(Expected.reference, Expected.type == ValueType.SignedLong, Expected.negated);
+        break;
   }
 }
 
@@ -132,6 +141,15 @@ export function reportExpected<T>(expected: T, negated: i32): void {
       Expected.type = ValueType.Float;
       // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
       Expected.float = <f64>expected;
+    } else if (expected instanceof i64 || expected instanceof u64) {
+      Expected.type = actual instanceof i64
+        ? ValueType.SignedLong
+        : ValueType.UnsignedLong;
+      let ref = new Box<T>(expected);
+      let ptr = changetype<usize>(ref);
+      __retain(ptr);
+      __release(Expected.reference);
+      Expected.reference = ptr;
     } else {
       Expected.type = ValueType.Integer;
       // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
