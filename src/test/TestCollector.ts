@@ -8,6 +8,8 @@ import { IWarning } from "./IWarning";
 import { IPerformanceConfiguration, createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 import { TestResult } from "./TestResult";
 import { PerformanceLimits } from "./PerformanceLimits";
+// @ts-ignore: Constructor is new Long(low, high, signed);
+import Long from "long";
 
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
@@ -107,6 +109,7 @@ export class TestCollector {
         debug: this.debug.bind(this),
         tryCall: this.tryCall.bind(this),
         logArray: this.logArray.bind(this),
+        logLong: this.logLong.bind(this),
         logNull: this.logNull.bind(this),
         logReference: this.logReference.bind(this),
         logString: this.logString.bind(this),
@@ -133,6 +136,8 @@ export class TestCollector {
         reportExpectedFinite: this.reportExpectedFinite.bind(this),
         reportActualArray: this.reportActualArray.bind(this),
         reportExpectedArray: this.reportExpectedArray.bind(this),
+        reportActualLong: this.reportActualLong.bind(this),
+        reportExpectedLong: this.reportExpectedLong.bind(this),
         reportNegatedTest: this.reportNegatedTest.bind(this),
         performanceEnabled: this.performanceEnabled.bind(this),
         maxSamples: this.maxSamples.bind(this),
@@ -275,6 +280,27 @@ export class TestCollector {
     // push the log value to the logs
     target.logs.push(value);
   }
+
+  /**
+   * Log a long value.
+   *
+   * @param suiteNamePointer 
+   */
+  private logLong(boxPointer: number, signed: 1 | 0): void {
+    const value = new LogValue();
+    const target = this.logTarget;
+
+    const long = new Long
+      .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
+
+    value.stack = this.getLogStackTrace();
+    value.message = `Value ${long.toString()}`;
+    value.target = target;
+
+    // push the log value to the logs
+    target.logs.push(value);
+  }
+
 
   /**
    * This web assembly linked function creates a test group. It's called when the test suite calls
@@ -529,6 +555,24 @@ export class TestCollector {
   }
 
  /**
+  * This function reports an actual long value.
+  *
+  * @param {number} boxPointer - The expected box pointer.
+  * @param {1 | 0} signed - An indicator if the long value is signed.
+  */
+ private reportActualLong(boxPointer: number, signed: 1 | 0): void {
+  const value = new ActualValue();
+
+  const long = new Long
+    .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
+
+  value.message = "Long Value: " + long.toString();
+  value.stack = this.getLogStackTrace();
+  value.target = this.logTarget;
+  this.actual = value;
+}
+
+ /**
   * This function reports an actual reference value.
   *
   * @param {number} referencePointer - The actual reference pointer.
@@ -565,6 +609,26 @@ export class TestCollector {
    value.value = referencePointer;
    this.expected = value;
  }
+
+ /**
+  * This function reports an expected long value.
+  *
+  * @param {number} boxPointer - The expected box pointer.
+  * @param {1 | 0} signed - An indicator if the long value is signed.
+  * @param {1 | 0} negated - An indicator if the expectation is negated.
+  */
+ private reportExpectedLong(boxPointer: number, signed: 1 | 0, negated: 1 | 0): void {
+  const value = new ActualValue();
+
+  const long = new Long
+    .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
+
+  value.message = "Long Value: " + long.toString();
+  value.stack = this.getLogStackTrace();
+  value.target = this.logTarget;
+  value.negated = negated === 1;
+  this.expected = value;
+}
 
   /**
    * This function reports an expected truthy value.

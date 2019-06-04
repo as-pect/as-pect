@@ -106,6 +106,12 @@ export declare class TestCollector {
      */
     private logValue;
     /**
+     * Log a long value.
+     *
+     * @param suiteNamePointer
+     */
+    private logLong;
+    /**
      * This web assembly linked function creates a test group. It's called when the test suite calls
      * the describe("test", callback) function from within AssemblyScript. It receives a pointer to
      * the description of the tests, forks the top level test group, pushes the suiteName to a list,
@@ -198,6 +204,13 @@ export declare class TestCollector {
      */
     private reportExpectedValue;
     /**
+     * This function reports an actual long value.
+     *
+     * @param {number} boxPointer - The expected box pointer.
+     * @param {1 | 0} signed - An indicator if the long value is signed.
+     */
+    private reportActualLong;
+    /**
      * This function reports an actual reference value.
      *
      * @param {number} referencePointer - The actual reference pointer.
@@ -212,6 +225,14 @@ export declare class TestCollector {
      * @param {1 | 0} negated - An indicator if the expectation is negated.
      */
     private reportExpectedReference;
+    /**
+     * This function reports an expected long value.
+     *
+     * @param {number} boxPointer - The expected box pointer.
+     * @param {1 | 0} signed - An indicator if the long value is signed.
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
+    private reportExpectedLong;
     /**
      * This function reports an expected truthy value.
      *

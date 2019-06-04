@@ -189,7 +189,7 @@ export class DefaultTestReporter extends TestReporter {
       ? `0 fail`
       : chalk`{red ${(count - successCount).toString()} fail}`;
 
-    this.stdout!.write(`
+    this.stdout!.write(chalk`
 ${"~".repeat(process.stdout.columns! - 10)}
 
     [File]: ${suite.fileName}

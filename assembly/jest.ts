@@ -100,6 +100,14 @@ describe("A test Suite", (): void => {
     expect<i32[]>([1, 2, 3]).toStrictEqual([4, 5, 6]);
   });
 
+  it("should report long values", () => {
+    expect<i64>(-9999999999).toBe(9999999999);
+  });
+
+  it("should log a long value", () => {
+    log<u64>(999999999999999);
+  });
+
   todo("this should be a todo");
 });
 

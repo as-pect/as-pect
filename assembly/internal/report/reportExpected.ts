@@ -84,6 +84,7 @@ export function __sendExpected(): void {
         break;
     case ValueType.Truthy:
         reportExpectedTruthy(Expected.negated);
+        break;
     case ValueType.UnsignedLong:
     case ValueType.SignedLong:
         reportExpectedLong(Expected.reference, Expected.type == ValueType.SignedLong, Expected.negated);
@@ -142,7 +143,7 @@ export function reportExpected<T>(expected: T, negated: i32): void {
       // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
       Expected.float = <f64>expected;
     } else if (expected instanceof i64 || expected instanceof u64) {
-      Expected.type = actual instanceof i64
+      Expected.type = expected instanceof i64
         ? ValueType.SignedLong
         : ValueType.UnsignedLong;
       let ref = new Box<T>(expected);

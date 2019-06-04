@@ -162,6 +162,24 @@ describe("TestContext test results", (): void => {
     expect(test.actual!.message).toBe("[1,2,3]");
     expect(test.expected!.message).toBe("[4,5,6]");
   });
+
+  it("should report an actual long", (): void => {
+    const test = testGroup.tests[13];
+    expect(test.pass).toBeFalsy();
+    expect(test.actual!.message).toMatchInlineSnapshot(
+      `"Long Value: -9999999999"`
+    );
+    expect(test.expected!.message).toMatchInlineSnapshot(
+      `"Long Value: 9999999999"`
+    );
+  });
+
+  it("should log a long value", () => {
+    const test = testGroup.tests[14];
+    expect(test.logs[0].message).toMatchInlineSnapshot(
+      `"Value 999999999999999"`
+    );
+  });
 });
 
 describe("TestContext performance metrics", (): void => {
