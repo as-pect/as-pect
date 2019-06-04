@@ -7,24 +7,24 @@ export interface ICompilerFlags {
 
 export interface IConfiguration {
   /**
-   * A string of globs to find the files that will be included in the test suite.
+   * A set of globs that denote files that must be used for testing.
    */
   include?: string[];
   /**
-   * A set of globs passed to the glob package that quality files to be added to each test.
+   * A set of globs that denote files that must be added to every compilation.
    */
   add?: string[],
   /**
-   * All the compiler flags needed for this test suite. Make sure that a binary file is output.
+   * The compiler flags needed for this test suite. Do not forget that a binary file must be output.
    */
   flags?: ICompilerFlags,
   /**
-   * And array of regular expressions that are tested against the file names. If they match, the
+   * A set of regular expressions that are tested against the file names. If they match, the
    * files will be discluded.
    */
   disclude?: RegExp[];
   /**
-   * If the test module requires a set of imports to be loaded, it can be set here.
+   * The web assembly imports required for testing your module.
    */
   imports?: any;
   /**
