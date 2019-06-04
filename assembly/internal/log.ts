@@ -1,3 +1,5 @@
+import { Box } from "./report/Box";
+
 // @ts-ignore: decorators *are* valid here
 @external("__aspect", "logString")
 declare function logString(value: string): void;
@@ -23,6 +25,10 @@ declare function logNull(): void;
 declare function logArray(value: usize): void;
 
 // @ts-ignore: decorators *are* valid here
+@external("__aspect", "logLong")
+declare function logLong(value: usize, signed: bool): void;
+
+// @ts-ignore: decorators *are* valid here
 @global @inline
 export function log<T>(value: T): void {
   if (isReference<T>()) {
@@ -43,6 +49,9 @@ export function log<T>(value: T): void {
     if (isFloat<T>()) {
       // @ts-ignore: this cast is valid because it's already a float
       logFloat(<f64>value);
+    } else if (value instanceof i64 || value instanceof u64) {
+      let box = new Box<T>(value);
+      logLong(changetype<usize>(box), value instanceof i64);
     } else {
       // @ts-ignore: this cast is valid because it's already an integer
       logInteger(<i32>value);
