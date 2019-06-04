@@ -1,22 +1,29 @@
 # as-pect
 
-
 [![Greenkeeper badge](https://badges.greenkeeper.io/jtenner/as-pect.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/jtenner/as-pect.svg?branch=master)](https://travis-ci.org/jtenner/as-pect)
 [![Coverage Status](https://coveralls.io/repos/github/jtenner/as-pect/badge.svg?branch=master)](https://coveralls.io/github/jtenner/as-pect?branch=master)
 
 Write your module in TypeScript and get blazing fast testing with web assembly speeds!
 
-# Usage
+## Philosophy
 
-To install `as-pect`, install the latest version from github. Once `AssemblyScript` becomes more stable,
-`as-pect` will be published to npm.
+Testing is the first step of every project. It's important to make sure that the
+library or app you've chosen to become responsible for works in the manner you
+wish to have it work. It only takes a few minutes to get setup even if the benefits
+are transparent.
+
+## Usage
+
+To install `as-pect`, install the latest version from github. Once
+`AssemblyScript` becomes more stable, `as-pect` will be published to npm.
 
 ```
 $ npm install jtenner/as-pect
 ```
 
-To initialize a test suite, run `npx asp --init`. It will create the following folders and files.
+To initialize a test suite, run `npx asp --init`. It will create the following
+folders and files.
 
 ```
 $ npx asp --init
@@ -45,19 +52,26 @@ To run `as-pect`, use the command line: `npx asp`, or create an npm script.
 }
 ```
 
-Run `asp` from the command line using npx without any parameters to use `./as-pect.config.js` as your
-test configuration. Otherwise, you can specify a configuration like this:
+Run `asp` from the command line using npx without any parameters to use
+`./as-pect.config.js` as your test configuration. Otherwise, you can specify a
+configuration using the command line syntax.
 
 ```
-$ npx asp --config as-pect.config.js
+$ npx asp --config=as-pect.config.js
 ```
 
-All of the values configured in the configuration are overridable via the command line.
+Most of the values configured in the configuration are overridable via the command
+line, with the exception of the Web Assembly imports provided to the module.
 
-# CLI
+## CLI
 
-This is the CLI help displayed when using the `asp` help flag.
+To access the help screen, use the `--help` flag.
 
+<!-- markdownlint-disable MD013 MD031 -->
+<!--
+  This is the command line help screen, and has lines longer than 80
+  characters. This cannot be helped.
+-->
 ```
 SYNTAX
   asp --init                          Create a test config, an assembly/__tests__ folder and exit.
@@ -111,20 +125,19 @@ PERFORMANCE OPTIONS
   --report-variance(=false)?           Enable/Disable reporting of the variance. (Default: false)
 ```
 
-# Configuration
+<!-- markdownlint-enable MD013 MD031 -->
 
-Currently `as-pect` will compile each file that matches each `Glob` in the `include` property of
-your configuration. The default include is `"assembly/__tests__/**/*.spec.ts"`. It must compile each
-file, and run each binary seperately inside it's own `TestContext`. This is a limitation of
+## Configuration File
+
+Currently `as-pect` will compile each file that matches the `Glob`s in the
+`include` property of your configuration. The default include is
+`"assembly/__tests__/**/*.spec.ts"`. It must compile each file, and run each
+binary seperately inside it's own `TestContext`. This is a limitation of
 AssemblyScript, not of `as-pect`.
 
-A single TypeScript file is added to the compilation to add all the global test functions like
-`describe`, `it`, `test`, and `expect`. All of these functions are placed conveniently into a
-`as-pect.d.ts` file in the `__tests__` folder when the test suite is initialized.
-
-## Configuration Files
-
 A typical configuration looks like this:
+
+<!-- markdownlint-disable MD013 -->
 
 ```ts
 module.exports = {
@@ -190,29 +203,53 @@ module.exports = {
 };
 ```
 
-If your module requires a set of imported functions, it's okay to mock them here in the `imports`
-property of the configuration. If any module fails during compilation, the utility will exit with
-code 1 so it can be used for travis builds.
+<!-- markdownlint-enable MD013 -->
+
+## CI Usage
+
+If your module requires a set of imported functions, it's encouarged to mock
+them here in the `imports` property of the configuration. If any module fails
+during compilation, the utility will exit immediately with code 1 so it can be
+used for quicker ci builds.
+
+Adding this line to your `.travis.yml` will allow you to specify a custom
+script to your CI build.
+
+```yaml
+script:
+  - npm run test:ci
+```
+
+Then in your package.json file, you can instruct the `"test:ci"` script to
+run the `asp` command line tool to use the `SummaryTestReporter` like this:
+
+```json
+{
+  "scripts": {
+    "test:ci": "asp --reporter=SummaryTestReporter"
+  }
+}
+```
 
 ## Compiler Flags
 
-Regardless of the installed version, all the compiler flags will be passed to the `asc` command line
-tool.
+Regardless of the installed version, all the compiler flags will be passed to
+the `asc` command line tool.
 
 ```ts
 import asc from "assemblyscript/cli/asc";
 ```
 
-Inside the callback, any files that are generated, except for the `.wasm` file will be output using
-the `{testFolder}/{testName}.{ext}` format. This includes sorcemaps, `.wat` files, `.js` files, and
-types files generated by the compiler.
+Inside the callback, any files that are generated, except for the `.wasm` file
+will be output using the `{testFolder}/{testName}.{ext}` format. This includes
+sourcemaps, `.wat` files, `.js` files, and types files generated by the compiler.
 
 ## Reporters
 
-Reporters are the way tests get reported. When running the CLI, the `DefaultReporter` is used and
-all the values will be logged to the console. The test suite itself does not log out test results.
-If you want to use a custom reporter, you can create your own by extending the abstract reporter
-class.
+Reporters are the way tests get reported. When running the CLI, the
+`DefaultReporter` is used and all the values will be logged to the console. The
+test suite itself does not log out test results. If you want to use a custom
+reporter, you can create your own by extending the abstract reporter class.
 
 ```ts
 export abstract class Reporter {
@@ -226,76 +263,98 @@ export abstract class Reporter {
 }
 ```
 
-Each test suite run will use the provided reporter and call `onStart(suite: TestSuite)` to notify a
-consumer that a test has started. This happens once per test file. Since a file can have multiple
-`describe` function calls, these are logically placed into `TestGroup`s. Each `TestGroup` has it's
+Each test suite run will use the provided reporter and call
+`onStart(suite: TestSuite)` to notify a consumer that a test has started. This
+happens once per test file. Since a file can have multiple `describe` function
+calls, these are logically placed into `TestGroup`s. Each `TestGroup` has it's
 own description and contains a list of `TestResult`s that were run.
 
-Each function is self explainatory, and you don't need to call `super()` when extending the Reporter
-class, since `Reporter` does not have one.
+Each function is self explainatory, and you don't need to call `super()` when
+extending the Reporter class, since `Reporter` does not have one.
 
-If no reporter is provided to the configuration, one will be provided that uses `console.log()` and
-`chalk` to provide colored output.
+If no reporter is provided to the configuration, one will be provided that uses
+`console.log()` and `chalk` to provide colored output.
 
-If performance is enabled, then the `times` array will be populated with the runtime values measured
-in milliseconds.
+If performance is enabled, then the `times` array will be populated with the
+runtime values measured in milliseconds.
 
 ## Using as-pect as a Package
 
-This is a typescript example that should work even when run in the browser.
+When writing your tests, it's possible that running your tests requires a
+browser environment. Instead of running `as-pect` from the command line,
+instead, use the `--output-binary` flag along with `--norun` and this will
+cause `as-pect` to output the `*.spec.wasm` file. This binary can be
+`fetch()`ed and instantiate like the following example.
 
 ```ts
+// browser-test.ts
 import { instantiateBuffer } from "assemblyscript/lib/loader";
 import {
   TestContext,
   IPerformanceConfiguration,
-  EmptyReporter,
   IAspectExports,
 } from "as-pect";
 
-const perf: IPerformanceConfiguration = {
+const performanceConfiguration: IPerformanceConfiguration = {
   // put performance configuration values here
 };
 
-// The EmptyReporter is a shell with a bunch of empty functions
-const reporter = new EmptyReporter();
-
-// create a test context using the empty reporter, the file's name, and an empty performance config
-const runner = new TestContext(reporter, file, performanceConfiguration);
+// Create a TestContext
+const runner = new TestContext({
+  // reporter: new EmptyReporter(), // Use this to override default test reporting
+  performanceConfiguration,
+  // testRegex: /.*/, // Use this to run only tests that match this regex
+  // groupRegex: /.*/, // Use this to run only groups that match this regex
+  fileName: "./test.spec.wasm", // Always set the filename
+});
 const imports = runner.createImports({
   // put your assemblyscript imports here
 });
 
 // instantiate your test module here via the "assemblyscript/lib/loader" module
-const wasm = instantiateBuffer<IAspectExports>(buffer, imports);
+const wasm = instantiateStreaming<IAspectExports>(fetch("./test.spec.wasm"), imports);
 
 //don't forget the `IAspectExports` interface for the `runner.run()` function
 runner.run(wasm); // run the tests synchronously
 
-for (const group of runner.testGroups) { // for each group
-  for (const test of runner.tests) { // for each reporter
+// loop over each group and test in that group
+for (const group of runner.testGroups) {
+  for (const test of group.tests) {
     console.log(test.name, test.pass ? "pass" : "fail");
   }
 }
 ```
 
-The imports must be created before the module is instantiated, because each top level statement that
-runs modifies the `TestContext` state machine. Once the module is instantiated, then the tests can
-be run. The only thing that it needs is the wasm `ASUtil` object provided by the
-`assemblyscript/lib/loader` package.
-
-In order to pre-compile tests manually, it's important to include all necesary entry points provided
-by `as-pect` manually. The following files are auto-included by the `cli` and are required for in
-browser testing as entry points.
+If you want to compile each test suite manually, it's possible to use the `asc`
+compiler yourself by including the following file in your compilation.
 
 ```
 ./node_modules/as-pect/assembly/index.ts
 ```
 
+## Types And Tooling
+
+All of the `describe`, `it`, `throws`, and `test` functions are conveniently
+maintained in the `as-pect.d.ts` file generated by the `--init` or `--types`
+flag of the command line tool. When a new version of `as-pect` is released,
+simply run the `npx asp --types` flag to get the latest version of these
+function definitions.
+
+It is also possible to put a reference to the types used by `as-pect` using
+this line at the top of your test suite. This file location will not change,
+and is a great way to stay updated with the latest version of the types.
+
+```ts
+/// <reference path="../node_modules/as-pect/assembly/__tests__/as-pect.d.ts" />
+```
+
 ## Closures
 
-AssemblyScript currently does not support closure, however, you must place all relevant tests and
-setup function calls for a test suite into the corresponding describe block.
+AssemblyScript currently does not support closure, however, you can place all
+relevant tests and setup function calls for a test suite into the corresponding
+describe block.
+
+<!-- markdownlint-disable MD013 -->
 
 ```ts
 // setup a global vector reference
@@ -322,6 +381,8 @@ describe("vectors", () => {
 });
 ```
 
+<!-- markdownlint-enable MD013 -->
+
 Nested describes are supported and the outer describe should be evaluated first.
 
 ```ts
@@ -340,55 +401,63 @@ describe("vector", () => {
 
 ## Expectations
 
-Calling the `expect<T>(value: T)` function outside of a test function or a setup function will
-cause unexpected behavior. If this happens, the test suite will fail before it runs in the CLI, and
-the `Error` will be reported to the console.
+Calling the `expect<T>(value: T)` function outside of a test function or a setup
+function will cause unexpected behavior. If this happens, the test suite will
+fail before it runs in the CLI, and the `Error` will be reported to the console.
 
-Also, if an expectation fails and hits an `unreachable()` instruction, any unreleased references in
-the function call stack will be held indefinitely as a memory leak. Tests don't stop running if they
-fail the test callback. However, tests will stop if they fail inside the `beforeEach()`, `beforeAll()`,
+## Memory Leaks
+
+If an expectation fails and hits an `unreachable()` instruction, any unreleased
+references in the function call stack will be held indefinitely as a memory
+leak. Test Suites don't stop running if they fail the test callback. However,
+tests will stop if they fail inside the `beforeEach()`, `beforeAll()`,
 `afterEach()`, and `afterAll()` callbacks.
-
 
 ## Logging
 
-To use the global `log<T>(value: T): void` function provided by `as-pect`, simply give it the type
-you want to log, and it will append a `[Log]` item to the `test.logs` value, or the `group.logs`
-value depending on when the `log` function was called.
+A global `log<T>(value: T): void` function is provided by `as-pect` to help
+collect useful information about the state of your program. Simply give it
+the type you want to log, and it will append a `LogValue` item to the
+corresponding `TestResult` or `TestGroup` item the `log()` function was
+called within.
 
 ```ts
 log<string>("This will log a string"); // Remember, strings are references
 log<f64>(0.4); // this logs a float value
 log<i32>(42); // this logs the meaning of life
 log<Vec3>(new Vec3(1, 2, 3)); // this logs every byte in the reference
+log<i32[]>([1, 2, 3]); // this will log an array
 ```
 
 ## Performance Testing
 
-It's possible to switch a test to performance mode. The `DefaultReporter` will, instead of logging
-each `log()`ed value, it will report the performance statistics calculated at the end of sample
-collection.
-
-Logs are not supported in this mode, because running 10000 samples of a function that collects logs
-will result in a large amount of memory usage.
+To increase performance on testing, do not use the `log()` function and reduce
+the amount of IO that `as-pect` must do to compile your tests. The biggest
+bottleneck in Web Assembly testing, is compilation. This means that using
+things like `@inline` many times will cause your module to compile more slowly,
+and as a result the test file will run slower.
 
 ### Performance Enabling Via API
 
-To enable performance using the global test functions, call the `performanceEnabled()` function with a `true` value.
+To enable performance using the global test functions, call the
+`performanceEnabled()` function with a `true` value.
 
 ```ts
 describe("my test suite", () => {
   performanceEnabled(true);
-  maxSamples(2000); // limit the sample size upper bound
-  maxRunTime(4000); // only run for 4 seconds
   test("some performance test", () => {
     // some performance sensitive code
   });
 });
 ```
 
-Note that each of the following performance functions must be called before the test is declared in the same `describe`
-block to override the default configuration values on a test by test basis.
+When using `performanceEnabled(true)` on a test, logs are not supported for
+that specific test. Running 10000 samples of a function that collects logs
+will result in a very large amount of memory usage and IO.
+
+Note that each of the performance functions must be called before the test is
+declared in the same `describe` block to override the corresponding default
+configuration values on a test by test basis.
 
 To override the maximum number of samples collected, use the `maxSample` function.
 
@@ -397,14 +466,16 @@ maxSamples(10000); // 10000 is the maximum value
 it("should collect only 10000 samples at most", () => {});
 ```
 
-To override the maximum test run time (including test logic), use the `maxRunTime` function.
+To override the maximum test run time (including test logic), use the
+`maxRunTime` function.
 
 ```ts
 maxRunTime(5000); // 5000 ms, or 5 seconds of test run time
 it("should have a maxRunTime of 5 seconds", () => {});
 ```
 
-To override how many decimal places are rounded to, use the `roundDecimalPlaces` function.
+To override how many decimal places are rounded to, use the `roundDecimalPlaces`
+function.
 
 ```ts
 roundDecimalPlaces(4); // 3 is the default
@@ -418,22 +489,25 @@ reportMedian(true); // false will disable reporting of the median
 it("should report the median", () => {});
 ```
 
-To force reporting of the average, or mean test runtime, use the `reportAverage` function.
+To force reporting of the average, or mean test runtime, use the `reportAverage`
+function.
 
 ```ts
 reportAverage(true); // false will disable reporting of the mean
 it("should report the average", () => {});
 ```
 
-To force reporting of the variance in the runTime sample, use the `reportVariance` function.
+To force reporting of the variance in the runTime sample, use the `reportVariance`
+function.
 
 ```ts
 reportVariance(true); // false will disable reporting of the variance
 it("should report the variance deviation", () => {});
 ```
 
-To force reporting of the standard deviation of the runTime sample, use the `reportStdDev` function.
-This method implies the use of the variance calculation, and will auto-include it in the test result.
+To force reporting of the standard deviation of the runTime sample, use the
+`reportStdDev` function. This method implies the use of a variance calculation,
+and will auto-include it in the test result.
 
 ```ts
 reportStdDev(true); // false will disable reporting of the standard deviation
@@ -456,16 +530,17 @@ it("should report the min", () => {});
 
 ## Performance Enabling Via Configuration
 
-Providing these values inside an `as-pect.config.js` configuration will set these as global defaults.
+Providing these values inside an `as-pect.config.js` configuration will set
+these as *the* global defaults.
 
-Note that when using the `cli`, the cli flag inputs will override these default values in the `asp`
-command line tool.
+Note that when using the `cli`, the cli flag inputs will override the
+`as-pect.config.js` configured values.
 
 ```js
 // in as-pect.config.js
 module.exports = {
   performance: {
-    /** Enable performance statistics gathering for every test. */
+    /** Enable performance statistics gathering for *every* test. */
     enabled: false,
     /** Set the maximum number of samples to run for every test. */
     maxSamples: 10000,
@@ -487,20 +562,25 @@ module.exports = {
 
 ## Custom Imports Using CLI
 
-If a set of custom imports are required for your module, and they also conflict with `as-pect.config.js`'s
-imports object, then it's possible to provide a set of imports for a given test file.
+If a set of custom imports are required for your test module, it's possible to
+provide a set of imports for a given test file.
 
-If your test is located at `assembly/__tests__/customImports.spec.ts`, then use filename
-`assembly/__tests__/customImports.spec.imports.js` to export your module's imports. This file will be required
-by the cli before the module is instantiated to be used **_instead_** of the `as-pect.config.js`'s imports.
+If your test is located at `assembly/__tests__/customImports.spec.ts`, then use
+filename `assembly/__tests__/customImports.spec.imports.js` to export the test
+module's imports. This file will be required by the cli before the module is
+instantiated.
+
+_**IMPORTANT**: THIS WILL IGNORE `as-pect.config.js`'S IMPORTS COMPLETELY_
 
 Please see the provided example located in `assembly/__tests__/customImports.spec.ts`.
 
 ## Please Do Not Use @start
 
-The `@start` decorator helps declare a method that can be called to start up the module. The `as-pect` internal modules use this to help enable a 6% speedup on test gathering and execution.
+The `@start` decorator helps declare a method that can be called to start up the
+module. The `as-pect` internal modules use this to help enable a 6% speedup on
+test gathering and execution.
 
 ## Special Thanks
 
-Special thanks to the `AssemblyScript` team for creating one of the best computer languages that
-compile to web assembly.
+Special thanks to the `AssemblyScript` team for creating one of the coolest
+computer languages that compile to web assembly.
