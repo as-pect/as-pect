@@ -1,4 +1,3 @@
-import { Expectation } from "../Expectation";
 import { ValueType } from "./ValueType";
 import { Box } from "./Box";
 

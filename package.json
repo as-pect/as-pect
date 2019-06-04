@@ -9,7 +9,7 @@
     "test:ci": "run-s asp:ci jest mdlint",
     "asp": "node lib/test",
     "asp:ci": "node lib/test --reporter=SummaryTestReporter",
-    "mdlint": "markdownlint",
+    "mdlint": "markdownlint *.md",
     "jest": "jest",
     "rimraf": "rimraf lib/*",
     "tsc": "run-s rimraf tsc:all",
