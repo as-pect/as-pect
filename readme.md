@@ -301,21 +301,21 @@ setup function calls for a test suite into the corresponding describe block.
 // setup a global vector reference
 var vec: Vec3;
 
-describe("vectors", (): void => {
+describe("vectors", () => {
   // this runs before each test function, and must be placed within the describe function
-  beforeEach((): void => {
+  beforeEach(() => {
     // create a new vector for each test
     vec = new Vec3(1, 2, 3);
   });
 
   // this runs after each test function, and must be placed within the describe function
-  afterEach((): void => {
+  afterEach(() => {
     memory.free(changetype<usize>(vec)); // free the vector
     vec = null;
   });
 
   // use `test()` or `it()` to run a test
-  test("vec should not be null", (): void => {
+  test("vec should not be null", () => {
     // write an expectation
     expect<Vec3>(vec).not.toBeNull();
   });
@@ -325,13 +325,13 @@ describe("vectors", (): void => {
 Nested describes are supported and the outer describe should be evaluated first.
 
 ```ts
-describe("vector", (): void => {
+describe("vector", () => {
   // this test block runs first
-  it("should run first", (): void => {});
+  it("should run first", () => {});
 
-  describe("addition", (): void => {
+  describe("addition", () => {
     // this test block runs second
-    it("should add vectors together", (): void => {
+    it("should add vectors together", () => {
        expect<Vec3>(vec1.add(vec2)).toStrictEqual(new Vec3(1, 2, 3));
     });
   });
@@ -377,11 +377,11 @@ will result in a large amount of memory usage.
 To enable performance using the global test functions, call the `performanceEnabled()` function with a `true` value.
 
 ```ts
-describe("my test suite", (): void => {
+describe("my test suite", () => {
   performanceEnabled(true);
   maxSamples(2000); // limit the sample size upper bound
   maxRunTime(4000); // only run for 4 seconds
-  test("some performance test", (): void => {
+  test("some performance test", () => {
     // some performance sensitive code
   });
 });
@@ -394,42 +394,42 @@ To override the maximum number of samples collected, use the `maxSample` functio
 
 ```ts
 maxSamples(10000); // 10000 is the maximum value
-it("should collect only 10000 samples at most", (): void => {});
+it("should collect only 10000 samples at most", () => {});
 ```
 
 To override the maximum test run time (including test logic), use the `maxRunTime` function.
 
 ```ts
 maxRunTime(5000); // 5000 ms, or 5 seconds of test run time
-it("should have a maxRunTime of 5 seconds", (): void => {});
+it("should have a maxRunTime of 5 seconds", () => {});
 ```
 
 To override how many decimal places are rounded to, use the `roundDecimalPlaces` function.
 
 ```ts
 roundDecimalPlaces(4); // 3 is the default
-it("should round to 4 decimal places", (): void => {});
+it("should round to 4 decimal places", () => {});
 ```
 
 To force reporting of the median test runtime, use the `reportMedian` function.
 
 ```ts
 reportMedian(true); // false will disable reporting of the median
-it("should report the median", (): void => {});
+it("should report the median", () => {});
 ```
 
 To force reporting of the average, or mean test runtime, use the `reportAverage` function.
 
 ```ts
 reportAverage(true); // false will disable reporting of the mean
-it("should report the average", (): void => {});
+it("should report the average", () => {});
 ```
 
 To force reporting of the variance in the runTime sample, use the `reportVariance` function.
 
 ```ts
 reportVariance(true); // false will disable reporting of the variance
-it("should report the variance deviation", (): void => {});
+it("should report the variance deviation", () => {});
 ```
 
 To force reporting of the standard deviation of the runTime sample, use the `reportStdDev` function.
@@ -437,21 +437,21 @@ This method implies the use of the variance calculation, and will auto-include i
 
 ```ts
 reportStdDev(true); // false will disable reporting of the standard deviation
-it("should report the standard deviation", (): void => {});
+it("should report the standard deviation", () => {});
 ```
 
 To force reporting of the maximum runTime value, use the `reportMax` function.
 
 ```ts
 reportMax(true); // false will disable reporting of the max
-it("should report the max", (): void => {});
+it("should report the max", () => {});
 ```
 
 To force reporting of the minimum runTime value, use the `reportMin` function.
 
 ```ts
 reportMin(true); // false will disable reporting of the min
-it("should report the min", (): void => {});
+it("should report the min", () => {});
 ```
 
 ## Performance Enabling Via Configuration
