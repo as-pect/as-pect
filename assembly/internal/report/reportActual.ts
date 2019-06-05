@@ -29,15 +29,40 @@ declare function reportActualArray(value: usize): void;
 @external("__aspect", "reportActualLong")
 declare function reportActualLong(value: usize, signed: bool): void;
 
+/**
+ * This class is static and contains a bunch of globals that represent the Actual value of a given
+ * expectation.
+ */
 export class Actual {
+  /**
+   * This is the Actual value type.
+   */
   static type: ValueType = ValueType.Null;
+  /**
+   * This indicated if an actual integer or long is signed.
+   */
+  static signed: bool = false;
+  /**
+   * This is an actual float value.
+   */
   static float: f64 = 0;
+  /**
+   * This is an actual integer value.
+   */
   static integer: i32 = 0;
+  /**
+   * This is an actual reference value, stored as a pointer.
+   */
   static reference: usize;
+  /**
+   * If the actual type is a reference, the size of the block will be stored here.
+   */
   static offset: i32 = 0;
-  static expectation: usize = 0;
 }
 
+/**
+ * This method reports to the host what the current Actual value is.
+ */
 export function __sendActual(): void {
   switch (Actual.type) {
     case ValueType.Array:
@@ -68,6 +93,8 @@ export function __sendActual(): void {
 
 /**
  * This function performs reporting to javascript what the actual value of this expectation is.
+ *
+ * @param {T} actual - The actual value to be reported.
  */
 // @ts-ignore: Decorators *are* valid here!
 @inline
