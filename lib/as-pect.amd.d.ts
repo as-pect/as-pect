@@ -308,6 +308,7 @@ declare module "util/IAspectExports" {
         __ready(): void;
         __sendActual(): void;
         __sendExpected(): void;
+        __ignoreLogs(value: 1 | 0): void;
     }
 }
 declare module "util/IPerformanceConfiguration" {
@@ -445,12 +446,13 @@ declare module "test/TestCollector" {
          * Log a numevalueric value to the reporter.
          *
          * @param {number} value - The value to be logged.
+         * @param {1 | 0} signed - The value indicating if the number is signed.
          */
         private logValue;
         /**
          * Log a long value.
          *
-         * @param suiteNamePointer
+         * @param suiteNamePointer - The boxed long value's pointer.
          */
         private logLong;
         /**
@@ -536,12 +538,14 @@ declare module "test/TestCollector" {
          * This function reports an actual numeric value.
          *
          * @param {number} numericValue - The value to be expected.
+         * @param {1 | 0} signed - The value indicating if the value is signed.
          */
         private reportActualValue;
         /**
          * This function reports an expected numeric value.
          *
-         * @param {number} numericValue - The value to be expected
+         * @param {number} numericValue - The expected value.
+         * @param {1 | 0} signed - The value indicating if the value is signed.
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
         private reportExpectedValue;
@@ -908,16 +912,40 @@ declare module "util/IConfiguration" {
     }
 }
 declare module "cli/types" {
+    /**
+     * This method creates a types file to the current testing directory located at
+     * `./assembly/__tests__/` for the current project.
+     *
+     * @param {string} assemblyFolder - The current `./assembly/` folder.
+     * @param {string} testFolder - The current `./assembly/__tests__` folder.
+     * @param {string} typesFile - The current types file location.
+     * @param {string} typesFileSource - The types file source location.
+     */
     export function types(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
 }
 declare module "cli/init" {
+    /**
+     * This method initializes a new test project. It is opinionated and reflects the needs of 99% of
+     * AssemblyScript developers following the standard way of creating a new AssemblyScript project.
+     *
+     * @param {string} assemblyFolder - The `./assembly/` folder for the current project.
+     * @param {string} testFolder - The `./assembly/__tests__/` folder for the current project.
+     * @param {string} typesFile - The types file location for the current project.
+     * @param {string} typesFileSource - The types file source location for `as-pect`.
+     */
     export function init(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
 }
 declare module "cli/help" {
+    /**
+     * This method prints the help text.
+     */
     export function help(): void;
 }
 declare module "cli/util/IYargs" {
     import yargsparser from "yargs-parser";
+    /**
+     * A utility interface that contains an argv property that has the command line arguments.
+     */
     export interface IYargs {
         argv: yargsparser.Arguments;
     }
@@ -925,22 +953,52 @@ declare module "cli/util/IYargs" {
 declare module "cli/util/collectPerformanceConfiguration" {
     import { IYargs } from "cli/util/IYargs";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    /**
+     * This method collects the performance configuration values byref.
+     *
+     * @param {IYargs} yargs - The command line arguments
+     * @param {IPerformanceConfiguration} performanceConfiguration - The effective performance configuration.
+     */
     export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: IPerformanceConfiguration): void;
 }
 declare module "cli/util/collectReporter" {
     import { TestReporter } from "test/TestReporter";
     import { IYargs } from "cli/util/IYargs";
+    /**
+     * This method inspects the command line arguments and returns the corresponding TestReporter.
+     *
+     * @param {IYargs} yargs - The command line arguments.
+     */
     export function collectReporter(yargs: IYargs): TestReporter;
 }
 declare module "cli/util/getTestEntryFiles" {
     import { IYargs } from "cli/util/IYargs";
+    /**
+     * This method returns a `Set<string>` of entry files for the compiler to compile.
+     *
+     * @param {IYargs} yargs - The command line arguments.
+     * @param {string[]} include - An array of globs provided by the configuration.
+     * @param {RegExp[]} disclude - An array of RegExp provided by the configuration.
+     */
     export function getTestEntryFiles(yargs: IYargs, include: string[], disclude: RegExp[]): Set<string>;
 }
 declare module "cli/util/writeFile" {
+    /**
+     * This method promisifies the fs.writeFile function call, and is compatible with node 10.
+     *
+     * @param {string} file - The file location to write to.
+     * @param {Uint8Array} contents - The file contents to write to the disk.
+     */
     export function writeFile(file: string, contents: Uint8Array): Promise<void>;
 }
 declare module "cli/run" {
     import { IYargs } from "cli/util/IYargs";
+    /**
+     * This method actually runs the test suites in sequential order synchronously.
+     *
+     * @param {IYargs} yargs - The command line arguments.
+     * @param {string[]} compilerArgs - The `asc` compiler arguments.
+     */
     export function run(yargs: IYargs, compilerArgs: string[]): void;
 }
 declare module "cli/index" {
