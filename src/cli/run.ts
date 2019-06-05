@@ -1,6 +1,5 @@
-
 // @ts-ignore
-import asc from "assemblyscript/dist/asc";
+import * as asc from "assemblyscript/dist/asc";
 //@ts-ignore
 const parse = require("assemblyscript/cli/util/options").parse;
 import { TestContext } from "../test/TestContext";
@@ -163,9 +162,9 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
       stdout: process.stdout as any, // use any type to quelch error
       stderr: process.stderr as any,
       listFiles(dirname: string, baseDir: string): string[] {
-        const folder = path.join(baseDir, dirname);
-        if (folderMap.has(folder)) {
-          return folderMap.get(folder)!;
+          const folder = path.join(baseDir, dirname);
+          if (folderMap.has(folder)) {
+            return folderMap.get(folder)!;
         }
 
         try {
@@ -173,8 +172,8 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
           folderMap.set(folder, results);
           return results;
         } catch (e) {
-          return [];
-        }
+            return [];
+          }
       },
       readFile(filename: string, baseDir: string) {
         const fileName = path.join(baseDir, filename);
@@ -182,12 +181,12 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
           return fileMap.get(fileName)!;
         }
 
-        try {
-          const contents = fs.readFileSync(fileName, { encoding: "utf8" });
-          fileMap.set(fileName, contents);
-          return contents;
-        } catch (e) {
-          return null;
+          try {
+            const contents = fs.readFileSync(fileName, { encoding: "utf8" });
+            fileMap.set(fileName, contents);
+            return contents;
+          } catch (e) {
+            return null;
         }
       },
       writeFile(name: string, contents: Uint8Array) {
@@ -215,10 +214,10 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
         return process.exit(1);
       }
 
-      if (runTests) {
-        // create a test runner
-        const runner = new TestContext({
-          fileName: file,
+        if (runTests) {
+          // create a test runner
+          const runner = new TestContext({
+            fileName: file,
           groupRegex: configuration.groupRegex,
           testRegex: configuration.testRegex,
           performanceConfiguration,
@@ -240,10 +239,10 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
         );
 
         // instantiate the module
-        const wasm = instantiateBuffer<IAspectExports>(binaries[i], imports);
+          const wasm = instantiateBuffer<IAspectExports>(binaries[i], imports);
 
-        if (runner.errors.length > 0) {
-          errors.push(...runner.errors);
+          if (runner.errors.length > 0) {
+            errors.push(...runner.errors);
         } else {
           // call run buffer because it's already compiled
           runner.run(wasm);
@@ -255,10 +254,10 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
         }
       }
 
-      count -= 1;
+        count -= 1;
 
-      // if any tests failed, and they all ran, exit(1)
-      if (count === 0) {
+        // if any tests failed, and they all ran, exit(1)
+        if (count === 0) {
         if (runTests) {
           const end = performance.now();
           failed = testCount !== successCount || errors.length > 0;
@@ -281,7 +280,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
     [Time]: ${timeDifference(end, start).toString()}ms`);
         }
         Promise.all(filePromises).then(() => {
-          if (failed) process.exit(1);
+            if (failed) process.exit(1);
         });
       }
       return 0;
