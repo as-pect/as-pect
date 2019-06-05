@@ -7,11 +7,11 @@ declare function reportExpectedNull(negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedValue")
-declare function reportExpectedFloat(value: f64, negated: i32): void;
+declare function reportExpectedFloat(value: f64, signed: bool, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedValue")
-declare function reportExpectedInteger(value: i32, negated: i32): void;
+declare function reportExpectedInteger(value: i32, signed: bool, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedReference")
@@ -48,6 +48,7 @@ declare function reportExpectedLong(pointer: usize, signed: bool, negated: i32):
 export class Expected {
   static ready: bool = false;
   static type: ValueType = ValueType.Null;
+  static signed: bool = false;
   static float: f64 = 0;
   static integer: i32 = 0;
   static reference: usize;
@@ -59,36 +60,36 @@ export class Expected {
 export function __sendExpected(): void {
   switch(Expected.type) {
     case ValueType.Array:
-        reportExpectedArray(changetype<usize>(Expected.reference), Expected.negated);
-        break;
+      reportExpectedArray(changetype<usize>(Expected.reference), Expected.negated);
+      break;
     case ValueType.Float:
-        reportExpectedFloat(Expected.float, Expected.negated);
-        break;
+      // Do not convert to unsigned because floats are signed
+      reportExpectedFloat(Expected.float, true, Expected.negated);
+      break;
     case ValueType.Integer:
-        reportExpectedInteger(Expected.integer, Expected.negated);
-        break;
+      reportExpectedInteger(Expected.integer, Expected.signed, Expected.negated);
+      break;
     case ValueType.Null:
-        reportExpectedNull(Expected.negated);
-        break;
+      reportExpectedNull(Expected.negated);
+      break;
     case ValueType.Reference:
-        reportExpectedReferenceExternal(Expected.reference, Expected.offset, Expected.negated);
-        break;
+      reportExpectedReferenceExternal(Expected.reference, Expected.offset, Expected.negated);
+      break;
     case ValueType.String:
-        reportExpectedString(changetype<string>(Expected.reference), Expected.negated);
-        break;
+      reportExpectedString(changetype<string>(Expected.reference), Expected.negated);
+      break;
     case ValueType.Falsy:
-        reportExpectedFalsy(Expected.negated);
-        break;
+      reportExpectedFalsy(Expected.negated);
+      break;
     case ValueType.Finite:
-        reportExpectedFinite(Expected.negated);
-        break;
+      reportExpectedFinite(Expected.negated);
+      break;
     case ValueType.Truthy:
-        reportExpectedTruthy(Expected.negated);
-        break;
-    case ValueType.UnsignedLong:
-    case ValueType.SignedLong:
-        reportExpectedLong(Expected.reference, Expected.type == ValueType.SignedLong, Expected.negated);
-        break;
+      reportExpectedTruthy(Expected.negated);
+      break;
+    case ValueType.Long:
+      reportExpectedLong(Expected.reference, Expected.signed, Expected.negated);
+      break;
   }
 }
 
@@ -143,9 +144,8 @@ export function reportExpected<T>(expected: T, negated: i32): void {
       // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
       Expected.float = <f64>expected;
     } else if (expected instanceof i64 || expected instanceof u64) {
-      Expected.type = expected instanceof i64
-        ? ValueType.SignedLong
-        : ValueType.UnsignedLong;
+      Expected.type = ValueType.Long;
+      Expected.signed = expected instanceof i64;
       let ref = new Box<T>(expected);
       let ptr = changetype<usize>(ref);
       __retain(ptr);
@@ -153,6 +153,7 @@ export function reportExpected<T>(expected: T, negated: i32): void {
       Expected.reference = ptr;
     } else {
       Expected.type = ValueType.Integer;
+      Expected.signed = expected instanceof i32;
       // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
       Expected.integer = <i32>expected;
     }
