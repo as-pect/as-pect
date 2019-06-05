@@ -1,6 +1,9 @@
 import { TestContext } from "./TestContext";
 import { TestGroup } from "./TestGroup";
 import { TestResult } from "./TestResult";
+/**
+ * This is the abstract shape of a `TestReporter`. It can be extended to create a `TestReporter`.
+ */
 export declare abstract class TestReporter {
     /**
      * A function that is called when a test suite starts.
