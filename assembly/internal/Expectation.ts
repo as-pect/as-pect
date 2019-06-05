@@ -15,6 +15,7 @@ import { finiteComparison } from "./comparison/finiteComparison";
 import { lengthComparison } from "./comparison/lengthComparison";
 import { toIncludeComparison } from "./comparison/toIncludeComparison";
 import { toIncludeEqualComparison } from "./comparison/toIncludeEqualComparison";
+import { arrayComparison } from "./comparison/arrayComparison";
 
 /**
  * The AssemblyScript class that represents an expecation.
@@ -66,12 +67,25 @@ export class Expectation<T> {
    * @param {string} message - The message that describes this assertion.
    */
   public toStrictEqual(expected: T, message: string = ""): void {
-    // Strings and ArrayBuffer must compare their size too
+    // if T is an array, use arrayComparison
+    if (isArray<T>()) {
+      arrayComparison<T>(this.actual, expected, this._not, message);
+      return;
+    }
+
+    // Strings and ArrayBuffer must compare their size, so use blockComparison
     if (expected instanceof ArrayBuffer || expected instanceof String) {
       blockComparison<T>(this.actual, expected, this._not, message);
       return;
     }
 
+    // if T is not a reference, use exactComparison
+    if (!isReference<T>()) {
+      exactComparison<T>(this.actual, expected, this._not, message);
+      return;
+    }
+
+    // T is a reference, use referenceComparison
     referenceComparison<T>(this.actual, expected, this._not, message);
   }
 
@@ -118,7 +132,7 @@ export class Expectation<T> {
   }
 
   public toBeCloseTo(expected: T, decimalPlaces: i32 = 2, message: string = ""): void {
-    closeToComparison<T>(this.actual, expected, this._not, decimalPlaces, message);
+    closeToComparison<T>(this.actual, expected, decimalPlaces, this._not, message);
   }
 
   public toBeNaN(message: string = ""): void {
