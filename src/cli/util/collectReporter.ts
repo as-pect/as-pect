@@ -7,6 +7,11 @@ import path from "path";
 import { CSVTestReporter } from "../../reporter/CSVTestReporter";
 import { JSONTestReporter } from "../../reporter/JSONTestReporter";
 
+/**
+ * This method inspects the command line arguments and returns the corresponding TestReporter.
+ *
+ * @param {IYargs} yargs - The command line arguments.
+ */
 export function collectReporter(yargs: IYargs): TestReporter {
   const targetReporter: string = yargs.argv.reporter || yargs.argv.r;
   // get relative reporters

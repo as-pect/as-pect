@@ -267,10 +267,14 @@ export class TestCollector {
    * Log a numevalueric value to the reporter.
    *
    * @param {number} value - The value to be logged.
+   * @param {1 | 0} signed - The value indicating if the number is signed.
    */
-  private logValue(numericValue: number): void {
+  private logValue(numericValue: number, signed: 1 | 0): void {
     const value = new LogValue();
     const target = this.logTarget;
+
+    // convert to unsigned value if the integer is not signed
+    numericValue = signed === 1 ? numericValue : numericValue >>> 0;
 
     value.stack = this.getLogStackTrace();
     value.message = `Value ${numericValue.toString()}`;
@@ -284,7 +288,7 @@ export class TestCollector {
   /**
    * Log a long value.
    *
-   * @param suiteNamePointer 
+   * @param suiteNamePointer - The boxed long value's pointer.
    */
   private logLong(boxPointer: number, signed: 1 | 0): void {
     const value = new LogValue();
@@ -528,8 +532,12 @@ export class TestCollector {
    * This function reports an actual numeric value.
    *
    * @param {number} numericValue - The value to be expected.
+   * @param {1 | 0} signed - The value indicating if the value is signed.
    */
-  private reportActualValue(numericValue: number): void {
+  private reportActualValue(numericValue: number, signed: 1 | 0): void {
+    // flip the sign bits if it's unsigned
+    numericValue = signed === 1 ? numericValue : numericValue >>> 0;
+
     const value = new ActualValue();
     value.message = numericValue.toString();
     value.stack = this.getLogStackTrace();
@@ -541,10 +549,14 @@ export class TestCollector {
   /**
    * This function reports an expected numeric value.
    *
-   * @param {number} numericValue - The value to be expected
+   * @param {number} numericValue - The expected value.
+   * @param {1 | 0} signed - The value indicating if the value is signed.
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedValue(numericValue: number, negated: 0 | 1): void {
+  private reportExpectedValue(numericValue: number, signed: 0 | 1, negated: 0 | 1): void {
+    // convert to unsigned if the value is unsigned
+    numericValue = signed === 1 ? numericValue : numericValue >>> 0;
+
     const value = new ActualValue();
     value.message = numericValue.toString();
     value.stack = this.getLogStackTrace();

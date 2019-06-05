@@ -23,6 +23,12 @@ import { IYargs } from "./util/IYargs";
 import { IAspectExports } from "../util/IAspectExports";
 import { writeFile } from "./util/writeFile";
 
+/**
+ * This method actually runs the test suites in sequential order synchronously.
+ *
+ * @param {IYargs} yargs - The command line arguments.
+ * @param {string[]} compilerArgs - The `asc` compiler arguments.
+ */
 export function run(yargs: IYargs, compilerArgs: string[]): void {
   const start = performance.now();
   // obtain the configuration file

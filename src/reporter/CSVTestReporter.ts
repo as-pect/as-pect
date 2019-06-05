@@ -8,6 +8,10 @@ import { TestResult } from "../test/TestResult";
 
 const columns = ["Group", "Name", "Ran", "Pass", "Runtime", "Message", "Actual", "Expected", "Average", "Mean", "Max", "Min", "StdDev", "Variance"];
 
+/**
+ * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
+ * contain a set of tests with relevant pass and fail information.
+ */
 export class CSVTestReporter extends TestReporter {
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
@@ -51,6 +55,7 @@ export class CSVTestReporter extends TestReporter {
       result.hasVariance ? result.variance.toString() : ""
     ]);
   }
+
   public onTodo(group: TestGroup, desc: string) {
     this.output!.write([
       group.name,

@@ -1,5 +1,8 @@
 import chalk from "chalk";
 
+/**
+ * This method prints the help text.
+ */
 export function help() {
   console.log(chalk`
   {bold.blueBright SYNTAX}

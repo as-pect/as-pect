@@ -13,6 +13,12 @@ const enum ValueType {
   Expected,
 }
 
+/**
+ * This method stringifies an actual or expected test value.
+ *
+ * @param {ValueType} type - Actual or Expected.
+ * @param {ActualValue | null} value - The reported value.
+ */
 function stringifyActualValue(type: ValueType, value: ActualValue | null): string {
   if (!value) return "";
   let byteString: string = "";
@@ -77,10 +83,17 @@ function createReferenceString(bytes: number[], pointer: number, offset: number)
   return result.trimRight();
 }
 
+/**
+ * This weakmap is used to keep track of which logs have already been printed, and from what index.
+ */
 const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
 
+/**
+ * This is the default test reporter class for the `asp` command line application. It will pipe
+ * all relevant details about each tests to the `stdout` WriteStream.
+ */
 export class DefaultTestReporter extends TestReporter {
-  protected stdout: IWritable | null= null;
+  protected stdout: IWritable | null = null;
 
   public onStart(suite: TestContext): void {
     this.stdout = suite.stdout || process.stdout;
