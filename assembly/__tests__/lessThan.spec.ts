@@ -1,8 +1,7 @@
 import { Vec3 } from "./setup/Vec3";
 
 var vec1 = new Vec3(1, 2, 3);
-var vec2 = new Vec3(1, 2, 3);
-var vec3 = new Vec3(4, 5, 6);
+var vec2 = new Vec3(4, 5, 6);
 
 /**
  * This test suite is designed to test the AssemblyScript semantics of the lessThan operator (>).
@@ -72,20 +71,20 @@ describe("LessThan (<)", (): void => {
    */
   it("should verify one reference is less than another", (): void => {
     expect<Vec3>(vec1)
-      .toBeLessThan(vec3, "Operator overloading should allow references to verify that one reference is less than another value");
+      .toBeLessThan(vec2, "Operator overloading should allow references to verify that one reference is less than another value");
   });
 
   /**
    * This test verifies that toBeLessThan throws when the actual value is null.
    */
   throws("should throw if the actual value is null", (): void => {
-    expect<Vec3>(null).toBeLessThan(vec3);
+    expect<Vec3>(null).toBeLessThan(vec2);
   }, "The toBeLessThan function should throw if the actual value is null.");
 
   /**
    * This test verifies that toBeLessThan throws when the expected value is null.
    */
   throws("should throw if the expected value is null", (): void => {
-    expect<Vec3>(vec3).toBeLessThan(null);
+    expect<Vec3>(vec2).toBeLessThan(null);
   }, "The toBeLessThan function should throw if the expected value is null.");
 });
