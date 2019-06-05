@@ -180,6 +180,17 @@ describe("TestContext test results", (): void => {
       `"Value 999999999999999"`
     );
   });
+
+  it("should log a u32 value", () => {
+    const test = testGroup.tests[15];
+    expect(test.logs[0].value).toBe(4294967295);
+  });
+
+  it("should expect two u32 values", () => {
+    const test = testGroup.tests[16];
+    expect(test.actual!.value).toBe(4294967294);
+    expect(test.expected!.value).toBe(4294967293)
+  });
 });
 
 describe("TestContext performance metrics", (): void => {
