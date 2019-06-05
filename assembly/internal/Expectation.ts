@@ -54,7 +54,6 @@ export class Expectation<T> {
    * @param {T} expected - The expected value.
    * @param {string} message - The message that describes this assertion.
    */
-  @inline
   public toBe(expected: T, message: string = ""): void {
     // assert value or reference equality
     exactComparison<T>(this.actual, expected, this._not, message);
@@ -66,7 +65,6 @@ export class Expectation<T> {
    * @param {T} expected - The expected value.
    * @param {string} message - The message that describes this assertion.
    */
-  @inline
   public toStrictEqual(expected: T, message: string = ""): void {
     // Strings and ArrayBuffer must compare their size too
     if (expected instanceof ArrayBuffer || expected instanceof String) {
@@ -83,73 +81,59 @@ export class Expectation<T> {
    * @param {T} expected - This is the expected block reference.
    * @param {string} message - The message that describes this expectation.
    */
-  @inline
   public toBlockEqual(expected: T, message: string = ""): void {
     blockComparison<T>(this.actual, expected, this._not, message);
   }
 
-  @inline
   public toBeTruthy(message: string = ""): void {
     truthyComparison<T>(this.actual, this._not, message);
   }
 
-  @inline
   public toBeFalsy(message: string = ""): void {
     falsyComparison<T>(this.actual, this._not, message);
   }
 
-  @inline
   public toThrow(message: string = ""): void {
     tryCallComparison<T>(this.actual, this._not, message);
   }
 
-  @inline
   public toBeGreaterThan(expected: T, message: string = ""): void {
     greaterThanComparison<T>(this.actual, expected, this._not, message);
   }
 
-  @inline
   public toBeGreaterThanOrEqualTo(expected: T, message: string = ""): void {
     greaterThanOrEqualToComparison<T>(this.actual, expected, this._not, message);
   }
 
-  @inline
   public toBeLessThan(expected: T, message: string = ""): void {
     lessThanComparison<T>(this.actual, expected, this._not, message);
   }
 
-  @inline
   public toBeLessThanOrEqualTo(expected: T, message: string = ""): void {
     lessThanOrEqualToComparison<T>(this.actual, expected, this._not, message);
   }
 
-  @inline
   public toBeNull(message: string = ""): void {
     nullComparison<T>(this.actual, this._not, message);
   }
 
-  @inline
   public toBeCloseTo(expected: T, decimalPlaces: i32 = 2, message: string = ""): void {
     closeToComparison<T>(this.actual, expected, this._not, decimalPlaces, message);
   }
 
-  @inline
   public toBeNaN(message: string = ""): void {
     isNaNComparison<T>(this.actual, this._not, message);
   }
 
 
-  @inline
   public toBeFinite(message: string = ""): void {
     finiteComparison<T>(this.actual, this._not, message);
   }
 
-  @inline
   public toHaveLength(expected: i32, message: string = ""): void {
     lengthComparison<T>(this.actual, expected, this._not, message);
   }
 
-  @inline
   public toInclude<U>(expected: U, message: string = ""): void {
     if (isArray<T>(this.actual)) {
       // @ts-ignore Array<U> instanceof check
@@ -159,7 +143,6 @@ export class Expectation<T> {
     }
   }
 
-  @inline
   public toIncludeEqual<U>(expected: U, message: string = ""): void {
     if (isArray<T>(this.actual)) {
       // @ts-ignore Array<U> instanceof check

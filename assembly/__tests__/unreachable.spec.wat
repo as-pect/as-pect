@@ -3671,9 +3671,7 @@
   i32.sub
   i32.load offset=12
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2 (; 63 ;) (type $FUNCSIG$v)
-  (local $0 i32)
-  (local $1 i32)
+ (func "$assembly/internal/Expectation/Expectation<() => void>#toThrow" (; 63 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -3687,212 +3685,213 @@
   (local $12 i32)
   (local $13 i32)
   (local $14 i32)
-  (local $15 i32)
-  block "$assembly/internal/Expectation/Expectation<() => void>#toThrow|inlined.0"
-   i32.const 3
-   call $assembly/internal/Expectation/expectFn
-   local.tee $0
-   local.set $2
-   i32.const 496
+  local.get $1
+  call $~lib/rt/pure/__retain
+  drop
+  block "$assembly/internal/comparison/tryCallComparison/tryCallComparison<() => void>|inlined.0"
+   local.get $0
+   i32.load offset=4
+   local.set $4
+   local.get $0
+   i32.load
+   local.set $3
+   local.get $1
    call $~lib/rt/pure/__retain
-   local.set $1
-   block "$assembly/internal/comparison/tryCallComparison/tryCallComparison<() => void>|inlined.0"
-    local.get $2
-    i32.load offset=4
-    local.set $5
-    local.get $2
-    i32.load
-    local.set $4
-    local.get $1
-    call $~lib/rt/pure/__retain
-    local.set $3
-    local.get $5
-    local.set $6
+   local.set $2
+   local.get $4
+   local.set $5
+   local.get $5
+   call $assembly/internal/comparison/tryCallComparison/tryCall
+   i32.const 0
+   i32.ne
+   i32.eqz
+   local.set $6
+   block $assembly/internal/report/reportActual/reportActual<~lib/string/String>|inlined.0
     local.get $6
-    call $assembly/internal/comparison/tryCallComparison/tryCall
-    i32.const 0
-    i32.ne
-    i32.eqz
-    local.set $7
-    block $assembly/internal/report/reportActual/reportActual<~lib/string/String>|inlined.0
-     local.get $7
-     if (result i32)
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $8
-     else      
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $9
-     end
+    if (result i32)
+     i32.const 592
      call $~lib/rt/pure/__retain
-     local.set $10
-     local.get $10
-     local.set $11
-     local.get $10
+     local.tee $7
+    else     
+     i32.const 624
+     call $~lib/rt/pure/__retain
+     local.tee $8
+    end
+    call $~lib/rt/pure/__retain
+    local.set $9
+    local.get $9
+    local.set $10
+    local.get $9
+    i32.const 0
+    call $~lib/string/String.__eq
+    if
      i32.const 0
-     call $~lib/string/String.__eq
+     global.set $assembly/internal/report/reportActual/Actual.type
+    else     
+     local.get $10
+     call $~lib/rt/pure/__retain
+     drop
+     global.get $assembly/internal/report/reportActual/Actual.reference
+     call $~lib/rt/pure/__release
+     local.get $10
+     global.set $assembly/internal/report/reportActual/Actual.reference
+     block (result i32)
+      local.get $9
+      drop
+      i32.const 1
+     end
      if
-      i32.const 0
+      i32.const 4
       global.set $assembly/internal/report/reportActual/Actual.type
      else      
-      local.get $11
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportActual/Actual.reference
-      call $~lib/rt/pure/__release
-      local.get $11
-      global.set $assembly/internal/report/reportActual/Actual.reference
       block (result i32)
-       local.get $10
+       local.get $9
        drop
-       i32.const 1
+       i32.const 0
       end
       if
-       i32.const 4
+       i32.const 3
        global.set $assembly/internal/report/reportActual/Actual.type
+       local.get $10
+       call $~lib/rt/pure/__retain
+       local.set $11
+       local.get $11
+       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+       global.set $assembly/internal/report/reportActual/Actual.offset
+       local.get $11
+       call $~lib/rt/pure/__release
       else       
-       block (result i32)
-        local.get $10
-        drop
-        i32.const 0
-       end
-       if
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        local.get $11
-        call $~lib/rt/pure/__retain
-        local.set $12
-        local.get $12
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportActual/Actual.offset
-        local.get $12
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        i32.const 0
-        global.set $assembly/internal/report/reportActual/Actual.offset
-       end
+       i32.const 3
+       global.set $assembly/internal/report/reportActual/Actual.type
+       i32.const 0
+       global.set $assembly/internal/report/reportActual/Actual.offset
       end
      end
-     local.get $10
-     call $~lib/rt/pure/__release
     end
-    block $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.0
-     local.get $4
-     if (result i32)
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $10
-     else      
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $11
-     end
-     call $~lib/rt/pure/__retain
-     local.set $13
-     local.get $4
-     local.set $12
-     global.get $assembly/internal/report/reportExpected/Expected.ready
-     i32.eqz
-     if
-      call $assembly/internal/report/reportExpected/reportInvalidExpectCall
-      local.get $13
-      call $~lib/rt/pure/__release
-      br $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.0
-     end
-     local.get $12
-     global.set $assembly/internal/report/reportExpected/Expected.negated
-     local.get $13
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportExpected/Expected.type
-     else      
-      local.get $13
-      local.set $14
-      local.get $14
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportExpected/Expected.reference
-      call $~lib/rt/pure/__release
-      local.get $14
-      global.set $assembly/internal/report/reportExpected/Expected.reference
-      block (result i32)
-       local.get $13
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportExpected/Expected.type
-      else       
-       block (result i32)
-        local.get $13
-        drop
-        i32.const 0
-       end
-       if
-        local.get $13
-        call $~lib/rt/pure/__retain
-        local.set $15
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        local.get $15
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-        local.get $15
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        i32.const 0
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-       end
-      end
-     end
-     local.get $13
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/comparison/assert/assert|inlined.0
-     local.get $4
-     local.get $7
-     i32.xor
-     local.set $14
-     local.get $3
-     call $~lib/rt/pure/__retain
-     local.set $15
-     local.get $14
-     i32.eqz
-     if
-      local.get $15
-      call $~lib/rt/pure/__release
-      block
-       local.get $15
-       i32.const 664
-       i32.const 4
-       i32.const 18
-       call $~lib/builtins/abort
-       unreachable
-       unreachable
-      end
-      unreachable
-     end
-     local.get $15
-     call $~lib/rt/pure/__release
-    end
-    local.get $3
+    local.get $9
     call $~lib/rt/pure/__release
    end
-   local.get $1
+   block $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.0
+    local.get $3
+    if (result i32)
+     i32.const 624
+     call $~lib/rt/pure/__retain
+     local.tee $9
+    else     
+     i32.const 592
+     call $~lib/rt/pure/__retain
+     local.tee $10
+    end
+    call $~lib/rt/pure/__retain
+    local.set $12
+    local.get $3
+    local.set $11
+    global.get $assembly/internal/report/reportExpected/Expected.ready
+    i32.eqz
+    if
+     call $assembly/internal/report/reportExpected/reportInvalidExpectCall
+     local.get $12
+     call $~lib/rt/pure/__release
+     br $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.0
+    end
+    local.get $11
+    global.set $assembly/internal/report/reportExpected/Expected.negated
+    local.get $12
+    i32.const 0
+    call $~lib/string/String.__eq
+    if
+     i32.const 0
+     global.set $assembly/internal/report/reportExpected/Expected.type
+    else     
+     local.get $12
+     local.set $13
+     local.get $13
+     call $~lib/rt/pure/__retain
+     drop
+     global.get $assembly/internal/report/reportExpected/Expected.reference
+     call $~lib/rt/pure/__release
+     local.get $13
+     global.set $assembly/internal/report/reportExpected/Expected.reference
+     block (result i32)
+      local.get $12
+      drop
+      i32.const 1
+     end
+     if
+      i32.const 4
+      global.set $assembly/internal/report/reportExpected/Expected.type
+     else      
+      block (result i32)
+       local.get $12
+       drop
+       i32.const 0
+      end
+      if
+       local.get $12
+       call $~lib/rt/pure/__retain
+       local.set $14
+       i32.const 3
+       global.set $assembly/internal/report/reportExpected/Expected.type
+       local.get $14
+       call $~lib/arraybuffer/ArrayBuffer#get:byteLength
+       global.set $assembly/internal/report/reportExpected/Expected.offset
+       local.get $14
+       call $~lib/rt/pure/__release
+      else       
+       i32.const 3
+       global.set $assembly/internal/report/reportExpected/Expected.type
+       i32.const 0
+       global.set $assembly/internal/report/reportExpected/Expected.offset
+      end
+     end
+    end
+    local.get $12
+    call $~lib/rt/pure/__release
+   end
+   block $assembly/internal/comparison/assert/assert|inlined.0
+    local.get $3
+    local.get $6
+    i32.xor
+    local.set $13
+    local.get $2
+    call $~lib/rt/pure/__retain
+    local.set $14
+    local.get $13
+    i32.eqz
+    if
+     local.get $14
+     call $~lib/rt/pure/__release
+     block
+      local.get $14
+      i32.const 664
+      i32.const 4
+      i32.const 18
+      call $~lib/builtins/abort
+      unreachable
+      unreachable
+     end
+     unreachable
+    end
+    local.get $14
+    call $~lib/rt/pure/__release
+   end
+   local.get $2
    call $~lib/rt/pure/__release
   end
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2 (; 64 ;) (type $FUNCSIG$v)
+  (local $0 i32)
+  i32.const 3
+  call $assembly/internal/Expectation/expectFn
+  local.tee $0
+  i32.const 496
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 64 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 65 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3902,1142 +3901,87 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~anonymous|0 (; 65 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~anonymous|0 (; 66 ;) (type $FUNCSIG$v)
   i32.const 1
   global.set $assembly/__tests__/unreachable.spec/counter
  )
- (func "$assembly/internal/Expectation/Expectation<() => void>#get:not" (; 66 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func "$assembly/internal/Expectation/Expectation<() => void>#get:not" (; 67 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3 (; 67 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3 (; 68 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
-  (local $13 i32)
-  (local $14 i32)
-  (local $15 i32)
-  (local $16 i32)
-  block "$assembly/internal/Expectation/Expectation<() => void>#toThrow|inlined.1"
-   i32.const 5
-   call $assembly/internal/Expectation/expectFn
-   local.tee $0
-   call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
-   local.tee $1
-   local.set $3
-   i32.const 496
-   call $~lib/rt/pure/__retain
-   local.set $2
-   block "$assembly/internal/comparison/tryCallComparison/tryCallComparison<() => void>|inlined.1"
-    local.get $3
-    i32.load offset=4
-    local.set $6
-    local.get $3
-    i32.load
-    local.set $5
-    local.get $2
-    call $~lib/rt/pure/__retain
-    local.set $4
-    local.get $6
-    local.set $7
-    local.get $7
-    call $assembly/internal/comparison/tryCallComparison/tryCall
-    i32.const 0
-    i32.ne
-    i32.eqz
-    local.set $8
-    block $assembly/internal/report/reportActual/reportActual<~lib/string/String>|inlined.1
-     local.get $8
-     if (result i32)
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $9
-     else      
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $10
-     end
-     call $~lib/rt/pure/__retain
-     local.set $11
-     local.get $11
-     local.set $12
-     local.get $11
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportActual/Actual.type
-     else      
-      local.get $12
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportActual/Actual.reference
-      call $~lib/rt/pure/__release
-      local.get $12
-      global.set $assembly/internal/report/reportActual/Actual.reference
-      block (result i32)
-       local.get $11
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportActual/Actual.type
-      else       
-       block (result i32)
-        local.get $11
-        drop
-        i32.const 0
-       end
-       if
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        local.get $12
-        call $~lib/rt/pure/__retain
-        local.set $13
-        local.get $13
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportActual/Actual.offset
-        local.get $13
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        i32.const 0
-        global.set $assembly/internal/report/reportActual/Actual.offset
-       end
-      end
-     end
-     local.get $11
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.1
-     local.get $5
-     if (result i32)
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $11
-     else      
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $12
-     end
-     call $~lib/rt/pure/__retain
-     local.set $14
-     local.get $5
-     local.set $13
-     global.get $assembly/internal/report/reportExpected/Expected.ready
-     i32.eqz
-     if
-      call $assembly/internal/report/reportExpected/reportInvalidExpectCall
-      local.get $14
-      call $~lib/rt/pure/__release
-      br $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.1
-     end
-     local.get $13
-     global.set $assembly/internal/report/reportExpected/Expected.negated
-     local.get $14
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportExpected/Expected.type
-     else      
-      local.get $14
-      local.set $15
-      local.get $15
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportExpected/Expected.reference
-      call $~lib/rt/pure/__release
-      local.get $15
-      global.set $assembly/internal/report/reportExpected/Expected.reference
-      block (result i32)
-       local.get $14
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportExpected/Expected.type
-      else       
-       block (result i32)
-        local.get $14
-        drop
-        i32.const 0
-       end
-       if
-        local.get $14
-        call $~lib/rt/pure/__retain
-        local.set $16
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        local.get $16
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-        local.get $16
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        i32.const 0
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-       end
-      end
-     end
-     local.get $14
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/comparison/assert/assert|inlined.1
-     local.get $5
-     local.get $8
-     i32.xor
-     local.set $15
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $16
-     local.get $15
-     i32.eqz
-     if
-      local.get $16
-      call $~lib/rt/pure/__release
-      block
-       local.get $16
-       i32.const 664
-       i32.const 4
-       i32.const 18
-       call $~lib/builtins/abort
-       unreachable
-       unreachable
-      end
-      unreachable
-     end
-     local.get $16
-     call $~lib/rt/pure/__release
-    end
-    local.get $4
-    call $~lib/rt/pure/__release
-   end
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  i32.const 5
+  call $assembly/internal/Expectation/expectFn
+  local.tee $0
+  call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
+  local.tee $1
+  i32.const 496
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~anonymous|0 (; 68 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~anonymous|0 (; 69 ;) (type $FUNCSIG$v)
   i32.const 1
   global.set $assembly/__tests__/unreachable.spec/counter
   unreachable
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0 (; 69 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0 (; 70 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
-  (local $13 i32)
-  (local $14 i32)
-  (local $15 i32)
-  (local $16 i32)
-  block "$assembly/internal/Expectation/Expectation<() => void>#toThrow|inlined.2"
-   i32.const 7
-   call $assembly/internal/Expectation/expectFn
-   local.tee $0
-   call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
-   local.tee $1
-   local.set $2
-   i32.const 928
-   call $~lib/rt/pure/__retain
-   local.set $3
-   block "$assembly/internal/comparison/tryCallComparison/tryCallComparison<() => void>|inlined.2"
-    local.get $2
-    i32.load offset=4
-    local.set $6
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $3
-    call $~lib/rt/pure/__retain
-    local.set $4
-    local.get $6
-    local.set $7
-    local.get $7
-    call $assembly/internal/comparison/tryCallComparison/tryCall
-    i32.const 0
-    i32.ne
-    i32.eqz
-    local.set $8
-    block $assembly/internal/report/reportActual/reportActual<~lib/string/String>|inlined.2
-     local.get $8
-     if (result i32)
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $9
-     else      
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $10
-     end
-     call $~lib/rt/pure/__retain
-     local.set $11
-     local.get $11
-     local.set $12
-     local.get $11
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportActual/Actual.type
-     else      
-      local.get $12
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportActual/Actual.reference
-      call $~lib/rt/pure/__release
-      local.get $12
-      global.set $assembly/internal/report/reportActual/Actual.reference
-      block (result i32)
-       local.get $11
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportActual/Actual.type
-      else       
-       block (result i32)
-        local.get $11
-        drop
-        i32.const 0
-       end
-       if
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        local.get $12
-        call $~lib/rt/pure/__retain
-        local.set $13
-        local.get $13
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportActual/Actual.offset
-        local.get $13
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        i32.const 0
-        global.set $assembly/internal/report/reportActual/Actual.offset
-       end
-      end
-     end
-     local.get $11
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.2
-     local.get $5
-     if (result i32)
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $11
-     else      
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $12
-     end
-     call $~lib/rt/pure/__retain
-     local.set $14
-     local.get $5
-     local.set $13
-     global.get $assembly/internal/report/reportExpected/Expected.ready
-     i32.eqz
-     if
-      call $assembly/internal/report/reportExpected/reportInvalidExpectCall
-      local.get $14
-      call $~lib/rt/pure/__release
-      br $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.2
-     end
-     local.get $13
-     global.set $assembly/internal/report/reportExpected/Expected.negated
-     local.get $14
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportExpected/Expected.type
-     else      
-      local.get $14
-      local.set $15
-      local.get $15
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportExpected/Expected.reference
-      call $~lib/rt/pure/__release
-      local.get $15
-      global.set $assembly/internal/report/reportExpected/Expected.reference
-      block (result i32)
-       local.get $14
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportExpected/Expected.type
-      else       
-       block (result i32)
-        local.get $14
-        drop
-        i32.const 0
-       end
-       if
-        local.get $14
-        call $~lib/rt/pure/__retain
-        local.set $16
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        local.get $16
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-        local.get $16
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        i32.const 0
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-       end
-      end
-     end
-     local.get $14
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/comparison/assert/assert|inlined.2
-     local.get $5
-     local.get $8
-     i32.xor
-     local.set $15
-     local.get $4
-     call $~lib/rt/pure/__retain
-     local.set $16
-     local.get $15
-     i32.eqz
-     if
-      local.get $16
-      call $~lib/rt/pure/__release
-      block
-       local.get $16
-       i32.const 664
-       i32.const 4
-       i32.const 18
-       call $~lib/builtins/abort
-       unreachable
-       unreachable
-      end
-      unreachable
-     end
-     local.get $16
-     call $~lib/rt/pure/__release
-    end
-    local.get $4
-    call $~lib/rt/pure/__release
-   end
-   local.get $3
-   call $~lib/rt/pure/__release
-  end
+  i32.const 7
+  call $assembly/internal/Expectation/expectFn
+  local.tee $0
+  call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
+  local.tee $1
+  i32.const 928
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4 (; 70 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4 (; 71 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
-  (local $13 i32)
-  (local $14 i32)
-  (local $15 i32)
-  block "$assembly/internal/Expectation/Expectation<() => void>#toThrow|inlined.3"
-   i32.const 8
-   call $assembly/internal/Expectation/expectFn
-   local.tee $0
-   local.set $2
-   i32.const 944
-   call $~lib/rt/pure/__retain
-   local.set $1
-   block "$assembly/internal/comparison/tryCallComparison/tryCallComparison<() => void>|inlined.3"
-    local.get $2
-    i32.load offset=4
-    local.set $5
-    local.get $2
-    i32.load
-    local.set $4
-    local.get $1
-    call $~lib/rt/pure/__retain
-    local.set $3
-    local.get $5
-    local.set $6
-    local.get $6
-    call $assembly/internal/comparison/tryCallComparison/tryCall
-    i32.const 0
-    i32.ne
-    i32.eqz
-    local.set $7
-    block $assembly/internal/report/reportActual/reportActual<~lib/string/String>|inlined.3
-     local.get $7
-     if (result i32)
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $8
-     else      
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $9
-     end
-     call $~lib/rt/pure/__retain
-     local.set $10
-     local.get $10
-     local.set $11
-     local.get $10
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportActual/Actual.type
-     else      
-      local.get $11
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportActual/Actual.reference
-      call $~lib/rt/pure/__release
-      local.get $11
-      global.set $assembly/internal/report/reportActual/Actual.reference
-      block (result i32)
-       local.get $10
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportActual/Actual.type
-      else       
-       block (result i32)
-        local.get $10
-        drop
-        i32.const 0
-       end
-       if
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        local.get $11
-        call $~lib/rt/pure/__retain
-        local.set $12
-        local.get $12
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportActual/Actual.offset
-        local.get $12
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        i32.const 0
-        global.set $assembly/internal/report/reportActual/Actual.offset
-       end
-      end
-     end
-     local.get $10
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.3
-     local.get $4
-     if (result i32)
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $10
-     else      
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $11
-     end
-     call $~lib/rt/pure/__retain
-     local.set $13
-     local.get $4
-     local.set $12
-     global.get $assembly/internal/report/reportExpected/Expected.ready
-     i32.eqz
-     if
-      call $assembly/internal/report/reportExpected/reportInvalidExpectCall
-      local.get $13
-      call $~lib/rt/pure/__release
-      br $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.3
-     end
-     local.get $12
-     global.set $assembly/internal/report/reportExpected/Expected.negated
-     local.get $13
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportExpected/Expected.type
-     else      
-      local.get $13
-      local.set $14
-      local.get $14
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportExpected/Expected.reference
-      call $~lib/rt/pure/__release
-      local.get $14
-      global.set $assembly/internal/report/reportExpected/Expected.reference
-      block (result i32)
-       local.get $13
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportExpected/Expected.type
-      else       
-       block (result i32)
-        local.get $13
-        drop
-        i32.const 0
-       end
-       if
-        local.get $13
-        call $~lib/rt/pure/__retain
-        local.set $15
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        local.get $15
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-        local.get $15
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        i32.const 0
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-       end
-      end
-     end
-     local.get $13
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/comparison/assert/assert|inlined.3
-     local.get $4
-     local.get $7
-     i32.xor
-     local.set $14
-     local.get $3
-     call $~lib/rt/pure/__retain
-     local.set $15
-     local.get $14
-     i32.eqz
-     if
-      local.get $15
-      call $~lib/rt/pure/__release
-      block
-       local.get $15
-       i32.const 664
-       i32.const 4
-       i32.const 18
-       call $~lib/builtins/abort
-       unreachable
-       unreachable
-      end
-      unreachable
-     end
-     local.get $15
-     call $~lib/rt/pure/__release
-    end
-    local.get $3
-    call $~lib/rt/pure/__release
-   end
-   local.get $1
-   call $~lib/rt/pure/__release
-  end
+  i32.const 8
+  call $assembly/internal/Expectation/expectFn
+  local.tee $0
+  i32.const 944
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~anonymous|0 (; 71 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~anonymous|0 (; 72 ;) (type $FUNCSIG$v)
   i32.const 1
   global.set $assembly/__tests__/unreachable.spec/counter
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0 (; 72 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0 (; 73 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
-  (local $13 i32)
-  (local $14 i32)
-  (local $15 i32)
-  block "$assembly/internal/Expectation/Expectation<() => void>#toThrow|inlined.4"
-   i32.const 10
-   call $assembly/internal/Expectation/expectFn
-   local.tee $0
-   local.set $1
-   i32.const 928
-   call $~lib/rt/pure/__retain
-   local.set $2
-   block "$assembly/internal/comparison/tryCallComparison/tryCallComparison<() => void>|inlined.4"
-    local.get $1
-    i32.load offset=4
-    local.set $5
-    local.get $1
-    i32.load
-    local.set $4
-    local.get $2
-    call $~lib/rt/pure/__retain
-    local.set $3
-    local.get $5
-    local.set $6
-    local.get $6
-    call $assembly/internal/comparison/tryCallComparison/tryCall
-    i32.const 0
-    i32.ne
-    i32.eqz
-    local.set $7
-    block $assembly/internal/report/reportActual/reportActual<~lib/string/String>|inlined.4
-     local.get $7
-     if (result i32)
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $8
-     else      
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $9
-     end
-     call $~lib/rt/pure/__retain
-     local.set $10
-     local.get $10
-     local.set $11
-     local.get $10
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportActual/Actual.type
-     else      
-      local.get $11
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportActual/Actual.reference
-      call $~lib/rt/pure/__release
-      local.get $11
-      global.set $assembly/internal/report/reportActual/Actual.reference
-      block (result i32)
-       local.get $10
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportActual/Actual.type
-      else       
-       block (result i32)
-        local.get $10
-        drop
-        i32.const 0
-       end
-       if
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        local.get $11
-        call $~lib/rt/pure/__retain
-        local.set $12
-        local.get $12
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportActual/Actual.offset
-        local.get $12
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        i32.const 0
-        global.set $assembly/internal/report/reportActual/Actual.offset
-       end
-      end
-     end
-     local.get $10
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.4
-     local.get $4
-     if (result i32)
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $10
-     else      
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $11
-     end
-     call $~lib/rt/pure/__retain
-     local.set $13
-     local.get $4
-     local.set $12
-     global.get $assembly/internal/report/reportExpected/Expected.ready
-     i32.eqz
-     if
-      call $assembly/internal/report/reportExpected/reportInvalidExpectCall
-      local.get $13
-      call $~lib/rt/pure/__release
-      br $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.4
-     end
-     local.get $12
-     global.set $assembly/internal/report/reportExpected/Expected.negated
-     local.get $13
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportExpected/Expected.type
-     else      
-      local.get $13
-      local.set $14
-      local.get $14
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportExpected/Expected.reference
-      call $~lib/rt/pure/__release
-      local.get $14
-      global.set $assembly/internal/report/reportExpected/Expected.reference
-      block (result i32)
-       local.get $13
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportExpected/Expected.type
-      else       
-       block (result i32)
-        local.get $13
-        drop
-        i32.const 0
-       end
-       if
-        local.get $13
-        call $~lib/rt/pure/__retain
-        local.set $15
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        local.get $15
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-        local.get $15
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        i32.const 0
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-       end
-      end
-     end
-     local.get $13
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/comparison/assert/assert|inlined.4
-     local.get $4
-     local.get $7
-     i32.xor
-     local.set $14
-     local.get $3
-     call $~lib/rt/pure/__retain
-     local.set $15
-     local.get $14
-     i32.eqz
-     if
-      local.get $15
-      call $~lib/rt/pure/__release
-      block
-       local.get $15
-       i32.const 664
-       i32.const 4
-       i32.const 18
-       call $~lib/builtins/abort
-       unreachable
-       unreachable
-      end
-      unreachable
-     end
-     local.get $15
-     call $~lib/rt/pure/__release
-    end
-    local.get $3
-    call $~lib/rt/pure/__release
-   end
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  i32.const 10
+  call $assembly/internal/Expectation/expectFn
+  local.tee $0
+  i32.const 928
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5 (; 73 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5 (; 74 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  (local $9 i32)
-  (local $10 i32)
-  (local $11 i32)
-  (local $12 i32)
-  (local $13 i32)
-  (local $14 i32)
-  (local $15 i32)
-  block "$assembly/internal/Expectation/Expectation<() => void>#toThrow|inlined.5"
-   i32.const 11
-   call $assembly/internal/Expectation/expectFn
-   local.tee $0
-   local.set $2
-   i32.const 1208
-   call $~lib/rt/pure/__retain
-   local.set $1
-   block "$assembly/internal/comparison/tryCallComparison/tryCallComparison<() => void>|inlined.5"
-    local.get $2
-    i32.load offset=4
-    local.set $5
-    local.get $2
-    i32.load
-    local.set $4
-    local.get $1
-    call $~lib/rt/pure/__retain
-    local.set $3
-    local.get $5
-    local.set $6
-    local.get $6
-    call $assembly/internal/comparison/tryCallComparison/tryCall
-    i32.const 0
-    i32.ne
-    i32.eqz
-    local.set $7
-    block $assembly/internal/report/reportActual/reportActual<~lib/string/String>|inlined.5
-     local.get $7
-     if (result i32)
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $8
-     else      
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $9
-     end
-     call $~lib/rt/pure/__retain
-     local.set $10
-     local.get $10
-     local.set $11
-     local.get $10
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportActual/Actual.type
-     else      
-      local.get $11
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportActual/Actual.reference
-      call $~lib/rt/pure/__release
-      local.get $11
-      global.set $assembly/internal/report/reportActual/Actual.reference
-      block (result i32)
-       local.get $10
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportActual/Actual.type
-      else       
-       block (result i32)
-        local.get $10
-        drop
-        i32.const 0
-       end
-       if
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        local.get $11
-        call $~lib/rt/pure/__retain
-        local.set $12
-        local.get $12
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportActual/Actual.offset
-        local.get $12
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportActual/Actual.type
-        i32.const 0
-        global.set $assembly/internal/report/reportActual/Actual.offset
-       end
-      end
-     end
-     local.get $10
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.5
-     local.get $4
-     if (result i32)
-      i32.const 624
-      call $~lib/rt/pure/__retain
-      local.tee $10
-     else      
-      i32.const 592
-      call $~lib/rt/pure/__retain
-      local.tee $11
-     end
-     call $~lib/rt/pure/__retain
-     local.set $13
-     local.get $4
-     local.set $12
-     global.get $assembly/internal/report/reportExpected/Expected.ready
-     i32.eqz
-     if
-      call $assembly/internal/report/reportExpected/reportInvalidExpectCall
-      local.get $13
-      call $~lib/rt/pure/__release
-      br $assembly/internal/report/reportExpected/reportExpected<~lib/string/String>|inlined.5
-     end
-     local.get $12
-     global.set $assembly/internal/report/reportExpected/Expected.negated
-     local.get $13
-     i32.const 0
-     call $~lib/string/String.__eq
-     if
-      i32.const 0
-      global.set $assembly/internal/report/reportExpected/Expected.type
-     else      
-      local.get $13
-      local.set $14
-      local.get $14
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportExpected/Expected.reference
-      call $~lib/rt/pure/__release
-      local.get $14
-      global.set $assembly/internal/report/reportExpected/Expected.reference
-      block (result i32)
-       local.get $13
-       drop
-       i32.const 1
-      end
-      if
-       i32.const 4
-       global.set $assembly/internal/report/reportExpected/Expected.type
-      else       
-       block (result i32)
-        local.get $13
-        drop
-        i32.const 0
-       end
-       if
-        local.get $13
-        call $~lib/rt/pure/__retain
-        local.set $15
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        local.get $15
-        call $~lib/arraybuffer/ArrayBuffer#get:byteLength
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-        local.get $15
-        call $~lib/rt/pure/__release
-       else        
-        i32.const 3
-        global.set $assembly/internal/report/reportExpected/Expected.type
-        i32.const 0
-        global.set $assembly/internal/report/reportExpected/Expected.offset
-       end
-      end
-     end
-     local.get $13
-     call $~lib/rt/pure/__release
-    end
-    block $assembly/internal/comparison/assert/assert|inlined.5
-     local.get $4
-     local.get $7
-     i32.xor
-     local.set $14
-     local.get $3
-     call $~lib/rt/pure/__retain
-     local.set $15
-     local.get $14
-     i32.eqz
-     if
-      local.get $15
-      call $~lib/rt/pure/__release
-      block
-       local.get $15
-       i32.const 664
-       i32.const 4
-       i32.const 18
-       call $~lib/builtins/abort
-       unreachable
-       unreachable
-      end
-      unreachable
-     end
-     local.get $15
-     call $~lib/rt/pure/__release
-    end
-    local.get $3
-    call $~lib/rt/pure/__release
-   end
-   local.get $1
-   call $~lib/rt/pure/__release
-  end
+  i32.const 11
+  call $assembly/internal/Expectation/expectFn
+  local.tee $0
+  i32.const 1208
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 74 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 75 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -5060,12 +4004,12 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<i32> (; 75 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<i32> (; 76 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
   local.get $0
   call $assembly/internal/Expectation/Expectation<i32>#constructor
  )
- (func $assembly/internal/report/Box/Box<i32>#constructor (; 76 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/report/Box/Box<i32>#constructor (; 77 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.eqz
   if
@@ -5080,10 +4024,7 @@
   i32.store
   local.get $0
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|6 (; 77 ;) (type $FUNCSIG$v)
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
+ (func $assembly/internal/Expectation/Expectation<i32>#toBe (; 78 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -5092,180 +4033,180 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
-  (local $11 i32)
-  block $assembly/internal/Expectation/Expectation<i32>#toBe|inlined.0
-   global.get $assembly/__tests__/unreachable.spec/counter
-   call $assembly/internal/Expectation/expect<i32>
-   local.tee $0
-   local.set $2
-   i32.const 1
-   local.set $1
-   i32.const 928
+  local.get $2
+  call $~lib/rt/pure/__retain
+  drop
+  block $assembly/internal/comparison/exactComparison/exactComparison<i32>|inlined.0
+   local.get $0
+   i32.load offset=4
+   local.set $6
+   local.get $1
+   local.set $5
+   local.get $0
+   i32.load
+   local.set $4
+   local.get $2
    call $~lib/rt/pure/__retain
    local.set $3
-   block $assembly/internal/comparison/exactComparison/exactComparison<i32>|inlined.0
-    local.get $2
-    i32.load offset=4
+   block $assembly/internal/report/reportActual/reportActual<i32>|inlined.0
+    local.get $6
     local.set $7
-    local.get $1
-    local.set $6
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $3
-    call $~lib/rt/pure/__retain
-    local.set $4
-    block $assembly/internal/report/reportActual/reportActual<i32>|inlined.0
+    block (result i32)
      local.get $7
-     local.set $8
+     drop
+     i32.const 0
+    end
+    if (result i32)
+     i32.const 1
+    else     
+     local.get $7
+     drop
+     i32.const 0
+    end
+    if
      block (result i32)
-      local.get $8
+      local.get $7
       drop
       i32.const 0
      end
      if (result i32)
-      i32.const 1
+      i32.const 9
      else      
-      local.get $8
-      drop
-      i32.const 0
+      i32.const 10
      end
-     if
-      block (result i32)
-       local.get $8
-       drop
-       i32.const 0
-      end
-      if (result i32)
-       i32.const 9
-      else       
-       i32.const 10
-      end
-      global.set $assembly/internal/report/reportActual/Actual.type
-      i32.const 0
-      local.get $8
-      call $assembly/internal/report/Box/Box<i32>#constructor
-      local.set $9
-      local.get $9
-      local.set $10
-      local.get $10
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportActual/Actual.reference
-      call $~lib/rt/pure/__release
-      local.get $10
-      global.set $assembly/internal/report/reportActual/Actual.reference
-      local.get $9
-      call $~lib/rt/pure/__release
-     else      
-      i32.const 2
-      global.set $assembly/internal/report/reportActual/Actual.type
-      local.get $8
-      global.set $assembly/internal/report/reportActual/Actual.integer
-     end
-    end
-    block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
-     local.get $6
-     local.set $10
-     local.get $5
+     global.set $assembly/internal/report/reportActual/Actual.type
+     i32.const 0
+     local.get $7
+     call $assembly/internal/report/Box/Box<i32>#constructor
+     local.set $8
+     local.get $8
      local.set $9
-     global.get $assembly/internal/report/reportExpected/Expected.ready
-     i32.eqz
-     if
-      call $assembly/internal/report/reportExpected/reportInvalidExpectCall
-      br $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
-     end
      local.get $9
-     global.set $assembly/internal/report/reportExpected/Expected.negated
-     block (result i32)
-      local.get $10
-      drop
-      i32.const 0
-     end
-     if (result i32)
-      i32.const 1
-     else      
-      local.get $10
-      drop
-      i32.const 0
-     end
-     if
-      block (result i32)
-       local.get $10
-       drop
-       i32.const 0
-      end
-      if (result i32)
-       i32.const 9
-      else       
-       i32.const 10
-      end
-      global.set $assembly/internal/report/reportExpected/Expected.type
-      i32.const 0
-      local.get $10
-      call $assembly/internal/report/Box/Box<i32>#constructor
-      local.set $8
-      local.get $8
-      local.set $11
-      local.get $11
-      call $~lib/rt/pure/__retain
-      drop
-      global.get $assembly/internal/report/reportExpected/Expected.reference
-      call $~lib/rt/pure/__release
-      local.get $11
-      global.set $assembly/internal/report/reportExpected/Expected.reference
-      local.get $8
-      call $~lib/rt/pure/__release
-     else      
-      i32.const 2
-      global.set $assembly/internal/report/reportExpected/Expected.type
-      local.get $10
-      global.set $assembly/internal/report/reportExpected/Expected.integer
-     end
-    end
-    block $assembly/internal/comparison/assert/assert|inlined.6
-     local.get $5
-     local.get $6
-     local.get $7
-     i32.eq
-     i32.xor
-     local.set $11
-     local.get $4
      call $~lib/rt/pure/__retain
-     local.set $8
-     local.get $11
-     i32.eqz
-     if
-      local.get $8
-      call $~lib/rt/pure/__release
-      block
-       local.get $8
-       i32.const 664
-       i32.const 4
-       i32.const 18
-       call $~lib/builtins/abort
-       unreachable
-       unreachable
-      end
-      unreachable
-     end
+     drop
+     global.get $assembly/internal/report/reportActual/Actual.reference
+     call $~lib/rt/pure/__release
+     local.get $9
+     global.set $assembly/internal/report/reportActual/Actual.reference
      local.get $8
      call $~lib/rt/pure/__release
+    else     
+     i32.const 2
+     global.set $assembly/internal/report/reportActual/Actual.type
+     local.get $7
+     global.set $assembly/internal/report/reportActual/Actual.integer
     end
+   end
+   block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
+    local.get $5
+    local.set $9
     local.get $4
+    local.set $8
+    global.get $assembly/internal/report/reportExpected/Expected.ready
+    i32.eqz
+    if
+     call $assembly/internal/report/reportExpected/reportInvalidExpectCall
+     br $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
+    end
+    local.get $8
+    global.set $assembly/internal/report/reportExpected/Expected.negated
+    block (result i32)
+     local.get $9
+     drop
+     i32.const 0
+    end
+    if (result i32)
+     i32.const 1
+    else     
+     local.get $9
+     drop
+     i32.const 0
+    end
+    if
+     block (result i32)
+      local.get $9
+      drop
+      i32.const 0
+     end
+     if (result i32)
+      i32.const 9
+     else      
+      i32.const 10
+     end
+     global.set $assembly/internal/report/reportExpected/Expected.type
+     i32.const 0
+     local.get $9
+     call $assembly/internal/report/Box/Box<i32>#constructor
+     local.set $7
+     local.get $7
+     local.set $10
+     local.get $10
+     call $~lib/rt/pure/__retain
+     drop
+     global.get $assembly/internal/report/reportExpected/Expected.reference
+     call $~lib/rt/pure/__release
+     local.get $10
+     global.set $assembly/internal/report/reportExpected/Expected.reference
+     local.get $7
+     call $~lib/rt/pure/__release
+    else     
+     i32.const 2
+     global.set $assembly/internal/report/reportExpected/Expected.type
+     local.get $9
+     global.set $assembly/internal/report/reportExpected/Expected.integer
+    end
+   end
+   block $assembly/internal/comparison/assert/assert|inlined.1
+    local.get $4
+    local.get $5
+    local.get $6
+    i32.eq
+    i32.xor
+    local.set $10
+    local.get $3
+    call $~lib/rt/pure/__retain
+    local.set $7
+    local.get $10
+    i32.eqz
+    if
+     local.get $7
+     call $~lib/rt/pure/__release
+     block
+      local.get $7
+      i32.const 664
+      i32.const 4
+      i32.const 18
+      call $~lib/builtins/abort
+      unreachable
+      unreachable
+     end
+     unreachable
+    end
+    local.get $7
     call $~lib/rt/pure/__release
    end
    local.get $3
    call $~lib/rt/pure/__release
   end
+  local.get $2
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|6 (; 79 ;) (type $FUNCSIG$v)
+  (local $0 i32)
+  global.get $assembly/__tests__/unreachable.spec/counter
+  call $assembly/internal/Expectation/expect<i32>
+  local.tee $0
+  i32.const 1
+  i32.const 928
+  call $assembly/internal/Expectation/Expectation<i32>#toBe
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/afterEach (; 78 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/Test/afterEach (; 80 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportAfterEach
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0 (; 79 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0 (; 81 ;) (type $FUNCSIG$v)
   i32.const 1
   call $assembly/internal/Test/beforeEach
   i32.const 312
@@ -5287,10 +4228,10 @@
   i32.const 13
   call $assembly/internal/Test/afterEach
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 80 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 82 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 81 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 83 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -5304,12 +4245,12 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec (; 82 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unreachable.spec (; 84 ;) (type $FUNCSIG$v)
   i32.const 272
   i32.const 14
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__main (; 83 ;) (type $FUNCSIG$v)
+ (func $assembly/index/__main (; 85 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   i32.eqz
   if
@@ -5318,17 +4259,17 @@
    global.set $~lib/started
   end
  )
- (func $assembly/index/__ready (; 84 ;) (type $FUNCSIG$v)
+ (func $assembly/index/__ready (; 86 ;) (type $FUNCSIG$v)
   i32.const 1
   global.set $assembly/internal/report/reportExpected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 85 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/call/__call (; 87 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $assembly/internal/report/reportActual/__sendActual (; 86 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportActual/__sendActual (; 88 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case7|0
@@ -5408,7 +4349,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/reportExpected/__sendExpected (; 87 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportExpected/__sendExpected (; 89 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case10|0
@@ -5522,10 +4463,10 @@
    br $break|0
   end
  )
- (func $start (; 88 ;) (type $FUNCSIG$v)
+ (func $start (; 90 ;) (type $FUNCSIG$v)
   call $start:assembly/__tests__/unreachable.spec
  )
- (func $~lib/rt/pure/__visit (; 89 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 91 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -5679,7 +4620,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 90 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 92 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block
   end
@@ -5736,6 +4677,6 @@
    unreachable
   end
  )
- (func $null (; 91 ;) (type $FUNCSIG$v)
+ (func $null (; 93 ;) (type $FUNCSIG$v)
  )
 )

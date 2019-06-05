@@ -43,8 +43,8 @@
  (data (i32.const 216) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
  (data (i32.const 256) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00t\00o\00B\00e\00T\00r\00u\00t\00h\00y\00")
  (data (i32.const 296) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00e\00x\00p\00e\00c\00t\00 \001\00 \00t\00o\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
- (data (i32.const 368) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 384) "L\00\00\00\01\00\00\00\01\00\00\00L\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
+ (data (i32.const 368) "L\00\00\00\01\00\00\00\01\00\00\00L\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
+ (data (i32.const 464) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
  (data (i32.const 480) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00s\00h\00o\00u\00l\00d\00 \00e\00r\00r\00o\00r\00 \00i\00f\00 \001\00 \00i\00s\00 \00f\00a\00s\00l\00y\00")
  (data (i32.const 552) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\001\00 \00i\00s\00 \00t\00r\00u\00t\00h\00y\00")
  (data (i32.const 592) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00s\00h\00o\00u\00l\00d\00 \00e\00x\00p\00e\00c\00t\00 \00t\00r\00u\00e\00 \00t\00o\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
@@ -3625,7 +3625,7 @@
     call $~lib/rt/pure/__release
     block
      local.get $4
-     i32.const 400
+     i32.const 384
      i32.const 4
      i32.const 18
      call $~lib/builtins/abort
@@ -3640,31 +3640,30 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|0 (; 53 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/Expectation/Expectation<i32>#toBeTruthy (; 53 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $0
+  i32.load offset=4
+  local.get $0
+  i32.load
+  local.get $1
+  call $assembly/internal/comparison/truthyComparison/truthyComparison<i32>
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|0 (; 54 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  block $assembly/internal/Expectation/Expectation<i32>#toBeTruthy|inlined.0
-   i32.const 1
-   call $assembly/internal/Expectation/expect<i32>
-   local.tee $0
-   local.set $1
-   i32.const 384
-   call $~lib/rt/pure/__retain
-   local.set $2
-   local.get $1
-   i32.load offset=4
-   local.get $1
-   i32.load
-   local.get $2
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<i32>
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  i32.const 1
+  call $assembly/internal/Expectation/expect<i32>
+  local.tee $0
+  i32.const 480
+  call $assembly/internal/Expectation/Expectation<i32>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 54 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 55 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3674,43 +3673,29 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<i32>#get:not (; 55 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<i32>#get:not (; 56 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|1 (; 56 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|1 (; 57 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $assembly/internal/Expectation/Expectation<i32>#toBeTruthy|inlined.1
-   i32.const 1
-   call $assembly/internal/Expectation/expect<i32>
-   local.tee $0
-   call $assembly/internal/Expectation/Expectation<i32>#get:not
-   local.tee $1
-   local.set $2
-   i32.const 384
-   call $~lib/rt/pure/__retain
-   local.set $3
-   local.get $2
-   i32.load offset=4
-   local.get $2
-   i32.load
-   local.get $3
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<i32>
-   local.get $3
-   call $~lib/rt/pure/__release
-  end
+  i32.const 1
+  call $assembly/internal/Expectation/expect<i32>
+  local.tee $0
+  call $assembly/internal/Expectation/Expectation<i32>#get:not
+  local.tee $1
+  i32.const 480
+  call $assembly/internal/Expectation/Expectation<i32>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/throws (; 57 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Test/throws (; 58 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3726,7 +3711,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<bool>#constructor (; 58 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<bool>#constructor (; 59 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -3749,12 +3734,12 @@
   i32.store8 offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<bool> (; 59 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<bool> (; 60 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   i32.const 0
   local.get $0
   call $assembly/internal/Expectation/Expectation<bool>#constructor
  )
- (func $assembly/internal/report/Box/Box<bool>#constructor (; 60 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/report/Box/Box<bool>#constructor (; 61 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.eqz
   if
@@ -3769,7 +3754,7 @@
   i32.store8
   local.get $0
  )
- (func $assembly/internal/comparison/truthyComparison/truthyComparison<bool> (; 61 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/comparison/truthyComparison/truthyComparison<bool> (; 62 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -3853,7 +3838,7 @@
     call $~lib/rt/pure/__release
     block
      local.get $4
-     i32.const 400
+     i32.const 384
      i32.const 4
      i32.const 18
      call $~lib/builtins/abort
@@ -3868,173 +3853,102 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|2 (; 62 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/Expectation/Expectation<bool>#toBeTruthy (; 63 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $0
+  i32.load8_u offset=4
+  local.get $0
+  i32.load
+  local.get $1
+  call $assembly/internal/comparison/truthyComparison/truthyComparison<bool>
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|2 (; 64 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  block $assembly/internal/Expectation/Expectation<bool>#toBeTruthy|inlined.0
-   i32.const 1
-   call $assembly/internal/Expectation/expect<bool>
-   local.tee $0
-   local.set $2
-   i32.const 688
-   call $~lib/rt/pure/__retain
-   local.set $1
-   local.get $2
-   i32.load8_u offset=4
-   local.get $2
-   i32.load
-   local.get $1
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<bool>
-   local.get $1
-   call $~lib/rt/pure/__release
-  end
+  i32.const 1
+  call $assembly/internal/Expectation/expect<bool>
+  local.tee $0
+  i32.const 688
+  call $assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<bool>#get:not (; 63 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<bool>#get:not (; 65 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|3 (; 64 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|3 (; 66 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $assembly/internal/Expectation/Expectation<bool>#toBeTruthy|inlined.1
-   i32.const 1
-   call $assembly/internal/Expectation/expect<bool>
-   local.tee $0
-   call $assembly/internal/Expectation/Expectation<bool>#get:not
-   local.tee $1
-   local.set $2
-   i32.const 384
-   call $~lib/rt/pure/__retain
-   local.set $3
-   local.get $2
-   i32.load8_u offset=4
-   local.get $2
-   i32.load
-   local.get $3
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<bool>
-   local.get $3
-   call $~lib/rt/pure/__release
-  end
+  i32.const 1
+  call $assembly/internal/Expectation/expect<bool>
+  local.tee $0
+  call $assembly/internal/Expectation/Expectation<bool>#get:not
+  local.tee $1
+  i32.const 480
+  call $assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|4 (; 65 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|4 (; 67 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $assembly/internal/Expectation/Expectation<i32>#toBeTruthy|inlined.2
-   i32.const 0
-   call $assembly/internal/Expectation/expect<i32>
-   local.tee $0
-   call $assembly/internal/Expectation/Expectation<i32>#get:not
-   local.tee $1
-   local.set $3
-   i32.const 1000
-   call $~lib/rt/pure/__retain
-   local.set $2
-   local.get $3
-   i32.load offset=4
-   local.get $3
-   i32.load
-   local.get $2
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<i32>
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  i32.const 0
+  call $assembly/internal/Expectation/expect<i32>
+  local.tee $0
+  call $assembly/internal/Expectation/Expectation<i32>#get:not
+  local.tee $1
+  i32.const 1000
+  call $assembly/internal/Expectation/Expectation<i32>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|5 (; 66 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|5 (; 68 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  block $assembly/internal/Expectation/Expectation<i32>#toBeTruthy|inlined.3
-   i32.const 0
-   call $assembly/internal/Expectation/expect<i32>
-   local.tee $0
-   local.set $1
-   i32.const 384
-   call $~lib/rt/pure/__retain
-   local.set $2
-   local.get $1
-   i32.load offset=4
-   local.get $1
-   i32.load
-   local.get $2
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<i32>
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  i32.const 0
+  call $assembly/internal/Expectation/expect<i32>
+  local.tee $0
+  i32.const 480
+  call $assembly/internal/Expectation/Expectation<i32>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|6 (; 67 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|6 (; 69 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $assembly/internal/Expectation/Expectation<bool>#toBeTruthy|inlined.2
-   i32.const 0
-   call $assembly/internal/Expectation/expect<bool>
-   local.tee $0
-   call $assembly/internal/Expectation/Expectation<bool>#get:not
-   local.tee $1
-   local.set $3
-   i32.const 1216
-   call $~lib/rt/pure/__retain
-   local.set $2
-   local.get $3
-   i32.load8_u offset=4
-   local.get $3
-   i32.load
-   local.get $2
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<bool>
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  i32.const 0
+  call $assembly/internal/Expectation/expect<bool>
+  local.tee $0
+  call $assembly/internal/Expectation/Expectation<bool>#get:not
+  local.tee $1
+  i32.const 1216
+  call $assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|7 (; 68 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|7 (; 70 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  block $assembly/internal/Expectation/Expectation<bool>#toBeTruthy|inlined.3
-   i32.const 0
-   call $assembly/internal/Expectation/expect<bool>
-   local.tee $0
-   local.set $1
-   i32.const 384
-   call $~lib/rt/pure/__retain
-   local.set $2
-   local.get $1
-   i32.load8_u offset=4
-   local.get $1
-   i32.load
-   local.get $2
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<bool>
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  i32.const 0
+  call $assembly/internal/Expectation/expect<bool>
+  local.tee $0
+  i32.const 480
+  call $assembly/internal/Expectation/Expectation<bool>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<f64>#constructor (; 69 ;) (type $FUNCSIG$iid) (param $0 i32) (param $1 f64) (result i32)
+ (func $assembly/internal/Expectation/Expectation<f64>#constructor (; 71 ;) (type $FUNCSIG$iid) (param $0 i32) (param $1 f64) (result i32)
   block (result i32)
    local.get $0
    i32.eqz
@@ -4057,24 +3971,24 @@
   f64.store offset=8
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<f64> (; 70 ;) (type $FUNCSIG$id) (param $0 f64) (result i32)
+ (func $assembly/internal/Expectation/expect<f64> (; 72 ;) (type $FUNCSIG$id) (param $0 f64) (result i32)
   i32.const 0
   local.get $0
   call $assembly/internal/Expectation/Expectation<f64>#constructor
  )
- (func $assembly/internal/Expectation/Expectation<f64>#get:not (; 71 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<f64>#get:not (; 73 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $~lib/builtins/isNaN<f64> (; 72 ;) (type $FUNCSIG$id) (param $0 f64) (result i32)
+ (func $~lib/builtins/isNaN<f64> (; 74 ;) (type $FUNCSIG$id) (param $0 f64) (result i32)
   local.get $0
   local.get $0
   f64.ne
  )
- (func $assembly/internal/comparison/truthyComparison/truthyComparison<f64> (; 73 ;) (type $FUNCSIG$vdii) (param $0 f64) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/comparison/truthyComparison/truthyComparison<f64> (; 75 ;) (type $FUNCSIG$vdii) (param $0 f64) (param $1 i32) (param $2 i32)
   (local $3 f64)
   (local $4 i32)
   (local $5 i32)
@@ -4120,7 +4034,7 @@
     call $~lib/rt/pure/__release
     block
      local.get $5
-     i32.const 400
+     i32.const 384
      i32.const 4
      i32.const 18
      call $~lib/builtins/abort
@@ -4135,60 +4049,45 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|8 (; 74 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/Expectation/Expectation<f64>#toBeTruthy (; 76 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $0
+  f64.load offset=8
+  local.get $0
+  i32.load
+  local.get $1
+  call $assembly/internal/comparison/truthyComparison/truthyComparison<f64>
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|8 (; 77 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $assembly/internal/Expectation/Expectation<f64>#toBeTruthy|inlined.0
-   f64.const nan:0x8000000000000
-   call $assembly/internal/Expectation/expect<f64>
-   local.tee $0
-   call $assembly/internal/Expectation/Expectation<f64>#get:not
-   local.tee $1
-   local.set $3
-   i32.const 1536
-   call $~lib/rt/pure/__retain
-   local.set $2
-   local.get $3
-   f64.load offset=8
-   local.get $3
-   i32.load
-   local.get $2
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<f64>
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  f64.const nan:0x8000000000000
+  call $assembly/internal/Expectation/expect<f64>
+  local.tee $0
+  call $assembly/internal/Expectation/Expectation<f64>#get:not
+  local.tee $1
+  i32.const 1536
+  call $assembly/internal/Expectation/Expectation<f64>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|9 (; 75 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|9 (; 78 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  block $assembly/internal/Expectation/Expectation<f64>#toBeTruthy|inlined.1
-   f64.const nan:0x8000000000000
-   call $assembly/internal/Expectation/expect<f64>
-   local.tee $0
-   local.set $2
-   i32.const 1536
-   call $~lib/rt/pure/__retain
-   local.set $1
-   local.get $2
-   f64.load offset=8
-   local.get $2
-   i32.load
-   local.get $1
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<f64>
-   local.get $1
-   call $~lib/rt/pure/__release
-  end
+  f64.const nan:0x8000000000000
+  call $assembly/internal/Expectation/expect<f64>
+  local.tee $0
+  i32.const 1536
+  call $assembly/internal/Expectation/Expectation<f64>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#constructor (; 76 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#constructor (; 79 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -4232,7 +4131,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3> (; 77 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3> (; 80 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4245,20 +4144,20 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#get:not (; 78 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#get:not (; 81 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $~lib/arraybuffer/ArrayBuffer#get:byteLength (; 79 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/arraybuffer/ArrayBuffer#get:byteLength (; 82 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 16
   i32.sub
   i32.load offset=12
  )
- (func $~lib/string/String#get:length (; 80 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/string/String#get:length (; 83 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 16
   i32.sub
@@ -4266,7 +4165,7 @@
   i32.const 1
   i32.shr_u
  )
- (func $assembly/internal/comparison/truthyComparison/truthyComparison<assembly/__tests__/setup/Vec3/Vec3> (; 81 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/comparison/truthyComparison/truthyComparison<assembly/__tests__/setup/Vec3/Vec3> (; 84 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4352,7 +4251,7 @@
     call $~lib/rt/pure/__release
     block
      local.get $5
-     i32.const 400
+     i32.const 384
      i32.const 4
      i32.const 18
      call $~lib/builtins/abort
@@ -4391,7 +4290,7 @@
       call $~lib/rt/pure/__release
       block
        local.get $3
-       i32.const 400
+       i32.const 384
        i32.const 4
        i32.const 18
        call $~lib/builtins/abort
@@ -4419,7 +4318,7 @@
      call $~lib/rt/pure/__release
      block
       local.get $3
-      i32.const 400
+      i32.const 384
       i32.const 4
       i32.const 18
       call $~lib/builtins/abort
@@ -4437,113 +4336,70 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|10 (; 82 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeTruthy (; 85 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $0
+  i32.load offset=4
+  local.get $0
+  i32.load
+  local.get $1
+  call $assembly/internal/comparison/truthyComparison/truthyComparison<assembly/__tests__/setup/Vec3/Vec3>
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|10 (; 86 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeTruthy|inlined.0
-   i32.const 0
-   call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
-   local.tee $0
-   call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#get:not
-   local.tee $1
-   local.set $3
-   i32.const 1824
-   call $~lib/rt/pure/__retain
-   local.set $2
-   local.get $3
-   i32.load offset=4
-   local.get $3
-   i32.load
-   local.get $2
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<assembly/__tests__/setup/Vec3/Vec3>
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  i32.const 0
+  call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
+  local.tee $0
+  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#get:not
+  local.tee $1
+  i32.const 1824
+  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|11 (; 83 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|11 (; 87 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  block $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeTruthy|inlined.1
-   i32.const 0
-   call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
-   local.tee $0
-   local.set $1
-   i32.const 384
-   call $~lib/rt/pure/__retain
-   local.set $2
-   local.get $1
-   i32.load offset=4
-   local.get $1
-   i32.load
-   local.get $2
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<assembly/__tests__/setup/Vec3/Vec3>
-   local.get $2
-   call $~lib/rt/pure/__release
-  end
+  i32.const 0
+  call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
+  local.tee $0
+  i32.const 480
+  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|12 (; 84 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|12 (; 88 ;) (type $FUNCSIG$v)
   (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  block $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeTruthy|inlined.2
-   global.get $assembly/__tests__/toBeTruthy.spec/vec1
-   call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
-   local.tee $0
-   local.set $2
-   i32.const 2080
-   call $~lib/rt/pure/__retain
-   local.set $1
-   local.get $2
-   i32.load offset=4
-   local.get $2
-   i32.load
-   local.get $1
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<assembly/__tests__/setup/Vec3/Vec3>
-   local.get $1
-   call $~lib/rt/pure/__release
-  end
+  global.get $assembly/__tests__/toBeTruthy.spec/vec1
+  call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
+  local.tee $0
+  i32.const 2080
+  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|13 (; 85 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0~anonymous|13 (; 89 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  block $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeTruthy|inlined.3
-   global.get $assembly/__tests__/toBeTruthy.spec/vec1
-   call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
-   local.tee $0
-   call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#get:not
-   local.tee $1
-   local.set $2
-   i32.const 384
-   call $~lib/rt/pure/__retain
-   local.set $3
-   local.get $2
-   i32.load offset=4
-   local.get $2
-   i32.load
-   local.get $3
-   call $assembly/internal/comparison/truthyComparison/truthyComparison<assembly/__tests__/setup/Vec3/Vec3>
-   local.get $3
-   call $~lib/rt/pure/__release
-  end
+  global.get $assembly/__tests__/toBeTruthy.spec/vec1
+  call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
+  local.tee $0
+  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#get:not
+  local.tee $1
+  i32.const 480
+  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeTruthy
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0 (; 86 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec~anonymous|0 (; 90 ;) (type $FUNCSIG$v)
   i32.const 312
   i32.const 1
   call $assembly/internal/Test/it
@@ -4594,10 +4450,10 @@
   i32.const 2080
   call $assembly/internal/Test/throws
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 87 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 91 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 88 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 92 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -4611,7 +4467,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec (; 89 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toBeTruthy.spec (; 93 ;) (type $FUNCSIG$v)
   i32.const 0
   f64.const 1
   f64.const 2
@@ -4622,7 +4478,7 @@
   i32.const 15
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__main (; 90 ;) (type $FUNCSIG$v)
+ (func $assembly/index/__main (; 94 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   i32.eqz
   if
@@ -4631,17 +4487,17 @@
    global.set $~lib/started
   end
  )
- (func $assembly/index/__ready (; 91 ;) (type $FUNCSIG$v)
+ (func $assembly/index/__ready (; 95 ;) (type $FUNCSIG$v)
   i32.const 1
   global.set $assembly/internal/report/reportExpected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 92 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/call/__call (; 96 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $assembly/internal/report/reportActual/__sendActual (; 93 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportActual/__sendActual (; 97 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case7|0
@@ -4721,7 +4577,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/reportExpected/__sendExpected (; 94 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportExpected/__sendExpected (; 98 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case10|0
@@ -4835,10 +4691,10 @@
    br $break|0
   end
  )
- (func $start (; 95 ;) (type $FUNCSIG$v)
+ (func $start (; 99 ;) (type $FUNCSIG$v)
   call $start:assembly/__tests__/toBeTruthy.spec
  )
- (func $~lib/rt/pure/__visit (; 96 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 100 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -4992,7 +4848,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 97 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 101 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block
   end
@@ -5072,6 +4928,6 @@
    unreachable
   end
  )
- (func $null (; 98 ;) (type $FUNCSIG$v)
+ (func $null (; 102 ;) (type $FUNCSIG$v)
  )
 )
