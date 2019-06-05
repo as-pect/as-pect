@@ -108,6 +108,14 @@ describe("A test Suite", (): void => {
     log<u64>(999999999999999);
   });
 
+  it("should log an unsigned integer value", () => {
+    log<u32>(4294967295);
+  });
+
+  it("should report u32 values", () => {
+    expect<u32>(4294967294).toBe(4294967293);
+  });
+
   todo("this should be a todo");
 });
 
