@@ -28,9 +28,21 @@ declare function logArray(value: usize): void;
 @external("__aspect", "logLong")
 declare function logLong(value: usize, signed: bool): void;
 
+let ignoreLogs: bool = false;
+
+/**
+ * This method is called by the test runner to circumvent item logging.
+ *
+ * @param {bool} value - Wether to ignore log values or not.
+ */
+export function __ignoreLogs(value: bool): void {
+  ignoreLogs = value;
+}
+
 // @ts-ignore: decorators *are* valid here
-@global @inline
+@global
 export function log<T>(value: T): void {
+  if (ignoreLogs) return;
   if (isReference<T>()) {
     if (value == null) {
       logNull();
