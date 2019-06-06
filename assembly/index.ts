@@ -35,10 +35,6 @@ export { __sendActual } from "./internal/report/reportActual";
 export { __sendExpected } from "./internal/report/reportExpected";
 export { __ignoreLogs } from "./internal/log";
 
-// @ts-ignore: Decorators *are* valid here
-@start
-export function __main(): void {}
-
 export function __ready(): void {
   Expected.ready = true;
 }

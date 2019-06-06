@@ -9,12 +9,6 @@ export interface IAspectExports {
    */
   __call(pointer: number): void;
   /**
-   * This method is the @start of the module, and is called to collect all of the testing
-   * information.
-   */
-  __main(): void;
-
-  /**
    * This method is called when the tests are ready to run.
    */
   __ready(): void;

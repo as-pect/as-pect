@@ -114,6 +114,7 @@
  (global $~lib/started (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 3320))
  (global $~lib/heap/__heap_base i32 (i32.const 3572))
+ (export "__start" (func $start))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
  (export "__retain" (func $~lib/rt/pure/__retain))
@@ -121,7 +122,6 @@
  (export "__collect" (func $~lib/rt/pure/__collect))
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
- (export "__main" (func $assembly/index/__main))
  (export "__ready" (func $assembly/index/__ready))
  (export "__call" (func $assembly/internal/call/__call))
  (export "__sendActual" (func $assembly/internal/report/reportActual/__sendActual))
@@ -3669,7 +3669,6 @@
   local.get $0
  )
  (func $~lib/typedarray/Uint8Array#constructor (; 53 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -3682,7 +3681,6 @@
   local.get $1
   i32.const 0
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -3748,6 +3746,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint8Array> (; 56 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -4122,18 +4122,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -4185,22 +4181,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -4251,22 +4243,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -4301,18 +4289,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -4367,7 +4351,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Uint8ClampedArray#constructor (; 73 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -4380,7 +4363,6 @@
   local.get $1
   i32.const 0
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -4458,6 +4440,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint8ClampedArray> (; 76 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -4807,18 +4791,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8ClampedArray>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -4860,22 +4840,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8ClampedArray>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -4910,22 +4886,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8ClampedArray>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -4960,18 +4932,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8ClampedArray>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -5009,7 +4977,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Int8Array#constructor (; 86 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -5022,7 +4989,6 @@
   local.get $1
   i32.const 0
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -5088,6 +5054,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Int8Array> (; 89 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -5437,18 +5405,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int8Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -5490,22 +5454,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int8Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -5540,22 +5500,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int8Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -5590,18 +5546,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int8Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -5639,7 +5591,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Uint16Array#constructor (; 99 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -5652,7 +5603,6 @@
   local.get $1
   i32.const 1
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -5722,6 +5672,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint16Array> (; 102 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -6073,18 +6025,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint16Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -6126,22 +6074,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint16Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -6176,22 +6120,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint16Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -6226,18 +6166,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint16Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -6275,7 +6211,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Int16Array#constructor (; 112 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -6288,7 +6223,6 @@
   local.get $1
   i32.const 1
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -6358,6 +6292,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Int16Array> (; 115 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -6709,18 +6645,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int16Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -6762,22 +6694,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int16Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -6812,22 +6740,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int16Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -6862,18 +6786,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int16Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -6911,7 +6831,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Uint32Array#constructor (; 125 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -6924,7 +6843,6 @@
   local.get $1
   i32.const 2
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -6994,6 +6912,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint32Array> (; 128 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -7345,18 +7265,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint32Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -7398,22 +7314,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint32Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -7448,22 +7360,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint32Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -7498,18 +7406,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint32Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -7547,7 +7451,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Int32Array#constructor (; 138 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -7560,7 +7463,6 @@
   local.get $1
   i32.const 2
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -7630,6 +7532,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Int32Array> (; 141 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -7981,18 +7885,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int32Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -8034,22 +7934,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int32Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -8084,22 +7980,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int32Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -8134,18 +8026,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int32Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -8183,7 +8071,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Uint64Array#constructor (; 151 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -8196,7 +8083,6 @@
   local.get $1
   i32.const 3
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -8266,6 +8152,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint64Array> (; 154 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -8617,18 +8505,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint64Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -8670,22 +8554,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint64Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -8720,22 +8600,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint64Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -8770,18 +8646,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint64Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -8819,7 +8691,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Int64Array#constructor (; 164 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -8832,7 +8703,6 @@
   local.get $1
   i32.const 3
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -8902,6 +8772,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Int64Array> (; 167 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -9253,18 +9125,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int64Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -9306,22 +9174,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int64Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -9356,22 +9220,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int64Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -9406,18 +9266,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Int64Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -9455,7 +9311,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Float32Array#constructor (; 177 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -9468,7 +9323,6 @@
   local.get $1
   i32.const 2
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -9538,6 +9392,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Float32Array> (; 180 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -9889,18 +9745,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Float32Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -9942,22 +9794,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Float32Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -9992,22 +9840,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Float32Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -10042,18 +9886,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Float32Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -10091,7 +9931,6 @@
   call $~lib/rt/pure/__release
  )
  (func $~lib/typedarray/Float64Array#constructor (; 190 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -10104,7 +9943,6 @@
   local.get $1
   i32.const 3
   call $~lib/arraybuffer/ArrayBufferView#constructor
-  local.tee $2
   local.set $0
   local.get $0
  )
@@ -10174,6 +10012,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/typedarray/Float64Array> (; 193 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -10525,18 +10365,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Float64Array>
-  local.tee $0
+  local.tee $1
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -10578,22 +10414,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Float64Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 3
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -10628,22 +10460,18 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Float64Array>
-  local.tee $0
+  local.tee $1
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#get:not
-  local.tee $2
+  local.tee $0
   i32.const 10
   i32.const 1248
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toHaveLength
   local.get $1
   call $~lib/rt/pure/__release
   local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -10678,18 +10506,14 @@
    call $~lib/rt/pure/__release
    local.get $2
   end
-  local.tee $1
-  call $~lib/rt/pure/__retain
   local.set $3
   local.get $3
   call $assembly/internal/Expectation/expect<~lib/typedarray/Float64Array>
-  local.tee $0
+  local.tee $1
   i32.const 10
   i32.const 416
   call $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toHaveLength
   local.get $1
-  call $~lib/rt/pure/__release
-  local.get $0
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
@@ -10768,6 +10592,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<~lib/array/Array<i32>> (; 204 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -11190,6 +11016,8 @@
    local.get $3
   end
   i32.store offset=4
+  local.get $1
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example> (; 215 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
@@ -11980,26 +11808,17 @@
   i32.const 68
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__main (; 231 ;) (type $FUNCSIG$v)
-  global.get $~lib/started
-  i32.eqz
-  if
-   call $start
-   i32.const 1
-   global.set $~lib/started
-  end
- )
- (func $assembly/index/__ready (; 232 ;) (type $FUNCSIG$v)
+ (func $assembly/index/__ready (; 231 ;) (type $FUNCSIG$v)
   i32.const 1
   global.set $assembly/internal/report/reportExpected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 233 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/call/__call (; 232 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $assembly/internal/report/reportActual/__sendActual (; 234 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportActual/__sendActual (; 233 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case6|0
@@ -12073,7 +11892,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/reportExpected/__sendExpected (; 235 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportExpected/__sendExpected (; 234 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case9|0
@@ -12181,19 +12000,26 @@
    br $break|0
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 236 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 235 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $start (; 237 ;) (type $FUNCSIG$v)
+ (func $start (; 236 ;) (type $FUNCSIG$v)
+  global.get $~lib/started
+  if
+   return
+  else   
+   i32.const 1
+   global.set $~lib/started
+  end
   call $start:assembly/__tests__/toHaveLength.spec
  )
- (func $~lib/array/Array<i32>#__visit_impl (; 238 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<i32>#__visit_impl (; 237 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/pure/__visit (; 239 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 238 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -12347,7 +12173,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 240 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 239 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block
@@ -12448,6 +12274,6 @@
   end
   unreachable
  )
- (func $null (; 241 ;) (type $FUNCSIG$v)
+ (func $null (; 240 ;) (type $FUNCSIG$v)
  )
 )
