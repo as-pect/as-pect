@@ -1,8 +1,7 @@
 import { Vec3 } from "./setup/Vec3";
 
 var vec1 = new Vec3(1, 2, 3);
-var vec2 = new Vec3(1, 2, 3);
-var vec3 = new Vec3(4, 5, 6);
+var vec2 = new Vec3(4, 5, 6);
 
 /**
  * This test suite is designed to test the AssemblyScript semantics of the greaterThan operator (>).
@@ -71,7 +70,7 @@ describe("GreaterThan (>)", (): void => {
    * is used.
    */
   it("should verify one reference is greater than another", (): void => {
-    expect<Vec3>(vec3)
+    expect<Vec3>(vec2)
       .toBeGreaterThan(vec1, "Operator overloading should allow references to verify that one reference is greater than another value");
   });
 
@@ -79,13 +78,13 @@ describe("GreaterThan (>)", (): void => {
    * This test verifies that toBeGreaterThan throws when the actual value is null.
    */
   throws("should throw if the actual value is null", (): void => {
-    expect<Vec3>(null).toBeGreaterThan(vec3);
+    expect<Vec3>(null).toBeGreaterThan(vec2);
   }, "The toBeGreaterThan function should throw if the actual value is null.");
 
   /**
    * This test verifies that toBeGreaterThan throws when the expected value is null.
    */
   throws("should throw if the expected value is null", (): void => {
-    expect<Vec3>(vec3).toBeGreaterThan(null);
+    expect<Vec3>(vec2).toBeGreaterThan(null);
   }, "The toBeGreaterThan function should throw if the expected value is null.");
 });

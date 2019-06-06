@@ -15,18 +15,18 @@ let failAfterAllGroup: TestGroup;
 let failBeforeEachPerformanceGroup: TestGroup;
 let failAfterEachPerformanceGroup: TestGroup;
 const mock = {
-  "jest": {
-    "mockAfterAll": jest.fn(),
-    "mockAfterEach": jest.fn(),
-    "mockBeforeAll": jest.fn(),
-    "mockBeforeEach": jest.fn(),
-    "mockFailBeforeAll": jest.fn(),
-    "mockFailBeforeEach": jest.fn(),
-    "mockFailAfterEach": jest.fn(),
-    "mockFailAfterAll": jest.fn(),
-    "mockFailBeforeEachPerformance": jest.fn(),
-    "mockFailAfterEachPerformance": jest.fn(),
-  },
+  jest: {
+    mockAfterAll: jest.fn(),
+    mockAfterEach: jest.fn(),
+    mockBeforeAll: jest.fn(),
+    mockBeforeEach: jest.fn(),
+    mockFailBeforeAll: jest.fn(),
+    mockFailBeforeEach: jest.fn(),
+    mockFailAfterEach: jest.fn(),
+    mockFailAfterAll: jest.fn(),
+    mockFailBeforeEachPerformance: jest.fn(),
+    mockFailAfterEachPerformance: jest.fn()
+  }
 };
 
 let start = new Promise<void>((resolve, reject) => {
@@ -34,8 +34,7 @@ let start = new Promise<void>((resolve, reject) => {
     if (err) {
       console.log(err);
       reject(err);
-    }
-    else {
+    } else {
       ctx = result!;
       failAfterEachPerformanceGroup = ctx.testGroups[0];
       failBeforeEachPerformanceGroup = ctx.testGroups[1];
@@ -156,6 +155,42 @@ describe("TestContext test results", (): void => {
     expect(test.negated).toBeTruthy();
     expect(test.pass).toBeFalsy();
   });
+
+  it("should report an array of numbers", (): void => {
+    const test = testGroup.tests[12];
+    expect(test.pass).toBeFalsy();
+    expect(test.actual!.message).toBe("[1,2,3]");
+    expect(test.expected!.message).toBe("[4,5,6]");
+  });
+
+  it("should report an actual long", (): void => {
+    const test = testGroup.tests[13];
+    expect(test.pass).toBeFalsy();
+    expect(test.actual!.message).toMatchInlineSnapshot(
+      `"Long Value: -9999999999"`
+    );
+    expect(test.expected!.message).toMatchInlineSnapshot(
+      `"Long Value: 9999999999"`
+    );
+  });
+
+  it("should log a long value", () => {
+    const test = testGroup.tests[14];
+    expect(test.logs[0].message).toMatchInlineSnapshot(
+      `"Value 999999999999999"`
+    );
+  });
+
+  it("should log a u32 value", () => {
+    const test = testGroup.tests[15];
+    expect(test.logs[0].value).toBe(4294967295);
+  });
+
+  it("should expect two u32 values", () => {
+    const test = testGroup.tests[16];
+    expect(test.actual!.value).toBe(4294967294);
+    expect(test.expected!.value).toBe(4294967293)
+  });
 });
 
 describe("TestContext performance metrics", (): void => {
@@ -165,7 +200,7 @@ describe("TestContext performance metrics", (): void => {
   });
 
   it("should have variance enabled", (): void => {
-    const test  = performanceGroup.tests[1];
+    const test = performanceGroup.tests[1];
     expect(test.hasVariance).toBeTruthy();
     expect(test.rawVariance).not.toBe(0);
     expect(test.variance).toBe(round(test.rawVariance, test.decimalPlaces));
@@ -220,7 +255,6 @@ describe("TestContext performance metrics", (): void => {
   });
 });
 
-
 describe("TestContext control flow", (): void => {
   it("should have a single test", (): void => {
     expect(controlFlowGroup.tests).toHaveLength(1);
@@ -246,7 +280,9 @@ describe("fail beforeAll", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failBeforeAllGroup.pass).toBeFalsy();
-    expect(failBeforeAllGroup.reason).toBe(`Test suite failBeforeAll failed in beforeAll callback.`)
+    expect(failBeforeAllGroup.reason).toBe(
+      `Test suite failBeforeAll failed in beforeAll callback.`
+    );
   });
 });
 
@@ -257,7 +293,9 @@ describe("fail beforeEach", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failBeforeEachGroup.pass).toBeFalsy();
-    expect(failBeforeEachGroup.reason).toBe(`Test suite failBeforeEach failed in beforeEach callback.`)
+    expect(failBeforeEachGroup.reason).toBe(
+      `Test suite failBeforeEach failed in beforeEach callback.`
+    );
   });
 });
 
@@ -268,7 +306,9 @@ describe("fail afterEach", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failAfterEachGroup.pass).toBeFalsy();
-    expect(failAfterEachGroup.reason).toBe(`Test suite failAfterEach failed in afterEach callback.`)
+    expect(failAfterEachGroup.reason).toBe(
+      `Test suite failAfterEach failed in afterEach callback.`
+    );
   });
 });
 
@@ -279,7 +319,9 @@ describe("fail afterAll", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failAfterAllGroup.pass).toBeFalsy();
-    expect(failAfterAllGroup.reason).toBe(`Test suite failAfterAll failed in afterAll callback.`)
+    expect(failAfterAllGroup.reason).toBe(
+      `Test suite failAfterAll failed in afterAll callback.`
+    );
   });
 });
 
@@ -290,7 +332,9 @@ describe("fail beforeEach in performance", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failBeforeEachPerformanceGroup.pass).toBeFalsy();
-    expect(failBeforeEachPerformanceGroup.reason).toBe(`Test suite failBeforeEachPerformance failed in beforeEach callback.`)
+    expect(failBeforeEachPerformanceGroup.reason).toBe(
+      `Test suite failBeforeEachPerformance failed in beforeEach callback.`
+    );
   });
 });
 
@@ -301,12 +345,18 @@ describe("fail afterEach in performance", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failAfterEachPerformanceGroup.pass).toBeFalsy();
-    expect(failAfterEachPerformanceGroup.reason).toBe(`Test suite failAfterEachPerformance failed in afterEach callback.`)
+    expect(failAfterEachPerformanceGroup.reason).toBe(
+      `Test suite failAfterEachPerformance failed in afterEach callback.`
+    );
   });
 });
 
 describe("other specs", (): void => {
-  const t = new TestContext(new EmptyReporter(), "empty.ts", { enabled: false });
+  const t = new TestContext({
+    reporter: new EmptyReporter(),
+    fileName: "empty.ts",
+    performanceConfiguration: { enabled: false }
+  });
   it("should return 1 when tryCall is passed -1", (): void => {
     // @ts-ignore
     expect(t.tryCall(-1)).toBe(1);

@@ -1,6 +1,11 @@
 import { Vec3 } from "./setup/Vec3";
+import { debug } from "../internal/Test";
 // @ts-ignore: we are going to use internal store to set arraybuffer contents
-import { STORE } from "internal/arraybuffer";
+
+@inline
+function STORE<T>(ptr: ArrayBuffer, index: usize, value: T, byteOffset: usize = 0): void {
+   store<T>(changetype<usize>(ptr) + (index << alignof<T>()) + byteOffset, value);
+}
 
 var vec1: Vec3 = new Vec3(1, 2, 3);
 var vec2: Vec3 = new Vec3(4, 5, 6);
@@ -23,6 +28,14 @@ STORE<f64>(buff3, 1, 5.0);
 STORE<f64>(buff1, 2, 3.0);
 STORE<f64>(buff2, 2, 3.0);
 STORE<f64>(buff3, 2, 6.0);
+
+let arry1: Array<Vec3> = new Array<Vec3>();
+let arry2: Array<Vec3> = new Array<Vec3>();
+
+for (let i = 0; i < 3; i++) {
+  arry1.push(new Vec3(1, 2, 3));
+  arry2.push(new Vec3(1, 2, 3));
+}
 
 
 /**
@@ -151,7 +164,7 @@ describe("toStrictEqual", (): void => {
    * the offestof<Arraybuffer>() compile time constant.
    */
   it("should assert arraybuffers are not equal", (): void => {
-    expect<ArrayBuffer>(buff1).not.toStrictEqual(buff3);
+    expect<ArrayBuffer>(buff1).not.toStrictEqual(buff3, "buff1 and buff 3 are not strictly equal");
   });
 
   /**
@@ -160,4 +173,60 @@ describe("toStrictEqual", (): void => {
   throws("should throw when different ArrayBuffers are expected to strictly equal each other", (): void => {
     expect<ArrayBuffer>(buff1).toStrictEqual(buff3);
   }, "Non-strictEqual array buffers should throw when they are expected to strictly equal each other.");
+
+  /**
+   * Arrays of references should throw since they cannot be compared well yet.
+   */
+  throws("when passed an array of references to toStrictEqual", () => {
+    expect<Array<Vec3>>(arry1).toStrictEqual(arry2);
+  }, "Using Arrays of references should throw errors.");
+
+  /**
+   * Arrays that equal each other exactly should pass.
+   */
+  it("should assert two array values are strictly equal when they point to the same place", () => {
+    let a: i32[] = [1, 2, 3];
+    expect<i32[]>(a).toStrictEqual(a, "a should match a");
+  });
+
+  /**
+   * Array references that are exactly the same should throw when the expectation is negated.
+   */
+  throws("when actual and expected are the same reference but the expectation is negated", () => {
+    let a: i32[] = [1, 2, 3];
+    expect<i32[]>(a).not.toStrictEqual(a);
+  }, "a is equal to a, and the expectation should throw");
+
+  /**
+   * Array references that strictly equal each other should not throw.
+   */
+  it("should assert that array values strictly equal each other when they match", () => {
+    let a: i32[] = [1, 2, 3];
+    expect<i32[]>(a).toStrictEqual([1, 2, 3], "[1, 2, 3] should match a");
+  });
+
+  /**
+   * Array references that strictly equal each other should throw when the expectation is negated.
+   */
+  throws("when two array references equal each other but the expectation is negated", () => {
+    let a: i32[] = [1, 2, 3];
+    expect<i32[]>(a).not.toStrictEqual([1, 2, 3], "[1, 2, 3] should match a");
+  });
+
+  /**
+   * Array references that don't equal each other should not fail when negated.
+   */
+  it("should assert that arrays that don't strictly equal each other", () => {
+    let a: i32[] = [1, 2, 3];
+    expect<i32[]>(a).not.toStrictEqual([4, 5, 6]);
+  });
+
+  /**
+   * Array references that don't strictly equal each other should fail the expectation.
+   */
+  throws("when two array references don't strictly equal each other", () => {
+    let a: i32[] = [1, 2, 3];
+    expect<i32[]>(a).toStrictEqual([4, 5, 6]);
+  });
+
 });

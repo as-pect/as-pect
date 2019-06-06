@@ -6,10 +6,14 @@ import { ILogTarget } from "../util/ILogTarget";
  * in the `AssemblyScript` module.
  */
 export declare class TestResult implements ILogTarget {
+    /** This is the test function pointer. */
+    functionPointer: number;
     /** The actual test's name or description. */
     name: string;
     /** The indicator to see if the test passed. */
     pass: boolean;
+    /** The indicated to see if a test actually ran. */
+    ran: boolean;
     /** The time in milliseconds indicating how long the test ran for each run. */
     times: number[];
     /** The reported actual value description. */
@@ -26,28 +30,44 @@ export declare class TestResult implements ILogTarget {
     negated: boolean;
     /** This value indicates if performance statistics were collected for this test. */
     performance: boolean;
+    /** This value indicates the maximum number of samples to collect. */
+    maxSamples: number;
+    /** This value indicates the maximum test runtime. */
+    maxRuntime: number;
     /** The number of decimal places used for rounding. */
     decimalPlaces: number;
+    /** This value indicates if an average should be calculated */
+    calculateAverageValue: boolean;
     /** This value indicates if an average was calculated. */
     hasAverage: boolean;
     /** This is the average (mean) value. */
     average: number;
+    /** This value indicates if a max value should be calculated. */
+    calculateMaxValue: boolean;
     /** This value indicates if a max was calculated. */
     hasMax: boolean;
     /** This is the max time. */
     max: number;
+    /** This value indicates if a median value should be calculated. */
+    calculateMedianValue: boolean;
     /** This value indicates if a median value was calculated. */
     hasMedian: boolean;
     /** This is the calculated median time. */
     median: number;
+    /** This value indicated if a min value should be calculated. */
+    calculateMinValue: boolean;
     /** This value indicates if a min value was calculated. */
     hasMin: boolean;
     /** This is the calculated min time. */
     min: number;
+    /** This value indicates if a standard deviation value should be calculated. */
+    calculateStandardDeviationValue: boolean;
     /** This value indicates if a standard deviation value was calculated. */
     hasStdDev: boolean;
     /** This is the calculated standard deviation of the times collected. */
     stdDev: number;
+    /** This value indicates if the variance should be calculated. */
+    calculateVarianceValue: boolean;
     /** A boolean indicating if the variance was calcluated. */
     hasVariance: boolean;
     /** The raw variance calculation before rounding was applied. */

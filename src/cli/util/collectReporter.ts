@@ -4,7 +4,14 @@ import { EmptyReporter } from "../../reporter/EmptyReporter";
 import { SummaryTestReporter } from "../../reporter/SummaryTestReporter";
 import { IYargs } from "./IYargs";
 import path from "path";
+import { CSVTestReporter } from "../../reporter/CSVTestReporter";
+import { JSONTestReporter } from "../../reporter/JSONTestReporter";
 
+/**
+ * This method inspects the command line arguments and returns the corresponding TestReporter.
+ *
+ * @param {IYargs} yargs - The command line arguments.
+ */
 export function collectReporter(yargs: IYargs): TestReporter {
   const targetReporter: string = yargs.argv.reporter || yargs.argv.r;
   // get relative reporters
@@ -28,8 +35,8 @@ export function collectReporter(yargs: IYargs): TestReporter {
       }
     }
     catch (ex) {
-      console.log("Cannot find target reporter at", path.join(process.cwd(), targetReporter));
-      console.log(ex);
+      console.error("Cannot find target reporter at", path.join(process.cwd(), targetReporter));
+      console.error(ex);
       process.exit(1);
       // @ts-ignore: the process has exited
       return null;
@@ -40,6 +47,12 @@ export function collectReporter(yargs: IYargs): TestReporter {
   }
   else if (targetReporter === "SummaryTestReporter") {
     return new SummaryTestReporter();
+  }
+  else if (targetReporter === "CSVTestReporter") {
+    return new CSVTestReporter();
+  }
+  else if (targetReporter === "JSONTestReporter") {
+    return new JSONTestReporter();
   }
   else {
     return new DefaultTestReporter();

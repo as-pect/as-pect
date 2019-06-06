@@ -80,6 +80,24 @@ declare function test(description: string, callback: () => void): void;
   */
  declare function throws(description: string, callback: () => void, message?: string): void;
 
+
+/**
+ * This function creates a test that is expected to fail. This is useful to verify if a given
+ * behavior is expected to throw.
+ *
+ * @param {string} description - This is the name of the test, and should describe a behavior.
+ * @param {() => void} callback - A function that contains a set of expectations for this test.
+ * @param {string?} message - A message that describes why the test should fail.
+ * @example
+ * describe("the meaning of life", (): void => {
+  *   itThrows("when the value should be 42", (): void => {
+  *     // put your expectations here
+  *     expect<i32>(29 + 13).not.toBe(42);
+  *   }, "The value is actually 42.");
+  * });
+  */
+ declare function itThrows(description: string, callback: () => void, message?: string): void;
+
 /**
  * This function creates a callback that is called before each individual test is run in this test
  * group.
@@ -222,8 +240,9 @@ declare class Expectation<T> {
 
   /**
    * This expectation performs a strict equality on value types and performs a memcompare on
-   * reference types. If the reference type T has reference types as properties, the comparison does
-   * not perform property traversal. It will only compare the pointer values in the memory block.
+   * reference types. If the reference type `T` has reference types as properties, the comparison does
+   * not perform property traversal. It will only compare the pointer values in the memory block, and
+   * only compare `offsetof<T>()` bytes, regardless of the allocated block size.
    *
    * @param {T | null} expected - The value to be compared.
    * @param {string} message - The optional message that describes the expectation.
@@ -232,6 +251,17 @@ declare class Expectation<T> {
    * expect<Vec3>(new Vec3(1, 2, 3)).toStrictEqual(new Vec(1, 2, 3), "Vectors of the same shape should be equal");
    */
   toStrictEqual(expected: T | null, message?: string): void;
+
+  /**
+   * This expectation performs a strict memory block equality based on the allocated block sizes.
+   *
+   * @param {T | null} expected - The value to be compared.
+   * @param {string} message - The optional message that describes the expectation.
+   *
+   * @example
+   * expect<Vec3>(new Vec3(1, 2, 3)).toBlockEqual(new Vec(1, 2, 3), "Vectors of the same shape should be equal");
+   */
+  toBlockEqual(expected: T | null, message?: string): void;
 
   /**
    * If the value is callable, it calls the function, and fails the expectation if it throws, or hits
@@ -389,8 +419,28 @@ declare class Expectation<T> {
   toHaveLength(expected: i32, message?: string): void;
 
   /**
+   * This method asserts that a given T that extends Array<U> has a value/reference included.
+   *
+   * @param {i32} expected - The expected item to be included in the Array.
+   * @param {string} message - The optional message the describes this expectation.
+   */
+  toInclude<U>(expected: U, message?: string): void;
+
+
+  /**
+   * This method asserts that a given T that extends Array<U> has a value/reference included and
+   * compared via memory.compare().
+   *
+   * @param {i32} expected - The expected item to be included in the Array.
+   * @param {string} message - The optional message the describes this expectation.
+   */
+  toIncludeEqual<U>(expected: U, message?: string): void;
+
+  /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
    *
+   * @param {U} expected - The expected item.
+   * @param {string} message - The optional message the describes this expectation.
    * @type {Expectation<T>}
    */
   not: Expectation<T>;

@@ -6,12 +6,19 @@ import chalk from "chalk";
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { TestReporter } from "../test/TestReporter";
+import { IWritable } from "./IWriteable";
 
 const enum ValueType {
   Actual,
   Expected,
 }
 
+/**
+ * This method stringifies an actual or expected test value.
+ *
+ * @param {ValueType} type - Actual or Expected.
+ * @param {ActualValue | null} value - The reported value.
+ */
 function stringifyActualValue(type: ValueType, value: ActualValue | null): string {
   if (!value) return "";
   let byteString: string = "";
@@ -76,16 +83,23 @@ function createReferenceString(bytes: number[], pointer: number, offset: number)
   return result.trimRight();
 }
 
+/**
+ * This weakmap is used to keep track of which logs have already been printed, and from what index.
+ */
 const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
 
+/**
+ * This is the default test reporter class for the `asp` command line application. It will pipe
+ * all relevant details about each tests to the `stdout` WriteStream.
+ */
 export class DefaultTestReporter extends TestReporter {
-  public onStart(_suite: TestContext): void {
+  protected stdout: IWritable | null = null;
 
+  public onStart(suite: TestContext): void {
+    this.stdout = suite.stdout || process.stdout;
   }
   public onGroupStart(group: TestGroup): void {
-    console.log("");
-    console.log(chalk`[Describe]: ${group.name}`);
-    console.log("");
+    this.stdout!.write(chalk`\n[Describe]: ${group.name}\n\n`);
 
     for (const logValue of group.logs) {
       this.onLog(logValue);
@@ -104,59 +118,65 @@ export class DefaultTestReporter extends TestReporter {
     for (const logValue of group.logs.slice(groupLogIndex.get(group) || 0)) {
       this.onLog(logValue);
     }
-
-    console.log("");
-    console.log(chalk`  [Result]: ${result}`);
-    console.log(chalk`   [Tests]: ${successCount.toString()} pass, ${(count - successCount).toString()} fail, ${count.toString()} total`);
-    console.log(chalk`    [Todo]: ${todoCount.toString()} tests`);
-    console.log(chalk`    [Time]: ${group.time.toString()}ms`);
+    const fail = (count === successCount)
+      ? `0 fail`
+      : chalk`{red ${(count - successCount).toString()} fail}`
+    const output = chalk`
+  [Result]: ${result}
+   [Tests]: {green ${successCount.toString()} pass}, ${fail}, ${count.toString()} total
+    [Todo]: ${todoCount.toString()} tests
+    [Time]: ${group.time.toString()}ms
+`;
+    this.stdout!.write(output);
   }
   public onTestStart(_group: TestGroup, _test: TestResult): void {}
   public onTestFinish(_group: TestGroup, test: TestResult): void {
     if (test.pass) {
-      console.log(chalk` {green [Success]: ✔} ${test.name}`);
+      this.stdout!.write(chalk` {green [Success]: ✔} ${test.name}\n`);
     } else {
-      console.log(chalk`    {red [Fail]: ✖} ${test.name}`);
-      console.log("");
+      this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
+
       if (!test.negated) {
-        console.log(`   [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}`);
-        console.log(` [Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}`);
+        this.stdout!.write(`
+   [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}
+ [Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}
+`);
       }
 
       if (test.message) {
-        console.log(chalk`  [Message]: {yellow ${test.message}}`);
+        this.stdout!.write(chalk`  [Message]: {yellow ${test.message}}\n`);
       }
       if (test.stack) {
-        console.log(`    [Stack]: ${test.stack.split("\n").join("\n           ")}`);
+        this.stdout!.write(`    [Stack]: ${test.stack.split("\n").join("\n           ")}\n`);
       }
     }
 
     if (test.performance) {
-      console.log(chalk` {yellow [Samples]}: ${test.times.length.toString()}`);
+      this.stdout!.write(chalk` {yellow [Samples]}: ${test.times.length.toString()} runs\n`);
 
       // log statistics
       if (test.hasAverage) {
-        console.log(chalk`    {yellow [Mean]}: ${test.average.toString()}ms`);
+        this.stdout!.write(chalk`    {yellow [Mean]}: ${test.average.toString()}ms\n`);
       }
 
       if (test.hasMedian) {
-        console.log(chalk`  {yellow [Median]}: ${test.median.toString()}ms`);
+        this.stdout!.write(chalk`  {yellow [Median]}: ${test.median.toString()}ms\n`);
       }
 
       if (test.hasVariance) {
-        console.log(chalk`{yellow [Variance]}: ${test.variance.toString()}ms`);
+        this.stdout!.write(chalk`{yellow [Variance]}: ${test.variance.toString()}ms\n`);
       }
 
       if (test.hasStdDev) {
-        console.log(chalk`  {yellow [StdDev]}: ${test.stdDev.toString()}ms`);
+        this.stdout!.write(chalk`  {yellow [StdDev]}: ${test.stdDev.toString()}ms\n`);
       }
 
       if (test.hasMax) {
-        console.log(chalk`     {yellow [Max]}: ${test.max.toString()}ms`);
+        this.stdout!.write(chalk`     {yellow [Max]}: ${test.max.toString()}ms\n`);
       }
 
       if (test.hasMin) {
-        console.log(chalk`     {yellow [Min]}: ${test.min.toString()}ms`);
+        this.stdout!.write(chalk`     {yellow [Min]}: ${test.min.toString()}ms\n`);
       }
     } else {
       // log the log values
@@ -166,6 +186,7 @@ export class DefaultTestReporter extends TestReporter {
     }
   }
   public onFinish(suite: TestContext): void {
+    if (suite.testGroups.length === 0) return;
     const result = suite.pass
       ? chalk`{green ✔ Pass}`
       : chalk`{red ✖ Fail}`;
@@ -176,18 +197,25 @@ export class DefaultTestReporter extends TestReporter {
     const successCount = suite.testGroups
       .map(e => e.tests.filter(f => f.pass).length)
       .reduce((a, b) => a + b, 0);
-    console.log("");
-    console.log("~".repeat(process.stdout.columns! - 10));
-    console.log("");
-    console.log(chalk`    [File]: ${suite.file}`);
-    console.log(chalk`  [Groups]: ${suite.testGroups.filter(e => e.pass).length.toString()} pass, ${suite.testGroups.length.toString()} total`);
-    console.log(chalk`  [Result]: ${result}`);
-    console.log(chalk` [Summary]: ${successCount.toString()} pass, ${(count - successCount).toString()} fail, ${count.toString()} total`);
-    console.log(chalk`    [Time]: ${suite.time.toString()}ms`);
-    console.log("");
+
+    const fail = (count === successCount)
+      ? `0 fail`
+      : chalk`{red ${(count - successCount).toString()} fail}`;
+
+    this.stdout!.write(chalk`
+${"~".repeat(process.stdout.columns! - 10)}
+
+    [File]: ${suite.fileName}
+  [Groups]: {green ${suite.testGroups.filter(e => e.pass).length.toString()} pass}, ${suite.testGroups.length.toString()} total
+  [Result]: ${result}
+ [Summary]: {green ${successCount.toString()} pass},  ${fail}, ${count.toString()} total
+ [Startup]: ${suite.startupTime.toString()}ms
+    [Time]: ${suite.time.toString()}ms
+`);
+
   }
   public onTodo(_group: TestGroup, todo: string): void {
-    console.log(chalk`    {yellow [Todo]:} ${todo}`);
+    this.stdout!.write(chalk`    {yellow [Todo]:} ${todo}\n`);
   }
 
   /**
@@ -202,17 +230,17 @@ export class DefaultTestReporter extends TestReporter {
 
     // log the log message
     if (logValue.pointer > 0) {
-      console.log(chalk`     {yellow [Log]:} Reference at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}`);
+      this.stdout!.write(chalk`     {yellow [Log]:} Reference at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}\n`);
     } else {
-      console.log(chalk`     {yellow [Log]:} ${logValue.message}`);
+      this.stdout!.write(chalk`     {yellow [Log]:} ${logValue.message}\n`);
     }
 
     // if there are bytes to show, create a logging representation of the bytes
     if (logValue.bytes.length > 0) {
       const value = createReferenceString(logValue.bytes, logValue.pointer, logValue.offset);
-      console.log(chalk`            {blueBright ${value.split("\n").join("\n            ")}}`);
+      this.stdout!.write(chalk`            {blueBright ${value.split("\n").join("\n            ")}}\n`);
     }
 
-    console.log(chalk`        {yellow ${logValue.stack.split("\n").join("\n        ")}}\n`);
+    this.stdout!.write(chalk`        {yellow ${logValue.stack.split("\n").join("\n        ")}}\n\n`);
   }
 }

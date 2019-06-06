@@ -87,6 +87,12 @@ export function afterAll(callback: () => void): void {
 
 // @ts-ignore: decorators *are* valid here
 @global
+export function itThrows(description: string, callback: () => void, message: string = ""): void {
+  reportNegatedTest(description, callback, message);
+}
+
+// @ts-ignore: decorators *are* valid here
+@global
 export function throws(description: string, callback: () => void, message: string = ""): void {
   reportNegatedTest(description, callback, message);
 }

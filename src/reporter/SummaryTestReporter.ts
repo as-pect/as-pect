@@ -3,6 +3,11 @@ import { TestContext } from "../test/TestContext";
 import { TestResult } from "../test/TestResult";
 import chalk from "chalk";
 
+/**
+ * This test reporter should be used when logging output and test validation only needs happen on
+ * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
+ * process.
+ */
 export class SummaryTestReporter extends TestReporter {
   public onStart(): void {}
   public onGroupStart(): void {}
@@ -19,23 +24,23 @@ export class SummaryTestReporter extends TestReporter {
     const total = tests.length;
     const pass = tests.reduce((left, right) => right.pass ? left + 1 : left, 0);
     if (pass === total) {
-      console.log(
-        chalk`{green.bold ✔ ${suite.file}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms`,
+      suite.stdout!.write(
+        chalk`{green.bold ✔ ${suite.fileName}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
       );
     } else {
-      console.log(
-        chalk`{red.bold ❌ ${suite.file}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms`,
+      suite.stdout!.write(
+        chalk`{red.bold ❌ ${suite.fileName}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
       );
 
       for (const group of suite.testGroups) {
         if (group.pass) continue;
-        console.log(chalk`  ${group.name}`);
+        suite.stdout!.write(chalk`  ${group.name}\n`);
         inner:
         for (const test of group.tests) {
           if (test.pass) continue inner;
-          console.log(chalk`    {red.bold ❌ ${test.name}} - ${test.message}`);
-          if (test.expected !== null) console.log(chalk`      {green.bold [Expected]:} ${test.expected.message}`);
-          if (test.actual !== null) console.log(chalk`      {red.bold [Actual]  :} ${test.actual.message}`);
+          suite.stdout!.write(chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`);
+          if (test.expected !== null) suite.stdout!.write(chalk`      {green.bold [Expected]:} ${test.expected.message}\n`);
+          if (test.actual !== null) suite.stdout!.write(chalk`      {red.bold [Actual]  :} ${test.actual.message}\n`);
         }
       }
     }

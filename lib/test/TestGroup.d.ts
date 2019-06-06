@@ -6,33 +6,66 @@ import { TestResult } from "./TestResult";
  * represented by an array.
  */
 export declare class TestGroup implements ILogTarget {
-    describePointers: number[];
+    /**
+     * This is the set of function pointers that will be called before each test.
+     */
     beforeEachPointers: number[];
+    /**
+     * This is the set of function pointers that will be called after each test.
+     */
     afterEachPointers: number[];
+    /**
+     * This is the set of function pointers that will be called before each describe block.
+     */
     beforeAllPointers: number[];
+    /**
+     * This is the set of function pointers that will be called after each describe block.
+     */
     afterAllPointers: number[];
-    testFunctionPointers: number[];
-    testNamePointers: number[];
-    testMessagePointers: number[];
-    testThrows: boolean[];
+    /**
+     * This is the list of tests that the `TestContext` ran for this group.
+     */
     tests: TestResult[];
-    todoPointers: number[];
+    /**
+     * This is a list of "todos" that were collected for this group.
+     */
     todos: string[];
+    /**
+     * This is the set of log values that were collected before and after the tests ran.
+     */
     logs: LogValue[];
+    /**
+     * This is the name of the test.
+     */
     name: string;
+    /**
+     * This is a value indicating if the group's tests passed successfully.
+     */
     pass: boolean;
+    /**
+     * This is the reason that the group's tests did not pass.
+     */
     reason: string;
+    /**
+     * This is how long the group ran in ms.
+     */
     time: number;
-    performanceEnabled: Array<boolean | undefined>;
-    maxSamples: Array<number | undefined>;
-    roundDecimalPlaces: Array<number | undefined>;
-    maxTestRuntime: Array<number | undefined>;
-    reportAverage: Array<boolean | undefined>;
-    reportMedian: Array<boolean | undefined>;
-    reportStandardDeviation: Array<boolean | undefined>;
-    reportMax: Array<boolean | undefined>;
-    reportMin: Array<boolean | undefined>;
-    reportVariance: Array<boolean | undefined>;
+    /**
+     * A value indicating if this test group should run.
+     */
+    willRun: boolean;
+    /**
+     * The group start time.
+     */
+    start: number;
+    /**
+     * The group end time.
+     */
+    end: number;
+    /**
+     * This method creates a new TestGroup that contains a reference to all of the current flow
+     * functions of this `TestGroup`.
+     */
     fork(): TestGroup;
 }
 //# sourceMappingURL=TestGroup.d.ts.map

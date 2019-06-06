@@ -57,6 +57,7 @@ describe("A test Suite", (): void => {
     log<i32>(42);
     log<Vec3>(null);
     log<Vec3>(new Vec3());
+    log<i32[]>([1, 2, 3]);
   });
 
   it("should expect strings", (): void => {
@@ -93,6 +94,26 @@ describe("A test Suite", (): void => {
 
   throws("should fail when test does not throw", (): void => {
     expect<i32>(0).toBe(0);
+  });
+
+  it("should report array values", () => {
+    expect<i32[]>([1, 2, 3]).toStrictEqual([4, 5, 6]);
+  });
+
+  it("should report long values", () => {
+    expect<i64>(-9999999999).toBe(9999999999);
+  });
+
+  it("should log a long value", () => {
+    log<u64>(999999999999999);
+  });
+
+  it("should log an unsigned integer value", () => {
+    log<u32>(4294967295);
+  });
+
+  it("should report u32 values", () => {
+    expect<u32>(4294967294).toBe(4294967293);
   });
 
   todo("this should be a todo");

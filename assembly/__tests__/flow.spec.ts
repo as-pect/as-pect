@@ -5,7 +5,7 @@ var afterAllRan: i32 = 0;
 var testCount: i32 = 0;
 
 /**
- * This test suite is designed to test how the test flow functions work. There are two describe
+ * This test suite is designed to test how the test how flow functions work. There are two describe
  * blocks. The first describe block runs three fake tests, to call the control flow functions. Each
  * control flow function increments a value, and those values are tested below.
  *
@@ -60,6 +60,10 @@ describe("flow", (): void => {
  * In this case, this second describe block will run first, and set the global values.
  */
 describe("example test", (): void => {
+
+  /**
+   * The following flow tests modify the global values.
+   */
   beforeAll((): void => {
     beforeAllRan += 1;
   });
@@ -76,6 +80,9 @@ describe("example test", (): void => {
     afterAllRan += 1;
   });
 
+  /**
+   * The following three tests increase the testCount.
+   */
   it("should run this example test", (): void => {
     testCount += 1;
   });
@@ -88,6 +95,10 @@ describe("example test", (): void => {
     testCount += 1;
   });
 
+  /**
+   * This test increases the test count, and is garunteed to throw by using an `unreachable()`
+   * instruction.
+   */
   throws("this test should run", (): void => {
     testCount += 1;
     unreachable();

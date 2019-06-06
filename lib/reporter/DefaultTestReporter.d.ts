@@ -3,8 +3,14 @@ import { TestResult } from "../test/TestResult";
 import { TestContext } from "../test/TestContext";
 import { LogValue } from "../util/LogValue";
 import { TestReporter } from "../test/TestReporter";
+import { IWritable } from "./IWriteable";
+/**
+ * This is the default test reporter class for the `asp` command line application. It will pipe
+ * all relevant details about each tests to the `stdout` WriteStream.
+ */
 export declare class DefaultTestReporter extends TestReporter {
-    onStart(_suite: TestContext): void;
+    protected stdout: IWritable | null;
+    onStart(suite: TestContext): void;
     onGroupStart(group: TestGroup): void;
     onGroupFinish(group: TestGroup): void;
     onTestStart(_group: TestGroup, _test: TestResult): void;

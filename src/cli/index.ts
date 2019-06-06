@@ -17,20 +17,29 @@ const pkg = require("../../package.json");
  * @param {string[]} args - The arguments from the command line
  */
 export function asp(args: string[]) {
+  const hasCompilerArgs = args.includes("--");
+  const aspectArgs: string[] = hasCompilerArgs
+    ? args.slice(0, args.indexOf("--"))
+    : args;
+  const compilerArgs: string[] = hasCompilerArgs
+    ? args.slice(args.indexOf("--") + 1)
+    : [];
+
   // parse the arguments
   const yargs = {
-    argv: yargsparser(args),
+    argv: yargsparser(aspectArgs),
   };
 
   // Skip ascii art if asked for the version
   if (!(yargs.argv.v || yargs.argv.version)) {
     console.log(chalk`{bold.bgWhite.black ${""
-  }       ___   _____                       __  
-      /   | / ___/      ____  ___  _____/ /_ 
-     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/ 
-    / ___ |___/ /_____/ /_/ /  __/ /__/ /_   
-   /_/  |_/____/     / .___/\\___/\\___/\\__/   
-                    /_/                      }
+  }       ___   _____                       __    
+      /   | / ___/      ____  ___  _____/ /_   
+     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/   
+    / ___ |___/ /_____/ /_/ /  __/ /__/ /_     
+   /_/  |_/____/     / .___/\\___/\\___/\\__/     
+                    /_/                        }
+
   ⚡AS-pect⚡ Test suite runner {bgGreenBright.black [${pkg.version}]}
   `);
   }
@@ -50,6 +59,6 @@ export function asp(args: string[]) {
   } else if (yargs.argv.help || yargs.argv.h) { // display the help file
     help();
   } else { // run the compiler and test suite
-    run(yargs);
+    run(yargs, compilerArgs);
   }
 }
