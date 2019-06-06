@@ -1,6 +1,6 @@
 
 // @ts-ignore
-import asc from "assemblyscript/dist/asc";
+import * as asc from "assemblyscript/dist/asc";
 //@ts-ignore
 const parse = require("assemblyscript/cli/util/options").parse;
 import { TestContext } from "../test/TestContext";
