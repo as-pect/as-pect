@@ -3,7 +3,13 @@ import { reportExpected } from "../report/reportExpected";
 import { assert } from "./assert";
 
 /**
- * This method performs a lessThanOrEqualTo comparison between two values.
+ * This method performs a lessThanOrEqualTo comparison between two values.\
+ *
+ * @param T - The expectation type.
+ * @param {T} actual - The actual value.
+ * @param {T} expected - The expected value.
+ * @param {i32} negated - The indicator that the assertion is negated.
+ * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
 // @ts-ignore: Decorators *are* valid here!
 @inline

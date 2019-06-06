@@ -7,11 +7,11 @@ declare function reportActualNull(): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualValue")
-declare function reportActualFloat(value: f64): void;
+declare function reportActualFloat(value: f64, signed: bool): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualValue")
-declare function reportActualInteger(value: i32): void;
+declare function reportActualInteger(value: i32, signed: bool): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualReference")
@@ -29,25 +29,51 @@ declare function reportActualArray(value: usize): void;
 @external("__aspect", "reportActualLong")
 declare function reportActualLong(value: usize, signed: bool): void;
 
+/**
+ * This class is static and contains a bunch of globals that represent the Actual value of a given
+ * expectation.
+ */
 export class Actual {
+  /**
+   * This is the Actual value type.
+   */
   static type: ValueType = ValueType.Null;
+  /**
+   * This indicated if an actual integer or long is signed.
+   */
+  static signed: bool = false;
+  /**
+   * This is an actual float value.
+   */
   static float: f64 = 0;
+  /**
+   * This is an actual integer value.
+   */
   static integer: i32 = 0;
+  /**
+   * This is an actual reference value, stored as a pointer.
+   */
   static reference: usize;
+  /**
+   * If the actual type is a reference, the size of the block will be stored here.
+   */
   static offset: i32 = 0;
-  static expectation: usize = 0;
 }
 
+/**
+ * This method reports to the host what the current Actual value is.
+ */
 export function __sendActual(): void {
   switch (Actual.type) {
     case ValueType.Array:
         reportActualArray(changetype<usize>(Actual.reference));
         break;
     case ValueType.Float:
-        reportActualFloat(Actual.float);
+        // Do not convert to unsigned because floats are signed
+        reportActualFloat(Actual.float, true);
         break;
     case ValueType.Integer:
-        reportActualInteger(Actual.integer);
+        reportActualInteger(Actual.integer, Actual.signed);
         break;
     case ValueType.Null:
         reportActualNull();
@@ -58,9 +84,8 @@ export function __sendActual(): void {
     case ValueType.String:
         reportActualString(changetype<string>(Actual.reference))
         break;
-    case ValueType.UnsignedLong:
-    case ValueType.SignedLong:
-        reportActualLong(Actual.reference, Actual.type == ValueType.SignedLong);
+    case ValueType.Long:
+        reportActualLong(Actual.reference, Actual.signed);
         break;
   }
 }
@@ -68,6 +93,8 @@ export function __sendActual(): void {
 
 /**
  * This function performs reporting to javascript what the actual value of this expectation is.
+ *
+ * @param {T} actual - The actual value to be reported.
  */
 // @ts-ignore: Decorators *are* valid here!
 @inline
@@ -107,17 +134,20 @@ export function reportActual<T>(actual: T): void {
       // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
       Actual.float = <f64>actual;
     } else if (actual instanceof i64 || actual instanceof u64) {
-      Actual.type = actual instanceof i64
-        ? ValueType.SignedLong
-        : ValueType.UnsignedLong;
+      /**
+       * If the value is greater than an i32, we need to convert it to a `u64` or `i64`.
+       */
+      Actual.type = ValueType.Long;
+      Actual.signed = actual instanceof i64;
       let ref = new Box<T>(actual);
       let ptr = changetype<usize>(ref);
       __retain(ptr);
       __release(Actual.reference);
       Actual.reference = ptr;
     } else {
-      Actual.type = ValueType.Integer
-      // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
+      Actual.type = ValueType.Integer;
+      Actual.signed = actual instanceof i32;
+      // @ts-ignore: this cast is valid because it's already an `i32`
       Actual.integer = <i32>actual;
     }
   }

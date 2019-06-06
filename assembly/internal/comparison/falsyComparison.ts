@@ -3,6 +3,15 @@ import { assert } from "./assert";
 import { Expected } from "../report/reportExpected";
 import { ValueType } from "../report/ValueType";
 
+/**
+ * This method performs a falsyComparison. If T is a reference type, and actual is null or an empty
+ * string, it passes the comparison. If T is a number type, it validates that the value is `NaN` or `0`.
+ *
+ * @param T - The type of the expectation.
+ * @param {T} actual - The actual value.
+ * @param {i32} negated - The value indicating that assertion is negated.
+ * @param {string} message - The message describing the assertion.
+ */
 // @ts-ignore: Decorators *are* valid here!
 @inline
 export function falsyComparison<T>(actual: T, negated: i32, message: string): void {

@@ -12,9 +12,10 @@ describe("unreachable", (): void => {
   });
 
   /**
-   * This test verifies that a throws function is successful despite being unreachable.
+   * This is a unit test that a throws `unreachable()`. It should report success, because it's
+   * expected to throw.
    */
-  throws("garunteed unreachable", (): void => {
+  throws("when garunteed unreachable", (): void => {
     counter = 1;
     unreachable();
   }, "This test should throw");
@@ -64,7 +65,7 @@ describe("unreachable", (): void => {
   });
 
   /**
-   * This after each setup function validates that the callback was run, and the test results
+   * This after each setup function validates that the tested callback was run, and the test results
    * are reliable.
    */
   afterEach((): void => {

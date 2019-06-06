@@ -1,6 +1,9 @@
 /// <reference types="node" />
 /// <reference types="yargs-parser" />
 declare module "test/IWarning" {
+    /**
+     * This interface represents the shape of a warning.
+     */
     export interface IWarning {
         type: string;
         message: string;
@@ -9,6 +12,9 @@ declare module "test/IWarning" {
 }
 declare module "util/ILogTarget" {
     import { LogValue } from "util/LogValue";
+    /**
+     * This interface describes the shape of an object that can contain log values.
+     */
     export interface ILogTarget {
         logs: LogValue[];
     }
@@ -66,6 +72,10 @@ declare module "util/ActualValue" {
     }
 }
 declare module "test/PerformanceLimits" {
+    /**
+     * This enum is a set of compile time constants that represent the performance limits to prevent
+     * unsafe statistics gathering.
+     */
     export const enum PerformanceLimits {
         MaxSamples = 10000,
         MaxTestRuntime = 5000,
@@ -190,30 +200,66 @@ declare module "test/TestGroup" {
      * represented by an array.
      */
     export class TestGroup implements ILogTarget {
+        /**
+         * This is the set of function pointers that will be called before each test.
+         */
         beforeEachPointers: number[];
+        /**
+         * This is the set of function pointers that will be called after each test.
+         */
         afterEachPointers: number[];
+        /**
+         * This is the set of function pointers that will be called before each describe block.
+         */
         beforeAllPointers: number[];
+        /**
+         * This is the set of function pointers that will be called after each describe block.
+         */
         afterAllPointers: number[];
+        /**
+         * This is the list of tests that the `TestContext` ran for this group.
+         */
         tests: TestResult[];
+        /**
+         * This is a list of "todos" that were collected for this group.
+         */
         todos: string[];
+        /**
+         * This is the set of log values that were collected before and after the tests ran.
+         */
         logs: LogValue[];
+        /**
+         * This is the name of the test.
+         */
         name: string;
+        /**
+         * This is a value indicating if the group's tests passed successfully.
+         */
         pass: boolean;
+        /**
+         * This is the reason that the group's tests did not pass.
+         */
         reason: string;
+        /**
+         * This is how long the group ran in ms.
+         */
         time: number;
+        /**
+         * A value indicating if this test group should run.
+         */
         willRun: boolean;
-        performanceEnabled: Array<boolean | undefined>;
-        maxSamples: Array<number | undefined>;
-        roundDecimalPlaces: Array<number | undefined>;
-        maxTestRuntime: Array<number | undefined>;
-        reportAverage: Array<boolean | undefined>;
-        reportMedian: Array<boolean | undefined>;
-        reportStandardDeviation: Array<boolean | undefined>;
-        reportMax: Array<boolean | undefined>;
-        reportMin: Array<boolean | undefined>;
-        reportVariance: Array<boolean | undefined>;
+        /**
+         * The group start time.
+         */
         start: number;
+        /**
+         * The group end time.
+         */
         end: number;
+        /**
+         * This method creates a new TestGroup that contains a reference to all of the current flow
+         * functions of this `TestGroup`.
+         */
         fork(): TestGroup;
     }
 }
@@ -221,6 +267,9 @@ declare module "test/TestReporter" {
     import { TestContext } from "test/TestContext";
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
+    /**
+     * This is the abstract shape of a `TestReporter`. It can be extended to create a `TestReporter`.
+     */
     export abstract class TestReporter {
         /**
          * A function that is called when a test suite starts.
@@ -270,6 +319,9 @@ declare module "test/TestReporter" {
     }
 }
 declare module "reporter/IWriteable" {
+    /**
+     * This interface is a utitily used to describe the shape of something that has a `write()` method.
+     */
     export interface IWritable {
         write(chunk: string): void;
     }
@@ -281,6 +333,10 @@ declare module "reporter/DefaultTestReporter" {
     import { LogValue } from "util/LogValue";
     import { TestReporter } from "test/TestReporter";
     import { IWritable } from "reporter/IWriteable";
+    /**
+     * This is the default test reporter class for the `asp` command line application. It will pipe
+     * all relevant details about each tests to the `stdout` WriteStream.
+     */
     export class DefaultTestReporter extends TestReporter {
         protected stdout: IWritable | null;
         onStart(suite: TestContext): void;
@@ -299,15 +355,45 @@ declare module "reporter/DefaultTestReporter" {
     }
 }
 declare module "util/timeDifference" {
+    /**
+     * This method calculates the start and end time difference, rounding off to the nearest thousandth
+     * of a millisecond.
+     *
+     * @param {number} end - The end time.
+     * @param {number} start - The start time.
+     */
     export const timeDifference: (end: number, start: number) => number;
 }
 declare module "util/IAspectExports" {
+    /**
+     * This is the shape of the exported functions provided by the `as-pect` test suite.
+     */
     export interface IAspectExports {
+        /**
+         * This method calls a function pointer that matches the `() => void` type.
+         *
+         * @param {number} pointer - The function pointer.
+         */
         __call(pointer: number): void;
-        __main(): void;
+        /**
+         * This method is called when the tests are ready to run.
+         */
         __ready(): void;
+        /**
+         * This method notifies the wasm module to send the current `Actual` value.
+         */
         __sendActual(): void;
+        /**
+         * This method notifies the wasm module to send the current `Expected` value.
+         */
         __sendExpected(): void;
+        /**
+         * This method notifies the `wasm` module to conditionally ignore `log<T>(value: T)` values
+         * because a performance test is running.
+         *
+         * @param {1 | 0} value - A value indicating if calls to `log()` should be ignored.
+         */
+        __ignoreLogs(value: 1 | 0): void;
     }
 }
 declare module "util/IPerformanceConfiguration" {
@@ -445,12 +531,13 @@ declare module "test/TestCollector" {
          * Log a numevalueric value to the reporter.
          *
          * @param {number} value - The value to be logged.
+         * @param {1 | 0} signed - The value indicating if the number is signed.
          */
         private logValue;
         /**
          * Log a long value.
          *
-         * @param suiteNamePointer
+         * @param suiteNamePointer - The boxed long value's pointer.
          */
         private logLong;
         /**
@@ -536,12 +623,14 @@ declare module "test/TestCollector" {
          * This function reports an actual numeric value.
          *
          * @param {number} numericValue - The value to be expected.
+         * @param {1 | 0} signed - The value indicating if the value is signed.
          */
         private reportActualValue;
         /**
          * This function reports an expected numeric value.
          *
-         * @param {number} numericValue - The value to be expected
+         * @param {number} numericValue - The expected value.
+         * @param {1 | 0} signed - The value indicating if the value is signed.
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
         private reportExpectedValue;
@@ -800,6 +889,10 @@ declare module "reporter/CSVTestReporter" {
     import { WriteStream } from "fs";
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
+    /**
+     * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
+     * contain a set of tests with relevant pass and fail information.
+     */
     export class CSVTestReporter extends TestReporter {
         protected output: Stringifier | null;
         protected fileName: WriteStream | null;
@@ -814,6 +907,10 @@ declare module "reporter/CSVTestReporter" {
 }
 declare module "reporter/EmptyReporter" {
     import { TestReporter } from "test/TestReporter";
+    /**
+     * This class can be used as a blank reporter to interface with the `TestContext` in the browser.
+     * It will not report any information about the tests.
+     */
     export class EmptyReporter extends TestReporter {
         onFinish(): void;
         onGroupFinish(): void;
@@ -830,6 +927,10 @@ declare module "reporter/JSONTestReporter" {
     import { WriteStream } from "fs";
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
+    /**
+     * This class reports all relevant test statistics to a JSON file located at
+     * `{testLocation}.spec.json`.
+     */
     export class JSONTestReporter extends TestReporter {
         protected file: WriteStream | null;
         private first;
@@ -845,6 +946,11 @@ declare module "reporter/JSONTestReporter" {
 declare module "reporter/SummaryTestReporter" {
     import { TestReporter } from "test/TestReporter";
     import { TestContext } from "test/TestContext";
+    /**
+     * This test reporter should be used when logging output and test validation only needs happen on
+     * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
+     * process.
+     */
     export class SummaryTestReporter extends TestReporter {
         onStart(): void;
         onGroupStart(): void;
@@ -859,9 +965,16 @@ declare module "reporter/SummaryTestReporter" {
 declare module "util/IConfiguration" {
     import { TestReporter } from "test/TestReporter";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    /**
+     * This is the shape of the compiler flags.
+     */
     export interface ICompilerFlags {
         [flag: string]: string[];
     }
+    /**
+     * This is an interface describing the shape of an exported configuration for the
+     * `as-pect.config.js` file. An empty object should be a valid `as-pect` configuration.
+     */
     export interface IConfiguration {
         /**
          * A set of globs that denote files that must be used for testing.
@@ -908,16 +1021,40 @@ declare module "util/IConfiguration" {
     }
 }
 declare module "cli/types" {
+    /**
+     * This method creates a types file to the current testing directory located at
+     * `./assembly/__tests__/` for the current project.
+     *
+     * @param {string} assemblyFolder - The current `./assembly/` folder.
+     * @param {string} testFolder - The current `./assembly/__tests__` folder.
+     * @param {string} typesFile - The current types file location.
+     * @param {string} typesFileSource - The types file source location.
+     */
     export function types(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
 }
 declare module "cli/init" {
+    /**
+     * This method initializes a new test project. It is opinionated and reflects the needs of 99% of
+     * AssemblyScript developers following the standard way of creating a new AssemblyScript project.
+     *
+     * @param {string} assemblyFolder - The `./assembly/` folder for the current project.
+     * @param {string} testFolder - The `./assembly/__tests__/` folder for the current project.
+     * @param {string} typesFile - The types file location for the current project.
+     * @param {string} typesFileSource - The types file source location for `as-pect`.
+     */
     export function init(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
 }
 declare module "cli/help" {
+    /**
+     * This method prints the help text.
+     */
     export function help(): void;
 }
 declare module "cli/util/IYargs" {
     import yargsparser from "yargs-parser";
+    /**
+     * A utility interface that contains an argv property that has the command line arguments.
+     */
     export interface IYargs {
         argv: yargsparser.Arguments;
     }
@@ -925,22 +1062,52 @@ declare module "cli/util/IYargs" {
 declare module "cli/util/collectPerformanceConfiguration" {
     import { IYargs } from "cli/util/IYargs";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    /**
+     * This method collects the performance configuration values byref.
+     *
+     * @param {IYargs} yargs - The command line arguments
+     * @param {IPerformanceConfiguration} performanceConfiguration - The effective performance configuration.
+     */
     export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: IPerformanceConfiguration): void;
 }
 declare module "cli/util/collectReporter" {
     import { TestReporter } from "test/TestReporter";
     import { IYargs } from "cli/util/IYargs";
+    /**
+     * This method inspects the command line arguments and returns the corresponding TestReporter.
+     *
+     * @param {IYargs} yargs - The command line arguments.
+     */
     export function collectReporter(yargs: IYargs): TestReporter;
 }
 declare module "cli/util/getTestEntryFiles" {
     import { IYargs } from "cli/util/IYargs";
+    /**
+     * This method returns a `Set<string>` of entry files for the compiler to compile.
+     *
+     * @param {IYargs} yargs - The command line arguments.
+     * @param {string[]} include - An array of globs provided by the configuration.
+     * @param {RegExp[]} disclude - An array of RegExp provided by the configuration.
+     */
     export function getTestEntryFiles(yargs: IYargs, include: string[], disclude: RegExp[]): Set<string>;
 }
 declare module "cli/util/writeFile" {
+    /**
+     * This method promisifies the fs.writeFile function call, and is compatible with node 10.
+     *
+     * @param {string} file - The file location to write to.
+     * @param {Uint8Array} contents - The file contents to write to the disk.
+     */
     export function writeFile(file: string, contents: Uint8Array): Promise<void>;
 }
 declare module "cli/run" {
     import { IYargs } from "cli/util/IYargs";
+    /**
+     * This method actually runs the test suites in sequential order synchronously.
+     *
+     * @param {IYargs} yargs - The command line arguments.
+     * @param {string[]} compilerArgs - The `asc` compiler arguments.
+     */
     export function run(yargs: IYargs, compilerArgs: string[]): void;
 }
 declare module "cli/index" {
@@ -957,6 +1124,7 @@ declare module "as-pect" {
     export * from "test/TestGroup";
     export * from "test/TestReporter";
     export * from "test/TestResult";
+    export * from "test/TestCollector";
     export * from "reporter/CSVTestReporter";
     export * from "reporter/DefaultTestReporter";
     export * from "reporter/EmptyReporter";

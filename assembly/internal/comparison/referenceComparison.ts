@@ -1,25 +1,23 @@
-import { exactComparison } from "./exactComparison";
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
-import { arrayComparison } from "./arrayComparison";
 import { assert } from "./assert";
 
+/**
+ * This method performs a reference comparison using `memory.compare()`. The size of the memory
+ * comparison is calculated using `offsetof<T>()`.
+ *
+ * @param T - The expectation type.
+ * @param {T} actual - The actual value.
+ * @param {T} expected - The expected value.
+ * @param {i32} negated - The indicator that the assertion is negated.
+ * @param {string} message - The message provided to the TestResult if the comparison fails.
+ */
 export function referenceComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
-  if (!isReference<T>()) {
-    exactComparison<T>(actual, expected, negated, message);
-    return;
-  }
-
-  if (isArray<T>()) {
-    arrayComparison<T>(actual, expected, negated, message);
-    return;
-  }
-
   // report the actual and expected values
   reportActual<T>(actual);
   reportExpected<T>(expected, negated);
 
-  // fast path, the value is itself, or both values are null
+  // fast path, the value is itself, operator overload comparison passes, or both values are null
   if (expected == actual) {
     assert(i32(!negated), message);
     return;

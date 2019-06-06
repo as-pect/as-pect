@@ -1,6 +1,12 @@
 import { IYargs } from "./IYargs";
 import { IPerformanceConfiguration } from "../../util/IPerformanceConfiguration";
 
+/**
+ * This method collects the performance configuration values byref.
+ *
+ * @param {IYargs} yargs - The command line arguments
+ * @param {IPerformanceConfiguration} performanceConfiguration - The effective performance configuration.
+ */
 export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: IPerformanceConfiguration) {
   if (yargs.argv.hasOwnProperty("performance"))
     performanceConfiguration.enabled = yargs.argv.performance !== "false";

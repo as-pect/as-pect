@@ -1,10 +1,17 @@
 import { TestReporter } from "../test/TestReporter";
 import { IPerformanceConfiguration } from "./IPerformanceConfiguration";
 
+/**
+ * This is the shape of the compiler flags.
+ */
 export interface ICompilerFlags {
   [flag: string]: string[];
 }
 
+/**
+ * This is an interface describing the shape of an exported configuration for the
+ * `as-pect.config.js` file. An empty object should be a valid `as-pect` configuration.
+ */
 export interface IConfiguration {
   /**
    * A set of globs that denote files that must be used for testing.

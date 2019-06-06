@@ -22,6 +22,12 @@ import { IYargs } from "./util/IYargs";
 import { IAspectExports } from "../util/IAspectExports";
 import { writeFile } from "./util/writeFile";
 
+/**
+ * This method actually runs the test suites in sequential order synchronously.
+ *
+ * @param {IYargs} yargs - The command line arguments.
+ * @param {string[]} compilerArgs - The `asc` compiler arguments.
+ */
 export function run(yargs: IYargs, compilerArgs: string[]): void {
   const start = performance.now();
   // obtain the configuration file
@@ -140,10 +146,11 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   // Create a test runner, and run each test
   let count = testEntryFiles.size;
 
+  flags["--explicitStart"] = [];
+
   // create the array of compiler flags from the flags object
-  const flagList: string[] = Object.entries(flags).reduce((args: string[], [flag, options]) => {
-    return args.concat(flag, options);
-  }, []);
+  const flagList: string[] = Object.entries(flags)
+    .reduce((args: string[], [flag, options]) => args.concat(flag, options), []);
 
   let testCount = 0;
   let successCount = 0;

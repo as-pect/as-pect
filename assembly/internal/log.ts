@@ -10,11 +10,11 @@ declare function logReference(value: usize, offset: i32): void;
 
 // @ts-ignore: decorators *are* valid here
 @external("__aspect", "logValue")
-declare function logFloat(value: f64): void;
+declare function logFloat(value: f64, signed: bool): void;
 
 // @ts-ignore: decorators *are* valid here
 @external("__aspect", "logValue")
-declare function logInteger(value: i32): void;
+declare function logInteger(value: i32, signed: bool): void;
 
 // @ts-ignore: decorators *are* valid here
 @external("__aspect", "logNull")
@@ -28,9 +28,21 @@ declare function logArray(value: usize): void;
 @external("__aspect", "logLong")
 declare function logLong(value: usize, signed: bool): void;
 
+let ignoreLogs: bool = false;
+
+/**
+ * This method is called by the test runner to circumvent item logging.
+ *
+ * @param {bool} value - Wether to ignore log values or not.
+ */
+export function __ignoreLogs(value: bool): void {
+  ignoreLogs = value;
+}
+
 // @ts-ignore: decorators *are* valid here
-@global @inline
+@global
 export function log<T>(value: T): void {
+  if (ignoreLogs) return;
   if (isReference<T>()) {
     if (value == null) {
       logNull();
@@ -48,13 +60,13 @@ export function log<T>(value: T): void {
   } else {
     if (isFloat<T>()) {
       // @ts-ignore: this cast is valid because it's already a float
-      logFloat(<f64>value);
+      logFloat(<f64>value, true);
     } else if (value instanceof i64 || value instanceof u64) {
       let box = new Box<T>(value);
       logLong(changetype<usize>(box), value instanceof i64);
     } else {
       // @ts-ignore: this cast is valid because it's already an integer
-      logInteger(<i32>value);
+      logInteger(<i32>value, value instanceof i32);
     }
   }
 }

@@ -80,6 +80,24 @@ declare function test(description: string, callback: () => void): void;
   */
  declare function throws(description: string, callback: () => void, message?: string): void;
 
+
+/**
+ * This function creates a test that is expected to fail. This is useful to verify if a given
+ * behavior is expected to throw.
+ *
+ * @param {string} description - This is the name of the test, and should describe a behavior.
+ * @param {() => void} callback - A function that contains a set of expectations for this test.
+ * @param {string?} message - A message that describes why the test should fail.
+ * @example
+ * describe("the meaning of life", (): void => {
+  *   itThrows("when the value should be 42", (): void => {
+  *     // put your expectations here
+  *     expect<i32>(29 + 13).not.toBe(42);
+  *   }, "The value is actually 42.");
+  * });
+  */
+ declare function itThrows(description: string, callback: () => void, message?: string): void;
+
 /**
  * This function creates a callback that is called before each individual test is run in this test
  * group.

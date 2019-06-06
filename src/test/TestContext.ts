@@ -125,6 +125,8 @@ export class TestContext extends TestCollector {
     result.start = performance.now();
     // If performance is enabled, use the performance values, otherwise, just run once.
     if (result.performance) {
+      // we must ignore the log values to increase performance execution speed
+      this.wasm!.__ignoreLogs(1);
       let runCount = 0;
 
       const testStartTime = performance.now();
@@ -136,19 +138,33 @@ export class TestContext extends TestCollector {
          * Especially because the performance functions are run repeatedly, if an error occurs, assume the
          * worst and skip the test group. These functions definitely are assumed to be safe by the test context.
          */
-        if (this.endGroup) return;
+        if (this.endGroup) {
+          this.wasm!.__ignoreLogs(0);
+          return;
+        }
         this.runTestCall(group, result);
         this.runAfterEach(group, result);
-        if (this.endGroup) return; // check to see if the afterEach functions errored (see above)
+
+        // check to see if the afterEach functions errored (see above)
+        if (this.endGroup) {
+          this.wasm!.__ignoreLogs(0);
+          return;
+        }
 
         currentTestRunTime = performance.now() - testStartTime; // calculate how long the current test has run
 
         runCount += 1;  // increase the run count
 
-        if (runCount >= result.maxSamples) break; // if we have reached the max sample count
-        if (currentTestRunTime >= result.maxRuntime) break; // weve collected enough samples and the test is over
+        if (runCount >= result.maxSamples) {
+          this.wasm!.__ignoreLogs(0);
+          break; // if we have reached the max sample count
+        }
+        if (currentTestRunTime >= result.maxRuntime) {
+          this.wasm!.__ignoreLogs(0);
+          break; // weve collected enough samples and the test is over
+        }
       }
-
+      this.wasm!.__ignoreLogs(0);
       if (result.calculateAverageValue) result.calculateAverage();
       if (result.calculateMaxValue) result.calculateMax();
       if (result.calculateMedianValue) result.calculateMedian();

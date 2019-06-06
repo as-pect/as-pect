@@ -19,6 +19,7 @@ export function createTestGroupFilterModule(linked: any, callback: TestContextCa
     "--validate",
     "--debug",
     "--binaryFile", "output.wasm",
+    "--explicitStart",
     "./assembly/jest-filter.ts",
     "./assembly/index.ts",
   ], {

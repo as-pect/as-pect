@@ -12,6 +12,7 @@ export function createModule(linked: any, callback: TestContextCallback): void {
     "--validate",
     "--debug",
     "--binaryFile", "output.wasm",
+    "--explicitStart",
     "./assembly/jest.ts",
     "./assembly/index.ts",
   ], {
