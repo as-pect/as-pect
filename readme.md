@@ -104,6 +104,9 @@ TEST OPTIONS
   --norun                              Skip running tests and output the compiler files.
     -n
 
+  --nortrace                           Skip rtrace ref counting calculations.
+    -nr
+
   --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
     --reporter=SummaryTestReporter     Use the summary reporter.
     --reporter=DefaultTestReporter     Use the default test reporter.

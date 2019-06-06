@@ -394,6 +394,10 @@ declare module "util/IAspectExports" {
          * @param {1 | 0} value - A value indicating if calls to `log()` should be ignored.
          */
         __ignoreLogs(value: 1 | 0): void;
+        /**
+         * This method disables rtrace calls for the current test context.
+         */
+        __disableRTrace(): void;
     }
 }
 declare module "util/IPerformanceConfiguration" {
@@ -438,6 +442,7 @@ declare module "test/TestCollector" {
         testRegex?: RegExp;
         groupRegex?: RegExp;
         fileName?: string;
+        nortrace?: boolean;
     }
     /**
      * This class is responsible for collecting all the tests in a test binary.
@@ -477,6 +482,14 @@ declare module "test/TestCollector" {
          */
         protected testRegex: RegExp;
         protected groupRegex: RegExp;
+        /**
+         * RTrace is a funciton that helps with debugging reference counting and can be used to find
+         * leaks. If it is enabled, it will be included automatically by the bootstrap in the
+         * assemblyscript imports.
+         */
+        protected rtraceEnabled: boolean;
+        private rtrace;
+        private rtraceLabels;
         constructor(props?: ITestCollectorParameters);
         /**
          * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
@@ -806,6 +819,24 @@ declare module "test/TestCollector" {
          * Gets a log stack trace.
          */
         private getLogStackTrace;
+        /**
+         * This method returns the current rtrace count.
+         */
+        private getRTraceCount;
+        /**
+         * This method starts a new rtrace count label.
+         *
+         * @param {number} label - The RTrace label.
+         */
+        private startRTrace;
+        /**
+         * This method ends an RTrace label and returns the difference between the current and the
+         * starting reference counts.
+         *
+         * @param {number} label - The RTrace label.
+         * @returns {number}
+         */
+        private endRTrace;
     }
 }
 declare module "test/TestContext" {
@@ -1018,6 +1049,10 @@ declare module "util/IConfiguration" {
          * Specifies if a wasm binary should be output. Default is false.
          */
         outputBinary?: boolean;
+        /**
+         * Specifies if rtrace counting should be skipped. Use with stub allocator.
+         */
+        nortrace?: boolean;
     }
 }
 declare module "cli/types" {

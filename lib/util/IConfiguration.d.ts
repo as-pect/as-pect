@@ -53,5 +53,9 @@ export interface IConfiguration {
      * Specifies if a wasm binary should be output. Default is false.
      */
     outputBinary?: boolean;
+    /**
+     * Specifies if rtrace counting should be skipped. Use with stub allocator.
+     */
+    nortrace?: boolean;
 }
 //# sourceMappingURL=IConfiguration.d.ts.map

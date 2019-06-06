@@ -10,6 +10,8 @@ import { TestResult } from "./TestResult";
 import { PerformanceLimits } from "./PerformanceLimits";
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
+import rtrace from "assemblyscript/lib/rtrace";
+
 
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
@@ -18,7 +20,7 @@ export interface ITestCollectorParameters {
   testRegex?: RegExp;
   groupRegex?: RegExp;
   fileName?: string;
-
+  nortrace?: boolean;
 }
 
 /**
@@ -73,6 +75,17 @@ export class TestCollector {
   protected testRegex: RegExp = new RegExp("");
   protected groupRegex: RegExp = new RegExp("");
 
+  /**
+   * RTrace is a funciton that helps with debugging reference counting and can be used to find
+   * leaks. If it is enabled, it will be included automatically by the bootstrap in the
+   * assemblyscript imports.
+   */
+  protected rtraceEnabled: boolean = true;
+  private rtrace: rtrace.RTrace | null = null;
+
+  private rtraceLabels: Map<number, number> = new Map();
+
+
   constructor(props?: ITestCollectorParameters) {
     if (props) {
       /* istanbul ignore next */
@@ -83,7 +96,11 @@ export class TestCollector {
       if (props.groupRegex) this.groupRegex = props.groupRegex;
       /* istanbul ignore next */
       if (props.performanceConfiguration) this.performanceConfiguration = props.performanceConfiguration;
+      /* istanbul ignore next */
+      if (props.nortrace) this.rtraceEnabled = false;
     }
+
+    if (this.rtraceEnabled) this.rtrace = rtrace();
   }
 
   /**
@@ -104,53 +121,60 @@ export class TestCollector {
    * @param {any[]} imports - Every import item specified.
    */
   public createImports(...imports: any[]): any {
-    const result = Object.assign({}, ...imports, {
-      __aspect: {
-        debug: this.debug.bind(this),
-        tryCall: this.tryCall.bind(this),
-        logArray: this.logArray.bind(this),
-        logLong: this.logLong.bind(this),
-        logNull: this.logNull.bind(this),
-        logReference: this.logReference.bind(this),
-        logString: this.logString.bind(this),
-        logValue: this.logValue.bind(this),
-        reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
-        reportDescribe: this.reportDescribe.bind(this),
-        reportEndDescribe: this.reportEndDescribe.bind(this),
-        reportTest: this.reportTest.bind(this),
-        reportBeforeEach: this.reportBeforeEach.bind(this),
-        reportBeforeAll: this.reportBeforeAll.bind(this),
-        reportAfterEach: this.reportAfterEach.bind(this),
-        reportAfterAll: this.reportAfterAll.bind(this),
-        reportTodo: this.reportTodo.bind(this),
-        reportActualNull: this.reportActualNull.bind(this),
-        reportExpectedNull: this.reportExpectedNull.bind(this),
-        reportActualValue: this.reportActualValue.bind(this),
-        reportExpectedValue: this.reportExpectedValue.bind(this),
-        reportActualReference: this.reportActualReference.bind(this),
-        reportExpectedReference: this.reportExpectedReference.bind(this),
-        reportActualString: this.reportActualString.bind(this),
-        reportExpectedString: this.reportExpectedString.bind(this),
-        reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
-        reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
-        reportExpectedFinite: this.reportExpectedFinite.bind(this),
-        reportActualArray: this.reportActualArray.bind(this),
-        reportExpectedArray: this.reportExpectedArray.bind(this),
-        reportActualLong: this.reportActualLong.bind(this),
-        reportExpectedLong: this.reportExpectedLong.bind(this),
-        reportNegatedTest: this.reportNegatedTest.bind(this),
-        performanceEnabled: this.performanceEnabled.bind(this),
-        maxSamples: this.maxSamples.bind(this),
-        maxTestRunTime: this.maxTestRunTime.bind(this),
-        roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
-        reportAverage: this.reportAverage.bind(this),
-        reportMedian: this.reportMedian.bind(this),
-        reportStdDev: this.reportStdDev.bind(this),
-        reportMax: this.reportMax.bind(this),
-        reportMin: this.reportMin.bind(this),
-        reportVariance: this.reportVariance.bind(this),
+    const result = Object.assign({},
+      ...imports, // get all the user defined imports
+      {
+        __aspect: {
+          debug: this.debug.bind(this),
+          tryCall: this.tryCall.bind(this),
+          logArray: this.logArray.bind(this),
+          logLong: this.logLong.bind(this),
+          logNull: this.logNull.bind(this),
+          logReference: this.logReference.bind(this),
+          logString: this.logString.bind(this),
+          logValue: this.logValue.bind(this),
+          reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
+          reportDescribe: this.reportDescribe.bind(this),
+          reportEndDescribe: this.reportEndDescribe.bind(this),
+          reportTest: this.reportTest.bind(this),
+          reportBeforeEach: this.reportBeforeEach.bind(this),
+          reportBeforeAll: this.reportBeforeAll.bind(this),
+          reportAfterEach: this.reportAfterEach.bind(this),
+          reportAfterAll: this.reportAfterAll.bind(this),
+          reportTodo: this.reportTodo.bind(this),
+          reportActualNull: this.reportActualNull.bind(this),
+          reportExpectedNull: this.reportExpectedNull.bind(this),
+          reportActualValue: this.reportActualValue.bind(this),
+          reportExpectedValue: this.reportExpectedValue.bind(this),
+          reportActualReference: this.reportActualReference.bind(this),
+          reportExpectedReference: this.reportExpectedReference.bind(this),
+          reportActualString: this.reportActualString.bind(this),
+          reportExpectedString: this.reportExpectedString.bind(this),
+          reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
+          reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
+          reportExpectedFinite: this.reportExpectedFinite.bind(this),
+          reportActualArray: this.reportActualArray.bind(this),
+          reportExpectedArray: this.reportExpectedArray.bind(this),
+          reportActualLong: this.reportActualLong.bind(this),
+          reportExpectedLong: this.reportExpectedLong.bind(this),
+          reportNegatedTest: this.reportNegatedTest.bind(this),
+          performanceEnabled: this.performanceEnabled.bind(this),
+          maxSamples: this.maxSamples.bind(this),
+          maxTestRunTime: this.maxTestRunTime.bind(this),
+          roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
+          reportAverage: this.reportAverage.bind(this),
+          reportMedian: this.reportMedian.bind(this),
+          reportStdDev: this.reportStdDev.bind(this),
+          reportMax: this.reportMax.bind(this),
+          reportMin: this.reportMin.bind(this),
+          reportVariance: this.reportVariance.bind(this),
+          getRTraceCount: this.getRTraceCount.bind(this),
+          startRTrace: this.startRTrace.bind(this),
+          endRTrace: this.endRTrace.bind(this),
+        },
       },
-    });
+      this.rtraceEnabled ? { rtrace: this.rtrace! } : {},
+    );
     result.env = result.env || {};
     const previousAbort = (result.env.abort) || (() => {});
     result.env.abort = (...args: any[]) => {
@@ -905,5 +929,38 @@ export class TestCollector {
       .slice(1)
       .filter(wasmFilter)
       .join("\n");
+  }
+
+  /**
+   * This method returns the current rtrace count.
+   */
+  private getRTraceCount(): number {
+    console.log("Allocated:", this.rtrace!.allocCount);
+    console.log("Freed:", this.rtrace!.freeCount);
+    console.log("Incremented:", this.rtrace!.incrementCount);
+    console.log("Decremented:", this.rtrace!.decrementCount);
+    return this.rtrace!.check();
+  }
+
+  /**
+   * This method starts a new rtrace count label.
+   *
+   * @param {number} label - The RTrace label.
+   */
+  private startRTrace(label: number): void {
+    this.rtraceLabels.set(label, this.rtrace!.check());
+  }
+
+  /**
+   * This method ends an RTrace label and returns the difference between the current and the
+   * starting reference counts.
+   *
+   * @param {number} label - The RTrace label.
+   * @returns {number}
+   */
+  private endRTrace(label: number): number {
+    const result = this.rtrace!.check() - this.rtraceLabels.get(label)!;
+    this.rtraceLabels.delete(label);
+    return result;
   }
 }

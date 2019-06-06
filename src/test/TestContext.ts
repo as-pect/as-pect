@@ -39,7 +39,6 @@ export class TestContext extends TestCollector {
       if (props.stdout) this.stdout = props.stdout;
       /* istanbul ignore next */
       if (props.stderr) this.stderr = props.stderr;
-
     }
   }
 
@@ -55,6 +54,10 @@ export class TestContext extends TestCollector {
 
     // start the module up
     super.collectTests();
+
+    if (!this.rtraceEnabled) {
+      wasm.__disableRTrace();
+    }
 
     // calculate startuptime
     this.startupTime = timeDifference(performance.now(), start);

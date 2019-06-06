@@ -108,6 +108,25 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   }
 
   /**
+   * Check to see if rtrace is disabled.
+   */
+  const nortrace: boolean = !!(yargs.argv.nortrace || yargs.argv.nr);
+  if (nortrace) {
+    configuration.nortrace = true;
+  }
+
+  /**
+   * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
+   */
+  if (!configuration.nortrace) {
+    if (flags["--use"]) {
+      flags["--use"].push("--use", "ASC_RTRACE=1");
+    } else {
+      flags["--use"] = ["ASC_RTRACE=1"];
+    }
+  }
+
+  /**
    * Check to see if the tests should be run in the first place.
    */
   const runTests: boolean = !(yargs.argv.norun || yargs.argv.n);

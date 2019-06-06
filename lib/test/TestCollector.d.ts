@@ -10,6 +10,7 @@ export interface ITestCollectorParameters {
     testRegex?: RegExp;
     groupRegex?: RegExp;
     fileName?: string;
+    nortrace?: boolean;
 }
 /**
  * This class is responsible for collecting all the tests in a test binary.
@@ -49,6 +50,14 @@ export declare class TestCollector {
      */
     protected testRegex: RegExp;
     protected groupRegex: RegExp;
+    /**
+     * RTrace is a funciton that helps with debugging reference counting and can be used to find
+     * leaks. If it is enabled, it will be included automatically by the bootstrap in the
+     * assemblyscript imports.
+     */
+    protected rtraceEnabled: boolean;
+    private rtrace;
+    private rtraceLabels;
     constructor(props?: ITestCollectorParameters);
     /**
      * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
@@ -378,5 +387,23 @@ export declare class TestCollector {
      * Gets a log stack trace.
      */
     private getLogStackTrace;
+    /**
+     * This method returns the current rtrace count.
+     */
+    private getRTraceCount;
+    /**
+     * This method starts a new rtrace count label.
+     *
+     * @param {number} label - The RTrace label.
+     */
+    private startRTrace;
+    /**
+     * This method ends an RTrace label and returns the difference between the current and the
+     * starting reference counts.
+     *
+     * @param {number} label - The RTrace label.
+     * @returns {number}
+     */
+    private endRTrace;
 }
 //# sourceMappingURL=TestCollector.d.ts.map
