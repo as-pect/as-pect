@@ -229,4 +229,13 @@ describe("toStrictEqual", (): void => {
     expect<i32[]>(a).toStrictEqual([4, 5, 6]);
   });
 
+  /**
+   * This is a complicated edge case that should be handled by the `toStrictEqual()` function.
+   * When a value type is passed to `toStrictEqual()`, conditional compilation should bypass
+   * any other branch and break into the equivalent of a `toBe()` expectation. If this is not the
+   * case, branches that do runtime checks will be compiled and result in a compiler error.
+   */
+  it("compiles when <u8> is used as the expectation type for toStrictEqual", () => {
+    expect<u8>(42).toBe(42, "This totally compiles.");
+  });
 });
