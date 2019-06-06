@@ -119,6 +119,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
    * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
    */
   if (!configuration.nortrace) {
+    console.log(chalk`{bgWhite.black [Log]} Reference Tracing is enabled.`)
     if (flags["--use"]) {
       flags["--use"].push("--use", "ASC_RTRACE=1");
     } else {
@@ -182,7 +183,8 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
 
   const folderMap = new Map<string, string[]>();
   const fileMap = new Map<string, string>();
-
+  console.log(chalk`{bgWhite.black [Log]} Effective command line arguments:`);
+  console.log(chalk`  ${flagList.join(" ")}`);
   // for each file, synchronously run each test
   Array.from(testEntryFiles).forEach((file: string, i: number) => {
     asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList], {

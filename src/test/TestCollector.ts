@@ -173,9 +173,15 @@ export class TestCollector {
           endRTrace: this.endRTrace.bind(this),
         },
       },
-      this.rtraceEnabled ? { rtrace: this.rtrace! } : {},
     );
+
+    /** If RTrace is enabled, add it to the imports. */
+    if (this.rtraceEnabled) result.rtrace = this.rtrace;
+
+    /** add an env object */
     result.env = result.env || {};
+
+    /** Override the abort function */
     const previousAbort = (result.env.abort) || (() => {});
     result.env.abort = (...args: any[]) => {
       previousAbort(...args);
@@ -935,6 +941,7 @@ export class TestCollector {
    * This method returns the current rtrace count.
    */
   private getRTraceCount(): number {
+    console.log("Active:", this.rtrace!.active);
     console.log("Allocated:", this.rtrace!.allocCount);
     console.log("Freed:", this.rtrace!.freeCount);
     console.log("Incremented:", this.rtrace!.incrementCount);
