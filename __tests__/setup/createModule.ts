@@ -22,6 +22,7 @@ export function createModule(linked: any, callback: TestContextCallback): void {
           reporter: new EmptyReporter(),
           fileName: "assembly/jest.ts",
           performanceConfiguration: { enabled: false },
+          nortrace: true,
         });
         const result = instantiateBuffer<IAspectExports>(contents, ctx.createImports(linked));
         ctx.run(result);

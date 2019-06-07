@@ -128,11 +128,6 @@ export class TestContext extends TestCollector {
       group.rtraceDelta = group.rtraceEnd - group.rtraceStart;
     }
 
-    if (group.errors.length > 0) {
-      group.pass = false;
-      group.reason = `Test suite ${group.name} failed because of an rtrace error.`;
-      return;
-    }
     // finish the group
     group.end = performance.now();
     group.time = timeDifference(group.end, group.start);

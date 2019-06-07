@@ -1153,6 +1153,10 @@ export class TestCollector {
    */
   protected pushError(error: IWarning): void {
     this.errors.push(error);
+    /**
+     * All the tests will always have a log target set. There is no reason to test this branch.
+     */
+    /* istanbul ignore next */
     if (this.logTarget) this.logTarget.errors.push(error);
   }
 }

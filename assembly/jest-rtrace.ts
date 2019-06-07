@@ -1,7 +1,7 @@
 import { Vec3 } from "./__tests__/setup/Vec3";
 
 let globalVec: Vec3 | null = null;
-let globaVecArray: Vec3[] = new Array<Vec3>(0);
+let globalVecArray: Vec3[] = new Array<Vec3>(0);
 
 describe("RTrace tests", () => {
   it("should allocate an object", () => {
@@ -14,13 +14,35 @@ describe("RTrace tests", () => {
 
   it("should allocate a bunch of objects", () => {
     for (let i = 0; i < 3; i++) {
-      globaVecArray.push(new Vec3(1, 2, 3));
+      globalVecArray.push(new Vec3(1, 2, 3));
     }
   });
 
+
+  it("should count references", () => {
+    log<i32>(RTrace.count());
+  });
+
+  it("should start a label", () => {
+    RTrace.start(1);
+    globalVecArray.push(new Vec3(1, 2, 3));
+    log<i32>(RTrace.end(1));
+  });
+
   it("should deallocate all the objects", () => {
-    for (let i = 0; i < 3; i++) {
-      globaVecArray.pop();
+    let last: Vec3;
+    for (let i = 0; i < 4; i++) {
+      last = globalVecArray.pop();
     }
   });
+});
+
+let dummyReference: Vec3 = new Vec3(1, 2, 3);
+describe("a group reference counting error", () => {
+  beforeAll(() => {
+    // This should report an error to the TestGroup and cause the entire group to fail
+    __free(changetype<usize>(dummyReference));
+    __free(changetype<usize>(dummyReference));
+  });
+  test("empty", () => {});
 });
