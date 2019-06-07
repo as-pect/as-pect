@@ -118,11 +118,17 @@ export class DefaultTestReporter extends TestReporter {
     for (const logValue of group.logs.slice(groupLogIndex.get(group) || 0)) {
       this.onLog(logValue);
     }
+
     const fail = (count === successCount)
       ? `0 fail`
       : chalk`{red ${(count - successCount).toString()} fail}`
+
+    const rtraceDelta = group.rtraceDelta === 0
+      ? ""
+      : chalk`{yellow RTrace: ${ (group.rtraceDelta > 0 ? "+" : "-") + group.rtraceDelta.toString()}}`;
+
     const output = chalk`
-  [Result]: ${result}
+  [Result]: ${result} ${rtraceDelta}
    [Tests]: {green ${successCount.toString()} pass}, ${fail}, ${count.toString()} total
     [Todo]: ${todoCount.toString()} tests
     [Time]: ${group.time.toString()}ms
@@ -132,7 +138,10 @@ export class DefaultTestReporter extends TestReporter {
   public onTestStart(_group: TestGroup, _test: TestResult): void {}
   public onTestFinish(_group: TestGroup, test: TestResult): void {
     if (test.pass) {
-      this.stdout!.write(chalk` {green [Success]: ✔} ${test.name}\n`);
+      const rtraceDelta = test.rtraceDelta === 0
+        ? ""
+        : chalk`{yellow RTrace: ${ (test.rtraceDelta > 0 ? "+" : "-") + test.rtraceDelta.toString()}}`;
+      this.stdout!.write(chalk` {green [Success]: ✔} ${test.name} ${rtraceDelta}\n`);
     } else {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
@@ -202,10 +211,16 @@ export class DefaultTestReporter extends TestReporter {
       ? `0 fail`
       : chalk`{red ${(count - successCount).toString()} fail}`;
 
+    const rtcount = suite.allocationCount - suite.deallocationCount;
+
+    const rtraceDelta = rtcount === 0
+      ? ""
+      : chalk`{yellow RTrace: ${ (rtcount > 0 ? "+" : "-") + rtcount.toString()}}`;
+
     this.stdout!.write(chalk`
 ${"~".repeat(process.stdout.columns! - 10)}
 
-    [File]: ${suite.fileName}
+    [File]: ${suite.fileName} ${rtraceDelta}
   [Groups]: {green ${suite.testGroups.filter(e => e.pass).length.toString()} pass}, ${suite.testGroups.length.toString()} total
   [Result]: ${result}
  [Summary]: {green ${successCount.toString()} pass},  ${fail}, ${count.toString()} total

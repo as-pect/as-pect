@@ -866,7 +866,7 @@ export class TestCollector {
    * intended test functions.
    */
   private reportInvalidExpectCall(): void {
-    this.errors.push({
+    this.pushError({
       type: "InvalidExpectCall",
       message: `An expect() function call was used outside of a test function in ${this.fileName}.`,
       stackTrace: this.getLogStackTrace(),
@@ -985,7 +985,7 @@ export class TestCollector {
   /**
    * This is the current number of net dellocations that occurred during `TestContext` execution.
    */
-  protected deallocationCount: number = 0;
+  public deallocationCount: number = 0;
 
   /**
    * This is the current number of net allocations that occured during `TestGroup` execution.
@@ -1028,15 +1028,14 @@ export class TestCollector {
   protected testDecrementCount: number = 0;
 
   /**
-   * This map is responsible for keeping track of which blocks are currently allocated.
+   * This map is responsible for keeping track of which blocks are currently allocated by their id.
    */
-  private blocks: Map<number, number> = new Map();
+  protected blocks: Map<number, number> = new Map();
 
   /**
    * This method is called when a memory block is allocated on the heap.
    *
-   * @param {number} block - This is a pointer which points to the start of the block, and *not*
-   * the start of the data. It's value is the equivalent of `ptr - 16`.
+   * @param {number} block - This is a unique identifier for the affected block.
    */
   private onalloc(block: number): void {
     this.allocationCount += 1;
@@ -1051,7 +1050,7 @@ export class TestCollector {
     /* istanbul ignore next */
     if (this.blocks.has(block)) {
       /* istanbul ignore next */
-      this.errors.push({
+      this.pushError({
         message: "A duplicate allocation has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
         type: "Allocation Error",
@@ -1064,8 +1063,7 @@ export class TestCollector {
   /**
    * This method is called when a memory block is deallocated from the heap.
    *
-   * @param {number} block - This is a pointer which points to the start of the block, and *not*
-   * the start of the data. It's value is the equivalent of `ptr - 16`.
+   * @param {number} block - This is a unique identifier for the affected block.
    */
   private onfree(block: number): void {
     this.deallocationCount += 1;
@@ -1080,7 +1078,7 @@ export class TestCollector {
     /* istanbul ignore next */
     if (!this.blocks.has(block)) {
       /* istanbul ignore next */
-      this.errors.push({
+      this.pushError({
         message: "An orphaned dellocation has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
         type: "Orphaned Deallocation Error",
@@ -1093,8 +1091,7 @@ export class TestCollector {
   /**
    * This method is called when a memory block reference count is incremented.
    *
-   * @param {number} block - This is a pointer which points to the start of the block, and *not*
-   * the start of the data. It's value is the equivalent of `ptr - 16`.
+   * @param {number} block - This is a unique identifier for the affected block.
    */
   private onincrement(block: number): void {
     this.incrementCount += 1;
@@ -1109,7 +1106,7 @@ export class TestCollector {
     /* istanbul ignore next */
     if (!this.blocks.has(block)) {
       /* istanbul ignore next */
-      this.errors.push({
+      this.pushError({
         message: "An orphaned increment has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
         type: "Orphaned Increment Error",
@@ -1123,8 +1120,7 @@ export class TestCollector {
   /**
    * This method is called when a memory block reference count is decremented.
    *
-   * @param {number} block - This is a pointer which points to the start of the block, and *not*
-   * the start of the data. It's value is the equivalent of `ptr - 16`.
+   * @param {number} block - This is a unique identifier for the affected block.
    */
   private ondecrement(block: number): void {
     this.decrementCount += 1;
@@ -1139,7 +1135,7 @@ export class TestCollector {
     /* istanbul ignore next */
     if (!this.blocks.has(block)) {
       /* istanbul ignore next */
-      this.errors.push({
+      this.pushError({
         message: "An orphaned decrement has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
         type: "Orphaned Decrement Error",
@@ -1148,5 +1144,15 @@ export class TestCollector {
       const count = this.blocks.get(block)!;
       this.blocks.set(block, count - 1);
     }
+  }
+
+  /**
+   * This method reports an error to the current logTarget and the `TestContext`.
+   *
+   * @param {IWarning} error - The error being reported.
+   */
+  protected pushError(error: IWarning): void {
+    this.errors.push(error);
+    if (this.logTarget) this.logTarget.errors.push(error);
   }
 }

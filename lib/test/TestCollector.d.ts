@@ -56,7 +56,6 @@ export declare class TestCollector {
      * assemblyscript imports.
      */
     protected rtraceEnabled: boolean;
-    private rtrace;
     private rtraceLabels;
     constructor(props?: ITestCollectorParameters);
     /**
@@ -405,5 +404,87 @@ export declare class TestCollector {
      * @returns {number}
      */
     private endRTrace;
+    /**
+     * This is the current number of net allocations that occurred during `TestContext` execution.
+     */
+    allocationCount: number;
+    /**
+     * This is the current number of net allocations that occured during `TestGroup` execution.
+     */
+    protected groupAllocationCount: number;
+    /**
+     * This is the current number of net allocations that occured during `TestResult` execution.
+     */
+    protected testAllocationCount: number;
+    /**
+     * This is the current number of net dellocations that occurred during `TestContext` execution.
+     */
+    deallocationCount: number;
+    /**
+     * This is the current number of net allocations that occured during `TestGroup` execution.
+     */
+    protected groupDeallocationCount: number;
+    /**
+     * This is the current number of net allocations that occured during `TestGroup` execution.
+     */
+    protected testDeallocationCount: number;
+    /**
+     * This is the current number of net increments that occurred during `TestContext` execution.
+     */
+    protected incrementCount: number;
+    /**
+     * This is the current number of net increments that occurred during `TestGroup` execution.
+     */
+    protected groupIncrementCount: number;
+    /**
+     * This is the current number of net increments that occurred during `TestResult` execution.
+     */
+    protected testIncrementCount: number;
+    /**
+     * This is the current number of net decrements that occurred during `TestContext` execution.
+     */
+    protected decrementCount: number;
+    /**
+     * This is the current number of net decrements that occurred during `TestGroup` execution.
+     */
+    protected groupDecrementCount: number;
+    /**
+     * This is the current number of net decrements that occurred during `TestResult` execution.
+     */
+    protected testDecrementCount: number;
+    /**
+     * This map is responsible for keeping track of which blocks are currently allocated by their id.
+     */
+    protected blocks: Map<number, number>;
+    /**
+     * This method is called when a memory block is allocated on the heap.
+     *
+     * @param {number} block - This is a unique identifier for the affected block.
+     */
+    private onalloc;
+    /**
+     * This method is called when a memory block is deallocated from the heap.
+     *
+     * @param {number} block - This is a unique identifier for the affected block.
+     */
+    private onfree;
+    /**
+     * This method is called when a memory block reference count is incremented.
+     *
+     * @param {number} block - This is a unique identifier for the affected block.
+     */
+    private onincrement;
+    /**
+     * This method is called when a memory block reference count is decremented.
+     *
+     * @param {number} block - This is a unique identifier for the affected block.
+     */
+    private ondecrement;
+    /**
+     * This method reports an error to the current logTarget and the `TestContext`.
+     *
+     * @param {IWarning} error - The error being reported.
+     */
+    protected pushError(error: IWarning): void;
 }
 //# sourceMappingURL=TestCollector.d.ts.map

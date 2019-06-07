@@ -12,11 +12,13 @@ declare module "test/IWarning" {
 }
 declare module "util/ILogTarget" {
     import { LogValue } from "util/LogValue";
+    import { IWarning } from "test/IWarning";
     /**
      * This interface describes the shape of an object that can contain log values.
      */
     export interface ILogTarget {
         logs: LogValue[];
+        errors: IWarning[];
     }
 }
 declare module "util/LogValue" {
@@ -86,6 +88,7 @@ declare module "test/TestResult" {
     import { LogValue } from "util/LogValue";
     import { ActualValue } from "util/ActualValue";
     import { ILogTarget } from "util/ILogTarget";
+    import { IWarning } from "test/IWarning";
     /**
      * This is the data class that contains all the data about each `test()` or `it()` function defined
      * in the `AssemblyScript` module.
@@ -189,12 +192,51 @@ declare module "test/TestResult" {
          * Calculate the variance.
          */
         calculateVariance(): void;
+        /**
+         * If the test group did not error, this is the number of allocations that occurred durring the
+         * the test's exection.
+         */
+        allocationCount: number;
+        /**
+         * If the test group did not error, this is the number of deallocations that occurred durring the
+         * the test's exection.
+         */
+        deallocationCount: number;
+        /**
+         * If the test group did not error, this is the number of block decrements that occurred during
+         * the test's exection.
+         */
+        decrementCount: number;
+        /**
+         * If the test group did not error, this is the number of block increments that occurred during
+         * the test's exection.
+         */
+        incrementCount: number;
+        /**
+         * This is the number of allocations currently on the heap when the `TestResult` execution starts.
+         */
+        rtraceStart: number;
+        /**
+         * If the test group completed, this is the number of allocations currently on the heap when the
+         * `TestResult` execution ends.
+         */
+        rtraceEnd: number;
+        /**
+         * If the test group completed, this is the delta number of allocations that occured during the
+         * `TestResult` execution.
+         */
+        rtraceDelta: number;
+        /**
+         * A set of errors that were reported for this test.
+         */
+        errors: IWarning[];
     }
 }
 declare module "test/TestGroup" {
     import { LogValue } from "util/LogValue";
     import { ILogTarget } from "util/ILogTarget";
     import { TestResult } from "test/TestResult";
+    import { IWarning } from "test/IWarning";
     /**
      * This test group class is designed with a data oriented layout in mind. Each test property is
      * represented by an array.
@@ -257,10 +299,45 @@ declare module "test/TestGroup" {
          */
         end: number;
         /**
+         * If the test group did not error, this is the number of allocations that occurred durring the
+         * the group's exection.
+         */
+        allocationCount: number;
+        /**
+         * If the test group did not error, this is the number of deallocations that occurred durring the
+         * the group's exection.
+         */
+        deallocationCount: number;
+        /**
+         * If the test group did not error, this is the number of block decrements that occurred during
+         * the group's exection.
+         */
+        decrementCount: number;
+        /**
+         * If the test group did not error, this is the number of block increments that occurred during
+         * the group's exection.
+         */
+        incrementCount: number;
+        /**
+         * This is the number of allocations currently on the heap when the `TestGroup` execution starts.
+         */
+        rtraceStart: number;
+        /**
+         * If the test group completed, this is the number of allocations currently on the heap when the
+         * `TestGroup` execution ends.
+         */
+        rtraceEnd: number;
+        /**
+         * If the test group completed, this is the delta number of allocations that occured during the
+         * `TestGroup` execution.
+         */
+        rtraceDelta: number;
+        /**
          * This method creates a new TestGroup that contains a reference to all of the current flow
          * functions of this `TestGroup`.
          */
         fork(): TestGroup;
+        errors: IWarning[];
     }
 }
 declare module "test/TestReporter" {
@@ -488,7 +565,6 @@ declare module "test/TestCollector" {
          * assemblyscript imports.
          */
         protected rtraceEnabled: boolean;
-        private rtrace;
         private rtraceLabels;
         constructor(props?: ITestCollectorParameters);
         /**
@@ -837,6 +913,88 @@ declare module "test/TestCollector" {
          * @returns {number}
          */
         private endRTrace;
+        /**
+         * This is the current number of net allocations that occurred during `TestContext` execution.
+         */
+        allocationCount: number;
+        /**
+         * This is the current number of net allocations that occured during `TestGroup` execution.
+         */
+        protected groupAllocationCount: number;
+        /**
+         * This is the current number of net allocations that occured during `TestResult` execution.
+         */
+        protected testAllocationCount: number;
+        /**
+         * This is the current number of net dellocations that occurred during `TestContext` execution.
+         */
+        deallocationCount: number;
+        /**
+         * This is the current number of net allocations that occured during `TestGroup` execution.
+         */
+        protected groupDeallocationCount: number;
+        /**
+         * This is the current number of net allocations that occured during `TestGroup` execution.
+         */
+        protected testDeallocationCount: number;
+        /**
+         * This is the current number of net increments that occurred during `TestContext` execution.
+         */
+        protected incrementCount: number;
+        /**
+         * This is the current number of net increments that occurred during `TestGroup` execution.
+         */
+        protected groupIncrementCount: number;
+        /**
+         * This is the current number of net increments that occurred during `TestResult` execution.
+         */
+        protected testIncrementCount: number;
+        /**
+         * This is the current number of net decrements that occurred during `TestContext` execution.
+         */
+        protected decrementCount: number;
+        /**
+         * This is the current number of net decrements that occurred during `TestGroup` execution.
+         */
+        protected groupDecrementCount: number;
+        /**
+         * This is the current number of net decrements that occurred during `TestResult` execution.
+         */
+        protected testDecrementCount: number;
+        /**
+         * This map is responsible for keeping track of which blocks are currently allocated by their id.
+         */
+        protected blocks: Map<number, number>;
+        /**
+         * This method is called when a memory block is allocated on the heap.
+         *
+         * @param {number} block - This is a unique identifier for the affected block.
+         */
+        private onalloc;
+        /**
+         * This method is called when a memory block is deallocated from the heap.
+         *
+         * @param {number} block - This is a unique identifier for the affected block.
+         */
+        private onfree;
+        /**
+         * This method is called when a memory block reference count is incremented.
+         *
+         * @param {number} block - This is a unique identifier for the affected block.
+         */
+        private onincrement;
+        /**
+         * This method is called when a memory block reference count is decremented.
+         *
+         * @param {number} block - This is a unique identifier for the affected block.
+         */
+        private ondecrement;
+        /**
+         * This method reports an error to the current logTarget and the `TestContext`.
+         *
+         * @param {IWarning} error - The error being reported.
+         */
+        protected pushError(error: IWarning): void;
     }
 }
 declare module "test/TestContext" {

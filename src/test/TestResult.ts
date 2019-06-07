@@ -3,6 +3,7 @@ import { ActualValue } from "../util/ActualValue";
 import { ILogTarget } from "../util/ILogTarget";
 import { mean, median, var as variance, round } from "mathjs";
 import { PerformanceLimits } from "./PerformanceLimits";
+import { IWarning } from "./IWarning";
 
 /**
  * This is the data class that contains all the data about each `test()` or `it()` function defined
@@ -136,4 +137,51 @@ export class TestResult implements ILogTarget {
     this.rawVariance = variance(this.times, "biased");
     this.variance = round(this.rawVariance, this.decimalPlaces) as number;
   }
+
+
+  /**
+   * If the test group did not error, this is the number of allocations that occurred durring the
+   * the test's exection.
+   */
+  public allocationCount: number = 0;
+
+  /**
+   * If the test group did not error, this is the number of deallocations that occurred durring the
+   * the test's exection.
+   */
+  public deallocationCount: number = 0;
+
+  /**
+   * If the test group did not error, this is the number of block decrements that occurred during
+   * the test's exection.
+   */
+  public decrementCount: number = 0;
+
+  /**
+   * If the test group did not error, this is the number of block increments that occurred during
+   * the test's exection.
+   */
+  public incrementCount: number = 0;
+
+  /**
+   * This is the number of allocations currently on the heap when the `TestResult` execution starts.
+   */
+  public rtraceStart: number = 0;
+
+  /**
+   * If the test group completed, this is the number of allocations currently on the heap when the
+   * `TestResult` execution ends.
+   */
+  public rtraceEnd: number = 0;
+
+  /**
+   * If the test group completed, this is the delta number of allocations that occured during the
+   * `TestResult` execution.
+   */
+  public rtraceDelta: number = 0;
+
+  /**
+   * A set of errors that were reported for this test.
+   */
+  public errors: IWarning[] = [];
 }

@@ -1,6 +1,7 @@
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { ILogTarget } from "../util/ILogTarget";
+import { IWarning } from "./IWarning";
 /**
  * This is the data class that contains all the data about each `test()` or `it()` function defined
  * in the `AssemblyScript` module.
@@ -104,5 +105,43 @@ export declare class TestResult implements ILogTarget {
      * Calculate the variance.
      */
     calculateVariance(): void;
+    /**
+     * If the test group did not error, this is the number of allocations that occurred durring the
+     * the test's exection.
+     */
+    allocationCount: number;
+    /**
+     * If the test group did not error, this is the number of deallocations that occurred durring the
+     * the test's exection.
+     */
+    deallocationCount: number;
+    /**
+     * If the test group did not error, this is the number of block decrements that occurred during
+     * the test's exection.
+     */
+    decrementCount: number;
+    /**
+     * If the test group did not error, this is the number of block increments that occurred during
+     * the test's exection.
+     */
+    incrementCount: number;
+    /**
+     * This is the number of allocations currently on the heap when the `TestResult` execution starts.
+     */
+    rtraceStart: number;
+    /**
+     * If the test group completed, this is the number of allocations currently on the heap when the
+     * `TestResult` execution ends.
+     */
+    rtraceEnd: number;
+    /**
+     * If the test group completed, this is the delta number of allocations that occured during the
+     * `TestResult` execution.
+     */
+    rtraceDelta: number;
+    /**
+     * A set of errors that were reported for this test.
+     */
+    errors: IWarning[];
 }
 //# sourceMappingURL=TestResult.d.ts.map
