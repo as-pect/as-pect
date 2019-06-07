@@ -28,7 +28,7 @@ describe("RTrace output", () => {
       expect(group.deallocationCount).toMatchSnapshot(`group ${i} deallocationCount`);
       expect(group.allocationCount).toMatchSnapshot(`group ${i} allocationCount`);
       expect(group.incrementCount).toMatchSnapshot(`group ${i} incrementCount`);
-      expect(group.incrementCount).toMatchSnapshot(`group ${i} decrementCount`);
+      expect(group.decrementCount).toMatchSnapshot(`group ${i} decrementCount`);
       expect(group.rtraceStart).toMatchSnapshot(`group ${i} rtraceStart`);
       expect(group.rtraceEnd).toMatchSnapshot(`group ${i} rtraceEnd`);
       expect(group.rtraceDelta).toMatchSnapshot(`group ${i} rtraceDelta`);
@@ -39,7 +39,7 @@ describe("RTrace output", () => {
         expect(test.deallocationCount).toMatchSnapshot(`test ${i}-${j} deallocationCount`);
         expect(test.allocationCount).toMatchSnapshot(`test ${i}-${j} allocationCount`);
         expect(test.incrementCount).toMatchSnapshot(`test ${i}-${j} incrementCount`);
-        expect(test.incrementCount).toMatchSnapshot(`test ${i}-${j} decrementCount`);
+        expect(test.decrementCount).toMatchSnapshot(`test ${i}-${j} decrementCount`);
         expect(test.rtraceStart).toMatchSnapshot(`test ${i}-${j} rtraceStart`);
         expect(test.rtraceEnd).toMatchSnapshot(`test ${i}-${j} rtraceEnd`);
         expect(test.rtraceDelta).toMatchSnapshot(`test ${i}-${j} rtraceDelta`);
