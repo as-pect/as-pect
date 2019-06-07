@@ -43,7 +43,7 @@ describe("RTrace output", () => {
         expect(test.rtraceStart).toMatchSnapshot(`test ${i}-${j} rtraceStart`);
         expect(test.rtraceEnd).toMatchSnapshot(`test ${i}-${j} rtraceEnd`);
         expect(test.rtraceDelta).toMatchSnapshot(`test ${i}-${j} rtraceDelta`);
-        expect(test.errors).toMatch(`test ${i}-${j} errors`);
+        expect(test.errors).toMatchSnapshot(`test ${i}-${j} errors`);
       }
     }
   });

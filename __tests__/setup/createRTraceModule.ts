@@ -15,6 +15,7 @@ export function createRTraceModule(linked: any, callback: TestContextCallback): 
     "--explicitStart",
     "./assembly/jest-rtrace.ts",
     "./assembly/index.ts",
+    "--use", "ASC_RTRACE=1"
   ], {
     writeFile(fileName: string, contents: Uint8Array) {
       if (fileName === "output.wasm") {
