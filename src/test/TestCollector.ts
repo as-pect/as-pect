@@ -10,7 +10,6 @@ import { TestResult } from "./TestResult";
 import { PerformanceLimits } from "./PerformanceLimits";
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
-import rtrace from "assemblyscript/lib/rtrace";
 
 
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
@@ -81,7 +80,6 @@ export class TestCollector {
    * assemblyscript imports.
    */
   protected rtraceEnabled: boolean = true;
-  private rtrace: rtrace.RTrace | null = null;
 
   private rtraceLabels: Map<number, number> = new Map();
 
@@ -99,8 +97,6 @@ export class TestCollector {
       /* istanbul ignore next */
       if (props.nortrace) this.rtraceEnabled = false;
     }
-
-    if (this.rtraceEnabled) this.rtrace = rtrace();
   }
 
   /**
@@ -176,7 +172,12 @@ export class TestCollector {
     );
 
     /** If RTrace is enabled, add it to the imports. */
-    if (this.rtraceEnabled) result.rtrace = this.rtrace;
+    if (this.rtraceEnabled) result.rtrace = {
+      onalloc: this.onalloc.bind(this),
+      onfree: this.onfree.bind(this),
+      onincrement: this.onincrement.bind(this),
+      ondecrement: this.ondecrement.bind(this),
+    };
 
     /** add an env object */
     result.env = result.env || {};
@@ -941,12 +942,7 @@ export class TestCollector {
    * This method returns the current rtrace count.
    */
   private getRTraceCount(): number {
-    console.log("Active:", this.rtrace!.active);
-    console.log("Allocated:", this.rtrace!.allocCount);
-    console.log("Freed:", this.rtrace!.freeCount);
-    console.log("Incremented:", this.rtrace!.incrementCount);
-    console.log("Decremented:", this.rtrace!.decrementCount);
-    return this.rtrace!.check();
+    return this.blocks.size;
   }
 
   /**
@@ -955,7 +951,7 @@ export class TestCollector {
    * @param {number} label - The RTrace label.
    */
   private startRTrace(label: number): void {
-    this.rtraceLabels.set(label, this.rtrace!.check());
+    this.rtraceLabels.set(label, this.blocks.size);
   }
 
   /**
@@ -966,8 +962,193 @@ export class TestCollector {
    * @returns {number}
    */
   private endRTrace(label: number): number {
-    const result = this.rtrace!.check() - this.rtraceLabels.get(label)!;
+    const result = this.blocks.size - this.rtraceLabels.get(label)!;
     this.rtraceLabels.delete(label);
     return result;
   }
+
+  /**
+   * This is the current number of net allocations that occurred during `TestContext` execution.
+   */
+  public allocationCount: number = 0;
+
+  /**
+   * This is the current number of net allocations that occured during `TestGroup` execution.
+   */
+  private groupAllocationCount: number = 0;
+
+  /**
+   * This is the current number of net allocations that occured during `TestResult` execution.
+   */
+  private testAllocationCount: number = 0;
+
+  /**
+   * This is the current number of net dellocations that occurred during `TestContext` execution.
+   */
+  private deallocationCount: number = 0;
+
+  /**
+   * This is the current number of net allocations that occured during `TestGroup` execution.
+   */
+  private groupDeallocationCount: number = 0;
+
+  /**
+   * This is the current number of net allocations that occured during `TestGroup` execution.
+   */
+  private testDeallocationCount: number = 0;
+
+  /**
+   * This is the current number of net increments that occurred during `TestContext` execution.
+   */
+  private incrementCount: number = 0;
+
+  /**
+   * This is the current number of net increments that occurred during `TestGroup` execution.
+   */
+  private groupIncrementCount: number = 0;
+
+  /**
+   * This is the current number of net increments that occurred during `TestResult` execution.
+   */
+  private testIncrementCount: number = 0;
+
+  /**
+   * This is the current number of net decrements that occurred during `TestContext` execution.
+   */
+  private decrementCount: number = 0;
+
+  /**
+   * This is the current number of net decrements that occurred during `TestGroup` execution.
+   */
+  private groupDecrementCount: number = 0;
+
+  /**
+   * This is the current number of net decrements that occurred during `TestResult` execution.
+   */
+  private testDecrementCount: number = 0;
+
+  /**
+   * This map is responsible for keeping track of which blocks are currently allocated.
+   */
+  private blocks: Map<number, number> = new Map();
+
+  /**
+   * This method is called when a memory block is allocated on the heap.
+   *
+   * @param {number} block - This is a pointer which points to the start of the block, and *not*
+   * the start of the data. It's value is the equivalent of `ptr - 16`.
+   */
+  private onalloc(block: number): void {
+    this.allocationCount += 1;
+    this.groupAllocationCount += 1;
+    this.testAllocationCount += 1;
+    /**
+     * This is impossible to test but follows exactly from the AssemblyScript example located
+     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
+     *
+     * Please see this file for further information about how rtrace errors are reported.
+     */
+    /* istanbul ignore next */
+    if (this.blocks.has(block)) {
+      /* istanbul ignore next */
+      this.errors.push({
+        message: "A duplicate allocation has occurred at block: " + block.toString(),
+        stackTrace: this.getLogStackTrace(),
+        type: "Allocation Error",
+      });
+    } else {
+      this.blocks.set(block, 0);
+    }
+  }
+
+  /**
+   * This method is called when a memory block is deallocated from the heap.
+   *
+   * @param {number} block - This is a pointer which points to the start of the block, and *not*
+   * the start of the data. It's value is the equivalent of `ptr - 16`.
+   */
+  private onfree(block: number): void {
+    this.deallocationCount += 1;
+    this.groupDeallocationCount += 1;
+    this.testDeallocationCount += 1;
+    /**
+     * This is impossible to test, but follows exactly from the AssemblyScript example located
+     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
+     *
+     * Please see this file for further information about how rtrace errors are reported.
+     */
+    /* istanbul ignore next */
+    if (!this.blocks.has(block)) {
+      /* istanbul ignore next */
+      this.errors.push({
+        message: "An orphaned dellocation has occurred at block: " + block.toString(),
+        stackTrace: this.getLogStackTrace(),
+        type: "Orphaned Deallocation Error",
+      });
+    } else {
+      this.blocks.delete(block);
+    }
+  }
+
+  /**
+   * This method is called when a memory block reference count is incremented.
+   *
+   * @param {number} block - This is a pointer which points to the start of the block, and *not*
+   * the start of the data. It's value is the equivalent of `ptr - 16`.
+   */
+  private onincrement(block: number): void {
+    this.incrementCount += 1;
+    this.groupIncrementCount += 1;
+    this.testIncrementCount += 1;
+    /**
+     * This is impossible to test, but follows exactly from the AssemblyScript example located
+     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
+     *
+     * Please see this file for further information about how rtrace errors are reported.
+     */
+    /* istanbul ignore next */
+    if (!this.blocks.has(block)) {
+      /* istanbul ignore next */
+      this.errors.push({
+        message: "An orphaned increment has occurred at block: " + block.toString(),
+        stackTrace: this.getLogStackTrace(),
+        type: "Orphaned Increment Error",
+      });
+    } else {
+      const count = this.blocks.get(block)!;
+      this.blocks.set(block, count + 1);
+    }
+  }
+
+  /**
+   * This method is called when a memory block reference count is decremented.
+   *
+   * @param {number} block - This is a pointer which points to the start of the block, and *not*
+   * the start of the data. It's value is the equivalent of `ptr - 16`.
+   */
+  private ondecrement(block: number): void {
+    this.decrementCount += 1;
+    this.groupDecrementCount += 1;
+    this.testDecrementCount += 1;
+    /**
+     * This is impossible to test, but follows exactly from the AssemblyScript example located
+     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
+     *
+     * Please see this file for further information about how rtrace errors are reported.
+     */
+    /* istanbul ignore next */
+    if (!this.blocks.has(block)) {
+      /* istanbul ignore next */
+      this.errors.push({
+        message: "An orphaned decrement has occurred at block: " + block.toString(),
+        stackTrace: this.getLogStackTrace(),
+        type: "Orphaned Decrement Error",
+      });
+    } else {
+      const count = this.blocks.get(block)!;
+      this.blocks.set(block, count - 1);
+    }
+  }
+
+
 }
