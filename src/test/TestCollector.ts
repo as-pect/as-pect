@@ -975,57 +975,57 @@ export class TestCollector {
   /**
    * This is the current number of net allocations that occured during `TestGroup` execution.
    */
-  private groupAllocationCount: number = 0;
+  protected groupAllocationCount: number = 0;
 
   /**
    * This is the current number of net allocations that occured during `TestResult` execution.
    */
-  private testAllocationCount: number = 0;
+  protected testAllocationCount: number = 0;
 
   /**
    * This is the current number of net dellocations that occurred during `TestContext` execution.
    */
-  private deallocationCount: number = 0;
+  protected deallocationCount: number = 0;
 
   /**
    * This is the current number of net allocations that occured during `TestGroup` execution.
    */
-  private groupDeallocationCount: number = 0;
+  protected groupDeallocationCount: number = 0;
 
   /**
    * This is the current number of net allocations that occured during `TestGroup` execution.
    */
-  private testDeallocationCount: number = 0;
+  protected testDeallocationCount: number = 0;
 
   /**
    * This is the current number of net increments that occurred during `TestContext` execution.
    */
-  private incrementCount: number = 0;
+  protected incrementCount: number = 0;
 
   /**
    * This is the current number of net increments that occurred during `TestGroup` execution.
    */
-  private groupIncrementCount: number = 0;
+  protected groupIncrementCount: number = 0;
 
   /**
    * This is the current number of net increments that occurred during `TestResult` execution.
    */
-  private testIncrementCount: number = 0;
+  protected testIncrementCount: number = 0;
 
   /**
    * This is the current number of net decrements that occurred during `TestContext` execution.
    */
-  private decrementCount: number = 0;
+  protected decrementCount: number = 0;
 
   /**
    * This is the current number of net decrements that occurred during `TestGroup` execution.
    */
-  private groupDecrementCount: number = 0;
+  protected groupDecrementCount: number = 0;
 
   /**
    * This is the current number of net decrements that occurred during `TestResult` execution.
    */
-  private testDecrementCount: number = 0;
+  protected testDecrementCount: number = 0;
 
   /**
    * This map is responsible for keeping track of which blocks are currently allocated.
@@ -1149,6 +1149,4 @@ export class TestCollector {
       this.blocks.set(block, count - 1);
     }
   }
-
-
 }
