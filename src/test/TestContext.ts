@@ -230,7 +230,14 @@ export class TestContext extends TestCollector {
       result.rtraceDelta = result.rtraceEnd - result.rtraceStart;
     }
 
-    // if any rtrace errors occur during the test, fail it
+    /**
+     * In the chance that some kind of memory error occurs as a result of executing the test,
+     * this should end the test unsuccesfully. Since most errors that end with some kind of
+     * runtime error using `unreachable()`, it's impossible to test this branch meaningfully.
+     * This if statement is ignored because it's a failsafe in case some kind of error occurs
+     * that doesn't cause an unreachable state.
+     */
+    /* istanbul ignore next */
     if (result.errors.length > 0) result.pass = false;
 
     result.end = performance.now();

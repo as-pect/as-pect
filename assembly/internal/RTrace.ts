@@ -10,6 +10,55 @@ declare function startRTrace(label: i32): void;
 @external("__aspect", "endRTrace")
 declare function endRTrace(label: i32): i32;
 
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceIncrements")
+declare function getRTraceIncrements(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceDecrements")
+declare function getRTraceDecrements(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceGroupIncrements")
+declare function getRTraceGroupIncrements(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceGroupDecrements")
+declare function getRTraceGroupDecrements(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceTestIncrements")
+declare function getRTraceTestIncrements(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceTestDecrements")
+declare function getRTraceTestDecrements(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceAllocations")
+declare function getRTraceAllocations(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceFrees")
+declare function getRTraceFrees(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceGroupAllocations")
+declare function getRTraceGroupAllocations(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceGroupFrees")
+declare function getRTraceGroupFrees(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceTestAllocations")
+declare function getRTraceTestAllocations(): i32;
+
+// @ts-ignore: Decorators *are* valid here
+@external("__aspect", "getRTraceTestFrees")
+declare function getRTraceTestFrees(): i32;
+
+
 @global
 export class RTrace {
   /**
@@ -42,6 +91,114 @@ export class RTrace {
    */
   public static end(label: i32): i32 {
     if (RTrace.enabled) return endRTrace(label);
+    return 0;
+  }
+
+  /**
+   * This method returns the number of increments that have occurred over the course of a test
+   * file.
+   */
+  public static increments(): i32 {
+    if (RTrace.enabled) return getRTraceIncrements();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of decrements that have occurred over the course of a test
+   * file.
+   */
+  public static decrements(): i32 {
+    if (RTrace.enabled) return getRTraceDecrements();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of increments that have occurred over the course of a test
+   * group.
+   */
+  public static groupIncrements(): i32 {
+    if (RTrace.enabled) return getRTraceGroupIncrements();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of decrements that have occurred over the course of a test
+   * group.
+   */
+  public static groupDecrements(): i32 {
+    if (RTrace.enabled) return getRTraceGroupDecrements();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of increments that have occurred over the course of a test
+   * group.
+   */
+  public static testIncrements(): i32 {
+    if (RTrace.enabled) return getRTraceTestIncrements();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of decrements that have occurred over the course of a test
+   * group.
+   */
+  public static testDecrements(): i32 {
+    if (RTrace.enabled) return getRTraceTestDecrements();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of allocations that have occurred over the course of a test
+   * file.
+   */
+  public static allocations(): i32 {
+    if (RTrace.enabled) return getRTraceAllocations();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of frees that have occurred over the course of a test
+   * file.
+   */
+  public static frees(): i32 {
+    if (RTrace.enabled) return getRTraceFrees();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of allocations that have occurred over the course of a test
+   * group.
+   */
+  public static groupAllocations(): i32 {
+    if (RTrace.enabled) return getRTraceGroupFrees();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of frees that have occurred over the course of a test
+   * group.
+   */
+  public static groupFrees(): i32 {
+    if (RTrace.enabled) return getRTraceGroupFrees();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of allocations that have occurred over the course of a test
+   * group.
+   */
+  public static testAllocations(): i32 {
+    if (RTrace.enabled) return getRTraceTestIncrements();
+    return 0;
+  }
+
+  /**
+   * This method returns the number of frees that have occurred over the course of a test
+   * group.
+   */
+  public static testFrees(): i32 {
+    if (RTrace.enabled) return getRTraceTestFrees();
     return 0;
   }
 }
