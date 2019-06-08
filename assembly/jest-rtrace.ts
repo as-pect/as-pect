@@ -46,3 +46,45 @@ describe("a group reference counting error", () => {
   });
   test("empty", () => {});
 });
+
+describe("RTrace api", () => {
+  test("RTrace.count()", () => {
+    RTrace.count();
+  });
+  test("RTrace.increments()", () => {
+    RTrace.increments();
+  });
+  test("RTrace.decrements()", () => {
+    RTrace.decrements();
+  });
+  test("RTrace.groupIncrements()", () => {
+    RTrace.groupIncrements();
+  });
+  test("RTrace.groupDecrements()", () => {
+    RTrace.groupDecrements();
+  });
+  test("RTrace.testIncrements()", () => {
+    RTrace.testIncrements();
+  });
+  test("RTrace.testDecrements()", () => {
+    RTrace.testDecrements();
+  });
+  test("RTrace.allocations()", () => {
+    RTrace.allocations();
+  });
+  test("RTrace.frees()", () => {
+    RTrace.frees();
+  });
+  test("RTrace.groupAllocations()", () => {
+    RTrace.groupAllocations();
+  });
+  test("RTrace.groupFrees()", () => {
+    RTrace.groupFrees();
+  });
+  test("RTrace.testAllocations()", () => {
+    RTrace.testAllocations();
+  });
+  test("RTrace.testFrees()", () => {
+    RTrace.testFrees();
+  });
+});
