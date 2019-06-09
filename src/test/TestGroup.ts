@@ -89,7 +89,7 @@ export class TestGroup implements ILogTarget {
    * If the test group did not error, this is the number of deallocations that occurred durring the
    * the group's exection.
    */
-  public deallocationCount: number = 0;
+  public freeCount: number = 0;
 
   /**
    * If the test group did not error, this is the number of block decrements that occurred during

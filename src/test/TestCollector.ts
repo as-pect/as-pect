@@ -167,6 +167,18 @@ export class TestCollector {
           getRTraceCount: this.getRTraceCount.bind(this),
           startRTrace: this.startRTrace.bind(this),
           endRTrace: this.endRTrace.bind(this),
+          getRTraceIncrements: this.getRTraceIncrements.bind(this),
+          getRTraceDecrements: this.getRTraceDecrements.bind(this),
+          getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
+          getRTraceGroupDecrements: this.getRTraceGroupDecrements.bind(this),
+          getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
+          getRTraceTestDecrements: this.getRTraceTestDecrements.bind(this),
+          getRTraceAllocations: this.getRTraceAllocations.bind(this),
+          getRTraceFrees: this.getRTraceFrees.bind(this),
+          getRTraceGroupAllocations: this.getRTraceGroupAllocations.bind(this),
+          getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
+          getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
+          getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
         },
       },
     );
@@ -985,17 +997,17 @@ export class TestCollector {
   /**
    * This is the current number of net dellocations that occurred during `TestContext` execution.
    */
-  public deallocationCount: number = 0;
+  public freeCount: number = 0;
 
   /**
    * This is the current number of net allocations that occured during `TestGroup` execution.
    */
-  protected groupDeallocationCount: number = 0;
+  protected groupFreeCount: number = 0;
 
   /**
    * This is the current number of net allocations that occured during `TestGroup` execution.
    */
-  protected testDeallocationCount: number = 0;
+  protected testFreeCount: number = 0;
 
   /**
    * This is the current number of net increments that occurred during `TestContext` execution.
@@ -1066,9 +1078,9 @@ export class TestCollector {
    * @param {number} block - This is a unique identifier for the affected block.
    */
   private onfree(block: number): void {
-    this.deallocationCount += 1;
-    this.groupDeallocationCount += 1;
-    this.testDeallocationCount += 1;
+    this.freeCount += 1;
+    this.groupFreeCount += 1;
+    this.testFreeCount += 1;
     /**
      * This is impossible to test, but follows exactly from the AssemblyScript example located
      * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
@@ -1158,5 +1170,89 @@ export class TestCollector {
      */
     /* istanbul ignore next */
     if (this.logTarget) this.logTarget.errors.push(error);
+  }
+
+  /**
+   * This linked method gets all the RTrace increments for this entire test up until this point.
+   */
+  private getRTraceIncrements(): number {
+    return this.incrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace decrements for this entire test up until this point.
+   */
+  private getRTraceDecrements(): number {
+    return this.decrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace increments for the current group up until this point.
+   */
+  private getRTraceGroupIncrements(): number {
+    return this.groupIncrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace decrements for the current group up until this point.
+   */
+  private getRTraceGroupDecrements(): number {
+    return this.groupDecrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace increments for the current test up until this point.
+   */
+  private getRTraceTestIncrements(): number {
+    return this.testIncrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace decrements for the current test up until this point.
+   */
+  private getRTraceTestDecrements(): number {
+    return this.testDecrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace allocations for this entire test up until this point.
+   */
+  private getRTraceAllocations(): number {
+    return this.allocationCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace frees for this entire test up until this point.
+   */
+  private getRTraceFrees(): number {
+    return this.freeCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace increments for this entire test up until this point.
+   */
+  private getRTraceGroupAllocations(): number {
+    return this.groupAllocationCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace frees for the current group up until this point.
+   */
+  private getRTraceGroupFrees(): number {
+    return this.groupFreeCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace allocations for the current test up until this point.
+   */
+  private getRTraceTestAllocations(): number {
+    return this.testAllocationCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace allocations for the current test up until this point.
+   */
+  private getRTraceTestFrees(): number {
+    return this.testFreeCount;
   }
 }

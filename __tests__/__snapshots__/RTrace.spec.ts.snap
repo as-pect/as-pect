@@ -2,150 +2,374 @@
 
 exports[`RTrace output RTrace group and test values: allocationCount 1`] = `8`;
 
-exports[`RTrace output RTrace group and test values: deallocationCount 1`] = `2`;
-
 exports[`RTrace output RTrace group and test values: errors 1`] = `Array []`;
 
-exports[`RTrace output RTrace group and test values: group 0 allocationCount 1`] = `0`;
+exports[`RTrace output RTrace group and test values: freeCount 1`] = `2`;
 
-exports[`RTrace output RTrace group and test values: group 0 deallocationCount 1`] = `0`;
+exports[`RTrace output RTrace group and test values: group 0 allocationCount 1`] = `0`;
 
 exports[`RTrace output RTrace group and test values: group 0 decrementCount 1`] = `0`;
 
 exports[`RTrace output RTrace group and test values: group 0 errors 1`] = `Array []`;
 
+exports[`RTrace output RTrace group and test values: group 0 freeCount 1`] = `0`;
+
 exports[`RTrace output RTrace group and test values: group 0 incrementCount 1`] = `0`;
 
 exports[`RTrace output RTrace group and test values: group 0 rtraceDelta 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: group 0 rtraceEnd 1`] = `0`;
+exports[`RTrace output RTrace group and test values: group 0 rtraceEnd 1`] = `3`;
 
 exports[`RTrace output RTrace group and test values: group 0 rtraceStart 1`] = `3`;
 
-exports[`RTrace output RTrace group and test values: group 1 allocationCount 1`] = `5`;
+exports[`RTrace output RTrace group and test values: group 1 allocationCount 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: group 1 deallocationCount 1`] = `1`;
-
-exports[`RTrace output RTrace group and test values: group 1 decrementCount 1`] = `13`;
+exports[`RTrace output RTrace group and test values: group 1 decrementCount 1`] = `0`;
 
 exports[`RTrace output RTrace group and test values: group 1 errors 1`] = `Array []`;
 
-exports[`RTrace output RTrace group and test values: group 1 incrementCount 1`] = `17`;
+exports[`RTrace output RTrace group and test values: group 1 freeCount 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: group 1 rtraceDelta 1`] = `4`;
+exports[`RTrace output RTrace group and test values: group 1 incrementCount 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: group 1 rtraceEnd 1`] = `6`;
+exports[`RTrace output RTrace group and test values: group 1 rtraceDelta 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: group 1 rtraceStart 1`] = `2`;
+exports[`RTrace output RTrace group and test values: group 1 rtraceEnd 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: group 1 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: group 2 allocationCount 1`] = `5`;
+
+exports[`RTrace output RTrace group and test values: group 2 decrementCount 1`] = `13`;
+
+exports[`RTrace output RTrace group and test values: group 2 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: group 2 freeCount 1`] = `1`;
+
+exports[`RTrace output RTrace group and test values: group 2 incrementCount 1`] = `17`;
+
+exports[`RTrace output RTrace group and test values: group 2 rtraceDelta 1`] = `4`;
+
+exports[`RTrace output RTrace group and test values: group 2 rtraceEnd 1`] = `6`;
+
+exports[`RTrace output RTrace group and test values: group 2 rtraceStart 1`] = `2`;
 
 exports[`RTrace output RTrace group and test values: test 0-0 allocationCount 1`] = `0`;
-
-exports[`RTrace output RTrace group and test values: test 0-0 deallocationCount 1`] = `0`;
 
 exports[`RTrace output RTrace group and test values: test 0-0 decrementCount 1`] = `0`;
 
 exports[`RTrace output RTrace group and test values: test 0-0 errors 1`] = `Array []`;
 
+exports[`RTrace output RTrace group and test values: test 0-0 freeCount 1`] = `0`;
+
 exports[`RTrace output RTrace group and test values: test 0-0 incrementCount 1`] = `0`;
 
 exports[`RTrace output RTrace group and test values: test 0-0 rtraceDelta 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 0-0 rtraceEnd 1`] = `0`;
+exports[`RTrace output RTrace group and test values: test 0-0 rtraceEnd 1`] = `3`;
 
-exports[`RTrace output RTrace group and test values: test 0-0 rtraceStart 1`] = `0`;
+exports[`RTrace output RTrace group and test values: test 0-0 rtraceStart 1`] = `3`;
 
-exports[`RTrace output RTrace group and test values: test 1-0 allocationCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 0-1 allocationCount 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 1-0 deallocationCount 1`] = `0`;
+exports[`RTrace output RTrace group and test values: test 0-1 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-1 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-1 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-1 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-1 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-1 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-1 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-2 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-2 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-2 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-2 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-2 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-2 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-2 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-2 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-3 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-3 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-3 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-3 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-3 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-3 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-3 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-3 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-4 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-4 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-4 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-4 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-4 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-4 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-4 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-4 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-5 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-5 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-5 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-5 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-5 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-5 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-5 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-5 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-6 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-6 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-6 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-6 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-6 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-6 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-6 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-6 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-7 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-7 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-7 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-7 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-7 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-7 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-7 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-7 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-8 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-8 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-8 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-8 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-8 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-8 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-8 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-8 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-9 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-9 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-9 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-9 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-9 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-9 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-9 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-9 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-10 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-10 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-10 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-10 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-10 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-10 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-10 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-10 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-11 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-11 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-11 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-11 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-11 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-11 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-11 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-11 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-12 allocationCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-12 decrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-12 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 0-12 freeCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-12 incrementCount 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-12 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 0-12 rtraceEnd 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 0-12 rtraceStart 1`] = `3`;
+
+exports[`RTrace output RTrace group and test values: test 1-0 allocationCount 1`] = `0`;
 
 exports[`RTrace output RTrace group and test values: test 1-0 decrementCount 1`] = `0`;
 
 exports[`RTrace output RTrace group and test values: test 1-0 errors 1`] = `Array []`;
 
-exports[`RTrace output RTrace group and test values: test 1-0 incrementCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 1-0 freeCount 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 1-0 rtraceDelta 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 1-0 incrementCount 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 1-0 rtraceEnd 1`] = `3`;
+exports[`RTrace output RTrace group and test values: test 1-0 rtraceDelta 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 1-0 rtraceStart 1`] = `2`;
+exports[`RTrace output RTrace group and test values: test 1-0 rtraceEnd 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 1-1 allocationCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 1-0 rtraceStart 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 1-1 deallocationCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 2-0 allocationCount 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-1 decrementCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 2-0 decrementCount 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 1-1 errors 1`] = `Array []`;
+exports[`RTrace output RTrace group and test values: test 2-0 errors 1`] = `Array []`;
 
-exports[`RTrace output RTrace group and test values: test 1-1 incrementCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 2-0 freeCount 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 1-1 rtraceDelta 1`] = `-1`;
+exports[`RTrace output RTrace group and test values: test 2-0 incrementCount 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-1 rtraceEnd 1`] = `2`;
+exports[`RTrace output RTrace group and test values: test 2-0 rtraceDelta 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-1 rtraceStart 1`] = `3`;
+exports[`RTrace output RTrace group and test values: test 2-0 rtraceEnd 1`] = `3`;
 
-exports[`RTrace output RTrace group and test values: test 1-2 allocationCount 1`] = `4`;
+exports[`RTrace output RTrace group and test values: test 2-0 rtraceStart 1`] = `2`;
 
-exports[`RTrace output RTrace group and test values: test 1-2 deallocationCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 2-1 allocationCount 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-2 decrementCount 1`] = `7`;
+exports[`RTrace output RTrace group and test values: test 2-1 decrementCount 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-2 errors 1`] = `Array []`;
+exports[`RTrace output RTrace group and test values: test 2-1 errors 1`] = `Array []`;
 
-exports[`RTrace output RTrace group and test values: test 1-2 incrementCount 1`] = `10`;
+exports[`RTrace output RTrace group and test values: test 2-1 freeCount 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-2 rtraceDelta 1`] = `3`;
+exports[`RTrace output RTrace group and test values: test 2-1 incrementCount 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-2 rtraceEnd 1`] = `5`;
+exports[`RTrace output RTrace group and test values: test 2-1 rtraceDelta 1`] = `-1`;
 
-exports[`RTrace output RTrace group and test values: test 1-2 rtraceStart 1`] = `2`;
+exports[`RTrace output RTrace group and test values: test 2-1 rtraceEnd 1`] = `2`;
 
-exports[`RTrace output RTrace group and test values: test 1-3 allocationCount 1`] = `4`;
+exports[`RTrace output RTrace group and test values: test 2-1 rtraceStart 1`] = `3`;
 
-exports[`RTrace output RTrace group and test values: test 1-3 deallocationCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 2-2 allocationCount 1`] = `4`;
 
-exports[`RTrace output RTrace group and test values: test 1-3 decrementCount 1`] = `7`;
+exports[`RTrace output RTrace group and test values: test 2-2 decrementCount 1`] = `7`;
 
-exports[`RTrace output RTrace group and test values: test 1-3 errors 1`] = `Array []`;
+exports[`RTrace output RTrace group and test values: test 2-2 errors 1`] = `Array []`;
 
-exports[`RTrace output RTrace group and test values: test 1-3 incrementCount 1`] = `10`;
+exports[`RTrace output RTrace group and test values: test 2-2 freeCount 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-3 rtraceDelta 1`] = `0`;
+exports[`RTrace output RTrace group and test values: test 2-2 incrementCount 1`] = `10`;
 
-exports[`RTrace output RTrace group and test values: test 1-3 rtraceEnd 1`] = `5`;
+exports[`RTrace output RTrace group and test values: test 2-2 rtraceDelta 1`] = `3`;
 
-exports[`RTrace output RTrace group and test values: test 1-3 rtraceStart 1`] = `5`;
+exports[`RTrace output RTrace group and test values: test 2-2 rtraceEnd 1`] = `5`;
 
-exports[`RTrace output RTrace group and test values: test 1-4 allocationCount 1`] = `5`;
+exports[`RTrace output RTrace group and test values: test 2-2 rtraceStart 1`] = `2`;
 
-exports[`RTrace output RTrace group and test values: test 1-4 deallocationCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 2-3 allocationCount 1`] = `4`;
 
-exports[`RTrace output RTrace group and test values: test 1-4 decrementCount 1`] = `9`;
+exports[`RTrace output RTrace group and test values: test 2-3 decrementCount 1`] = `7`;
 
-exports[`RTrace output RTrace group and test values: test 1-4 errors 1`] = `Array []`;
+exports[`RTrace output RTrace group and test values: test 2-3 errors 1`] = `Array []`;
 
-exports[`RTrace output RTrace group and test values: test 1-4 incrementCount 1`] = `13`;
+exports[`RTrace output RTrace group and test values: test 2-3 freeCount 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-4 rtraceDelta 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 2-3 incrementCount 1`] = `10`;
 
-exports[`RTrace output RTrace group and test values: test 1-4 rtraceEnd 1`] = `6`;
+exports[`RTrace output RTrace group and test values: test 2-3 rtraceDelta 1`] = `0`;
 
-exports[`RTrace output RTrace group and test values: test 1-4 rtraceStart 1`] = `5`;
+exports[`RTrace output RTrace group and test values: test 2-3 rtraceEnd 1`] = `5`;
 
-exports[`RTrace output RTrace group and test values: test 1-5 allocationCount 1`] = `5`;
+exports[`RTrace output RTrace group and test values: test 2-3 rtraceStart 1`] = `5`;
 
-exports[`RTrace output RTrace group and test values: test 1-5 deallocationCount 1`] = `1`;
+exports[`RTrace output RTrace group and test values: test 2-4 allocationCount 1`] = `5`;
 
-exports[`RTrace output RTrace group and test values: test 1-5 decrementCount 1`] = `13`;
+exports[`RTrace output RTrace group and test values: test 2-4 decrementCount 1`] = `9`;
 
-exports[`RTrace output RTrace group and test values: test 1-5 errors 1`] = `Array []`;
+exports[`RTrace output RTrace group and test values: test 2-4 errors 1`] = `Array []`;
 
-exports[`RTrace output RTrace group and test values: test 1-5 incrementCount 1`] = `17`;
+exports[`RTrace output RTrace group and test values: test 2-4 freeCount 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-5 rtraceDelta 1`] = `0`;
+exports[`RTrace output RTrace group and test values: test 2-4 incrementCount 1`] = `13`;
 
-exports[`RTrace output RTrace group and test values: test 1-5 rtraceEnd 1`] = `6`;
+exports[`RTrace output RTrace group and test values: test 2-4 rtraceDelta 1`] = `1`;
 
-exports[`RTrace output RTrace group and test values: test 1-5 rtraceStart 1`] = `6`;
+exports[`RTrace output RTrace group and test values: test 2-4 rtraceEnd 1`] = `6`;
+
+exports[`RTrace output RTrace group and test values: test 2-4 rtraceStart 1`] = `5`;
+
+exports[`RTrace output RTrace group and test values: test 2-5 allocationCount 1`] = `5`;
+
+exports[`RTrace output RTrace group and test values: test 2-5 decrementCount 1`] = `13`;
+
+exports[`RTrace output RTrace group and test values: test 2-5 errors 1`] = `Array []`;
+
+exports[`RTrace output RTrace group and test values: test 2-5 freeCount 1`] = `1`;
+
+exports[`RTrace output RTrace group and test values: test 2-5 incrementCount 1`] = `17`;
+
+exports[`RTrace output RTrace group and test values: test 2-5 rtraceDelta 1`] = `0`;
+
+exports[`RTrace output RTrace group and test values: test 2-5 rtraceEnd 1`] = `6`;
+
+exports[`RTrace output RTrace group and test values: test 2-5 rtraceStart 1`] = `6`;

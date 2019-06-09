@@ -114,7 +114,7 @@ export declare class TestResult implements ILogTarget {
      * If the test group did not error, this is the number of deallocations that occurred durring the
      * the test's exection.
      */
-    deallocationCount: number;
+    freeCount: number;
     /**
      * If the test group did not error, this is the number of block decrements that occurred during
      * the test's exection.

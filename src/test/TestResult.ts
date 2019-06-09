@@ -1,7 +1,8 @@
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { ILogTarget } from "../util/ILogTarget";
-import { mean, median, var as variance, round } from "mathjs";
+// @ts-ignore: the variance function exists, and is being deprecated in the `var` form
+import { mean, median, variance, round } from "mathjs";
 import { PerformanceLimits } from "./PerformanceLimits";
 import { IWarning } from "./IWarning";
 
@@ -149,7 +150,7 @@ export class TestResult implements ILogTarget {
    * If the test group did not error, this is the number of deallocations that occurred durring the
    * the test's exection.
    */
-  public deallocationCount: number = 0;
+  public freeCount: number = 0;
 
   /**
    * If the test group did not error, this is the number of block decrements that occurred during

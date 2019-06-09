@@ -171,7 +171,7 @@ export class RTrace {
    * group.
    */
   public static groupAllocations(): i32 {
-    if (RTrace.enabled) return getRTraceGroupFrees();
+    if (RTrace.enabled) return getRTraceGroupAllocations();
     return 0;
   }
 
@@ -189,7 +189,7 @@ export class RTrace {
    * group.
    */
   public static testAllocations(): i32 {
-    if (RTrace.enabled) return getRTraceTestIncrements();
+    if (RTrace.enabled) return getRTraceTestAllocations();
     return 0;
   }
 

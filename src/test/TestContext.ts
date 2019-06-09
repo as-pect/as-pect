@@ -83,7 +83,7 @@ export class TestContext extends TestCollector {
     if (this.rtraceEnabled) {
       // reset all the reference counting properties
       this.groupAllocationCount = 0;
-      this.groupDeallocationCount = 0;
+      this.groupFreeCount = 0;
       this.groupDecrementCount = 0;
       this.groupIncrementCount = 0;
       group.rtraceStart = this.blocks.size;
@@ -121,7 +121,7 @@ export class TestContext extends TestCollector {
     if (this.rtraceEnabled) {
       // calculate reference counts for the group
       group.allocationCount = this.groupAllocationCount;
-      group.deallocationCount = this.groupDeallocationCount;
+      group.freeCount = this.groupFreeCount;
       group.decrementCount = this.groupDecrementCount;
       group.incrementCount = this.groupIncrementCount;
       group.rtraceEnd = this.blocks.size;
@@ -152,7 +152,7 @@ export class TestContext extends TestCollector {
     if (this.rtraceEnabled) {
       // reset all the reference counting properties
       this.testAllocationCount = 0;
-      this.testDeallocationCount = 0;
+      this.testFreeCount = 0;
       this.testDecrementCount = 0;
       this.testIncrementCount = 0;
 
@@ -223,7 +223,7 @@ export class TestContext extends TestCollector {
     if (this.rtraceEnabled) {
       // calculate reference counts for the group
       result.allocationCount = this.groupAllocationCount;
-      result.deallocationCount = this.groupDeallocationCount;
+      result.freeCount = this.groupFreeCount;
       result.decrementCount = this.groupDecrementCount;
       result.incrementCount = this.groupIncrementCount;
       result.rtraceEnd = this.blocks.size;

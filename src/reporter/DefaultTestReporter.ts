@@ -211,7 +211,7 @@ export class DefaultTestReporter extends TestReporter {
       ? `0 fail`
       : chalk`{red ${(count - successCount).toString()} fail}`;
 
-    const rtcount = suite.allocationCount - suite.deallocationCount;
+    const rtcount = suite.allocationCount - suite.freeCount;
 
     const rtraceDelta = rtcount === 0
       ? ""

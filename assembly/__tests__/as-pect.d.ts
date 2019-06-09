@@ -561,4 +561,76 @@ declare class RTrace {
    * @param {i32} label - The numeric label for this refcounting group.
    */
   public static end(label: i32): i32;
+
+  /**
+   * This method returns the number of increments that have occurred over the course of a test
+   * file.
+   */
+  public static increments(): i32;
+
+  /**
+   * This method returns the number of decrements that have occurred over the course of a test
+   * file.
+   */
+  public static decrements(): i32;
+
+  /**
+   * This method returns the number of increments that have occurred over the course of a test
+   * group.
+   */
+  public static groupIncrements(): i32;
+
+  /**
+   * This method returns the number of decrements that have occurred over the course of a test
+   * group.
+   */
+  public static groupDecrements(): i32;
+
+  /**
+   * This method returns the number of increments that have occurred over the course of a test
+   * group.
+   */
+  public static testIncrements(): i32;
+
+  /**
+   * This method returns the number of decrements that have occurred over the course of a test
+   * group.
+   */
+  public static testDecrements(): i32;
+
+  /**
+   * This method returns the number of allocations that have occurred over the course of a test
+   * file.
+   */
+  public static allocations(): i32;
+
+  /**
+   * This method returns the number of frees that have occurred over the course of a test
+   * file.
+   */
+  public static frees(): i32;
+
+  /**
+   * This method returns the number of allocations that have occurred over the course of a test
+   * group.
+   */
+  public static groupAllocations(): i32;
+
+  /**
+   * This method returns the number of frees that have occurred over the course of a test
+   * group.
+   */
+  public static groupFrees(): i32;
+
+  /**
+   * This method returns the number of allocations that have occurred over the course of a test
+   * group.
+   */
+  public static testAllocations(): i32;
+
+  /**
+   * This method returns the number of frees that have occurred over the course of a test
+   * group.
+   */
+  public static testFrees(): i32;
 }

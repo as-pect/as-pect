@@ -419,15 +419,15 @@ export declare class TestCollector {
     /**
      * This is the current number of net dellocations that occurred during `TestContext` execution.
      */
-    deallocationCount: number;
+    freeCount: number;
     /**
      * This is the current number of net allocations that occured during `TestGroup` execution.
      */
-    protected groupDeallocationCount: number;
+    protected groupFreeCount: number;
     /**
      * This is the current number of net allocations that occured during `TestGroup` execution.
      */
-    protected testDeallocationCount: number;
+    protected testFreeCount: number;
     /**
      * This is the current number of net increments that occurred during `TestContext` execution.
      */
@@ -486,5 +486,53 @@ export declare class TestCollector {
      * @param {IWarning} error - The error being reported.
      */
     protected pushError(error: IWarning): void;
+    /**
+     * This linked method gets all the RTrace increments for this entire test up until this point.
+     */
+    private getRTraceIncrements;
+    /**
+     * This linked method gets all the RTrace decrements for this entire test up until this point.
+     */
+    private getRTraceDecrements;
+    /**
+     * This linked method gets all the RTrace increments for the current group up until this point.
+     */
+    private getRTraceGroupIncrements;
+    /**
+     * This linked method gets all the RTrace decrements for the current group up until this point.
+     */
+    private getRTraceGroupDecrements;
+    /**
+     * This linked method gets all the RTrace increments for the current test up until this point.
+     */
+    private getRTraceTestIncrements;
+    /**
+     * This linked method gets all the RTrace decrements for the current test up until this point.
+     */
+    private getRTraceTestDecrements;
+    /**
+     * This linked method gets all the RTrace allocations for this entire test up until this point.
+     */
+    private getRTraceAllocations;
+    /**
+     * This linked method gets all the RTrace frees for this entire test up until this point.
+     */
+    private getRTraceFrees;
+    /**
+     * This linked method gets all the RTrace increments for this entire test up until this point.
+     */
+    private getRTraceGroupAllocations;
+    /**
+     * This linked method gets all the RTrace frees for the current group up until this point.
+     */
+    private getRTraceGroupFrees;
+    /**
+     * This linked method gets all the RTrace allocations for the current test up until this point.
+     */
+    private getRTraceTestAllocations;
+    /**
+     * This linked method gets all the RTrace allocations for the current test up until this point.
+     */
+    private getRTraceTestFrees;
 }
 //# sourceMappingURL=TestCollector.d.ts.map
