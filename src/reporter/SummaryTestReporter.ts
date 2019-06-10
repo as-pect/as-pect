@@ -2,6 +2,7 @@ import { TestReporter } from "../test/TestReporter";
 import { TestContext } from "../test/TestContext";
 import { TestResult } from "../test/TestResult";
 import chalk from "chalk";
+import { TestGroup } from "../test/TestGroup";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -22,19 +23,23 @@ export class SummaryTestReporter extends TestReporter {
     const todos = ([] as string[])
       .concat(...suite.testGroups.map(e => e.todos)).length;
     const total = tests.length;
-    const pass = tests.reduce((left, right) => right.pass ? left + 1 : left, 0);
-    if (pass === total) {
+    const passCount = tests.reduce((left, right) => right.pass ? left + 1 : left, 0);
+    const groupPassCount = suite.testGroups.reduce((num: number, group: TestGroup) => (group.pass ? 1 : 0) + num, 0);
+
+    if (passCount === total && suite.testGroups.length === groupPassCount) {
       suite.stdout!.write(
-        chalk`{green.bold ✔ ${suite.fileName}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
+        chalk`{green.bold ✔ ${suite.fileName}} Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
       );
     } else {
       suite.stdout!.write(
-        chalk`{red.bold ❌ ${suite.fileName}} Pass: ${pass.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
+        chalk`{red.bold ❌ ${suite.fileName}} Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
       );
 
       for (const group of suite.testGroups) {
         if (group.pass) continue;
         suite.stdout!.write(chalk`  ${group.name}\n`);
+
+        if (group.reason) suite.stdout!.write(chalk`  {yellow Reason:} ${group.reason}`);
         inner:
         for (const test of group.tests) {
           if (test.pass) continue inner;
