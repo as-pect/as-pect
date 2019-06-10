@@ -46,15 +46,43 @@ declare function reportInvalidExpectCall(): void;
 declare function reportExpectedLong(pointer: usize, signed: bool, negated: i32): void;
 
 export class Expected {
+  /**
+   * This value indicates if the test suite is currently running.
+   */
   static ready: bool = false;
-  static type: ValueType = ValueType.Null;
+  /**
+   * This is the Expected value type.
+   */
+  static type: ValueType = ValueType.Unset;
+  /**
+   * This indicated if an expected integer or long is signed.
+   */
   static signed: bool = false;
+  /**
+   * This is an expected float value.
+   */
   static float: f64 = 0;
+  /**
+   * This is an expected integer value.
+   */
   static integer: i32 = 0;
+  /**
+   * This is an expected reference value, stored as a pointer.
+   */
   static reference: usize;
+  /**
+   * If the expected type is a reference, the size of the block will be stored here.
+   */
   static offset: i32 = 0;
   static expectation: usize = 0;
   static negated: i32 = 0;
+
+  /**
+   * Clear the expected value.
+   */
+  static clear(): void {
+    Expected.type = ValueType.Unset;
+  }
 }
 
 export function __sendExpected(): void {

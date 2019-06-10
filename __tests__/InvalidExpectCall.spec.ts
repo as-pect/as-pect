@@ -22,7 +22,7 @@ describe("an invalid expect call test suite", () => {
       Array [
         Object {
           "message": "An expect() function call was used outside of a test function in assembly/jest-invalid-expectation.ts.",
-          "stackTrace": "    at assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:140)
+          "stackTrace": "    at assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[60]:140)
           at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[68]:40)
           at assembly/internal/Describe/describe (wasm-function[70]:16)
           at start:assembly/jest-invalid-expectation (wasm-function[71]:6)

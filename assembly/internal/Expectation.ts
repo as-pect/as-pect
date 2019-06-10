@@ -16,6 +16,8 @@ import { lengthComparison } from "./comparison/lengthComparison";
 import { toIncludeComparison } from "./comparison/toIncludeComparison";
 import { toIncludeEqualComparison } from "./comparison/toIncludeEqualComparison";
 import { arrayComparison } from "./comparison/arrayComparison";
+import { Actual } from "./report/reportActual";
+import { Expected } from "./report/reportExpected";
 
 /**
  * The AssemblyScript class that represents an expecation.
@@ -58,6 +60,8 @@ export class Expectation<T> {
   public toBe(expected: T, message: string = ""): void {
     // assert value or reference equality
     exactComparison<T>(this.actual, expected, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   /**
@@ -70,23 +74,31 @@ export class Expectation<T> {
     // if T is not a reference, use exactComparison
     if (!isReference<T>()) {
       exactComparison<T>(this.actual, expected, this._not, message);
+      Actual.clear();
+      Expected.clear();
       return;
     }
 
     // if T is an array, use arrayComparison
     if (isArray<T>()) {
       arrayComparison<T>(this.actual, expected, this._not, message);
+      Actual.clear();
+      Expected.clear();
       return;
     }
 
     // Strings and ArrayBuffer must compare their size, so use blockComparison
     if (expected instanceof ArrayBuffer || expected instanceof String) {
       blockComparison<T>(this.actual, expected, this._not, message);
+      Actual.clear();
+      Expected.clear();
       return;
     }
 
     // T is a reference, use referenceComparison
     referenceComparison<T>(this.actual, expected, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   /**
@@ -97,55 +109,81 @@ export class Expectation<T> {
    */
   public toBlockEqual(expected: T, message: string = ""): void {
     blockComparison<T>(this.actual, expected, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toBeTruthy(message: string = ""): void {
     truthyComparison<T>(this.actual, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toBeFalsy(message: string = ""): void {
     falsyComparison<T>(this.actual, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toThrow(message: string = ""): void {
     tryCallComparison<T>(this.actual, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toBeGreaterThan(expected: T, message: string = ""): void {
     greaterThanComparison<T>(this.actual, expected, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toBeGreaterThanOrEqualTo(expected: T, message: string = ""): void {
     greaterThanOrEqualToComparison<T>(this.actual, expected, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toBeLessThan(expected: T, message: string = ""): void {
     lessThanComparison<T>(this.actual, expected, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toBeLessThanOrEqualTo(expected: T, message: string = ""): void {
     lessThanOrEqualToComparison<T>(this.actual, expected, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toBeNull(message: string = ""): void {
     nullComparison<T>(this.actual, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toBeCloseTo(expected: T, decimalPlaces: i32 = 2, message: string = ""): void {
     closeToComparison<T>(this.actual, expected, decimalPlaces, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toBeNaN(message: string = ""): void {
     isNaNComparison<T>(this.actual, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
 
   public toBeFinite(message: string = ""): void {
     finiteComparison<T>(this.actual, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toHaveLength(expected: i32, message: string = ""): void {
     lengthComparison<T>(this.actual, expected, this._not, message);
+    Actual.clear();
+    Expected.clear();
   }
 
   public toInclude<U>(expected: U, message: string = ""): void {
@@ -155,6 +193,8 @@ export class Expectation<T> {
     } else {
       assert(false, "toInclude expression called on non-Array.");
     }
+    Actual.clear();
+    Expected.clear();
   }
 
   public toIncludeEqual<U>(expected: U, message: string = ""): void {
@@ -164,6 +204,8 @@ export class Expectation<T> {
     } else {
       assert(false, "toIncludeEqual expression call on non-Array");
     }
+    Actual.clear();
+    Expected.clear();
   }
 }
 
