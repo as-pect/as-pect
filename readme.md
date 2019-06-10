@@ -408,13 +408,216 @@ Calling the `expect<T>(value: T)` function outside of a test function or a setup
 function will cause unexpected behavior. If this happens, the test suite will
 fail before it runs in the CLI, and the `Error` will be reported to the console.
 
-## Memory Leaks
+## RTrace and Memory Leaks
 
 If an expectation fails and hits an `unreachable()` instruction, any unreleased
 references in the function call stack will be held indefinitely as a memory
 leak. Test Suites don't stop running if they fail the test callback. However,
 tests will stop if they fail inside the `beforeEach()`, `beforeAll()`,
 `afterEach()`, and `afterAll()` callbacks.
+
+The following methods are exposed to you as a way to inspect how many
+allocations and frees occurred during the course of function execution. Every
+one of these functions exist in the `RTrace` namespace and will call into
+JavaScript to query the state of the heap.
+
+### RTrace.count()
+
+The count method returns the current number of heap allocations.
+
+Example:
+
+```ts
+const num: i32 = RTrace.count();
+```
+
+### RTrace.start(label: i32)
+
+The start method creates a starting point for a relative number of heap
+allocations. It should be used in conjunction with the `RTrace.end(label)`
+method which returns the relative number of heap allocations compared to the
+starting number when the label was created.
+
+Example:
+
+```ts
+const enum RTraceLabels {
+  MEMORY_INTENSIVE_OPERATION = 0,
+}
+
+RTrace.start(RTraceLabels.MEMORY_INTENSIVE_OPERATION);
+doSomething();
+const end: i32 = RTrace.end(RTraceLabels.MEMORY_INTENSIVE_OPERATION);
+expect<i32>(end).toBe(0);
+```
+
+### RTrace.end(label: i32)
+
+The end method creates an ending point for a relative number of heap
+allocations. It should be used in conjunction with the `RTrace.start(label)`
+method which returns the relative number of heap allocations compared to the
+starting number when the label was created.
+
+Example:
+
+```ts
+const enum RTraceLabels {
+  MEMORY_INTENSIVE_OPERATION = 0,
+}
+
+RTrace.start(RTraceLabels.MEMORY_INTENSIVE_OPERATION);
+doSomething();
+const end: i32 = RTrace.end(RTraceLabels.MEMORY_INTENSIVE_OPERATION);
+expect<i32>(end).toBe(0);
+```
+
+### RTrace.allocations()
+
+The allocations function will report the exact number of allocations that have
+occurred during the course of test file evaluation.
+
+```ts
+const allocations: i32 = RTrace.allocations();
+```
+
+### RTrace.frees()
+
+The allocations function will report the exact number of frees that have
+occurred during the course of test file evaluation.
+
+```ts
+const frees: i32 = RTrace.frees();
+```
+
+### RTrace.groupAllocations()
+
+The allocations function will report the exact number of allocations that have
+occurred during the course of the test group's evaluation.
+
+```ts
+describe("a group", () => {
+  afterAll(() => {
+    const groupAllocations: i32 = RTrace.groupAllocations();
+  });
+});
+```
+
+### RTrace.groupFrees()
+
+The frees function will report the exact number of frees that have occurred
+during the course of the test group's evaluation.
+
+```ts
+describe("a group", () => {
+  afterAll(() => {
+    const groupFrees: i32 = RTrace.groupFrees();
+  });
+});
+```
+
+### RTrace.testAllocations()
+
+The allocations function will report the exact number of allocations that have
+occurred during the course of the test's evaluation.
+
+```ts
+describe("a group", () => {
+  afterEach(() => {
+    const testAllocations: i32 = RTrace.testAllocations();
+  });
+});
+```
+
+### RTrace.testFrees()
+
+The frees function will report the exact number of frees that have occurred
+during the course of the test's evaluation.
+
+```ts
+describe("a group", () => {
+  afterEach(() => {
+    const testFrees: i32 = RTrace.testFrees();
+  });
+});
+```
+
+### RTrace.increments()
+
+The increments function returns the total number of reference counted increments
+that occurred over the course of the current test file.
+
+Example:
+
+```ts
+const increments: i32 = RTrace.increments();
+```
+
+### RTrace.decrements()
+
+The decrements function returns the total number of reference counted decrements
+that occurred over the course of the current test file.
+
+Example:
+
+```ts
+const decrements: i32 = RTrace.decrements();
+```
+
+### RTrace.groupIncrements()
+
+The groupIncrements function returns the total number of reference counted
+increments that occurred over the course of the current testing group.
+
+```ts
+describe("A testing group", () => {
+  afterAll(() => {
+    // log how many increments occured
+    log<i32>(RTrace.groupIncrements());
+  });
+});
+```
+
+### RTrace.groupDecrements()
+
+The groupDecrements function returns the total number of reference counted
+decrements that occurred over the course of the current testing group.
+
+```ts
+describe("A testing group", () => {
+  afterAll(() => {
+    // log how many increments occured
+    log<i32>(RTrace.groupDecrements());
+  });
+});
+```
+
+### RTrace.testIncrements()
+
+The testIncrements function returns the total number of reference counted
+increments that occurred over the course of the current testing group.
+
+```ts
+describe("A testing group", () => {
+  afterEach(() => {
+    // log how many increments occured
+    log<i32>(RTrace.testIncrements());
+  });
+});
+```
+
+### RTrace.testDecrements()
+
+The testDecrements function returns the total number of reference counted
+decrements that occurred over the course of the current testing group.
+
+```ts
+describe("A testing group", () => {
+  afterEach(() => {
+    // log how many increments occured
+    log<i32>(RTrace.testDecrements());
+  });
+});
+```
 
 ## Logging
 
@@ -576,12 +779,6 @@ instantiated.
 _**IMPORTANT**: THIS WILL IGNORE `as-pect.config.js`'S IMPORTS COMPLETELY_
 
 Please see the provided example located in `assembly/__tests__/customImports.spec.ts`.
-
-## Please Do Not Use @start
-
-The `@start` decorator helps declare a method that can be called to start up the
-module. The `as-pect` internal modules use this to help enable a 6% speedup on
-test gathering and execution.
 
 ## Special Thanks
 
