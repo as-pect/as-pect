@@ -15,7 +15,7 @@ import { createReferenceString } from "./util/createReferenceString";
 export class SummaryTestReporter extends TestReporter {
   private enableLogging: boolean = false;
 
-  constructor(options: any) {
+  constructor(options?: any) {
     super();
     if (options) {
       if (options.enableLogging) this.enableLogging = true;

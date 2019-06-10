@@ -16,7 +16,7 @@ export class CSVTestReporter extends TestReporter {
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
 
-  constructor(_options: any) {
+  constructor(_options?: any) {
     super();
   }
 

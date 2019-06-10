@@ -51,7 +51,7 @@ const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
 export class DefaultTestReporter extends TestReporter {
   protected stdout: IWritable | null = null;
 
-  constructor(_options: any) {
+  constructor(_options?: any) {
     super();
   }
 

@@ -8,7 +8,7 @@ import { LogValue } from "../util/LogValue";
  */
 export declare class SummaryTestReporter extends TestReporter {
     private enableLogging;
-    constructor(options: any);
+    constructor(options?: any);
     onStart(): void;
     onGroupStart(): void;
     onGroupFinish(): void;

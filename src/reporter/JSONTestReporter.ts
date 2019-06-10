@@ -11,7 +11,7 @@ import { TestResult } from "../test/TestResult";
  * `{testLocation}.spec.json`.
  */
 export class JSONTestReporter extends TestReporter {
-  constructor(_options: any) { super(); }
+  constructor(_options?: any) { super(); }
 
   protected file: WriteStream | null = null;
 

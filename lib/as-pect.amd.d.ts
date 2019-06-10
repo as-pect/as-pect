@@ -434,7 +434,7 @@ declare module "reporter/DefaultTestReporter" {
      */
     export class DefaultTestReporter extends TestReporter {
         protected stdout: IWritable | null;
-        constructor(_options: any);
+        constructor(_options?: any);
         onStart(suite: TestContext): void;
         onGroupStart(group: TestGroup): void;
         onGroupFinish(group: TestGroup): void;
@@ -1152,7 +1152,7 @@ declare module "reporter/CSVTestReporter" {
     export class CSVTestReporter extends TestReporter {
         protected output: Stringifier | null;
         protected fileName: WriteStream | null;
-        constructor(_options: any);
+        constructor(_options?: any);
         onStart(suite: TestContext): void;
         onGroupStart(): void;
         onGroupFinish(): void;
@@ -1169,7 +1169,7 @@ declare module "reporter/EmptyReporter" {
      * It will not report any information about the tests.
      */
     export class EmptyReporter extends TestReporter {
-        constructor(_options: any);
+        constructor(_options?: any);
         onFinish(): void;
         onGroupFinish(): void;
         onGroupStart(): void;
@@ -1190,7 +1190,7 @@ declare module "reporter/JSONTestReporter" {
      * `{testLocation}.spec.json`.
      */
     export class JSONTestReporter extends TestReporter {
-        constructor(_options: any);
+        constructor(_options?: any);
         protected file: WriteStream | null;
         private first;
         onStart(suite: TestContext): void;
@@ -1213,7 +1213,7 @@ declare module "reporter/SummaryTestReporter" {
      */
     export class SummaryTestReporter extends TestReporter {
         private enableLogging;
-        constructor(options: any);
+        constructor(options?: any);
         onStart(): void;
         onGroupStart(): void;
         onGroupFinish(): void;
