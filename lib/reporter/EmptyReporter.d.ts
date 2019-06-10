@@ -4,6 +4,7 @@ import { TestReporter } from "../test/TestReporter";
  * It will not report any information about the tests.
  */
 export declare class EmptyReporter extends TestReporter {
+    constructor(_options: any);
     onFinish(): void;
     onGroupFinish(): void;
     onGroupStart(): void;

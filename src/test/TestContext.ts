@@ -20,7 +20,7 @@ export class TestContext extends TestCollector {
   public time: number = 0;
   public pass: boolean = true;
   public startupTime: number = 0;
-  public reporter: TestReporter = new DefaultTestReporter();
+  public reporter: TestReporter = new DefaultTestReporter({});
 
   /* istanbul ignore next */
   public stdout: IWritable | null = process ? process.stdout : null;

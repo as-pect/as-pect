@@ -76,7 +76,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   // if a reporter is specified in cli arguments, override configuration
   const  reporter: TestReporter = (yargs.argv.reporter || yargs.argv.r)
     ? collectReporter(yargs)
-    : configuration.reporter || new DefaultTestReporter();
+    : configuration.reporter || new DefaultTestReporter({});
 
   const performanceConfiguration = configuration.performance || createDefaultPerformanceConfiguration();
 
@@ -139,9 +139,6 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
     console.log(chalk`{bgWhite.black [Log]} Adding compiler arguments: ` + compilerArgs.join(" "));
   }
 
-  // add a line seperator between the next line and this line
-  console.log("");
-
   const addedTestEntryFiles: Set<string> = new Set<string>();
 
   /** Get all the test entry files. */
@@ -185,6 +182,10 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   const fileMap = new Map<string, string>();
   console.log(chalk`{bgWhite.black [Log]} Effective command line arguments:`);
   console.log(chalk`  ${flagList.join(" ")}`);
+
+  // add a line seperator between the next line and this line
+  console.log("");
+
   // for each file, synchronously run each test
   Array.from(testEntryFiles).forEach((file: string, i: number) => {
     asc.main([file, ...Array.from(addedTestEntryFiles), ...flagList], {

@@ -6,6 +6,8 @@ import { IYargs } from "./IYargs";
 import path from "path";
 import { CSVTestReporter } from "../../reporter/CSVTestReporter";
 import { JSONTestReporter } from "../../reporter/JSONTestReporter";
+import querystring from "querystring";
+import chalk from "chalk";
 
 /**
  * This method inspects the command line arguments and returns the corresponding TestReporter.
@@ -13,29 +15,37 @@ import { JSONTestReporter } from "../../reporter/JSONTestReporter";
  * @param {IYargs} yargs - The command line arguments.
  */
 export function collectReporter(yargs: IYargs): TestReporter {
-  const targetReporter: string = yargs.argv.reporter || yargs.argv.r;
+  const reporterInput: string = yargs.argv.reporter || yargs.argv.r;
+
+  const result = /([a-z\.]+)(?:\?(.*))?/i.exec(reporterInput);
+  const targetReporter = result ? result[1] : "";
+
+  const options = querystring.parse(result ? result[2] || "" : "");
+
   // get relative reporters
   if (targetReporter.startsWith(".")) {
     try {
-      const result = require(path.join(process.cwd(), targetReporter));
+      const reporterPath = path.join(process.cwd(), targetReporter);
+      const reporterResult = require(reporterPath);
       // if something is returned
-      if (result) {
-        if (typeof result === "function") { // instantiate it if it's a default exported class
-          return new result();
+      if (reporterResult) {
+        if (typeof reporterResult === "function") { // instantiate it if it's a default exported class
+          return new reporterResult(options);
         }
-        if (typeof result.default === "function") {
-          return new result.default();
+        if (typeof reporterResult.default === "function") {
+          return new reporterResult.default();
         }
         else {
-          return result.default || result;
+          return reporterResult.default || reporterResult;
         }
       }
       else {
-        return new DefaultTestReporter();
+        console.log(chalk`{bgBlack.yellow [Warning]} Cannot find reporter at {yellow ${reporterPath}}, defaulting to DefaultTestReporter.`);
+        return new DefaultTestReporter(options);
       }
     }
     catch (ex) {
-      console.error("Cannot find target reporter at", path.join(process.cwd(), targetReporter));
+      console.log(chalk`{bgBlack.yellow [Error]} An error occured while trying to resolve a reporter at {yellow ${targetReporter}}.`);
       console.error(ex);
       process.exit(1);
       // @ts-ignore: the process has exited
@@ -43,18 +53,19 @@ export function collectReporter(yargs: IYargs): TestReporter {
     }
   }
   else if (targetReporter === "EmptyReporter") {
-    return new EmptyReporter();
+    return new EmptyReporter(options);
   }
   else if (targetReporter === "SummaryTestReporter") {
-    return new SummaryTestReporter();
+    console.log("Hit");
+    return new SummaryTestReporter(options);
   }
   else if (targetReporter === "CSVTestReporter") {
-    return new CSVTestReporter();
+    return new CSVTestReporter(options);
   }
   else if (targetReporter === "JSONTestReporter") {
-    return new JSONTestReporter();
+    return new JSONTestReporter(options);
   }
   else {
-    return new DefaultTestReporter();
+    return new DefaultTestReporter(options);
   }
 }

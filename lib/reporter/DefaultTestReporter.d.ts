@@ -10,6 +10,7 @@ import { IWritable } from "./IWriteable";
  */
 export declare class DefaultTestReporter extends TestReporter {
     protected stdout: IWritable | null;
+    constructor(_options: any);
     onStart(suite: TestContext): void;
     onGroupStart(group: TestGroup): void;
     onGroupFinish(group: TestGroup): void;

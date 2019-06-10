@@ -403,6 +403,24 @@ declare module "reporter/IWriteable" {
         write(chunk: string): void;
     }
 }
+declare module "reporter/util/createReferenceString" {
+    /**
+     * This function generates a 2 digit hexadecimal string from the given number.
+     *
+     * @param {number} value - A number from [0-255].
+     * @returns {string} - The hexadecimal string representing the byte
+     */
+    export function hex(value: number): string;
+    /**
+     * This function returns a string that formats the bytes into rows of 8 bytes with a space between
+     * byte 4 and 5 on each row.
+     *
+     * @param {number[]} bytes - The byte array
+     * @param {number} pointer - The pointer of the reference.
+     * @param {number} offset - The offset of the reference.
+     */
+    export function createReferenceString(bytes: number[], pointer: number, offset: number): string;
+}
 declare module "reporter/DefaultTestReporter" {
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
@@ -416,6 +434,7 @@ declare module "reporter/DefaultTestReporter" {
      */
     export class DefaultTestReporter extends TestReporter {
         protected stdout: IWritable | null;
+        constructor(_options: any);
         onStart(suite: TestContext): void;
         onGroupStart(group: TestGroup): void;
         onGroupFinish(group: TestGroup): void;
@@ -1133,6 +1152,7 @@ declare module "reporter/CSVTestReporter" {
     export class CSVTestReporter extends TestReporter {
         protected output: Stringifier | null;
         protected fileName: WriteStream | null;
+        constructor(_options: any);
         onStart(suite: TestContext): void;
         onGroupStart(): void;
         onGroupFinish(): void;
@@ -1149,6 +1169,7 @@ declare module "reporter/EmptyReporter" {
      * It will not report any information about the tests.
      */
     export class EmptyReporter extends TestReporter {
+        constructor(_options: any);
         onFinish(): void;
         onGroupFinish(): void;
         onGroupStart(): void;
@@ -1169,6 +1190,7 @@ declare module "reporter/JSONTestReporter" {
      * `{testLocation}.spec.json`.
      */
     export class JSONTestReporter extends TestReporter {
+        constructor(_options: any);
         protected file: WriteStream | null;
         private first;
         onStart(suite: TestContext): void;
@@ -1183,20 +1205,29 @@ declare module "reporter/JSONTestReporter" {
 declare module "reporter/SummaryTestReporter" {
     import { TestReporter } from "test/TestReporter";
     import { TestContext } from "test/TestContext";
+    import { LogValue } from "util/LogValue";
     /**
      * This test reporter should be used when logging output and test validation only needs happen on
      * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
      * process.
      */
     export class SummaryTestReporter extends TestReporter {
+        private enableLogging;
+        constructor(options: any);
         onStart(): void;
         onGroupStart(): void;
         onGroupFinish(): void;
         onTestStart(): void;
         onTestFinish(): void;
         onTodo(): void;
-        constructor();
+        private stdout;
         onFinish(suite: TestContext): void;
+        /**
+         * A custom logger function for the default reporter that writes the log values using `console.log()`
+         *
+         * @param {LogValue} logValue - A value to be logged to the console
+         */
+        onLog(logValue: LogValue): void;
     }
 }
 declare module "util/IConfiguration" {

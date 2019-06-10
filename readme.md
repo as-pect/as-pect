@@ -416,10 +416,33 @@ leak. Test Suites don't stop running if they fail the test callback. However,
 tests will stop if they fail inside the `beforeEach()`, `beforeAll()`,
 `afterEach()`, and `afterAll()` callbacks.
 
-The following methods are exposed to you as a way to inspect how many
-allocations and frees occurred during the course of function execution. Every
-one of these functions exist in the `RTrace` namespace and will call into
-JavaScript to query the state of the heap.
+Typically, a `throws()` test will leave at *least* a single `Expectation` on the
+heap. This is to be expected, because the `unreachable()` instruction unwinds
+the stack, and prevents the ability for each function to `__release` a reference
+pointer properly. Your test suite output may look like this:
+
+```
+[Describe]: toHaveLength TypedArray type: Uint32Array
+
+ [Success]: ✔ should assert expected length
+ [Success]: ✔ when expected length should not equal the same value RTrace: +3
+ [Success]: ✔ should verify the length is not another value
+ [Success]: ✔ when the length is another expected value RTrace: +3
+```
+
+The `RTrace: +3` corresponds to an `Expectation`, a `Uint32Array`, and a single
+backing `ArrayBuffer` that was left on the heap because of the fact that the
+expectation failed. This was expected because these two tests were annotated with
+the `throws(desc, callback)` function. If perhaps you see a function that is
+expected to `pass` and `RTrace` returns a very large value, it might be an
+indicator of a very serious memory leak, and the `DefaultTestReporter` can be
+your best friend when it comes to finding these sorts of problems.
+
+Among other solutions, the following methods are exposed to you as a way to
+inspect how many allocations and frees occurred during the course of function
+execution. Every one of these functions exist in the `RTrace` namespace and will
+call into JavaScript to query the state of the heap relative to the overall test
+file, the test group, and each individual test depending on the function.
 
 ### RTrace.count()
 
@@ -454,9 +477,9 @@ expect<i32>(end).toBe(0);
 ### RTrace.end(label: i32)
 
 The end method creates an ending point for a relative number of heap
-allocations. It should be used in conjunction with the `RTrace.start(label)`
-method which returns the relative number of heap allocations compared to the
-starting number when the label was created.
+allocations to be measured from. It should be used in conjunction with the
+`RTrace.start(label)` method which returns the relative number of heap
+allocations compared to the starting number when the label was created.
 
 Example:
 
@@ -634,6 +657,11 @@ log<i32>(42); // this logs the meaning of life
 log<Vec3>(new Vec3(1, 2, 3)); // this logs every byte in the reference
 log<i32[]>([1, 2, 3]); // this will log an array
 ```
+
+This log function does *not* pipe the output to stdout. It simply attaches the
+log value to the current group or test the `log()` function was called in. When the
+`DefaultTestReporter` does it's job, it will pipe the collected log information to
+stdout at that point instead of immediately when the function executes.
 
 ## Performance Testing
 
