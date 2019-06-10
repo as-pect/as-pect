@@ -633,4 +633,9 @@ declare class RTrace {
    * group.
    */
   public static testFrees(): i32;
+
+  /**
+   * This method triggers a garbage collection.
+   */
+  public static collect(): void;
 }

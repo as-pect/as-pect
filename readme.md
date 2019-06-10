@@ -642,6 +642,21 @@ describe("A testing group", () => {
 });
 ```
 
+### RTrace.collect()
+
+This method triggers a garbage collection.
+
+```ts
+describe("something", () => {
+  // put some tests here
+});
+
+afterEach(() => {
+  // trigger a garbage collection after each test
+  RTrace.collect();
+});
+```
+
 ## Logging
 
 A global `log<T>(value: T): void` function is provided by `as-pect` to help

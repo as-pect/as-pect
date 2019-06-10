@@ -201,6 +201,13 @@ export class RTrace {
     if (RTrace.enabled) return getRTraceTestFrees();
     return 0;
   }
+
+  /**
+   * This method triggers a manual garbage collection.
+   */
+  public static collect(): void {
+    __collect();
+  }
 }
 
 export function __disableRTrace(): void {
