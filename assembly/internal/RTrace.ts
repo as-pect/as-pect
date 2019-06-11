@@ -208,6 +208,16 @@ export class RTrace {
   public static collect(): void {
     __collect();
   }
+
+  /**
+   * Get the class id of the pointer.
+   *
+   * @param {usize} pointer - The pointer.
+   * @returns {u32} - The class id of the allocated block.
+   */
+  public static classIdOf(pointer: usize): u32 {
+    return load<u32>(pointer - 8);
+  }
 }
 
 export function __disableRTrace(): void {

@@ -1159,6 +1159,16 @@ export class TestCollector {
   protected blocks: Map<number, number> = new Map();
 
   /**
+   * This set contains all the blocks currently allocated for the current test.
+   */
+  protected testBlocks: Set<number> = new Set();
+
+  /**
+   * This set contains all the blocks currently allocated for the current group.
+   */
+  protected groupBlocks: Set<number> = new Set();
+
+  /**
    * This method is called when a memory block is allocated on the heap.
    *
    * @param {number} block - This is a unique identifier for the affected block.
@@ -1184,6 +1194,9 @@ export class TestCollector {
     } else {
       this.blocks.set(block, 0);
     }
+
+    this.testBlocks.add(block);
+    this.groupBlocks.add(block);
   }
 
   /**
@@ -1212,6 +1225,9 @@ export class TestCollector {
     } else {
       this.blocks.delete(block);
     }
+
+    this.testBlocks.delete(block);
+    this.groupBlocks.delete(block);
   }
 
   /**

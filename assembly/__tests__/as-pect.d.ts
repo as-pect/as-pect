@@ -638,4 +638,12 @@ declare class RTrace {
    * This method triggers a garbage collection.
    */
   public static collect(): void;
+
+  /**
+   * Get the class id of the pointer.
+   *
+   * @param {usize} pointer - The pointer.
+   * @returns {u32} - The class id of the allocated block.
+   */
+  public static classIdOf(pointer: usize): u32;
 }

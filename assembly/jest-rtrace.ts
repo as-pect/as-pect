@@ -87,4 +87,28 @@ describe("RTrace api", () => {
   test("RTrace.testFrees()", () => {
     RTrace.testFrees();
   });
+
+  test("RTrace.activeTestBlocks()", () => {
+    RTrace.activeTestBlocks();
+  });
+
+  test("RTrace.activeGroupBlocks()", () => {
+    RTrace.activeGroupBlocks();
+  });
+
+  test("RTrace.activeBlocks()", () => {
+    RTrace.activeBlocks();
+  });
+
+  test("RTrace.classIdOf(pointer: usize)", () => {
+    let ref = new Vec3();
+    RTrace.classIdOf(changetype<usize>(ref));
+    log<Vec3>(ref);
+  });
+
+  test("RTrace.sizeOf(pointer: usize)", () => {
+    let ref = new Vec3();
+    RTrace.sizeOf<T>(ref);
+    log<Vec3>(ref);
+  });
 });
