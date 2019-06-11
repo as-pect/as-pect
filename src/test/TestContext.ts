@@ -135,7 +135,6 @@ export class TestContext extends TestCollector {
     // finish the group
     group.end = performance.now();
     group.time = timeDifference(group.end, group.start);
-    group.reason = `Test suite ${group.name} passed successfully.`;
     this.reporter.onGroupFinish(group);
   }
 
