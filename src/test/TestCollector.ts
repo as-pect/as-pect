@@ -98,12 +98,21 @@ export class TestCollector {
 
       if (this.performanceConfiguration.maxSamples != null) {
         if (this.performanceConfiguration.maxSamples > PerformanceLimits.MaxSamples) {
-          const warning: IWarning = {
+          /* istanbul ignore next */
+          this.pushWarning({
             message: "Invalid Performance Configuration: maxSamples exceeds " + PerformanceLimits.MaxSamples,
             stackTrace: new Error().stack || "",
-            type: "PerformanceConfiguration",
-          };
-          this.warnings.push(warning)
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+
+        if (this.performanceConfiguration.maxSamples < 0) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxSamples less than 0.",
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
         }
       }
 
@@ -803,6 +812,22 @@ export class TestCollector {
    * @param {number} value - The maximum number of samples to collect for the following test.
    */
   private maxSamples(value: number): void {
+    if (value > PerformanceLimits.MaxSamples) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxSamples exceeds " + PerformanceLimits.MaxSamples,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
+    if (value < 0) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxSamples less than 0.",
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
     this.maxSamplesValue = value;
   }
 

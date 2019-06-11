@@ -19,6 +19,7 @@ declare module "util/ILogTarget" {
     export interface ILogTarget {
         logs: LogValue[];
         errors: IWarning[];
+        warnings: IWarning[];
     }
 }
 declare module "util/LogValue" {
@@ -230,6 +231,10 @@ declare module "test/TestResult" {
          * A set of errors that were reported for this test.
          */
         errors: IWarning[];
+        /**
+         * A set of warnings that were reported for this test.
+         */
+        warnings: IWarning[];
     }
 }
 declare module "test/TestGroup" {
@@ -338,6 +343,10 @@ declare module "test/TestGroup" {
          */
         fork(): TestGroup;
         errors: IWarning[];
+        /**
+         * A set of warnings that were reported for this test.
+         */
+        warnings: IWarning[];
     }
 }
 declare module "test/TestReporter" {
@@ -549,6 +558,7 @@ declare module "test/TestCollector" {
         testGroups: TestGroup[];
         protected logTarget: ILogTarget;
         errors: IWarning[];
+        warnings: IWarning[];
         fileName: string;
         protected stack: string;
         protected message: string;
@@ -1014,6 +1024,7 @@ declare module "test/TestCollector" {
          * @param {IWarning} error - The error being reported.
          */
         protected pushError(error: IWarning): void;
+        protected pushWarning(warning: IWarning): void;
         /**
          * This linked method gets all the RTrace increments for this entire test up until this point.
          */

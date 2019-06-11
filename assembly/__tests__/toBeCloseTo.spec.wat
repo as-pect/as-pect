@@ -4727,10 +4727,28 @@
  (func $assembly/internal/report/reportActual/Actual.clear (; 59 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/report/reportActual/Actual.type
+  global.get $assembly/internal/report/reportActual/Actual.reference
+  i32.const 0
+  i32.gt_u
+  if
+   global.get $assembly/internal/report/reportActual/Actual.reference
+   call $~lib/rt/pure/__release
+   i32.const 0
+   global.set $assembly/internal/report/reportActual/Actual.reference
+  end
  )
  (func $assembly/internal/report/reportExpected/Expected.clear (; 60 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/report/reportExpected/Expected.type
+  global.get $assembly/internal/report/reportExpected/Expected.reference
+  i32.const 0
+  i32.gt_u
+  if
+   global.get $assembly/internal/report/reportExpected/Expected.reference
+   call $~lib/rt/pure/__release
+   i32.const 0
+   global.set $assembly/internal/report/reportExpected/Expected.reference
+  end
  )
  (func $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo (; 61 ;) (type $FUNCSIG$vidii) (param $0 i32) (param $1 f64) (param $2 i32) (param $3 i32)
   (local $4 i32)

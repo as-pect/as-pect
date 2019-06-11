@@ -21,6 +21,7 @@ export declare class TestCollector {
     testGroups: TestGroup[];
     protected logTarget: ILogTarget;
     errors: IWarning[];
+    warnings: IWarning[];
     fileName: string;
     protected stack: string;
     protected message: string;
@@ -486,6 +487,7 @@ export declare class TestCollector {
      * @param {IWarning} error - The error being reported.
      */
     protected pushError(error: IWarning): void;
+    protected pushWarning(warning: IWarning): void;
     /**
      * This linked method gets all the RTrace increments for this entire test up until this point.
      */
