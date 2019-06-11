@@ -79,6 +79,36 @@ describe("Performance Configuration", () => {
     expect(context.warnings).toHaveLength(0);
   });
 
+  it("should have warnings if configured decimalPlaces is too large", () => {
+    const performanceConfiguration: IPerformanceConfiguration = {
+      roundDecimalPlaces: 100
+    };
+    const context: TestContext = new TestContext({ performanceConfiguration });
+    for (const warning of context.warnings) {
+      expect(warning.type).toMatchSnapshot("type");
+      expect(warning.message).toMatchSnapshot("message");
+    }
+  });
+
+  it("should have warnings if configured decimalPlaces is negative", () => {
+    const performanceConfiguration: IPerformanceConfiguration = {
+      roundDecimalPlaces: -1
+    };
+    const context: TestContext = new TestContext({ performanceConfiguration });
+    for (const warning of context.warnings) {
+      expect(warning.type).toMatchSnapshot("type");
+      expect(warning.message).toMatchSnapshot("message");
+    }
+  });
+
+  it("should have not warnings if configured decimalPlaces is configured correctly", () => {
+    const performanceConfiguration: IPerformanceConfiguration = {
+      roundDecimalPlaces: 3
+    };
+    const context: TestContext = new TestContext({ performanceConfiguration });
+    expect(context.warnings).toHaveLength(0);
+  });
+
   it("should catch performanceConfiguration warnings at runtime", async () => {
     await start;
     for (const warning of ctx.warnings) {

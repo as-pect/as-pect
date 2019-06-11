@@ -12,4 +12,10 @@ describe("invalid performance configurations", () => {
 
   maxTestRunTime(-1);
   it("test 4", autoPass);
+
+  roundDecimalPlaces(100);
+  it("test 5", autoPass);
+
+  roundDecimalPlaces(-1);
+  it("test 6", autoPass);
 });

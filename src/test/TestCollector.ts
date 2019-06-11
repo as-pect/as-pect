@@ -136,6 +136,26 @@ export class TestCollector {
         }
       }
 
+      if (this.performanceConfiguration.roundDecimalPlaces != null) {
+        if (this.performanceConfiguration.roundDecimalPlaces > PerformanceLimits.MaximumDecimalPlaces) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: roundDecimalPlaces exceeds " + PerformanceLimits.MaximumDecimalPlaces,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+
+        if (this.performanceConfiguration.roundDecimalPlaces < PerformanceLimits.MinimumDecimalPlaces) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: roundDecimalPlaces less than " + PerformanceLimits.MinimumDecimalPlaces,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+      }
+
       /* istanbul ignore next */
       if (props.nortrace) this.rtraceEnabled = false;
     }
@@ -510,6 +530,10 @@ export class TestCollector {
         ? 3
         : Math.max(Math.round(this.roundDecimalPlacesValue!), PerformanceLimits.MinimumDecimalPlaces);
 
+      if (test.decimalPlaces > PerformanceLimits.MaximumDecimalPlaces) {
+        test.decimalPlaces = PerformanceLimits.MaximumDecimalPlaces;
+      }
+
       test.calculateAverageValue = this.recordAverageValue || false;
       test.calculateMedianValue = this.recordMedianValue || false;
       test.calculateStandardDeviationValue = this.recordStdDevValue || false;
@@ -883,6 +907,23 @@ export class TestCollector {
    * @param {number} value - The number of decimal places to round to.
    */
   private roundDecimalPlaces(value: number): void {
+    if (value > PerformanceLimits.MaximumDecimalPlaces) {
+      /* istanbul ignore next */
+      this.pushWarning({
+        message: "Invalid Performance Configuration: roundDecimalPlaces exceeds " + PerformanceLimits.MaximumDecimalPlaces,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
+    if (value < PerformanceLimits.MinimumDecimalPlaces) {
+      /* istanbul ignore next */
+      this.pushWarning({
+        message: "Invalid Performance Configuration: roundDecimalPlaces less than " + PerformanceLimits.MinimumDecimalPlaces,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
     this.roundDecimalPlacesValue = value;
   }
 

@@ -8,6 +8,10 @@ exports[`Performance Configuration should catch performanceConfiguration warning
 
 exports[`Performance Configuration should catch performanceConfiguration warnings at runtime: message 4`] = `"Invalid Performance Configuration: maxTestRunTime less than 0."`;
 
+exports[`Performance Configuration should catch performanceConfiguration warnings at runtime: message 5`] = `"Invalid Performance Configuration: roundDecimalPlaces exceeds 8"`;
+
+exports[`Performance Configuration should catch performanceConfiguration warnings at runtime: message 6`] = `"Invalid Performance Configuration: roundDecimalPlaces less than 0"`;
+
 exports[`Performance Configuration should catch performanceConfiguration warnings at runtime: type 1`] = `"PerformanceConfigurationWarning"`;
 
 exports[`Performance Configuration should catch performanceConfiguration warnings at runtime: type 2`] = `"PerformanceConfigurationWarning"`;
@@ -15,6 +19,18 @@ exports[`Performance Configuration should catch performanceConfiguration warning
 exports[`Performance Configuration should catch performanceConfiguration warnings at runtime: type 3`] = `"PerformanceConfigurationWarning"`;
 
 exports[`Performance Configuration should catch performanceConfiguration warnings at runtime: type 4`] = `"PerformanceConfigurationWarning"`;
+
+exports[`Performance Configuration should catch performanceConfiguration warnings at runtime: type 5`] = `"PerformanceConfigurationWarning"`;
+
+exports[`Performance Configuration should catch performanceConfiguration warnings at runtime: type 6`] = `"PerformanceConfigurationWarning"`;
+
+exports[`Performance Configuration should have warnings if configured decimalPlaces is negative: message 1`] = `"Invalid Performance Configuration: roundDecimalPlaces less than 0"`;
+
+exports[`Performance Configuration should have warnings if configured decimalPlaces is negative: type 1`] = `"PerformanceConfigurationWarning"`;
+
+exports[`Performance Configuration should have warnings if configured decimalPlaces is too large: message 1`] = `"Invalid Performance Configuration: roundDecimalPlaces exceeds 8"`;
+
+exports[`Performance Configuration should have warnings if configured decimalPlaces is too large: type 1`] = `"PerformanceConfigurationWarning"`;
 
 exports[`Performance Configuration should have warnings if configured maxTestRuntime is too large: message 1`] = `"Invalid Performance Configuration: maxTestRunTime exceeds 5000"`;
 
