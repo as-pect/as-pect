@@ -646,4 +646,12 @@ declare class RTrace {
    * @returns {u32} - The class id of the allocated block.
    */
   public static classIdOf(pointer: usize): u32;
+
+  /**
+   * Get the size of a block or buffer.
+   *
+   * @param {T} reference - The reference.
+   * @returns {u32} - The size of the allocated block.
+   */
+  public static sizeOf<T>(reference: T): u32;
 }

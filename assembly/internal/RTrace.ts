@@ -218,6 +218,16 @@ export class RTrace {
   public static classIdOf(pointer: usize): u32 {
     return load<u32>(pointer - 8);
   }
+
+  /**
+   * Get the size of a block or buffer.
+   *
+   * @param {T} reference - The reference.
+   * @returns {u32} - The size of the allocated block.
+   */
+  public static sizeOf<T>(reference: T): u32 {
+    return load<u32>(changetype<usize>(reference) - 4);
+  }
 }
 
 export function __disableRTrace(): void {
