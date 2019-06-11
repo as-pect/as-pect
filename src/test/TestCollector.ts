@@ -35,6 +35,7 @@ export class TestCollector {
 
   // public warning/error lists
   public errors: IWarning[] = [];
+  public warnings: IWarning[] = [];
 
   // public fileName
   public fileName: string = "";
@@ -94,6 +95,18 @@ export class TestCollector {
       if (props.groupRegex) this.groupRegex = props.groupRegex;
       /* istanbul ignore next */
       if (props.performanceConfiguration) this.performanceConfiguration = props.performanceConfiguration;
+
+      if (this.performanceConfiguration.maxSamples != null) {
+        if (this.performanceConfiguration.maxSamples > PerformanceLimits.MaxSamples) {
+          const warning: IWarning = {
+            message: "Invalid Performance Configuration: maxSamples exceeds " + PerformanceLimits.MaxSamples,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfiguration",
+          };
+          this.warnings.push(warning)
+        }
+      }
+
       /* istanbul ignore next */
       if (props.nortrace) this.rtraceEnabled = false;
     }
@@ -1170,6 +1183,13 @@ export class TestCollector {
      */
     /* istanbul ignore next */
     if (this.logTarget) this.logTarget.errors.push(error);
+  }
+
+  protected pushWarning(warning: IWarning): void {
+    this.warnings.push(warning);
+
+    /* istanbul ignore next */
+    if (this.logTarget) this.logTarget.warnings.push(warning);
   }
 
   /**
