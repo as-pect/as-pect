@@ -116,6 +116,26 @@ export class TestCollector {
         }
       }
 
+      if (this.performanceConfiguration.maxTestRunTime != null) {
+        if (this.performanceConfiguration.maxTestRunTime > PerformanceLimits.MaxTestRuntime) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxTestRunTime exceeds " + PerformanceLimits.MaxTestRuntime,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+
+        if (this.performanceConfiguration.maxTestRunTime < 0) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxTestRunTime less than 0.",
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+      }
+
       /* istanbul ignore next */
       if (props.nortrace) this.rtraceEnabled = false;
     }
@@ -838,6 +858,21 @@ export class TestCollector {
    * @param {number} value - The maximum number of milliseconds to run the following test.
    */
   private maxTestRunTime(value: number): void {
+    if (value > PerformanceLimits.MaxTestRuntime) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxTestRunTime exceeds " + PerformanceLimits.MaxTestRuntime,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
+    if (value < 0) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxTestRunTime less than 0.",
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
     this.maxTestRunTimeValue = value;
   }
 
