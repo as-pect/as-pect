@@ -13,6 +13,7 @@
  (type $FUNCSIG$vidi (func (param i32 f64 i32)))
  (type $FUNCSIG$vdi (func (param f64 i32)))
  (type $FUNCSIG$vdii (func (param f64 i32 i32)))
+ (type $FUNCSIG$i (func (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -77,7 +78,7 @@
  (data (i32.const 3064) "|\00\00\00\01\00\00\00\01\00\00\00|\00\00\00A\00n\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00c\00a\00n\00 \00n\00e\00v\00e\00r\00 \00b\00e\00 \00N\00a\00N\00,\00 \00a\00n\00d\00 \00n\00e\00v\00e\00r\00 \00e\00q\00u\00a\00l\00s\00 \00a\00n\00y\00t\00h\00i\00n\00g\00.\00")
  (data (i32.const 3208) "T\00\00\00\01\00\00\00\01\00\00\00T\00\00\00s\00h\00o\00u\00l\00d\00 \00a\00l\00w\00a\00y\00s\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00b\00o\00t\00h\00 \00v\00a\00l\00u\00e\00s\00 \00a\00r\00e\00 \00N\00a\00N\00")
  (data (i32.const 3312) ":\00\00\00\01\00\00\00\01\00\00\00:\00\00\00N\00a\00N\00 \00i\00s\00 \00n\00o\00t\00 \00e\00v\00e\00r\00 \00e\00q\00u\00a\00l\00 \00t\00o\00 \00N\00a\00N\00.\00")
- (data (i32.const 3392) "\08\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00")
+ (data (i32.const 3392) "\t\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (table $0 18 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|8 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|9 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|10 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|11 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|12 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|13 $start:assembly/__tests__/toBe.spec~anonymous|0~anonymous|14 $start:assembly/__tests__/toBe.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -109,7 +110,7 @@
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~lib/started (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 3392))
- (global $~lib/heap/__heap_base i32 (i32.const 3460))
+ (global $~lib/heap/__heap_base i32 (i32.const 3468))
  (export "__start" (func $start))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
@@ -124,6 +125,7 @@
  (export "__sendExpected" (func $assembly/internal/report/reportExpected/__sendExpected))
  (export "__ignoreLogs" (func $assembly/internal/log/__ignoreLogs))
  (export "__disableRTrace" (func $assembly/internal/RTrace/__disableRTrace))
+ (export "__getUsizeArrayId" (func $assembly/internal/RTrace/__getUsizeArrayId))
  (func $~lib/rt/tlsf/removeBlock (; 27 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -4701,7 +4703,10 @@
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $start (; 97 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 97 ;) (type $FUNCSIG$i) (result i32)
+  i32.const 8
+ )
+ (func $start (; 98 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   if
    return
@@ -4711,7 +4716,10 @@
   end
   call $start:assembly/__tests__/toBe.spec
  )
- (func $~lib/rt/pure/__visit (; 98 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 99 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  nop
+ )
+ (func $~lib/rt/pure/__visit (; 100 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -4865,24 +4873,54 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 99 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 101 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
-  block
-  end
-  block $switch$1$leave
-   block $switch$1$default
-    block $switch$1$case$8
-     block $switch$1$case$4
-      block $switch$1$case$2
-       local.get $0
-       i32.const 8
-       i32.sub
-       i32.load
-       br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$8 $switch$1$case$2 $switch$1$default
+  block $block$4$break
+   block
+   end
+   block $switch$1$leave
+    block $switch$1$default
+     block $switch$1$case$10
+      block $switch$1$case$8
+       block $switch$1$case$4
+        block $switch$1$case$2
+         local.get $0
+         i32.const 8
+         i32.sub
+         i32.load
+         br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$8 $switch$1$case$2 $switch$1$case$10 $switch$1$default
+        end
+        block
+         block
+          return
+          unreachable
+         end
+         unreachable
+         unreachable
+        end
+        unreachable
+       end
+       block
+        br $block$4$break
+        unreachable
+       end
+       unreachable
       end
       block
        block
-        return
+        block
+         local.get $0
+         i32.load offset=4
+         local.tee $2
+         if
+          local.get $2
+          local.get $1
+          call $~lib/rt/pure/__visit
+         end
+         return
+         unreachable
+        end
+        unreachable
         unreachable
        end
        unreachable
@@ -4892,16 +4930,11 @@
      end
      block
       block
+       local.get $0
+       local.get $1
+       call $~lib/array/Array<usize>#__visit_impl
        block
-        local.get $0
-        i32.load
-        local.tee $2
-        if
-         local.get $2
-         local.get $1
-         call $~lib/rt/pure/__visit
-        end
-        return
+        br $block$4$break
         unreachable
        end
        unreachable
@@ -4914,18 +4947,6 @@
     end
     block
      block
-      block
-       local.get $0
-       i32.load offset=4
-       local.tee $2
-       if
-        local.get $2
-        local.get $1
-        call $~lib/rt/pure/__visit
-       end
-       return
-       unreachable
-      end
       unreachable
       unreachable
      end
@@ -4934,17 +4955,25 @@
     end
     unreachable
    end
+  end
+  block
    block
-    block
-     unreachable
-     unreachable
+    local.get $0
+    i32.load
+    local.tee $2
+    if
+     local.get $2
+     local.get $1
+     call $~lib/rt/pure/__visit
     end
-    unreachable
+    return
     unreachable
    end
    unreachable
+   unreachable
   end
+  unreachable
  )
- (func $null (; 100 ;) (type $FUNCSIG$v)
+ (func $null (; 102 ;) (type $FUNCSIG$v)
  )
 )

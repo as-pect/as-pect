@@ -91,6 +91,7 @@ export class TestContext extends TestCollector {
       this.groupDecrementCount = 0;
       this.groupIncrementCount = 0;
       group.rtraceStart = this.blocks.size;
+      this.groupBlocks.clear();
     }
 
     // set the group starttime
@@ -160,6 +161,7 @@ export class TestContext extends TestCollector {
       this.testIncrementCount = 0;
 
       result.rtraceStart = this.blocks.size;
+      this.testBlocks.clear();
     }
 
     result.start = performance.now();

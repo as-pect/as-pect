@@ -504,6 +504,10 @@ declare module "util/IAspectExports" {
          * This method disables rtrace calls for the current test context.
          */
         __disableRTrace(): void;
+        /**
+         * This method returns the `usize[]` of the current module.
+         */
+        __getUsizeArrayId(): number;
     }
 }
 declare module "util/IPerformanceConfiguration" {
@@ -996,6 +1000,14 @@ declare module "test/TestCollector" {
          */
         protected blocks: Map<number, number>;
         /**
+         * This set contains all the blocks currently allocated for the current test.
+         */
+        protected testBlocks: Set<number>;
+        /**
+         * This set contains all the blocks currently allocated for the current group.
+         */
+        protected groupBlocks: Set<number>;
+        /**
          * This method is called when a memory block is allocated on the heap.
          *
          * @param {number} block - This is a unique identifier for the affected block.
@@ -1074,6 +1086,18 @@ declare module "test/TestCollector" {
          * This linked method gets all the RTrace allocations for the current test up until this point.
          */
         private getRTraceTestFrees;
+        /**
+         * This linked method gets all the current RTrace allocations and adds them to an array.
+         */
+        private getRTraceBlocks;
+        /**
+         * This linked method gets all the current RTrace allocations for the current group.
+         */
+        private getRTraceGroupBlocks;
+        /**
+         * This linked method gets all the current RTrace allocations for the current test.
+         */
+        private getRTraceTestBlocks;
     }
 }
 declare module "test/TestContext" {

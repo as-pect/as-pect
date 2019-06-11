@@ -9,6 +9,7 @@
  (type $FUNCSIG$vi (func (param i32)))
  (type $FUNCSIG$vdi (func (param f64 i32)))
  (type $FUNCSIG$vdii (func (param f64 i32 i32)))
+ (type $FUNCSIG$i (func (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -61,7 +62,7 @@
  (data (i32.const 1144) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00 \00t\00h\00i\00s\00 \00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
  (data (i32.const 1216) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00t\00h\00i\00s\00 \00t\00e\00s\00t\00 \00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00")
  (data (i32.const 1272) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 1288) "\03\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00")
+ (data (i32.const 1288) "\04\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (table $0 17 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|5 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|6 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|7 $start:assembly/__tests__/flow.spec~anonymous|1)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -96,7 +97,7 @@
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~lib/started (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 1288))
- (global $~lib/heap/__heap_base i32 (i32.const 1316))
+ (global $~lib/heap/__heap_base i32 (i32.const 1324))
  (export "__start" (func $start))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
@@ -111,6 +112,7 @@
  (export "__sendExpected" (func $assembly/internal/report/reportExpected/__sendExpected))
  (export "__ignoreLogs" (func $assembly/internal/log/__ignoreLogs))
  (export "__disableRTrace" (func $assembly/internal/RTrace/__disableRTrace))
+ (export "__getUsizeArrayId" (func $assembly/internal/RTrace/__getUsizeArrayId))
  (func $~lib/rt/tlsf/removeBlock (; 30 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -3916,7 +3918,10 @@
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $start (; 86 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 86 ;) (type $FUNCSIG$i) (result i32)
+  i32.const 3
+ )
+ (func $start (; 87 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   if
    return
@@ -3926,7 +3931,10 @@
   end
   call $start:assembly/__tests__/flow.spec
  )
- (func $~lib/rt/pure/__visit (; 87 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 88 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  nop
+ )
+ (func $~lib/rt/pure/__visit (; 89 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -4080,44 +4088,57 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 88 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 90 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
-  block
-  end
-  block $switch$1$leave
-   block $switch$1$default
-    block $switch$1$case$4
-     block $switch$1$case$2
-      local.get $0
-      i32.const 8
-      i32.sub
-      i32.load
-      br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$default
-     end
-     block
+  block $block$4$break
+   block
+   end
+   block $switch$1$leave
+    block $switch$1$default
+     block $switch$1$case$5
+      block $switch$1$case$4
+       block $switch$1$case$2
+        local.get $0
+        i32.const 8
+        i32.sub
+        i32.load
+        br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$5 $switch$1$default
+       end
+       block
+        block
+         return
+         unreachable
+        end
+        unreachable
+        unreachable
+       end
+       unreachable
+      end
       block
-       return
+       br $block$4$break
        unreachable
       end
       unreachable
-      unreachable
      end
-     unreachable
-    end
-    block
      block
       block
        local.get $0
-       i32.load
-       local.tee $2
-       if
-        local.get $2
-        local.get $1
-        call $~lib/rt/pure/__visit
+       local.get $1
+       call $~lib/array/Array<usize>#__visit_impl
+       block
+        br $block$4$break
+        unreachable
        end
-       return
+       unreachable
        unreachable
       end
+      unreachable
+      unreachable
+     end
+     unreachable
+    end
+    block
+     block
       unreachable
       unreachable
      end
@@ -4126,17 +4147,25 @@
     end
     unreachable
    end
+  end
+  block
    block
-    block
-     unreachable
-     unreachable
+    local.get $0
+    i32.load
+    local.tee $2
+    if
+     local.get $2
+     local.get $1
+     call $~lib/rt/pure/__visit
     end
-    unreachable
+    return
     unreachable
    end
    unreachable
+   unreachable
   end
+  unreachable
  )
- (func $null (; 89 ;) (type $FUNCSIG$v)
+ (func $null (; 91 ;) (type $FUNCSIG$v)
  )
 )

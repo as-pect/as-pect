@@ -26,7 +26,7 @@ describe("an invalid expect call test suite", () => {
           at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[68]:40)
           at assembly/internal/Describe/describe (wasm-function[70]:16)
           at start:assembly/jest-invalid-expectation (wasm-function[71]:6)
-          at start (wasm-function[78]:12)",
+          at start (wasm-function[79]:12)",
           "type": "InvalidExpectCall",
         },
       ]
