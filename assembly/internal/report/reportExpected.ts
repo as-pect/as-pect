@@ -82,6 +82,14 @@ export class Expected {
    */
   static clear(): void {
     Expected.type = ValueType.Unset;
+
+    /**
+     * If there is a reference still being retained, release it and set it to null.
+     */
+    if (Expected.reference > 0) {
+      __release(Expected.reference);
+      Expected.reference = <usize>0;
+    }
   }
 }
 

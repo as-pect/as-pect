@@ -64,6 +64,14 @@ export class Actual {
    */
   static clear(): void {
     Actual.type = ValueType.Unset;
+
+    /**
+     * If there is a reference still being retained, release it and set it to null.
+     */
+    if (Actual.reference > 0) {
+      __release(Actual.reference);
+      Actual.reference = <usize>0;
+    }
   }
 }
 
