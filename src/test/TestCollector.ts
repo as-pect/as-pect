@@ -241,6 +241,9 @@ export class TestCollector {
           getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
           getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
           getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
+          getRTraceBlocks: this.getRTraceBlocks.bind(this),
+          getRTraceGroupBlocks: this.getRTraceGroupBlocks.bind(this),
+          getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
         },
       },
     );
@@ -1391,5 +1394,26 @@ export class TestCollector {
    */
   private getRTraceTestFrees(): number {
     return this.testFreeCount;
+  }
+
+  /**
+   * This linked method gets all the current RTrace allocations and adds them to an array.
+   */
+  private getRTraceBlocks(): number {
+    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.blocks.keys()));
+  }
+
+  /**
+   * This linked method gets all the current RTrace allocations for the current group.
+   */
+  private getRTraceGroupBlocks(): number {
+    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.groupBlocks));
+  }
+
+  /**
+   * This linked method gets all the current RTrace allocations for the current test.
+   */
+  private getRTraceTestBlocks(): number {
+    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.testBlocks));
   }
 }

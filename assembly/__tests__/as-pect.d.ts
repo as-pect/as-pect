@@ -654,4 +654,19 @@ declare class RTrace {
    * @returns {u32} - The size of the allocated block.
    */
   public static sizeOf<T>(reference: T): u32;
+
+  /**
+   * Get the currently allocated blocks.
+   */
+  public static activeBlocks(): usize[];
+
+  /**
+   * Get the current groups allocated blocks.
+   */
+  public static activeGroupBlocks(): usize[];
+
+  /**
+   * Get the current tests allocated blocks.
+   */
+  public static activeTestBlocks(): usize[];
 }
