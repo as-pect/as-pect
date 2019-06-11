@@ -11,6 +11,7 @@ import { PerformanceLimits } from "./PerformanceLimits";
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
 
+
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
 export interface ITestCollectorParameters {
@@ -18,7 +19,7 @@ export interface ITestCollectorParameters {
   testRegex?: RegExp;
   groupRegex?: RegExp;
   fileName?: string;
-
+  nortrace?: boolean;
 }
 
 /**
@@ -73,6 +74,16 @@ export class TestCollector {
   protected testRegex: RegExp = new RegExp("");
   protected groupRegex: RegExp = new RegExp("");
 
+  /**
+   * RTrace is a funciton that helps with debugging reference counting and can be used to find
+   * leaks. If it is enabled, it will be included automatically by the bootstrap in the
+   * assemblyscript imports.
+   */
+  protected rtraceEnabled: boolean = true;
+
+  private rtraceLabels: Map<number, number> = new Map();
+
+
   constructor(props?: ITestCollectorParameters) {
     if (props) {
       /* istanbul ignore next */
@@ -83,6 +94,8 @@ export class TestCollector {
       if (props.groupRegex) this.groupRegex = props.groupRegex;
       /* istanbul ignore next */
       if (props.performanceConfiguration) this.performanceConfiguration = props.performanceConfiguration;
+      /* istanbul ignore next */
+      if (props.nortrace) this.rtraceEnabled = false;
     }
   }
 
@@ -104,54 +117,84 @@ export class TestCollector {
    * @param {any[]} imports - Every import item specified.
    */
   public createImports(...imports: any[]): any {
-    const result = Object.assign({}, ...imports, {
-      __aspect: {
-        debug: this.debug.bind(this),
-        tryCall: this.tryCall.bind(this),
-        logArray: this.logArray.bind(this),
-        logLong: this.logLong.bind(this),
-        logNull: this.logNull.bind(this),
-        logReference: this.logReference.bind(this),
-        logString: this.logString.bind(this),
-        logValue: this.logValue.bind(this),
-        reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
-        reportDescribe: this.reportDescribe.bind(this),
-        reportEndDescribe: this.reportEndDescribe.bind(this),
-        reportTest: this.reportTest.bind(this),
-        reportBeforeEach: this.reportBeforeEach.bind(this),
-        reportBeforeAll: this.reportBeforeAll.bind(this),
-        reportAfterEach: this.reportAfterEach.bind(this),
-        reportAfterAll: this.reportAfterAll.bind(this),
-        reportTodo: this.reportTodo.bind(this),
-        reportActualNull: this.reportActualNull.bind(this),
-        reportExpectedNull: this.reportExpectedNull.bind(this),
-        reportActualValue: this.reportActualValue.bind(this),
-        reportExpectedValue: this.reportExpectedValue.bind(this),
-        reportActualReference: this.reportActualReference.bind(this),
-        reportExpectedReference: this.reportExpectedReference.bind(this),
-        reportActualString: this.reportActualString.bind(this),
-        reportExpectedString: this.reportExpectedString.bind(this),
-        reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
-        reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
-        reportExpectedFinite: this.reportExpectedFinite.bind(this),
-        reportActualArray: this.reportActualArray.bind(this),
-        reportExpectedArray: this.reportExpectedArray.bind(this),
-        reportActualLong: this.reportActualLong.bind(this),
-        reportExpectedLong: this.reportExpectedLong.bind(this),
-        reportNegatedTest: this.reportNegatedTest.bind(this),
-        performanceEnabled: this.performanceEnabled.bind(this),
-        maxSamples: this.maxSamples.bind(this),
-        maxTestRunTime: this.maxTestRunTime.bind(this),
-        roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
-        reportAverage: this.reportAverage.bind(this),
-        reportMedian: this.reportMedian.bind(this),
-        reportStdDev: this.reportStdDev.bind(this),
-        reportMax: this.reportMax.bind(this),
-        reportMin: this.reportMin.bind(this),
-        reportVariance: this.reportVariance.bind(this),
+    const result = Object.assign({},
+      ...imports, // get all the user defined imports
+      {
+        __aspect: {
+          debug: this.debug.bind(this),
+          tryCall: this.tryCall.bind(this),
+          logArray: this.logArray.bind(this),
+          logLong: this.logLong.bind(this),
+          logNull: this.logNull.bind(this),
+          logReference: this.logReference.bind(this),
+          logString: this.logString.bind(this),
+          logValue: this.logValue.bind(this),
+          reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
+          reportDescribe: this.reportDescribe.bind(this),
+          reportEndDescribe: this.reportEndDescribe.bind(this),
+          reportTest: this.reportTest.bind(this),
+          reportBeforeEach: this.reportBeforeEach.bind(this),
+          reportBeforeAll: this.reportBeforeAll.bind(this),
+          reportAfterEach: this.reportAfterEach.bind(this),
+          reportAfterAll: this.reportAfterAll.bind(this),
+          reportTodo: this.reportTodo.bind(this),
+          reportActualNull: this.reportActualNull.bind(this),
+          reportExpectedNull: this.reportExpectedNull.bind(this),
+          reportActualValue: this.reportActualValue.bind(this),
+          reportExpectedValue: this.reportExpectedValue.bind(this),
+          reportActualReference: this.reportActualReference.bind(this),
+          reportExpectedReference: this.reportExpectedReference.bind(this),
+          reportActualString: this.reportActualString.bind(this),
+          reportExpectedString: this.reportExpectedString.bind(this),
+          reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
+          reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
+          reportExpectedFinite: this.reportExpectedFinite.bind(this),
+          reportActualArray: this.reportActualArray.bind(this),
+          reportExpectedArray: this.reportExpectedArray.bind(this),
+          reportActualLong: this.reportActualLong.bind(this),
+          reportExpectedLong: this.reportExpectedLong.bind(this),
+          reportNegatedTest: this.reportNegatedTest.bind(this),
+          performanceEnabled: this.performanceEnabled.bind(this),
+          maxSamples: this.maxSamples.bind(this),
+          maxTestRunTime: this.maxTestRunTime.bind(this),
+          roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
+          reportAverage: this.reportAverage.bind(this),
+          reportMedian: this.reportMedian.bind(this),
+          reportStdDev: this.reportStdDev.bind(this),
+          reportMax: this.reportMax.bind(this),
+          reportMin: this.reportMin.bind(this),
+          reportVariance: this.reportVariance.bind(this),
+          getRTraceCount: this.getRTraceCount.bind(this),
+          startRTrace: this.startRTrace.bind(this),
+          endRTrace: this.endRTrace.bind(this),
+          getRTraceIncrements: this.getRTraceIncrements.bind(this),
+          getRTraceDecrements: this.getRTraceDecrements.bind(this),
+          getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
+          getRTraceGroupDecrements: this.getRTraceGroupDecrements.bind(this),
+          getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
+          getRTraceTestDecrements: this.getRTraceTestDecrements.bind(this),
+          getRTraceAllocations: this.getRTraceAllocations.bind(this),
+          getRTraceFrees: this.getRTraceFrees.bind(this),
+          getRTraceGroupAllocations: this.getRTraceGroupAllocations.bind(this),
+          getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
+          getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
+          getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
+        },
       },
-    });
+    );
+
+    /** If RTrace is enabled, add it to the imports. */
+    if (this.rtraceEnabled) result.rtrace = {
+      onalloc: this.onalloc.bind(this),
+      onfree: this.onfree.bind(this),
+      onincrement: this.onincrement.bind(this),
+      ondecrement: this.ondecrement.bind(this),
+    };
+
+    /** add an env object */
     result.env = result.env || {};
+
+    /** Override the abort function */
     const previousAbort = (result.env.abort) || (() => {});
     result.env.abort = (...args: any[]) => {
       previousAbort(...args);
@@ -835,7 +878,7 @@ export class TestCollector {
    * intended test functions.
    */
   private reportInvalidExpectCall(): void {
-    this.errors.push({
+    this.pushError({
       type: "InvalidExpectCall",
       message: `An expect() function call was used outside of a test function in ${this.fileName}.`,
       stackTrace: this.getLogStackTrace(),
@@ -905,5 +948,311 @@ export class TestCollector {
       .slice(1)
       .filter(wasmFilter)
       .join("\n");
+  }
+
+  /**
+   * This method returns the current rtrace count.
+   */
+  private getRTraceCount(): number {
+    return this.blocks.size;
+  }
+
+  /**
+   * This method starts a new rtrace count label.
+   *
+   * @param {number} label - The RTrace label.
+   */
+  private startRTrace(label: number): void {
+    this.rtraceLabels.set(label, this.blocks.size);
+  }
+
+  /**
+   * This method ends an RTrace label and returns the difference between the current and the
+   * starting reference counts.
+   *
+   * @param {number} label - The RTrace label.
+   * @returns {number}
+   */
+  private endRTrace(label: number): number {
+    const result = this.blocks.size - this.rtraceLabels.get(label)!;
+    this.rtraceLabels.delete(label);
+    return result;
+  }
+
+  /**
+   * This is the current number of net allocations that occurred during `TestContext` execution.
+   */
+  public allocationCount: number = 0;
+
+  /**
+   * This is the current number of net allocations that occured during `TestGroup` execution.
+   */
+  protected groupAllocationCount: number = 0;
+
+  /**
+   * This is the current number of net allocations that occured during `TestResult` execution.
+   */
+  protected testAllocationCount: number = 0;
+
+  /**
+   * This is the current number of net dellocations that occurred during `TestContext` execution.
+   */
+  public freeCount: number = 0;
+
+  /**
+   * This is the current number of net allocations that occured during `TestGroup` execution.
+   */
+  protected groupFreeCount: number = 0;
+
+  /**
+   * This is the current number of net allocations that occured during `TestGroup` execution.
+   */
+  protected testFreeCount: number = 0;
+
+  /**
+   * This is the current number of net increments that occurred during `TestContext` execution.
+   */
+  protected incrementCount: number = 0;
+
+  /**
+   * This is the current number of net increments that occurred during `TestGroup` execution.
+   */
+  protected groupIncrementCount: number = 0;
+
+  /**
+   * This is the current number of net increments that occurred during `TestResult` execution.
+   */
+  protected testIncrementCount: number = 0;
+
+  /**
+   * This is the current number of net decrements that occurred during `TestContext` execution.
+   */
+  protected decrementCount: number = 0;
+
+  /**
+   * This is the current number of net decrements that occurred during `TestGroup` execution.
+   */
+  protected groupDecrementCount: number = 0;
+
+  /**
+   * This is the current number of net decrements that occurred during `TestResult` execution.
+   */
+  protected testDecrementCount: number = 0;
+
+  /**
+   * This map is responsible for keeping track of which blocks are currently allocated by their id.
+   */
+  protected blocks: Map<number, number> = new Map();
+
+  /**
+   * This method is called when a memory block is allocated on the heap.
+   *
+   * @param {number} block - This is a unique identifier for the affected block.
+   */
+  private onalloc(block: number): void {
+    this.allocationCount += 1;
+    this.groupAllocationCount += 1;
+    this.testAllocationCount += 1;
+    /**
+     * This is impossible to test but follows exactly from the AssemblyScript example located
+     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
+     *
+     * Please see this file for further information about how rtrace errors are reported.
+     */
+    /* istanbul ignore next */
+    if (this.blocks.has(block)) {
+      /* istanbul ignore next */
+      this.pushError({
+        message: "A duplicate allocation has occurred at block: " + block.toString(),
+        stackTrace: this.getLogStackTrace(),
+        type: "Allocation Error",
+      });
+    } else {
+      this.blocks.set(block, 0);
+    }
+  }
+
+  /**
+   * This method is called when a memory block is deallocated from the heap.
+   *
+   * @param {number} block - This is a unique identifier for the affected block.
+   */
+  private onfree(block: number): void {
+    this.freeCount += 1;
+    this.groupFreeCount += 1;
+    this.testFreeCount += 1;
+    /**
+     * This is impossible to test, but follows exactly from the AssemblyScript example located
+     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
+     *
+     * Please see this file for further information about how rtrace errors are reported.
+     */
+    /* istanbul ignore next */
+    if (!this.blocks.has(block)) {
+      /* istanbul ignore next */
+      this.pushError({
+        message: "An orphaned dellocation has occurred at block: " + block.toString(),
+        stackTrace: this.getLogStackTrace(),
+        type: "Orphaned Deallocation Error",
+      });
+    } else {
+      this.blocks.delete(block);
+    }
+  }
+
+  /**
+   * This method is called when a memory block reference count is incremented.
+   *
+   * @param {number} block - This is a unique identifier for the affected block.
+   */
+  private onincrement(block: number): void {
+    this.incrementCount += 1;
+    this.groupIncrementCount += 1;
+    this.testIncrementCount += 1;
+    /**
+     * This is impossible to test, but follows exactly from the AssemblyScript example located
+     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
+     *
+     * Please see this file for further information about how rtrace errors are reported.
+     */
+    /* istanbul ignore next */
+    if (!this.blocks.has(block)) {
+      /* istanbul ignore next */
+      this.pushError({
+        message: "An orphaned increment has occurred at block: " + block.toString(),
+        stackTrace: this.getLogStackTrace(),
+        type: "Orphaned Increment Error",
+      });
+    } else {
+      const count = this.blocks.get(block)!;
+      this.blocks.set(block, count + 1);
+    }
+  }
+
+  /**
+   * This method is called when a memory block reference count is decremented.
+   *
+   * @param {number} block - This is a unique identifier for the affected block.
+   */
+  private ondecrement(block: number): void {
+    this.decrementCount += 1;
+    this.groupDecrementCount += 1;
+    this.testDecrementCount += 1;
+    /**
+     * This is impossible to test, but follows exactly from the AssemblyScript example located
+     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
+     *
+     * Please see this file for further information about how rtrace errors are reported.
+     */
+    /* istanbul ignore next */
+    if (!this.blocks.has(block)) {
+      /* istanbul ignore next */
+      this.pushError({
+        message: "An orphaned decrement has occurred at block: " + block.toString(),
+        stackTrace: this.getLogStackTrace(),
+        type: "Orphaned Decrement Error",
+      });
+    } else {
+      const count = this.blocks.get(block)!;
+      this.blocks.set(block, count - 1);
+    }
+  }
+
+  /**
+   * This method reports an error to the current logTarget and the `TestContext`.
+   *
+   * @param {IWarning} error - The error being reported.
+   */
+  protected pushError(error: IWarning): void {
+    this.errors.push(error);
+    /**
+     * All the tests will always have a log target set. There is no reason to test this branch.
+     */
+    /* istanbul ignore next */
+    if (this.logTarget) this.logTarget.errors.push(error);
+  }
+
+  /**
+   * This linked method gets all the RTrace increments for this entire test up until this point.
+   */
+  private getRTraceIncrements(): number {
+    return this.incrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace decrements for this entire test up until this point.
+   */
+  private getRTraceDecrements(): number {
+    return this.decrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace increments for the current group up until this point.
+   */
+  private getRTraceGroupIncrements(): number {
+    return this.groupIncrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace decrements for the current group up until this point.
+   */
+  private getRTraceGroupDecrements(): number {
+    return this.groupDecrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace increments for the current test up until this point.
+   */
+  private getRTraceTestIncrements(): number {
+    return this.testIncrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace decrements for the current test up until this point.
+   */
+  private getRTraceTestDecrements(): number {
+    return this.testDecrementCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace allocations for this entire test up until this point.
+   */
+  private getRTraceAllocations(): number {
+    return this.allocationCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace frees for this entire test up until this point.
+   */
+  private getRTraceFrees(): number {
+    return this.freeCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace increments for this entire test up until this point.
+   */
+  private getRTraceGroupAllocations(): number {
+    return this.groupAllocationCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace frees for the current group up until this point.
+   */
+  private getRTraceGroupFrees(): number {
+    return this.groupFreeCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace allocations for the current test up until this point.
+   */
+  private getRTraceTestAllocations(): number {
+    return this.testAllocationCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace allocations for the current test up until this point.
+   */
+  private getRTraceTestFrees(): number {
+    return this.testFreeCount;
   }
 }

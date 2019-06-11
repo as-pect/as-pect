@@ -76,7 +76,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   // if a reporter is specified in cli arguments, override configuration
   const  reporter: TestReporter = (yargs.argv.reporter || yargs.argv.r)
     ? collectReporter(yargs)
-    : configuration.reporter || new DefaultTestReporter();
+    : configuration.reporter || new DefaultTestReporter({});
 
   const performanceConfiguration = configuration.performance || createDefaultPerformanceConfiguration();
 
@@ -108,6 +108,26 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   }
 
   /**
+   * Check to see if rtrace is disabled.
+   */
+  const nortrace: boolean = !!(yargs.argv.nortrace || yargs.argv.nr);
+  if (nortrace) {
+    configuration.nortrace = true;
+  }
+
+  /**
+   * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
+   */
+  if (!configuration.nortrace) {
+    console.log(chalk`{bgWhite.black [Log]} Reference Tracing is enabled.`)
+    if (flags["--use"]) {
+      flags["--use"].push("--use", "ASC_RTRACE=1");
+    } else {
+      flags["--use"] = ["ASC_RTRACE=1"];
+    }
+  }
+
+  /**
    * Check to see if the tests should be run in the first place.
    */
   const runTests: boolean = !(yargs.argv.norun || yargs.argv.n);
@@ -118,9 +138,6 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   if (compilerArgs.length > 0) {
     console.log(chalk`{bgWhite.black [Log]} Adding compiler arguments: ` + compilerArgs.join(" "));
   }
-
-  // add a line seperator between the next line and this line
-  console.log("");
 
   const addedTestEntryFiles: Set<string> = new Set<string>();
 
@@ -163,6 +180,11 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
 
   const folderMap = new Map<string, string[]>();
   const fileMap = new Map<string, string>();
+  console.log(chalk`{bgWhite.black [Log]} Effective command line arguments:`);
+  console.log(chalk`  ${flagList.join(" ")}`);
+
+  // add a line seperator between the next line and this line
+  console.log("");
 
   // for each file, synchronously run each test
   Array.from(testEntryFiles).forEach((file: string, i: number) => {

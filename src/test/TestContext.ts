@@ -20,12 +20,16 @@ export class TestContext extends TestCollector {
   public time: number = 0;
   public pass: boolean = true;
   public startupTime: number = 0;
-  public reporter: TestReporter = new DefaultTestReporter();
+  public reporter: TestReporter = new DefaultTestReporter({});
 
   /* istanbul ignore next */
-  public stdout: IWritable | null = process ? process.stdout : null;
+  public stdout: IWritable | null = typeof process !== "undefined"
+    ? process.stdout
+    : null;
   /* istanbul ignore next */
-  public stderr: IWritable | null = process.stderr ? process.stderr : null;
+  public stderr: IWritable | null = typeof process !== "undefined"
+    ? process.stderr
+    : null;
 
   private endGroup: boolean = false;
 
@@ -39,7 +43,6 @@ export class TestContext extends TestCollector {
       if (props.stdout) this.stdout = props.stdout;
       /* istanbul ignore next */
       if (props.stderr) this.stderr = props.stderr;
-
     }
   }
 
@@ -55,6 +58,10 @@ export class TestContext extends TestCollector {
 
     // start the module up
     super.collectTests();
+
+    if (!this.rtraceEnabled) {
+      wasm.__disableRTrace();
+    }
 
     // calculate startuptime
     this.startupTime = timeDifference(performance.now(), start);
@@ -76,6 +83,15 @@ export class TestContext extends TestCollector {
 
   private runGroup(group: TestGroup): void {
     this.endGroup = false;
+
+    if (this.rtraceEnabled) {
+      // reset all the reference counting properties
+      this.groupAllocationCount = 0;
+      this.groupFreeCount = 0;
+      this.groupDecrementCount = 0;
+      this.groupIncrementCount = 0;
+      group.rtraceStart = this.blocks.size;
+    }
 
     // set the group starttime
     group.start = performance.now();
@@ -100,7 +116,21 @@ export class TestContext extends TestCollector {
 
     // for each afterAllCallback
     this.runAfterAll(group);
-    if (this.endGroup) return;
+    if (this.endGroup) {
+      group.pass = false;
+      group.reason = `Test suite ${group.name} failed because of an afterAll() callback occurred.`;
+      return;
+    }
+
+    if (this.rtraceEnabled) {
+      // calculate reference counts for the group
+      group.allocationCount = this.groupAllocationCount;
+      group.freeCount = this.groupFreeCount;
+      group.decrementCount = this.groupDecrementCount;
+      group.incrementCount = this.groupIncrementCount;
+      group.rtraceEnd = this.blocks.size;
+      group.rtraceDelta = group.rtraceEnd - group.rtraceStart;
+    }
 
     // finish the group
     group.end = performance.now();
@@ -122,6 +152,17 @@ export class TestContext extends TestCollector {
 
     this.reporter.onTestStart(group, result);
     result.ran = true;
+
+    if (this.rtraceEnabled) {
+      // reset all the reference counting properties
+      this.testAllocationCount = 0;
+      this.testFreeCount = 0;
+      this.testDecrementCount = 0;
+      this.testIncrementCount = 0;
+
+      result.rtraceStart = this.blocks.size;
+    }
+
     result.start = performance.now();
     // If performance is enabled, use the performance values, otherwise, just run once.
     if (result.performance) {
@@ -173,11 +214,35 @@ export class TestContext extends TestCollector {
       if (result.calculateStandardDeviationValue) result.calculateStandardDeviation();
     } else {
       this.runBeforeEach(group, result);
-      if (this.endGroup) return;
+      if (this.endGroup) {
+        group.reason = `Test suite ${group.name} failed because an error occurred in a beforeEach() callback.`;
+        group.pass = false;
+        return;
+      }
       this.runTestCall(group, result);
       this.runAfterEach(group, result);
       if (this.endGroup) return;
     }
+
+    if (this.rtraceEnabled) {
+      // calculate reference counts for the group
+      result.allocationCount = this.groupAllocationCount;
+      result.freeCount = this.groupFreeCount;
+      result.decrementCount = this.groupDecrementCount;
+      result.incrementCount = this.groupIncrementCount;
+      result.rtraceEnd = this.blocks.size;
+      result.rtraceDelta = result.rtraceEnd - result.rtraceStart;
+    }
+
+    /**
+     * In the chance that some kind of memory error occurs as a result of executing the test,
+     * this should end the test unsuccesfully. Since most errors that end with some kind of
+     * runtime error using `unreachable()`, it's impossible to test this branch meaningfully.
+     * This if statement is ignored because it's a failsafe in case some kind of error occurs
+     * that doesn't cause an unreachable state.
+     */
+    /* istanbul ignore next */
+    if (result.errors.length > 0) result.pass = false;
 
     result.end = performance.now();
     result.runTime = timeDifference(result.end, result.start);
@@ -238,7 +303,7 @@ export class TestContext extends TestCollector {
         group.end = result.end = performance.now();
         group.pass = false;
         this.pass = false;
-        group.reason = `Test suite ${group.name} failed in afterEach callback.`;
+        group.reason = `Test suite ${group.name} failed because an error occurred in an afterEach() callback.`;
         result.pass = false;
         group.time = timeDifference(group.end, group.start);
         this.reporter.onTestFinish(group, result);
@@ -263,7 +328,7 @@ export class TestContext extends TestCollector {
       if (beforeEachResult === 0) {
         result.end = group.end = performance.now();
         group.pass = false;
-        group.reason = group.reason = `Test suite ${group.name} failed in beforeEach callback.`;
+        group.reason = `Test suite ${group.name} failed because an error occurred in a beforeEach() callback.`;
         result.pass = false;
         group.time = timeDifference(group.end, group.start);
         this.reporter.onTestFinish(group, result);
@@ -288,7 +353,7 @@ export class TestContext extends TestCollector {
       if (afterAllResult === 0) {
         group.end = performance.now();
         group.pass = false;
-        group.reason = `Test suite ${group.name} failed in afterAll callback.`;
+        group.reason = `Test suite ${group.name} failed because an error occurred in an afterAll() callback.`;
         this.pass = false;
         group.time = timeDifference(group.end, group.start);
         this.reporter.onGroupFinish(group);
@@ -312,7 +377,7 @@ export class TestContext extends TestCollector {
       if (beforeAllResult === 0) {
         group.end = performance.now();
         group.pass = false;
-        group.reason = `Test suite ${group.name} failed in beforeAll callback.`;
+        group.reason = `Test suite ${group.name} failed because an error occurred in a beforeAll() callback.`;
         this.pass = false;
         group.time = timeDifference(group.end, group.start);
         this.endGroup = true;

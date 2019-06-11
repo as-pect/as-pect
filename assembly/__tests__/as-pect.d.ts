@@ -531,3 +531,111 @@ declare function reportMin(value: bool): void;
  * @param {bool} enabled - The bool to indicate if the variance should be calculated.
  */
 declare function reportVariance(value: bool): void;
+
+/**
+ * This static class contains a few conveince methods for developers to test the current number of
+ * blocks allocated on the heap.
+ */
+declare class RTrace {
+  /**
+   * This bool indicates if `RTrace` should call into JavaScript to obtain reference counts.
+   */
+  public static enabled: bool;
+
+  /**
+   * This method returns the current number of active references on the heap.
+   */
+  public static count(): i32;
+
+  /**
+   * This method starts a new refcounting group, and causes the next call to `RTrace.end(label)` to
+   * return a delta in reference counts on the heap.
+   *
+   * @param {i32} label - The numeric label for this refcounting group.
+   */
+  public static start(label: i32): void;
+
+  /**
+   * This method returns a delta of how many new (positive) or collected (negative) are on the heap.
+   *
+   * @param {i32} label - The numeric label for this refcounting group.
+   */
+  public static end(label: i32): i32;
+
+  /**
+   * This method returns the number of increments that have occurred over the course of a test
+   * file.
+   */
+  public static increments(): i32;
+
+  /**
+   * This method returns the number of decrements that have occurred over the course of a test
+   * file.
+   */
+  public static decrements(): i32;
+
+  /**
+   * This method returns the number of increments that have occurred over the course of a test
+   * group.
+   */
+  public static groupIncrements(): i32;
+
+  /**
+   * This method returns the number of decrements that have occurred over the course of a test
+   * group.
+   */
+  public static groupDecrements(): i32;
+
+  /**
+   * This method returns the number of increments that have occurred over the course of a test
+   * group.
+   */
+  public static testIncrements(): i32;
+
+  /**
+   * This method returns the number of decrements that have occurred over the course of a test
+   * group.
+   */
+  public static testDecrements(): i32;
+
+  /**
+   * This method returns the number of allocations that have occurred over the course of a test
+   * file.
+   */
+  public static allocations(): i32;
+
+  /**
+   * This method returns the number of frees that have occurred over the course of a test
+   * file.
+   */
+  public static frees(): i32;
+
+  /**
+   * This method returns the number of allocations that have occurred over the course of a test
+   * group.
+   */
+  public static groupAllocations(): i32;
+
+  /**
+   * This method returns the number of frees that have occurred over the course of a test
+   * group.
+   */
+  public static groupFrees(): i32;
+
+  /**
+   * This method returns the number of allocations that have occurred over the course of a test
+   * group.
+   */
+  public static testAllocations(): i32;
+
+  /**
+   * This method returns the number of frees that have occurred over the course of a test
+   * group.
+   */
+  public static testFrees(): i32;
+
+  /**
+   * This method triggers a garbage collection.
+   */
+  public static collect(): void;
+}

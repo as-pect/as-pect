@@ -38,4 +38,11 @@ export class Vec3 {
     var refmagnitude = reference.magnitude();
     return magnitude <= refmagnitude;
   }
+
+  @operator("==")
+  protected __equals(reference: Vec3): bool {
+    return this.x == reference.x
+      && this.y == reference.y
+      && this.z == reference.z;
+  }
 }

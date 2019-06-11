@@ -30,4 +30,9 @@ export interface IAspectExports {
    * @param {1 | 0} value - A value indicating if calls to `log()` should be ignored.
    */
   __ignoreLogs(value: 1 | 0): void;
+
+  /**
+   * This method disables rtrace calls for the current test context.
+   */
+  __disableRTrace(): void;
 }

@@ -9,6 +9,7 @@ import { TestResult } from "../test/TestResult";
  * `{testLocation}.spec.json`.
  */
 export declare class JSONTestReporter extends TestReporter {
+    constructor(_options?: any);
     protected file: WriteStream | null;
     private first;
     onStart(suite: TestContext): void;
