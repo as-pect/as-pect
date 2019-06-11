@@ -12,6 +12,7 @@ import { TestResult } from "../test/TestResult";
 export declare class CSVTestReporter extends TestReporter {
     protected output: Stringifier | null;
     protected fileName: WriteStream | null;
+    constructor(_options?: any);
     onStart(suite: TestContext): void;
     onGroupStart(): void;
     onGroupFinish(): void;

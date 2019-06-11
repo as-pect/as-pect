@@ -7,6 +7,7 @@ import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { TestReporter } from "../test/TestReporter";
 import { IWritable } from "./IWriteable";
+import { createReferenceString } from "./util/createReferenceString";
 
 const enum ValueType {
   Actual,
@@ -39,51 +40,6 @@ function stringifyActualValue(type: ValueType, value: ActualValue | null): strin
 }
 
 /**
- * This function generates a 2 digit hexadecimal string from the given number.
- *
- * @param {number} value - A number from [0-255].
- * @returns {string} - The hexadecimal string representing the byte
- */
-function hex(value: number): string {
-  var result: string = value.toString(16);
-  if (result.length === 1) return "0" + result;
-  return result;
-}
-
-/**
- * This function returns a string that formats the bytes into rows of 8 bytes with a space between
- * byte 4 and 5 on each row.
- *
- * @param {number[]} bytes - The byte array
- * @param {number} pointer - The pointer of the reference.
- * @param {number} offset - The offset of the reference.
- */
-function createReferenceString(bytes: number[], pointer: number, offset: number): string {
-  const referenceEnd = pointer + offset;
-  // start with a tabbed out string
-  let result = `Range: [dec: ${pointer.toString()}~${referenceEnd.toString()}] [hex: 0x${pointer.toString(16)}~0x${referenceEnd.toString(16)}]`;
-  result += "\n07 06 05 04   03 02 01 00";
-  result += "\n~~~~~~~~~~~~~~~~~~~~~~~~~";
-  result += "\n";
-
-  // for each byte
-  for (let i = 0; i < offset; i++) {
-    // append a byte and an empty space
-    result += hex(bytes[i]) + " ";
-    if (i % 8 === 7) {
-      // every 8 characters add a newline
-      result += "\n";
-    } else if (i % 4 === 3) {
-      // every 4 characters add an extra two spaces
-      result += "  ";
-    }
-  }
-
-  // remove leading space
-  return result.trimRight();
-}
-
-/**
  * This weakmap is used to keep track of which logs have already been printed, and from what index.
  */
 const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
@@ -94,6 +50,10 @@ const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
  */
 export class DefaultTestReporter extends TestReporter {
   protected stdout: IWritable | null = null;
+
+  constructor(_options?: any) {
+    super();
+  }
 
   public onStart(suite: TestContext): void {
     this.stdout = suite.stdout || process.stdout;
@@ -118,11 +78,17 @@ export class DefaultTestReporter extends TestReporter {
     for (const logValue of group.logs.slice(groupLogIndex.get(group) || 0)) {
       this.onLog(logValue);
     }
+
     const fail = (count === successCount)
       ? `0 fail`
       : chalk`{red ${(count - successCount).toString()} fail}`
+
+    const rtraceDelta = group.rtraceDelta === 0
+      ? ""
+      : chalk`{yellow RTrace: ${ (group.rtraceDelta > 0 ? "+" : "-") + group.rtraceDelta.toString()}}`;
+
     const output = chalk`
-  [Result]: ${result}
+  [Result]: ${result} ${rtraceDelta}
    [Tests]: {green ${successCount.toString()} pass}, ${fail}, ${count.toString()} total
     [Todo]: ${todoCount.toString()} tests
     [Time]: ${group.time.toString()}ms
@@ -132,7 +98,10 @@ export class DefaultTestReporter extends TestReporter {
   public onTestStart(_group: TestGroup, _test: TestResult): void {}
   public onTestFinish(_group: TestGroup, test: TestResult): void {
     if (test.pass) {
-      this.stdout!.write(chalk` {green [Success]: ✔} ${test.name}\n`);
+      const rtraceDelta = test.rtraceDelta === 0
+        ? ""
+        : chalk`{yellow RTrace: ${ (test.rtraceDelta > 0 ? "+" : "-") + test.rtraceDelta.toString()}}`;
+      this.stdout!.write(chalk` {green [Success]: ✔} ${test.name} ${rtraceDelta}\n`);
     } else {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
@@ -202,10 +171,16 @@ export class DefaultTestReporter extends TestReporter {
       ? `0 fail`
       : chalk`{red ${(count - successCount).toString()} fail}`;
 
+    const rtcount = suite.allocationCount - suite.freeCount;
+
+    const rtraceDelta = rtcount === 0
+      ? ""
+      : chalk`{yellow RTrace: ${ (rtcount > 0 ? "+" : "-") + rtcount.toString()}}`;
+
     this.stdout!.write(chalk`
 ${"~".repeat(process.stdout.columns! - 10)}
 
-    [File]: ${suite.fileName}
+    [File]: ${suite.fileName} ${rtraceDelta}
   [Groups]: {green ${suite.testGroups.filter(e => e.pass).length.toString()} pass}, ${suite.testGroups.length.toString()} total
   [Result]: ${result}
  [Summary]: {green ${successCount.toString()} pass},  ${fail}, ${count.toString()} total

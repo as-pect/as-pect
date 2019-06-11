@@ -12,11 +12,13 @@ declare module "test/IWarning" {
 }
 declare module "util/ILogTarget" {
     import { LogValue } from "util/LogValue";
+    import { IWarning } from "test/IWarning";
     /**
      * This interface describes the shape of an object that can contain log values.
      */
     export interface ILogTarget {
         logs: LogValue[];
+        errors: IWarning[];
     }
 }
 declare module "util/LogValue" {
@@ -86,6 +88,7 @@ declare module "test/TestResult" {
     import { LogValue } from "util/LogValue";
     import { ActualValue } from "util/ActualValue";
     import { ILogTarget } from "util/ILogTarget";
+    import { IWarning } from "test/IWarning";
     /**
      * This is the data class that contains all the data about each `test()` or `it()` function defined
      * in the `AssemblyScript` module.
@@ -189,12 +192,51 @@ declare module "test/TestResult" {
          * Calculate the variance.
          */
         calculateVariance(): void;
+        /**
+         * If the test group did not error, this is the number of allocations that occurred durring the
+         * the test's exection.
+         */
+        allocationCount: number;
+        /**
+         * If the test group did not error, this is the number of deallocations that occurred durring the
+         * the test's exection.
+         */
+        freeCount: number;
+        /**
+         * If the test group did not error, this is the number of block decrements that occurred during
+         * the test's exection.
+         */
+        decrementCount: number;
+        /**
+         * If the test group did not error, this is the number of block increments that occurred during
+         * the test's exection.
+         */
+        incrementCount: number;
+        /**
+         * This is the number of allocations currently on the heap when the `TestResult` execution starts.
+         */
+        rtraceStart: number;
+        /**
+         * If the test group completed, this is the number of allocations currently on the heap when the
+         * `TestResult` execution ends.
+         */
+        rtraceEnd: number;
+        /**
+         * If the test group completed, this is the delta number of allocations that occured during the
+         * `TestResult` execution.
+         */
+        rtraceDelta: number;
+        /**
+         * A set of errors that were reported for this test.
+         */
+        errors: IWarning[];
     }
 }
 declare module "test/TestGroup" {
     import { LogValue } from "util/LogValue";
     import { ILogTarget } from "util/ILogTarget";
     import { TestResult } from "test/TestResult";
+    import { IWarning } from "test/IWarning";
     /**
      * This test group class is designed with a data oriented layout in mind. Each test property is
      * represented by an array.
@@ -257,10 +299,45 @@ declare module "test/TestGroup" {
          */
         end: number;
         /**
+         * If the test group did not error, this is the number of allocations that occurred durring the
+         * the group's exection.
+         */
+        allocationCount: number;
+        /**
+         * If the test group did not error, this is the number of deallocations that occurred durring the
+         * the group's exection.
+         */
+        freeCount: number;
+        /**
+         * If the test group did not error, this is the number of block decrements that occurred during
+         * the group's exection.
+         */
+        decrementCount: number;
+        /**
+         * If the test group did not error, this is the number of block increments that occurred during
+         * the group's exection.
+         */
+        incrementCount: number;
+        /**
+         * This is the number of allocations currently on the heap when the `TestGroup` execution starts.
+         */
+        rtraceStart: number;
+        /**
+         * If the test group completed, this is the number of allocations currently on the heap when the
+         * `TestGroup` execution ends.
+         */
+        rtraceEnd: number;
+        /**
+         * If the test group completed, this is the delta number of allocations that occured during the
+         * `TestGroup` execution.
+         */
+        rtraceDelta: number;
+        /**
          * This method creates a new TestGroup that contains a reference to all of the current flow
          * functions of this `TestGroup`.
          */
         fork(): TestGroup;
+        errors: IWarning[];
     }
 }
 declare module "test/TestReporter" {
@@ -326,6 +403,24 @@ declare module "reporter/IWriteable" {
         write(chunk: string): void;
     }
 }
+declare module "reporter/util/createReferenceString" {
+    /**
+     * This function generates a 2 digit hexadecimal string from the given number.
+     *
+     * @param {number} value - A number from [0-255].
+     * @returns {string} - The hexadecimal string representing the byte
+     */
+    export function hex(value: number): string;
+    /**
+     * This function returns a string that formats the bytes into rows of 8 bytes with a space between
+     * byte 4 and 5 on each row.
+     *
+     * @param {number[]} bytes - The byte array
+     * @param {number} pointer - The pointer of the reference.
+     * @param {number} offset - The offset of the reference.
+     */
+    export function createReferenceString(bytes: number[], pointer: number, offset: number): string;
+}
 declare module "reporter/DefaultTestReporter" {
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
@@ -339,6 +434,7 @@ declare module "reporter/DefaultTestReporter" {
      */
     export class DefaultTestReporter extends TestReporter {
         protected stdout: IWritable | null;
+        constructor(_options?: any);
         onStart(suite: TestContext): void;
         onGroupStart(group: TestGroup): void;
         onGroupFinish(group: TestGroup): void;
@@ -394,6 +490,10 @@ declare module "util/IAspectExports" {
          * @param {1 | 0} value - A value indicating if calls to `log()` should be ignored.
          */
         __ignoreLogs(value: 1 | 0): void;
+        /**
+         * This method disables rtrace calls for the current test context.
+         */
+        __disableRTrace(): void;
     }
 }
 declare module "util/IPerformanceConfiguration" {
@@ -438,6 +538,7 @@ declare module "test/TestCollector" {
         testRegex?: RegExp;
         groupRegex?: RegExp;
         fileName?: string;
+        nortrace?: boolean;
     }
     /**
      * This class is responsible for collecting all the tests in a test binary.
@@ -477,6 +578,13 @@ declare module "test/TestCollector" {
          */
         protected testRegex: RegExp;
         protected groupRegex: RegExp;
+        /**
+         * RTrace is a funciton that helps with debugging reference counting and can be used to find
+         * leaks. If it is enabled, it will be included automatically by the bootstrap in the
+         * assemblyscript imports.
+         */
+        protected rtraceEnabled: boolean;
+        private rtraceLabels;
         constructor(props?: ITestCollectorParameters);
         /**
          * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
@@ -806,6 +914,154 @@ declare module "test/TestCollector" {
          * Gets a log stack trace.
          */
         private getLogStackTrace;
+        /**
+         * This method returns the current rtrace count.
+         */
+        private getRTraceCount;
+        /**
+         * This method starts a new rtrace count label.
+         *
+         * @param {number} label - The RTrace label.
+         */
+        private startRTrace;
+        /**
+         * This method ends an RTrace label and returns the difference between the current and the
+         * starting reference counts.
+         *
+         * @param {number} label - The RTrace label.
+         * @returns {number}
+         */
+        private endRTrace;
+        /**
+         * This is the current number of net allocations that occurred during `TestContext` execution.
+         */
+        allocationCount: number;
+        /**
+         * This is the current number of net allocations that occured during `TestGroup` execution.
+         */
+        protected groupAllocationCount: number;
+        /**
+         * This is the current number of net allocations that occured during `TestResult` execution.
+         */
+        protected testAllocationCount: number;
+        /**
+         * This is the current number of net dellocations that occurred during `TestContext` execution.
+         */
+        freeCount: number;
+        /**
+         * This is the current number of net allocations that occured during `TestGroup` execution.
+         */
+        protected groupFreeCount: number;
+        /**
+         * This is the current number of net allocations that occured during `TestGroup` execution.
+         */
+        protected testFreeCount: number;
+        /**
+         * This is the current number of net increments that occurred during `TestContext` execution.
+         */
+        protected incrementCount: number;
+        /**
+         * This is the current number of net increments that occurred during `TestGroup` execution.
+         */
+        protected groupIncrementCount: number;
+        /**
+         * This is the current number of net increments that occurred during `TestResult` execution.
+         */
+        protected testIncrementCount: number;
+        /**
+         * This is the current number of net decrements that occurred during `TestContext` execution.
+         */
+        protected decrementCount: number;
+        /**
+         * This is the current number of net decrements that occurred during `TestGroup` execution.
+         */
+        protected groupDecrementCount: number;
+        /**
+         * This is the current number of net decrements that occurred during `TestResult` execution.
+         */
+        protected testDecrementCount: number;
+        /**
+         * This map is responsible for keeping track of which blocks are currently allocated by their id.
+         */
+        protected blocks: Map<number, number>;
+        /**
+         * This method is called when a memory block is allocated on the heap.
+         *
+         * @param {number} block - This is a unique identifier for the affected block.
+         */
+        private onalloc;
+        /**
+         * This method is called when a memory block is deallocated from the heap.
+         *
+         * @param {number} block - This is a unique identifier for the affected block.
+         */
+        private onfree;
+        /**
+         * This method is called when a memory block reference count is incremented.
+         *
+         * @param {number} block - This is a unique identifier for the affected block.
+         */
+        private onincrement;
+        /**
+         * This method is called when a memory block reference count is decremented.
+         *
+         * @param {number} block - This is a unique identifier for the affected block.
+         */
+        private ondecrement;
+        /**
+         * This method reports an error to the current logTarget and the `TestContext`.
+         *
+         * @param {IWarning} error - The error being reported.
+         */
+        protected pushError(error: IWarning): void;
+        /**
+         * This linked method gets all the RTrace increments for this entire test up until this point.
+         */
+        private getRTraceIncrements;
+        /**
+         * This linked method gets all the RTrace decrements for this entire test up until this point.
+         */
+        private getRTraceDecrements;
+        /**
+         * This linked method gets all the RTrace increments for the current group up until this point.
+         */
+        private getRTraceGroupIncrements;
+        /**
+         * This linked method gets all the RTrace decrements for the current group up until this point.
+         */
+        private getRTraceGroupDecrements;
+        /**
+         * This linked method gets all the RTrace increments for the current test up until this point.
+         */
+        private getRTraceTestIncrements;
+        /**
+         * This linked method gets all the RTrace decrements for the current test up until this point.
+         */
+        private getRTraceTestDecrements;
+        /**
+         * This linked method gets all the RTrace allocations for this entire test up until this point.
+         */
+        private getRTraceAllocations;
+        /**
+         * This linked method gets all the RTrace frees for this entire test up until this point.
+         */
+        private getRTraceFrees;
+        /**
+         * This linked method gets all the RTrace increments for this entire test up until this point.
+         */
+        private getRTraceGroupAllocations;
+        /**
+         * This linked method gets all the RTrace frees for the current group up until this point.
+         */
+        private getRTraceGroupFrees;
+        /**
+         * This linked method gets all the RTrace allocations for the current test up until this point.
+         */
+        private getRTraceTestAllocations;
+        /**
+         * This linked method gets all the RTrace allocations for the current test up until this point.
+         */
+        private getRTraceTestFrees;
     }
 }
 declare module "test/TestContext" {
@@ -896,6 +1152,7 @@ declare module "reporter/CSVTestReporter" {
     export class CSVTestReporter extends TestReporter {
         protected output: Stringifier | null;
         protected fileName: WriteStream | null;
+        constructor(_options?: any);
         onStart(suite: TestContext): void;
         onGroupStart(): void;
         onGroupFinish(): void;
@@ -912,6 +1169,7 @@ declare module "reporter/EmptyReporter" {
      * It will not report any information about the tests.
      */
     export class EmptyReporter extends TestReporter {
+        constructor(_options?: any);
         onFinish(): void;
         onGroupFinish(): void;
         onGroupStart(): void;
@@ -932,6 +1190,7 @@ declare module "reporter/JSONTestReporter" {
      * `{testLocation}.spec.json`.
      */
     export class JSONTestReporter extends TestReporter {
+        constructor(_options?: any);
         protected file: WriteStream | null;
         private first;
         onStart(suite: TestContext): void;
@@ -946,20 +1205,29 @@ declare module "reporter/JSONTestReporter" {
 declare module "reporter/SummaryTestReporter" {
     import { TestReporter } from "test/TestReporter";
     import { TestContext } from "test/TestContext";
+    import { LogValue } from "util/LogValue";
     /**
      * This test reporter should be used when logging output and test validation only needs happen on
      * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
      * process.
      */
     export class SummaryTestReporter extends TestReporter {
+        private enableLogging;
+        constructor(options?: any);
         onStart(): void;
         onGroupStart(): void;
         onGroupFinish(): void;
         onTestStart(): void;
         onTestFinish(): void;
         onTodo(): void;
-        constructor();
+        private stdout;
         onFinish(suite: TestContext): void;
+        /**
+         * A custom logger function for the default reporter that writes the log values using `console.log()`
+         *
+         * @param {LogValue} logValue - A value to be logged to the console
+         */
+        onLog(logValue: LogValue): void;
     }
 }
 declare module "util/IConfiguration" {
@@ -1018,6 +1286,10 @@ declare module "util/IConfiguration" {
          * Specifies if a wasm binary should be output. Default is false.
          */
         outputBinary?: boolean;
+        /**
+         * Specifies if rtrace counting should be skipped. Use with stub allocator.
+         */
+        nortrace?: boolean;
     }
 }
 declare module "cli/types" {

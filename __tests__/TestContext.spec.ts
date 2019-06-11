@@ -189,7 +189,7 @@ describe("TestContext test results", (): void => {
   it("should expect two u32 values", () => {
     const test = testGroup.tests[16];
     expect(test.actual!.value).toBe(4294967294);
-    expect(test.expected!.value).toBe(4294967293)
+    expect(test.expected!.value).toBe(4294967293);
   });
 });
 
@@ -280,8 +280,8 @@ describe("fail beforeAll", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failBeforeAllGroup.pass).toBeFalsy();
-    expect(failBeforeAllGroup.reason).toBe(
-      `Test suite failBeforeAll failed in beforeAll callback.`
+    expect(failBeforeAllGroup.reason).toMatchInlineSnapshot(
+      `"Test suite failBeforeAll failed because an error occurred in a beforeAll() callback."`
     );
   });
 });
@@ -293,8 +293,8 @@ describe("fail beforeEach", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failBeforeEachGroup.pass).toBeFalsy();
-    expect(failBeforeEachGroup.reason).toBe(
-      `Test suite failBeforeEach failed in beforeEach callback.`
+    expect(failBeforeEachGroup.reason).toMatchInlineSnapshot(
+      `"Test suite failBeforeEach failed because an error occurred in a beforeEach() callback."`
     );
   });
 });
@@ -306,8 +306,8 @@ describe("fail afterEach", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failAfterEachGroup.pass).toBeFalsy();
-    expect(failAfterEachGroup.reason).toBe(
-      `Test suite failAfterEach failed in afterEach callback.`
+    expect(failAfterEachGroup.reason).toMatchInlineSnapshot(
+      `"Test suite failAfterEach failed because an error occurred in an afterEach() callback."`
     );
   });
 });
@@ -319,8 +319,8 @@ describe("fail afterAll", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failAfterAllGroup.pass).toBeFalsy();
-    expect(failAfterAllGroup.reason).toBe(
-      `Test suite failAfterAll failed in afterAll callback.`
+    expect(failAfterAllGroup.reason).toMatchInlineSnapshot(
+      `"Test suite failAfterAll failed because of an afterAll() callback occurred."`
     );
   });
 });
@@ -332,8 +332,8 @@ describe("fail beforeEach in performance", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failBeforeEachPerformanceGroup.pass).toBeFalsy();
-    expect(failBeforeEachPerformanceGroup.reason).toBe(
-      `Test suite failBeforeEachPerformance failed in beforeEach callback.`
+    expect(failBeforeEachPerformanceGroup.reason).toMatchInlineSnapshot(
+      `"Test suite failBeforeEachPerformance failed because an error occurred in a beforeEach() callback."`
     );
   });
 });
@@ -345,8 +345,8 @@ describe("fail afterEach in performance", (): void => {
 
   it("should fail the test group", (): void => {
     expect(failAfterEachPerformanceGroup.pass).toBeFalsy();
-    expect(failAfterEachPerformanceGroup.reason).toBe(
-      `Test suite failAfterEachPerformance failed in afterEach callback.`
+    expect(failAfterEachPerformanceGroup.reason).toMatchInlineSnapshot(
+      `"Test suite failAfterEachPerformance failed because an error occurred in an afterEach() callback."`
     );
   });
 });

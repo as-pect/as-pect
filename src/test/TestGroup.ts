@@ -1,6 +1,7 @@
 import { LogValue } from "../util/LogValue";
 import { ILogTarget } from "../util/ILogTarget";
 import { TestResult } from "./TestResult";
+import { IWarning } from "./IWarning";
 
 /**
  * This test group class is designed with a data oriented layout in mind. Each test property is
@@ -79,6 +80,47 @@ export class TestGroup implements ILogTarget {
   public end: number = 0;
 
   /**
+   * If the test group did not error, this is the number of allocations that occurred durring the
+   * the group's exection.
+   */
+  public allocationCount: number = 0;
+
+  /**
+   * If the test group did not error, this is the number of deallocations that occurred durring the
+   * the group's exection.
+   */
+  public freeCount: number = 0;
+
+  /**
+   * If the test group did not error, this is the number of block decrements that occurred during
+   * the group's exection.
+   */
+  public decrementCount: number = 0;
+
+  /**
+   * If the test group did not error, this is the number of block increments that occurred during
+   * the group's exection.
+   */
+  public incrementCount: number = 0;
+
+  /**
+   * This is the number of allocations currently on the heap when the `TestGroup` execution starts.
+   */
+  public rtraceStart: number = 0;
+
+  /**
+   * If the test group completed, this is the number of allocations currently on the heap when the
+   * `TestGroup` execution ends.
+   */
+  public rtraceEnd: number = 0;
+
+  /**
+   * If the test group completed, this is the delta number of allocations that occured during the
+   * `TestGroup` execution.
+   */
+  public rtraceDelta: number = 0;
+
+  /**
    * This method creates a new TestGroup that contains a reference to all of the current flow
    * functions of this `TestGroup`.
    */
@@ -90,4 +132,6 @@ export class TestGroup implements ILogTarget {
     forked.afterAllPointers = this.afterAllPointers.slice();
     return forked;
   }
+
+  public errors: IWarning[] = [];
 }

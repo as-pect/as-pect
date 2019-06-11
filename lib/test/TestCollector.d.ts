@@ -10,6 +10,7 @@ export interface ITestCollectorParameters {
     testRegex?: RegExp;
     groupRegex?: RegExp;
     fileName?: string;
+    nortrace?: boolean;
 }
 /**
  * This class is responsible for collecting all the tests in a test binary.
@@ -49,6 +50,13 @@ export declare class TestCollector {
      */
     protected testRegex: RegExp;
     protected groupRegex: RegExp;
+    /**
+     * RTrace is a funciton that helps with debugging reference counting and can be used to find
+     * leaks. If it is enabled, it will be included automatically by the bootstrap in the
+     * assemblyscript imports.
+     */
+    protected rtraceEnabled: boolean;
+    private rtraceLabels;
     constructor(props?: ITestCollectorParameters);
     /**
      * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
@@ -378,5 +386,153 @@ export declare class TestCollector {
      * Gets a log stack trace.
      */
     private getLogStackTrace;
+    /**
+     * This method returns the current rtrace count.
+     */
+    private getRTraceCount;
+    /**
+     * This method starts a new rtrace count label.
+     *
+     * @param {number} label - The RTrace label.
+     */
+    private startRTrace;
+    /**
+     * This method ends an RTrace label and returns the difference between the current and the
+     * starting reference counts.
+     *
+     * @param {number} label - The RTrace label.
+     * @returns {number}
+     */
+    private endRTrace;
+    /**
+     * This is the current number of net allocations that occurred during `TestContext` execution.
+     */
+    allocationCount: number;
+    /**
+     * This is the current number of net allocations that occured during `TestGroup` execution.
+     */
+    protected groupAllocationCount: number;
+    /**
+     * This is the current number of net allocations that occured during `TestResult` execution.
+     */
+    protected testAllocationCount: number;
+    /**
+     * This is the current number of net dellocations that occurred during `TestContext` execution.
+     */
+    freeCount: number;
+    /**
+     * This is the current number of net allocations that occured during `TestGroup` execution.
+     */
+    protected groupFreeCount: number;
+    /**
+     * This is the current number of net allocations that occured during `TestGroup` execution.
+     */
+    protected testFreeCount: number;
+    /**
+     * This is the current number of net increments that occurred during `TestContext` execution.
+     */
+    protected incrementCount: number;
+    /**
+     * This is the current number of net increments that occurred during `TestGroup` execution.
+     */
+    protected groupIncrementCount: number;
+    /**
+     * This is the current number of net increments that occurred during `TestResult` execution.
+     */
+    protected testIncrementCount: number;
+    /**
+     * This is the current number of net decrements that occurred during `TestContext` execution.
+     */
+    protected decrementCount: number;
+    /**
+     * This is the current number of net decrements that occurred during `TestGroup` execution.
+     */
+    protected groupDecrementCount: number;
+    /**
+     * This is the current number of net decrements that occurred during `TestResult` execution.
+     */
+    protected testDecrementCount: number;
+    /**
+     * This map is responsible for keeping track of which blocks are currently allocated by their id.
+     */
+    protected blocks: Map<number, number>;
+    /**
+     * This method is called when a memory block is allocated on the heap.
+     *
+     * @param {number} block - This is a unique identifier for the affected block.
+     */
+    private onalloc;
+    /**
+     * This method is called when a memory block is deallocated from the heap.
+     *
+     * @param {number} block - This is a unique identifier for the affected block.
+     */
+    private onfree;
+    /**
+     * This method is called when a memory block reference count is incremented.
+     *
+     * @param {number} block - This is a unique identifier for the affected block.
+     */
+    private onincrement;
+    /**
+     * This method is called when a memory block reference count is decremented.
+     *
+     * @param {number} block - This is a unique identifier for the affected block.
+     */
+    private ondecrement;
+    /**
+     * This method reports an error to the current logTarget and the `TestContext`.
+     *
+     * @param {IWarning} error - The error being reported.
+     */
+    protected pushError(error: IWarning): void;
+    /**
+     * This linked method gets all the RTrace increments for this entire test up until this point.
+     */
+    private getRTraceIncrements;
+    /**
+     * This linked method gets all the RTrace decrements for this entire test up until this point.
+     */
+    private getRTraceDecrements;
+    /**
+     * This linked method gets all the RTrace increments for the current group up until this point.
+     */
+    private getRTraceGroupIncrements;
+    /**
+     * This linked method gets all the RTrace decrements for the current group up until this point.
+     */
+    private getRTraceGroupDecrements;
+    /**
+     * This linked method gets all the RTrace increments for the current test up until this point.
+     */
+    private getRTraceTestIncrements;
+    /**
+     * This linked method gets all the RTrace decrements for the current test up until this point.
+     */
+    private getRTraceTestDecrements;
+    /**
+     * This linked method gets all the RTrace allocations for this entire test up until this point.
+     */
+    private getRTraceAllocations;
+    /**
+     * This linked method gets all the RTrace frees for this entire test up until this point.
+     */
+    private getRTraceFrees;
+    /**
+     * This linked method gets all the RTrace increments for this entire test up until this point.
+     */
+    private getRTraceGroupAllocations;
+    /**
+     * This linked method gets all the RTrace frees for the current group up until this point.
+     */
+    private getRTraceGroupFrees;
+    /**
+     * This linked method gets all the RTrace allocations for the current test up until this point.
+     */
+    private getRTraceTestAllocations;
+    /**
+     * This linked method gets all the RTrace allocations for the current test up until this point.
+     */
+    private getRTraceTestFrees;
 }
 //# sourceMappingURL=TestCollector.d.ts.map

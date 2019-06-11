@@ -37,7 +37,7 @@ export class Actual {
   /**
    * This is the Actual value type.
    */
-  static type: ValueType = ValueType.Null;
+  static type: ValueType = ValueType.Unset;
   /**
    * This indicated if an actual integer or long is signed.
    */
@@ -58,6 +58,13 @@ export class Actual {
    * If the actual type is a reference, the size of the block will be stored here.
    */
   static offset: i32 = 0;
+
+  /**
+   * Clear the actual value.
+   */
+  static clear(): void {
+    Actual.type = ValueType.Unset;
+  }
 }
 
 /**

@@ -12,6 +12,8 @@ import { assert } from "./assert";
  * @param {i32} negated - The indicator that the assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
+// @ts-ignore: Decorators *are* valid here
+@inline
 export function referenceComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
   // report the actual and expected values
   reportActual<T>(actual);

@@ -36,6 +36,9 @@ export function help() {
     {bold.green --norun}                              Skip running tests and output the compiler files.
       {bold.green -n}
 
+    {bold.green --nortrace}                           Skip rtrace reference counting calculations.
+      {bold.green -nr}
+
     {bold.green --reporter}                           Define the reporter to be used. {yellow (Default: DefaultTestReporter)}
       {bold.green --reporter=SummaryTestReporter}     Use the summary reporter.
       {bold.green --reporter=DefaultTestReporter}     Use the default test reporter.

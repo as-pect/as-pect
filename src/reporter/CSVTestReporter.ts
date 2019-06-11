@@ -15,6 +15,11 @@ const columns = ["Group", "Name", "Ran", "Pass", "Runtime", "Message", "Actual",
 export class CSVTestReporter extends TestReporter {
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
+
+  constructor(_options?: any) {
+    super();
+  }
+
   public onStart(suite: TestContext): void {
     this.output = stringify({ columns });
     const extension = extname(suite.fileName);

@@ -29,15 +29,6 @@ STORE<f64>(buff1, 2, 3.0);
 STORE<f64>(buff2, 2, 3.0);
 STORE<f64>(buff3, 2, 6.0);
 
-let arry1: Array<Vec3> = new Array<Vec3>();
-let arry2: Array<Vec3> = new Array<Vec3>();
-
-for (let i = 0; i < 3; i++) {
-  arry1.push(new Vec3(1, 2, 3));
-  arry2.push(new Vec3(1, 2, 3));
-}
-
-
 /**
  * This test suite is responsible for verifing that all the memcmp operations used by toStrictEqual
  * function properly.
@@ -175,13 +166,6 @@ describe("toStrictEqual", (): void => {
   }, "Non-strictEqual array buffers should throw when they are expected to strictly equal each other.");
 
   /**
-   * Arrays of references should throw since they cannot be compared well yet.
-   */
-  throws("when passed an array of references to toStrictEqual", () => {
-    expect<Array<Vec3>>(arry1).toStrictEqual(arry2);
-  }, "Using Arrays of references should throw errors.");
-
-  /**
    * Arrays that equal each other exactly should pass.
    */
   it("should assert two array values are strictly equal when they point to the same place", () => {
@@ -238,4 +222,53 @@ describe("toStrictEqual", (): void => {
   it("compiles when <u8> is used as the expectation type for toStrictEqual", () => {
     expect<u8>(42).toBe(42, "This totally compiles.");
   });
+
+  /**
+   * This test validates that a reference Vec3[] (which has an @operator("==") overload) gets used
+   * in a single array comparison.
+   */
+  it("should validate that two arrays of similar references are strictly equal", () => {
+    expect<Vec3[]>(
+      [new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
+    ).toStrictEqual(
+      [new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
+      "The two arrays are expected to strictly equal each other",
+    );
+  });
+
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("when two arrays of similar references are strictly equal and the assertion is negated", () => {
+    expect<Vec3[]>(
+      [new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
+    ).not.toStrictEqual(
+      [new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
+    );
+  }, "The two arrays are expected to strictly equal each other");
+
+  /**
+   * This test validates that a reference Vec3[] (which has an @operator("==") overload) gets used
+   * in a single array comparison.
+   */
+  it("should validate that two arrays of disimilar references are not strictly equal", () => {
+    expect<Vec3[]>(
+      [new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
+    ).not.toStrictEqual(
+      [new Vec3(9, 8, 7), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
+      "The two arrays are expected not to strictly equal each other",
+    );
+  });
+
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("when two arrays of disimilar references are not strictly equal", () => {
+    expect<Vec3[]>(
+      [new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
+    ).toStrictEqual(
+      [new Vec3(9, 8, 7), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
+    );
+  }, "The two arrays are expected not to strictly equal each other");
+
 });
