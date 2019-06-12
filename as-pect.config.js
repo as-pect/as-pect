@@ -41,7 +41,7 @@ module.exports = {
     /** Set the number of decimal places to round to. */
     roundDecimalPlaces: 3,
     /** Set the maximum test run time in milliseconds. */
-    maxTestRunTime: Infinity,
+    maxTestRunTime: 5000,
     /** Report the median time in the default reporter. */
     reportMedian: true,
     /** Report the average time in milliseconds. */

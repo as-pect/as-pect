@@ -56,7 +56,6 @@ export function collectReporter(yargs: IYargs): TestReporter {
     return new EmptyReporter(options);
   }
   else if (targetReporter === "SummaryTestReporter") {
-    console.log("Hit");
     return new SummaryTestReporter(options);
   }
   else if (targetReporter === "CSVTestReporter") {
