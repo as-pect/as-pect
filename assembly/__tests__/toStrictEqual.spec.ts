@@ -43,7 +43,7 @@ describe("toStrictEqual", (): void => {
   });
 
   /**
-   * The is the contrapositive of the previous test.
+   * This is the contrapositive of the previous test.
    */
   throws("should throw when value assertions are equal", (): void => {
     expect<i32>(3).not.toStrictEqual(3);

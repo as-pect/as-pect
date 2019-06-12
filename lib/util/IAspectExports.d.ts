@@ -35,5 +35,9 @@ export interface IAspectExports {
      * This method returns the `usize[]` of the current module.
      */
     __getUsizeArrayId(): number;
+    /**
+     * This method clears internal actual and expected values.
+     */
+    __cleanup(): void;
 }
 //# sourceMappingURL=IAspectExports.d.ts.map

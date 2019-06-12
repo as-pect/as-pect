@@ -40,3 +40,5 @@ export { __disableRTrace, __getUsizeArrayId } from "./internal/RTrace";
 export function __ready(): void {
   Expected.ready = true;
 }
+
+export { __cleanup } from "./internal/Expectation";

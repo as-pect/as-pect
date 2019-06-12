@@ -259,6 +259,20 @@ export class RTrace {
   public static activeTestBlocks(): usize[] {
     return getRTraceTestBlocks();
   }
+
+  /**
+   * Gets the current count of the specified pointer.
+   *
+   * ╒══════════════════════ GC Info structure ══════════════════════╕
+   * │  3                   2                   1                    │
+   * │1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0│
+   * ├─┼─┴─┴─┼─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┴─┤
+   * │B│color│                     refCount                          │
+   * └─┴─────┴───────────────────────────────────────────────────────┘
+   */
+  public static refCountOf(ptr: usize): u32 {
+    return load<u32>(ptr - 12) & 268435455; // bitmask the refCount bits
+  }
 }
 
 export function __disableRTrace(): void {

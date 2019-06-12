@@ -89,6 +89,7 @@
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
  (export "__ready" (func $assembly/index/__ready))
+ (export "__cleanup" (func $assembly/index/__cleanup))
  (export "__call" (func $assembly/internal/call/__call))
  (export "__sendActual" (func $assembly/internal/report/reportActual/__sendActual))
  (export "__sendExpected" (func $assembly/internal/report/reportExpected/__sendExpected))
@@ -3815,13 +3816,17 @@
   i32.const 1
   global.set $assembly/internal/report/reportExpected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 69 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/index/__cleanup (; 69 ;) (type $FUNCSIG$v)
+  call $assembly/internal/report/reportExpected/Expected.clear
+  call $assembly/internal/report/reportActual/Actual.clear
+ )
+ (func $assembly/internal/call/__call (; 70 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $assembly/internal/report/reportActual/__sendActual (; 70 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportActual/__sendActual (; 71 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case6|0
@@ -3895,7 +3900,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/reportExpected/__sendExpected (; 71 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportExpected/__sendExpected (; 72 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case9|0
@@ -4003,20 +4008,20 @@
    br $break|0
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 72 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 73 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 73 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/RTrace/__disableRTrace (; 74 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 74 ;) (type $FUNCSIG$i) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 75 ;) (type $FUNCSIG$i) (result i32)
   i32.const 5
  )
- (func $start (; 75 ;) (type $FUNCSIG$v)
+ (func $start (; 76 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   if
    return
@@ -4026,10 +4031,10 @@
   end
   call $start:assembly/__tests__/customImports.spec
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 76 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 77 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/pure/__visit (; 77 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 78 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -4183,7 +4188,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 78 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 79 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block
@@ -4261,6 +4266,6 @@
   end
   unreachable
  )
- (func $null (; 79 ;) (type $FUNCSIG$v)
+ (func $null (; 80 ;) (type $FUNCSIG$v)
  )
 )

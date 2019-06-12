@@ -508,6 +508,10 @@ declare module "util/IAspectExports" {
          * This method returns the `usize[]` of the current module.
          */
         __getUsizeArrayId(): number;
+        /**
+         * This method clears internal actual and expected values.
+         */
+        __cleanup(): void;
     }
 }
 declare module "util/IPerformanceConfiguration" {

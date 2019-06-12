@@ -182,6 +182,8 @@ export class TestContext extends TestCollector {
          */
         if (this.endGroup) {
           this.wasm!.__ignoreLogs(0);
+          this.wasm!.__cleanup();
+          this.wasm!.__collect();
           return;
         }
         this.runTestCall(group, result);
@@ -190,6 +192,8 @@ export class TestContext extends TestCollector {
         // check to see if the afterEach functions errored (see above)
         if (this.endGroup) {
           this.wasm!.__ignoreLogs(0);
+          this.wasm!.__cleanup();
+          this.wasm!.__collect();
           return;
         }
 
@@ -215,11 +219,7 @@ export class TestContext extends TestCollector {
       if (result.calculateStandardDeviationValue) result.calculateStandardDeviation();
     } else {
       this.runBeforeEach(group, result);
-      if (this.endGroup) {
-        group.reason = `Test suite ${group.name} failed because an error occurred in a beforeEach() callback.`;
-        group.pass = false;
-        return;
-      }
+      if (this.endGroup) return;
       this.runTestCall(group, result);
       this.runAfterEach(group, result);
       if (this.endGroup) return;
@@ -285,6 +285,11 @@ export class TestContext extends TestCollector {
         this.stack = "";
       }
     }
+
+    if (testCallResult === 0) {
+      this.wasm!.__cleanup();
+      this.wasm!.__collect();
+    }
   }
 
   /**
@@ -300,6 +305,7 @@ export class TestContext extends TestCollector {
       const afterEachResult = this.tryCall(afterEachCallback);
       // if afterEach fails
       if (afterEachResult === 0) {
+        this.wasm!.__collect();
         this.endGroup = true;
         group.end = result.end = performance.now();
         group.pass = false;
@@ -327,6 +333,7 @@ export class TestContext extends TestCollector {
       const beforeEachResult = this.tryCall(beforeEachCallback);
       // if beforeEach fails
       if (beforeEachResult === 0) {
+        this.wasm!.__collect();
         result.end = group.end = performance.now();
         group.pass = false;
         group.reason = `Test suite ${group.name} failed because an error occurred in a beforeEach() callback.`;
