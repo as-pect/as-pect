@@ -21,6 +21,7 @@ export declare class TestCollector {
     testGroups: TestGroup[];
     protected logTarget: ILogTarget;
     errors: IWarning[];
+    warnings: IWarning[];
     fileName: string;
     protected stack: string;
     protected message: string;
@@ -457,6 +458,14 @@ export declare class TestCollector {
      */
     protected blocks: Map<number, number>;
     /**
+     * This set contains all the blocks currently allocated for the current test.
+     */
+    protected testBlocks: Set<number>;
+    /**
+     * This set contains all the blocks currently allocated for the current group.
+     */
+    protected groupBlocks: Set<number>;
+    /**
      * This method is called when a memory block is allocated on the heap.
      *
      * @param {number} block - This is a unique identifier for the affected block.
@@ -486,6 +495,7 @@ export declare class TestCollector {
      * @param {IWarning} error - The error being reported.
      */
     protected pushError(error: IWarning): void;
+    protected pushWarning(warning: IWarning): void;
     /**
      * This linked method gets all the RTrace increments for this entire test up until this point.
      */
@@ -534,5 +544,17 @@ export declare class TestCollector {
      * This linked method gets all the RTrace allocations for the current test up until this point.
      */
     private getRTraceTestFrees;
+    /**
+     * This linked method gets all the current RTrace allocations and adds them to an array.
+     */
+    private getRTraceBlocks;
+    /**
+     * This linked method gets all the current RTrace allocations for the current group.
+     */
+    private getRTraceGroupBlocks;
+    /**
+     * This linked method gets all the current RTrace allocations for the current test.
+     */
+    private getRTraceTestBlocks;
 }
 //# sourceMappingURL=TestCollector.d.ts.map

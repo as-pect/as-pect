@@ -35,6 +35,7 @@ export class TestCollector {
 
   // public warning/error lists
   public errors: IWarning[] = [];
+  public warnings: IWarning[] = [];
 
   // public fileName
   public fileName: string = "";
@@ -94,6 +95,67 @@ export class TestCollector {
       if (props.groupRegex) this.groupRegex = props.groupRegex;
       /* istanbul ignore next */
       if (props.performanceConfiguration) this.performanceConfiguration = props.performanceConfiguration;
+
+      if (this.performanceConfiguration.maxSamples != null) {
+        if (this.performanceConfiguration.maxSamples > PerformanceLimits.MaxSamples) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxSamples exceeds " + PerformanceLimits.MaxSamples,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+
+        if (this.performanceConfiguration.maxSamples < 0) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxSamples less than 0.",
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+      }
+
+      if (this.performanceConfiguration.maxTestRunTime != null) {
+        if (this.performanceConfiguration.maxTestRunTime > PerformanceLimits.MaxTestRuntime) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxTestRunTime exceeds " + PerformanceLimits.MaxTestRuntime,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+
+        if (this.performanceConfiguration.maxTestRunTime < 0) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxTestRunTime less than 0.",
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+      }
+
+      if (this.performanceConfiguration.roundDecimalPlaces != null) {
+        if (this.performanceConfiguration.roundDecimalPlaces > PerformanceLimits.MaximumDecimalPlaces) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: roundDecimalPlaces exceeds " + PerformanceLimits.MaximumDecimalPlaces,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+
+        if (this.performanceConfiguration.roundDecimalPlaces < PerformanceLimits.MinimumDecimalPlaces) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: roundDecimalPlaces less than " + PerformanceLimits.MinimumDecimalPlaces,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+      }
+
       /* istanbul ignore next */
       if (props.nortrace) this.rtraceEnabled = false;
     }
@@ -179,6 +241,9 @@ export class TestCollector {
           getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
           getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
           getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
+          getRTraceBlocks: this.getRTraceBlocks.bind(this),
+          getRTraceGroupBlocks: this.getRTraceGroupBlocks.bind(this),
+          getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
         },
       },
     );
@@ -467,6 +532,10 @@ export class TestCollector {
       test.decimalPlaces = !isFinite(this.roundDecimalPlacesValue!)
         ? 3
         : Math.max(Math.round(this.roundDecimalPlacesValue!), PerformanceLimits.MinimumDecimalPlaces);
+
+      if (test.decimalPlaces > PerformanceLimits.MaximumDecimalPlaces) {
+        test.decimalPlaces = PerformanceLimits.MaximumDecimalPlaces;
+      }
 
       test.calculateAverageValue = this.recordAverageValue || false;
       test.calculateMedianValue = this.recordMedianValue || false;
@@ -790,6 +859,22 @@ export class TestCollector {
    * @param {number} value - The maximum number of samples to collect for the following test.
    */
   private maxSamples(value: number): void {
+    if (value > PerformanceLimits.MaxSamples) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxSamples exceeds " + PerformanceLimits.MaxSamples,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
+    if (value < 0) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxSamples less than 0.",
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
     this.maxSamplesValue = value;
   }
 
@@ -800,6 +885,21 @@ export class TestCollector {
    * @param {number} value - The maximum number of milliseconds to run the following test.
    */
   private maxTestRunTime(value: number): void {
+    if (value > PerformanceLimits.MaxTestRuntime) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxTestRunTime exceeds " + PerformanceLimits.MaxTestRuntime,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
+    if (value < 0) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxTestRunTime less than 0.",
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
     this.maxTestRunTimeValue = value;
   }
 
@@ -810,6 +910,23 @@ export class TestCollector {
    * @param {number} value - The number of decimal places to round to.
    */
   private roundDecimalPlaces(value: number): void {
+    if (value > PerformanceLimits.MaximumDecimalPlaces) {
+      /* istanbul ignore next */
+      this.pushWarning({
+        message: "Invalid Performance Configuration: roundDecimalPlaces exceeds " + PerformanceLimits.MaximumDecimalPlaces,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
+    if (value < PerformanceLimits.MinimumDecimalPlaces) {
+      /* istanbul ignore next */
+      this.pushWarning({
+        message: "Invalid Performance Configuration: roundDecimalPlaces less than " + PerformanceLimits.MinimumDecimalPlaces,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
     this.roundDecimalPlacesValue = value;
   }
 
@@ -1045,6 +1162,16 @@ export class TestCollector {
   protected blocks: Map<number, number> = new Map();
 
   /**
+   * This set contains all the blocks currently allocated for the current test.
+   */
+  protected testBlocks: Set<number> = new Set();
+
+  /**
+   * This set contains all the blocks currently allocated for the current group.
+   */
+  protected groupBlocks: Set<number> = new Set();
+
+  /**
    * This method is called when a memory block is allocated on the heap.
    *
    * @param {number} block - This is a unique identifier for the affected block.
@@ -1070,6 +1197,9 @@ export class TestCollector {
     } else {
       this.blocks.set(block, 0);
     }
+
+    this.testBlocks.add(block);
+    this.groupBlocks.add(block);
   }
 
   /**
@@ -1098,6 +1228,9 @@ export class TestCollector {
     } else {
       this.blocks.delete(block);
     }
+
+    this.testBlocks.delete(block);
+    this.groupBlocks.delete(block);
   }
 
   /**
@@ -1170,6 +1303,13 @@ export class TestCollector {
      */
     /* istanbul ignore next */
     if (this.logTarget) this.logTarget.errors.push(error);
+  }
+
+  protected pushWarning(warning: IWarning): void {
+    this.warnings.push(warning);
+
+    /* istanbul ignore next */
+    if (this.logTarget) this.logTarget.warnings.push(warning);
   }
 
   /**
@@ -1254,5 +1394,26 @@ export class TestCollector {
    */
   private getRTraceTestFrees(): number {
     return this.testFreeCount;
+  }
+
+  /**
+   * This linked method gets all the current RTrace allocations and adds them to an array.
+   */
+  private getRTraceBlocks(): number {
+    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.blocks.keys()));
+  }
+
+  /**
+   * This linked method gets all the current RTrace allocations for the current group.
+   */
+  private getRTraceGroupBlocks(): number {
+    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.groupBlocks));
+  }
+
+  /**
+   * This linked method gets all the current RTrace allocations for the current test.
+   */
+  private getRTraceTestBlocks(): number {
+    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.testBlocks));
   }
 }

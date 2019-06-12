@@ -9,6 +9,7 @@
  (type $FUNCSIG$vi (func (param i32)))
  (type $FUNCSIG$vdi (func (param f64 i32)))
  (type $FUNCSIG$vdii (func (param f64 i32 i32)))
+ (type $FUNCSIG$i (func (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -45,7 +46,7 @@
  (data (i32.const 296) "N\00\00\00\01\00\00\00\01\00\00\00N\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00e\00a\00d\00 \00g\00l\00o\00b\00a\00l\00s\00 \00f\00r\00o\00m\00 \00i\00n\00c\00l\00u\00d\00e\00d\00 \00f\00i\00l\00e\00s\00")
  (data (i32.const 392) "L\00\00\00\01\00\00\00\01\00\00\00L\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
  (data (i32.const 488) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 504) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00")
+ (data (i32.const 504) "\06\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (table $0 4 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/addedFiles.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/addedFiles.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -75,7 +76,7 @@
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~lib/started (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 504))
- (global $~lib/heap/__heap_base i32 (i32.const 548))
+ (global $~lib/heap/__heap_base i32 (i32.const 556))
  (export "__start" (func $start))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
@@ -90,6 +91,7 @@
  (export "__sendExpected" (func $assembly/internal/report/reportExpected/__sendExpected))
  (export "__ignoreLogs" (func $assembly/internal/log/__ignoreLogs))
  (export "__disableRTrace" (func $assembly/internal/RTrace/__disableRTrace))
+ (export "__getUsizeArrayId" (func $assembly/internal/RTrace/__getUsizeArrayId))
  (func $~lib/rt/tlsf/removeBlock (; 26 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -212,85 +214,77 @@
    i32.store offset=16
   end
   local.get $1
-  block $~lib/rt/tlsf/GETHEAD|inlined.0 (result i32)
+  local.get $0
+  local.set $10
+  local.get $4
+  local.set $9
+  local.get $5
+  local.set $8
+  local.get $10
+  local.get $9
+  i32.const 4
+  i32.shl
+  local.get $8
+  i32.add
+  i32.const 2
+  i32.shl
+  i32.add
+  i32.load offset=96
+  i32.eq
+  if
    local.get $0
-   local.set $10
+   local.set $11
    local.get $4
-   local.set $9
+   local.set $10
    local.get $5
+   local.set $9
+   local.get $7
    local.set $8
+   local.get $11
    local.get $10
-   local.get $9
    i32.const 4
    i32.shl
-   local.get $8
+   local.get $9
    i32.add
    i32.const 2
    i32.shl
    i32.add
-   i32.load offset=96
-  end
-  i32.eq
-  if
-   block $~lib/rt/tlsf/SETHEAD|inlined.1
-    local.get $0
-    local.set $11
-    local.get $4
-    local.set $10
-    local.get $5
-    local.set $9
-    local.get $7
-    local.set $8
-    local.get $11
-    local.get $10
-    i32.const 4
-    i32.shl
-    local.get $9
-    i32.add
-    i32.const 2
-    i32.shl
-    i32.add
-    local.get $8
-    i32.store offset=96
-   end
+   local.get $8
+   i32.store offset=96
    local.get $7
    i32.eqz
    if
-    block $~lib/rt/tlsf/GETSL|inlined.0 (result i32)
-     local.get $0
-     local.set $9
-     local.get $4
-     local.set $8
-     local.get $9
-     local.get $8
-     i32.const 2
-     i32.shl
-     i32.add
-     i32.load offset=4
-    end
+    local.get $0
     local.set $9
-    block $~lib/rt/tlsf/SETSL|inlined.1
-     local.get $0
-     local.set $8
-     local.get $4
-     local.set $11
-     local.get $9
-     i32.const 1
-     local.get $5
-     i32.shl
-     i32.const -1
-     i32.xor
-     i32.and
-     local.tee $9
-     local.set $10
-     local.get $8
-     local.get $11
-     i32.const 2
-     i32.shl
-     i32.add
-     local.get $10
-     i32.store offset=4
-    end
+    local.get $4
+    local.set $8
+    local.get $9
+    local.get $8
+    i32.const 2
+    i32.shl
+    i32.add
+    i32.load offset=4
+    local.set $9
+    local.get $0
+    local.set $8
+    local.get $4
+    local.set $11
+    local.get $9
+    i32.const 1
+    local.get $5
+    i32.shl
+    i32.const -1
+    i32.xor
+    i32.and
+    local.tee $9
+    local.set $10
+    local.get $8
+    local.get $11
+    i32.const 2
+    i32.shl
+    i32.add
+    local.get $10
+    i32.store offset=4
     local.get $9
     i32.eqz
     if
@@ -346,20 +340,18 @@
    call $~lib/builtins/abort
    unreachable
   end
-  block $~lib/rt/tlsf/GETRIGHT|inlined.0 (result i32)
-   local.get $1
-   local.set $3
-   local.get $3
-   i32.const 16
-   i32.add
-   local.get $3
-   i32.load
-   i32.const 3
-   i32.const -1
-   i32.xor
-   i32.and
-   i32.add
-  end
+  local.get $1
+  local.set $3
+  local.get $3
+  i32.const 16
+  i32.add
+  local.get $3
+  i32.load
+  i32.const 3
+  i32.const -1
+  i32.xor
+  i32.and
+  i32.add
   local.set $4
   local.get $4
   i32.load
@@ -397,20 +389,18 @@
     i32.or
     local.tee $2
     i32.store
-    block $~lib/rt/tlsf/GETRIGHT|inlined.1 (result i32)
-     local.get $1
-     local.set $6
-     local.get $6
-     i32.const 16
-     i32.add
-     local.get $6
-     i32.load
-     i32.const 3
-     i32.const -1
-     i32.xor
-     i32.and
-     i32.add
-    end
+    local.get $1
+    local.set $6
+    local.get $6
+    i32.const 16
+    i32.add
+    local.get $6
+    i32.load
+    i32.const 3
+    i32.const -1
+    i32.xor
+    i32.and
+    i32.add
     local.set $4
     local.get $4
     i32.load
@@ -421,14 +411,12 @@
   i32.const 2
   i32.and
   if
-   block $~lib/rt/tlsf/GETFREELEFT|inlined.0 (result i32)
-    local.get $1
-    local.set $6
-    local.get $6
-    i32.const 4
-    i32.sub
-    i32.load
-   end
+   local.get $1
+   local.set $6
+   local.get $6
+   i32.const 4
+   i32.sub
+   i32.load
    local.set $6
    local.get $6
    i32.load
@@ -581,24 +569,22 @@
    call $~lib/builtins/abort
    unreachable
   end
-  block $~lib/rt/tlsf/GETHEAD|inlined.1 (result i32)
-   local.get $0
-   local.set $7
-   local.get $9
-   local.set $3
-   local.get $10
-   local.set $6
-   local.get $7
-   local.get $3
-   i32.const 4
-   i32.shl
-   local.get $6
-   i32.add
-   i32.const 2
-   i32.shl
-   i32.add
-   i32.load offset=96
-  end
+  local.get $0
+  local.set $7
+  local.get $9
+  local.set $3
+  local.get $10
+  local.set $6
+  local.get $7
+  local.get $3
+  i32.const 4
+  i32.shl
+  local.get $6
+  i32.add
+  i32.const 2
+  i32.shl
+  i32.add
+  i32.load offset=96
   local.set $11
   local.get $1
   i32.const 0
@@ -612,27 +598,25 @@
    local.get $1
    i32.store offset=16
   end
-  block $~lib/rt/tlsf/SETHEAD|inlined.2
-   local.get $0
-   local.set $12
-   local.get $9
-   local.set $7
-   local.get $10
-   local.set $3
-   local.get $1
-   local.set $6
-   local.get $12
-   local.get $7
-   i32.const 4
-   i32.shl
-   local.get $3
-   i32.add
-   i32.const 2
-   i32.shl
-   i32.add
-   local.get $6
-   i32.store offset=96
-  end
+  local.get $0
+  local.set $12
+  local.get $9
+  local.set $7
+  local.get $10
+  local.set $3
+  local.get $1
+  local.set $6
+  local.get $12
+  local.get $7
+  i32.const 4
+  i32.shl
+  local.get $3
+  i32.add
+  i32.const 2
+  i32.shl
+  i32.add
+  local.get $6
+  i32.store offset=96
   local.get $0
   local.get $0
   i32.load
@@ -641,36 +625,32 @@
   i32.shl
   i32.or
   i32.store
-  block $~lib/rt/tlsf/SETSL|inlined.2
-   local.get $0
-   local.set $13
-   local.get $9
-   local.set $12
-   block $~lib/rt/tlsf/GETSL|inlined.1 (result i32)
-    local.get $0
-    local.set $3
-    local.get $9
-    local.set $6
-    local.get $3
-    local.get $6
-    i32.const 2
-    i32.shl
-    i32.add
-    i32.load offset=4
-   end
-   i32.const 1
-   local.get $10
-   i32.shl
-   i32.or
-   local.set $7
-   local.get $13
-   local.get $12
-   i32.const 2
-   i32.shl
-   i32.add
-   local.get $7
-   i32.store offset=4
-  end
+  local.get $0
+  local.set $13
+  local.get $9
+  local.set $12
+  local.get $0
+  local.set $3
+  local.get $9
+  local.set $6
+  local.get $3
+  local.get $6
+  i32.const 2
+  i32.shl
+  i32.add
+  i32.load offset=4
+  i32.const 1
+  local.get $10
+  i32.shl
+  i32.or
+  local.set $7
+  local.get $13
+  local.get $12
+  i32.const 2
+  i32.shl
+  i32.add
+  local.get $7
+  i32.store offset=4
  )
  (func $~lib/rt/tlsf/addMemory (; 28 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
@@ -708,12 +688,10 @@
    call $~lib/builtins/abort
    unreachable
   end
-  block $~lib/rt/tlsf/GETTAIL|inlined.0 (result i32)
-   local.get $0
-   local.set $3
-   local.get $3
-   i32.load offset=1568
-  end
+  local.get $0
+  local.set $3
+  local.get $3
+  i32.load offset=1568
   local.set $4
   i32.const 0
   local.set $5
@@ -810,15 +788,13 @@
   i32.const 2
   i32.or
   i32.store
-  block $~lib/rt/tlsf/SETTAIL|inlined.1
-   local.get $0
-   local.set $9
-   local.get $4
-   local.set $3
-   local.get $9
-   local.get $3
-   i32.store offset=1568
-  end
+  local.get $0
+  local.set $9
+  local.get $4
+  local.set $3
+  local.get $9
+  local.get $3
+  i32.store offset=1568
   local.get $0
   local.get $8
   call $~lib/rt/tlsf/insertBlock
@@ -878,75 +854,68 @@
   local.get $3
   i32.const 0
   i32.store
-  block $~lib/rt/tlsf/SETTAIL|inlined.0
-   local.get $3
-   local.set $5
-   i32.const 0
-   local.set $4
-   local.get $5
-   local.get $4
-   i32.store offset=1568
-  end
+  local.get $3
+  local.set $5
+  i32.const 0
+  local.set $4
+  local.get $5
+  local.get $4
+  i32.store offset=1568
   block $break|0
    i32.const 0
    local.set $5
-   loop $repeat|0
+   loop $loop|0
     local.get $5
     i32.const 23
     i32.lt_u
     i32.eqz
     br_if $break|0
-    block $~lib/rt/tlsf/SETSL|inlined.0
-     local.get $3
-     local.set $7
-     local.get $5
-     local.set $6
-     i32.const 0
-     local.set $4
-     local.get $7
-     local.get $6
-     i32.const 2
-     i32.shl
-     i32.add
-     local.get $4
-     i32.store offset=4
-    end
+    local.get $3
+    local.set $7
+    local.get $5
+    local.set $6
+    i32.const 0
+    local.set $4
+    local.get $7
+    local.get $6
+    i32.const 2
+    i32.shl
+    i32.add
+    local.get $4
+    i32.store offset=4
     block $break|1
      i32.const 0
      local.set $7
-     loop $repeat|1
+     loop $loop|1
       local.get $7
       i32.const 16
       i32.lt_u
       i32.eqz
       br_if $break|1
-      block $~lib/rt/tlsf/SETHEAD|inlined.0
-       local.get $3
-       local.set $9
-       local.get $5
-       local.set $8
-       local.get $7
-       local.set $6
-       i32.const 0
-       local.set $4
-       local.get $9
-       local.get $8
-       i32.const 4
-       i32.shl
-       local.get $6
-       i32.add
-       i32.const 2
-       i32.shl
-       i32.add
-       local.get $4
-       i32.store offset=96
-      end
+      local.get $3
+      local.set $9
+      local.get $5
+      local.set $8
+      local.get $7
+      local.set $6
+      i32.const 0
+      local.set $4
+      local.get $9
+      local.get $8
+      i32.const 4
+      i32.shl
+      local.get $6
+      i32.add
+      i32.const 2
+      i32.shl
+      i32.add
+      local.get $4
+      i32.store offset=96
       local.get $7
       i32.const 1
       i32.add
       local.set $7
-      br $repeat|1
-      unreachable
+      br $loop|1
      end
      unreachable
     end
@@ -954,8 +923,7 @@
     i32.const 1
     i32.add
     local.set $5
-    br $repeat|0
-    unreachable
+    br $loop|0
    end
    unreachable
   end
@@ -1085,18 +1053,16 @@
    call $~lib/builtins/abort
    unreachable
   end
-  block $~lib/rt/tlsf/GETSL|inlined.2 (result i32)
-   local.get $0
-   local.set $5
-   local.get $2
-   local.set $4
-   local.get $5
-   local.get $4
-   i32.const 2
-   i32.shl
-   i32.add
-   i32.load offset=4
-  end
+  local.get $0
+  local.set $5
+  local.get $2
+  local.set $4
+  local.get $5
+  local.get $4
+  i32.const 2
+  i32.shl
+  i32.add
+  i32.load offset=4
   i32.const 0
   i32.const -1
   i32.xor
@@ -1129,18 +1095,16 @@
     local.get $5
     i32.ctz
     local.set $2
-    block $~lib/rt/tlsf/GETSL|inlined.3 (result i32)
-     local.get $0
-     local.set $8
-     local.get $2
-     local.set $4
-     local.get $8
-     local.get $4
-     i32.const 2
-     i32.shl
-     i32.add
-     i32.load offset=4
-    end
+    local.get $0
+    local.set $8
+    local.get $2
+    local.set $4
+    local.get $8
+    local.get $4
+    i32.const 2
+    i32.shl
+    i32.add
+    i32.load offset=4
     local.set $6
     local.get $6
     i32.eqz
@@ -1152,29 +1116,6 @@
      call $~lib/builtins/abort
      unreachable
     end
-    block $~lib/rt/tlsf/GETHEAD|inlined.2 (result i32)
-     local.get $0
-     local.set $9
-     local.get $2
-     local.set $8
-     local.get $6
-     i32.ctz
-     local.set $4
-     local.get $9
-     local.get $8
-     i32.const 4
-     i32.shl
-     local.get $4
-     i32.add
-     i32.const 2
-     i32.shl
-     i32.add
-     i32.load offset=96
-    end
-    local.set $7
-   end
-  else   
-   block $~lib/rt/tlsf/GETHEAD|inlined.3 (result i32)
     local.get $0
     local.set $9
     local.get $2
@@ -1192,7 +1133,26 @@
     i32.shl
     i32.add
     i32.load offset=96
+    local.set $7
    end
+  else   
+   local.get $0
+   local.set $9
+   local.get $2
+   local.set $8
+   local.get $6
+   i32.ctz
+   local.set $4
+   local.get $9
+   local.get $8
+   i32.const 4
+   i32.shl
+   local.get $4
+   i32.add
+   i32.const 2
+   i32.shl
+   i32.add
+   i32.load offset=96
    local.set $7
   end
   local.get $7
@@ -1313,34 +1273,30 @@
    i32.xor
    i32.and
    i32.store
-   block $~lib/rt/tlsf/GETRIGHT|inlined.3 (result i32)
-    local.get $1
-    local.set $5
-    local.get $5
-    i32.const 16
-    i32.add
-    local.get $5
-    i32.load
-    i32.const 3
-    i32.const -1
-    i32.xor
-    i32.and
-    i32.add
-   end
-   block $~lib/rt/tlsf/GETRIGHT|inlined.2 (result i32)
-    local.get $1
-    local.set $5
-    local.get $5
-    i32.const 16
-    i32.add
-    local.get $5
-    i32.load
-    i32.const 3
-    i32.const -1
-    i32.xor
-    i32.and
-    i32.add
-   end
+   local.get $1
+   local.set $5
+   local.get $5
+   i32.const 16
+   i32.add
+   local.get $5
+   i32.load
+   i32.const 3
+   i32.const -1
+   i32.xor
+   i32.and
+   i32.add
+   local.get $1
+   local.set $5
+   local.get $5
+   i32.const 16
+   i32.add
+   local.get $5
+   i32.load
+   i32.const 3
+   i32.const -1
+   i32.xor
+   i32.and
+   i32.add
    i32.load
    i32.const 2
    i32.const -1
@@ -1566,32 +1522,29 @@
     else     
      i32.const 0
     end
-    if
-     block (result i32)
-      local.get $0
-      local.tee $5
-      i32.const 1
-      i32.add
-      local.set $0
-      local.get $5
-     end
-     block (result i32)
-      local.get $1
-      local.tee $5
-      i32.const 1
-      i32.add
-      local.set $1
-      local.get $5
-     end
-     i32.load8_u
-     i32.store8
-     local.get $2
-     i32.const 1
-     i32.sub
-     local.set $2
-     br $continue|0
-    end
+    i32.eqz
+    br_if $break|0
+    local.get $0
+    local.tee $5
+    i32.const 1
+    i32.add
+    local.set $0
+    local.get $5
+    local.get $1
+    local.tee $5
+    i32.const 1
+    i32.add
+    local.set $1
+    local.get $5
+    i32.load8_u
+    i32.store8
+    local.get $2
+    i32.const 1
+    i32.sub
+    local.set $2
+    br $continue|0
    end
+   unreachable
   end
   local.get $0
   i32.const 3
@@ -1604,50 +1557,51 @@
      local.get $2
      i32.const 16
      i32.ge_u
-     if
-      local.get $0
-      local.get $1
-      i32.load
-      i32.store
-      local.get $0
-      i32.const 4
-      i32.add
-      local.get $1
-      i32.const 4
-      i32.add
-      i32.load
-      i32.store
-      local.get $0
-      i32.const 8
-      i32.add
-      local.get $1
-      i32.const 8
-      i32.add
-      i32.load
-      i32.store
-      local.get $0
-      i32.const 12
-      i32.add
-      local.get $1
-      i32.const 12
-      i32.add
-      i32.load
-      i32.store
-      local.get $1
-      i32.const 16
-      i32.add
-      local.set $1
-      local.get $0
-      i32.const 16
-      i32.add
-      local.set $0
-      local.get $2
-      i32.const 16
-      i32.sub
-      local.set $2
-      br $continue|1
-     end
+     i32.eqz
+     br_if $break|1
+     local.get $0
+     local.get $1
+     i32.load
+     i32.store
+     local.get $0
+     i32.const 4
+     i32.add
+     local.get $1
+     i32.const 4
+     i32.add
+     i32.load
+     i32.store
+     local.get $0
+     i32.const 8
+     i32.add
+     local.get $1
+     i32.const 8
+     i32.add
+     i32.load
+     i32.store
+     local.get $0
+     i32.const 12
+     i32.add
+     local.get $1
+     i32.const 12
+     i32.add
+     i32.load
+     i32.store
+     local.get $1
+     i32.const 16
+     i32.add
+     local.set $1
+     local.get $0
+     i32.const 16
+     i32.add
+     local.set $0
+     local.get $2
+     i32.const 16
+     i32.sub
+     local.set $2
+     br $continue|1
     end
+    unreachable
    end
    local.get $2
    i32.const 8
@@ -1712,22 +1666,18 @@
    i32.const 1
    i32.and
    if
-    block (result i32)
-     local.get $0
-     local.tee $5
-     i32.const 1
-     i32.add
-     local.set $0
-     local.get $5
-    end
-    block (result i32)
-     local.get $1
-     local.tee $5
-     i32.const 1
-     i32.add
-     local.set $1
-     local.get $5
-    end
+    local.get $0
+    local.tee $5
+    i32.const 1
+    i32.add
+    local.set $0
+    local.get $5
+    local.get $1
+    local.tee $5
+    i32.const 1
+    i32.add
+    local.set $1
+    local.get $5
     i32.load8_u
     i32.store8
    end
@@ -1759,338 +1709,78 @@
        br_if $case2|2
        br $break|2
       end
-      block
-       local.get $1
-       i32.load
-       local.set $3
-       block (result i32)
-        local.get $0
-        local.tee $5
-        i32.const 1
-        i32.add
-        local.set $0
-        local.get $5
-       end
-       block (result i32)
-        local.get $1
-        local.tee $5
-        i32.const 1
-        i32.add
-        local.set $1
-        local.get $5
-       end
-       i32.load8_u
-       i32.store8
-       block (result i32)
-        local.get $0
-        local.tee $5
-        i32.const 1
-        i32.add
-        local.set $0
-        local.get $5
-       end
-       block (result i32)
-        local.get $1
-        local.tee $5
-        i32.const 1
-        i32.add
-        local.set $1
-        local.get $5
-       end
-       i32.load8_u
-       i32.store8
-       block (result i32)
-        local.get $0
-        local.tee $5
-        i32.const 1
-        i32.add
-        local.set $0
-        local.get $5
-       end
-       block (result i32)
-        local.get $1
-        local.tee $5
-        i32.const 1
-        i32.add
-        local.set $1
-        local.get $5
-       end
-       i32.load8_u
-       i32.store8
-       local.get $2
-       i32.const 3
-       i32.sub
-       local.set $2
-       block $break|3
-        loop $continue|3
-         local.get $2
-         i32.const 17
-         i32.ge_u
-         if
-          local.get $1
-          i32.const 1
-          i32.add
-          i32.load
-          local.set $4
-          local.get $0
-          local.get $3
-          i32.const 24
-          i32.shr_u
-          local.get $4
-          i32.const 8
-          i32.shl
-          i32.or
-          i32.store
-          local.get $1
-          i32.const 5
-          i32.add
-          i32.load
-          local.set $3
-          local.get $0
-          i32.const 4
-          i32.add
-          local.get $4
-          i32.const 24
-          i32.shr_u
-          local.get $3
-          i32.const 8
-          i32.shl
-          i32.or
-          i32.store
-          local.get $1
-          i32.const 9
-          i32.add
-          i32.load
-          local.set $4
-          local.get $0
-          i32.const 8
-          i32.add
-          local.get $3
-          i32.const 24
-          i32.shr_u
-          local.get $4
-          i32.const 8
-          i32.shl
-          i32.or
-          i32.store
-          local.get $1
-          i32.const 13
-          i32.add
-          i32.load
-          local.set $3
-          local.get $0
-          i32.const 12
-          i32.add
-          local.get $4
-          i32.const 24
-          i32.shr_u
-          local.get $3
-          i32.const 8
-          i32.shl
-          i32.or
-          i32.store
-          local.get $1
-          i32.const 16
-          i32.add
-          local.set $1
-          local.get $0
-          i32.const 16
-          i32.add
-          local.set $0
-          local.get $2
-          i32.const 16
-          i32.sub
-          local.set $2
-          br $continue|3
-         end
-        end
-       end
-       br $break|2
-       unreachable
-      end
-      unreachable
-     end
-     block
       local.get $1
       i32.load
       local.set $3
-      block (result i32)
-       local.get $0
-       local.tee $5
-       i32.const 1
-       i32.add
-       local.set $0
-       local.get $5
-      end
-      block (result i32)
-       local.get $1
-       local.tee $5
-       i32.const 1
-       i32.add
-       local.set $1
-       local.get $5
-      end
-      i32.load8_u
-      i32.store8
-      block (result i32)
-       local.get $0
-       local.tee $5
-       i32.const 1
-       i32.add
-       local.set $0
-       local.get $5
-      end
-      block (result i32)
-       local.get $1
-       local.tee $5
-       i32.const 1
-       i32.add
-       local.set $1
-       local.get $5
-      end
-      i32.load8_u
-      i32.store8
-      local.get $2
-      i32.const 2
-      i32.sub
-      local.set $2
-      block $break|4
-       loop $continue|4
-        local.get $2
-        i32.const 18
-        i32.ge_u
-        if
-         local.get $1
-         i32.const 2
-         i32.add
-         i32.load
-         local.set $4
-         local.get $0
-         local.get $3
-         i32.const 16
-         i32.shr_u
-         local.get $4
-         i32.const 16
-         i32.shl
-         i32.or
-         i32.store
-         local.get $1
-         i32.const 6
-         i32.add
-         i32.load
-         local.set $3
-         local.get $0
-         i32.const 4
-         i32.add
-         local.get $4
-         i32.const 16
-         i32.shr_u
-         local.get $3
-         i32.const 16
-         i32.shl
-         i32.or
-         i32.store
-         local.get $1
-         i32.const 10
-         i32.add
-         i32.load
-         local.set $4
-         local.get $0
-         i32.const 8
-         i32.add
-         local.get $3
-         i32.const 16
-         i32.shr_u
-         local.get $4
-         i32.const 16
-         i32.shl
-         i32.or
-         i32.store
-         local.get $1
-         i32.const 14
-         i32.add
-         i32.load
-         local.set $3
-         local.get $0
-         i32.const 12
-         i32.add
-         local.get $4
-         i32.const 16
-         i32.shr_u
-         local.get $3
-         i32.const 16
-         i32.shl
-         i32.or
-         i32.store
-         local.get $1
-         i32.const 16
-         i32.add
-         local.set $1
-         local.get $0
-         i32.const 16
-         i32.add
-         local.set $0
-         local.get $2
-         i32.const 16
-         i32.sub
-         local.set $2
-         br $continue|4
-        end
-       end
-      end
-      br $break|2
-      unreachable
-     end
-     unreachable
-    end
-    block
-     local.get $1
-     i32.load
-     local.set $3
-     block (result i32)
       local.get $0
       local.tee $5
       i32.const 1
       i32.add
       local.set $0
       local.get $5
-     end
-     block (result i32)
       local.get $1
       local.tee $5
       i32.const 1
       i32.add
       local.set $1
       local.get $5
-     end
-     i32.load8_u
-     i32.store8
-     local.get $2
-     i32.const 1
-     i32.sub
-     local.set $2
-     block $break|5
-      loop $continue|5
-       local.get $2
-       i32.const 19
-       i32.ge_u
-       if
+      i32.load8_u
+      i32.store8
+      local.get $0
+      local.tee $5
+      i32.const 1
+      i32.add
+      local.set $0
+      local.get $5
+      local.get $1
+      local.tee $5
+      i32.const 1
+      i32.add
+      local.set $1
+      local.get $5
+      i32.load8_u
+      i32.store8
+      local.get $0
+      local.tee $5
+      i32.const 1
+      i32.add
+      local.set $0
+      local.get $5
+      local.get $1
+      local.tee $5
+      i32.const 1
+      i32.add
+      local.set $1
+      local.get $5
+      i32.load8_u
+      i32.store8
+      local.get $2
+      i32.const 3
+      i32.sub
+      local.set $2
+      block $break|3
+       loop $continue|3
+        local.get $2
+        i32.const 17
+        i32.ge_u
+        i32.eqz
+        br_if $break|3
         local.get $1
-        i32.const 3
+        i32.const 1
         i32.add
         i32.load
         local.set $4
         local.get $0
         local.get $3
-        i32.const 8
+        i32.const 24
         i32.shr_u
         local.get $4
-        i32.const 24
+        i32.const 8
         i32.shl
         i32.or
         i32.store
         local.get $1
-        i32.const 7
+        i32.const 5
         i32.add
         i32.load
         local.set $3
@@ -2098,15 +1788,15 @@
         i32.const 4
         i32.add
         local.get $4
-        i32.const 8
+        i32.const 24
         i32.shr_u
         local.get $3
-        i32.const 24
+        i32.const 8
         i32.shl
         i32.or
         i32.store
         local.get $1
-        i32.const 11
+        i32.const 9
         i32.add
         i32.load
         local.set $4
@@ -2114,15 +1804,15 @@
         i32.const 8
         i32.add
         local.get $3
-        i32.const 8
+        i32.const 24
         i32.shr_u
         local.get $4
-        i32.const 24
+        i32.const 8
         i32.shl
         i32.or
         i32.store
         local.get $1
-        i32.const 15
+        i32.const 13
         i32.add
         i32.load
         local.set $3
@@ -2130,10 +1820,10 @@
         i32.const 12
         i32.add
         local.get $4
-        i32.const 8
+        i32.const 24
         i32.shr_u
         local.get $3
-        i32.const 24
+        i32.const 8
         i32.shl
         i32.or
         i32.store
@@ -2149,306 +1839,469 @@
         i32.const 16
         i32.sub
         local.set $2
-        br $continue|5
+        br $continue|3
        end
+       unreachable
       end
+      br $break|2
+     end
+     local.get $1
+     i32.load
+     local.set $3
+     local.get $0
+     local.tee $5
+     i32.const 1
+     i32.add
+     local.set $0
+     local.get $5
+     local.get $1
+     local.tee $5
+     i32.const 1
+     i32.add
+     local.set $1
+     local.get $5
+     i32.load8_u
+     i32.store8
+     local.get $0
+     local.tee $5
+     i32.const 1
+     i32.add
+     local.set $0
+     local.get $5
+     local.get $1
+     local.tee $5
+     i32.const 1
+     i32.add
+     local.set $1
+     local.get $5
+     i32.load8_u
+     i32.store8
+     local.get $2
+     i32.const 2
+     i32.sub
+     local.set $2
+     block $break|4
+      loop $continue|4
+       local.get $2
+       i32.const 18
+       i32.ge_u
+       i32.eqz
+       br_if $break|4
+       local.get $1
+       i32.const 2
+       i32.add
+       i32.load
+       local.set $4
+       local.get $0
+       local.get $3
+       i32.const 16
+       i32.shr_u
+       local.get $4
+       i32.const 16
+       i32.shl
+       i32.or
+       i32.store
+       local.get $1
+       i32.const 6
+       i32.add
+       i32.load
+       local.set $3
+       local.get $0
+       i32.const 4
+       i32.add
+       local.get $4
+       i32.const 16
+       i32.shr_u
+       local.get $3
+       i32.const 16
+       i32.shl
+       i32.or
+       i32.store
+       local.get $1
+       i32.const 10
+       i32.add
+       i32.load
+       local.set $4
+       local.get $0
+       i32.const 8
+       i32.add
+       local.get $3
+       i32.const 16
+       i32.shr_u
+       local.get $4
+       i32.const 16
+       i32.shl
+       i32.or
+       i32.store
+       local.get $1
+       i32.const 14
+       i32.add
+       i32.load
+       local.set $3
+       local.get $0
+       i32.const 12
+       i32.add
+       local.get $4
+       i32.const 16
+       i32.shr_u
+       local.get $3
+       i32.const 16
+       i32.shl
+       i32.or
+       i32.store
+       local.get $1
+       i32.const 16
+       i32.add
+       local.set $1
+       local.get $0
+       i32.const 16
+       i32.add
+       local.set $0
+       local.get $2
+       i32.const 16
+       i32.sub
+       local.set $2
+       br $continue|4
+      end
+      unreachable
      end
      br $break|2
+    end
+    local.get $1
+    i32.load
+    local.set $3
+    local.get $0
+    local.tee $5
+    i32.const 1
+    i32.add
+    local.set $0
+    local.get $5
+    local.get $1
+    local.tee $5
+    i32.const 1
+    i32.add
+    local.set $1
+    local.get $5
+    i32.load8_u
+    i32.store8
+    local.get $2
+    i32.const 1
+    i32.sub
+    local.set $2
+    block $break|5
+     loop $continue|5
+      local.get $2
+      i32.const 19
+      i32.ge_u
+      i32.eqz
+      br_if $break|5
+      local.get $1
+      i32.const 3
+      i32.add
+      i32.load
+      local.set $4
+      local.get $0
+      local.get $3
+      i32.const 8
+      i32.shr_u
+      local.get $4
+      i32.const 24
+      i32.shl
+      i32.or
+      i32.store
+      local.get $1
+      i32.const 7
+      i32.add
+      i32.load
+      local.set $3
+      local.get $0
+      i32.const 4
+      i32.add
+      local.get $4
+      i32.const 8
+      i32.shr_u
+      local.get $3
+      i32.const 24
+      i32.shl
+      i32.or
+      i32.store
+      local.get $1
+      i32.const 11
+      i32.add
+      i32.load
+      local.set $4
+      local.get $0
+      i32.const 8
+      i32.add
+      local.get $3
+      i32.const 8
+      i32.shr_u
+      local.get $4
+      i32.const 24
+      i32.shl
+      i32.or
+      i32.store
+      local.get $1
+      i32.const 15
+      i32.add
+      i32.load
+      local.set $3
+      local.get $0
+      i32.const 12
+      i32.add
+      local.get $4
+      i32.const 8
+      i32.shr_u
+      local.get $3
+      i32.const 24
+      i32.shl
+      i32.or
+      i32.store
+      local.get $1
+      i32.const 16
+      i32.add
+      local.set $1
+      local.get $0
+      i32.const 16
+      i32.add
+      local.set $0
+      local.get $2
+      i32.const 16
+      i32.sub
+      local.set $2
+      br $continue|5
+     end
      unreachable
     end
-    unreachable
+    br $break|2
    end
   end
   local.get $2
   i32.const 16
   i32.and
   if
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
   end
@@ -2456,148 +2309,116 @@
   i32.const 8
   i32.and
   if
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
   end
@@ -2605,76 +2426,60 @@
   i32.const 4
   i32.and
   if
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
   end
@@ -2682,40 +2487,32 @@
   i32.const 2
   i32.and
   if
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
   end
@@ -2723,22 +2520,18 @@
   i32.const 1
   i32.and
   if
-   block (result i32)
-    local.get $0
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $0
-    local.get $5
-   end
-   block (result i32)
-    local.get $1
-    local.tee $5
-    i32.const 1
-    i32.add
-    local.set $1
-    local.get $5
-   end
+   local.get $0
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $0
+   local.get $5
+   local.get $1
+   local.tee $5
+   i32.const 1
+   i32.add
+   local.set $1
+   local.get $5
    i32.load8_u
    i32.store8
   end
@@ -2799,94 +2592,89 @@
        local.get $5
        i32.const 7
        i32.and
+       i32.eqz
+       br_if $break|0
+       local.get $3
+       i32.eqz
        if
-        local.get $3
-        i32.eqz
-        if
-         br $~lib/util/memory/memmove|inlined.0
-        end
-        local.get $3
-        i32.const 1
-        i32.sub
-        local.set $3
-        block (result i32)
-         local.get $5
-         local.tee $6
-         i32.const 1
-         i32.add
-         local.set $5
-         local.get $6
-        end
-        block (result i32)
-         local.get $4
-         local.tee $6
-         i32.const 1
-         i32.add
-         local.set $4
-         local.get $6
-        end
-        i32.load8_u
-        i32.store8
-        br $continue|0
+        br $~lib/util/memory/memmove|inlined.0
        end
+       local.get $3
+       i32.const 1
+       i32.sub
+       local.set $3
+       local.get $5
+       local.tee $6
+       i32.const 1
+       i32.add
+       local.set $5
+       local.get $6
+       local.get $4
+       local.tee $6
+       i32.const 1
+       i32.add
+       local.set $4
+       local.get $6
+       i32.load8_u
+       i32.store8
+       br $continue|0
       end
+      unreachable
      end
      block $break|1
       loop $continue|1
        local.get $3
        i32.const 8
        i32.ge_u
-       if
-        local.get $5
-        local.get $4
-        i64.load
-        i64.store
-        local.get $3
-        i32.const 8
-        i32.sub
-        local.set $3
-        local.get $5
-        i32.const 8
-        i32.add
-        local.set $5
-        local.get $4
-        i32.const 8
-        i32.add
-        local.set $4
-        br $continue|1
-       end
+       i32.eqz
+       br_if $break|1
+       local.get $5
+       local.get $4
+       i64.load
+       i64.store
+       local.get $3
+       i32.const 8
+       i32.sub
+       local.set $3
+       local.get $5
+       i32.const 8
+       i32.add
+       local.set $5
+       local.get $4
+       i32.const 8
+       i32.add
+       local.set $4
+       br $continue|1
       end
+      unreachable
      end
     end
     block $break|2
      loop $continue|2
       local.get $3
-      if
-       block (result i32)
-        local.get $5
-        local.tee $6
-        i32.const 1
-        i32.add
-        local.set $5
-        local.get $6
-       end
-       block (result i32)
-        local.get $4
-        local.tee $6
-        i32.const 1
-        i32.add
-        local.set $4
-        local.get $6
-       end
-       i32.load8_u
-       i32.store8
-       local.get $3
-       i32.const 1
-       i32.sub
-       local.set $3
-       br $continue|2
-      end
+      i32.eqz
+      br_if $break|2
+      local.get $5
+      local.tee $6
+      i32.const 1
+      i32.add
+      local.set $5
+      local.get $6
+      local.get $4
+      local.tee $6
+      i32.const 1
+      i32.add
+      local.set $4
+      local.get $6
+      i32.load8_u
+      i32.store8
+      local.get $3
+      i32.const 1
+      i32.sub
+      local.set $3
+      br $continue|2
      end
+     unreachable
     end
    else    
     local.get $4
@@ -2904,54 +2692,13 @@
        i32.add
        i32.const 7
        i32.and
-       if
-        local.get $3
-        i32.eqz
-        if
-         br $~lib/util/memory/memmove|inlined.0
-        end
-        local.get $5
-        local.get $3
-        i32.const 1
-        i32.sub
-        local.tee $3
-        i32.add
-        local.get $4
-        local.get $3
-        i32.add
-        i32.load8_u
-        i32.store8
-        br $continue|3
-       end
-      end
-     end
-     block $break|4
-      loop $continue|4
+       i32.eqz
+       br_if $break|3
        local.get $3
-       i32.const 8
-       i32.ge_u
+       i32.eqz
        if
-        local.get $3
-        i32.const 8
-        i32.sub
-        local.set $3
-        local.get $5
-        local.get $3
-        i32.add
-        local.get $4
-        local.get $3
-        i32.add
-        i64.load
-        i64.store
-        br $continue|4
+        br $~lib/util/memory/memmove|inlined.0
        end
-      end
-     end
-    end
-    block $break|5
-     loop $continue|5
-      local.get $3
-      if
        local.get $5
        local.get $3
        i32.const 1
@@ -2963,9 +2710,53 @@
        i32.add
        i32.load8_u
        i32.store8
-       br $continue|5
+       br $continue|3
       end
+      unreachable
      end
+     block $break|4
+      loop $continue|4
+       local.get $3
+       i32.const 8
+       i32.ge_u
+       i32.eqz
+       br_if $break|4
+       local.get $3
+       i32.const 8
+       i32.sub
+       local.set $3
+       local.get $5
+       local.get $3
+       i32.add
+       local.get $4
+       local.get $3
+       i32.add
+       i64.load
+       i64.store
+       br $continue|4
+      end
+      unreachable
+     end
+    end
+    block $break|5
+     loop $continue|5
+      local.get $3
+      i32.eqz
+      br_if $break|5
+      local.get $5
+      local.get $3
+      i32.const 1
+      i32.sub
+      local.tee $3
+      i32.add
+      local.get $4
+      local.get $3
+      i32.add
+      i32.load8_u
+      i32.store8
+      br $continue|5
+     end
+     unreachable
     end
    end
   end
@@ -3331,13 +3122,11 @@
   local.get $0
   local.set $1
   block $break|0
-   block
-    local.get $1
-    local.set $2
-    global.get $~lib/rt/pure/CUR
-    local.set $3
-   end
-   loop $repeat|0
+   local.get $1
+   local.set $2
+   global.get $~lib/rt/pure/CUR
+   local.set $3
+   loop $loop|0
     local.get $2
     local.get $3
     i32.lt_u
@@ -3405,8 +3194,7 @@
     i32.const 4
     i32.add
     local.set $2
-    br $repeat|0
-    unreachable
+    br $loop|0
    end
    unreachable
   end
@@ -3415,7 +3203,7 @@
   block $break|1
    local.get $0
    local.set $5
-   loop $repeat|1
+   loop $loop|1
     local.get $5
     local.get $1
     i32.lt_u
@@ -3428,15 +3216,14 @@
     i32.const 4
     i32.add
     local.set $5
-    br $repeat|1
-    unreachable
+    br $loop|1
    end
    unreachable
   end
   block $break|2
    local.get $0
    local.set $5
-   loop $repeat|2
+   loop $loop|2
     local.get $5
     local.get $1
     i32.lt_u
@@ -3459,8 +3246,7 @@
     i32.const 4
     i32.add
     local.set $5
-    br $repeat|2
-    unreachable
+    br $loop|2
    end
    unreachable
   end
@@ -3468,24 +3254,22 @@
   global.set $~lib/rt/pure/CUR
  )
  (func $assembly/internal/Expectation/Expectation<i32>#constructor (; 52 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  block (result i32)
-   local.get $0
-   i32.eqz
-   if
-    i32.const 8
-    i32.const 3
-    call $~lib/rt/tlsf/__alloc
-    call $~lib/rt/pure/__retain
-    local.set $0
-   end
-   local.get $0
-   i32.const 0
-   i32.store
-   local.get $0
-   i32.const 0
-   i32.store offset=4
-   local.get $0
+  local.get $0
+  i32.eqz
+  if
+   i32.const 8
+   i32.const 3
+   call $~lib/rt/tlsf/__alloc
+   call $~lib/rt/pure/__retain
+   local.set $0
   end
+  local.get $0
+  i32.const 0
+  i32.store
+  local.get $0
+  i32.const 0
+  i32.store offset=4
+  local.get $0
   local.get $1
   i32.store offset=4
   local.get $0
@@ -3513,10 +3297,28 @@
  (func $assembly/internal/report/reportActual/Actual.clear (; 55 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/report/reportActual/Actual.type
+  global.get $assembly/internal/report/reportActual/Actual.reference
+  i32.const 0
+  i32.gt_u
+  if
+   global.get $assembly/internal/report/reportActual/Actual.reference
+   call $~lib/rt/pure/__release
+   i32.const 0
+   global.set $assembly/internal/report/reportActual/Actual.reference
+  end
  )
  (func $assembly/internal/report/reportExpected/Expected.clear (; 56 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/report/reportExpected/Expected.type
+  global.get $assembly/internal/report/reportExpected/Expected.reference
+  i32.const 0
+  i32.gt_u
+  if
+   global.get $assembly/internal/report/reportExpected/Expected.reference
+   call $~lib/rt/pure/__release
+   i32.const 0
+   global.set $assembly/internal/report/reportExpected/Expected.reference
+  end
  )
  (func $assembly/internal/Expectation/Expectation<i32>#toBe (; 57 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
@@ -3530,164 +3332,142 @@
   local.get $2
   call $~lib/rt/pure/__retain
   drop
-  block $assembly/internal/comparison/exactComparison/exactComparison<i32>|inlined.0
-   local.get $0
-   i32.load offset=4
-   local.set $6
-   local.get $1
-   local.set $5
-   local.get $0
-   i32.load
-   local.set $4
-   local.get $2
+  local.get $0
+  i32.load offset=4
+  local.set $6
+  local.get $1
+  local.set $5
+  local.get $0
+  i32.load
+  local.set $4
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $3
+  local.get $6
+  local.set $7
+  local.get $7
+  drop
+  i32.const 0
+  if (result i32)
+   i32.const 1
+  else   
+   local.get $7
+   drop
+   i32.const 0
+  end
+  if
+   i32.const 10
+   global.set $assembly/internal/report/reportActual/Actual.type
+   local.get $7
+   drop
+   i32.const 0
+   global.set $assembly/internal/report/reportActual/Actual.signed
+   i32.const 0
+   local.get $7
+   call $assembly/internal/report/Box/Box<i32>#constructor
+   local.set $8
+   local.get $8
+   local.set $9
+   local.get $9
    call $~lib/rt/pure/__retain
-   local.set $3
-   block $assembly/internal/report/reportActual/reportActual<i32>|inlined.0
-    local.get $6
+   drop
+   global.get $assembly/internal/report/reportActual/Actual.reference
+   call $~lib/rt/pure/__release
+   local.get $9
+   global.set $assembly/internal/report/reportActual/Actual.reference
+   local.get $8
+   call $~lib/rt/pure/__release
+  else   
+   i32.const 3
+   global.set $assembly/internal/report/reportActual/Actual.type
+   local.get $7
+   drop
+   i32.const 1
+   global.set $assembly/internal/report/reportActual/Actual.signed
+   local.get $7
+   global.set $assembly/internal/report/reportActual/Actual.integer
+  end
+  block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
+   local.get $5
+   local.set $9
+   local.get $4
+   local.set $8
+   global.get $assembly/internal/report/reportExpected/Expected.ready
+   i32.eqz
+   if
+    call $assembly/internal/report/reportExpected/reportInvalidExpectCall
+    br $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
+   end
+   local.get $8
+   global.set $assembly/internal/report/reportExpected/Expected.negated
+   local.get $9
+   drop
+   i32.const 0
+   if (result i32)
+    i32.const 1
+   else    
+    local.get $9
+    drop
+    i32.const 0
+   end
+   if
+    i32.const 10
+    global.set $assembly/internal/report/reportExpected/Expected.type
+    local.get $9
+    drop
+    i32.const 0
+    global.set $assembly/internal/report/reportExpected/Expected.signed
+    i32.const 0
+    local.get $9
+    call $assembly/internal/report/Box/Box<i32>#constructor
     local.set $7
-    block (result i32)
-     local.get $7
-     drop
-     i32.const 0
-    end
-    if (result i32)
-     i32.const 1
-    else     
-     local.get $7
-     drop
-     i32.const 0
-    end
-    if
-     i32.const 10
-     global.set $assembly/internal/report/reportActual/Actual.type
-     block (result i32)
-      local.get $7
-      drop
-      i32.const 0
-     end
-     global.set $assembly/internal/report/reportActual/Actual.signed
-     i32.const 0
-     local.get $7
-     call $assembly/internal/report/Box/Box<i32>#constructor
-     local.set $8
-     local.get $8
-     local.set $9
-     local.get $9
-     call $~lib/rt/pure/__retain
-     drop
-     global.get $assembly/internal/report/reportActual/Actual.reference
-     call $~lib/rt/pure/__release
-     local.get $9
-     global.set $assembly/internal/report/reportActual/Actual.reference
-     local.get $8
-     call $~lib/rt/pure/__release
-    else     
-     i32.const 3
-     global.set $assembly/internal/report/reportActual/Actual.type
-     block (result i32)
-      local.get $7
-      drop
-      i32.const 1
-     end
-     global.set $assembly/internal/report/reportActual/Actual.signed
-     local.get $7
-     global.set $assembly/internal/report/reportActual/Actual.integer
-    end
-   end
-   block $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
-    local.get $5
-    local.set $9
-    local.get $4
-    local.set $8
-    global.get $assembly/internal/report/reportExpected/Expected.ready
-    i32.eqz
-    if
-     call $assembly/internal/report/reportExpected/reportInvalidExpectCall
-     br $assembly/internal/report/reportExpected/reportExpected<i32>|inlined.0
-    end
-    local.get $8
-    global.set $assembly/internal/report/reportExpected/Expected.negated
-    block (result i32)
-     local.get $9
-     drop
-     i32.const 0
-    end
-    if (result i32)
-     i32.const 1
-    else     
-     local.get $9
-     drop
-     i32.const 0
-    end
-    if
-     i32.const 10
-     global.set $assembly/internal/report/reportExpected/Expected.type
-     block (result i32)
-      local.get $9
-      drop
-      i32.const 0
-     end
-     global.set $assembly/internal/report/reportExpected/Expected.signed
-     i32.const 0
-     local.get $9
-     call $assembly/internal/report/Box/Box<i32>#constructor
-     local.set $7
-     local.get $7
-     local.set $10
-     local.get $10
-     call $~lib/rt/pure/__retain
-     drop
-     global.get $assembly/internal/report/reportExpected/Expected.reference
-     call $~lib/rt/pure/__release
-     local.get $10
-     global.set $assembly/internal/report/reportExpected/Expected.reference
-     local.get $7
-     call $~lib/rt/pure/__release
-    else     
-     i32.const 3
-     global.set $assembly/internal/report/reportExpected/Expected.type
-     block (result i32)
-      local.get $9
-      drop
-      i32.const 1
-     end
-     global.set $assembly/internal/report/reportExpected/Expected.signed
-     local.get $9
-     global.set $assembly/internal/report/reportExpected/Expected.integer
-    end
-   end
-   block $assembly/internal/comparison/assert/assert|inlined.0
-    local.get $4
-    local.get $5
-    local.get $6
-    i32.eq
-    i32.xor
+    local.get $7
     local.set $10
-    local.get $3
-    call $~lib/rt/pure/__retain
-    local.set $7
     local.get $10
-    i32.eqz
-    if
-     local.get $7
-     call $~lib/rt/pure/__release
-     block
-      local.get $7
-      i32.const 408
-      i32.const 11
-      i32.const 18
-      call $~lib/builtins/abort
-      unreachable
-      unreachable
-     end
-     unreachable
-    end
+    call $~lib/rt/pure/__retain
+    drop
+    global.get $assembly/internal/report/reportExpected/Expected.reference
+    call $~lib/rt/pure/__release
+    local.get $10
+    global.set $assembly/internal/report/reportExpected/Expected.reference
     local.get $7
     call $~lib/rt/pure/__release
+   else    
+    i32.const 3
+    global.set $assembly/internal/report/reportExpected/Expected.type
+    local.get $9
+    drop
+    i32.const 1
+    global.set $assembly/internal/report/reportExpected/Expected.signed
+    local.get $9
+    global.set $assembly/internal/report/reportExpected/Expected.integer
    end
-   local.get $3
-   call $~lib/rt/pure/__release
   end
+  local.get $4
+  local.get $5
+  local.get $6
+  i32.eq
+  i32.xor
+  local.set $10
+  local.get $3
+  call $~lib/rt/pure/__retain
+  local.set $7
+  local.get $10
+  i32.eqz
+  if
+   local.get $7
+   call $~lib/rt/pure/__release
+   local.get $7
+   i32.const 408
+   i32.const 11
+   i32.const 18
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
   call $assembly/internal/report/reportActual/Actual.clear
   call $assembly/internal/report/reportExpected/Expected.clear
   local.get $2
@@ -3943,7 +3723,10 @@
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $start (; 70 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 70 ;) (type $FUNCSIG$i) (result i32)
+  i32.const 5
+ )
+ (func $start (; 71 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   if
    return
@@ -3953,7 +3736,10 @@
   end
   call $start:assembly/__tests__/addedFiles.spec
  )
- (func $~lib/rt/pure/__visit (; 71 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 72 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  nop
+ )
+ (func $~lib/rt/pure/__visit (; 73 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -3997,103 +3783,83 @@
          br_if $case4|0
          br $case5|0
         end
-        block
-         local.get $2
-         call $~lib/rt/pure/decrement
-         br $break|0
-         unreachable
-        end
-        unreachable
-       end
-       block
         local.get $2
-        i32.load offset=4
-        i32.const 268435455
-        i32.and
-        i32.const 0
-        i32.gt_u
-        i32.eqz
-        if
-         i32.const 0
-         i32.const 128
-         i32.const 75
-         i32.const 17
-         call $~lib/builtins/abort
-         unreachable
-        end
-        local.get $2
-        local.get $2
-        i32.load offset=4
-        i32.const 1
-        i32.sub
-        i32.store offset=4
-        local.get $2
-        call $~lib/rt/pure/markGray
+        call $~lib/rt/pure/decrement
         br $break|0
+       end
+       local.get $2
+       i32.load offset=4
+       i32.const 268435455
+       i32.and
+       i32.const 0
+       i32.gt_u
+       i32.eqz
+       if
+        i32.const 0
+        i32.const 128
+        i32.const 75
+        i32.const 17
+        call $~lib/builtins/abort
         unreachable
        end
-       unreachable
-      end
-      block
        local.get $2
-       call $~lib/rt/pure/scan
+       local.get $2
+       i32.load offset=4
+       i32.const 1
+       i32.sub
+       i32.store offset=4
+       local.get $2
+       call $~lib/rt/pure/markGray
        br $break|0
-       unreachable
-      end
-      unreachable
-     end
-     block
-      local.get $2
-      i32.load offset=4
-      local.set $3
-      local.get $3
-      i32.const 268435455
-      i32.const -1
-      i32.xor
-      i32.and
-      local.get $3
-      i32.const 1
-      i32.add
-      i32.const 268435455
-      i32.const -1
-      i32.xor
-      i32.and
-      i32.eq
-      i32.eqz
-      if
-       i32.const 0
-       i32.const 128
-       i32.const 86
-       i32.const 6
-       call $~lib/builtins/abort
-       unreachable
       end
       local.get $2
-      local.get $3
-      i32.const 1
-      i32.add
-      i32.store offset=4
-      local.get $3
-      i32.const 1879048192
-      i32.and
-      i32.const 0
-      i32.ne
-      if
-       local.get $2
-       call $~lib/rt/pure/scanBlack
-      end
+      call $~lib/rt/pure/scan
       br $break|0
+     end
+     local.get $2
+     i32.load offset=4
+     local.set $3
+     local.get $3
+     i32.const 268435455
+     i32.const -1
+     i32.xor
+     i32.and
+     local.get $3
+     i32.const 1
+     i32.add
+     i32.const 268435455
+     i32.const -1
+     i32.xor
+     i32.and
+     i32.eq
+     i32.eqz
+     if
+      i32.const 0
+      i32.const 128
+      i32.const 86
+      i32.const 6
+      call $~lib/builtins/abort
       unreachable
      end
-     unreachable
-    end
-    block
      local.get $2
-     call $~lib/rt/pure/collectWhite
+     local.get $3
+     i32.const 1
+     i32.add
+     i32.store offset=4
+     local.get $3
+     i32.const 1879048192
+     i32.and
+     i32.const 0
+     i32.ne
+     if
+      local.get $2
+      call $~lib/rt/pure/scanBlack
+     end
      br $break|0
-     unreachable
     end
-    unreachable
+    local.get $2
+    call $~lib/rt/pure/collectWhite
+    br $break|0
    end
    i32.const 0
    i32.eqz
@@ -4107,63 +3873,40 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 72 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 74 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
-  block
-  end
-  block $switch$1$leave
+  block $block$4$break
    block $switch$1$default
-    block $switch$1$case$4
-     block $switch$1$case$2
-      local.get $0
-      i32.const 8
-      i32.sub
-      i32.load
-      br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$2 $switch$1$default
-     end
-     block
-      block
-       return
-       unreachable
-      end
-      unreachable
-      unreachable
-     end
-     unreachable
-    end
-    block
-     block
-      block
+    block $switch$1$case$7
+     block $switch$1$case$4
+      block $switch$1$case$2
        local.get $0
+       i32.const 8
+       i32.sub
        i32.load
-       local.tee $2
-       if
-        local.get $2
-        local.get $1
-        call $~lib/rt/pure/__visit
-       end
-       return
-       unreachable
+       br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$2 $switch$1$case$7 $switch$1$default
       end
-      unreachable
-      unreachable
+      return
      end
-     unreachable
-     unreachable
+     br $block$4$break
     end
-    unreachable
-   end
-   block
-    block
-     unreachable
-     unreachable
-    end
-    unreachable
-    unreachable
+    local.get $0
+    local.get $1
+    call $~lib/array/Array<usize>#__visit_impl
+    br $block$4$break
    end
    unreachable
   end
+  local.get $0
+  i32.load
+  local.tee $2
+  if
+   local.get $2
+   local.get $1
+   call $~lib/rt/pure/__visit
+  end
+  return
  )
- (func $null (; 73 ;) (type $FUNCSIG$v)
+ (func $null (; 75 ;) (type $FUNCSIG$v)
  )
 )

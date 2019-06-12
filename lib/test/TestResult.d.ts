@@ -143,5 +143,9 @@ export declare class TestResult implements ILogTarget {
      * A set of errors that were reported for this test.
      */
     errors: IWarning[];
+    /**
+     * A set of warnings that were reported for this test.
+     */
+    warnings: IWarning[];
 }
 //# sourceMappingURL=TestResult.d.ts.map

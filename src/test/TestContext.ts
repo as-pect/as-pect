@@ -91,6 +91,7 @@ export class TestContext extends TestCollector {
       this.groupDecrementCount = 0;
       this.groupIncrementCount = 0;
       group.rtraceStart = this.blocks.size;
+      this.groupBlocks.clear();
     }
 
     // set the group starttime
@@ -135,7 +136,6 @@ export class TestContext extends TestCollector {
     // finish the group
     group.end = performance.now();
     group.time = timeDifference(group.end, group.start);
-    group.reason = `Test suite ${group.name} passed successfully.`;
     this.reporter.onGroupFinish(group);
   }
 
@@ -161,6 +161,7 @@ export class TestContext extends TestCollector {
       this.testIncrementCount = 0;
 
       result.rtraceStart = this.blocks.size;
+      this.testBlocks.clear();
     }
 
     result.start = performance.now();

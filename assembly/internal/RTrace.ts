@@ -58,6 +58,16 @@ declare function getRTraceTestAllocations(): i32;
 @external("__aspect", "getRTraceTestFrees")
 declare function getRTraceTestFrees(): i32;
 
+// @ts-ignore
+@external("__aspect", "getRTraceBlocks")
+declare function getRTraceBlocks(): usize[];
+// @ts-ignore
+@external("__aspect", "getRTraceGroupBlocks")
+declare function getRTraceGroupBlocks(): usize[];
+// @ts-ignore
+@external("__aspect", "getRTraceTestBlocks")
+declare function getRTraceTestBlocks(): usize[];
+
 
 @global
 export class RTrace {
@@ -208,8 +218,53 @@ export class RTrace {
   public static collect(): void {
     __collect();
   }
+
+  /**
+   * Get the class id of the pointer.
+   *
+   * @param {usize} pointer - The pointer.
+   * @returns {u32} - The class id of the allocated block.
+   */
+  public static classIdOf(pointer: usize): u32 {
+    return load<u32>(pointer - 8);
+  }
+
+  /**
+   * Get the size of a block or buffer.
+   *
+   * @param {T} reference - The reference.
+   * @returns {u32} - The size of the allocated block.
+   */
+  public static sizeOf<T>(reference: T): u32 {
+    return load<u32>(changetype<usize>(reference) - 4);
+  }
+
+  /**
+   * Get the currently allocated blocks.
+   */
+  public static activeBlocks(): usize[] {
+    return getRTraceBlocks();
+  }
+
+  /**
+   * Get the current groups allocated blocks.
+   */
+  public static activeGroupBlocks(): usize[] {
+    return getRTraceGroupBlocks();
+  }
+
+  /**
+   * Get the current tests allocated blocks.
+   */
+  public static activeTestBlocks(): usize[] {
+    return getRTraceTestBlocks();
+  }
 }
 
 export function __disableRTrace(): void {
   RTrace.enabled = false;
+}
+
+export function __getUsizeArrayId(): u32 {
+  return idof<usize[]>();
 }

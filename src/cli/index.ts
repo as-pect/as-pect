@@ -4,11 +4,6 @@ import path from "path";
 import yargsparser from "yargs-parser";
 // import { TestRunner } from "./test/TestRunner";
 
-import { types } from "./types";
-import { init } from "./init";
-import { help } from "./help";
-import { run } from "./run";
-
 const pkg = require("../../package.json");
 
 /**
@@ -50,15 +45,19 @@ export function asp(args: string[]) {
   const typesFile = path.join(testFolder, "as-pect.d.ts");
 
   if (yargs.argv.t || yargs.argv.types) {
+    const types = require("./types").types;
     types(assemblyFolder, testFolder, typesFile, typesFileSource);
   } else if (yargs.argv.i || yargs.argv.init) {
+    const init = require("./init").init;
     // init script
     init(assemblyFolder, testFolder, typesFile, typesFileSource);
   } else if (yargs.argv.v || yargs.argv.version) { // display the version
     console.log(pkg.version);
   } else if (yargs.argv.help || yargs.argv.h) { // display the help file
+    const help = require("./help").help;
     help();
   } else { // run the compiler and test suite
+    const run = require("./run").run;
     run(yargs, compilerArgs);
   }
 }

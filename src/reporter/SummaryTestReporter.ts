@@ -89,6 +89,16 @@ export class SummaryTestReporter extends TestReporter {
         }
       }
     }
+
+    for (const warning of suite.warnings) {
+      this.stdout!.write(chalk`{yellow  [Warning]}: ${warning.type} ${warning.message}\n`);
+      this.stdout!.write(chalk`{yellow    [Stack]}: {yellow ${warning.stackTrace.split("\n").join("\n           ")}}\n\n`);
+    }
+
+    for (const error of suite.errors) {
+      this.stdout!.write(chalk`{red    [Error]}: ${error.type} ${error.message}\n`);
+      this.stdout!.write(chalk`{red    [Stack]}: {yellow ${error.stackTrace.split("\n").join("\n           ")}}\n\n`);
+    }
   }
 
   /**

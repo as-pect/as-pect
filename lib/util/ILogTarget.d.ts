@@ -6,5 +6,6 @@ import { IWarning } from "../test/IWarning";
 export interface ILogTarget {
     logs: LogValue[];
     errors: IWarning[];
+    warnings: IWarning[];
 }
 //# sourceMappingURL=ILogTarget.d.ts.map
