@@ -83,6 +83,8 @@ export class TestContext extends TestCollector {
 
     for (const group of this.testGroups) {
       this.runGroup(group);
+      this.stackTraces.clear();
+      this.stackTraces.set(-1, "");
     }
 
     const end = performance.now();

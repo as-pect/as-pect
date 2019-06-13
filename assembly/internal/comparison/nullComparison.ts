@@ -1,13 +1,14 @@
 import { reportActual } from "../report/reportActual";
 import { assert } from "./assert";
-import { Expected } from "../report/reportExpected";
+import { Expected, reportExpected } from "../report/reportExpected";
 import { ValueType } from "../report/ValueType";
 
 // @ts-ignore: Decorators *are* valid here!
 @inline
 export function nullComparison<T>(actual: T, negated: i32, message: string): void {
   reportActual<T>(actual);
-  Expected.type = ValueType.Null;
+  // @ts-ignore
+  reportExpected<T>(null, negated);
   if (isReference<T>()) {
     assert(negated ^ i32(actual == null), message);
   } else {

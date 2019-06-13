@@ -3,31 +3,35 @@ import { Box } from "./Box";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualNull")
-declare function reportActualNull(): void;
+declare function reportActualNull(stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualValue")
-declare function reportActualFloat(value: f64, signed: bool): void;
+declare function reportActualFloat(value: f64, signed: bool, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualValue")
-declare function reportActualInteger(value: i32, signed: bool): void;
+declare function reportActualInteger(value: i32, signed: bool, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualReference")
-declare function reportActualReferenceExternal(value: usize, offset: i32): void;
+declare function reportActualReferenceExternal(value: usize, offset: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualString")
-declare function reportActualString(value: string): void;
+declare function reportActualString(value: string, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualArray")
-declare function reportActualArray(value: usize): void;
+declare function reportActualArray(value: usize, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualLong")
-declare function reportActualLong(value: usize, signed: bool): void;
+declare function reportActualLong(value: usize, signed: bool, stackTrace: i32): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "getStackTrace")
+declare function getStackTrace(): i32;
 
 /**
  * This class is static and contains a bunch of globals that represent the Actual value of a given
@@ -60,6 +64,11 @@ export class Actual {
   static offset: i32 = 0;
 
   /**
+   * The id of the external stack trace to avoid transferring strings into web assembly.
+   */
+  static stackTrace: i32 = -1;
+
+  /**
    * Clear the actual value.
    */
   static clear(): void {
@@ -72,6 +81,8 @@ export class Actual {
       __release(Actual.reference);
       Actual.reference = <usize>0;
     }
+
+    Actual.stackTrace = -1;
   }
 }
 
@@ -80,27 +91,29 @@ export class Actual {
  */
 export function __sendActual(): void {
   switch (Actual.type) {
+    case ValueType.Unset:
+      return;
     case ValueType.Array:
-        reportActualArray(changetype<usize>(Actual.reference));
+        reportActualArray(changetype<usize>(Actual.reference), Actual.stackTrace);
         break;
     case ValueType.Float:
         // Do not convert to unsigned because floats are signed
-        reportActualFloat(Actual.float, true);
+        reportActualFloat(Actual.float, true, Actual.stackTrace);
         break;
     case ValueType.Integer:
-        reportActualInteger(Actual.integer, Actual.signed);
+        reportActualInteger(Actual.integer, Actual.signed, Actual.stackTrace);
         break;
     case ValueType.Null:
-        reportActualNull();
+        reportActualNull(Actual.stackTrace);
         break;
     case ValueType.Reference:
-        reportActualReferenceExternal(Actual.reference, Actual.offset);
+        reportActualReferenceExternal(Actual.reference, Actual.offset, Actual.stackTrace);
         break;
     case ValueType.String:
-        reportActualString(changetype<string>(Actual.reference))
+        reportActualString(changetype<string>(Actual.reference), Actual.stackTrace);
         break;
     case ValueType.Long:
-        reportActualLong(Actual.reference, Actual.signed);
+        reportActualLong(Actual.reference, Actual.signed, Actual.stackTrace);
         break;
   }
 }
@@ -114,6 +127,9 @@ export function __sendActual(): void {
 // @ts-ignore: Decorators *are* valid here!
 @inline
 export function reportActual<T>(actual: T): void {
+  // get the stack trace
+  Actual.stackTrace = getStackTrace();
+
   // if T is a reference type...
   if (isReference<T>()) {
     let ptr = changetype<usize>(actual);

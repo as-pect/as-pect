@@ -229,6 +229,7 @@ export class TestCollector {
           getRTraceCount: this.getRTraceCount.bind(this),
           startRTrace: this.startRTrace.bind(this),
           endRTrace: this.endRTrace.bind(this),
+          getStackTrace: this.getStackTrace.bind(this),
           getRTraceIncrements: this.getRTraceIncrements.bind(this),
           getRTraceDecrements: this.getRTraceDecrements.bind(this),
           getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
@@ -616,10 +617,10 @@ export class TestCollector {
   /**
    * This function reports an actual null value.
    */
-  private reportActualNull(): void {
+  private reportActualNull(stackTrace: number): void {
     const value = new ActualValue();
     value.message = `null`;
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.value = null;
     this.actual = value;
@@ -630,10 +631,10 @@ export class TestCollector {
    *
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedNull(negated: 1 | 0): void {
+  private reportExpectedNull(negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = `null`;
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     value.value = null;
@@ -646,13 +647,13 @@ export class TestCollector {
    * @param {number} numericValue - The value to be expected.
    * @param {1 | 0} signed - The value indicating if the value is signed.
    */
-  private reportActualValue(numericValue: number, signed: 1 | 0): void {
+  private reportActualValue(numericValue: number, signed: 1 | 0, stackTrace: number): void {
     // flip the sign bits if it's unsigned
     numericValue = signed === 1 ? numericValue : numericValue >>> 0;
 
     const value = new ActualValue();
     value.message = numericValue.toString();
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.value = numericValue;
     this.actual = value;
@@ -665,13 +666,13 @@ export class TestCollector {
    * @param {1 | 0} signed - The value indicating if the value is signed.
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedValue(numericValue: number, signed: 0 | 1, negated: 0 | 1): void {
+  private reportExpectedValue(numericValue: number, signed: 0 | 1, negated: 0 | 1, stackTrace: number): void {
     // convert to unsigned if the value is unsigned
     numericValue = signed === 1 ? numericValue : numericValue >>> 0;
 
     const value = new ActualValue();
     value.message = numericValue.toString();
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     value.value = numericValue;
@@ -684,14 +685,14 @@ export class TestCollector {
   * @param {number} boxPointer - The expected box pointer.
   * @param {1 | 0} signed - An indicator if the long value is signed.
   */
- private reportActualLong(boxPointer: number, signed: 1 | 0): void {
+ private reportActualLong(boxPointer: number, signed: 1 | 0, stackTrace: number): void {
   const value = new ActualValue();
 
   const long = new Long
     .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
 
   value.message = "Long Value: " + long.toString();
-  value.stack = this.getLogStackTrace();
+  value.stack = this.stackTraces.get(stackTrace)!;
   value.target = this.logTarget;
   this.actual = value;
 }
@@ -702,10 +703,10 @@ export class TestCollector {
   * @param {number} referencePointer - The actual reference pointer.
   * @param {number} offset - The size of the reference in bytes.
   */
- private reportActualReference(referencePointer: number, offset: number): void {
+ private reportActualReference(referencePointer: number, offset: number, stackTrace: number): void {
    const value = new ActualValue();
    value.message = "Reference Value";
-   value.stack = this.getLogStackTrace();
+   value.stack = this.stackTraces.get(stackTrace)!;
    value.target = this.logTarget;
    value.pointer = referencePointer;
    value.offset = offset;
@@ -721,10 +722,10 @@ export class TestCollector {
   * @param {number} offset - The size of the reference in bytes.
   * @param {1 | 0} negated - An indicator if the expectation is negated.
   */
- private reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0): void {
+ private reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0, stackTrace: number): void {
    const value = new ActualValue();
    value.message = "Reference Value";
-   value.stack = this.getLogStackTrace();
+   value.stack = this.stackTraces.get(stackTrace)!;
    value.target = this.logTarget;
    value.pointer = referencePointer;
    value.offset = offset;
@@ -741,14 +742,14 @@ export class TestCollector {
   * @param {1 | 0} signed - An indicator if the long value is signed.
   * @param {1 | 0} negated - An indicator if the expectation is negated.
   */
- private reportExpectedLong(boxPointer: number, signed: 1 | 0, negated: 1 | 0): void {
+ private reportExpectedLong(boxPointer: number, signed: 1 | 0, negated: 1 | 0, stackTrace: number): void {
   const value = new ActualValue();
 
   const long = new Long
     .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
 
   value.message = "Long Value: " + long.toString();
-  value.stack = this.getLogStackTrace();
+  value.stack = this.stackTraces.get(stackTrace)!;
   value.target = this.logTarget;
   value.negated = negated === 1;
   this.expected = value;
@@ -759,10 +760,10 @@ export class TestCollector {
    *
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedTruthy(negated: 1 | 0): void {
+  private reportExpectedTruthy(negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = "Truthy Value";
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     this.expected = value;
@@ -773,10 +774,10 @@ export class TestCollector {
    *
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedFalsy(negated: 1 | 0): void {
+  private reportExpectedFalsy(negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = "Falsy Value";
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     this.expected = value;
@@ -787,10 +788,10 @@ export class TestCollector {
    *
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedFinite(negated: 1 | 0): void {
+  private reportExpectedFinite(negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = "Finite Value";
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     this.expected = value;
@@ -801,11 +802,11 @@ export class TestCollector {
    *
    * @param {number} stringPointer - A pointer that points to the actual string.
    */
-  private reportActualString(stringPointer: number): void {
+  private reportActualString(stringPointer: number, stackTrace: number): void {
     const value = new ActualValue();
     value.message = this.wasm!.__getString(stringPointer);
     value.pointer = stringPointer;
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.value = stringPointer;
     this.actual = value;
@@ -817,11 +818,11 @@ export class TestCollector {
    * @param {number} stringPointer - A pointer that points to the expected string.
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedString(stringPointer: number, negated: 1 | 0): void {
+  private reportExpectedString(stringPointer: number, negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = this.wasm!.__getString(stringPointer);
     value.pointer = stringPointer;
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     value.value = stringPointer;
@@ -1007,11 +1008,12 @@ export class TestCollector {
    *
    * @param {number} arrayPointer - The Array pointer.
    */
-  private reportActualArray(arrayPointer: number): void {
+  private reportActualArray(arrayPointer: number, stackTrace: number): void {
     const array = this.wasm!.__getArray(arrayPointer);
     const value = new ActualValue();
     value.message = JSON.stringify(array);
     value.target = this.logTarget;
+    value.stack = this.stackTraces.get(stackTrace)!;
     this.actual = value;
   }
 
@@ -1415,5 +1417,20 @@ export class TestCollector {
    */
   private getRTraceTestBlocks(): number {
     return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.testBlocks));
+  }
+
+  private stackID: number = 0;
+  protected stackTraces: Map<number, string> = new Map([[-1, ""]]);
+
+  /**
+   * This function gets a stack trace, sets it to a number and returns it to web assembly. Later,
+   * when actual and expected values are reporter, this number will be used to get the correct
+   * stack trace.
+   */
+  private getStackTrace(): number {
+    const id = this.stackID;
+    this.stackID += 1;
+    this.stackTraces.set(id, this.getLogStackTrace());
+    return id;
   }
 }

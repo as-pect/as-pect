@@ -556,5 +556,13 @@ export declare class TestCollector {
      * This linked method gets all the current RTrace allocations for the current test.
      */
     private getRTraceTestBlocks;
+    private stackID;
+    protected stackTraces: Map<number, string>;
+    /**
+     * This function gets a stack trace, sets it to a number and returns it to web assembly. Later,
+     * when actual and expected values are reporter, this number will be used to get the correct
+     * stack trace.
+     */
+    private getStackTrace;
 }
 //# sourceMappingURL=TestCollector.d.ts.map

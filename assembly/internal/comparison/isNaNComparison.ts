@@ -25,6 +25,7 @@ export function isNaNComparison<T>(actual: T, negated: i32, message: string): vo
     Expected.type = ValueType.Float;
     Expected.float = <f64>NaN;
     Expected.negated = negated;
+    Expected.stackTrace = -1;
 
     // must be a float value
     assert(i32(isFloat<T>(actual)), "toBeNaN assertion must be called on a float value.");
