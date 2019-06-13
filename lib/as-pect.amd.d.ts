@@ -467,6 +467,7 @@ declare module "util/timeDifference" {
      *
      * @param {number} end - The end time.
      * @param {number} start - The start time.
+     * @returns {number} - The difference of the two times rounded to the nearest three decimal places.
      */
     export const timeDifference: (end: number, start: number) => number;
 }
