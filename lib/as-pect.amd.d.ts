@@ -924,7 +924,7 @@ declare module "test/TestCollector" {
         /**
          * Gets an error stack trace.
          */
-        private getErrorStackTrace;
+        protected getErrorStackTrace(ex: Error): string;
         /**
          * Reset all the performance values to the configured values.
          */

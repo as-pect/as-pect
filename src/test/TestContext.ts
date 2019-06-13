@@ -56,15 +56,25 @@ export class TestContext extends TestCollector {
     // start the timer
     const start = performance.now();
 
-    // start the module up
-    super.collectTests();
+    try {
+      // start the module up
+      super.collectTests();
 
-    if (!this.rtraceEnabled) {
-      wasm.__disableRTrace();
+      if (!this.rtraceEnabled) {
+        wasm.__disableRTrace();
+      }
+
+      // calculate startuptime
+      this.startupTime = timeDifference(performance.now(), start);
+    } catch (ex) {
+      /** This skipped line is related to the message coalescing, which is just a fallback. */
+      /* istanbul ignore next */
+      this.pushError({
+        message: "TestCollectionError: " + (this.message || (ex as Error).message),
+        stackTrace: this.getErrorStackTrace(ex),
+        type: "TestCollectionError"
+      });
     }
-
-    // calculate startuptime
-    this.startupTime = timeDifference(performance.now(), start);
 
     if (this.errors.length > 0) return;
 
@@ -279,10 +289,6 @@ export class TestContext extends TestCollector {
         result.expected = this.expected;
         result.message = this.message;
         result.stack = this.stack;
-        this.actual = null;
-        this.expected = null;
-        this.message = "";
-        this.stack = "";
       }
     }
 
@@ -290,6 +296,12 @@ export class TestContext extends TestCollector {
       this.wasm!.__cleanup();
       this.wasm!.__collect();
     }
+
+    // always clear the values
+    this.message = "";
+    this.actual = null;
+    this.expected = null;
+    this.stack = "";
   }
 
   /**

@@ -1033,7 +1033,7 @@ export class TestCollector {
   /**
    * Gets an error stack trace.
    */
-  private getErrorStackTrace(ex: Error): string {
+  protected getErrorStackTrace(ex: Error): string {
     var stackItems = ex.stack!.toString().split("\n");
     return [stackItems[0], ...stackItems.slice(1).filter(wasmFilter)].join("\n");
   }
