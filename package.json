@@ -1,6 +1,6 @@
 {
   "name": "as-pect",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "./assembly/__tests__/as-pect.d.ts",
