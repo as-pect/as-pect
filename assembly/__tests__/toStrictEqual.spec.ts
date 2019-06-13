@@ -270,13 +270,4 @@ describe("toStrictEqual", (): void => {
       [new Vec3(9, 8, 7), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
     );
   }, "The two arrays are expected not to strictly equal each other");
-
-
-  /**
-   * This test should fail.
-   */
-  it("should not equal", () => {
-    expect<Vec3>(new Vec3(1, 2, 3)).toStrictEqual(new Vec3(4, 5, 6), "These should equal");
-  });
-
 });

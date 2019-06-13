@@ -566,7 +566,7 @@ export class TestCollector {
     const test = new TestResult();
 
     test.functionPointer = callback;
-    test.name = name;
+    test.name = `Throws: ${name}`;
     test.message = this.wasm!.__getString(message);
     test.negated = true;
     test.performance = this.performanceEnabledValue || false;
