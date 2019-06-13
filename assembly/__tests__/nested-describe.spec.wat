@@ -104,13 +104,13 @@
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
  (export "__ready" (func $assembly/index/__ready))
- (export "__cleanup" (func $assembly/index/__cleanup))
  (export "__call" (func $assembly/internal/call/__call))
  (export "__sendActual" (func $assembly/internal/report/reportActual/__sendActual))
  (export "__sendExpected" (func $assembly/internal/report/reportExpected/__sendExpected))
  (export "__ignoreLogs" (func $assembly/internal/log/__ignoreLogs))
  (export "__disableRTrace" (func $assembly/internal/RTrace/__disableRTrace))
  (export "__getUsizeArrayId" (func $assembly/internal/RTrace/__getUsizeArrayId))
+ (export "__cleanup" (func $assembly/internal/Expectation/__cleanup))
  (func $~lib/rt/tlsf/removeBlock (; 29 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -4007,17 +4007,13 @@
   i32.const 1
   global.set $assembly/internal/report/reportExpected/Expected.ready
  )
- (func $assembly/index/__cleanup (; 87 ;) (type $FUNCSIG$v)
-  call $assembly/internal/report/reportExpected/Expected.clear
-  call $assembly/internal/report/reportActual/Actual.clear
- )
- (func $assembly/internal/call/__call (; 88 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/call/__call (; 87 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $assembly/internal/report/reportActual/__sendActual (; 89 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportActual/__sendActual (; 88 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case6|0
@@ -4091,7 +4087,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/reportExpected/__sendExpected (; 90 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/reportExpected/__sendExpected (; 89 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case9|0
@@ -4199,18 +4195,22 @@
    br $break|0
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 91 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 90 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 92 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/RTrace/__disableRTrace (; 91 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 93 ;) (type $FUNCSIG$i) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 92 ;) (type $FUNCSIG$i) (result i32)
   i32.const 7
+ )
+ (func $assembly/internal/Expectation/__cleanup (; 93 ;) (type $FUNCSIG$v)
+  call $assembly/internal/report/reportExpected/Expected.clear
+  call $assembly/internal/report/reportActual/Actual.clear
  )
  (func $start (; 94 ;) (type $FUNCSIG$v)
   global.get $~lib/started
