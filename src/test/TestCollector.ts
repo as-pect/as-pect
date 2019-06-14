@@ -35,6 +35,7 @@ export class TestCollector {
 
   // public warning/error lists
   public errors: IWarning[] = [];
+  public warnings: IWarning[] = [];
 
   // public fileName
   public fileName: string = "";
@@ -94,6 +95,67 @@ export class TestCollector {
       if (props.groupRegex) this.groupRegex = props.groupRegex;
       /* istanbul ignore next */
       if (props.performanceConfiguration) this.performanceConfiguration = props.performanceConfiguration;
+
+      if (this.performanceConfiguration.maxSamples != null) {
+        if (this.performanceConfiguration.maxSamples > PerformanceLimits.MaxSamples) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxSamples exceeds " + PerformanceLimits.MaxSamples,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+
+        if (this.performanceConfiguration.maxSamples < 0) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxSamples less than 0.",
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+      }
+
+      if (this.performanceConfiguration.maxTestRunTime != null) {
+        if (this.performanceConfiguration.maxTestRunTime > PerformanceLimits.MaxTestRuntime) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxTestRunTime exceeds " + PerformanceLimits.MaxTestRuntime,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+
+        if (this.performanceConfiguration.maxTestRunTime < 0) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: maxTestRunTime less than 0.",
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+      }
+
+      if (this.performanceConfiguration.roundDecimalPlaces != null) {
+        if (this.performanceConfiguration.roundDecimalPlaces > PerformanceLimits.MaximumDecimalPlaces) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: roundDecimalPlaces exceeds " + PerformanceLimits.MaximumDecimalPlaces,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+
+        if (this.performanceConfiguration.roundDecimalPlaces < PerformanceLimits.MinimumDecimalPlaces) {
+          /* istanbul ignore next */
+          this.pushWarning({
+            message: "Invalid Performance Configuration: roundDecimalPlaces less than " + PerformanceLimits.MinimumDecimalPlaces,
+            stackTrace: new Error().stack || "",
+            type: "PerformanceConfigurationWarning",
+          });
+        }
+      }
+
       /* istanbul ignore next */
       if (props.nortrace) this.rtraceEnabled = false;
     }
@@ -167,6 +229,7 @@ export class TestCollector {
           getRTraceCount: this.getRTraceCount.bind(this),
           startRTrace: this.startRTrace.bind(this),
           endRTrace: this.endRTrace.bind(this),
+          getStackTrace: this.getStackTrace.bind(this),
           getRTraceIncrements: this.getRTraceIncrements.bind(this),
           getRTraceDecrements: this.getRTraceDecrements.bind(this),
           getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
@@ -179,6 +242,9 @@ export class TestCollector {
           getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
           getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
           getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
+          getRTraceBlocks: this.getRTraceBlocks.bind(this),
+          getRTraceGroupBlocks: this.getRTraceGroupBlocks.bind(this),
+          getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
         },
       },
     );
@@ -468,6 +534,10 @@ export class TestCollector {
         ? 3
         : Math.max(Math.round(this.roundDecimalPlacesValue!), PerformanceLimits.MinimumDecimalPlaces);
 
+      if (test.decimalPlaces > PerformanceLimits.MaximumDecimalPlaces) {
+        test.decimalPlaces = PerformanceLimits.MaximumDecimalPlaces;
+      }
+
       test.calculateAverageValue = this.recordAverageValue || false;
       test.calculateMedianValue = this.recordMedianValue || false;
       test.calculateStandardDeviationValue = this.recordStdDevValue || false;
@@ -496,7 +566,7 @@ export class TestCollector {
     const test = new TestResult();
 
     test.functionPointer = callback;
-    test.name = name;
+    test.name = `Throws: ${name}`;
     test.message = this.wasm!.__getString(message);
     test.negated = true;
     test.performance = this.performanceEnabledValue || false;
@@ -547,10 +617,10 @@ export class TestCollector {
   /**
    * This function reports an actual null value.
    */
-  private reportActualNull(): void {
+  private reportActualNull(stackTrace: number): void {
     const value = new ActualValue();
     value.message = `null`;
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.value = null;
     this.actual = value;
@@ -561,10 +631,10 @@ export class TestCollector {
    *
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedNull(negated: 1 | 0): void {
+  private reportExpectedNull(negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = `null`;
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     value.value = null;
@@ -577,13 +647,13 @@ export class TestCollector {
    * @param {number} numericValue - The value to be expected.
    * @param {1 | 0} signed - The value indicating if the value is signed.
    */
-  private reportActualValue(numericValue: number, signed: 1 | 0): void {
+  private reportActualValue(numericValue: number, signed: 1 | 0, stackTrace: number): void {
     // flip the sign bits if it's unsigned
     numericValue = signed === 1 ? numericValue : numericValue >>> 0;
 
     const value = new ActualValue();
     value.message = numericValue.toString();
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.value = numericValue;
     this.actual = value;
@@ -596,13 +666,13 @@ export class TestCollector {
    * @param {1 | 0} signed - The value indicating if the value is signed.
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedValue(numericValue: number, signed: 0 | 1, negated: 0 | 1): void {
+  private reportExpectedValue(numericValue: number, signed: 0 | 1, negated: 0 | 1, stackTrace: number): void {
     // convert to unsigned if the value is unsigned
     numericValue = signed === 1 ? numericValue : numericValue >>> 0;
 
     const value = new ActualValue();
     value.message = numericValue.toString();
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     value.value = numericValue;
@@ -615,14 +685,14 @@ export class TestCollector {
   * @param {number} boxPointer - The expected box pointer.
   * @param {1 | 0} signed - An indicator if the long value is signed.
   */
- private reportActualLong(boxPointer: number, signed: 1 | 0): void {
+ private reportActualLong(boxPointer: number, signed: 1 | 0, stackTrace: number): void {
   const value = new ActualValue();
 
   const long = new Long
     .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
 
   value.message = "Long Value: " + long.toString();
-  value.stack = this.getLogStackTrace();
+  value.stack = this.stackTraces.get(stackTrace)!;
   value.target = this.logTarget;
   this.actual = value;
 }
@@ -633,10 +703,10 @@ export class TestCollector {
   * @param {number} referencePointer - The actual reference pointer.
   * @param {number} offset - The size of the reference in bytes.
   */
- private reportActualReference(referencePointer: number, offset: number): void {
+ private reportActualReference(referencePointer: number, offset: number, stackTrace: number): void {
    const value = new ActualValue();
    value.message = "Reference Value";
-   value.stack = this.getLogStackTrace();
+   value.stack = this.stackTraces.get(stackTrace)!;
    value.target = this.logTarget;
    value.pointer = referencePointer;
    value.offset = offset;
@@ -652,10 +722,10 @@ export class TestCollector {
   * @param {number} offset - The size of the reference in bytes.
   * @param {1 | 0} negated - An indicator if the expectation is negated.
   */
- private reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0): void {
+ private reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0, stackTrace: number): void {
    const value = new ActualValue();
    value.message = "Reference Value";
-   value.stack = this.getLogStackTrace();
+   value.stack = this.stackTraces.get(stackTrace)!;
    value.target = this.logTarget;
    value.pointer = referencePointer;
    value.offset = offset;
@@ -672,14 +742,14 @@ export class TestCollector {
   * @param {1 | 0} signed - An indicator if the long value is signed.
   * @param {1 | 0} negated - An indicator if the expectation is negated.
   */
- private reportExpectedLong(boxPointer: number, signed: 1 | 0, negated: 1 | 0): void {
+ private reportExpectedLong(boxPointer: number, signed: 1 | 0, negated: 1 | 0, stackTrace: number): void {
   const value = new ActualValue();
 
   const long = new Long
     .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
 
   value.message = "Long Value: " + long.toString();
-  value.stack = this.getLogStackTrace();
+  value.stack = this.stackTraces.get(stackTrace)!;
   value.target = this.logTarget;
   value.negated = negated === 1;
   this.expected = value;
@@ -690,10 +760,10 @@ export class TestCollector {
    *
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedTruthy(negated: 1 | 0): void {
+  private reportExpectedTruthy(negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = "Truthy Value";
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     this.expected = value;
@@ -704,10 +774,10 @@ export class TestCollector {
    *
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedFalsy(negated: 1 | 0): void {
+  private reportExpectedFalsy(negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = "Falsy Value";
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     this.expected = value;
@@ -718,10 +788,10 @@ export class TestCollector {
    *
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedFinite(negated: 1 | 0): void {
+  private reportExpectedFinite(negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = "Finite Value";
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     this.expected = value;
@@ -732,11 +802,11 @@ export class TestCollector {
    *
    * @param {number} stringPointer - A pointer that points to the actual string.
    */
-  private reportActualString(stringPointer: number): void {
+  private reportActualString(stringPointer: number, stackTrace: number): void {
     const value = new ActualValue();
     value.message = this.wasm!.__getString(stringPointer);
     value.pointer = stringPointer;
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.value = stringPointer;
     this.actual = value;
@@ -748,11 +818,11 @@ export class TestCollector {
    * @param {number} stringPointer - A pointer that points to the expected string.
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedString(stringPointer: number, negated: 1 | 0): void {
+  private reportExpectedString(stringPointer: number, negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
     value.message = this.wasm!.__getString(stringPointer);
     value.pointer = stringPointer;
-    value.stack = this.getLogStackTrace();
+    value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
     value.negated = negated === 1;
     value.value = stringPointer;
@@ -790,6 +860,22 @@ export class TestCollector {
    * @param {number} value - The maximum number of samples to collect for the following test.
    */
   private maxSamples(value: number): void {
+    if (value > PerformanceLimits.MaxSamples) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxSamples exceeds " + PerformanceLimits.MaxSamples,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
+    if (value < 0) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxSamples less than 0.",
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
     this.maxSamplesValue = value;
   }
 
@@ -800,6 +886,21 @@ export class TestCollector {
    * @param {number} value - The maximum number of milliseconds to run the following test.
    */
   private maxTestRunTime(value: number): void {
+    if (value > PerformanceLimits.MaxTestRuntime) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxTestRunTime exceeds " + PerformanceLimits.MaxTestRuntime,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
+    if (value < 0) {
+      this.pushWarning({
+        message: "Invalid Performance Configuration: maxTestRunTime less than 0.",
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
     this.maxTestRunTimeValue = value;
   }
 
@@ -810,6 +911,23 @@ export class TestCollector {
    * @param {number} value - The number of decimal places to round to.
    */
   private roundDecimalPlaces(value: number): void {
+    if (value > PerformanceLimits.MaximumDecimalPlaces) {
+      /* istanbul ignore next */
+      this.pushWarning({
+        message: "Invalid Performance Configuration: roundDecimalPlaces exceeds " + PerformanceLimits.MaximumDecimalPlaces,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
+
+    if (value < PerformanceLimits.MinimumDecimalPlaces) {
+      /* istanbul ignore next */
+      this.pushWarning({
+        message: "Invalid Performance Configuration: roundDecimalPlaces less than " + PerformanceLimits.MinimumDecimalPlaces,
+        stackTrace: this.getLogStackTrace(),
+        type: "PerformanceConfigurationWarning",
+      });
+    }
     this.roundDecimalPlacesValue = value;
   }
 
@@ -890,11 +1008,12 @@ export class TestCollector {
    *
    * @param {number} arrayPointer - The Array pointer.
    */
-  private reportActualArray(arrayPointer: number): void {
+  private reportActualArray(arrayPointer: number, stackTrace: number): void {
     const array = this.wasm!.__getArray(arrayPointer);
     const value = new ActualValue();
     value.message = JSON.stringify(array);
     value.target = this.logTarget;
+    value.stack = this.stackTraces.get(stackTrace)!;
     this.actual = value;
   }
 
@@ -916,7 +1035,7 @@ export class TestCollector {
   /**
    * Gets an error stack trace.
    */
-  private getErrorStackTrace(ex: Error): string {
+  protected getErrorStackTrace(ex: Error): string {
     var stackItems = ex.stack!.toString().split("\n");
     return [stackItems[0], ...stackItems.slice(1).filter(wasmFilter)].join("\n");
   }
@@ -1045,6 +1164,16 @@ export class TestCollector {
   protected blocks: Map<number, number> = new Map();
 
   /**
+   * This set contains all the blocks currently allocated for the current test.
+   */
+  protected testBlocks: Set<number> = new Set();
+
+  /**
+   * This set contains all the blocks currently allocated for the current group.
+   */
+  protected groupBlocks: Set<number> = new Set();
+
+  /**
    * This method is called when a memory block is allocated on the heap.
    *
    * @param {number} block - This is a unique identifier for the affected block.
@@ -1070,6 +1199,9 @@ export class TestCollector {
     } else {
       this.blocks.set(block, 0);
     }
+
+    this.testBlocks.add(block);
+    this.groupBlocks.add(block);
   }
 
   /**
@@ -1098,6 +1230,9 @@ export class TestCollector {
     } else {
       this.blocks.delete(block);
     }
+
+    this.testBlocks.delete(block);
+    this.groupBlocks.delete(block);
   }
 
   /**
@@ -1170,6 +1305,13 @@ export class TestCollector {
      */
     /* istanbul ignore next */
     if (this.logTarget) this.logTarget.errors.push(error);
+  }
+
+  protected pushWarning(warning: IWarning): void {
+    this.warnings.push(warning);
+
+    /* istanbul ignore next */
+    if (this.logTarget) this.logTarget.warnings.push(warning);
   }
 
   /**
@@ -1254,5 +1396,41 @@ export class TestCollector {
    */
   private getRTraceTestFrees(): number {
     return this.testFreeCount;
+  }
+
+  /**
+   * This linked method gets all the current RTrace allocations and adds them to an array.
+   */
+  private getRTraceBlocks(): number {
+    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.blocks.keys()));
+  }
+
+  /**
+   * This linked method gets all the current RTrace allocations for the current group.
+   */
+  private getRTraceGroupBlocks(): number {
+    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.groupBlocks));
+  }
+
+  /**
+   * This linked method gets all the current RTrace allocations for the current test.
+   */
+  private getRTraceTestBlocks(): number {
+    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.testBlocks));
+  }
+
+  private stackID: number = 0;
+  protected stackTraces: Map<number, string> = new Map([[-1, ""]]);
+
+  /**
+   * This function gets a stack trace, sets it to a number and returns it to web assembly. Later,
+   * when actual and expected values are reporter, this number will be used to get the correct
+   * stack trace.
+   */
+  private getStackTrace(): number {
+    const id = this.stackID;
+    this.stackID += 1;
+    this.stackTraces.set(id, this.getLogStackTrace());
+    return id;
   }
 }

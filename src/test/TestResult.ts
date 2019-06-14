@@ -185,4 +185,9 @@ export class TestResult implements ILogTarget {
    * A set of errors that were reported for this test.
    */
   public errors: IWarning[] = [];
+
+  /**
+   * A set of warnings that were reported for this test.
+   */
+  public warnings: IWarning[] = [];
 }

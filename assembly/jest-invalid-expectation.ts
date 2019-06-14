@@ -14,3 +14,11 @@ describe("an erroring test suite with invalid expect calls outside of a test", (
     expect<i32>(19 + 23).toBe(42);
   });
 });
+
+describe("a describe callback with an error should report an error in the context errors", () => {
+  assert(false, "This is an error message.");
+
+  it("should not run", () => {
+    expect<i32>(19 + 23).toBe(42);
+  });
+});

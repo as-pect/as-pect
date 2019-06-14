@@ -3,39 +3,39 @@ import { Box } from "./Box";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedNull")
-declare function reportExpectedNull(negated: i32): void;
+declare function reportExpectedNull(negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedValue")
-declare function reportExpectedFloat(value: f64, signed: bool, negated: i32): void;
+declare function reportExpectedFloat(value: f64, signed: bool, negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedValue")
-declare function reportExpectedInteger(value: i32, signed: bool, negated: i32): void;
+declare function reportExpectedInteger(value: i32, signed: bool, negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedReference")
-declare function reportExpectedReferenceExternal(value: usize, offset: i32, negated: i32): void;
+declare function reportExpectedReferenceExternal(value: usize, offset: i32, negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedString")
-declare function reportExpectedString(value: string, negated: i32): void;
+declare function reportExpectedString(value: string, negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedArray")
-declare function reportExpectedArray(value: usize, negated: i32): void;
+declare function reportExpectedArray(value: usize, negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedFalsy")
-declare function reportExpectedFalsy(negated: i32): void;
+declare function reportExpectedFalsy(negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedTruthy")
-declare function reportExpectedTruthy(negated: i32): void;
+declare function reportExpectedTruthy(negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedFinite")
-declare function reportExpectedFinite(negated: i32): void;
+declare function reportExpectedFinite(negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportInvalidExpectCall")
@@ -43,7 +43,11 @@ declare function reportInvalidExpectCall(): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedLong")
-declare function reportExpectedLong(pointer: usize, signed: bool, negated: i32): void;
+declare function reportExpectedLong(pointer: usize, signed: bool, negated: i32, stackTrace: i32): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "getStackTrace")
+declare function getStackTrace(): i32;
 
 export class Expected {
   /**
@@ -74,49 +78,57 @@ export class Expected {
    * If the expected type is a reference, the size of the block will be stored here.
    */
   static offset: i32 = 0;
-  static expectation: usize = 0;
   static negated: i32 = 0;
+  static stackTrace: i32 = 0;
 
   /**
    * Clear the expected value.
    */
   static clear(): void {
     Expected.type = ValueType.Unset;
+
+    /**
+     * If there is a reference still being retained, release it and set it to null.
+     */
+    if (Expected.reference > 0) {
+      __release(Expected.reference);
+      Expected.reference = <usize>0;
+    }
   }
 }
 
 export function __sendExpected(): void {
   switch(Expected.type) {
     case ValueType.Array:
-      reportExpectedArray(changetype<usize>(Expected.reference), Expected.negated);
+      reportExpectedArray(changetype<usize>(Expected.reference), Expected.negated, Expected.stackTrace);
       break;
     case ValueType.Float:
       // Do not convert to unsigned because floats are signed
-      reportExpectedFloat(Expected.float, true, Expected.negated);
+      reportExpectedFloat(Expected.float, true, Expected.negated, Expected.stackTrace);
       break;
     case ValueType.Integer:
-      reportExpectedInteger(Expected.integer, Expected.signed, Expected.negated);
+      reportExpectedInteger(Expected.integer, Expected.signed, Expected.negated, Expected.stackTrace);
       break;
     case ValueType.Null:
-      reportExpectedNull(Expected.negated);
+      reportExpectedNull(Expected.negated, Expected.stackTrace);
       break;
     case ValueType.Reference:
-      reportExpectedReferenceExternal(Expected.reference, Expected.offset, Expected.negated);
+      reportExpectedReferenceExternal(Expected.reference, Expected.offset, Expected.negated, Expected.stackTrace);
       break;
     case ValueType.String:
-      reportExpectedString(changetype<string>(Expected.reference), Expected.negated);
+      reportExpectedString(changetype<string>(Expected.reference), Expected.negated, Expected.stackTrace);
       break;
     case ValueType.Falsy:
-      reportExpectedFalsy(Expected.negated);
+      reportExpectedFalsy(Expected.negated, Expected.stackTrace);
       break;
     case ValueType.Finite:
-      reportExpectedFinite(Expected.negated);
+      reportExpectedFinite(Expected.negated, Expected.stackTrace);
       break;
     case ValueType.Truthy:
-      reportExpectedTruthy(Expected.negated);
+      reportExpectedTruthy(Expected.negated, Expected.stackTrace);
       break;
     case ValueType.Long:
-      reportExpectedLong(Expected.reference, Expected.signed, Expected.negated);
+      reportExpectedLong(Expected.reference, Expected.signed, Expected.negated, Expected.stackTrace);
       break;
   }
 }
@@ -132,6 +144,8 @@ export function reportExpected<T>(expected: T, negated: i32): void {
     reportInvalidExpectCall();
     return;
   }
+
+  Expected.stackTrace = getStackTrace();
 
   // set negated first
   Expected.negated = negated;

@@ -17,6 +17,7 @@ export function truthyComparison<T>(actual: T, negated: i32, message: string): v
   reportActual<T>(actual);
   Expected.type = ValueType.Truthy;
   Expected.negated = negated;
+  Expected.stackTrace = -1;
 
   if (isReference<T>()) {
     // if the reference is null

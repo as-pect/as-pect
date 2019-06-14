@@ -103,5 +103,9 @@ export declare class TestGroup implements ILogTarget {
      */
     fork(): TestGroup;
     errors: IWarning[];
+    /**
+     * A set of warnings that were reported for this test.
+     */
+    warnings: IWarning[];
 }
 //# sourceMappingURL=TestGroup.d.ts.map

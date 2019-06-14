@@ -1,6 +1,4 @@
 
-// @ts-ignore
-import asc from "assemblyscript/dist/asc";
 //@ts-ignore
 const parse = require("assemblyscript/cli/util/options").parse;
 import { TestContext } from "../test/TestContext";
@@ -31,6 +29,17 @@ import { writeFile } from "./util/writeFile";
  */
 export function run(yargs: IYargs, compilerArgs: string[]): void {
   const start = performance.now();
+
+  /**
+   * Instead of using `import`, the strategy is to encourage node to start the testing process
+   * as soon as possible. Calling require and measuring the performance of compiler loading shows
+   * developers a meaningful explaination of why it takes a few seconds for the software to start
+   * running.
+   */
+  console.log(chalk`{bgWhite.black [Log]} Loading asc compiler`);
+  const asc = require("assemblyscript/dist/asc");
+  console.log(chalk`{bgWhite.black [Log]} Compiler loaded in ${timeDifference(performance.now(), start).toString()}ms`);
+
   // obtain the configuration file
   const configurationPath = path.resolve(
     process.cwd(),
@@ -59,7 +68,9 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   const add: string[] = configuration.add || ["assembly/__tests__/**/*.include.ts"];
 
   // parse passed cli compiler arguments and let them override defaults.
-  const {options:ascOptions, unknown} = compilerArgs.length > 0 ? parse(compilerArgs, asc.options as any) : {options:{}, unknown:[]};
+  const { options: ascOptions, unknown } = compilerArgs.length > 0
+    ? parse(compilerArgs, asc.options as any)
+    : { options: {}, unknown: [] };
   if (unknown.length > 0) {
     console.error(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(", ")}]}.`)
     process.exit(1);

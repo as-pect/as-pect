@@ -230,3 +230,8 @@ export function expect<T>(actual: T): Expectation<T> {
 export function expectFn(cb: () => void): Expectation<() => void> {
   return new Expectation<() => void>(cb);
 }
+
+export function __cleanup(): void {
+  Expected.clear();
+  Actual.clear();
+}

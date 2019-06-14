@@ -25,6 +25,7 @@ export function finiteComparison<T>(actual: T, negated: i32, message: string): v
     reportActual<T>(actual);
     Expected.type = ValueType.Finite;
     Expected.negated = negated;
+    Expected.stackTrace = -1;
 
     if (isFloat<T>()) {
       let finite: bool = isFinite<T>(actual);

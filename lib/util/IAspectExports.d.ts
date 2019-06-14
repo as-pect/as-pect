@@ -31,5 +31,13 @@ export interface IAspectExports {
      * This method disables rtrace calls for the current test context.
      */
     __disableRTrace(): void;
+    /**
+     * This method returns the `usize[]` of the current module.
+     */
+    __getUsizeArrayId(): number;
+    /**
+     * This method clears internal actual and expected values.
+     */
+    __cleanup(): void;
 }
 //# sourceMappingURL=IAspectExports.d.ts.map

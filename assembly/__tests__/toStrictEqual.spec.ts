@@ -43,7 +43,7 @@ describe("toStrictEqual", (): void => {
   });
 
   /**
-   * The is the contrapositive of the previous test.
+   * This is the contrapositive of the previous test.
    */
   throws("should throw when value assertions are equal", (): void => {
     expect<i32>(3).not.toStrictEqual(3);
@@ -270,5 +270,4 @@ describe("toStrictEqual", (): void => {
       [new Vec3(9, 8, 7), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
     );
   }, "The two arrays are expected not to strictly equal each other");
-
 });

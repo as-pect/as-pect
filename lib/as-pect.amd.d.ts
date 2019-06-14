@@ -19,6 +19,7 @@ declare module "util/ILogTarget" {
     export interface ILogTarget {
         logs: LogValue[];
         errors: IWarning[];
+        warnings: IWarning[];
     }
 }
 declare module "util/LogValue" {
@@ -81,7 +82,8 @@ declare module "test/PerformanceLimits" {
     export const enum PerformanceLimits {
         MaxSamples = 10000,
         MaxTestRuntime = 5000,
-        MinimumDecimalPlaces = 0
+        MinimumDecimalPlaces = 0,
+        MaximumDecimalPlaces = 8
     }
 }
 declare module "test/TestResult" {
@@ -230,6 +232,10 @@ declare module "test/TestResult" {
          * A set of errors that were reported for this test.
          */
         errors: IWarning[];
+        /**
+         * A set of warnings that were reported for this test.
+         */
+        warnings: IWarning[];
     }
 }
 declare module "test/TestGroup" {
@@ -338,6 +344,10 @@ declare module "test/TestGroup" {
          */
         fork(): TestGroup;
         errors: IWarning[];
+        /**
+         * A set of warnings that were reported for this test.
+         */
+        warnings: IWarning[];
     }
 }
 declare module "test/TestReporter" {
@@ -457,6 +467,7 @@ declare module "util/timeDifference" {
      *
      * @param {number} end - The end time.
      * @param {number} start - The start time.
+     * @returns {number} - The difference of the two times rounded to the nearest three decimal places.
      */
     export const timeDifference: (end: number, start: number) => number;
 }
@@ -494,6 +505,14 @@ declare module "util/IAspectExports" {
          * This method disables rtrace calls for the current test context.
          */
         __disableRTrace(): void;
+        /**
+         * This method returns the `usize[]` of the current module.
+         */
+        __getUsizeArrayId(): number;
+        /**
+         * This method clears internal actual and expected values.
+         */
+        __cleanup(): void;
     }
 }
 declare module "util/IPerformanceConfiguration" {
@@ -549,6 +568,7 @@ declare module "test/TestCollector" {
         testGroups: TestGroup[];
         protected logTarget: ILogTarget;
         errors: IWarning[];
+        warnings: IWarning[];
         fileName: string;
         protected stack: string;
         protected message: string;
@@ -905,7 +925,7 @@ declare module "test/TestCollector" {
         /**
          * Gets an error stack trace.
          */
-        private getErrorStackTrace;
+        protected getErrorStackTrace(ex: Error): string;
         /**
          * Reset all the performance values to the configured values.
          */
@@ -985,6 +1005,14 @@ declare module "test/TestCollector" {
          */
         protected blocks: Map<number, number>;
         /**
+         * This set contains all the blocks currently allocated for the current test.
+         */
+        protected testBlocks: Set<number>;
+        /**
+         * This set contains all the blocks currently allocated for the current group.
+         */
+        protected groupBlocks: Set<number>;
+        /**
          * This method is called when a memory block is allocated on the heap.
          *
          * @param {number} block - This is a unique identifier for the affected block.
@@ -1014,6 +1042,7 @@ declare module "test/TestCollector" {
          * @param {IWarning} error - The error being reported.
          */
         protected pushError(error: IWarning): void;
+        protected pushWarning(warning: IWarning): void;
         /**
          * This linked method gets all the RTrace increments for this entire test up until this point.
          */
@@ -1062,6 +1091,26 @@ declare module "test/TestCollector" {
          * This linked method gets all the RTrace allocations for the current test up until this point.
          */
         private getRTraceTestFrees;
+        /**
+         * This linked method gets all the current RTrace allocations and adds them to an array.
+         */
+        private getRTraceBlocks;
+        /**
+         * This linked method gets all the current RTrace allocations for the current group.
+         */
+        private getRTraceGroupBlocks;
+        /**
+         * This linked method gets all the current RTrace allocations for the current test.
+         */
+        private getRTraceTestBlocks;
+        private stackID;
+        protected stackTraces: Map<number, string>;
+        /**
+         * This function gets a stack trace, sets it to a number and returns it to web assembly. Later,
+         * when actual and expected values are reporter, this number will be used to get the correct
+         * stack trace.
+         */
+        private getStackTrace;
     }
 }
 declare module "test/TestContext" {
@@ -1292,17 +1341,39 @@ declare module "util/IConfiguration" {
         nortrace?: boolean;
     }
 }
-declare module "cli/types" {
+declare module "cli/index" {
     /**
-     * This method creates a types file to the current testing directory located at
-     * `./assembly/__tests__/` for the current project.
+     * This is the cli entry point and expects an array of arguments from the command line.
      *
-     * @param {string} assemblyFolder - The current `./assembly/` folder.
-     * @param {string} testFolder - The current `./assembly/__tests__` folder.
-     * @param {string} typesFile - The current types file location.
-     * @param {string} typesFileSource - The types file source location.
+     * @param {string[]} args - The arguments from the command line
      */
-    export function types(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
+    export function asp(args: string[]): void;
+}
+declare module "as-pect" {
+    export * from "test/IWarning";
+    export * from "test/TestContext";
+    export * from "test/TestGroup";
+    export * from "test/TestReporter";
+    export * from "test/TestResult";
+    export * from "test/TestCollector";
+    export * from "reporter/CSVTestReporter";
+    export * from "reporter/DefaultTestReporter";
+    export * from "reporter/EmptyReporter";
+    export * from "reporter/JSONTestReporter";
+    export * from "reporter/SummaryTestReporter";
+    export * from "util/ActualValue";
+    export * from "util/IAspectExports";
+    export * from "util/IConfiguration";
+    export * from "util/ILogTarget";
+    export * from "util/IPerformanceConfiguration";
+    export * from "util/LogValue";
+    export * from "cli/index";
+}
+declare module "cli/help" {
+    /**
+     * This method prints the help text.
+     */
+    export function help(): void;
 }
 declare module "cli/init" {
     /**
@@ -1315,12 +1386,6 @@ declare module "cli/init" {
      * @param {string} typesFileSource - The types file source location for `as-pect`.
      */
     export function init(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
-}
-declare module "cli/help" {
-    /**
-     * This method prints the help text.
-     */
-    export function help(): void;
 }
 declare module "cli/util/IYargs" {
     import yargsparser from "yargs-parser";
@@ -1382,32 +1447,16 @@ declare module "cli/run" {
      */
     export function run(yargs: IYargs, compilerArgs: string[]): void;
 }
-declare module "cli/index" {
+declare module "cli/types" {
     /**
-     * This is the cli entry point and expects an array of arguments from the command line.
+     * This method creates a types file to the current testing directory located at
+     * `./assembly/__tests__/` for the current project.
      *
-     * @param {string[]} args - The arguments from the command line
+     * @param {string} assemblyFolder - The current `./assembly/` folder.
+     * @param {string} testFolder - The current `./assembly/__tests__` folder.
+     * @param {string} typesFile - The current types file location.
+     * @param {string} typesFileSource - The types file source location.
      */
-    export function asp(args: string[]): void;
-}
-declare module "as-pect" {
-    export * from "test/IWarning";
-    export * from "test/TestContext";
-    export * from "test/TestGroup";
-    export * from "test/TestReporter";
-    export * from "test/TestResult";
-    export * from "test/TestCollector";
-    export * from "reporter/CSVTestReporter";
-    export * from "reporter/DefaultTestReporter";
-    export * from "reporter/EmptyReporter";
-    export * from "reporter/JSONTestReporter";
-    export * from "reporter/SummaryTestReporter";
-    export * from "util/ActualValue";
-    export * from "util/IAspectExports";
-    export * from "util/IConfiguration";
-    export * from "util/ILogTarget";
-    export * from "util/IPerformanceConfiguration";
-    export * from "util/LogValue";
-    export * from "cli/index";
+    export function types(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
 }
 //# sourceMappingURL=as-pect.amd.d.ts.map
