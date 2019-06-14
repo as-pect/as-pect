@@ -22,18 +22,38 @@ describe("an invalid expect call test suite", () => {
       Array [
         Object {
           "message": "An expect() function call was used outside of a test function in assembly/jest-invalid-expectation.ts.",
-          "stackTrace": "    at assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[60]:140)
-          at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[68]:40)
-          at assembly/internal/Describe/describe (wasm-function[70]:16)
-          at start:assembly/jest-invalid-expectation (wasm-function[71]:6)
-          at start (wasm-function[78]:12)",
+          "stackTrace": "    at assembly/internal/Expectation/Expectation<assembly/jest-invalid-expectation/SomeRef>#toBeNull (wasm-function[55]:152)
+          at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[70]:12)
+          at assembly/internal/Describe/describe (wasm-function[72]:16)
+          at start:assembly/jest-invalid-expectation (wasm-function[75]:6)
+          at start (wasm-function[84]:12)",
           "type": "InvalidExpectCall",
+        },
+        Object {
+          "message": "An expect() function call was used outside of a test function in assembly/jest-invalid-expectation.ts.",
+          "stackTrace": "    at assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[62]:144)
+          at start:assembly/jest-invalid-expectation~anonymous|0 (wasm-function[70]:40)
+          at assembly/internal/Describe/describe (wasm-function[72]:16)
+          at start:assembly/jest-invalid-expectation (wasm-function[75]:6)
+          at start (wasm-function[84]:12)",
+          "type": "InvalidExpectCall",
+        },
+        Object {
+          "message": "TestCollectionError: This is an error message.",
+          "stackTrace": "RuntimeError: unreachable
+          at start:assembly/jest-invalid-expectation~anonymous|1 (wasm-function[74]:18)
+          at assembly/internal/Describe/describe (wasm-function[72]:16)
+          at start:assembly/jest-invalid-expectation (wasm-function[75]:13)
+          at start (wasm-function[84]:12)",
+          "type": "TestCollectionError",
         },
       ]
     `);
   });
 
   it("should not run any tests", () => {
-    expect(ctx.testGroups[0].tests.filter(e => e.ran)).toHaveLength(0);
+    for (const group of ctx.testGroups) {
+      expect(group.tests.filter(e => e.ran)).toHaveLength(0);
+    }
   });
 });

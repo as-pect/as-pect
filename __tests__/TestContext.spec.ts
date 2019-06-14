@@ -239,7 +239,7 @@ describe("TestContext performance metrics", (): void => {
 
   it("should have set the rounding decimal places value", (): void => {
     const test = performanceGroup.tests[7];
-    expect(test.decimalPlaces).toBe(42);
+    expect(test.decimalPlaces).toBe(8);
   });
 
   it("should run approximately less than a second", (): void => {

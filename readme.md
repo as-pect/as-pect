@@ -182,7 +182,7 @@ module.exports = {
     /** Set the maximum number of samples to run for each test. */
     maxSamples: 10000,
     /** Set the maximum test run time in milliseconds. */
-    maxTestRunTime: 2000,
+    maxTestRunTime: 5000,
     /** Set the number of decimal places to round to. */
     roundDecimalPlaces: 3,
     /** Report the median time in the default reporter. */

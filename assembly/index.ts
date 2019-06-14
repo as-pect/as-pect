@@ -35,8 +35,10 @@ export { __call } from "./internal/call";
 export { __sendActual } from "./internal/report/reportActual";
 export { __sendExpected } from "./internal/report/reportExpected";
 export { __ignoreLogs } from "./internal/log";
-export { __disableRTrace } from "./internal/RTrace";
+export { __disableRTrace, __getUsizeArrayId } from "./internal/RTrace";
 
 export function __ready(): void {
   Expected.ready = true;
 }
+
+export { __cleanup } from "./internal/Expectation";

@@ -18,6 +18,7 @@ export function falsyComparison<T>(actual: T, negated: i32, message: string): vo
   reportActual<T>(actual);
   Expected.type = ValueType.Falsy;
   Expected.negated = negated;
+  Expected.stackTrace = -1;
 
   if (isReference<T>()) {
     // if the reference is null

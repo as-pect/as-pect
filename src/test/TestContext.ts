@@ -56,15 +56,25 @@ export class TestContext extends TestCollector {
     // start the timer
     const start = performance.now();
 
-    // start the module up
-    super.collectTests();
+    try {
+      // start the module up
+      super.collectTests();
 
-    if (!this.rtraceEnabled) {
-      wasm.__disableRTrace();
+      if (!this.rtraceEnabled) {
+        wasm.__disableRTrace();
+      }
+
+      // calculate startuptime
+      this.startupTime = timeDifference(performance.now(), start);
+    } catch (ex) {
+      /** This skipped line is related to the message coalescing, which is just a fallback. */
+      /* istanbul ignore next */
+      this.pushError({
+        message: "TestCollectionError: " + (this.message || (ex as Error).message),
+        stackTrace: this.getErrorStackTrace(ex),
+        type: "TestCollectionError"
+      });
     }
-
-    // calculate startuptime
-    this.startupTime = timeDifference(performance.now(), start);
 
     if (this.errors.length > 0) return;
 
@@ -73,6 +83,8 @@ export class TestContext extends TestCollector {
 
     for (const group of this.testGroups) {
       this.runGroup(group);
+      this.stackTraces.clear();
+      this.stackTraces.set(-1, "");
     }
 
     const end = performance.now();
@@ -91,6 +103,7 @@ export class TestContext extends TestCollector {
       this.groupDecrementCount = 0;
       this.groupIncrementCount = 0;
       group.rtraceStart = this.blocks.size;
+      this.groupBlocks.clear();
     }
 
     // set the group starttime
@@ -135,7 +148,6 @@ export class TestContext extends TestCollector {
     // finish the group
     group.end = performance.now();
     group.time = timeDifference(group.end, group.start);
-    group.reason = `Test suite ${group.name} passed successfully.`;
     this.reporter.onGroupFinish(group);
   }
 
@@ -161,6 +173,7 @@ export class TestContext extends TestCollector {
       this.testIncrementCount = 0;
 
       result.rtraceStart = this.blocks.size;
+      this.testBlocks.clear();
     }
 
     result.start = performance.now();
@@ -181,6 +194,8 @@ export class TestContext extends TestCollector {
          */
         if (this.endGroup) {
           this.wasm!.__ignoreLogs(0);
+          this.wasm!.__cleanup();
+          this.wasm!.__collect();
           return;
         }
         this.runTestCall(group, result);
@@ -189,6 +204,8 @@ export class TestContext extends TestCollector {
         // check to see if the afterEach functions errored (see above)
         if (this.endGroup) {
           this.wasm!.__ignoreLogs(0);
+          this.wasm!.__cleanup();
+          this.wasm!.__collect();
           return;
         }
 
@@ -214,11 +231,7 @@ export class TestContext extends TestCollector {
       if (result.calculateStandardDeviationValue) result.calculateStandardDeviation();
     } else {
       this.runBeforeEach(group, result);
-      if (this.endGroup) {
-        group.reason = `Test suite ${group.name} failed because an error occurred in a beforeEach() callback.`;
-        group.pass = false;
-        return;
-      }
+      if (this.endGroup) return;
       this.runTestCall(group, result);
       this.runAfterEach(group, result);
       if (this.endGroup) return;
@@ -278,12 +291,19 @@ export class TestContext extends TestCollector {
         result.expected = this.expected;
         result.message = this.message;
         result.stack = this.stack;
-        this.actual = null;
-        this.expected = null;
-        this.message = "";
-        this.stack = "";
       }
     }
+
+    if (testCallResult === 0) {
+      this.wasm!.__cleanup();
+      this.wasm!.__collect();
+    }
+
+    // always clear the values
+    this.message = "";
+    this.actual = null;
+    this.expected = null;
+    this.stack = "";
   }
 
   /**
@@ -299,6 +319,7 @@ export class TestContext extends TestCollector {
       const afterEachResult = this.tryCall(afterEachCallback);
       // if afterEach fails
       if (afterEachResult === 0) {
+        this.wasm!.__collect();
         this.endGroup = true;
         group.end = result.end = performance.now();
         group.pass = false;
@@ -326,6 +347,7 @@ export class TestContext extends TestCollector {
       const beforeEachResult = this.tryCall(beforeEachCallback);
       // if beforeEach fails
       if (beforeEachResult === 0) {
+        this.wasm!.__collect();
         result.end = group.end = performance.now();
         group.pass = false;
         group.reason = `Test suite ${group.name} failed because an error occurred in a beforeEach() callback.`;

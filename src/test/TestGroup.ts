@@ -134,4 +134,9 @@ export class TestGroup implements ILogTarget {
   }
 
   public errors: IWarning[] = [];
+
+  /**
+   * A set of warnings that were reported for this test.
+   */
+  public warnings: IWarning[] = [];
 }

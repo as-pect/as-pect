@@ -37,7 +37,7 @@ module.exports = {
     /** Set the maximum number of samples to run for every test. */
     maxSamples: 10000,
     /** Set the maximum test run time in milliseconds for every test. */
-    maxTestRunTime: 2000,
+    maxTestRunTime: 5000,
     /** Report the median time in the default reporter for every test. */
     reportMedian: true,
     /** Report the average time in milliseconds for every test. */
