@@ -50,10 +50,8 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "csv-stringify": "^5.3.0",
     "glob": "^7.1.4",
     "long": "^4.0.0",
-    "mathjs": "^6.0.2",
     "yargs-parser": "^13.1.1"
   },
   "files": [
@@ -64,5 +62,9 @@
     "assembly/index.ts",
     "assembly/tsconfig.json",
     "bin/"
-  ]
+  ],
+  "optionalDependencies": {
+    "csv-stringify": "^5.3.0",
+    "mathjs": "^6.0.2"
+  }
 }
