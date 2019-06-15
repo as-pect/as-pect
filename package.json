@@ -38,6 +38,7 @@
     "@types/mathjs": "^5.0.1",
     "@types/node": "^12.0.8",
     "@types/yargs-parser": "^13.0.0",
+    "assemblyscript": "github:AssemblyScript/assemblyscript",
     "coveralls": "^3.0.4",
     "jest": "^24.8.0",
     "markdownlint-cli": "^0.17.0",
@@ -45,8 +46,7 @@
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.5.1",
-    "assemblyscript": "github:AssembyScript/assemblyscript"
+    "typescript": "^3.5.1"
   },
   "dependencies": {
     "chalk": "^2.4.2",
