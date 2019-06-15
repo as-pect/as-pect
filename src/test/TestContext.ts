@@ -2,7 +2,7 @@ import { ASUtil } from "assemblyscript/lib/loader";
 import { TestGroup } from "./TestGroup";
 import { TestReporter } from "./TestReporter";
 import { TestResult } from "./TestResult";
-import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
+import DefaultTestReporter from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
 import { IAspectExports } from "../util/IAspectExports";

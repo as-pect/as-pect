@@ -30,7 +30,7 @@ export declare class TestResult implements ILogTarget {
     /** This value is set to true if the test is expected to throw. */
     negated: boolean;
     /** This value indicates if performance statistics were collected for this test. */
-    performance: boolean;
+    private _performance;
     /** This value indicates the maximum number of samples to collect. */
     maxSamples: number;
     /** This value indicates the maximum test runtime. */
@@ -81,6 +81,7 @@ export declare class TestResult implements ILogTarget {
     end: number;
     /** This is the run time for the test in milliseconds. */
     runTime: number;
+    performance: boolean;
     /**
      * Caclculate the average value of the collected times.
      */

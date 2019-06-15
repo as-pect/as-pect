@@ -48,7 +48,7 @@ const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
  * This is the default test reporter class for the `asp` command line application. It will pipe
  * all relevant details about each tests to the `stdout` WriteStream.
  */
-export class DefaultTestReporter extends TestReporter {
+export default class DefaultTestReporter extends TestReporter {
   protected stdout: IWritable | null = null;
 
   constructor(_options?: any) {

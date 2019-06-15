@@ -1,11 +1,7 @@
 import { TestReporter } from "../../test/TestReporter";
-import { DefaultTestReporter } from "../../reporter/DefaultTestReporter";
-import { EmptyReporter } from "../../reporter/EmptyReporter";
-import { SummaryTestReporter } from "../../reporter/SummaryTestReporter";
+import DefaultTestReporter from "../../reporter/DefaultTestReporter";
 import { IYargs } from "./IYargs";
 import path from "path";
-import { CSVTestReporter } from "../../reporter/CSVTestReporter";
-import { JSONTestReporter } from "../../reporter/JSONTestReporter";
 import querystring from "querystring";
 import chalk from "chalk";
 
@@ -52,19 +48,15 @@ export function collectReporter(yargs: IYargs): TestReporter {
       return null;
     }
   }
-  else if (targetReporter === "EmptyReporter") {
-    return new EmptyReporter(options);
-  }
-  else if (targetReporter === "SummaryTestReporter") {
-    return new SummaryTestReporter(options);
-  }
-  else if (targetReporter === "CSVTestReporter") {
-    return new CSVTestReporter(options);
-  }
-  else if (targetReporter === "JSONTestReporter") {
-    return new JSONTestReporter(options);
-  }
   else {
-    return new DefaultTestReporter(options);
+    try {
+      let Reporter = require(path.join(__dirname, "..", "..", "reporter", targetReporter));
+      return new Reporter.default(options) as TestReporter;
+    }
+    catch (ex) {
+      console.error(chalk`{bgBlack.yellow [Warning]} Cannot find {yellow ${targetReporter}}, defaulting to DefaultTestReporter.`)
+      return new DefaultTestReporter(options);
+    }
   }
+  
 }

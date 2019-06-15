@@ -12,7 +12,7 @@ import { createReferenceString } from "./util/createReferenceString";
  * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
  * process.
  */
-export class SummaryTestReporter extends TestReporter {
+export default class SummaryTestReporter extends TestReporter {
   private enableLogging: boolean = false;
 
   constructor(options?: any) {

@@ -119,7 +119,7 @@ declare module "test/TestResult" {
         /** This value is set to true if the test is expected to throw. */
         negated: boolean;
         /** This value indicates if performance statistics were collected for this test. */
-        performance: boolean;
+        private _performance;
         /** This value indicates the maximum number of samples to collect. */
         maxSamples: number;
         /** This value indicates the maximum test runtime. */
@@ -170,6 +170,7 @@ declare module "test/TestResult" {
         end: number;
         /** This is the run time for the test in milliseconds. */
         runTime: number;
+        performance: boolean;
         /**
          * Caclculate the average value of the collected times.
          */
@@ -442,7 +443,7 @@ declare module "reporter/DefaultTestReporter" {
      * This is the default test reporter class for the `asp` command line application. It will pipe
      * all relevant details about each tests to the `stdout` WriteStream.
      */
-    export class DefaultTestReporter extends TestReporter {
+    export default class DefaultTestReporter extends TestReporter {
         protected stdout: IWritable | null;
         constructor(_options?: any);
         onStart(suite: TestContext): void;
@@ -1198,7 +1199,7 @@ declare module "reporter/CSVTestReporter" {
      * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
      * contain a set of tests with relevant pass and fail information.
      */
-    export class CSVTestReporter extends TestReporter {
+    export default class CSVTestReporter extends TestReporter {
         protected output: Stringifier | null;
         protected fileName: WriteStream | null;
         constructor(_options?: any);
@@ -1217,7 +1218,7 @@ declare module "reporter/EmptyReporter" {
      * This class can be used as a blank reporter to interface with the `TestContext` in the browser.
      * It will not report any information about the tests.
      */
-    export class EmptyReporter extends TestReporter {
+    export default class EmptyReporter extends TestReporter {
         constructor(_options?: any);
         onFinish(): void;
         onGroupFinish(): void;
@@ -1238,7 +1239,7 @@ declare module "reporter/JSONTestReporter" {
      * This class reports all relevant test statistics to a JSON file located at
      * `{testLocation}.spec.json`.
      */
-    export class JSONTestReporter extends TestReporter {
+    export default class JSONTestReporter extends TestReporter {
         constructor(_options?: any);
         protected file: WriteStream | null;
         private first;
@@ -1260,7 +1261,7 @@ declare module "reporter/SummaryTestReporter" {
      * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
      * process.
      */
-    export class SummaryTestReporter extends TestReporter {
+    export default class SummaryTestReporter extends TestReporter {
         private enableLogging;
         constructor(options?: any);
         onStart(): void;
