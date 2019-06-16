@@ -98,6 +98,10 @@ export declare class TestGroup implements ILogTarget {
      */
     rtraceDelta: number;
     /**
+     * The parent describe context that contains callbacks that also apply to this context.
+     */
+    parent: TestGroup | null;
+    /**
      * This method creates a new TestGroup that contains a reference to all of the current flow
      * functions of this `TestGroup`.
      */

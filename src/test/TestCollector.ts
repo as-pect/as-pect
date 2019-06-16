@@ -460,7 +460,7 @@ export class TestCollector {
    * @param {number} callbackPointer - The callback that should run before each test.
    */
   private reportBeforeEach(callbackPointer: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];;
+    var group = this.groupStack[this.groupStack.length - 1];
     group.beforeEachPointers.push(callbackPointer);
   }
 
@@ -472,7 +472,7 @@ export class TestCollector {
    * current context.
    */
   private reportBeforeAll(callbackPointer: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];;
+    var group = this.groupStack[this.groupStack.length - 1];
     group.beforeAllPointers.push(callbackPointer);
   }
 
@@ -482,7 +482,7 @@ export class TestCollector {
    * @param {number} callbackPointer - The callback that should run before each test group.
    */
   private reportAfterEach(callbackPointer: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];;
+    var group = this.groupStack[this.groupStack.length - 1];
     group.afterEachPointers.push(callbackPointer);
   }
 
@@ -494,7 +494,7 @@ export class TestCollector {
    * current context.
    */
   private reportAfterAll(callbackPointer: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];;
+    var group = this.groupStack[this.groupStack.length - 1];
     group.afterAllPointers.push(callbackPointer);
   }
 

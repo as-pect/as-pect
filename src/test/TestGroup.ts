@@ -121,15 +121,17 @@ export class TestGroup implements ILogTarget {
   public rtraceDelta: number = 0;
 
   /**
+   * The parent describe context that contains callbacks that also apply to this context.
+   */
+  public parent: TestGroup | null = null;
+
+  /**
    * This method creates a new TestGroup that contains a reference to all of the current flow
    * functions of this `TestGroup`.
    */
   public fork(): TestGroup {
     const forked = new TestGroup();
-    forked.beforeEachPointers = this.beforeEachPointers.slice();
-    forked.afterEachPointers = this.afterEachPointers.slice();
-    forked.beforeAllPointers = this.beforeAllPointers.slice();
-    forked.afterAllPointers = this.afterAllPointers.slice();
+    forked.parent = this;
     return forked;
   }
 
