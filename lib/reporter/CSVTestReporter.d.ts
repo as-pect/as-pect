@@ -9,7 +9,7 @@ import { TestResult } from "../test/TestResult";
  * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
  * contain a set of tests with relevant pass and fail information.
  */
-export default class CSVTestReporter extends TestReporter {
+export declare class CSVTestReporter extends TestReporter {
     protected output: Stringifier | null;
     protected fileName: WriteStream | null;
     constructor(_options?: any);
