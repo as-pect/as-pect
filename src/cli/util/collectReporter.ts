@@ -29,7 +29,7 @@ export function collectReporter(yargs: IYargs): TestReporter {
           return new reporterResult(options);
         }
         if (typeof reporterResult.default === "function") {
-          return new reporterResult.default();
+          return new reporterResult.default(options);
         }
         else {
           return reporterResult.default || reporterResult;
