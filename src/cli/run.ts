@@ -5,7 +5,7 @@ import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
 import { instantiateBuffer } from "assemblyscript/lib/loader";
 import { TestReporter } from "../test/TestReporter";
-import DefaultTestReporter from "../reporter/DefaultTestReporter";
+import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
 import { createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";

@@ -1,5 +1,5 @@
 import { TestReporter } from "../../test/TestReporter";
-import DefaultTestReporter from "../../reporter/DefaultTestReporter";
+import { DefaultTestReporter } from "../../reporter/DefaultTestReporter";
 import { IYargs } from "./IYargs";
 import path from "path";
 import querystring from "querystring";
@@ -50,8 +50,8 @@ export function collectReporter(yargs: IYargs): TestReporter {
   }
   else {
     try {
-      let Reporter = require(path.join(__dirname, "..", "..", "reporter", targetReporter));
-      return new Reporter.default(options) as TestReporter;
+      let Reporter = require(path.join(__dirname, "..", "..", "reporter", targetReporter))[targetReporter];
+      return new Reporter(options) as TestReporter;
     }
     catch (ex) {
       console.error(chalk`{bgBlack.yellow [Warning]} Cannot find {yellow ${targetReporter}}, defaulting to DefaultTestReporter.`)

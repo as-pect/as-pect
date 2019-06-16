@@ -8,7 +8,7 @@ import { IWritable } from "./IWriteable";
  * This is the default test reporter class for the `asp` command line application. It will pipe
  * all relevant details about each tests to the `stdout` WriteStream.
  */
-export default class DefaultTestReporter extends TestReporter {
+export declare class DefaultTestReporter extends TestReporter {
     protected stdout: IWritable | null;
     constructor(_options?: any);
     onStart(suite: TestContext): void;

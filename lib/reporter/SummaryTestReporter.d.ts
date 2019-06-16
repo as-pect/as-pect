@@ -6,7 +6,7 @@ import { LogValue } from "../util/LogValue";
  * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
  * process.
  */
-export default class SummaryTestReporter extends TestReporter {
+export declare class SummaryTestReporter extends TestReporter {
     private enableLogging;
     constructor(options?: any);
     onStart(): void;

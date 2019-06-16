@@ -10,7 +10,7 @@ import { TestResult } from "../test/TestResult";
  * This class reports all relevant test statistics to a JSON file located at
  * `{testLocation}.spec.json`.
  */
-export default class JSONTestReporter extends TestReporter {
+export class JSONTestReporter extends TestReporter {
   constructor(_options?: any) { super(); }
 
   protected file: WriteStream | null = null;

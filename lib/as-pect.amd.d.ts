@@ -443,7 +443,7 @@ declare module "reporter/DefaultTestReporter" {
      * This is the default test reporter class for the `asp` command line application. It will pipe
      * all relevant details about each tests to the `stdout` WriteStream.
      */
-    export default class DefaultTestReporter extends TestReporter {
+    export class DefaultTestReporter extends TestReporter {
         protected stdout: IWritable | null;
         constructor(_options?: any);
         onStart(suite: TestContext): void;
@@ -1199,7 +1199,7 @@ declare module "reporter/CSVTestReporter" {
      * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
      * contain a set of tests with relevant pass and fail information.
      */
-    export default class CSVTestReporter extends TestReporter {
+    export class CSVTestReporter extends TestReporter {
         protected output: Stringifier | null;
         protected fileName: WriteStream | null;
         constructor(_options?: any);
@@ -1218,7 +1218,7 @@ declare module "reporter/EmptyReporter" {
      * This class can be used as a blank reporter to interface with the `TestContext` in the browser.
      * It will not report any information about the tests.
      */
-    export default class EmptyReporter extends TestReporter {
+    export class EmptyReporter extends TestReporter {
         constructor(_options?: any);
         onFinish(): void;
         onGroupFinish(): void;
@@ -1239,7 +1239,7 @@ declare module "reporter/JSONTestReporter" {
      * This class reports all relevant test statistics to a JSON file located at
      * `{testLocation}.spec.json`.
      */
-    export default class JSONTestReporter extends TestReporter {
+    export class JSONTestReporter extends TestReporter {
         constructor(_options?: any);
         protected file: WriteStream | null;
         private first;
@@ -1261,7 +1261,7 @@ declare module "reporter/SummaryTestReporter" {
      * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
      * process.
      */
-    export default class SummaryTestReporter extends TestReporter {
+    export class SummaryTestReporter extends TestReporter {
         private enableLogging;
         constructor(options?: any);
         onStart(): void;
