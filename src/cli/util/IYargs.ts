@@ -18,18 +18,18 @@ export interface ICommandLineArg {
 }
 
 export interface Options {
-  init: "b";
-  config: "s";
-  version: "b";
-  help: "b";
-  types: "b";
-  file: "s";
-  group: "s";
-  test: "s";
-  outputBinary: "b";
-  norun: "b";
-  nortrace: "s";
-  reporter: "s";
+  init: boolean;
+  config: string;
+  version: boolean;
+  help: boolean;
+  types: boolean;
+  file: string;
+  group: string;
+  test: string;
+  outputBinary: boolean;
+  norun: boolean;
+  nortrace: boolean;
+  reporter: string;
   performance: IPerformanceConfiguration;
 }
 
@@ -49,25 +49,23 @@ export class CommandLineArg implements ICommandLineArg {
     this.options = command.options;
     this.parent = command.parent;
   }
-  parse(data: string): void {
+  parse(data: string): ArgValue {
     switch (this.type) {
       case "s":
-        this.value = data;
-        break;
+        return data;
       case "S":
-        this.value = (this.value as string[]).concat(data);
-        break;
+        return data.split(",")
       case "b":
         if (data !== "true" && data !== "false") {
           throw new Error(
             `Bad value ${data} for boolean for argument ${this.name}`
           );
         }
-        this.value = "true" === data;
-        break;
+        return "true" === data;
       case "i":
-        this.value = parseInt(data);
-        break;
+        return parseInt(data);
+      case "f":
+        return parseFloat(data)
       default:
         throw new Error(`Type ${this.type} is not implemented yet`);
     }
@@ -150,7 +148,7 @@ const _Args: CommandLineArgs = {
 
   nortrace: {
     description: "Skip rtrace reference counting calculations.",
-    type: "s",
+    type: "b",
     alias: { name: "nr" },
     value: false
   },
@@ -278,53 +276,26 @@ let reg = /(?:--([a-z][a-z\-]*)|(-[a-z][a-z\-]*))(?:=(.*))?/i;
 
 let invalidArg = /^[\-]/;
 
+function toCamelCase(str: string): string {
+  return str
+        .split("-")
+        .map((word, idx) => {
+          if (idx > 0) {
+            return word[0].toLocaleUpperCase() + word.substring(1);
+          }
+          return word;
+        })
+        .join("");
+
+}
+
 export function parse(
   commands: string[],
-  Args: Map<string, CommandLineArg>
+  args: Map<string, CommandLineArg> = Args
 ): Options {
-  for (let i = 0; i < commands.length; i++) {
-    //@ts-ignore
-    let [_, flag, alias, data]: string[] = commands[i].match(reg) || [];
-    let key: string;
-    if ((key = flag)) {
-      if (!Args.has(key)) {
-        throw new Error("Flag " + key + " doesn't exist.");
-      }
-    } else if ((key = alias)) {
-      if (!Args.has(key)) {
-        throw new Error("Alias " + key + " doesn't exist.");
-      }
-    } else {
-      throw new Error("Command " + commands[i] + " is not valid.");
-    }
-    let arg = Args.get(key)!;
-    if (data) {
-      //Data from =(.*)
-      arg.parse(data);
-    } else if (arg.type === "b") {
-      //boolean flag
-      arg.value = true;
-    } else {
-      if (i >= commands.length - 1) {
-        throw new Error("Command line ended without last argument");
-      }
-      if (commands[i + 1].match(invalidArg)) {
-        throw new Error(`Passed value ${commands[i + i]} is invalid`);
-      }
-      arg.parse(commands[++i]); //Parse data and increment to next command
-    }
-  }
   let opts: any = {};
-  Args.forEach((arg: CommandLineArg) => {
-    let camelCase = arg.name
-      .split("-")
-      .map((word, idx) => {
-        if (idx > 0) {
-          return word[0].toLocaleUpperCase() + word.substring(1);
-        }
-        return word;
-      })
-      .join("");
+  args.forEach((arg: CommandLineArg) => {
+    let camelCase = toCamelCase(arg.name)
     if (arg.parent) {
       if (!opts[arg.parent]) {
         opts[arg.parent] = {};
@@ -338,5 +309,47 @@ export function parse(
       opts[camelCase] = arg.value;
     }
   });
+  for (let i = 0; i < commands.length; i++) {
+    //@ts-ignore
+    let [_, flag, alias, data]: string[] = commands[i].match(reg) || [];
+    let key: string;
+    if ((key = flag)) {
+      if (!args.has(key)) {
+        throw new Error("Flag " + key + " doesn't exist.");
+      }
+    } else if ((key = alias)) {
+      if (!args.has(key)) {
+        throw new Error("Alias " + key + " doesn't exist.");
+      }
+    } else {
+      throw new Error("Command " + commands[i] + " is not valid.");
+    }
+    let arg = args.get(key)!;
+    let value;
+    if (data) {
+      //Data from =(.*)
+      value = arg.parse(data);
+    } else if (arg.type === "b") {
+      //boolean flag
+      value = true;
+    } else {
+      if (i >= commands.length - 1) {
+        throw new Error("Command line ended without last argument");
+      }
+      if (commands[i + 1].match(invalidArg)) {
+        throw new Error(`Passed value ${commands[i + i]} is invalid`);
+      }
+      value = arg.parse(commands[++i]); //Parse data and increment to next command
+    }
+    let name = toCamelCase(arg.name);
+    if (arg.parent){
+      if (arg.parent == name){
+        name = "enabled";
+      }
+      opts[arg.parent][name] = value
+    }else {
+      opts[name] = value
+    }
+  }
   return opts as Options;
 }
