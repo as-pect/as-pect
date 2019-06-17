@@ -1,68 +1,128 @@
+import { IPerformanceConfiguration } from "../../util/IPerformanceConfiguration";
 type argType = "b" | "s" | "S" | "I" | "i" | "F" | "f";
 
-type ArgValue = string | number | boolean;
+type ArgValue = string | number | boolean | string[] | number;
 
-interface alias {
+export interface Alias {
   name: string;
   long?: true;
 }
 
-export interface CommandLineArg {
+export interface ICommandLineArg {
   description: string | string[];
   type: argType;
-  alias?: alias | alias[];
-  default?: ArgValue;
+  alias?: Alias | Alias[];
+  value: ArgValue;
   options?: [string, string][];
-  children?: CommandLineArgs;
+  parent?: string;
+}
+
+export interface Options {
+  init: "b";
+  config: "s";
+  version: "b";
+  help: "b";
+  types: "b";
+  file: "s";
+  group: "s";
+  test: "s";
+  outputBinary: "b";
+  norun: "b";
+  nortrace: "s";
+  reporter: "s";
+  performance: IPerformanceConfiguration;
+}
+
+export class CommandLineArg implements ICommandLineArg {
+  description: string | string[];
+  type: argType;
+  value: ArgValue;
+  alias?: Alias | Alias[] | undefined;
+  options?: [string, string][] | undefined;
+  parent?: string;
+
+  constructor(public name: string, command: ICommandLineArg) {
+    this.description = command.description;
+    this.type = command.type;
+    this.value = command.value;
+    this.alias = command.alias;
+    this.options = command.options;
+    this.parent = command.parent;
+  }
+  parse(data: string): void {
+    switch (this.type) {
+      case "s":
+        this.value = data;
+        break;
+      case "S":
+        this.value = (this.value as string[]).concat(data);
+        break;
+      case "b":
+        if (data !== "true" && data !== "false") {
+          throw new Error(
+            `Bad value ${data} for boolean for argument ${this.name}`
+          );
+        }
+        this.value = "true" === data;
+        break;
+      case "i":
+        this.value = parseInt(data);
+        break;
+      default:
+        throw new Error(`Type ${this.type} is not implemented yet`);
+    }
+  }
 }
 
 export interface CommandLineArgs {
-  [key: string]: CommandLineArg;
+  [key: string]: ICommandLineArg;
 }
 
-export const Args: CommandLineArgs = {
+const _Args: CommandLineArgs = {
   init: {
     description: "Create a test config, an assembly/__tests__ folder and exit.",
     type: "b",
     alias: { name: "i" },
-    default: false
+    value: false
   },
   config: {
     description: "Use a specified configuration",
     type: "s",
     alias: { name: "c" },
-    default: "as-pect.config.js"
+    value: "as-pect.config.js"
   },
   version: {
     description: "View the version.",
     type: "b",
     alias: { name: "v" },
-    default: false
+    value: false
   },
   help: {
     description: "Show this help screen.",
     type: "b",
     alias: { name: "h" },
-    default: false
+    value: false
   },
   types: {
     description: "Copy the types file to assembly/__tests__/as-pect.d.ts",
-    type: "s",
+    type: "b",
     alias: { name: "t" },
-    default: ""
+    value: false
   },
   file: {
     description:
       "Run the tests of each file that matches this regex. {yellow (Default: /./)}",
     type: "s",
-    alias: [{ name: "files", long: true }, { name: "f" }]
+    alias: [{ name: "files", long: true }, { name: "f" }],
+    value: "."
   },
 
   group: {
     description:
       "Run each describe block that matches this regex {yellow (Default: /(:?)/)}",
     type: "s",
-    alias: [{ name: "groups", long: true }, { name: "g" }]
+    alias: [{ name: "groups", long: true }, { name: "g" }],
+    value: "(:?)"
   },
 
   test: {
@@ -70,7 +130,7 @@ export const Args: CommandLineArgs = {
       "Run each test that matches this regex {yellow (Default: /(:?)/)}",
     type: "s",
     alias: [{ name: "tests", long: true }, { name: "t" }],
-    default: "(:?)"
+    value: "(:?)"
   },
 
   "output-binary": {
@@ -78,29 +138,28 @@ export const Args: CommandLineArgs = {
       "Create a (.wasm) file can contains all the tests to be run later.",
     type: "b",
     alias: { name: "o" },
-    default: false
+    value: false
   },
 
   norun: {
     description: "Skip running tests and output the compiler files.",
     type: "b",
     alias: { name: "n" },
-    default: false
+    value: false
   },
-  //   {bold.green -n}
 
   nortrace: {
     description: "Skip rtrace reference counting calculations.",
     type: "s",
     alias: { name: "nr" },
-    default: false
+    value: false
   },
 
   reporter: {
     description:
       "Define the reporter to be used. {yellow (Default: DefaultTestReporter)}",
     type: "s",
-    default: "DefaultTestReporter",
+    value: "DefaultTestReporter",
     options: [
       ["SummaryTestReporter", "Use the summary reporter."],
       ["DefaultTestReporter", "Use the default test reporter."],
@@ -126,61 +185,158 @@ export const Args: CommandLineArgs = {
     description:
       "Enable performance statistics for {bold every} test. {yellow (Default: false)}",
     type: "b",
-    default: false,
-    children: {
-      "max-samples": {
-        description:
-          "Set the maximum number of samples to run for each test. {yellow (Default: 10000 samples)}",
-        type: "i",
-        default: 10000
-      },
-      "max-test-run-time": {
-        description:
-          "Set the maximum test run time in milliseconds. {yellow (Default: 2000ms)}",
-        type: "i",
-        default: 2000
-      },
-      "round-decimal-places": {
-        description:
-          "Set the number of decimal places to round to. {yellow (Default: 3)}",
-        type: "i",
-        default: 3
-      },
-      "report-median": {
-        description:
-          "Enable/Disable reporting of the median time. {yellow (Default: true)}",
-        type: "b",
-        default: true
-      },
-      "report-average": {
-        description:
-          "Enable/Disable reporting of the average time. {yellow (Default: true)}",
-        type: "b",
-        default: true
-      },
-      "report-standard-deviation": {
-        description: "Enable / Disable reporting of the standard deviation.",
-        type: "b",
-        default: false
-      },
-      // // {bold.green --report-standard-deviation(=false)?} Enable/Disable reporting of the standard deviation. {yellow (Default: false)}
-      "report-max": {
-        description:
-          "Enable/Disable reporting of the largest run time. {yellow (Default: false)}",
-        type: "b",
-        default: false
-      },
-      "report-min": {
-        description:
-          "Enable/Disable reporting of the smallest run time. {yellow (Default: false)}",
-        type: "b",
-        default: false
-      },
-      "report-variance": {
-        description:
-          "Enable/Disable reporting of the variance. {yellow (Default: false)}",
-        type: "s"
-      }
-    }
+    value: false,
+    parent: "performance"
+  },
+  "max-samples": {
+    description:
+      "Set the maximum number of samples to run for each test. {yellow (Default: 10000 samples)}",
+    type: "i",
+    value: 10000,
+    parent: "performance"
+  },
+  "max-test-run-time": {
+    description:
+      "Set the maximum test run time in milliseconds. {yellow (Default: 2000ms)}",
+    type: "i",
+    value: 2000,
+    parent: "performance"
+  },
+  "round-decimal-places": {
+    description:
+      "Set the number of decimal places to round to. {yellow (Default: 3)}",
+    type: "i",
+    value: 3,
+    parent: "performance"
+  },
+  "report-median": {
+    description:
+      "Enable/Disable reporting of the median time. {yellow (Default: true)}",
+    type: "b",
+    value: true,
+    parent: "performance"
+  },
+  "report-average": {
+    description:
+      "Enable/Disable reporting of the average time. {yellow (Default: true)}",
+    type: "b",
+    value: true,
+    parent: "performance"
+  },
+  "report-standard-deviation": {
+    description: "Enable / Disable reporting of the standard deviation.",
+    type: "b",
+    value: false,
+    parent: "performance"
+  },
+  "report-max": {
+    description:
+      "Enable/Disable reporting of the largest run time. {yellow (Default: false)}",
+    type: "b",
+    value: false,
+    parent: "performance"
+  },
+  "report-min": {
+    description:
+      "Enable/Disable reporting of the smallest run time. {yellow (Default: false)}",
+    type: "b",
+    value: false,
+    parent: "performance"
+  },
+  "report-variance": {
+    description:
+      "Enable/Disable reporting of the variance. {yellow (Default: false)}",
+    type: "b",
+    value: false,
+    parent: "performance"
   }
 };
+
+export function makeArgMap(
+  args: CommandLineArgs = _Args
+): Map<string, CommandLineArg> {
+  let res = new Map<string, CommandLineArg>();
+  Object.getOwnPropertyNames(args).forEach(element => {
+    let aliases: Alias | Alias[] | undefined;
+    let arg = new CommandLineArg(element, _Args[element]);
+    res.set(element, arg);
+    if ((aliases = _Args[element].alias)) {
+      (aliases instanceof Array ? aliases : [aliases]).forEach(alias => {
+        let name = alias.name;
+        if (!alias.long) {
+          name = "-" + name;
+        }
+        res.set(name, arg);
+      });
+    }
+  });
+  return res;
+}
+export const Args = makeArgMap(_Args);
+
+let reg = /(?:--([a-z][a-z\-]*)|(-[a-z][a-z\-]*))(?:=(.*))?/i;
+
+let invalidArg = /^[\-]/;
+
+export function parse(
+  commands: string[],
+  Args: Map<string, CommandLineArg>
+): Options {
+  for (let i = 0; i < commands.length; i++) {
+    //@ts-ignore
+    let [_, flag, alias, data]: string[] = commands[i].match(reg) || [];
+    let key: string;
+    if ((key = flag)) {
+      if (!Args.has(key)) {
+        throw new Error("Flag " + key + " doesn't exist.");
+      }
+    } else if ((key = alias)) {
+      if (!Args.has(key)) {
+        throw new Error("Alias " + key + " doesn't exist.");
+      }
+    } else {
+      throw new Error("Command " + commands[i] + " is not valid.");
+    }
+    let arg = Args.get(key)!;
+    if (data) {
+      //Data from =(.*)
+      arg.parse(data);
+    } else if (arg.type === "b") {
+      //boolean flag
+      arg.value = true;
+    } else {
+      if (i >= commands.length - 1) {
+        throw new Error("Command line ended without last argument");
+      }
+      if (commands[i + 1].match(invalidArg)) {
+        throw new Error(`Passed value ${commands[i + i]} is invalid`);
+      }
+      arg.parse(commands[++i]); //Parse data and increment to next command
+    }
+  }
+  let opts: any = {};
+  Args.forEach((arg: CommandLineArg) => {
+    let camelCase = arg.name
+      .split("-")
+      .map((word, idx) => {
+        if (idx > 0) {
+          return word[0].toLocaleUpperCase() + word.substring(1);
+        }
+        return word;
+      })
+      .join("");
+    if (arg.parent) {
+      if (!opts[arg.parent]) {
+        opts[arg.parent] = {};
+      }
+      if (arg.parent === arg.name) {
+        opts[arg.parent].enabled = arg.value as boolean;
+      } else {
+        opts[arg.parent][camelCase] = arg.value;
+      }
+    } else {
+      opts[camelCase] = arg.value;
+    }
+  });
+  return opts as Options;
+}
