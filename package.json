@@ -8,7 +8,7 @@
     "test": "run-s tsc asp jest mdlint",
     "test:ci": "run-s asp:ci jest mdlint",
     "asp": "node lib/test",
-    "asp:ci": "node lib/test --reporter=SummaryTestReporter",
+    "asp:ci": "ts-node ./src/cli --reporter=SummaryTestReporter",
     "mdlint": "markdownlint *.md",
     "jest": "jest",
     "rimraf": "rimraf lib/*",
@@ -45,6 +45,7 @@
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.1"
   },
   "dependencies": {

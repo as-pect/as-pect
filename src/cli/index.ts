@@ -59,3 +59,7 @@ export function asp(args: string[]) {
     run(yargs, compilerArgs);
   }
 }
+
+if (typeof require != 'undefined' && require.main==module) {
+  asp(process.argv.slice(2))
+}
