@@ -72,7 +72,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
     ? parse(compilerArgs, asc.options as any)
     : { options: {}, unknown: [] };
   if (unknown.length > 0) {
-    console.error(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(", ")}]}.`)
+    console.error(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(", ")}]}.`);
     process.exit(1);
   }
   const flags: ICompilerFlags = Object.assign(ascOptions, configuration.flags, {
@@ -81,6 +81,11 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
     /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
   });
+
+  /** It's useful to notify the user that optimizations will make test compile times slower. */
+  if (flags.hasOwnProperty("-O3") || flags.hasOwnProperty("-O2") || flags.hasOwnProperty("--optimize")) {
+    console.log(chalk`{yellow [Warning]} Using optimizations. This may result in slow test compilation times.`);
+  }
 
   const disclude: RegExp[] = configuration.disclude || [];
 
@@ -191,8 +196,8 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
 
   const folderMap = new Map<string, string[]>();
   const fileMap = new Map<string, string>();
-  console.log(chalk`{bgWhite.black [Log]} Effective command line arguments:`);
-  console.log(chalk`  ${flagList.join(" ")}`);
+  console.log(chalk`{bgWhite.black [Log]} Effective command line args:`);
+  console.log(chalk`  {green [TestFile.ts]} {yellow ${Array.from(addedTestEntryFiles).join(" ")}} ${flagList.join(" ")}`);
 
   // add a line seperator between the next line and this line
   console.log("");
@@ -244,14 +249,14 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
     }, function (error: Error | null): number {
       // if there are any compilation errors, stop the test suite
       if (error) {
-        console.error(`There was a compilation error when trying to create the wasm binary for file: ${file}.`);
+        console.error(chalk`{red [Error]} There was a compilation error when trying to create the wasm binary for file: ${file}.`);
         console.error(error);
         return process.exit(1);
       }
 
       // if the binary wasn't emitted, stop the test suite
       if (!binaries[i]) {
-        console.error(`There was no output binary file: ${file}. Did you forget to emit the binary?`);
+        console.error(chalk`{red [Error]} There was no output binary file: ${file}. Did you forget to emit the binary with {yellow --binaryFile}?`);
         return process.exit(1);
       }
 
