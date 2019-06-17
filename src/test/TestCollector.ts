@@ -361,7 +361,7 @@ export class TestCollector {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.message = this.wasm!.__getString(pointer);
+    value.message = this.getString(pointer, "");
     value.offset = 0;
     value.pointer = pointer;
     value.stack = this.getLogStackTrace();
@@ -426,7 +426,7 @@ export class TestCollector {
   private reportDescribe(suiteNamePointer: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     const nextGroup = group.fork();
-    nextGroup.name = group.name + this.wasm!.__getString(suiteNamePointer);
+    nextGroup.name = group.name + this.getString(suiteNamePointer, "No describe() name provided.");
     nextGroup.willRun = this.groupRegex.test(nextGroup.name);
     this.groupStack.push(nextGroup);
     this.logTarget = nextGroup;
@@ -511,7 +511,7 @@ export class TestCollector {
   private reportTest(testNamePointer: number, callback: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     if (!group.willRun) return;
-    const name = this.wasm!.__getString(testNamePointer);
+    const name = this.getString(testNamePointer, "No test() name provided.");
     if (!this.testRegex.test(name)) return;
 
     const test = new TestResult();
@@ -560,14 +560,14 @@ export class TestCollector {
   private reportNegatedTest(testNamePointer: number, callback: number, message: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     if (!group.willRun) return;
-    const name = this.wasm!.__getString(testNamePointer);
+    const name = this.getString(testNamePointer, "No test() name provided.");
     if (!this.testRegex.test(name)) return;
 
     const test = new TestResult();
 
     test.functionPointer = callback;
     test.name = `Throws: ${name}`;
-    test.message = this.wasm!.__getString(message);
+    test.message = this.getString(message, "");
     test.negated = true;
     test.performance = this.performanceEnabledValue || false;
     /* istanbul ignore next */
@@ -611,7 +611,7 @@ export class TestCollector {
    */
   private reportTodo(todoPointer: number): void {
     var group = this.groupStack[this.groupStack.length - 1];
-    group.todos.push(this.wasm!.__getString(todoPointer));
+    group.todos.push(this.getString(todoPointer, "No todo() value provided."));
   }
 
   /**
@@ -804,7 +804,7 @@ export class TestCollector {
    */
   private reportActualString(stringPointer: number, stackTrace: number): void {
     const value = new ActualValue();
-    value.message = this.wasm!.__getString(stringPointer);
+    value.message = this.getString(stringPointer, "Null actual string.");
     value.pointer = stringPointer;
     value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
@@ -820,7 +820,7 @@ export class TestCollector {
    */
   private reportExpectedString(stringPointer: number, negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
-    value.message = this.wasm!.__getString(stringPointer);
+    value.message = this.getString(stringPointer, "Null expected string.");
     value.pointer = stringPointer;
     value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
@@ -840,7 +840,7 @@ export class TestCollector {
    * @param {number} _col - The column that reported the error. (Ignored)
    */
   private abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void {
-    this.message = this.wasm!.__getString(reasonPointer);
+    this.message = this.getString(reasonPointer, "No assertion message provided.");
   }
 
   /**
@@ -1432,5 +1432,13 @@ export class TestCollector {
     this.stackID += 1;
     this.stackTraces.set(id, this.getLogStackTrace());
     return id;
+  }
+
+  /**
+   * Gets a string from the wasm module, unless the module string is null. Otherwise it returns
+   * a default value.
+   */
+  private getString(pointer: number, defaultValue: string): string {
+    return pointer === 0 ? defaultValue : this.wasm!.__getString(pointer);
   }
 }
