@@ -1,6 +1,6 @@
 import { TestReporter } from "../../test/TestReporter";
 import { DefaultTestReporter } from "../../reporter/DefaultTestReporter";
-import { IYargs } from "./IYargs";
+import { Options } from "./IYargs";
 import path from "path";
 import querystring from "querystring";
 import chalk from "chalk";
@@ -8,11 +8,10 @@ import chalk from "chalk";
 /**
  * This method inspects the command line arguments and returns the corresponding TestReporter.
  *
- * @param {IYargs} yargs - The command line arguments.
+ * @param {Options} yargs - The command line arguments.
  */
-export function collectReporter(yargs: IYargs): TestReporter {
-  const reporterInput: string = yargs.argv.reporter || yargs.argv.r;
-
+export function collectReporter(yargs: Options): TestReporter {
+  const reporterInput: string = yargs.reporter;
   const result = /([a-z\.]+)(?:\?(.*))?/i.exec(reporterInput);
   const targetReporter = result ? result[1] : "";
 

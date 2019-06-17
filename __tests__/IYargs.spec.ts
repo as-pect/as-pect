@@ -18,16 +18,19 @@ describe("Command line parsing", () => {
 
   it("should handle enabling booleans", () => {
     let opts = parse(["--performance"]);
-    expect(opts.performance.enabled).toBe(true);
+    expect(opts.performance.enabled).toBeTruthy()
   });
 
   it("should handle setting booleans", () => {
-    
     let opts = parse(["--performance=true"]);
-    expect(opts.performance.enabled).toBe(true);
+    expect(opts.performance.enabled).toBeTruthy()
   });
 
   it("should have correct defaults for performance", () => {
       expect(parse([]).performance).toStrictEqual(createDefaultPerformanceConfiguration())
+  });
+
+  it("should set option from alias", () => {
+    expect(parse(["-v"]).version).toBeTruthy()
   })
 });

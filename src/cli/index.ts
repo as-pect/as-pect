@@ -1,7 +1,7 @@
 
 import chalk from "chalk";
 import path from "path";
-import yargsparser from "yargs-parser";
+import { parse } from "./util/IYargs";
 // import { TestRunner } from "./test/TestRunner";
 
 const pkg = require("../../package.json");
@@ -21,12 +21,10 @@ export function asp(args: string[]) {
     : [];
 
   // parse the arguments
-  const yargs = {
-    argv: yargsparser(aspectArgs),
-  };
+  const yargs = parse(aspectArgs);
 
   // Skip ascii art if asked for the version
-  if (!(yargs.argv.v || yargs.argv.version)) {
+  if (!yargs.version) {
     console.log(chalk`{bold.bgWhite.black ${""
   }       ___   _____                       __    
       /   | / ___/      ____  ___  _____/ /_   
@@ -44,16 +42,16 @@ export function asp(args: string[]) {
   const typesFileSource = path.join(__dirname, "../../assembly/__tests__/as-pect.d.ts");
   const typesFile = path.join(testFolder, "as-pect.d.ts");
 
-  if (yargs.argv.t || yargs.argv.types) {
+  if (yargs.types) {
     const types = require("./types").types;
     types(assemblyFolder, testFolder, typesFile, typesFileSource);
-  } else if (yargs.argv.i || yargs.argv.init) {
+  } else if (yargs.init) {
     const init = require("./init").init;
     // init script
     init(assemblyFolder, testFolder, typesFile, typesFileSource);
-  } else if (yargs.argv.v || yargs.argv.version) { // display the version
+  } else if (yargs.version) { // display the version
     console.log(pkg.version);
-  } else if (yargs.argv.help || yargs.argv.h) { // display the help file
+  } else if (yargs.help) { // display the help file
     const help = require("./help").help;
     help();
   } else { // run the compiler and test suite
