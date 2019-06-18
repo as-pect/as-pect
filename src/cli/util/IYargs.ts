@@ -1,4 +1,6 @@
 import { IPerformanceConfiguration } from "../../util/IPerformanceConfiguration";
+import { toCamelCase } from "./strings";
+
 type argType = "b" | "s" | "S" | "I" | "i" | "F" | "f";
 
 type ArgValue = string | number | boolean | string[] | number;
@@ -31,6 +33,8 @@ export interface Options {
   nortrace: boolean;
   reporter: string;
   performance: IPerformanceConfiguration;
+  /** Tracks changes made by the cli options */
+  changed: Set<string>;
 }
 
 export class CommandLineArg implements ICommandLineArg {
@@ -109,7 +113,7 @@ const _Args: CommandLineArgs = {
   },
   file: {
     description:
-      "Run the tests of each file that matches this regex. {yellow (Default: /./)}",
+      "Run the tests of each file that matches this regex.",
     type: "s",
     alias: [{ name: "files", long: true }, { name: "f" }],
     value: "."
@@ -117,7 +121,7 @@ const _Args: CommandLineArgs = {
 
   group: {
     description:
-      "Run each describe block that matches this regex {yellow (Default: /(:?)/)}",
+      "Run each describe block that matches this regex",
     type: "s",
     alias: [{ name: "groups", long: true }, { name: "g" }],
     value: "(:?)"
@@ -125,7 +129,7 @@ const _Args: CommandLineArgs = {
 
   test: {
     description:
-      "Run each test that matches this regex {yellow (Default: /(:?)/)}",
+      "Run each test that matches this regex",
     type: "s",
     alias: [{ name: "tests", long: true }, { name: "t" }],
     value: "(:?)"
@@ -155,7 +159,7 @@ const _Args: CommandLineArgs = {
 
   reporter: {
     description:
-      "Define the reporter to be used. {yellow (Default: DefaultTestReporter)}",
+      "Define the reporter to be used.",
     type: "s",
     value: "DefaultTestReporter",
     options: [
@@ -171,7 +175,7 @@ const _Args: CommandLineArgs = {
       ],
       [
         "EmptyReporter",
-        "Use the empty reporter. {yellow (This reporter reports nothing)}"
+        "Use the empty reporter. This reporter reports nothing)"
       ],
       [
         "./path/to/reporter.js",
@@ -181,42 +185,42 @@ const _Args: CommandLineArgs = {
   },
   performance: {
     description:
-      "Enable performance statistics for {bold every} test. {yellow (Default: false)}",
+      "Enable performance statistics for {bold every} test.",
     type: "b",
     value: false,
     parent: "performance"
   },
   "max-samples": {
     description:
-      "Set the maximum number of samples to run for each test. {yellow (Default: 10000 samples)}",
+      "Set the maximum number of samples to run for each test.",
     type: "i",
     value: 10000,
     parent: "performance"
   },
   "max-test-run-time": {
     description:
-      "Set the maximum test run time in milliseconds. {yellow (Default: 2000ms)}",
+      "Set the maximum test run time in milliseconds.",
     type: "i",
     value: 2000,
     parent: "performance"
   },
   "round-decimal-places": {
     description:
-      "Set the number of decimal places to round to. {yellow (Default: 3)}",
+      "Set the number of decimal places to round to.",
     type: "i",
     value: 3,
     parent: "performance"
   },
   "report-median": {
     description:
-      "Enable/Disable reporting of the median time. {yellow (Default: true)}",
+      "Enable/Disable reporting of the median time.",
     type: "b",
     value: true,
     parent: "performance"
   },
   "report-average": {
     description:
-      "Enable/Disable reporting of the average time. {yellow (Default: true)}",
+      "Enable/Disable reporting of the average time.",
     type: "b",
     value: true,
     parent: "performance"
@@ -229,41 +233,39 @@ const _Args: CommandLineArgs = {
   },
   "report-max": {
     description:
-      "Enable/Disable reporting of the largest run time. {yellow (Default: false)}",
+      "Enable/Disable reporting of the largest run time.",
     type: "b",
     value: false,
     parent: "performance"
   },
   "report-min": {
     description:
-      "Enable/Disable reporting of the smallest run time. {yellow (Default: false)}",
+      "Enable/Disable reporting of the smallest run time.",
     type: "b",
     value: false,
     parent: "performance"
   },
   "report-variance": {
     description:
-      "Enable/Disable reporting of the variance. {yellow (Default: false)}",
+      "Enable/Disable reporting of the variance.",
     type: "b",
     value: false,
     parent: "performance"
   }
 };
 
-export function makeArgMap(
-  args: CommandLineArgs = _Args
-): Map<string, CommandLineArg> {
-  let res = new Map<string, CommandLineArg>();
+type ArgMap = Map<string, CommandLineArg>;
+
+export function makeArgMap(args: CommandLineArgs = _Args): ArgMap {
+  const res = new Map<string, CommandLineArg>();
   Object.getOwnPropertyNames(args).forEach(element => {
-    let aliases: Alias | Alias[] | undefined;
     let arg = new CommandLineArg(element, _Args[element]);
     res.set(element, arg);
-    if ((aliases = _Args[element].alias)) {
+    let aliases = _Args[element].alias;
+    if (aliases) {
       (aliases instanceof Array ? aliases : [aliases]).forEach(alias => {
-        let name = alias.name;
-        if (!alias.long) {
-          name = "-" + name;
-        }
+        // short aliases have a `-` prefix to disguish them
+        let name = (!alias.long ? "-" : "") + alias.name;
         res.set(name, arg);
       });
     }
@@ -276,23 +278,8 @@ let reg = /(?:--([a-z][a-z\-]*)|(-[a-z][a-z\-]*))(?:=(.*))?/i;
 
 let invalidArg = /^[\-]/;
 
-function toCamelCase(str: string): string {
-  return str
-        .split("-")
-        .map((word, idx) => {
-          if (idx > 0) {
-            return word[0].toLocaleUpperCase() + word.substring(1);
-          }
-          return word;
-        })
-        .join("");
 
-}
-
-export function parse(
-  commands: string[],
-  args: Map<string, CommandLineArg> = Args
-): Options {
+export function parse(commands: string[], args: ArgMap = Args): Options {
   let opts: any = {changed: new Set()};
   args.forEach((arg: CommandLineArg) => {
     let camelCase = toCamelCase(arg.name)
@@ -312,25 +299,25 @@ export function parse(
   for (let i = 0; i < commands.length; i++) {
     //@ts-ignore
     let [_, flag, alias, data]: string[] = commands[i].match(reg) || [];
-    let key: string;
-    if ((key = flag)) {
-      if (!args.has(key)) {
-        throw new Error("Flag " + key + " doesn't exist.");
+
+    if (flag) {
+      if (!args.has(flag)) {
+        throw new Error("Flag " + flag + " doesn't exist.");
       }
-    } else if ((key = alias)) {
-      if (!args.has(key)) {
-        throw new Error("Alias " + key + " doesn't exist.");
+    } else if (alias) {
+      if (!args.has(alias)) {
+        throw new Error("Alias " + alias + " doesn't exist.");
       }
     } else {
       throw new Error("Command " + commands[i] + " is not valid.");
     }
-    let arg = args.get(key)!;
+    const arg = args.get(flag || alias)!;
     let value;
     if (data) {
-      //Data from =(.*)
+      // Data from =(.*)
       value = arg.parse(data);
     } else if (arg.type === "b") {
-      //boolean flag
+      // boolean flag
       value = true;
     } else {
       if (i >= commands.length - 1) {
@@ -339,7 +326,8 @@ export function parse(
       if (commands[i + 1].match(invalidArg)) {
         throw new Error(`Passed value ${commands[i + i]} is invalid`);
       }
-      value = arg.parse(commands[++i]); //Parse data and increment to next command
+      i += 1; // increment index
+      value = arg.parse(commands[i]); // Parse data
     }
     let name = toCamelCase(arg.name);
     if (arg.parent){

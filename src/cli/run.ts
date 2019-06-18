@@ -8,13 +8,11 @@ import { TestReporter } from "../test/TestReporter";
 import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
-// import { createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 import { IWarning } from "../test/IWarning";
 import * as path from "path";
 import chalk from "chalk";
 import { IConfiguration, ICompilerFlags } from "../util/IConfiguration";
 import glob from "glob";
-// import { collectPerformanceConfiguration } from "./util/collectPerformanceConfiguration";
 import { collectReporter } from "./util/collectReporter";
 import { getTestEntryFiles } from "./util/getTestEntryFiles";
 import { Options } from "./util/IYargs";
@@ -90,14 +88,14 @@ export function run(yargs: Options, compilerArgs: string[]): void {
   const disclude: RegExp[] = configuration.disclude || [];
 
   // if a reporter is specified in cli arguments, override configuration
-  const  reporter: TestReporter = yargs.reporter
+  const reporter: TestReporter = yargs.reporter
     ? collectReporter(yargs)
     : configuration.reporter || new DefaultTestReporter();
 
   if (configuration.performance){
     Object.getOwnPropertyNames(configuration.performance).forEach(option => {
-      if (!(yargs as any).changed.has("performance."+option)){
-        yargs.performance[option] = configuration.performance![option]!; 
+      if (yargs.changed.has("performance."+option)){
+        yargs.performance[option] = configuration.performance![option]!;
       }
     })
   }
@@ -131,7 +129,7 @@ export function run(yargs: Options, compilerArgs: string[]): void {
    * Check to see if rtrace is disabled.
    */
   configuration.nortrace = yargs.nortrace;
-  
+
 
   /**
    * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
