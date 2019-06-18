@@ -86,6 +86,7 @@ export class TestCollector {
 
 
   constructor(props?: ITestCollectorParameters) {
+    /* istanbul ignore next */
     if (props) {
       /* istanbul ignore next */
       if (props.fileName) this.fileName = props.fileName;
@@ -285,7 +286,9 @@ export class TestCollector {
    * returns 0.
    */
   protected tryCall(pointer: number): 1 | 0 {
-    if (pointer === -1) return 1;
+    /** This is a safety net conditional, no reason to test it. */
+    /* istanbul ignore next */
+    if (pointer < 0) return 1;
 
     try {
       this.wasm!.__call(pointer)
