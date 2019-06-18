@@ -37,7 +37,7 @@ export function run(yargs: Options, compilerArgs: string[]): void {
   let parse: any
   try {
     const _path = yargs.compiler.startsWith(".") ? path.join(process.cwd(), yargs.compiler) : yargs.compiler
-    asc = require(path.join(_path, "cli", "asc"));
+    asc = require(path.join(_path, "dist", "asc"));
     if (!asc){
       throw new Error(`${yargs.compiler}/dist/asc exports null`)
     }
@@ -46,7 +46,7 @@ export function run(yargs: Options, compilerArgs: string[]): void {
     }
     let loader = require(path.join(_path, "lib", "loader"));
     if (!loader) {
-      throw new Error(`${yargs.compiler}/lib/loader`)
+      throw new Error(`${yargs.compiler}/lib/loader exports null`)
     }
     instantiateBuffer = loader.instantiateBuffer;
     if (!instantiateBuffer) {
