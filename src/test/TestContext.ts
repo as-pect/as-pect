@@ -1,4 +1,3 @@
-import { ASUtil } from "assemblyscript/lib/loader";
 import { TestGroup } from "./TestGroup";
 import { TestReporter } from "./TestReporter";
 import { TestResult } from "./TestResult";
@@ -50,7 +49,7 @@ export class TestContext extends TestCollector {
   /**
    * Run the tests on the wasm module.
    */
-  public run(wasm: ASUtil & IAspectExports): void {
+  public run(wasm: IAspectExports): void {
     // set wasm immediately
     this.wasm = wasm;
 

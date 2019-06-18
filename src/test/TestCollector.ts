@@ -1,4 +1,3 @@
-import { ASUtil } from "assemblyscript/lib/loader";
 import { IAspectExports } from "../util/IAspectExports";
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
@@ -15,7 +14,7 @@ import Long from "long";
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
 export interface ITestCollectorParameters {
-  performanceConfiguration?: IPerformanceConfiguration;
+  performanceConfiguration?: Partial<IPerformanceConfiguration>;
   testRegex?: RegExp;
   groupRegex?: RegExp;
   fileName?: string;
@@ -26,7 +25,7 @@ export interface ITestCollectorParameters {
  * This class is responsible for collecting all the tests in a test binary.
  */
 export class TestCollector {
-  protected wasm: (ASUtil & IAspectExports) | null = null;
+  protected wasm: IAspectExports | null = null;
 
   // test group values
   private groupStack: TestGroup[] = [new TestGroup()];
@@ -58,7 +57,7 @@ export class TestCollector {
   private recordMinValue: boolean | undefined;
   private recordVariance: boolean | undefined;
 
-  private performanceConfiguration: IPerformanceConfiguration = createDefaultPerformanceConfiguration();
+  private performanceConfiguration: Partial<IPerformanceConfiguration> = createDefaultPerformanceConfiguration();
 
   /**
    * This value is used to detect if an `expect()` function call was used outside of a test

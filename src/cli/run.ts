@@ -1,23 +1,18 @@
 
-//@ts-ignore
-const parse = require("assemblyscript/cli/util/options").parse;
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
-import { instantiateBuffer } from "assemblyscript/lib/loader";
 import { TestReporter } from "../test/TestReporter";
 import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
-import { createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 import { IWarning } from "../test/IWarning";
 import * as path from "path";
 import chalk from "chalk";
 import { IConfiguration, ICompilerFlags } from "../util/IConfiguration";
 import glob from "glob";
-import { collectPerformanceConfiguration } from "./util/collectPerformanceConfiguration";
 import { collectReporter } from "./util/collectReporter";
 import { getTestEntryFiles } from "./util/getTestEntryFiles";
-import { IYargs } from "./util/IYargs";
+import { Options } from "./util/IYargs";
 import { IAspectExports } from "../util/IAspectExports";
 import { writeFile } from "./util/writeFile";
 
@@ -27,7 +22,7 @@ import { writeFile } from "./util/writeFile";
  * @param {IYargs} yargs - The command line arguments.
  * @param {string[]} compilerArgs - The `asc` compiler arguments.
  */
-export function run(yargs: IYargs, compilerArgs: string[]): void {
+export function run(yargs: Options, compilerArgs: string[]): void {
   const start = performance.now();
 
   /**
@@ -37,13 +32,45 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
    * running.
    */
   console.log(chalk`{bgWhite.black [Log]} Loading asc compiler`);
-  const asc = require("assemblyscript/dist/asc");
+  let asc: any;
+  let instantiateBuffer: any;
+  let parse: any
+  try {
+    const _path = yargs.compiler.startsWith(".") ? path.join(process.cwd(), yargs.compiler) : yargs.compiler
+    asc = require(path.join(_path, "dist", "asc"));
+    if (!asc){
+      throw new Error(`${yargs.compiler}/dist/asc exports null`)
+    }
+    if (!asc.main) {
+      throw new Error(`${yargs.compiler}/dist/asc does not export a main function`);
+    }
+    let loader = require(path.join(_path, "lib", "loader"));
+    if (!loader) {
+      throw new Error(`${yargs.compiler}/lib/loader exports null`)
+    }
+    instantiateBuffer = loader.instantiateBuffer;
+    if (!instantiateBuffer) {
+      throw new Error(`${yargs.compiler}/lib/loader does not export instantiateBuffer`)
+    }
+    let options = require(path.join(_path, "cli", "util", "options"));
+    if (!options) {
+      throw new Error(`${yargs.compiler}/cli/util/options exports null`)
+    }
+    parse = options.parse
+    if (!parse) {
+      throw new Error(`${yargs.compiler}/cli/util/options does not export parse`)
+    }
+  }catch (ex){
+    console.error(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${yargs.compiler}]}.`);
+    console.error(ex);
+    process.exit(1);
+  }
   console.log(chalk`{bgWhite.black [Log]} Compiler loaded in ${timeDifference(performance.now(), start).toString()}ms`);
 
   // obtain the configuration file
   const configurationPath = path.resolve(
     process.cwd(),
-    (yargs.argv.c as string) || (yargs.argv.config as string) || "./as-pect.config.js",
+    yargs.config,
   );
   console.log(chalk`{bgWhite.black [Log]} Using configuration ${configurationPath}`);
 
@@ -90,27 +117,31 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   const disclude: RegExp[] = configuration.disclude || [];
 
   // if a reporter is specified in cli arguments, override configuration
-  const  reporter: TestReporter = (yargs.argv.reporter || yargs.argv.r)
+  const reporter: TestReporter = yargs.reporter
     ? collectReporter(yargs)
-    : configuration.reporter || new DefaultTestReporter({});
+    : configuration.reporter || new DefaultTestReporter();
 
-  const performanceConfiguration = configuration.performance || createDefaultPerformanceConfiguration();
-
-  // setup performance options, overriding configured values if the flag is passed to the cli
-  collectPerformanceConfiguration(yargs, performanceConfiguration);
+  if (configuration.performance){
+    Object.getOwnPropertyNames(configuration.performance).forEach(option => {
+      if (yargs.changed.has("performance."+option)){
+        yargs.performance[option] = configuration.performance![option]!;
+      }
+    })
+  }
+  const performanceConfiguration = yargs.performance;
 
   // include all the file globs
   console.log(chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`);
 
   // Create the test and group matchers
   if (!configuration.testRegex) {
-    const testRegex = new RegExp(yargs.argv.tests || yargs.argv.test || yargs.argv.t || ".*", "i");
+    const testRegex = new RegExp(yargs.test, "i");
     configuration.testRegex = testRegex;
     console.log(chalk`{bgWhite.black [Log]} Running tests that match: ${testRegex.source}`);
   }
 
   if (!configuration.groupRegex) {
-    const groupRegex = new RegExp(yargs.argv.groups || yargs.argv.group || yargs.argv.g || ".*", "i");
+    const groupRegex = new RegExp(yargs.group, "i");
     configuration.groupRegex = groupRegex;
     console.log(chalk`{bgWhite.black [Log]} Running groups that match: ${groupRegex.source}`);
   }
@@ -118,7 +149,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   /**
    * Check to see if the binary files should be written to the fileSystem.
    */
-  const outputBinary: boolean = !!(yargs.argv.outputBinary || yargs.argv.o || configuration.outputBinary);
+  const outputBinary: boolean = !!(yargs.outputBinary || configuration.outputBinary);
   if (outputBinary) {
     console.log(chalk`{bgWhite.black [Log]} Outputing Binary *.wasm files.`);
   }
@@ -126,10 +157,8 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   /**
    * Check to see if rtrace is disabled.
    */
-  const nortrace: boolean = !!(yargs.argv.nortrace || yargs.argv.nr);
-  if (nortrace) {
-    configuration.nortrace = true;
-  }
+  configuration.nortrace = yargs.nortrace;
+
 
   /**
    * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
@@ -146,7 +175,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
   /**
    * Check to see if the tests should be run in the first place.
    */
-  const runTests: boolean = !(yargs.argv.norun || yargs.argv.n);
+  const runTests: boolean = !yargs.norun;
   if (!runTests) {
     console.log(chalk`{bgWhite.black [Log]} Not running tests, only outputting files.`);
   }
@@ -285,7 +314,7 @@ export function run(yargs: IYargs, compilerArgs: string[]): void {
         );
 
         // instantiate the module
-        const wasm = instantiateBuffer<IAspectExports>(binaries[i], imports);
+        const wasm: IAspectExports = instantiateBuffer(binaries[i], imports);
 
         if (runner.errors.length > 0) {
           errors.push(...runner.errors);
