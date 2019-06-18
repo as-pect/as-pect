@@ -45,4 +45,21 @@ export interface IAspectExports {
    * This method clears internal actual and expected values.
    */
   __cleanup(): void;
+
+  /**
+   * Methods below are from ASUtil
+   */
+
+   /** An 8-bit unsigned integer view on the memory. */
+   readonly U8: Uint8Array;
+  /** Explicit start function, if requested. */
+  __start(): void;
+  /** Reads (copies) the value of a string from the module's memory. */
+  __getString(ref: number): string;
+  /** Allocates a new array in the module's memory and returns a reference (pointer) to it. */
+  __allocArray(id: number, values: number[]): number;
+  /** Reads (copies) the values of an array from the module's memory. */
+  __getArray(ref: number): number[];
+  /** Forces a cycle collection. Only relevant if objects potentially forming reference cycles are used. */
+  __collect(): void;
 }

@@ -33,6 +33,7 @@ export interface Options {
   nortrace: boolean;
   reporter: string;
   performance: IPerformanceConfiguration;
+  compiler: string;
   /** Tracks changes made by the cli options */
   changed: Set<string>;
 }
@@ -251,6 +252,14 @@ const _Args: CommandLineArgs = {
     type: "b",
     value: false,
     parent: "performance"
+  },
+  compiler: {
+    description: [
+      "Path to folder relative to project root which contains",
+      "{folder}/dist/asc for the compiler and {folder}/lib/loader for loader."
+    ],
+    type: "s",
+    value: "assemblyscript"
   }
 };
 

@@ -3,7 +3,6 @@
 const parse = require("assemblyscript/cli/util/options").parse;
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
-import { instantiateBuffer } from "assemblyscript/lib/loader";
 import { TestReporter } from "../test/TestReporter";
 import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
@@ -35,7 +34,23 @@ export function run(yargs: Options, compilerArgs: string[]): void {
    * running.
    */
   console.log(chalk`{bgWhite.black [Log]} Loading asc compiler`);
-  const asc = require("assemblyscript/dist/asc");
+  let asc: any;
+  let instantiateBuffer: any;
+  try {
+    const _path = yargs.compiler.startsWith(".") ? path.join(process.cwd(), yargs.compiler) : yargs.compiler
+    asc = require(path.join(_path, "dist", "asc"));
+    if (!asc.main){
+      throw new Error(`Compiler located at ${yargs.compiler} does not export a main function`);
+    }
+    instantiateBuffer = require(path.join(_path, "lib", "loader")).instantiateBuffer;
+    if (!instantiateBuffer){
+      throw new Error(`Compiler located at ${yargs.compiler} does not have instantiateBuffer found in ${yargs.compiler}/lib/loader`)
+    }
+  }catch (ex){
+    console.error(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${yargs.compiler}]}.`);
+    console.error(ex);
+    process.exit(1);
+  }
   console.log(chalk`{bgWhite.black [Log]} Compiler loaded in ${timeDifference(performance.now(), start).toString()}ms`);
 
   // obtain the configuration file
@@ -285,7 +300,7 @@ export function run(yargs: Options, compilerArgs: string[]): void {
         );
 
         // instantiate the module
-        const wasm = instantiateBuffer<IAspectExports>(binaries[i], imports);
+        const wasm: IAspectExports = instantiateBuffer(binaries[i], imports);
 
         if (runner.errors.length > 0) {
           errors.push(...runner.errors);

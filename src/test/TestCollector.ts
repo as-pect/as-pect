@@ -1,4 +1,3 @@
-import { ASUtil } from "assemblyscript/lib/loader";
 import { IAspectExports } from "../util/IAspectExports";
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
@@ -26,7 +25,7 @@ export interface ITestCollectorParameters {
  * This class is responsible for collecting all the tests in a test binary.
  */
 export class TestCollector {
-  protected wasm: (ASUtil & IAspectExports) | null = null;
+  protected wasm: IAspectExports | null = null;
 
   // test group values
   private groupStack: TestGroup[] = [new TestGroup()];
