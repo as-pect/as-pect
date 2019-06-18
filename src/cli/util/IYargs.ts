@@ -293,7 +293,7 @@ export function parse(
   commands: string[],
   args: Map<string, CommandLineArg> = Args
 ): Options {
-  let opts: any = {};
+  let opts: any = {changed: new Set()};
   args.forEach((arg: CommandLineArg) => {
     let camelCase = toCamelCase(arg.name)
     if (arg.parent) {
@@ -347,8 +347,10 @@ export function parse(
         name = "enabled";
       }
       opts[arg.parent][name] = value
+      opts.changed.add(arg.parent+"."+name)
     }else {
       opts[name] = value
+      opts.changed.add(name);
     }
   }
   return opts as Options;

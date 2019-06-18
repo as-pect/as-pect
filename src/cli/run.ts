@@ -92,9 +92,16 @@ export function run(yargs: Options, compilerArgs: string[]): void {
   // if a reporter is specified in cli arguments, override configuration
   const  reporter: TestReporter = yargs.reporter
     ? collectReporter(yargs)
-    : configuration.reporter || new DefaultTestReporter({});
+    : configuration.reporter || new DefaultTestReporter();
 
-  const performanceConfiguration = Object.assign(yargs.performance, configuration.performance);
+  if (configuration.performance){
+    Object.getOwnPropertyNames(configuration.performance).forEach(option => {
+      if (!(yargs as any).changed.has("performance."+option)){
+        yargs.performance[option] = configuration.performance![option]!; 
+      }
+    })
+  }
+  const performanceConfiguration = yargs.performance;
 
   // include all the file globs
   console.log(chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`);
