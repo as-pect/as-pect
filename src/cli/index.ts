@@ -1,7 +1,6 @@
-
-import chalk from "chalk";
 import path from "path";
 import { parse } from "./util/IYargs";
+import { printAsciiArt } from "./util/asciiArt";
 // import { TestRunner } from "./test/TestRunner";
 
 const pkg = require("../../package.json");
@@ -25,16 +24,7 @@ export function asp(args: string[]) {
 
   // Skip ascii art if asked for the version
   if (!yargs.version) {
-    console.log(chalk`{bold.bgWhite.black ${""
-  }       ___   _____                       __
-      /   | / ___/      ____  ___  _____/ /_
-     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/
-    / ___ |___/ /_____/ /_/ /  __/ /__/ /_
-   /_/  |_/____/     / .___/\\___/\\___/\\__/
-                    /_/                        }
-
-  ⚡AS-pect⚡ Test suite runner {bgGreenBright.black [${pkg.version}]}
-  `);
+    printAsciiArt(pkg.version);
   }
 
   const assemblyFolder = path.join(process.cwd(), "assembly");

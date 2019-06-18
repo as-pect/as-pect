@@ -1,6 +1,4 @@
 
-//@ts-ignore
-const parse = require("assemblyscript/cli/util/options").parse;
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
 import { TestReporter } from "../test/TestReporter";
@@ -36,15 +34,31 @@ export function run(yargs: Options, compilerArgs: string[]): void {
   console.log(chalk`{bgWhite.black [Log]} Loading asc compiler`);
   let asc: any;
   let instantiateBuffer: any;
+  let parse: any
   try {
     const _path = yargs.compiler.startsWith(".") ? path.join(process.cwd(), yargs.compiler) : yargs.compiler
-    asc = require(path.join(_path, "dist", "asc"));
-    if (!asc.main){
-      throw new Error(`Compiler located at ${yargs.compiler} does not export a main function`);
+    asc = require(path.join(_path, "cli", "asc"));
+    if (!asc){
+      throw new Error(`${yargs.compiler}/dist/asc exports null`)
     }
-    instantiateBuffer = require(path.join(_path, "lib", "loader")).instantiateBuffer;
-    if (!instantiateBuffer){
-      throw new Error(`Compiler located at ${yargs.compiler} does not have instantiateBuffer found in ${yargs.compiler}/lib/loader`)
+    if (!asc.main) {
+      throw new Error(`${yargs.compiler}/dist/asc does not export a main function`);
+    }
+    let loader = require(path.join(_path, "lib", "loader"));
+    if (!loader) {
+      throw new Error(`${yargs.compiler}/lib/loader`)
+    }
+    instantiateBuffer = loader.instantiateBuffer;
+    if (!instantiateBuffer) {
+      throw new Error(`${yargs.compiler}/lib/loader does not export instantiateBuffer`)
+    }
+    let options = require(path.join(_path, "cli", "util", "options"));
+    if (!options) {
+      throw new Error(`${yargs.compiler}/cli/util/options exports null`)
+    }
+    parse = options.parse
+    if (!parse) {
+      throw new Error(`${yargs.compiler}/cli/util/options does not export parse`)
     }
   }catch (ex){
     console.error(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${yargs.compiler}]}.`);
