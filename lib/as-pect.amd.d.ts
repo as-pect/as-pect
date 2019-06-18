@@ -1,5 +1,4 @@
 /// <reference types="node" />
-/// <reference types="yargs-parser" />
 declare module "test/IWarning" {
     /**
      * This interface represents the shape of a warning.
@@ -86,6 +85,18 @@ declare module "test/PerformanceLimits" {
         MaximumDecimalPlaces = 8
     }
 }
+declare module "math/mean" {
+    export function mean(input: number[]): number;
+}
+declare module "math/round" {
+    export function round(input: number, places: number): number;
+}
+declare module "math/median" {
+    export function median(input: number[]): number;
+}
+declare module "math/variance" {
+    export function variance(input: number[]): number;
+}
 declare module "test/TestResult" {
     import { LogValue } from "util/LogValue";
     import { ActualValue } from "util/ActualValue";
@@ -119,7 +130,7 @@ declare module "test/TestResult" {
         /** This value is set to true if the test is expected to throw. */
         negated: boolean;
         /** This value indicates if performance statistics were collected for this test. */
-        private _performance;
+        performance: boolean;
         /** This value indicates the maximum number of samples to collect. */
         maxSamples: number;
         /** This value indicates the maximum test runtime. */
@@ -170,7 +181,6 @@ declare module "test/TestResult" {
         end: number;
         /** This is the run time for the test in milliseconds. */
         runTime: number;
-        performance: boolean;
         /**
          * Caclculate the average value of the collected times.
          */
@@ -518,6 +528,21 @@ declare module "util/IAspectExports" {
          * This method clears internal actual and expected values.
          */
         __cleanup(): void;
+        /**
+         * Methods below are from ASUtil
+         */
+        /** An 8-bit unsigned integer view on the memory. */
+        readonly U8: Uint8Array;
+        /** Explicit start function, if requested. */
+        __start(): void;
+        /** Reads (copies) the value of a string from the module's memory. */
+        __getString(ref: number): string;
+        /** Allocates a new array in the module's memory and returns a reference (pointer) to it. */
+        __allocArray(id: number, values: number[]): number;
+        /** Reads (copies) the values of an array from the module's memory. */
+        __getArray(ref: number): number[];
+        /** Forces a cycle collection. Only relevant if objects potentially forming reference cycles are used. */
+        __collect(): void;
     }
 }
 declare module "util/IPerformanceConfiguration" {
@@ -526,31 +551,31 @@ declare module "util/IPerformanceConfiguration" {
      * tests are run.
      */
     export interface IPerformanceConfiguration {
+        [key: string]: number | boolean;
         /** Enable performance statistics gathering. */
-        enabled?: boolean;
+        enabled: boolean;
         /** Set the minimum number of samples to run for each test in milliseconds. */
-        maxSamples?: number;
+        maxSamples: number;
         /** Set the maximum test run time in milliseconds. */
-        maxTestRunTime?: number;
+        maxTestRunTime: number;
         /** Report the median time in the default reporter. */
-        reportMedian?: boolean;
+        reportMedian: boolean;
         /** Report the average time in milliseconds. */
-        reportAverage?: boolean;
+        reportAverage: boolean;
         /** Report the standard deviation. */
-        reportStandardDeviation?: boolean;
+        reportStandardDeviation: boolean;
         /** Report the maximum run time in milliseconds. */
-        reportMax?: boolean;
+        reportMax: boolean;
         /** Report the minimum run time in milliseconds. */
-        reportMin?: boolean;
+        reportMin: boolean;
         /** Report the variance. */
-        reportVariance?: boolean;
+        reportVariance: boolean;
         /** Set the number of decimal places to round to. */
-        roundDecimalPlaces?: number;
+        roundDecimalPlaces: number;
     }
     export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
 }
 declare module "test/TestCollector" {
-    import { ASUtil } from "assemblyscript/lib/loader";
     import { IAspectExports } from "util/IAspectExports";
     import { ActualValue } from "util/ActualValue";
     import { TestGroup } from "test/TestGroup";
@@ -558,7 +583,7 @@ declare module "test/TestCollector" {
     import { IWarning } from "test/IWarning";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
     export interface ITestCollectorParameters {
-        performanceConfiguration?: IPerformanceConfiguration;
+        performanceConfiguration?: Partial<IPerformanceConfiguration>;
         testRegex?: RegExp;
         groupRegex?: RegExp;
         fileName?: string;
@@ -568,7 +593,7 @@ declare module "test/TestCollector" {
      * This class is responsible for collecting all the tests in a test binary.
      */
     export class TestCollector {
-        protected wasm: (ASUtil & IAspectExports) | null;
+        protected wasm: IAspectExports | null;
         private groupStack;
         testGroups: TestGroup[];
         protected logTarget: ILogTarget;
@@ -1116,10 +1141,14 @@ declare module "test/TestCollector" {
          * stack trace.
          */
         private getStackTrace;
+        /**
+         * Gets a string from the wasm module, unless the module string is null. Otherwise it returns
+         * a default value.
+         */
+        private getString;
     }
 }
 declare module "test/TestContext" {
-    import { ASUtil } from "assemblyscript/lib/loader";
     import { TestReporter } from "test/TestReporter";
     import { IAspectExports } from "util/IAspectExports";
     import { TestCollector, ITestCollectorParameters } from "test/TestCollector";
@@ -1141,7 +1170,7 @@ declare module "test/TestContext" {
         /**
          * Run the tests on the wasm module.
          */
-        run(wasm: ASUtil & IAspectExports): void;
+        run(wasm: IAspectExports): void;
         private runGroup;
         /**
          * Run a given test.
@@ -1298,6 +1327,7 @@ declare module "util/IConfiguration" {
      * `as-pect.config.js` file. An empty object should be a valid `as-pect` configuration.
      */
     export interface IConfiguration {
+        [key: string]: any;
         /**
          * A set of globs that denote files that must be used for testing.
          */
@@ -1322,7 +1352,7 @@ declare module "util/IConfiguration" {
         /**
          * Set the default performance measurement values.
          */
-        performance?: IPerformanceConfiguration;
+        performance?: Partial<IPerformanceConfiguration>;
         /**
          * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
          * output.
@@ -1345,6 +1375,77 @@ declare module "util/IConfiguration" {
          */
         nortrace?: boolean;
     }
+}
+declare module "cli/util/strings" {
+    /**
+     * Capitalize a word.
+     *
+     * @param {string} word - The word to be capitalized.
+     */
+    export function capitalize(word: string): string;
+    /**
+     * CamelCase a single string. Usually used with `dash-cased` words.
+     *
+     * @param {string} str - The string to be camelCased.
+     * @param {string} from - The string seperator.
+     */
+    export function toCamelCase(str: string, from?: string): string;
+}
+declare module "cli/util/CommandLineArg" {
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    export type argType = "b" | "s" | "S" | "I" | "i" | "F" | "f";
+    export type ArgValue = string | number | boolean | string[] | number;
+    export interface Alias {
+        name: string;
+        long?: true;
+    }
+    export interface ICommandLineArg {
+        description: string | string[];
+        type: argType;
+        alias?: Alias | Alias[];
+        value: ArgValue;
+        options?: [string, string][];
+        parent?: string;
+    }
+    export interface Options {
+        init: boolean;
+        config: string;
+        version: boolean;
+        help: boolean;
+        types: boolean;
+        file: string;
+        group: string;
+        test: string;
+        outputBinary: boolean;
+        norun: boolean;
+        nortrace: boolean;
+        reporter: string;
+        performance: IPerformanceConfiguration;
+        compiler: string;
+        /** Tracks changes made by the cli options */
+        changed: Set<string>;
+    }
+    export class CommandLineArg implements ICommandLineArg {
+        name: string;
+        description: string | string[];
+        type: argType;
+        value: ArgValue;
+        alias?: Alias | Alias[] | undefined;
+        options?: [string, string][] | undefined;
+        parent?: string;
+        constructor(name: string, command: ICommandLineArg);
+        parse(data: string): ArgValue;
+    }
+    export interface CommandLineArgs {
+        [key: string]: ICommandLineArg;
+    }
+    export type ArgMap = Map<string, CommandLineArg>;
+    export function makeArgMap(args?: CommandLineArgs): ArgMap;
+    export const Args: Map<string, CommandLineArg>;
+    export function parse(commands: string[], args?: ArgMap): Options;
+}
+declare module "cli/util/asciiArt" {
+    export function printAsciiArt(version: string): void;
 }
 declare module "cli/index" {
     /**
@@ -1392,46 +1493,26 @@ declare module "cli/init" {
      */
     export function init(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
 }
-declare module "cli/util/IYargs" {
-    import yargsparser from "yargs-parser";
-    /**
-     * A utility interface that contains an argv property that has the command line arguments.
-     */
-    export interface IYargs {
-        argv: yargsparser.Arguments;
-    }
-}
-declare module "cli/util/collectPerformanceConfiguration" {
-    import { IYargs } from "cli/util/IYargs";
-    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
-    /**
-     * This method collects the performance configuration values byref.
-     *
-     * @param {IYargs} yargs - The command line arguments
-     * @param {IPerformanceConfiguration} performanceConfiguration - The effective performance configuration.
-     */
-    export function collectPerformanceConfiguration(yargs: IYargs, performanceConfiguration: IPerformanceConfiguration): void;
-}
 declare module "cli/util/collectReporter" {
     import { TestReporter } from "test/TestReporter";
-    import { IYargs } from "cli/util/IYargs";
+    import { Options } from "cli/util/CommandLineArg";
     /**
      * This method inspects the command line arguments and returns the corresponding TestReporter.
      *
-     * @param {IYargs} yargs - The command line arguments.
+     * @param {Options} yargs - The command line arguments.
      */
-    export function collectReporter(yargs: IYargs): TestReporter;
+    export function collectReporter(yargs: Options): TestReporter;
 }
 declare module "cli/util/getTestEntryFiles" {
-    import { IYargs } from "cli/util/IYargs";
+    import { Options } from "cli/util/CommandLineArg";
     /**
      * This method returns a `Set<string>` of entry files for the compiler to compile.
      *
-     * @param {IYargs} yargs - The command line arguments.
+     * @param {Options} yargs - The command line arguments.
      * @param {string[]} include - An array of globs provided by the configuration.
      * @param {RegExp[]} disclude - An array of RegExp provided by the configuration.
      */
-    export function getTestEntryFiles(yargs: IYargs, include: string[], disclude: RegExp[]): Set<string>;
+    export function getTestEntryFiles(yargs: Options, include: string[], disclude: RegExp[]): Set<string>;
 }
 declare module "cli/util/writeFile" {
     /**
@@ -1443,14 +1524,14 @@ declare module "cli/util/writeFile" {
     export function writeFile(file: string, contents: Uint8Array): Promise<void>;
 }
 declare module "cli/run" {
-    import { IYargs } from "cli/util/IYargs";
+    import { Options } from "cli/util/CommandLineArg";
     /**
      * This method actually runs the test suites in sequential order synchronously.
      *
      * @param {IYargs} yargs - The command line arguments.
      * @param {string[]} compilerArgs - The `asc` compiler arguments.
      */
-    export function run(yargs: IYargs, compilerArgs: string[]): void;
+    export function run(yargs: Options, compilerArgs: string[]): void;
 }
 declare module "cli/types" {
     /**

@@ -1,4 +1,3 @@
-import { ASUtil } from "assemblyscript/lib/loader";
 import { IAspectExports } from "../util/IAspectExports";
 import { ActualValue } from "../util/ActualValue";
 import { TestGroup } from "./TestGroup";
@@ -6,7 +5,7 @@ import { ILogTarget } from "../util/ILogTarget";
 import { IWarning } from "./IWarning";
 import { IPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 export interface ITestCollectorParameters {
-    performanceConfiguration?: IPerformanceConfiguration;
+    performanceConfiguration?: Partial<IPerformanceConfiguration>;
     testRegex?: RegExp;
     groupRegex?: RegExp;
     fileName?: string;
@@ -16,7 +15,7 @@ export interface ITestCollectorParameters {
  * This class is responsible for collecting all the tests in a test binary.
  */
 export declare class TestCollector {
-    protected wasm: (ASUtil & IAspectExports) | null;
+    protected wasm: IAspectExports | null;
     private groupStack;
     testGroups: TestGroup[];
     protected logTarget: ILogTarget;
@@ -564,5 +563,10 @@ export declare class TestCollector {
      * stack trace.
      */
     private getStackTrace;
+    /**
+     * Gets a string from the wasm module, unless the module string is null. Otherwise it returns
+     * a default value.
+     */
+    private getString;
 }
 //# sourceMappingURL=TestCollector.d.ts.map

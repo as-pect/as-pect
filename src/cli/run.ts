@@ -12,7 +12,7 @@ import { IConfiguration, ICompilerFlags } from "../util/IConfiguration";
 import glob from "glob";
 import { collectReporter } from "./util/collectReporter";
 import { getTestEntryFiles } from "./util/getTestEntryFiles";
-import { Options } from "./util/IYargs";
+import { Options } from "./util/CommandLineArg";
 import { IAspectExports } from "../util/IAspectExports";
 import { writeFile } from "./util/writeFile";
 
@@ -36,36 +36,47 @@ export function run(yargs: Options, compilerArgs: string[]): void {
   let instantiateBuffer: any;
   let parse: any
   try {
-    const _path = yargs.compiler.startsWith(".") ? path.join(process.cwd(), yargs.compiler) : yargs.compiler
-    asc = require(path.join(_path, "dist", "asc"));
+    /** Collect the assemblyscript module path. */
+    const assemblyScriptFolder = yargs.compiler.startsWith(".")
+      ? path.join(process.cwd(), yargs.compiler)
+      : yargs.compiler;
+
+    /** Next, obtain the compiler, and assert it has a main function. */
+    asc = require(path.join(assemblyScriptFolder, "dist", "asc"));
     if (!asc){
-      throw new Error(`${yargs.compiler}/dist/asc exports null`)
+      throw new Error(`${yargs.compiler}/dist/asc has no exports.`);
     }
     if (!asc.main) {
-      throw new Error(`${yargs.compiler}/dist/asc does not export a main function`);
+      throw new Error(`${yargs.compiler}/dist/asc does not export a main() function.`);
     }
-    let loader = require(path.join(_path, "lib", "loader"));
+
+    /** Next, collect the loader, and assert it has an instantiateBuffer method. */
+    let loader = require(path.join(assemblyScriptFolder, "lib", "loader"));
     if (!loader) {
-      throw new Error(`${yargs.compiler}/lib/loader exports null`)
+      throw new Error(`${yargs.compiler}/lib/loader has no exports.`);
+    }
+    if (!loader.instantiateBuffer) {
+      throw new Error(`${yargs.compiler}/lib/loader does not export an instantiateBuffer() method.`);
     }
     instantiateBuffer = loader.instantiateBuffer;
-    if (!instantiateBuffer) {
-      throw new Error(`${yargs.compiler}/lib/loader does not export instantiateBuffer`)
-    }
-    let options = require(path.join(_path, "cli", "util", "options"));
+
+    /** Finally, collect the cli options from assemblyscript. */
+    let options = require(path.join(assemblyScriptFolder, "cli", "util", "options"));
     if (!options) {
       throw new Error(`${yargs.compiler}/cli/util/options exports null`)
     }
-    parse = options.parse
-    if (!parse) {
-      throw new Error(`${yargs.compiler}/cli/util/options does not export parse`)
+
+    if (!options.parse) {
+      throw new Error(`${yargs.compiler}/cli/util/options does not export a parse() method.`);
     }
-  }catch (ex){
+    parse = options.parse;
+  } catch (ex){
     console.error(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${yargs.compiler}]}.`);
     console.error(ex);
     process.exit(1);
   }
-  console.log(chalk`{bgWhite.black [Log]} Compiler loaded in ${timeDifference(performance.now(), start).toString()}ms`);
+
+  console.log(chalk`{bgWhite.black [Log]} Compiler loaded in ${timeDifference(performance.now(), start).toString()}ms.`);
 
   // obtain the configuration file
   const configurationPath = path.resolve(

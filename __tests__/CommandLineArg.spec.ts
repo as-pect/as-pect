@@ -1,4 +1,4 @@
-import { parse } from "../src/cli/util/IYargs";
+import { parse } from "../src/cli/util/CommandLineArg";
 import { createDefaultPerformanceConfiguration } from '../src/util/IPerformanceConfiguration';
 
 

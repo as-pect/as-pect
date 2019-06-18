@@ -1,7 +1,5 @@
 import chalk from "chalk";
 
-
-
 export function printAsciiArt(version: string): void {
   console.log(chalk`{bold.bgWhite.black ${""
   }       ___   _____                       __    

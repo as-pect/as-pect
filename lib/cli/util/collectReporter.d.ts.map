@@ -1,1 +1,1 @@
-{"version":3,"file":"collectReporter.d.ts","sourceRoot":"","sources":["../../../src/cli/util/collectReporter.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,yBAAyB,CAAC;AAEvD,OAAO,EAAE,MAAM,EAAE,MAAM,UAAU,CAAC;AAKlC;;;;GAIG;AACH,wBAAgB,eAAe,CAAC,KAAK,EAAE,MAAM,GAAG,YAAY,CAiD3D"}
+{"version":3,"file":"collectReporter.d.ts","sourceRoot":"","sources":["../../../src/cli/util/collectReporter.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,yBAAyB,CAAC;AAEvD,OAAO,EAAE,OAAO,EAAE,MAAM,kBAAkB,CAAC;AAK3C;;;;GAIG;AACH,wBAAgB,eAAe,CAAC,KAAK,EAAE,OAAO,GAAG,YAAY,CA+C5D"}

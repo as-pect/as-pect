@@ -1,4 +1,3 @@
-import { ASUtil } from "assemblyscript/lib/loader";
 import { TestReporter } from "./TestReporter";
 import { IAspectExports } from "../util/IAspectExports";
 import { TestCollector, ITestCollectorParameters } from "./TestCollector";
@@ -20,7 +19,7 @@ export declare class TestContext extends TestCollector {
     /**
      * Run the tests on the wasm module.
      */
-    run(wasm: ASUtil & IAspectExports): void;
+    run(wasm: IAspectExports): void;
     private runGroup;
     /**
      * Run a given test.

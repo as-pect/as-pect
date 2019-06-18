@@ -1,9 +1,9 @@
 import { TestReporter } from "../../test/TestReporter";
-import { IYargs } from "./IYargs";
+import { Options } from "./CommandLineArg";
 /**
  * This method inspects the command line arguments and returns the corresponding TestReporter.
  *
- * @param {IYargs} yargs - The command line arguments.
+ * @param {Options} yargs - The command line arguments.
  */
-export declare function collectReporter(yargs: IYargs): TestReporter;
+export declare function collectReporter(yargs: Options): TestReporter;
 //# sourceMappingURL=collectReporter.d.ts.map

@@ -1,6 +1,6 @@
 import { TestReporter } from "../../test/TestReporter";
 import { DefaultTestReporter } from "../../reporter/DefaultTestReporter";
-import { Options } from "./IYargs";
+import { Options } from "./CommandLineArg";
 import path from "path";
 import querystring from "querystring";
 import chalk from "chalk";
@@ -22,37 +22,36 @@ export function collectReporter(yargs: Options): TestReporter {
     try {
       const reporterPath = path.join(process.cwd(), targetReporter);
       const reporterResult = require(reporterPath);
+
       // if something is returned
       if (reporterResult) {
-        if (typeof reporterResult === "function") { // instantiate it if it's a default exported class
+        // instantiate it if it's a default exported class
+        if (typeof reporterResult === "function") {
           return new reporterResult(options);
         }
+        // export default class
         if (typeof reporterResult.default === "function") {
           return new reporterResult.default(options);
         }
-        else {
-          return reporterResult.default || reporterResult;
-        }
+        // export default new Reporter()
+        return reporterResult.default || reporterResult;
       }
       else {
         console.log(chalk`{bgBlack.yellow [Warning]} Cannot find reporter at {yellow ${reporterPath}}, defaulting to DefaultTestReporter.`);
         return new DefaultTestReporter(options);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.log(chalk`{bgBlack.yellow [Error]} An error occured while trying to resolve a reporter at {yellow ${targetReporter}}.`);
       console.error(ex);
       process.exit(1);
       // @ts-ignore: the process has exited
       return null;
     }
-  }
-  else {
+  } else {
     try {
       let Reporter = require(path.join(__dirname, "..", "..", "reporter", targetReporter))[targetReporter];
       return new Reporter(options) as TestReporter;
-    }
-    catch (ex) {
+    } catch (ex) {
       console.error(chalk`{bgBlack.yellow [Warning]} Cannot find {yellow ${targetReporter}}, defaulting to DefaultTestReporter.`)
       return new DefaultTestReporter(options);
     }

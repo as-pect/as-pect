@@ -1,5 +1,5 @@
 import glob from "glob";
-import { Options } from './IYargs';
+import { Options } from './CommandLineArg';
 
 /**
  * This method returns a `Set<string>` of entry files for the compiler to compile.
@@ -18,8 +18,7 @@ export function getTestEntryFiles(yargs: Options, include: string[], disclude: R
     entry: for (const entry of glob.sync(pattern)) {
       // test for discludes
       for (const test of disclude) {
-        if (test.test(entry))
-          continue entry;
+        if (test.test(entry)) continue entry;
       }
       // if the fileRegex matches the test, add it to the entry file Set
       if (fileRegex.test(entry))

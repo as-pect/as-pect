@@ -11,6 +11,7 @@ export interface ICompilerFlags {
  * `as-pect.config.js` file. An empty object should be a valid `as-pect` configuration.
  */
 export interface IConfiguration {
+    [key: string]: any;
     /**
      * A set of globs that denote files that must be used for testing.
      */
@@ -35,7 +36,7 @@ export interface IConfiguration {
     /**
      * Set the default performance measurement values.
      */
-    performance?: IPerformanceConfiguration;
+    performance?: Partial<IPerformanceConfiguration>;
     /**
      * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
      * output.

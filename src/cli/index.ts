@@ -1,8 +1,8 @@
 import path from "path";
-import { parse } from "./util/IYargs";
+import { parse } from "./util/CommandLineArg";
 import { printAsciiArt } from "./util/asciiArt";
-// import { TestRunner } from "./test/TestRunner";
 
+/** Package version is always displayed, either for version or cli ascii art. */
 const pkg = require("../../package.json");
 
 /**
