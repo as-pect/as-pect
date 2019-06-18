@@ -1,0 +1,333 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`logged values log values: logs bytes 1`] = `Array []`;
+
+exports[`logged values log values: logs bytes 2`] = `Array []`;
+
+exports[`logged values log values: logs bytes 3`] = `Array []`;
+
+exports[`logged values log values: logs bytes 4`] = `
+Array [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  240,
+  63,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  64,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  8,
+  64,
+]
+`;
+
+exports[`logged values log values: logs bytes 5`] = `Array []`;
+
+exports[`logged values log values: logs bytes 6`] = `Array []`;
+
+exports[`logged values log values: logs bytes 7`] = `Array []`;
+
+exports[`logged values log values: logs bytes 8`] = `Array []`;
+
+exports[`logged values log values: logs message 1`] = `"Hello world!"`;
+
+exports[`logged values log values: logs message 2`] = `"Value 42"`;
+
+exports[`logged values log values: logs message 3`] = `"null"`;
+
+exports[`logged values log values: logs message 4`] = `"Reference Type"`;
+
+exports[`logged values log values: logs message 5`] = `"[1,2,3]"`;
+
+exports[`logged values log values: logs message 6`] = `"Value 9999999999999"`;
+
+exports[`logged values log values: logs message 7`] = `"Value 1234567"`;
+
+exports[`logged values log values: logs message 8`] = `"Value 999999999999"`;
+
+exports[`logged values log values: logs offset 1`] = `0`;
+
+exports[`logged values log values: logs offset 2`] = `0`;
+
+exports[`logged values log values: logs offset 3`] = `0`;
+
+exports[`logged values log values: logs offset 4`] = `24`;
+
+exports[`logged values log values: logs offset 5`] = `0`;
+
+exports[`logged values log values: logs offset 6`] = `0`;
+
+exports[`logged values log values: logs offset 7`] = `0`;
+
+exports[`logged values log values: logs offset 8`] = `0`;
+
+exports[`logged values log values: logs pointer 1`] = `296`;
+
+exports[`logged values log values: logs pointer 2`] = `0`;
+
+exports[`logged values log values: logs pointer 3`] = `0`;
+
+exports[`logged values log values: logs pointer 4`] = `2160`;
+
+exports[`logged values log values: logs pointer 5`] = `0`;
+
+exports[`logged values log values: logs pointer 6`] = `0`;
+
+exports[`logged values log values: logs pointer 7`] = `0`;
+
+exports[`logged values log values: logs pointer 8`] = `0`;
+
+exports[`logged values log values: logs snapshot 1`] = `296`;
+
+exports[`logged values log values: logs snapshot 2`] = `42`;
+
+exports[`logged values log values: logs snapshot 3`] = `null`;
+
+exports[`logged values log values: logs snapshot 4`] = `2160`;
+
+exports[`logged values log values: logs snapshot 5`] = `null`;
+
+exports[`logged values log values: logs snapshot 6`] = `null`;
+
+exports[`logged values log values: logs snapshot 7`] = `1234567`;
+
+exports[`logged values log values: logs snapshot 8`] = `null`;
+
+exports[`logged values log values: logs stack 1`] = `
+"    at assembly/internal/log/log<~lib/string/String> (wasm-function[62]:41)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[79]:6)
+    at assembly/internal/Describe/describe (wasm-function[81]:16)
+    at start:assembly/jest-log (wasm-function[82]:6)
+    at start (wasm-function[93]:12)"
+`;
+
+exports[`logged values log values: logs stack 2`] = `
+"    at assembly/internal/log/log<i32> (wasm-function[64]:65)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[79]:10)
+    at assembly/internal/Describe/describe (wasm-function[81]:16)
+    at start:assembly/jest-log (wasm-function[82]:6)
+    at start (wasm-function[93]:12)"
+`;
+
+exports[`logged values log values: logs stack 3`] = `
+"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[66]:26)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[79]:14)
+    at assembly/internal/Describe/describe (wasm-function[81]:16)
+    at start:assembly/jest-log (wasm-function[82]:6)
+    at start (wasm-function[93]:12)"
+`;
+
+exports[`logged values log values: logs stack 4`] = `
+"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[66]:77)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[79]:49)
+    at assembly/internal/Describe/describe (wasm-function[81]:16)
+    at start:assembly/jest-log (wasm-function[82]:6)
+    at start (wasm-function[93]:12)"
+`;
+
+exports[`logged values log values: logs stack 5`] = `
+"    at assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[69]:28)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[79]:66)
+    at assembly/internal/Describe/describe (wasm-function[81]:16)
+    at start:assembly/jest-log (wasm-function[82]:6)
+    at start (wasm-function[93]:12)"
+`;
+
+exports[`logged values log values: logs stack 6`] = `
+"    at assembly/internal/log/log<i64> (wasm-function[71]:48)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[79]:76)
+    at assembly/internal/Describe/describe (wasm-function[81]:16)
+    at start:assembly/jest-log (wasm-function[82]:6)
+    at start (wasm-function[93]:12)"
+`;
+
+exports[`logged values log values: logs stack 7`] = `
+"    at assembly/internal/log/log<u32> (wasm-function[73]:65)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[79]:83)
+    at assembly/internal/Describe/describe (wasm-function[81]:16)
+    at start:assembly/jest-log (wasm-function[82]:6)
+    at start (wasm-function[93]:12)"
+`;
+
+exports[`logged values log values: logs stack 8`] = `
+"    at assembly/internal/log/log<u64> (wasm-function[75]:48)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[79]:92)
+    at assembly/internal/Describe/describe (wasm-function[81]:16)
+    at start:assembly/jest-log (wasm-function[82]:6)
+    at start (wasm-function[93]:12)"
+`;
+
+exports[`logged values log values: logs todo 1`] = `"one"`;
+
+exports[`logged values log values: logs todo 2`] = `"two"`;
+
+exports[`logged values log values: logs todo 3`] = `"three"`;
+
+exports[`logged values log values: logs~logs bytes 1`] = `Array []`;
+
+exports[`logged values log values: logs~logs bytes 2`] = `Array []`;
+
+exports[`logged values log values: logs~logs bytes 3`] = `Array []`;
+
+exports[`logged values log values: logs~logs bytes 4`] = `
+Array [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  240,
+  63,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  64,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  8,
+  64,
+]
+`;
+
+exports[`logged values log values: logs~logs bytes 5`] = `Array []`;
+
+exports[`logged values log values: logs~logs bytes 6`] = `Array []`;
+
+exports[`logged values log values: logs~logs bytes 7`] = `Array []`;
+
+exports[`logged values log values: logs~logs bytes 8`] = `Array []`;
+
+exports[`logged values log values: logs~logs message 1`] = `"Hello world!"`;
+
+exports[`logged values log values: logs~logs message 2`] = `"Value 42"`;
+
+exports[`logged values log values: logs~logs message 3`] = `"null"`;
+
+exports[`logged values log values: logs~logs message 4`] = `"Reference Type"`;
+
+exports[`logged values log values: logs~logs message 5`] = `"[1,2,3]"`;
+
+exports[`logged values log values: logs~logs message 6`] = `"Value 9999999999999"`;
+
+exports[`logged values log values: logs~logs message 7`] = `"Value 1234567"`;
+
+exports[`logged values log values: logs~logs message 8`] = `"Value 999999999999"`;
+
+exports[`logged values log values: logs~logs offset 1`] = `0`;
+
+exports[`logged values log values: logs~logs offset 2`] = `0`;
+
+exports[`logged values log values: logs~logs offset 3`] = `0`;
+
+exports[`logged values log values: logs~logs offset 4`] = `24`;
+
+exports[`logged values log values: logs~logs offset 5`] = `0`;
+
+exports[`logged values log values: logs~logs offset 6`] = `0`;
+
+exports[`logged values log values: logs~logs offset 7`] = `0`;
+
+exports[`logged values log values: logs~logs offset 8`] = `0`;
+
+exports[`logged values log values: logs~logs pointer 1`] = `296`;
+
+exports[`logged values log values: logs~logs pointer 2`] = `0`;
+
+exports[`logged values log values: logs~logs pointer 3`] = `0`;
+
+exports[`logged values log values: logs~logs pointer 4`] = `2160`;
+
+exports[`logged values log values: logs~logs pointer 5`] = `0`;
+
+exports[`logged values log values: logs~logs pointer 6`] = `0`;
+
+exports[`logged values log values: logs~logs pointer 7`] = `0`;
+
+exports[`logged values log values: logs~logs pointer 8`] = `0`;
+
+exports[`logged values log values: logs~logs snapshot 1`] = `296`;
+
+exports[`logged values log values: logs~logs snapshot 2`] = `42`;
+
+exports[`logged values log values: logs~logs snapshot 3`] = `null`;
+
+exports[`logged values log values: logs~logs snapshot 4`] = `2160`;
+
+exports[`logged values log values: logs~logs snapshot 5`] = `null`;
+
+exports[`logged values log values: logs~logs snapshot 6`] = `null`;
+
+exports[`logged values log values: logs~logs snapshot 7`] = `1234567`;
+
+exports[`logged values log values: logs~logs snapshot 8`] = `null`;
+
+exports[`logged values log values: logs~logs stack 1`] = `
+"    at assembly/internal/log/log<~lib/string/String> (wasm-function[62]:41)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[76]:6)
+    at assembly/internal/call/__call (wasm-function[84]:7)"
+`;
+
+exports[`logged values log values: logs~logs stack 2`] = `
+"    at assembly/internal/log/log<i32> (wasm-function[64]:65)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[76]:10)
+    at assembly/internal/call/__call (wasm-function[84]:7)"
+`;
+
+exports[`logged values log values: logs~logs stack 3`] = `
+"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[66]:26)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[76]:14)
+    at assembly/internal/call/__call (wasm-function[84]:7)"
+`;
+
+exports[`logged values log values: logs~logs stack 4`] = `
+"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[66]:77)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[76]:49)
+    at assembly/internal/call/__call (wasm-function[84]:7)"
+`;
+
+exports[`logged values log values: logs~logs stack 5`] = `
+"    at assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[69]:28)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[76]:66)
+    at assembly/internal/call/__call (wasm-function[84]:7)"
+`;
+
+exports[`logged values log values: logs~logs stack 6`] = `
+"    at assembly/internal/log/log<i64> (wasm-function[71]:48)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[76]:76)
+    at assembly/internal/call/__call (wasm-function[84]:7)"
+`;
+
+exports[`logged values log values: logs~logs stack 7`] = `
+"    at assembly/internal/log/log<u32> (wasm-function[73]:65)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[76]:83)
+    at assembly/internal/call/__call (wasm-function[84]:7)"
+`;
+
+exports[`logged values log values: logs~logs stack 8`] = `
+"    at assembly/internal/log/log<u64> (wasm-function[75]:48)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[76]:92)
+    at assembly/internal/call/__call (wasm-function[84]:7)"
+`;

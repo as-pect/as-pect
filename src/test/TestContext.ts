@@ -36,6 +36,7 @@ export class TestContext extends TestCollector {
   constructor(props?: ITestContextParameters) {
     super(props);
 
+    /* istanbul ignore next */
     if (props) {
       /* istanbul ignore next */
       if (props.reporter) this.reporter = props.reporter;
