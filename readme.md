@@ -379,8 +379,7 @@ describe("vectors", () => {
 
   // this runs after each test function, and must be placed within the describe function
   afterEach(() => {
-    memory.free(changetype<usize>(vec)); // free the vector
-    vec = null;
+    vec = null; // free the vector
   });
 
   // use `test()` or `it()` to run a test
