@@ -554,7 +554,7 @@ exports[`pass-fail pass-fail: pass-fail~should report reference values~actual of
 exports[`pass-fail pass-fail: pass-fail~should report reference values~actual pointer 1`] = `4736`;
 
 exports[`pass-fail pass-fail: pass-fail~should report reference values~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toStrictEqual (wasm-function[89]:1098)
+"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toStrictEqual (wasm-function[89]:1100)
     at start:assembly/jest-pass-fail~anonymous|0~anonymous|6 (wasm-function[90]:76)
     at assembly/internal/call/__call (wasm-function[149]:7)"
 `;
@@ -599,7 +599,7 @@ exports[`pass-fail pass-fail: pass-fail~should report reference values~expected 
 exports[`pass-fail pass-fail: pass-fail~should report reference values~expected pointer 1`] = `4816`;
 
 exports[`pass-fail pass-fail: pass-fail~should report reference values~expected stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toStrictEqual (wasm-function[89]:1220)
+"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toStrictEqual (wasm-function[89]:1222)
     at start:assembly/jest-pass-fail~anonymous|0~anonymous|6 (wasm-function[90]:76)
     at assembly/internal/call/__call (wasm-function[149]:7)"
 `;
