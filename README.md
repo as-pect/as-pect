@@ -14,6 +14,23 @@ library or app you've chosen to become responsible for works in the manner you
 wish to have it work. It only takes a few minutes to get setup even if the benefits
 are transparent.
 
+# Table of contents
+1. [Usage](#usage)
+1. [CLI](#cli)
+1. [Configuration File](#configuration-file)
+1. [Types And Tooling](#types-and-tooling)
+1. [CI Usage](#ci-usage)
+1. [AssemblyScript Compiler Options](#assemblyscript-compiler-options)
+1. [Closures](#closures)
+1. [Expectations](#expectations)
+1. [Logging](#logging)
+1. [Reporters](#reporters)
+1. [RTrace and Memory Leaks](#rtrace-and-memory-leaks)
+1. [Performance Testing](#performance-testing)
+1. [Custom Imports Using CLI](#custom-imports-using-cli)
+1. [Using as-pect as a Package](#using-as-pect-as-a-package)
+
+
 ## Usage
 
 To install `as-pect`, install the latest version from github. Once
