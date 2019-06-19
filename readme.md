@@ -43,6 +43,10 @@ C ./assembly/__tests__/example.spec.ts
 C ./as-pect.config.js
 ```
 
+If you want `asp`'s boilerplate located somehwere other than in `assembly/`,
+you can move it yourself, and update `as-pect.config.js` to point to the new
+location accordingly.
+
 To run `as-pect`, use the command line: `npx asp`, or create an npm script.
 
 ```json
@@ -358,9 +362,10 @@ free to delete the auto-generated types file in your test folder.
 
 ## Closures
 
-AssemblyScript currently does not support closure, however, you can place all
-relevant tests and setup function calls for a test suite into the corresponding
-describe block.
+AssemblyScript currently does not support closures around local scopes, only
+around global scope. However, you can place all relevant tests and setup
+function calls for a test suite into a corresponding `describe` block after
+declaring a global variable.
 
 <!-- markdownlint-disable MD013 -->
 
@@ -392,7 +397,7 @@ describe("vectors", () => {
 
 <!-- markdownlint-enable MD013 -->
 
-Nested describes are supported and the outer describe should be evaluated first.
+Nested `describe` blocks are supported and the outer describe should be evaluated first.
 
 ```ts
 describe("vector", () => {
@@ -413,14 +418,14 @@ describe("vector", () => {
 Calling the `expect<T>(value: T)` function outside of the following functions
 will result in unexpected behaior:
 
-- beforeEach()
-- afterEach()
-- beforeAll()
-- afterAll()
-- test()
-- it()
-- throws()
-- itThrows()
+- `beforeEach()`
+- `afterEach()`
+- `beforeAll()`
+- `afterAll()`
+- `test()`
+- `it()`
+- `throws()`
+- `itThrows()`
 
 If this happens, the entire test suite will fail before it runs in the CLI, and
 the error description will be reported to the console.
