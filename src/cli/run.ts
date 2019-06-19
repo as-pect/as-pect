@@ -145,17 +145,17 @@ export function run(yargs: Options, compilerArgs: string[]): void {
   console.log(chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`);
 
   // Create the test and group matchers
-  if (!configuration.testRegex) {
-    const testRegex = new RegExp(yargs.test, "i");
-    configuration.testRegex = testRegex;
-    console.log(chalk`{bgWhite.black [Log]} Running tests that match: ${testRegex.source}`);
-  }
+  
+  const testRegex = new RegExp(yargs.test, "i");
+  configuration.testRegex = testRegex;
+  console.log(chalk`{bgWhite.black [Log]} Running tests that match: ${testRegex.source}`);
 
-  if (!configuration.groupRegex) {
-    const groupRegex = new RegExp(yargs.group, "i");
-    configuration.groupRegex = groupRegex;
-    console.log(chalk`{bgWhite.black [Log]} Running groups that match: ${groupRegex.source}`);
-  }
+
+
+  const groupRegex = new RegExp(yargs.group, "i");
+  configuration.groupRegex = groupRegex;
+  console.log(chalk`{bgWhite.black [Log]} Running groups that match: ${groupRegex.source}`);
+
 
   /**
    * Check to see if the binary files should be written to the fileSystem.
