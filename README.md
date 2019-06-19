@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/jtenner/as-pect/badge.svg?branch=master)](https://coveralls.io/github/jtenner/as-pect?branch=master)
 
 Write your module in AssemblyScript and get blazing fast bootstrapped tests
-with web assembly speeds!
+with WebAssembly speeds!
 
 ## Philosophy
 
@@ -43,7 +43,7 @@ C ./assembly/__tests__/example.spec.ts
 C ./as-pect.config.js
 ```
 
-If you want `asp`'s boilerplate located somehwere other than in `assembly/`,
+If you want `asp`'s boilerplate located somewhere other than in `assembly/`,
 you can move it yourself, and update `as-pect.config.js` to point to the new
 location accordingly.
 
@@ -71,7 +71,7 @@ line, with the exception of the Web Assembly imports provided to the module.
 
 ## CLI
 
-To access the help screen, use the `--help` flag.
+To access the help screen, use the `--help` flag, which prints the following:
 
 <!-- markdownlint-disable MD013 MD031 -->
 <!--
@@ -140,78 +140,32 @@ SYNTAX
 
 ## Configuration File
 
-Currently `as-pect` will compile each file that matches the `Glob`s in the
+Currently `as-pect` will compile each file that matches the
+[`glob`](https://en.wikipedia.org/wiki/Glob_%28programming%29)'s in the
 `include` property of your configuration. The default include is
 `"assembly/__tests__/**/*.spec.ts"`. It must compile each file, and run each
-binary seperately inside it's own `TestContext`. This is a limitation of
+binary separately inside it's own `TestContext`. This is a limitation of
 AssemblyScript, not of `as-pect`.
 
-A typical configuration looks like this:
+A typical configuration is provided when you use `asp --init` and is located
+[here](blob/master/init/as-pect.config.js).
 
-<!-- markdownlint-disable MD013 -->
+## Types And Tooling
+
+The `as-pect` cli comes with a way to generate the types for all the globals
+used by the framework. Simply use the `--init` or `--types` flag. When a new
+version of `as-pect` is released, simply run the `npx asp --types` command to
+get the latest version of these function definitions. This will greatly
+increase your productivity because it comes with lots of documentation, and
+adds a lot of intellisense to your development experience.
+
+It is also possible to reference the types manually. Use the following
+reference at the top of your `assembly/index.ts` file to include these types
+in your project automatically. If you use this method for your types, feel
+free to delete the auto-generated types file in your test folder.
 
 ```ts
-module.exports = {
-  /**
-   * A set of globs passed to the glob package that qualify typescript files for testing.
-   */
-  include: ["assembly/__tests__/**/*.spec.ts"],
-  /**
-   * A set of globs passed to the glob package that quality files to be added to each test.
-   */
-  add: ["assembly/__tests__/**/*.include.ts"],
-  /**
-   * All the compiler flags needed for this test suite. Make sure that a binary file is output.
-   */
-  flags: {
-    "--validate": [],
-    "--debug": [],
-    /** This is required. Do not change this. The filename is ignored, but required by the compiler. */
-    "--binaryFile": ["output.wasm"],
-    /** To enable wat file output, use the following flag. The filename is ignored, but required by the compiler. */
-    // "--textFile": ["output.wat"],
-    /** To select an appropriate runtime, use the --runtime compiler flag. */
-    "--runtime": ["full"] // Acceptable values are: full, half, stub (arena), and none
-  },
-  /**
-   * A set of regexp that will disclude source files from testing.
-   */
-  disclude: [/node_modules/i],
-  /**
-   * Add your required AssemblyScript imports here.
-   */
-  imports: {},
-  /**
-   * All performance statistics reporting can be configured here.
-   */
-  performance: {
-    /** Enable performance statistics gathering for every test. */
-    enabled: false,
-    /** Set the maximum number of samples to run for each test. */
-    maxSamples: 10000,
-    /** Set the maximum test run time in milliseconds. */
-    maxTestRunTime: 5000,
-    /** Set the number of decimal places to round to. */
-    roundDecimalPlaces: 3,
-    /** Report the median time in the default reporter. */
-    reportMedian: true,
-    /** Report the average time in milliseconds. */
-    reportAverage: true,
-    /** Report the standard deviation. */
-    reportStandardDeviation: false,
-    /** Report the maximum run time in milliseconds. */
-    reportMax: false,
-    /** Report the minimum run time in milliseconds. */
-    reportMin: false,
-    /** Report the variance. */
-    reportVariance: false,
-  },
-  // reporter: new CustomReporter(),
-  /**
-   * Specify if the binary wasm file should be written to the file system.
-   */
-  // outputBinary: true,
-};
+/// <reference path="../node_modules/as-pect/assembly/__tests__/as-pect.d.ts" />
 ```
 
 <!-- markdownlint-enable MD013 -->
@@ -240,7 +194,17 @@ run the `asp` command line tool to use the `SummaryTestReporter` like this:
 }
 ```
 
-## Compiler Flags
+## AssemblyScript Compiler Options
+
+### `--path` CLI Argument
+
+By default `as-pect` will use node's resolver to look for an `assemblyscript`
+module.  If you want to specify a different version of the compiler, uses
+`--path ../relative/path/to/compiler/folder`.  Note that it expects the following
+to be the same `__folder__/dist/asc.js`, `__folder__/cli/util/options.js`, and
+`__folder__/lib/loader`.
+
+### Compiler flags
 
 Regardless of the installed version, all the compiler flags will be passed to
 the `asc` command line tool.
@@ -251,114 +215,7 @@ import asc from "assemblyscript/cli/asc";
 
 Inside the callback, any files that are generated, except for the `.wasm` file
 will be output using the `{testFolder}/{testName}.{ext}` format. This includes
-sourcemaps, `.wat` files, `.js` files, and types files generated by the compiler.
-
-## Reporters
-
-Reporters are the way tests get reported. When running the CLI, the
-`DefaultReporter` is used and all the values will be logged to the console. The
-test suite itself does not log out test results. If you want to use a custom
-reporter, you can create your own by extending the abstract `Reporter` class.
-
-```ts
-export abstract class Reporter {
-  public abstract onStart(suite: TestSuite): void;
-  public abstract onGroupStart(group: TestGroup): void;
-  public abstract onGroupFinish(group: TestGroup): void;
-  public abstract onTestStart(group: TestGroup, result: TestResult): void;
-  public abstract onTestFinish(group: TestGroup, result: TestResult): void;
-  public abstract onFinish(suite: TestSuite): void;
-  public abstract onTodo(group: TestGroup, todo: string): void;
-}
-```
-
-Each test suite run will use the provided reporter and call
-`onStart(suite: TestSuite)` to notify a consumer that a test has started. This
-happens once per test file. Since a file can have multiple `describe` function
-calls, these are logically placed into `TestGroup`s. Each `TestGroup` has it's
-own description and contains a list of `TestResult`s that were run.
-
-Each function is self explainatory, and you don't need to call `super()` when
-extending the Reporter class, since `Reporter` does not have one.
-
-If no reporter is provided to the configuration, one will be provided that uses
-`console.log()` and `chalk` to provide colored output.
-
-If performance is enabled, then the `times` array will be populated with the
-runtime values measured in milliseconds.
-
-## Using as-pect as a Package
-
-It's possible that running your tests requires a browser environment. Instead
-of running `as-pect` from the command line, use the `--output-binary` flag
-along with the `--norun` flag and this will cause `as-pect` to output the
-`*.spec.wasm` file. This binary can be `fetch()`ed and instantiate like the
-following example.
-
-```ts
-// browser-test.ts
-import { instantiateBuffer } from "assemblyscript/lib/loader";
-import {
-  TestContext,
-  IPerformanceConfiguration,
-  IAspectExports,
-} from "as-pect";
-
-const performanceConfiguration: IPerformanceConfiguration = {
-  // put performance configuration values here
-};
-
-// Create a TestContext
-const runner = new TestContext({
-  // reporter: new EmptyReporter(), // Use this to override default test reporting
-  performanceConfiguration,
-  // testRegex: /.*/, // Use this to run only tests that match this regex
-  // groupRegex: /.*/, // Use this to run only groups that match this regex
-  fileName: "./test.spec.wasm", // Always set the filename
-});
-
-// put your assemblyscript imports here
-const imports = runner.createImports({});
-
-// instantiate your test module here via the "assemblyscript/lib/loader" module
-const wasm = instantiateStreaming<IAspectExports>(fetch("./test.spec.wasm"), imports);
-
-runner.run(wasm); // run the tests synchronously
-
-// loop over each group and test in that group
-for (const group of runner.testGroups) {
-  for (const test of group.tests) {
-    console.log(test.name, test.pass ? "pass" : "fail");
-  }
-}
-```
-
-If you want to compile each test suite manually, it's possible to use the `asc`
-compiler yourself by including the following file in your compilation.
-
-```
-./node_modules/as-pect/assembly/index.ts
-```
-
-By default, `as-pect` always shows the generated compiler flags.
-
-## Types And Tooling
-
-The `as-pect` cli comes with a way to generate the types for all the globals
-used by the framework. Simply use the `--init` or `--types` flag. When a new
-version of `as-pect` is released, simply run the `npx asp --types` command to
-get the latest version of these function definitions. This will greatly
-increase your productivity because it comes with lots of documentation, and
-adds a lot of intellisense to your development experience.
-
-It is also possible to reference the types manually. Use the following
-reference at the top of your `assembly/index.ts` file to include these types
-in your project automatically. If you use this method for your types, feel
-free to delete the auto-generated types file in your test folder.
-
-```ts
-/// <reference path="../node_modules/as-pect/assembly/__tests__/as-pect.d.ts" />
-```
+source maps, `.wat` files, `.js` files, and types files generated by the compiler.
 
 ## Closures
 
@@ -417,7 +274,7 @@ describe("vector", () => {
 ## Expectations
 
 Calling the `expect<T>(value: T)` function outside of the following functions
-will result in unexpected behaior:
+will result in unexpected behavior:
 
 - `beforeEach()`
 - `afterEach()`
@@ -430,6 +287,62 @@ will result in unexpected behaior:
 
 If this happens, the entire test suite will fail before it runs in the CLI, and
 the error description will be reported to the console.
+
+## Logging
+
+A global `log<T>(value: T): void` function is provided by `as-pect` to help
+collect useful information about the state of your program. Simply give it
+the type you want to log, and it will append a `LogValue` item to the
+corresponding `TestResult` or `TestGroup` item the `log()` function was
+called within.
+
+```ts
+log<string>("This will log a string"); // Remember, strings are references
+log<f64>(0.4); // this logs a float value
+log<i32>(42); // this logs the meaning of life
+log<Vec3>(new Vec3(1, 2, 3)); // this logs every byte in the reference
+log<i32[]>([1, 2, 3]); // this will log an array
+```
+
+This log function does *not* pipe the output to stdout. It simply attaches the
+log value to the current group or test the `log()` function was called in. Then
+the after the test runs the configured `Reporter` decides if it is piped to
+stdout, which is what `DefaultTestReporter` does.
+
+## Reporters
+
+Reporters are the way tests get reported. When running the CLI, the
+`DefaultReporter` is used and all the values will be logged to the console. The
+test suite itself does not log out test results. If you want to use a custom
+reporter, you can create your own by extending the abstract `Reporter` class.
+
+```ts
+export abstract class Reporter {
+  public abstract onStart(suite: TestSuite): void;
+  public abstract onGroupStart(group: TestGroup): void;
+  public abstract onGroupFinish(group: TestGroup): void;
+  public abstract onTestStart(group: TestGroup, result: TestResult): void;
+  public abstract onTestFinish(group: TestGroup, result: TestResult): void;
+  public abstract onFinish(suite: TestSuite): void;
+  public abstract onTodo(group: TestGroup, todo: string): void;
+}
+```
+
+Each test suite run will use the provided reporter and call
+`onStart(suite: TestSuite)` to notify a consumer that a test has started. This
+happens once per test file. Since a file can have multiple `describe` function
+calls, these are logically placed into `TestGroup`s. Each `TestGroup` has it's
+own description and contains a list of `TestResult`s that were run.
+
+Each function is self-explanatory, and you don't need to call `super()` when
+extending the Reporter class, since `Reporter` does not have one.
+
+If no reporter is provided to the configuration, one will be provided that uses
+`console.log()` and `chalk` to provide colored output.
+
+If performance is enabled, then the `times` array will be populated with the
+runtime values measured in milliseconds.
+
 
 ## RTrace and Memory Leaks
 
@@ -680,27 +593,6 @@ afterEach(() => {
 });
 ```
 
-## Logging
-
-A global `log<T>(value: T): void` function is provided by `as-pect` to help
-collect useful information about the state of your program. Simply give it
-the type you want to log, and it will append a `LogValue` item to the
-corresponding `TestResult` or `TestGroup` item the `log()` function was
-called within.
-
-```ts
-log<string>("This will log a string"); // Remember, strings are references
-log<f64>(0.4); // this logs a float value
-log<i32>(42); // this logs the meaning of life
-log<Vec3>(new Vec3(1, 2, 3)); // this logs every byte in the reference
-log<i32[]>([1, 2, 3]); // this will log an array
-```
-
-This log function does *not* pipe the output to stdout. It simply attaches the
-log value to the current group or test the `log()` function was called in. When the
-`DefaultTestReporter` does it's job, it will pipe the collected log information to
-stdout at that point instead of immediately when the function executes.
-
 ## Performance Testing
 
 To increase performance on testing, do not use the `log()` function and reduce
@@ -847,6 +739,60 @@ instantiated.
 _**IMPORTANT**: THIS WILL IGNORE `as-pect.config.js`'S IMPORTS COMPLETELY_
 
 Please see the provided example located in `assembly/__tests__/customImports.spec.ts`.
+## Using as-pect as a Package
+
+It's possible that running your tests requires a browser environment. Instead
+of running `as-pect` from the command line, use the `--output-binary` flag
+along with the `--norun` flag and this will cause `as-pect` to output the
+`*.spec.wasm` file. This binary can be `fetch()`ed and instantiate like the
+following example.
+
+```ts
+// browser-test.ts
+import { instantiateBuffer } from "assemblyscript/lib/loader";
+import {
+  TestContext,
+  IPerformanceConfiguration,
+  IAspectExports,
+} from "as-pect";
+
+const performanceConfiguration: IPerformanceConfiguration = {
+  // put performance configuration values here
+};
+
+// Create a TestContext
+const runner = new TestContext({
+  // reporter: new EmptyReporter(), // Use this to override default test reporting
+  performanceConfiguration,
+  // testRegex: /.*/, // Use this to run only tests that match this regex
+  // groupRegex: /.*/, // Use this to run only groups that match this regex
+  fileName: "./test.spec.wasm", // Always set the filename
+});
+
+// put your assemblyscript imports here
+const imports = runner.createImports({});
+
+// instantiate your test module here via the "assemblyscript/lib/loader" module
+const wasm = instantiateStreaming<IAspectExports>(fetch("./test.spec.wasm"), imports);
+
+runner.run(wasm); // run the tests synchronously
+
+// loop over each group and test in that group
+for (const group of runner.testGroups) {
+  for (const test of group.tests) {
+    console.log(test.name, test.pass ? "pass" : "fail");
+  }
+}
+```
+
+If you want to compile each test suite manually, it's possible to use the `asc`
+compiler yourself by including the following file in your compilation.
+
+```
+./node_modules/as-pect/assembly/index.ts
+```
+
+By default, `as-pect` always shows the generated compiler flags.
 
 ## Special Thanks
 
