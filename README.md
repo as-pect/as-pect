@@ -447,15 +447,15 @@ pointer properly. Your test suite output may look like this:
 [Describe]: toHaveLength TypedArray type: Uint32Array
 
  [Success]: ✔ should assert expected length
- [Success]: ✔ when expected length should not equal the same value RTrace: +3
+ [Success]: ✔ Throws: when expected length should not equal the same value RTrace: +3
  [Success]: ✔ should verify the length is not another value
- [Success]: ✔ when the length is another expected value RTrace: +3
+ [Success]: ✔ Throws: when the length is another expected value RTrace: +3
 ```
 
 The `RTrace: +3` corresponds to an `Expectation`, a `Uint32Array`, and a single
 backing `ArrayBuffer` that was left on the heap because of the fact that the
-expectation failed. This was expected because these two tests were annotated with
-the `throws(desc, callback)` function. If perhaps you see a function that is
+expectation failed. This was expected because these two tests were annotated
+with the `throws(desc, callback)` function. If you see a function that is
 expected to `pass` and `RTrace` returns a very large value, it might be an
 indicator of a very serious memory leak, and the `DefaultTestReporter` can be
 your best friend when it comes to finding these sorts of problems.
@@ -473,7 +473,7 @@ The count method returns the current number of heap allocations.
 Example:
 
 ```ts
-const num: i32 = RTrace.count();
+const num: i32 = RTrace.count(); // The current number of allocations on the heap
 ```
 
 ### RTrace.start(label: i32)
@@ -724,7 +724,9 @@ describe("my test suite", () => {
 
 When using `performanceEnabled(true)` on a test, logs are not supported for
 that specific test. Running 10000 samples of a function that collects logs
-will result in a very large amount of memory usage and IO.
+will result in a very large amount of memory usage and IO. Calls to `log<T>()`
+will be ignored and any test with the `test.performance` property set to
+`true` will have a `test.logs` array with a length of `0`.
 
 Note that each of the performance functions must be called before the test is
 declared in the same `describe` block to override the corresponding default
