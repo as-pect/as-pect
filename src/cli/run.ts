@@ -337,6 +337,7 @@ export function run(yargs: Options, compilerArgs: string[]): void {
             .reduce((left, right) => left + right.tests.filter(e => e.pass).length, 0);
           groupCount += runner.testGroups.length;
           groupSuccessCount = runner.testGroups.reduce((left, right) => left + (right.pass ? 1 : 0), groupSuccessCount);
+          errors.push(...runner.errors);
         }
       }
 
