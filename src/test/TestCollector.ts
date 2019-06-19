@@ -57,6 +57,7 @@ export class TestCollector {
   private recordMinValue: boolean | undefined;
   private recordVariance: boolean | undefined;
 
+  // partial performance configuration
   private performanceConfiguration: Partial<IPerformanceConfiguration> = createDefaultPerformanceConfiguration();
 
   /**
@@ -81,6 +82,7 @@ export class TestCollector {
    */
   protected rtraceEnabled: boolean = true;
 
+  // This map collects the starting values for the labels created by `RTrace.start()`
   private rtraceLabels: Map<number, number> = new Map();
 
 

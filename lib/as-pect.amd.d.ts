@@ -430,13 +430,6 @@ declare module "reporter/IWriteable" {
 }
 declare module "reporter/util/createReferenceString" {
     /**
-     * This function generates a 2 digit hexadecimal string from the given number.
-     *
-     * @param {number} value - A number from [0-255].
-     * @returns {string} - The hexadecimal string representing the byte
-     */
-    export function hex(value: number): string;
-    /**
      * This function returns a string that formats the bytes into rows of 8 bytes with a space between
      * byte 4 and 5 on each row.
      *
@@ -460,12 +453,46 @@ declare module "reporter/DefaultTestReporter" {
     export class DefaultTestReporter extends TestReporter {
         protected stdout: IWritable | null;
         constructor(_options?: any);
+        /**
+         * This method reports a starting TestContext. This method can be called many times, but may
+         * be instantiated once
+         *
+         * @param {TestContext} suite - The test context being started.
+         */
         onStart(suite: TestContext): void;
+        /**
+         * This method reports a TestGroup is starting.
+         *
+         * @param {TestGroup} group - The started test group.
+         */
         onGroupStart(group: TestGroup): void;
+        /**
+         * This method reports a completed TestGroup.
+         *
+         * @param {TestGroup} group - The finished TestGroup.
+         */
         onGroupFinish(group: TestGroup): void;
+        /** This method is a stub for onTestStart(). */
         onTestStart(_group: TestGroup, _test: TestResult): void;
+        /**
+         * This method reports a completed test.
+         *
+         * @param {TestGroup} _group - The TestGroup that the TestResult belongs to.
+         * @param {TestResult} test - The finished TestResult
+         */
         onTestFinish(_group: TestGroup, test: TestResult): void;
+        /**
+         * This method reports that a TestContext has finished.
+         *
+         * @param {TestContext} suite - The finished test context.
+         */
         onFinish(suite: TestContext): void;
+        /**
+         * This method reports a todo to stdout.
+         *
+         * @param {TestGroup} _group - The test group the todo belongs to.
+         * @param {string} todo - The todo.
+         */
         onTodo(_group: TestGroup, todo: string): void;
         /**
          * A custom logger function for the default reporter that writes the log values using `console.log()`
@@ -1248,7 +1275,7 @@ declare module "reporter/CSVTestReporter" {
 declare module "reporter/EmptyReporter" {
     import { TestReporter } from "test/TestReporter";
     /**
-     * This class can be used as a blank reporter to interface with the `TestContext` in the browser.
+     * This class can be used as a stub reporter to interface with the `TestContext` in the browser.
      * It will not report any information about the tests.
      */
     export class EmptyReporter extends TestReporter {
@@ -1304,6 +1331,11 @@ declare module "reporter/SummaryTestReporter" {
         onTestFinish(): void;
         onTodo(): void;
         private stdout;
+        /**
+         * This method reports a test context is finished running.
+         *
+         * @param {TestContext} suite - The finished test suite.
+         */
         onFinish(suite: TestContext): void;
         /**
          * A custom logger function for the default reporter that writes the log values using `console.log()`

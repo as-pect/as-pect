@@ -16,6 +16,11 @@ export declare class SummaryTestReporter extends TestReporter {
     onTestFinish(): void;
     onTodo(): void;
     private stdout;
+    /**
+     * This method reports a test context is finished running.
+     *
+     * @param {TestContext} suite - The finished test suite.
+     */
     onFinish(suite: TestContext): void;
     /**
      * A custom logger function for the default reporter that writes the log values using `console.log()`

@@ -5,7 +5,6 @@ import { basename, extname, dirname, join } from "path";
 import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
 
-
 /**
  * This class reports all relevant test statistics to a JSON file located at
  * `{testLocation}.spec.json`.

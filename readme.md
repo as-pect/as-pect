@@ -4,7 +4,8 @@
 [![Build Status](https://travis-ci.org/jtenner/as-pect.svg?branch=master)](https://travis-ci.org/jtenner/as-pect)
 [![Coverage Status](https://coveralls.io/repos/github/jtenner/as-pect/badge.svg?branch=master)](https://coveralls.io/github/jtenner/as-pect?branch=master)
 
-Write your module in TypeScript and get blazing fast testing with web assembly speeds!
+Write your module in AssemblyScript and get blazing fast bootstrapped tests
+with web assembly speeds!
 
 ## Philosophy
 
@@ -52,9 +53,10 @@ To run `as-pect`, use the command line: `npx asp`, or create an npm script.
 }
 ```
 
-Run `asp` from the command line using npx without any parameters to use
-`./as-pect.config.js` as your test configuration. Otherwise, you can specify a
-configuration using the command line syntax.
+The command line defaults to using `./aspect.config.js`, otherwise you can
+specify all the configuration options using the command line interface.
+
+To change the location of the as-pect configuration, use the `--config` option.
 
 ```
 $ npx asp --config=as-pect.config.js
@@ -74,58 +76,60 @@ To access the help screen, use the `--help` flag.
 -->
 ```
 SYNTAX
-  asp --init                          Create a test config, an assembly/__tests__ folder and exit.
-  asp -i
-  asp --config=as-pect.config.js      Use a specified configuration
-  asp -c as-pect.config.js
-  asp --version                       View the version.
-  asp -v
-  asp --help                          Show this help screen.
-  asp -h
-  asp --types                         Copy the types file to assembly/__tests__/as-pect.d.ts
-  asp -t
+  asp --init                             Create a test config, an assembly/__tests__ folder and exit.
+    asp -i
+    asp --config=as-pect.config.js       Use a specified configuration
+    asp -c as-pect.config.js
+    asp --version                        View the version.
+    asp -v
+    asp --help                           Show this help screen.
+    asp -h
+    asp --types                          Copy the types file to assembly/__tests__/as-pect.d.ts
+    asp -t
+    asp --compiler                       Path to folder relative to project root which contains
+                                         folder/dist/asc for the compiler and folder/lib/loader for loader. (Default: assemblyscript)
 
-TEST OPTIONS
-  --file=[regex]                       Run the tests of each file that matches this regex. (Default: /./)
-    --files=[regex]
-    -f=[regex]
+  TEST OPTIONS
+    --file=[regex]                       Run the tests of each file that matches this regex. (Default: /./)
+      --files=[regex]
+      -f=[regex]
 
-  --group=[regex]                      Run each describe block that matches this regex (Default: /(:?)/)
-    --groups=[regex]
-    -g=[regex]
+    --group=[regex]                      Run each describe block that matches this regex (Default: /(:?)/)
+      --groups=[regex]
+      -g=[regex]
 
-  --test=[regex]                       Run each test that matches this regex (Default: /(:?)/)
-    --tests=[regex]
-    -t=[regex]
+    --test=[regex]                       Run each test that matches this regex (Default: /(:?)/)
+      --tests=[regex]
+      -t=[regex]
 
-  --output-binary                      Create a (.wasm) file can contains all the tests to be run later.
-    -o
+    --output-binary                      Create a (.wasm) file can contains all the tests to be run later.
+      -o
 
-  --norun                              Skip running tests and output the compiler files.
-    -n
+    --norun                              Skip running tests and output the compiler files.
+      -n
 
-  --nortrace                           Skip rtrace ref counting calculations.
-    -nr
+    --nortrace                           Skip rtrace reference counting calculations.
+      -nr
 
-  --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
-    --reporter=SummaryTestReporter     Use the summary reporter.
-    --reporter=DefaultTestReporter     Use the default test reporter.
-    --reporter=JSONTestReporter        Use the JSON reporter (output results to json files.)
-    --reporter=CSVTestReporter         Use the empty reporter (output results to csv files.)
-    --reporter=EmptyReporter           Use the empty reporter. (This reporter reports nothing)
-    --reporter=./path/to/reporter.js   Use the default exported object from this module as the reporter.
+    --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
+      --reporter=SummaryTestReporter     Use the summary reporter.
+      --reporter=DefaultTestReporter     Use the default test reporter.
+      --reporter=JSONTestReporter        Use the JSON reporter (output results to json files.)
+      --reporter=CSVTestReporter         Use the empty reporter (output results to csv files.)
+      --reporter=EmptyReporter           Use the empty reporter. (This reporter reports nothing)
+      --reporter=./path/to/reporter.js   Use the default exported object from this module as the reporter.
 
-PERFORMANCE OPTIONS
-  --performance                        Enable performance statistics for every test. (Default: false)
-  --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
-  --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
-  --round-decimal-places=[number]      Set the number of decimal places to round to. (Default: 3)
-  --report-median(=false)?             Enable/Disable reporting of the median time. (Default: true)
-  --report-average(=false)?            Enable/Disable reporting of the average time. (Default: true)
-  --report-standard-deviation(=false)? Enable/Disable reporting of the standard deviation. (Default: false)
-  --report-max(=false)?                Enable/Disable reporting of the largest run time. (Default: false)
-  --report-min(=false)?                Enable/Disable reporting of the smallest run time. (Default: false)
-  --report-variance(=false)?           Enable/Disable reporting of the variance. (Default: false)
+  PERFORMANCE OPTIONS
+    --performance                        Enable performance statistics for {bold every} test. (Default: false)
+    --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
+    --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
+    --round-decimal-places=[number]      Set the number of decimal places to round to. (Default: 3)
+    --report-median(=false)?             Enable/Disable reporting of the median time. (Default: true)
+    --report-average(=false)?            Enable/Disable reporting of the average time. (Default: true)
+    --report-standard-deviation(=false)? Enable/Disable reporting of the standard deviation. (Default: false)
+    --report-max(=false)?                Enable/Disable reporting of the largest run time. (Default: false)
+    --report-min(=false)?                Enable/Disable reporting of the smallest run time. (Default: false)
+    --report-variance(=false)?           Enable/Disable reporting of the variance. (Default: false)
 ```
 
 <!-- markdownlint-enable MD013 MD031 -->
@@ -202,7 +206,7 @@ module.exports = {
   /**
    * Specify if the binary wasm file should be written to the file system.
    */
-  outputBinary: false,
+  // outputBinary: true,
 };
 ```
 
@@ -210,10 +214,8 @@ module.exports = {
 
 ## CI Usage
 
-If your module requires a set of imported functions, it's encouarged to mock
-them here in the `imports` property of the configuration. If any module fails
-during compilation, the utility will exit immediately with code 1 so it can be
-used for quicker ci builds.
+If any module fails during compilation, the utility will exit immediately with
+code 1 so it can be used for quicker ci builds.
 
 Adding this line to your `.travis.yml` will allow you to specify a custom
 script to your CI build.
@@ -252,7 +254,7 @@ sourcemaps, `.wat` files, `.js` files, and types files generated by the compiler
 Reporters are the way tests get reported. When running the CLI, the
 `DefaultReporter` is used and all the values will be logged to the console. The
 test suite itself does not log out test results. If you want to use a custom
-reporter, you can create your own by extending the abstract reporter class.
+reporter, you can create your own by extending the abstract `Reporter` class.
 
 ```ts
 export abstract class Reporter {
@@ -283,11 +285,11 @@ runtime values measured in milliseconds.
 
 ## Using as-pect as a Package
 
-When writing your tests, it's possible that running your tests requires a
-browser environment. Instead of running `as-pect` from the command line,
-instead, use the `--output-binary` flag along with `--norun` and this will
-cause `as-pect` to output the `*.spec.wasm` file. This binary can be
-`fetch()`ed and instantiate like the following example.
+It's possible that running your tests requires a browser environment. Instead
+of running `as-pect` from the command line, use the `--output-binary` flag
+along with the `--norun` flag and this will cause `as-pect` to output the
+`*.spec.wasm` file. This binary can be `fetch()`ed and instantiate like the
+following example.
 
 ```ts
 // browser-test.ts
@@ -310,14 +312,13 @@ const runner = new TestContext({
   // groupRegex: /.*/, // Use this to run only groups that match this regex
   fileName: "./test.spec.wasm", // Always set the filename
 });
-const imports = runner.createImports({
-  // put your assemblyscript imports here
-});
+
+// put your assemblyscript imports here
+const imports = runner.createImports({});
 
 // instantiate your test module here via the "assemblyscript/lib/loader" module
 const wasm = instantiateStreaming<IAspectExports>(fetch("./test.spec.wasm"), imports);
 
-//don't forget the `IAspectExports` interface for the `runner.run()` function
 runner.run(wasm); // run the tests synchronously
 
 // loop over each group and test in that group
@@ -335,14 +336,16 @@ compiler yourself by including the following file in your compilation.
 ./node_modules/as-pect/assembly/index.ts
 ```
 
+By default, `as-pect` always shows the generated compiler flags.
+
 ## Types And Tooling
 
 The `as-pect` cli comes with a way to generate the types for all the globals
 used by the framework. Simply use the `--init` or `--types` flag. When a new
-version of `as-pect` is released, simply run the `npx asp --types` flag to get
-the latest version of these function definitions. This will greatly increase
-your productivity because it comes with lots of documentation, and adds a lot
-of intellisense to your development experience.
+version of `as-pect` is released, simply run the `npx asp --types` command to
+get the latest version of these function definitions. This will greatly
+increase your productivity because it comes with lots of documentation, and
+adds a lot of intellisense to your development experience.
 
 It is also possible to reference the types manually. Use the following
 reference at the top of your `assembly/index.ts` file to include these types
@@ -362,6 +365,8 @@ describe block.
 <!-- markdownlint-disable MD013 -->
 
 ```ts
+import { Vec3 } from "./setup/Vec3";
+
 // setup a global vector reference
 var vec: Vec3;
 

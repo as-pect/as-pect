@@ -1,16 +1,3 @@
-
-/**
- * This function generates a 2 digit hexadecimal string from the given number.
- *
- * @param {number} value - A number from [0-255].
- * @returns {string} - The hexadecimal string representing the byte
- */
-export function hex(value: number): string {
-  var result: string = value.toString(16);
-  if (result.length === 1) return "0" + result;
-  return result;
-}
-
 /**
  * This function returns a string that formats the bytes into rows of 8 bytes with a space between
  * byte 4 and 5 on each row.
@@ -29,8 +16,8 @@ export function createReferenceString(bytes: number[], pointer: number, offset: 
 
   // for each byte
   for (let i = 0; i < offset; i++) {
-    // append a byte and an empty space
-    result += hex(bytes[i]) + " ";
+    // append a byte of string length 2 and an empty space
+    result += bytes[i].toString(16).padStart(2, "0") + " ";
     if (i % 8 === 7) {
       // every 8 characters add a newline
       result += "\n";
