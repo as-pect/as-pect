@@ -397,7 +397,8 @@ describe("vectors", () => {
 
 <!-- markdownlint-enable MD013 -->
 
-Nested `describe` blocks are supported and the outer describe should be evaluated first.
+Nested `describe` blocks are supported and the outer describe should be
+evaluated first.
 
 ```ts
 describe("vector", () => {

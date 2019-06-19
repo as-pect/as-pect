@@ -332,12 +332,14 @@ export function run(yargs: Options, compilerArgs: string[]): void {
         } else {
           // call run buffer because it's already compiled
           runner.run(wasm);
-          testCount += runner.testGroups.reduce((left, right) => left + right.tests.length, 0);
+          testCount += runner.testGroups
+            .reduce((left, right) => left + right.tests.length, 0);
           successCount += runner.testGroups
             .reduce((left, right) => left + right.tests.filter(e => e.pass).length, 0);
           groupCount += runner.testGroups.length;
-          groupSuccessCount = runner.testGroups.reduce((left, right) => left + (right.pass ? 1 : 0), groupSuccessCount);
-          errors.push(...runner.errors);
+          groupSuccessCount = runner.testGroups
+            .reduce((left, right) => left + (right.pass ? 1 : 0), groupSuccessCount);
+          errors.push(...runner.errors); // if there are any runtime allocation errors add them
         }
       }
 
