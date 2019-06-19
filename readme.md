@@ -410,9 +410,20 @@ describe("vector", () => {
 
 ## Expectations
 
-Calling the `expect<T>(value: T)` function outside of a test function or a setup
-function will cause unexpected behavior. If this happens, the test suite will
-fail before it runs in the CLI, and the `Error` will be reported to the console.
+Calling the `expect<T>(value: T)` function outside of the following functions
+will result in unexpected behaior:
+
+- beforeEach()
+- afterEach()
+- beforeAll()
+- afterAll()
+- test()
+- it()
+- throws()
+- itThrows()
+
+If this happens, the entire test suite will fail before it runs in the CLI, and
+the error description will be reported to the console.
 
 ## RTrace and Memory Leaks
 
