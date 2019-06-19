@@ -765,7 +765,7 @@ reportAverage(true); // false will disable reporting of the mean
 it("should report the average", () => {});
 ```
 
-To force reporting of the variance in the runTime sample, use the `reportVariance`
+To force reporting of the variance of the runtimes, use the `reportVariance`
 function.
 
 ```ts
@@ -773,9 +773,9 @@ reportVariance(true); // false will disable reporting of the variance
 it("should report the variance deviation", () => {});
 ```
 
-To force reporting of the standard deviation of the runTime sample, use the
+To force reporting of the standard deviation of the runtimes, use the
 `reportStdDev` function. This method implies the use of a variance calculation,
-and will auto-include it in the test result.
+and will be auto-included in the test result.
 
 ```ts
 reportStdDev(true); // false will disable reporting of the standard deviation
