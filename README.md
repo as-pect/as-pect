@@ -14,7 +14,8 @@ library or app you've chosen to become responsible for works in the manner you
 wish to have it work. It only takes a few minutes to get setup even if the benefits
 are transparent.
 
-# Table of contents
+## Table of contents
+
 1. [Usage](#usage)
 1. [CLI](#cli)
 1. [Configuration File](#configuration-file)
@@ -29,7 +30,6 @@ are transparent.
 1. [Performance Testing](#performance-testing)
 1. [Custom Imports Using CLI](#custom-imports-using-cli)
 1. [Using as-pect as a Package](#using-as-pect-as-a-package)
-
 
 ## Usage
 
@@ -359,7 +359,6 @@ If no reporter is provided to the configuration, one will be provided that uses
 
 If performance is enabled, then the `times` array will be populated with the
 runtime values measured in milliseconds.
-
 
 ## RTrace and Memory Leaks
 
@@ -756,6 +755,7 @@ instantiated.
 _**IMPORTANT**: THIS WILL IGNORE `as-pect.config.js`'S IMPORTS COMPLETELY_
 
 Please see the provided example located in `assembly/__tests__/customImports.spec.ts`.
+
 ## Using as-pect as a Package
 
 It's possible that running your tests requires a browser environment. Instead
