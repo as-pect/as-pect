@@ -158,7 +158,7 @@ SYNTAX
 ## Configuration File
 
 Currently `as-pect` will compile each file that matches the
-[`glob`](https://en.wikipedia.org/wiki/Glob_%28programming%29)'s in the
+[`glob`](https://en.wikipedia.org/wiki/Glob_%28programming%29)s in the
 `include` property of your configuration. The default include is
 `"assembly/__tests__/**/*.spec.ts"`. It must compile each file, and run each
 binary separately inside it's own `TestContext`. This is a limitation of
