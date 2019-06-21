@@ -1,1 +1,0 @@
-{"version":3,"file":"round.js","sourceRoot":"","sources":["../../src/math/round.ts"],"names":[],"mappings":";;;;;;;;;;;IAAA,SAAgB,KAAK,CAAC,KAAa,EAAE,MAAc;QACjD,IAAI,MAAM,GAAG,IAAI,CAAC,GAAG,CAAC,EAAE,EAAE,MAAM,CAAC,CAAC;QAClC,OAAO,IAAI,CAAC,KAAK,CAAC,KAAK,GAAG,MAAM,CAAC,GAAG,MAAM,CAAC;IAC7C,CAAC;IAHD,sBAGC"}

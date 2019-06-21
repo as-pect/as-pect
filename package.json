@@ -3,7 +3,7 @@
   "version": "1.3.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
-  "types": "./assembly/__tests__/as-pect.d.ts",
+  "types": "lib/as-pect.amd.d.ts",
   "scripts": {
     "test": "run-s tsc asp jest mdlint",
     "test:ci": "run-s asp:ci jest mdlint",
@@ -15,7 +15,7 @@
     "tsc": "run-s rimraf tsc:all",
     "tsc:all": "run-p tsc:default tsc:amd",
     "tsc:default": "tsc",
-    "tsc:amd": "tsc --outfile lib/as-pect.amd.js --module amd",
+    "tsc:amd": "tsc --outfile lib/as-pect.amd.js --module amd --declaration --declarationMap",
     "gh-pages": "git subtree push --prefix lib origin gh-pages",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
