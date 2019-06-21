@@ -213,11 +213,11 @@ run the `asp` command line tool to use the `SummaryTestReporter` like this:
 
 ## AssemblyScript Compiler Options
 
-### `--path` CLI Argument
+### `--compiler` CLI Argument
 
 By default `as-pect` will use node's resolver to look for an `assemblyscript`
-module.  If you want to specify a different version of the compiler, uses
-`--path ../relative/path/to/compiler/folder`.  Note that it expects the following
+module.  If you want to specify a different version of the compiler, use
+`--compiler ../relative/path/to/compiler/folder`.  Note that it expects the following
 to be the same `__folder__/dist/asc.js`, `__folder__/cli/util/options.js`, and
 `__folder__/lib/loader.js`.
 
