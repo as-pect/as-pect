@@ -1,10 +1,12 @@
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { ILogTarget } from "../util/ILogTarget";
-// @ts-ignore: the variance function exists, and is being deprecated in the `var` form
-import { mean, median, variance, round } from "mathjs";
 import { PerformanceLimits } from "./PerformanceLimits";
 import { IWarning } from "./IWarning";
+import { mean } from "../math/mean";
+import { round } from "../math/round";
+import { median } from "../math/median";
+import { variance } from "../math/variance";
 
 /**
  * This is the data class that contains all the data about each `test()` or `it()` function defined
@@ -91,7 +93,7 @@ export class TestResult implements ILogTarget {
    */
   public calculateAverage(): void {
     this.hasAverage = true;
-    this.average = Math.round(1000 * mean(this.times)) / 1000;
+    this.average = round(mean(this.times), this.decimalPlaces);
   }
 
   /**
@@ -107,7 +109,7 @@ export class TestResult implements ILogTarget {
    */
   public calculateMedian(): void {
     this.hasMedian = true;
-    this.median = round(median(this.times), this.decimalPlaces) as number;
+    this.median = round(median(this.times), this.decimalPlaces);
   }
 
   /**
@@ -126,7 +128,7 @@ export class TestResult implements ILogTarget {
       this.calculateVariance();
     }
     this.hasStdDev = true;
-    this.stdDev = round(Math.sqrt(this.rawVariance), this.decimalPlaces) as number;
+    this.stdDev = round(Math.sqrt(this.rawVariance), this.decimalPlaces);
   }
 
   /**
@@ -135,8 +137,8 @@ export class TestResult implements ILogTarget {
   public calculateVariance(): void {
     if (this.hasVariance) return;
     this.hasVariance = true;
-    this.rawVariance = variance(this.times, "biased");
-    this.variance = round(this.rawVariance, this.decimalPlaces) as number;
+    this.rawVariance = variance(this.times); // biased calculation
+    this.variance = round(this.rawVariance, this.decimalPlaces);
   }
 
 

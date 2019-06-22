@@ -1,4 +1,3 @@
-import { ASUtil } from "assemblyscript/lib/loader";
 import { IAspectExports } from "../util/IAspectExports";
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
@@ -15,7 +14,7 @@ import Long from "long";
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
 export interface ITestCollectorParameters {
-  performanceConfiguration?: IPerformanceConfiguration;
+  performanceConfiguration?: Partial<IPerformanceConfiguration>;
   testRegex?: RegExp;
   groupRegex?: RegExp;
   fileName?: string;
@@ -26,7 +25,7 @@ export interface ITestCollectorParameters {
  * This class is responsible for collecting all the tests in a test binary.
  */
 export class TestCollector {
-  protected wasm: (ASUtil & IAspectExports) | null = null;
+  protected wasm: IAspectExports | null = null;
 
   // test group values
   private groupStack: TestGroup[] = [new TestGroup()];
@@ -58,7 +57,8 @@ export class TestCollector {
   private recordMinValue: boolean | undefined;
   private recordVariance: boolean | undefined;
 
-  private performanceConfiguration: IPerformanceConfiguration = createDefaultPerformanceConfiguration();
+  // partial performance configuration
+  private performanceConfiguration: Partial<IPerformanceConfiguration> = createDefaultPerformanceConfiguration();
 
   /**
    * This value is used to detect if an `expect()` function call was used outside of a test
@@ -82,10 +82,12 @@ export class TestCollector {
    */
   protected rtraceEnabled: boolean = true;
 
+  // This map collects the starting values for the labels created by `RTrace.start()`
   private rtraceLabels: Map<number, number> = new Map();
 
 
   constructor(props?: ITestCollectorParameters) {
+    /* istanbul ignore next */
     if (props) {
       /* istanbul ignore next */
       if (props.fileName) this.fileName = props.fileName;
@@ -285,7 +287,9 @@ export class TestCollector {
    * returns 0.
    */
   protected tryCall(pointer: number): 1 | 0 {
-    if (pointer === -1) return 1;
+    /** This is a safety net conditional, no reason to test it. */
+    /* istanbul ignore next */
+    if (pointer < 0) return 1;
 
     try {
       this.wasm!.__call(pointer)
@@ -361,7 +365,7 @@ export class TestCollector {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.message = this.wasm!.__getString(pointer);
+    value.message = this.getString(pointer, "");
     value.offset = 0;
     value.pointer = pointer;
     value.stack = this.getLogStackTrace();
@@ -426,7 +430,7 @@ export class TestCollector {
   private reportDescribe(suiteNamePointer: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     const nextGroup = group.fork();
-    nextGroup.name = group.name + this.wasm!.__getString(suiteNamePointer);
+    nextGroup.name = group.name + this.getString(suiteNamePointer, "No describe() name provided.");
     nextGroup.willRun = this.groupRegex.test(nextGroup.name);
     this.groupStack.push(nextGroup);
     this.logTarget = nextGroup;
@@ -460,7 +464,7 @@ export class TestCollector {
    * @param {number} callbackPointer - The callback that should run before each test.
    */
   private reportBeforeEach(callbackPointer: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];;
+    var group = this.groupStack[this.groupStack.length - 1];
     group.beforeEachPointers.push(callbackPointer);
   }
 
@@ -472,7 +476,7 @@ export class TestCollector {
    * current context.
    */
   private reportBeforeAll(callbackPointer: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];;
+    var group = this.groupStack[this.groupStack.length - 1];
     group.beforeAllPointers.push(callbackPointer);
   }
 
@@ -482,7 +486,7 @@ export class TestCollector {
    * @param {number} callbackPointer - The callback that should run before each test group.
    */
   private reportAfterEach(callbackPointer: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];;
+    var group = this.groupStack[this.groupStack.length - 1];
     group.afterEachPointers.push(callbackPointer);
   }
 
@@ -494,7 +498,7 @@ export class TestCollector {
    * current context.
    */
   private reportAfterAll(callbackPointer: number): void {
-    var group = this.groupStack[this.groupStack.length - 1];;
+    var group = this.groupStack[this.groupStack.length - 1];
     group.afterAllPointers.push(callbackPointer);
   }
 
@@ -511,7 +515,7 @@ export class TestCollector {
   private reportTest(testNamePointer: number, callback: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     if (!group.willRun) return;
-    const name = this.wasm!.__getString(testNamePointer);
+    const name = this.getString(testNamePointer, "No test() name provided.");
     if (!this.testRegex.test(name)) return;
 
     const test = new TestResult();
@@ -560,14 +564,14 @@ export class TestCollector {
   private reportNegatedTest(testNamePointer: number, callback: number, message: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     if (!group.willRun) return;
-    const name = this.wasm!.__getString(testNamePointer);
+    const name = this.getString(testNamePointer, "No test() name provided.");
     if (!this.testRegex.test(name)) return;
 
     const test = new TestResult();
 
     test.functionPointer = callback;
     test.name = `Throws: ${name}`;
-    test.message = this.wasm!.__getString(message);
+    test.message = this.getString(message, "");
     test.negated = true;
     test.performance = this.performanceEnabledValue || false;
     /* istanbul ignore next */
@@ -611,7 +615,7 @@ export class TestCollector {
    */
   private reportTodo(todoPointer: number): void {
     var group = this.groupStack[this.groupStack.length - 1];
-    group.todos.push(this.wasm!.__getString(todoPointer));
+    group.todos.push(this.getString(todoPointer, "No todo() value provided."));
   }
 
   /**
@@ -804,7 +808,7 @@ export class TestCollector {
    */
   private reportActualString(stringPointer: number, stackTrace: number): void {
     const value = new ActualValue();
-    value.message = this.wasm!.__getString(stringPointer);
+    value.message = this.getString(stringPointer, "Null actual string.");
     value.pointer = stringPointer;
     value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
@@ -820,7 +824,7 @@ export class TestCollector {
    */
   private reportExpectedString(stringPointer: number, negated: 1 | 0, stackTrace: number): void {
     const value = new ActualValue();
-    value.message = this.wasm!.__getString(stringPointer);
+    value.message = this.getString(stringPointer, "Null expected string.");
     value.pointer = stringPointer;
     value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
@@ -840,7 +844,7 @@ export class TestCollector {
    * @param {number} _col - The column that reported the error. (Ignored)
    */
   private abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void {
-    this.message = this.wasm!.__getString(reasonPointer);
+    this.message = this.getString(reasonPointer, "No assertion message provided.");
   }
 
   /**
@@ -1432,5 +1436,13 @@ export class TestCollector {
     this.stackID += 1;
     this.stackTraces.set(id, this.getLogStackTrace());
     return id;
+  }
+
+  /**
+   * Gets a string from the wasm module, unless the module string is null. Otherwise it returns
+   * a default value.
+   */
+  private getString(pointer: number, defaultValue: string): string {
+    return pointer === 0 ? defaultValue : this.wasm!.__getString(pointer);
   }
 }

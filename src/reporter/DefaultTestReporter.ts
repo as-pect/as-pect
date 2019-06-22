@@ -55,9 +55,21 @@ export class DefaultTestReporter extends TestReporter {
     super();
   }
 
+  /**
+   * This method reports a starting TestContext. This method can be called many times, but may
+   * be instantiated once
+   *
+   * @param {TestContext} suite - The test context being started.
+   */
   public onStart(suite: TestContext): void {
     this.stdout = suite.stdout || process.stdout;
   }
+
+  /**
+   * This method reports a TestGroup is starting.
+   *
+   * @param {TestGroup} group - The started test group.
+   */
   public onGroupStart(group: TestGroup): void {
     this.stdout!.write(chalk`\n[Describe]: ${group.name}\n\n`);
 
@@ -65,8 +77,13 @@ export class DefaultTestReporter extends TestReporter {
       this.onLog(logValue);
     }
     groupLogIndex.set(group, group.logs.length);
-
   }
+
+  /**
+   * This method reports a completed TestGroup.
+   *
+   * @param {TestGroup} group - The finished TestGroup.
+   */
   public onGroupFinish(group: TestGroup): void {
     const result = group.pass
       ? chalk`{green ✔ PASS}`
@@ -95,7 +112,16 @@ export class DefaultTestReporter extends TestReporter {
 `;
     this.stdout!.write(output);
   }
+
+  /** This method is a stub for onTestStart(). */
   public onTestStart(_group: TestGroup, _test: TestResult): void {}
+
+  /**
+   * This method reports a completed test.
+   *
+   * @param {TestGroup} _group - The TestGroup that the TestResult belongs to.
+   * @param {TestResult} test - The finished TestResult
+   */
   public onTestFinish(_group: TestGroup, test: TestResult): void {
     if (test.pass) {
       const rtraceDelta = test.rtraceDelta === 0
@@ -120,10 +146,10 @@ export class DefaultTestReporter extends TestReporter {
       }
     }
 
+    /** If performance mode was enabled for this test, report the statistics. */
     if (test.performance) {
       this.stdout!.write(chalk` {yellow [Samples]}: ${test.times.length.toString()} runs\n`);
 
-      // log statistics
       if (test.hasAverage) {
         this.stdout!.write(chalk`    {yellow [Mean]}: ${test.average.toString()}ms\n`);
       }
@@ -148,12 +174,18 @@ export class DefaultTestReporter extends TestReporter {
         this.stdout!.write(chalk`     {yellow [Min]}: ${test.min.toString()}ms\n`);
       }
     } else {
-      // log the log values
+      /** Log the values to stdout if this was a typical test. */
       for (const logValue of test.logs) {
         this.onLog(logValue);
       }
     }
   }
+
+  /**
+   * This method reports that a TestContext has finished.
+   *
+   * @param {TestContext} suite - The finished test context.
+   */
   public onFinish(suite: TestContext): void {
     if (suite.testGroups.length === 0) return;
 
@@ -200,6 +232,13 @@ ${"~".repeat(process.stdout.columns! - 10)}
 `);
 
   }
+
+  /**
+   * This method reports a todo to stdout.
+   *
+   * @param {TestGroup} _group - The test group the todo belongs to.
+   * @param {string} todo - The todo.
+   */
   public onTodo(_group: TestGroup, todo: string): void {
     this.stdout!.write(chalk`    {yellow [Todo]:} ${todo}\n`);
   }

@@ -1,4 +1,3 @@
-import { ASUtil } from "assemblyscript/lib/loader";
 import { TestGroup } from "./TestGroup";
 import { TestReporter } from "./TestReporter";
 import { TestResult } from "./TestResult";
@@ -36,6 +35,7 @@ export class TestContext extends TestCollector {
   constructor(props?: ITestContextParameters) {
     super(props);
 
+    /* istanbul ignore next */
     if (props) {
       /* istanbul ignore next */
       if (props.reporter) this.reporter = props.reporter;
@@ -49,7 +49,7 @@ export class TestContext extends TestCollector {
   /**
    * Run the tests on the wasm module.
    */
-  public run(wasm: ASUtil & IAspectExports): void {
+  public run(wasm: IAspectExports): void {
     // set wasm immediately
     this.wasm = wasm;
 
@@ -314,6 +314,8 @@ export class TestContext extends TestCollector {
    * @param {TestResult} result - The current test result.
    */
   private runAfterEach(group: TestGroup, result: TestResult): void {
+    if (group.parent) this.runAfterEach(group.parent, result);
+
     // for each afterEach callback function pointer
     for (const afterEachCallback of group.afterEachPointers) {
       const afterEachResult = this.tryCall(afterEachCallback);
@@ -342,6 +344,8 @@ export class TestContext extends TestCollector {
    * @param {TestResult} result - The current test result.
    */
   private runBeforeEach(group: TestGroup, result: TestResult): void {
+    if (group.parent) this.runBeforeEach(group.parent, result);
+
     // for each beforeEach callback function pointer
     for (const beforeEachCallback of group.beforeEachPointers) {
       const beforeEachResult = this.tryCall(beforeEachCallback);
@@ -368,6 +372,8 @@ export class TestContext extends TestCollector {
    * @param {TestGroup} group - The current test group.
    */
   private runAfterAll(group: TestGroup): void {
+    if (group.parent) this.runAfterAll(group.parent);
+
     for (const afterAllCallback of group.afterAllPointers) {
       // call each afterAll callback
       const afterAllResult = this.tryCall(afterAllCallback);
@@ -392,6 +398,8 @@ export class TestContext extends TestCollector {
    * @param {TestGroup} group - The current test group.
    */
   private runBeforeAll(group: TestGroup): void {
+    if (group.parent) this.runBeforeAll(group.parent);
+
     for (const beforeAllCallback of group.beforeAllPointers) {
       // call each beforeAll callback
       const beforeAllResult = this.tryCall(beforeAllCallback);

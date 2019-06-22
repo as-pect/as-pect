@@ -5,6 +5,7 @@ let t: TestResult;
 describe("TestResult", (): void => {
   beforeEach((): void => {
     t = new TestResult();
+    t.performance = true;
     for (let i = 0; i < 1000; i++) {
       t.times.push(i);
     }

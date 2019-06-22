@@ -6,7 +6,25 @@ import { basename, extname, dirname, join } from "path";
 import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
 
-const columns = ["Group", "Name", "Ran", "Pass", "Runtime", "Message", "Actual", "Expected", "Average", "Mean", "Max", "Min", "StdDev", "Variance"];
+/**
+ * This is a list of all the columns in the exported csv file.
+ */
+const csvColumns = [
+  "Group",
+  "Name",
+  "Ran",
+  "Pass",
+  "Runtime",
+  "Message",
+  "Actual",
+  "Expected",
+  "Average",
+  "Mean",
+  "Max",
+  "Min",
+  "StdDev",
+  "Variance",
+];
 
 /**
  * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
@@ -21,7 +39,7 @@ export class CSVTestReporter extends TestReporter {
   }
 
   public onStart(suite: TestContext): void {
-    this.output = stringify({ columns });
+    this.output = stringify({ columns: csvColumns });
     const extension = extname(suite.fileName);
     const dir = dirname(suite.fileName);
     const base = basename(suite.fileName, extension);
@@ -33,7 +51,7 @@ export class CSVTestReporter extends TestReporter {
     this.fileName = createWriteStream(outPath, "utf8");
     this.output.pipe(this.fileName);
 
-    this.output.write(columns);
+    this.output.write(csvColumns);
   }
 
   public onGroupStart(): void {}

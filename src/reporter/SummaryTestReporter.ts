@@ -31,21 +31,31 @@ export class SummaryTestReporter extends TestReporter {
 
   private stdout: IWritable | null = null;
 
+  /**
+   * This method reports a test context is finished running.
+   *
+   * @param {TestContext} suite - The finished test suite.
+   */
   public onFinish(suite: TestContext): void {
     this.stdout = suite.stdout;
 
-    const tests: TestResult[] = ([] as TestResult[]).concat(...suite.testGroups.map(e => e.tests));
+    // TODO: Figure out a better way to flatten this array.
+    const tests: TestResult[] = ([] as TestResult[])
+      .concat(...suite.testGroups.map(e => e.tests));
     const todos = ([] as string[])
       .concat(...suite.testGroups.map(e => e.todos)).length;
     const total = tests.length;
     const passCount = tests.reduce((left, right) => right.pass ? left + 1 : left, 0);
-    const groupPassCount = suite.testGroups.reduce((num: number, group: TestGroup) => (group.pass ? 1 : 0) + num, 0);
+    const groupPassCount = suite.testGroups
+      .reduce((num: number, group: TestGroup) => (group.pass ? 1 : 0) + num, 0);
 
+    /** Report if all the groups passed. */
     if (passCount === total && suite.testGroups.length === groupPassCount) {
       suite.stdout!.write(
         chalk`{green.bold ✔ ${suite.fileName}} Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
       );
 
+      /** If logging is enabled, log all the values. */
       if (this.enableLogging) {
         for (const group of suite.testGroups) {
           for (const log of group.logs) {
@@ -64,17 +74,21 @@ export class SummaryTestReporter extends TestReporter {
         chalk`{red.bold ❌ ${suite.fileName}} Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${suite.time.toString()}ms\n`,
       );
 
+      /** If the group failed, report that the group failed. */
       for (const group of suite.testGroups) {
         if (group.pass) continue;
-        suite.stdout!.write(chalk`  ${group.name}\n`);
+        suite.stdout!.write(chalk`  {red Failed:} ${group.name}\n`);
 
-        if (group.reason) suite.stdout!.write(chalk`  {yellow Reason:} ${group.reason}`);
+        /** Display the reason if there is one. */
+        if (group.reason) suite.stdout!.write(chalk`    {yellow Reason:} ${group.reason}`);
 
+        /** Log each log item in the failed group. */
         if (this.enableLogging) {
           for (const log of group.logs) {
             this.onLog(log);
           }
         }
+
         inner:
         for (const test of group.tests) {
           if (test.pass) continue inner;
