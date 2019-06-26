@@ -1,5 +1,3 @@
-const { SummaryTestReporter } = require("./lib/reporter/SummaryTestReporter");
-
 module.exports = {
   /**
    * A set of globs passed to the glob package that qualify typescript files for testing.

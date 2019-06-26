@@ -1,7 +1,7 @@
 import { IPerformanceConfiguration } from "../../util/IPerformanceConfiguration";
 import { toCamelCase } from "./strings";
 
-export type argType = "b" | "s" | "S" | "I" | "i" | "F" | "f";
+export type argType = "b" | "bs" |  "s" | "S" | "I" | "i" | "F" | "f";
 
 export type ArgValue = string | number | boolean | string[] | number;
 
@@ -34,6 +34,10 @@ export interface Options {
   reporter: string;
   performance: IPerformanceConfiguration;
   compiler: string;
+  csv: string | boolean;
+  json: string | boolean;
+  verbose: string | boolean;
+  summary: string | boolean;
   /** Tracks changes made by the cli options */
   changed: Set<string>;
 }
@@ -57,6 +61,8 @@ export class CommandLineArg implements ICommandLineArg {
   parse(data: string): ArgValue {
     switch (this.type) {
       case "s":
+        return data;
+      case "bs":
         return data;
       case "S":
         return data.split(",")
@@ -86,30 +92,35 @@ const _Args: CommandLineArgs = {
     alias: { name: "i" },
     value: false,
   },
+
   config: {
     description: "Use a specified configuration",
     type: "s",
     alias: { name: "c" },
     value: "as-pect.config.js",
   },
+
   version: {
     description: "View the version.",
     type: "b",
     alias: { name: "v" },
     value: false,
   },
+
   help: {
     description: "Show this help screen.",
     type: "b",
     alias: { name: "h" },
     value: false,
   },
+
   types: {
     description: "Copy the types file to assembly/__tests__/as-pect.d.ts",
     type: "b",
     alias: { name: "t" },
     value: false,
   },
+
   file: {
     description: "Run the tests of each file that matches this regex.",
     type: "s",
@@ -155,70 +166,75 @@ const _Args: CommandLineArgs = {
   reporter: {
     description: "Define the reporter to be used.",
     type: "s",
-    value: "DefaultTestReporter",
+    value: "",
     options: [
-      ["SummaryTestReporter", "Use the summary reporter."],
-      ["DefaultTestReporter", "Use the default test reporter."],
-      ["JSONTestReporter", "Use the JSON reporter (output results to json files.)"],
-      ["CSVTestReporter", "Use the empty reporter (output results to csv files.)"],
-      ["EmptyReporter", "Use the empty reporter. This reporter reports nothing)"],
-      ["./path/to/reporter.js", "Use the default exported object from this module as the reporter."],
+      ["./path/to/reporter.js?queryString", "Use the default exported object from this module as the reporter."],
     ],
   },
+
   performance: {
     description: "Enable performance statistics for {bold every} test.",
     type: "b",
     value: false,
     parent: "performance",
   },
+
   "max-samples": {
     description: "Set the maximum number of samples to run for each test.",
     type: "i",
     value: 10000,
     parent: "performance",
   },
+
   "max-test-run-time": {
     description: "Set the maximum test run time in milliseconds.",
     type: "i",
     value: 2000,
     parent: "performance",
   },
+
   "round-decimal-places": {
     description: "Set the number of decimal places to round to.",
     type: "i",
     value: 3,
     parent: "performance",
   },
+
   "report-median": {
     description: "Enable/Disable reporting of the median time.",
     type: "b",
     value: true,
     parent: "performance",
   },
+
   "report-average": {
     description: "Enable/Disable reporting of the average time.",
     type: "b",
     value: true,
     parent: "performance",
   },
+
   "report-standard-deviation": {
     description: "Enable / Disable reporting of the standard deviation.",
     type: "b",
     value: false,
     parent: "performance",
   },
+
   "report-max": {
     description: "Enable/Disable reporting of the largest run time.",
     type: "b",
     value: false,
     parent: "performance",
   },
+
   "report-min": {
     description: "Enable/Disable reporting of the smallest run time.",
     type: "b",
     value: false,
     parent: "performance",
   },
+
   "report-variance": {
     description:
       "Enable/Disable reporting of the variance.",
@@ -226,6 +242,7 @@ const _Args: CommandLineArgs = {
     value: false,
     parent: "performance",
   },
+
   compiler: {
     description: [
       "Path to folder relative to project root which contains",
@@ -233,6 +250,38 @@ const _Args: CommandLineArgs = {
     ],
     type: "s",
     value: "assemblyscript",
+  },
+
+  csv: {
+    description: [
+      "Use the csv reporter. It outputs test data to {testname}.spec.csv",
+    ],
+    type: "bs",
+    value: false,
+  },
+
+  json: {
+    description: [
+      "Use the json reporter. It outputs test data to {testname}.spec.json",
+    ],
+    type: "bs",
+    value: false,
+  },
+
+  summary: {
+    description: [
+      "Use the summary reporter. It outputs a summary of the test results to stdout.",
+    ],
+    type: "bs",
+    value: false,
+  },
+
+  verbose: {
+    description: [
+      "Use the verbose reporter. It outputs all the test details to stdout.",
+    ],
+    type: "bs",
+    value: false,
   },
 };
 
@@ -245,7 +294,7 @@ export function makeArgMap(args: CommandLineArgs = _Args): ArgMap {
     res.set(element, arg);
     let aliases = _Args[element].alias;
     if (aliases) {
-      (aliases instanceof Array ? aliases : [aliases]).forEach(alias => {
+      (Array.isArray(aliases) ? aliases : [aliases]).forEach(alias => {
         // short aliases have a `-` prefix to disguish them
         let name = (!alias.long ? "-" : "") + alias.name;
         res.set(name, arg);
@@ -303,6 +352,9 @@ export function parse(commands: string[], args: ArgMap = Args): Options {
     if (data) {
       // Data from =(.*)
       value = arg.parse(data);
+    } else if (arg.type === "bs") {
+      // boolean flag or string, do not parse further
+      value = true;
     } else if (arg.type === "b") {
       // boolean flag
       value = true;

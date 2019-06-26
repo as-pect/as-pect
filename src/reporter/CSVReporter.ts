@@ -30,7 +30,7 @@ const csvColumns = [
  * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
  * contain a set of tests with relevant pass and fail information.
  */
-export class CSVTestReporter extends TestReporter {
+export default class CSVReporter extends TestReporter {
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
 

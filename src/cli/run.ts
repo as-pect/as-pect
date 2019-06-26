@@ -2,7 +2,6 @@
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
 import { TestReporter } from "../test/TestReporter";
-import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
 import { IWarning } from "../test/IWarning";
@@ -128,9 +127,7 @@ export function run(yargs: Options, compilerArgs: string[]): void {
   const disclude: RegExp[] = configuration.disclude || [];
 
   // if a reporter is specified in cli arguments, override configuration
-  const reporter: TestReporter = yargs.reporter
-    ? collectReporter(yargs)
-    : configuration.reporter || new DefaultTestReporter();
+  const reporter: TestReporter = configuration.reporter || collectReporter(yargs);
 
   if (configuration.performance){
     Object.getOwnPropertyNames(configuration.performance).forEach(option => {

@@ -3,7 +3,7 @@ import { TestContext } from "../test/TestContext";
 import { TestResult } from "../test/TestResult";
 import chalk from "chalk";
 import { TestGroup } from "../test/TestGroup";
-import { IWritable } from "./IWriteable";
+import { IWritable } from "./util/IWriteable";
 import { LogValue } from "../util/LogValue";
 import { createReferenceString } from "./util/createReferenceString";
 
@@ -12,13 +12,14 @@ import { createReferenceString } from "./util/createReferenceString";
  * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
  * process.
  */
-export class SummaryTestReporter extends TestReporter {
-  private enableLogging: boolean = false;
+export default class SummaryReporter extends TestReporter {
+  private enableLogging: boolean = true;
 
   constructor(options?: any) {
     super();
     if (options) {
-      if (options.enableLogging) this.enableLogging = true;
+      // can be "false" from cli
+      if (!options.enableLogging || options.enableLogging === "false") this.enableLogging = false;
     }
   }
 

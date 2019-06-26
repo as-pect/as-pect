@@ -1,12 +1,12 @@
 import { TestGroup } from "./TestGroup";
 import { TestReporter } from "./TestReporter";
 import { TestResult } from "./TestResult";
-import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
+import VerboseReporter from "../reporter/VerboseReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
 import { IAspectExports } from "../util/IAspectExports";
 import { TestCollector, ITestCollectorParameters } from "./TestCollector";
-import { IWritable } from "../reporter/IWriteable";
+import { IWritable } from "../reporter/util/IWriteable";
 
 export interface ITestContextParameters extends ITestCollectorParameters {
   reporter?: TestReporter;
@@ -19,7 +19,7 @@ export class TestContext extends TestCollector {
   public time: number = 0;
   public pass: boolean = true;
   public startupTime: number = 0;
-  public reporter: TestReporter = new DefaultTestReporter({});
+  public reporter: TestReporter = new VerboseReporter({});
 
   /* istanbul ignore next */
   public stdout: IWritable | null = typeof process !== "undefined"

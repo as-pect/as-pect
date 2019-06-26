@@ -365,62 +365,7 @@ declare module "test/TestGroup" {
         warnings: IWarning[];
     }
 }
-declare module "test/TestReporter" {
-    import { TestContext } from "test/TestContext";
-    import { TestGroup } from "test/TestGroup";
-    import { TestResult } from "test/TestResult";
-    /**
-     * This is the abstract shape of a `TestReporter`. It can be extended to create a `TestReporter`.
-     */
-    export abstract class TestReporter {
-        /**
-         * A function that is called when a test suite starts.
-         *
-         * @param {TestSuite} suite - The started test suite.
-         */
-        abstract onStart(suite: TestContext): void;
-        /**
-         * A function that is called when a test group starts.
-         *
-         * @param {TestGroup} group - The started test group.
-         */
-        abstract onGroupStart(group: TestGroup): void;
-        /**
-         * A function that is called when a test group ends.
-         *
-         * @param {TestGroup} group - The ended test group.
-         */
-        abstract onGroupFinish(group: TestGroup): void;
-        /**
-         * A function that is called when a test starts.
-         *
-         * @param {TestGroup} group - The current test group.
-         * @param {TestResult} result - The generated test result reference that will be used for the test.
-         */
-        abstract onTestStart(group: TestGroup, result: TestResult): void;
-        /**
-         * A function that is called when a test ends.
-         *
-         * @param {TestGroup} group - The current test group.
-         * @param {TestResult} result - The generated test result reference.
-         */
-        abstract onTestFinish(group: TestGroup, result: TestResult): void;
-        /**
-         * A function that is called when a test suite ends.
-         *
-         * @param {TestSuite} suite - The ended test suite.
-         */
-        abstract onFinish(suite: TestContext): void;
-        /**
-         * A function that is called when a test group reports a "todo" item.
-         *
-         * @param {TestGroup} group - The current test group.
-         * @param {string} todo - The todo description.
-         */
-        abstract onTodo(group: TestGroup, todo: string): void;
-    }
-}
-declare module "reporter/IWriteable" {
+declare module "reporter/util/IWriteable" {
     /**
      * This interface is a utitily used to describe the shape of something that has a `write()` method.
      */
@@ -439,18 +384,18 @@ declare module "reporter/util/createReferenceString" {
      */
     export function createReferenceString(bytes: number[], pointer: number, offset: number): string;
 }
-declare module "reporter/DefaultTestReporter" {
+declare module "reporter/VerboseReporter" {
     import { TestGroup } from "test/TestGroup";
     import { TestResult } from "test/TestResult";
     import { TestContext } from "test/TestContext";
     import { LogValue } from "util/LogValue";
     import { TestReporter } from "test/TestReporter";
-    import { IWritable } from "reporter/IWriteable";
+    import { IWritable } from "reporter/util/IWriteable";
     /**
      * This is the default test reporter class for the `asp` command line application. It will pipe
      * all relevant details about each tests to the `stdout` WriteStream.
      */
-    export class DefaultTestReporter extends TestReporter {
+    export default class VerboseReporter extends TestReporter {
         protected stdout: IWritable | null;
         constructor(_options?: any);
         /**
@@ -1179,7 +1124,7 @@ declare module "test/TestContext" {
     import { TestReporter } from "test/TestReporter";
     import { IAspectExports } from "util/IAspectExports";
     import { TestCollector, ITestCollectorParameters } from "test/TestCollector";
-    import { IWritable } from "reporter/IWriteable";
+    import { IWritable } from "reporter/util/IWriteable";
     export interface ITestContextParameters extends ITestCollectorParameters {
         reporter?: TestReporter;
         stdout?: IWritable;
@@ -1248,7 +1193,62 @@ declare module "test/TestContext" {
         private runBeforeAll;
     }
 }
-declare module "reporter/CSVTestReporter" {
+declare module "test/TestReporter" {
+    import { TestContext } from "test/TestContext";
+    import { TestGroup } from "test/TestGroup";
+    import { TestResult } from "test/TestResult";
+    /**
+     * This is the abstract shape of a `TestReporter`. It can be extended to create a `TestReporter`.
+     */
+    export abstract class TestReporter {
+        /**
+         * A function that is called when a test suite starts.
+         *
+         * @param {TestSuite} suite - The started test suite.
+         */
+        abstract onStart(suite: TestContext): void;
+        /**
+         * A function that is called when a test group starts.
+         *
+         * @param {TestGroup} group - The started test group.
+         */
+        abstract onGroupStart(group: TestGroup): void;
+        /**
+         * A function that is called when a test group ends.
+         *
+         * @param {TestGroup} group - The ended test group.
+         */
+        abstract onGroupFinish(group: TestGroup): void;
+        /**
+         * A function that is called when a test starts.
+         *
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The generated test result reference that will be used for the test.
+         */
+        abstract onTestStart(group: TestGroup, result: TestResult): void;
+        /**
+         * A function that is called when a test ends.
+         *
+         * @param {TestGroup} group - The current test group.
+         * @param {TestResult} result - The generated test result reference.
+         */
+        abstract onTestFinish(group: TestGroup, result: TestResult): void;
+        /**
+         * A function that is called when a test suite ends.
+         *
+         * @param {TestSuite} suite - The ended test suite.
+         */
+        abstract onFinish(suite: TestContext): void;
+        /**
+         * A function that is called when a test group reports a "todo" item.
+         *
+         * @param {TestGroup} group - The current test group.
+         * @param {string} todo - The todo description.
+         */
+        abstract onTodo(group: TestGroup, todo: string): void;
+    }
+}
+declare module "reporter/CSVReporter" {
     import { TestReporter } from "test/TestReporter";
     import { TestContext } from "test/TestContext";
     import { Stringifier } from "csv-stringify";
@@ -1259,7 +1259,7 @@ declare module "reporter/CSVTestReporter" {
      * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
      * contain a set of tests with relevant pass and fail information.
      */
-    export class CSVTestReporter extends TestReporter {
+    export default class CSVReporter extends TestReporter {
         protected output: Stringifier | null;
         protected fileName: WriteStream | null;
         constructor(_options?: any);
@@ -1278,7 +1278,7 @@ declare module "reporter/EmptyReporter" {
      * This class can be used as a stub reporter to interface with the `TestContext` in the browser.
      * It will not report any information about the tests.
      */
-    export class EmptyReporter extends TestReporter {
+    export default class EmptyReporter extends TestReporter {
         constructor(_options?: any);
         onFinish(): void;
         onGroupFinish(): void;
@@ -1289,7 +1289,7 @@ declare module "reporter/EmptyReporter" {
         onTodo(): void;
     }
 }
-declare module "reporter/JSONTestReporter" {
+declare module "reporter/JSONReporter" {
     import { TestReporter } from "test/TestReporter";
     import { TestContext } from "test/TestContext";
     import { WriteStream } from "fs";
@@ -1299,7 +1299,7 @@ declare module "reporter/JSONTestReporter" {
      * This class reports all relevant test statistics to a JSON file located at
      * `{testLocation}.spec.json`.
      */
-    export class JSONTestReporter extends TestReporter {
+    export default class JSONReporter extends TestReporter {
         constructor(_options?: any);
         protected file: WriteStream | null;
         private first;
@@ -1312,7 +1312,7 @@ declare module "reporter/JSONTestReporter" {
         onTodo(group: TestGroup, desc: string): void;
     }
 }
-declare module "reporter/SummaryTestReporter" {
+declare module "reporter/SummaryReporter" {
     import { TestReporter } from "test/TestReporter";
     import { TestContext } from "test/TestContext";
     import { LogValue } from "util/LogValue";
@@ -1321,7 +1321,7 @@ declare module "reporter/SummaryTestReporter" {
      * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
      * process.
      */
-    export class SummaryTestReporter extends TestReporter {
+    export default class SummaryReporter extends TestReporter {
         private enableLogging;
         constructor(options?: any);
         onStart(): void;
@@ -1343,6 +1343,27 @@ declare module "reporter/SummaryTestReporter" {
          * @param {LogValue} logValue - A value to be logged to the console
          */
         onLog(logValue: LogValue): void;
+    }
+}
+declare module "reporter/CombinationReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { TestContext } from "test/TestContext";
+    import { TestGroup } from "test/TestGroup";
+    import { TestResult } from "test/TestResult";
+    /**
+     * This reporter is used to combine a set of reporters into a single reporter object. It uses
+     * forEach() to call each reporter's function when each method is called.
+     */
+    export default class CombinationReporter extends TestReporter {
+        reporters: TestReporter[];
+        constructor(reporters: TestReporter[]);
+        onFinish(suite: TestContext): void;
+        onGroupFinish(group: TestGroup): void;
+        onGroupStart(group: TestGroup): void;
+        onStart(suite: TestContext): void;
+        onTestStart(group: TestGroup, result: TestResult): void;
+        onTestFinish(group: TestGroup, result: TestResult): void;
+        onTodo(group: TestGroup, todo: string): void;
     }
 }
 declare module "util/IConfiguration" {
@@ -1425,7 +1446,7 @@ declare module "cli/util/strings" {
 }
 declare module "cli/util/CommandLineArg" {
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
-    export type argType = "b" | "s" | "S" | "I" | "i" | "F" | "f";
+    export type argType = "b" | "bs" | "s" | "S" | "I" | "i" | "F" | "f";
     export type ArgValue = string | number | boolean | string[] | number;
     export interface Alias {
         name: string;
@@ -1454,6 +1475,10 @@ declare module "cli/util/CommandLineArg" {
         reporter: string;
         performance: IPerformanceConfiguration;
         compiler: string;
+        csv: string | boolean;
+        json: string | boolean;
+        verbose: string | boolean;
+        summary: string | boolean;
         /** Tracks changes made by the cli options */
         changed: Set<string>;
     }
@@ -1488,17 +1513,24 @@ declare module "cli/index" {
     export function asp(args: string[]): void;
 }
 declare module "as-pect" {
+    import CSVReporter from "reporter/CSVReporter";
+    import VerboseReporter from "reporter/VerboseReporter";
+    import EmptyReporter from "reporter/EmptyReporter";
+    import JSONReporter from "reporter/JSONReporter";
+    import SummaryReporter from "reporter/SummaryReporter";
+    import CombinatonReporter from "reporter/CombinationReporter";
     export * from "test/IWarning";
     export * from "test/TestContext";
     export * from "test/TestGroup";
     export * from "test/TestReporter";
     export * from "test/TestResult";
     export * from "test/TestCollector";
-    export * from "reporter/CSVTestReporter";
-    export * from "reporter/DefaultTestReporter";
-    export * from "reporter/EmptyReporter";
-    export * from "reporter/JSONTestReporter";
-    export * from "reporter/SummaryTestReporter";
+    export { CSVReporter };
+    export { VerboseReporter };
+    export { EmptyReporter };
+    export { JSONReporter };
+    export { SummaryReporter };
+    export { CombinatonReporter };
     export * from "util/ActualValue";
     export * from "util/IAspectExports";
     export * from "util/IConfiguration";

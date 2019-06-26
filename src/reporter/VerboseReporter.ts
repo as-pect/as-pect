@@ -6,7 +6,7 @@ import chalk from "chalk";
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { TestReporter } from "../test/TestReporter";
-import { IWritable } from "./IWriteable";
+import { IWritable } from "./util/IWriteable";
 import { createReferenceString } from "./util/createReferenceString";
 
 const enum ValueType {
@@ -48,7 +48,7 @@ const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
  * This is the default test reporter class for the `asp` command line application. It will pipe
  * all relevant details about each tests to the `stdout` WriteStream.
  */
-export class DefaultTestReporter extends TestReporter {
+export default class VerboseReporter extends TestReporter {
   protected stdout: IWritable | null = null;
 
   constructor(_options?: any) {

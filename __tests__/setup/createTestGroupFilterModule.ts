@@ -1,7 +1,7 @@
 import { main } from "assemblyscript/cli/asc";
 import { instantiateBuffer, ASUtil } from "assemblyscript/lib/loader";
 import { TestContext } from "../../src/test/TestContext";
-import { EmptyReporter } from "../../src/reporter/EmptyReporter";
+import EmptyReporter from "../../src/reporter/EmptyReporter";
 import { IAspectExports } from "../../src/util/IAspectExports";
 
 interface ICreateModuleCallbackResult {
