@@ -9,13 +9,14 @@ with WebAssembly speeds!
 
 ## Philosophy
 
-Testing is the first step of every project. It's important to make sure that the
-library or app you've chosen to become responsible for works in the manner you
-wish to have it work. It only takes a few minutes to get setup even if the benefits
-are transparent.
+Testing is the first step of every project and you have a responsibility to
+make sure that the software you write works as intended. The `as-pect` project
+was created to help quickly scaffold and bootstrap AssemblyScript tests so
+that you can be confident in yourself and the software you write.
 
 ## Table of contents
 
+1. [Philosophy](#philosophy)
 1. [Usage](#usage)
 1. [CLI](#cli)
 1. [Configuration File](#configuration-file)
@@ -26,6 +27,10 @@ are transparent.
 1. [Expectations](#expectations)
 1. [Logging](#logging)
 1. [Reporters](#reporters)
+    - [SummaryReporter](#summaryreporter)
+    - [VerboseReporter](#verbosereporter)
+    - [JSONReporter](#jsonreporter)
+    - [CSVReporter](#csvreporter)
 1. [RTrace and Memory Leaks](#rtrace-and-memory-leaks)
 1. [Performance Testing](#performance-testing)
 1. [Custom Imports Using CLI](#custom-imports-using-cli)
@@ -132,13 +137,12 @@ SYNTAX
     --nortrace                           Skip rtrace reference counting calculations.
       -nr
 
-    --reporter                           Define the reporter to be used. (Default: DefaultTestReporter)
-      --reporter=SummaryTestReporter     Use the summary reporter.
-      --reporter=DefaultTestReporter     Use the default test reporter.
-      --reporter=JSONTestReporter        Use the JSON reporter (output results to json files.)
-      --reporter=CSVTestReporter         Use the empty reporter (output results to csv files.)
-      --reporter=EmptyReporter           Use the empty reporter. (This reporter reports nothing)
-      --reporter=./path/to/reporter.js   Use the default exported object from this module as the reporter.
+  REPORTER OPTIONS
+    --summary                            Use the summary reporter. Use the summary reporter. (This is the default if no reporter is specified.)
+    --verbose                            Use the reporter.
+    --csv                                Use the csv reporter (output results to csv files.)
+    --json                               Use the json reporter (output results to json files.)
+    --reporter                           Define a custom reporter (path or module)
 
   PERFORMANCE OPTIONS
     --performance                        Enable performance statistics for {bold every} test. (Default: false)
@@ -329,7 +333,7 @@ stdout, which is what `DefaultTestReporter` does.
 ## Reporters
 
 Reporters are the way tests get reported. When running the CLI, the
-`DefaultReporter` is used and all the values will be logged to the console. The
+`SummaryReporter` is used and all the values will be logged to the console. The
 test suite itself does not log out test results. If you want to use a custom
 reporter, you can create your own by extending the abstract `Reporter` class.
 
@@ -351,14 +355,173 @@ happens once per test file. Since a file can have multiple `describe` function
 calls, these are logically placed into `TestGroup`s. Each `TestGroup` has it's
 own description and contains a list of `TestResult`s that were run.
 
-Each function is self-explanatory, and you don't need to call `super()` when
-extending the Reporter class, since `Reporter` does not have one.
-
 If no reporter is provided to the configuration, one will be provided that uses
-`console.log()` and `chalk` to provide colored output.
+`stdout` and `chalk` to provide colored output.
 
 If performance is enabled, then the `times` array will be populated with the
 runtime values measured in milliseconds.
+
+### SummaryReporter
+
+This reporter only outputs failed tests and is the default `TestReporter` used
+by the `as-pect` cli. It can be used directly from the configuration file.
+
+```ts
+// as-pect.config.js
+const SummaryReporter = require("as-pect/lib/reporter/SummaryReporter").default;
+
+// export your configuration
+module.exports = {
+  reporter: new SummaryReporter({
+    // enableLogging: false, // disable logging
+  }),
+};
+```
+
+It can also be used from the cli using the `--summary` flag.
+
+```
+npx asp --summary
+npx asp --summary=enableLogging=false
+```
+
+Note: When using parameters for the builtin reporters, the `=` is required to
+parse the querystring parameters correctly.
+
+![SummaryReporter](https://gfycat.com/obeseimpureirishterrier)
+
+### VerboseReporter
+
+This reporter outputs a lot of information, including:
+
+- All Test Groups and Test Names for each test
+- RTrace Info (reference allocations vs deallocations)
+- Performance Statistics
+- Logging Information
+
+It can be used directly from the configuration file.
+
+```ts
+// as-pect.config.js
+const VerboseReporter = require("as-pect/lib/reporter/VerboseReporter").default;
+
+// export your configuration
+module.exports = {
+  reporter: new VerboseReporter({
+    // enableLogging: false, // disable logging
+  }),
+};
+```
+
+It can also be used from the cli using the `--verbose` flag.
+
+```
+npx asp --verbose
+```
+
+### JSONReporter
+
+The `JSONReporter` can be used to create `json` files that contain the test
+output. The file output location is `{testname}.spec.json`. It can be used
+directly from the configuration file.
+
+```ts
+// as-pect.config.js
+const JSONReporter = require("as-pect/lib/reporter/JSONReporter").default;
+
+// export your configuration
+module.exports = {
+  reporter: new JSONReporter(),
+};
+```
+
+It can also be used from the cli using the `--json` flag.
+
+```
+npx asp --json
+```
+
+The object ouput definition is shaped like this:
+
+```ts
+// Test Results are compiled into an array
+[
+  // For each test, there is an object with the following shape
+  {
+    // The Test Group
+    group: group.name,
+    // The Test Name
+    name: result.name,
+    // If it ran
+    ran: result.ran,
+    // If it passed
+    pass: result.pass,
+    // The total test runtim
+    runtime: result.runTime,
+    // The error message
+    message: result.message,
+    // Actual value message if an expectation failed
+    actual: result.actual ? result.actual.message : null,
+    // Expected value message if an expectation failed
+    expected: result.expected ? result.expected.message : null,
+    // The average run time (performance)
+    average: result.average,
+    // The median run time (performance)
+    median: result.median,
+    // The maximum run time (performance)
+    max: result.max,
+    // The minimum run time (performance)
+    min: result.min,
+    // The standard deviation of the run times (performance)
+    stdDev: result.stdDev,
+    // The variance of the run times (performance)
+    variance: result.variance,
+  }
+]
+```
+
+### CSVReporter
+
+The `CSVReporter` can be used to create `csv` files that contain the test
+output. The file output location is `{testname}.spec.csv`. It can be used
+directly from the configuration file.
+
+```ts
+// as-pect.config.js
+const CSVReporter = require("as-pect/lib/reporter/CSVReporter").default;
+
+// export your configuration
+module.exports = {
+  reporter: new CSVReporter(),
+};
+```
+
+It can also be used from the cli using the `--csv` flag.
+
+```
+npx asp --csv
+```
+
+This is a list of all the columns in the exported csv file.
+
+```ts
+const csvColumns = [
+  "Group", // The Test Group
+  "Name", // The Test Name
+  "Ran", // If it ran
+  "Pass", // If it passed
+  "Runtime", // The total test runtim
+  "Message", // The error message
+  "Actual", // Actual value message if an expectation failed
+  "Expected", // Expected value message if an expectation failed
+  "Average", // The average run time (performance)
+  "Median", // The median run time (performance)
+  "Max", // The maximum run time (performance)
+  "Min", // The minimum run time (performance)
+  "StdDev", // The standard deviation of the run times (performance)
+  "Variance", // The variance of the run times (performance)
+];
+```
 
 ## RTrace and Memory Leaks
 
@@ -620,18 +783,18 @@ and as a result the test file will run slower.
 ### Performance Enabling Via API
 
 To enable performance using the global test functions, call the
-`performanceEnabled()` function with a `true` value.
+`Performance.enabled()` function with a `true` value.
 
 ```ts
 describe("my test suite", () => {
-  performanceEnabled(true);
+  Performance.enabled(true);
   test("some performance test", () => {
     // some performance sensitive code
   });
 });
 ```
 
-When using `performanceEnabled(true)` on a test, logs are not supported for
+When using `Performance.enabled(true)` on a test, logs are not supported for
 that specific test. Running 10000 samples of a function that collects logs
 will result in a very large amount of memory usage and IO. Calls to `log<T>()`
 will be ignored and any test with the `test.performance` property set to
@@ -641,72 +804,78 @@ Note that each of the performance functions must be called before the test is
 declared in the same `describe` block to override the corresponding default
 configuration values on a test by test basis.
 
-To override the maximum number of samples collected, use the `maxSample` function.
+To override the maximum number of samples collected, use the
+`Performance.maxSamples` function.
 
 ```ts
-maxSamples(10000); // 10000 is the maximum value
+Performance.maxSamples(10000); // 10000 is the maximum value
 it("should collect only 10000 samples at most", () => {});
 ```
 
 To override the maximum test run time (including test logic), use the
-`maxRunTime` function.
+`Performance.maxRunTime` function.
 
 ```ts
-maxRunTime(5000); // 5000 ms, or 5 seconds of test run time
+Performance.maxRunTime(5000); // 5000 ms, or 5 seconds of test run time
 it("should have a maxRunTime of 5 seconds", () => {});
 ```
 
-To override how many decimal places are rounded to, use the `roundDecimalPlaces`
-function.
+To override how many decimal places are rounded to, use the
+`Performance.roundDecimalPlaces` function.
 
 ```ts
-roundDecimalPlaces(4); // 3 is the default
+Performance.roundDecimalPlaces(4); // 3 is the default
 it("should round to 4 decimal places", () => {});
 ```
 
-To force reporting of the median test runtime, use the `reportMedian` function.
+To force reporting of the median test runtime, use the
+`Performance.reportMedian` function.
 
 ```ts
-reportMedian(true); // false will disable reporting of the median
+Performance.reportMedian(true); // false will disable reporting of the median
 it("should report the median", () => {});
 ```
 
-To force reporting of the average, or mean test runtime, use the `reportAverage`
-function.
+To force reporting of the average, or mean test runtime, use the
+`Performance.reportAverage` function.
 
 ```ts
-reportAverage(true); // false will disable reporting of the mean
+Performance.reportAverage(true); // false will disable reporting of the mean
 it("should report the average", () => {});
 ```
 
-To force reporting of the variance of the runtimes, use the `reportVariance`
-function.
+To force reporting of the variance of the runtimes, use the
+`Performance.reportVariance` function.
 
 ```ts
-reportVariance(true); // false will disable reporting of the variance
+// false will disable reporting of the variance
+Performance.reportVariance(true);
 it("should report the variance deviation", () => {});
 ```
 
 To force reporting of the standard deviation of the runtimes, use the
-`reportStdDev` function. This method implies the use of a variance calculation,
-and will be auto-included in the test result.
+`Performance.reportStdDev` function. This method implies the use of a variance
+calculation, and will be auto-included in the test result.
 
 ```ts
-reportStdDev(true); // false will disable reporting of the standard deviation
+// false will disable reporting of the standard deviation
+Performance.reportStdDev(true);
 it("should report the standard deviation", () => {});
 ```
 
-To force reporting of the maximum runTime value, use the `reportMax` function.
+To force reporting of the maximum runTime value, use the
+`Performance.reportMax` function.
 
 ```ts
-reportMax(true); // false will disable reporting of the max
+Performance.reportMax(true); // false will disable reporting of the max
 it("should report the max", () => {});
 ```
 
-To force reporting of the minimum runTime value, use the `reportMin` function.
+To force reporting of the minimum runTime value, use the
+`Performance.reportMin` function.
 
 ```ts
-reportMin(true); // false will disable reporting of the min
+Performance.reportMin(true); // false will disable reporting of the min
 it("should report the min", () => {});
 ```
 

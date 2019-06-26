@@ -19,7 +19,7 @@ const csvColumns = [
   "Actual",
   "Expected",
   "Average",
-  "Mean",
+  "Median",
   "Max",
   "Min",
   "StdDev",
