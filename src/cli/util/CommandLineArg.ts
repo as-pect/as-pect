@@ -86,11 +86,13 @@ export interface CommandLineArgs {
 }
 
 const _Args: CommandLineArgs = {
-  init: {
-    description: "Create a test config, an assembly/__tests__ folder and exit.",
-    type: "b",
-    alias: { name: "i" },
-    value: false,
+  compiler: {
+    description: [
+      "Path to folder relative to project root which contains",
+      "{folder}/dist/asc for the compiler and {folder}/lib/loader for loader."
+    ],
+    type: "s",
+    value: "assemblyscript",
   },
 
   config: {
@@ -100,24 +102,9 @@ const _Args: CommandLineArgs = {
     value: "as-pect.config.js",
   },
 
-  version: {
-    description: "View the version.",
-    type: "b",
-    alias: { name: "v" },
-    value: false,
-  },
-
-  help: {
-    description: "Show this help screen.",
-    type: "b",
-    alias: { name: "h" },
-    value: false,
-  },
-
-  types: {
-    description: "Copy the types file to assembly/__tests__/as-pect.d.ts",
-    type: "b",
-    alias: { name: "t" },
+  csv: {
+    description: "Use the csv reporter. It outputs test data to {testname}.spec.csv",
+    type: "bs",
     value: false,
   },
 
@@ -135,48 +122,24 @@ const _Args: CommandLineArgs = {
     value: "(:?)",
   },
 
-  test: {
-    description: "Run each test that matches this regex",
-    type: "s",
-    alias: [{ name: "tests", long: true }, { name: "t" }],
-    value: "(:?)",
-  },
-
-  "output-binary": {
-    description: "Create a (.wasm) file can contains all the tests to be run later.",
+  help: {
+    description: "Show this help screen.",
     type: "b",
-    alias: { name: "o" },
+    alias: { name: "h" },
     value: false,
   },
 
-  norun: {
-    description: "Skip running tests and output the compiler files.",
+  init: {
+    description: "Create a test config, an assembly/__tests__ folder and exit.",
     type: "b",
-    alias: { name: "n" },
+    alias: { name: "i" },
     value: false,
   },
 
-  nortrace: {
-    description: "Skip rtrace reference counting calculations.",
-    type: "b",
-    alias: { name: "nr" },
-    value: false,
-  },
-
-  reporter: {
-    description: "Define the reporter to be used.",
-    type: "s",
-    value: "",
-    options: [
-      ["./path/to/reporter.js?queryString", "Use the default exported object from this module as the reporter."],
-    ],
-  },
-
-  performance: {
-    description: "Enable performance statistics for {bold every} test.",
-    type: "b",
-    value: false,
-    parent: "performance",
+  json: {
+    description: ["Use the json reporter. It outputs test data to {testname}.spec.json"],
+    type: "bs",
+    value: false
   },
 
   "max-samples": {
@@ -193,17 +156,31 @@ const _Args: CommandLineArgs = {
     parent: "performance",
   },
 
-  "round-decimal-places": {
-    description: "Set the number of decimal places to round to.",
-    type: "i",
-    value: 3,
-    parent: "performance",
+  nortrace: {
+    description: "Skip rtrace reference counting calculations.",
+    type: "b",
+    alias: { name: "nr" },
+    value: false,
   },
 
-  "report-median": {
-    description: "Enable/Disable reporting of the median time.",
+  norun: {
+    description: "Skip running tests and output the compiler files.",
     type: "b",
-    value: true,
+    alias: { name: "n" },
+    value: false,
+  },
+
+  "output-binary": {
+    description: "Create a (.wasm) file can contains all the tests to be run later.",
+    type: "b",
+    alias: { name: "o" },
+    value: false,
+  },
+
+  performance: {
+    description: "Enable performance statistics for {bold every} test.",
+    type: "b",
+    value: false,
     parent: "performance",
   },
 
@@ -214,17 +191,17 @@ const _Args: CommandLineArgs = {
     parent: "performance",
   },
 
-  "report-standard-deviation": {
-    description: "Enable / Disable reporting of the standard deviation.",
+  "report-max": {
+    description: "Enable/Disable reporting of the largest run time.",
     type: "b",
     value: false,
     parent: "performance",
   },
 
-  "report-max": {
-    description: "Enable/Disable reporting of the largest run time.",
+  "report-median": {
+    description: "Enable/Disable reporting of the median time.",
     type: "b",
-    value: false,
+    value: true,
     parent: "performance",
   },
 
@@ -235,52 +212,67 @@ const _Args: CommandLineArgs = {
     parent: "performance",
   },
 
-  "report-variance": {
-    description:
-      "Enable/Disable reporting of the variance.",
+  "report-standard-deviation": {
+    description: "Enable / Disable reporting of the standard deviation.",
     type: "b",
     value: false,
     parent: "performance",
   },
 
-  compiler: {
-    description: [
-      "Path to folder relative to project root which contains",
-      "{folder}/dist/asc for the compiler and {folder}/lib/loader for loader.",
-    ],
+  "report-variance": {
+    description: "Enable/Disable reporting of the variance.",
+    type: "b",
+    value: false,
+    parent: "performance",
+  },
+
+  reporter: {
+    description: "Define the reporter to be used.",
     type: "s",
-    value: "assemblyscript",
+    value: "",
+    options: [
+      ["./path/to/reporter.js?queryString", "Use the default exported object from this module as the reporter."]
+    ],
   },
 
-  csv: {
-    description: [
-      "Use the csv reporter. It outputs test data to {testname}.spec.csv",
-    ],
-    type: "bs",
-    value: false,
+  "round-decimal-places": {
+    description: "Set the number of decimal places to round to.",
+    type: "i",
+    value: 3,
+    parent: "performance",
   },
 
-  json: {
-    description: [
-      "Use the json reporter. It outputs test data to {testname}.spec.json",
-    ],
-    type: "bs",
-    value: false,
-  },
 
   summary: {
-    description: [
-      "Use the summary reporter. It outputs a summary of the test results to stdout.",
-    ],
+    description: ["Use the summary reporter. It outputs a summary of the test results to stdout."],
     type: "bs",
+    value: false,
+  },
+
+  test: {
+    description: "Run each test that matches this regex",
+    type: "s",
+    alias: [{ name: "tests", long: true }, { name: "t" }],
+    value: "(:?)",
+  },
+
+  types: {
+    description: "Copy the types file to assembly/__tests__/as-pect.d.ts",
+    type: "b",
+    alias: { name: "t" },
     value: false,
   },
 
   verbose: {
-    description: [
-      "Use the verbose reporter. It outputs all the test details to stdout.",
-    ],
+    description: ["Use the verbose reporter. It outputs all the test details to stdout."],
     type: "bs",
+    value: false,
+  },
+
+  version: {
+    description: "View the version.",
+    type: "b",
+    alias: { name: "v" },
     value: false,
   },
 };

@@ -1267,6 +1267,27 @@ declare module "test/TestReporter" {
         abstract onTodo(group: TestGroup, todo: string): void;
     }
 }
+declare module "reporter/CombinationReporter" {
+    import { TestReporter } from "test/TestReporter";
+    import { TestContext } from "test/TestContext";
+    import { TestGroup } from "test/TestGroup";
+    import { TestResult } from "test/TestResult";
+    /**
+     * This reporter is used to combine a set of reporters into a single reporter object. It uses
+     * forEach() to call each reporter's function when each method is called.
+     */
+    export default class CombinationReporter extends TestReporter {
+        reporters: TestReporter[];
+        constructor(reporters: TestReporter[]);
+        onFinish(suite: TestContext): void;
+        onGroupFinish(group: TestGroup): void;
+        onGroupStart(group: TestGroup): void;
+        onStart(suite: TestContext): void;
+        onTestStart(group: TestGroup, result: TestResult): void;
+        onTestFinish(group: TestGroup, result: TestResult): void;
+        onTodo(group: TestGroup, todo: string): void;
+    }
+}
 declare module "reporter/CSVReporter" {
     import { TestReporter } from "test/TestReporter";
     import { TestContext } from "test/TestContext";
@@ -1364,90 +1385,6 @@ declare module "reporter/SummaryReporter" {
         onLog(logValue: LogValue): void;
     }
 }
-declare module "reporter/CombinationReporter" {
-    import { TestReporter } from "test/TestReporter";
-    import { TestContext } from "test/TestContext";
-    import { TestGroup } from "test/TestGroup";
-    import { TestResult } from "test/TestResult";
-    /**
-     * This reporter is used to combine a set of reporters into a single reporter object. It uses
-     * forEach() to call each reporter's function when each method is called.
-     */
-    export default class CombinationReporter extends TestReporter {
-        reporters: TestReporter[];
-        constructor(reporters: TestReporter[]);
-        onFinish(suite: TestContext): void;
-        onGroupFinish(group: TestGroup): void;
-        onGroupStart(group: TestGroup): void;
-        onStart(suite: TestContext): void;
-        onTestStart(group: TestGroup, result: TestResult): void;
-        onTestFinish(group: TestGroup, result: TestResult): void;
-        onTodo(group: TestGroup, todo: string): void;
-    }
-}
-declare module "util/IConfiguration" {
-    import { TestReporter } from "test/TestReporter";
-    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
-    /**
-     * This is the shape of the compiler flags.
-     */
-    export interface ICompilerFlags {
-        [flag: string]: string[];
-    }
-    /**
-     * This is an interface describing the shape of an exported configuration for the
-     * `as-pect.config.js` file. An empty object should be a valid `as-pect` configuration.
-     */
-    export interface IConfiguration {
-        [key: string]: any;
-        /**
-         * A set of globs that denote files that must be used for testing.
-         */
-        include?: string[];
-        /**
-         * A set of globs that denote files that must be added to every compilation.
-         */
-        add?: string[];
-        /**
-         * The compiler flags needed for this test suite. Do not forget that a binary file must be output.
-         */
-        flags?: ICompilerFlags;
-        /**
-         * A set of regular expressions that are tested against the file names. If they match, the
-         * files will be discluded.
-         */
-        disclude?: RegExp[];
-        /**
-         * The web assembly imports required for testing your module.
-         */
-        imports?: any;
-        /**
-         * Set the default performance measurement values.
-         */
-        performance?: Partial<IPerformanceConfiguration>;
-        /**
-         * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
-         * output.
-         */
-        reporter?: TestReporter;
-        /**
-         * A regular expression that instructs the TestContext to only run tests that match this regex.
-         */
-        testRegex?: RegExp;
-        /**
-         * A regular expression that instructs the TestContext to only run groups that match this regex.
-         */
-        groupRegex?: RegExp;
-        /**
-         * Specifies if a wasm binary should be output. Default is false.
-         */
-        outputBinary?: boolean;
-        /**
-         * Specifies if rtrace counting should be skipped. Use with stub allocator.
-         */
-        nortrace?: boolean;
-    }
-}
 declare module "cli/util/strings" {
     /**
      * Capitalize a word.
@@ -1531,32 +1468,95 @@ declare module "cli/index" {
      */
     export function asp(args: string[]): void;
 }
+declare module "util/IConfiguration" {
+    import { TestReporter } from "test/TestReporter";
+    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    /**
+     * This is the shape of the compiler flags.
+     */
+    export interface ICompilerFlags {
+        [flag: string]: string[];
+    }
+    /**
+     * This is an interface describing the shape of an exported configuration for the
+     * `as-pect.config.js` file. An empty object should be a valid `as-pect` configuration.
+     */
+    export interface IConfiguration {
+        [key: string]: any;
+        /**
+         * A set of globs that denote files that must be used for testing.
+         */
+        include?: string[];
+        /**
+         * A set of globs that denote files that must be added to every compilation.
+         */
+        add?: string[];
+        /**
+         * The compiler flags needed for this test suite. Do not forget that a binary file must be output.
+         */
+        flags?: ICompilerFlags;
+        /**
+         * A set of regular expressions that are tested against the file names. If they match, the
+         * files will be discluded.
+         */
+        disclude?: RegExp[];
+        /**
+         * The web assembly imports required for testing your module.
+         */
+        imports?: any;
+        /**
+         * Set the default performance measurement values.
+         */
+        performance?: Partial<IPerformanceConfiguration>;
+        /**
+         * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
+         * output.
+         */
+        reporter?: TestReporter;
+        /**
+         * A regular expression that instructs the TestContext to only run tests that match this regex.
+         */
+        testRegex?: RegExp;
+        /**
+         * A regular expression that instructs the TestContext to only run groups that match this regex.
+         */
+        groupRegex?: RegExp;
+        /**
+         * Specifies if a wasm binary should be output. Default is false.
+         */
+        outputBinary?: boolean;
+        /**
+         * Specifies if rtrace counting should be skipped. Use with stub allocator.
+         */
+        nortrace?: boolean;
+    }
+}
 declare module "as-pect" {
+    import CombinatonReporter from "reporter/CombinationReporter";
     import CSVReporter from "reporter/CSVReporter";
-    import VerboseReporter from "reporter/VerboseReporter";
     import EmptyReporter from "reporter/EmptyReporter";
     import JSONReporter from "reporter/JSONReporter";
     import SummaryReporter from "reporter/SummaryReporter";
-    import CombinatonReporter from "reporter/CombinationReporter";
+    import VerboseReporter from "reporter/VerboseReporter";
+    export { CombinatonReporter };
+    export { CSVReporter };
+    export { EmptyReporter };
+    export { JSONReporter };
+    export { SummaryReporter };
+    export { VerboseReporter };
+    export * from "cli/index";
     export * from "test/IWarning";
+    export * from "test/TestCollector";
     export * from "test/TestContext";
     export * from "test/TestGroup";
     export * from "test/TestReporter";
     export * from "test/TestResult";
-    export * from "test/TestCollector";
-    export { CSVReporter };
-    export { VerboseReporter };
-    export { EmptyReporter };
-    export { JSONReporter };
-    export { SummaryReporter };
-    export { CombinatonReporter };
     export * from "util/ActualValue";
     export * from "util/IAspectExports";
     export * from "util/IConfiguration";
     export * from "util/ILogTarget";
     export * from "util/IPerformanceConfiguration";
     export * from "util/LogValue";
-    export * from "cli/index";
 }
 declare module "cli/help" {
     /**
