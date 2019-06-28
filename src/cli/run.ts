@@ -14,7 +14,6 @@ import { getTestEntryFiles } from "./util/getTestEntryFiles";
 import { Options } from "./util/CommandLineArg";
 import { IAspectExports } from "../util/IAspectExports";
 import { writeFile } from "./util/writeFile";
-import { Worker } from "worker_threads";
 import { ICommand } from "./worklets/ICommand";
 
 /**
@@ -25,12 +24,14 @@ import { ICommand } from "./worklets/ICommand";
  */
 export function run(cliOptions: Options, compilerArgs: string[]): void {
   const start = performance.now();
-  const worklets: Worker[] = [];
+  const worklets: any[] = [];
 
   /**
    * Create the compiler worklets if the worker flag is not 0.
    */
   if (cliOptions.workers !== 0) {
+    const Worker = require("worker_threads").Worker;
+
     if (!isFinite(cliOptions.workers)) {
       console.error(chalk`{red [Error]} Invalid worker configuration: {yellow ${cliOptions.workers.toString()}}`);
       process.exit(1);
