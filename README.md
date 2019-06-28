@@ -137,6 +137,9 @@ SYNTAX
     --nortrace                           Skip rtrace reference counting calculations.
       -nr
 
+    asp --workers 3                      Enable the experimental worker worklets (default: 0  [disabled])
+      asp -w
+
   REPORTER OPTIONS
     --summary                            Use the summary reporter. Use the summary reporter. (This is the default if no reporter is specified.)
     --verbose                            Use the reporter.

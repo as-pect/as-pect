@@ -1437,6 +1437,7 @@ declare module "cli/util/CommandLineArg" {
         summary: string | boolean;
         /** Tracks changes made by the cli options */
         changed: Set<string>;
+        workers: number;
     }
     export class CommandLineArg implements ICommandLineArg {
         name: string;
@@ -1606,15 +1607,21 @@ declare module "cli/util/writeFile" {
      */
     export function writeFile(file: string, contents: Uint8Array): Promise<void>;
 }
+declare module "cli/worklets/ICommand" {
+    export interface ICommand {
+        type: string;
+        props: any;
+    }
+}
 declare module "cli/run" {
     import { Options } from "cli/util/CommandLineArg";
     /**
      * This method actually runs the test suites in sequential order synchronously.
      *
-     * @param {IYargs} yargs - The command line arguments.
+     * @param {IYargs} cliOptions - The command line arguments.
      * @param {string[]} compilerArgs - The `asc` compiler arguments.
      */
-    export function run(yargs: Options, compilerArgs: string[]): void;
+    export function run(cliOptions: Options, compilerArgs: string[]): void;
 }
 declare module "cli/types" {
     /**
@@ -1628,4 +1635,5 @@ declare module "cli/types" {
      */
     export function types(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
 }
+declare module "cli/worklets/compiler" { }
 //# sourceMappingURL=as-pect.amd.d.ts.map

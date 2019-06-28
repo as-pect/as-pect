@@ -40,6 +40,7 @@ export interface Options {
   summary: string | boolean;
   /** Tracks changes made by the cli options */
   changed: Set<string>;
+  workers: number;
 }
 
 export class CommandLineArg implements ICommandLineArg {
@@ -65,7 +66,7 @@ export class CommandLineArg implements ICommandLineArg {
       case "bs":
         return data;
       case "S":
-        return data.split(",")
+        return data.split(",");
       case "b":
         if (data !== "true" && data !== "false") {
           throw new Error(`Bad value ${data} for boolean for argument ${this.name}`);
@@ -74,7 +75,7 @@ export class CommandLineArg implements ICommandLineArg {
       case "i":
         return parseInt(data);
       case "f":
-        return parseFloat(data)
+        return parseFloat(data);
       default:
         throw new Error(`Type ${this.type} is not implemented yet`);
     }
@@ -89,7 +90,7 @@ const _Args: CommandLineArgs = {
   compiler: {
     description: [
       "Path to folder relative to project root which contains",
-      "{folder}/dist/asc for the compiler and {folder}/lib/loader for loader."
+      "{folder}/dist/asc for the compiler and {folder}/lib/loader for loader.",
     ],
     type: "s",
     value: "assemblyscript",
@@ -139,7 +140,7 @@ const _Args: CommandLineArgs = {
   json: {
     description: ["Use the json reporter. It outputs test data to {testname}.spec.json"],
     type: "bs",
-    value: false
+    value: false,
   },
 
   "max-samples": {
@@ -231,7 +232,7 @@ const _Args: CommandLineArgs = {
     type: "s",
     value: "",
     options: [
-      ["./path/to/reporter.js?queryString", "Use the default exported object from this module as the reporter."]
+      ["./path/to/reporter.js?queryString", "Use the default exported object from this module as the reporter."],
     ],
   },
 
@@ -259,7 +260,6 @@ const _Args: CommandLineArgs = {
   types: {
     description: "Copy the types file to assembly/__tests__/as-pect.d.ts",
     type: "b",
-    alias: { name: "t" },
     value: false,
   },
 
@@ -274,6 +274,13 @@ const _Args: CommandLineArgs = {
     type: "b",
     alias: { name: "v" },
     value: false,
+  },
+
+  workers: {
+    description: "An experimental flag that enables parallel compilation in Worker worklets.",
+    type: "i",
+    alias: { name: "w" },
+    value: 0,
   },
 };
 
