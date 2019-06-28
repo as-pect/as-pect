@@ -56,6 +56,10 @@ describe("pass-fail", () => {
   it("should report u32 values", () => {
     expect<u32>(4294967294).toBe(4294967293);
   });
+
+  it("should report bool values", () => {
+    expect<bool>(false).toBe(true);
+  });
 });
 
 describe("fail on group beforeAll", () => {

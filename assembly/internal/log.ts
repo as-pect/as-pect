@@ -28,6 +28,10 @@ declare function logArray(value: usize): void;
 @external("__aspect", "logLong")
 declare function logLong(value: usize, signed: bool): void;
 
+// @ts-ignore: decorators *are* valid here
+@external("__aspect", "logBool")
+declare function logBool(value: i32): void;
+
 let ignoreLogs: bool = false;
 
 /**
@@ -61,6 +65,8 @@ export function log<T>(value: T): void {
     if (isFloat<T>()) {
       // @ts-ignore: this cast is valid because it's already a float
       logFloat(<f64>value, true);
+    } else if (value instanceof bool) {
+      logBool(i32(value));
     } else if (value instanceof i64 || value instanceof u64) {
       let box = new Box<T>(value);
       logLong(changetype<usize>(box), value instanceof i64);

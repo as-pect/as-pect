@@ -128,83 +128,83 @@ exports[`logged values log values: logs snapshot 9`] = `-1`;
 exports[`logged values log values: logs snapshot 10`] = `-1`;
 
 exports[`logged values log values: logs stack 1`] = `
-"    at assembly/internal/log/log<~lib/string/String> (wasm-function[62]:41)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:6)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<~lib/string/String> (wasm-function[65]:41)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:6)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs stack 2`] = `
-"    at assembly/internal/log/log<i32> (wasm-function[64]:87)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:10)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<i32> (wasm-function[67]:102)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:10)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs stack 3`] = `
-"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[66]:26)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:14)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[69]:26)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:14)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs stack 4`] = `
-"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[66]:77)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:49)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[69]:77)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:49)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs stack 5`] = `
-"    at assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[69]:28)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:66)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[72]:28)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:66)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs stack 6`] = `
-"    at assembly/internal/log/log<i64> (wasm-function[71]:48)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:76)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<i64> (wasm-function[74]:64)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:76)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs stack 7`] = `
-"    at assembly/internal/log/log<u32> (wasm-function[73]:87)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:83)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<u32> (wasm-function[76]:102)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:83)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs stack 8`] = `
-"    at assembly/internal/log/log<u64> (wasm-function[75]:48)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:92)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<u64> (wasm-function[78]:64)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:92)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs stack 9`] = `
-"    at assembly/internal/log/log<i8> (wasm-function[77]:93)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:96)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<i8> (wasm-function[80]:114)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:96)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs stack 10`] = `
-"    at assembly/internal/log/log<i16> (wasm-function[79]:93)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[83]:100)
-    at assembly/internal/Describe/describe (wasm-function[85]:16)
-    at start:assembly/jest-log (wasm-function[86]:6)
-    at start (wasm-function[97]:12)"
+"    at assembly/internal/log/log<i16> (wasm-function[82]:114)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[88]:100)
+    at assembly/internal/Describe/describe (wasm-function[90]:16)
+    at start:assembly/jest-log (wasm-function[91]:6)
+    at start (wasm-function[102]:12)"
 `;
 
 exports[`logged values log values: logs todo 1`] = `"one"`;
@@ -341,61 +341,61 @@ exports[`logged values log values: logs~logs snapshot 9`] = `-1`;
 exports[`logged values log values: logs~logs snapshot 10`] = `-1`;
 
 exports[`logged values log values: logs~logs stack 1`] = `
-"    at assembly/internal/log/log<~lib/string/String> (wasm-function[62]:41)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:6)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<~lib/string/String> (wasm-function[65]:41)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:6)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;
 
 exports[`logged values log values: logs~logs stack 2`] = `
-"    at assembly/internal/log/log<i32> (wasm-function[64]:87)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:10)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<i32> (wasm-function[67]:102)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:10)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;
 
 exports[`logged values log values: logs~logs stack 3`] = `
-"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[66]:26)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:14)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[69]:26)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:14)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;
 
 exports[`logged values log values: logs~logs stack 4`] = `
-"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[66]:77)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:49)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<assembly/__tests__/setup/Vec3/Vec3> (wasm-function[69]:77)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:49)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;
 
 exports[`logged values log values: logs~logs stack 5`] = `
-"    at assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[69]:28)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:66)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[72]:28)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:66)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;
 
 exports[`logged values log values: logs~logs stack 6`] = `
-"    at assembly/internal/log/log<i64> (wasm-function[71]:48)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:76)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<i64> (wasm-function[74]:64)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:76)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;
 
 exports[`logged values log values: logs~logs stack 7`] = `
-"    at assembly/internal/log/log<u32> (wasm-function[73]:87)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:83)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<u32> (wasm-function[76]:102)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:83)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;
 
 exports[`logged values log values: logs~logs stack 8`] = `
-"    at assembly/internal/log/log<u64> (wasm-function[75]:48)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:92)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<u64> (wasm-function[78]:64)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:92)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;
 
 exports[`logged values log values: logs~logs stack 9`] = `
-"    at assembly/internal/log/log<i8> (wasm-function[77]:93)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:96)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<i8> (wasm-function[80]:114)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:96)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;
 
 exports[`logged values log values: logs~logs stack 10`] = `
-"    at assembly/internal/log/log<i16> (wasm-function[79]:93)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[80]:100)
-    at assembly/internal/call/__call (wasm-function[88]:7)"
+"    at assembly/internal/log/log<i16> (wasm-function[82]:114)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[85]:100)
+    at assembly/internal/call/__call (wasm-function[93]:7)"
 `;

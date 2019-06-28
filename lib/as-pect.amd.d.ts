@@ -635,6 +635,10 @@ declare module "test/TestCollector" {
          */
         protected tryCall(pointer: number): 1 | 0;
         /**
+          * Log a null value to the reporter.
+          */
+        private logBool;
+        /**
          * Log a null value to the reporter.
          */
         private logNull;
@@ -757,6 +761,13 @@ declare module "test/TestCollector" {
          */
         private reportActualValue;
         /**
+         * This function reports an actual numeric value.
+         *
+         * @param {number} numericValue - The value to be expected.
+         * @param {1 | 0} signed - The value indicating if the value is signed.
+         */
+        private reportActualBool;
+        /**
          * This function reports an expected numeric value.
          *
          * @param {number} numericValue - The expected value.
@@ -764,6 +775,14 @@ declare module "test/TestCollector" {
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
         private reportExpectedValue;
+        /**
+         * This function reports an expected numeric value.
+         *
+         * @param {number} numericValue - The expected value.
+         * @param {1 | 0} signed - The value indicating if the value is signed.
+         * @param {1 | 0} negated - An indicator if the expectation is negated.
+         */
+        private reportExpectedBool;
         /**
          * This function reports an actual long value.
          *

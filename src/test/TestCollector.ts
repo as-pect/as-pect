@@ -186,67 +186,70 @@ export class TestCollector {
       {
         __aspect: {
           debug: this.debug.bind(this),
-          tryCall: this.tryCall.bind(this),
+          endRTrace: this.endRTrace.bind(this),
+          getRTraceAllocations: this.getRTraceAllocations.bind(this),
+          getRTraceBlocks: this.getRTraceBlocks.bind(this),
+          getRTraceCount: this.getRTraceCount.bind(this),
+          getRTraceDecrements: this.getRTraceDecrements.bind(this),
+          getRTraceFrees: this.getRTraceFrees.bind(this),
+          getRTraceGroupAllocations: this.getRTraceGroupAllocations.bind(this),
+          getRTraceGroupBlocks: this.getRTraceGroupBlocks.bind(this),
+          getRTraceGroupDecrements: this.getRTraceGroupDecrements.bind(this),
+          getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
+          getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
+          getRTraceIncrements: this.getRTraceIncrements.bind(this),
+          getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
+          getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
+          getRTraceTestDecrements: this.getRTraceTestDecrements.bind(this),
+          getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
+          getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
+          getStackTrace: this.getStackTrace.bind(this),
           logArray: this.logArray.bind(this),
+          logBool: this.logBool.bind(this),
           logLong: this.logLong.bind(this),
           logNull: this.logNull.bind(this),
           logReference: this.logReference.bind(this),
           logString: this.logString.bind(this),
           logValue: this.logValue.bind(this),
-          reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
-          reportDescribe: this.reportDescribe.bind(this),
-          reportEndDescribe: this.reportEndDescribe.bind(this),
-          reportTest: this.reportTest.bind(this),
-          reportBeforeEach: this.reportBeforeEach.bind(this),
-          reportBeforeAll: this.reportBeforeAll.bind(this),
-          reportAfterEach: this.reportAfterEach.bind(this),
-          reportAfterAll: this.reportAfterAll.bind(this),
-          reportTodo: this.reportTodo.bind(this),
-          reportActualNull: this.reportActualNull.bind(this),
-          reportExpectedNull: this.reportExpectedNull.bind(this),
-          reportActualValue: this.reportActualValue.bind(this),
-          reportExpectedValue: this.reportExpectedValue.bind(this),
-          reportActualReference: this.reportActualReference.bind(this),
-          reportExpectedReference: this.reportExpectedReference.bind(this),
-          reportActualString: this.reportActualString.bind(this),
-          reportExpectedString: this.reportExpectedString.bind(this),
-          reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
-          reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
-          reportExpectedFinite: this.reportExpectedFinite.bind(this),
-          reportActualArray: this.reportActualArray.bind(this),
-          reportExpectedArray: this.reportExpectedArray.bind(this),
-          reportActualLong: this.reportActualLong.bind(this),
-          reportExpectedLong: this.reportExpectedLong.bind(this),
-          reportNegatedTest: this.reportNegatedTest.bind(this),
-          performanceEnabled: this.performanceEnabled.bind(this),
           maxSamples: this.maxSamples.bind(this),
           maxTestRunTime: this.maxTestRunTime.bind(this),
-          roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
+          performanceEnabled: this.performanceEnabled.bind(this),
+          reportActualArray: this.reportActualArray.bind(this),
+          reportActualBool: this.reportActualBool.bind(this),
+          reportActualLong: this.reportActualLong.bind(this),
+          reportActualNull: this.reportActualNull.bind(this),
+          reportActualReference: this.reportActualReference.bind(this),
+          reportActualString: this.reportActualString.bind(this),
+          reportActualValue: this.reportActualValue.bind(this),
+          reportAfterAll: this.reportAfterAll.bind(this),
+          reportAfterEach: this.reportAfterEach.bind(this),
           reportAverage: this.reportAverage.bind(this),
-          reportMedian: this.reportMedian.bind(this),
-          reportStdDev: this.reportStdDev.bind(this),
+          reportBeforeAll: this.reportBeforeAll.bind(this),
+          reportBeforeEach: this.reportBeforeEach.bind(this),
+          reportDescribe: this.reportDescribe.bind(this),
+          reportEndDescribe: this.reportEndDescribe.bind(this),
+          reportExpectedArray: this.reportExpectedArray.bind(this),
+          reportExpectedBool: this.reportExpectedBool.bind(this),
+          reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
+          reportExpectedFinite: this.reportExpectedFinite.bind(this),
+          reportExpectedLong: this.reportExpectedLong.bind(this),
+          reportExpectedNull: this.reportExpectedNull.bind(this),
+          reportExpectedReference: this.reportExpectedReference.bind(this),
+          reportExpectedString: this.reportExpectedString.bind(this),
+          reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
+          reportExpectedValue: this.reportExpectedValue.bind(this),
+          reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
+          reportMedian: this.reportMedian.bind(this),
           reportMin: this.reportMin.bind(this),
+          reportNegatedTest: this.reportNegatedTest.bind(this),
+          reportStdDev: this.reportStdDev.bind(this),
+          reportTest: this.reportTest.bind(this),
+          reportTodo: this.reportTodo.bind(this),
           reportVariance: this.reportVariance.bind(this),
-          getRTraceCount: this.getRTraceCount.bind(this),
+          roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
           startRTrace: this.startRTrace.bind(this),
-          endRTrace: this.endRTrace.bind(this),
-          getStackTrace: this.getStackTrace.bind(this),
-          getRTraceIncrements: this.getRTraceIncrements.bind(this),
-          getRTraceDecrements: this.getRTraceDecrements.bind(this),
-          getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
-          getRTraceGroupDecrements: this.getRTraceGroupDecrements.bind(this),
-          getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
-          getRTraceTestDecrements: this.getRTraceTestDecrements.bind(this),
-          getRTraceAllocations: this.getRTraceAllocations.bind(this),
-          getRTraceFrees: this.getRTraceFrees.bind(this),
-          getRTraceGroupAllocations: this.getRTraceGroupAllocations.bind(this),
-          getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
-          getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
-          getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
-          getRTraceBlocks: this.getRTraceBlocks.bind(this),
-          getRTraceGroupBlocks: this.getRTraceGroupBlocks.bind(this),
-          getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
+          tryCall: this.tryCall.bind(this),
         },
       },
     );
@@ -298,6 +301,19 @@ export class TestCollector {
       return 0;
     }
     return 1;
+  }
+
+ /**
+   * Log a null value to the reporter.
+   */
+  private logBool(boolValue: number): void {
+    const value = new LogValue();
+    const target = this.logTarget;
+
+    value.stack = this.getLogStackTrace();
+    value.message = `Value ${!!boolValue}`;
+    value.value = boolValue;
+    value.target = target;
   }
 
   /**
@@ -664,6 +680,21 @@ export class TestCollector {
   }
 
   /**
+   * This function reports an actual numeric value.
+   *
+   * @param {number} numericValue - The value to be expected.
+   * @param {1 | 0} signed - The value indicating if the value is signed.
+   */
+  private reportActualBool(boolValue: 1 | 0, stackTrace: number): void {
+    const value = new ActualValue();
+    value.message = (!!boolValue).toString();
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    value.value = boolValue;
+    this.actual = value;
+  }
+
+  /**
    * This function reports an expected numeric value.
    *
    * @param {number} numericValue - The expected value.
@@ -680,6 +711,23 @@ export class TestCollector {
     value.target = this.logTarget;
     value.negated = negated === 1;
     value.value = numericValue;
+    this.expected = value;
+  }
+
+  /**
+   * This function reports an expected numeric value.
+   *
+   * @param {number} numericValue - The expected value.
+   * @param {1 | 0} signed - The value indicating if the value is signed.
+   * @param {1 | 0} negated - An indicator if the expectation is negated.
+   */
+  private reportExpectedBool(boolValue: 0 | 1, negated: 0 | 1, stackTrace: number): void {
+    const value = new ActualValue();
+    value.message = (!!boolValue).toString();
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    value.negated = negated === 1;
+    value.value = boolValue;
     this.expected = value;
   }
 

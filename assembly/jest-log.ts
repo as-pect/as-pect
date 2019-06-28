@@ -11,6 +11,8 @@ describe("logs", () => {
   log<u64>(999999999999);
   log<i8>(-1);
   log<i16>(-1);
+  log<bool>(true);
+  log<bool>(false);
 
   test("logs", () => {
     log<string>("Hello world!");
@@ -23,6 +25,8 @@ describe("logs", () => {
     log<u64>(999999999999);
     log<i8>(-1);
     log<i16>(-1);
+    log<bool>(true);
+    log<bool>(false);
   });
 
   todo("one");

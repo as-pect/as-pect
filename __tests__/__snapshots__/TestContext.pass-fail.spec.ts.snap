@@ -2,7 +2,7 @@
 
 exports[`pass-fail pass-fail: fail on group afterAll afterAllPointers 1`] = `
 Array [
-  26,
+  27,
 ]
 `;
 
@@ -16,7 +16,7 @@ exports[`pass-fail pass-fail: fail on group afterAll pass 1`] = `false`;
 
 exports[`pass-fail pass-fail: fail on group afterAll reason 1`] = `"Test suite fail on group afterAll failed because of an afterAll() callback occurred."`;
 
-exports[`pass-fail pass-fail: fail on group afterAll~should run functionPointer 1`] = `27`;
+exports[`pass-fail pass-fail: fail on group afterAll~should run functionPointer 1`] = `28`;
 
 exports[`pass-fail pass-fail: fail on group afterAll~should run message 1`] = `""`;
 
@@ -28,7 +28,7 @@ exports[`pass-fail pass-fail: fail on group afterEach afterAllPointers 1`] = `Ar
 
 exports[`pass-fail pass-fail: fail on group afterEach afterEachPointers 1`] = `
 Array [
-  23,
+  24,
 ]
 `;
 
@@ -40,7 +40,7 @@ exports[`pass-fail pass-fail: fail on group afterEach pass 1`] = `false`;
 
 exports[`pass-fail pass-fail: fail on group afterEach reason 1`] = `"Test suite fail on group afterEach failed because an error occurred in an afterEach() callback."`;
 
-exports[`pass-fail pass-fail: fail on group afterEach~should run functionPointer 1`] = `24`;
+exports[`pass-fail pass-fail: fail on group afterEach~should run functionPointer 1`] = `25`;
 
 exports[`pass-fail pass-fail: fail on group afterEach~should run message 1`] = `""`;
 
@@ -54,7 +54,7 @@ exports[`pass-fail pass-fail: fail on group beforeAll afterEachPointers 1`] = `A
 
 exports[`pass-fail pass-fail: fail on group beforeAll beforeAllPointers 1`] = `
 Array [
-  17,
+  18,
 ]
 `;
 
@@ -64,7 +64,7 @@ exports[`pass-fail pass-fail: fail on group beforeAll pass 1`] = `false`;
 
 exports[`pass-fail pass-fail: fail on group beforeAll reason 1`] = `"Test suite fail on group beforeAll failed because an error occurred in a beforeAll() callback."`;
 
-exports[`pass-fail pass-fail: fail on group beforeAll~shouldn't run functionPointer 1`] = `18`;
+exports[`pass-fail pass-fail: fail on group beforeAll~shouldn't run functionPointer 1`] = `19`;
 
 exports[`pass-fail pass-fail: fail on group beforeAll~shouldn't run message 1`] = `""`;
 
@@ -80,7 +80,7 @@ exports[`pass-fail pass-fail: fail on group beforeEach beforeAllPointers 1`] = `
 
 exports[`pass-fail pass-fail: fail on group beforeEach beforeEachPointers 1`] = `
 Array [
-  20,
+  21,
 ]
 `;
 
@@ -88,7 +88,7 @@ exports[`pass-fail pass-fail: fail on group beforeEach pass 1`] = `false`;
 
 exports[`pass-fail pass-fail: fail on group beforeEach reason 1`] = `"Test suite fail on group beforeEach failed because an error occurred in a beforeEach() callback."`;
 
-exports[`pass-fail pass-fail: fail on group beforeEach~shouldn't run functionPointer 1`] = `21`;
+exports[`pass-fail pass-fail: fail on group beforeEach~shouldn't run functionPointer 1`] = `22`;
 
 exports[`pass-fail pass-fail: fail on group beforeEach~shouldn't run message 1`] = `""`;
 
@@ -98,7 +98,7 @@ exports[`pass-fail pass-fail: fail on group beforeEach~shouldn't run pass 1`] = 
 
 exports[`pass-fail pass-fail: pass on group afterAll afterAllPointers 1`] = `
 Array [
-  38,
+  39,
 ]
 `;
 
@@ -112,7 +112,7 @@ exports[`pass-fail pass-fail: pass on group afterAll pass 1`] = `true`;
 
 exports[`pass-fail pass-fail: pass on group afterAll reason 1`] = `""`;
 
-exports[`pass-fail pass-fail: pass on group afterAll~should run functionPointer 1`] = `39`;
+exports[`pass-fail pass-fail: pass on group afterAll~should run functionPointer 1`] = `40`;
 
 exports[`pass-fail pass-fail: pass on group afterAll~should run message 1`] = `""`;
 
@@ -124,7 +124,7 @@ exports[`pass-fail pass-fail: pass on group afterEach afterAllPointers 1`] = `Ar
 
 exports[`pass-fail pass-fail: pass on group afterEach afterEachPointers 1`] = `
 Array [
-  35,
+  36,
 ]
 `;
 
@@ -136,7 +136,7 @@ exports[`pass-fail pass-fail: pass on group afterEach pass 1`] = `true`;
 
 exports[`pass-fail pass-fail: pass on group afterEach reason 1`] = `""`;
 
-exports[`pass-fail pass-fail: pass on group afterEach~should run functionPointer 1`] = `36`;
+exports[`pass-fail pass-fail: pass on group afterEach~should run functionPointer 1`] = `37`;
 
 exports[`pass-fail pass-fail: pass on group afterEach~should run message 1`] = `""`;
 
@@ -150,7 +150,7 @@ exports[`pass-fail pass-fail: pass on group beforeAll afterEachPointers 1`] = `A
 
 exports[`pass-fail pass-fail: pass on group beforeAll beforeAllPointers 1`] = `
 Array [
-  29,
+  30,
 ]
 `;
 
@@ -160,7 +160,7 @@ exports[`pass-fail pass-fail: pass on group beforeAll pass 1`] = `true`;
 
 exports[`pass-fail pass-fail: pass on group beforeAll reason 1`] = `""`;
 
-exports[`pass-fail pass-fail: pass on group beforeAll~should run functionPointer 1`] = `30`;
+exports[`pass-fail pass-fail: pass on group beforeAll~should run functionPointer 1`] = `31`;
 
 exports[`pass-fail pass-fail: pass on group beforeAll~should run message 1`] = `""`;
 
@@ -176,7 +176,7 @@ exports[`pass-fail pass-fail: pass on group beforeEach beforeAllPointers 1`] = `
 
 exports[`pass-fail pass-fail: pass on group beforeEach beforeEachPointers 1`] = `
 Array [
-  32,
+  33,
 ]
 `;
 
@@ -184,7 +184,7 @@ exports[`pass-fail pass-fail: pass on group beforeEach pass 1`] = `true`;
 
 exports[`pass-fail pass-fail: pass on group beforeEach reason 1`] = `""`;
 
-exports[`pass-fail pass-fail: pass on group beforeEach~should run functionPointer 1`] = `33`;
+exports[`pass-fail pass-fail: pass on group beforeEach~should run functionPointer 1`] = `34`;
 
 exports[`pass-fail pass-fail: pass on group beforeEach~should run message 1`] = `""`;
 
@@ -237,9 +237,9 @@ exports[`pass-fail pass-fail: pass-fail~should expect strings~actual offset 1`] 
 exports[`pass-fail pass-fail: pass-fail~should expect strings~actual pointer 1`] = `712`;
 
 exports[`pass-fail pass-fail: pass-fail~should expect strings~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[74]:51)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|2 (wasm-function[75]:16)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[76]:51)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|2 (wasm-function[77]:16)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should expect strings~actual value 1`] = `712`;
@@ -255,9 +255,9 @@ exports[`pass-fail pass-fail: pass-fail~should expect strings~expected offset 1`
 exports[`pass-fail pass-fail: pass-fail~should expect strings~expected pointer 1`] = `736`;
 
 exports[`pass-fail pass-fail: pass-fail~should expect strings~expected stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[74]:173)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|2 (wasm-function[75]:16)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[76]:173)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|2 (wasm-function[77]:16)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should expect strings~expected value 1`] = `736`;
@@ -287,9 +287,9 @@ exports[`pass-fail pass-fail: pass-fail~should report array values~actual offset
 exports[`pass-fail pass-fail: pass-fail~should report array values~actual pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report array values~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[104]:51)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|11 (wasm-function[105]:40)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[106]:51)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|11 (wasm-function[107]:40)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report array values~actual value 1`] = `null`;
@@ -308,6 +308,48 @@ exports[`pass-fail pass-fail: pass-fail~should report array values~expected stac
 
 exports[`pass-fail pass-fail: pass-fail~should report array values~expected value 1`] = `null`;
 
+exports[`pass-fail pass-fail: pass-fail~should report bool values functionPointer 1`] = `15`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values message 1`] = `""`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values negated 1`] = `false`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values pass 1`] = `false`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~actual bytes 1`] = `Array []`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~actual message 1`] = `"false"`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~actual offset 1`] = `0`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~actual pointer 1`] = `0`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~actual stack 1`] = `
+"    at assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[121]:40)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|14 (wasm-function[122]:14)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
+`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~actual value 1`] = `0`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~expected bytes 1`] = `Array []`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~expected message 1`] = `"true"`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~expected negated 1`] = `false`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~expected offset 1`] = `0`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~expected pointer 1`] = `0`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~expected stack 1`] = `
+"    at assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[121]:197)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|14 (wasm-function[122]:14)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
+`;
+
+exports[`pass-fail pass-fail: pass-fail~should report bool values~expected value 1`] = `1`;
+
 exports[`pass-fail pass-fail: pass-fail~should report expected finite values functionPointer 1`] = `4`;
 
 exports[`pass-fail pass-fail: pass-fail~should report expected finite values message 1`] = `""`;
@@ -325,9 +367,9 @@ exports[`pass-fail pass-fail: pass-fail~should report expected finite values~act
 exports[`pass-fail pass-fail: pass-fail~should report expected finite values~actual pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report expected finite values~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[79]:38)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|3 (wasm-function[80]:19)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[81]:38)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|3 (wasm-function[82]:19)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report expected finite values~actual value 1`] = `NaN`;
@@ -363,9 +405,9 @@ exports[`pass-fail pass-fail: pass-fail~should report falsy expected values~actu
 exports[`pass-fail pass-fail: pass-fail~should report falsy expected values~actual pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report falsy expected values~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<i32>#toBeFalsy (wasm-function[81]:36)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|4 (wasm-function[82]:12)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<i32>#toBeFalsy (wasm-function[83]:36)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|4 (wasm-function[84]:12)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report falsy expected values~actual value 1`] = `1`;
@@ -401,9 +443,9 @@ exports[`pass-fail pass-fail: pass-fail~should report long values~actual offset 
 exports[`pass-fail pass-fail: pass-fail~should report long values~actual pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report long values~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[109]:42)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|12 (wasm-function[110]:22)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[111]:42)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|12 (wasm-function[112]:22)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report long values~actual value 1`] = `null`;
@@ -419,9 +461,9 @@ exports[`pass-fail pass-fail: pass-fail~should report long values~expected offse
 exports[`pass-fail pass-fail: pass-fail~should report long values~expected pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report long values~expected stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[109]:152)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|12 (wasm-function[110]:22)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[111]:195)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|12 (wasm-function[112]:22)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report long values~expected value 1`] = `null`;
@@ -443,9 +485,9 @@ exports[`pass-fail pass-fail: pass-fail~should report nulls~actual offset 1`] = 
 exports[`pass-fail pass-fail: pass-fail~should report nulls~actual pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report nulls~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeNull (wasm-function[93]:40)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|8 (wasm-function[94]:16)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeNull (wasm-function[95]:40)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|8 (wasm-function[96]:16)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report nulls~actual value 1`] = `null`;
@@ -461,9 +503,9 @@ exports[`pass-fail pass-fail: pass-fail~should report nulls~expected offset 1`] 
 exports[`pass-fail pass-fail: pass-fail~should report nulls~expected pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report nulls~expected stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeNull (wasm-function[93]:162)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|8 (wasm-function[94]:16)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeNull (wasm-function[95]:162)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|8 (wasm-function[96]:16)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report nulls~expected value 1`] = `null`;
@@ -485,9 +527,9 @@ exports[`pass-fail pass-fail: pass-fail~should report number values~actual offse
 exports[`pass-fail pass-fail: pass-fail~should report number values~actual pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report number values~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[64]:40)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|7 (wasm-function[91]:14)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[66]:40)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|7 (wasm-function[93]:14)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report number values~actual value 1`] = `0`;
@@ -503,9 +545,9 @@ exports[`pass-fail pass-fail: pass-fail~should report number values~expected off
 exports[`pass-fail pass-fail: pass-fail~should report number values~expected pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report number values~expected stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[64]:149)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|7 (wasm-function[91]:14)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[66]:191)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|7 (wasm-function[93]:14)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report number values~expected value 1`] = `42`;
@@ -551,15 +593,15 @@ exports[`pass-fail pass-fail: pass-fail~should report reference values~actual me
 
 exports[`pass-fail pass-fail: pass-fail~should report reference values~actual offset 1`] = `24`;
 
-exports[`pass-fail pass-fail: pass-fail~should report reference values~actual pointer 1`] = `4736`;
+exports[`pass-fail pass-fail: pass-fail~should report reference values~actual pointer 1`] = `4832`;
 
 exports[`pass-fail pass-fail: pass-fail~should report reference values~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toStrictEqual (wasm-function[89]:1100)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|6 (wasm-function[90]:76)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toStrictEqual (wasm-function[91]:1100)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|6 (wasm-function[92]:76)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
-exports[`pass-fail pass-fail: pass-fail~should report reference values~actual value 1`] = `4736`;
+exports[`pass-fail pass-fail: pass-fail~should report reference values~actual value 1`] = `4832`;
 
 exports[`pass-fail pass-fail: pass-fail~should report reference values~expected bytes 1`] = `
 Array [
@@ -596,15 +638,15 @@ exports[`pass-fail pass-fail: pass-fail~should report reference values~expected 
 
 exports[`pass-fail pass-fail: pass-fail~should report reference values~expected offset 1`] = `24`;
 
-exports[`pass-fail pass-fail: pass-fail~should report reference values~expected pointer 1`] = `4816`;
+exports[`pass-fail pass-fail: pass-fail~should report reference values~expected pointer 1`] = `4912`;
 
 exports[`pass-fail pass-fail: pass-fail~should report reference values~expected stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toStrictEqual (wasm-function[89]:1222)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|6 (wasm-function[90]:76)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toStrictEqual (wasm-function[91]:1222)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|6 (wasm-function[92]:76)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
-exports[`pass-fail pass-fail: pass-fail~should report reference values~expected value 1`] = `4816`;
+exports[`pass-fail pass-fail: pass-fail~should report reference values~expected value 1`] = `4912`;
 
 exports[`pass-fail pass-fail: pass-fail~should report truthy expected values functionPointer 1`] = `6`;
 
@@ -623,9 +665,9 @@ exports[`pass-fail pass-fail: pass-fail~should report truthy expected values~act
 exports[`pass-fail pass-fail: pass-fail~should report truthy expected values~actual pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report truthy expected values~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<i32>#toBeTruthy (wasm-function[83]:36)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|5 (wasm-function[84]:12)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<i32>#toBeTruthy (wasm-function[85]:36)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|5 (wasm-function[86]:12)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report truthy expected values~actual value 1`] = `0`;
@@ -661,9 +703,9 @@ exports[`pass-fail pass-fail: pass-fail~should report u32 values~actual offset 1
 exports[`pass-fail pass-fail: pass-fail~should report u32 values~actual pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report u32 values~actual stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[114]:40)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|13 (wasm-function[115]:14)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[116]:40)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|13 (wasm-function[117]:14)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report u32 values~actual value 1`] = `4294967294`;
@@ -679,9 +721,9 @@ exports[`pass-fail pass-fail: pass-fail~should report u32 values~expected offset
 exports[`pass-fail pass-fail: pass-fail~should report u32 values~expected pointer 1`] = `0`;
 
 exports[`pass-fail pass-fail: pass-fail~should report u32 values~expected stack 1`] = `
-"    at assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[114]:149)
-    at start:assembly/jest-pass-fail~anonymous|0~anonymous|13 (wasm-function[115]:14)
-    at assembly/internal/call/__call (wasm-function[149]:7)"
+"    at assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[116]:191)
+    at start:assembly/jest-pass-fail~anonymous|0~anonymous|13 (wasm-function[117]:14)
+    at assembly/internal/call/__call (wasm-function[156]:7)"
 `;
 
 exports[`pass-fail pass-fail: pass-fail~should report u32 values~expected value 1`] = `4294967293`;
