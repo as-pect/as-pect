@@ -3519,6 +3519,20 @@
    local.get $0
    drop
    i32.const 1
+   if (result i32)
+    i32.const 1
+   else    
+    local.get $0
+    drop
+    i32.const 0
+   end
+   if (result i32)
+    i32.const 1
+   else    
+    local.get $0
+    drop
+    i32.const 0
+   end
    call $assembly/internal/log/logInteger
   end
  )

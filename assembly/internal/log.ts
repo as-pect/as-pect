@@ -65,8 +65,13 @@ export function log<T>(value: T): void {
       let box = new Box<T>(value);
       logLong(changetype<usize>(box), value instanceof i64);
     } else {
-      // @ts-ignore: this cast is valid because it's already an integer
-      logInteger(<i32>value, value instanceof i32);
+      logInteger(
+        // @ts-ignore: this cast is valid because it's already an integer
+        <i32>value,
+        value instanceof i32 // determine if the value is unsigned
+        || value instanceof i16
+        || value instanceof i8,
+      );
     }
   }
 }
