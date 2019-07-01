@@ -1430,6 +1430,7 @@ declare module "cli/util/CommandLineArg" {
         nortrace: boolean;
         reporter: string;
         performance: IPerformanceConfiguration;
+        portable: boolean;
         compiler: string;
         csv: string | boolean;
         json: string | boolean;
@@ -1457,9 +1458,6 @@ declare module "cli/util/CommandLineArg" {
     export function makeArgMap(args?: CommandLineArgs): ArgMap;
     export const Args: Map<string, CommandLineArg>;
     export function parse(commands: string[], args?: ArgMap): Options;
-}
-declare module "cli/util/asciiArt" {
-    export function printAsciiArt(version: string): void;
 }
 declare module "cli/index" {
     /**
@@ -1569,13 +1567,15 @@ declare module "cli/init" {
     /**
      * This method initializes a new test project. It is opinionated and reflects the needs of 99% of
      * AssemblyScript developers following the standard way of creating a new AssemblyScript project.
-     *
-     * @param {string} assemblyFolder - The `./assembly/` folder for the current project.
-     * @param {string} testFolder - The `./assembly/__tests__/` folder for the current project.
-     * @param {string} typesFile - The types file location for the current project.
-     * @param {string} typesFileSource - The types file source location for `as-pect`.
      */
-    export function init(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
+    export function init(): void;
+}
+declare module "cli/portable" {
+    /**
+     * This method creates a portable types file to the current testing directory located at
+     * `./assembly/__tests__/` for the current project.
+     */
+    export function portable(): void;
 }
 declare module "cli/util/collectReporter" {
     import { TestReporter } from "test/TestReporter";
@@ -1627,13 +1627,11 @@ declare module "cli/types" {
     /**
      * This method creates a types file to the current testing directory located at
      * `./assembly/__tests__/` for the current project.
-     *
-     * @param {string} assemblyFolder - The current `./assembly/` folder.
-     * @param {string} testFolder - The current `./assembly/__tests__` folder.
-     * @param {string} typesFile - The current types file location.
-     * @param {string} typesFileSource - The types file source location.
      */
-    export function types(assemblyFolder: string, testFolder: string, typesFile: string, typesFileSource: string): void;
+    export function types(): void;
+}
+declare module "cli/util/asciiArt" {
+    export function printAsciiArt(version: string): void;
 }
 declare module "cli/worklets/compiler" { }
 //# sourceMappingURL=as-pect.amd.d.ts.map

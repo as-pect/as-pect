@@ -33,6 +33,7 @@ export interface Options {
   nortrace: boolean;
   reporter: string;
   performance: IPerformanceConfiguration;
+  portable: boolean;
   compiler: string;
   csv: string | boolean;
   json: string | boolean;
@@ -183,6 +184,12 @@ const _Args: CommandLineArgs = {
     type: "b",
     value: false,
     parent: "performance",
+  },
+
+  portable: {
+    description: "Add the portable jest/as-pect types to your project.",
+    type: "b",
+    value: false
   },
 
   "report-average": {

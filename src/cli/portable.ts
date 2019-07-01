@@ -4,16 +4,16 @@ import path from "path";
 
 const assemblyFolder = path.join(process.cwd(), "assembly");
 const testFolder = path.join(assemblyFolder, "__tests__");
-const typesFileSource = path.join(__dirname, "../../assembly/__tests__/as-pect.d.ts");
+const typesFileSource = path.join(__dirname, "../../init/as-pect.portable.d.ts");
 const typesFile = path.join(testFolder, "as-pect.d.ts");
 
 /**
- * This method creates a types file to the current testing directory located at
+ * This method creates a portable types file to the current testing directory located at
  * `./assembly/__tests__/` for the current project.
  */
-export function types() {
+export function portable() {
   console.log("");
-  console.log(chalk`{bgWhite.black [Log]} Initializing types.`);
+  console.log(chalk`{bgWhite.black [Log]} Initializing portable types.`);
   console.log("");
   // Create the assembly folder if it doesn't exist
   if (!fs.existsSync(assemblyFolder)) {
