@@ -34,6 +34,7 @@ that you can be confident in yourself and the software you write.
     - [VerboseReporter](#verbosereporter)
     - [JSONReporter](#jsonreporter)
     - [CSVReporter](#csvreporter)
+1. [Portability](#portability)
 1. [RTrace and Memory Leaks](#rtrace-and-memory-leaks)
 1. [Performance Testing](#performance-testing)
 1. [Custom Imports Using CLI](#custom-imports-using-cli)
@@ -615,6 +616,60 @@ const csvColumns = [
   "StdDev", // The standard deviation of the run times (performance)
   "Variance", // The variance of the run times (performance)
 ];
+```
+
+## Portability
+
+It is possible to write `as-pect` tests that run in `jest` as well. The
+compatible functions are documented in the `init/as-pect.portable.d.ts` file
+and can be added to your project by using the `--portable` flag. Instead of
+using the types provided by `@types/jest`, use the portable ones provided by
+`as-pect`. This is the recommended way to setup testing.
+
+```
+npm install --save-dev jest as-pect typescript assemblyscript/assemblyscript
+npx ts-jest config:init
+npx asp --portable
+```
+
+Then change the configuration to match these properties as you see fit:
+
+```js
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testMatch: ["assembly/__tests__/**/*.spec.ts"],
+};
+```
+
+The following functions are a recommended subset of `as-pect` to remain
+portable with `typescript`:
+
+```ts
+describe();
+test();
+it();
+xtest()
+xit();
+beforeEach();
+beforeAll();
+afterEach();
+afterAll();
+expect().toBe();
+expect().toInclude();
+expect().toThrow();
+expect().toBeTruthy();
+expect().toBeFalsy();
+expect().toBeNull();
+expect().toBeFinite();
+expect().toBeNaN();
+expect().toBeGreaterThan();
+expect().toBeGreaterThanOrEqual();
+expect().toBeLessThan();
+expect().toBeLessThanOrEqual();
+expect().toBeCloseTo();
+expect().toHaveLength();
+expect().not;
 ```
 
 ## RTrace and Memory Leaks
