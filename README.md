@@ -18,6 +18,9 @@ that you can be confident in yourself and the software you write.
 
 1. [Philosophy](#philosophy)
 1. [Usage](#usage)
+1. [Comparisons](#comparisons)
+    - [toBe](#tobe-comparison)
+    - [toStrictEqual](#tostrictequal-comparison)
 1. [CLI](#cli)
 1. [Configuration File](#configuration-file)
 1. [Types And Tooling](#types-and-tooling)
@@ -90,6 +93,94 @@ $ npx asp --config=as-pect.config.js
 
 Most of the values configured in the configuration are overridable via the command
 line, with the exception of the Web Assembly imports provided to the module.
+
+## Comparisons
+
+There are a set of comparison functions defined in the `as-pect.d.ts` types
+definition. These comparison functions allow you to inspect object and memory
+state.
+
+### toBe Comparison
+
+This comparison is used for comparing data using the `==` operator. In
+AssemblyScript this operator is used for comparing strings, numbers, and exact
+reference equality (or pointer comparison.) The following is the exact
+assertion performed by `as-pect`.
+
+```ts
+assert(negated ^ i32(expected == actual), message);
+```
+
+This method is safe to use portably with `jest`. For example, the following
+statements are valid `toBe` assertions:
+
+```ts
+let a = new Vec3(1, 2, 3);
+expect<Vec3>(a).toBe(a);
+expect<i32>(10).toBe(10);
+expect<Vec3>(null).toBe(null);
+```
+
+### toStrictEqual Comparison
+
+This method performs a single `memory.compare()` on two blocks of data. This is
+useful for references and strings. For example, using a `toBe()` assertion on
+two different references results in a failed assertion:
+
+```ts
+let a = new Vec3(1, 2, 3);
+let b = new Vec3(1, 2, 3);
+expect<Vec3>(a).toBe(b); // fails!
+```
+
+Instead, it's posible to compare two different references like this:
+
+```ts
+expect<Vec3>(a).toStrictEqual(b); // passes!
+```
+
+The following snippet an approximate the JavaScript equivalent for the
+`toStrictEqual` comparison:
+
+```ts
+// loop over each property (properties are the same at compile time)
+for (let prop in a) {
+  if (a[prop] === b[prop]) { // exact equality check
+    continue;
+  } else {
+    assert(negated);
+  }
+}
+assert(!negated);
+```
+
+If the object has child references, like strings or pointers to other blocks
+of memory, the comparison will fail because the pointers are different. This
+happens because `as-pect` cannot perform object traversal. Instead, a custom
+method should be used to traverse child references to compare equality.
+
+The `toStrictEqual` comparison, however, does perform a `==` comparison before
+opting into using a full memory comparison. If the `@operator("==")` is
+overridden, then it's possible for two references to be compared using this
+method:
+
+```ts
+class Vec3 {
+  constructor(
+    public a: f64 = 0.0,
+    public b: f64 = 0.0,
+    public c: f64 = 0.0,
+  ) {}
+
+  // override the operator
+  @operator("==")
+  protected __equals(ref: Vec3): bool {
+    return this.a == ref.a
+      && this.b == ref.b
+      && this.c == ref.c;
+  }
+}
+```
 
 ## CLI
 
