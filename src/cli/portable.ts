@@ -25,10 +25,9 @@ export function portable() {
     console.log(chalk`{bgWhite.black [Log]} Creating folder: {yellow ./assembly/__tests__/}`);
     fs.mkdirSync(testFolder);
   }
-  // Create the types file if it doesn't exist
-  if (!fs.existsSync(typesFile)) {
-    console.log(chalk`{bgWhite.black [Log]} Creating file: {yellow assembly/__tests__/as-pect.d.ts}`);
-    fs.createReadStream(typesFileSource, "utf-8")
-      .pipe(fs.createWriteStream(typesFile, "utf-8"));
-  }
+
+  // Always create the types file
+  console.log(chalk`{bgWhite.black [Log]} Creating file: {yellow assembly/__tests__/as-pect.d.ts}`);
+  fs.createReadStream(typesFileSource, "utf-8")
+    .pipe(fs.createWriteStream(typesFile, "utf-8"));
 }
