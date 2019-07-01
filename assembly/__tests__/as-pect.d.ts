@@ -72,13 +72,13 @@ declare function test(description: string, callback: () => void): void;
  * @param {string?} message - A message that describes why the test should fail.
  * @example
  * describe("the meaning of life", (): void => {
-  *   throws("the value should be 42", (): void => {
-  *     // put your expectations here
-  *     expect<i32>(29 + 13).toBe(42);
-  *   });
-  * });
-  */
- declare function throws(description: string, callback: () => void, message?: string): void;
+ *   throws("the value should be 42", (): void => {
+ *     // put your expectations here
+ *     expect<i32>(29 + 13).toBe(42);
+ *   });
+ * });
+ */
+declare function throws(description: string, callback: () => void, message?: string): void;
 
 
 /**
@@ -90,13 +90,13 @@ declare function test(description: string, callback: () => void): void;
  * @param {string?} message - A message that describes why the test should fail.
  * @example
  * describe("the meaning of life", (): void => {
-  *   itThrows("when the value should be 42", (): void => {
-  *     // put your expectations here
-  *     expect<i32>(29 + 13).not.toBe(42);
-  *   }, "The value is actually 42.");
-  * });
-  */
- declare function itThrows(description: string, callback: () => void, message?: string): void;
+ *   itThrows("when the value should be 42", (): void => {
+ *     // put your expectations here
+ *     expect<i32>(29 + 13).not.toBe(42);
+ *   }, "The value is actually 42.");
+ * });
+ */
+declare function itThrows(description: string, callback: () => void, message?: string): void;
 
 /**
  * This function creates a callback that is called before each individual test is run in this test
@@ -215,8 +215,8 @@ declare function todo(description: string): void;
 declare function log<T>(value: T | null): void;
 
 /**
-* An expectation for a value.
-*/
+ * An expectation for a value.
+ */
 declare class Expectation<T> {
 
   /**
