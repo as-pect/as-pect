@@ -3381,7 +3381,7 @@
    global.set $assembly/internal/report/reportExpected/Expected.reference
   end
  )
- (func $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqualTo (; 63 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqual (; 63 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -3593,7 +3593,7 @@
   local.tee $0
   i32.const 42
   i32.const 520
-  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -3624,7 +3624,7 @@
   local.tee $1
   i32.const 42
   i32.const 896
-  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -3656,7 +3656,7 @@
   local.tee $1
   i32.const 0
   i32.const 896
-  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -3669,7 +3669,7 @@
   local.tee $0
   i32.const 0
   i32.const 896
-  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -3680,7 +3680,7 @@
   local.tee $0
   i32.const 42
   i32.const 896
-  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -3694,7 +3694,7 @@
   local.tee $1
   i32.const 42
   i32.const 896
-  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<i32>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -3731,7 +3731,7 @@
   local.get $0
   f64.ne
  )
- (func $assembly/internal/Expectation/Expectation<f64>#toBeLessThanOrEqualTo (; 76 ;) (type $FUNCSIG$vidi) (param $0 i32) (param $1 f64) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<f64>#toBeLessThanOrEqual (; 76 ;) (type $FUNCSIG$vidi) (param $0 i32) (param $1 f64) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 f64)
@@ -3860,7 +3860,7 @@
   local.tee $0
   f64.const 0
   i32.const 896
-  call $assembly/internal/Expectation/Expectation<f64>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<f64>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -3871,7 +3871,7 @@
   local.tee $0
   f64.const nan:0x8000000000000
   i32.const 896
-  call $assembly/internal/Expectation/Expectation<f64>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<f64>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -4010,7 +4010,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThanOrEqualTo (; 85 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThanOrEqual (; 85 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4241,7 +4241,7 @@
   local.tee $0
   global.get $assembly/__tests__/lessThanOrEqualTo.spec/vec3
   i32.const 2848
-  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -4252,7 +4252,7 @@
   local.tee $0
   global.get $assembly/__tests__/lessThanOrEqualTo.spec/vec3
   i32.const 896
-  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -4263,7 +4263,7 @@
   local.tee $0
   i32.const 0
   i32.const 896
-  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThanOrEqualTo
+  call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThanOrEqual
   local.get $0
   call $~lib/rt/pure/__release
  )

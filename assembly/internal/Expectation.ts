@@ -137,7 +137,7 @@ export class Expectation<T> {
     Expected.clear();
   }
 
-  public toBeGreaterThanOrEqualTo(expected: T, message: string = ""): void {
+  public toBeGreaterThanOrEqual(expected: T, message: string = ""): void {
     greaterThanOrEqualToComparison<T>(this.actual, expected, this._not, message);
     Actual.clear();
     Expected.clear();
@@ -149,7 +149,7 @@ export class Expectation<T> {
     Expected.clear();
   }
 
-  public toBeLessThanOrEqualTo(expected: T, message: string = ""): void {
+  public toBeLessThanOrEqual(expected: T, message: string = ""): void {
     lessThanOrEqualToComparison<T>(this.actual, expected, this._not, message);
     Actual.clear();
     Expected.clear();

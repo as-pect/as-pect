@@ -357,11 +357,11 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
-   * expect<i32>(42).toBeGreaterThanOrEqualTo(42);
-   * expect<i32>(10).toBeGreaterThanOrEqualTo(4);
-   * expect<i32>(12).not.toBeGreaterThanOrEqualTo(42);
+   * expect<i32>(42).toBeGreaterThanOrEqual(42);
+   * expect<i32>(10).toBeGreaterThanOrEqual(4);
+   * expect<i32>(12).not.toBeGreaterThanOrEqual(42);
    */
-  toBeGreaterThanOrEqualTo(expected: T | null, message?: string): void;
+  toBeGreaterThanOrEqual(expected: T | null, message?: string): void;
 
   /**
    * This expectation asserts that the value is less than or equal to the expected value. Since
@@ -373,11 +373,11 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
-   * expect<i32>(42).toBeLessThanOrEqualTo(42);
-   * expect<i32>(10).not.toBeLessThanOrEqualTo(4);
-   * expect<i32>(12).toBeLessThanOrEqualTo(42);
+   * expect<i32>(42).toBeLessThanOrEqual(42);
+   * expect<i32>(10).not.toBeLessThanOrEqual(4);
+   * expect<i32>(12).toBeLessThanOrEqual(42);
    */
-  toBeLessThanOrEqualTo(expected: T | null, message?: string): void;
+  toBeLessThanOrEqual(expected: T | null, message?: string): void;
 
   /**
    * This expectation asserts that the value is close to another value. Both numbers must be finite,
