@@ -21,6 +21,11 @@ that you can be confident in yourself and the software you write.
 1. [Comparisons](#comparisons)
     - [toBe](#tobe-comparison)
     - [toStrictEqual](#tostrictequal-comparison)
+    - [toBlockEqual](#toblockequal-comparison)
+    - [toBeTruthy and toBeFalsy](#tobetruthy-and-tobefalsy-comparison)
+    - [toBeNaN](#tobenan-comparison)
+    - [toBeFinite](#tobefinite-comparison)
+    - [toThrow](#tothrow-comparison)
 1. [CLI](#cli)
 1. [Configuration File](#configuration-file)
 1. [Types And Tooling](#types-and-tooling)
@@ -43,7 +48,7 @@ that you can be confident in yourself and the software you write.
 ## Usage
 
 To install `as-pect`, install the latest version from github. Once
-`AssemblyScript` becomes more stable, `as-pect` will be published to npm.
+AssemblyScript becomes more stable, `as-pect` will be published to npm.
 
 ```
 $ npm install jtenner/as-pect
@@ -105,15 +110,9 @@ state.
 
 This comparison is used for comparing data using the `==` operator. In
 AssemblyScript this operator is used for comparing strings, numbers, and exact
-reference equality (or pointer comparison.) The following is the exact
-assertion performed by `as-pect`.
+reference equality (or pointer comparison.)
 
-```ts
-assert(negated ^ i32(expected == actual), message);
-```
-
-This method is safe to use portably with `jest`. For example, the following
-statements are valid `toBe` assertions:
+For example, the following statements are valid `toBe` assertions:
 
 ```ts
 let a = new Vec3(1, 2, 3);
@@ -121,6 +120,8 @@ expect<Vec3>(a).toBe(a);
 expect<i32>(10).toBe(10);
 expect<Vec3>(null).toBe(null);
 ```
+
+This method is safe to use portably with `jest`.
 
 ### toStrictEqual Comparison
 
@@ -182,6 +183,134 @@ class Vec3 {
   }
 }
 ```
+
+This method is _not_ safe to use portably with `jest` yet. Once `Reflection`
+is supported by AssemblyScript, `as-pect` will support compatibility
+between `jest`'s version of this function.
+
+### toBlockEqual Comparison
+
+This comparison is the same comparison used on `ArrayBuffer` and `String`s.
+It compares the bytes of the heap allocations by obtaining the exact size
+of the block and then performing a memcompare if the `actual` and `expected`
+blocks match.
+
+Only use this comparison when comparing `ArrayBuffer` references.
+
+```ts
+let buffer = new ArrayBuffer(100); // 100 bytes long heap allocation
+let buffer2 = new ArrayBuffer(100); // another buffer
+
+expect<ArrayBuffer>(buffer).toBlockEqual(buffer2);
+```
+
+### toBeTruthy and toBeFalsy Comparison
+
+These comparisons are used to determine if a value is truthy or falsy in the
+JavaScript sense. In JavaScript there are only six falsy values:
+
+- `false`
+- `0`
+- `""`
+- `null`
+- `undefined`
+- `NaN`
+
+In AssemblyScript, there is no `undefined`, so `as-pect` will treat each of
+those values as falsy. Truthy values are anything that is not falsy,
+
+```ts
+expect<bool>(true).toBeTruthy();
+expect<Vec3>(new Vec3(1, 2, 3)).toBeTruthy();
+expect<i32>(1).toBeTruthy();
+expect<string>("Something!").toBeTruthy();
+expect<bool>(false).toBeFalsy();
+expect<Vec3>(null).toBeFalsy();
+expect<i32>(0).toBeFalsy();
+expect<f64>(NaN).toBeFalsy();
+expect<string>("").toBeFalsy();
+```
+
+These methods are safe to use with `jest`.
+
+### toBeNaN Comparison
+
+This comparison is only used for float values to determine if the value is a
+`NaN` value.
+
+```ts
+expect<f32>(NaN).toBeNaN(); // passes
+expect<f64>(1.0).not.toBeNaN(); // passes
+
+/** This results in a runtime error, despite not being NaN. */
+expect<Vec3>(new Vec3()).not.toBeNaN();
+```
+
+This method is technically safe to use with `jest` with the assumption
+that `as-pect` will fail if used with a reference type.
+
+### toBeNull Comparison
+
+This comparison looks specifically for a `null` value.
+
+```ts
+expect<Vec3>(null).toBeNull(); // valid assertion
+```
+
+In the case of numeric values, numbers cannot be `null` in AssemblyScript.
+Thus, the following example will throw a runtime error.
+
+```ts
+expect<i32>(null).toBeNull();
+```
+
+This method is safe to use with `jest` assuming you explicitly return `null`
+and avoid use of `undefined` which does not exist in AssemblyScript.
+
+### toBeFinite Comparison
+
+This comparison is used to detect if float values are finite. The following
+values are not finite in JavaScript or AssemblyScript.
+
+- `Infinity`
+- `-Infinity`
+- `NaN`
+
+The following assertions are true.
+
+```ts
+expect<f64>(1.0).toBeFinite();
+expect<f32>(Infinity).not.toBeFinite();
+expect<f64>(NaN).not.toBeFinite();
+```
+
+As long as the number values are always `f32` or `f64` (or `number` in
+JavaScript or AssemblyScript,) `toBeFinite` is a safe assertion to use
+portably with jest.
+
+### toThrow Comparison
+
+This comparison is used to test and see if a function throws an error. In the
+case of AssemblyScript and `as-pect`, the function will be called from within
+a JavaScript `try` block, and if the function throws, the assertion is valid,
+unless it is negated with the `not` property.
+
+```ts
+expect<() => void>(() => {
+  throw new Error("Whoops!");
+}).toThrow(); // valid assertion
+
+// alternative shorter convenience syntax
+expectFn(() => {
+  throw new Error("Whoops!");
+}).toThrow();
+```
+
+Closure is not supported in AssemblyScript yet. Also, any references that are
+left dangling on the stack will hang around un`__release()`ed by
+AssemblyScript.
+
+This function is safe to use with `jest`.
 
 ## CLI
 
@@ -314,7 +443,7 @@ run the `asp` command line tool to use the `SummaryTestReporter` like this:
 
 ### `--compiler` CLI Argument
 
-By default `as-pect` will use node's resolver to look for an `assemblyscript`
+By default `as-pect` will use node's resolver to look for an AssemblyScript
 module.  If you want to specify a different version of the compiler, use
 `--compiler ../relative/path/to/compiler/folder`.  Note that it expects the following
 to be the same `__folder__/dist/asc.js`, `__folder__/cli/util/options.js`, and
@@ -1131,5 +1260,5 @@ By default, `as-pect` always shows the generated compiler flags.
 
 ## Special Thanks
 
-Special thanks to the `AssemblyScript` team for creating one of the coolest
+Special thanks to the AssemblyScript team for creating one of the coolest
 computer languages that compile to web assembly.
