@@ -10,7 +10,9 @@ import { TestResult } from "../test/TestResult";
  * `{testLocation}.spec.json`.
  */
 export default class JSONReporter extends TestReporter {
-  constructor(_options?: any) { super(); }
+  constructor(_options?: any) {
+    super();
+  }
 
   protected file: WriteStream | null = null;
 
@@ -19,11 +21,7 @@ export default class JSONReporter extends TestReporter {
     const extension = extname(suite.fileName);
     const dir = dirname(suite.fileName);
     const base = basename(suite.fileName, extension);
-    const outPath = join(
-      process.cwd(),
-      dir,
-      base + ".json",
-    );
+    const outPath = join(process.cwd(), dir, base + ".json");
     this.file = createWriteStream(outPath, "utf8");
     this.file.write("[");
     this.first = true;
@@ -39,43 +37,46 @@ export default class JSONReporter extends TestReporter {
 
   public onTestFinish(group: TestGroup, result: TestResult) {
     this.file!.write(
-      (this.first ? "\n" : ",\n") + JSON.stringify({
-        group: group.name,
-        name: result.name,
-        ran: result.ran,
-        pass: result.pass,
-        runtime: result.runTime,
-        message: result.message,
-        actual: result.actual ? result.actual.message : null,
-        expected: result.expected ? result.expected.message : null,
-        average: result.average,
-        median: result.median,
-        max: result.max,
-        min: result.min,
-        stdDev: result.stdDev,
-        variance: result.variance,
-      })
+      (this.first ? "\n" : ",\n") +
+        JSON.stringify({
+          group: group.name,
+          name: result.name,
+          ran: result.ran,
+          pass: result.pass,
+          runtime: result.runTime,
+          message: result.message,
+          actual: result.actual ? result.actual.message : null,
+          expected: result.expected ? result.expected.message : null,
+          average: result.average,
+          median: result.median,
+          max: result.max,
+          min: result.min,
+          stdDev: result.stdDev,
+          variance: result.variance,
+        }),
     );
     this.first = false;
   }
 
   public onTodo(group: TestGroup, desc: string) {
-    this.file!.write((this.first ? "\n" : ",\n") + JSON.stringify({
-        group: group.name,
-        name: "TODO:" + desc,
-        ran: false,
-        pass: null,
-        runtime: 0,
-        message: "",
-        actual: null,
-        expected: null,
-        average: 0,
-        median: 0,
-        max: 0,
-        min: 0,
-        stdDev: 0,
-        variance: 0,
-      })
+    this.file!.write(
+      (this.first ? "\n" : ",\n") +
+        JSON.stringify({
+          group: group.name,
+          name: "TODO:" + desc,
+          ran: false,
+          pass: null,
+          runtime: 0,
+          message: "",
+          actual: null,
+          expected: null,
+          average: 0,
+          median: 0,
+          max: 0,
+          min: 0,
+          stdDev: 0,
+          variance: 0,
+        }),
     );
     this.first = false;
   }

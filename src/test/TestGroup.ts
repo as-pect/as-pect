@@ -8,8 +8,6 @@ import { IWarning } from "./IWarning";
  * represented by an array.
  */
 export class TestGroup implements ILogTarget {
-
-
   /**
    * This is the set of function pointers that will be called before each test.
    */

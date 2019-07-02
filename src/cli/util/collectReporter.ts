@@ -5,7 +5,6 @@ import chalk from "chalk";
 import SummaryReporter from "../../reporter/SummaryReporter";
 import CombinationReporter from "../../reporter/CombinationReporter";
 
-
 /**
  * This method inspects the command line arguments and returns the corresponding TestReporter.
  *
@@ -69,12 +68,16 @@ export function collectReporter(yargs: Options): TestReporter {
       } else {
         reporters.push(Reporter);
       }
-    } catch(ex) {
-      console.error(chalk`{red [Error]} Cannot find a reporter at {yellow ${url.pathname}}`);
+    } catch (ex) {
+      console.error(
+        chalk`{red [Error]} Cannot find a reporter at {yellow ${url.pathname}}`,
+      );
       console.error(ex);
       process.exit(1);
     }
-    process.stdout.write(chalk`{bgWhite.black [Log]} Using custom reporter at: {yellow ${url.pathname}}\n`);
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using custom reporter at: {yellow ${url.pathname}}\n`,
+    );
   }
 
   if (reporters.length === 0) {

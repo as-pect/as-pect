@@ -43,11 +43,7 @@ export default class CSVReporter extends TestReporter {
     const extension = extname(suite.fileName);
     const dir = dirname(suite.fileName);
     const base = basename(suite.fileName, extension);
-    const outPath = join(
-      process.cwd(),
-      dir,
-      base + ".csv",
-    );
+    const outPath = join(process.cwd(), dir, base + ".csv");
     this.fileName = createWriteStream(outPath, "utf8");
     this.output.pipe(this.fileName);
 
@@ -75,7 +71,7 @@ export default class CSVReporter extends TestReporter {
       result.hasMax ? result.max.toString() : "",
       result.hasMin ? result.min.toString() : "",
       result.hasStdDev ? result.stdDev.toString() : "",
-      result.hasVariance ? result.variance.toString() : ""
+      result.hasVariance ? result.variance.toString() : "",
     ]);
   }
 

@@ -27,7 +27,6 @@ export abstract class TestReporter {
    */
   public abstract onGroupFinish(group: TestGroup): void;
 
-
   /**
    * A function that is called when a test starts.
    *

@@ -1,7 +1,7 @@
 import { IPerformanceConfiguration } from "../../util/IPerformanceConfiguration";
 import { toCamelCase } from "./strings";
 
-export type argType = "b" | "bs" |  "s" | "S" | "I" | "i" | "F" | "f";
+export type argType = "b" | "bs" | "s" | "S" | "I" | "i" | "F" | "f";
 
 export type ArgValue = string | number | boolean | string[] | number;
 
@@ -70,7 +70,9 @@ export class CommandLineArg implements ICommandLineArg {
         return data.split(",");
       case "b":
         if (data !== "true" && data !== "false") {
-          throw new Error(`Bad value ${data} for boolean for argument ${this.name}`);
+          throw new Error(
+            `Bad value ${data} for boolean for argument ${this.name}`,
+          );
         }
         return "true" === data;
       case "i":
@@ -105,7 +107,8 @@ const _Args: CommandLineArgs = {
   },
 
   csv: {
-    description: "Use the csv reporter. It outputs test data to {testname}.spec.csv",
+    description:
+      "Use the csv reporter. It outputs test data to {testname}.spec.csv",
     type: "bs",
     value: false,
   },
@@ -139,7 +142,9 @@ const _Args: CommandLineArgs = {
   },
 
   json: {
-    description: ["Use the json reporter. It outputs test data to {testname}.spec.json"],
+    description: [
+      "Use the json reporter. It outputs test data to {testname}.spec.json",
+    ],
     type: "bs",
     value: false,
   },
@@ -173,7 +178,8 @@ const _Args: CommandLineArgs = {
   },
 
   "output-binary": {
-    description: "Create a (.wasm) file can contains all the tests to be run later.",
+    description:
+      "Create a (.wasm) file can contains all the tests to be run later.",
     type: "b",
     alias: { name: "o" },
     value: false,
@@ -189,7 +195,7 @@ const _Args: CommandLineArgs = {
   portable: {
     description: "Add the portable jest/as-pect types to your project.",
     type: "b",
-    value: false
+    value: false,
   },
 
   "report-average": {
@@ -239,7 +245,10 @@ const _Args: CommandLineArgs = {
     type: "s",
     value: "",
     options: [
-      ["./path/to/reporter.js?queryString", "Use the default exported object from this module as the reporter."],
+      [
+        "./path/to/reporter.js?queryString",
+        "Use the default exported object from this module as the reporter.",
+      ],
     ],
   },
 
@@ -250,9 +259,10 @@ const _Args: CommandLineArgs = {
     parent: "performance",
   },
 
-
   summary: {
-    description: ["Use the summary reporter. It outputs a summary of the test results to stdout."],
+    description: [
+      "Use the summary reporter. It outputs a summary of the test results to stdout.",
+    ],
     type: "bs",
     value: false,
   },
@@ -271,7 +281,9 @@ const _Args: CommandLineArgs = {
   },
 
   verbose: {
-    description: ["Use the verbose reporter. It outputs all the test details to stdout."],
+    description: [
+      "Use the verbose reporter. It outputs all the test details to stdout.",
+    ],
     type: "bs",
     value: false,
   },
@@ -284,7 +296,8 @@ const _Args: CommandLineArgs = {
   },
 
   workers: {
-    description: "An experimental flag that enables parallel compilation in Worker worklets.",
+    description:
+      "An experimental flag that enables parallel compilation in Worker worklets.",
     type: "i",
     alias: { name: "w" },
     value: 0,
@@ -322,7 +335,7 @@ export function parse(commands: string[], args: ArgMap = Args): Options {
   };
 
   args.forEach((arg: CommandLineArg) => {
-    let camelCase = toCamelCase(arg.name)
+    let camelCase = toCamelCase(arg.name);
     if (arg.parent) {
       if (!opts[arg.parent]) {
         opts[arg.parent] = {};
@@ -383,7 +396,7 @@ export function parse(commands: string[], args: ArgMap = Args): Options {
       opts[arg.parent][name] = value;
       opts.changed.add(arg.parent + "." + name);
     } else {
-      opts[name] = value
+      opts[name] = value;
       opts.changed.add(name);
     }
   }

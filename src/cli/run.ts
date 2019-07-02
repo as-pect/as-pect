@@ -1,4 +1,3 @@
-
 import { TestContext } from "../test/TestContext";
 import * as fs from "fs";
 import { TestReporter } from "../test/TestReporter";
@@ -33,7 +32,9 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     const Worker = require("worker_threads").Worker;
 
     if (!isFinite(cliOptions.workers)) {
-      console.error(chalk`{red [Error]} Invalid worker configuration: {yellow ${cliOptions.workers.toString()}}`);
+      console.error(
+        chalk`{red [Error]} Invalid worker configuration: {yellow ${cliOptions.workers.toString()}}`,
+      );
       process.exit(1);
     }
 
@@ -57,7 +58,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   console.log(chalk`{bgWhite.black [Log]} Loading asc compiler`);
   let asc: any;
   let instantiateBuffer: any;
-  let parse: any
+  let parse: any;
 
   try {
     /** Collect the assemblyscript module path. */
@@ -67,11 +68,13 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
     /** Next, obtain the compiler, and assert it has a main function. */
     asc = require(path.join(assemblyScriptFolder, "dist", "asc"));
-    if (!asc){
+    if (!asc) {
       throw new Error(`${cliOptions.compiler}/dist/asc has no exports.`);
     }
     if (!asc.main) {
-      throw new Error(`${cliOptions.compiler}/dist/asc does not export a main() function.`);
+      throw new Error(
+        `${cliOptions.compiler}/dist/asc does not export a main() function.`,
+      );
     }
 
     /** Next, collect the loader, and assert it has an instantiateBuffer method. */
@@ -80,33 +83,48 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       throw new Error(`${cliOptions.compiler}/lib/loader has no exports.`);
     }
     if (!loader.instantiateBuffer) {
-      throw new Error(`${cliOptions.compiler}/lib/loader does not export an instantiateBuffer() method.`);
+      throw new Error(
+        `${cliOptions.compiler}/lib/loader does not export an instantiateBuffer() method.`,
+      );
     }
     instantiateBuffer = loader.instantiateBuffer;
 
     /** Finally, collect the cli options from assemblyscript. */
-    let options = require(path.join(assemblyScriptFolder, "cli", "util", "options"));
+    let options = require(path.join(
+      assemblyScriptFolder,
+      "cli",
+      "util",
+      "options",
+    ));
     if (!options) {
-      throw new Error(`${cliOptions.compiler}/cli/util/options exports null`)
+      throw new Error(`${cliOptions.compiler}/cli/util/options exports null`);
     }
 
     if (!options.parse) {
-      throw new Error(`${cliOptions.compiler}/cli/util/options does not export a parse() method.`);
+      throw new Error(
+        `${cliOptions.compiler}/cli/util/options does not export a parse() method.`,
+      );
     }
     parse = options.parse;
-  } catch (ex){
-    console.error(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${cliOptions.compiler}]}.`);
+  } catch (ex) {
+    console.error(
+      chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${cliOptions.compiler}]}.`,
+    );
     console.error(ex);
     process.exit(1);
   }
-  console.log(chalk`{bgWhite.black [Log]} Compiler loaded in ${timeDifference(performance.now(), start).toString()}ms.`);
+  console.log(
+    chalk`{bgWhite.black [Log]} Compiler loaded in ${timeDifference(
+      performance.now(),
+      start,
+    ).toString()}ms.`,
+  );
 
   // obtain the configuration file
-  const configurationPath = path.resolve(
-    process.cwd(),
-    cliOptions.config,
+  const configurationPath = path.resolve(process.cwd(), cliOptions.config);
+  console.log(
+    chalk`{bgWhite.black [Log]} Using configuration ${configurationPath}`,
   );
-  console.log(chalk`{bgWhite.black [Log]} Using configuration ${configurationPath}`);
 
   let configuration: IConfiguration = {};
 
@@ -114,28 +132,41 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     configuration = require(configurationPath) || {};
   } catch (ex) {
     console.error("");
-    console.error(chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${configurationPath}]}.`);
+    console.error(
+      chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${configurationPath}]}.`,
+    );
     console.error(ex);
     process.exit(1);
   }
 
   // configuration must be an object
   if (!configuration) {
-    console.error(chalk`{bgRedBright.black [Error]} Configuration at {bold [${configurationPath}]} is null or not an object.`);
+    console.error(
+      chalk`{bgRedBright.black [Error]} Configuration at {bold [${configurationPath}]} is null or not an object.`,
+    );
     process.exit(1);
   }
 
-  const include: string[] = configuration.include || ["assembly/__tests__/**/*.spec.ts"];
-  const add: string[] = configuration.add || ["assembly/__tests__/**/*.include.ts"];
+  const include: string[] = configuration.include || [
+    "assembly/__tests__/**/*.spec.ts",
+  ];
+  const add: string[] = configuration.add || [
+    "assembly/__tests__/**/*.include.ts",
+  ];
 
   // parse passed cli compiler arguments and let them override defaults.
-  const { options: ascOptions, unknown } = compilerArgs.length > 0
-    ? parse(compilerArgs, asc.options as any)
-    : { options: {}, unknown: [] };
+  const { options: ascOptions, unknown } =
+    compilerArgs.length > 0
+      ? parse(compilerArgs, asc.options as any)
+      : { options: {}, unknown: [] };
 
   // if there are any unknown flags, report them and exit 1
   if (unknown.length > 0) {
-    console.error(chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(", ")}]}.`);
+    console.error(
+      chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(
+        ", ",
+      )}]}.`,
+    );
     process.exit(1);
   }
 
@@ -148,40 +179,55 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   });
 
   /** It's useful to notify the user that optimizations will make test compile times slower. */
-  if (flags.hasOwnProperty("-O3") || flags.hasOwnProperty("-O2") || flags.hasOwnProperty("--optimize")) {
-    console.log(chalk`{yellow [Warning]} Using optimizations. This may result in slow test compilation times.`);
+  if (
+    flags.hasOwnProperty("-O3") ||
+    flags.hasOwnProperty("-O2") ||
+    flags.hasOwnProperty("--optimize")
+  ) {
+    console.log(
+      chalk`{yellow [Warning]} Using optimizations. This may result in slow test compilation times.`,
+    );
   }
 
   const disclude: RegExp[] = configuration.disclude || [];
 
   // if a reporter is specified in cli arguments, override configuration
-  const reporter: TestReporter = configuration.reporter || collectReporter(cliOptions);
+  const reporter: TestReporter =
+    configuration.reporter || collectReporter(cliOptions);
 
-  if (configuration.performance){
+  if (configuration.performance) {
     Object.getOwnPropertyNames(configuration.performance).forEach(option => {
-      if (cliOptions.changed.has("performance."+option)){
+      if (cliOptions.changed.has("performance." + option)) {
         cliOptions.performance[option] = configuration.performance![option]!;
       }
-    })
+    });
   }
   const performanceConfiguration = cliOptions.performance;
 
   // include all the file globs
-  console.log(chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`);
+  console.log(
+    chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`,
+  );
 
   // Create the test and group matchers
   const testRegex = new RegExp(cliOptions.test, "i");
   configuration.testRegex = testRegex;
-  console.log(chalk`{bgWhite.black [Log]} Running tests that match: ${testRegex.source}`);
+  console.log(
+    chalk`{bgWhite.black [Log]} Running tests that match: ${testRegex.source}`,
+  );
 
   const groupRegex = new RegExp(cliOptions.group, "i");
   configuration.groupRegex = groupRegex;
-  console.log(chalk`{bgWhite.black [Log]} Running groups that match: ${groupRegex.source}`);
+  console.log(
+    chalk`{bgWhite.black [Log]} Running groups that match: ${groupRegex.source}`,
+  );
 
   /**
    * Check to see if the binary files should be written to the fileSystem.
    */
-  const outputBinary: boolean = !!(cliOptions.outputBinary || configuration.outputBinary);
+  const outputBinary: boolean = !!(
+    cliOptions.outputBinary || configuration.outputBinary
+  );
   if (outputBinary) {
     console.log(chalk`{bgWhite.black [Log]} Outputing Binary *.wasm files.`);
   }
@@ -191,12 +237,11 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
    */
   configuration.nortrace = cliOptions.nortrace;
 
-
   /**
    * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
    */
   if (!configuration.nortrace) {
-    console.log(chalk`{bgWhite.black [Log]} Reference Tracing is enabled.`)
+    console.log(chalk`{bgWhite.black [Log]} Reference Tracing is enabled.`);
     if (flags["--use"]) {
       flags["--use"].push("--use", "ASC_RTRACE=1");
     } else {
@@ -209,11 +254,16 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
    */
   const runTests: boolean = !cliOptions.norun;
   if (!runTests) {
-    console.log(chalk`{bgWhite.black [Log]} Not running tests, only outputting files.`);
+    console.log(
+      chalk`{bgWhite.black [Log]} Not running tests, only outputting files.`,
+    );
   }
 
   if (compilerArgs.length > 0) {
-    console.log(chalk`{bgWhite.black [Log]} Adding compiler arguments: ` + compilerArgs.join(" "));
+    console.log(
+      chalk`{bgWhite.black [Log]} Adding compiler arguments: ` +
+        compilerArgs.join(" "),
+    );
   }
 
   const addedTestEntryFiles: Set<string> = new Set<string>();
@@ -241,8 +291,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   flags["--explicitStart"] = [];
 
   // create the array of compiler flags from the flags object
-  const flagList: string[] = Object.entries(flags)
-    .reduce((args: string[], [flag, options]) => args.concat(flag, options), []);
+  const flagList: string[] = Object.entries(flags).reduce(
+    (args: string[], [flag, options]) => args.concat(flag, options),
+    [],
+  );
 
   let testCount = 0;
   let successCount = 0;
@@ -255,24 +307,39 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   const folderMap = new Map<string, string[]>();
   const fileMap = new Map<string, string>();
   console.log(chalk`{bgWhite.black [Log]} Effective command line args:`);
-  console.log(chalk`  {green [TestFile.ts]} {yellow ${Array.from(addedTestEntryFiles).join(" ")}} ${flagList.join(" ")}`);
+  console.log(
+    chalk`  {green [TestFile.ts]} {yellow ${Array.from(
+      addedTestEntryFiles,
+    ).join(" ")}} ${flagList.join(" ")}`,
+  );
 
   // add a line seperator between the next line and this line
   console.log("");
 
-  const finalCompilerArguments = [...Array.from(addedTestEntryFiles), ...flagList];
+  const finalCompilerArguments = [
+    ...Array.from(addedTestEntryFiles),
+    ...flagList,
+  ];
 
-  function runBinary(error: Error | null, file: string, binary: Uint8Array): number {
+  function runBinary(
+    error: Error | null,
+    file: string,
+    binary: Uint8Array,
+  ): number {
     // if there are any compilation errors, stop the test suite
     if (error) {
-      console.error(chalk`{red [Error]} There was a compilation error when trying to create the wasm binary for file: ${file}.`);
+      console.error(
+        chalk`{red [Error]} There was a compilation error when trying to create the wasm binary for file: ${file}.`,
+      );
       console.error(error);
       return process.exit(1);
     }
 
     // if the binary wasn't emitted, stop the test suite
     if (!binary) {
-      console.error(chalk`{red [Error]} There was no output binary file: ${file}. Did you forget to emit the binary with {yellow --binaryFile}?`);
+      console.error(
+        chalk`{red [Error]} There was no output binary file: ${file}. Did you forget to emit the binary with {yellow --binaryFile}?`,
+      );
       return process.exit(1);
     }
 
@@ -296,8 +363,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       const imports = runner.createImports(
         (fs.existsSync(customImportFileLocation)
           ? require(customImportFileLocation)
-          : configuration!.imports
-        ) || {},
+          : configuration!.imports) || {},
       );
 
       // instantiate the module
@@ -308,13 +374,19 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       } else {
         // call run buffer because it's already compiled
         runner.run(wasm);
-        testCount += runner.testGroups
-          .reduce((left, right) => left + right.tests.length, 0);
-        successCount += runner.testGroups
-          .reduce((left, right) => left + right.tests.filter(e => e.pass).length, 0);
+        testCount += runner.testGroups.reduce(
+          (left, right) => left + right.tests.length,
+          0,
+        );
+        successCount += runner.testGroups.reduce(
+          (left, right) => left + right.tests.filter(e => e.pass).length,
+          0,
+        );
         groupCount += runner.testGroups.length;
-        groupSuccessCount = runner.testGroups
-          .reduce((left, right) => left + (right.pass ? 1 : 0), groupSuccessCount);
+        groupSuccessCount = runner.testGroups.reduce(
+          (left, right) => left + (right.pass ? 1 : 0),
+          groupSuccessCount,
+        );
         errors.push(...runner.errors); // if there are any runtime allocation errors add them
       }
     }
@@ -326,22 +398,22 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       if (runTests) {
         const end = performance.now();
         failed = testCount !== successCount || errors.length > 0;
-        const result = failed
-          ? chalk`{red ✖ FAIL}`
-          : chalk`{green ✔ PASS}`;
+        const result = failed ? chalk`{red ✖ FAIL}` : chalk`{green ✔ PASS}`;
         console.log("~".repeat(process.stdout.columns! - 10));
 
         for (const error of errors) {
           console.log(chalk`
  [Error]: {red ${error.type}}: ${error.message}
  [Stack]: {yellow ${error.stackTrace.split("\n").join("\n            ")}}
-`)
+`);
         }
         console.log(`
 [Result]: ${result}
  [Files]: ${testEntryFiles.size} total
 [Groups]: ${groupCount} count, ${groupSuccessCount} pass
- [Tests]: ${successCount.toString()} pass, ${(testCount - successCount).toString()} fail, ${testCount.toString()} total
+ [Tests]: ${successCount.toString()} pass, ${(
+          testCount - successCount
+        ).toString()} fail, ${testCount.toString()} total
   [Time]: ${timeDifference(end, start).toString()}ms`);
 
         if (worklets.length > 0) {
@@ -384,50 +456,59 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     Array.from(testEntryFiles).forEach((file: string) => {
       let binary: Uint8Array;
 
-      asc.main([file, ...finalCompilerArguments], {
-        stdout: process.stdout as any, // use any type to quelch error
-        stderr: process.stderr as any,
-        listFiles(dirname: string, baseDir: string): string[] {
-          const folder = path.join(baseDir, dirname);
-          if (folderMap.has(folder)) {
-            return folderMap.get(folder)!;
-          }
+      asc.main(
+        [file, ...finalCompilerArguments],
+        {
+          stdout: process.stdout as any, // use any type to quelch error
+          stderr: process.stderr as any,
+          listFiles(dirname: string, baseDir: string): string[] {
+            const folder = path.join(baseDir, dirname);
+            if (folderMap.has(folder)) {
+              return folderMap.get(folder)!;
+            }
 
-          try {
-            const results = fs.readdirSync(folder).filter(file => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
-            folderMap.set(folder, results);
-            return results;
-          } catch (e) {
-            return [];
-          }
+            try {
+              const results = fs
+                .readdirSync(folder)
+                .filter(file => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
+              folderMap.set(folder, results);
+              return results;
+            } catch (e) {
+              return [];
+            }
+          },
+          readFile(filename: string, baseDir: string) {
+            const fileName = path.join(baseDir, filename);
+            if (fileMap.has(fileName)) {
+              return fileMap.get(fileName)!;
+            }
+
+            try {
+              const contents = fs.readFileSync(fileName, { encoding: "utf8" });
+              fileMap.set(fileName, contents);
+              return contents;
+            } catch (e) {
+              return null;
+            }
+          },
+          writeFile(name: string, contents: Uint8Array) {
+            const ext = path.extname(name);
+
+            // get the wasm file
+            if (ext === ".wasm") {
+              binary = contents;
+              if (!outputBinary) return;
+            }
+
+            const outfileName = path.join(
+              path.dirname(file),
+              path.basename(file, path.extname(file)) + ext,
+            );
+            filePromises.push(writeFile(outfileName, contents));
+          },
         },
-        readFile(filename: string, baseDir: string) {
-          const fileName = path.join(baseDir, filename);
-          if (fileMap.has(fileName)){
-            return fileMap.get(fileName)!;
-          }
-
-          try {
-            const contents = fs.readFileSync(fileName, { encoding: "utf8" });
-            fileMap.set(fileName, contents);
-            return contents;
-          } catch (e) {
-            return null;
-          }
-        },
-        writeFile(name: string, contents: Uint8Array) {
-          const ext = path.extname(name)
-
-          // get the wasm file
-          if (ext === ".wasm") {
-            binary = contents;
-            if (!outputBinary) return;
-          }
-
-          const outfileName = path.join(path.dirname(file), path.basename(file, path.extname(file)) + ext);
-          filePromises.push(writeFile(outfileName, contents));
-        }
-      }, (error: any) => runBinary(error, file, binary));
+        (error: any) => runBinary(error, file, binary),
+      );
     });
   }
 }

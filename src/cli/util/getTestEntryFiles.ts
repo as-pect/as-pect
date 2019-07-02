@@ -1,5 +1,5 @@
 import glob from "glob";
-import { Options } from './CommandLineArg';
+import { Options } from "./CommandLineArg";
 
 /**
  * This method returns a `Set<string>` of entry files for the compiler to compile.
@@ -8,7 +8,11 @@ import { Options } from './CommandLineArg';
  * @param {string[]} include - An array of globs provided by the configuration.
  * @param {RegExp[]} disclude - An array of RegExp provided by the configuration.
  */
-export function getTestEntryFiles(yargs: Options, include: string[], disclude: RegExp[]): Set<string> {
+export function getTestEntryFiles(
+  yargs: Options,
+  include: string[],
+  disclude: RegExp[],
+): Set<string> {
   const testEntryFiles = new Set<string>();
   const fileRegexArg = yargs.file;
   const fileRegex: RegExp = new RegExp(fileRegexArg);
@@ -21,10 +25,9 @@ export function getTestEntryFiles(yargs: Options, include: string[], disclude: R
         if (test.test(entry)) continue entry;
       }
       // if the fileRegex matches the test, add it to the entry file Set
-      if (fileRegex.test(entry))
-        testEntryFiles.add(entry);
+      if (fileRegex.test(entry)) testEntryFiles.add(entry);
     }
   }
 
-  return testEntryFiles
+  return testEntryFiles;
 }

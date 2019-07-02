@@ -33,20 +33,23 @@ export function asp(args: string[]) {
     const init = require("./init").init;
     // init script
     init();
-  } else if (yargs.version) { // display the version
+  } else if (yargs.version) {
+    // display the version
     console.log(pkg.version);
-  } else if (yargs.help) { // display the help file
+  } else if (yargs.help) {
+    // display the help file
     const help = require("./help").help;
     help();
   } else if (yargs.portable) {
     const portable = require("./portable").portable;
     portable();
-  } else { // run the compiler and test suite
+  } else {
+    // run the compiler and test suite
     const run = require("./run").run;
     run(yargs, compilerArgs);
   }
 }
 
-if (typeof require != 'undefined' && require.main==module) {
-  asp(process.argv.slice(2))
+if (typeof require != "undefined" && require.main == module) {
+  asp(process.argv.slice(2));
 }

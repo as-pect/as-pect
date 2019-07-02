@@ -14,7 +14,8 @@ export function capitalize(word: string): string {
  * @param {string} from - The string seperator.
  */
 export function toCamelCase(str: string, from: string = "-"): string {
-  return str.split(from)
-    .map((word, idx) => (idx > 0) ? capitalize(word) : word)
+  return str
+    .split(from)
+    .map((word, idx) => (idx > 0 ? capitalize(word) : word))
     .join("");
 }

@@ -15,20 +15,17 @@ export interface ITestContextParameters extends ITestCollectorParameters {
 }
 
 export class TestContext extends TestCollector {
-
   public time: number = 0;
   public pass: boolean = true;
   public startupTime: number = 0;
   public reporter: TestReporter = new VerboseReporter({});
 
   /* istanbul ignore next */
-  public stdout: IWritable | null = typeof process !== "undefined"
-    ? process.stdout
-    : null;
+  public stdout: IWritable | null =
+    typeof process !== "undefined" ? process.stdout : null;
   /* istanbul ignore next */
-  public stderr: IWritable | null = typeof process !== "undefined"
-    ? process.stderr
-    : null;
+  public stderr: IWritable | null =
+    typeof process !== "undefined" ? process.stderr : null;
 
   private endGroup: boolean = false;
 
@@ -70,9 +67,10 @@ export class TestContext extends TestCollector {
       /** This skipped line is related to the message coalescing, which is just a fallback. */
       /* istanbul ignore next */
       this.pushError({
-        message: "TestCollectionError: " + (this.message || (ex as Error).message),
+        message:
+          "TestCollectionError: " + (this.message || (ex as Error).message),
         stackTrace: this.getErrorStackTrace(ex),
-        type: "TestCollectionError"
+        type: "TestCollectionError",
       });
     }
 
@@ -186,7 +184,8 @@ export class TestContext extends TestCollector {
       const testStartTime = performance.now();
       let currentTestRunTime = 0;
       // run the test loop
-      while (true) { // always run at least once
+      while (true) {
+        // always run at least once
         this.runBeforeEach(group, result);
         /**
          * Especially because the performance functions are run repeatedly, if an error occurs, assume the
@@ -211,7 +210,7 @@ export class TestContext extends TestCollector {
 
         currentTestRunTime = performance.now() - testStartTime; // calculate how long the current test has run
 
-        runCount += 1;  // increase the run count
+        runCount += 1; // increase the run count
 
         if (runCount >= result.maxSamples) {
           this.wasm!.__ignoreLogs(0);
@@ -228,7 +227,8 @@ export class TestContext extends TestCollector {
       if (result.calculateMedianValue) result.calculateMedian();
       if (result.calculateMinValue) result.calculateMin();
       if (result.calculateVarianceValue) result.calculateVariance();
-      if (result.calculateStandardDeviationValue) result.calculateStandardDeviation();
+      if (result.calculateStandardDeviationValue)
+        result.calculateStandardDeviation();
     } else {
       this.runBeforeEach(group, result);
       if (this.endGroup) return;
@@ -270,16 +270,13 @@ export class TestContext extends TestCollector {
    * @param {number} testIndex - The current test index.
    */
   private runTestCall(group: TestGroup, result: TestResult): void {
-
     const start = performance.now();
     const testCallResult = this.tryCall(result.functionPointer);
 
     const end = performance.now();
 
     result.times.push(timeDifference(end, start));
-    result.pass = result.negated
-      ? (testCallResult === 0)
-      : (testCallResult === 1);
+    result.pass = result.negated ? testCallResult === 0 : testCallResult === 1;
 
     if (!result.pass) {
       group.pass = false;
