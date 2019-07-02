@@ -5,19 +5,20 @@
   "main": "lib/index.js",
   "types": "lib/as-pect.amd.d.ts",
   "scripts": {
-    "test": "run-s tsc asp jest mdlint",
-    "test:ci": "run-s asp:ci jest mdlint",
-    "asp": "node lib/test --verbose",
     "asp:ci": "ts-node ./src/cli --summary",
-    "mdlint": "markdownlint *.md",
-    "jest": "jest",
-    "rimraf": "rimraf lib/*",
-    "tsc": "run-s rimraf tsc:all",
-    "tsc:all": "run-p tsc:default tsc:amd",
-    "tsc:default": "tsc",
-    "tsc:amd": "tsc --outfile lib/as-pect.amd.js --module amd --declaration --declarationMap",
+    "asp": "node lib/test --verbose",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "gh-pages": "git subtree push --prefix lib origin gh-pages",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "jest": "jest",
+    "mdlint": "markdownlint *.md",
+    "prettier": "prettier --write \"src/**/*.ts\"",
+    "rimraf": "rimraf lib/*",
+    "test:ci": "run-s asp:ci jest mdlint",
+    "test": "run-s prettier tsc asp jest mdlint",
+    "tsc:all": "run-p tsc:default tsc:amd",
+    "tsc:amd": "tsc --outfile lib/as-pect.amd.js --module amd --declaration --declarationMap",
+    "tsc:default": "tsc",
+    "tsc": "run-s rimraf tsc:all"
   },
   "bin": {
     "asp": "bin/asp"
@@ -34,9 +35,9 @@
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "devDependencies": {
     "@types/glob": "^7.1.1",
-    "@types/jest": "^24.0.14",
+    "@types/jest": "^24.0.15",
     "@types/mathjs": "^5.0.1",
-    "@types/node": "^12.0.8",
+    "@types/node": "^12.0.10",
     "assemblyscript": "github:assemblyscript/assemblyscript",
     "coveralls": "^3.0.4",
     "jest": "^24.8.0",
@@ -46,7 +47,7 @@
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "chalk": "^2.4.2",
