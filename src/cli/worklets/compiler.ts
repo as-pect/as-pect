@@ -1,49 +1,17 @@
 import { ICommand } from "./ICommand";
 const { parentPort, workerData } = require("worker_threads");
-const chalk = require("chalk");
 const path = require("path");
 const fs = require("fs");
 const { writeFile } = require("../util/writeFile");
 
-let asc: any;
+const asc: any = require(path.join(
+  workerData.assemblyScriptFolder,
+  "dist",
+  "asc",
+));
 
-try {
-  /** Collect the assemblyscript module path. */
-  const assemblyScriptFolder = workerData.compiler.startsWith(".")
-    ? path.join(process.cwd(), workerData.compiler)
-    : workerData.compiler;
-
-  /** Next, obtain the compiler, and assert it has a main function. */
-  asc = require(path.join(assemblyScriptFolder, "dist", "asc"));
-  if (!asc) {
-    throw new Error(`${workerData.compiler}/dist/asc has no exports.`);
-  }
-  if (!asc.main) {
-    throw new Error(
-      `${workerData.compiler}/dist/asc does not export a main() function.`,
-    );
-  }
-} catch (ex) {
-  console.error(
-    chalk`{bgRedBright.black [Error]} There was a problem loading {bold [${workerData.compiler}]}.`,
-  );
-  console.error(ex);
-  parentPort!.postMessage({
-    type: "Error",
-    props: {
-      error: {
-        message: (ex as Error).message,
-        name: (ex as Error).name,
-        stack: (ex as Error).stack,
-      },
-      binary: null,
-      file: null,
-    },
-  });
-}
-
-let fileMap: Map<string, string> = new Map();
-let folderMap: Map<string, string[]> = new Map();
+const fileMap: Map<string, string> = new Map();
+const folderMap: Map<string, string[]> = new Map();
 
 function run(command: ICommand) {
   let binary: Uint8Array;

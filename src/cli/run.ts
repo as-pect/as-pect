@@ -25,6 +25,11 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   const start = performance.now();
   const worklets: any[] = [];
 
+  /** Collect the assemblyscript module path. */
+  const assemblyScriptFolder = cliOptions.compiler.startsWith(".")
+    ? path.join(process.cwd(), cliOptions.compiler)
+    : cliOptions.compiler;
+
   /**
    * Create the compiler worklets if the worker flag is not 0.
    */
@@ -42,11 +47,15 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     for (let i = 0; i < cliOptions.workers; i++) {
       const worklet = new Worker(workletPath, {
         workerData: {
-          compiler: cliOptions.compiler,
+          assemblyScriptFolder,
         },
       });
       worklets.push(worklet);
     }
+
+    console.log(
+      chalk`{bgWhite.black [Log]} Using experimental compiler worklets: {yellow ${worklets.length.toString()} worklets}`,
+    );
   }
 
   /**
@@ -61,11 +70,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   let parse: any;
 
   try {
-    /** Collect the assemblyscript module path. */
-    const assemblyScriptFolder = cliOptions.compiler.startsWith(".")
-      ? path.join(process.cwd(), cliOptions.compiler)
-      : cliOptions.compiler;
-
     /** Next, obtain the compiler, and assert it has a main function. */
     asc = require(path.join(assemblyScriptFolder, "dist", "asc"));
     if (!asc) {
@@ -114,16 +118,16 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     process.exit(1);
   }
   console.log(
-    chalk`{bgWhite.black [Log]} Compiler loaded in ${timeDifference(
+    chalk`{bgWhite.black [Log]} Compiler loaded in {yellow ${timeDifference(
       performance.now(),
       start,
-    ).toString()}ms.`,
+    ).toString()}ms}.`,
   );
 
   // obtain the configuration file
   const configurationPath = path.resolve(process.cwd(), cliOptions.config);
   console.log(
-    chalk`{bgWhite.black [Log]} Using configuration ${configurationPath}`,
+    chalk`{bgWhite.black [Log]} Using configuration {yellow ${configurationPath}}`,
   );
 
   let configuration: IConfiguration = {};
@@ -163,7 +167,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   // if there are any unknown flags, report them and exit 1
   if (unknown.length > 0) {
     console.error(
-      chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold [${unknown.join(
+      chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold.yellow [${unknown.join(
         ", ",
       )}]}.`,
     );
@@ -213,13 +217,13 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   const testRegex = new RegExp(cliOptions.test, "i");
   configuration.testRegex = testRegex;
   console.log(
-    chalk`{bgWhite.black [Log]} Running tests that match: ${testRegex.source}`,
+    chalk`{bgWhite.black [Log]} Running tests that match: {yellow ${testRegex.source}}`,
   );
 
   const groupRegex = new RegExp(cliOptions.group, "i");
   configuration.groupRegex = groupRegex;
   console.log(
-    chalk`{bgWhite.black [Log]} Running groups that match: ${groupRegex.source}`,
+    chalk`{bgWhite.black [Log]} Running groups that match: {yellow ${groupRegex.source}}`,
   );
 
   /**

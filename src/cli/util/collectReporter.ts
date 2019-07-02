@@ -21,7 +21,9 @@ export function collectReporter(yargs: Options): TestReporter {
     } else {
       reporters.push(new CSVReporter());
     }
-    process.stdout.write(chalk`{bgWhite.black [Log]} Using CSVReporter\n`);
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow CSVReporter}\n`,
+    );
   }
 
   if (yargs.json) {
@@ -32,7 +34,9 @@ export function collectReporter(yargs: Options): TestReporter {
     } else {
       reporters.push(new JSONReporter());
     }
-    process.stdout.write(chalk`{bgWhite.black [Log]} Using JSONReporter\n`);
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow JSONReporter}\n`,
+    );
   }
 
   if (yargs.summary) {
@@ -43,7 +47,9 @@ export function collectReporter(yargs: Options): TestReporter {
     } else {
       reporters.push(new SummaryReporter());
     }
-    process.stdout.write(chalk`{bgWhite.black [Log]} Using SummaryReporter\n`);
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow SummaryReporter}\n`,
+    );
   }
 
   if (yargs.verbose) {
@@ -54,7 +60,9 @@ export function collectReporter(yargs: Options): TestReporter {
     } else {
       reporters.push(new VerboseReporter());
     }
-    process.stdout.write(chalk`{bgWhite.black [Log]} Using VerboseReporter\n`);
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow VerboseReporter}\n`,
+    );
   }
 
   if (yargs.reporter) {
@@ -81,7 +89,9 @@ export function collectReporter(yargs: Options): TestReporter {
   }
 
   if (reporters.length === 0) {
-    process.stdout.write(chalk`{bgWhite.black [Log]} Using SummaryReporter\n`);
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow SummaryReporter}\n`,
+    );
     return new SummaryReporter({
       enableLogging: true,
     });
