@@ -1,9 +1,9 @@
-import { parentPort, workerData } from "worker_threads";
-import chalk from "chalk";
-import path from "path";
 import { ICommand } from "./ICommand";
-import fs from "fs";
-import { writeFile } from "../util/writeFile";
+const { parentPort, workerData } = require("worker_threads");
+const chalk = require("chalk");
+const path = require("path");
+const fs = require("fs");
+const { writeFile } = require("../util/writeFile");
 
 let asc: any;
 
@@ -63,7 +63,7 @@ function run(command: ICommand) {
         try {
           const results = fs
             .readdirSync(folder)
-            .filter(file => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
+            .filter((file: string) => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
           folderMap.set(folder, results);
           return results;
         } catch (e) {
