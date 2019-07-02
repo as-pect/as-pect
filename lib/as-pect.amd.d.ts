@@ -635,8 +635,8 @@ declare module "test/TestCollector" {
          */
         protected tryCall(pointer: number): 1 | 0;
         /**
-          * Log a null value to the reporter.
-          */
+         * Log a null value to the reporter.
+         */
         private logBool;
         /**
          * Log a null value to the reporter.
