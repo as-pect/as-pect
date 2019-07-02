@@ -1583,20 +1583,20 @@ declare module "cli/util/collectReporter" {
     /**
      * This method inspects the command line arguments and returns the corresponding TestReporter.
      *
-     * @param {Options} yargs - The command line arguments.
+     * @param {Options} cliOptions - The command line arguments.
      */
-    export function collectReporter(yargs: Options): TestReporter;
+    export function collectReporter(cliOptions: Options): TestReporter;
 }
 declare module "cli/util/getTestEntryFiles" {
     import { Options } from "cli/util/CommandLineArg";
     /**
      * This method returns a `Set<string>` of entry files for the compiler to compile.
      *
-     * @param {Options} yargs - The command line arguments.
+     * @param {Options} cliOptions - The command line arguments.
      * @param {string[]} include - An array of globs provided by the configuration.
      * @param {RegExp[]} disclude - An array of RegExp provided by the configuration.
      */
-    export function getTestEntryFiles(yargs: Options, include: string[], disclude: RegExp[]): Set<string>;
+    export function getTestEntryFiles(cliOptions: Options, include: string[], disclude: RegExp[]): Set<string>;
 }
 declare module "cli/util/writeFile" {
     /**
@@ -1618,7 +1618,7 @@ declare module "cli/run" {
     /**
      * This method actually runs the test suites in sequential order synchronously.
      *
-     * @param {IYargs} cliOptions - The command line arguments.
+     * @param {Options} cliOptions - The command line arguments.
      * @param {string[]} compilerArgs - The `asc` compiler arguments.
      */
     export function run(cliOptions: Options, compilerArgs: string[]): void;

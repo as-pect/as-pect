@@ -14,7 +14,7 @@ const typesFile = path.join(testFolder, "as-pect.d.ts");
  * This method creates a types file to the current testing directory located at
  * `./assembly/__tests__/` for the current project.
  */
-export function types() {
+export function types(): void {
   console.log("");
   console.log(chalk`{bgWhite.black [Log]} Initializing types.`);
   console.log("");

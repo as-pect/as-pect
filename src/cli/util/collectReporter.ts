@@ -8,15 +8,15 @@ import CombinationReporter from "../../reporter/CombinationReporter";
 /**
  * This method inspects the command line arguments and returns the corresponding TestReporter.
  *
- * @param {Options} yargs - The command line arguments.
+ * @param {Options} cliOptions - The command line arguments.
  */
-export function collectReporter(yargs: Options): TestReporter {
+export function collectReporter(cliOptions: Options): TestReporter {
   const reporters: TestReporter[] = [];
 
-  if (yargs.csv) {
+  if (cliOptions.csv) {
     const CSVReporter = require("../../reporter/CSVReporter").default;
-    if (typeof yargs.csv === "string") {
-      const options = querystring.parse(yargs.csv || "");
+    if (typeof cliOptions.csv === "string") {
+      const options = querystring.parse(cliOptions.csv || "");
       reporters.push(new CSVReporter(options));
     } else {
       reporters.push(new CSVReporter());
@@ -26,10 +26,10 @@ export function collectReporter(yargs: Options): TestReporter {
     );
   }
 
-  if (yargs.json) {
+  if (cliOptions.json) {
     const JSONReporter = require("../../reporter/JSONReporter").default;
-    if (typeof yargs.json === "string") {
-      const options = querystring.parse(yargs.json || "");
+    if (typeof cliOptions.json === "string") {
+      const options = querystring.parse(cliOptions.json || "");
       reporters.push(new JSONReporter(options));
     } else {
       reporters.push(new JSONReporter());
@@ -39,10 +39,10 @@ export function collectReporter(yargs: Options): TestReporter {
     );
   }
 
-  if (yargs.summary) {
+  if (cliOptions.summary) {
     const SummaryReporter = require("../../reporter/SummaryReporter").default;
-    if (typeof yargs.summary === "string") {
-      const options = querystring.parse(yargs.summary || "");
+    if (typeof cliOptions.summary === "string") {
+      const options = querystring.parse(cliOptions.summary || "");
       reporters.push(new SummaryReporter(options));
     } else {
       reporters.push(new SummaryReporter());
@@ -52,10 +52,10 @@ export function collectReporter(yargs: Options): TestReporter {
     );
   }
 
-  if (yargs.verbose) {
+  if (cliOptions.verbose) {
     const VerboseReporter = require("../../reporter/VerboseReporter").default;
-    if (typeof yargs.verbose === "string") {
-      const options = querystring.parse(yargs.verbose || "");
+    if (typeof cliOptions.verbose === "string") {
+      const options = querystring.parse(cliOptions.verbose || "");
       reporters.push(new VerboseReporter(options));
     } else {
       reporters.push(new VerboseReporter());
@@ -65,8 +65,8 @@ export function collectReporter(yargs: Options): TestReporter {
     );
   }
 
-  if (yargs.reporter) {
-    const url = require("url").parse(yargs.reporter);
+  if (cliOptions.reporter) {
+    const url = require("url").parse(cliOptions.reporter);
     try {
       const reporterValue = require(url.pathname);
       const Reporter = reporterValue.default || reporterValue;

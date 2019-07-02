@@ -18,35 +18,35 @@ export function asp(args: string[]) {
     : [];
 
   // parse the arguments
-  const yargs = parse(aspectArgs);
+  const cliOptions = parse(aspectArgs);
 
   // Skip ascii art if asked for the version
-  if (!yargs.version) {
+  if (!cliOptions.version) {
     const printAsciiArt = require("./util/asciiArt").printAsciiArt;
     printAsciiArt(pkg.version);
   }
 
-  if (yargs.types) {
+  if (cliOptions.types) {
     const types = require("./types").types;
     types();
-  } else if (yargs.init) {
+  } else if (cliOptions.init) {
     const init = require("./init").init;
     // init script
     init();
-  } else if (yargs.version) {
+  } else if (cliOptions.version) {
     // display the version
     console.log(pkg.version);
-  } else if (yargs.help) {
+  } else if (cliOptions.help) {
     // display the help file
     const help = require("./help").help;
     help();
-  } else if (yargs.portable) {
+  } else if (cliOptions.portable) {
     const portable = require("./portable").portable;
     portable();
   } else {
     // run the compiler and test suite
     const run = require("./run").run;
-    run(yargs, compilerArgs);
+    run(cliOptions, compilerArgs);
   }
 }
 

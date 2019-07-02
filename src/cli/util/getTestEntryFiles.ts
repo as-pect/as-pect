@@ -4,17 +4,17 @@ import { Options } from "./CommandLineArg";
 /**
  * This method returns a `Set<string>` of entry files for the compiler to compile.
  *
- * @param {Options} yargs - The command line arguments.
+ * @param {Options} cliOptions - The command line arguments.
  * @param {string[]} include - An array of globs provided by the configuration.
  * @param {RegExp[]} disclude - An array of RegExp provided by the configuration.
  */
 export function getTestEntryFiles(
-  yargs: Options,
+  cliOptions: Options,
   include: string[],
   disclude: RegExp[],
 ): Set<string> {
   const testEntryFiles = new Set<string>();
-  const fileRegexArg = yargs.file;
+  const fileRegexArg = cliOptions.file;
   const fileRegex: RegExp = new RegExp(fileRegexArg);
   // for each pattern to be included
   for (const pattern of include) {
