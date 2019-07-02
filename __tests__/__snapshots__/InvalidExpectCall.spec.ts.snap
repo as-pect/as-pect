@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`an invalid expect call test suite should match the error snapshots: Error message 0 1`] = `"An expect() function call was used outside of a test function in assembly/jest-invalid-expectation.ts."`;
+
+exports[`an invalid expect call test suite should match the error snapshots: Error message 1 1`] = `"An expect() function call was used outside of a test function in assembly/jest-invalid-expectation.ts."`;
+
+exports[`an invalid expect call test suite should match the error snapshots: Error message 2 1`] = `"TestCollectionError: This is an error message."`;
+
+exports[`an invalid expect call test suite should match the error snapshots: Error type 0 1`] = `"InvalidExpectCall"`;
+
+exports[`an invalid expect call test suite should match the error snapshots: Error type 1 1`] = `"InvalidExpectCall"`;
+
+exports[`an invalid expect call test suite should match the error snapshots: Error type 2 1`] = `"TestCollectionError"`;

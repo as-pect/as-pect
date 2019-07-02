@@ -24,8 +24,8 @@ describe("logged values", () => {
         expect(log.bytes).toMatchSnapshot(`${group.name} bytes`);
         expect(log.message).toMatchSnapshot(`${group.name} message`);
         expect(log.offset).toMatchSnapshot(`${group.name} offset`);
-        expect(log.pointer).toMatchSnapshot(`${group.name} pointer`);
-        expect(log.stack).toMatchSnapshot(`${group.name} stack`);
+        // expect(log.pointer).toMatchSnapshot(`${group.name} pointer`);
+        // expect(log.stack).toMatchSnapshot(`${group.name} stack`);
         expect(log.target).toBe(group);
         expect(log.value).toMatchSnapshot(`${group.name} snapshot`);
       }
@@ -35,8 +35,8 @@ describe("logged values", () => {
           expect(log.bytes).toMatchSnapshot(`${group.name}~${test.name} bytes`);
           expect(log.message).toMatchSnapshot(`${group.name}~${test.name} message`);
           expect(log.offset).toMatchSnapshot(`${group.name}~${test.name} offset`);
-          expect(log.pointer).toMatchSnapshot(`${group.name}~${test.name} pointer`);
-          expect(log.stack).toMatchSnapshot(`${group.name}~${test.name} stack`);
+          // expect(log.pointer).toMatchSnapshot(`${group.name}~${test.name} pointer`);
+          // expect(log.stack).toMatchSnapshot(`${group.name}~${test.name} stack`);
           expect(log.target).toBe(test);
           expect(log.value).toMatchSnapshot(`${group.name}~${test.name} snapshot`);
         }
