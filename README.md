@@ -26,6 +26,8 @@ that you can be confident in yourself and the software you write.
     - [toBeNaN](#tobenan-comparison)
     - [toBeFinite](#tobefinite-comparison)
     - [toThrow](#tothrow-comparison)
+    - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan-comparison)\
+    - [toBeCloseTo](#tobecloseto-comparison)
 1. [CLI](#cli)
 1. [Configuration File](#configuration-file)
 1. [Types And Tooling](#types-and-tooling)
@@ -44,6 +46,7 @@ that you can be confident in yourself and the software you write.
 1. [Performance Testing](#performance-testing)
 1. [Custom Imports Using CLI](#custom-imports-using-cli)
 1. [Using as-pect as a Package](#using-as-pect-as-a-package)
+1. [Contributors](#contributors)
 
 ## Usage
 
@@ -311,6 +314,68 @@ left dangling on the stack will hang around un`__release()`ed by
 AssemblyScript.
 
 This function is safe to use with `jest`.
+
+### toBeGreaterThan and toBeLessThan Comparison
+
+This set of comparisons validate that a value is greater than, less than, or
+equal to another value. The following assertions are true.
+
+```ts
+expect<i32>(100).toBeGreaterThan(42);
+expect<i32>(0).toBeLessThan(100);
+expect<i32>(0).not.toBeGreaterThan(100);
+expect<f64>(1.0).toBeGreaterThanOrEqual(1.0);
+expect<f64>(1.0).not.toBeLessThanOrEqual(0);
+```
+
+These assertions also work with reference types when the
+`@operator(">" | "<" | ">=" | "<=")` is used on a method in the class.
+
+```ts
+class Vec3 {
+  constructor(
+    public x: f64 = 0.0,
+    public y: f64 = 0.0,
+    public z: f64 = 0.0,
+  ) {}
+
+  @operator(">")
+  protected __gt(other: Vec3): bool {
+    return (this.x * this.x + this.y * this.y + this.z * this.z)
+        > (other.x * other.x + other.y * other.y + other.z * other.z);
+  }
+}
+
+// valid assertion because `@operator` was overloaded
+expect<Vec3>(new Vec3(1, 2, 3)).toBeGreaterThan(new Vec3(0, 0, 0));
+```
+
+These methods are safe to use portably with `jest`, provided they aren't used
+with reference types.
+
+### toBeCloseTo Comparison
+
+When doing floating point math, it's possible that values will not be exactly as
+expected because of rounding errors.
+
+```ts
+expect<f64>(0.1 + 0.2).toBe(0.3); // fails
+
+> 0.1 + 0.2
+0.30000000000000004
+```
+
+Instead, use `expect().toBeCloseTo()` to validate an expected floating point
+value.
+
+```ts
+expect<f64>(0.1 + 0.2).toBe(0.3); // fails
+```
+
+Reference values and integer values will result in a runtime error, because
+`toBeCloseTo` comparisons require a floating point number to work.
+
+This method is safe to use portably with `jest`.
 
 ## CLI
 
@@ -1218,6 +1283,7 @@ import {
   TestContext,
   IPerformanceConfiguration,
   IAspectExports,
+  // EmptyReporter,
 } from "as-pect";
 
 const performanceConfiguration: IPerformanceConfiguration = {
@@ -1230,7 +1296,7 @@ const runner = new TestContext({
   performanceConfiguration,
   // testRegex: /.*/, // Use this to run only tests that match this regex
   // groupRegex: /.*/, // Use this to run only groups that match this regex
-  fileName: "./test.spec.wasm", // Always set the filename
+  fileName: "./test.spec.ts", // Always set the filename
 });
 
 // put your assemblyscript imports here
@@ -1258,7 +1324,19 @@ compiler yourself by including the following file in your compilation.
 
 By default, `as-pect` always shows the generated compiler flags.
 
+## Contributors
+
+To contribute please see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+Thanks to [@willemneal](github.com/willemneal) and
+[@MaxGraey](github.com/maxgraey) for all their support in making `as-pect` the
+best software it can be.
+
+Other Contributors:
+
+- [@trusktr](github.com/trusktr) - Documentation Changes
+
 ## Special Thanks
 
-Special thanks to the AssemblyScript team for creating one of the coolest
-computer languages that compile to web assembly.
+Special thanks to the [AssemblyScript](github.com/AssemblyScript/assemblyscript)
+team for creating AssemblyScript itself.
