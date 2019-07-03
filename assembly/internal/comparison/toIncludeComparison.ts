@@ -14,7 +14,8 @@ import { assert } from "./assert";
  */
 // @ts-ignore decorators *are* valid here
 @inline
-export function toIncludeComparison<T extends Array<U>, U>(actual: T, expected: U, negated: i32, message: string): void {
+// @ts-ignore expected is valueof<T> or it will be a compiler error
+export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated: i32, message: string): void {
   /**
    * Always report that comparison is looking for an included value. It will be negated by the
    * Expected.negated property later.
@@ -25,8 +26,10 @@ export function toIncludeComparison<T extends Array<U>, U>(actual: T, expected: 
    * This loop inspects each item and validates if the expected value is included in the array.
    */
   let includes: bool = false;
+  // @ts-ignore: if T does not have a length property, it will throw a compiler error.
   for (let i = 0; i < actual.length; i++) {
-    let val: U = actual[i];
+    // @ts-ignore: if this expression does not work, it will throw a compiler error.
+    let val: valueof<T> = actual[i];
     if (val === expected) {
       includes = true;
       break;
@@ -36,6 +39,6 @@ export function toIncludeComparison<T extends Array<U>, U>(actual: T, expected: 
   /**
    * If the item is included, report "Included", otherwise report "Not Included".
    */
-  reportActual<string>(includes ? "Included": "Not Included");
+  reportActual<string>(includes ? "Included" : "Not Included");
   assert(negated ^ i32(includes), message);
 }

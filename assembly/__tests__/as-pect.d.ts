@@ -421,11 +421,20 @@ declare class Expectation<T> {
   /**
    * This method asserts that a given T that extends Array<U> has a value/reference included.
    *
-   * @param {i32} expected - The expected item to be included in the Array.
+   * @param {valueof<T>} expected - The expected item to be included in the Array.
    * @param {string} message - The optional message the describes this expectation.
    */
-  toInclude<U>(expected: U, message?: string): void;
+  // @ts-ignore: expected value should be known at compile time
+  toInclude(expected: valueof<T>, message?: string): void;
 
+  /**
+   * This method asserts that a given T that extends Array<U> has a value/reference included.
+   *
+   * @param {valueof<T>} expected - The expected item to be included in the Array.
+   * @param {string} message - The optional message the describes this expectation.
+   */
+   // @ts-ignore: expected value should be known at compile time
+  toContain(expected: valueof<T>, message?: string): void;
 
   /**
    * This method asserts that a given T that extends Array<U> has a value/reference included and
@@ -434,14 +443,21 @@ declare class Expectation<T> {
    * @param {i32} expected - The expected item to be included in the Array.
    * @param {string} message - The optional message the describes this expectation.
    */
-  toIncludeEqual<U>(expected: U, message?: string): void;
+  // @ts-ignore: expected value should be known at compile time
+  toIncludeEqual(expected: valueof<T>, message?: string): void;
+
+  /**
+   * This method asserts that a given T that extends Array<U> has a value/reference included and
+   * compared via memory.compare().
+   *
+   * @param {i32} expected - The expected item to be included in the Array.
+   * @param {string} message - The optional message the describes this expectation.
+   */
+  // @ts-ignore: expected value should be known at compile time
+  toContainEqual(expected: valueof<T>, message?: string): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
-   *
-   * @param {U} expected - The expected item.
-   * @param {string} message - The optional message the describes this expectation.
-   * @type {Expectation<T>}
    */
   not: Expectation<T>;
 
@@ -449,7 +465,6 @@ declare class Expectation<T> {
    * The actual value of the expectation.
    */
   actual: T | null;
-  private _not: boolean;
 }
 
 /**

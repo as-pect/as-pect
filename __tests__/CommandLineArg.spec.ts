@@ -32,5 +32,5 @@ describe("Command line parsing", () => {
 
   it("should set option from alias", () => {
     expect(parse(["-v"]).version).toBeTruthy()
-  })
+  });
 });
