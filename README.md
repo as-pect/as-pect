@@ -424,7 +424,7 @@ will be checked.
 const data = new Uint8Array(100);
 data[5] = 255;
 
-expect<Uint8Array>(data).toInclude<u8>(255); // must provide type
+expect<Uint8Array>(data).toContain(255);
 ```
 
 This method is portable with `jest` using the `toContain()` method.
@@ -441,22 +441,17 @@ class `@operator("==")` can be used in conjunction with this comparison. The
 matches the `index` type. All values from `0` to `length - 1` will be checked.
 
 ```ts
-const data = new Uint8Array(100);
-data[5] = 255;
+const reference = new Vec3(1, 2, 3);
+const data = new Array<Vec3>(0);
+data.push(new Vec(0, 0, 0));
+data.push(new Vec(1, 2, 3));
+data.push(new Vec(4, 5, 6));
 
-expect<Uint8Array>(data).toInclude<u8>(255); // must provide type
+expect<Uint8Array>(data).toContainEqual(referece);
 ```
 
 This method is portable with `jest` using the `toContainEqual()` method.
 
-```ts
-const data = new Uint8Array(100);
-data[5] = 255;
-
-expect<Uint8Array>(data).toInclude<u8>(255); // must provide type
-```
-
-This method is portable with `jest`.
 
 ## CLI
 
