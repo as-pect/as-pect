@@ -370,7 +370,18 @@ declare class Expectation<T> {
    * @param {i32} expected - The expected item to be included in the Array.
    * @param {string} message - The optional message the describes this expectation.
    */
-  toInclude<U>(expected: U, message?: string): void;
+  // @ts-ignore: expected value should be known at compile time
+  toContain(expected: valueof<T>, message?: string): void;
+
+  /**
+   * This method asserts that a given T that extends Array<U> has a value/reference included and
+   * compared via memory.compare().
+   *
+   * @param {i32} expected - The expected item to be included in the Array.
+   * @param {string} message - The optional message the describes this expectation.
+   */
+  // @ts-ignore: expected value should be known at compile time
+  toContainEqual(expected: valueof<T>, message?: string): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.

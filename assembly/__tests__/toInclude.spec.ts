@@ -14,28 +14,28 @@ describe("toInclude value arrays", () => {
    * This test verifies an array includes a value.
    */
   it("should include numbers", () => {
-    expect<i32[]>(numberTester).toInclude<i32>(2, "numberTester should include 2");
+    expect<i32[]>(numberTester).toInclude(2, "numberTester should include 2");
   });
 
   /**
    * This test throws because the numberTester reference does not include 4.
    */
   throws("when numberTester doesn't include a number", () => {
-    expect<i32[]>(numberTester).toInclude<i32>(4);
+    expect<i32[]>(numberTester).toInclude(4);
   }, "numberTester should not include 4");
 
   /**
    * This test verifies that the array reference does *not* include 4.
    */
   it("should not include numbers", () => {
-    expect<i32[]>(numberTester).not.toInclude<i32>(4, "numberTester should not include 4");
+    expect<i32[]>(numberTester).not.toInclude(4, "numberTester should not include 4");
   });
 
   /**
    * This test throws because the array reference does *not* include 4.
    */
   throws("when numberTester includes a number but the expectation is negated", () => {
-    expect<i32[]>(numberTester).not.toInclude<i32>(2);
+    expect<i32[]>(numberTester).not.toInclude(2);
   });
 });
 
@@ -64,27 +64,27 @@ describe("toInclude reference arrays", () => {
    * This test verifies the second reference is included in the array.
    */
   it("should include a reference", () => {
-    expect<Vec3[]>(referenceTester).toInclude<Vec3>(two, "referenceTester should include reference two");
+    expect<Vec3[]>(referenceTester).toInclude(two, "referenceTester should include reference two");
   });
 
   /**
    * This test throws because the fourth reference is not included in the referenceTester.
    */
   throws("when referenceTester doesn't include a reference", () => {
-    expect<Vec3[]>(referenceTester).toInclude<Vec3>(four);
+    expect<Vec3[]>(referenceTester).toInclude(four);
   }, "numberTester should not include four");
 
   /**
    * This test verifies that the fourth reference is not included in the referenceTester array.
    */
   it("should not include a reference", () => {
-    expect<Vec3[]>(referenceTester).not.toInclude<Vec3>(four, "referenceTester should not include reference four");
+    expect<Vec3[]>(referenceTester).not.toInclude(four, "referenceTester should not include reference four");
   });
 
   /**
    * This test throws because the second reference is included in the referenceTester array.
    */
   throws("when referenceTester includes a reference but the expectation is negated", () => {
-    expect<Vec3[]>(referenceTester).not.toInclude<Vec3>(two);
+    expect<Vec3[]>(referenceTester).not.toInclude(two);
   });
 });

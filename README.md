@@ -14,6 +14,9 @@ make sure that the software you write works as intended. The `as-pect` project
 was created to help quickly scaffold and bootstrap AssemblyScript tests so
 that you can be confident in yourself and the software you write.
 
+One of the goals of this project is 100% portability to `jest` so that tests
+can be run in two different environments.
+
 ## Table of contents
 
 1. [Philosophy](#philosophy)
@@ -28,6 +31,9 @@ that you can be confident in yourself and the software you write.
     - [toThrow](#tothrow-comparison)
     - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan-comparison)\
     - [toBeCloseTo](#tobecloseto-comparison)
+    - [toHaveLength](#tohavelength-comparison)
+    - [toContain](#tocontain-and-toinclude-comparison)
+    - [toContainEqual](#tocontainequal-and-toincludeequal-comparison)
 1. [CLI](#cli)
 1. [Configuration File](#configuration-file)
 1. [Types And Tooling](#types-and-tooling)
@@ -356,7 +362,7 @@ with reference types.
 ### toBeCloseTo Comparison
 
 When doing floating point math, it's possible that values will not be exactly as
-expected because of rounding errors.
+expected because of floating point error.
 
 ```ts
 expect<f64>(0.1 + 0.2).toBe(0.3); // fails
@@ -369,13 +375,88 @@ Instead, use `expect().toBeCloseTo()` to validate an expected floating point
 value.
 
 ```ts
-expect<f64>(0.1 + 0.2).toBe(0.3); // fails
+expect<f64>(0.1 + 0.2).toBeCloseTo(0.3); // passes!
 ```
 
 Reference values and integer values will result in a runtime error, because
 `toBeCloseTo` comparisons require a floating point number to work.
 
 This method is safe to use portably with `jest`.
+
+### toHaveLength Comparison
+
+This comparison verifies the length of a given object. This includes Arrays,
+TypedArrays, ArrayBuffers, and custom classes that have a `length` property.
+
+```ts
+class LengthExample {
+  constructor(
+    public length: i32 = 0,
+  ) {}
+}
+
+const array = new Array<Vec3>(100);
+const typedarray = new Uint8Array(42);
+const buffer = new ArrayBuffer(29);
+const custom = new LengthExample(50);
+
+
+expect<Array<Vec3>>(array).toHaveLength(100);
+expect<Uint8Array>(typedarray).toHaveLength(42);
+expect<ArrayBuffer>(buffer).toHaveLength(29);
+expect<LengthExample>(custom).toHaveLength(50);
+```
+
+This method is safe to use with `jest`, with the exception of using
+`ArrayBuffer`.
+
+### toContain and toInclude Comparison
+
+This comparison is used to determine if an Array contains a value.
+
+All the values returned by `T[index]` will be compared using the `==` operator,
+so overloading the class `@operator("==")` can be used in conjunction with this
+comparison. The `index` must be a number value, and there must be a `length`
+property that matches the `index` type. All values from `0` to `length - 1`
+will be checked.
+
+```ts
+const data = new Uint8Array(100);
+data[5] = 255;
+
+expect<Uint8Array>(data).toInclude<u8>(255); // must provide type
+```
+
+This method is portable with `jest` using the `toContain()` method.
+
+### toContainEqual and toIncludeEqual Comparison
+
+This comparison is used to determine if an Array contains a reference that
+equals another reference.
+
+All the values returned by `T[index]` will be compared using the `==` operator,
+and if that comparison does not work, a memcompare will be used. Overloading the
+class `@operator("==")` can be used in conjunction with this comparison. The
+`index` must be a number value, and there must be a `length` property that
+matches the `index` type. All values from `0` to `length - 1` will be checked.
+
+```ts
+const data = new Uint8Array(100);
+data[5] = 255;
+
+expect<Uint8Array>(data).toInclude<u8>(255); // must provide type
+```
+
+This method is portable with `jest` using the `toContainEqual()` method.
+
+```ts
+const data = new Uint8Array(100);
+data[5] = 255;
+
+expect<Uint8Array>(data).toInclude<u8>(255); // must provide type
+```
+
+This method is portable with `jest`.
 
 ## CLI
 
@@ -836,35 +917,69 @@ module.exports = {
 };
 ```
 
-The following functions are a recommended subset of `as-pect` to remain
-portable with `typescript`:
+This is the compatibility table.
 
-```ts
-describe();
-test();
-it();
-xtest()
-xit();
-beforeEach();
-beforeAll();
-afterEach();
-afterAll();
-expect().toBe();
-expect().toInclude();
-expect().toThrow();
-expect().toBeTruthy();
-expect().toBeFalsy();
-expect().toBeNull();
-expect().toBeFinite();
-expect().toBeNaN();
-expect().toBeGreaterThan();
-expect().toBeGreaterThanOrEqual();
-expect().toBeLessThan();
-expect().toBeLessThanOrEqual();
-expect().toBeCloseTo();
-expect().toHaveLength();
-expect().not;
-```
+<!-- markdownlint-disable MD013 -->
+
+| Method                                                    | Compatibility             | Notes                                                                                                                                                                                                                                                                                                                                  |
+|-----------------------------------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|                                                           |                           |                                                                                                                                                                                                                                                                                                                                        |
+| expect(value)                                             | ✔ Supported               |                                                                                                                                                                                                                                                                                                                                        |
+| expect.extend(matchers)                                   | 👎 Won't Support           | This method is used for extending matchers in JS. JS is a dynamic language, and AssemblyScript is not. It is possible to create custom assertions without this method, so it is marked as "won't support."                                                                                                                             |
+| expect.anything()                                         | 🤞 Maybe Support           | This is a dynamic matcher, and dynamic matchers are currently not supported. It is possible to implement something like this. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                |
+| expect.any(constructor)                                   | 👎 Won't Support           | This method is impossible to replicate in AssemblyScript because classes are not concrete values.                                                                                                                                                                                                                                      |
+| expect.arrayContaining(array)                             | 🤞 Maybe Support           | This is a dynamic matcher, and dynamic matchers are currently not supported. It is possible to implement something like this. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                |
+| expect.assertions(number)                                 | 🤞 Maybe Support           | This is entirely possible to implement. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                                      |
+| expect.hasAssertions()                                    | 🤞 Maybe Support           | This is entirely possible to implement. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                                      |
+| expect.not.arrayContaining(array)                         | 🤞 Maybe Support           | This is entirely possible to implement. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                                      |
+| expect.not.objectContaining(object)                       | 🛑 Maybe Support (waiting) | This is entirely possible to implement, but Reflection must be supported.                                                                                                                                                                                                                                                              |
+| expect.not.stringContaining(string)                       | 🤞 Maybe Support           | This is entirely possible to implement. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                                      |
+| expect.not.stringMatching(string \| regexp)                | 🛑 Maybe Support (waiting) | This is entirely possible to implement, but this method may require a RegExp implemention to be implemented fully. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                           |
+| expect.objectContaining(object)                           | 🛑 Maybe Support (waiting) | This is entirely possible to implement, but Reflection must be supported.                                                                                                                                                                                                                                                              |
+| expect.stringContaining(string)                           | 🤞 Maybe Support           | This is entirely possible to implement. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                                      |
+| expect.stringMatching(string \| regexp)                    | 🛑 Maybe Support (waiting) | This is entirely possible to implement, but this method may require a RegExp implemention to be implemented fully. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                           |
+| expect.addSnapshotSerializer(serializer)                  | 🤞 Maybe Support           | This may be possible to implement, but this method requires snapshots. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                       |
+| .not                                                      | ✔ Supported               |                                                                                                                                                                                                                                                                                                                                        |
+| .resolves                                                 | 🛑 Maybe Support (waiting) | This may be possible to implement, but this method requires Promises. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                        |
+| .rejects                                                  | 🛑 Maybe Support (waiting) | This may be possible to implement, but this method requires Promises. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                        |
+| .toBe(value)                                              | ✔ Supported               |                                                                                                                                                                                                                                                                                                                                        |
+| .toHaveBeenCalled()                                       | 🤞 Maybe Support           | Currently, there is no good way to use jest.fn() in `as-pect`. However, it is possible to apply a transform to the source and notify the host that a function has been called. We can support this feature under a `--function-calls` flag potentially. Please see [contributing](#contributing) on how to submit a pull request.      |
+| .toHaveBeenCalledTimes(number)                            | 🤞 Maybe Support           | Currently, there is no good way to use jest.fn() in `as-pect`. However, it is possible to apply a transform to the source and notify the host that a function has been called. We can support this feature under a `--function-calls` flag potentially. Please see [contributing](#contributing) on how to submit a pull request.      |
+| .toHaveBeenCalledWith(arg1, arg2, ...)                    | 👎 Won't Support           | Rest parameters and argument inspection is not possible in AssemblyScript.                                                                                                                                                                                                                                                             |
+| .toHaveBeenLastCalledWith(arg1, arg2, ...)                | 👎 Won't Support           | Rest parameters and argument inspection is not possible in AssemblyScript.                                                                                                                                                                                                                                                             |
+| .toHaveBeenNthCalledWith(nthCall, arg1, arg2, ....)       | 👎 Won't Support           | Rest parameters and argument inspection is not possible in AssemblyScript.                                                                                                                                                                                                                                                             |
+| .toHaveReturned()                                         | 🤞 Maybe Support           | Currently, there is no good way to use jest.fn() in `as-pect`. However, it is possible to apply a transform to the source and notify the host that a function has returned a value. We can support this feature under a `--function-calls` flag potentially. Please see [contributing](#contributing) on how to submit a pull request. |
+| .toHaveReturnedTimes(number)                              | 🤞 Maybe Support           | Currently, there is no good way to use jest.fn() in `as-pect`. However, it is possible to apply a transform to the source and notify the host that a function has returned a value. We can support this feature under a `--function-calls` flag potentially. Please see [contributing](#contributing) on how to submit a pull request. |
+| .toHaveReturnedWith(value)                                | 🤞 Maybe Support           | Currently, there is no good way to use jest.fn() in `as-pect`. However, it is possible to apply a transform to the source and notify the host that a function has returned a value. We can support this feature under a `--function-calls` flag potentially. Please see [contributing](#contributing) on how to submit a pull request. |
+| .toHaveLastReturnedWith(value)                            | 🤞 Maybe Support           | Currently, there is no good way to use jest.fn() in `as-pect`. However, it is possible to apply a transform to the source and notify the host that a function has returned a value. We can support this feature under a `--function-calls` flag potentially. Please see [contributing](#contributing) on how to submit a pull request. |
+| .toHaveNthReturnedWith(nthCall, value)                    | 🤞 Maybe Support           | Currently, there is no good way to use jest.fn() in `as-pect`. However, it is possible to apply a transform to the source and notify the host that a function has returned a value. We can support this feature under a `--function-calls` flag potentially. Please see [contributing](#contributing) on how to submit a pull request. |
+| .toHaveLength(number)                                     | ✔ Supported               | Only incompatible with `ArrayBuffer` values                                                                                                                                                                                                                                                                                            |
+| .toHaveProperty(keyPath, value?)                          | 👎 Won't Support           | Properties are known at compile time.                                                                                                                                                                                                                                                                                                  |
+| .toBeCloseTo(number, numDigits?)                          | ✔ Supported               |                                                                                                                                                                                                                                                                                                                                        |
+| .toBeDefined()                                            | 🤞 Maybe Support           | This is currently possible to implement. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                                     |
+| .toBeFalsy()                                              | ✔ Supported               |                                                                                                                                                                                                                                                                                                                                        |
+| .toBeGreaterThan(number)                                  | ✔ Supported               | References comparisons using this comparison require overriding `valueOf()` which should a `f64` value, and using the `operator(">")` decorator.                                                                                                                                                                                       |
+| .toBeGreaterThanOrEqual(number)                           | ✔ Supported               | References comparisons using this comparison require overriding `valueOf()` which should a `f64` value, and using the `operator(">=")` decorator.                                                                                                                                                                                      |
+| .toBeLessThan(number)                                     | ✔ Supported               | References comparisons using this comparison require overriding `valueOf()` which should a `f64` value, and using the `operator("<")` decorator.                                                                                                                                                                                       |
+| .toBeLessThanOrEqual(number)                              | ✔ Supported               | References comparisons using this comparison require overriding `valueOf()` which should a `f64` value, and using the `operator("<=")` decorator.                                                                                                                                                                                      |
+| .toBeInstanceOf(Class)                                    | 👎 Won't Support           | Use `expect<bool>(actual instanceof Class).toBeTruthy()` instead.                                                                                                                                                                                                                                                                      |
+| .toBeNull()                                               | ✔ Supported               | Only works for reference values. Number values will always fail this assertion in AssemblyScript.                                                                                                                                                                                                                                      |
+| .toBeTruthy()                                             | ✔ Supported               |                                                                                                                                                                                                                                                                                                                                        |
+| .toBeUndefined()                                          | 👎 Won't Support           | The `undefined` value does not exist in AssemblyScript.                                                                                                                                                                                                                                                                                |
+| .toBeNaN()                                                | ✔ Supported               | Must be used on float values.                                                                                                                                                                                                                                                                                                          |
+| .toContain(item)                                          | ✔ Partially Supported     | Type cannot be string (yet.) This will be supported on a future date. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                        |
+| .toContainEqual(item)                                     | ✔ Supported               |                                                                                                                                                                                                                                                                                                                                        |
+| .toEqual(value)                                           | 🤞 Maybe Support           | This can be implemented when reflection is implemented. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                      |
+| .toMatch(regexpOrString)                                  | 🤞 Maybe Support           | This method requires RegExp for full support. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                                |
+| .toMatchObject(object)                                    | 🤞 Maybe Support           | This can be implemented when reflection is implemented. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                      |
+| .toMatchSnapshot(propertyMatchers?, hint?)                | 🤞 Maybe Support           | This is hard to implement because JS can dynamically inspect arguments. It requires a filesystem and should serialize snapshots just like jest does. Perhaps partial support for `expect(actual).toMatchSnapshot(hint?)` would be a good compromise. Please see [contributing](#contributing) on how to submit a pull request.         |
+| .toMatchInlineSnapshot(propertyMatchers?, inlineSnapshot) | 👎 Won't Support           | This will require a post-test-run transform and is not on the roadmap. This requires sourcemaps and an ast transformer like babel or prettier.                                                                                                                                                                                         |
+| .toStrictEqual(value)                                     | ✔ Partially Supported     | This method requires Reflection for full support. Please see [contributing](#contributing) on how to submit a pull request.                                                                                                                                                                                                            |
+| .toThrow(error?)                                          | ✔ Partially Supported     | This method is partially supported because errors cannot be inspected for their type.                                                                                                                                                                                                                                                  |
+| .toThrowErrorMatchingSnapshot(hint?)                      | 👎 Won't Support           | This method is cannot be supported because errors cannot be inspected for their type.                                                                                                                                                                                                                                                  |
+| .toThrowErrorMatchingInlineSnapshot(inlineSnapshot)       | 👎 Won't Support           | This method is cannot be supported because errors cannot be inspected for their type, it requires a post-test-run transform, and it also requires an ast transformer like babel or prettier.                                                                                                                                           |
+
+<!-- markdownlint-enable MD013 -->
 
 ## RTrace and Memory Leaks
 
