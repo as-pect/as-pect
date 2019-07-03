@@ -10,7 +10,6 @@ runTypedArrayTest<Int64Array, i64>("Int64Array");
 runTypedArrayTest<Float32Array, f32>("Float32Array");
 runTypedArrayTest<Float64Array, f64>("Float64Array");
 
-
 /**
  * This method creates a default TypedArray<U> reference like Uint8Array.
  *
@@ -138,20 +137,20 @@ describe("toHaveLength custom classes", (): void => {
     expect<Example>(customExample).not.toHaveLength(3);
   }, "When length is equal, negated assertions should throw.");
 
-    /**
-     * This test verifies that when the expectation is negated, it validates the expected reference.
-     */
-    it("should verify the length is not another value", () => {
-      expect<Example>(customExample).not.toHaveLength(10, "The length of customExample is 3, not 10.");
-    });
+  /**
+   * This test verifies that when the expectation is negated, it validates the expected reference.
+   */
+  it("should verify the length is not another value", () => {
+    expect<Example>(customExample).not.toHaveLength(10, "The length of customExample is 3, not 10.");
+  });
 
-    /**
-     * This test throws when the expectation is not negated. It's the contrapositive of the previous
-     * test.
-     */
-    throws("when the length is another expected value", () => {
-      expect<Example>(customExample).toHaveLength(10);
-    }, "The length of customExample is 3, and not 10");
+  /**
+   * This test throws when the expectation is not negated. It's the contrapositive of the previous
+   * test.
+   */
+  throws("when the length is another expected value", () => {
+    expect<Example>(customExample).toHaveLength(10);
+  }, "The length of customExample is 3, and not 10");
 });
 
 /**

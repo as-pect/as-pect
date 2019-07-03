@@ -136,6 +136,7 @@ export function __sendExpected(): void {
       break;
     case ValueType.Bool:
       reportExpectedBool(Expected.integer, Expected.negated, Expected.stackTrace);
+      break;
   }
 }
 
