@@ -28,6 +28,9 @@ that you can be confident in yourself and the software you write.
     - [toThrow](#tothrow-comparison)
     - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan-comparison)\
     - [toBeCloseTo](#tobecloseto-comparison)
+    - [toHaveLength](#tohavelength-comparison)
+    - [toContain](#tocontain-and-toinclude-comparison)
+    - [toContainEqual](#tocontainequal-and-toincludeequal-comparison)
 1. [CLI](#cli)
 1. [Configuration File](#configuration-file)
 1. [Types And Tooling](#types-and-tooling)
@@ -356,7 +359,7 @@ with reference types.
 ### toBeCloseTo Comparison
 
 When doing floating point math, it's possible that values will not be exactly as
-expected because of rounding errors.
+expected because of floating point error.
 
 ```ts
 expect<f64>(0.1 + 0.2).toBe(0.3); // fails
@@ -369,13 +372,88 @@ Instead, use `expect().toBeCloseTo()` to validate an expected floating point
 value.
 
 ```ts
-expect<f64>(0.1 + 0.2).toBe(0.3); // fails
+expect<f64>(0.1 + 0.2).toBeCloseTo(0.3); // passes!
 ```
 
 Reference values and integer values will result in a runtime error, because
 `toBeCloseTo` comparisons require a floating point number to work.
 
 This method is safe to use portably with `jest`.
+
+### toHaveLength Comparison
+
+This comparison verifies the length of a given object. This includes Arrays,
+TypedArrays, ArrayBuffers, and custom classes that have a `length` property.
+
+```ts
+class LengthExample {
+  constructor(
+    public length: i32 = 0,
+  ) {}
+}
+
+const array = new Array<Vec3>(100);
+const typedarray = new Uint8Array(42);
+const buffer = new ArrayBuffer(29);
+const custom = new LengthExample(50);
+
+
+expect<Array<Vec3>>(array).toHaveLength(100);
+expect<Uint8Array>(typedarray).toHaveLength(42);
+expect<ArrayBuffer>(buffer).toHaveLength(29);
+expect<LengthExample>(custom).toHaveLength(50);
+```
+
+This method is safe to use with `jest`, with the exception of using
+`ArrayBuffer`.
+
+### toContain and toInclude Comparison
+
+This comparison is used to determine if an Array contains a value.
+
+All the values returned by `T[index]` will be compared using the `==` operator,
+so overloading the class `@operator("==")` can be used in conjunction with this
+comparison. The `index` must be a number value, and there must be a `length`
+property that matches the `index` type. All values from `0` to `length - 1`
+will be checked.
+
+```ts
+const data = new Uint8Array(100);
+data[5] = 255;
+
+expect<Uint8Array>(data).toInclude<u8>(255); // must provide type
+```
+
+This method is portable with `jest` using the `toContain()` method.
+
+### toContainEqual and toIncludeEqual Comparison
+
+This comparison is used to determine if an Array contains a reference that
+equals another reference.
+
+All the values returned by `T[index]` will be compared using the `==` operator,
+and if that comparison does not work, a memcompare will be used. Overloading the
+class `@operator("==")` can be used in conjunction with this comparison. The
+`index` must be a number value, and there must be a `length` property that
+matches the `index` type. All values from `0` to `length - 1` will be checked.
+
+```ts
+const data = new Uint8Array(100);
+data[5] = 255;
+
+expect<Uint8Array>(data).toInclude<u8>(255); // must provide type
+```
+
+This method is portable with `jest` using the `toContainEqual()` method.
+
+```ts
+const data = new Uint8Array(100);
+data[5] = 255;
+
+expect<Uint8Array>(data).toInclude<u8>(255); // must provide type
+```
+
+This method is portable with `jest`.
 
 ## CLI
 

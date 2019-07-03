@@ -15,12 +15,14 @@ import { assert } from "./assert";
  */
 // @ts-ignore Decorators *are* valid here
 @inline
-export function toIncludeEqualComparison<T extends Array<U>, U>(actual: T, expected: U, negated: i32, message: string): void {
+// @ts-ignore expected is valueof<T> or it will be a compiler error
+export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, negated: i32, message: string): void {
   /**
    * If `U` is not a reference, then we delegate to `toIncludeComparison()`.
    */
-  if (!isReference<U>(expected)) {
-    toIncludeComparison<T, U>(actual, expected, negated, message);
+  // @ts-ignore expected is valueof<T> or it will be a compiler error
+  if (!isReference<valueof<T>>(expected) || expected instanceof string) {
+    toIncludeComparison<T>(actual, expected, negated, message);
     return;
   }
 
@@ -35,8 +37,11 @@ export function toIncludeEqualComparison<T extends Array<U>, U>(actual: T, expec
    * value within the Array.
    */
   let included: bool = false;
-  for (let i = 0; i < actual.length; i++) {
-    let item: U = actual[i];
+  // @ts-ignore: if T does not have a length property, it will throw a compiler error.
+  for (let i: indexof<T> = 0; i < actual.length; i++) {
+    // @ts-ignore: if this expression does not work, it will throw a compiler error.
+    let item: valueof<T> = actual[i];
+
     /**
      * This is a strict equality shortcut. If the values are equal, it's included.
      */
@@ -44,18 +49,36 @@ export function toIncludeEqualComparison<T extends Array<U>, U>(actual: T, expec
       included = true;
       break;
     } else if (item != null && expected != null) {
-      let compare = memory.compare(
-        changetype<usize>(item),
-        changetype<usize>(expected),
-        offsetof<U>(),
-      );
+      if (expected instanceof ArrayBuffer) {
+        let expectedSize = load<i32>(changetype<usize>(expected) - 4);
+        let actualSize = load<i32>(changetype<usize>(item) - 4);
+        if (expectedSize == actualSize) {
+          let compare = memory.compare(
+            changetype<usize>(item),
+            changetype<usize>(expected),
+            actualSize,
+          );
 
-      /**
-       * If the memory.compare() returned 0, then the value is included.
-       */
-      if (compare === 0) {
-        included = true;
-        break;
+          /** If the memory.compare() returned 0, then the value is included. */
+          if (compare === 0) {
+            included = true;
+            break;
+          }
+        }
+      } else {
+        /** Perform a memory comparison. */
+        let compare = memory.compare(
+          changetype<usize>(item),
+          changetype<usize>(expected),
+          // @ts-ignore: Compare the two blocks using `offsetof<valueof<T>>()`
+          offsetof<valueof<T>>(),
+        );
+
+        /** If the memory.compare() returned 0, then the value is included. */
+        if (compare === 0) {
+          included = true;
+          break;
+        }
       }
     }
   }

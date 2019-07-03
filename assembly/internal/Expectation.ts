@@ -186,26 +186,30 @@ export class Expectation<T> {
     Expected.clear();
   }
 
-  public toInclude<U>(expected: U, message: string = ""): void {
-    if (isArray<T>(this.actual)) {
-      // @ts-ignore Array<U> instanceof check
-      toIncludeComparison<T, U>(this.actual, expected, this._not, message);
-    } else {
-      assert(false, "toInclude expression called on non-Array.");
-    }
+  // @ts-ignore: valueof<T> requires that T extends something with an @operator("[]")
+  public toInclude(expected: valueof<T>, message: string = ""): void {
+    toIncludeComparison<T>(this.actual, expected, this._not, message);
     Actual.clear();
     Expected.clear();
   }
 
-  public toIncludeEqual<U>(expected: U, message: string = ""): void {
-    if (isArray<T>(this.actual)) {
-      // @ts-ignore Array<U> instanceof check
-      toIncludeEqualComparison<T, U>(this.actual, expected, this._not, message);
-    } else {
-      assert(false, "toIncludeEqual expression call on non-Array");
-    }
+  // @ts-ignore: valueof<T> requires that T extends something with an @operator("[]")
+  public toContain(expected: valueof<T>, message: string = ""): void {
+    this.toInclude(expected, message);
+  }
+
+  // @ts-ignore: valueof<T> will throw a compiler if it is not valid
+  public toIncludeEqual(expected: valueof<T>, message: string = ""): void {
+    // @ts-ignore Array<U> instanceof check
+    toIncludeEqualComparison<T>(this.actual, expected, this._not, message);
     Actual.clear();
     Expected.clear();
+  }
+
+  // @ts-ignore: valueof<T> will throw a compiler if it is not valid
+  public toContainEqual(expected: valueof<T>, message: string = ""): void {
+    // @ts-ignore Array<U> instanceof check
+    this.toIncludeEqual(expected, message);
   }
 }
 
