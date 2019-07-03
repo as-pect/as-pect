@@ -17,7 +17,7 @@ import { assert } from "./assert";
 // @ts-ignore expected is valueof<T> or it will be a compiler error
 export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated: i32, message: string): void {
   /**
-   * Always report that comparison is looking for an included value. It will be negated by the
+   * Always report that the comparison is looking for an included value. It will be negated by the
    * Expected.negated property later.
    */
   reportExpected<string>("Included", negated);
@@ -27,7 +27,7 @@ export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated:
    */
   let includes: bool = false;
   // @ts-ignore: if T does not have a length property, it will throw a compiler error.
-  for (let i = 0; i < actual.length; i++) {
+  for (let i: indexof<T> = 0; i < <indexof<T>>actual.length; i++) {
     // @ts-ignore: if this expression does not work, it will throw a compiler error.
     let val: valueof<T> = actual[i];
     if (val === expected) {

@@ -38,7 +38,7 @@ export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, neg
    */
   let included: bool = false;
   // @ts-ignore: if T does not have a length property, it will throw a compiler error.
-  for (let i: indexof<T> = 0; i < actual.length; i++) {
+  for (let i: indexof<T> = 0; i < <indexof<T>>actual.length; i++) {
     // @ts-ignore: if this expression does not work, it will throw a compiler error.
     let item: valueof<T> = actual[i];
 
