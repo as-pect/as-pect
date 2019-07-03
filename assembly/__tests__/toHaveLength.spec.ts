@@ -166,7 +166,6 @@ describe("toHaveLength value type assertions", (): void => {
   }, "toHaveLength assertions should throw on value types.");
 });
 
-
 describe("ArrayBuffer", () => {
   it("should compare ArrayBuffer lengths", () => {
     expect<ArrayBuffer>(new ArrayBuffer(100)).toHaveLength(100, "An array buffer with length 100 should have length 100.");

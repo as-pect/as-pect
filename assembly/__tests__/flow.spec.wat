@@ -3738,6 +3738,7 @@
    global.get $assembly/internal/report/reportExpected/Expected.negated
    global.get $assembly/internal/report/reportExpected/Expected.stackTrace
    call $assembly/internal/report/reportExpected/reportExpectedBool
+   br $break|0
   end
  )
  (func $assembly/internal/log/__ignoreLogs (; 86 ;) (type $FUNCSIG$vi) (param $0 i32)

@@ -84,7 +84,6 @@ describe("toIncludeEqual reference arrays", () => {
   });
 });
 
-
 let typedarray = new Uint8Array(10);
 for (let i = 0; i < 10; i++) typedarray[i] = <u8>i;
 
