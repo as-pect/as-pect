@@ -1,8 +1,7 @@
 import { exactComparison } from "./exactComparison";
 import { assert } from "./assert";
-import { Expected, reportExpectedReference, reportExpected } from "../report/reportExpected";
-import { ValueType } from "../report/ValueType";
-import { Actual, reportActualReference, reportActual } from "../report/reportActual";
+import { reportExpectedReference, reportExpected } from "../report/reportExpected";
+import { reportActualReference, reportActual } from "../report/reportActual";
 
 /**
  * This method performs a block comparison. It's useful for comparing a string or an ArrayBuffer
