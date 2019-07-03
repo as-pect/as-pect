@@ -325,7 +325,6 @@ TypedArrays, ArrayBuffers, and custom classes that have a <code>length</code> pr
 <span class="hljs-keyword">const</span> buffer = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">29</span>);
 <span class="hljs-keyword">const</span> custom = <span class="hljs-keyword">new</span> LengthExample(<span class="hljs-number">50</span>);
 
-
 expect&lt;<span class="hljs-built_in">Array</span>&lt;Vec3&gt;&gt;(array).toHaveLength(<span class="hljs-number">100</span>);
 expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(typedarray).toHaveLength(<span class="hljs-number">42</span>);
 expect&lt;<span class="hljs-built_in">ArrayBuffer</span>&gt;(buffer).toHaveLength(<span class="hljs-number">29</span>);
@@ -343,7 +342,7 @@ will be checked.</p>
 <pre><code class="language-ts"><span class="hljs-keyword">const</span> data = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">100</span>);
 data[<span class="hljs-number">5</span>] = <span class="hljs-number">255</span>;
 
-expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toInclude&lt;u8&gt;(<span class="hljs-number">255</span>); <span class="hljs-comment">// must provide type</span>
+expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContain(<span class="hljs-number">255</span>);
 </code></pre>
 <p>This method is portable with <code>jest</code> using the <code>toContain()</code> method.</p>
 <h3>toContainEqual and toIncludeEqual Comparison</h3>
@@ -354,18 +353,15 @@ and if that comparison does not work, a memcompare will be used. Overloading the
 class <code>@operator(&quot;==&quot;)</code> can be used in conjunction with this comparison. The
 <code>index</code> must be a number value, and there must be a <code>length</code> property that
 matches the <code>index</code> type. All values from <code>0</code> to <code>length - 1</code> will be checked.</p>
-<pre><code class="language-ts"><span class="hljs-keyword">const</span> data = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">100</span>);
-data[<span class="hljs-number">5</span>] = <span class="hljs-number">255</span>;
+<pre><code class="language-ts"><span class="hljs-keyword">const</span> reference = <span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-keyword">const</span> data = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>&lt;Vec3&gt;(<span class="hljs-number">0</span>);
+data.push(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>));
+data.push(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>));
+data.push(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>));
 
-expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toInclude&lt;u8&gt;(<span class="hljs-number">255</span>); <span class="hljs-comment">// must provide type</span>
+expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual(referece);
 </code></pre>
 <p>This method is portable with <code>jest</code> using the <code>toContainEqual()</code> method.</p>
-<pre><code class="language-ts"><span class="hljs-keyword">const</span> data = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">100</span>);
-data[<span class="hljs-number">5</span>] = <span class="hljs-number">255</span>;
-
-expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toInclude&lt;u8&gt;(<span class="hljs-number">255</span>); <span class="hljs-comment">// must provide type</span>
-</code></pre>
-<p>This method is portable with <code>jest</code>.</p>
 <h2>CLI</h2>
 <p>To access the help screen, use the <code>--help</code> flag, which prints the following:</p>
 <!-- markdownlint-disable MD013 MD031 -->

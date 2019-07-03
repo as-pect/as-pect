@@ -400,7 +400,6 @@ const typedarray = new Uint8Array(42);
 const buffer = new ArrayBuffer(29);
 const custom = new LengthExample(50);
 
-
 expect<Array<Vec3>>(array).toHaveLength(100);
 expect<Uint8Array>(typedarray).toHaveLength(42);
 expect<ArrayBuffer>(buffer).toHaveLength(29);
@@ -451,7 +450,6 @@ expect<Uint8Array>(data).toContainEqual(referece);
 ```
 
 This method is portable with `jest` using the `toContainEqual()` method.
-
 
 ## CLI
 
