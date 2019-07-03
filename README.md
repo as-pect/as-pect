@@ -7,16 +7,6 @@
 Write your module in AssemblyScript and get blazing fast bootstrapped tests
 with WebAssembly speeds!
 
-## Philosophy
-
-Testing is the first step of every project and you have a responsibility to
-make sure that the software you write works as intended. The `as-pect` project
-was created to help quickly scaffold and bootstrap AssemblyScript tests so
-that you can be confident in yourself and the software you write.
-
-One of the goals of this project is 100% portability to `jest` so that tests
-can be run in two different environments.
-
 ## Table of contents
 
 1. [Philosophy](#philosophy)
@@ -53,6 +43,16 @@ can be run in two different environments.
 1. [Custom Imports Using CLI](#custom-imports-using-cli)
 1. [Using as-pect as a Package](#using-as-pect-as-a-package)
 1. [Contributors](#contributors)
+
+## Philosophy
+
+Testing is the first step of every project and you have a responsibility to
+make sure that the software you write works as intended. The `as-pect` project
+was created to help quickly scaffold and bootstrap AssemblyScript tests so
+that you can be confident in yourself and the software you write.
+
+One of the goals of this project is 100% portability to `jest` so that tests
+can be run in two different environments.
 
 ## Usage
 
@@ -899,7 +899,8 @@ It is possible to write `as-pect` tests that run in `jest` as well. The
 compatible functions are documented in the `init/as-pect.portable.d.ts` file
 and can be added to your project by using the `--portable` flag. Instead of
 using the types provided by `@types/jest`, use the portable ones provided by
-`as-pect`. This is the recommended way to setup testing.
+`as-pect`. This is the recommended way to setup testing when trying to write
+portable tests.
 
 ```
 npm install --save-dev jest as-pect typescript assemblyscript/assemblyscript
@@ -907,7 +908,7 @@ npx ts-jest config:init
 npx asp --portable
 ```
 
-Then change the configuration to match these properties as you see fit:
+Then change the jest configuration to match these properties as you see fit:
 
 ```js
 module.exports = {
