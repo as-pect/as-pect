@@ -751,8 +751,6 @@ npx asp --summary=enableLogging=false
 Note: When using parameters for the builtin reporters, the `=` is required to
 parse the querystring parameters correctly.
 
-![SummaryReporter](https://gfycat.com/obeseimpureirishterrier)
-
 ### VerboseReporter
 
 This reporter outputs a lot of information, including:
