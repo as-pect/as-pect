@@ -9,33 +9,47 @@ interface ICreateModuleCallbackResult {
   context: TestContext;
 }
 
-type TestContextCallback = (err: Error | null, result?: ICreateModuleCallbackResult) => void;
+type TestContextCallback = (
+  err: Error | null,
+  result?: ICreateModuleCallbackResult,
+) => void;
 
-export function createTestGroupFilterModule(linked: any, callback: TestContextCallback): void {
+export function createTestGroupFilterModule(
+  linked: any,
+  callback: TestContextCallback,
+): void {
   let context: TestContext;
   let wasm: ASUtil & IAspectExports;
 
-  main([
-    "--validate",
-    "--debug",
-    "--binaryFile", "output.wasm",
-    "--explicitStart",
-    "./assembly/jest-filter.ts",
-    "./assembly/index.ts",
-  ], {
-    writeFile(fileName: string, contents: Uint8Array) {
-      if (fileName === "output.wasm") {
-        context = new TestContext({
-          reporter: new EmptyReporter(),
-          fileName: "assembly/jest-filter.ts",
-          performanceConfiguration: { enabled: false },
-        });
-        wasm = instantiateBuffer<IAspectExports>(contents, context.createImports(linked));
-      }
-    }
-  }, (err: Error | null) => {
-    if (err) callback(err);
-    else callback(null, { context, wasm });
-    return 0;
-  });
+  main(
+    [
+      "--validate",
+      "--debug",
+      "--binaryFile",
+      "output.wasm",
+      "--explicitStart",
+      "./assembly/jest-filter.ts",
+      "./assembly/index.ts",
+    ],
+    {
+      writeFile(fileName: string, contents: Uint8Array) {
+        if (fileName === "output.wasm") {
+          context = new TestContext({
+            reporter: new EmptyReporter(),
+            fileName: "assembly/jest-filter.ts",
+            performanceConfiguration: { enabled: false },
+          });
+          wasm = instantiateBuffer<IAspectExports>(
+            contents,
+            context.createImports(linked),
+          );
+        }
+      },
+    },
+    (err: Error | null) => {
+      if (err) callback(err);
+      else callback(null, { context, wasm });
+      return 0;
+    },
+  );
 }

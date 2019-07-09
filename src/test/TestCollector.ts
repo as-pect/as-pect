@@ -32,6 +32,7 @@ export class TestCollector {
   // test group values
   private groupStack: TestGroup[] = [new TestGroup()];
   public testGroups: TestGroup[] = [];
+  public topLevelGroup: TestGroup | null = null;
   protected logTarget: ILogTarget = this.groupStack[0];
 
   // public warning/error lists
@@ -198,6 +199,21 @@ export class TestCollector {
     this.resetPerformanceValues();
     this.wasm!.__start();
     this.wasm!.__ready();
+    let topLevelGroup = this.groupStack[0];
+
+    topLevelGroup.willRun = this.groupRegex.test(topLevelGroup.name);
+    this.reportEndDescribe();
+    this.topLevelGroup = topLevelGroup!;
+
+    /* istanbul ignore next */
+    if (!topLevelGroup || this.groupStack.length > 0) {
+      /* istanbul ignore next */
+      this.errors.push({
+        message: "Invalid TestContext state after test collection.",
+        stackTrace: this.getLogStackTrace(),
+        type: "InvalidTestContextState",
+      });
+    }
   }
 
   /**
@@ -628,7 +644,7 @@ export class TestCollector {
     const test = new TestResult();
 
     test.functionPointer = callback;
-    test.name = `Throws: ${name}`;
+    test.name = name;
     test.message = this.getString(message, "");
     test.negated = true;
     test.performance = this.performanceEnabledValue || false;

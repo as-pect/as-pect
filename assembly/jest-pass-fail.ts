@@ -1,5 +1,9 @@
 import { Vec3 } from "./__tests__/setup/Vec3";
 
+test("A test outside of a describe block", () => {
+  assert(true);
+});
+
 describe("pass-fail", () => {
   it("this test should pass", (): void => {
     expect<i32>(13 + 29).toBe(42);
@@ -142,5 +146,13 @@ describe("pass on group afterAll", () => {
 
   it("should run", () => {
     assert(true, "");
+  });
+});
+
+describe("nested fail in beforeAll", () => {
+  describe("nested", () => {
+    beforeAll(() => {
+      assert(false, "");
+    });
   });
 });

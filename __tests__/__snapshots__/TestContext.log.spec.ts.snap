@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`logged values log values: logs bytes 1`] = `Array []`;
+exports[`log output Group: logs Test: logs: bytes 1`] = `Array []`;
 
-exports[`logged values log values: logs bytes 2`] = `Array []`;
+exports[`log output Group: logs Test: logs: bytes 2`] = `Array []`;
 
-exports[`logged values log values: logs bytes 3`] = `Array []`;
+exports[`log output Group: logs Test: logs: bytes 3`] = `Array []`;
 
-exports[`logged values log values: logs bytes 4`] = `
+exports[`log output Group: logs Test: logs: bytes 4`] = `
 Array [
   0,
   0,
@@ -35,91 +35,85 @@ Array [
 ]
 `;
 
-exports[`logged values log values: logs bytes 5`] = `Array []`;
+exports[`log output Group: logs Test: logs: bytes 5`] = `Array []`;
 
-exports[`logged values log values: logs bytes 6`] = `Array []`;
+exports[`log output Group: logs Test: logs: bytes 6`] = `Array []`;
 
-exports[`logged values log values: logs bytes 7`] = `Array []`;
+exports[`log output Group: logs Test: logs: bytes 7`] = `Array []`;
 
-exports[`logged values log values: logs bytes 8`] = `Array []`;
+exports[`log output Group: logs Test: logs: bytes 8`] = `Array []`;
 
-exports[`logged values log values: logs bytes 9`] = `Array []`;
+exports[`log output Group: logs Test: logs: bytes 9`] = `Array []`;
 
-exports[`logged values log values: logs bytes 10`] = `Array []`;
+exports[`log output Group: logs Test: logs: bytes 10`] = `Array []`;
 
-exports[`logged values log values: logs message 1`] = `"Hello world!"`;
+exports[`log output Group: logs Test: logs: message 1`] = `"Hello world!"`;
 
-exports[`logged values log values: logs message 2`] = `"Value 42"`;
+exports[`log output Group: logs Test: logs: message 2`] = `"Value 42"`;
 
-exports[`logged values log values: logs message 3`] = `"null"`;
+exports[`log output Group: logs Test: logs: message 3`] = `"null"`;
 
-exports[`logged values log values: logs message 4`] = `"Reference Type"`;
+exports[`log output Group: logs Test: logs: message 4`] = `"Reference Type"`;
 
-exports[`logged values log values: logs message 5`] = `"[1,2,3]"`;
+exports[`log output Group: logs Test: logs: message 5`] = `"[1,2,3]"`;
 
-exports[`logged values log values: logs message 6`] = `"Value 9999999999999"`;
+exports[`log output Group: logs Test: logs: message 6`] = `"Value 9999999999999"`;
 
-exports[`logged values log values: logs message 7`] = `"Value 1234567"`;
+exports[`log output Group: logs Test: logs: message 7`] = `"Value 1234567"`;
 
-exports[`logged values log values: logs message 8`] = `"Value 999999999999"`;
+exports[`log output Group: logs Test: logs: message 8`] = `"Value 999999999999"`;
 
-exports[`logged values log values: logs message 9`] = `"Value -1"`;
+exports[`log output Group: logs Test: logs: message 9`] = `"Value -1"`;
 
-exports[`logged values log values: logs message 10`] = `"Value -1"`;
+exports[`log output Group: logs Test: logs: message 10`] = `"Value -1"`;
 
-exports[`logged values log values: logs offset 1`] = `0`;
+exports[`log output Group: logs Test: logs: offset 1`] = `0`;
 
-exports[`logged values log values: logs offset 2`] = `0`;
+exports[`log output Group: logs Test: logs: offset 2`] = `0`;
 
-exports[`logged values log values: logs offset 3`] = `0`;
+exports[`log output Group: logs Test: logs: offset 3`] = `0`;
 
-exports[`logged values log values: logs offset 4`] = `24`;
+exports[`log output Group: logs Test: logs: offset 4`] = `24`;
 
-exports[`logged values log values: logs offset 5`] = `0`;
+exports[`log output Group: logs Test: logs: offset 5`] = `0`;
 
-exports[`logged values log values: logs offset 6`] = `0`;
+exports[`log output Group: logs Test: logs: offset 6`] = `0`;
 
-exports[`logged values log values: logs offset 7`] = `0`;
+exports[`log output Group: logs Test: logs: offset 7`] = `0`;
 
-exports[`logged values log values: logs offset 8`] = `0`;
+exports[`log output Group: logs Test: logs: offset 8`] = `0`;
 
-exports[`logged values log values: logs offset 9`] = `0`;
+exports[`log output Group: logs Test: logs: offset 9`] = `0`;
 
-exports[`logged values log values: logs offset 10`] = `0`;
+exports[`log output Group: logs Test: logs: offset 10`] = `0`;
 
-exports[`logged values log values: logs snapshot 1`] = `296`;
+exports[`log output Group: logs Test: logs: snapshot 1`] = `296`;
 
-exports[`logged values log values: logs snapshot 2`] = `42`;
+exports[`log output Group: logs Test: logs: snapshot 2`] = `42`;
 
-exports[`logged values log values: logs snapshot 3`] = `null`;
+exports[`log output Group: logs Test: logs: snapshot 3`] = `null`;
 
-exports[`logged values log values: logs snapshot 4`] = `2144`;
+exports[`log output Group: logs Test: logs: snapshot 4`] = `2144`;
 
-exports[`logged values log values: logs snapshot 5`] = `null`;
+exports[`log output Group: logs Test: logs: snapshot 5`] = `null`;
 
-exports[`logged values log values: logs snapshot 6`] = `null`;
+exports[`log output Group: logs Test: logs: snapshot 6`] = `null`;
 
-exports[`logged values log values: logs snapshot 7`] = `1234567`;
+exports[`log output Group: logs Test: logs: snapshot 7`] = `1234567`;
 
-exports[`logged values log values: logs snapshot 8`] = `null`;
+exports[`log output Group: logs Test: logs: snapshot 8`] = `null`;
 
-exports[`logged values log values: logs snapshot 9`] = `-1`;
+exports[`log output Group: logs Test: logs: snapshot 9`] = `-1`;
 
-exports[`logged values log values: logs snapshot 10`] = `-1`;
+exports[`log output Group: logs Test: logs: snapshot 10`] = `-1`;
 
-exports[`logged values log values: logs todo 1`] = `"one"`;
+exports[`log output Group: logs: bytes 1`] = `Array []`;
 
-exports[`logged values log values: logs todo 2`] = `"two"`;
+exports[`log output Group: logs: bytes 2`] = `Array []`;
 
-exports[`logged values log values: logs todo 3`] = `"three"`;
+exports[`log output Group: logs: bytes 3`] = `Array []`;
 
-exports[`logged values log values: logs~logs bytes 1`] = `Array []`;
-
-exports[`logged values log values: logs~logs bytes 2`] = `Array []`;
-
-exports[`logged values log values: logs~logs bytes 3`] = `Array []`;
-
-exports[`logged values log values: logs~logs bytes 4`] = `
+exports[`log output Group: logs: bytes 4`] = `
 Array [
   0,
   0,
@@ -148,74 +142,80 @@ Array [
 ]
 `;
 
-exports[`logged values log values: logs~logs bytes 5`] = `Array []`;
+exports[`log output Group: logs: bytes 5`] = `Array []`;
 
-exports[`logged values log values: logs~logs bytes 6`] = `Array []`;
+exports[`log output Group: logs: bytes 6`] = `Array []`;
 
-exports[`logged values log values: logs~logs bytes 7`] = `Array []`;
+exports[`log output Group: logs: bytes 7`] = `Array []`;
 
-exports[`logged values log values: logs~logs bytes 8`] = `Array []`;
+exports[`log output Group: logs: bytes 8`] = `Array []`;
 
-exports[`logged values log values: logs~logs bytes 9`] = `Array []`;
+exports[`log output Group: logs: bytes 9`] = `Array []`;
 
-exports[`logged values log values: logs~logs bytes 10`] = `Array []`;
+exports[`log output Group: logs: bytes 10`] = `Array []`;
 
-exports[`logged values log values: logs~logs message 1`] = `"Hello world!"`;
+exports[`log output Group: logs: message 1`] = `"Hello world!"`;
 
-exports[`logged values log values: logs~logs message 2`] = `"Value 42"`;
+exports[`log output Group: logs: message 2`] = `"Value 42"`;
 
-exports[`logged values log values: logs~logs message 3`] = `"null"`;
+exports[`log output Group: logs: message 3`] = `"null"`;
 
-exports[`logged values log values: logs~logs message 4`] = `"Reference Type"`;
+exports[`log output Group: logs: message 4`] = `"Reference Type"`;
 
-exports[`logged values log values: logs~logs message 5`] = `"[1,2,3]"`;
+exports[`log output Group: logs: message 5`] = `"[1,2,3]"`;
 
-exports[`logged values log values: logs~logs message 6`] = `"Value 9999999999999"`;
+exports[`log output Group: logs: message 6`] = `"Value 9999999999999"`;
 
-exports[`logged values log values: logs~logs message 7`] = `"Value 1234567"`;
+exports[`log output Group: logs: message 7`] = `"Value 1234567"`;
 
-exports[`logged values log values: logs~logs message 8`] = `"Value 999999999999"`;
+exports[`log output Group: logs: message 8`] = `"Value 999999999999"`;
 
-exports[`logged values log values: logs~logs message 9`] = `"Value -1"`;
+exports[`log output Group: logs: message 9`] = `"Value -1"`;
 
-exports[`logged values log values: logs~logs message 10`] = `"Value -1"`;
+exports[`log output Group: logs: message 10`] = `"Value -1"`;
 
-exports[`logged values log values: logs~logs offset 1`] = `0`;
+exports[`log output Group: logs: offset 1`] = `0`;
 
-exports[`logged values log values: logs~logs offset 2`] = `0`;
+exports[`log output Group: logs: offset 2`] = `0`;
 
-exports[`logged values log values: logs~logs offset 3`] = `0`;
+exports[`log output Group: logs: offset 3`] = `0`;
 
-exports[`logged values log values: logs~logs offset 4`] = `24`;
+exports[`log output Group: logs: offset 4`] = `24`;
 
-exports[`logged values log values: logs~logs offset 5`] = `0`;
+exports[`log output Group: logs: offset 5`] = `0`;
 
-exports[`logged values log values: logs~logs offset 6`] = `0`;
+exports[`log output Group: logs: offset 6`] = `0`;
 
-exports[`logged values log values: logs~logs offset 7`] = `0`;
+exports[`log output Group: logs: offset 7`] = `0`;
 
-exports[`logged values log values: logs~logs offset 8`] = `0`;
+exports[`log output Group: logs: offset 8`] = `0`;
 
-exports[`logged values log values: logs~logs offset 9`] = `0`;
+exports[`log output Group: logs: offset 9`] = `0`;
 
-exports[`logged values log values: logs~logs offset 10`] = `0`;
+exports[`log output Group: logs: offset 10`] = `0`;
 
-exports[`logged values log values: logs~logs snapshot 1`] = `296`;
+exports[`log output Group: logs: snapshot 1`] = `296`;
 
-exports[`logged values log values: logs~logs snapshot 2`] = `42`;
+exports[`log output Group: logs: snapshot 2`] = `42`;
 
-exports[`logged values log values: logs~logs snapshot 3`] = `null`;
+exports[`log output Group: logs: snapshot 3`] = `null`;
 
-exports[`logged values log values: logs~logs snapshot 4`] = `2144`;
+exports[`log output Group: logs: snapshot 4`] = `2144`;
 
-exports[`logged values log values: logs~logs snapshot 5`] = `null`;
+exports[`log output Group: logs: snapshot 5`] = `null`;
 
-exports[`logged values log values: logs~logs snapshot 6`] = `null`;
+exports[`log output Group: logs: snapshot 6`] = `null`;
 
-exports[`logged values log values: logs~logs snapshot 7`] = `1234567`;
+exports[`log output Group: logs: snapshot 7`] = `1234567`;
 
-exports[`logged values log values: logs~logs snapshot 8`] = `null`;
+exports[`log output Group: logs: snapshot 8`] = `null`;
 
-exports[`logged values log values: logs~logs snapshot 9`] = `-1`;
+exports[`log output Group: logs: snapshot 9`] = `-1`;
 
-exports[`logged values log values: logs~logs snapshot 10`] = `-1`;
+exports[`log output Group: logs: snapshot 10`] = `-1`;
+
+exports[`log output Group: logs: todo 1`] = `"one"`;
+
+exports[`log output Group: logs: todo 2`] = `"two"`;
+
+exports[`log output Group: logs: todo 3`] = `"three"`;

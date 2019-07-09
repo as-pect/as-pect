@@ -123,6 +123,8 @@ export class TestGroup implements ILogTarget {
    */
   public parent: TestGroup | null = null;
 
+  public children: TestGroup[] = [];
+
   /**
    * This method creates a new TestGroup that contains a reference to all of the current flow
    * functions of this `TestGroup`.
@@ -130,6 +132,7 @@ export class TestGroup implements ILogTarget {
   public fork(): TestGroup {
     const forked = new TestGroup();
     forked.parent = this;
+    this.children.push(forked);
     return forked;
   }
 

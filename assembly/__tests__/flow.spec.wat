@@ -15,14 +15,14 @@
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
- (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
- (import "__aspect" "reportDescribe" (func $assembly/internal/Describe/reportDescribe (param i32)))
- (import "__aspect" "reportEndDescribe" (func $assembly/internal/Describe/reportEndDescribe))
  (import "__aspect" "reportBeforeAll" (func $assembly/internal/Test/reportBeforeAll (param i32)))
  (import "__aspect" "reportBeforeEach" (func $assembly/internal/Test/reportBeforeEach (param i32)))
  (import "__aspect" "reportAfterEach" (func $assembly/internal/Test/reportAfterEach (param i32)))
  (import "__aspect" "reportAfterAll" (func $assembly/internal/Test/reportAfterAll (param i32)))
+ (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
  (import "__aspect" "reportNegatedTest" (func $assembly/internal/Test/reportNegatedTest (param i32 i32 i32)))
+ (import "__aspect" "reportDescribe" (func $assembly/internal/Describe/reportDescribe (param i32)))
+ (import "__aspect" "reportEndDescribe" (func $assembly/internal/Describe/reportEndDescribe))
  (import "__aspect" "reportActualArray" (func $assembly/internal/report/reportActual/reportActualArray (param i32 i32)))
  (import "__aspect" "reportActualValue" (func $assembly/internal/report/reportActual/reportActualFloat (param f64 i32 i32)))
  (import "__aspect" "reportActualValue" (func $assembly/internal/report/reportActual/reportActualInteger (param i32 i32 i32)))
@@ -48,25 +48,25 @@
  (data (i32.const 112) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00p\00u\00r\00e\00.\00t\00s\00")
  (data (i32.const 160) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
  (data (i32.const 216) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
- (data (i32.const 256) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00f\00l\00o\00w\00")
- (data (i32.const 280) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
- (data (i32.const 352) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
- (data (i32.const 432) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00f\00l\00o\00w\00.\00s\00p\00e\00c\00.\00t\00s\00")
- (data (i32.const 512) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00o\00n\00c\00e\00")
- (data (i32.const 584) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
- (data (i32.const 664) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
- (data (i32.const 736) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
- (data (i32.const 816) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00A\00l\00l\00 \00o\00n\00c\00e\00")
- (data (i32.const 888) "<\00\00\00\01\00\00\00\01\00\00\00<\00\00\00a\00f\00t\00e\00r\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
- (data (i32.const 968) ".\00\00\00\01\00\00\00\01\00\00\00.\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00l\00l\00 \004\00 \00t\00e\00s\00t\00s\00")
- (data (i32.const 1032) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00t\00e\00s\00t\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
- (data (i32.const 1104) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
- (data (i32.const 1144) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00 \00t\00h\00i\00s\00 \00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
- (data (i32.const 1216) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00t\00h\00i\00s\00 \00t\00e\00s\00t\00 \00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00")
- (data (i32.const 1272) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
+ (data (i32.const 256) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
+ (data (i32.const 296) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00 \00t\00h\00i\00s\00 \00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
+ (data (i32.const 368) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00t\00h\00i\00s\00 \00t\00e\00s\00t\00 \00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00")
+ (data (i32.const 424) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
+ (data (i32.const 440) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00f\00l\00o\00w\00")
+ (data (i32.const 464) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
+ (data (i32.const 536) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
+ (data (i32.const 616) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00f\00l\00o\00w\00.\00s\00p\00e\00c\00.\00t\00s\00")
+ (data (i32.const 696) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00o\00n\00c\00e\00")
+ (data (i32.const 768) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
+ (data (i32.const 848) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
+ (data (i32.const 920) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
+ (data (i32.const 1000) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00A\00l\00l\00 \00o\00n\00c\00e\00")
+ (data (i32.const 1072) "<\00\00\00\01\00\00\00\01\00\00\00<\00\00\00a\00f\00t\00e\00r\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
+ (data (i32.const 1152) ".\00\00\00\01\00\00\00\01\00\00\00.\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00l\00l\00 \004\00 \00t\00e\00s\00t\00s\00")
+ (data (i32.const 1216) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00t\00e\00s\00t\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
  (data (i32.const 1288) "\04\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (table $0 17 funcref)
- (elem (i32.const 0) $null $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|5 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|6 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|7 $start:assembly/__tests__/flow.spec~anonymous|1)
+ (elem (i32.const 0) $null $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/flow.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|1)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/rt/pure/CUR (mut i32) (i32.const 0))
  (global $~lib/rt/pure/END (mut i32) (i32.const 0))
@@ -77,7 +77,7 @@
  (global $assembly/__tests__/flow.spec/afterEachRan (mut i32) (i32.const 0))
  (global $assembly/__tests__/flow.spec/afterAllRan (mut i32) (i32.const 0))
  (global $assembly/__tests__/flow.spec/testCount (mut i32) (i32.const 0))
- (global $assembly/internal/noOp/noOp i32 (i32.const 7))
+ (global $assembly/internal/noOp/noOp i32 (i32.const 10))
  (global $~lib/argc (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
  (global $assembly/internal/report/reportActual/Actual.type (mut i32) (i32.const 0))
@@ -3279,20 +3279,52 @@
   global.set $~lib/rt/pure/CUR
  )
  (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 (; 58 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/beforeEachRan
-  i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 368
-   i32.const 448
-   i32.const 21
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
+  global.get $assembly/__tests__/flow.spec/beforeAllRan
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/beforeAllRan
  )
- (func $assembly/internal/Test/it (; 59 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/beforeAll (; 59 ;) (type $FUNCSIG$vi) (param $0 i32)
+  local.get $0
+  call $assembly/internal/Test/reportBeforeAll
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 (; 60 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/beforeEachRan
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/beforeEachRan
+ )
+ (func $assembly/internal/Test/beforeEach (; 61 ;) (type $FUNCSIG$vi) (param $0 i32)
+  local.get $0
+  call $assembly/internal/Test/reportBeforeEach
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 (; 62 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/afterEachRan
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/afterEachRan
+ )
+ (func $assembly/internal/Test/afterEach (; 63 ;) (type $FUNCSIG$vi) (param $0 i32)
+  local.get $0
+  call $assembly/internal/Test/reportAfterEach
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 (; 64 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/afterAllRan
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/afterAllRan
+ )
+ (func $assembly/internal/Test/afterAll (; 65 ;) (type $FUNCSIG$vi) (param $0 i32)
+  local.get $0
+  call $assembly/internal/Test/reportAfterAll
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 (; 66 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/testCount
+  i32.const 1
+  i32.add
+  global.set $assembly/__tests__/flow.spec/testCount
+ )
+ (func $assembly/internal/Test/it (; 67 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3302,162 +3334,26 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 (; 60 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/beforeAllRan
-  i32.const 1
-  i32.eq
-  i32.eqz
-  if
-   i32.const 600
-   i32.const 448
-   i32.const 29
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 (; 61 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/afterEachRan
-  i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 752
-   i32.const 448
-   i32.const 37
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 (; 62 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/afterAllRan
-  i32.const 1
-  i32.eq
-  i32.eqz
-  if
-   i32.const 904
-   i32.const 448
-   i32.const 45
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 (; 63 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 1048
-   i32.const 448
-   i32.const 52
-   i32.const 4
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0 (; 64 ;) (type $FUNCSIG$v)
-  i32.const 296
-  i32.const 1
-  call $assembly/internal/Test/it
-  i32.const 528
-  i32.const 2
-  call $assembly/internal/Test/it
-  i32.const 680
-  i32.const 3
-  call $assembly/internal/Test/it
-  i32.const 832
-  i32.const 4
-  call $assembly/internal/Test/it
-  i32.const 984
-  i32.const 5
-  call $assembly/internal/Test/it
- )
- (func $start:assembly/internal/noOp~anonymous|0 (; 65 ;) (type $FUNCSIG$v)
-  nop
- )
- (func $assembly/internal/Describe/describe (; 66 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  drop
-  local.get $0
-  call $assembly/internal/Describe/reportDescribe
-  i32.const 0
-  global.set $~lib/argc
-  local.get $1
-  call_indirect (type $FUNCSIG$v)
-  call $assembly/internal/Describe/reportEndDescribe
-  local.get $0
-  call $~lib/rt/pure/__release
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 (; 67 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/beforeAllRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/beforeAllRan
- )
- (func $assembly/internal/Test/beforeAll (; 68 ;) (type $FUNCSIG$vi) (param $0 i32)
-  local.get $0
-  call $assembly/internal/Test/reportBeforeAll
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 (; 69 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/beforeEachRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/beforeEachRan
- )
- (func $assembly/internal/Test/beforeEach (; 70 ;) (type $FUNCSIG$vi) (param $0 i32)
-  local.get $0
-  call $assembly/internal/Test/reportBeforeEach
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 (; 71 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/afterEachRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/afterEachRan
- )
- (func $assembly/internal/Test/afterEach (; 72 ;) (type $FUNCSIG$vi) (param $0 i32)
-  local.get $0
-  call $assembly/internal/Test/reportAfterEach
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 (; 73 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/afterAllRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/afterAllRan
- )
- (func $assembly/internal/Test/afterAll (; 74 ;) (type $FUNCSIG$vi) (param $0 i32)
-  local.get $0
-  call $assembly/internal/Test/reportAfterAll
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 (; 75 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5 (; 68 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|5 (; 76 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6 (; 69 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|6 (; 77 ;) (type $FUNCSIG$v)
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|7 (; 78 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7 (; 70 ;) (type $FUNCSIG$v)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
   unreachable
  )
- (func $assembly/internal/Test/throws (; 79 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Test/throws (; 71 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -3473,34 +3369,138 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1 (; 80 ;) (type $FUNCSIG$v)
-  i32.const 8
+ (func $start:assembly/__tests__/flow.spec~anonymous|0 (; 72 ;) (type $FUNCSIG$v)
+  i32.const 1
   call $assembly/internal/Test/beforeAll
-  i32.const 9
+  i32.const 2
   call $assembly/internal/Test/beforeEach
-  i32.const 10
+  i32.const 3
   call $assembly/internal/Test/afterEach
-  i32.const 11
+  i32.const 4
   call $assembly/internal/Test/afterAll
-  i32.const 1160
+  i32.const 312
+  i32.const 5
+  call $assembly/internal/Test/it
+  i32.const 312
+  i32.const 6
+  call $assembly/internal/Test/it
+  i32.const 312
+  i32.const 7
+  call $assembly/internal/Test/it
+  i32.const 384
+  i32.const 8
+  i32.const 440
+  call $assembly/internal/Test/throws
+ )
+ (func $start:assembly/internal/noOp~anonymous|0 (; 73 ;) (type $FUNCSIG$v)
+  nop
+ )
+ (func $assembly/internal/Describe/describe (; 74 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $0
+  call $assembly/internal/Describe/reportDescribe
+  i32.const 0
+  global.set $~lib/argc
+  local.get $1
+  call_indirect (type $FUNCSIG$v)
+  call $assembly/internal/Describe/reportEndDescribe
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 (; 75 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/beforeEachRan
+  i32.const 4
+  i32.eq
+  i32.eqz
+  if
+   i32.const 552
+   i32.const 632
+   i32.const 74
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 (; 76 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/beforeAllRan
+  i32.const 1
+  i32.eq
+  i32.eqz
+  if
+   i32.const 784
+   i32.const 632
+   i32.const 82
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 (; 77 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/afterEachRan
+  i32.const 4
+  i32.eq
+  i32.eqz
+  if
+   i32.const 936
+   i32.const 632
+   i32.const 90
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 (; 78 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/afterAllRan
+  i32.const 1
+  i32.eq
+  i32.eqz
+  if
+   i32.const 1088
+   i32.const 632
+   i32.const 98
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 (; 79 ;) (type $FUNCSIG$v)
+  global.get $assembly/__tests__/flow.spec/testCount
+  i32.const 4
+  i32.eq
+  i32.eqz
+  if
+   i32.const 1232
+   i32.const 632
+   i32.const 105
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+ )
+ (func $start:assembly/__tests__/flow.spec~anonymous|1 (; 80 ;) (type $FUNCSIG$v)
+  i32.const 480
+  i32.const 11
+  call $assembly/internal/Test/it
+  i32.const 712
   i32.const 12
   call $assembly/internal/Test/it
-  i32.const 1160
+  i32.const 864
   i32.const 13
   call $assembly/internal/Test/it
-  i32.const 1160
+  i32.const 1016
   i32.const 14
   call $assembly/internal/Test/it
-  i32.const 1232
+  i32.const 1168
   i32.const 15
-  i32.const 1288
-  call $assembly/internal/Test/throws
+  call $assembly/internal/Test/it
  )
  (func $start:assembly/__tests__/flow.spec (; 81 ;) (type $FUNCSIG$v)
   i32.const 272
-  i32.const 6
+  i32.const 9
   call $assembly/internal/Describe/describe
-  i32.const 1120
+  i32.const 456
   i32.const 16
   call $assembly/internal/Describe/describe
  )

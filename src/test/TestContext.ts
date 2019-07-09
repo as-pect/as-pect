@@ -79,11 +79,7 @@ export class TestContext extends TestCollector {
     // start the test suite
     this.reporter.onStart(this);
 
-    for (const group of this.testGroups) {
-      this.runGroup(group);
-      this.stackTraces.clear();
-      this.stackTraces.set(-1, "");
-    }
+    this.runGroup(this.topLevelGroup!);
 
     const end = performance.now();
     this.time = timeDifference(end, start);
@@ -92,6 +88,14 @@ export class TestContext extends TestCollector {
   }
 
   private runGroup(group: TestGroup): void {
+    if (!group.willRun) {
+      for (const child of group.children) {
+        this.runGroup(child);
+        /* istanbul ignore next */
+        if (this.endGroup) return;
+      }
+    }
+
     this.endGroup = false;
 
     if (this.rtraceEnabled) {
@@ -123,6 +127,11 @@ export class TestContext extends TestCollector {
       if (this.endGroup) return;
       this.reporter.onTestFinish(group, result);
       this.logTarget = group;
+    }
+
+    // run the children
+    for (const child of group.children) {
+      this.runGroup(child);
     }
 
     // for each afterAllCallback
@@ -363,14 +372,13 @@ export class TestContext extends TestCollector {
   }
 
   /**
-   * Run the afterAll callbacks with the given runContext and group.
+   * Run the beforeAll callbacks with the given runContext and group. This
+   * method only calls the current group's beforeAll callbacks.
    *
    * @param {RunContext} runContext - The current run context.
    * @param {TestGroup} group - The current test group.
    */
   private runAfterAll(group: TestGroup): void {
-    if (group.parent) this.runAfterAll(group.parent);
-
     for (const afterAllCallback of group.afterAllPointers) {
       // call each afterAll callback
       const afterAllResult = this.tryCall(afterAllCallback);
@@ -389,14 +397,13 @@ export class TestContext extends TestCollector {
   }
 
   /**
-   * Run the beforeAll callbacks with the given runContext and group.
+   * Run the beforeAll callbacks with the given runContext and group. This
+   * method only calls the current group's beforeAll callbacks.
    *
    * @param {RunContext} runContext - The current run context.
    * @param {TestGroup} group - The current test group.
    */
   private runBeforeAll(group: TestGroup): void {
-    if (group.parent) this.runBeforeAll(group.parent);
-
     for (const beforeAllCallback of group.beforeAllPointers) {
       // call each beforeAll callback
       const beforeAllResult = this.tryCall(beforeAllCallback);
