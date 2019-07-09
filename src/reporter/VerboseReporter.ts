@@ -38,8 +38,8 @@ function stringifyActualValue(
     "\n           " + value.stack.split("\n").join("\n           ");
 
   return type === ValueType.Expected
-    ? chalk`{green ${value.message}}{blue ${byteString}}{yellow ${stackString}}\n`
-    : chalk`{red ${value.message}}{blue ${byteString}}{yellow ${stackString}}\n`;
+    ? chalk`{green ${value.message}}{blue ${byteString}}{yellow ${stackString}}`
+    : chalk`{red ${value.message}}{blue ${byteString}}{yellow ${stackString}}`;
 }
 
 /**
@@ -74,8 +74,7 @@ export default class VerboseReporter extends TestReporter {
    * @param {TestGroup} group - The started test group.
    */
   public onGroupStart(group: TestGroup): void {
-    this.stdout!.write(chalk`\n[Describe]: ${group.name}\n\n`);
-
+    if (group.name) this.stdout!.write(chalk`\n[Describe]: ${group.name}\n\n`);
     for (const logValue of group.logs) {
       this.onLog(logValue);
     }
@@ -87,35 +86,7 @@ export default class VerboseReporter extends TestReporter {
    *
    * @param {TestGroup} group - The finished TestGroup.
    */
-  public onGroupFinish(group: TestGroup): void {
-    const result = group.pass ? chalk`{green ✔ PASS}` : chalk`{red ✖ FAIL}`;
-    const todoCount = group.todos.length;
-    const successCount = group.tests.filter(e => e.pass).length;
-    const count = group.tests.length;
-
-    for (const logValue of group.logs.slice(groupLogIndex.get(group) || 0)) {
-      this.onLog(logValue);
-    }
-
-    const fail =
-      count === successCount
-        ? `0 fail`
-        : chalk`{red ${(count - successCount).toString()} fail}`;
-
-    const rtraceDelta =
-      group.rtraceDelta === 0
-        ? ""
-        : chalk`{yellow RTrace: ${(group.rtraceDelta > 0 ? "+" : "-") +
-            group.rtraceDelta.toString()}}`;
-
-    const output = chalk`
-  [Result]: ${result} ${rtraceDelta}
-   [Tests]: {green ${successCount.toString()} pass}, ${fail}, ${count.toString()} total
-    [Todo]: ${todoCount.toString()} tests
-    [Time]: ${group.time.toString()}ms
-`;
-    this.stdout!.write(output);
-  }
+  public onGroupFinish(_group: TestGroup): void {}
 
   /** This method is a stub for onTestStart(). */
   public onTestStart(_group: TestGroup, _test: TestResult): void {}
@@ -134,24 +105,26 @@ export default class VerboseReporter extends TestReporter {
           : chalk`{yellow RTrace: ${(test.rtraceDelta > 0 ? "+" : "-") +
               test.rtraceDelta.toString()}}`;
       this.stdout!.write(
-        chalk` {green [Success]: ✔} ${test.name} ${rtraceDelta}\n`,
+        test.negated
+          ? chalk` {green  [Throws]: ✔} ${test.name} ${rtraceDelta}\n`
+          : chalk` {green [Success]: ✔} ${test.name} ${rtraceDelta}\n`,
       );
     } else {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
       if (!test.negated) {
         this.stdout!.write(`
-   [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}
- [Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}
+  [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}
+[Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}
 `);
       }
 
       if (test.message) {
-        this.stdout!.write(chalk`  [Message]: {yellow ${test.message}}\n`);
+        this.stdout!.write(chalk` [Message]: {yellow ${test.message}}\n`);
       }
       if (test.stack) {
         this.stdout!.write(
-          `    [Stack]: ${test.stack.split("\n").join("\n           ")}\n`,
+          `   [Stack]: ${test.stack.split("\n").join("\n           ")}\n`,
         );
       }
     }
