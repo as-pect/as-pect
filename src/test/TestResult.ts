@@ -78,7 +78,7 @@ export class TestResult implements ILogTarget {
   /** A boolean indicating if the variance was calcluated. */
   public hasVariance: boolean = false;
   /** The raw variance calculation before rounding was applied. */
-  public rawVariance: number =  0;
+  public rawVariance: number = 0;
   /** This value indicates the calculated variance used for standard deviation calculations. */
   public variance: number = 0;
   /** This is the timestamp for when the test started in milliseconds. */
@@ -140,7 +140,6 @@ export class TestResult implements ILogTarget {
     this.rawVariance = variance(this.times); // biased calculation
     this.variance = round(this.rawVariance, this.decimalPlaces);
   }
-
 
   /**
    * If the test group did not error, this is the number of allocations that occurred durring the

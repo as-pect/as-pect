@@ -41,13 +41,15 @@ export function help() {
     {bold.green --nortrace}                           Skip rtrace reference counting calculations.
       {bold.green -nr}
 
-    {bold.green --reporter}                           Define the reporter to be used. {yellow (Default: DefaultTestReporter)}
-      {bold.green --reporter=SummaryTestReporter}     Use the summary reporter.
-      {bold.green --reporter=DefaultTestReporter}     Use the default test reporter.
-      {bold.green --reporter=JSONTestReporter}        Use the JSON reporter (output results to json files.)
-      {bold.green --reporter=CSVTestReporter}         Use the empty reporter (output results to csv files.)
-      {bold.green --reporter=EmptyReporter}           Use the empty reporter. {yellow (This reporter reports nothing)}
-      {bold.green --reporter=./path/to/reporter.js}   Use the default exported object from this module as the reporter.
+    {bold.green asp} --workers 3                      Enable the experimental worker worklets {yellow (default: 0 {gray [disabled]})}
+      {bold.green asp} -w
+
+  {bold.blueBright REPORTER OPTIONS}
+    --summary                            Use the summary reporter. {yellow (This is the default if no reporter is specified.)}
+    --verbose                            Use a more verbose reporter.
+    --csv                                Use the csv reporter (output results to csv files.)
+    --json                               Use the json reporter (output results to json files.)
+    --reporter                           Define a custom reporter (path or module)
 
   {bold.blueBright PERFORMANCE OPTIONS}
     {bold.green --performance}                        Enable performance statistics for {bold every} test. {yellow (Default: false)}

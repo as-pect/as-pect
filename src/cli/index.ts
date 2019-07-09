@@ -1,6 +1,4 @@
-import path from "path";
 import { parse } from "./util/CommandLineArg";
-import { printAsciiArt } from "./util/asciiArt";
 
 /** Package version is always displayed, either for version or cli ascii art. */
 const pkg = require("../../package.json");
@@ -20,36 +18,38 @@ export function asp(args: string[]) {
     : [];
 
   // parse the arguments
-  const yargs = parse(aspectArgs);
+  const cliOptions = parse(aspectArgs);
 
   // Skip ascii art if asked for the version
-  if (!yargs.version) {
+  if (!cliOptions.version) {
+    const printAsciiArt = require("./util/asciiArt").printAsciiArt;
     printAsciiArt(pkg.version);
   }
 
-  const assemblyFolder = path.join(process.cwd(), "assembly");
-  const testFolder = path.join(assemblyFolder, "__tests__");
-  const typesFileSource = path.join(__dirname, "../../assembly/__tests__/as-pect.d.ts");
-  const typesFile = path.join(testFolder, "as-pect.d.ts");
-
-  if (yargs.types) {
+  if (cliOptions.types) {
     const types = require("./types").types;
-    types(assemblyFolder, testFolder, typesFile, typesFileSource);
-  } else if (yargs.init) {
+    types();
+  } else if (cliOptions.init) {
     const init = require("./init").init;
     // init script
-    init(assemblyFolder, testFolder, typesFile, typesFileSource);
-  } else if (yargs.version) { // display the version
+    init();
+  } else if (cliOptions.version) {
+    // display the version
     console.log(pkg.version);
-  } else if (yargs.help) { // display the help file
+  } else if (cliOptions.help) {
+    // display the help file
     const help = require("./help").help;
     help();
-  } else { // run the compiler and test suite
+  } else if (cliOptions.portable) {
+    const portable = require("./portable").portable;
+    portable();
+  } else {
+    // run the compiler and test suite
     const run = require("./run").run;
-    run(yargs, compilerArgs);
+    run(cliOptions, compilerArgs);
   }
 }
 
-if (typeof require != 'undefined' && require.main==module) {
-  asp(process.argv.slice(2))
+if (typeof require != "undefined" && require.main == module) {
+  asp(process.argv.slice(2));
 }

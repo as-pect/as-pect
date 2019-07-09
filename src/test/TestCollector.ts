@@ -4,12 +4,14 @@ import { ActualValue } from "../util/ActualValue";
 import { TestGroup } from "./TestGroup";
 import { ILogTarget } from "../util/ILogTarget";
 import { IWarning } from "./IWarning";
-import { IPerformanceConfiguration, createDefaultPerformanceConfiguration } from "../util/IPerformanceConfiguration";
+import {
+  IPerformanceConfiguration,
+  createDefaultPerformanceConfiguration,
+} from "../util/IPerformanceConfiguration";
 import { TestResult } from "./TestResult";
 import { PerformanceLimits } from "./PerformanceLimits";
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
-
 
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
@@ -30,6 +32,7 @@ export class TestCollector {
   // test group values
   private groupStack: TestGroup[] = [new TestGroup()];
   public testGroups: TestGroup[] = [];
+  public topLevelGroup: TestGroup | null = null;
   protected logTarget: ILogTarget = this.groupStack[0];
 
   // public warning/error lists
@@ -58,7 +61,9 @@ export class TestCollector {
   private recordVariance: boolean | undefined;
 
   // partial performance configuration
-  private performanceConfiguration: Partial<IPerformanceConfiguration> = createDefaultPerformanceConfiguration();
+  private performanceConfiguration: Partial<
+    IPerformanceConfiguration
+  > = createDefaultPerformanceConfiguration();
 
   /**
    * This value is used to detect if an `expect()` function call was used outside of a test
@@ -85,7 +90,6 @@ export class TestCollector {
   // This map collects the starting values for the labels created by `RTrace.start()`
   private rtraceLabels: Map<number, number> = new Map();
 
-
   constructor(props?: ITestCollectorParameters) {
     /* istanbul ignore next */
     if (props) {
@@ -96,13 +100,19 @@ export class TestCollector {
       /* istanbul ignore next */
       if (props.groupRegex) this.groupRegex = props.groupRegex;
       /* istanbul ignore next */
-      if (props.performanceConfiguration) this.performanceConfiguration = props.performanceConfiguration;
+      if (props.performanceConfiguration)
+        this.performanceConfiguration = props.performanceConfiguration;
 
       if (this.performanceConfiguration.maxSamples != null) {
-        if (this.performanceConfiguration.maxSamples > PerformanceLimits.MaxSamples) {
+        if (
+          this.performanceConfiguration.maxSamples >
+          PerformanceLimits.MaxSamples
+        ) {
           /* istanbul ignore next */
           this.pushWarning({
-            message: "Invalid Performance Configuration: maxSamples exceeds " + PerformanceLimits.MaxSamples,
+            message:
+              "Invalid Performance Configuration: maxSamples exceeds " +
+              PerformanceLimits.MaxSamples,
             stackTrace: new Error().stack || "",
             type: "PerformanceConfigurationWarning",
           });
@@ -111,7 +121,8 @@ export class TestCollector {
         if (this.performanceConfiguration.maxSamples < 0) {
           /* istanbul ignore next */
           this.pushWarning({
-            message: "Invalid Performance Configuration: maxSamples less than 0.",
+            message:
+              "Invalid Performance Configuration: maxSamples less than 0.",
             stackTrace: new Error().stack || "",
             type: "PerformanceConfigurationWarning",
           });
@@ -119,10 +130,15 @@ export class TestCollector {
       }
 
       if (this.performanceConfiguration.maxTestRunTime != null) {
-        if (this.performanceConfiguration.maxTestRunTime > PerformanceLimits.MaxTestRuntime) {
+        if (
+          this.performanceConfiguration.maxTestRunTime >
+          PerformanceLimits.MaxTestRuntime
+        ) {
           /* istanbul ignore next */
           this.pushWarning({
-            message: "Invalid Performance Configuration: maxTestRunTime exceeds " + PerformanceLimits.MaxTestRuntime,
+            message:
+              "Invalid Performance Configuration: maxTestRunTime exceeds " +
+              PerformanceLimits.MaxTestRuntime,
             stackTrace: new Error().stack || "",
             type: "PerformanceConfigurationWarning",
           });
@@ -131,7 +147,8 @@ export class TestCollector {
         if (this.performanceConfiguration.maxTestRunTime < 0) {
           /* istanbul ignore next */
           this.pushWarning({
-            message: "Invalid Performance Configuration: maxTestRunTime less than 0.",
+            message:
+              "Invalid Performance Configuration: maxTestRunTime less than 0.",
             stackTrace: new Error().stack || "",
             type: "PerformanceConfigurationWarning",
           });
@@ -139,19 +156,29 @@ export class TestCollector {
       }
 
       if (this.performanceConfiguration.roundDecimalPlaces != null) {
-        if (this.performanceConfiguration.roundDecimalPlaces > PerformanceLimits.MaximumDecimalPlaces) {
+        if (
+          this.performanceConfiguration.roundDecimalPlaces >
+          PerformanceLimits.MaximumDecimalPlaces
+        ) {
           /* istanbul ignore next */
           this.pushWarning({
-            message: "Invalid Performance Configuration: roundDecimalPlaces exceeds " + PerformanceLimits.MaximumDecimalPlaces,
+            message:
+              "Invalid Performance Configuration: roundDecimalPlaces exceeds " +
+              PerformanceLimits.MaximumDecimalPlaces,
             stackTrace: new Error().stack || "",
             type: "PerformanceConfigurationWarning",
           });
         }
 
-        if (this.performanceConfiguration.roundDecimalPlaces < PerformanceLimits.MinimumDecimalPlaces) {
+        if (
+          this.performanceConfiguration.roundDecimalPlaces <
+          PerformanceLimits.MinimumDecimalPlaces
+        ) {
           /* istanbul ignore next */
           this.pushWarning({
-            message: "Invalid Performance Configuration: roundDecimalPlaces less than " + PerformanceLimits.MinimumDecimalPlaces,
+            message:
+              "Invalid Performance Configuration: roundDecimalPlaces less than " +
+              PerformanceLimits.MinimumDecimalPlaces,
             stackTrace: new Error().stack || "",
             type: "PerformanceConfigurationWarning",
           });
@@ -172,6 +199,21 @@ export class TestCollector {
     this.resetPerformanceValues();
     this.wasm!.__start();
     this.wasm!.__ready();
+    let topLevelGroup = this.groupStack[0];
+
+    topLevelGroup.willRun = this.groupRegex.test(topLevelGroup.name);
+    this.reportEndDescribe();
+    this.topLevelGroup = topLevelGroup!;
+
+    /* istanbul ignore next */
+    if (!topLevelGroup || this.groupStack.length > 0) {
+      /* istanbul ignore next */
+      this.errors.push({
+        message: "Invalid TestContext state after test collection.",
+        stackTrace: this.getLogStackTrace(),
+        type: "InvalidTestContextState",
+      });
+    }
   }
 
   /**
@@ -181,89 +223,94 @@ export class TestCollector {
    * @param {any[]} imports - Every import item specified.
    */
   public createImports(...imports: any[]): any {
-    const result = Object.assign({},
+    const result = Object.assign(
+      {},
       ...imports, // get all the user defined imports
       {
         __aspect: {
           debug: this.debug.bind(this),
-          tryCall: this.tryCall.bind(this),
+          endRTrace: this.endRTrace.bind(this),
+          getRTraceAllocations: this.getRTraceAllocations.bind(this),
+          getRTraceBlocks: this.getRTraceBlocks.bind(this),
+          getRTraceCount: this.getRTraceCount.bind(this),
+          getRTraceDecrements: this.getRTraceDecrements.bind(this),
+          getRTraceFrees: this.getRTraceFrees.bind(this),
+          getRTraceGroupAllocations: this.getRTraceGroupAllocations.bind(this),
+          getRTraceGroupBlocks: this.getRTraceGroupBlocks.bind(this),
+          getRTraceGroupDecrements: this.getRTraceGroupDecrements.bind(this),
+          getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
+          getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
+          getRTraceIncrements: this.getRTraceIncrements.bind(this),
+          getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
+          getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
+          getRTraceTestDecrements: this.getRTraceTestDecrements.bind(this),
+          getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
+          getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
+          getStackTrace: this.getStackTrace.bind(this),
           logArray: this.logArray.bind(this),
+          logBool: this.logBool.bind(this),
           logLong: this.logLong.bind(this),
           logNull: this.logNull.bind(this),
           logReference: this.logReference.bind(this),
           logString: this.logString.bind(this),
           logValue: this.logValue.bind(this),
-          reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
-          reportDescribe: this.reportDescribe.bind(this),
-          reportEndDescribe: this.reportEndDescribe.bind(this),
-          reportTest: this.reportTest.bind(this),
-          reportBeforeEach: this.reportBeforeEach.bind(this),
-          reportBeforeAll: this.reportBeforeAll.bind(this),
-          reportAfterEach: this.reportAfterEach.bind(this),
-          reportAfterAll: this.reportAfterAll.bind(this),
-          reportTodo: this.reportTodo.bind(this),
-          reportActualNull: this.reportActualNull.bind(this),
-          reportExpectedNull: this.reportExpectedNull.bind(this),
-          reportActualValue: this.reportActualValue.bind(this),
-          reportExpectedValue: this.reportExpectedValue.bind(this),
-          reportActualReference: this.reportActualReference.bind(this),
-          reportExpectedReference: this.reportExpectedReference.bind(this),
-          reportActualString: this.reportActualString.bind(this),
-          reportExpectedString: this.reportExpectedString.bind(this),
-          reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
-          reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
-          reportExpectedFinite: this.reportExpectedFinite.bind(this),
-          reportActualArray: this.reportActualArray.bind(this),
-          reportExpectedArray: this.reportExpectedArray.bind(this),
-          reportActualLong: this.reportActualLong.bind(this),
-          reportExpectedLong: this.reportExpectedLong.bind(this),
-          reportNegatedTest: this.reportNegatedTest.bind(this),
-          performanceEnabled: this.performanceEnabled.bind(this),
           maxSamples: this.maxSamples.bind(this),
           maxTestRunTime: this.maxTestRunTime.bind(this),
-          roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
+          performanceEnabled: this.performanceEnabled.bind(this),
+          reportActualArray: this.reportActualArray.bind(this),
+          reportActualBool: this.reportActualBool.bind(this),
+          reportActualLong: this.reportActualLong.bind(this),
+          reportActualNull: this.reportActualNull.bind(this),
+          reportActualReference: this.reportActualReference.bind(this),
+          reportActualString: this.reportActualString.bind(this),
+          reportActualValue: this.reportActualValue.bind(this),
+          reportAfterAll: this.reportAfterAll.bind(this),
+          reportAfterEach: this.reportAfterEach.bind(this),
           reportAverage: this.reportAverage.bind(this),
-          reportMedian: this.reportMedian.bind(this),
-          reportStdDev: this.reportStdDev.bind(this),
+          reportBeforeAll: this.reportBeforeAll.bind(this),
+          reportBeforeEach: this.reportBeforeEach.bind(this),
+          reportDescribe: this.reportDescribe.bind(this),
+          reportEndDescribe: this.reportEndDescribe.bind(this),
+          reportExpectedArray: this.reportExpectedArray.bind(this),
+          reportExpectedBool: this.reportExpectedBool.bind(this),
+          reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
+          reportExpectedFinite: this.reportExpectedFinite.bind(this),
+          reportExpectedLong: this.reportExpectedLong.bind(this),
+          reportExpectedNull: this.reportExpectedNull.bind(this),
+          reportExpectedReference: this.reportExpectedReference.bind(this),
+          reportExpectedString: this.reportExpectedString.bind(this),
+          reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
+          reportExpectedValue: this.reportExpectedValue.bind(this),
+          reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
+          reportMedian: this.reportMedian.bind(this),
           reportMin: this.reportMin.bind(this),
+          reportNegatedTest: this.reportNegatedTest.bind(this),
+          reportStdDev: this.reportStdDev.bind(this),
+          reportTest: this.reportTest.bind(this),
+          reportTodo: this.reportTodo.bind(this),
           reportVariance: this.reportVariance.bind(this),
-          getRTraceCount: this.getRTraceCount.bind(this),
+          roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
           startRTrace: this.startRTrace.bind(this),
-          endRTrace: this.endRTrace.bind(this),
-          getStackTrace: this.getStackTrace.bind(this),
-          getRTraceIncrements: this.getRTraceIncrements.bind(this),
-          getRTraceDecrements: this.getRTraceDecrements.bind(this),
-          getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
-          getRTraceGroupDecrements: this.getRTraceGroupDecrements.bind(this),
-          getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
-          getRTraceTestDecrements: this.getRTraceTestDecrements.bind(this),
-          getRTraceAllocations: this.getRTraceAllocations.bind(this),
-          getRTraceFrees: this.getRTraceFrees.bind(this),
-          getRTraceGroupAllocations: this.getRTraceGroupAllocations.bind(this),
-          getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
-          getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
-          getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
-          getRTraceBlocks: this.getRTraceBlocks.bind(this),
-          getRTraceGroupBlocks: this.getRTraceGroupBlocks.bind(this),
-          getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
+          tryCall: this.tryCall.bind(this),
         },
       },
     );
 
     /** If RTrace is enabled, add it to the imports. */
-    if (this.rtraceEnabled) result.rtrace = {
-      onalloc: this.onalloc.bind(this),
-      onfree: this.onfree.bind(this),
-      onincrement: this.onincrement.bind(this),
-      ondecrement: this.ondecrement.bind(this),
-    };
+    if (this.rtraceEnabled)
+      result.rtrace = {
+        onalloc: this.onalloc.bind(this),
+        onfree: this.onfree.bind(this),
+        onincrement: this.onincrement.bind(this),
+        ondecrement: this.ondecrement.bind(this),
+      };
 
     /** add an env object */
     result.env = result.env || {};
 
     /** Override the abort function */
-    const previousAbort = (result.env.abort) || (() => {});
+    const previousAbort = result.env.abort || (() => {});
     result.env.abort = (...args: any[]) => {
       previousAbort(...args);
       // @ts-ignore
@@ -275,7 +322,11 @@ export class TestCollector {
   /**
    * This is called to stop the debugger.  e.g. `node --inspect-brk asp`.
    */
-  private debug(): void { debugger; }
+  /* istanbul ignore next */
+  private debug(): void {
+    /* istanbul ignore next */
+    debugger;
+  }
 
   /**
    * This is a web assembly utility function that wraps a function call in a try catch block to
@@ -292,12 +343,25 @@ export class TestCollector {
     if (pointer < 0) return 1;
 
     try {
-      this.wasm!.__call(pointer)
-    } catch (ex){
+      this.wasm!.__call(pointer);
+    } catch (ex) {
       this.stack = this.getErrorStackTrace(ex);
       return 0;
     }
     return 1;
+  }
+
+  /**
+   * Log a null value to the reporter.
+   */
+  private logBool(boolValue: number): void {
+    const value = new LogValue();
+    const target = this.logTarget;
+
+    value.stack = this.getLogStackTrace();
+    value.message = `Value ${!!boolValue}`;
+    value.value = boolValue;
+    value.target = target;
   }
 
   /**
@@ -333,7 +397,6 @@ export class TestCollector {
     target.logs.push(value);
   }
 
-
   /**
    * Log a reference to the reporter.
    *
@@ -344,7 +407,9 @@ export class TestCollector {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.bytes = Array.from(this.wasm!.U8.slice(referencePointer, referencePointer + offset));
+    value.bytes = Array.from(
+      this.wasm!.U8.slice(referencePointer, referencePointer + offset),
+    );
     value.message = "Reference Type";
     value.offset = offset;
     value.pointer = referencePointer;
@@ -407,8 +472,10 @@ export class TestCollector {
     const value = new LogValue();
     const target = this.logTarget;
 
-    const long = new Long
-      .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
+    const long = new Long.fromBytesLE(
+      this.wasm!.U8.slice(boxPointer, boxPointer + 8),
+      !signed,
+    );
 
     value.stack = this.getLogStackTrace();
     value.message = `Value ${long.toString()}`;
@@ -417,7 +484,6 @@ export class TestCollector {
     // push the log value to the logs
     target.logs.push(value);
   }
-
 
   /**
    * This web assembly linked function creates a test group. It's called when the test suite calls
@@ -430,7 +496,9 @@ export class TestCollector {
   private reportDescribe(suiteNamePointer: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
     const nextGroup = group.fork();
-    nextGroup.name = group.name + this.getString(suiteNamePointer, "No describe() name provided.");
+    nextGroup.name =
+      group.name +
+      this.getString(suiteNamePointer, "No describe() name provided.");
     nextGroup.willRun = this.groupRegex.test(nextGroup.name);
     this.groupStack.push(nextGroup);
     this.logTarget = nextGroup;
@@ -502,7 +570,6 @@ export class TestCollector {
     group.afterAllPointers.push(callbackPointer);
   }
 
-
   /**
    * This web assembly linked function creates a test from the callback and the testNamePointer in
    * the current group. It assumes that the group has already been created with the describe
@@ -536,7 +603,10 @@ export class TestCollector {
 
       test.decimalPlaces = !isFinite(this.roundDecimalPlacesValue!)
         ? 3
-        : Math.max(Math.round(this.roundDecimalPlacesValue!), PerformanceLimits.MinimumDecimalPlaces);
+        : Math.max(
+            Math.round(this.roundDecimalPlacesValue!),
+            PerformanceLimits.MinimumDecimalPlaces,
+          );
 
       if (test.decimalPlaces > PerformanceLimits.MaximumDecimalPlaces) {
         test.decimalPlaces = PerformanceLimits.MaximumDecimalPlaces;
@@ -561,7 +631,11 @@ export class TestCollector {
    * @param {number} callback - The test's function.
    * @param {number} message - The message associated with this test if it does not throw.
    */
-  private reportNegatedTest(testNamePointer: number, callback: number, message: number): void {
+  private reportNegatedTest(
+    testNamePointer: number,
+    callback: number,
+    message: number,
+  ): void {
     const group = this.groupStack[this.groupStack.length - 1];
     if (!group.willRun) return;
     const name = this.getString(testNamePointer, "No test() name provided.");
@@ -570,7 +644,7 @@ export class TestCollector {
     const test = new TestResult();
 
     test.functionPointer = callback;
-    test.name = `Throws: ${name}`;
+    test.name = name;
     test.message = this.getString(message, "");
     test.negated = true;
     test.performance = this.performanceEnabledValue || false;
@@ -589,7 +663,10 @@ export class TestCollector {
       /* istanbul ignore next */
       test.decimalPlaces = !isFinite(this.roundDecimalPlacesValue!)
         ? 3
-        : Math.max(Math.round(this.roundDecimalPlacesValue!), PerformanceLimits.MinimumDecimalPlaces);
+        : Math.max(
+            Math.round(this.roundDecimalPlacesValue!),
+            PerformanceLimits.MinimumDecimalPlaces,
+          );
 
       /* istanbul ignore next */
       test.calculateAverageValue = this.recordAverageValue || false;
@@ -651,7 +728,11 @@ export class TestCollector {
    * @param {number} numericValue - The value to be expected.
    * @param {1 | 0} signed - The value indicating if the value is signed.
    */
-  private reportActualValue(numericValue: number, signed: 1 | 0, stackTrace: number): void {
+  private reportActualValue(
+    numericValue: number,
+    signed: 1 | 0,
+    stackTrace: number,
+  ): void {
     // flip the sign bits if it's unsigned
     numericValue = signed === 1 ? numericValue : numericValue >>> 0;
 
@@ -664,13 +745,33 @@ export class TestCollector {
   }
 
   /**
+   * This function reports an actual numeric value.
+   *
+   * @param {number} numericValue - The value to be expected.
+   * @param {1 | 0} signed - The value indicating if the value is signed.
+   */
+  private reportActualBool(boolValue: 1 | 0, stackTrace: number): void {
+    const value = new ActualValue();
+    value.message = (!!boolValue).toString();
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    value.value = boolValue;
+    this.actual = value;
+  }
+
+  /**
    * This function reports an expected numeric value.
    *
    * @param {number} numericValue - The expected value.
    * @param {1 | 0} signed - The value indicating if the value is signed.
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedValue(numericValue: number, signed: 0 | 1, negated: 0 | 1, stackTrace: number): void {
+  private reportExpectedValue(
+    numericValue: number,
+    signed: 0 | 1,
+    negated: 0 | 1,
+    stackTrace: number,
+  ): void {
     // convert to unsigned if the value is unsigned
     numericValue = signed === 1 ? numericValue : numericValue >>> 0;
 
@@ -683,81 +784,128 @@ export class TestCollector {
     this.expected = value;
   }
 
- /**
-  * This function reports an actual long value.
-  *
-  * @param {number} boxPointer - The expected box pointer.
-  * @param {1 | 0} signed - An indicator if the long value is signed.
-  */
- private reportActualLong(boxPointer: number, signed: 1 | 0, stackTrace: number): void {
-  const value = new ActualValue();
+  /**
+   * This function reports an expected numeric value.
+   *
+   * @param {number} numericValue - The expected value.
+   * @param {1 | 0} signed - The value indicating if the value is signed.
+   * @param {1 | 0} negated - An indicator if the expectation is negated.
+   */
+  private reportExpectedBool(
+    boolValue: 0 | 1,
+    negated: 0 | 1,
+    stackTrace: number,
+  ): void {
+    const value = new ActualValue();
+    value.message = (!!boolValue).toString();
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    value.negated = negated === 1;
+    value.value = boolValue;
+    this.expected = value;
+  }
 
-  const long = new Long
-    .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
+  /**
+   * This function reports an actual long value.
+   *
+   * @param {number} boxPointer - The expected box pointer.
+   * @param {1 | 0} signed - An indicator if the long value is signed.
+   */
+  private reportActualLong(
+    boxPointer: number,
+    signed: 1 | 0,
+    stackTrace: number,
+  ): void {
+    const value = new ActualValue();
 
-  value.message = "Long Value: " + long.toString();
-  value.stack = this.stackTraces.get(stackTrace)!;
-  value.target = this.logTarget;
-  this.actual = value;
-}
+    const long = new Long.fromBytesLE(
+      this.wasm!.U8.slice(boxPointer, boxPointer + 8),
+      !signed,
+    );
 
- /**
-  * This function reports an actual reference value.
-  *
-  * @param {number} referencePointer - The actual reference pointer.
-  * @param {number} offset - The size of the reference in bytes.
-  */
- private reportActualReference(referencePointer: number, offset: number, stackTrace: number): void {
-   const value = new ActualValue();
-   value.message = "Reference Value";
-   value.stack = this.stackTraces.get(stackTrace)!;
-   value.target = this.logTarget;
-   value.pointer = referencePointer;
-   value.offset = offset;
-   value.bytes = Array.from(this.wasm!.U8.slice(referencePointer, referencePointer + offset));
-   value.value = referencePointer;
-   this.actual = value;
- }
+    value.message = "Long Value: " + long.toString();
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    this.actual = value;
+  }
 
- /**
-  * This function reports an expected reference value.
-  *
-  * @param {number} referencePointer - The expected reference pointer.
-  * @param {number} offset - The size of the reference in bytes.
-  * @param {1 | 0} negated - An indicator if the expectation is negated.
-  */
- private reportExpectedReference(referencePointer: number, offset: number, negated: 1 | 0, stackTrace: number): void {
-   const value = new ActualValue();
-   value.message = "Reference Value";
-   value.stack = this.stackTraces.get(stackTrace)!;
-   value.target = this.logTarget;
-   value.pointer = referencePointer;
-   value.offset = offset;
-   value.bytes = Array.from(this.wasm!.U8.slice(referencePointer, referencePointer + offset));
-   value.negated = negated === 1;
-   value.value = referencePointer;
-   this.expected = value;
- }
+  /**
+   * This function reports an actual reference value.
+   *
+   * @param {number} referencePointer - The actual reference pointer.
+   * @param {number} offset - The size of the reference in bytes.
+   */
+  private reportActualReference(
+    referencePointer: number,
+    offset: number,
+    stackTrace: number,
+  ): void {
+    const value = new ActualValue();
+    value.message = "Reference Value";
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    value.pointer = referencePointer;
+    value.offset = offset;
+    value.bytes = Array.from(
+      this.wasm!.U8.slice(referencePointer, referencePointer + offset),
+    );
+    value.value = referencePointer;
+    this.actual = value;
+  }
 
- /**
-  * This function reports an expected long value.
-  *
-  * @param {number} boxPointer - The expected box pointer.
-  * @param {1 | 0} signed - An indicator if the long value is signed.
-  * @param {1 | 0} negated - An indicator if the expectation is negated.
-  */
- private reportExpectedLong(boxPointer: number, signed: 1 | 0, negated: 1 | 0, stackTrace: number): void {
-  const value = new ActualValue();
+  /**
+   * This function reports an expected reference value.
+   *
+   * @param {number} referencePointer - The expected reference pointer.
+   * @param {number} offset - The size of the reference in bytes.
+   * @param {1 | 0} negated - An indicator if the expectation is negated.
+   */
+  private reportExpectedReference(
+    referencePointer: number,
+    offset: number,
+    negated: 1 | 0,
+    stackTrace: number,
+  ): void {
+    const value = new ActualValue();
+    value.message = "Reference Value";
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    value.pointer = referencePointer;
+    value.offset = offset;
+    value.bytes = Array.from(
+      this.wasm!.U8.slice(referencePointer, referencePointer + offset),
+    );
+    value.negated = negated === 1;
+    value.value = referencePointer;
+    this.expected = value;
+  }
 
-  const long = new Long
-    .fromBytesLE(this.wasm!.U8.slice(boxPointer, boxPointer + 8), !signed);
+  /**
+   * This function reports an expected long value.
+   *
+   * @param {number} boxPointer - The expected box pointer.
+   * @param {1 | 0} signed - An indicator if the long value is signed.
+   * @param {1 | 0} negated - An indicator if the expectation is negated.
+   */
+  private reportExpectedLong(
+    boxPointer: number,
+    signed: 1 | 0,
+    negated: 1 | 0,
+    stackTrace: number,
+  ): void {
+    const value = new ActualValue();
 
-  value.message = "Long Value: " + long.toString();
-  value.stack = this.stackTraces.get(stackTrace)!;
-  value.target = this.logTarget;
-  value.negated = negated === 1;
-  this.expected = value;
-}
+    const long = new Long.fromBytesLE(
+      this.wasm!.U8.slice(boxPointer, boxPointer + 8),
+      !signed,
+    );
+
+    value.message = "Long Value: " + long.toString();
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    value.negated = negated === 1;
+    this.expected = value;
+  }
 
   /**
    * This function reports an expected truthy value.
@@ -822,7 +970,11 @@ export class TestCollector {
    * @param {number} stringPointer - A pointer that points to the expected string.
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
-  private reportExpectedString(stringPointer: number, negated: 1 | 0, stackTrace: number): void {
+  private reportExpectedString(
+    stringPointer: number,
+    negated: 1 | 0,
+    stackTrace: number,
+  ): void {
     const value = new ActualValue();
     value.message = this.getString(stringPointer, "Null expected string.");
     value.pointer = stringPointer;
@@ -843,8 +995,16 @@ export class TestCollector {
    * @param {number} _line - The line that reported the error. (Ignored)
    * @param {number} _col - The column that reported the error. (Ignored)
    */
-  private abort(reasonPointer: number, _fileNamePointer: number, _line: number, _col: number): void {
-    this.message = this.getString(reasonPointer, "No assertion message provided.");
+  private abort(
+    reasonPointer: number,
+    _fileNamePointer: number,
+    _line: number,
+    _col: number,
+  ): void {
+    this.message = this.getString(
+      reasonPointer,
+      "No assertion message provided.",
+    );
   }
 
   /**
@@ -866,7 +1026,9 @@ export class TestCollector {
   private maxSamples(value: number): void {
     if (value > PerformanceLimits.MaxSamples) {
       this.pushWarning({
-        message: "Invalid Performance Configuration: maxSamples exceeds " + PerformanceLimits.MaxSamples,
+        message:
+          "Invalid Performance Configuration: maxSamples exceeds " +
+          PerformanceLimits.MaxSamples,
         stackTrace: this.getLogStackTrace(),
         type: "PerformanceConfigurationWarning",
       });
@@ -892,7 +1054,9 @@ export class TestCollector {
   private maxTestRunTime(value: number): void {
     if (value > PerformanceLimits.MaxTestRuntime) {
       this.pushWarning({
-        message: "Invalid Performance Configuration: maxTestRunTime exceeds " + PerformanceLimits.MaxTestRuntime,
+        message:
+          "Invalid Performance Configuration: maxTestRunTime exceeds " +
+          PerformanceLimits.MaxTestRuntime,
         stackTrace: this.getLogStackTrace(),
         type: "PerformanceConfigurationWarning",
       });
@@ -900,7 +1064,8 @@ export class TestCollector {
 
     if (value < 0) {
       this.pushWarning({
-        message: "Invalid Performance Configuration: maxTestRunTime less than 0.",
+        message:
+          "Invalid Performance Configuration: maxTestRunTime less than 0.",
         stackTrace: this.getLogStackTrace(),
         type: "PerformanceConfigurationWarning",
       });
@@ -918,7 +1083,9 @@ export class TestCollector {
     if (value > PerformanceLimits.MaximumDecimalPlaces) {
       /* istanbul ignore next */
       this.pushWarning({
-        message: "Invalid Performance Configuration: roundDecimalPlaces exceeds " + PerformanceLimits.MaximumDecimalPlaces,
+        message:
+          "Invalid Performance Configuration: roundDecimalPlaces exceeds " +
+          PerformanceLimits.MaximumDecimalPlaces,
         stackTrace: this.getLogStackTrace(),
         type: "PerformanceConfigurationWarning",
       });
@@ -927,7 +1094,9 @@ export class TestCollector {
     if (value < PerformanceLimits.MinimumDecimalPlaces) {
       /* istanbul ignore next */
       this.pushWarning({
-        message: "Invalid Performance Configuration: roundDecimalPlaces less than " + PerformanceLimits.MinimumDecimalPlaces,
+        message:
+          "Invalid Performance Configuration: roundDecimalPlaces less than " +
+          PerformanceLimits.MinimumDecimalPlaces,
         stackTrace: this.getLogStackTrace(),
         type: "PerformanceConfigurationWarning",
       });
@@ -1041,7 +1210,9 @@ export class TestCollector {
    */
   protected getErrorStackTrace(ex: Error): string {
     var stackItems = ex.stack!.toString().split("\n");
-    return [stackItems[0], ...stackItems.slice(1).filter(wasmFilter)].join("\n");
+    return [stackItems[0], ...stackItems.slice(1).filter(wasmFilter)].join(
+      "\n",
+    );
   }
 
   /**
@@ -1065,8 +1236,7 @@ export class TestCollector {
    */
   private getLogStackTrace(): string {
     return new Error("Get stack trace.")
-      .stack!
-      .toString()
+      .stack!.toString()
       .split("\n")
       .slice(1)
       .filter(wasmFilter)
@@ -1196,7 +1366,8 @@ export class TestCollector {
     if (this.blocks.has(block)) {
       /* istanbul ignore next */
       this.pushError({
-        message: "A duplicate allocation has occurred at block: " + block.toString(),
+        message:
+          "A duplicate allocation has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
         type: "Allocation Error",
       });
@@ -1227,7 +1398,8 @@ export class TestCollector {
     if (!this.blocks.has(block)) {
       /* istanbul ignore next */
       this.pushError({
-        message: "An orphaned dellocation has occurred at block: " + block.toString(),
+        message:
+          "An orphaned dellocation has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
         type: "Orphaned Deallocation Error",
       });
@@ -1258,7 +1430,8 @@ export class TestCollector {
     if (!this.blocks.has(block)) {
       /* istanbul ignore next */
       this.pushError({
-        message: "An orphaned increment has occurred at block: " + block.toString(),
+        message:
+          "An orphaned increment has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
         type: "Orphaned Increment Error",
       });
@@ -1287,7 +1460,8 @@ export class TestCollector {
     if (!this.blocks.has(block)) {
       /* istanbul ignore next */
       this.pushError({
-        message: "An orphaned decrement has occurred at block: " + block.toString(),
+        message:
+          "An orphaned decrement has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
         type: "Orphaned Decrement Error",
       });
@@ -1406,21 +1580,30 @@ export class TestCollector {
    * This linked method gets all the current RTrace allocations and adds them to an array.
    */
   private getRTraceBlocks(): number {
-    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.blocks.keys()));
+    return this.wasm!.__allocArray(
+      this.wasm!.__getUsizeArrayId(),
+      Array.from(this.blocks.keys()),
+    );
   }
 
   /**
    * This linked method gets all the current RTrace allocations for the current group.
    */
   private getRTraceGroupBlocks(): number {
-    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.groupBlocks));
+    return this.wasm!.__allocArray(
+      this.wasm!.__getUsizeArrayId(),
+      Array.from(this.groupBlocks),
+    );
   }
 
   /**
    * This linked method gets all the current RTrace allocations for the current test.
    */
   private getRTraceTestBlocks(): number {
-    return this.wasm!.__allocArray(this.wasm!.__getUsizeArrayId(), Array.from(this.testBlocks));
+    return this.wasm!.__allocArray(
+      this.wasm!.__getUsizeArrayId(),
+      Array.from(this.testBlocks),
+    );
   }
 
   private stackID: number = 0;

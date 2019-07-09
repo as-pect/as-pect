@@ -33,6 +33,10 @@ declare function reportActualLong(value: usize, signed: bool, stackTrace: i32): 
 @external("__aspect", "getStackTrace")
 declare function getStackTrace(): i32;
 
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualBool")
+declare function reportActualBool(value: usize, stackTrace: i32): void;
+
 /**
  * This class is static and contains a bunch of globals that represent the Actual value of a given
  * expectation.
@@ -115,6 +119,9 @@ export function __sendActual(): void {
     case ValueType.Long:
         reportActualLong(Actual.reference, Actual.signed, Actual.stackTrace);
         break;
+    case ValueType.Bool:
+        reportActualBool(Actual.integer, Actual.stackTrace);
+        break;
   }
 }
 
@@ -175,9 +182,14 @@ export function reportActual<T>(actual: T): void {
       __retain(ptr);
       __release(Actual.reference);
       Actual.reference = ptr;
+    } else if (actual instanceof bool) {
+      Actual.type = ValueType.Bool;
+      Actual.integer = i32(actual);
     } else {
       Actual.type = ValueType.Integer;
-      Actual.signed = actual instanceof i32;
+      Actual.signed = actual instanceof i32
+        || actual instanceof i16
+        || actual instanceof i8;
       // @ts-ignore: this cast is valid because it's already an `i32`
       Actual.integer = <i32>actual;
     }

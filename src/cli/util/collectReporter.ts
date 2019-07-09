@@ -1,60 +1,101 @@
 import { TestReporter } from "../../test/TestReporter";
-import { DefaultTestReporter } from "../../reporter/DefaultTestReporter";
 import { Options } from "./CommandLineArg";
-import path from "path";
 import querystring from "querystring";
 import chalk from "chalk";
+import SummaryReporter from "../../reporter/SummaryReporter";
+import CombinationReporter from "../../reporter/CombinationReporter";
 
 /**
  * This method inspects the command line arguments and returns the corresponding TestReporter.
  *
- * @param {Options} yargs - The command line arguments.
+ * @param {Options} cliOptions - The command line arguments.
  */
-export function collectReporter(yargs: Options): TestReporter {
-  const reporterInput: string = yargs.reporter;
-  const result = /([a-z\.]+)(?:\?(.*))?/i.exec(reporterInput);
-  const targetReporter = result ? result[1] : "";
+export function collectReporter(cliOptions: Options): TestReporter {
+  const reporters: TestReporter[] = [];
 
-  const options = querystring.parse(result ? result[2] || "" : "");
+  if (cliOptions.csv) {
+    const CSVReporter = require("../../reporter/CSVReporter").default;
+    if (typeof cliOptions.csv === "string") {
+      const options = querystring.parse(cliOptions.csv || "");
+      reporters.push(new CSVReporter(options));
+    } else {
+      reporters.push(new CSVReporter());
+    }
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow CSVReporter}\n`,
+    );
+  }
 
-  // get relative reporters
-  if (targetReporter.startsWith(".")) {
+  if (cliOptions.json) {
+    const JSONReporter = require("../../reporter/JSONReporter").default;
+    if (typeof cliOptions.json === "string") {
+      const options = querystring.parse(cliOptions.json || "");
+      reporters.push(new JSONReporter(options));
+    } else {
+      reporters.push(new JSONReporter());
+    }
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow JSONReporter}\n`,
+    );
+  }
+
+  if (cliOptions.summary) {
+    const SummaryReporter = require("../../reporter/SummaryReporter").default;
+    if (typeof cliOptions.summary === "string") {
+      const options = querystring.parse(cliOptions.summary || "");
+      reporters.push(new SummaryReporter(options));
+    } else {
+      reporters.push(new SummaryReporter());
+    }
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow SummaryReporter}\n`,
+    );
+  }
+
+  if (cliOptions.verbose) {
+    const VerboseReporter = require("../../reporter/VerboseReporter").default;
+    if (typeof cliOptions.verbose === "string") {
+      const options = querystring.parse(cliOptions.verbose || "");
+      reporters.push(new VerboseReporter(options));
+    } else {
+      reporters.push(new VerboseReporter());
+    }
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow VerboseReporter}\n`,
+    );
+  }
+
+  if (cliOptions.reporter) {
+    const url = require("url").parse(cliOptions.reporter);
     try {
-      const reporterPath = path.join(process.cwd(), targetReporter);
-      const reporterResult = require(reporterPath);
-
-      // if something is returned
-      if (reporterResult) {
-        // instantiate it if it's a default exported class
-        if (typeof reporterResult === "function") {
-          return new reporterResult(options);
-        }
-        // export default class
-        if (typeof reporterResult.default === "function") {
-          return new reporterResult.default(options);
-        }
-        // export default new Reporter()
-        return reporterResult.default || reporterResult;
-      }
-      else {
-        console.log(chalk`{bgBlack.yellow [Warning]} Cannot find reporter at {yellow ${reporterPath}}, defaulting to DefaultTestReporter.`);
-        return new DefaultTestReporter(options);
+      const reporterValue = require(url.pathname);
+      const Reporter = reporterValue.default || reporterValue;
+      const options = require("querystring").parse(url.query);
+      if (typeof Reporter === "function") {
+        reporters.push(new Reporter(options));
+      } else {
+        reporters.push(Reporter);
       }
     } catch (ex) {
-      console.log(chalk`{bgBlack.yellow [Error]} An error occured while trying to resolve a reporter at {yellow ${targetReporter}}.`);
+      console.error(
+        chalk`{red [Error]} Cannot find a reporter at {yellow ${url.pathname}}`,
+      );
       console.error(ex);
       process.exit(1);
-      // @ts-ignore: the process has exited
-      return null;
     }
-  } else {
-    try {
-      let Reporter = require(path.join(__dirname, "..", "..", "reporter", targetReporter))[targetReporter];
-      return new Reporter(options) as TestReporter;
-    } catch (ex) {
-      console.error(chalk`{bgBlack.yellow [Warning]} Cannot find {yellow ${targetReporter}}, defaulting to DefaultTestReporter.`)
-      return new DefaultTestReporter(options);
-    }
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using custom reporter at: {yellow ${url.pathname}}\n`,
+    );
   }
-  
+
+  if (reporters.length === 0) {
+    process.stdout.write(
+      chalk`{bgWhite.black [Log]} Using {yellow SummaryReporter}\n`,
+    );
+    return new SummaryReporter({
+      enableLogging: true,
+    });
+  } else {
+    return new CombinationReporter(reporters);
+  }
 }

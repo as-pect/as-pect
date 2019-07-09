@@ -46,6 +46,10 @@ declare function reportInvalidExpectCall(): void;
 declare function reportExpectedLong(pointer: usize, signed: bool, negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedBool")
+declare function reportExpectedBool(value: i32, negated: i32, stackTrace: i32): void;
+
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "getStackTrace")
 declare function getStackTrace(): i32;
 
@@ -130,6 +134,9 @@ export function __sendExpected(): void {
     case ValueType.Long:
       reportExpectedLong(Expected.reference, Expected.signed, Expected.negated, Expected.stackTrace);
       break;
+    case ValueType.Bool:
+      reportExpectedBool(Expected.integer, Expected.negated, Expected.stackTrace);
+      break;
   }
 }
 
@@ -193,9 +200,14 @@ export function reportExpected<T>(expected: T, negated: i32): void {
       __retain(ptr);
       __release(Expected.reference);
       Expected.reference = ptr;
+    } else if (expected instanceof bool) {
+      Expected.type = ValueType.Bool;
+      Expected.integer = i32(expected);
     } else {
       Expected.type = ValueType.Integer;
-      Expected.signed = expected instanceof i32;
+      Expected.signed = expected instanceof i32
+        || expected instanceof i16
+        || expected instanceof i8;
       // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
       Expected.integer = <i32>expected;
     }

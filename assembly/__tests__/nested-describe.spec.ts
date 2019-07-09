@@ -33,17 +33,21 @@ describe("nested control flow", (): void => {
     afterAllFlag++;
   });
 
-  describe("runs second", (): void => {
-    test("secondTest", (): void => {
-      expect<i32>(afterEachFlag).toBeTruthy("afterEach should be truthy");
-      expect<i32>(afterAllFlag).toBeTruthy("afterAll should be truthy");
+  describe("runs first", (): void => {
+    test("firstTest", (): void => {
+      expect<i32>(beforeEachFlag).toBe(1, "beforeEach should be 1");
+      expect<i32>(beforeAllFlag).toBe(1, "beforeAll should be 1");
+      expect<i32>(afterEachFlag).toBe(0, "the afterEach callback should not have run yet");
+      expect<i32>(afterAllFlag).toBe(0, "the afterAll callback should not have run yet");
     });
   });
 
-  describe("inner", (): void => {
-    test("firstTest", (): void => {
-      expect<i32>(beforeEachFlag).toBeTruthy("beforeEach should be truthy");
-      expect<i32>(beforeAllFlag).toBeTruthy("beforeAll should be truthy");
+  describe("runs second", (): void => {
+    test("secondTest", (): void => {
+      expect<i32>(beforeEachFlag).toBe(2, "beforeEach should be 2");
+      expect<i32>(beforeAllFlag).toBe(1, "beforeAll should be 1");
+      expect<i32>(afterEachFlag).toBe(1, "afterEach should be 1");
+      expect<i32>(afterAllFlag).toBe(0, "the afterAll callback should not have run yet");
     });
   });
 });

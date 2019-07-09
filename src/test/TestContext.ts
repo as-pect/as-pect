@@ -1,12 +1,12 @@
 import { TestGroup } from "./TestGroup";
 import { TestReporter } from "./TestReporter";
 import { TestResult } from "./TestResult";
-import { DefaultTestReporter } from "../reporter/DefaultTestReporter";
+import VerboseReporter from "../reporter/VerboseReporter";
 import { performance } from "perf_hooks";
 import { timeDifference } from "../util/timeDifference";
 import { IAspectExports } from "../util/IAspectExports";
 import { TestCollector, ITestCollectorParameters } from "./TestCollector";
-import { IWritable } from "../reporter/IWriteable";
+import { IWritable } from "../reporter/util/IWriteable";
 
 export interface ITestContextParameters extends ITestCollectorParameters {
   reporter?: TestReporter;
@@ -15,20 +15,17 @@ export interface ITestContextParameters extends ITestCollectorParameters {
 }
 
 export class TestContext extends TestCollector {
-
   public time: number = 0;
   public pass: boolean = true;
   public startupTime: number = 0;
-  public reporter: TestReporter = new DefaultTestReporter({});
+  public reporter: TestReporter = new VerboseReporter({});
 
   /* istanbul ignore next */
-  public stdout: IWritable | null = typeof process !== "undefined"
-    ? process.stdout
-    : null;
+  public stdout: IWritable | null =
+    typeof process !== "undefined" ? process.stdout : null;
   /* istanbul ignore next */
-  public stderr: IWritable | null = typeof process !== "undefined"
-    ? process.stderr
-    : null;
+  public stderr: IWritable | null =
+    typeof process !== "undefined" ? process.stderr : null;
 
   private endGroup: boolean = false;
 
@@ -70,9 +67,10 @@ export class TestContext extends TestCollector {
       /** This skipped line is related to the message coalescing, which is just a fallback. */
       /* istanbul ignore next */
       this.pushError({
-        message: "TestCollectionError: " + (this.message || (ex as Error).message),
+        message:
+          "TestCollectionError: " + (this.message || (ex as Error).message),
         stackTrace: this.getErrorStackTrace(ex),
-        type: "TestCollectionError"
+        type: "TestCollectionError",
       });
     }
 
@@ -81,11 +79,7 @@ export class TestContext extends TestCollector {
     // start the test suite
     this.reporter.onStart(this);
 
-    for (const group of this.testGroups) {
-      this.runGroup(group);
-      this.stackTraces.clear();
-      this.stackTraces.set(-1, "");
-    }
+    this.runGroup(this.topLevelGroup!);
 
     const end = performance.now();
     this.time = timeDifference(end, start);
@@ -94,6 +88,14 @@ export class TestContext extends TestCollector {
   }
 
   private runGroup(group: TestGroup): void {
+    if (!group.willRun) {
+      for (const child of group.children) {
+        this.runGroup(child);
+        /* istanbul ignore next */
+        if (this.endGroup) return;
+      }
+    }
+
     this.endGroup = false;
 
     if (this.rtraceEnabled) {
@@ -125,6 +127,11 @@ export class TestContext extends TestCollector {
       if (this.endGroup) return;
       this.reporter.onTestFinish(group, result);
       this.logTarget = group;
+    }
+
+    // run the children
+    for (const child of group.children) {
+      this.runGroup(child);
     }
 
     // for each afterAllCallback
@@ -186,7 +193,8 @@ export class TestContext extends TestCollector {
       const testStartTime = performance.now();
       let currentTestRunTime = 0;
       // run the test loop
-      while (true) { // always run at least once
+      while (true) {
+        // always run at least once
         this.runBeforeEach(group, result);
         /**
          * Especially because the performance functions are run repeatedly, if an error occurs, assume the
@@ -211,7 +219,7 @@ export class TestContext extends TestCollector {
 
         currentTestRunTime = performance.now() - testStartTime; // calculate how long the current test has run
 
-        runCount += 1;  // increase the run count
+        runCount += 1; // increase the run count
 
         if (runCount >= result.maxSamples) {
           this.wasm!.__ignoreLogs(0);
@@ -228,7 +236,8 @@ export class TestContext extends TestCollector {
       if (result.calculateMedianValue) result.calculateMedian();
       if (result.calculateMinValue) result.calculateMin();
       if (result.calculateVarianceValue) result.calculateVariance();
-      if (result.calculateStandardDeviationValue) result.calculateStandardDeviation();
+      if (result.calculateStandardDeviationValue)
+        result.calculateStandardDeviation();
     } else {
       this.runBeforeEach(group, result);
       if (this.endGroup) return;
@@ -270,16 +279,13 @@ export class TestContext extends TestCollector {
    * @param {number} testIndex - The current test index.
    */
   private runTestCall(group: TestGroup, result: TestResult): void {
-
     const start = performance.now();
     const testCallResult = this.tryCall(result.functionPointer);
 
     const end = performance.now();
 
     result.times.push(timeDifference(end, start));
-    result.pass = result.negated
-      ? (testCallResult === 0)
-      : (testCallResult === 1);
+    result.pass = result.negated ? testCallResult === 0 : testCallResult === 1;
 
     if (!result.pass) {
       group.pass = false;
@@ -366,14 +372,13 @@ export class TestContext extends TestCollector {
   }
 
   /**
-   * Run the afterAll callbacks with the given runContext and group.
+   * Run the beforeAll callbacks with the given runContext and group. This
+   * method only calls the current group's beforeAll callbacks.
    *
    * @param {RunContext} runContext - The current run context.
    * @param {TestGroup} group - The current test group.
    */
   private runAfterAll(group: TestGroup): void {
-    if (group.parent) this.runAfterAll(group.parent);
-
     for (const afterAllCallback of group.afterAllPointers) {
       // call each afterAll callback
       const afterAllResult = this.tryCall(afterAllCallback);
@@ -392,14 +397,13 @@ export class TestContext extends TestCollector {
   }
 
   /**
-   * Run the beforeAll callbacks with the given runContext and group.
+   * Run the beforeAll callbacks with the given runContext and group. This
+   * method only calls the current group's beforeAll callbacks.
    *
    * @param {RunContext} runContext - The current run context.
    * @param {TestGroup} group - The current test group.
    */
   private runBeforeAll(group: TestGroup): void {
-    if (group.parent) this.runBeforeAll(group.parent);
-
     for (const beforeAllCallback of group.beforeAllPointers) {
       // call each beforeAll callback
       const beforeAllResult = this.tryCall(beforeAllCallback);

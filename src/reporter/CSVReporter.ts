@@ -19,7 +19,7 @@ const csvColumns = [
   "Actual",
   "Expected",
   "Average",
-  "Mean",
+  "Median",
   "Max",
   "Min",
   "StdDev",
@@ -30,7 +30,7 @@ const csvColumns = [
  * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
  * contain a set of tests with relevant pass and fail information.
  */
-export class CSVTestReporter extends TestReporter {
+export default class CSVReporter extends TestReporter {
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
 
@@ -43,11 +43,7 @@ export class CSVTestReporter extends TestReporter {
     const extension = extname(suite.fileName);
     const dir = dirname(suite.fileName);
     const base = basename(suite.fileName, extension);
-    const outPath = join(
-      process.cwd(),
-      dir,
-      base + ".csv",
-    );
+    const outPath = join(process.cwd(), dir, base + ".csv");
     this.fileName = createWriteStream(outPath, "utf8");
     this.output.pipe(this.fileName);
 
@@ -75,7 +71,7 @@ export class CSVTestReporter extends TestReporter {
       result.hasMax ? result.max.toString() : "",
       result.hasMin ? result.min.toString() : "",
       result.hasStdDev ? result.stdDev.toString() : "",
-      result.hasVariance ? result.variance.toString() : ""
+      result.hasVariance ? result.variance.toString() : "",
     ]);
   }
 

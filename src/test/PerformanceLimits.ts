@@ -7,4 +7,4 @@ export const enum PerformanceLimits {
   MaxTestRuntime = 5000,
   MinimumDecimalPlaces = 0,
   MaximumDecimalPlaces = 8,
-};
+}

@@ -6,10 +6,16 @@
  * @param {number} pointer - The pointer of the reference.
  * @param {number} offset - The offset of the reference.
  */
-export function createReferenceString(bytes: number[], pointer: number, offset: number): string {
+export function createReferenceString(
+  bytes: number[],
+  pointer: number,
+  offset: number,
+): string {
   const referenceEnd = pointer + offset;
   // start with a tabbed out string
-  let result = `Range: [dec: ${pointer.toString()}~${referenceEnd.toString()}] [hex: 0x${pointer.toString(16)}~0x${referenceEnd.toString(16)}]`;
+  let result = `Range: [dec: ${pointer.toString()}~${referenceEnd.toString()}] [hex: 0x${pointer.toString(
+    16,
+  )}~0x${referenceEnd.toString(16)}]`;
   result += "\n07 06 05 04   03 02 01 00";
   result += "\n~~~~~~~~~~~~~~~~~~~~~~~~~";
   result += "\n";

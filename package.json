@@ -1,23 +1,26 @@
 {
   "name": "as-pect",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "lib/as-pect.amd.d.ts",
   "scripts": {
-    "test": "run-s tsc asp jest mdlint",
-    "test:ci": "run-s asp:ci jest mdlint",
-    "asp": "node lib/test",
-    "asp:ci": "ts-node ./src/cli --reporter=SummaryTestReporter",
-    "mdlint": "markdownlint *.md",
+    "asp:ci": "ts-node ./src/cli --summary",
+    "asp": "node lib/test --verbose",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "gh-pages": "git subtree push --prefix docs origin gh-pages",
     "jest": "jest",
-    "rimraf": "rimraf lib/*",
-    "tsc": "run-s rimraf tsc:all",
-    "tsc:all": "run-p tsc:default tsc:amd",
-    "tsc:default": "tsc",
+    "mdlint": "markdownlint *.md",
+    "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
+    "rimraf": "rimraf lib/* docs/*",
+    "test:ci": "run-s asp:ci jest mdlint",
+    "sitedown": "sitedown -b docs",
+    "test": "run-s prettier tsc asp jest mdlint sitedown",
+    "tsc:all": "run-p tsc:default tsc:amd tsc:amd-docs",
     "tsc:amd": "tsc --outfile lib/as-pect.amd.js --module amd --declaration --declarationMap",
-    "gh-pages": "git subtree push --prefix lib origin gh-pages",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "tsc:amd-docs": "tsc --outfile docs/as-pect.amd.js --module amd --declaration --declarationMap",
+    "tsc:default": "tsc",
+    "tsc": "run-s rimraf tsc:all"
   },
   "bin": {
     "asp": "bin/asp"
@@ -34,9 +37,9 @@
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "devDependencies": {
     "@types/glob": "^7.1.1",
-    "@types/jest": "^24.0.14",
+    "@types/jest": "^24.0.15",
     "@types/mathjs": "^5.0.1",
-    "@types/node": "^12.0.8",
+    "@types/node": "^12.0.12",
     "assemblyscript": "github:assemblyscript/assemblyscript",
     "coveralls": "^3.0.4",
     "jest": "^24.8.0",
@@ -44,9 +47,10 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
+    "sitedown": "^3.3.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "chalk": "^2.4.2",

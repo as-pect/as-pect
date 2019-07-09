@@ -72,13 +72,13 @@ declare function test(description: string, callback: () => void): void;
  * @param {string?} message - A message that describes why the test should fail.
  * @example
  * describe("the meaning of life", (): void => {
-  *   throws("the value should be 42", (): void => {
-  *     // put your expectations here
-  *     expect<i32>(29 + 13).toBe(42);
-  *   });
-  * });
-  */
- declare function throws(description: string, callback: () => void, message?: string): void;
+ *   throws("the value should be 42", (): void => {
+ *     // put your expectations here
+ *     expect<i32>(29 + 13).toBe(42);
+ *   });
+ * });
+ */
+declare function throws(description: string, callback: () => void, message?: string): void;
 
 
 /**
@@ -90,13 +90,13 @@ declare function test(description: string, callback: () => void): void;
  * @param {string?} message - A message that describes why the test should fail.
  * @example
  * describe("the meaning of life", (): void => {
-  *   itThrows("when the value should be 42", (): void => {
-  *     // put your expectations here
-  *     expect<i32>(29 + 13).not.toBe(42);
-  *   }, "The value is actually 42.");
-  * });
-  */
- declare function itThrows(description: string, callback: () => void, message?: string): void;
+ *   itThrows("when the value should be 42", (): void => {
+ *     // put your expectations here
+ *     expect<i32>(29 + 13).not.toBe(42);
+ *   }, "The value is actually 42.");
+ * });
+ */
+declare function itThrows(description: string, callback: () => void, message?: string): void;
 
 /**
  * This function creates a callback that is called before each individual test is run in this test
@@ -215,8 +215,8 @@ declare function todo(description: string): void;
 declare function log<T>(value: T | null): void;
 
 /**
-* An expectation for a value.
-*/
+ * An expectation for a value.
+ */
 declare class Expectation<T> {
 
   /**
@@ -357,11 +357,11 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
-   * expect<i32>(42).toBeGreaterThanOrEqualTo(42);
-   * expect<i32>(10).toBeGreaterThanOrEqualTo(4);
-   * expect<i32>(12).not.toBeGreaterThanOrEqualTo(42);
+   * expect<i32>(42).toBeGreaterThanOrEqual(42);
+   * expect<i32>(10).toBeGreaterThanOrEqual(4);
+   * expect<i32>(12).not.toBeGreaterThanOrEqual(42);
    */
-  toBeGreaterThanOrEqualTo(expected: T | null, message?: string): void;
+  toBeGreaterThanOrEqual(expected: T | null, message?: string): void;
 
   /**
    * This expectation asserts that the value is less than or equal to the expected value. Since
@@ -373,11 +373,11 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
-   * expect<i32>(42).toBeLessThanOrEqualTo(42);
-   * expect<i32>(10).not.toBeLessThanOrEqualTo(4);
-   * expect<i32>(12).toBeLessThanOrEqualTo(42);
+   * expect<i32>(42).toBeLessThanOrEqual(42);
+   * expect<i32>(10).not.toBeLessThanOrEqual(4);
+   * expect<i32>(12).toBeLessThanOrEqual(42);
    */
-  toBeLessThanOrEqualTo(expected: T | null, message?: string): void;
+  toBeLessThanOrEqual(expected: T | null, message?: string): void;
 
   /**
    * This expectation asserts that the value is close to another value. Both numbers must be finite,
@@ -421,11 +421,20 @@ declare class Expectation<T> {
   /**
    * This method asserts that a given T that extends Array<U> has a value/reference included.
    *
-   * @param {i32} expected - The expected item to be included in the Array.
+   * @param {valueof<T>} expected - The expected item to be included in the Array.
    * @param {string} message - The optional message the describes this expectation.
    */
-  toInclude<U>(expected: U, message?: string): void;
+  // @ts-ignore: expected value should be known at compile time
+  toInclude(expected: valueof<T>, message?: string): void;
 
+  /**
+   * This method asserts that a given T that extends Array<U> has a value/reference included.
+   *
+   * @param {valueof<T>} expected - The expected item to be included in the Array.
+   * @param {string} message - The optional message the describes this expectation.
+   */
+   // @ts-ignore: expected value should be known at compile time
+  toContain(expected: valueof<T>, message?: string): void;
 
   /**
    * This method asserts that a given T that extends Array<U> has a value/reference included and
@@ -434,14 +443,21 @@ declare class Expectation<T> {
    * @param {i32} expected - The expected item to be included in the Array.
    * @param {string} message - The optional message the describes this expectation.
    */
-  toIncludeEqual<U>(expected: U, message?: string): void;
+  // @ts-ignore: expected value should be known at compile time
+  toIncludeEqual(expected: valueof<T>, message?: string): void;
+
+  /**
+   * This method asserts that a given T that extends Array<U> has a value/reference included and
+   * compared via memory.compare().
+   *
+   * @param {i32} expected - The expected item to be included in the Array.
+   * @param {string} message - The optional message the describes this expectation.
+   */
+  // @ts-ignore: expected value should be known at compile time
+  toContainEqual(expected: valueof<T>, message?: string): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
-   *
-   * @param {U} expected - The expected item.
-   * @param {string} message - The optional message the describes this expectation.
-   * @type {Expectation<T>}
    */
   not: Expectation<T>;
 
@@ -449,7 +465,6 @@ declare class Expectation<T> {
    * The actual value of the expectation.
    */
   actual: T | null;
-  private _not: boolean;
 }
 
 /**
@@ -458,80 +473,84 @@ declare class Expectation<T> {
 declare function debug(): void;
 
 /**
- * This function call enables performance statistics gathering for the following test.
- *
- * @param {bool} enabled - The bool to indicate if performance statistics should be gathered.
+ * This class contains a set of methods related to performance configuration.
  */
-declare function performanceEnabled(enabled: bool): void;
+declare class Performance {
+  /**
+   * This function call enables performance statistics gathering for the following test.
+   *
+   * @param {bool} enabled - The bool to indicate if performance statistics should be gathered.
+   */
+  public static enabled(enabled: bool): void;
 
-/**
- * This function call sets the maximum number of samples to complete the following test.
- *
- * @param {f64} count - The maximum number of samples required.
- */
-declare function maxSamples(count: f64): void;
+  /**
+   * This function call sets the maximum number of samples to complete the following test.
+   *
+   * @param {f64} count - The maximum number of samples required.
+   */
+  public static maxSamples(count: f64): void;
 
-/**
- * This function call sets the number of decimal places to round to for the following test.
- *
- * @param {i32} deicmalPlaces - The number of decimal places to round to
- */
-declare function roundDecimalPlaces(count: i32): void;
+  /**
+   * This function call sets the number of decimal places to round to for the following test.
+   *
+   * @param {i32} deicmalPlaces - The number of decimal places to round to
+   */
+  public static roundDecimalPlaces(count: i32): void;
 
-/**
- * This function call will set the maximum amount of time that should pass before it can stop
- * gathering samples for the following test.
- *
- * @param {f64} time - The ammount of time in milliseconds.
- */
-declare function maxTestRunTime(time: f64): void;
+  /**
+   * This function call will set the maximum amount of time that should pass before it can stop
+   * gathering samples for the following test.
+   *
+   * @param {f64} time - The ammount of time in milliseconds.
+   */
+  public static maxTestRunTime(time: f64): void;
 
-/**
- * This function call enables gathering the average/mean run time of each sample for the following
- * test.
- *
- * @param {bool} enabled - The bool to indicate if the average/mean should be gathered.
- */
-declare function reportAverage(enabled: bool): void;
+  /**
+   * This function call enables gathering the average/mean run time of each sample for the following
+   * test.
+   *
+   * @param {bool} enabled - The bool to indicate if the average/mean should be gathered.
+   */
+  public static reportAverage(enabled: bool): void;
 
-/**
- * This function call enables gathering the median run time of each sample for the following test.
- *
- * @param {bool} enabled - The bool to indicate if the median should be gathered.
- */
-declare function reportMedian(value: bool): void;
+  /**
+   * This function call enables gathering the median run time of each sample for the following test.
+   *
+   * @param {bool} enabled - The bool to indicate if the median should be gathered.
+   */
+  public static reportMedian(value: bool): void;
 
-/**
- * This function call enables gathering the standard deviation of the run times of the samples
- * collected for the following test.
- *
- * @param {bool} enabled - The bool to indicate if the standard deviation should be gathered.
- */
-declare function reportStdDev(value: bool): void;
+  /**
+   * This function call enables gathering the standard deviation of the run times of the samples
+   * collected for the following test.
+   *
+   * @param {bool} enabled - The bool to indicate if the standard deviation should be gathered.
+   */
+  public static reportStdDev(value: bool): void;
 
-/**
- * This function call enables gathering the largest run time of the samples collected for the
- * following test.
- *
- * @param {bool} enabled - The bool to indicate if the max should be gathered.
- */
-declare function reportMax(value: bool): void;
+  /**
+   * This function call enables gathering the largest run time of the samples collected for the
+   * following test.
+   *
+   * @param {bool} enabled - The bool to indicate if the max should be gathered.
+   */
+  public static reportMax(value: bool): void;
 
-/**
- * This function call enables gathering the smallest run time of the samples collected for the
- * following test.
- *
- * @param {bool} enabled - The bool to indicate if the min should be gathered.
- */
-declare function reportMin(value: bool): void;
+  /**
+   * This function call enables gathering the smallest run time of the samples collected for the
+   * following test.
+   *
+   * @param {bool} enabled - The bool to indicate if the min should be gathered.
+   */
+  public static reportMin(value: bool): void;
 
-/**
- * This function call enables gathering the varaince of the samples collected for the following test.
- *
- * @param {bool} enabled - The bool to indicate if the variance should be calculated.
- */
-declare function reportVariance(value: bool): void;
-
+  /**
+   * This function call enables gathering the varaince of the samples collected for the following test.
+   *
+   * @param {bool} enabled - The bool to indicate if the variance should be calculated.
+   */
+  public static reportVariance(value: bool): void;
+}
 /**
  * This static class contains a few conveince methods for developers to test the current number of
  * blocks allocated on the heap.

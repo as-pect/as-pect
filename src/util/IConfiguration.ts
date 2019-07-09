@@ -13,7 +13,7 @@ export interface ICompilerFlags {
  * `as-pect.config.js` file. An empty object should be a valid `as-pect` configuration.
  */
 export interface IConfiguration {
-  [key: string]: any
+  [key: string]: any;
   /**
    * A set of globs that denote files that must be used for testing.
    */
@@ -21,11 +21,11 @@ export interface IConfiguration {
   /**
    * A set of globs that denote files that must be added to every compilation.
    */
-  add?: string[],
+  add?: string[];
   /**
    * The compiler flags needed for this test suite. Do not forget that a binary file must be output.
    */
-  flags?: ICompilerFlags,
+  flags?: ICompilerFlags;
   /**
    * A set of regular expressions that are tested against the file names. If they match, the
    * files will be discluded.

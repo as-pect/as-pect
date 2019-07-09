@@ -1,7 +1,7 @@
 import { IPerformanceConfiguration } from "../../util/IPerformanceConfiguration";
 import { toCamelCase } from "./strings";
 
-export type argType = "b" | "s" | "S" | "I" | "i" | "F" | "f";
+export type argType = "b" | "bs" | "s" | "S" | "I" | "i" | "F" | "f";
 
 export type ArgValue = string | number | boolean | string[] | number;
 
@@ -33,9 +33,15 @@ export interface Options {
   nortrace: boolean;
   reporter: string;
   performance: IPerformanceConfiguration;
+  portable: boolean;
   compiler: string;
+  csv: string | boolean;
+  json: string | boolean;
+  verbose: string | boolean;
+  summary: string | boolean;
   /** Tracks changes made by the cli options */
   changed: Set<string>;
+  workers: number;
 }
 
 export class CommandLineArg implements ICommandLineArg {
@@ -58,17 +64,21 @@ export class CommandLineArg implements ICommandLineArg {
     switch (this.type) {
       case "s":
         return data;
+      case "bs":
+        return data;
       case "S":
-        return data.split(",")
+        return data.split(",");
       case "b":
         if (data !== "true" && data !== "false") {
-          throw new Error(`Bad value ${data} for boolean for argument ${this.name}`);
+          throw new Error(
+            `Bad value ${data} for boolean for argument ${this.name}`,
+          );
         }
         return "true" === data;
       case "i":
         return parseInt(data);
       case "f":
-        return parseFloat(data)
+        return parseFloat(data);
       default:
         throw new Error(`Type ${this.type} is not implemented yet`);
     }
@@ -80,36 +90,29 @@ export interface CommandLineArgs {
 }
 
 const _Args: CommandLineArgs = {
-  init: {
-    description: "Create a test config, an assembly/__tests__ folder and exit.",
-    type: "b",
-    alias: { name: "i" },
-    value: false,
+  compiler: {
+    description: [
+      "Path to folder relative to project root which contains",
+      "{folder}/dist/asc for the compiler and {folder}/lib/loader for loader.",
+    ],
+    type: "s",
+    value: "assemblyscript",
   },
+
   config: {
     description: "Use a specified configuration",
     type: "s",
     alias: { name: "c" },
     value: "as-pect.config.js",
   },
-  version: {
-    description: "View the version.",
-    type: "b",
-    alias: { name: "v" },
+
+  csv: {
+    description:
+      "Use the csv reporter. It outputs test data to {testname}.spec.csv",
+    type: "bs",
     value: false,
   },
-  help: {
-    description: "Show this help screen.",
-    type: "b",
-    alias: { name: "h" },
-    value: false,
-  },
-  types: {
-    description: "Copy the types file to assembly/__tests__/as-pect.d.ts",
-    type: "b",
-    alias: { name: "t" },
-    value: false,
-  },
+
   file: {
     description: "Run the tests of each file that matches this regex.",
     type: "s",
@@ -124,17 +127,46 @@ const _Args: CommandLineArgs = {
     value: "(:?)",
   },
 
-  test: {
-    description: "Run each test that matches this regex",
-    type: "s",
-    alias: [{ name: "tests", long: true }, { name: "t" }],
-    value: "(:?)",
+  help: {
+    description: "Show this help screen.",
+    type: "b",
+    alias: { name: "h" },
+    value: false,
   },
 
-  "output-binary": {
-    description: "Create a (.wasm) file can contains all the tests to be run later.",
+  init: {
+    description: "Create a test config, an assembly/__tests__ folder and exit.",
     type: "b",
-    alias: { name: "o" },
+    alias: { name: "i" },
+    value: false,
+  },
+
+  json: {
+    description: [
+      "Use the json reporter. It outputs test data to {testname}.spec.json",
+    ],
+    type: "bs",
+    value: false,
+  },
+
+  "max-samples": {
+    description: "Set the maximum number of samples to run for each test.",
+    type: "i",
+    value: 10000,
+    parent: "performance",
+  },
+
+  "max-test-run-time": {
+    description: "Set the maximum test run time in milliseconds.",
+    type: "i",
+    value: 2000,
+    parent: "performance",
+  },
+
+  nortrace: {
+    description: "Skip rtrace reference counting calculations.",
+    type: "b",
+    alias: { name: "nr" },
     value: false,
   },
 
@@ -145,94 +177,130 @@ const _Args: CommandLineArgs = {
     value: false,
   },
 
-  nortrace: {
-    description: "Skip rtrace reference counting calculations.",
+  "output-binary": {
+    description:
+      "Create a (.wasm) file can contains all the tests to be run later.",
     type: "b",
-    alias: { name: "nr" },
+    alias: { name: "o" },
     value: false,
   },
 
-  reporter: {
-    description: "Define the reporter to be used.",
-    type: "s",
-    value: "DefaultTestReporter",
-    options: [
-      ["SummaryTestReporter", "Use the summary reporter."],
-      ["DefaultTestReporter", "Use the default test reporter."],
-      ["JSONTestReporter", "Use the JSON reporter (output results to json files.)"],
-      ["CSVTestReporter", "Use the empty reporter (output results to csv files.)"],
-      ["EmptyReporter", "Use the empty reporter. This reporter reports nothing)"],
-      ["./path/to/reporter.js", "Use the default exported object from this module as the reporter."],
-    ],
-  },
   performance: {
     description: "Enable performance statistics for {bold every} test.",
     type: "b",
     value: false,
     parent: "performance",
   },
-  "max-samples": {
-    description: "Set the maximum number of samples to run for each test.",
-    type: "i",
-    value: 10000,
-    parent: "performance",
-  },
-  "max-test-run-time": {
-    description: "Set the maximum test run time in milliseconds.",
-    type: "i",
-    value: 2000,
-    parent: "performance",
-  },
-  "round-decimal-places": {
-    description: "Set the number of decimal places to round to.",
-    type: "i",
-    value: 3,
-    parent: "performance",
-  },
-  "report-median": {
-    description: "Enable/Disable reporting of the median time.",
+
+  portable: {
+    description: "Add the portable jest/as-pect types to your project.",
     type: "b",
-    value: true,
-    parent: "performance",
+    value: false,
   },
+
   "report-average": {
     description: "Enable/Disable reporting of the average time.",
     type: "b",
     value: true,
     parent: "performance",
   },
-  "report-standard-deviation": {
-    description: "Enable / Disable reporting of the standard deviation.",
-    type: "b",
-    value: false,
-    parent: "performance",
-  },
+
   "report-max": {
     description: "Enable/Disable reporting of the largest run time.",
     type: "b",
     value: false,
     parent: "performance",
   },
+
+  "report-median": {
+    description: "Enable/Disable reporting of the median time.",
+    type: "b",
+    value: true,
+    parent: "performance",
+  },
+
   "report-min": {
     description: "Enable/Disable reporting of the smallest run time.",
     type: "b",
     value: false,
     parent: "performance",
   },
-  "report-variance": {
-    description:
-      "Enable/Disable reporting of the variance.",
+
+  "report-standard-deviation": {
+    description: "Enable / Disable reporting of the standard deviation.",
     type: "b",
     value: false,
     parent: "performance",
   },
-  compiler: {
-    description: [
-      "Path to folder relative to project root which contains",
-      "{folder}/dist/asc for the compiler and {folder}/lib/loader for loader.",
-    ],
+
+  "report-variance": {
+    description: "Enable/Disable reporting of the variance.",
+    type: "b",
+    value: false,
+    parent: "performance",
+  },
+
+  reporter: {
+    description: "Define the reporter to be used.",
     type: "s",
-    value: "assemblyscript",
+    value: "",
+    options: [
+      [
+        "./path/to/reporter.js?queryString",
+        "Use the default exported object from this module as the reporter.",
+      ],
+    ],
+  },
+
+  "round-decimal-places": {
+    description: "Set the number of decimal places to round to.",
+    type: "i",
+    value: 3,
+    parent: "performance",
+  },
+
+  summary: {
+    description: [
+      "Use the summary reporter. It outputs a summary of the test results to stdout.",
+    ],
+    type: "bs",
+    value: false,
+  },
+
+  test: {
+    description: "Run each test that matches this regex",
+    type: "s",
+    alias: [{ name: "tests", long: true }, { name: "t" }],
+    value: "(:?)",
+  },
+
+  types: {
+    description: "Copy the types file to assembly/__tests__/as-pect.d.ts",
+    type: "b",
+    value: false,
+  },
+
+  verbose: {
+    description: [
+      "Use the verbose reporter. It outputs all the test details to stdout.",
+    ],
+    type: "bs",
+    value: false,
+  },
+
+  version: {
+    description: "View the version.",
+    type: "b",
+    alias: { name: "v" },
+    value: false,
+  },
+
+  workers: {
+    description:
+      "An experimental flag that enables parallel compilation in Worker worklets.",
+    type: "i",
+    alias: { name: "w" },
+    value: 0,
   },
 };
 
@@ -245,7 +313,7 @@ export function makeArgMap(args: CommandLineArgs = _Args): ArgMap {
     res.set(element, arg);
     let aliases = _Args[element].alias;
     if (aliases) {
-      (aliases instanceof Array ? aliases : [aliases]).forEach(alias => {
+      (Array.isArray(aliases) ? aliases : [aliases]).forEach(alias => {
         // short aliases have a `-` prefix to disguish them
         let name = (!alias.long ? "-" : "") + alias.name;
         res.set(name, arg);
@@ -267,7 +335,7 @@ export function parse(commands: string[], args: ArgMap = Args): Options {
   };
 
   args.forEach((arg: CommandLineArg) => {
-    let camelCase = toCamelCase(arg.name)
+    let camelCase = toCamelCase(arg.name);
     if (arg.parent) {
       if (!opts[arg.parent]) {
         opts[arg.parent] = {};
@@ -303,6 +371,9 @@ export function parse(commands: string[], args: ArgMap = Args): Options {
     if (data) {
       // Data from =(.*)
       value = arg.parse(data);
+    } else if (arg.type === "bs") {
+      // boolean flag or string, do not parse further
+      value = true;
     } else if (arg.type === "b") {
       // boolean flag
       value = true;
@@ -325,7 +396,7 @@ export function parse(commands: string[], args: ArgMap = Args): Options {
       opts[arg.parent][name] = value;
       opts.changed.add(arg.parent + "." + name);
     } else {
-      opts[name] = value
+      opts[name] = value;
       opts.changed.add(name);
     }
   }
