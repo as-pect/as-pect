@@ -11,7 +11,7 @@
     "gh-pages": "git subtree push --prefix docs origin gh-pages",
     "jest": "jest",
     "mdlint": "markdownlint *.md",
-    "prettier": "prettier --write \"src/**/*.ts\"",
+    "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
     "rimraf": "rimraf lib/* docs/*",
     "test:ci": "run-s asp:ci jest mdlint",
     "sitedown": "sitedown -b docs",
