@@ -353,6 +353,7 @@ declare module "test/TestGroup" {
          * The parent describe context that contains callbacks that also apply to this context.
          */
         parent: TestGroup | null;
+        children: TestGroup[];
         /**
          * This method creates a new TestGroup that contains a reference to all of the current flow
          * functions of this `TestGroup`.
@@ -416,7 +417,7 @@ declare module "reporter/VerboseReporter" {
          *
          * @param {TestGroup} group - The finished TestGroup.
          */
-        onGroupFinish(group: TestGroup): void;
+        onGroupFinish(_group: TestGroup): void;
         /** This method is a stub for onTestStart(). */
         onTestStart(_group: TestGroup, _test: TestResult): void;
         /**
@@ -568,6 +569,7 @@ declare module "test/TestCollector" {
         protected wasm: IAspectExports | null;
         private groupStack;
         testGroups: TestGroup[];
+        topLevelGroup: TestGroup | null;
         protected logTarget: ILogTarget;
         errors: IWarning[];
         warnings: IWarning[];
@@ -1197,14 +1199,16 @@ declare module "test/TestContext" {
          */
         private runBeforeEach;
         /**
-         * Run the afterAll callbacks with the given runContext and group.
+         * Run the beforeAll callbacks with the given runContext and group. This
+         * method only calls the current group's beforeAll callbacks.
          *
          * @param {RunContext} runContext - The current run context.
          * @param {TestGroup} group - The current test group.
          */
         private runAfterAll;
         /**
-         * Run the beforeAll callbacks with the given runContext and group.
+         * Run the beforeAll callbacks with the given runContext and group. This
+         * method only calls the current group's beforeAll callbacks.
          *
          * @param {RunContext} runContext - The current run context.
          * @param {TestGroup} group - The current test group.
