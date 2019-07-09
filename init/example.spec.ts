@@ -32,4 +32,12 @@ describe("example", () => {
     expect<i32>(1000).toBeGreaterThanOrEqual(1000);
     expect<i32>(1000).toBeLessThanOrEqual(1000);
   });
+
+  it("can log some values to the console", () => {
+    log<string>("Hello world!"); // strings!
+    log<f64>(3.1415); // floats!
+    log<u8>(244); // integers!
+    log<u64>(0xFFFFFFFF); // long values!
+    log<ArrayBuffer>(new ArrayBuffer(50)); // bytes!
+  });
 });
