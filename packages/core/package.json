@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "asp:ci": "asp --summary",
-    "asp": "asp --verbose",
+    "asp:ci": "../cli/bin/asp --summary",
+    "asp": "../cli/bin/asp --verbose",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "jest": "jest",
     "mdlint": "markdownlint *.md",
@@ -30,7 +30,6 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "devDependencies": {
-    "@as-pect/cli": "github:github.com/jtenner/as-pect/cli#v2.0.0",
     "@types/jest": "^24.0.15",
     "@types/node": "^12.0.12",
     "assemblyscript": "github:assemblyscript/assemblyscript",

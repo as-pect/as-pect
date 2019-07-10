@@ -17,7 +17,7 @@ import { getTestEntryFiles } from "./util/getTestEntryFiles";
 import { Options } from "./util/CommandLineArg";
 import { writeFile } from "./util/writeFile";
 import { ICommand } from "./worklets/ICommand";
-const { timeDifference } = require("@as-pect/core/lib/util/timeDifference");
+import { timeDifference }   from "@as-pect/core/lib/util/timeDifference";
 
 
 /**
