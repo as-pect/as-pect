@@ -586,7 +586,7 @@ Regardless of the installed version, all the compiler flags will be passed to
 the `asc` command line tool.
 
 ```ts
-const compiler = require(require.resolve(path.join(options.compiler, "cli/asc"));
+const compiler = require(path.join(path.cwd(), options.compiler, "cli/asc"));
 ```
 
 Inside the callback, any files that are generated, except for the `.wasm` file
