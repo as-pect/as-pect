@@ -454,7 +454,7 @@ script to your CI build.</p>
 run the <code>asp</code> command line tool to use the <code>SummaryTestReporter</code> like this:</p>
 <pre><code class="language-json">{
   <span class="hljs-attr">&quot;scripts&quot;</span>: {
-    <span class="hljs-attr">&quot;test:ci&quot;</span>: <span class="hljs-string">&quot;asp --reporter=SummaryTestReporter&quot;</span>
+    <span class="hljs-attr">&quot;test:ci&quot;</span>: <span class="hljs-string">&quot;asp --summary&quot;</span>
   }
 }
 </code></pre>
@@ -468,7 +468,7 @@ to be the same <code>__folder__/dist/asc.js</code>, <code>__folder__/cli/util/op
 <h3>Compiler Flags</h3>
 <p>Regardless of the installed version, all the compiler flags will be passed to
 the <code>asc</code> command line tool.</p>
-<pre><code class="language-ts"><span class="hljs-keyword">import</span> asc <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;assemblyscript/cli/asc&quot;</span>;
+<pre><code class="language-ts"><span class="hljs-keyword">const</span> compiler = <span class="hljs-built_in">require</span>(path.join(path.cwd(), options.compiler, <span class="hljs-string">&quot;cli/asc&quot;</span>));
 </code></pre>
 <p>Inside the callback, any files that are generated, except for the <code>.wasm</code> file
 will be output using the <code>{testFolder}/{testName}.{ext}</code> format. This includes
