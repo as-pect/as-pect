@@ -11,8 +11,8 @@
     "typedoc": "typedoc --options typedoc.js .",
     "mdlint": "markdownlint *.md",
     "rimraf": "rimraf docs/*",
-    "test": "run-s bootstrap tsc:all test:all",
-    "test:ci": "run-s tsc:all test:ci:all",
+    "test": "run-s tsc:all test:all",
+    "test:ci": "run-s bootstrap tsc:all test:ci:all",
     "test:ci:all": "lerna run test:ci",
     "test:all": "lerna run test",
     "tsc:all": "lerna run tsc:all"
