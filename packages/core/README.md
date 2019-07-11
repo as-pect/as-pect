@@ -24,10 +24,7 @@ with WebAssembly speeds!
    - [toHaveLength](#tohavelength-comparison)
    - [toContain](#tocontain-and-toinclude-comparison)
    - [toContainEqual](#tocontainequal-and-toincludeequal-comparison)
-1. [CLI](#cli)
-1. [Configuration File](#configuration-file)
 1. [Types And Tooling](#types-and-tooling)
-1. [CI Usage](#ci-usage)
 1. [AssemblyScript Compiler Options](#assemblyscript-compiler-options)
 1. [Closures](#closures)
 1. [Expectations](#expectations)
@@ -56,62 +53,48 @@ can be run in two different environments.
 
 ## Usage
 
-To install `as-pect`, install the latest version from github. Once
-AssemblyScript becomes more stable, `as-pect` will be published to npm.
+To install `as-pect`, install the latest version from github.
 
 ```
-$ npm install jtenner/as-pect
+$ npm install @as-pect/core
 ```
 
-To initialize a test suite, run `npx asp --init`. It will create the following
-folders and files.
+To create a `TestContext` simply import it and instantiate it.
 
+```ts
+import { TestContext, EmptyReporter } from "@as-pect/core";
+import { instantiateBuffer } from "assemblyscript/lib/loader";
+
+const ctx = new TestContext({
+  fileName: "test.spec.ts", // put the name of the AssemblyScript file here
+  // groupRegex: /./, // if you want to filter what groups run, modify this regex
+  // testRegex: /./, // if you want to filter what tests run, modify this regex
+  // performanceConfiguration: {}, // modify the performance configuration here
+  // nortrace: true, // disable rtrace monitoring
+  // stdout: null, // change stdout (must have a `write(input: string)` method)
+  // stderr: null, // change stderr (must have a `write(input: string)` method)
+});
+
+const imports = ctx.createImports({
+  // put any imports here
+})
+
+// instantiate the module using instantiateStreaming or instantiateBuffer
+const wasm = await instantiateStreaming(fetch("./path/to/test/binary.wasm"), imports);
+
+// run the tests
+ctx.run(wasm);
+
+// inspect the testGroups for errors
+const groups = ctx.testGroups;
+
+// check if the tests passed
+const pass = ctx.pass;
 ```
-$ npx asp --init
-
-# It will create the following folders if they don't exist
-C ./assembly/
-C ./assembly/__tests__/
-
-# The as-pect types file will be created here if it doesn't exist
-C ./assembly/__tests__/as-pect.d.ts
-
-# An example test file will be created here if the __tests__ folder does not exist
-C ./assembly/__tests__/example.spec.ts
-
-# The default configuration file will be created here if it doesn't exist
-C ./as-pect.config.js
-```
-
-If you want `asp`'s boilerplate located somewhere other than in `assembly/`,
-you can move it yourself, and update `as-pect.config.js` to point to the new
-location accordingly.
-
-To run `as-pect`, use the command line: `npx asp`, or create an npm script.
-
-```json
-{
-  "scripts": {
-    "test": "asp"
-  }
-}
-```
-
-The command line defaults to using `./aspect.config.js`, otherwise you can
-specify all the configuration options using the command line interface.
-
-To change the location of the as-pect configuration, use the `--config` option.
-
-```
-$ npx asp --config=as-pect.config.js
-```
-
-Most of the values configured in the configuration are overridable via the command
-line, with the exception of the Web Assembly imports provided to the module.
 
 ## Comparisons
 
-There are a set of comparison functions defined in the `as-pect.d.ts` types
+There are a set of comparison functions defined in the `types/as-pect.d.ts` types
 definition. These comparison functions allow you to inspect object and memory
 state.
 
@@ -442,98 +425,12 @@ expect<Uint8Array>(data).toContainEqual(referece);
 
 This method is portable with `jest` using the `toContainEqual()` method.
 
-## CLI
-
-To access the help screen, use the `--help` flag, which prints the following:
-
-<!-- markdownlint-disable MD013 MD031 -->
-<!--
-  This is the command line help screen, and has lines longer than 80
-  characters. This cannot be helped.
--->
-
-```
-SYNTAX
-  asp --init                             Create a test config, an assembly/__tests__ folder and exit.
-    asp -i
-    asp --config=as-pect.config.js       Use a specified configuration
-    asp -c as-pect.config.js
-    asp --version                        View the version.
-    asp -v
-    asp --help                           Show this help screen.
-    asp -h
-    asp --types                          Copy the types file to assembly/__tests__/as-pect.d.ts
-    asp -t
-    asp --compiler                       Path to folder relative to project root which contains
-                                         folder/dist/asc for the compiler and folder/lib/loader for loader. (Default: assemblyscript)
-
-  TEST OPTIONS
-    --file=[regex]                       Run the tests of each file that matches this regex. (Default: /./)
-      --files=[regex]
-      -f=[regex]
-
-    --group=[regex]                      Run each describe block that matches this regex (Default: /(:?)/)
-      --groups=[regex]
-      -g=[regex]
-
-    --test=[regex]                       Run each test that matches this regex (Default: /(:?)/)
-      --tests=[regex]
-      -t=[regex]
-
-    --output-binary                      Create a (.wasm) file can contains all the tests to be run later.
-      -o
-
-    --norun                              Skip running tests and output the compiler files.
-      -n
-
-    --nortrace                           Skip rtrace reference counting calculations.
-      -nr
-
-    asp --workers 3                      Enable the experimental worker worklets (default: 0  [disabled])
-      asp -w
-
-  REPORTER OPTIONS
-    --summary                            Use the summary reporter. Use the summary reporter. (This is the default if no reporter is specified.)
-    --verbose                            Use the reporter.
-    --csv                                Use the csv reporter (output results to csv files.)
-    --json                               Use the json reporter (output results to json files.)
-    --reporter                           Define a custom reporter (path or module)
-
-  PERFORMANCE OPTIONS
-    --performance                        Enable performance statistics for {bold every} test. (Default: false)
-    --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
-    --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
-    --round-decimal-places=[number]      Set the number of decimal places to round to. (Default: 3)
-    --report-median(=false)?             Enable/Disable reporting of the median time. (Default: true)
-    --report-average(=false)?            Enable/Disable reporting of the average time. (Default: true)
-    --report-standard-deviation(=false)? Enable/Disable reporting of the standard deviation. (Default: false)
-    --report-max(=false)?                Enable/Disable reporting of the largest run time. (Default: false)
-    --report-min(=false)?                Enable/Disable reporting of the smallest run time. (Default: false)
-    --report-variance(=false)?           Enable/Disable reporting of the variance. (Default: false)
-```
-
-<!-- markdownlint-enable MD013 MD031 -->
-
-## Configuration File
-
-Currently `as-pect` will compile each file that matches the
-[`glob`](https://en.wikipedia.org/wiki/Glob_%28programming%29)s in the
-`include` property of your configuration. The default include is
-`"assembly/__tests__/**/*.spec.ts"`. It must compile each file, and run each
-binary separately inside it's own `TestContext`. This is a limitation of
-AssemblyScript, not of `as-pect`.
-
-A typical configuration is provided when you use `asp --init` and is located
-[here](blob/master/init/as-pect.config.js).
-
 ## Types And Tooling
 
-The `as-pect` cli comes with a way to generate the types for all the globals
-used by the framework. Simply use the `--init` or `--types` flag. When a new
-version of `as-pect` is released, simply run the `npx asp --types` command to
-get the latest version of these function definitions. This will greatly
-increase your productivity because it comes with lots of documentation, and
-adds a lot of intellisense to your development experience.
+The `as-pect` core comes with a way to generate the types for all the globals
+used by the framework. This will greatly increase your productivity because it
+comes with lots of documentation, and adds a lot of intellisense to your
+development experience.
 
 It is also possible to reference the types manually. Use the following
 reference at the top of your `assembly/index.ts` file to include these types
@@ -541,57 +438,18 @@ in your project automatically. If you use this method for your types, feel
 free to delete the auto-generated types file in your test folder.
 
 ```ts
-/// <reference path="../node_modules/as-pect/assembly/__tests__/as-pect.d.ts" />
-```
-
-<!-- markdownlint-enable MD013 -->
-
-## CI Usage
-
-If any module fails during compilation, the utility will exit immediately with
-code 1 so it can be used for quicker ci builds.
-
-Adding this line to your `.travis.yml` will allow you to specify a custom
-script to your CI build.
-
-```yaml
-script:
-  - npm run test:ci
-```
-
-Then in your package.json file, you can instruct the `"test:ci"` script to
-run the `asp` command line tool to use the `SummaryTestReporter` like this:
-
-```json
-{
-  "scripts": {
-    "test:ci": "asp --summary"
-  }
-}
+/// <reference path="../node_modules/@as-pect/core/types/as-pect.d.ts" />
+/// <reference path="../node_modules/@as-pect/core/types/as-pect.portable.d.ts" />
 ```
 
 ## AssemblyScript Compiler Options
 
-### `--compiler` CLI Argument
-
-By default `as-pect` will use node's resolver to look for an AssemblyScript
-module. If you want to specify a different version of the compiler, use
-`--compiler ../relative/path/to/compiler/folder`. Note that it expects the following
-to be the same `__folder__/dist/asc.js`, `__folder__/cli/util/options.js`, and
-`__folder__/lib/loader.js`.
-
-### Compiler Flags
-
-Regardless of the installed version, all the compiler flags will be passed to
-the `asc` command line tool.
-
-```ts
-const compiler = require(path.join(path.cwd(), options.compiler, "cli/asc"));
-```
-
-Inside the callback, any files that are generated, except for the `.wasm` file
-will be output using the `{testFolder}/{testName}.{ext}` format. This includes
-source maps, `.wat` files, `.js` files, and types files generated by the compiler.
+In order to compile the test binary correctly, the `@as-pect/core/assembly/index.ts`
+file must be included as an entry point. Also, `--use ASC_RTRACE=1` must be used
+in order to enable RTrace error reporting and reference counting statistics.
+Finally, the `--explicitStart` flag must be passed to the compiler to enable
+proper test name and group name collection since `as-pect` will call the
+`wasm.__start()` method manually. This is absolutely required.
 
 ## Closures
 
@@ -722,26 +580,15 @@ This reporter only outputs failed tests and is the default `TestReporter` used
 by the `as-pect` cli. It can be used directly from the configuration file.
 
 ```ts
-// as-pect.config.js
-const SummaryReporter = require("as-pect/lib/reporter/SummaryReporter").default;
+const { SummaryReporter, TestContext } = require("@as-pect/core");
 
-// export your configuration
-module.exports = {
+// create a test context
+const ctx = new TestContext({
   reporter: new SummaryReporter({
     // enableLogging: false, // disable logging
   }),
-};
+});
 ```
-
-It can also be used from the cli using the `--summary` flag.
-
-```
-npx asp --summary
-npx asp --summary=enableLogging=false
-```
-
-Note: When using parameters for the builtin reporters, the `=` is required to
-parse the querystring parameters correctly.
 
 ### VerboseReporter
 
@@ -752,24 +599,13 @@ This reporter outputs a lot of information, including:
 - Performance Statistics
 - Logging Information
 
-It can be used directly from the configuration file.
-
 ```ts
-// as-pect.config.js
-const VerboseReporter = require("as-pect/lib/reporter/VerboseReporter").default;
+const { VerboseReporter, TestContext } = require("@as-pect/core");
 
-// export your configuration
-module.exports = {
-  reporter: new VerboseReporter({
-    // enableLogging: false, // disable logging
-  }),
-};
-```
-
-It can also be used from the cli using the `--verbose` flag.
-
-```
-npx asp --verbose
+// create a test context
+const ctx = new TestContext({
+  reporter: new VerboseReporter(),
+});
 ```
 
 ### JSONReporter
@@ -779,19 +615,12 @@ output. The file output location is `{testname}.spec.json`. It can be used
 directly from the configuration file.
 
 ```ts
-// as-pect.config.js
-const JSONReporter = require("as-pect/lib/reporter/JSONReporter").default;
+const { JSONReporter, TestContext } = require("@as-pect/core");
 
 // export your configuration
-module.exports = {
-  reporter: new JSONReporter(),
-};
-```
-
-It can also be used from the cli using the `--json` flag.
-
-```
-npx asp --json
+const ctx = new TestContext({
+  reporter: new JSONReporter(), // internally uses the fs.createWriteStream() function
+});
 ```
 
 The object ouput definition is shaped like this:
@@ -840,19 +669,12 @@ output. The file output location is `{testname}.spec.csv`. It can be used
 directly from the configuration file.
 
 ```ts
-// as-pect.config.js
-const CSVReporter = require("as-pect/lib/reporter/CSVReporter").default;
+const { CSVReporter, TestContext } = require("@as-pect/core");
 
 // export your configuration
-module.exports = {
-  reporter: new CSVReporter(),
-};
-```
-
-It can also be used from the cli using the `--csv` flag.
-
-```
-npx asp --csv
+const ctx = new TestContext({
+  reporter: new CSVReporter(), // internally uses the fs.createWriteStream() function
+});
 ```
 
 This is a list of all the columns in the exported csv file.
@@ -879,14 +701,14 @@ const csvColumns = [
 ## Portability
 
 It is possible to write `as-pect` tests that run in `jest` as well. The
-compatible functions are documented in the `init/as-pect.portable.d.ts` file
-and can be added to your project by using the `--portable` flag. Instead of
-using the types provided by `@types/jest`, use the portable ones provided by
-`as-pect`. This is the recommended way to setup testing when trying to write
-portable tests.
+compatible functions are documented in the
+`@as-pect/core/types/as-pect.portable.d.ts` file and can be added to your
+project by using the `--portable` flag. Instead of using the types provided by
+`@types/jest`, use the portable ones provided by `as-pect`. This is the
+recommended way to setup testing when trying to write portable tests.
 
 ```
-npm install --save-dev jest as-pect typescript assemblyscript/assemblyscript
+npm install --save-dev jest @as-pect/cli typescript assemblyscript/assemblyscript
 npx ts-jest config:init
 npx asp --portable
 ```
@@ -982,9 +804,9 @@ pointer properly. Your test suite output may look like this:
 [Describe]: toHaveLength TypedArray type: Uint32Array
 
  [Success]: ✔ should assert expected length
- [Success]: ✔ Throws: when expected length should not equal the same value RTrace: +3
+  [Throws]: ✔ when expected length should not equal the same value RTrace: +3
  [Success]: ✔ should verify the length is not another value
- [Success]: ✔ Throws: when the length is another expected value RTrace: +3
+  [Throws]: ✔ when the length is another expected value RTrace: +3
 ```
 
 The `RTrace: +3` corresponds to an `Expectation`, a `Uint32Array`, and a single
@@ -1437,6 +1259,9 @@ best software it can be.
 Other Contributors:
 
 - [@trusktr](github.com/trusktr) - Documentation Changes
+- [@MaxGraey](github.com/maxgraey) - Performance API suggestions
+- [@torch2424](github.com/torch2424) - Documentation Changes
+- [@dcodeio](github.com/torch2424) - Made AssemblyScript itself!
 
 ## Special Thanks
 

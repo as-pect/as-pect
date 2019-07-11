@@ -4,9 +4,10 @@
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "scripts": {
     "coveralls": "cat ./packages/core/coverage/lcov.info | coveralls",
-    "docs": "exit 0",
+    "docs": "run-s rimraf typedoc",
     "gh-pages": "git subtree push --prefix docs origin gh-pages",
     "jest": "jest",
+    "typedoc": "typedoc --options typedoc.js .",
     "mdlint": "markdownlint *.md",
     "rimraf": "rimraf docs/*",
     "test": "run-s tsc:all test:all",
@@ -34,10 +35,12 @@
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
+    "typedoc": "^0.14.2",
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "lerna": "^3.15.0"
+    "lerna": "^3.15.0",
+    "typedoc-plugin-lerna-packages": "^0.1.6"
   },
   "optionalDependencies": {
     "csv-stringify": "^5.3.0"
