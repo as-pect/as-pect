@@ -1,3 +1,5 @@
+/// <reference path="../node_modules/assemblyscript/std/assembly/index.d.ts" />
+
 /**
  * This function creates a test group in the test loader.
  *
@@ -217,6 +219,7 @@ declare function log<T>(value: T | null): void;
 /**
  * An expectation for a value.
  */
+// @ts-ignore
 declare class Expectation<T> {
 
   /**
@@ -475,6 +478,7 @@ declare function debug(): void;
 /**
  * This class contains a set of methods related to performance configuration.
  */
+// @ts-ignore
 declare class Performance {
   /**
    * This function call enables performance statistics gathering for the following test.

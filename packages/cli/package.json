@@ -6,6 +6,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest",
+    "test:ci": "jest",
     "mdlint": "markdownlint *.md",
     "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
     "rimraf": "rimraf lib/* docs/*",
@@ -43,6 +44,7 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
+    "@as-pect/assembly": "git:github.com/jtenner/as-pect/assembly#v2.0.0",
     "@as-pect/core": "git:github.com/jtenner/as-pect/core#v2.0.0",
     "chalk": "^2.4.2",
     "glob": "^7.1.4"

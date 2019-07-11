@@ -29,7 +29,7 @@ export function createTestGroupFilterModule(
       "output.wasm",
       "--explicitStart",
       "./assembly/jest-filter.ts",
-      "./assembly/index.ts",
+      "../assembly/assembly/index.ts",
     ],
     {
       writeFile(fileName: string, contents: Uint8Array) {

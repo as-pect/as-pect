@@ -16,7 +16,7 @@ export function createModule(linked: any, callback: TestContextCallback): void {
       "output.wasm",
       "--explicitStart",
       "./assembly/jest-invalid-expectation.ts",
-      "./assembly/index.ts",
+      "../assembly/assembly/index.ts",
     ],
     {
       writeFile(fileName: string, contents: Uint8Array) {

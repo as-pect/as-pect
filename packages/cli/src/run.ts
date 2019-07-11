@@ -287,8 +287,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     }
   }
 
-  // must include the assembly/index.ts file located in the package
-  const entryPath = require.resolve("@as-pect/core/assembly/index.ts");
+  // must include the assembly/index.ts file located in the assembly package
+  const entryPath = require.resolve("@as-pect/assembly/assembly/index.ts");
   const relativeEntryPath = path.relative(process.cwd(), entryPath);
 
   // add the relativeEntryPath of as-pect to the list of compiled files for each test

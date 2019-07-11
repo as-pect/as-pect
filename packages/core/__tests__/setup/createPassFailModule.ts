@@ -19,7 +19,7 @@ export function createPassFailModule(
       "output.wasm",
       "--explicitStart",
       "./assembly/jest-pass-fail.ts",
-      "./assembly/index.ts",
+      "../assembly/assembly/index.ts",
       "--use",
       "ASC_RTRACE=1",
     ],

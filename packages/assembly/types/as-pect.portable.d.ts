@@ -181,21 +181,9 @@ declare function afterAll(callback: () => void): void;
 declare function expect<T>(actual: T | null): Expectation<T>;
 
 /**
- * Describes a function and returns an expectation to test the function.
- *
- * @param {() => void} callback - The callback being tested.
- *
- * @example
- * expectFn((): void => unreachable()).toThrow("unreachables do not throw");
- * expectFn((): void => {
- *   cat.meow();
- * }).not.toThrow("Uhoh, cats can't meow!");;
- */
-declare function expectFn(cb: () => void): Expectation<() => void>;
-
-/**
  * An expectation for a value.
  */
+// @ts-ignore
 declare class Expectation<T> {
   /**
    * This expectation performs a strict equality on value types and reference types.

@@ -19,7 +19,7 @@ export function createPerformanceModule(
       "output.wasm",
       "--explicitStart",
       "./assembly/jest-performance.ts",
-      "./assembly/index.ts",
+      "../assembly/assembly/index.ts",
       "--use",
       "ASC_RTRACE=1",
     ],

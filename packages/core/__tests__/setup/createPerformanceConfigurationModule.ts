@@ -19,7 +19,7 @@ export function createPerformanceConfigurationModule(
       "output.wasm",
       "--explicitStart",
       "./assembly/jest-performance-configuration.ts",
-      "./assembly/index.ts",
+      "../assembly/assembly/index.ts",
     ],
     {
       writeFile(fileName: string, contents: Uint8Array) {

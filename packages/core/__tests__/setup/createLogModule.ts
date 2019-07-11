@@ -19,7 +19,7 @@ export function createLogModule(
       "output.wasm",
       "--explicitStart",
       "./assembly/jest-log.ts",
-      "./assembly/index.ts",
+      "../assembly/assembly/index.ts",
       "--use",
       "ASC_RTRACE=1",
     ],

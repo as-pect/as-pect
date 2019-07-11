@@ -1,4 +1,4 @@
-# as-pect
+# @as-pect/core
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/jtenner/as-pect.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/jtenner/as-pect.svg?branch=master)](https://travis-ci.org/jtenner/as-pect)
@@ -77,10 +77,13 @@ const ctx = new TestContext({
 
 const imports = ctx.createImports({
   // put any imports here
-})
+});
 
 // instantiate the module using instantiateStreaming or instantiateBuffer
-const wasm = await instantiateStreaming(fetch("./path/to/test/binary.wasm"), imports);
+const wasm = await instantiateStreaming(
+  fetch("./path/to/test/binary.wasm"),
+  imports,
+);
 
 // run the tests
 ctx.run(wasm);

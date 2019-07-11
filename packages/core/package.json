@@ -5,15 +5,13 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "asp:ci": "../cli/bin/asp --summary",
-    "asp": "../cli/bin/asp --verbose",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "jest": "jest",
     "mdlint": "markdownlint *.md",
     "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
     "rimraf": "rimraf lib/* docs/*",
-    "test:ci": "run-s asp:ci jest mdlint",
-    "test": "run-s prettier tsc asp jest mdlint",
+    "test:ci": "run-s jest mdlint",
+    "test": "run-s prettier tsc jest mdlint",
     "tsc:all": "run-p tsc:default tsc:amd",
     "tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
     "tsc:default": "tsc",
@@ -35,6 +33,7 @@
     "assemblyscript": "github:assemblyscript/assemblyscript",
     "coveralls": "^3.0.4",
     "jest": "^24.8.0",
+    "markdownlint-cli": "^0.17.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
@@ -43,14 +42,12 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
+    "@as-pect/assembly": "git:github.com/jtenner/as-pect/assembly#v2.0.0",
     "long": "^4.0.0"
   },
   "files": [
     "init/",
-    "lib/",
-    "assembly/internal/",
-    "assembly/index.ts",
-    "assembly/tsconfig.json"
+    "lib/"
   ],
   "optionalDependencies": {
     "csv-stringify": "^5.3.0"

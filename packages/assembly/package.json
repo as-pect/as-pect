@@ -1,0 +1,37 @@
+{
+  "name": "@as-pect/assembly",
+  "version": "2.0.0",
+  "description": "Write AssemblyScript tests at blazing fast speeds",
+  "types": "types/as-pect.d.ts",
+  "scripts": {
+    "asp:ci": "node ../cli/lib/test --summary",
+    "asp": "node ../cli/lib/test --verbose",
+    "mdlint": "markdownlint *.md",
+    "test:ci": "run-s asp:ci mdlint",
+    "test": "run-s asp mdlint",
+    "tsc:all": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtenner/aspect.git"
+  },
+  "author": "Joshua Tenner <tenner.joshua@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jtenner/aspect/issues"
+  },
+  "homepage": "https://github.com/jtenner/as-pect#readme",
+  "devDependencies": {
+    "assemblyscript": "github:assemblyscript/assemblyscript",
+    "markdownlint-cli": "^0.17.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.6.3",
+    "typescript": "^3.5.3"
+  },
+  "files": [
+    "assembly/internal/",
+    "assembly/index.ts",
+    "assembly/tsconfig.json"
+  ]
+}
