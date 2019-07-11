@@ -7,9 +7,12 @@
  * @param {() => void} callback - A function that contains all of the closures for this test group.
  *
  * @example
+ *
+ * ```ts
  * describe("my test suite", (): void => {
  *   // put your tests here
  * });
+ * ```
  */
 declare function describe(description: string, callback: () => void): void;
 
@@ -21,12 +24,15 @@ declare function describe(description: string, callback: () => void): void;
  * @param {() => void} callback - A function that contains a set of expectations for this test.
  *
  * @example
+ *
+ * ```ts
  * describe("the meaning of life", (): void => {
  *   it("should be 42", (): void => {
  *     // put your expectations here
  *     expect<i32>(29 + 13).toBe(42);
  *   });
  * });
+ * ```
  */
 declare function it(description: string, callback: () => void): void;
 
@@ -56,12 +62,14 @@ declare function xtest(description: string, callback: () => void): void;
  * @param {() => void} callback - A function that contains a set of expectations for this test.
  *
  * @example
+ * ```ts
  * describe("the meaning of life", (): void => {
  *   test("the value should be 42", (): void => {
  *     // put your expectations here
  *     expect<i32>(29 + 13).toBe(42);
  *   });
  * });
+ * ```
  */
 declare function test(description: string, callback: () => void): void;
 
@@ -72,13 +80,17 @@ declare function test(description: string, callback: () => void): void;
  * @param {string} description - This is the name of the test, and should describe a behavior.
  * @param {() => void} callback - A function that contains a set of expectations for this test.
  * @param {string?} message - A message that describes why the test should fail.
+ *
  * @example
+ *
+ * ```ts
  * describe("the meaning of life", (): void => {
  *   throws("the value should be 42", (): void => {
  *     // put your expectations here
  *     expect<i32>(29 + 13).toBe(42);
  *   });
  * });
+ * ```
  */
 declare function throws(description: string, callback: () => void, message?: string): void;
 
@@ -90,13 +102,17 @@ declare function throws(description: string, callback: () => void, message?: str
  * @param {string} description - This is the name of the test, and should describe a behavior.
  * @param {() => void} callback - A function that contains a set of expectations for this test.
  * @param {string?} message - A message that describes why the test should fail.
+ *
  * @example
+ *
+ * ```ts
  * describe("the meaning of life", (): void => {
  *   itThrows("when the value should be 42", (): void => {
  *     // put your expectations here
  *     expect<i32>(29 + 13).not.toBe(42);
  *   }, "The value is actually 42.");
  * });
+ * ```
  */
 declare function itThrows(description: string, callback: () => void, message?: string): void;
 
@@ -107,6 +123,8 @@ declare function itThrows(description: string, callback: () => void, message?: s
  * @param {function} callback - The function to be run before each test in the current test group.
  *
  * @example
+ *
+ * ```ts
  * // create a global
  * var cat: Cat = new Cat();
  *
@@ -115,6 +133,7 @@ declare function itThrows(description: string, callback: () => void, message?: s
  *     cat.meow(1); // meow once per test
  *   });
  * });
+ * ```
  */
 declare function beforeEach(callback: () => void): void;
 
@@ -125,6 +144,8 @@ declare function beforeEach(callback: () => void): void;
  * @param {function} callback - The function to be run before each test in the current test group.
  *
  * @example
+ *
+ * ```ts
  * // create a global
  * var dog: Dog = null;
  * describe("dogs", (): void => {
@@ -132,6 +153,7 @@ declare function beforeEach(callback: () => void): void;
  *     dog = new Dog(); // create a single dog once before the tests start
  *   });
  * });
+ * ```
  */
 declare function beforeAll(callback: () => void): void;
 
@@ -142,6 +164,8 @@ declare function beforeAll(callback: () => void): void;
  * @param {function} callback - The function to be run after each test in the current test group.
  *
  * @example
+ *
+ * ```ts
  * // create a global
  * var cat: Cat = new Cat();
  *
@@ -150,6 +174,7 @@ declare function beforeAll(callback: () => void): void;
  *     cat.sleep(12); // cats sleep a lot
  *   });
  * });
+ * ```
  */
 declare function afterEach(callback: () => void): void;
 
@@ -160,6 +185,8 @@ declare function afterEach(callback: () => void): void;
  * @param {function} callback - The function to be run after each test in the current test group.
  *
  * @example
+ *
+ * ```ts
  * // create a global
  * var dog: Dog = null;
  * describe("dogs", (): void => {
@@ -167,6 +194,7 @@ declare function afterEach(callback: () => void): void;
  *     memory.free(changetype<usize>(dog)); // free some memory
  *   });
  * });
+ * ```
  */
 declare function afterAll(callback: () => void): void;
 
@@ -177,8 +205,11 @@ declare function afterAll(callback: () => void): void;
  * @param {T} actual - The value being tested.
  *
  * @example
+ *
+ * ```ts
  * expect<i32>(42).not.toBe(-1, "42 should not be -1");
  * expect<i32>(19 + 23).toBe(42, "19 + 23 should equal 42");
+ * ```
  */
 declare function expect<T>(actual: T | null): Expectation<T>;
 
@@ -188,10 +219,13 @@ declare function expect<T>(actual: T | null): Expectation<T>;
  * @param {() => void} callback - The callback being tested.
  *
  * @example
+ *
+ * ```ts
  * expectFn((): void => unreachable()).toThrow("unreachables do not throw");
  * expectFn((): void => {
  *   cat.meow();
  * }).not.toThrow("Uhoh, cats can't meow!");;
+ * ```
  */
 declare function expectFn(cb: () => void): Expectation<() => void>;
 
@@ -208,11 +242,15 @@ declare function todo(description: string): void;
  *
  * @type {T} - The type to be logged.
  * @param {T | null} value - The value to be logged.
+ *
  * @example
+ *
+ * ```ts
  * log<string>("This is a logged value.");
  * log<i32>(42);
  * log<Vec3>(new Vec(1, 2, 3));
  * log<Vec3>(null);
+ * ```
  */
 declare function log<T>(value: T | null): void;
 
@@ -236,8 +274,11 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<i32>(42).not.toBe(-1, "42 should not be -1");
    * expect<i32>(19 + 23).toBe(42, "19 + 23 should equal 42");
+   * ```
    */
   toBe(expected: T | null, message?: string): void;
 
@@ -251,7 +292,10 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<Vec3>(new Vec3(1, 2, 3)).toStrictEqual(new Vec(1, 2, 3), "Vectors of the same shape should be equal");
+   * ```
    */
   toStrictEqual(expected: T | null, message?: string): void;
 
@@ -262,7 +306,10 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<Vec3>(new Vec3(1, 2, 3)).toBlockEqual(new Vec(1, 2, 3), "Vectors of the same shape should be equal");
+   * ```
    */
   toBlockEqual(expected: T | null, message?: string): void;
 
@@ -273,10 +320,13 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
+   *
+   * ```ts
    * expectFn((): void => unreachable()).toThrow("unreachable() should throw.");
    * expectFn((): void => {
    *   cat.sleep(100); // cats can sleep quite a lot
    * }).not.toThrow("cats should sleep, not throw");
+   * ```
    */
   toThrow(message?: string): void;
 
@@ -287,12 +337,15 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<bool>(true).toBeTruthy("true is truthy.");
    * expect<i32>(1).toBeTruthy("numeric values that are not 0 are truthy.");
    * expect<Vec3>(new Vec3(1, 2, 3)).toBeTruthy("reference types that aren't null are truthy.");
    * expect<bool>(false).not.toBeTruthy("false is not truthy.");
    * expect<i32>(0).not.toBeTruthy("0 is not truthy.");
    * expect<Vec3>(null).not.toBeTruthy("null is not truthy.");
+   * ```
    */
   toBeTruthy(message?: string): void;
 
@@ -303,8 +356,11 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<i32>(0).not.toBeNull("numbers are never null");
    * expect<Vec3>(null).toBeNull("null reference types are null.");
+   * ```
    */
   toBeNull(message?: string): void;
 
@@ -315,12 +371,15 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes the expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<bool>(false).toBeFalsy("false is falsy.");
    * expect<i32>(0).toBeFalsy("0 is falsy.");
    * expect<Vec3>(null).toBeFalsy("null is falsy.");
    * expect<bool>(true).not.toBeFalsy("true is not falsy.");
    * expect<i32>(1).not.toBeFalsy("numeric values that are not 0 are not falsy.");
    * expect<Vec3>(new Vec3(1, 2, 3)).not.toBeFalsy("reference types that aren't null are not falsy.");
+   * ```
    */
   toBeFalsy(message?: string): void;
 
@@ -332,8 +391,11 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<i32>(10).toBeGreaterThan(4);
    * expect<i32>(12).not.toBeGreaterThan(42);
+   * ```
    */
   toBeGreaterThan(expected: T | null, message?: string): void;
 
@@ -345,8 +407,11 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<i32>(10).not.toBeLessThan(4);
    * expect<i32>(12).toBeLessThan(42);
+   * ```
    */
   toBeLessThan(expected: T | null, message?: string): void;
 
@@ -360,9 +425,12 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<i32>(42).toBeGreaterThanOrEqual(42);
    * expect<i32>(10).toBeGreaterThanOrEqual(4);
    * expect<i32>(12).not.toBeGreaterThanOrEqual(42);
+   * ```
    */
   toBeGreaterThanOrEqual(expected: T | null, message?: string): void;
 
@@ -376,9 +444,12 @@ declare class Expectation<T> {
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
+   *
+   * ```ts
    * expect<i32>(42).toBeLessThanOrEqual(42);
    * expect<i32>(10).not.toBeLessThanOrEqual(4);
    * expect<i32>(12).toBeLessThanOrEqual(42);
+   * ```
    */
   toBeLessThanOrEqual(expected: T | null, message?: string): void;
 
@@ -390,6 +461,12 @@ declare class Expectation<T> {
    * @param {i32} decimalPlaces - The number of decimal places used to calculate epsilon. Default is
    * 2.
    * @param {string} message - The optional message that describes this expectation.
+   *
+   * @example
+   *
+   * ```ts
+   * expect<f64>(0.1 + 0.2).toBeCloseTo(0.3);
+   * ```
    */
   toBeCloseTo(expected: T, decimalPlaces?: number, message?: string): void;
 
@@ -397,9 +474,13 @@ declare class Expectation<T> {
    * This function asserts the float type value is NaN.
    *
    * @param {string} message - The optional message the describes this expectation.
+   *
    * @example
+   *
+   * ```ts
    * expect<f64>(NaN).toBeNaN();
    * expect<f32>(42).not.toBeNaN();
+   * ```
    */
   toBeNaN(message?: string): void;
 
@@ -408,8 +489,11 @@ declare class Expectation<T> {
    *
    * @param {string} message - The optional message the describes this expectation.
    * @example
+   *
+   * ```ts
    * expect<f32>(42).toBeFinite();
    * expect<f64>(Infinity).not.toBeFinite();
+   * ```
    */
   toBeFinite(message?: string): void;
 
@@ -418,49 +502,79 @@ declare class Expectation<T> {
    *
    * @param {i32} expected - The expected length.
    * @param {string} message - The optional message the describes this expectation.
+   *
+   * ```ts
+   * expect<i32[]>([1, 2, 3]).toHaveLength(3);
+   * ```
    */
   toHaveLength(expected: i32, message?: string): void;
 
   /**
-   * This method asserts that a given T that extends Array<U> has a value/reference included.
+   * This method asserts that a given T that extends `Array<U>` has a value/reference included.
    *
    * @param {valueof<T>} expected - The expected item to be included in the Array.
    * @param {string} message - The optional message the describes this expectation.
+   *
+   * @example
+   *
+   * ```ts
+   * expect<i32[]>([1, 2, 3]).toInclude(3);
+   * ```
    */
   // @ts-ignore: expected value should be known at compile time
   toInclude(expected: valueof<T>, message?: string): void;
 
   /**
-   * This method asserts that a given T that extends Array<U> has a value/reference included.
+   * This method asserts that a given T that extends `Array<U>` has a value/reference included.
    *
    * @param {valueof<T>} expected - The expected item to be included in the Array.
    * @param {string} message - The optional message the describes this expectation.
+   *
+   * @example
+   *
+   * ```ts
+   * expect<i32[]>([1, 2, 3]).toContain(3);
+   * ```
    */
    // @ts-ignore: expected value should be known at compile time
   toContain(expected: valueof<T>, message?: string): void;
 
   /**
-   * This method asserts that a given T that extends Array<U> has a value/reference included and
+   * This method asserts that a given T that extends `Array<U>` has a value/reference included and
    * compared via memory.compare().
    *
    * @param {i32} expected - The expected item to be included in the Array.
    * @param {string} message - The optional message the describes this expectation.
+   *
+   * @example
+   * ```ts
+   * expect<Vec3[]>([new Vec3(1, 2, 3)]).toInclude(new Vec3(1, 2, 3));
+   * ```
    */
   // @ts-ignore: expected value should be known at compile time
   toIncludeEqual(expected: valueof<T>, message?: string): void;
 
   /**
-   * This method asserts that a given T that extends Array<U> has a value/reference included and
+   * This method asserts that a given T that extends `Array<U>` has a value/reference included and
    * compared via memory.compare().
    *
    * @param {i32} expected - The expected item to be included in the Array.
    * @param {string} message - The optional message the describes this expectation.
+   *
+   * @example
+   * ```ts
+   * expect<Vec3[]>([new Vec3(1, 2, 3)]).toInclude(new Vec3(1, 2, 3));
+   * ```
    */
   // @ts-ignore: expected value should be known at compile time
   toContainEqual(expected: valueof<T>, message?: string): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
+   *
+   * @example
+   * ```ts
+   * expect<i32>(42).not.toBe(0, "42 is not 0");
    */
   not: Expectation<T>;
 
