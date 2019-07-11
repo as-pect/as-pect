@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "coveralls": "cat ./packages/core/coverage/lcov.info | coveralls",
     "docs": "run-s rimraf typedoc",
     "gh-pages": "git subtree push --prefix docs origin gh-pages",
@@ -10,7 +11,7 @@
     "typedoc": "typedoc --options typedoc.js .",
     "mdlint": "markdownlint *.md",
     "rimraf": "rimraf docs/*",
-    "test": "run-s tsc:all test:all",
+    "test": "run-s bootstrap tsc:all test:all",
     "test:ci": "run-s tsc:all test:ci:all",
     "test:ci:all": "lerna run test:ci",
     "test:all": "lerna run test",
