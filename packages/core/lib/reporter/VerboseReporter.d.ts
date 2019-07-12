@@ -3,7 +3,7 @@ import { TestResult } from "../test/TestResult";
 import { TestContext } from "../test/TestContext";
 import { LogValue } from "../util/LogValue";
 import { TestReporter } from "../test/TestReporter";
-import { IWritable } from "./util/IWriteable";
+import { IWritable } from "../util/IWriteable";
 /**
  * This is the default test reporter class for the `asp` command line application. It will pipe
  * all relevant details about each tests to the `stdout` WriteStream.

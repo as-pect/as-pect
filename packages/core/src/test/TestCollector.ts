@@ -13,33 +13,63 @@ import { PerformanceLimits } from "./PerformanceLimits";
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
 
+/**
+ * @ignore
+ * This function is a filter for stack trace lines.
+ *
+ * @param {string} input - The stack trace line.
+ */
 const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
 
+/**
+ * @ignore
+ * This is a collection of all the parameters required for intantiating a TestCollector.
+ */
 export interface ITestCollectorParameters {
+  /** A provided performance configuration. */
   performanceConfiguration?: Partial<IPerformanceConfiguration>;
+  /** A regular expression that filters what tests can be run. Must be set before calling `testContext.run(wasm);` */
   testRegex?: RegExp;
+  /** A regular expression that filters what test groups can be run. Must be set before calling `testContext.run(wasm);` */
   groupRegex?: RegExp;
+  /**
+   * Put the AssemblyScript test filename here.
+   *
+   * @example
+   * ```ts
+   * const ctx = new TestContext({
+   *   fileName: "example.spec.ts",
+   * });
+   * ```
+   */
   fileName?: string;
+  /** Disable RTrace when set to `true`. */
   nortrace?: boolean;
 }
 
 /**
- * This class is responsible for collecting all the tests in a test binary.
+ * @ignore
+ * This is an internal class that is responsible for collecting all the tests in a test binary.
  */
 export class TestCollector {
   protected wasm: IAspectExports | null = null;
 
   // test group values
   private groupStack: TestGroup[] = [new TestGroup()];
+  /** A collection of `TestGroup` objects that ran tests after `testContext.run(wasm)` was called. */
   public testGroups: TestGroup[] = [];
+
+  /** The root `TestGroup` object. */
   public topLevelGroup: TestGroup | null = null;
+
   protected logTarget: ILogTarget = this.groupStack[0];
 
-  // public warning/error lists
+  /** A set of errors that were collected during the testing process. */
   public errors: IWarning[] = [];
+  /** A set of warnings that were collected during the testing process. */
   public warnings: IWarning[] = [];
 
-  // public fileName
+  /** The name of the AssemblyScript test file. */
   public fileName: string = "";
 
   // test state machine values

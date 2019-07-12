@@ -7,6 +7,7 @@ import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
 
 /**
+ * @ignore
  * This is a list of all the columns in the exported csv file.
  */
 const csvColumns = [

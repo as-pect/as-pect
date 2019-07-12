@@ -3,14 +3,8 @@ import * as fs from "fs";
 import { performance } from "perf_hooks";
 import * as path from "path";
 import chalk from "chalk";
-import {
-  IConfiguration,
-  ICompilerFlags,
-  IAspectExports,
-  TestReporter,
-  TestContext,
-  IWarning,
-} from "@as-pect/core";
+import { IAspectExports, TestReporter, TestContext, IWarning } from "@as-pect/core";
+import { IConfiguration, ICompilerFlags } from "./util/IConfiguration";
 import glob from "glob";
 import { collectReporter } from "./util/collectReporter";
 import { getTestEntryFiles } from "./util/getTestEntryFiles";
@@ -21,6 +15,7 @@ import { timeDifference }   from "@as-pect/core/lib/util/timeDifference";
 
 
 /**
+ * @ignore
  * This method actually runs the test suites in sequential order synchronously.
  *
  * @param {Options} cliOptions - The command line arguments.
@@ -416,14 +411,17 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
  [Stack]: {yellow ${error.stackTrace.split("\n").join("\n            ")}}
 `);
         }
-        console.log(`
-[Result]: ${result}
- [Files]: ${testEntryFiles.size} total
-[Groups]: ${groupCount} count, ${groupSuccessCount} pass
- [Tests]: ${successCount.toString()} pass, ${(
+        console.log(chalk`${process.stdout.columns
+          ? "~".repeat(process.stdout.columns! - 10)
+          : "~".repeat(80)}
+
+  [Result]: ${result}
+   [Files]: ${testEntryFiles.size.toString()} total
+  [Groups]: ${groupCount.toString()} count, ${groupSuccessCount.toString()} pass
+   [Tests]: ${successCount.toString()} pass, ${(
           testCount - successCount
         ).toString()} fail, ${testCount.toString()} total
-  [Time]: ${timeDifference(end, start).toString()}ms`);
+    [Time]: ${timeDifference(end, start).toString()}ms`);
 
         if (worklets.length > 0) {
           for (const worklet of worklets) {

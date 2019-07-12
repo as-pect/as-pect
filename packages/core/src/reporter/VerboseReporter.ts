@@ -5,15 +5,20 @@ import chalk from "chalk";
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { TestReporter } from "../test/TestReporter";
-import { IWritable } from "./util/IWriteable";
+import { IWritable } from "../util/IWriteable";
 import { createReferenceString } from "./util/createReferenceString";
 
+/**
+ * @ignore
+ * This enum is used by the VerboseReporter to distinguish Actual and expected types.
+ */
 const enum ValueType {
   Actual,
   Expected,
 }
 
 /**
+ * @ignore
  * This method stringifies an actual or expected test value.
  *
  * @param {ValueType} type - Actual or Expected.
@@ -43,6 +48,7 @@ function stringifyActualValue(
 }
 
 /**
+ * @ignore
  * This weakmap is used to keep track of which logs have already been printed, and from what index.
  */
 const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
@@ -113,8 +119,10 @@ export default class VerboseReporter extends TestReporter {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
       if (!test.negated) {
-        this.stdout!.write(`
-  [Actual]: ${stringifyActualValue(ValueType.Actual, test.actual)}
+        this.stdout!.write(`  [Actual]: ${stringifyActualValue(
+          ValueType.Actual,
+          test.actual,
+        )}
 [Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}
 `);
       }
@@ -186,7 +194,7 @@ export default class VerboseReporter extends TestReporter {
   public onFinish(suite: TestContext): void {
     if (suite.testGroups.length === 0) return;
 
-    const result = suite.pass ? chalk`{green ✔ Pass}` : chalk`{red ✖ Fail}`;
+    const result = suite.pass ? chalk`{green ✔ PASS}` : chalk`{red ✖ FAIL}`;
 
     const count = suite.testGroups
       .map(e => e.tests.length)
@@ -231,7 +239,11 @@ export default class VerboseReporter extends TestReporter {
     }
 
     this.stdout!.write(chalk`
-${"~".repeat(process.stdout.columns! - 10)}
+${
+  process.stdout.columns
+    ? "~".repeat(process.stdout.columns! - 10)
+    : "~".repeat(80)
+}
 
     [File]: ${suite.fileName} ${rtraceDelta}
   [Groups]: {green ${suite.testGroups

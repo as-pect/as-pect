@@ -26,10 +26,11 @@ export interface IPerformanceConfiguration {
   roundDecimalPlaces: number;
 }
 
+/** This method creates a default performance configuration. */
 export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration {
   return {
-    /** Enable performance statistics gathering. */
-    enabled: false, // the default must be false because of backwards compatibility
+    /** Enable performance statistics gathering for each test. */
+    enabled: false,
     /** Set the maximum number of samples to run for each test. */
     maxSamples: 10000,
     /** Set the maximum test run time in milliseconds. */

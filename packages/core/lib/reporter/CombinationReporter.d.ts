@@ -7,7 +7,7 @@ import { TestResult } from "../test/TestResult";
  * forEach() to call each reporter's function when each method is called.
  */
 export default class CombinationReporter extends TestReporter {
-    reporters: TestReporter[];
+    protected reporters: TestReporter[];
     constructor(reporters: TestReporter[]);
     onFinish(suite: TestContext): void;
     onGroupFinish(group: TestGroup): void;

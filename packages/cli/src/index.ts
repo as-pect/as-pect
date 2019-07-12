@@ -1,7 +1,18 @@
 import { parse } from "./util/CommandLineArg";
 
-/** Package version is always displayed, either for version or cli ascii art. */
+/**
+ * @ignore
+ *
+ * Package version is always displayed, either for version or cli ascii art.
+ */
 const pkg = require("../package.json");
+
+/**
+ * This is the command line package version.
+ */
+export const version = pkg.version;
+
+export { parse, defaultCliArgs, Options } from "./util/CommandLineArg";
 
 /**
  * This is the cli entry point and expects an array of arguments from the command line.

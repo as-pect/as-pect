@@ -4,6 +4,7 @@ import querystring from "querystring";
 import chalk from "chalk";
 
 /**
+ * @ignore
  * This method inspects the command line arguments and returns the corresponding TestReporter.
  *
  * @param {Options} cliOptions - The command line arguments.

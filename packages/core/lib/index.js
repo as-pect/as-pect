@@ -7,7 +7,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./reporter/CombinationReporter", "./reporter/CSVReporter", "./reporter/EmptyReporter", "./reporter/JSONReporter", "./reporter/SummaryReporter", "./reporter/VerboseReporter", "./test/TestCollector", "./test/TestContext", "./test/TestGroup", "./test/TestReporter", "./test/TestResult", "./util/ActualValue", "./util/IPerformanceConfiguration", "./util/LogValue"], factory);
+        define(["require", "exports", "./reporter/CombinationReporter", "./reporter/CSVReporter", "./reporter/EmptyReporter", "./reporter/JSONReporter", "./reporter/SummaryReporter", "./reporter/VerboseReporter", "./test/TestContext", "./test/TestGroup", "./test/TestReporter", "./test/TestResult", "./util/ActualValue", "./util/IPerformanceConfiguration", "./util/LogValue"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -27,7 +27,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     exports.SummaryReporter = SummaryReporter_1.default;
     var VerboseReporter_1 = __importDefault(require("./reporter/VerboseReporter"));
     exports.VerboseReporter = VerboseReporter_1.default;
-    __export(require("./test/TestCollector"));
     __export(require("./test/TestContext"));
     __export(require("./test/TestGroup"));
     __export(require("./test/TestReporter"));
@@ -36,4 +35,4 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     __export(require("./util/IPerformanceConfiguration"));
     __export(require("./util/LogValue"));
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7SUFBQSx1RkFBaUU7SUFPeEQsOEJBUEYsNkJBQW1CLENBT0U7SUFONUIsdUVBQWlEO0lBT3hDLHNCQVBGLHFCQUFXLENBT0U7SUFOcEIsMkVBQXFEO0lBTzVDLHdCQVBGLHVCQUFhLENBT0U7SUFOdEIseUVBQW1EO0lBTzFDLHVCQVBGLHNCQUFZLENBT0U7SUFOckIsK0VBQXlEO0lBT2hELDBCQVBGLHlCQUFlLENBT0U7SUFOeEIsK0VBQXlEO0lBT2hELDBCQVBGLHlCQUFlLENBT0U7SUFFeEIsMENBQXFDO0lBQ3JDLHdDQUFtQztJQUNuQyxzQ0FBaUM7SUFDakMseUNBQW9DO0lBQ3BDLHVDQUFrQztJQUNsQyx3Q0FBbUM7SUFJbkMsc0RBQWlEO0lBQ2pELHFDQUFnQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7SUFBQSx1RkFBaUU7SUFPeEQsOEJBUEYsNkJBQW1CLENBT0U7SUFONUIsdUVBQWlEO0lBT3hDLHNCQVBGLHFCQUFXLENBT0U7SUFOcEIsMkVBQXFEO0lBTzVDLHdCQVBGLHVCQUFhLENBT0U7SUFOdEIseUVBQW1EO0lBTzFDLHVCQVBGLHNCQUFZLENBT0U7SUFOckIsK0VBQXlEO0lBT2hELDBCQVBGLHlCQUFlLENBT0U7SUFOeEIsK0VBQXlEO0lBT2hELDBCQVBGLHlCQUFlLENBT0U7SUFFeEIsd0NBQW1DO0lBQ25DLHNDQUFpQztJQUNqQyx5Q0FBb0M7SUFDcEMsdUNBQWtDO0lBQ2xDLHdDQUFtQztJQUduQyxzREFBaUQ7SUFDakQscUNBQWdDIn0=

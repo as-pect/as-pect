@@ -16,6 +16,7 @@ module.exports = {
   name: "as-pect",
   includeDeclarations: true,
   excludePrivate: true,
+  excludeProtected: true,
   excludeExternals: true,
   skipInternal: true,
 };

@@ -1,7 +1,7 @@
 import { TestReporter } from "./TestReporter";
 import { IAspectExports } from "../util/IAspectExports";
 import { TestCollector, ITestCollectorParameters } from "./TestCollector";
-import { IWritable } from "../reporter/util/IWriteable";
+import { IWritable } from "../util/IWriteable";
 export interface ITestContextParameters extends ITestCollectorParameters {
     reporter?: TestReporter;
     stdout?: IWritable;

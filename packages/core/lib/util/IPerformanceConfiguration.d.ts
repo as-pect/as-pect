@@ -25,4 +25,5 @@ export interface IPerformanceConfiguration {
     /** Set the number of decimal places to round to. */
     roundDecimalPlaces: number;
 }
+/** This method creates a default performance configuration. */
 export declare function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;

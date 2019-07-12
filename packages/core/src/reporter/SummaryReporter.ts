@@ -3,7 +3,7 @@ import { TestContext } from "../test/TestContext";
 import { TestResult } from "../test/TestResult";
 import chalk from "chalk";
 import { TestGroup } from "../test/TestGroup";
-import { IWritable } from "./util/IWriteable";
+import { IWritable } from "../util/IWriteable";
 import { LogValue } from "../util/LogValue";
 import { createReferenceString } from "./util/createReferenceString";
 

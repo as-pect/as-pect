@@ -1,25 +1,49 @@
 import { IPerformanceConfiguration } from "@as-pect/core/src/util/IPerformanceConfiguration";
 import { toCamelCase } from "./strings";
 
-export type argType = "b" | "bs" | "s" | "S" | "I" | "i" | "F" | "f";
+/**
+ * @ignore
+ *
+ * This is the set of command line ArgumentTypes.
+ */
+export type ArgType = "b" | "bs" | "s" | "S" | "I" | "i" | "F" | "f";
 
-export type ArgValue = string | number | boolean | string[] | number;
+/**
+ * @ignore
+ *
+ * These are the possible command line argument values.
+ */
+export type ArgValue = string | number | boolean | string[] | number | { [key: string]: ArgValue } | Set<string>;
 
+/**
+ * @ignore
+ *
+ * This interface represents a CommandLineArgument alias.
+ */
 export interface Alias {
   name: string;
   long?: true;
 }
 
+/**
+ * @ignore
+ *
+ * This is the Command Line Argument interface.
+ */
 export interface ICommandLineArg {
   description: string | string[];
-  type: argType;
+  type: ArgType;
   alias?: Alias | Alias[];
   value: ArgValue;
   options?: [string, string][];
   parent?: string;
 }
 
+/**
+ * This is the set of CLI options provided by the parser when the arguments are parsed.
+ */
 export interface Options {
+  [key: string]: ArgValue;
   init: boolean;
   config: string;
   version: boolean;
@@ -44,9 +68,14 @@ export interface Options {
   workers: number;
 }
 
+/**
+ * @ignore
+ *
+ * This class represents a definition for a command line argument.
+ */
 export class CommandLineArg implements ICommandLineArg {
   description: string | string[];
-  type: argType;
+  type: ArgType;
   value: ArgValue;
   alias?: Alias | Alias[] | undefined;
   options?: [string, string][] | undefined;
@@ -85,10 +114,19 @@ export class CommandLineArg implements ICommandLineArg {
   }
 }
 
+/**
+ * @ignore
+ *
+ * This interface defines an object that will contain the command line arguments.
+ */
 export interface CommandLineArgs {
   [key: string]: ICommandLineArg;
 }
 
+/**
+ * @ignore
+ * The definition for the as-pect/cli arguments.
+ */
 const _Args: CommandLineArgs = {
   compiler: {
     description: [
@@ -304,8 +342,19 @@ const _Args: CommandLineArgs = {
   },
 };
 
+/**
+ * @ignore
+ *
+ * This is the command line argument map.
+ */
 export type ArgMap = Map<string, CommandLineArg>;
 
+/**
+ * @ignore
+ * Take a CommandLineArgs object and turn it into an ArgMap.
+ *
+ * @param args 
+ */
 export function makeArgMap(args: CommandLineArgs = _Args): ArgMap {
   const res = new Map<string, CommandLineArg>();
   Object.getOwnPropertyNames(args).forEach(element => {
@@ -323,28 +372,42 @@ export function makeArgMap(args: CommandLineArgs = _Args): ArgMap {
   return res;
 }
 
-export const Args = makeArgMap(_Args);
+/**
+ * This is the set of stored command line arguments for the asp command line.
+ */
+export const defaultCliArgs = makeArgMap(_Args);
 
-let reg = /(?:--([a-z][a-z\-]*)|(-[a-z][a-z\-]*))(?:=(.*))?/i;
+/**
+ * @ignore
+ */
+const reg = /(?:--([a-z][a-z\-]*)|(-[a-z][a-z\-]*))(?:=(.*))?/i;
+/**
+ * @ignore
+ */
+const invalidArg = /^[\-]/;
 
-let invalidArg = /^[\-]/;
+/**
+ * This method parses command line options like the `asp` command does. It takes an optional
+ * second parameter to modify the command line arguments used.
+ *
+ * @param {string[]} commands - The command line arguments.
+ * @param {ArgMap} cliArgs - The set of parsable arguments.
+ */
+export function parse(commands: string[], cliArgs: ArgMap = defaultCliArgs): Options {
+  const opts = {
+    changed: new Set<string>(),
+  } as Options;
 
-export function parse(commands: string[], args: ArgMap = Args): Options {
-  let opts: any = {
-    changed: new Set(),
-  };
-
-  args.forEach((arg: CommandLineArg) => {
-    let camelCase = toCamelCase(arg.name);
+  cliArgs.forEach((arg: CommandLineArg) => {
+    const camelCase = toCamelCase(arg.name);
     if (arg.parent) {
-      if (!opts[arg.parent]) {
-        opts[arg.parent] = {};
-      }
+      const parent: { [key: string]: ArgValue; } = opts[arg.parent] as { [key: string]: ArgValue; } || {};
       if (arg.parent === arg.name) {
-        opts[arg.parent].enabled = arg.value as boolean;
+        parent.enabled = arg.value as boolean;
       } else {
-        opts[arg.parent][camelCase] = arg.value;
+        parent[camelCase] = arg.value;
       }
+      opts[arg.parent] = parent;
     } else {
       opts[camelCase] = arg.value;
     }
@@ -355,18 +418,18 @@ export function parse(commands: string[], args: ArgMap = Args): Options {
     let [_, flag, alias, data]: string[] = commands[i].match(reg) || [];
 
     if (flag) {
-      if (!args.has(flag)) {
+      if (!cliArgs.has(flag)) {
         throw new Error("Flag " + flag + " doesn't exist.");
       }
     } else if (alias) {
-      if (!args.has(alias)) {
+      if (!cliArgs.has(alias)) {
         throw new Error("Alias " + alias + " doesn't exist.");
       }
     } else {
       throw new Error("Command " + commands[i] + " is not valid.");
     }
 
-    const arg = args.get(flag || alias)!;
+    const arg = cliArgs.get(flag || alias)!;
     let value;
     if (data) {
       // Data from =(.*)
@@ -393,12 +456,12 @@ export function parse(commands: string[], args: ArgMap = Args): Options {
       if (arg.parent == name) {
         name = "enabled";
       }
-      opts[arg.parent][name] = value;
+      (opts[arg.parent] as { [key: string]: ArgValue; })[name] = value;
       opts.changed.add(arg.parent + "." + name);
     } else {
       opts[name] = value;
       opts.changed.add(name);
     }
   }
-  return opts as Options;
+  return opts;
 }

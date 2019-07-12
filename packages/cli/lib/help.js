@@ -18,6 +18,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var chalk_1 = __importDefault(require("chalk"));
     /**
+     * @ignore
+     *
      * This method prints the help text.
      */
     function help() {
@@ -26,4 +28,4 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     exports.help = help;
     var templateObject_1;
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGVscC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uL3NyYy9oZWxwLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQUFBLGdEQUEwQjtJQUUxQjs7T0FFRztJQUNILFNBQWdCLElBQUk7UUFDbEIsT0FBTyxDQUFDLEdBQUcsQ0FBQyxlQUFLLGk4SEFBQSw4M0hBMERoQixLQUFDLENBQUM7SUFDTCxDQUFDO0lBNURELG9CQTREQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGVscC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uL3NyYy9oZWxwLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQUFBLGdEQUEwQjtJQUUxQjs7OztPQUlHO0lBQ0gsU0FBZ0IsSUFBSTtRQUNsQixPQUFPLENBQUMsR0FBRyxDQUFDLGVBQUssaThIQUFBLDgzSEEwRGhCLEtBQUMsQ0FBQztJQUNMLENBQUM7SUE1REQsb0JBNERDIn0=

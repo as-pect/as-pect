@@ -8,7 +8,7 @@ import { TestResult } from "../test/TestResult";
  * forEach() to call each reporter's function when each method is called.
  */
 export default class CombinationReporter extends TestReporter {
-  constructor(public reporters: TestReporter[]) {
+  constructor(protected reporters: TestReporter[]) {
     super();
   }
 

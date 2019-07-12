@@ -32,6 +32,6 @@
   "files": [
     "assembly/internal/",
     "assembly/index.ts",
-    "assembly/tsconfig.json"
+    "types/"
   ]
 }

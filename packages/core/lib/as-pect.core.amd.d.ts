@@ -1,11 +1,14 @@
 /// <reference types="node" />
 declare module "test/IWarning" {
     /**
-     * This interface represents the shape of a warning.
+     * This interface describes a warning object.
      */
     export interface IWarning {
+        /** This is the type of the warning. */
         type: string;
+        /** This is the generated warning message. */
         message: string;
+        /** This is the stack trace. */
         stackTrace: string;
     }
 }
@@ -13,7 +16,7 @@ declare module "util/ILogTarget" {
     import { LogValue } from "util/LogValue";
     import { IWarning } from "test/IWarning";
     /**
-     * This interface describes the shape of an object that can contain log values.
+     * This interface describes the shape of an object that can contain log values, warnings, and errors.
      */
     export interface ILogTarget {
         logs: LogValue[];
@@ -75,6 +78,7 @@ declare module "util/ActualValue" {
 }
 declare module "test/PerformanceLimits" {
     /**
+     * @ignore
      * This enum is a set of compile time constants that represent the performance limits to prevent
      * unsafe statistics gathering.
      */
@@ -86,15 +90,41 @@ declare module "test/PerformanceLimits" {
     }
 }
 declare module "math/mean" {
+    /**
+     * @ignore
+     * This method calculates the average of the input set of numbers.
+     *
+     * @param {number[]} input - The set of numbers to be averaged.
+     */
     export function mean(input: number[]): number;
 }
 declare module "math/round" {
+    /**
+     * @ignore
+     * This method rounds a number value to a number of decimal places.
+     *
+     * @param {number} input - The number to be rounded.
+     * @param {number} places - The number of decimal places used for rounding.
+     */
     export function round(input: number, places: number): number;
 }
 declare module "math/median" {
+    /**
+     * @ignore
+     * This method calculates the median of the input set of numbers.
+     *
+     * @param {number[]} input - The set of numbers used to calculate the median.
+     */
     export function median(input: number[]): number;
 }
 declare module "math/variance" {
+    /**
+     * @ignore
+     * This method calculates the statistical variance between the average of the set of numbers
+     * and each number provided in the set. This is useful for calculating the standard deviation.
+     *
+     * @param {number[]} input - The set of numbers used to calculate the variance.
+     */
     export function variance(input: number[]): number;
 }
 declare module "test/TestResult" {
@@ -366,16 +396,18 @@ declare module "test/TestGroup" {
         warnings: IWarning[];
     }
 }
-declare module "reporter/util/IWriteable" {
+declare module "util/IWriteable" {
     /**
      * This interface is a utitily used to describe the shape of something that has a `write()` method.
      */
     export interface IWritable {
+        /** This method is used for writing string contents to something that is writable. */
         write(chunk: string): void;
     }
 }
 declare module "reporter/util/createReferenceString" {
     /**
+     * @ignore
      * This function returns a string that formats the bytes into rows of 8 bytes with a space between
      * byte 4 and 5 on each row.
      *
@@ -391,7 +423,7 @@ declare module "reporter/VerboseReporter" {
     import { TestContext } from "test/TestContext";
     import { LogValue } from "util/LogValue";
     import { TestReporter } from "test/TestReporter";
-    import { IWritable } from "reporter/util/IWriteable";
+    import { IWritable } from "util/IWriteable";
     /**
      * This is the default test reporter class for the `asp` command line application. It will pipe
      * all relevant details about each tests to the `stdout` WriteStream.
@@ -450,6 +482,7 @@ declare module "reporter/VerboseReporter" {
 }
 declare module "util/timeDifference" {
     /**
+     * @ignore
      * This method calculates the start and end time difference, rounding off to the nearest thousandth
      * of a millisecond.
      *
@@ -546,6 +579,7 @@ declare module "util/IPerformanceConfiguration" {
         /** Set the number of decimal places to round to. */
         roundDecimalPlaces: number;
     }
+    /** This method creates a default performance configuration. */
     export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
 }
 declare module "test/TestCollector" {
@@ -555,24 +589,48 @@ declare module "test/TestCollector" {
     import { ILogTarget } from "util/ILogTarget";
     import { IWarning } from "test/IWarning";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    /**
+     * @ignore
+     * This is a collection of all the parameters required for intantiating a TestCollector.
+     */
     export interface ITestCollectorParameters {
+        /** A provided performance configuration. */
         performanceConfiguration?: Partial<IPerformanceConfiguration>;
+        /** A regular expression that filters what tests can be run. Must be set before calling `testContext.run(wasm);` */
         testRegex?: RegExp;
+        /** A regular expression that filters what test groups can be run. Must be set before calling `testContext.run(wasm);` */
         groupRegex?: RegExp;
+        /**
+         * Put the AssemblyScript test filename here.
+         *
+         * @example
+         * ```ts
+         * const ctx = new TestContext({
+         *   fileName: "example.spec.ts",
+         * });
+         * ```
+         */
         fileName?: string;
+        /** Disable RTrace when set to `true`. */
         nortrace?: boolean;
     }
     /**
-     * This class is responsible for collecting all the tests in a test binary.
+     * @ignore
+     * This is an internal class that is responsible for collecting all the tests in a test binary.
      */
     export class TestCollector {
         protected wasm: IAspectExports | null;
         private groupStack;
+        /** A collection of `TestGroup` objects that ran tests after `testContext.run(wasm)` was called. */
         testGroups: TestGroup[];
+        /** The root `TestGroup` object. */
         topLevelGroup: TestGroup | null;
         protected logTarget: ILogTarget;
+        /** A set of errors that were collected during the testing process. */
         errors: IWarning[];
+        /** A set of warnings that were collected during the testing process. */
         warnings: IWarning[];
+        /** The name of the AssemblyScript test file. */
         fileName: string;
         protected stack: string;
         protected message: string;
@@ -1145,7 +1203,7 @@ declare module "test/TestContext" {
     import { TestReporter } from "test/TestReporter";
     import { IAspectExports } from "util/IAspectExports";
     import { TestCollector, ITestCollectorParameters } from "test/TestCollector";
-    import { IWritable } from "reporter/util/IWriteable";
+    import { IWritable } from "util/IWriteable";
     export interface ITestContextParameters extends ITestCollectorParameters {
         reporter?: TestReporter;
         stdout?: IWritable;
@@ -1281,7 +1339,7 @@ declare module "reporter/CombinationReporter" {
      * forEach() to call each reporter's function when each method is called.
      */
     export default class CombinationReporter extends TestReporter {
-        reporters: TestReporter[];
+        protected reporters: TestReporter[];
         constructor(reporters: TestReporter[]);
         onFinish(suite: TestContext): void;
         onGroupFinish(group: TestGroup): void;
@@ -1389,69 +1447,6 @@ declare module "reporter/SummaryReporter" {
         onLog(logValue: LogValue): void;
     }
 }
-declare module "util/IConfiguration" {
-    import { TestReporter } from "test/TestReporter";
-    import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
-    /**
-     * This is the shape of the compiler flags.
-     */
-    export interface ICompilerFlags {
-        [flag: string]: string[];
-    }
-    /**
-     * This is an interface describing the shape of an exported configuration for the
-     * `as-pect.config.js` file. An empty object should be a valid `as-pect` configuration.
-     */
-    export interface IConfiguration {
-        [key: string]: any;
-        /**
-         * A set of globs that denote files that must be used for testing.
-         */
-        include?: string[];
-        /**
-         * A set of globs that denote files that must be added to every compilation.
-         */
-        add?: string[];
-        /**
-         * The compiler flags needed for this test suite. Do not forget that a binary file must be output.
-         */
-        flags?: ICompilerFlags;
-        /**
-         * A set of regular expressions that are tested against the file names. If they match, the
-         * files will be discluded.
-         */
-        disclude?: RegExp[];
-        /**
-         * The web assembly imports required for testing your module.
-         */
-        imports?: any;
-        /**
-         * Set the default performance measurement values.
-         */
-        performance?: Partial<IPerformanceConfiguration>;
-        /**
-         * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
-         * output.
-         */
-        reporter?: TestReporter;
-        /**
-         * A regular expression that instructs the TestContext to only run tests that match this regex.
-         */
-        testRegex?: RegExp;
-        /**
-         * A regular expression that instructs the TestContext to only run groups that match this regex.
-         */
-        groupRegex?: RegExp;
-        /**
-         * Specifies if a wasm binary should be output. Default is false.
-         */
-        outputBinary?: boolean;
-        /**
-         * Specifies if rtrace counting should be skipped. Use with stub allocator.
-         */
-        nortrace?: boolean;
-    }
-}
 declare module "index" {
     import CombinationReporter from "reporter/CombinationReporter";
     import CSVReporter from "reporter/CSVReporter";
@@ -1466,14 +1461,12 @@ declare module "index" {
     export { SummaryReporter };
     export { VerboseReporter };
     export * from "test/IWarning";
-    export * from "test/TestCollector";
     export * from "test/TestContext";
     export * from "test/TestGroup";
     export * from "test/TestReporter";
     export * from "test/TestResult";
     export * from "util/ActualValue";
     export * from "util/IAspectExports";
-    export * from "util/IConfiguration";
     export * from "util/ILogTarget";
     export * from "util/IPerformanceConfiguration";
     export * from "util/LogValue";

@@ -5,15 +5,16 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "jest",
-    "test:ci": "jest",
+    "jest": "jest",
     "mdlint": "markdownlint *.md",
     "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
     "rimraf": "rimraf lib/* docs/*",
+    "test:ci": "run-s jest mdlint",
+    "test": "run-s jest mdlint",
     "tsc:all": "run-p tsc:default tsc:amd",
     "tsc:amd": "tsc --outfile lib/as-pect.cli.amd.js --module amd --declaration --declarationMap",
     "tsc:default": "tsc",
-    "tsc": "run-s rimraf tsc:all"
+    "tsc": "run-s prettier rimraf tsc:all"
   },
   "bin": {
     "asp": "bin/asp"

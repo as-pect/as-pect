@@ -1,5 +1,6 @@
 import { Options } from "./CommandLineArg";
 /**
+ * @ignore
  * This method returns a `Set<string>` of entry files for the compiler to compile.
  *
  * @param {Options} cliOptions - The command line arguments.

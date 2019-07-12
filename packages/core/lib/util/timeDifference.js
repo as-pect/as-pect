@@ -10,6 +10,7 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
+     * @ignore
      * This method calculates the start and end time difference, rounding off to the nearest thousandth
      * of a millisecond.
      *
@@ -21,4 +22,4 @@
         return Math.round((end - start) * 1000) / 1000;
     };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGltZURpZmZlcmVuY2UuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvdXRpbC90aW1lRGlmZmVyZW5jZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OztJQUFBOzs7Ozs7O09BT0c7SUFDVSxRQUFBLGNBQWMsR0FBRyxVQUFDLEdBQVcsRUFBRSxLQUFhO1FBQ3ZELE9BQUEsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDLEdBQUcsR0FBRyxLQUFLLENBQUMsR0FBRyxJQUFJLENBQUMsR0FBRyxJQUFJO0lBQXZDLENBQXVDLENBQUMifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGltZURpZmZlcmVuY2UuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvdXRpbC90aW1lRGlmZmVyZW5jZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OztJQUFBOzs7Ozs7OztPQVFHO0lBQ1UsUUFBQSxjQUFjLEdBQUcsVUFBQyxHQUFXLEVBQUUsS0FBYTtRQUN2RCxPQUFBLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxHQUFHLEdBQUcsS0FBSyxDQUFDLEdBQUcsSUFBSSxDQUFDLEdBQUcsSUFBSTtJQUF2QyxDQUF1QyxDQUFDIn0=

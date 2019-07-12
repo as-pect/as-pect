@@ -1,6 +1,8 @@
 import chalk from "chalk";
 
 /**
+ * @ignore
+ *
  * This method prints the help text.
  */
 export function help() {

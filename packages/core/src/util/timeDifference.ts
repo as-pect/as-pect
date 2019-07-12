@@ -1,4 +1,5 @@
 /**
+ * @ignore
  * This method calculates the start and end time difference, rounding off to the nearest thousandth
  * of a millisecond.
  *

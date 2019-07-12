@@ -1,5 +1,6 @@
 import { Options } from "./util/CommandLineArg";
 /**
+ * @ignore
  * This method actually runs the test suites in sequential order synchronously.
  *
  * @param {Options} cliOptions - The command line arguments.

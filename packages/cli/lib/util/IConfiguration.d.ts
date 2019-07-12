@@ -1,5 +1,4 @@
-import { TestReporter } from "../test/TestReporter";
-import { IPerformanceConfiguration } from "./IPerformanceConfiguration";
+import { TestReporter, IPerformanceConfiguration } from "@as-pect/core";
 /**
  * This is the shape of the compiler flags.
  */

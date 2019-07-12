@@ -1,4 +1,5 @@
 /**
+ * @ignore
  * This enum is a set of compile time constants that represent the performance limits to prevent
  * unsafe statistics gathering.
  */

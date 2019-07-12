@@ -1,18 +1,40 @@
 import { ICommand } from "./ICommand";
-const { parentPort, workerData } = require("worker_threads");
-const path = require("path");
-const fs = require("fs");
-const { writeFile } = require("../util/writeFile");
+import { readdirSync, readFileSync }  from "fs";
+import { join, basename, dirname, extname } from "path";
+import { parentPort, workerData } from "worker_threads";
+import { writeFile } from "../util/writeFile";
 
-const asc: any = require(path.join(
+/**
+ * @ignore
+ *
+ * This variable holds the AssemblyScript compiler.
+ */
+const asc: any = require(join(
   workerData.assemblyScriptFolder,
   "dist",
   "asc",
 ));
 
+/**
+ * @ignore
+ *
+ * This variable holds the fileMap for the compiler.
+ */
 const fileMap: Map<string, string> = new Map();
+
+/**
+ * @ignore
+ *
+ * This variable holds the folderMap for the compiler.
+ */
 const folderMap: Map<string, string[]> = new Map();
 
+/**
+ * @ignore
+ *
+ * Run a worklet command.
+ * @param {ICommand} command - The command to run. (This is the compiler worklet command.)
+ */
 function run(command: ICommand) {
   let binary: Uint8Array;
   let filePromises: Promise<void>[] = [];
@@ -23,14 +45,13 @@ function run(command: ICommand) {
       stdout: process.stdout as any, // use any type to quelch error
       stderr: process.stderr as any,
       listFiles(dirname: string, baseDir: string): string[] {
-        const folder = path.join(baseDir, dirname);
+        const folder = join(baseDir, dirname);
         if (folderMap.has(folder)) {
           return folderMap.get(folder)!;
         }
 
         try {
-          const results = fs
-            .readdirSync(folder)
+          const results = readdirSync(folder)
             .filter((file: string) => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
           folderMap.set(folder, results);
           return results;
@@ -39,13 +60,13 @@ function run(command: ICommand) {
         }
       },
       readFile(filename: string, baseDir: string) {
-        const fileName = path.join(baseDir, filename);
+        const fileName = join(baseDir, filename);
         if (fileMap.has(fileName)) {
           return fileMap.get(fileName)!;
         }
 
         try {
-          const contents = fs.readFileSync(fileName, { encoding: "utf8" });
+          const contents = readFileSync(fileName, { encoding: "utf8" });
           fileMap.set(fileName, contents);
           return contents;
         } catch (e) {
@@ -53,7 +74,7 @@ function run(command: ICommand) {
         }
       },
       writeFile(name: string, contents: Uint8Array) {
-        const ext = path.extname(name);
+        const ext = extname(name);
 
         // get the wasm file
         if (ext === ".wasm") {
@@ -61,9 +82,9 @@ function run(command: ICommand) {
           if (!command.props.outputBinary) return;
         }
         const file = command.props.file;
-        const outfileName = path.join(
-          path.dirname(file),
-          path.basename(file, path.extname(file)) + ext,
+        const outfileName = join(
+          dirname(file),
+          basename(file, extname(file)) + ext,
         );
         filePromises.push(writeFile(outfileName, contents));
       },
