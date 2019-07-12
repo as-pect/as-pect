@@ -85,7 +85,7 @@ declare function test(description: string, callback: () => void): void;
  * describe("the meaning of life", (): void => {
  *   throws("the value should be 42", (): void => {
  *     // put your expectations here
- *     expect<i32>(29 + 13).toBe(42);
+ *     expect<i32>(29 + 13).not.toBe(42);
  *   });
  * });
  * ```
