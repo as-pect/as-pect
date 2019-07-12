@@ -11,7 +11,6 @@ module.exports = {
     "**/*.portable.d.ts",
     "**/@types/jest/**",
     "**/lib/**",
-    "**/assembly/types/env.d.ts",
   ],
   name: "as-pect",
   includeDeclarations: true,

@@ -1,5 +1,3 @@
-/// <reference path="../node_modules/assemblyscript/std/assembly/index.d.ts" />
-
 /**
  * This function creates a test group in the test loader.
  *

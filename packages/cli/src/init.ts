@@ -11,7 +11,7 @@ import { join } from "path";
 export function init() {
   const assemblyFolder = join(process.cwd(), "assembly");
   const testFolder = join(assemblyFolder, "__tests__");
-  const typesFileSource = require.resolve("@as-pect/core/types/as-pect.d.ts");
+  const typesFileSource = require.resolve("@as-pect/assembly/types/as-pect.d.ts");
   const typesFile = join(testFolder, "as-pect.d.ts");
 
   console.log("");
