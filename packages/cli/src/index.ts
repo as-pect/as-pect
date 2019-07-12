@@ -20,12 +20,13 @@ export { parse, defaultCliArgs, Options } from "./util/CommandLineArg";
  * @param {string[]} args - The arguments from the command line
  */
 export function asp(args: string[]) {
-  const hasCompilerArgs = args.includes("--");
+  const splitIndex = args.indexOf("--");
+  const hasCompilerArgs = splitIndex !== -1;
   const aspectArgs: string[] = hasCompilerArgs
-    ? args.slice(0, args.indexOf("--"))
+    ? args.slice(0, splitIndex)
     : args;
   const compilerArgs: string[] = hasCompilerArgs
-    ? args.slice(args.indexOf("--") + 1)
+    ? args.slice(splitIndex + 1)
     : [];
 
   // parse the arguments

@@ -11,11 +11,7 @@ module.exports = {
    * All the compiler flags needed for this test suite. Make sure that a binary file is output.
    */
   flags: {
-    "--validate": [],
-    "--debug": [],
-    /** This is required. Do not change this. */
-    "--binaryFile": ["output.wasm"],
-    /** This will output the wat files for inspection. */
+    /** To output a wat file, uncomment the following line. */
     "--textFile": ["output.wat"],
     /** To select an appropriate runtime, use the --runtime compiler flag. */
     "--runtime": ["full"] // Acceptable values are: full, half, stub (arena), and none

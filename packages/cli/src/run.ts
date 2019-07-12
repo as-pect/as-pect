@@ -158,35 +158,51 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     "assembly/__tests__/**/*.include.ts",
   ];
 
-  // parse passed cli compiler arguments and let them override defaults.
-  const { options: ascOptions, unknown } =
-    compilerArgs.length > 0
-      ? parse(compilerArgs, asc.options as any)
-      : { options: {}, unknown: [] };
-
-  // if there are any unknown flags, report them and exit 1
-  if (unknown.length > 0) {
-    console.error(
-      chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold.yellow [${unknown.join(
-        ", ",
-      )}]}.`,
-    );
-    process.exit(1);
+  // parse passed cli compiler arguments and determine if there are any bad arguments.
+  if (compilerArgs.length > 0) {
+    const output = parse(compilerArgs, asc.options);
+    // if there are any unknown flags, report them and exit 1
+    if (output.unknown.length > 0) {
+      console.error(
+        chalk`{bgRedBright.black [Error]} Unknown compiler arguments {bold.yellow [${output.unknown.join(
+          ", ",
+        )}]}.`,
+      );
+      process.exit(1);
+    }
   }
 
+
+
+
   // Create the compiler flags
-  const flags: ICompilerFlags = Object.assign(ascOptions, configuration.flags, {
+  const flags: ICompilerFlags = Object.assign({}, configuration.flags, {
     "--validate": [],
     "--debug": [],
-    /** This is required. Do not change this. */
     "--binaryFile": ["output.wasm"],
+    "--explicitStart": [],
   });
+
+  /** RTrace is enabled, and the --use ASC_RTRACE=1 cli option must be present. */
+  if (!cliOptions.nortrace) {
+    if (!flags["--use"] || flags["--use"].includes("ASC_RTRACE=1") || !compilerArgs.includes("ASC_RTRACE=1")) {
+      if (!flags["--use"]) {
+        flags["--use"] = ["ASC_RTRACE=1"];
+        // inspect to see if the flag is used already
+      } else if (!flags["--use"].includes("ASC_RTRACE=1")) {
+        flags["--use"].push("--use", "ASC_RTRACE=1")
+      }
+    }
+  }
 
   /** It's useful to notify the user that optimizations will make test compile times slower. */
   if (
     flags.hasOwnProperty("-O3") ||
     flags.hasOwnProperty("-O2") ||
-    flags.hasOwnProperty("--optimize")
+    flags.hasOwnProperty("--optimize") ||
+    compilerArgs.includes("-O3") ||
+    compilerArgs.includes("-O2") ||
+    compilerArgs.includes("--optimize")
   ) {
     console.log(
       chalk`{yellow [Warning]} Using optimizations. This may result in slow test compilation times.`,
@@ -244,13 +260,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   /**
    * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
    */
-  if (!configuration.nortrace) {
-    console.log(chalk`{bgWhite.black [Log]} Reference Tracing is enabled.`);
-    if (flags["--use"]) {
-      flags["--use"].push("--use", "ASC_RTRACE=1");
-    } else {
-      flags["--use"] = ["ASC_RTRACE=1"];
-    }
+  if (configuration.nortrace) {
+    console.log(chalk`{bgWhite.black [Log]} Reference Tracing is disabled.`);
   }
 
   /**
@@ -292,13 +303,11 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   // Create a test runner, and run each test
   let count = testEntryFiles.size;
 
-  flags["--explicitStart"] = [];
-
   // create the array of compiler flags from the flags object
   const flagList: string[] = Object.entries(flags).reduce(
     (args: string[], [flag, options]) => args.concat(flag, options),
     [],
-  );
+  ).concat(compilerArgs);
 
   let testCount = 0;
   let successCount = 0;
