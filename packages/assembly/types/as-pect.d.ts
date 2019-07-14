@@ -668,8 +668,11 @@ declare class Performance {
   public static reportVariance(value: bool): void;
 }
 /**
- * This static class contains a few conveince methods for developers to test the current number of
- * blocks allocated on the heap.
+ * Assemblyscript uses reference counting to perform garbage collection.  This means when you 
+ * allocate a managed object and return it, it's reference count is one.  If another variable aliases
+ * it then the reference count goes up. This static class contains a few convenience methods for 
+ * developers to test the current number of blocks allocated on the heap to make sure you aren't leaking
+ * references, e.i. keeping references to objects you expect to be collected.
  */
 declare class RTrace {
   /**
