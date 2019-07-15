@@ -21,11 +21,10 @@ Package containing the command line interface for running tests.
 
 ## Usage
 
-To install `as-pect`, install the latest version from github. Once
-AssemblyScript becomes more stable, `as-pect` will be published to npm.
+To install `as-pect`, install the latest version from npm.
 
 ```
-$ npm install @as-pect/cli
+$ npm install @as-pect/cli @as-pect/core @as-pect/assembly
 ```
 
 To initialize a test suite, run `npx asp --init`. It will create the following

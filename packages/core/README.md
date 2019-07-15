@@ -17,10 +17,11 @@ Typescript infastructure for running tests.
 
 ## Usage
 
-To install `as-pect`, install the latest version from github.
+To install `@as-pect/core`, install the latest version from github along with
+`@as-pect/assembly`.
 
 ```
-$ npm install @as-pect/core
+$ npm install @as-pect/core @as-pect/assembly
 ```
 
 To create a `TestContext` simply import it and instantiate it.

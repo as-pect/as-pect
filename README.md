@@ -14,7 +14,6 @@ with WebAssembly speeds!
 
 1. [Philosophy](#philosophy)
 1. [Usage](#usage)
-1. [CLI](#cli)
 1. [Comparisons](#comparisons)
    - [toBe](#tobe)
    - [toStrictEqual](#tostrictequal)
@@ -56,11 +55,10 @@ can be run in two different environments.
 
 ## Usage
 
-To install `as-pect`, install the latest version from github. Once
-AssemblyScript becomes more stable, `as-pect` will be published to npm.
+To install `as-pect`, install the latest version(s) from npm.
 
 ```
-$ npm install @as-pect/cli
+$ npm install @as-pect/cli @as-pect/core @as-pect/assembly assemblyscript/assemblyscript
 ```
 
 To initialize a test suite, run `npx asp --init`. It will create the following
