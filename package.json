@@ -28,6 +28,9 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "devDependencies": {
+    "@as-pect/assembly": "file:./packages/assembly",
+    "@as-pect/cli": "file:./packages/cli",
+    "@as-pect/core": "file:./packages/core",
     "@types/jest": "^24.0.15",
     "coveralls": "^3.0.4",
     "jest": "^24.8.0",
