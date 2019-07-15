@@ -45,8 +45,8 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "@as-pect/assembly": "git:github.com/jtenner/as-pect/assembly#v2.0.0",
-    "@as-pect/core": "git:github.com/jtenner/as-pect/core#v2.0.0",
+    "@as-pect/assembly": "git:github.com/jtenner/as-pect/assembly#v2.1.2",
+    "@as-pect/core": "git:github.com/jtenner/as-pect/core#v2.1.2",
     "chalk": "^2.4.2",
     "glob": "^7.1.4"
   },
