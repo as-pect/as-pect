@@ -35,7 +35,7 @@
 		"typescript": "^3.5.3"
 	},
 	"dependencies": {
-		"@as-pect/assembly": "git:github.com/jtenner/as-pect/assembly#v2.1.2",
+    "@as-pect/assembly": "github:jtenner/assembly#v2.1.2",
 		"long": "^4.0.0"
 	},
 	"files": [

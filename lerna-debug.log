@@ -1,0 +1,2 @@
+30 error TypeError: Cannot set property 'committish' of undefined
+30 error     at Package.updateLocalDependency (C:\Users\jtenner\Desktop\projects\as-pect\node_modules\@lerna\package\index.js:219:25)
