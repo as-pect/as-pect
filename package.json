@@ -2,28 +2,20 @@
   "name": "as-pect",
   "version": "2.0.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
-  "main": "lib/index.js",
-  "types": "lib/as-pect.amd.d.ts",
   "scripts": {
-    "asp:ci": "ts-node ./src/cli --summary",
-    "asp": "node lib/test --verbose",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "bootstrap": "lerna bootstrap",
+    "coveralls": "cat ./packages/core/coverage/lcov.info | coveralls",
+    "docs": "run-s rimraf typedoc",
     "gh-pages": "git subtree push --prefix docs origin gh-pages",
     "jest": "jest",
+    "typedoc": "typedoc --options typedoc.js .",
     "mdlint": "markdownlint *.md",
-    "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
-    "rimraf": "rimraf lib/* docs/*",
-    "test:ci": "run-s asp:ci jest mdlint",
-    "sitedown": "sitedown -b docs",
-    "test": "run-s prettier tsc asp jest mdlint sitedown",
-    "tsc:all": "run-p tsc:default tsc:amd tsc:amd-docs",
-    "tsc:amd": "tsc --outfile lib/as-pect.amd.js --module amd --declaration --declarationMap",
-    "tsc:amd-docs": "tsc --outfile docs/as-pect.amd.js --module amd --declaration --declarationMap",
-    "tsc:default": "tsc",
-    "tsc": "run-s rimraf tsc:all"
-  },
-  "bin": {
-    "asp": "bin/asp"
+    "rimraf": "rimraf docs/*",
+    "test": "run-s tsc:all test:all",
+    "test:ci": "run-s bootstrap tsc:all test:ci:all",
+    "test:ci:all": "lerna run test:ci",
+    "test:all": "lerna run test",
+    "tsc:all": "lerna run tsc:all"
   },
   "repository": {
     "type": "git",
@@ -36,36 +28,21 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "devDependencies": {
-    "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.15",
-    "@types/mathjs": "^5.0.1",
-    "@types/node": "^12.0.12",
-    "assemblyscript": "github:assemblyscript/assemblyscript",
     "coveralls": "^3.0.4",
     "jest": "^24.8.0",
     "markdownlint-cli": "^0.17.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
-    "sitedown": "^3.3.2",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.2"
+    "typedoc": "^0.14.2",
+    "typescript": "^3.5.3"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
-    "glob": "^7.1.4",
-    "long": "^4.0.0"
+    "lerna": "^3.15.0",
+    "typedoc-plugin-lerna-packages": "^0.1.6"
   },
-  "files": [
-    "init/",
-    "lib/",
-    "assembly/__tests__/as-pect.d.ts",
-    "assembly/internal/",
-    "assembly/index.ts",
-    "assembly/tsconfig.json",
-    "bin/"
-  ],
   "optionalDependencies": {
     "csv-stringify": "^5.3.0"
   }

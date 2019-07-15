@@ -1,0 +1,1443 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@as-pect/assembly | as-pect</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">as-pect</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="_as_pect_assembly.html">@as-pect/assembly</a>
+				</li>
+			</ul>
+			<h1>Module @as-pect/assembly</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<h1 id="-as-pect-assembly">@as-pect/assembly</h1>
+					<p>This is the main package, which contains the AssemblyScript used to write tests.</p>
+					<h2 id="table-of-contents">Table Of Contents</h2>
+					<ol>
+						<li><a href="#usage">Usage</a></li>
+						<li><a href="#comparisons">Comparisons</a><ul>
+								<li><a href="#tobe">toBe</a></li>
+								<li><a href="#tostrictequal">toStrictEqual</a></li>
+								<li><a href="#toblockequal">toBlockEqual</a></li>
+								<li><a href="#tobetruthy-and-tobefalsy">toBeTruthy and toBeFalsy</a></li>
+								<li><a href="#tobenan">toBeNaN</a></li>
+								<li><a href="#tobefinite">toBeFinite</a></li>
+								<li><a href="#tothrow">toThrow</a></li>
+								<li><a href="#tobegreaterthan-and-tobelessthan">toBeGreaterThan/toBeLessThan</a>\</li>
+								<li><a href="#tobecloseto">toBeCloseTo</a></li>
+								<li><a href="#tohavelength">toHaveLength</a></li>
+								<li><a href="#tocontain-and-toinclude">toContain</a></li>
+								<li><a href="#tocontainequal-and-toincludeequal">toContainEqual</a></li>
+							</ul>
+						</li>
+						<li><a href="#types-and-tooling">Types And Tooling</a></li>
+						<li><a href="#assemblyscript-compiler-options">AssemblyScript Compiler Options</a></li>
+						<li><a href="#closures">Closures</a></li>
+						<li><a href="#expectations">Expectations</a></li>
+						<li><a href="#logging">Logging</a></li>
+					</ol>
+					<h2 id="usage">Usage</h2>
+					<p>To use the <code>@as-pect/assembly</code> package, typically, it&#39;s best to use the
+						<code>@as-pect/cli</code> package to output a binary using <code>--outputBinary</code>. However
+						in the case of generating the binary manually, it&#39;s possible to use the
+					following AssemblyScript <code>asc</code> cli options:</p>
+					<!-- markdownlint-disable MD040 -->
+					<pre><code><span class="hljs-keyword">asc</span> entry.ts ./node_modules/@<span class="hljs-keyword">as</span>-pect/<span class="hljs-keyword">assembly</span>/<span class="hljs-keyword">assembly</span>/<span class="hljs-keyword">index</span>.ts \
+  --use ASC_RTRACE=<span class="hljs-number">1</span> \
+  --explicitStart</code></pre><p>This will compile the binary with all of the required <code>as-pect</code> setup functions.</p>
+					<h2 id="comparisons">Comparisons</h2>
+					<p>There are a set of comparison functions defined in the <code>types/as-pect.d.ts</code> types
+						definition. These comparison functions allow you to inspect object and memory
+					state.</p>
+					<h3 id="tobe">toBe</h3>
+					<p>This comparison is used for comparing data using the <code>==</code> operator. In
+						AssemblyScript this operator is used for comparing strings, numbers, and exact
+					reference equality (or pointer comparison.)</p>
+					<p>For example, the following statements are valid <code>toBe</code> assertions:</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">let</span> a = <span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+expect&lt;Vec3&gt;(a).toBe(a);
+expect&lt;i32&gt;(<span class="hljs-number">10</span>).toBe(<span class="hljs-number">10</span>);
+expect&lt;Vec3&gt;(<span class="hljs-literal">null</span>).toBe(<span class="hljs-literal">null</span>);</code></pre>
+					<p>This method is safe to use portably with <code>jest</code>.</p>
+					<h3 id="tostrictequal">toStrictEqual</h3>
+					<p>This method performs a single <code>memory.compare()</code> on two blocks of data. This is
+						useful for references and strings. For example, using a <code>toBe()</code> assertion on
+					two different references results in a failed assertion:</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">let</span> a = <span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-keyword">let</span> b = <span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+expect&lt;Vec3&gt;(a).toBe(b); <span class="hljs-comment">// fails!</span></code></pre>
+					<p>Instead, it&#39;s posible to compare two different references like this:</p>
+					<pre><code class="language-ts">expect&lt;Vec3&gt;(a).toStrictEqual(b); <span class="hljs-comment">// passes!</span></code></pre>
+					<p>The following snippet an approximate the JavaScript equivalent for the
+					<code>toStrictEqual</code> comparison:</p>
+					<pre><code class="language-ts"><span class="hljs-comment">// loop over each property (properties are the same at compile time)</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> prop <span class="hljs-keyword">in</span> a) {
+  <span class="hljs-keyword">if</span> (a[prop] === b[prop]) {
+    <span class="hljs-comment">// exact equality check</span>
+    <span class="hljs-keyword">continue</span>;
+  } <span class="hljs-keyword">else</span> {
+    assert(negated);
+  }
+}
+assert(!negated);</code></pre>
+					<p>If the object has child references, like strings or pointers to other blocks
+						of memory, the comparison will fail because the pointers are different. This
+						happens because <code>as-pect</code> cannot perform object traversal. Instead, a custom
+					method should be used to traverse child references to compare equality.</p>
+					<p>The <code>toStrictEqual</code> comparison, however, does perform a <code>==</code> comparison before
+						opting into using a full memory comparison. If the <code>@operator(&quot;==&quot;)</code> is
+						overridden, then it&#39;s possible for two references to be compared using this
+					method:</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">class</span> Vec3 {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> a: f64 = 0.0, <span class="hljs-keyword">public</span> b: f64 = 0.0, <span class="hljs-keyword">public</span> c: f64 = 0.0</span>) {}
+
+  <span class="hljs-comment">// override the operator</span>
+  <span class="hljs-meta">@operator</span>(<span class="hljs-string">"=="</span>)
+  <span class="hljs-keyword">protected</span> __equals(ref: Vec3): bool {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.a == ref.a &amp;&amp; <span class="hljs-keyword">this</span>.b == ref.b &amp;&amp; <span class="hljs-keyword">this</span>.c == ref.c;
+  }
+}</code></pre>
+					<p>This method is <em>not</em> safe to use portably with <code>jest</code> yet. Once <code>Reflection</code>
+						is supported by AssemblyScript, <code>as-pect</code> will support compatibility
+					between <code>jest</code>&#39;s version of this function.</p>
+					<h3 id="toblockequal">toBlockEqual</h3>
+					<p>This comparison is the same comparison used on <code>ArrayBuffer</code> and <code>String</code>s.
+						It compares the bytes of the heap allocations by obtaining the exact size
+						of the block and then performing a memcompare if the <code>actual</code> and <code>expected</code>
+					blocks match.</p>
+					<p>Only use this comparison when comparing <code>ArrayBuffer</code> references.</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">let</span> buffer = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">100</span>); <span class="hljs-comment">// 100 bytes long heap allocation</span>
+<span class="hljs-keyword">let</span> buffer2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">100</span>); <span class="hljs-comment">// another buffer</span>
+
+expect&lt;<span class="hljs-built_in">ArrayBuffer</span>&gt;(buffer).toBlockEqual(buffer2);</code></pre>
+					<h3 id="tobetruthy-and-tobefalsy">toBeTruthy and toBeFalsy</h3>
+					<p>These comparisons are used to determine if a value is truthy or falsy in the
+					JavaScript sense. In JavaScript there are only six falsy values:</p>
+					<ul>
+						<li><code>false</code></li>
+						<li><code>0</code></li>
+						<li><code>&quot;&quot;</code></li>
+						<li><code>null</code></li>
+						<li><code>undefined</code></li>
+						<li><code>NaN</code></li>
+					</ul>
+					<p>In AssemblyScript, there is no <code>undefined</code>, so <code>as-pect</code> will treat each of
+					those values as falsy. Truthy values are anything that is not falsy,</p>
+					<pre><code class="language-ts">expect&lt;bool&gt;(<span class="hljs-literal">true</span>).toBeTruthy();
+expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)).toBeTruthy();
+expect&lt;i32&gt;(<span class="hljs-number">1</span>).toBeTruthy();
+expect&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">"Something!"</span>).toBeTruthy();
+expect&lt;bool&gt;(<span class="hljs-literal">false</span>).toBeFalsy();
+expect&lt;Vec3&gt;(<span class="hljs-literal">null</span>).toBeFalsy();
+expect&lt;i32&gt;(<span class="hljs-number">0</span>).toBeFalsy();
+expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).toBeFalsy();
+expect&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">""</span>).toBeFalsy();</code></pre>
+					<p>These methods are safe to use with <code>jest</code>.</p>
+					<h3 id="tobenan">toBeNaN</h3>
+					<p>This comparison is only used for float values to determine if the value is a
+					<code>NaN</code> value.</p>
+					<pre><code class="language-ts">expect&lt;f32&gt;(<span class="hljs-literal">NaN</span>).toBeNaN(); <span class="hljs-comment">// passes</span>
+expect&lt;f64&gt;(<span class="hljs-number">1.0</span>).not.toBeNaN(); <span class="hljs-comment">// passes</span>
+
+<span class="hljs-comment">/** This results in a runtime error, despite not being NaN. */</span>
+expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3()).not.toBeNaN();</code></pre>
+					<p>This method is technically safe to use with <code>jest</code> with the assumption
+					that <code>as-pect</code> will fail if used with a reference type.</p>
+					<h3 id="tobenull">toBeNull</h3>
+					<p>This comparison looks specifically for a <code>null</code> value.</p>
+					<pre><code class="language-ts">expect&lt;Vec3&gt;(<span class="hljs-literal">null</span>).toBeNull(); <span class="hljs-comment">// valid assertion</span></code></pre>
+					<p>In the case of numeric values, numbers cannot be <code>null</code> in AssemblyScript.
+					Thus, the following example will throw a runtime error.</p>
+					<pre><code class="language-ts">expect&lt;i32&gt;(<span class="hljs-literal">null</span>).toBeNull();</code></pre>
+					<p>This method is safe to use with <code>jest</code> assuming you explicitly return <code>null</code>
+					and avoid use of <code>undefined</code> which does not exist in AssemblyScript.</p>
+					<h3 id="tobefinite">toBeFinite</h3>
+					<p>This comparison is used to detect if float values are finite. The following
+					values are not finite in JavaScript or AssemblyScript.</p>
+					<ul>
+						<li><code>Infinity</code></li>
+						<li><code>-Infinity</code></li>
+						<li><code>NaN</code></li>
+					</ul>
+					<p>The following assertions are true.</p>
+					<pre><code class="language-ts">expect&lt;f64&gt;(<span class="hljs-number">1.0</span>).toBeFinite();
+expect&lt;f32&gt;(<span class="hljs-literal">Infinity</span>).not.toBeFinite();
+expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).not.toBeFinite();</code></pre>
+					<p>As long as the number values are always <code>f32</code> or <code>f64</code> (or <code>number</code> in
+						JavaScript or AssemblyScript,) <code>toBeFinite</code> is a safe assertion to use
+					portably with jest.</p>
+					<h3 id="tothrow">toThrow</h3>
+					<p>This comparison is used to test and see if a function throws an error. In the
+						case of AssemblyScript and <code>as-pect</code>, the function will be called from within
+						a JavaScript <code>try</code> block, and if the function throws, the assertion is valid,
+					unless it is negated with the <code>not</code> property.</p>
+					<pre><code class="language-ts">expect&lt;<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span>&gt;<span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params"></span>) =&gt; {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-params">"Whoops!"</span>);
+}</span>).<span class="hljs-params">toThrow</span><span class="hljs-params">()</span>; // <span class="hljs-params">valid</span> <span class="hljs-params">assertion</span>
+
+// <span class="hljs-params">alternative</span> <span class="hljs-params">shorter</span> <span class="hljs-params">convenience</span> <span class="hljs-params">syntax</span>
+<span class="hljs-params">expectFn</span>(<span class="hljs-params">(<span class="hljs-params"></span>) =&gt; {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-params">"Whoops!"</span>);
+}</span>).<span class="hljs-params">toThrow</span><span class="hljs-params">()</span>;</span></code></pre>
+					<p>Closure is not supported in AssemblyScript yet. Also, any references that are
+						left dangling on the stack will hang around un<code>__release()</code>ed by
+					AssemblyScript.</p>
+					<p>This function is safe to use with <code>jest</code>.</p>
+					<h3 id="tobegreaterthan-and-tobelessthan">toBeGreaterThan and toBeLessThan</h3>
+					<p>This set of comparisons validate that a value is greater than, less than, or
+					equal to another value. The following assertions are true.</p>
+					<pre><code class="language-ts">expect&lt;i32&gt;(<span class="hljs-number">100</span>).toBeGreaterThan(<span class="hljs-number">42</span>);
+expect&lt;i32&gt;(<span class="hljs-number">0</span>).toBeLessThan(<span class="hljs-number">100</span>);
+expect&lt;i32&gt;(<span class="hljs-number">0</span>).not.toBeGreaterThan(<span class="hljs-number">100</span>);
+expect&lt;f64&gt;(<span class="hljs-number">1.0</span>).toBeGreaterThanOrEqual(<span class="hljs-number">1.0</span>);
+expect&lt;f64&gt;(<span class="hljs-number">1.0</span>).not.toBeLessThanOrEqual(<span class="hljs-number">0</span>);</code></pre>
+					<p>These assertions also work with reference types when the
+					<code>@operator(&quot;&gt;&quot; | &quot;&lt;&quot; | &quot;&gt;=&quot; | &quot;&lt;=&quot;)</code> is used on a method in the class.</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">class</span> Vec3 {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> x: f64 = 0.0, <span class="hljs-keyword">public</span> y: f64 = 0.0, <span class="hljs-keyword">public</span> z: f64 = 0.0</span>) {}
+
+  <span class="hljs-meta">@operator</span>(<span class="hljs-string">"&gt;"</span>)
+  <span class="hljs-keyword">protected</span> __gt(other: Vec3): bool {
+    <span class="hljs-keyword">return</span> (
+      <span class="hljs-keyword">this</span>.x * <span class="hljs-keyword">this</span>.x + <span class="hljs-keyword">this</span>.y * <span class="hljs-keyword">this</span>.y + <span class="hljs-keyword">this</span>.z * <span class="hljs-keyword">this</span>.z &gt;
+      other.x * other.x + other.y * other.y + other.z * other.z
+    );
+  }
+}
+
+<span class="hljs-comment">// valid assertion because `@operator` was overloaded</span>
+expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)).toBeGreaterThan(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>));</code></pre>
+					<p>These methods are safe to use portably with <code>jest</code>, provided they aren&#39;t used
+					with reference types.</p>
+					<h3 id="tobecloseto">toBeCloseTo</h3>
+					<p>When doing floating point math, it&#39;s possible that values will not be exactly as
+					expected because of floating point error.</p>
+					<pre><code class="language-ts">expect&lt;f64&gt;(<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>).toBe(<span class="hljs-number">0.3</span>); <span class="hljs-comment">// fails</span>
+
+&gt; <span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>
+<span class="hljs-number">0.30000000000000004</span></code></pre>
+					<p>Instead, use <code>expect().toBeCloseTo()</code> to validate an expected floating point
+					value.</p>
+					<pre><code class="language-ts">expect&lt;f64&gt;(<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>).toBeCloseTo(<span class="hljs-number">0.3</span>); <span class="hljs-comment">// passes!</span></code></pre>
+					<p>Reference values and integer values will result in a runtime error, because
+					<code>toBeCloseTo</code> comparisons require a floating point number to work.</p>
+					<p>This method is safe to use portably with <code>jest</code>.</p>
+					<h3 id="tohavelength">toHaveLength</h3>
+					<p>This comparison verifies the length of a given object. This includes Arrays,
+					TypedArrays, ArrayBuffers, and custom classes that have a <code>length</code> property.</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">class</span> LengthExample {
+  <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> length: i32 = 0</span>) {}
+}
+
+<span class="hljs-keyword">const</span> array = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>&lt;Vec3&gt;(<span class="hljs-number">100</span>);
+<span class="hljs-keyword">const</span> typedarray = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">42</span>);
+<span class="hljs-keyword">const</span> buffer = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">29</span>);
+<span class="hljs-keyword">const</span> custom = <span class="hljs-keyword">new</span> LengthExample(<span class="hljs-number">50</span>);
+
+expect&lt;<span class="hljs-built_in">Array</span>&lt;Vec3&gt;&gt;(array).toHaveLength(<span class="hljs-number">100</span>);
+expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(typedarray).toHaveLength(<span class="hljs-number">42</span>);
+expect&lt;<span class="hljs-built_in">ArrayBuffer</span>&gt;(buffer).toHaveLength(<span class="hljs-number">29</span>);
+expect&lt;LengthExample&gt;(custom).toHaveLength(<span class="hljs-number">50</span>);</code></pre>
+					<p>This method is safe to use with <code>jest</code>, with the exception of using
+					<code>ArrayBuffer</code>.</p>
+					<h3 id="tocontain-and-toinclude">toContain and toInclude</h3>
+					<p>This comparison is used to determine if an Array contains a value.</p>
+					<p>All the values returned by <code>T[index]</code> will be compared using the <code>==</code> operator,
+						so overloading the class <code>@operator(&quot;==&quot;)</code> can be used in conjunction with this
+						comparison. The <code>index</code> must be a number value, and there must be a <code>length</code>
+						property that matches the <code>index</code> type. All values from <code>0</code> to <code>length - 1</code>
+					will be checked.</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">const</span> data = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(<span class="hljs-number">100</span>);
+data[<span class="hljs-number">5</span>] = <span class="hljs-number">255</span>;
+
+expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContain(<span class="hljs-number">255</span>);</code></pre>
+					<p>This method is portable with <code>jest</code> using the <code>toContain()</code> method.</p>
+					<h3 id="tocontainequal-and-toincludeequal">toContainEqual and toIncludeEqual</h3>
+					<p>This comparison is used to determine if an Array contains a reference that
+					equals another reference.</p>
+					<p>All the values returned by <code>T[index]</code> will be compared using the <code>==</code> operator,
+						and if that comparison does not work, a memcompare will be used. Overloading the
+						class <code>@operator(&quot;==&quot;)</code> can be used in conjunction with this comparison. The
+						<code>index</code> must be a number value, and there must be a <code>length</code> property that
+					matches the <code>index</code> type. All values from <code>0</code> to <code>length - 1</code> will be checked.</p>
+					<pre><code class="language-ts"><span class="hljs-keyword">const</span> reference = <span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-keyword">const</span> data = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>&lt;Vec3&gt;(<span class="hljs-number">0</span>);
+data.push(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>));
+data.push(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>));
+data.push(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>));
+
+expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual(referece);</code></pre>
+					<p>This method is portable with <code>jest</code> using the <code>toContainEqual()</code> method.</p>
+					<h2 id="types-and-tooling">Types And Tooling</h2>
+					<p>The <code>as-pect</code> assembly comes with a way to generate the types for all the globals
+						used by the framework. This will greatly increase your productivity because it
+						comes with lots of documentation, and adds a lot of intellisense to your
+					development experience.</p>
+					<p>It is also possible to reference the types manually. Use the following
+						reference at the top of your <code>assembly/index.ts</code> file to include these types
+						in your project automatically. If you use this method for your types, feel
+					free to delete the auto-generated types file in your test folder.</p>
+					<pre><code class="language-ts"><span class="hljs-comment">/// &lt;reference path="../node_modules/@as-pect/core/types/as-pect.d.ts" /&gt;</span>
+<span class="hljs-comment">/// &lt;reference path="../node_modules/@as-pect/core/types/as-pect.portable.d.ts" /&gt;</span></code></pre>
+					<h2 id="assemblyscript-compiler-options">AssemblyScript Compiler Options</h2>
+					<p>In general the best way to use the <code>as-pect</code> testing suite to compile your
+						tests to Wasm is to use the <code>asp</code> cli option <code>--outputBinary</code>. This will compile
+						every test and output binary files for each test that matches the <code>include</code>
+					property in the <code>as-pect.config.js</code> file.</p>
+					<p>In order to compile the test binary correctly, the
+						<code>@as-pect/assembly/assembly/index.ts</code> file must be included as an entry point.
+						Also, <code>--use ASC_RTRACE=1</code> is required in order to enable RTrace error reporting
+						and reference counting statistics. Finally, the <code>--explicitStart</code> flag must be
+						passed to the compiler to enable proper test name and group name collection since
+						<code>as-pect</code> will call the <code>wasm.__start()</code> method manually after the loader is
+						instantiated. The following example can be used to help manually compile <code>as-pect</code>
+					tests.</p>
+					<pre><code><span class="hljs-keyword">asc</span> {testentry.ts} node_modules/@<span class="hljs-keyword">as</span>-pect/assembly/assembly/<span class="hljs-keyword">index</span>.ts \
+  <span class="hljs-comment">--use ASC_RTRACE=1 \</span>
+  <span class="hljs-comment">--explicitStart \</span>
+  <span class="hljs-comment">--binaryFile {testentry.wasm} \</span>
+  <span class="hljs-comment">--textFile {testentry.wat}</span></code></pre><h2 id="closures">Closures</h2>
+					<p>AssemblyScript currently does not support closures around local scopes, only
+						around the global scope. However, you can place all relevant tests and setup
+						function calls for a test suite into a corresponding <code>describe</code> block after
+					declaring a global variable.</p>
+					<!-- markdownlint-disable MD013 -->
+					<pre><code class="language-ts"><span class="hljs-keyword">import</span> { Vec3 } <span class="hljs-keyword">from</span> <span class="hljs-string">"./setup/Vec3"</span>;
+
+<span class="hljs-comment">// setup a global vector reference</span>
+<span class="hljs-keyword">var</span> vec: Vec3;
+
+describe(<span class="hljs-string">"vectors"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-comment">// this runs before each test function, and must be placed within the describe function</span>
+  beforeEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">// create a new vector for each test</span>
+    vec = <span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+  });
+
+  <span class="hljs-comment">// this runs after each test function, and must be placed within the describe function</span>
+  afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    vec = <span class="hljs-literal">null</span>; <span class="hljs-comment">// free the vector</span>
+  });
+
+  <span class="hljs-comment">// use `test()` or `it()` to run a test</span>
+  test(<span class="hljs-string">"vec should not be null"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">// write an expectation</span>
+    expect&lt;Vec3&gt;(vec).not.toBeNull();
+  });
+});</code></pre>
+					<!-- markdownlint-enable MD013 -->
+					<p>Nested <code>describe</code> blocks are supported and the outer describe should be
+					evaluated first.</p>
+					<pre><code class="language-ts">describe(<span class="hljs-string">"vector"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-comment">// this test block runs first</span>
+  it(<span class="hljs-string">"should run first"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {});
+
+  describe(<span class="hljs-string">"addition"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+    <span class="hljs-comment">// this test block runs second</span>
+    it(<span class="hljs-string">"should add vectors together"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      expect&lt;Vec3&gt;(vec1.add(vec2)).toStrictEqual(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>));
+    });
+  });
+});</code></pre>
+					<h2 id="expectations">Expectations</h2>
+					<p>Calling the <code>expect&lt;T&gt;(value: T)</code> function outside of the following functions
+					will result in unexpected behavior:</p>
+					<ul>
+						<li><code>beforeEach()</code></li>
+						<li><code>afterEach()</code></li>
+						<li><code>beforeAll()</code></li>
+						<li><code>afterAll()</code></li>
+						<li><code>test()</code></li>
+						<li><code>it()</code></li>
+						<li><code>throws()</code></li>
+						<li><code>itThrows()</code></li>
+					</ul>
+					<p>If this happens, the entire test suite will fail before it runs in the CLI, and
+					the error description will be reported to the console.</p>
+					<h2 id="logging">Logging</h2>
+					<p>A global <code>log&lt;T&gt;(value: T): void</code> function is provided by <code>as-pect</code> to help
+						collect useful information about the state of your program. Simply give it
+						the type you want to log, and it will append a <code>LogValue</code> item to the
+						corresponding <code>TestResult</code> or <code>TestGroup</code> item the <code>log()</code> function was
+					called within.</p>
+					<pre><code class="language-ts">log&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">"This will log a string"</span>); <span class="hljs-comment">// Remember, strings are references</span>
+log&lt;f64&gt;(<span class="hljs-number">0.4</span>); <span class="hljs-comment">// this logs a float value</span>
+log&lt;i32&gt;(<span class="hljs-number">42</span>); <span class="hljs-comment">// this logs the meaning of life</span>
+log&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)); <span class="hljs-comment">// this logs every byte in the reference</span>
+log&lt;i32[]&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]); <span class="hljs-comment">// this will log an array</span></code></pre>
+					<p>This log function does <em>not</em> pipe the output to stdout. It simply attaches the
+						log value to the current group or test the <code>log()</code> function was called in. Then
+						the after the test runs the configured <code>Reporter</code> decides if it is piped to
+					stdout, which is what <code>DefaultTestReporter</code> does.</p>
+				</div>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="../classes/_as_pect_assembly.expectation.html" class="tsd-kind-icon">Expectation</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.performance.html" class="tsd-kind-icon">Performance</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.rtrace.html" class="tsd-kind-icon">RTrace</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#afterall" class="tsd-kind-icon">after<wbr>All</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#aftereach" class="tsd-kind-icon">after<wbr>Each</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#beforeall" class="tsd-kind-icon">before<wbr>All</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#beforeeach" class="tsd-kind-icon">before<wbr>Each</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#debug" class="tsd-kind-icon">debug</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#describe" class="tsd-kind-icon">describe</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_as_pect_assembly.html#expect" class="tsd-kind-icon">expect</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#expectfn" class="tsd-kind-icon">expect<wbr>Fn</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#it" class="tsd-kind-icon">it</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#itthrows" class="tsd-kind-icon">it<wbr>Throws</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="_as_pect_assembly.html#log" class="tsd-kind-icon">log</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#test" class="tsd-kind-icon">test</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#throws" class="tsd-kind-icon">throws</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#todo" class="tsd-kind-icon">todo</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#xit" class="tsd-kind-icon">xit</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_as_pect_assembly.html#xtest" class="tsd-kind-icon">xtest</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="afterall" class="tsd-anchor"></a>
+					<h3>after<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">after<wbr>All<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L197">assembly/types/as-pect.d.ts:197</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function creates a callback that is called after the whole test group is run, and only
+									once.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts"><span class="hljs-comment">// create a global</span>
+<span class="hljs-keyword">var</span> dog: Dog = <span class="hljs-literal">null</span>;
+describe(<span class="hljs-string">"dogs"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  afterAll((): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+    memory.free(changetype&lt;usize&gt;(dog)); <span class="hljs-comment">// free some memory</span>
+  });
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The function to be run after each test in the current test group.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="aftereach" class="tsd-anchor"></a>
+					<h3>after<wbr>Each</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">after<wbr>Each<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L177">assembly/types/as-pect.d.ts:177</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function creates a callback that is called after each individual test is run in this test
+									group.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts"><span class="hljs-comment">// create a global</span>
+<span class="hljs-keyword">var</span> cat: Cat = <span class="hljs-keyword">new</span> Cat();
+
+describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  afterEach((): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+    cat.sleep(<span class="hljs-number">12</span>); <span class="hljs-comment">// cats sleep a lot</span>
+  });
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The function to be run after each test in the current test group.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="beforeall" class="tsd-anchor"></a>
+					<h3>before<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">before<wbr>All<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L156">assembly/types/as-pect.d.ts:156</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function creates a callback that is called before the whole test group is run, and only
+									once.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts"><span class="hljs-comment">// create a global</span>
+<span class="hljs-keyword">var</span> dog: Dog = <span class="hljs-literal">null</span>;
+describe(<span class="hljs-string">"dogs"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  beforeAll((): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+    dog = <span class="hljs-keyword">new</span> Dog(); <span class="hljs-comment">// create a single dog once before the tests start</span>
+  });
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The function to be run before each test in the current test group.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="beforeeach" class="tsd-anchor"></a>
+					<h3>before<wbr>Each</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">before<wbr>Each<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L136">assembly/types/as-pect.d.ts:136</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function creates a callback that is called before each individual test is run in this test
+									group.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts"><span class="hljs-comment">// create a global</span>
+<span class="hljs-keyword">var</span> cat: Cat = <span class="hljs-keyword">new</span> Cat();
+
+describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  beforeEach((): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+    cat.meow(<span class="hljs-number">1</span>); <span class="hljs-comment">// meow once per test</span>
+  });
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The function to be run before each test in the current test group.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="debug" class="tsd-anchor"></a>
+					<h3>debug</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L588">assembly/types/as-pect.d.ts:588</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This is called to stop the debugger.  e.g. <code>node --inspect-brk asp</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="describe" class="tsd-anchor"></a>
+					<h3>describe</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">describe<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L15">assembly/types/as-pect.d.ts:15</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function creates a test group in the test loader.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts">describe(<span class="hljs-string">"my test suite"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  <span class="hljs-comment">// put your tests here</span>
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>description: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>This is the name of the test group.</p>
+									</div>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that contains all of the closures for this test group.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+					<a name="expect" class="tsd-anchor"></a>
+					<h3>expect</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">expect&lt;T&gt;<span class="tsd-signature-symbol">(</span>actual<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_as_pect_assembly.expectation.html" class="tsd-signature-type">Expectation</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L212">assembly/types/as-pect.d.ts:212</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Describes a value and returns an expectation to test the value.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>type</dt>
+									<dd><p>{T} - The expectation&#39;s type.</p>
+									</dd>
+									<dt>example</dt>
+									<dd><pre><code class="language-ts">expect&lt;i32&gt;(<span class="hljs-number">42</span>).not.toBe(<span class="hljs-number">-1</span>, <span class="hljs-string">"42 should not be -1"</span>);
+expect&lt;i32&gt;(<span class="hljs-number">19</span> + <span class="hljs-number">23</span>).toBe(<span class="hljs-number">42</span>, <span class="hljs-string">"19 + 23 should equal 42"</span>);</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>actual: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The value being tested.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/_as_pect_assembly.expectation.html" class="tsd-signature-type">Expectation</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="expectfn" class="tsd-anchor"></a>
+					<h3>expect<wbr>Fn</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">expect<wbr>Fn<span class="tsd-signature-symbol">(</span>cb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_as_pect_assembly.expectation.html" class="tsd-signature-type">Expectation</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L228">assembly/types/as-pect.d.ts:228</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Describes a void function and returns an expectation to test the function.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts">expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> unreachable()).toThrow(<span class="hljs-string">"unreachables do not throw"</span>);
+expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  cat.meow();
+}).not.toThrow(<span class="hljs-string">"Uhoh, cats can't meow!"</span>);;</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>cb: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/_as_pect_assembly.expectation.html" class="tsd-signature-type">Expectation</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="it" class="tsd-anchor"></a>
+					<h3>it</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">it<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L35">assembly/types/as-pect.d.ts:35</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function creates a test inside the given test group. It must be placed inside a describe
+									block.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts">describe(<span class="hljs-string">"the meaning of life"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  it(<span class="hljs-string">"should be 42"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+    <span class="hljs-comment">// put your expectations here</span>
+    expect&lt;i32&gt;(<span class="hljs-number">29</span> + <span class="hljs-number">13</span>).toBe(<span class="hljs-number">42</span>);
+  });
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>description: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>This is the name of the test, and should describe a behavior.</p>
+									</div>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that contains a set of expectations for this test.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="itthrows" class="tsd-anchor"></a>
+					<h3>it<wbr>Throws</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">it<wbr>Throws<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L115">assembly/types/as-pect.d.ts:115</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function creates a test that is expected to fail. This is useful to verify if a given
+									behavior is expected to throw.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts">describe(<span class="hljs-string">"the meaning of life"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  itThrows(<span class="hljs-string">"when the value should be 42"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+    <span class="hljs-comment">// put your expectations here</span>
+    expect&lt;i32&gt;(<span class="hljs-number">29</span> + <span class="hljs-number">13</span>).not.toBe(<span class="hljs-number">42</span>);
+  }, <span class="hljs-string">"The value is actually 42."</span>);
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>description: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>This is the name of the test, and should describe a behavior.</p>
+									</div>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that contains a set of expectations for this test.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> message: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A message that describes why the test should fail.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+					<a name="log" class="tsd-anchor"></a>
+					<h3>log</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">log&lt;T&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L253">assembly/types/as-pect.d.ts:253</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Logs a single value to the logger, and is stringified. It works for references, values, and
+									strings.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>type</dt>
+									<dd><p>{T} - The type to be logged.</p>
+									</dd>
+									<dt>example</dt>
+									<dd><pre><code class="language-ts">log&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">"This is a logged value."</span>);
+log&lt;i32&gt;(<span class="hljs-number">42</span>);
+log&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>));
+log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The value to be logged.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="test" class="tsd-anchor"></a>
+					<h3>test</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">test<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L72">assembly/types/as-pect.d.ts:72</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function creates a test inside the given test group. It must be placed inside a describe
+									block.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts">describe(<span class="hljs-string">"the meaning of life"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  test(<span class="hljs-string">"the value should be 42"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+    <span class="hljs-comment">// put your expectations here</span>
+    expect&lt;i32&gt;(<span class="hljs-number">29</span> + <span class="hljs-number">13</span>).toBe(<span class="hljs-number">42</span>);
+  });
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>description: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>This is the name of the test, and should describe a behavior.</p>
+									</div>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that contains a set of expectations for this test.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="throws" class="tsd-anchor"></a>
+					<h3>throws</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">throws<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L93">assembly/types/as-pect.d.ts:93</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function creates a test that is expected to fail. This is useful to verify if a given
+									behavior is expected to throw.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-ts">describe(<span class="hljs-string">"the meaning of life"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+  throws(<span class="hljs-string">"the value should be 42"</span>, (): <span class="hljs-function"><span class="hljs-params">void</span> =&gt;</span> {
+    <span class="hljs-comment">// put your expectations here</span>
+    expect&lt;i32&gt;(<span class="hljs-number">29</span> + <span class="hljs-number">13</span>).not.toBe(<span class="hljs-number">42</span>);
+  });
+});</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>description: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>This is the name of the test, and should describe a behavior.</p>
+									</div>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that contains a set of expectations for this test.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> message: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A message that describes why the test should fail.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="todo" class="tsd-anchor"></a>
+					<h3>todo</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">todo<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L235">assembly/types/as-pect.d.ts:235</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Describes a test that needs to be written.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>description: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The description of the test that needs to be written.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="xit" class="tsd-anchor"></a>
+					<h3>xit</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">xit<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L44">assembly/types/as-pect.d.ts:44</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A test that does not run, and is longhand equivalent to using todo function without a
+									callback. This test does not get run and is reported like a todo.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>description: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>This is the name of the test, and should describe a behavior.</p>
+									</div>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that contains a set of expectations for this test.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+					<a name="xtest" class="tsd-anchor"></a>
+					<h3>xtest</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">xtest<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/3ecd719/packages/assembly/types/as-pect.d.ts#L53">assembly/types/as-pect.d.ts:53</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A test that does not run, and is longhand equivalent to using todo function without a
+									callback. This test does not get run and is reported like a todo.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>description: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>This is the name of the test, and should describe a behavior.</p>
+									</div>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>A function that contains a set of expectations for this test.</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="_as_pect_assembly.html">@as-<wbr>pect/assembly</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_as_pect_cli.html">@as-<wbr>pect/cli</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_as_pect_core.html">@as-<wbr>pect/core</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="../classes/_as_pect_assembly.expectation.html" class="tsd-kind-icon">Expectation</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../classes/_as_pect_assembly.performance.html" class="tsd-kind-icon">Performance</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../classes/_as_pect_assembly.rtrace.html" class="tsd-kind-icon">RTrace</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#afterall" class="tsd-kind-icon">after<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#aftereach" class="tsd-kind-icon">after<wbr>Each</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#beforeall" class="tsd-kind-icon">before<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#beforeeach" class="tsd-kind-icon">before<wbr>Each</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#debug" class="tsd-kind-icon">debug</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#describe" class="tsd-kind-icon">describe</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#expect" class="tsd-kind-icon">expect</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#expectfn" class="tsd-kind-icon">expect<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#it" class="tsd-kind-icon">it</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#itthrows" class="tsd-kind-icon">it<wbr>Throws</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#log" class="tsd-kind-icon">log</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#test" class="tsd-kind-icon">test</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#throws" class="tsd-kind-icon">throws</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#todo" class="tsd-kind-icon">todo</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#xit" class="tsd-kind-icon">xit</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.html#xtest" class="tsd-kind-icon">xtest</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

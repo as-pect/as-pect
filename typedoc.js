@@ -1,0 +1,23 @@
+module.exports = {
+  "mode": "modules",
+  "out": "docs",
+  exclude: [
+    "**/assembly/assembly/**/*.ts",
+    "**/core/assembly/**",
+    "**/__tests__/**",
+    "**/node_modules/**",
+    "**/*.spec.ts",
+    "**/*.amd.d.ts",
+    "**/*.portable.d.ts",
+    "**/@types/jest/**",
+    "**/lib/**",
+    "**/cli/init/env.d.ts",
+  ],
+  name: "as-pect",
+  includeDeclarations: true,
+  excludePrivate: true,
+  excludeProtected: true,
+  excludeExternals: true,
+  skipInternal: true,
+  readme: "./README.md",
+};

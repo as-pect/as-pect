@@ -1,0 +1,58 @@
+{
+  "name": "@as-pect/cli",
+  "version": "2.0.0",
+  "description": "Write AssemblyScript tests at blazing fast speeds",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "jest": "jest",
+    "mdlint": "markdownlint *.md",
+    "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
+    "rimraf": "rimraf lib/* docs/*",
+    "test:ci": "run-s jest mdlint",
+    "test": "run-s jest mdlint",
+    "tsc:all": "run-p tsc:default tsc:amd",
+    "tsc:amd": "tsc --outfile lib/as-pect.cli.amd.js --module amd --declaration --declarationMap",
+    "tsc:default": "tsc",
+    "tsc": "run-s prettier rimraf tsc:all"
+  },
+  "bin": {
+    "asp": "bin/asp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtenner/aspect.git"
+  },
+  "author": "Joshua Tenner <tenner.joshua@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jtenner/aspect/issues"
+  },
+  "homepage": "https://github.com/jtenner/as-pect#readme",
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.0.12",
+    "assemblyscript": "github:assemblyscript/assemblyscript",
+    "coveralls": "^3.0.4",
+    "jest": "^24.8.0",
+    "lerna": "^3.15.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@as-pect/assembly": "git:github.com/jtenner/as-pect/assembly#v2.0.0",
+    "@as-pect/core": "git:github.com/jtenner/as-pect/core#v2.0.0",
+    "chalk": "^2.4.2",
+    "glob": "^7.1.4"
+  },
+  "files": [
+    "init/",
+    "lib/",
+    "bin/"
+  ]
+}

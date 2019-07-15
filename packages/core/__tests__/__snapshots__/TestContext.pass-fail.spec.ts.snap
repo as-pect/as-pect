@@ -1,0 +1,517 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`pass-fail output Group:  Test: A test outside of a describe block: message 1`] = `""`;
+
+exports[`pass-fail output Group:  Test: A test outside of a describe block: negated 1`] = `false`;
+
+exports[`pass-fail output Group:  Test: A test outside of a describe block: pass 1`] = `true`;
+
+exports[`pass-fail output Group: : afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: : afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: : beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: : beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: : pass 1`] = `false`;
+
+exports[`pass-fail output Group: : reason 1`] = `"Test suite  failed because of an afterAll() callback occurred."`;
+
+exports[`pass-fail output Group: fail on group afterAll Test: should run: message 1`] = `""`;
+
+exports[`pass-fail output Group: fail on group afterAll Test: should run: negated 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group afterAll Test: should run: pass 1`] = `true`;
+
+exports[`pass-fail output Group: fail on group afterAll: afterAllPointers 1`] = `1`;
+
+exports[`pass-fail output Group: fail on group afterAll: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group afterAll: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group afterAll: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group afterAll: pass 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group afterAll: reason 1`] = `"Test suite fail on group afterAll failed because of an afterAll() callback occurred."`;
+
+exports[`pass-fail output Group: fail on group afterEach Test: should run: message 1`] = `""`;
+
+exports[`pass-fail output Group: fail on group afterEach Test: should run: negated 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group afterEach Test: should run: pass 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group afterEach: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group afterEach: afterEachPointers 1`] = `1`;
+
+exports[`pass-fail output Group: fail on group afterEach: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group afterEach: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group afterEach: pass 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group afterEach: reason 1`] = `"Test suite fail on group afterEach failed because an error occurred in an afterEach() callback."`;
+
+exports[`pass-fail output Group: fail on group beforeAll Test: shouldn't run: message 1`] = `""`;
+
+exports[`pass-fail output Group: fail on group beforeAll Test: shouldn't run: negated 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group beforeAll Test: shouldn't run: pass 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group beforeAll: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group beforeAll: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group beforeAll: beforeAllPointers 1`] = `1`;
+
+exports[`pass-fail output Group: fail on group beforeAll: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group beforeAll: pass 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group beforeAll: reason 1`] = `"Test suite fail on group beforeAll failed because an error occurred in a beforeAll() callback."`;
+
+exports[`pass-fail output Group: fail on group beforeEach Test: shouldn't run: message 1`] = `""`;
+
+exports[`pass-fail output Group: fail on group beforeEach Test: shouldn't run: negated 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group beforeEach Test: shouldn't run: pass 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group beforeEach: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group beforeEach: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group beforeEach: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: fail on group beforeEach: beforeEachPointers 1`] = `1`;
+
+exports[`pass-fail output Group: fail on group beforeEach: pass 1`] = `false`;
+
+exports[`pass-fail output Group: fail on group beforeEach: reason 1`] = `"Test suite fail on group beforeEach failed because an error occurred in a beforeEach() callback."`;
+
+exports[`pass-fail output Group: pass on group afterAll Test: should run: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass on group afterAll Test: should run: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass on group afterAll Test: should run: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass on group afterAll: afterAllPointers 1`] = `1`;
+
+exports[`pass-fail output Group: pass on group afterAll: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group afterAll: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group afterAll: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group afterAll: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass on group afterAll: reason 1`] = `""`;
+
+exports[`pass-fail output Group: pass on group afterEach Test: should run: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass on group afterEach Test: should run: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass on group afterEach Test: should run: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass on group afterEach: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group afterEach: afterEachPointers 1`] = `1`;
+
+exports[`pass-fail output Group: pass on group afterEach: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group afterEach: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group afterEach: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass on group afterEach: reason 1`] = `""`;
+
+exports[`pass-fail output Group: pass on group beforeAll Test: should run: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass on group beforeAll Test: should run: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass on group beforeAll Test: should run: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass on group beforeAll: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group beforeAll: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group beforeAll: beforeAllPointers 1`] = `1`;
+
+exports[`pass-fail output Group: pass on group beforeAll: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group beforeAll: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass on group beforeAll: reason 1`] = `""`;
+
+exports[`pass-fail output Group: pass on group beforeEach Test: should run: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass on group beforeEach Test: should run: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass on group beforeEach Test: should run: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass on group beforeEach: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group beforeEach: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group beforeEach: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass on group beforeEach: beforeEachPointers 1`] = `1`;
+
+exports[`pass-fail output Group: pass on group beforeEach: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass on group beforeEach: reason 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: actual message 1`] = `"two"`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: actual value 1`] = `824`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: expected message 1`] = `"one"`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: expected value 1`] = `848`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should fail when test does not throw: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should fail when test does not throw: negated 1`] = `true`;
+
+exports[`pass-fail output Group: pass-fail Test: should fail when test does not throw: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should fail: message 1`] = `"expected fail"`;
+
+exports[`pass-fail output Group: pass-fail Test: should fail: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should fail: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report a negated test: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report a negated test: negated 1`] = `true`;
+
+exports[`pass-fail output Group: pass-fail Test: should report a negated test: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: actual message 1`] = `"[1,2,3]"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: actual value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: expected message 1`] = `"[4,5,6]"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: actual message 1`] = `"false"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: actual value 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: expected message 1`] = `"true"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: expected value 1`] = `1`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual message 1`] = `"NaN"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual value 1`] = `NaN`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected message 1`] = `"Finite Value"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual message 1`] = `"1"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual value 1`] = `1`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected message 1`] = `"Falsy Value"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: actual message 1`] = `"Long Value: -9999999999"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: actual value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: expected message 1`] = `"Long Value: 9999999999"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: actual message 1`] = `"null"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: actual value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: expected message 1`] = `"null"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: expected negated 1`] = `true`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: actual message 1`] = `"0"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: actual value 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: expected message 1`] = `"42"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: expected value 1`] = `42`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: actual bytes 1`] = `
+Array [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  240,
+  63,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  64,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  8,
+  64,
+]
+`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: actual message 1`] = `"Reference Value"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: actual offset 1`] = `24`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: actual value 1`] = `5008`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: expected bytes 1`] = `
+Array [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  16,
+  64,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  20,
+  64,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  24,
+  64,
+]
+`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: expected message 1`] = `"Reference Value"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: expected offset 1`] = `24`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: expected value 1`] = `5088`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual message 1`] = `"0"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual value 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected message 1`] = `"Truthy Value"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual message 1`] = `"4294967294"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual value 1`] = `4294967294`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected message 1`] = `"4294967293"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected value 1`] = `4294967293`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: this test should pass: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: this test should pass: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: this test should pass: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass-fail: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail: reason 1`] = `""`;
