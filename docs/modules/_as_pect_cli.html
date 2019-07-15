@@ -67,16 +67,10 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<h1 id="-as-pect-cli">@as-pect/cli</h1>
-					<p><a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/jtenner/as-pect.svg" alt="Greenkeeper badge"></a>
-						<a href="https://travis-ci.org/jtenner/as-pect"><img src="https://travis-ci.org/jtenner/as-pect.svg?branch=master" alt="Build Status"></a>
-					<a href="https://coveralls.io/github/jtenner/as-pect?branch=master"><img src="https://coveralls.io/repos/github/jtenner/as-pect/badge.svg?branch=master" alt="Coverage Status"></a></p>
-					<p>Write your module in AssemblyScript and get blazing fast bootstrapped tests
-					with WebAssembly speeds!</p>
+					<p>Package containing the command line interface for running tests.</p>
 					<h2 id="table-of-contents">Table of contents</h2>
 					<ol>
-						<li><a href="#philosophy">Philosophy</a></li>
 						<li><a href="#usage">Usage</a></li>
-						<li><a href="#cli">CLI</a></li>
 						<li><a href="#configuration-file">Configuration File</a></li>
 						<li><a href="#types-and-tooling">Types And Tooling</a></li>
 						<li><a href="#ci-usage">CI Usage</a></li>
@@ -92,16 +86,7 @@
 						<li><a href="#rtrace-and-memory-leaks">RTrace and Memory Leaks</a></li>
 						<li><a href="#performance-testing">Performance Testing</a></li>
 						<li><a href="#custom-imports-using-cli">Custom Imports Using CLI</a></li>
-						<li><a href="#using-as-pect-as-a-package">Using as-pect as a Package</a></li>
-						<li><a href="#contributors">Contributors</a></li>
 					</ol>
-					<h2 id="philosophy">Philosophy</h2>
-					<p>Testing is the first step of every project and you have a responsibility to
-						make sure that the software you write works as intended. The <code>as-pect</code> project
-						was created to help quickly scaffold and bootstrap AssemblyScript tests so
-					that you can be confident in yourself and the software you write.</p>
-					<p>One of the goals of this project is 100% portability to <code>jest</code> so that tests
-					can be run in two different environments.</p>
 					<h2 id="usage">Usage</h2>
 					<p>To install <code>as-pect</code>, install the latest version from github. Once
 					AssemblyScript becomes more stable, <code>as-pect</code> will be published to npm.</p>
@@ -459,21 +444,6 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 					instantiated.</p>
 					<p><em><strong>IMPORTANT</strong>: THIS WILL IGNORE <code>as-pect.config.js</code>&#39;S IMPORTS COMPLETELY</em></p>
 					<p>Please see the provided example located in <code>assembly/__tests__/customImports.spec.ts</code>.</p>
-					<h2 id="contributors">Contributors</h2>
-					<p>To contribute please see <a href="./CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
-					<p>Thanks to <a href="github.com/willemneal">@willemneal</a> and
-						<a href="github.com/maxgraey">@MaxGraey</a> for all their support in making <code>as-pect</code> the
-					best software it can be.</p>
-					<p>Other Contributors:</p>
-					<ul>
-						<li><a href="github.com/trusktr">@trusktr</a> - Documentation Changes</li>
-						<li><a href="github.com/maxgraey">@MaxGraey</a> - Performance API suggestions</li>
-						<li><a href="github.com/torch2424">@torch2424</a> - Documentation Changes</li>
-						<li><a href="github.com/torch2424">@dcodeio</a> - Made AssemblyScript itself!</li>
-					</ul>
-					<h2 id="special-thanks">Special Thanks</h2>
-					<p>Special thanks to the <a href="github.com/AssemblyScript/assemblyscript">AssemblyScript</a>
-					team for creating AssemblyScript itself.</p>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -513,7 +483,7 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Cli<wbr>Args<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">CommandLineArg</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;makeArgMap(_Args)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/cli/src/util/CommandLineArg.ts#L378">cli/src/util/CommandLineArg.ts:378</a></li>
+							<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/cli/src/util/CommandLineArg.ts#L378">cli/src/util/CommandLineArg.ts:378</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -528,7 +498,7 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 					<div class="tsd-signature tsd-kind-icon">version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;pkg.version</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/cli/src/index.ts#L13">cli/src/index.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/cli/src/index.ts#L13">cli/src/index.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -550,7 +520,7 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/cli/src/index.ts#L22">cli/src/index.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/cli/src/index.ts#L22">cli/src/index.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -581,7 +551,7 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/cli/src/util/CommandLineArg.ts#L396">cli/src/util/CommandLineArg.ts:396</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/cli/src/util/CommandLineArg.ts#L396">cli/src/util/CommandLineArg.ts:396</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

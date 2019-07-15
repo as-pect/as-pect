@@ -67,23 +67,23 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<h1 id="-as-pect-assembly">@as-pect/assembly</h1>
+					<p>This is the main package, which contains the AssemblyScript used to write tests.</p>
 					<h2 id="table-of-contents">Table Of Contents</h2>
 					<ol>
-						<li><a href="#philosophy">Philosophy</a></li>
 						<li><a href="#usage">Usage</a></li>
 						<li><a href="#comparisons">Comparisons</a><ul>
-								<li><a href="#tobe-comparison">toBe</a></li>
-								<li><a href="#tostrictequal-comparison">toStrictEqual</a></li>
-								<li><a href="#toblockequal-comparison">toBlockEqual</a></li>
-								<li><a href="#tobetruthy-and-tobefalsy-comparison">toBeTruthy and toBeFalsy</a></li>
-								<li><a href="#tobenan-comparison">toBeNaN</a></li>
-								<li><a href="#tobefinite-comparison">toBeFinite</a></li>
-								<li><a href="#tothrow-comparison">toThrow</a></li>
-								<li><a href="#tobegreaterthan-and-tobelessthan-comparison">toBeGreaterThan/toBeLessThan</a>\</li>
-								<li><a href="#tobecloseto-comparison">toBeCloseTo</a></li>
-								<li><a href="#tohavelength-comparison">toHaveLength</a></li>
-								<li><a href="#tocontain-and-toinclude-comparison">toContain</a></li>
-								<li><a href="#tocontainequal-and-toincludeequal-comparison">toContainEqual</a></li>
+								<li><a href="#tobe">toBe</a></li>
+								<li><a href="#tostrictequal">toStrictEqual</a></li>
+								<li><a href="#toblockequal">toBlockEqual</a></li>
+								<li><a href="#tobetruthy-and-tobefalsy">toBeTruthy and toBeFalsy</a></li>
+								<li><a href="#tobenan">toBeNaN</a></li>
+								<li><a href="#tobefinite">toBeFinite</a></li>
+								<li><a href="#tothrow">toThrow</a></li>
+								<li><a href="#tobegreaterthan-and-tobelessthan">toBeGreaterThan/toBeLessThan</a>\</li>
+								<li><a href="#tobecloseto">toBeCloseTo</a></li>
+								<li><a href="#tohavelength">toHaveLength</a></li>
+								<li><a href="#tocontain-and-toinclude">toContain</a></li>
+								<li><a href="#tocontainequal-and-toincludeequal">toContainEqual</a></li>
 							</ul>
 						</li>
 						<li><a href="#types-and-tooling">Types And Tooling</a></li>
@@ -91,15 +91,7 @@
 						<li><a href="#closures">Closures</a></li>
 						<li><a href="#expectations">Expectations</a></li>
 						<li><a href="#logging">Logging</a></li>
-						<li><a href="#contributers">Contributers</a></li>
 					</ol>
-					<h2 id="philosophy">Philosophy</h2>
-					<p>Testing is the first step of every project and you have a responsibility to
-						make sure that the software you write works as intended. The <code>as-pect</code> project
-						was created to help quickly scaffold and bootstrap AssemblyScript tests so
-					that you can be confident in yourself and the software you write.</p>
-					<p>One of the goals of this project is 100% portability to <code>jest</code> so that tests
-					can be run in two different environments.</p>
 					<h2 id="usage">Usage</h2>
 					<p>To use the <code>@as-pect/assembly</code> package, typically, it&#39;s best to use the
 						<code>@as-pect/cli</code> package to output a binary using <code>--outputBinary</code>. However
@@ -113,7 +105,7 @@
 					<p>There are a set of comparison functions defined in the <code>types/as-pect.d.ts</code> types
 						definition. These comparison functions allow you to inspect object and memory
 					state.</p>
-					<h3 id="tobe-comparison">toBe Comparison</h3>
+					<h3 id="tobe">toBe</h3>
 					<p>This comparison is used for comparing data using the <code>==</code> operator. In
 						AssemblyScript this operator is used for comparing strings, numbers, and exact
 					reference equality (or pointer comparison.)</p>
@@ -123,7 +115,7 @@ expect&lt;Vec3&gt;(a).toBe(a);
 expect&lt;i32&gt;(<span class="hljs-number">10</span>).toBe(<span class="hljs-number">10</span>);
 expect&lt;Vec3&gt;(<span class="hljs-literal">null</span>).toBe(<span class="hljs-literal">null</span>);</code></pre>
 					<p>This method is safe to use portably with <code>jest</code>.</p>
-					<h3 id="tostrictequal-comparison">toStrictEqual Comparison</h3>
+					<h3 id="tostrictequal">toStrictEqual</h3>
 					<p>This method performs a single <code>memory.compare()</code> on two blocks of data. This is
 						useful for references and strings. For example, using a <code>toBe()</code> assertion on
 					two different references results in a failed assertion:</p>
@@ -164,7 +156,7 @@ assert(!negated);</code></pre>
 					<p>This method is <em>not</em> safe to use portably with <code>jest</code> yet. Once <code>Reflection</code>
 						is supported by AssemblyScript, <code>as-pect</code> will support compatibility
 					between <code>jest</code>&#39;s version of this function.</p>
-					<h3 id="toblockequal-comparison">toBlockEqual Comparison</h3>
+					<h3 id="toblockequal">toBlockEqual</h3>
 					<p>This comparison is the same comparison used on <code>ArrayBuffer</code> and <code>String</code>s.
 						It compares the bytes of the heap allocations by obtaining the exact size
 						of the block and then performing a memcompare if the <code>actual</code> and <code>expected</code>
@@ -174,7 +166,7 @@ assert(!negated);</code></pre>
 <span class="hljs-keyword">let</span> buffer2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">100</span>); <span class="hljs-comment">// another buffer</span>
 
 expect&lt;<span class="hljs-built_in">ArrayBuffer</span>&gt;(buffer).toBlockEqual(buffer2);</code></pre>
-					<h3 id="tobetruthy-and-tobefalsy-comparison">toBeTruthy and toBeFalsy Comparison</h3>
+					<h3 id="tobetruthy-and-tobefalsy">toBeTruthy and toBeFalsy</h3>
 					<p>These comparisons are used to determine if a value is truthy or falsy in the
 					JavaScript sense. In JavaScript there are only six falsy values:</p>
 					<ul>
@@ -197,7 +189,7 @@ expect&lt;i32&gt;(<span class="hljs-number">0</span>).toBeFalsy();
 expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).toBeFalsy();
 expect&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">""</span>).toBeFalsy();</code></pre>
 					<p>These methods are safe to use with <code>jest</code>.</p>
-					<h3 id="tobenan-comparison">toBeNaN Comparison</h3>
+					<h3 id="tobenan">toBeNaN</h3>
 					<p>This comparison is only used for float values to determine if the value is a
 					<code>NaN</code> value.</p>
 					<pre><code class="language-ts">expect&lt;f32&gt;(<span class="hljs-literal">NaN</span>).toBeNaN(); <span class="hljs-comment">// passes</span>
@@ -207,7 +199,7 @@ expect&lt;f64&gt;(<span class="hljs-number">1.0</span>).not.toBeNaN(); <span cla
 expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3()).not.toBeNaN();</code></pre>
 					<p>This method is technically safe to use with <code>jest</code> with the assumption
 					that <code>as-pect</code> will fail if used with a reference type.</p>
-					<h3 id="tobenull-comparison">toBeNull Comparison</h3>
+					<h3 id="tobenull">toBeNull</h3>
 					<p>This comparison looks specifically for a <code>null</code> value.</p>
 					<pre><code class="language-ts">expect&lt;Vec3&gt;(<span class="hljs-literal">null</span>).toBeNull(); <span class="hljs-comment">// valid assertion</span></code></pre>
 					<p>In the case of numeric values, numbers cannot be <code>null</code> in AssemblyScript.
@@ -215,7 +207,7 @@ expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3()).not.toBeNaN();<
 					<pre><code class="language-ts">expect&lt;i32&gt;(<span class="hljs-literal">null</span>).toBeNull();</code></pre>
 					<p>This method is safe to use with <code>jest</code> assuming you explicitly return <code>null</code>
 					and avoid use of <code>undefined</code> which does not exist in AssemblyScript.</p>
-					<h3 id="tobefinite-comparison">toBeFinite Comparison</h3>
+					<h3 id="tobefinite">toBeFinite</h3>
 					<p>This comparison is used to detect if float values are finite. The following
 					values are not finite in JavaScript or AssemblyScript.</p>
 					<ul>
@@ -230,7 +222,7 @@ expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).not.toBeFinite();</code
 					<p>As long as the number values are always <code>f32</code> or <code>f64</code> (or <code>number</code> in
 						JavaScript or AssemblyScript,) <code>toBeFinite</code> is a safe assertion to use
 					portably with jest.</p>
-					<h3 id="tothrow-comparison">toThrow Comparison</h3>
+					<h3 id="tothrow">toThrow</h3>
 					<p>This comparison is used to test and see if a function throws an error. In the
 						case of AssemblyScript and <code>as-pect</code>, the function will be called from within
 						a JavaScript <code>try</code> block, and if the function throws, the assertion is valid,
@@ -247,7 +239,7 @@ expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).not.toBeFinite();</code
 						left dangling on the stack will hang around un<code>__release()</code>ed by
 					AssemblyScript.</p>
 					<p>This function is safe to use with <code>jest</code>.</p>
-					<h3 id="tobegreaterthan-and-tobelessthan-comparison">toBeGreaterThan and toBeLessThan Comparison</h3>
+					<h3 id="tobegreaterthan-and-tobelessthan">toBeGreaterThan and toBeLessThan</h3>
 					<p>This set of comparisons validate that a value is greater than, less than, or
 					equal to another value. The following assertions are true.</p>
 					<pre><code class="language-ts">expect&lt;i32&gt;(<span class="hljs-number">100</span>).toBeGreaterThan(<span class="hljs-number">42</span>);
@@ -273,7 +265,7 @@ expect&lt;f64&gt;(<span class="hljs-number">1.0</span>).not.toBeLessThanOrEqual(
 expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)).toBeGreaterThan(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>));</code></pre>
 					<p>These methods are safe to use portably with <code>jest</code>, provided they aren&#39;t used
 					with reference types.</p>
-					<h3 id="tobecloseto-comparison">toBeCloseTo Comparison</h3>
+					<h3 id="tobecloseto">toBeCloseTo</h3>
 					<p>When doing floating point math, it&#39;s possible that values will not be exactly as
 					expected because of floating point error.</p>
 					<pre><code class="language-ts">expect&lt;f64&gt;(<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>).toBe(<span class="hljs-number">0.3</span>); <span class="hljs-comment">// fails</span>
@@ -286,7 +278,7 @@ expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-
 					<p>Reference values and integer values will result in a runtime error, because
 					<code>toBeCloseTo</code> comparisons require a floating point number to work.</p>
 					<p>This method is safe to use portably with <code>jest</code>.</p>
-					<h3 id="tohavelength-comparison">toHaveLength Comparison</h3>
+					<h3 id="tohavelength">toHaveLength</h3>
 					<p>This comparison verifies the length of a given object. This includes Arrays,
 					TypedArrays, ArrayBuffers, and custom classes that have a <code>length</code> property.</p>
 					<pre><code class="language-ts"><span class="hljs-keyword">class</span> LengthExample {
@@ -304,7 +296,7 @@ expect&lt;<span class="hljs-built_in">ArrayBuffer</span>&gt;(buffer).toHaveLengt
 expect&lt;LengthExample&gt;(custom).toHaveLength(<span class="hljs-number">50</span>);</code></pre>
 					<p>This method is safe to use with <code>jest</code>, with the exception of using
 					<code>ArrayBuffer</code>.</p>
-					<h3 id="tocontain-and-toinclude-comparison">toContain and toInclude Comparison</h3>
+					<h3 id="tocontain-and-toinclude">toContain and toInclude</h3>
 					<p>This comparison is used to determine if an Array contains a value.</p>
 					<p>All the values returned by <code>T[index]</code> will be compared using the <code>==</code> operator,
 						so overloading the class <code>@operator(&quot;==&quot;)</code> can be used in conjunction with this
@@ -316,7 +308,7 @@ data[<span class="hljs-number">5</span>] = <span class="hljs-number">255</span>;
 
 expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContain(<span class="hljs-number">255</span>);</code></pre>
 					<p>This method is portable with <code>jest</code> using the <code>toContain()</code> method.</p>
-					<h3 id="tocontainequal-and-toincludeequal-comparison">toContainEqual and toIncludeEqual Comparison</h3>
+					<h3 id="tocontainequal-and-toincludeequal">toContainEqual and toIncludeEqual</h3>
 					<p>This comparison is used to determine if an Array contains a reference that
 					equals another reference.</p>
 					<p>All the values returned by <code>T[index]</code> will be compared using the <code>==</code> operator,
@@ -433,21 +425,6 @@ log&lt;i32[]&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">
 						log value to the current group or test the <code>log()</code> function was called in. Then
 						the after the test runs the configured <code>Reporter</code> decides if it is piped to
 					stdout, which is what <code>DefaultTestReporter</code> does.</p>
-					<h2 id="contributors">Contributors</h2>
-					<p>To contribute please see <a href="./CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
-					<p>Thanks to <a href="github.com/willemneal">@willemneal</a> and
-						<a href="github.com/maxgraey">@MaxGraey</a> for all their support in making <code>as-pect</code> the
-					best software it can be.</p>
-					<p>Other Contributors:</p>
-					<ul>
-						<li><a href="github.com/trusktr">@trusktr</a> - Documentation Changes</li>
-						<li><a href="github.com/maxgraey">@MaxGraey</a> - Performance API suggestions</li>
-						<li><a href="github.com/torch2424">@torch2424</a> - Documentation Changes</li>
-						<li><a href="github.com/torch2424">@dcodeio</a> - Made AssemblyScript itself!</li>
-					</ul>
-					<h2 id="special-thanks">Special Thanks</h2>
-					<p>Special thanks to the <a href="github.com/AssemblyScript/assemblyscript">AssemblyScript</a>
-					team for creating AssemblyScript itself.</p>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -498,7 +475,7 @@ log&lt;i32[]&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L197">assembly/types/as-pect.d.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L197">assembly/types/as-pect.d.ts:197</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -553,7 +530,7 @@ describe(<span class="hljs-string">"dogs"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L177">assembly/types/as-pect.d.ts:177</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L177">assembly/types/as-pect.d.ts:177</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -609,7 +586,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L156">assembly/types/as-pect.d.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L156">assembly/types/as-pect.d.ts:156</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -664,7 +641,7 @@ describe(<span class="hljs-string">"dogs"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L136">assembly/types/as-pect.d.ts:136</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L136">assembly/types/as-pect.d.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -720,7 +697,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L588">assembly/types/as-pect.d.ts:588</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L588">assembly/types/as-pect.d.ts:588</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -742,7 +719,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L15">assembly/types/as-pect.d.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L15">assembly/types/as-pect.d.ts:15</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -798,7 +775,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L212">assembly/types/as-pect.d.ts:212</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L212">assembly/types/as-pect.d.ts:212</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -844,7 +821,7 @@ expect&lt;i32&gt;(<span class="hljs-number">19</span> + <span class="hljs-number
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L228">assembly/types/as-pect.d.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L228">assembly/types/as-pect.d.ts:228</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -892,7 +869,7 @@ expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L35">assembly/types/as-pect.d.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L35">assembly/types/as-pect.d.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -952,7 +929,7 @@ expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L115">assembly/types/as-pect.d.ts:115</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L115">assembly/types/as-pect.d.ts:115</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1018,7 +995,7 @@ expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L253">assembly/types/as-pect.d.ts:253</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L253">assembly/types/as-pect.d.ts:253</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1067,7 +1044,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L72">assembly/types/as-pect.d.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L72">assembly/types/as-pect.d.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1127,7 +1104,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L93">assembly/types/as-pect.d.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L93">assembly/types/as-pect.d.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1193,7 +1170,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L235">assembly/types/as-pect.d.ts:235</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L235">assembly/types/as-pect.d.ts:235</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1224,7 +1201,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L44">assembly/types/as-pect.d.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L44">assembly/types/as-pect.d.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1274,7 +1251,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L53">assembly/types/as-pect.d.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L53">assembly/types/as-pect.d.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

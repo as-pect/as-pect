@@ -1,38 +1,28 @@
 # @as-pect/assembly
 
+This is the main package, which contains the AssemblyScript used to write tests.
+
 ## Table Of Contents
 
-1. [Philosophy](#philosophy)
 1. [Usage](#usage)
 1. [Comparisons](#comparisons)
-   - [toBe](#tobe-comparison)
-   - [toStrictEqual](#tostrictequal-comparison)
-   - [toBlockEqual](#toblockequal-comparison)
-   - [toBeTruthy and toBeFalsy](#tobetruthy-and-tobefalsy-comparison)
-   - [toBeNaN](#tobenan-comparison)
-   - [toBeFinite](#tobefinite-comparison)
-   - [toThrow](#tothrow-comparison)
-   - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan-comparison)\
-   - [toBeCloseTo](#tobecloseto-comparison)
-   - [toHaveLength](#tohavelength-comparison)
-   - [toContain](#tocontain-and-toinclude-comparison)
-   - [toContainEqual](#tocontainequal-and-toincludeequal-comparison)
+   - [toBe](#tobe)
+   - [toStrictEqual](#tostrictequal)
+   - [toBlockEqual](#toblockequal)
+   - [toBeTruthy and toBeFalsy](#tobetruthy-and-tobefalsy)
+   - [toBeNaN](#tobenan)
+   - [toBeFinite](#tobefinite)
+   - [toThrow](#tothrow)
+   - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan)\
+   - [toBeCloseTo](#tobecloseto)
+   - [toHaveLength](#tohavelength)
+   - [toContain](#tocontain-and-toinclude)
+   - [toContainEqual](#tocontainequal-and-toincludeequal)
 1. [Types And Tooling](#types-and-tooling)
 1. [AssemblyScript Compiler Options](#assemblyscript-compiler-options)
 1. [Closures](#closures)
 1. [Expectations](#expectations)
 1. [Logging](#logging)
-1. [Contributers](#contributers)
-
-## Philosophy
-
-Testing is the first step of every project and you have a responsibility to
-make sure that the software you write works as intended. The `as-pect` project
-was created to help quickly scaffold and bootstrap AssemblyScript tests so
-that you can be confident in yourself and the software you write.
-
-One of the goals of this project is 100% portability to `jest` so that tests
-can be run in two different environments.
 
 ## Usage
 
@@ -57,7 +47,7 @@ There are a set of comparison functions defined in the `types/as-pect.d.ts` type
 definition. These comparison functions allow you to inspect object and memory
 state.
 
-### toBe Comparison
+### toBe
 
 This comparison is used for comparing data using the `==` operator. In
 AssemblyScript this operator is used for comparing strings, numbers, and exact
@@ -74,7 +64,7 @@ expect<Vec3>(null).toBe(null);
 
 This method is safe to use portably with `jest`.
 
-### toStrictEqual Comparison
+### toStrictEqual
 
 This method performs a single `memory.compare()` on two blocks of data. This is
 useful for references and strings. For example, using a `toBe()` assertion on
@@ -134,7 +124,7 @@ This method is _not_ safe to use portably with `jest` yet. Once `Reflection`
 is supported by AssemblyScript, `as-pect` will support compatibility
 between `jest`'s version of this function.
 
-### toBlockEqual Comparison
+### toBlockEqual
 
 This comparison is the same comparison used on `ArrayBuffer` and `String`s.
 It compares the bytes of the heap allocations by obtaining the exact size
@@ -150,7 +140,7 @@ let buffer2 = new ArrayBuffer(100); // another buffer
 expect<ArrayBuffer>(buffer).toBlockEqual(buffer2);
 ```
 
-### toBeTruthy and toBeFalsy Comparison
+### toBeTruthy and toBeFalsy
 
 These comparisons are used to determine if a value is truthy or falsy in the
 JavaScript sense. In JavaScript there are only six falsy values:
@@ -179,7 +169,7 @@ expect<string>("").toBeFalsy();
 
 These methods are safe to use with `jest`.
 
-### toBeNaN Comparison
+### toBeNaN
 
 This comparison is only used for float values to determine if the value is a
 `NaN` value.
@@ -195,7 +185,7 @@ expect<Vec3>(new Vec3()).not.toBeNaN();
 This method is technically safe to use with `jest` with the assumption
 that `as-pect` will fail if used with a reference type.
 
-### toBeNull Comparison
+### toBeNull
 
 This comparison looks specifically for a `null` value.
 
@@ -213,7 +203,7 @@ expect<i32>(null).toBeNull();
 This method is safe to use with `jest` assuming you explicitly return `null`
 and avoid use of `undefined` which does not exist in AssemblyScript.
 
-### toBeFinite Comparison
+### toBeFinite
 
 This comparison is used to detect if float values are finite. The following
 values are not finite in JavaScript or AssemblyScript.
@@ -234,7 +224,7 @@ As long as the number values are always `f32` or `f64` (or `number` in
 JavaScript or AssemblyScript,) `toBeFinite` is a safe assertion to use
 portably with jest.
 
-### toThrow Comparison
+### toThrow
 
 This comparison is used to test and see if a function throws an error. In the
 case of AssemblyScript and `as-pect`, the function will be called from within
@@ -258,7 +248,7 @@ AssemblyScript.
 
 This function is safe to use with `jest`.
 
-### toBeGreaterThan and toBeLessThan Comparison
+### toBeGreaterThan and toBeLessThan
 
 This set of comparisons validate that a value is greater than, less than, or
 equal to another value. The following assertions are true.
@@ -294,7 +284,7 @@ expect<Vec3>(new Vec3(1, 2, 3)).toBeGreaterThan(new Vec3(0, 0, 0));
 These methods are safe to use portably with `jest`, provided they aren't used
 with reference types.
 
-### toBeCloseTo Comparison
+### toBeCloseTo
 
 When doing floating point math, it's possible that values will not be exactly as
 expected because of floating point error.
@@ -318,7 +308,7 @@ Reference values and integer values will result in a runtime error, because
 
 This method is safe to use portably with `jest`.
 
-### toHaveLength Comparison
+### toHaveLength
 
 This comparison verifies the length of a given object. This includes Arrays,
 TypedArrays, ArrayBuffers, and custom classes that have a `length` property.
@@ -342,7 +332,7 @@ expect<LengthExample>(custom).toHaveLength(50);
 This method is safe to use with `jest`, with the exception of using
 `ArrayBuffer`.
 
-### toContain and toInclude Comparison
+### toContain and toInclude
 
 This comparison is used to determine if an Array contains a value.
 
@@ -361,7 +351,7 @@ expect<Uint8Array>(data).toContain(255);
 
 This method is portable with `jest` using the `toContain()` method.
 
-### toContainEqual and toIncludeEqual Comparison
+### toContainEqual and toIncludeEqual
 
 This comparison is used to determine if an Array contains a reference that
 equals another reference.
@@ -516,23 +506,3 @@ This log function does _not_ pipe the output to stdout. It simply attaches the
 log value to the current group or test the `log()` function was called in. Then
 the after the test runs the configured `Reporter` decides if it is piped to
 stdout, which is what `DefaultTestReporter` does.
-
-## Contributors
-
-To contribute please see [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-Thanks to [@willemneal](github.com/willemneal) and
-[@MaxGraey](github.com/maxgraey) for all their support in making `as-pect` the
-best software it can be.
-
-Other Contributors:
-
-- [@trusktr](github.com/trusktr) - Documentation Changes
-- [@MaxGraey](github.com/maxgraey) - Performance API suggestions
-- [@torch2424](github.com/torch2424) - Documentation Changes
-- [@dcodeio](github.com/torch2424) - Made AssemblyScript itself!
-
-## Special Thanks
-
-Special thanks to the [AssemblyScript](github.com/AssemblyScript/assemblyscript)
-team for creating AssemblyScript itself.

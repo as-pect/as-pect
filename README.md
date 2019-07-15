@@ -15,6 +15,19 @@ with WebAssembly speeds!
 1. [Philosophy](#philosophy)
 1. [Usage](#usage)
 1. [CLI](#cli)
+1. [Comparisons](#comparisons)
+   - [toBe](#tobe)
+   - [toStrictEqual](#tostrictequal)
+   - [toBlockEqual](#toblockequal)
+   - [toBeTruthy and toBeFalsy](#tobetruthy-and-tobefalsy)
+   - [toBeNaN](#tobenan)
+   - [toBeFinite](#tobefinite)
+   - [toThrow](#tothrow)
+   - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan)\
+   - [toBeCloseTo](#tobecloseto)
+   - [toHaveLength](#tohavelength)
+   - [toContain](#tocontain-and-toinclude)
+   - [toContainEqual](#tocontainequal-and-toincludeequal)
 1. [Configuration File](#configuration-file)
 1. [Types And Tooling](#types-and-tooling)
 1. [CI Usage](#ci-usage)
@@ -93,76 +106,338 @@ To change the location of the as-pect configuration, use the `--config` option.
 $ npx asp --config as-pect.config.js
 ```
 
-Most of the values configured in the configuration are overridable via the command
-line, with the exception of the Web Assembly imports provided to the module.
+## Comparisons
 
-To access the help screen, use the `--help` flag, which prints the following:
+There are a set of comparison functions defined in the `types/as-pect.d.ts` types
+definition. These comparison functions allow you to inspect object and memory
+state.
 
-<!-- markdownlint-disable MD013 MD031 -->
-<!--
-  This is the command line help screen, and has lines longer than 80
-  characters. This cannot be helped.
--->
+### toBe
 
+This comparison is used for comparing data using the `==` operator. In
+AssemblyScript this operator is used for comparing strings, numbers, and exact
+reference equality (or pointer comparison.)
+
+For example, the following statements are valid `toBe` assertions:
+
+```ts
+let a = new Vec3(1, 2, 3);
+expect<Vec3>(a).toBe(a);
+expect<i32>(10).toBe(10);
+expect<Vec3>(null).toBe(null);
 ```
-SYNTAX
-  asp --init                             Create a test config, an assembly/__tests__ folder and exit.
-    asp -i
-    asp --config=as-pect.config.js       Use a specified configuration
-    asp -c as-pect.config.js
-    asp --version                        View the version.
-    asp -v
-    asp --help                           Show this help screen.
-    asp -h
-    asp --types                          Copy the types file to assembly/__tests__/as-pect.d.ts
-    asp -t
-    asp --compiler                       Path to folder relative to project root which contains
-                                         folder/dist/asc for the compiler and folder/lib/loader for loader. (Default: assemblyscript)
 
-  TEST OPTIONS
-    --file=[regex]                       Run the tests of each file that matches this regex. (Default: /./)
-      --files=[regex]
-      -f=[regex]
+This method is safe to use portably with `jest`.
 
-    --group=[regex]                      Run each describe block that matches this regex (Default: /(:?)/)
-      --groups=[regex]
-      -g=[regex]
+### toStrictEqual
 
-    --test=[regex]                       Run each test that matches this regex (Default: /(:?)/)
-      --tests=[regex]
-      -t=[regex]
+This method performs a single `memory.compare()` on two blocks of data. This is
+useful for references and strings. For example, using a `toBe()` assertion on
+two different references results in a failed assertion:
 
-    --output-binary                      Create a (.wasm) file can contains all the tests to be run later.
-      -o
-
-    --norun                              Skip running tests and output the compiler files.
-      -n
-
-    --nortrace                           Skip rtrace reference counting calculations.
-      -nr
-
-    asp --workers 3                      Enable the experimental worker worklets (default: 0  [disabled])
-      asp -w
-
-  REPORTER OPTIONS
-    --summary                            Use the summary reporter. Use the summary reporter. (This is the default if no reporter is specified.)
-    --verbose                            Use the reporter.
-    --csv                                Use the csv reporter (output results to csv files.)
-    --json                               Use the json reporter (output results to json files.)
-    --reporter                           Define a custom reporter (path or module)
-
-  PERFORMANCE OPTIONS
-    --performance                        Enable performance statistics for {bold every} test. (Default: false)
-    --max-samples=[number]               Set the maximum number of samples to run for each test. (Default: 10000 samples)
-    --max-test-run-time=[number]         Set the maximum test run time in milliseconds. (Default: 2000ms)
-    --round-decimal-places=[number]      Set the number of decimal places to round to. (Default: 3)
-    --report-median(=false)?             Enable/Disable reporting of the median time. (Default: true)
-    --report-average(=false)?            Enable/Disable reporting of the average time. (Default: true)
-    --report-standard-deviation(=false)? Enable/Disable reporting of the standard deviation. (Default: false)
-    --report-max(=false)?                Enable/Disable reporting of the largest run time. (Default: false)
-    --report-min(=false)?                Enable/Disable reporting of the smallest run time. (Default: false)
-    --report-variance(=false)?           Enable/Disable reporting of the variance. (Default: false)
+```ts
+let a = new Vec3(1, 2, 3);
+let b = new Vec3(1, 2, 3);
+expect<Vec3>(a).toBe(b); // fails!
 ```
+
+Instead, it's posible to compare two different references like this:
+
+```ts
+expect<Vec3>(a).toStrictEqual(b); // passes!
+```
+
+The following snippet an approximate the JavaScript equivalent for the
+`toStrictEqual` comparison:
+
+```ts
+// loop over each property (properties are the same at compile time)
+for (let prop in a) {
+  if (a[prop] === b[prop]) {
+    // exact equality check
+    continue;
+  } else {
+    assert(negated);
+  }
+}
+assert(!negated);
+```
+
+If the object has child references, like strings or pointers to other blocks
+of memory, the comparison will fail because the pointers are different. This
+happens because `as-pect` cannot perform object traversal. Instead, a custom
+method should be used to traverse child references to compare equality.
+
+The `toStrictEqual` comparison, however, does perform a `==` comparison before
+opting into using a full memory comparison. If the `@operator("==")` is
+overridden, then it's possible for two references to be compared using this
+method:
+
+```ts
+class Vec3 {
+  constructor(public a: f64 = 0.0, public b: f64 = 0.0, public c: f64 = 0.0) {}
+
+  // override the operator
+  @operator("==")
+  protected __equals(ref: Vec3): bool {
+    return this.a == ref.a && this.b == ref.b && this.c == ref.c;
+  }
+}
+```
+
+This method is _not_ safe to use portably with `jest` yet. Once `Reflection`
+is supported by AssemblyScript, `as-pect` will support compatibility
+between `jest`'s version of this function.
+
+### toBlockEqual
+
+This comparison is the same comparison used on `ArrayBuffer` and `String`s.
+It compares the bytes of the heap allocations by obtaining the exact size
+of the block and then performing a memcompare if the `actual` and `expected`
+blocks match.
+
+Only use this comparison when comparing `ArrayBuffer` references.
+
+```ts
+let buffer = new ArrayBuffer(100); // 100 bytes long heap allocation
+let buffer2 = new ArrayBuffer(100); // another buffer
+
+expect<ArrayBuffer>(buffer).toBlockEqual(buffer2);
+```
+
+### toBeTruthy and toBeFalsy
+
+These comparisons are used to determine if a value is truthy or falsy in the
+JavaScript sense. In JavaScript there are only six falsy values:
+
+- `false`
+- `0`
+- `""`
+- `null`
+- `undefined`
+- `NaN`
+
+In AssemblyScript, there is no `undefined`, so `as-pect` will treat each of
+those values as falsy. Truthy values are anything that is not falsy,
+
+```ts
+expect<bool>(true).toBeTruthy();
+expect<Vec3>(new Vec3(1, 2, 3)).toBeTruthy();
+expect<i32>(1).toBeTruthy();
+expect<string>("Something!").toBeTruthy();
+expect<bool>(false).toBeFalsy();
+expect<Vec3>(null).toBeFalsy();
+expect<i32>(0).toBeFalsy();
+expect<f64>(NaN).toBeFalsy();
+expect<string>("").toBeFalsy();
+```
+
+These methods are safe to use with `jest`.
+
+### toBeNaN
+
+This comparison is only used for float values to determine if the value is a
+`NaN` value.
+
+```ts
+expect<f32>(NaN).toBeNaN(); // passes
+expect<f64>(1.0).not.toBeNaN(); // passes
+
+/** This results in a runtime error, despite not being NaN. */
+expect<Vec3>(new Vec3()).not.toBeNaN();
+```
+
+This method is technically safe to use with `jest` with the assumption
+that `as-pect` will fail if used with a reference type.
+
+### toBeNull
+
+This comparison looks specifically for a `null` value.
+
+```ts
+expect<Vec3>(null).toBeNull(); // valid assertion
+```
+
+In the case of numeric values, numbers cannot be `null` in AssemblyScript.
+Thus, the following example will throw a runtime error.
+
+```ts
+expect<i32>(null).toBeNull();
+```
+
+This method is safe to use with `jest` assuming you explicitly return `null`
+and avoid use of `undefined` which does not exist in AssemblyScript.
+
+### toBeFinite
+
+This comparison is used to detect if float values are finite. The following
+values are not finite in JavaScript or AssemblyScript.
+
+- `Infinity`
+- `-Infinity`
+- `NaN`
+
+The following assertions are true.
+
+```ts
+expect<f64>(1.0).toBeFinite();
+expect<f32>(Infinity).not.toBeFinite();
+expect<f64>(NaN).not.toBeFinite();
+```
+
+As long as the number values are always `f32` or `f64` (or `number` in
+JavaScript or AssemblyScript,) `toBeFinite` is a safe assertion to use
+portably with jest.
+
+### toThrow
+
+This comparison is used to test and see if a function throws an error. In the
+case of AssemblyScript and `as-pect`, the function will be called from within
+a JavaScript `try` block, and if the function throws, the assertion is valid,
+unless it is negated with the `not` property.
+
+```ts
+expect<() => void>(() => {
+  throw new Error("Whoops!");
+}).toThrow(); // valid assertion
+
+// alternative shorter convenience syntax
+expectFn(() => {
+  throw new Error("Whoops!");
+}).toThrow();
+```
+
+Closure is not supported in AssemblyScript yet. Also, any references that are
+left dangling on the stack will hang around un`__release()`ed by
+AssemblyScript.
+
+This function is safe to use with `jest`.
+
+### toBeGreaterThan and toBeLessThan
+
+This set of comparisons validate that a value is greater than, less than, or
+equal to another value. The following assertions are true.
+
+```ts
+expect<i32>(100).toBeGreaterThan(42);
+expect<i32>(0).toBeLessThan(100);
+expect<i32>(0).not.toBeGreaterThan(100);
+expect<f64>(1.0).toBeGreaterThanOrEqual(1.0);
+expect<f64>(1.0).not.toBeLessThanOrEqual(0);
+```
+
+These assertions also work with reference types when the
+`@operator(">" | "<" | ">=" | "<=")` is used on a method in the class.
+
+```ts
+class Vec3 {
+  constructor(public x: f64 = 0.0, public y: f64 = 0.0, public z: f64 = 0.0) {}
+
+  @operator(">")
+  protected __gt(other: Vec3): bool {
+    return (
+      this.x * this.x + this.y * this.y + this.z * this.z >
+      other.x * other.x + other.y * other.y + other.z * other.z
+    );
+  }
+}
+
+// valid assertion because `@operator` was overloaded
+expect<Vec3>(new Vec3(1, 2, 3)).toBeGreaterThan(new Vec3(0, 0, 0));
+```
+
+These methods are safe to use portably with `jest`, provided they aren't used
+with reference types.
+
+### toBeCloseTo
+
+When doing floating point math, it's possible that values will not be exactly as
+expected because of floating point error.
+
+```ts
+expect<f64>(0.1 + 0.2).toBe(0.3); // fails
+
+> 0.1 + 0.2
+0.30000000000000004
+```
+
+Instead, use `expect().toBeCloseTo()` to validate an expected floating point
+value.
+
+```ts
+expect<f64>(0.1 + 0.2).toBeCloseTo(0.3); // passes!
+```
+
+Reference values and integer values will result in a runtime error, because
+`toBeCloseTo` comparisons require a floating point number to work.
+
+This method is safe to use portably with `jest`.
+
+### toHaveLength
+
+This comparison verifies the length of a given object. This includes Arrays,
+TypedArrays, ArrayBuffers, and custom classes that have a `length` property.
+
+```ts
+class LengthExample {
+  constructor(public length: i32 = 0) {}
+}
+
+const array = new Array<Vec3>(100);
+const typedarray = new Uint8Array(42);
+const buffer = new ArrayBuffer(29);
+const custom = new LengthExample(50);
+
+expect<Array<Vec3>>(array).toHaveLength(100);
+expect<Uint8Array>(typedarray).toHaveLength(42);
+expect<ArrayBuffer>(buffer).toHaveLength(29);
+expect<LengthExample>(custom).toHaveLength(50);
+```
+
+This method is safe to use with `jest`, with the exception of using
+`ArrayBuffer`.
+
+### toContain and toInclude
+
+This comparison is used to determine if an Array contains a value.
+
+All the values returned by `T[index]` will be compared using the `==` operator,
+so overloading the class `@operator("==")` can be used in conjunction with this
+comparison. The `index` must be a number value, and there must be a `length`
+property that matches the `index` type. All values from `0` to `length - 1`
+will be checked.
+
+```ts
+const data = new Uint8Array(100);
+data[5] = 255;
+
+expect<Uint8Array>(data).toContain(255);
+```
+
+This method is portable with `jest` using the `toContain()` method.
+
+### toContainEqual and toIncludeEqual
+
+This comparison is used to determine if an Array contains a reference that
+equals another reference.
+
+All the values returned by `T[index]` will be compared using the `==` operator,
+and if that comparison does not work, a memcompare will be used. Overloading the
+class `@operator("==")` can be used in conjunction with this comparison. The
+`index` must be a number value, and there must be a `length` property that
+matches the `index` type. All values from `0` to `length - 1` will be checked.
+
+```ts
+const reference = new Vec3(1, 2, 3);
+const data = new Array<Vec3>(0);
+data.push(new Vec(0, 0, 0));
+data.push(new Vec(1, 2, 3));
+data.push(new Vec(4, 5, 6));
+
+expect<Uint8Array>(data).toContainEqual(referece);
+```
+
+This method is portable with `jest` using the `toContainEqual()` method.
 
 <!-- markdownlint-enable MD013 MD031 -->
 
@@ -545,6 +820,65 @@ instantiated.
 _**IMPORTANT**: THIS WILL IGNORE `as-pect.config.js`'S IMPORTS COMPLETELY_
 
 Please see the provided example located in `assembly/__tests__/customImports.spec.ts`.
+
+## Using as-pect as a Package
+
+It's possible that running your tests requires a browser environment. Instead
+of running `as-pect` from the command line, use the `--output-binary` flag
+along with the `--norun` flag and this will cause `as-pect` to output the
+`*.spec.wasm` file. This binary can be `fetch()`ed and instantiate like the
+following example.
+
+```ts
+// browser-test.ts
+import { instantiateBuffer } from "assemblyscript/lib/loader";
+import {
+  TestContext,
+  IPerformanceConfiguration,
+  IAspectExports,
+  // EmptyReporter,
+} from "as-pect";
+
+const performanceConfiguration: IPerformanceConfiguration = {
+  // put performance configuration values here
+};
+
+// Create a TestContext
+const runner = new TestContext({
+  // reporter: new EmptyReporter(), // Use this to override default test reporting
+  performanceConfiguration,
+  // testRegex: /.*/, // Use this to run only tests that match this regex
+  // groupRegex: /.*/, // Use this to run only groups that match this regex
+  fileName: "./test.spec.ts", // Always set the filename
+});
+
+// put your assemblyscript imports here
+const imports = runner.createImports({});
+
+// instantiate your test module here via the "assemblyscript/lib/loader" module
+const wasm = instantiateStreaming<IAspectExports>(
+  fetch("./test.spec.wasm"),
+  imports,
+);
+
+runner.run(wasm); // run the tests synchronously
+
+// loop over each group and test in that group
+for (const group of runner.testGroups) {
+  for (const test of group.tests) {
+    console.log(test.name, test.pass ? "pass" : "fail");
+  }
+}
+```
+
+If you want to compile each test suite manually, it's possible to use the `asc`
+compiler yourself by including the following file in your compilation.
+
+```
+./node_modules/as-pect/assembly/index.ts
+```
+
+By default, `as-pect` always shows the generated compiler flags.
 
 ## Contributors
 

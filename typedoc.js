@@ -19,4 +19,5 @@ module.exports = {
   excludeProtected: true,
   excludeExternals: true,
   skipInternal: true,
+  readme: "./README.md",
 };

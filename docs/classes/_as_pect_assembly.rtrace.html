@@ -70,8 +70,11 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This static class contains a few conveince methods for developers to test the current number of
-						blocks allocated on the heap.</p>
+						<p>Assemblyscript uses reference counting to perform garbage collection.  This means when you
+							allocate a managed object and return it, it&#39;s reference count is one.  If another variable aliases
+							it then the reference count goes up. This static class contains a few convenience methods for
+							developers to test the current number of blocks allocated on the heap to make sure you aren&#39;t leaking
+						references, e.i. keeping references to objects you expect to be collected.</p>
 					</div>
 				</div>
 			</section>
@@ -130,7 +133,7 @@
 					<div class="tsd-signature tsd-kind-icon">enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">bool</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L678">assembly/types/as-pect.d.ts:678</a></li>
+							<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L681">assembly/types/as-pect.d.ts:681</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -152,7 +155,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L796">assembly/types/as-pect.d.ts:796</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L799">assembly/types/as-pect.d.ts:799</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -174,7 +177,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L801">assembly/types/as-pect.d.ts:801</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L804">assembly/types/as-pect.d.ts:804</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -196,7 +199,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L806">assembly/types/as-pect.d.ts:806</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L809">assembly/types/as-pect.d.ts:809</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -218,7 +221,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L740">assembly/types/as-pect.d.ts:740</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L743">assembly/types/as-pect.d.ts:743</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -241,7 +244,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L783">assembly/types/as-pect.d.ts:783</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L786">assembly/types/as-pect.d.ts:786</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -275,7 +278,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L775">assembly/types/as-pect.d.ts:775</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L778">assembly/types/as-pect.d.ts:778</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -297,7 +300,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L683">assembly/types/as-pect.d.ts:683</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L686">assembly/types/as-pect.d.ts:686</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -319,7 +322,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L710">assembly/types/as-pect.d.ts:710</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L713">assembly/types/as-pect.d.ts:713</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -342,7 +345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L698">assembly/types/as-pect.d.ts:698</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L701">assembly/types/as-pect.d.ts:701</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -373,7 +376,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L746">assembly/types/as-pect.d.ts:746</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L749">assembly/types/as-pect.d.ts:749</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -396,7 +399,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L752">assembly/types/as-pect.d.ts:752</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L755">assembly/types/as-pect.d.ts:755</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -419,7 +422,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L722">assembly/types/as-pect.d.ts:722</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L725">assembly/types/as-pect.d.ts:725</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -442,7 +445,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L758">assembly/types/as-pect.d.ts:758</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L761">assembly/types/as-pect.d.ts:761</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -465,7 +468,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L716">assembly/types/as-pect.d.ts:716</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L719">assembly/types/as-pect.d.ts:719</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -488,7 +491,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L704">assembly/types/as-pect.d.ts:704</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L707">assembly/types/as-pect.d.ts:707</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -511,7 +514,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L791">assembly/types/as-pect.d.ts:791</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L794">assembly/types/as-pect.d.ts:794</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -551,7 +554,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L691">assembly/types/as-pect.d.ts:691</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L694">assembly/types/as-pect.d.ts:694</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -583,7 +586,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L764">assembly/types/as-pect.d.ts:764</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L767">assembly/types/as-pect.d.ts:767</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -606,7 +609,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L734">assembly/types/as-pect.d.ts:734</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L737">assembly/types/as-pect.d.ts:737</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -629,7 +632,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L770">assembly/types/as-pect.d.ts:770</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L773">assembly/types/as-pect.d.ts:773</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -652,7 +655,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/assembly/types/as-pect.d.ts#L728">assembly/types/as-pect.d.ts:728</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/assembly/types/as-pect.d.ts#L731">assembly/types/as-pect.d.ts:731</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

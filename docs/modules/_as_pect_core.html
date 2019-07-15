@@ -67,14 +67,9 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<h1 id="-as-pect-core">@as-pect/core</h1>
-					<p><a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/jtenner/as-pect.svg" alt="Greenkeeper badge"></a>
-						<a href="https://travis-ci.org/jtenner/as-pect"><img src="https://travis-ci.org/jtenner/as-pect.svg?branch=master" alt="Build Status"></a>
-					<a href="https://coveralls.io/github/jtenner/as-pect?branch=master"><img src="https://coveralls.io/repos/github/jtenner/as-pect/badge.svg?branch=master" alt="Coverage Status"></a></p>
-					<p>Write your module in AssemblyScript and get blazing fast bootstrapped tests
-					with WebAssembly speeds!</p>
+					<p>Typescript infastructure for running tests.</p>
 					<h2 id="table-of-contents">Table of contents</h2>
 					<ol>
-						<li><a href="#philosophy">Philosophy</a></li>
 						<li><a href="#usage">Usage</a></li>
 						<li><a href="#reporters">Reporters</a><ul>
 								<li><a href="#summaryreporter">SummaryReporter</a></li>
@@ -86,17 +81,8 @@
 						<li><a href="#portability">Portability</a></li>
 						<li><a href="#rtrace-and-memory-leaks">RTrace and Memory Leaks</a></li>
 						<li><a href="#performance-testing">Performance Testing</a></li>
-						<li><a href="#custom-imports-using-cli">Custom Imports Using CLI</a></li>
 						<li><a href="#using-as-pect-as-a-package">Using as-pect as a Package</a></li>
-						<li><a href="#contributors">Contributors</a></li>
 					</ol>
-					<h2 id="philosophy">Philosophy</h2>
-					<p>Testing is the first step of every project and you have a responsibility to
-						make sure that the software you write works as intended. The <code>as-pect</code> project
-						was created to help quickly scaffold and bootstrap AssemblyScript tests so
-					that you can be confident in yourself and the software you write.</p>
-					<p>One of the goals of this project is 100% portability to <code>jest</code> so that tests
-					can be run in two different environments.</p>
 					<h2 id="usage">Usage</h2>
 					<p>To install <code>as-pect</code>, install the latest version from github.</p>
 					<pre><code>$ <span class="hljs-built_in">npm</span> install @as-pect/core</code></pre><p>To create a <code>TestContext</code> simply import it and instantiate it.</p>
@@ -796,15 +782,6 @@ it(<span class="hljs-string">"should report the min"</span>, <span class="hljs-f
     reportMin: <span class="hljs-literal">false</span>,
   },
 };</code></pre>
-					<h2 id="custom-imports-using-cli">Custom Imports Using CLI</h2>
-					<p>If a set of custom imports are required for your test module, it&#39;s possible to
-					provide a set of imports for a given test file.</p>
-					<p>If your test is located at <code>assembly/__tests__/customImports.spec.ts</code>, then use
-						filename <code>assembly/__tests__/customImports.spec.imports.js</code> to export the test
-						module&#39;s imports. This file will be required by the cli before the module is
-					instantiated.</p>
-					<p><em><strong>IMPORTANT</strong>: THIS WILL IGNORE <code>as-pect.config.js</code>&#39;S IMPORTS COMPLETELY</em></p>
-					<p>Please see the provided example located in <code>assembly/__tests__/customImports.spec.ts</code>.</p>
 					<h2 id="using-as-pect-as-a-package">Using as-pect as a Package</h2>
 					<p>It&#39;s possible that running your tests requires a browser environment. Instead
 						of running <code>as-pect</code> from the command line, use the <code>--output-binary</code> flag
@@ -853,21 +830,6 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 					<p>If you want to compile each test suite manually, it&#39;s possible to use the <code>asc</code>
 					compiler yourself by including the following file in your compilation.</p>
 					<pre><code>.<span class="hljs-regexp">/node_modules/</span><span class="hljs-keyword">as</span>-pect<span class="hljs-regexp">/assembly/</span>index.ts</code></pre><p>By default, <code>as-pect</code> always shows the generated compiler flags.</p>
-					<h2 id="contributors">Contributors</h2>
-					<p>To contribute please see <a href="./CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
-					<p>Thanks to <a href="github.com/willemneal">@willemneal</a> and
-						<a href="github.com/maxgraey">@MaxGraey</a> for all their support in making <code>as-pect</code> the
-					best software it can be.</p>
-					<p>Other Contributors:</p>
-					<ul>
-						<li><a href="github.com/trusktr">@trusktr</a> - Documentation Changes</li>
-						<li><a href="github.com/maxgraey">@MaxGraey</a> - Performance API suggestions</li>
-						<li><a href="github.com/torch2424">@torch2424</a> - Documentation Changes</li>
-						<li><a href="github.com/torch2424">@dcodeio</a> - Made AssemblyScript itself!</li>
-					</ul>
-					<h2 id="special-thanks">Special Thanks</h2>
-					<p>Special thanks to the <a href="github.com/AssemblyScript/assemblyscript">AssemblyScript</a>
-					team for creating AssemblyScript itself.</p>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -923,7 +885,7 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/59dec53/packages/core/src/util/IPerformanceConfiguration.ts#L30">core/src/util/IPerformanceConfiguration.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/willemneal/as-pect/blob/a42cd53/packages/core/src/util/IPerformanceConfiguration.ts#L30">core/src/util/IPerformanceConfiguration.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
