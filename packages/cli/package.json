@@ -25,6 +25,7 @@
   },
   "author": "Joshua Tenner <tenner.joshua@gmail.com>",
   "license": "MIT",
+  "keywords": ["wasm", "assemblyscript", "testing", "cli"],
   "bugs": {
     "url": "https://github.com/jtenner/aspect/issues"
   },
