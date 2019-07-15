@@ -199,7 +199,7 @@ declare function afterAll(callback: () => void): void;
 /**
  * Describes a value and returns an expectation to test the value.
  *
- * @type {T} - The test's type
+ * @type {T} - The expectation's type.
  * @param {T} actual - The value being tested.
  *
  * @example
@@ -212,7 +212,7 @@ declare function afterAll(callback: () => void): void;
 declare function expect<T>(actual: T | null): Expectation<T>;
 
 /**
- * Describes a function and returns an expectation to test the function.
+ * Describes a void function and returns an expectation to test the function.
  *
  * @param {() => void} callback - The callback being tested.
  *

@@ -398,7 +398,7 @@ tests to Wasm is to use the `asp` cli option `--outputBinary`. This will compile
 every test and output binary files for each test that matches the `include`
 property in the `as-pect.config.js` file.
 
-In order to compile the test binary correctlymanually, the
+In order to compile the test binary correctly, the
 `@as-pect/assembly/assembly/index.ts` file must be included as an entry point.
 Also, `--use ASC_RTRACE=1` is required in order to enable RTrace error reporting
 and reference counting statistics. Finally, the `--explicitStart` flag must be
