@@ -1,6 +1,6 @@
 {
   "name": "as-pect",
-  "version": "2.0.0",
+  "version": "2.1.2",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "scripts": {
     "bootstrap": "lerna bootstrap",
