@@ -35,9 +35,7 @@
 		"typescript": "^3.5.3"
 	},
 	"dependencies": {
-		"long": "^4.0.0"
-	},
-	"peerDependencies": {
+		"long": "^4.0.0",
 		"@as-pect/assembly": "^2.1.3"
 	},
 	"files": [
