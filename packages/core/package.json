@@ -1,6 +1,6 @@
 {
 	"name": "@as-pect/core",
-	"version": "2.1.5",
+	"version": "2.2.0",
 	"description": "Write AssemblyScript tests at blazing fast speeds",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
@@ -17,17 +17,17 @@
 		"assemblyscript"
 	],
 	"scripts": {
-    "jest": "jest",
-    "mdlint": "markdownlint *.md",
-    "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
-    "rimraf": "rimraf lib/*",
-    "test:ci": "run-s jest mdlint",
-    "test": "run-s jest mdlint",
-    "tsc:all": "run-p tsc:default tsc:amd",
-    "tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
-    "tsc:default": "tsc",
-    "tsc": "run-s prettier rimraf tsc:all"
-  },
+		"jest": "jest",
+		"mdlint": "markdownlint *.md",
+		"prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
+		"rimraf": "rimraf lib/*",
+		"test:ci": "run-s jest mdlint",
+		"test": "run-s jest mdlint",
+		"tsc:all": "run-p tsc:default tsc:amd",
+		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
+		"tsc:default": "tsc",
+		"tsc": "run-s prettier rimraf tsc:all"
+	},
 	"bugs": {
 		"url": "https://github.com/jtenner/aspect/issues"
 	},
@@ -35,10 +35,10 @@
 	"devDependencies": {
 		"@types/jest": "^24.0.15",
 		"jest": "^24.8.0",
-    "ts-jest": "^24.0.2"
+		"ts-jest": "^24.0.2"
 	},
 	"dependencies": {
-		"@as-pect/assembly": "^2.1.5",
+		"@as-pect/assembly": "^2.2.0",
 		"chalk": "^2.4.2",
 		"long": "^4.0.0"
 	},
