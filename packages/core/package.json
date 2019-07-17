@@ -16,26 +16,30 @@
 		"typescript",
 		"assemblyscript"
 	],
+	"scripts": {
+    "jest": "jest",
+    "mdlint": "markdownlint *.md",
+    "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
+    "rimraf": "rimraf lib/*",
+    "test:ci": "run-s jest mdlint",
+    "test": "run-s jest mdlint",
+    "tsc:all": "run-p tsc:default tsc:amd",
+    "tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
+    "tsc:default": "tsc",
+    "tsc": "run-s prettier rimraf tsc:all"
+  },
 	"bugs": {
 		"url": "https://github.com/jtenner/aspect/issues"
 	},
 	"homepage": "https://github.com/jtenner/as-pect#readme",
 	"devDependencies": {
 		"@types/jest": "^24.0.15",
-		"@types/node": "^12.0.12",
-		"assemblyscript": "github:assemblyscript/assemblyscript",
-		"coveralls": "^3.0.4",
 		"jest": "^24.8.0",
-		"markdownlint-cli": "^0.17.0",
-		"npm-run-all": "^4.1.5",
-		"prettier": "^1.18.2",
-		"rimraf": "^2.6.3",
-		"ts-jest": "^24.0.2",
-		"ts-node": "^8.3.0",
-		"typescript": "^3.5.3"
+    "ts-jest": "^24.0.2"
 	},
 	"dependencies": {
 		"@as-pect/assembly": "^2.1.5",
+		"chalk": "^2.4.2",
 		"long": "^4.0.0"
 	},
 	"files": [

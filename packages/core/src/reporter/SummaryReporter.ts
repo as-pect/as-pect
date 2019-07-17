@@ -1,7 +1,6 @@
 import { TestReporter } from "../test/TestReporter";
 import { TestContext } from "../test/TestContext";
 import { TestResult } from "../test/TestResult";
-import chalk from "chalk";
 import { TestGroup } from "../test/TestGroup";
 import { IWritable } from "../util/IWriteable";
 import { LogValue } from "../util/LogValue";
@@ -39,6 +38,7 @@ export default class SummaryReporter extends TestReporter {
    * @param {TestContext} suite - The finished test suite.
    */
   public onFinish(suite: TestContext): void {
+    const chalk = require("chalk");
     this.stdout = suite.stdout;
 
     // TODO: Figure out a better way to flatten this array.
@@ -153,9 +153,10 @@ export default class SummaryReporter extends TestReporter {
    * @param {LogValue} logValue - A value to be logged to the console
    */
   public onLog(logValue: LogValue): void {
+    const chalk = require("chalk");
     // create string representations of the pointer
-    var pointer: string = logValue.pointer.toString();
-    var hexPointer: string = logValue.pointer.toString(16);
+    const pointer: string = logValue.pointer.toString();
+    const hexPointer: string = logValue.pointer.toString(16);
 
     // log the log message
     if (logValue.pointer > 0) {

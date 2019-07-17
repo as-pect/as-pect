@@ -32,21 +32,21 @@
     "@as-pect/cli": "file:./packages/cli",
     "@as-pect/core": "file:./packages/core",
     "@types/jest": "^24.0.15",
+    "@types/glob": "^7.1.1",
+    "@types/node": "^12.0.12",
+    "assemblyscript": "github:assemblyscript/assemblyscript",
+    "csv-stringify": "^5.3.0",
     "coveralls": "^3.0.4",
     "jest": "^24.8.0",
+    "lerna": "^3.15.0",
     "markdownlint-cli": "^0.17.0",
     "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typedoc": "^0.14.2",
+    "typedoc-plugin-lerna-packages": "^0.1.6",
     "typescript": "^3.5.3"
-  },
-  "dependencies": {
-    "lerna": "^3.15.0",
-    "typedoc-plugin-lerna-packages": "^0.1.6"
-  },
-  "optionalDependencies": {
-    "csv-stringify": "^5.3.0"
   }
 }

@@ -1,7 +1,6 @@
 import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
 import { TestContext } from "../test/TestContext";
-import chalk from "chalk";
 import { LogValue } from "../util/LogValue";
 import { ActualValue } from "../util/ActualValue";
 import { TestReporter } from "../test/TestReporter";
@@ -28,6 +27,7 @@ function stringifyActualValue(
   type: ValueType,
   value: ActualValue | null,
 ): string {
+  const chalk = require("chalk");
   if (!value) return "";
   let byteString: string = "";
 
@@ -80,6 +80,7 @@ export default class VerboseReporter extends TestReporter {
    * @param {TestGroup} group - The started test group.
    */
   public onGroupStart(group: TestGroup): void {
+    const chalk = require("chalk");
     if (group.name) this.stdout!.write(chalk`\n[Describe]: ${group.name}\n\n`);
     for (const logValue of group.logs) {
       this.onLog(logValue);
@@ -104,6 +105,7 @@ export default class VerboseReporter extends TestReporter {
    * @param {TestResult} test - The finished TestResult
    */
   public onTestFinish(_group: TestGroup, test: TestResult): void {
+    const chalk = require("chalk");
     if (test.pass) {
       const rtraceDelta =
         test.rtraceDelta === 0
@@ -193,6 +195,7 @@ export default class VerboseReporter extends TestReporter {
    */
   public onFinish(suite: TestContext): void {
     if (suite.testGroups.length === 0) return;
+    const chalk = require("chalk");
 
     const result = suite.pass ? chalk`{green ✔ PASS}` : chalk`{red ✖ FAIL}`;
 
@@ -263,6 +266,7 @@ ${
    * @param {string} todo - The todo.
    */
   public onTodo(_group: TestGroup, todo: string): void {
+    const chalk = require("chalk");
     this.stdout!.write(chalk`    {yellow [Todo]:} ${todo}\n`);
   }
 
@@ -272,6 +276,7 @@ ${
    * @param {LogValue} logValue - A value to be logged to the console
    */
   public onLog(logValue: LogValue): void {
+    const chalk = require("chalk");
     // create string representations of the pointer
     var pointer: string = logValue.pointer.toString();
     var hexPointer: string = logValue.pointer.toString(16);
