@@ -33,6 +33,7 @@
 	},
 	"homepage": "https://github.com/jtenner/as-pect#readme",
 	"devDependencies": {
+		"assemblyscript": "assemblyscript/assemblyscript",
 		"@types/jest": "^24.0.15",
 		"jest": "^24.8.0",
 		"ts-jest": "^24.0.2"

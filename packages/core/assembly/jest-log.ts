@@ -1,3 +1,4 @@
+import { ArrayBufferView } from "arraybuffer";
 /**
  * This is a standard Vec3 Class that contains three float values.
  */
@@ -47,6 +48,15 @@ export class Vec3 {
   }
 }
 
+let testArray = new Uint8Array(3);
+testArray[0] = 0;
+testArray[1] = 1;
+testArray[2] = 2;
+
+let testArray2 = new Int8Array(3);
+testArray2[0] = -1;
+testArray2[1] = -2;
+testArray2[2] = -3;
 
 describe("logs", () => {
   log<string>("Hello world!");
@@ -61,6 +71,8 @@ describe("logs", () => {
   log<i16>(-1);
   log<bool>(true);
   log<bool>(false);
+  log<Uint8Array>(testArray);
+  log<Int8Array>(testArray2);
 
   test("logs", () => {
     log<string>("Hello world!");
@@ -75,6 +87,8 @@ describe("logs", () => {
     log<i16>(-1);
     log<bool>(true);
     log<bool>(false);
+    log<Uint8Array>(testArray);
+    log<Int8Array>(testArray2);
   });
 
   todo("one");

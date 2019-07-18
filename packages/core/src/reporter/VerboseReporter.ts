@@ -31,10 +31,10 @@ function stringifyActualValue(
   if (!value) return "";
   let byteString: string = "";
 
-  if (value.bytes.length > 0) {
+  if (value.bytes.length > 0 || value.values.length > 0) {
     byteString =
       "\n               " +
-      createReferenceString(value.bytes, value.pointer, value.offset)
+      createReferenceString(value)
         .split("\n")
         .join("\n               ");
   }
@@ -292,11 +292,7 @@ ${
 
     // if there are bytes to show, create a logging representation of the bytes
     if (logValue.bytes.length > 0) {
-      const value = createReferenceString(
-        logValue.bytes,
-        logValue.pointer,
-        logValue.offset,
-      );
+      const value = createReferenceString(logValue);
       this.stdout!.write(
         chalk`            {blueBright ${value
           .split("\n")

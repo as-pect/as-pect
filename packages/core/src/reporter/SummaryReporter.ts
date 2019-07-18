@@ -168,12 +168,8 @@ export default class SummaryReporter extends TestReporter {
     }
 
     // if there are bytes to show, create a logging representation of the bytes
-    if (logValue.bytes.length > 0) {
-      const value = createReferenceString(
-        logValue.bytes,
-        logValue.pointer,
-        logValue.offset,
-      );
+    if (logValue.bytes.length > 0 || logValue.values.length > 0) {
+      const value = createReferenceString(logValue);
       this.stdout!.write(
         chalk`            {blueBright ${value
           .split("\n")

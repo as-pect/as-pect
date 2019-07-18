@@ -30,5 +30,8 @@
     "assembly/internal/",
     "assembly/index.ts",
     "types/"
-  ]
+  ],
+  "devDependencies": {
+    "assemblyscript": "assemblyscript/assemblyscript"
+  }
 }

@@ -26,11 +26,13 @@ describe("log output", () => {
         expect(log.message).toMatchSnapshot(`message`);
         expect(log.offset).toMatchSnapshot(`offset`);
         expect(log.target).toBe(group);
-        expect(log.value).toMatchSnapshot(`snapshot`);
+        expect(log.value).toMatchSnapshot(`value`);
+        expect(log.values).toMatchSnapshot(`values`);
       }
       for (const todo of group.todos) {
         expect(todo).toMatchSnapshot(`todo`);
       }
+      expect(group.pass).toBeTruthy();
     });
 
     describe(`Group: ${group.name}`, () => {
@@ -43,6 +45,7 @@ describe("log output", () => {
             expect(log.target).toBe(groupTest);
             expect(log.value).toMatchSnapshot(`snapshot`);
           }
+          expect(groupTest.pass).toBeTruthy();
         });
       }
     });

@@ -421,7 +421,8 @@ export class TestCollector {
     const target = this.logTarget;
 
     value.stack = this.getLogStackTrace();
-    value.message = JSON.stringify(this.wasm!.__getArray(arrayPointer));
+    value.values = this.wasm!.__getArray(arrayPointer);
+    value.message = JSON.stringify(value.values);
     value.target = target;
 
     target.logs.push(value);
