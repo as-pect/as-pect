@@ -1,23 +1,23 @@
 import { assert } from "./assert";
 import { reportActual } from "../report/reportActual";
 import { reportExpected } from "../report/reportExpected";
+import { ArrayBufferView } from "arraybuffer";
 
 /**
  * This method performs an arrayComparison, which is defined as validating the contents of each
  * array match exactly. Currently only Arrays of value types are supported.
  *
- * @param {T extends Array<U>} T - The array type.
- * @param {U} U - The implied value type.
- * @param {T extends Array<U>} actual - The actual array.
- * @param {T extends Array<U>} expected - The expected array
+ * @param {T} T - The array type.
+ * @param {T} actual - The actual array.
+ * @param {T} expected - The expected array
  * @param {i32} negated - The indicator that the array assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
 // @ts-ignore: Decorators *are* valid here
 @inline
-export function arrayComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
-  // @ts-ignore: Can't garuntee T extends array
-  if (isManaged(unchecked(actual[0]))) {
+export function arrayComparison<T extends ArrayBufferView>(actual: T, expected: T, negated: i32, message: string): void {
+  // @ts-ignore T extends ArrayBufferView
+  if (isManaged<valueof<T>>()) {
     reportActual<string>("Array of References");
     reportExpected<string>("Array of References", 0);
   } else {
@@ -44,8 +44,8 @@ export function arrayComparison<T>(actual: T, expected: T, negated: i32, message
   /**
    * Length assertion values should short circuit the comparison.
    */
-  // @ts-ignore: Actual value if instance of Array, so length is a valid property
-  if (actual.length != expected.length) {
+
+  if (actual.dataLength != expected.dataLength) {
     assert(negated, message);
     return;
   }
@@ -56,8 +56,11 @@ export function arrayComparison<T>(actual: T, expected: T, negated: i32, message
    * child items aren't `==` to each other, then we can assume the arrays do not strictly equal
    * each other. When items don't equal each other, we can short circuit the loop and perform the
    * actual assertion.
+   *
+   * We don't use memory.compare() here because the `==` operator might be overridden where
+   * T extends Array<U> where U is managed, and we would have to perform this check as well even
+   * if the `memory.compare()` failed.
    */
-  // @ts-ignore: Actual value if instance of Array, so length is a valid property
   let length: i32 = actual.length;
   for (let i = 0; i < length; i++) {
     // @ts-ignore: Actual value if instance of Array, so array access is valid

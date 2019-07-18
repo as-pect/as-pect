@@ -1,3 +1,4 @@
+import { ArrayBufferView } from "arraybuffer";
 import { exactComparison } from "./comparison/exactComparison";
 import { blockComparison } from "./comparison/blockComparison";
 import { truthyComparison } from "./comparison/truthyComparison";
@@ -80,7 +81,7 @@ export class Expectation<T> {
     }
 
     // if T is an array, use arrayComparison
-    if (isArray<T>()) {
+    if (expected instanceof ArrayBufferView) {
       arrayComparison<T>(this.actual, expected, this._not, message);
       Actual.clear();
       Expected.clear();

@@ -270,4 +270,28 @@ describe("toStrictEqual", (): void => {
       [new Vec3(9, 8, 7), new Vec3(4, 5, 6), new Vec3(7, 8, 9)],
     );
   }, "The two arrays are expected not to strictly equal each other");
+
+  it("should assert that two typed arrays strictly equal each other", () => {
+    let one = new Float32Array(3);
+    let two = new Float32Array(3);
+    one[0] = 1.1;
+    one[1] = 2.2;
+    one[2] = 3.3;
+    two[0] = 1.1;
+    two[1] = 2.2;
+    two[2] = 3.3;
+    expect<Float32Array>(one).toStrictEqual(two);
+  });
+
+  itThrows("when two arrays strictly equal each other", () => {
+    let one = new Float32Array(3);
+    let two = new Float32Array(3);
+    one[0] = 1.1;
+    one[1] = 2.2;
+    one[2] = 3.3;
+    two[0] = 1.1;
+    two[1] = 2.2;
+    two[2] = 3.3;
+    expect<Float32Array>(one).not.toStrictEqual(two);
+  });
 });
