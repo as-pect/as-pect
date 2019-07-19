@@ -183,8 +183,15 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     "--explicitStart": [],
   });
 
+  /**
+   * Check to see if rtrace is disabled.
+   */
+  if (cliOptions.nortrace) {
+    configuration.nortrace = true;
+  }
+
   /** RTrace is enabled, and the --use ASC_RTRACE=1 cli option must be present. */
-  if (!cliOptions.nortrace) {
+  if (!configuration.nortrace) {
     if (!flags["--use"] || flags["--use"].includes("ASC_RTRACE=1") || !compilerArgs.includes("ASC_RTRACE=1")) {
       if (!flags["--use"]) {
         flags["--use"] = ["ASC_RTRACE=1"];
@@ -251,11 +258,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   if (outputBinary) {
     console.log(chalk`{bgWhite.black [Log]} Outputing Binary *.wasm files.`);
   }
-
-  /**
-   * Check to see if rtrace is disabled.
-   */
-  configuration.nortrace = cliOptions.nortrace;
 
   /**
    * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
