@@ -101,6 +101,18 @@ describe("pass-fail", () => {
     expect<i32[]>([1, 2, 3]).toStrictEqual([4, 5, 6]);
   });
 
+  it("should report typedarray values", () => {
+    let actual = new Float64Array(3);
+    let expected = new Float64Array(3);
+    actual[0] = 1.1;
+    actual[1] = 2.2;
+    actual[2] = 3.3;
+    expected[0] = 4.4;
+    expected[1] = 5.5;
+    expected[2] = 6.6;
+    expect<Float64Array>(actual).toStrictEqual(expected);
+  });
+
   it("should report long values", () => {
     expect<i64>(-9999999999).toBe(9999999999);
   });

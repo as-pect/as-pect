@@ -3886,10 +3886,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -3927,10 +3925,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -4521,10 +4517,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -4562,10 +4556,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -5009,10 +5001,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -5050,10 +5040,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -5501,10 +5489,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -5542,10 +5528,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -5995,10 +5979,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -6036,10 +6018,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -6489,10 +6469,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -6530,10 +6508,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -6983,10 +6959,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -7024,10 +6998,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -7477,10 +7449,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -7518,10 +7488,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -7971,10 +7939,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -8012,10 +7978,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -8465,10 +8429,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -8506,10 +8468,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -8959,10 +8919,8 @@
    call $~lib/rt/pure/__release
    local.get $1
    global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Actual/Actual.type
-   i32.const 12
-   global.set $assembly/internal/report/Actual/Actual.offset
   end
   local.get $0
   call $~lib/rt/pure/__release
@@ -9000,10 +8958,8 @@
    call $~lib/rt/pure/__release
    local.get $2
    global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 4
+   i32.const 6
    global.set $assembly/internal/report/Expected/Expected.type
-   i32.const 12
-   global.set $assembly/internal/report/Expected/Expected.offset
   end
   local.get $0
   call $~lib/rt/pure/__release

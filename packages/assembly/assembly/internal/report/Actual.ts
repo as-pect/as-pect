@@ -1,5 +1,6 @@
 import { ValueType } from "./ValueType";
 import { Box } from "./Box";
+import { ArrayBufferView } from "arraybuffer";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportActualNull")
@@ -118,7 +119,7 @@ export class Actual {
         __release(Actual.reference);
         Actual.reference = ptr;
         // it might be an array
-        if (isArray<T>()) {
+        if (actual instanceof ArrayBufferView) {
           Actual.type = ValueType.Array;
           // or a string
         } else if (actual instanceof String) {

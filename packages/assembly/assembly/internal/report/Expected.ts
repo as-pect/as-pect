@@ -1,5 +1,6 @@
 import { ValueType } from "./ValueType";
 import { Box } from "./Box";
+import { ArrayBufferView } from "arraybuffer";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedNull")
@@ -129,7 +130,7 @@ export class Expected {
         Expected.reference = ptr;
 
         // otherwise it might be an array..
-        if (isArray<T>()) {
+        if (expected instanceof ArrayBufferView) {
           Expected.type = ValueType.Array;
           // or a string...
         } else if (expected instanceof String) {
