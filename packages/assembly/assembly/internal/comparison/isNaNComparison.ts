@@ -16,10 +16,8 @@ import { ValueType } from "../report/ValueType";
 @inline
 export function isNaNComparison<T>(actual: T, negated: i32, message: string): void {
   // toBeNaN must not be called on a reference type.
-  if (isReference<T>()) {
-    Actual.report<string>("Reference Type");
-    Expected.report<string>("Float Type", 0);
-    assert(i32(false), "toBeNaN must be called using value types.");
+  if (!isFloat<T>()) {
+    ERROR("Expectation<T>#toBeNaN must be called with a Float value type T.");
   } else {
     Actual.report<T>(actual);
     Expected.type = ValueType.Float;

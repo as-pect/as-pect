@@ -31,11 +31,4 @@ describe("toBeNull", (): void => {
   throws("should throw if a reference value is expected to be null null", (): void => {
     expect<Vec3>(vec1).toBeNull();
   }, "Reference values that aren't null shouldn't be expected to be null.");
-
-  /**
-   * This test verifies that value types throw on toBeNull assertions.
-   */
-  throws("should throw if toBeNull is called with a value type", (): void => {
-    expect<i32>(0).toBeNull();
-  }, "Value types should throw on toBeNull assertions");
 });

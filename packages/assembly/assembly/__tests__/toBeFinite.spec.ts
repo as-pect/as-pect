@@ -5,7 +5,6 @@ import { Vec3 } from "./setup/Vec3";
  * should throw an error otherwise.
  */
 describe("toBeFinite", (): void => {
-
   /**
    * Normal float values should be finite.
    */
@@ -19,20 +18,6 @@ describe("toBeFinite", (): void => {
   throws("should throw if a normal float value is not finite", (): void => {
     expect<f64>(10.0).not.toBeFinite();
   }, "Normal float values should be finite.");
-
-  /**
-   * This assertion should not be used with integer values.
-   */
-  throws("should throw for integer values", (): void => {
-    expect<i32>(0).toBeFinite();
-  }, "Integer types should cause this assertion to throw.");
-
-  /**
-   * This assertion should not be used with integer values even if the assertion is negated.
-   */
-  throws("should throw for integer values even if it's negated", (): void => {
-    expect<i32>(0).not.toBeFinite();
-  }, "Integer types should cause this assertion to throw.");
 
   /**
    * Infinity is never finite.
@@ -61,19 +46,4 @@ describe("toBeFinite", (): void => {
   throws("should throw if an actual NaN is expected to be finite", (): void => {
     expect<f64>(NaN).toBeFinite();
   }, "NaN is never finite.");
-
-  /**
-   * This test asserts reference types always throw when used with toBeFinite.
-   */
-  throws("should throw if a reference type is used with toBeFinite", (): void => {
-    expect<Vec3>(null).toBeFinite();
-  }, "toBeFinite should throw when used with reference types.");
-
-  /**
-   * This test asserts reference types always throw when used with toBeFinite, even if the
-   * assertion is negated.
-   */
-  throws("should throw if a reference type is used with toBeFinite on a negated assertion", (): void => {
-    expect<Vec3>(null).not.toBeFinite();
-  }, "toBeFinite should throw when used with reference types.");
 });

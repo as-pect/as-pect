@@ -6,7 +6,6 @@ var vec1: Vec3 = new Vec3(1, 2, 3);
  * This test suite is designed to test the toBeClose to expectation assertion.
  */
 describe("toBeCloseTo", (): void => {
-
   /**
    * This test uses default values to verify that a float value is close to
    * another float value.
@@ -78,18 +77,4 @@ describe("toBeCloseTo", (): void => {
   throws("should throw if both values are NaN", (): void => {
     expect<f64>(NaN).not.toBeCloseTo(NaN);
   }, "The expected and actual value should cause the negated expectation to throw.");
-
-  /**
-   * A reference type should not be used with toBeCloseTo assertions.
-   */
-  throws("should throw if a reference type is used for a toBeCloseTo assertion", (): void => {
-    expect<Vec3>(vec1).toBeCloseTo(vec1);
-  }, "Reference types should throw when used with toBeCloseTo assertions.");
-
-  /**
-   * A reference type should not be used with toBeCloseTo assertions.
-   */
-  throws("should throw if a reference type is used for a negated toBeCloseTo assertion", (): void => {
-    expect<Vec3>(vec1).not.toBeCloseTo(vec1);
-  }, "Reference types should throw when used with toBeCloseTo assertions.");
 });

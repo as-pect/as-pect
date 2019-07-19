@@ -183,8 +183,10 @@ expect<f64>(1.0).not.toBeNaN(); // passes
 expect<Vec3>(new Vec3()).not.toBeNaN();
 ```
 
-This method is technically safe to use with `jest` with the assumption
-that `as-pect` will fail if used with a reference type.
+If this method is called with anything other than a `f32 | f64` type, it will
+result in a compile time error.
+
+This method is safe to use with `jest` portably.
 
 ### toBeNull
 
@@ -194,15 +196,11 @@ This comparison looks specifically for a `null` value.
 expect<Vec3>(null).toBeNull(); // valid assertion
 ```
 
-In the case of numeric values, numbers cannot be `null` in AssemblyScript.
-Thus, the following example will throw a runtime error.
+In the case of numeric values, numbers cannot be `null` in AssemblyScript, thus,
+if this method is called with anything other than a reference type, this will
+result in a compile time error.
 
-```ts
-expect<i32>(null).toBeNull();
-```
-
-This method is safe to use with `jest` assuming you explicitly return `null`
-and avoid use of `undefined` which does not exist in AssemblyScript.
+This method is safe to use with `jest` portably.
 
 ### toBeFinite
 
@@ -225,6 +223,9 @@ As long as the number values are always `f32` or `f64` (or `number` in
 JavaScript or AssemblyScript,) `toBeFinite` is a safe assertion to use
 portably with jest.
 
+If this method is called without a float without a float value type, it
+will result in a compile time error.
+
 ### toThrow
 
 This comparison is used to test and see if a function throws an error. In the
@@ -246,6 +247,9 @@ expectFn(() => {
 Closure is not supported in AssemblyScript yet. Also, any references that are
 left dangling on the stack will hang around un`__release()`ed by
 AssemblyScript.
+
+If this function is used on anything other than a `() => void` function type,
+it will result in a compile time error.
 
 This function is safe to use with `jest`.
 
@@ -307,6 +311,9 @@ expect<f64>(0.1 + 0.2).toBeCloseTo(0.3); // passes!
 Reference values and integer values will result in a runtime error, because
 `toBeCloseTo` comparisons require a floating point number to work.
 
+if this method is called on anything other than a `f64 | f32` type, it will
+result it a compile time error.
+
 This method is safe to use portably with `jest`.
 
 ### toHaveLength
@@ -330,8 +337,11 @@ expect<ArrayBuffer>(buffer).toHaveLength(29);
 expect<LengthExample>(custom).toHaveLength(50);
 ```
 
+If this method is used with anything other than a reference type, it will result
+in a compile time error.
+
 This method is safe to use with `jest`, with the exception of using
-`ArrayBuffer`.
+`ArrayBuffer` type references.
 
 ### toContain and toInclude
 

@@ -24,7 +24,7 @@ export function lessThanComparison<T>(actual: T, expected: T, negated: i32, mess
   }
 
   // Compare float types
-  if (isFloat<T>(actual)) {
+  if (isFloat<T>()) {
     assert(i32(!isNaN<T>(expected)), "Value comparison fails, expected value is NaN.");
     assert(i32(!isNaN<T>(actual)), "Value comparison fails, actual value is NaN.");
   }

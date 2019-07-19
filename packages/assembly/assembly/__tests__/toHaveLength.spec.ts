@@ -153,19 +153,6 @@ describe("toHaveLength custom classes", (): void => {
   }, "The length of customExample is 3, and not 10");
 });
 
-/**
- * Because the toHaveLength assertions can be used on value types, and this cannot be caught at
- * compile time, we must assert that the `T` parameter is a reference.
- */
-describe("toHaveLength value type assertions", (): void => {
-  /**
-   * This test causes the expectation to fail because `T` is an `i32` and not a reference.
-   */
-  throws("value types should throw when toHaveLength assertions are used", (): void => {
-    expect<i32>(3).toHaveLength(3);
-  }, "toHaveLength assertions should throw on value types.");
-});
-
 describe("ArrayBuffer", () => {
   it("should compare ArrayBuffer lengths", () => {
     expect<ArrayBuffer>(new ArrayBuffer(100)).toHaveLength(100, "An array buffer with length 100 should have length 100.");
