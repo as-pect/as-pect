@@ -80,8 +80,9 @@ export default class VerboseReporter extends TestReporter {
    * @param {TestGroup} group - The started test group.
    */
   public onGroupStart(group: TestGroup): void {
+    if (group.tests.length === 0) return;
     const chalk = require("chalk");
-    if (group.name) this.stdout!.write(chalk`\n[Describe]: ${group.name}\n\n`);
+    if (group.name) this.stdout!.write(chalk`[Describe]: ${group.name}\n\n`);
     for (const logValue of group.logs) {
       this.onLog(logValue);
     }
@@ -93,7 +94,10 @@ export default class VerboseReporter extends TestReporter {
    *
    * @param {TestGroup} group - The finished TestGroup.
    */
-  public onGroupFinish(_group: TestGroup): void {}
+  public onGroupFinish(group: TestGroup): void {
+    if (group.tests.length === 0) return;
+    this.stdout!.write("\n");
+  }
 
   /** This method is a stub for onTestStart(). */
   public onTestStart(_group: TestGroup, _test: TestResult): void {}
@@ -221,28 +225,27 @@ export default class VerboseReporter extends TestReporter {
 
     for (const warning of suite.warnings) {
       this.stdout!.write(
-        chalk`{yellow  [Warning]}: ${warning.type} ${warning.message}\n`,
+        chalk`\n{yellow  [Warning]}: ${warning.type} ${warning.message}`,
       );
       this.stdout!.write(
-        chalk`{yellow    [Stack]}: {yellow ${warning.stackTrace
+        chalk`\n{yellow    [Stack]}: {yellow ${warning.stackTrace
           .split("\n")
-          .join("\n           ")}}\n\n`,
+          .join("\n           ")}}\n`,
       );
     }
 
     for (const error of suite.errors) {
       this.stdout!.write(
-        chalk`{red    [Error]}: ${error.type} ${error.message}\n`,
+        chalk`\n{red    [Error]}: ${error.type} ${error.message}`,
       );
       this.stdout!.write(
-        chalk`{red    [Stack]}: {yellow ${error.stackTrace
+        chalk`\n{red    [Stack]}: {yellow ${error.stackTrace
           .split("\n")
-          .join("\n           ")}}\n\n`,
+          .join("\n           ")}}\n`,
       );
     }
 
-    this.stdout!.write(chalk`
-${
+    this.stdout!.write(chalk`${
   process.stdout.columns
     ? "~".repeat(process.stdout.columns! - 10)
     : "~".repeat(80)
@@ -255,8 +258,7 @@ ${
   [Result]: ${result}
  [Summary]: {green ${successCount.toString()} pass},  ${fail}, ${count.toString()} total
  [Startup]: ${suite.startupTime.toString()}ms
-    [Time]: ${suite.time.toString()}ms
-`);
+    [Time]: ${suite.time.toString()}ms\n\n`);
   }
 
   /**
@@ -284,14 +286,14 @@ ${
     // log the log message
     if (logValue.pointer > 0) {
       this.stdout!.write(
-        chalk`     {yellow [Log]:} Reference at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}\n`,
+        chalk`\n     {yellow [Log]:} Reference at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}\n`,
       );
     } else {
-      this.stdout!.write(chalk`     {yellow [Log]:} ${logValue.message}\n`);
+      this.stdout!.write(chalk`\n     {yellow [Log]:} ${logValue.message}\n`);
     }
 
     // if there are bytes to show, create a logging representation of the bytes
-    if (logValue.bytes.length > 0) {
+    if (logValue.bytes.length > 0 || logValue.values.length > 0) {
       const value = createReferenceString(logValue);
       this.stdout!.write(
         chalk`            {blueBright ${value
@@ -303,7 +305,7 @@ ${
     this.stdout!.write(
       chalk`        {yellow ${logValue.stack
         .split("\n")
-        .join("\n        ")}}\n\n`,
+        .join("\n        ")}}\n`,
     );
   }
 }

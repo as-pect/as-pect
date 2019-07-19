@@ -452,7 +452,7 @@ declare module "reporter/VerboseReporter" {
          *
          * @param {TestGroup} group - The finished TestGroup.
          */
-        onGroupFinish(_group: TestGroup): void;
+        onGroupFinish(group: TestGroup): void;
         /** This method is a stub for onTestStart(). */
         onTestStart(_group: TestGroup, _test: TestResult): void;
         /**

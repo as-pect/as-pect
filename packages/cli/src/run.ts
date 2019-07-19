@@ -422,10 +422,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
  [Stack]: {yellow ${error.stackTrace.split("\n").join("\n            ")}}
 `);
         }
-        console.log(chalk`${process.stdout.columns
-          ? "~".repeat(process.stdout.columns! - 10)
-          : "~".repeat(80)}
-
+        console.log(chalk`
   [Result]: ${result}
    [Files]: ${testEntryFiles.size.toString()} total
   [Groups]: ${groupCount.toString()} count, ${groupSuccessCount.toString()} pass
