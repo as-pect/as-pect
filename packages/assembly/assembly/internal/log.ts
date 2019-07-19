@@ -52,7 +52,6 @@ export function log<T>(value: T): void {
     if (value == null) {
       logNull();
     } else if (value instanceof ArrayBufferView) {
-      trace("Hit!", 1, value.length);
       logArray(changetype<usize>(value));
     } else if (value instanceof String) {
       // @ts-ignore: this cast is valid because it's already a string

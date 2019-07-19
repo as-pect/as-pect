@@ -515,3 +515,5 @@ exports[`pass-fail output Group: pass-fail: beforeEachPointers 1`] = `0`;
 exports[`pass-fail output Group: pass-fail: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail: reason 1`] = `""`;
+
+exports[`pass-fail output Overall Statistics: pass 1`] = `false`;

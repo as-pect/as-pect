@@ -105,7 +105,7 @@ exports[`log output Group: logs Test: logs: snapshot 2`] = `42`;
 
 exports[`log output Group: logs Test: logs: snapshot 3`] = `null`;
 
-exports[`log output Group: logs Test: logs: snapshot 4`] = `2464`;
+exports[`log output Group: logs Test: logs: snapshot 4`] = `2448`;
 
 exports[`log output Group: logs Test: logs: snapshot 5`] = `null`;
 
@@ -234,7 +234,7 @@ exports[`log output Group: logs: value 2`] = `42`;
 
 exports[`log output Group: logs: value 3`] = `null`;
 
-exports[`log output Group: logs: value 4`] = `2464`;
+exports[`log output Group: logs: value 4`] = `2448`;
 
 exports[`log output Group: logs: value 5`] = `null`;
 

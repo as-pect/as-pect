@@ -18,7 +18,9 @@ let start = new Promise<void>((resolve, reject) => {
 beforeAll(() => start);
 
 describe("pass-fail output", () => {
-  test("Overall Statistics", () => {});
+  test("Overall Statistics", () => {
+    expect(ctx.pass).toMatchSnapshot("pass")
+  });
   for (const group of ctx.testGroups) {
     test(`Group: ${group.name}`, () => {
       expect(group.pass).toMatchSnapshot(`pass`);

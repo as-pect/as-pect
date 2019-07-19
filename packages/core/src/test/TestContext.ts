@@ -137,6 +137,7 @@ export class TestContext extends TestCollector {
     // for each afterAllCallback
     this.runAfterAll(group);
     if (this.endGroup) {
+      this.pass = false;
       group.pass = false;
       group.reason = `Test suite ${group.name} failed because of an afterAll() callback occurred.`;
       return;
@@ -264,7 +265,10 @@ export class TestContext extends TestCollector {
      * that doesn't cause an unreachable state.
      */
     /* istanbul ignore next */
-    if (result.errors.length > 0) result.pass = false;
+    if (result.errors.length > 0) {
+      this.pass = false;
+      result.pass = false;
+    }
 
     result.end = performance.now();
     result.runTime = timeDifference(result.end, result.start);
@@ -288,6 +292,7 @@ export class TestContext extends TestCollector {
     result.pass = result.negated ? testCallResult === 0 : testCallResult === 1;
 
     if (!result.pass) {
+      this.pass = false;
       group.pass = false;
       // if it's not negated then set the message, the actual, expected, and stack values
       if (!result.negated) {
@@ -359,6 +364,7 @@ export class TestContext extends TestCollector {
       if (beforeEachResult === 0) {
         this.wasm!.__collect();
         result.end = group.end = performance.now();
+        this.pass = false;
         group.pass = false;
         group.reason = `Test suite ${group.name} failed because an error occurred in a beforeEach() callback.`;
         result.pass = false;
@@ -385,6 +391,7 @@ export class TestContext extends TestCollector {
       // if the test fails
       if (afterAllResult === 0) {
         group.end = performance.now();
+        this.pass = false;
         group.pass = false;
         group.reason = `Test suite ${group.name} failed because an error occurred in an afterAll() callback.`;
         this.pass = false;
