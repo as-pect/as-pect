@@ -86,6 +86,7 @@
 								<li><a href="#tocontainequal-and-toincludeequal">toContainEqual</a></li>
 							</ul>
 						</li>
+						<li><a href="#custom-assertions">Custom Assertions</a></li>
 						<li><a href="#types-and-tooling">Types And Tooling</a></li>
 						<li><a href="#assemblyscript-compiler-options">AssemblyScript Compiler Options</a></li>
 						<li><a href="#closures">Closures</a></li>
@@ -324,6 +325,24 @@ data.push(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">4<
 
 expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual(referece);</code></pre>
 					<p>This method is portable with <code>jest</code> using the <code>toContainEqual()</code> method.</p>
+					<h2 id="custom-assertions">Custom Assertions</h2>
+					<p>In order to write a custom assertion that is compatible with <code>as-pect</code> output,
+						an <code>Actual</code> and <code>Expected</code> namespace is provided. For example, we can write a
+					custom assertion like this:</p>
+					<!-- markdownlint-disable MD013 -->
+					<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">expectToBeEven</span>(<span class="hljs-params">value: i32, negated: bool = <span class="hljs-literal">false</span>, message: <span class="hljs-built_in">string</span> = <span class="hljs-literal">null</span></span>): <span class="hljs-title">void</span> </span>{
+  Actual.report&lt;i32&gt;(value);
+  Expected.report&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">"Even"</span>, i32(negated));
+
+  <span class="hljs-comment">// check if the first bit is 0</span>
+  <span class="hljs-keyword">let</span> isEven = (value &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">0</span>;
+  <span class="hljs-comment">// use exclusive or to determine if the assertion passes</span>
+  assert(i32(isEven) ^ i32(negated), message);
+  <span class="hljs-comment">// dont forget to clear the value</span>
+  Actual.clear();
+  Expected.clear();
+}</code></pre>
+					<!-- markdownlint-enable MD013 -->
 					<h2 id="types-and-tooling">Types And Tooling</h2>
 					<p>The <code>as-pect</code> assembly comes with a way to generate the types for all the globals
 						used by the framework. This will greatly increase your productivity because it
@@ -434,7 +453,9 @@ log&lt;i32[]&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.actual.html" class="tsd-kind-icon">Actual</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="../classes/_as_pect_assembly.expectation.html" class="tsd-kind-icon">Expectation</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.expected.html" class="tsd-kind-icon">Expected</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.performance.html" class="tsd-kind-icon">Performance</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.rtrace.html" class="tsd-kind-icon">RTrace</a></li>
 							</ul>
@@ -475,7 +496,7 @@ log&lt;i32[]&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L197">assembly/types/as-pect.d.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L197">assembly/types/as-pect.d.ts:197</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -530,7 +551,7 @@ describe(<span class="hljs-string">"dogs"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L177">assembly/types/as-pect.d.ts:177</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L177">assembly/types/as-pect.d.ts:177</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -586,7 +607,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L156">assembly/types/as-pect.d.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L156">assembly/types/as-pect.d.ts:156</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -641,7 +662,7 @@ describe(<span class="hljs-string">"dogs"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L136">assembly/types/as-pect.d.ts:136</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L136">assembly/types/as-pect.d.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -697,7 +718,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L588">assembly/types/as-pect.d.ts:588</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L588">assembly/types/as-pect.d.ts:588</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -719,7 +740,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L15">assembly/types/as-pect.d.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L15">assembly/types/as-pect.d.ts:15</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -775,7 +796,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L212">assembly/types/as-pect.d.ts:212</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L212">assembly/types/as-pect.d.ts:212</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -821,7 +842,7 @@ expect&lt;i32&gt;(<span class="hljs-number">19</span> + <span class="hljs-number
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L228">assembly/types/as-pect.d.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L228">assembly/types/as-pect.d.ts:228</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -869,7 +890,7 @@ expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L35">assembly/types/as-pect.d.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L35">assembly/types/as-pect.d.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -929,7 +950,7 @@ expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L115">assembly/types/as-pect.d.ts:115</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L115">assembly/types/as-pect.d.ts:115</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -995,7 +1016,7 @@ expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L253">assembly/types/as-pect.d.ts:253</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L253">assembly/types/as-pect.d.ts:253</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1044,7 +1065,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L72">assembly/types/as-pect.d.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L72">assembly/types/as-pect.d.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1104,7 +1125,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L93">assembly/types/as-pect.d.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L93">assembly/types/as-pect.d.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1170,7 +1191,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L235">assembly/types/as-pect.d.ts:235</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L235">assembly/types/as-pect.d.ts:235</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1201,7 +1222,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L44">assembly/types/as-pect.d.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L44">assembly/types/as-pect.d.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1251,7 +1272,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L53">assembly/types/as-pect.d.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/662e367/packages/assembly/types/as-pect.d.ts#L53">assembly/types/as-pect.d.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1312,8 +1333,14 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../classes/_as_pect_assembly.actual.html" class="tsd-kind-icon">Actual</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="../classes/_as_pect_assembly.expectation.html" class="tsd-kind-icon">Expectation</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../classes/_as_pect_assembly.expected.html" class="tsd-kind-icon">Expected</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../classes/_as_pect_assembly.performance.html" class="tsd-kind-icon">Performance</a>

@@ -1,5 +1,5 @@
-import { reportActual } from "../report/reportActual";
-import { reportExpected } from "../report/reportExpected";
+import { Actual } from "../report/Actual";
+import { Expected } from "../report/Expected";
 import { assert } from "./assert";
 
 /**
@@ -16,8 +16,8 @@ import { assert } from "./assert";
 @inline
 export function referenceComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
   // report the actual and expected values
-  reportActual<T>(actual);
-  reportExpected<T>(expected, negated);
+  Actual.report<T>(actual);
+  Expected.report<T>(expected, negated);
 
   // fast path, the value is itself, operator overload comparison passes, or both values are null
   if (expected == actual) {

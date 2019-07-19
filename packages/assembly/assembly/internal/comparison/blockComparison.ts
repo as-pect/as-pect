@@ -1,7 +1,7 @@
 import { exactComparison } from "./exactComparison";
 import { assert } from "./assert";
-import { reportExpectedReference, reportExpected } from "../report/reportExpected";
-import { reportActualReference, reportActual } from "../report/reportActual";
+import { reportExpectedReference, Expected } from "../report/Expected";
+import { reportActualReference, Actual } from "../report/Actual";
 
 /**
  * This method performs a block comparison. It's useful for comparing a string or an ArrayBuffer
@@ -43,7 +43,7 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
   // report the expected reference
   if (expected == null) {
     // @ts-ignore: this is valid assemblyscript
-    reportExpected<T>(null, negated);
+    Expected.report<T>(null, negated);
   } else {
     reportExpectedReference(expectedPtr, expectedSize, negated);
   }
@@ -51,7 +51,7 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
   // report the actual reference
   if (actual == null) {
     // @ts-ignore this is valid AssemblyScript
-    reportActual<T>(null);
+    Actual.report<T>(null);
   } else {
     reportActualReference(actualSize, actualSize);
   }

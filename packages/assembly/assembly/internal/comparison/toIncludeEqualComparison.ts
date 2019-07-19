@@ -1,6 +1,6 @@
 import { toIncludeComparison } from "./toIncludeComparison";
-import { reportActual } from "../report/reportActual";
-import { reportExpected } from "../report/reportExpected";
+import { Actual } from "../report/Actual";
+import { Expected } from "../report/Expected";
 import { assert } from "./assert";
 
 /**
@@ -30,7 +30,7 @@ export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, neg
    * Always report "Included Reference" because it will be negated by the `Expectated.negated`
    * property later.
    */
-  reportExpected<string>("Included Reference", negated);
+  Expected.report<string>("Included Reference", negated);
 
   /**
    * This loop validates that a reference of type `U` exists with the same shape as the expected
@@ -83,6 +83,6 @@ export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, neg
     }
   }
 
-  reportActual<string>(included ? "Included Reference" : "Not Included Reference");
+  Actual.report<string>(included ? "Included Reference" : "Not Included Reference");
   assert(i32(included) ^ negated, message);
 }

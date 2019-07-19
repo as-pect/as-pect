@@ -1,6 +1,6 @@
-import { reportActual } from "../report/reportActual";
+import { Actual } from "../report/Actual";
 import { assert } from "./assert";
-import { Expected, reportExpected } from "../report/reportExpected";
+import { Expected } from "../report/Expected";
 import { ValueType } from "../report/ValueType";
 
 /**
@@ -17,11 +17,11 @@ import { ValueType } from "../report/ValueType";
 export function isNaNComparison<T>(actual: T, negated: i32, message: string): void {
   // toBeNaN must not be called on a reference type.
   if (isReference<T>()) {
-    reportActual<string>("Reference Type");
-    reportExpected<string>("Float Type", 0);
+    Actual.report<string>("Reference Type");
+    Expected.report<string>("Float Type", 0);
     assert(i32(false), "toBeNaN must be called using value types.");
   } else {
-    reportActual<T>(actual);
+    Actual.report<T>(actual);
     Expected.type = ValueType.Float;
     Expected.float = <f64>NaN;
     Expected.negated = negated;

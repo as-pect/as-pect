@@ -1,5 +1,5 @@
-import { reportActual } from "../report/reportActual";
-import { reportExpected } from "../report/reportExpected";
+import { Actual } from "../report/Actual";
+import { Expected } from "../report/Expected";
 import { assert } from "./assert";
 
 /**
@@ -19,8 +19,8 @@ export function closeToComparison<T>(actual: T, expected: T, decimalPlaces: i32,
   if (isReference<T>()) {
     assert(i32(false), "toBeCloseTo cannot be called on value types.");
   } else {
-    reportActual<T>(actual);
-    reportExpected<T>(expected, negated);
+    Actual.report<T>(actual);
+    Expected.report<T>(expected, negated);
 
     /**
      * This assertion can technically be called with an `i32` or `i64` value. We must assert that

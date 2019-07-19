@@ -17,8 +17,8 @@ import { lengthComparison } from "./comparison/lengthComparison";
 import { toIncludeComparison } from "./comparison/toIncludeComparison";
 import { toIncludeEqualComparison } from "./comparison/toIncludeEqualComparison";
 import { arrayComparison } from "./comparison/arrayComparison";
-import { Actual } from "./report/reportActual";
-import { Expected } from "./report/reportExpected";
+import { Actual } from "./report/Actual";
+import { Expected } from "./report/Expected";
 
 /**
  * The AssemblyScript class that represents an expecation.

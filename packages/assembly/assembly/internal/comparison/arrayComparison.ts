@@ -1,6 +1,6 @@
 import { assert } from "./assert";
-import { reportActual } from "../report/reportActual";
-import { reportExpected } from "../report/reportExpected";
+import { Actual } from "../report/Actual";
+import { Expected } from "../report/Expected";
 import { ArrayBufferView } from "arraybuffer";
 
 /**
@@ -18,11 +18,11 @@ import { ArrayBufferView } from "arraybuffer";
 export function arrayComparison<T extends ArrayBufferView>(actual: T, expected: T, negated: i32, message: string): void {
   // @ts-ignore T extends ArrayBufferView
   if (isManaged<valueof<T>>()) {
-    reportActual<string>("Array of References");
-    reportExpected<string>("Array of References", 0);
+    Actual.report<string>("Array of References");
+    Expected.report<string>("Array of References", 0);
   } else {
-    reportActual<T>(actual);
-    reportExpected<T>(expected, negated);
+    Actual.report<T>(actual);
+    Expected.report<T>(expected, negated);
   }
 
   /**

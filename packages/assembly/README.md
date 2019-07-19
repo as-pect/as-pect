@@ -18,6 +18,7 @@ This is the main package, which contains the AssemblyScript used to write tests.
    - [toHaveLength](#tohavelength)
    - [toContain](#tocontain-and-toinclude)
    - [toContainEqual](#tocontainequal-and-toincludeequal)
+1. [Custom Assertions](#custom-assertions)
 1. [Types And Tooling](#types-and-tooling)
 1. [AssemblyScript Compiler Options](#assemblyscript-compiler-options)
 1. [Closures](#closures)
@@ -373,6 +374,31 @@ expect<Uint8Array>(data).toContainEqual(referece);
 ```
 
 This method is portable with `jest` using the `toContainEqual()` method.
+
+## Custom Assertions
+
+In order to write a custom assertion that is compatible with `as-pect` output,
+an `Actual` and `Expected` namespace is provided. For example, we can write a
+custom assertion like this:
+
+<!-- markdownlint-disable MD013 -->
+
+```ts
+function expectToBeEven(value: i32, negated: bool = false, message: string = null): void {
+  Actual.report<i32>(value);
+  Expected.report<string>("Even", i32(negated));
+
+  // check if the first bit is 0
+  let isEven = (value & 1) == 0;
+  // use exclusive or to determine if the assertion passes
+  assert(i32(isEven) ^ i32(negated), message);
+  // dont forget to clear the value
+  Actual.clear();
+  Expected.clear();
+}
+```
+
+<!-- markdownlint-enable MD013 -->
 
 ## Types And Tooling
 

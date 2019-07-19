@@ -1,6 +1,6 @@
-import { reportActual } from "../report/reportActual";
+import { Actual } from "../report/Actual";
 import { assert } from "./assert";
-import { Expected } from "../report/reportExpected";
+import { Expected } from "../report/Expected";
 import { ValueType } from "../report/ValueType";
 
 /**
@@ -14,7 +14,7 @@ import { ValueType } from "../report/ValueType";
 // @ts-ignore: Decorators *are* valid here
 @inline
 export function truthyComparison<T>(actual: T, negated: i32, message: string): void {
-  reportActual<T>(actual);
+  Actual.report<T>(actual);
   Expected.type = ValueType.Truthy;
   Expected.negated = negated;
   Expected.stackTrace = -1;

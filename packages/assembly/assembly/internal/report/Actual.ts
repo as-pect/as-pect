@@ -38,9 +38,17 @@ declare function getStackTrace(): i32;
 declare function reportActualBool(value: usize, stackTrace: i32): void;
 
 /**
- * This class is static and contains a bunch of globals that represent the Actual value of a given
- * expectation.
+ * This class is static and contains private global values that contain metadata about the Actual
+ * value.
+ *
+ * @example
+ * ```ts
+ * Actual.report<string>("This is an expected string.");
+ * Actual.report<i32[]>([1, 2, 3]);
+ * Actual.report<u8>(42);
+ * ```
  */
+@global
 export class Actual {
   /**
    * This is the Actual value type.
@@ -88,6 +96,74 @@ export class Actual {
 
     Actual.stackTrace = -1;
   }
+
+  /**
+   * This function performs reporting to javascript what the actual value of this expectation is.
+   *
+   * @param {T} actual - The actual value to be reported.
+   */
+  static report<T>(actual: T): void {
+    // get the stack trace
+    Actual.stackTrace = getStackTrace();
+
+    // if T is a reference type...
+    if (isReference<T>()) {
+      let ptr = changetype<usize>(actual);
+      // check to see if it's null
+      if (actual == null) {
+        Actual.type = ValueType.Null;
+      } else {
+        // set the reference first
+        __retain(ptr);
+        __release(Actual.reference);
+        Actual.reference = ptr;
+        // it might be an array
+        if (isArray<T>()) {
+          Actual.type = ValueType.Array;
+          // or a string
+        } else if (actual instanceof String) {
+          Actual.type = ValueType.String;
+          // it also might be an array buffer
+        } else if (actual instanceof ArrayBuffer) {
+          Actual.type = ValueType.Reference;
+          let buff = changetype<ArrayBuffer>(ptr);
+          Actual.offset = buff.byteLength;
+          // reporting the reference is as simple as using the pointer and the byteLength property.
+        } else {
+          // otherwise report the reference in a default way
+          Actual.type = ValueType.Reference;
+          Actual.offset = offsetof<T>();
+        }
+      }
+    } else {
+      if (isFloat<T>()) {
+        Actual.type = ValueType.Float;
+        // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
+        Actual.float = <f64>actual;
+      } else if (actual instanceof i64 || actual instanceof u64) {
+        /**
+         * If the value is greater than an i32, we need to convert it to a `u64` or `i64`.
+         */
+        Actual.type = ValueType.Long;
+        Actual.signed = actual instanceof i64;
+        let ref = new Box<T>(actual);
+        let ptr = changetype<usize>(ref);
+        __retain(ptr);
+        __release(Actual.reference);
+        Actual.reference = ptr;
+      } else if (actual instanceof bool) {
+        Actual.type = ValueType.Bool;
+        Actual.integer = i32(actual);
+      } else {
+        Actual.type = ValueType.Integer;
+        Actual.signed = actual instanceof i32
+          || actual instanceof i16
+          || actual instanceof i8;
+        // @ts-ignore: this cast is valid because it's already an `i32`
+        Actual.integer = <i32>actual;
+      }
+    }
+  }
 }
 
 /**
@@ -124,78 +200,6 @@ export function __sendActual(): void {
         break;
   }
 }
-
-
-/**
- * This function performs reporting to javascript what the actual value of this expectation is.
- *
- * @param {T} actual - The actual value to be reported.
- */
-// @ts-ignore: Decorators *are* valid here!
-@inline
-export function reportActual<T>(actual: T): void {
-  // get the stack trace
-  Actual.stackTrace = getStackTrace();
-
-  // if T is a reference type...
-  if (isReference<T>()) {
-    let ptr = changetype<usize>(actual);
-    // check to see if it's null
-    if (actual == null) {
-      Actual.type = ValueType.Null;
-    } else {
-      // set the reference first
-      __retain(ptr);
-      __release(Actual.reference);
-      Actual.reference = ptr;
-      // it might be an array
-      if (isArray<T>()) {
-        Actual.type = ValueType.Array;
-        // or a string
-      } else if (actual instanceof String) {
-        Actual.type = ValueType.String;
-        // it also might be an array buffer
-      } else if (actual instanceof ArrayBuffer) {
-        Actual.type = ValueType.Reference;
-        let buff = changetype<ArrayBuffer>(ptr);
-        Actual.offset = buff.byteLength;
-        // reporting the reference is as simple as using the pointer and the byteLength property.
-      } else {
-        // otherwise report the reference in a default way
-        Actual.type = ValueType.Reference;
-        Actual.offset = offsetof<T>();
-      }
-    }
-  } else {
-    if (isFloat<T>()) {
-      Actual.type = ValueType.Float;
-      // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
-      Actual.float = <f64>actual;
-    } else if (actual instanceof i64 || actual instanceof u64) {
-      /**
-       * If the value is greater than an i32, we need to convert it to a `u64` or `i64`.
-       */
-      Actual.type = ValueType.Long;
-      Actual.signed = actual instanceof i64;
-      let ref = new Box<T>(actual);
-      let ptr = changetype<usize>(ref);
-      __retain(ptr);
-      __release(Actual.reference);
-      Actual.reference = ptr;
-    } else if (actual instanceof bool) {
-      Actual.type = ValueType.Bool;
-      Actual.integer = i32(actual);
-    } else {
-      Actual.type = ValueType.Integer;
-      Actual.signed = actual instanceof i32
-        || actual instanceof i16
-        || actual instanceof i8;
-      // @ts-ignore: this cast is valid because it's already an `i32`
-      Actual.integer = <i32>actual;
-    }
-  }
-}
-
 
 // @ts-ignore: Decorators *are* valid here
 @inline
