@@ -1,5 +1,6 @@
 import { ValueType } from "./ValueType";
 import { Box } from "./Box";
+import { ArrayBufferView } from "arraybuffer";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedNull")
@@ -53,6 +54,7 @@ declare function reportExpectedBool(value: i32, negated: i32, stackTrace: i32): 
 @external("__aspect", "getStackTrace")
 declare function getStackTrace(): i32;
 
+@global
 export class Expected {
   /**
    * This value indicates if the test suite is currently running.
@@ -99,6 +101,82 @@ export class Expected {
       Expected.reference = <usize>0;
     }
   }
+
+  /**
+   * This method reports an expected value, and wether the expectation was negated.
+   *
+   * @param {T} expected - The expected value and it's type.
+   * @param {i32} negated - A value indicating if the expectation is negated (1 is true) (default: 0)
+   */
+  static report<T>(expected: T, negated: i32 = 0): void {
+    if (!Expected.ready) {
+      reportInvalidExpectCall();
+      return;
+    }
+
+    Expected.stackTrace = getStackTrace();
+
+    // set negated first
+    Expected.negated = negated;
+
+    // if T is a reference type...
+    if (isReference<T>()) {
+      if (isNullable<T>()) {
+        if (expected === null) {
+          Expected.type = ValueType.Null;
+          return;
+        }
+      }
+
+      let ptr = changetype<usize>(expected);
+      __retain(ptr);
+      __release(Expected.reference);
+      Expected.reference = ptr;
+
+      // otherwise it might be an array..
+      if (expected instanceof ArrayBufferView) {
+        Expected.type = ValueType.Array;
+        // or a string...
+      } else if (expected instanceof String) {
+        Expected.type = ValueType.String;
+        // it also might be an array buffer
+      } else if (expected instanceof ArrayBuffer) {
+        //todo: change this to const when AS supports it
+        let buff = changetype<ArrayBuffer>(expected);
+        Expected.type = ValueType.Reference;
+        // reporting the reference is as simple as using the pointer and the byteLength property.
+        Expected.offset = buff.byteLength;
+      } else {
+        // otherwise report the reference in a default way
+        Expected.type = ValueType.Reference;
+        Expected.offset = offsetof<T>();
+      }
+    } else {
+      if (isFloat<T>()) {
+        Expected.type = ValueType.Float;
+        // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
+        Expected.float = <f64>expected;
+      } else if (expected instanceof i64 || expected instanceof u64) {
+        Expected.type = ValueType.Long;
+        Expected.signed = expected instanceof i64;
+        let ref = new Box<T>(expected);
+        let ptr = changetype<usize>(ref);
+        __retain(ptr);
+        __release(Expected.reference);
+        Expected.reference = ptr;
+      } else if (expected instanceof bool) {
+        Expected.type = ValueType.Bool;
+        Expected.integer = i32(expected);
+      } else {
+        Expected.type = ValueType.Integer;
+        Expected.signed = expected instanceof i32
+          || expected instanceof i16
+          || expected instanceof i8;
+        // @ts-ignore: this cast is valid because it's already an integer
+        Expected.integer = <i32>expected;
+      }
+    }
+  }
 }
 
 export function __sendExpected(): void {
@@ -137,80 +215,6 @@ export function __sendExpected(): void {
     case ValueType.Bool:
       reportExpectedBool(Expected.integer, Expected.negated, Expected.stackTrace);
       break;
-  }
-}
-
-
-/**
- * This function performs reporting to javascript what the expected value of this expectation is.
- */
-// @ts-ignore: Decorators *are* valid here!
-@inline
-export function reportExpected<T>(expected: T, negated: i32): void {
-  if (!Expected.ready) {
-    reportInvalidExpectCall();
-    return;
-  }
-
-  Expected.stackTrace = getStackTrace();
-
-  // set negated first
-  Expected.negated = negated;
-
-  // if T is a reference type...
-  if (isReference<T>()) {
-    // check to see if it's null
-    if (expected == null) {
-      Expected.type = ValueType.Null;
-    } else {
-      let ptr = changetype<usize>(expected);
-      __retain(ptr);
-      __release(Expected.reference);
-      Expected.reference = ptr;
-
-      // otherwise it might be an array..
-      if (isArray<T>()) {
-        Expected.type = ValueType.Array;
-        // or a string...
-      } else if (expected instanceof String) {
-        Expected.type = ValueType.String;
-        // it also might be an array buffer
-      } else if (expected instanceof ArrayBuffer) {
-        //todo: change this to const when AS supports it
-        let buff = changetype<ArrayBuffer>(expected);
-        Expected.type = ValueType.Reference;
-        // reporting the reference is as simple as using the pointer and the byteLength property.
-        Expected.offset = buff.byteLength;
-      } else {
-        // otherwise report the reference in a default way
-        Expected.type = ValueType.Reference;
-        Expected.offset = offsetof<T>();
-      }
-    }
-  } else {
-    if (isFloat<T>()) {
-      Expected.type = ValueType.Float;
-      // @ts-ignore: this cast is valid because it's already a float and this upcast is not lossy
-      Expected.float = <f64>expected;
-    } else if (expected instanceof i64 || expected instanceof u64) {
-      Expected.type = ValueType.Long;
-      Expected.signed = expected instanceof i64;
-      let ref = new Box<T>(expected);
-      let ptr = changetype<usize>(ref);
-      __retain(ptr);
-      __release(Expected.reference);
-      Expected.reference = ptr;
-    } else if (expected instanceof bool) {
-      Expected.type = ValueType.Bool;
-      Expected.integer = i32(expected);
-    } else {
-      Expected.type = ValueType.Integer;
-      Expected.signed = expected instanceof i32
-        || expected instanceof i16
-        || expected instanceof i8;
-      // @ts-ignore: this cast is valid because it's already an integer, but this is a lossy conversion
-      Expected.integer = <i32>expected;
-    }
   }
 }
 

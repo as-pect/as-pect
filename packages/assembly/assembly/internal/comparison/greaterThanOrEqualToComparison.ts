@@ -1,5 +1,5 @@
-import { reportActual } from "../report/reportActual";
-import { reportExpected } from "../report/reportExpected";
+import { Actual } from "../report/Actual";
+import { Expected } from "../report/Expected";
 import { assert } from "./assert";
 
 /**
@@ -14,13 +14,15 @@ import { assert } from "./assert";
 // @ts-ignore: Decorators *are* valid here!
 @inline
 export function greaterThanOrEqualToComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
-  reportActual<T>(actual);
-  reportExpected<T>(expected, negated);
+  Actual.report<T>(actual);
+  Expected.report<T>(expected, negated);
 
   if (isReference<T>()) {
-    // Perform reference type null checks
-    assert(i32(expected != null), "Nullable comparison fails, expected value is null.");
-    assert(i32(actual != null), "Nullable comparison fails, actual value is null.");
+    if (isNullable<T>()) {
+      // Perform reference type null checks
+      assert(i32(expected != null), "Nullable comparison fails, expected value is null.");
+      assert(i32(actual != null), "Nullable comparison fails, actual value is null.");
+    }
   }
 
   // Compare float types

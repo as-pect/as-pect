@@ -1,10 +1,11 @@
-import { reportActual } from "../report/reportActual";
-import { reportExpected } from "../report/reportExpected";
+import { Actual } from "../report/Actual";
+import { Expected } from "../report/Expected";
 import { assert } from "./assert";
 
 /**
  * This method performs a reference comparison using `memory.compare()`. The size of the memory
- * comparison is calculated using `offsetof<T>()`.
+ * comparison is calculated using `offsetof<T>()`. `T` must be a reference at this point. See
+ * `Expectation#toStrictEqual()`.
  *
  * @param T - The expectation type.
  * @param {T} actual - The actual value.
@@ -16,8 +17,8 @@ import { assert } from "./assert";
 @inline
 export function referenceComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
   // report the actual and expected values
-  reportActual<T>(actual);
-  reportExpected<T>(expected, negated);
+  Actual.report<T>(actual);
+  Expected.report<T>(expected, negated);
 
   // fast path, the value is itself, operator overload comparison passes, or both values are null
   if (expected == actual) {
@@ -25,10 +26,12 @@ export function referenceComparison<T>(actual: T, expected: T, negated: i32, mes
     return;
   }
 
-  // fast path, both values aren't null together, so if any of them are null, they do not equal
-  if (expected == null || actual == null) {
-    assert(negated, message);
-    return;
+  if (isNullable<T>()) {
+    // fast path, both values aren't null together, so if any of them are null, they do not equal
+    if (expected == null || actual == null) {
+      assert(negated, message);
+      return;
+    }
   }
 
   let compareResult = memory.compare(

@@ -170,6 +170,8 @@ exports[`pass-fail output Group: pass-fail Test: should expect strings: actual o
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: actual value 1`] = `824`;
 
+exports[`pass-fail output Group: pass-fail Test: should expect strings: actual values 1`] = `Array []`;
+
 exports[`pass-fail output Group: pass-fail Test: should expect strings: expected bytes 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: expected message 1`] = `"one"`;
@@ -179,6 +181,8 @@ exports[`pass-fail output Group: pass-fail Test: should expect strings: expected
 exports[`pass-fail output Group: pass-fail Test: should expect strings: expected offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: expected value 1`] = `848`;
+
+exports[`pass-fail output Group: pass-fail Test: should expect strings: expected values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: message 1`] = `""`;
 
@@ -212,6 +216,14 @@ exports[`pass-fail output Group: pass-fail Test: should report array values: act
 
 exports[`pass-fail output Group: pass-fail Test: should report array values: actual value 1`] = `null`;
 
+exports[`pass-fail output Group: pass-fail Test: should report array values: actual values 1`] = `
+Array [
+  1,
+  2,
+  3,
+]
+`;
+
 exports[`pass-fail output Group: pass-fail Test: should report array values: expected bytes 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report array values: expected message 1`] = `"[4,5,6]"`;
@@ -221,6 +233,14 @@ exports[`pass-fail output Group: pass-fail Test: should report array values: exp
 exports[`pass-fail output Group: pass-fail Test: should report array values: expected offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should report array values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report array values: expected values 1`] = `
+Array [
+  4,
+  5,
+  6,
+]
+`;
 
 exports[`pass-fail output Group: pass-fail Test: should report array values: message 1`] = `""`;
 
@@ -236,6 +256,8 @@ exports[`pass-fail output Group: pass-fail Test: should report bool values: actu
 
 exports[`pass-fail output Group: pass-fail Test: should report bool values: actual value 1`] = `0`;
 
+exports[`pass-fail output Group: pass-fail Test: should report bool values: actual values 1`] = `Array []`;
+
 exports[`pass-fail output Group: pass-fail Test: should report bool values: expected bytes 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report bool values: expected message 1`] = `"true"`;
@@ -245,6 +267,8 @@ exports[`pass-fail output Group: pass-fail Test: should report bool values: expe
 exports[`pass-fail output Group: pass-fail Test: should report bool values: expected offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should report bool values: expected value 1`] = `1`;
+
+exports[`pass-fail output Group: pass-fail Test: should report bool values: expected values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report bool values: message 1`] = `""`;
 
@@ -260,6 +284,8 @@ exports[`pass-fail output Group: pass-fail Test: should report expected finite v
 
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual value 1`] = `NaN`;
 
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual values 1`] = `Array []`;
+
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected bytes 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected message 1`] = `"Finite Value"`;
@@ -269,6 +295,8 @@ exports[`pass-fail output Group: pass-fail Test: should report expected finite v
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: message 1`] = `""`;
 
@@ -284,6 +312,8 @@ exports[`pass-fail output Group: pass-fail Test: should report falsy expected va
 
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual value 1`] = `1`;
 
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual values 1`] = `Array []`;
+
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected bytes 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected message 1`] = `"Falsy Value"`;
@@ -293,6 +323,8 @@ exports[`pass-fail output Group: pass-fail Test: should report falsy expected va
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: message 1`] = `""`;
 
@@ -308,6 +340,8 @@ exports[`pass-fail output Group: pass-fail Test: should report long values: actu
 
 exports[`pass-fail output Group: pass-fail Test: should report long values: actual value 1`] = `null`;
 
+exports[`pass-fail output Group: pass-fail Test: should report long values: actual values 1`] = `Array []`;
+
 exports[`pass-fail output Group: pass-fail Test: should report long values: expected bytes 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report long values: expected message 1`] = `"Long Value: 9999999999"`;
@@ -317,6 +351,8 @@ exports[`pass-fail output Group: pass-fail Test: should report long values: expe
 exports[`pass-fail output Group: pass-fail Test: should report long values: expected offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should report long values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report long values: expected values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report long values: message 1`] = `""`;
 
@@ -332,6 +368,8 @@ exports[`pass-fail output Group: pass-fail Test: should report nulls: actual off
 
 exports[`pass-fail output Group: pass-fail Test: should report nulls: actual value 1`] = `null`;
 
+exports[`pass-fail output Group: pass-fail Test: should report nulls: actual values 1`] = `Array []`;
+
 exports[`pass-fail output Group: pass-fail Test: should report nulls: expected bytes 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report nulls: expected message 1`] = `"null"`;
@@ -341,6 +379,8 @@ exports[`pass-fail output Group: pass-fail Test: should report nulls: expected n
 exports[`pass-fail output Group: pass-fail Test: should report nulls: expected offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should report nulls: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report nulls: expected values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report nulls: message 1`] = `""`;
 
@@ -356,6 +396,8 @@ exports[`pass-fail output Group: pass-fail Test: should report number values: ac
 
 exports[`pass-fail output Group: pass-fail Test: should report number values: actual value 1`] = `0`;
 
+exports[`pass-fail output Group: pass-fail Test: should report number values: actual values 1`] = `Array []`;
+
 exports[`pass-fail output Group: pass-fail Test: should report number values: expected bytes 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report number values: expected message 1`] = `"42"`;
@@ -365,6 +407,8 @@ exports[`pass-fail output Group: pass-fail Test: should report number values: ex
 exports[`pass-fail output Group: pass-fail Test: should report number values: expected offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should report number values: expected value 1`] = `42`;
+
+exports[`pass-fail output Group: pass-fail Test: should report number values: expected values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report number values: message 1`] = `""`;
 
@@ -405,7 +449,9 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: actual offset 1`] = `24`;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: actual value 1`] = `4704`;
+exports[`pass-fail output Group: pass-fail Test: should report reference values: actual value 1`] = `4960`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: actual values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: expected bytes 1`] = `
 Array [
@@ -442,7 +488,9 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: expected offset 1`] = `24`;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: expected value 1`] = `4784`;
+exports[`pass-fail output Group: pass-fail Test: should report reference values: expected value 1`] = `5040`;
+
+exports[`pass-fail output Group: pass-fail Test: should report reference values: expected values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: message 1`] = `""`;
 
@@ -458,6 +506,8 @@ exports[`pass-fail output Group: pass-fail Test: should report truthy expected v
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual value 1`] = `0`;
 
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual values 1`] = `Array []`;
+
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected bytes 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected message 1`] = `"Truthy Value"`;
@@ -468,11 +518,53 @@ exports[`pass-fail output Group: pass-fail Test: should report truthy expected v
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected value 1`] = `null`;
 
+exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected values 1`] = `Array []`;
+
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: message 1`] = `""`;
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: negated 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual message 1`] = `"[1.1,2.2,3.3]"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual values 1`] = `
+Array [
+  1.1,
+  2.2,
+  3.3,
+]
+`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected bytes 1`] = `Array []`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected message 1`] = `"[4.4,5.5,6.6]"`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected offset 1`] = `0`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected value 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected values 1`] = `
+Array [
+  4.4,
+  5.5,
+  6.6,
+]
+`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual bytes 1`] = `Array []`;
 
@@ -481,6 +573,8 @@ exports[`pass-fail output Group: pass-fail Test: should report u32 values: actua
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual value 1`] = `4294967294`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected bytes 1`] = `Array []`;
 
@@ -491,6 +585,8 @@ exports[`pass-fail output Group: pass-fail Test: should report u32 values: expec
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected offset 1`] = `0`;
 
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected value 1`] = `4294967293`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected values 1`] = `Array []`;
 
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: message 1`] = `""`;
 
@@ -515,3 +611,5 @@ exports[`pass-fail output Group: pass-fail: beforeEachPointers 1`] = `0`;
 exports[`pass-fail output Group: pass-fail: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail: reason 1`] = `""`;
+
+exports[`pass-fail output Overall Statistics: pass 1`] = `false`;

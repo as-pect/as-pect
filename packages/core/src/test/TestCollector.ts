@@ -421,7 +421,8 @@ export class TestCollector {
     const target = this.logTarget;
 
     value.stack = this.getLogStackTrace();
-    value.message = JSON.stringify(this.wasm!.__getArray(arrayPointer));
+    value.values = this.wasm!.__getArray(arrayPointer);
+    value.message = JSON.stringify(value.values);
     value.target = target;
 
     target.logs.push(value);
@@ -1214,6 +1215,7 @@ export class TestCollector {
   private reportActualArray(arrayPointer: number, stackTrace: number): void {
     const array = this.wasm!.__getArray(arrayPointer);
     const value = new ActualValue();
+    value.values = array;
     value.message = JSON.stringify(array);
     value.target = this.logTarget;
     value.stack = this.stackTraces.get(stackTrace)!;
@@ -1229,6 +1231,7 @@ export class TestCollector {
   private reportExpectedArray(arrayPointer: number, negated: 1 | 0): void {
     const array = this.wasm!.__getArray(arrayPointer);
     const value = new ActualValue();
+    value.values = array;
     value.message = JSON.stringify(array);
     value.target = this.logTarget;
     value.negated = negated === 1;

@@ -1,7 +1,7 @@
 import { exactComparison } from "./exactComparison";
 import { assert } from "./assert";
-import { reportExpectedReference, reportExpected } from "../report/reportExpected";
-import { reportActualReference, reportActual } from "../report/reportActual";
+import { reportExpectedReference, Expected } from "../report/Expected";
+import { reportActualReference, Actual } from "../report/Actual";
 
 /**
  * This method performs a block comparison. It's useful for comparing a string or an ArrayBuffer
@@ -40,50 +40,58 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
   let actualSize = load<i32>(actualPtr - 4);
 
 
-  // report the expected reference
-  if (expected == null) {
-    // @ts-ignore: this is valid assemblyscript
-    reportExpected<T>(null, negated);
+  if (isNullable<T>()) {
+    // report the expected reference
+    if (expected == null) {
+      // @ts-ignore: this is valid assemblyscript
+      Expected.report<T>(null, negated);
+    } else {
+      reportExpectedReference(expectedPtr, expectedSize, negated);
+    }
+
+    // report the actual reference
+    if (actual == null) {
+      // @ts-ignore this is valid AssemblyScript
+      Actual.report<T>(null);
+    } else {
+      reportActualReference(actualSize, actualSize);
+    }
   } else {
     reportExpectedReference(expectedPtr, expectedSize, negated);
-  }
-
-  // report the actual reference
-  if (actual == null) {
-    // @ts-ignore this is valid AssemblyScript
-    reportActual<T>(null);
-  } else {
     reportActualReference(actualSize, actualSize);
   }
 
-  /**
-   * Determine if either the actual or expected reference is null.
-   */
-  let actualNull: i32 = i32(actual == null);
-  let expectedNull: i32 = i32(expected == null);
+  if (isNullable<T>()) {
+    /**
+     * Determine if either the actual or expected reference is null.
+     */
+    let actualNull: i32 = i32(actual == null);
+    let expectedNull: i32 = i32(expected == null);
+
+    /**
+     * It is not possible for both values to be null at this point, because of previous assertions,
+     * so they may only be null in a mutually exclusive manner. If that is the case, then we assert
+     * `negated` because they are expected to equal each other unless the expectation is negated.
+     */
+    if (actualNull ^ expectedNull) {
+      assert(negated, message);
+      return;
+    }
+  }
 
   /**
-   * It is not possible for both values to be null at this point, because of previous assertions,
-   * so they may only be null in a mutually exclusive manner. If that is the case, then we assert
-   * `negated` because they are expected to equal each other unless the expectation is negated.
+   * Next we need to validate that the blocks are the same size. If they are not, we do not need
+   * to perform a `memory.compare()` and can short circut the comparison.
    */
-  if (actualNull ^ expectedNull) {
+  let lengthEqual = actualSize == expectedSize;
+
+  if (!lengthEqual) {
     assert(negated, message);
   } else {
     /**
-     * Next we need to validate that the blocks are the same size. If they are not, we do not need
-     * to perform a `memory.compare()` and can short circut the comparison.
+     * Next perform a memory compare. If the value is `0`, the blocks equal each other.
      */
-    let lengthEqual = actualSize == expectedSize;
-
-    if (!lengthEqual) {
-      assert(negated, message);
-    } else {
-      /**
-       * Next perform a memory compare. If the value is `0`, the blocks equal each other.
-       */
-      let blocksEqual: bool = memory.compare(actualPtr, expectedPtr, actualSize) == 0;
-      assert(negated ^ i32(blocksEqual), message);
-    }
+    let blocksEqual: bool = memory.compare(actualPtr, expectedPtr, actualSize) == 0;
+    assert(negated ^ i32(blocksEqual), message);
   }
 }

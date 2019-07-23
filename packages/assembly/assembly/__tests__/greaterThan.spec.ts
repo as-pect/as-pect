@@ -78,13 +78,13 @@ describe("GreaterThan (>)", (): void => {
    * This test verifies that toBeGreaterThan throws when the actual value is null.
    */
   throws("should throw if the actual value is null", (): void => {
-    expect<Vec3>(null).toBeGreaterThan(vec2);
+    expect<Vec3 | null>(null).toBeGreaterThan(vec2);
   }, "The toBeGreaterThan function should throw if the actual value is null.");
 
   /**
    * This test verifies that toBeGreaterThan throws when the expected value is null.
    */
   throws("should throw if the expected value is null", (): void => {
-    expect<Vec3>(vec2).toBeGreaterThan(null);
+    expect<Vec3 | null>(vec2).toBeGreaterThan(null);
   }, "The toBeGreaterThan function should throw if the expected value is null.");
 });

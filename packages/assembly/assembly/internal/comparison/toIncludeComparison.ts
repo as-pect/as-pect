@@ -1,5 +1,5 @@
-import { reportActual } from "../report/reportActual";
-import { reportExpected } from "../report/reportExpected";
+import { Actual } from "../report/Actual";
+import { Expected } from "../report/Expected";
 import { assert } from "./assert";
 
 /**
@@ -20,7 +20,7 @@ export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated:
    * Always report that the comparison is looking for an included value. It will be negated by the
    * Expected.negated property later.
    */
-  reportExpected<string>("Included", negated);
+  Expected.report<string>("Included", negated);
 
   /**
    * This loop inspects each item and validates if the expected value is included in the array.
@@ -39,6 +39,6 @@ export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated:
   /**
    * If the item is included, report "Included", otherwise report "Not Included".
    */
-  reportActual<string>(includes ? "Included" : "Not Included");
+  Actual.report<string>(includes ? "Included" : "Not Included");
   assert(negated ^ i32(includes), message);
 }

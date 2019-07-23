@@ -808,3 +808,58 @@ declare class RTrace {
    */
   public static activeTestBlocks(): usize[];
 }
+
+
+/**
+ * This class is static and contains private global values that contain metadata about the Actual
+ * value.
+ *
+ * @example
+ * ```ts
+ * Actual.report<string>("This is an expected string.");
+ * Actual.report<i32[]>([1, 2, 3]);
+ * Actual.report<u8>(42);
+ * ```
+ */
+declare class Actual {
+  /**
+   * This function performs reporting to javascript what the actual value of this expectation is.
+   *
+   * @param {T} actual - The actual value to be reported.
+   */
+  public static report<T>(value: T): void;
+
+  /**
+   * Clear the actual value and release any private memory stored as a global.
+   */
+  public static clear(): void;
+}
+
+
+/**
+ * This class is static and contains private global values that contain metadata about the Expected
+ * value.
+ *
+ * @example
+ * ```ts
+ * Expected.report<string>("This is an expected string.");
+ * Expected.report<i32[]>([1, 2, 3]);
+ * Expected.report<u8>(42, i32(true)); // not 42
+ * ```
+ */
+declare class Expected {
+  /**
+   * This function performs reporting to javascript what the expected value of this expectation is.
+   * It notifies javascript if the expectation is negated.
+   *
+   * @param {T} value - The actual value to be reported.
+   * @param {i32} negated - An indicator if the expectation is negated. Pass `1` to negate the
+   * expectation. (default: 0)
+   */
+  public static report<T>(value: T, negated?: i32): void;
+
+  /**
+   * Clear the expected value and release any private memory stored as a global.
+   */
+  public static clear(): void;
+}

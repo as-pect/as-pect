@@ -86,6 +86,7 @@
 								<li><a href="#tocontainequal-and-toincludeequal">toContainEqual</a></li>
 							</ul>
 						</li>
+						<li><a href="#custom-assertions">Custom Assertions</a></li>
 						<li><a href="#types-and-tooling">Types And Tooling</a></li>
 						<li><a href="#assemblyscript-compiler-options">AssemblyScript Compiler Options</a></li>
 						<li><a href="#closures">Closures</a></li>
@@ -197,16 +198,16 @@ expect&lt;f64&gt;(<span class="hljs-number">1.0</span>).not.toBeNaN(); <span cla
 
 <span class="hljs-comment">/** This results in a runtime error, despite not being NaN. */</span>
 expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3()).not.toBeNaN();</code></pre>
-					<p>This method is technically safe to use with <code>jest</code> with the assumption
-					that <code>as-pect</code> will fail if used with a reference type.</p>
+					<p>If this method is called with anything other than a <code>f32 | f64</code> type, it will
+					result in a compile time error.</p>
+					<p>This method is safe to use with <code>jest</code> portably.</p>
 					<h3 id="tobenull">toBeNull</h3>
 					<p>This comparison looks specifically for a <code>null</code> value.</p>
 					<pre><code class="language-ts">expect&lt;Vec3&gt;(<span class="hljs-literal">null</span>).toBeNull(); <span class="hljs-comment">// valid assertion</span></code></pre>
-					<p>In the case of numeric values, numbers cannot be <code>null</code> in AssemblyScript.
-					Thus, the following example will throw a runtime error.</p>
-					<pre><code class="language-ts">expect&lt;i32&gt;(<span class="hljs-literal">null</span>).toBeNull();</code></pre>
-					<p>This method is safe to use with <code>jest</code> assuming you explicitly return <code>null</code>
-					and avoid use of <code>undefined</code> which does not exist in AssemblyScript.</p>
+					<p>In the case of numeric values, numbers cannot be <code>null</code> in AssemblyScript, thus,
+						if this method is called with anything other than a reference type, this will
+					result in a compile time error.</p>
+					<p>This method is safe to use with <code>jest</code> portably.</p>
 					<h3 id="tobefinite">toBeFinite</h3>
 					<p>This comparison is used to detect if float values are finite. The following
 					values are not finite in JavaScript or AssemblyScript.</p>
@@ -222,6 +223,8 @@ expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).not.toBeFinite();</code
 					<p>As long as the number values are always <code>f32</code> or <code>f64</code> (or <code>number</code> in
 						JavaScript or AssemblyScript,) <code>toBeFinite</code> is a safe assertion to use
 					portably with jest.</p>
+					<p>If this method is called without a float without a float value type, it
+					will result in a compile time error.</p>
 					<h3 id="tothrow">toThrow</h3>
 					<p>This comparison is used to test and see if a function throws an error. In the
 						case of AssemblyScript and <code>as-pect</code>, the function will be called from within
@@ -238,6 +241,8 @@ expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).not.toBeFinite();</code
 					<p>Closure is not supported in AssemblyScript yet. Also, any references that are
 						left dangling on the stack will hang around un<code>__release()</code>ed by
 					AssemblyScript.</p>
+					<p>If this function is used on anything other than a <code>() =&gt; void</code> function type,
+					it will result in a compile time error.</p>
 					<p>This function is safe to use with <code>jest</code>.</p>
 					<h3 id="tobegreaterthan-and-tobelessthan">toBeGreaterThan and toBeLessThan</h3>
 					<p>This set of comparisons validate that a value is greater than, less than, or
@@ -277,6 +282,8 @@ expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-
 					<pre><code class="language-ts">expect&lt;f64&gt;(<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>).toBeCloseTo(<span class="hljs-number">0.3</span>); <span class="hljs-comment">// passes!</span></code></pre>
 					<p>Reference values and integer values will result in a runtime error, because
 					<code>toBeCloseTo</code> comparisons require a floating point number to work.</p>
+					<p>if this method is called on anything other than a <code>f64 | f32</code> type, it will
+					result it a compile time error.</p>
 					<p>This method is safe to use portably with <code>jest</code>.</p>
 					<h3 id="tohavelength">toHaveLength</h3>
 					<p>This comparison verifies the length of a given object. This includes Arrays,
@@ -294,8 +301,10 @@ expect&lt;<span class="hljs-built_in">Array</span>&lt;Vec3&gt;&gt;(array).toHave
 expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(typedarray).toHaveLength(<span class="hljs-number">42</span>);
 expect&lt;<span class="hljs-built_in">ArrayBuffer</span>&gt;(buffer).toHaveLength(<span class="hljs-number">29</span>);
 expect&lt;LengthExample&gt;(custom).toHaveLength(<span class="hljs-number">50</span>);</code></pre>
+					<p>If this method is used with anything other than a reference type, it will result
+					in a compile time error.</p>
 					<p>This method is safe to use with <code>jest</code>, with the exception of using
-					<code>ArrayBuffer</code>.</p>
+					<code>ArrayBuffer</code> type references.</p>
 					<h3 id="tocontain-and-toinclude">toContain and toInclude</h3>
 					<p>This comparison is used to determine if an Array contains a value.</p>
 					<p>All the values returned by <code>T[index]</code> will be compared using the <code>==</code> operator,
@@ -324,6 +333,24 @@ data.push(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">4<
 
 expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual(referece);</code></pre>
 					<p>This method is portable with <code>jest</code> using the <code>toContainEqual()</code> method.</p>
+					<h2 id="custom-assertions">Custom Assertions</h2>
+					<p>In order to write a custom assertion that is compatible with <code>as-pect</code> output,
+						an <code>Actual</code> and <code>Expected</code> namespace is provided. For example, we can write a
+					custom assertion like this:</p>
+					<!-- markdownlint-disable MD013 -->
+					<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">expectToBeEven</span>(<span class="hljs-params">value: i32, negated: bool = <span class="hljs-literal">false</span>, message: <span class="hljs-built_in">string</span> = <span class="hljs-literal">null</span></span>): <span class="hljs-title">void</span> </span>{
+  Actual.report&lt;i32&gt;(value);
+  Expected.report&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">"Even"</span>, i32(negated));
+
+  <span class="hljs-comment">// check if the first bit is 0</span>
+  <span class="hljs-keyword">let</span> isEven = (value &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">0</span>;
+  <span class="hljs-comment">// use exclusive or to determine if the assertion passes</span>
+  assert(i32(isEven) ^ i32(negated), message);
+  <span class="hljs-comment">// dont forget to clear the value</span>
+  Actual.clear();
+  Expected.clear();
+}</code></pre>
+					<!-- markdownlint-enable MD013 -->
 					<h2 id="types-and-tooling">Types And Tooling</h2>
 					<p>The <code>as-pect</code> assembly comes with a way to generate the types for all the globals
 						used by the framework. This will greatly increase your productivity because it
@@ -434,7 +461,9 @@ log&lt;i32[]&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.actual.html" class="tsd-kind-icon">Actual</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported"><a href="../classes/_as_pect_assembly.expectation.html" class="tsd-kind-icon">Expectation</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.expected.html" class="tsd-kind-icon">Expected</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.performance.html" class="tsd-kind-icon">Performance</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-module tsd-is-not-exported"><a href="../classes/_as_pect_assembly.rtrace.html" class="tsd-kind-icon">RTrace</a></li>
 							</ul>
@@ -475,7 +504,7 @@ log&lt;i32[]&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L197">assembly/types/as-pect.d.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L197">assembly/types/as-pect.d.ts:197</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -530,7 +559,7 @@ describe(<span class="hljs-string">"dogs"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L177">assembly/types/as-pect.d.ts:177</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L177">assembly/types/as-pect.d.ts:177</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -586,7 +615,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L156">assembly/types/as-pect.d.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L156">assembly/types/as-pect.d.ts:156</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -641,7 +670,7 @@ describe(<span class="hljs-string">"dogs"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L136">assembly/types/as-pect.d.ts:136</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L136">assembly/types/as-pect.d.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -697,7 +726,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L588">assembly/types/as-pect.d.ts:588</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L588">assembly/types/as-pect.d.ts:588</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -719,7 +748,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L15">assembly/types/as-pect.d.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L15">assembly/types/as-pect.d.ts:15</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -775,7 +804,7 @@ describe(<span class="hljs-string">"cats"</span>, (): <span class="hljs-function
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L212">assembly/types/as-pect.d.ts:212</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L212">assembly/types/as-pect.d.ts:212</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -821,7 +850,7 @@ expect&lt;i32&gt;(<span class="hljs-number">19</span> + <span class="hljs-number
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L228">assembly/types/as-pect.d.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L228">assembly/types/as-pect.d.ts:228</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -869,7 +898,7 @@ expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L35">assembly/types/as-pect.d.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L35">assembly/types/as-pect.d.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -929,7 +958,7 @@ expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L115">assembly/types/as-pect.d.ts:115</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L115">assembly/types/as-pect.d.ts:115</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -995,7 +1024,7 @@ expectFn((): <span class="hljs-function"><span class="hljs-params">void</span> =
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L253">assembly/types/as-pect.d.ts:253</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L253">assembly/types/as-pect.d.ts:253</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1044,7 +1073,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L72">assembly/types/as-pect.d.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L72">assembly/types/as-pect.d.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1104,7 +1133,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L93">assembly/types/as-pect.d.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L93">assembly/types/as-pect.d.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1170,7 +1199,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L235">assembly/types/as-pect.d.ts:235</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L235">assembly/types/as-pect.d.ts:235</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1201,7 +1230,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L44">assembly/types/as-pect.d.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L44">assembly/types/as-pect.d.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1251,7 +1280,7 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/208cb98/packages/assembly/types/as-pect.d.ts#L53">assembly/types/as-pect.d.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L53">assembly/types/as-pect.d.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1312,8 +1341,14 @@ log&lt;Vec3&gt;(<span class="hljs-literal">null</span>);</code></pre>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../classes/_as_pect_assembly.actual.html" class="tsd-kind-icon">Actual</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
 						<a href="../classes/_as_pect_assembly.expectation.html" class="tsd-kind-icon">Expectation</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../classes/_as_pect_assembly.expected.html" class="tsd-kind-icon">Expected</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../classes/_as_pect_assembly.performance.html" class="tsd-kind-icon">Performance</a>

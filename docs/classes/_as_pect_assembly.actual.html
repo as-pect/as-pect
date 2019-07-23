@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IWritable | as-pect</title>
+	<title>Actual | as-pect</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_as_pect_core.html">@as-pect/core</a>
+					<a href="../modules/_as_pect_assembly.html">@as-pect/assembly</a>
 				</li>
 				<li>
-					<a href="_as_pect_core.iwritable.html">IWritable</a>
+					<a href="_as_pect_assembly.actual.html">Actual</a>
 				</li>
 			</ul>
-			<h1>Interface IWritable</h1>
+			<h1>Class Actual</h1>
 		</div>
 	</div>
 </header>
@@ -70,15 +70,23 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This interface is a utitily used to describe the shape of something that has a <code>write()</code> method.</p>
+						<p>This class is static and contains private global values that contain metadata about the Actual
+						value.</p>
 					</div>
+					<dl class="tsd-comment-tags">
+						<dt>example</dt>
+						<dd><pre><code class="language-ts">Actual.report&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">"This is an expected string."</span>);
+Actual.report&lt;i32[]&gt;([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+Actual.report&lt;u8&gt;(<span class="hljs-number">42</span>);</code></pre>
+						</dd>
+					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IWritable</span>
+						<span class="target">Actual</span>
 					</li>
 				</ul>
 			</section>
@@ -86,39 +94,68 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_as_pect_core.iwritable.html#write" class="tsd-kind-icon">write</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_as_pect_assembly.actual.html#clear" class="tsd-kind-icon">clear</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static tsd-is-not-exported"><a href="_as_pect_assembly.actual.html#report" class="tsd-kind-icon">report</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="write" class="tsd-anchor"></a>
-					<h3>write</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">write<span class="tsd-signature-symbol">(</span>chunk<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="clear" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> clear</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/core/src/util/IWriteable.ts#L6">core/src/util/IWriteable.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L835">assembly/types/as-pect.d.ts:835</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>This method is used for writing string contents to something that is writable.</p>
+									<p>Clear the actual value and release any private memory stored as a global.</p>
 								</div>
 							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static tsd-is-not-exported">
+					<a name="report" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> report</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">report&lt;T&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/assembly/types/as-pect.d.ts#L830">assembly/types/as-pect.d.ts:830</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This function performs reporting to javascript what the actual value of this expectation is.</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>chunk: <span class="tsd-signature-type">string</span></h5>
+									<h5>value: <span class="tsd-signature-type">T</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -133,87 +170,93 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/_as_pect_assembly.html">@as-<wbr>pect/assembly</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="../modules/_as_pect_cli.html">@as-<wbr>pect/cli</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/_as_pect_core.html">@as-<wbr>pect/core</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.actualvalue.html" class="tsd-kind-icon">Actual<wbr>Value</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.csvreporter.html" class="tsd-kind-icon">CSVReporter</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.combinationreporter.html" class="tsd-kind-icon">Combination<wbr>Reporter</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.emptyreporter.html" class="tsd-kind-icon">Empty<wbr>Reporter</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.jsonreporter.html" class="tsd-kind-icon">JSONReporter</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.logvalue.html" class="tsd-kind-icon">Log<wbr>Value</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.summaryreporter.html" class="tsd-kind-icon">Summary<wbr>Reporter</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.testcontext.html" class="tsd-kind-icon">Test<wbr>Context</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.testgroup.html" class="tsd-kind-icon">Test<wbr>Group</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.testreporter.html" class="tsd-kind-icon">Test<wbr>Reporter</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.testresult.html" class="tsd-kind-icon">Test<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_as_pect_core.verbosereporter.html" class="tsd-kind-icon">Verbose<wbr>Reporter</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_as_pect_core.iaspectexports.html" class="tsd-kind-icon">IAspect<wbr>Exports</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_as_pect_core.ilogtarget.html" class="tsd-kind-icon">ILog<wbr>Target</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_as_pect_core.iperformanceconfiguration.html" class="tsd-kind-icon">IPerformance<wbr>Configuration</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_as_pect_core.itestcontextparameters.html" class="tsd-kind-icon">ITest<wbr>Context<wbr>Parameters</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_as_pect_core.iwarning.html" class="tsd-kind-icon">IWarning</a>
-					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_as_pect_core.iwritable.html" class="tsd-kind-icon">IWritable</a>
+					<li class="current tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.actual.html" class="tsd-kind-icon">Actual</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="_as_pect_core.iwritable.html#write" class="tsd-kind-icon">write</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_as_pect_assembly.actual.html#clear" class="tsd-kind-icon">clear</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static tsd-is-not-exported">
+								<a href="_as_pect_assembly.actual.html#report" class="tsd-kind-icon">report</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../modules/_as_pect_core.html#util" class="tsd-kind-icon">util</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_as_pect_assembly.expectation.html" class="tsd-kind-icon">Expectation</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_as_pect_core.html#createdefaultperformanceconfiguration" class="tsd-kind-icon">create<wbr>Default<wbr>Performance<wbr>Configuration</a>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.expected.html" class="tsd-kind-icon">Expected</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.performance.html" class="tsd-kind-icon">Performance</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_as_pect_assembly.rtrace.html" class="tsd-kind-icon">RTrace</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#afterall" class="tsd-kind-icon">after<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#aftereach" class="tsd-kind-icon">after<wbr>Each</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#beforeall" class="tsd-kind-icon">before<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#beforeeach" class="tsd-kind-icon">before<wbr>Each</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#debug" class="tsd-kind-icon">debug</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#describe" class="tsd-kind-icon">describe</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#expect" class="tsd-kind-icon">expect</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#expectfn" class="tsd-kind-icon">expect<wbr>Fn</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#it" class="tsd-kind-icon">it</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#itthrows" class="tsd-kind-icon">it<wbr>Throws</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#log" class="tsd-kind-icon">log</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#test" class="tsd-kind-icon">test</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#throws" class="tsd-kind-icon">throws</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#todo" class="tsd-kind-icon">todo</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#xit" class="tsd-kind-icon">xit</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_as_pect_assembly.html#xtest" class="tsd-kind-icon">xtest</a>
 					</li>
 				</ul>
 			</nav>

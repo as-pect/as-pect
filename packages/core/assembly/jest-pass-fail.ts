@@ -11,36 +11,10 @@ export class Vec3 {
     return sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
   }
 
-  @operator(">")
-  protected __greaterThan(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude > refmagnitude;
-  }
-
-  @operator(">=")
-  protected __greaterThanOrEqualTo(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude >= refmagnitude;
-  }
-
-  @operator("<")
-  protected __lessThan(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude < refmagnitude;
-  }
-
-  @operator("<=")
-  protected __lessThanOrEqualTo(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude <= refmagnitude;
-  }
-
   @operator("==")
-  protected __equals(reference: Vec3): bool {
+  protected __equals(reference: Vec3 | null): bool {
+    if (reference === this) return false;
+    if (i32(reference === null) ^ i32(this === null)) return false;
     return this.x == reference.x
       && this.y == reference.y
       && this.z == reference.z;
@@ -86,7 +60,7 @@ describe("pass-fail", () => {
   });
 
   it("should report nulls", (): void => {
-    expect<Vec3>(null).not.toBeNull();
+    expect<Vec3 | null>(null).not.toBeNull();
   });
 
   throws("should report a negated test", (): void => {
@@ -99,6 +73,18 @@ describe("pass-fail", () => {
 
   it("should report array values", () => {
     expect<i32[]>([1, 2, 3]).toStrictEqual([4, 5, 6]);
+  });
+
+  it("should report typedarray values", () => {
+    let actual = new Float64Array(3);
+    let expected = new Float64Array(3);
+    actual[0] = 1.1;
+    actual[1] = 2.2;
+    actual[2] = 3.3;
+    expected[0] = 4.4;
+    expected[1] = 5.5;
+    expected[2] = 6.6;
+    expect<Float64Array>(actual).toStrictEqual(expected);
   });
 
   it("should report long values", () => {

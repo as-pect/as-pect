@@ -19,10 +19,10 @@ import {
 } from "./internal/Test";
 import { log } from "./internal/log";
 import { RTrace } from "./internal/RTrace";
-import { Expected } from "./internal/report/reportExpected";
+import { Expected } from "./internal/report/Expected";
 export { __call } from "./internal/call";
-export { __sendActual } from "./internal/report/reportActual";
-export { __sendExpected } from "./internal/report/reportExpected";
+export { __sendActual } from "./internal/report/Actual";
+export { __sendExpected } from "./internal/report/Expected";
 export { __ignoreLogs } from "./internal/log";
 export { __disableRTrace, __getUsizeArrayId } from "./internal/RTrace";
 import { Performance } from "./internal/performance";

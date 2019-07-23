@@ -1,6 +1,6 @@
 import { assert } from "./assert";
-import { reportActual } from "../report/reportActual";
-import { reportExpected } from "../report/reportExpected";
+import { Actual } from "../report/Actual";
+import { Expected } from "../report/Expected";
 import { nullComparison } from "./nullComparison";
 
 /**
@@ -16,29 +16,37 @@ import { nullComparison } from "./nullComparison";
 // @ts-ignore: Decorators *are* valid here!
 @inline
 export function lengthComparison<T>(actual: T, expected: i32, negated: i32, message: string): void {
+  if (!isReference<T>()) {
+    ERROR("Expectation<T>#toHaveLength must be called with a Reference type T.")
+  }
+
   let length: i32 = 0;
-  if (isReference<T>()) {
-    /**
-     * We need to collect the length of the reference, knowing that the expected value should
-     * match the length of the actual value.
-     */
+
+  if (isNullable<T>()) {
     if (actual == null) {
       /**
        * If the reference is null, we can delegate the logic inline to a negated nullComparison.
+       *
+       * E.G. The reference must not be null.
        */
-      nullComparison<T>(actual, 1, "toHaveLength assertion called on null actual value.");
-    } else if (actual instanceof ArrayBuffer) {
-      length = changetype<ArrayBuffer>(actual).byteLength;
-    } else {
-      // @ts-ignore self must have property length, which will result in a compile time error
-      length = actual.length;
+      assert(0, "Expectation<T>.toHaveLength assertion called on null actual value.");
     }
-    reportActual<i32>(length);
-    reportExpected<i32>(expected, negated);
-    assert(negated ^ i32(length == expected), message);
-  } else {
-    reportActual<T>(actual);
-    reportExpected<string>("Reference Type", 0);
-    assert(i32(false), "toHaveLength should be called on TypedArrays, ArrayBuffers, Arrays, and classes that have a length property.");
   }
+
+  /**
+   * We need to collect the length of the reference, knowing that the expected value should
+   * match the length of the actual value.
+   */
+  if (actual instanceof ArrayBuffer) {
+    length = changetype<ArrayBuffer>(actual).byteLength;
+  } else {
+    /**
+     * If T does not have a length property, this will result in a compile time error.
+     */
+    // @ts-ignore
+    length = actual.length;
+  }
+  Actual.report<i32>(length);
+  Expected.report<i32>(expected, negated);
+  assert(negated ^ i32(length == expected), message);
 }

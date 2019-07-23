@@ -1,4 +1,5 @@
 import { Box } from "./report/Box";
+import { ArrayBufferView } from "arraybuffer";
 
 // @ts-ignore: decorators *are* valid here
 @external("__aspect", "logString")
@@ -48,9 +49,13 @@ export function __ignoreLogs(value: bool): void {
 export function log<T>(value: T): void {
   if (ignoreLogs) return;
   if (isReference<T>()) {
-    if (value == null) {
-      logNull();
-    } else if (isArray<T>()) {
+    if (isNullable<T>()) {
+      if (value === null) {
+        logNull();
+        return;
+      }
+    }
+    if (value instanceof ArrayBufferView) {
       logArray(changetype<usize>(value));
     } else if (value instanceof String) {
       // @ts-ignore: this cast is valid because it's already a string

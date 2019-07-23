@@ -1,3 +1,4 @@
+import { ArrayBufferView } from "arraybuffer";
 import { exactComparison } from "./comparison/exactComparison";
 import { blockComparison } from "./comparison/blockComparison";
 import { truthyComparison } from "./comparison/truthyComparison";
@@ -16,8 +17,8 @@ import { lengthComparison } from "./comparison/lengthComparison";
 import { toIncludeComparison } from "./comparison/toIncludeComparison";
 import { toIncludeEqualComparison } from "./comparison/toIncludeEqualComparison";
 import { arrayComparison } from "./comparison/arrayComparison";
-import { Actual } from "./report/reportActual";
-import { Expected } from "./report/reportExpected";
+import { Actual } from "./report/Actual";
+import { Expected } from "./report/Expected";
 
 /**
  * The AssemblyScript class that represents an expecation.
@@ -80,7 +81,7 @@ export class Expectation<T> {
     }
 
     // if T is an array, use arrayComparison
-    if (isArray<T>()) {
+    if (expected instanceof ArrayBufferView) {
       arrayComparison<T>(this.actual, expected, this._not, message);
       Actual.clear();
       Expected.clear();
