@@ -12,35 +12,37 @@ export class Vec3 {
   }
 
   @operator(">")
-  protected __greaterThan(reference: Vec3): bool {
+  protected __greaterThan(reference: Vec3 | null): bool {
     var magnitude = this.magnitude();
     var refmagnitude = reference.magnitude();
     return magnitude > refmagnitude;
   }
 
   @operator(">=")
-  protected __greaterThanOrEqualTo(reference: Vec3): bool {
+  protected __greaterThanOrEqualTo(reference: Vec3 | null): bool {
     var magnitude = this.magnitude();
     var refmagnitude = reference.magnitude();
     return magnitude >= refmagnitude;
   }
 
   @operator("<")
-  protected __lessThan(reference: Vec3): bool {
+  protected __lessThan(reference: Vec3 | null): bool {
     var magnitude = this.magnitude();
     var refmagnitude = reference.magnitude();
     return magnitude < refmagnitude;
   }
 
   @operator("<=")
-  protected __lessThanOrEqualTo(reference: Vec3): bool {
+  protected __lessThanOrEqualTo(reference: Vec3 | null): bool {
     var magnitude = this.magnitude();
     var refmagnitude = reference.magnitude();
     return magnitude <= refmagnitude;
   }
 
   @operator("==")
-  protected __equals(reference: Vec3): bool {
+  protected __equals(reference: Vec3 | null): bool {
+    if (this === reference) return true;
+    if (i32(this === null) ^ i32(reference === null)) return false;
     return this.x == reference.x
       && this.y == reference.y
       && this.z == reference.z;

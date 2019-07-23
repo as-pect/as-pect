@@ -22,18 +22,22 @@ export function lengthComparison<T>(actual: T, expected: i32, negated: i32, mess
 
   let length: i32 = 0;
 
+  if (isNullable<T>()) {
+    if (actual == null) {
+      /**
+       * If the reference is null, we can delegate the logic inline to a negated nullComparison.
+       *
+       * E.G. The reference must not be null.
+       */
+      assert(0, "Expectation<T>.toHaveLength assertion called on null actual value.");
+    }
+  }
+
   /**
    * We need to collect the length of the reference, knowing that the expected value should
    * match the length of the actual value.
    */
-  if (actual == null) {
-    /**
-     * If the reference is null, we can delegate the logic inline to a negated nullComparison.
-     *
-     * E.G. The reference must not be null.
-     */
-    nullComparison<T>(actual, 1, "toHaveLength assertion called on null actual value.");
-  } else if (actual instanceof ArrayBuffer) {
+  if (actual instanceof ArrayBuffer) {
     length = changetype<ArrayBuffer>(actual).byteLength;
   } else {
     /**

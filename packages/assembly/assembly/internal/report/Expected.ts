@@ -54,6 +54,7 @@ declare function reportExpectedBool(value: i32, negated: i32, stackTrace: i32): 
 @external("__aspect", "getStackTrace")
 declare function getStackTrace(): i32;
 
+@global
 export class Expected {
   /**
    * This value indicates if the test suite is currently running.
@@ -120,33 +121,35 @@ export class Expected {
 
     // if T is a reference type...
     if (isReference<T>()) {
-      // check to see if it's null
-      if (expected == null) {
-        Expected.type = ValueType.Null;
-      } else {
-        let ptr = changetype<usize>(expected);
-        __retain(ptr);
-        __release(Expected.reference);
-        Expected.reference = ptr;
-
-        // otherwise it might be an array..
-        if (expected instanceof ArrayBufferView) {
-          Expected.type = ValueType.Array;
-          // or a string...
-        } else if (expected instanceof String) {
-          Expected.type = ValueType.String;
-          // it also might be an array buffer
-        } else if (expected instanceof ArrayBuffer) {
-          //todo: change this to const when AS supports it
-          let buff = changetype<ArrayBuffer>(expected);
-          Expected.type = ValueType.Reference;
-          // reporting the reference is as simple as using the pointer and the byteLength property.
-          Expected.offset = buff.byteLength;
-        } else {
-          // otherwise report the reference in a default way
-          Expected.type = ValueType.Reference;
-          Expected.offset = offsetof<T>();
+      if (isNullable<T>()) {
+        if (expected === null) {
+          Expected.type = ValueType.Null;
+          return;
         }
+      }
+
+      let ptr = changetype<usize>(expected);
+      __retain(ptr);
+      __release(Expected.reference);
+      Expected.reference = ptr;
+
+      // otherwise it might be an array..
+      if (expected instanceof ArrayBufferView) {
+        Expected.type = ValueType.Array;
+        // or a string...
+      } else if (expected instanceof String) {
+        Expected.type = ValueType.String;
+        // it also might be an array buffer
+      } else if (expected instanceof ArrayBuffer) {
+        //todo: change this to const when AS supports it
+        let buff = changetype<ArrayBuffer>(expected);
+        Expected.type = ValueType.Reference;
+        // reporting the reference is as simple as using the pointer and the byteLength property.
+        Expected.offset = buff.byteLength;
+      } else {
+        // otherwise report the reference in a default way
+        Expected.type = ValueType.Reference;
+        Expected.offset = offsetof<T>();
       }
     } else {
       if (isFloat<T>()) {

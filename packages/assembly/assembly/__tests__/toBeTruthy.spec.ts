@@ -80,14 +80,14 @@ describe("toBeTruthy", (): void => {
    * Null by definition is falsy.
    */
   it("should expect null not to be truthy", (): void => {
-    expect<Vec3>(null).not.toBeTruthy("Null is not truthy");
+    expect<Vec3 | null>(null).not.toBeTruthy("Null is not truthy");
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("should throw if null is not truthy", (): void => {
-    expect<Vec3>(null).toBeTruthy();
+  throws("because null is not truthy", (): void => {
+    expect<Vec3 | null>(null).toBeTruthy();
   }, "Null is not truthy");
 
   /**

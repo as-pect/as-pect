@@ -70,7 +70,7 @@ describe("logs", (): void => {
    * This test logs a null value.
    */
   test("log a null", (): void => {
-    log<Vec3>(null);
+    log<Vec3 | null>(null);
   });
 
   /**

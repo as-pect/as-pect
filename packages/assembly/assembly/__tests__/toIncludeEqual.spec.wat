@@ -8,7 +8,6 @@
  (type $FUNCSIG$viii (func (param i32 i32 i32)))
  (type $FUNCSIG$vi (func (param i32)))
  (type $FUNCSIG$i (func (result i32)))
- (type $FUNCSIG$iiiiii (func (param i32 i32 i32 i32 i32) (result i32)))
  (type $FUNCSIG$iiddd (func (param i32 f64 f64 f64) (result i32)))
  (type $FUNCSIG$vdii (func (param f64 i32 i32)))
  (type $FUNCSIG$vdiii (func (param f64 i32 i32 i32)))
@@ -4007,153 +4006,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/string/String#get:length (; 66 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  local.get $0
-  i32.const 16
-  i32.sub
-  i32.load offset=12
-  i32.const 1
-  i32.shr_u
- )
- (func $~lib/util/string/compareImpl (; 67 ;) (type $FUNCSIG$iiiiii) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
-  (local $8 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  drop
-  local.get $2
-  call $~lib/rt/pure/__retain
-  drop
-  i32.const 0
-  local.set $5
-  local.get $0
-  local.get $1
-  i32.const 1
-  i32.shl
-  i32.add
-  local.set $6
-  local.get $2
-  local.get $3
-  i32.const 1
-  i32.shl
-  i32.add
-  local.set $7
-  block $break|0
-   loop $continue|0
-    local.get $4
-    if (result i32)
-     local.get $6
-     i32.load16_u
-     local.get $7
-     i32.load16_u
-     i32.sub
-     local.tee $5
-     i32.eqz
-    else     
-     i32.const 0
-    end
-    i32.eqz
-    br_if $break|0
-    local.get $4
-    i32.const 1
-    i32.sub
-    local.set $4
-    local.get $6
-    i32.const 2
-    i32.add
-    local.set $6
-    local.get $7
-    i32.const 2
-    i32.add
-    local.set $7
-    br $continue|0
-   end
-   unreachable
-  end
-  local.get $5
-  local.set $8
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
-  local.get $8
- )
- (func $~lib/string/String.__eq (; 68 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  drop
-  local.get $1
-  call $~lib/rt/pure/__retain
-  drop
-  local.get $0
-  local.get $1
-  i32.eq
-  if
-   i32.const 1
-   local.set $2
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   return
-  end
-  local.get $0
-  i32.const 0
-  i32.eq
-  if (result i32)
-   i32.const 1
-  else   
-   local.get $1
-   i32.const 0
-   i32.eq
-  end
-  if
-   i32.const 0
-   local.set $2
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   return
-  end
-  local.get $0
-  call $~lib/string/String#get:length
-  local.set $3
-  local.get $3
-  local.get $1
-  call $~lib/string/String#get:length
-  i32.ne
-  if
-   i32.const 0
-   local.set $2
-   local.get $0
-   call $~lib/rt/pure/__release
-   local.get $1
-   call $~lib/rt/pure/__release
-   local.get $2
-   return
-  end
-  local.get $0
-  i32.const 0
-  local.get $1
-  i32.const 0
-  local.get $3
-  call $~lib/util/string/compareImpl
-  i32.eqz
-  local.set $2
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $1
-  call $~lib/rt/pure/__release
-  local.get $2
- )
- (func $assembly/internal/report/Expected/Expected.report<~lib/string/String> (; 69 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<~lib/string/String> (; 66 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4171,32 +4024,24 @@
   local.get $1
   global.set $assembly/internal/report/Expected/Expected.negated
   local.get $0
-  i32.const 0
-  call $~lib/string/String.__eq
-  if
-   i32.const 1
-   global.set $assembly/internal/report/Expected/Expected.type
-  else   
-   local.get $0
-   local.set $2
-   local.get $2
-   call $~lib/rt/pure/__retain
-   drop
-   global.get $assembly/internal/report/Expected/Expected.reference
-   call $~lib/rt/pure/__release
-   local.get $2
-   global.set $assembly/internal/report/Expected/Expected.reference
-   i32.const 5
-   global.set $assembly/internal/report/Expected/Expected.type
-  end
+  local.set $2
+  local.get $2
+  call $~lib/rt/pure/__retain
+  drop
+  global.get $assembly/internal/report/Expected/Expected.reference
+  call $~lib/rt/pure/__release
+  local.get $2
+  global.set $assembly/internal/report/Expected/Expected.reference
+  i32.const 5
+  global.set $assembly/internal/report/Expected/Expected.type
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/array/Array<i32>#get:length (; 70 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/array/Array<i32>#get:length (; 67 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=12
  )
- (func $~lib/array/Array<i32>#__unchecked_get (; 71 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<i32>#__unchecked_get (; 68 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -4205,7 +4050,7 @@
   i32.add
   i32.load
  )
- (func $~lib/array/Array<i32>#__get (; 72 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<i32>#__get (; 69 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -4224,7 +4069,7 @@
   local.get $1
   call $~lib/array/Array<i32>#__unchecked_get
  )
- (func $assembly/internal/report/Actual/Actual.report<~lib/string/String> (; 73 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<~lib/string/String> (; 70 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4233,27 +4078,19 @@
   global.set $assembly/internal/report/Actual/Actual.stackTrace
   local.get $0
   local.set $1
-  local.get $0
-  i32.const 0
-  call $~lib/string/String.__eq
-  if
-   i32.const 1
-   global.set $assembly/internal/report/Actual/Actual.type
-  else   
-   local.get $1
-   call $~lib/rt/pure/__retain
-   drop
-   global.get $assembly/internal/report/Actual/Actual.reference
-   call $~lib/rt/pure/__release
-   local.get $1
-   global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 5
-   global.set $assembly/internal/report/Actual/Actual.type
-  end
+  local.get $1
+  call $~lib/rt/pure/__retain
+  drop
+  global.get $assembly/internal/report/Actual/Actual.reference
+  call $~lib/rt/pure/__release
+  local.get $1
+  global.set $assembly/internal/report/Actual/Actual.reference
+  i32.const 5
+  global.set $assembly/internal/report/Actual/Actual.type
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Actual/Actual.clear (; 74 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/Actual/Actual.clear (; 71 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/report/Actual/Actual.type
   global.get $assembly/internal/report/Actual/Actual.reference
@@ -4268,7 +4105,7 @@
   i32.const -1
   global.set $assembly/internal/report/Actual/Actual.stackTrace
  )
- (func $assembly/internal/report/Expected/Expected.clear (; 75 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/Expected/Expected.clear (; 72 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/report/Expected/Expected.type
   global.get $assembly/internal/report/Expected/Expected.reference
@@ -4281,7 +4118,7 @@
    global.set $assembly/internal/report/Expected/Expected.reference
   end
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toIncludeEqual (; 76 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toIncludeEqual (; 73 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4403,7 +4240,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0~anonymous|0 (; 77 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0~anonymous|0 (; 74 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/numberTester
   call $assembly/internal/Expectation/expect<~lib/array/Array<i32>>
@@ -4414,7 +4251,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 78 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 75 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -4424,7 +4261,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0~anonymous|1 (; 79 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0~anonymous|1 (; 76 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/numberTester
   call $assembly/internal/Expectation/expect<~lib/array/Array<i32>>
@@ -4435,7 +4272,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/throws (; 80 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Test/throws (; 77 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -4451,14 +4288,14 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#get:not (; 81 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#get:not (; 78 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0~anonymous|2 (; 82 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0~anonymous|2 (; 79 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/numberTester
@@ -4474,7 +4311,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0~anonymous|3 (; 83 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0~anonymous|3 (; 80 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/numberTester
@@ -4490,7 +4327,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0 (; 84 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0 (; 81 ;) (type $FUNCSIG$v)
   i32.const 496
   i32.const 1
   call $assembly/internal/Test/it
@@ -4506,10 +4343,10 @@
   i32.const 912
   call $assembly/internal/Test/throws
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 85 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 82 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 86 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 83 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -4523,7 +4360,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#constructor (; 87 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#constructor (; 84 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -4554,7 +4391,7 @@
   i32.store offset=12
   local.get $0
  )
- (func $assembly/__tests__/setup/Vec3/Vec3#constructor (; 88 ;) (type $FUNCSIG$iiddd) (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (result i32)
+ (func $assembly/__tests__/setup/Vec3/Vec3#constructor (; 85 ;) (type $FUNCSIG$iiddd) (param $0 i32) (param $1 f64) (param $2 f64) (param $3 f64) (result i32)
   local.get $0
   i32.eqz
   if
@@ -4575,7 +4412,7 @@
   f64.store offset=16
   local.get $0
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#push (; 89 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#push (; 86 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -4611,7 +4448,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#constructor (; 90 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#constructor (; 87 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -4653,7 +4490,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>> (; 91 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>> (; 88 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4666,11 +4503,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#get:length (; 92 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#get:length (; 89 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=12
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__unchecked_get (; 93 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__unchecked_get (; 90 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -4680,7 +4517,7 @@
   i32.load
   call $~lib/rt/pure/__retain
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__get (; 94 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__get (; 91 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $1
   local.get $0
   i32.load offset=12
@@ -4711,11 +4548,37 @@
   local.get $1
   call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__unchecked_get
  )
- (func $assembly/__tests__/setup/Vec3/Vec3#__equals (; 95 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/__tests__/setup/Vec3/Vec3#__equals (; 92 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   drop
+  local.get $1
+  local.get $0
+  i32.eq
+  if
+   i32.const 1
+   local.set $2
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
+  local.get $1
+  i32.const 0
+  i32.eq
+  local.get $0
+  i32.const 0
+  i32.eq
+  i32.xor
+  if
+   i32.const 0
+   local.set $2
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $0
   f64.load
   local.get $1
@@ -4744,7 +4607,7 @@
   call $~lib/rt/pure/__release
   local.get $2
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#toIncludeEqual (; 96 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#toIncludeEqual (; 93 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4948,7 +4811,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|0 (; 97 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|0 (; 94 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/referenceTester
   call $assembly/internal/Expectation/expect<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>
@@ -4959,14 +4822,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#get:not (; 98 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#get:not (; 95 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|1 (; 99 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|1 (; 96 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/referenceTester
@@ -4982,7 +4845,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|2 (; 100 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|2 (; 97 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/referenceTester
@@ -5001,7 +4864,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|3 (; 101 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|3 (; 98 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/referenceTester
@@ -5020,7 +4883,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|4 (; 102 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|4 (; 99 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5044,7 +4907,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|5 (; 103 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|5 (; 100 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5068,7 +4931,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1 (; 104 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1 (; 101 ;) (type $FUNCSIG$v)
   i32.const 1432
   i32.const 7
   call $assembly/internal/Test/it
@@ -5091,7 +4954,7 @@
   i32.const 912
   call $assembly/internal/Test/throws
  )
- (func $~lib/typedarray/Uint8Array#constructor (; 105 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint8Array#constructor (; 102 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -5107,7 +4970,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint8Array#__set (; 106 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Uint8Array#__set (; 103 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -5127,7 +4990,7 @@
   local.get $2
   i32.store8
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#constructor (; 107 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#constructor (; 104 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -5169,7 +5032,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint8Array> (; 108 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint8Array> (; 105 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5182,15 +5045,15 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/arraybuffer/ArrayBufferView#get:byteLength (; 109 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/arraybuffer/ArrayBufferView#get:byteLength (; 106 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=8
  )
- (func $~lib/typedarray/Uint8Array#get:length (; 110 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint8Array#get:length (; 107 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   call $~lib/arraybuffer/ArrayBufferView#get:byteLength
  )
- (func $~lib/typedarray/Uint8Array#__get (; 111 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint8Array#__get (; 108 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -5209,7 +5072,7 @@
   i32.add
   i32.load8_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#toIncludeEqual (; 112 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#toIncludeEqual (; 109 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -5333,7 +5196,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|0 (; 113 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|0 (; 110 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/typedarray
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8Array>
@@ -5344,14 +5207,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#get:not (; 114 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#get:not (; 111 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|1 (; 115 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|1 (; 112 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/typedarray
@@ -5367,7 +5230,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/itThrows (; 116 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Test/itThrows (; 113 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -5383,7 +5246,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|2 (; 117 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|2 (; 114 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/typedarray
@@ -5399,7 +5262,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|3 (; 118 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|3 (; 115 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/typedarray
   call $assembly/internal/Expectation/expect<~lib/typedarray/Uint8Array>
@@ -5410,7 +5273,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2 (; 119 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2 (; 116 ;) (type $FUNCSIG$v)
   i32.const 2384
   i32.const 14
   call $assembly/internal/Test/it
@@ -5426,7 +5289,7 @@
   i32.const 2688
   call $assembly/internal/Test/itThrows
  )
- (func $~lib/array/Array<~lib/string/String>#constructor (; 120 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<~lib/string/String>#constructor (; 117 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -5457,7 +5320,7 @@
   i32.store offset=12
   local.get $0
  )
- (func $~lib/array/Array<~lib/string/String>#push (; 121 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<~lib/string/String>#push (; 118 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -5493,7 +5356,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<~lib/string/String>>#constructor (; 122 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<~lib/string/String>>#constructor (; 119 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -5535,7 +5398,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/array/Array<~lib/string/String>> (; 123 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/array/Array<~lib/string/String>> (; 120 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5548,11 +5411,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/array/Array<~lib/string/String>#get:length (; 124 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/array/Array<~lib/string/String>#get:length (; 121 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=12
  )
- (func $~lib/array/Array<~lib/string/String>#__unchecked_get (; 125 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<~lib/string/String>#__unchecked_get (; 122 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -5562,7 +5425,7 @@
   i32.load
   call $~lib/rt/pure/__retain
  )
- (func $~lib/array/Array<~lib/string/String>#__get (; 126 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<~lib/string/String>#__get (; 123 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $1
   local.get $0
   i32.load offset=12
@@ -5593,7 +5456,7 @@
   local.get $1
   call $~lib/array/Array<~lib/string/String>#__unchecked_get
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<~lib/string/String>>#toIncludeEqual (; 127 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<~lib/string/String>>#toIncludeEqual (; 124 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -5730,7 +5593,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|0 (; 128 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|0 (; 125 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/stringRefs
   call $assembly/internal/Expectation/expect<~lib/array/Array<~lib/string/String>>
@@ -5741,14 +5604,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<~lib/string/String>>#get:not (; 129 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<~lib/string/String>>#get:not (; 126 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|1 (; 130 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|1 (; 127 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/stringRefs
@@ -5764,7 +5627,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|2 (; 131 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|2 (; 128 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/stringRefs
@@ -5780,7 +5643,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|3 (; 132 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|3 (; 129 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toIncludeEqual.spec/stringRefs
   call $assembly/internal/Expectation/expect<~lib/array/Array<~lib/string/String>>
@@ -5791,7 +5654,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3 (; 133 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3 (; 130 ;) (type $FUNCSIG$v)
   i32.const 2384
   i32.const 19
   call $assembly/internal/Test/it
@@ -5807,7 +5670,7 @@
   i32.const 2688
   call $assembly/internal/Test/itThrows
  )
- (func $start:assembly/__tests__/toIncludeEqual.spec (; 134 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toIncludeEqual.spec (; 131 ;) (type $FUNCSIG$v)
   (local $0 i32)
   i32.const 0
   i32.const 0
@@ -5915,17 +5778,17 @@
   i32.const 23
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__ready (; 135 ;) (type $FUNCSIG$v)
+ (func $assembly/index/__ready (; 132 ;) (type $FUNCSIG$v)
   i32.const 1
   global.set $assembly/internal/report/Expected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 136 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/call/__call (; 133 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $assembly/internal/report/Actual/__sendActual (; 137 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/Actual/__sendActual (; 134 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case8|0
@@ -6023,7 +5886,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/Expected/__sendExpected (; 138 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/Expected/__sendExpected (; 135 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case10|0
@@ -6152,24 +6015,24 @@
    br $break|0
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 139 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 136 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 140 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/RTrace/__disableRTrace (; 137 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 141 ;) (type $FUNCSIG$i) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 138 ;) (type $FUNCSIG$i) (result i32)
   i32.const 12
  )
- (func $assembly/internal/Expectation/__cleanup (; 142 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/Expectation/__cleanup (; 139 ;) (type $FUNCSIG$v)
   call $assembly/internal/report/Expected/Expected.clear
   call $assembly/internal/report/Actual/Actual.clear
  )
- (func $start (; 143 ;) (type $FUNCSIG$v)
+ (func $start (; 140 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   if
    return
@@ -6179,10 +6042,10 @@
   end
   call $start:assembly/__tests__/toIncludeEqual.spec
  )
- (func $~lib/array/Array<i32>#__visit_impl (; 144 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<i32>#__visit_impl (; 141 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/pure/__visit (; 145 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 142 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -6312,7 +6175,7 @@
    end
   end
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 146 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 143 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -6351,7 +6214,7 @@
    unreachable
   end
  )
- (func $~lib/array/Array<~lib/string/String>#__visit_impl (; 147 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<~lib/string/String>#__visit_impl (; 144 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -6390,10 +6253,10 @@
    unreachable
   end
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 148 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 145 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/__visit_members (; 149 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 146 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default
@@ -6456,6 +6319,6 @@
   end
   return
  )
- (func $null (; 150 ;) (type $FUNCSIG$v)
+ (func $null (; 147 ;) (type $FUNCSIG$v)
  )
 )

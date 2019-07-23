@@ -33,18 +33,19 @@ export function arrayComparison<T extends ArrayBufferView>(actual: T, expected: 
     return;
   }
 
-  /**
-   * Mutually exclusive nulls should short circut the comparison.
-   */
-  if (actual == null || expected == null) {
-    assert(negated, message);
-    return;
+  if (isNullable<T>()) {
+    /**
+     * Mutually exclusive nulls should short circut the comparison.
+     */
+    if (actual == null || expected == null) {
+      assert(negated, message);
+      return;
+    }
   }
 
   /**
    * Length assertion values should short circuit the comparison.
    */
-
   if (actual.dataLength != expected.dataLength) {
     assert(negated, message);
     return;

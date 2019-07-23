@@ -18,9 +18,11 @@ export function greaterThanComparison<T>(actual: T, expected: T, negated: i32, m
   Expected.report<T>(expected, negated);
 
   if (isReference<T>()) {
-    // Perform reference type null checks
-    assert(i32(expected != null), "Nullable comparison fails, expected value is null.");
-    assert(i32(actual != null), "Nullable comparison fails, actual value is null.");
+    if (isNullable<T>()) {
+      // Perform reference type null checks
+      assert(i32(expected != null), "Nullable comparison fails, expected value is null.");
+      assert(i32(actual != null), "Nullable comparison fails, actual value is null.");
+    }
   }
 
   // Compare float types

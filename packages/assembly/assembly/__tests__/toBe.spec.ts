@@ -67,28 +67,28 @@ describe("toBe", (): void => {
    * It should validate a null reference is expected to be null.
    */
   it("should expect nulls to be null", (): void => {
-    expect<Vec3>(null).toBe(null);
+    expect<Vec3 | null>(null).toBe(null);
   });
 
   /**
    * This test is the contrapositive of the previous test.
    */
   throws("should throw if null is not expected to be null", (): void => {
-    expect<Vec3>(null).not.toBe(null);
+    expect<Vec3 | null>(null).not.toBe(null);
   }, "Negated toBe expectations of null should throw.");
 
   /**
    * It should expect references not to be null.
    */
   it("should expect references not to be null", (): void => {
-    expect<Vec3>(vec1).not.toBe(null, "A valid reference type should not be null.");
+    expect<Vec3 | null>(vec1).not.toBe(null, "A valid reference type should not be null.");
   });
 
   /**
    * This test is the contrapositive to the previous test.
    */
   throws("should throw if reference type is not null", (): void => {
-    expect<Vec3>(vec1).toBe(null);
+    expect<Vec3 | null>(vec1).toBe(null);
   }, "A reference type expection to throw if it's not null.");
 
   /**

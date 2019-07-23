@@ -79,13 +79,13 @@ describe("LessThanOrEqualTo (<=)", (): void => {
    * This test verifies that toBeLessThanOrEqualTo throws when the actual value is null.
    */
   throws("should throw if the actual value is null", (): void => {
-    expect<Vec3>(null).toBeLessThanOrEqual(vec3);
+    expect<Vec3 | null>(null).toBeLessThanOrEqual(vec3);
   }, "The toBeLessThanOrEqualTo function should throw if the actual value is null.");
 
   /**
    * This test verifies that toBeLessThanOrEqualTo throws when the expected value is null.
    */
   throws("should throw if the expected value is null", (): void => {
-    expect<Vec3>(vec3).toBeLessThanOrEqual(null);
+    expect<Vec3 | null>(vec3).toBeLessThanOrEqual(null);
   }, "The toBeLessThanOrEqualTo function should throw if the expected value is null.");
 });

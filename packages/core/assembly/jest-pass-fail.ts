@@ -11,36 +11,10 @@ export class Vec3 {
     return sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
   }
 
-  @operator(">")
-  protected __greaterThan(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude > refmagnitude;
-  }
-
-  @operator(">=")
-  protected __greaterThanOrEqualTo(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude >= refmagnitude;
-  }
-
-  @operator("<")
-  protected __lessThan(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude < refmagnitude;
-  }
-
-  @operator("<=")
-  protected __lessThanOrEqualTo(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude <= refmagnitude;
-  }
-
   @operator("==")
-  protected __equals(reference: Vec3): bool {
+  protected __equals(reference: Vec3 | null): bool {
+    if (reference === this) return false;
+    if (i32(reference === null) ^ i32(this === null)) return false;
     return this.x == reference.x
       && this.y == reference.y
       && this.z == reference.z;
@@ -86,7 +60,7 @@ describe("pass-fail", () => {
   });
 
   it("should report nulls", (): void => {
-    expect<Vec3>(null).not.toBeNull();
+    expect<Vec3 | null>(null).not.toBeNull();
   });
 
   throws("should report a negated test", (): void => {

@@ -80,27 +80,27 @@ describe("toBeFalsy", (): void => {
    * Null by definition is falsy.
    */
   it("should expect null to be falsy", (): void => {
-    expect<Vec3>(null).toBeFalsy("Null is falsy");
+    expect<Vec3 | null>(null).toBeFalsy("Null is falsy");
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
   throws("should throw if null is not fasly", (): void => {
-    expect<Vec3>(null).not.toBeFalsy();
+    expect<Vec3 | null>(null).not.toBeFalsy();
   }, "Null is falsy");
 
   /**
    * This test verifies non-null references are not falsy.
    */
   it("should expect non-null references not to be falsy", (): void => {
-    expect<Vec3>(vec1).not.toBeFalsy("Non-null references are not falsy.");
+    expect<Vec3 | null>(vec1).not.toBeFalsy("Non-null references are not falsy.");
   });
 
   /**
    * This test is the contrapositive of the previous test.
    */
   throws("should throw if non-null references are falsy", (): void => {
-    expect<Vec3>(vec1).toBeFalsy();
+    expect<Vec3 | null>(vec1).toBeFalsy();
   }, "Non-null references are not falsy.");
 });

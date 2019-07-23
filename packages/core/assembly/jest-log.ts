@@ -1,4 +1,3 @@
-import { ArrayBufferView } from "arraybuffer";
 /**
  * This is a standard Vec3 Class that contains three float values.
  */
@@ -12,36 +11,10 @@ export class Vec3 {
     return sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
   }
 
-  @operator(">")
-  protected __greaterThan(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude > refmagnitude;
-  }
-
-  @operator(">=")
-  protected __greaterThanOrEqualTo(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude >= refmagnitude;
-  }
-
-  @operator("<")
-  protected __lessThan(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude < refmagnitude;
-  }
-
-  @operator("<=")
-  protected __lessThanOrEqualTo(reference: Vec3): bool {
-    var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
-    return magnitude <= refmagnitude;
-  }
-
   @operator("==")
-  protected __equals(reference: Vec3): bool {
+  protected __equals(reference: Vec3 | null): bool {
+    if (reference === this) return false;
+    if (i32(reference === null) ^ i32(this === null)) return false;
     return this.x == reference.x
       && this.y == reference.y
       && this.z == reference.z;
@@ -61,7 +34,7 @@ testArray2[2] = -3;
 describe("logs", () => {
   log<string>("Hello world!");
   log<i32>(42);
-  log<Vec3>(null);
+  log<Vec3 | null>(null);
   log<Vec3>(new Vec3(1, 2, 3));
   log<i32[]>([1, 2, 3]);
   log<i64>(9999999999999);
@@ -77,7 +50,7 @@ describe("logs", () => {
   test("logs", () => {
     log<string>("Hello world!");
     log<i32>(42);
-    log<Vec3>(null);
+    log<Vec3 | null>(null);
     log<Vec3>(new Vec3(1, 2, 3));
     log<i32[]>([1, 2, 3]);
     log<i64>(9999999999999);

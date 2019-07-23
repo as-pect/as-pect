@@ -109,32 +109,35 @@ export class Actual {
 
     // if T is a reference type...
     if (isReference<T>()) {
-      let ptr = changetype<usize>(actual);
-      // check to see if it's null
-      if (actual == null) {
-        Actual.type = ValueType.Null;
-      } else {
-        // set the reference first
-        __retain(ptr);
-        __release(Actual.reference);
-        Actual.reference = ptr;
-        // it might be an array
-        if (actual instanceof ArrayBufferView) {
-          Actual.type = ValueType.Array;
-          // or a string
-        } else if (actual instanceof String) {
-          Actual.type = ValueType.String;
-          // it also might be an array buffer
-        } else if (actual instanceof ArrayBuffer) {
-          Actual.type = ValueType.Reference;
-          let buff = changetype<ArrayBuffer>(ptr);
-          Actual.offset = buff.byteLength;
-          // reporting the reference is as simple as using the pointer and the byteLength property.
-        } else {
-          // otherwise report the reference in a default way
-          Actual.type = ValueType.Reference;
-          Actual.offset = offsetof<T>();
+
+      if (isNullable<T>()) {
+        if (actual === null) {
+          Actual.type = ValueType.Null;
+          return;
         }
+      }
+
+      let ptr = changetype<usize>(actual);
+      // set the reference first
+      __retain(ptr);
+      __release(Actual.reference);
+      Actual.reference = ptr;
+      // it might be an array
+      if (actual instanceof ArrayBufferView) {
+        Actual.type = ValueType.Array;
+        // or a string
+      } else if (actual instanceof String) {
+        Actual.type = ValueType.String;
+        // it also might be an array buffer
+      } else if (actual instanceof ArrayBuffer) {
+        Actual.type = ValueType.Reference;
+        let buff = changetype<ArrayBuffer>(ptr);
+        Actual.offset = buff.byteLength;
+        // reporting the reference is as simple as using the pointer and the byteLength property.
+      } else {
+        // otherwise report the reference in a default way
+        Actual.type = ValueType.Reference;
+        Actual.offset = offsetof<T>();
       }
     } else {
       if (isFloat<T>()) {

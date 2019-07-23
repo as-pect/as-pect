@@ -4,7 +4,8 @@ import { assert } from "./assert";
 
 /**
  * This method performs a reference comparison using `memory.compare()`. The size of the memory
- * comparison is calculated using `offsetof<T>()`.
+ * comparison is calculated using `offsetof<T>()`. `T` must be a reference at this point. See
+ * `Expectation#toStrictEqual()`.
  *
  * @param T - The expectation type.
  * @param {T} actual - The actual value.
@@ -25,10 +26,12 @@ export function referenceComparison<T>(actual: T, expected: T, negated: i32, mes
     return;
   }
 
-  // fast path, both values aren't null together, so if any of them are null, they do not equal
-  if (expected == null || actual == null) {
-    assert(negated, message);
-    return;
+  if (isNullable<T>()) {
+    // fast path, both values aren't null together, so if any of them are null, they do not equal
+    if (expected == null || actual == null) {
+      assert(negated, message);
+      return;
+    }
   }
 
   let compareResult = memory.compare(
