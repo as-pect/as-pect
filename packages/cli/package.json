@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/cli",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -36,8 +36,8 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
-    "@as-pect/assembly": "^2.2.0",
-    "@as-pect/core": "^2.2.0",
+    "@as-pect/assembly": "^2.3.0",
+    "@as-pect/core": "^2.3.0",
     "chalk": "^2.4.2",
     "glob": "^7.1.4"
   },
