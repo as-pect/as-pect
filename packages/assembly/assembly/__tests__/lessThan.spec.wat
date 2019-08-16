@@ -3461,6 +3461,8 @@
    end
    i32.const 0
    global.set $assembly/internal/report/Expected/Expected.reference
+   i32.const 0
+   global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
  (func $assembly/internal/Expectation/Expectation<i32>#toBeLessThan (; 64 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)

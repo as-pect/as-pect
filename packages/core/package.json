@@ -34,7 +34,7 @@
 	"homepage": "https://github.com/jtenner/as-pect#readme",
 	"devDependencies": {
 		"@types/jest": "^24.0.15",
-		"assemblyscript": "github:jtenner/assemblyscript#test-pool",
+		"assemblyscript": "github:jtenner/assemblyscript#test-unmanaged",
 		"jest": "^24.8.0",
 		"ts-jest": "^24.0.2"
 	},

@@ -3795,6 +3795,8 @@
    end
    i32.const 0
    global.set $assembly/internal/report/Expected/Expected.reference
+   i32.const 0
+   global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
  (func $assembly/internal/report/Actual/Actual.clear (; 90 ;) (type $FUNCSIG$v)

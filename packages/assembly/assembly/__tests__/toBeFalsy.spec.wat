@@ -3420,6 +3420,8 @@
    end
    i32.const 0
    global.set $assembly/internal/report/Expected/Expected.reference
+   i32.const 0
+   global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
  (func $assembly/internal/Expectation/Expectation<i32>#toBeFalsy (; 61 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)

@@ -31,8 +31,8 @@
     "assembly/index.ts",
     "types/"
   ],
-  "devDependencies": {},
-  "dependencies": {
-    "assemblyscript": "github:jtenner/assemblyscript#test-pool"
-  }
+  "devDependencies": {
+    "assemblyscript": "github:jtenner/assemblyscript#test-unmanaged"
+  },
+  "dependencies": {}
 }

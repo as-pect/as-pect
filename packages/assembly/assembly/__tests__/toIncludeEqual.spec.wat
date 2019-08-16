@@ -4136,6 +4136,8 @@
    end
    i32.const 0
    global.set $assembly/internal/report/Expected/Expected.reference
+   i32.const 0
+   global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
  (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toIncludeEqual (; 73 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
@@ -4998,7 +5000,7 @@
   if
    i32.const 176
    i32.const 2288
-   i32.const 131
+   i32.const 146
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -5081,7 +5083,7 @@
   if
    i32.const 176
    i32.const 2288
-   i32.const 125
+   i32.const 135
    i32.const 44
    call $~lib/builtins/abort
    unreachable

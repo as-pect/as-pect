@@ -3787,6 +3787,8 @@
    end
    i32.const 0
    global.set $assembly/internal/report/Expected/Expected.reference
+   i32.const 0
+   global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
  (func $assembly/internal/Expectation/Expectation<i32>#toStrictEqual (; 66 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
@@ -6819,7 +6821,7 @@
   if
    i32.const 176
    i32.const 7128
-   i32.const 915
+   i32.const 1010
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -6960,21 +6962,7 @@
   i32.const 2
   i32.shr_u
  )
- (func $~lib/typedarray/Float32Array#__get (; 150 ;) (type $FUNCSIG$fii) (param $0 i32) (param $1 i32) (result f32)
-  local.get $1
-  local.get $0
-  i32.load offset=8
-  i32.const 2
-  i32.shr_u
-  i32.ge_u
-  if
-   i32.const 176
-   i32.const 7128
-   i32.const 909
-   i32.const 63
-   call $~lib/builtins/abort
-   unreachable
-  end
+ (func $~lib/typedarray/Float32Array#__uget (; 150 ;) (type $FUNCSIG$fii) (param $0 i32) (param $1 i32) (result f32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -7099,10 +7087,10 @@
      block $continue|0
       local.get $6
       local.get $9
-      call $~lib/typedarray/Float32Array#__get
+      call $~lib/typedarray/Float32Array#__uget
       local.get $5
       local.get $9
-      call $~lib/typedarray/Float32Array#__get
+      call $~lib/typedarray/Float32Array#__uget
       f32.eq
       if
        br $continue|0

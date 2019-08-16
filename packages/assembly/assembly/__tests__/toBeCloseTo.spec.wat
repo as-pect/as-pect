@@ -4596,6 +4596,8 @@
    end
    i32.const 0
    global.set $assembly/internal/report/Expected/Expected.reference
+   i32.const 0
+   global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
  (func $assembly/internal/Expectation/Expectation<f64>#toBeCloseTo (; 67 ;) (type $FUNCSIG$vidii) (param $0 i32) (param $1 f64) (param $2 i32) (param $3 i32)

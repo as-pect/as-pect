@@ -3791,7 +3791,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 131
+   i32.const 146
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -3960,6 +3960,8 @@
    end
    i32.const 0
    global.set $assembly/internal/report/Expected/Expected.reference
+   i32.const 0
+   global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
  (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#toHaveLength (; 72 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
@@ -4301,7 +4303,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 229
+   i32.const 254
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -4680,7 +4682,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 33
+   i32.const 38
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -5049,7 +5051,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 425
+   i32.const 470
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -5422,7 +5424,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 327
+   i32.const 362
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -5795,7 +5797,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 621
+   i32.const 686
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -6168,7 +6170,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 523
+   i32.const 578
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -6541,7 +6543,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 817
+   i32.const 902
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -6914,7 +6916,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 719
+   i32.const 794
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -7287,7 +7289,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 915
+   i32.const 1010
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -7660,7 +7662,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 1013
+   i32.const 1118
    i32.const 63
    call $~lib/builtins/abort
    unreachable

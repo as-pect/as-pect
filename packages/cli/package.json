@@ -38,7 +38,7 @@
   "dependencies": {
     "@as-pect/assembly": "^2.3.1",
     "@as-pect/core": "^2.3.1",
-    "assemblyscript": "github:jtenner/assemblyscript#test-pool",
+    "assemblyscript": "github:jtenner/assemblyscript#test-unmanaged",
     "chalk": "^2.4.2",
     "glob": "^7.1.4"
   },
