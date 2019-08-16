@@ -82,6 +82,11 @@ export class Actual {
   static stackTrace: i32 = -1;
 
   /**
+   * The indicator that the current stored pointer is managed.
+   */
+  static isManaged: bool = false;
+
+  /**
    * Clear the actual value.
    */
   static clear(): void {
@@ -91,8 +96,9 @@ export class Actual {
      * If there is a reference still being retained, release it and set it to null.
      */
     if (Actual.reference > 0) {
-      __release(Actual.reference);
-      Actual.reference = <usize>0;
+      if (Actual.isManaged) __release(Actual.reference);
+      Actual.reference = null;
+      Actual.isManaged = false;
     }
 
     Actual.stackTrace = -1;
@@ -118,10 +124,16 @@ export class Actual {
       }
 
       let ptr = changetype<usize>(actual);
-      // set the reference first
-      __retain(ptr);
-      __release(Actual.reference);
+
+      // if the reference is managed, retain it for later reporting
+      if (isManaged<T>()) __retain(ptr);
+
+      // if the current stored reference is managed, release it
+      if (Actual.isManaged) __release(Actual.reference);
+
       Actual.reference = ptr;
+      Actual.isManaged = isManaged<T>();
+
       // it might be an array
       if (actual instanceof ArrayBufferView) {
         Actual.type = ValueType.Array;
@@ -155,6 +167,7 @@ export class Actual {
         __retain(ptr);
         __release(Actual.reference);
         Actual.reference = ptr;
+        Actual.isManaged = true;
       } else if (actual instanceof bool) {
         Actual.type = ValueType.Bool;
         Actual.integer = i32(actual);
@@ -178,39 +191,40 @@ export function __sendActual(): void {
     case ValueType.Unset:
       return;
     case ValueType.Array:
-        reportActualArray(changetype<usize>(Actual.reference), Actual.stackTrace);
-        break;
+      reportActualArray(changetype<usize>(Actual.reference), Actual.stackTrace);
+      break;
     case ValueType.Float:
-        // Do not convert to unsigned because floats are signed
-        reportActualFloat(Actual.float, true, Actual.stackTrace);
-        break;
+      // Do not convert to unsigned because floats are signed
+      reportActualFloat(Actual.float, true, Actual.stackTrace);
+      break;
     case ValueType.Integer:
-        reportActualInteger(Actual.integer, Actual.signed, Actual.stackTrace);
-        break;
+      reportActualInteger(Actual.integer, Actual.signed, Actual.stackTrace);
+      break;
     case ValueType.Null:
-        reportActualNull(Actual.stackTrace);
-        break;
+      reportActualNull(Actual.stackTrace);
+      break;
     case ValueType.Reference:
-        reportActualReferenceExternal(Actual.reference, Actual.offset, Actual.stackTrace);
-        break;
+      reportActualReferenceExternal(Actual.reference, Actual.offset, Actual.stackTrace);
+      break;
     case ValueType.String:
-        reportActualString(changetype<string>(Actual.reference), Actual.stackTrace);
-        break;
+      reportActualString(changetype<string>(Actual.reference), Actual.stackTrace);
+      break;
     case ValueType.Long:
-        reportActualLong(Actual.reference, Actual.signed, Actual.stackTrace);
-        break;
+      reportActualLong(Actual.reference, Actual.signed, Actual.stackTrace);
+      break;
     case ValueType.Bool:
-        reportActualBool(Actual.integer, Actual.stackTrace);
-        break;
+      reportActualBool(Actual.integer, Actual.stackTrace);
+      break;
   }
 }
 
 // @ts-ignore: Decorators *are* valid here
 @inline
-export function reportActualReference(ptr: usize, offset: i32): void {
+export function reportActualReference<T>(ptr: usize, offset: i32): void {
   Actual.type = ValueType.Reference;
-  __retain(ptr);
-  __release(Actual.reference);
+  if (isManaged<T>()) __retain(ptr);
+  if (Actual.isManaged) __release(Actual.reference);
   Actual.reference = ptr;
   Actual.offset = offset;
+  Actual.isManaged = isManaged<T>();
 }

@@ -7,76 +7,82 @@
  (type $FUNCSIG$ii (func (param i32) (result i32)))
  (type $FUNCSIG$viii (func (param i32 i32 i32)))
  (type $FUNCSIG$vi (func (param i32)))
+ (type $FUNCSIG$i (func (result i32)))
  (type $FUNCSIG$vdii (func (param f64 i32 i32)))
  (type $FUNCSIG$vdiii (func (param f64 i32 i32 i32)))
- (type $FUNCSIG$i (func (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
- (import "__aspect" "reportDescribe" (func $assembly/internal/Describe/reportDescribe (param i32)))
- (import "__aspect" "reportEndDescribe" (func $assembly/internal/Describe/reportEndDescribe))
- (import "__aspect" "reportActualArray" (func $assembly/internal/report/Actual/reportActualArray (param i32 i32)))
- (import "__aspect" "reportActualValue" (func $assembly/internal/report/Actual/reportActualFloat (param f64 i32 i32)))
- (import "__aspect" "reportActualValue" (func $assembly/internal/report/Actual/reportActualInteger (param i32 i32 i32)))
- (import "__aspect" "reportActualNull" (func $assembly/internal/report/Actual/reportActualNull (param i32)))
- (import "__aspect" "reportActualReference" (func $assembly/internal/report/Actual/reportActualReferenceExternal (param i32 i32 i32)))
- (import "__aspect" "reportActualString" (func $assembly/internal/report/Actual/reportActualString (param i32 i32)))
- (import "__aspect" "reportActualLong" (func $assembly/internal/report/Actual/reportActualLong (param i32 i32 i32)))
- (import "__aspect" "reportActualBool" (func $assembly/internal/report/Actual/reportActualBool (param i32 i32)))
- (import "__aspect" "reportExpectedArray" (func $assembly/internal/report/Expected/reportExpectedArray (param i32 i32 i32)))
- (import "__aspect" "reportExpectedValue" (func $assembly/internal/report/Expected/reportExpectedFloat (param f64 i32 i32 i32)))
- (import "__aspect" "reportExpectedValue" (func $assembly/internal/report/Expected/reportExpectedInteger (param i32 i32 i32 i32)))
- (import "__aspect" "reportExpectedNull" (func $assembly/internal/report/Expected/reportExpectedNull (param i32 i32)))
- (import "__aspect" "reportExpectedReference" (func $assembly/internal/report/Expected/reportExpectedReferenceExternal (param i32 i32 i32 i32)))
- (import "__aspect" "reportExpectedString" (func $assembly/internal/report/Expected/reportExpectedString (param i32 i32 i32)))
- (import "__aspect" "reportExpectedFalsy" (func $assembly/internal/report/Expected/reportExpectedFalsy (param i32 i32)))
- (import "__aspect" "reportExpectedFinite" (func $assembly/internal/report/Expected/reportExpectedFinite (param i32 i32)))
- (import "__aspect" "reportExpectedTruthy" (func $assembly/internal/report/Expected/reportExpectedTruthy (param i32 i32)))
- (import "__aspect" "reportExpectedLong" (func $assembly/internal/report/Expected/reportExpectedLong (param i32 i32 i32 i32)))
- (import "__aspect" "reportExpectedBool" (func $assembly/internal/report/Expected/reportExpectedBool (param i32 i32 i32)))
+ (import "__aspect" "getRTraceIncrements" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/getRTraceIncrements (result i32)))
+ (import "__aspect" "getStackTrace" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/getStackTrace (result i32)))
+ (import "__aspect" "reportInvalidExpectCall" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportInvalidExpectCall))
+ (import "__aspect" "getStackTrace" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/getStackTrace (result i32)))
+ (import "__aspect" "reportTest" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Test/reportTest (param i32 i32)))
+ (import "__aspect" "reportDescribe" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Describe/reportDescribe (param i32)))
+ (import "__aspect" "reportEndDescribe" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Describe/reportEndDescribe))
+ (import "__aspect" "reportActualArray" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualArray (param i32 i32)))
+ (import "__aspect" "reportActualValue" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualFloat (param f64 i32 i32)))
+ (import "__aspect" "reportActualValue" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualInteger (param i32 i32 i32)))
+ (import "__aspect" "reportActualNull" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualNull (param i32)))
+ (import "__aspect" "reportActualReference" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualReferenceExternal (param i32 i32 i32)))
+ (import "__aspect" "reportActualString" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualString (param i32 i32)))
+ (import "__aspect" "reportActualLong" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualLong (param i32 i32 i32)))
+ (import "__aspect" "reportActualBool" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualBool (param i32 i32)))
+ (import "__aspect" "reportExpectedArray" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedArray (param i32 i32 i32)))
+ (import "__aspect" "reportExpectedValue" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedFloat (param f64 i32 i32 i32)))
+ (import "__aspect" "reportExpectedValue" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedInteger (param i32 i32 i32 i32)))
+ (import "__aspect" "reportExpectedNull" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedNull (param i32 i32)))
+ (import "__aspect" "reportExpectedReference" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedReferenceExternal (param i32 i32 i32 i32)))
+ (import "__aspect" "reportExpectedString" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedString (param i32 i32 i32)))
+ (import "__aspect" "reportExpectedFalsy" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedFalsy (param i32 i32)))
+ (import "__aspect" "reportExpectedFinite" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedFinite (param i32 i32)))
+ (import "__aspect" "reportExpectedTruthy" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedTruthy (param i32 i32)))
+ (import "__aspect" "reportExpectedLong" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedLong (param i32 i32 i32 i32)))
+ (import "__aspect" "reportExpectedBool" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedBool (param i32 i32 i32)))
  (memory $0 1)
  (data (i32.const 8) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00")
  (data (i32.const 56) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00")
  (data (i32.const 112) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00p\00u\00r\00e\00.\00t\00s\00")
  (data (i32.const 160) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
  (data (i32.const 216) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
- (data (i32.const 256) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00e\00m\00p\00t\00y\00 \00t\00e\00s\00t\00i\00n\00g\00 \00b\00l\00o\00c\00k\00")
- (data (i32.const 312) "\04\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
- (table $0 3 funcref)
- (elem (i32.const 0) $null $start:assembly/__tests__/emptyDescribeBlock.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
+ (data (i32.const 256) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00u\00n\00m\00a\00n\00a\00g\00e\00d\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00s\00")
+ (data (i32.const 312) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00u\00n\00m\00a\00n\00a\00g\00e\00d\00 \00h\00a\00n\00d\00l\00i\00n\00g\00")
+ (data (i32.const 368) "\98\00\00\00\01\00\00\00\01\00\00\00\98\00\00\00.\00.\00/\00c\00l\00i\00/\00n\00o\00d\00e\00_\00m\00o\00d\00u\00l\00e\00s\00/\00@\00a\00s\00-\00p\00e\00c\00t\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
+ (data (i32.const 536) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
+ (data (i32.const 552) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
+ (table $0 4 funcref)
+ (elem (i32.const 0) $null $start:assembly/__tests__/unmanaged.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/unmanaged.spec~anonymous|0 $start:../cli/node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/rt/pure/CUR (mut i32) (i32.const 0))
  (global $~lib/rt/pure/END (mut i32) (i32.const 0))
  (global $~lib/rt/pure/ROOTS (mut i32) (i32.const 0))
  (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
- (global $assembly/internal/noOp/noOp i32 (i32.const 2))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace (mut i32) (i32.const -1))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.type (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.signed (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.float (mut f64) (f64.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.integer (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.offset (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.ready (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.type (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.signed (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.float (mut f64) (f64.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.integer (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.reference (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.offset (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace (mut i32) (i32.const 0))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/noOp/noOp i32 (i32.const 3))
  (global $~lib/argc (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
- (global $assembly/internal/report/Actual/Actual.type (mut i32) (i32.const 0))
- (global $assembly/internal/report/Actual/Actual.signed (mut i32) (i32.const 0))
- (global $assembly/internal/report/Actual/Actual.float (mut f64) (f64.const 0))
- (global $assembly/internal/report/Actual/Actual.integer (mut i32) (i32.const 0))
- (global $assembly/internal/report/Actual/Actual.reference (mut i32) (i32.const 0))
- (global $assembly/internal/report/Actual/Actual.offset (mut i32) (i32.const 0))
- (global $assembly/internal/report/Actual/Actual.stackTrace (mut i32) (i32.const -1))
- (global $assembly/internal/report/Actual/Actual.isManaged (mut i32) (i32.const 0))
- (global $assembly/internal/report/Expected/Expected.ready (mut i32) (i32.const 0))
- (global $assembly/internal/report/Expected/Expected.type (mut i32) (i32.const 0))
- (global $assembly/internal/report/Expected/Expected.signed (mut i32) (i32.const 0))
- (global $assembly/internal/report/Expected/Expected.float (mut f64) (f64.const 0))
- (global $assembly/internal/report/Expected/Expected.integer (mut i32) (i32.const 0))
- (global $assembly/internal/report/Expected/Expected.reference (mut i32) (i32.const 0))
- (global $assembly/internal/report/Expected/Expected.offset (mut i32) (i32.const 0))
- (global $assembly/internal/report/Expected/Expected.negated (mut i32) (i32.const 0))
- (global $assembly/internal/report/Expected/Expected.stackTrace (mut i32) (i32.const 0))
- (global $assembly/internal/report/Expected/Expected.isManaged (mut i32) (i32.const 0))
- (global $assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
- (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
+ (global $../cli/node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $~lib/started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 312))
- (global $~lib/heap/__heap_base i32 (i32.const 348))
+ (global $~lib/rt/__rtti_base i32 (i32.const 552))
+ (global $~lib/heap/__heap_base i32 (i32.const 596))
  (export "__start" (func $start))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
@@ -85,15 +91,15 @@
  (export "__collect" (func $~lib/rt/pure/__collect))
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "meaningOfLife" (global $assembly/__tests__/setup/Test.include/meaningOfLife))
- (export "__ready" (func $assembly/index/__ready))
- (export "__call" (func $assembly/internal/call/__call))
- (export "__sendActual" (func $assembly/internal/report/Actual/__sendActual))
- (export "__sendExpected" (func $assembly/internal/report/Expected/__sendExpected))
- (export "__ignoreLogs" (func $assembly/internal/log/__ignoreLogs))
- (export "__disableRTrace" (func $assembly/internal/RTrace/__disableRTrace))
- (export "__getUsizeArrayId" (func $assembly/internal/RTrace/__getUsizeArrayId))
- (export "__cleanup" (func $assembly/internal/Expectation/__cleanup))
- (func $~lib/rt/tlsf/removeBlock (; 26 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (export "__ready" (func $../cli/node_modules/@as-pect/assembly/assembly/index/__ready))
+ (export "__call" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/call/__call))
+ (export "__sendActual" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/__sendActual))
+ (export "__sendExpected" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/__sendExpected))
+ (export "__ignoreLogs" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/log/__ignoreLogs))
+ (export "__disableRTrace" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/__disableRTrace))
+ (export "__getUsizeArrayId" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/__getUsizeArrayId))
+ (export "__cleanup" (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Expectation/__cleanup))
+ (func $~lib/rt/tlsf/removeBlock (; 31 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -303,7 +309,7 @@
    end
   end
  )
- (func $~lib/rt/tlsf/insertBlock (; 27 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/insertBlock (; 32 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -653,7 +659,7 @@
   local.get $7
   i32.store offset=4
  )
- (func $~lib/rt/tlsf/addMemory (; 28 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/rt/tlsf/addMemory (; 33 ;) (type $FUNCSIG$iiii) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -801,7 +807,7 @@
   call $~lib/rt/tlsf/insertBlock
   i32.const 1
  )
- (func $~lib/rt/tlsf/initializeRoot (; 29 ;) (type $FUNCSIG$v)
+ (func $~lib/rt/tlsf/initializeRoot (; 34 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -946,7 +952,7 @@
   local.get $3
   global.set $~lib/rt/tlsf/ROOT
  )
- (func $~lib/rt/tlsf/prepareSize (; 30 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/rt/tlsf/prepareSize (; 35 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -975,7 +981,7 @@
   i32.gt_u
   select
  )
- (func $~lib/rt/tlsf/searchBlock (; 31 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/searchBlock (; 36 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -1158,7 +1164,7 @@
   end
   local.get $7
  )
- (func $~lib/rt/tlsf/growMemory (; 32 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/growMemory (; 37 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -1242,7 +1248,7 @@
   call $~lib/rt/tlsf/addMemory
   drop
  )
- (func $~lib/rt/tlsf/prepareBlock (; 33 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/rt/tlsf/prepareBlock (; 38 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -1337,7 +1343,7 @@
    i32.store
   end
  )
- (func $~lib/rt/tlsf/allocateBlock (; 34 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/allocateBlock (; 39 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -1400,7 +1406,7 @@
   call $~lib/rt/rtrace/onalloc
   local.get $3
  )
- (func $~lib/rt/tlsf/__alloc (; 35 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/__alloc (; 40 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   global.get $~lib/rt/tlsf/ROOT
@@ -1423,7 +1429,7 @@
   i32.const 16
   i32.add
  )
- (func $~lib/rt/pure/increment (; 36 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/increment (; 41 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -1468,7 +1474,7 @@
    unreachable
   end
  )
- (func $~lib/rt/pure/__retain (; 37 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/rt/pure/__retain (; 42 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   global.get $~lib/heap/__heap_base
   i32.gt_u
@@ -1480,7 +1486,7 @@
   end
   local.get $0
  )
- (func $~lib/rt/tlsf/freeBlock (; 38 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/freeBlock (; 43 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $1
   i32.load
@@ -1509,7 +1515,7 @@
   local.get $1
   call $~lib/rt/rtrace/onfree
  )
- (func $~lib/rt/__typeinfo (; 39 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/rt/__typeinfo (; 44 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   global.get $~lib/rt/__rtti_base
   local.set $1
@@ -1534,7 +1540,7 @@
   i32.add
   i32.load
  )
- (func $~lib/util/memory/memcpy (; 40 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/util/memory/memcpy (; 45 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -2562,7 +2568,7 @@
    i32.store8
   end
  )
- (func $~lib/memory/memory.copy (; 41 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/memory/memory.copy (; 46 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -2787,7 +2793,7 @@
    end
   end
  )
- (func $~lib/rt/tlsf/__free (; 42 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/tlsf/__free (; 47 ;) (type $FUNCSIG$vi) (param $0 i32)
   global.get $~lib/rt/tlsf/ROOT
   i32.eqz
   if
@@ -2824,7 +2830,7 @@
   i32.sub
   call $~lib/rt/tlsf/freeBlock
  )
- (func $~lib/rt/pure/growRoots (; 43 ;) (type $FUNCSIG$v)
+ (func $~lib/rt/pure/growRoots (; 48 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -2882,7 +2888,7 @@
   i32.add
   global.set $~lib/rt/pure/END
  )
- (func $~lib/rt/pure/appendRoot (; 44 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/appendRoot (; 49 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   global.get $~lib/rt/pure/CUR
   local.set $1
@@ -2902,7 +2908,7 @@
   i32.add
   global.set $~lib/rt/pure/CUR
  )
- (func $~lib/rt/pure/decrement (; 45 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 50 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -3006,7 +3012,7 @@
    end
   end
  )
- (func $~lib/rt/pure/__release (; 46 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/__release (; 51 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   global.get $~lib/heap/__heap_base
   i32.gt_u
@@ -3017,7 +3023,7 @@
    call $~lib/rt/pure/decrement
   end
  )
- (func $~lib/rt/pure/markGray (; 47 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/markGray (; 52 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -3044,7 +3050,7 @@
    call $~lib/rt/__visit_members
   end
  )
- (func $~lib/rt/pure/scanBlack (; 48 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/scanBlack (; 53 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   local.get $0
   i32.load offset=4
@@ -3061,7 +3067,7 @@
   i32.const 4
   call $~lib/rt/__visit_members
  )
- (func $~lib/rt/pure/scan (; 49 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/scan (; 54 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -3098,7 +3104,7 @@
    end
   end
  )
- (func $~lib/rt/pure/collectWhite (; 50 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/collectWhite (; 55 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -3136,7 +3142,7 @@
    call $~lib/rt/tlsf/freeBlock
   end
  )
- (func $~lib/rt/pure/__collect (; 51 ;) (type $FUNCSIG$v)
+ (func $~lib/rt/pure/__collect (; 56 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -3279,42 +3285,285 @@
   local.get $0
   global.set $~lib/rt/pure/CUR
  )
- (func $start:assembly/__tests__/emptyDescribeBlock.spec~anonymous|0 (; 52 ;) (type $FUNCSIG$v)
-  nop
+ (func $assembly/__tests__/unmanaged.spec/ExampleClass#constructor (; 57 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+  local.get $0
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 0
+   call $~lib/rt/tlsf/__alloc
+   call $~lib/rt/pure/__retain
+   local.set $0
+  end
+  local.get $0
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 53 ;) (type $FUNCSIG$v)
-  nop
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.increments (; 58 ;) (type $FUNCSIG$i) (result i32)
+  global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled
+  if
+   call $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/getRTraceIncrements
+   return
+  end
+  i32.const 0
  )
- (func $assembly/internal/Describe/describe (; 54 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.report<assembly/__tests__/unmanaged.spec/ExampleClass> (; 59 ;) (type $FUNCSIG$vi) (param $0 i32)
+  (local $1 i32)
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/getStackTrace
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+  local.get $0
+  local.set $1
+  local.get $1
+  call $~lib/rt/pure/__retain
+  drop
+  global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference
+  call $~lib/rt/pure/__release
+  local.get $1
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference
+  i32.const 4
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.type
+  i32.const 0
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.offset
+ )
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#constructor (; 60 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+  local.get $0
+  i32.eqz
+  if
+   i32.const 8
+   i32.const 3
+   call $~lib/rt/tlsf/__alloc
+   call $~lib/rt/pure/__retain
+   local.set $0
+  end
+  local.get $0
+  i32.const 0
+  i32.store
+  local.get $0
+  i32.const 0
+  i32.store offset=4
+  local.get $0
+  local.get $1
+  i32.store offset=4
+  local.get $0
+ )
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32> (; 61 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+  i32.const 0
+  local.get $0
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#constructor
+ )
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.report<i32> (; 62 ;) (type $FUNCSIG$vi) (param $0 i32)
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/getStackTrace
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+  i32.const 3
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.type
+  local.get $0
+  drop
+  i32.const 1
+  if (result i32)
+   i32.const 1
+  else   
+   local.get $0
+   drop
+   i32.const 0
+  end
+  if (result i32)
+   i32.const 1
+  else   
+   local.get $0
+   drop
+   i32.const 0
+  end
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.signed
+  local.get $0
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.integer
+ )
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.report<i32> (; 63 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.ready
+  i32.eqz
+  if
+   call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportInvalidExpectCall
+   return
+  end
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/getStackTrace
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+  local.get $1
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+  i32.const 3
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.type
+  local.get $0
+  drop
+  i32.const 1
+  if (result i32)
+   i32.const 1
+  else   
+   local.get $0
+   drop
+   i32.const 0
+  end
+  if (result i32)
+   i32.const 1
+  else   
+   local.get $0
+   drop
+   i32.const 0
+  end
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.signed
+  local.get $0
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.integer
+ )
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.clear (; 64 ;) (type $FUNCSIG$v)
+  i32.const 0
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.type
+  global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference
+  i32.const 0
+  i32.gt_u
+  if
+   global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference
+   call $~lib/rt/pure/__release
+   i32.const 0
+   global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference
+  end
+  i32.const -1
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+ )
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.clear (; 65 ;) (type $FUNCSIG$v)
+  i32.const 0
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.type
+  global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.reference
+  i32.const 0
+  i32.gt_u
+  if
+   global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.reference
+   call $~lib/rt/pure/__release
+   i32.const 0
+   global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.reference
+  end
+ )
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe (; 66 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  local.get $2
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $0
+  i32.load offset=4
+  local.set $6
+  local.get $1
+  local.set $5
+  local.get $0
+  i32.load
+  local.set $4
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $3
+  local.get $6
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.report<i32>
+  local.get $5
+  local.get $4
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.report<i32>
+  local.get $4
+  local.get $5
+  local.get $6
+  i32.eq
+  i32.xor
+  local.set $8
+  local.get $3
+  call $~lib/rt/pure/__retain
+  local.set $7
+  local.get $8
+  i32.eqz
+  if
+   local.get $7
+   call $~lib/rt/pure/__release
+   local.get $7
+   i32.const 384
+   i32.const 11
+   i32.const 18
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $7
+  call $~lib/rt/pure/__release
+  local.get $3
+  call $~lib/rt/pure/__release
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.clear
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.clear
+  local.get $2
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unmanaged.spec~anonymous|0~anonymous|0 (; 67 ;) (type $FUNCSIG$v)
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  i32.const 0
+  call $assembly/__tests__/unmanaged.spec/ExampleClass#constructor
+  local.set $0
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.increments
+  local.set $1
+  local.get $0
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.report<assembly/__tests__/unmanaged.spec/ExampleClass>
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.increments
+  local.set $2
+  local.get $1
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/Expectation/expect<i32>
+  local.tee $3
+  local.get $2
+  i32.const 552
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/Expectation/Expectation<i32>#toBe
+  local.get $3
+  call $~lib/rt/pure/__release
+ )
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Test/test (; 68 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
   local.get $0
-  call $assembly/internal/Describe/reportDescribe
+  local.get $1
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/Test/reportTest
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unmanaged.spec~anonymous|0 (; 69 ;) (type $FUNCSIG$v)
+  i32.const 328
+  i32.const 1
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/Test/test
+ )
+ (func $start:../cli/node_modules/@as-pect/assembly/assembly/internal/noOp~anonymous|0 (; 70 ;) (type $FUNCSIG$v)
+  nop
+ )
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Describe/describe (; 71 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $0
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/Describe/reportDescribe
   i32.const 0
   global.set $~lib/argc
   local.get $1
   call_indirect (type $FUNCSIG$v)
-  call $assembly/internal/Describe/reportEndDescribe
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/Describe/reportEndDescribe
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/emptyDescribeBlock.spec (; 55 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/unmanaged.spec (; 72 ;) (type $FUNCSIG$v)
   i32.const 272
-  i32.const 1
-  call $assembly/internal/Describe/describe
+  i32.const 2
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/Describe/describe
  )
- (func $assembly/index/__ready (; 56 ;) (type $FUNCSIG$v)
+ (func $../cli/node_modules/@as-pect/assembly/assembly/index/__ready (; 73 ;) (type $FUNCSIG$v)
   i32.const 1
-  global.set $assembly/internal/report/Expected/Expected.ready
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 57 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/call/__call (; 74 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $assembly/internal/report/Actual/__sendActual (; 58 ;) (type $FUNCSIG$v)
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/__sendActual (; 75 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case8|0
@@ -3326,7 +3575,7 @@
          block $case2|0
           block $case1|0
            block $case0|0
-            global.get $assembly/internal/report/Actual/Actual.type
+            global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.type
             local.set $0
             local.get $0
             i32.const 0
@@ -3368,51 +3617,51 @@
            end
            return
           end
-          global.get $assembly/internal/report/Actual/Actual.reference
-          global.get $assembly/internal/report/Actual/Actual.stackTrace
-          call $assembly/internal/report/Actual/reportActualArray
+          global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference
+          global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+          call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualArray
           br $break|0
          end
-         global.get $assembly/internal/report/Actual/Actual.float
+         global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.float
          i32.const 1
-         global.get $assembly/internal/report/Actual/Actual.stackTrace
-         call $assembly/internal/report/Actual/reportActualFloat
+         global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+         call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualFloat
          br $break|0
         end
-        global.get $assembly/internal/report/Actual/Actual.integer
-        global.get $assembly/internal/report/Actual/Actual.signed
-        global.get $assembly/internal/report/Actual/Actual.stackTrace
-        call $assembly/internal/report/Actual/reportActualInteger
+        global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.integer
+        global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.signed
+        global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+        call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualInteger
         br $break|0
        end
-       global.get $assembly/internal/report/Actual/Actual.stackTrace
-       call $assembly/internal/report/Actual/reportActualNull
+       global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+       call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualNull
        br $break|0
       end
-      global.get $assembly/internal/report/Actual/Actual.reference
-      global.get $assembly/internal/report/Actual/Actual.offset
-      global.get $assembly/internal/report/Actual/Actual.stackTrace
-      call $assembly/internal/report/Actual/reportActualReferenceExternal
+      global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference
+      global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.offset
+      global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+      call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualReferenceExternal
       br $break|0
      end
-     global.get $assembly/internal/report/Actual/Actual.reference
-     global.get $assembly/internal/report/Actual/Actual.stackTrace
-     call $assembly/internal/report/Actual/reportActualString
+     global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference
+     global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+     call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualString
      br $break|0
     end
-    global.get $assembly/internal/report/Actual/Actual.reference
-    global.get $assembly/internal/report/Actual/Actual.signed
-    global.get $assembly/internal/report/Actual/Actual.stackTrace
-    call $assembly/internal/report/Actual/reportActualLong
+    global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.reference
+    global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.signed
+    global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+    call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualLong
     br $break|0
    end
-   global.get $assembly/internal/report/Actual/Actual.integer
-   global.get $assembly/internal/report/Actual/Actual.stackTrace
-   call $assembly/internal/report/Actual/reportActualBool
+   global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.integer
+   global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.stackTrace
+   call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/reportActualBool
    br $break|0
   end
  )
- (func $assembly/internal/report/Expected/__sendExpected (; 59 ;) (type $FUNCSIG$v)
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/__sendExpected (; 76 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case10|0
@@ -3426,7 +3675,7 @@
            block $case2|0
             block $case1|0
              block $case0|0
-              global.get $assembly/internal/report/Expected/Expected.type
+              global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.type
               local.set $0
               local.get $0
               i32.const 6
@@ -3474,127 +3723,91 @@
               br_if $case10|0
               br $break|0
              end
-             global.get $assembly/internal/report/Expected/Expected.reference
-             global.get $assembly/internal/report/Expected/Expected.negated
-             global.get $assembly/internal/report/Expected/Expected.stackTrace
-             call $assembly/internal/report/Expected/reportExpectedArray
+             global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.reference
+             global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+             global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+             call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedArray
              br $break|0
             end
-            global.get $assembly/internal/report/Expected/Expected.float
+            global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.float
             i32.const 1
-            global.get $assembly/internal/report/Expected/Expected.negated
-            global.get $assembly/internal/report/Expected/Expected.stackTrace
-            call $assembly/internal/report/Expected/reportExpectedFloat
+            global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+            global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+            call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedFloat
             br $break|0
            end
-           global.get $assembly/internal/report/Expected/Expected.integer
-           global.get $assembly/internal/report/Expected/Expected.signed
-           global.get $assembly/internal/report/Expected/Expected.negated
-           global.get $assembly/internal/report/Expected/Expected.stackTrace
-           call $assembly/internal/report/Expected/reportExpectedInteger
+           global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.integer
+           global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.signed
+           global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+           global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+           call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedInteger
            br $break|0
           end
-          global.get $assembly/internal/report/Expected/Expected.negated
-          global.get $assembly/internal/report/Expected/Expected.stackTrace
-          call $assembly/internal/report/Expected/reportExpectedNull
+          global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+          global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+          call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedNull
           br $break|0
          end
-         global.get $assembly/internal/report/Expected/Expected.reference
-         global.get $assembly/internal/report/Expected/Expected.offset
-         global.get $assembly/internal/report/Expected/Expected.negated
-         global.get $assembly/internal/report/Expected/Expected.stackTrace
-         call $assembly/internal/report/Expected/reportExpectedReferenceExternal
+         global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.reference
+         global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.offset
+         global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+         global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+         call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedReferenceExternal
          br $break|0
         end
-        global.get $assembly/internal/report/Expected/Expected.reference
-        global.get $assembly/internal/report/Expected/Expected.negated
-        global.get $assembly/internal/report/Expected/Expected.stackTrace
-        call $assembly/internal/report/Expected/reportExpectedString
+        global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.reference
+        global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+        global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+        call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedString
         br $break|0
        end
-       global.get $assembly/internal/report/Expected/Expected.negated
-       global.get $assembly/internal/report/Expected/Expected.stackTrace
-       call $assembly/internal/report/Expected/reportExpectedFalsy
+       global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+       global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+       call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedFalsy
        br $break|0
       end
-      global.get $assembly/internal/report/Expected/Expected.negated
-      global.get $assembly/internal/report/Expected/Expected.stackTrace
-      call $assembly/internal/report/Expected/reportExpectedFinite
+      global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+      global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+      call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedFinite
       br $break|0
      end
-     global.get $assembly/internal/report/Expected/Expected.negated
-     global.get $assembly/internal/report/Expected/Expected.stackTrace
-     call $assembly/internal/report/Expected/reportExpectedTruthy
+     global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+     global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+     call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedTruthy
      br $break|0
     end
-    global.get $assembly/internal/report/Expected/Expected.reference
-    global.get $assembly/internal/report/Expected/Expected.signed
-    global.get $assembly/internal/report/Expected/Expected.negated
-    global.get $assembly/internal/report/Expected/Expected.stackTrace
-    call $assembly/internal/report/Expected/reportExpectedLong
+    global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.reference
+    global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.signed
+    global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+    global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+    call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedLong
     br $break|0
    end
-   global.get $assembly/internal/report/Expected/Expected.integer
-   global.get $assembly/internal/report/Expected/Expected.negated
-   global.get $assembly/internal/report/Expected/Expected.stackTrace
-   call $assembly/internal/report/Expected/reportExpectedBool
+   global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.integer
+   global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.negated
+   global.get $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.stackTrace
+   call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/reportExpectedBool
    br $break|0
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 60 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/log/__ignoreLogs (; 77 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
-  global.set $assembly/internal/log/ignoreLogs
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 61 ;) (type $FUNCSIG$v)
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/__disableRTrace (; 78 ;) (type $FUNCSIG$v)
   i32.const 0
-  global.set $assembly/internal/RTrace/RTrace.enabled
+  global.set $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 62 ;) (type $FUNCSIG$i) (result i32)
-  i32.const 3
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/RTrace/__getUsizeArrayId (; 79 ;) (type $FUNCSIG$i) (result i32)
+  i32.const 4
  )
- (func $assembly/internal/report/Expected/Expected.clear (; 63 ;) (type $FUNCSIG$v)
-  i32.const 0
-  global.set $assembly/internal/report/Expected/Expected.type
-  global.get $assembly/internal/report/Expected/Expected.reference
-  i32.const 0
-  i32.eq
-  if
-   global.get $assembly/internal/report/Expected/Expected.isManaged
-   if
-    global.get $assembly/internal/report/Expected/Expected.reference
-    call $~lib/rt/pure/__release
-   end
-   i32.const 0
-   global.set $assembly/internal/report/Expected/Expected.reference
-  end
+ (func $../cli/node_modules/@as-pect/assembly/assembly/internal/Expectation/__cleanup (; 80 ;) (type $FUNCSIG$v)
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Expected/Expected.clear
+  call $../cli/node_modules/@as-pect/assembly/assembly/internal/report/Actual/Actual.clear
  )
- (func $assembly/internal/report/Actual/Actual.clear (; 64 ;) (type $FUNCSIG$v)
-  i32.const 0
-  global.set $assembly/internal/report/Actual/Actual.type
-  global.get $assembly/internal/report/Actual/Actual.reference
-  i32.const 0
-  i32.gt_u
-  if
-   global.get $assembly/internal/report/Actual/Actual.isManaged
-   if
-    global.get $assembly/internal/report/Actual/Actual.reference
-    call $~lib/rt/pure/__release
-   end
-   i32.const 0
-   global.set $assembly/internal/report/Actual/Actual.reference
-   i32.const 0
-   global.set $assembly/internal/report/Actual/Actual.isManaged
-  end
-  i32.const -1
-  global.set $assembly/internal/report/Actual/Actual.stackTrace
- )
- (func $assembly/internal/Expectation/__cleanup (; 65 ;) (type $FUNCSIG$v)
-  call $assembly/internal/report/Expected/Expected.clear
-  call $assembly/internal/report/Actual/Actual.clear
- )
- (func $start (; 66 ;) (type $FUNCSIG$v)
+ (func $start (; 81 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   if
    return
@@ -3602,12 +3815,12 @@
    i32.const 1
    global.set $~lib/started
   end
-  call $start:assembly/__tests__/emptyDescribeBlock.spec
+  call $start:assembly/__tests__/unmanaged.spec
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 67 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 82 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/pure/__visit (; 68 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 83 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -3737,18 +3950,18 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 69 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 84 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default
-    block $switch$1$case$5
+    block $switch$1$case$6
      block $switch$1$case$4
       block $switch$1$case$2
        local.get $0
        i32.const 8
        i32.sub
        i32.load
-       br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$5 $switch$1$default
+       br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$6 $switch$1$default
       end
       return
      end
@@ -3771,6 +3984,6 @@
   end
   return
  )
- (func $null (; 70 ;) (type $FUNCSIG$v)
+ (func $null (; 85 ;) (type $FUNCSIG$v)
  )
 )

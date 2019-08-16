@@ -75,6 +75,7 @@
  (global $assembly/internal/report/Actual/Actual.reference (mut i32) (i32.const 0))
  (global $assembly/internal/report/Actual/Actual.offset (mut i32) (i32.const 0))
  (global $assembly/internal/report/Actual/Actual.stackTrace (mut i32) (i32.const -1))
+ (global $assembly/internal/report/Actual/Actual.isManaged (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.ready (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.type (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.signed (mut i32) (i32.const 0))
@@ -84,6 +85,7 @@
  (global $assembly/internal/report/Expected/Expected.offset (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.negated (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.stackTrace (mut i32) (i32.const 0))
+ (global $assembly/internal/report/Expected/Expected.isManaged (mut i32) (i32.const 0))
  (global $assembly/internal/noOp/noOp i32 (i32.const 6))
  (global $~lib/argc (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
@@ -3392,10 +3394,15 @@
   local.get $1
   call $~lib/rt/pure/__retain
   drop
-  global.get $assembly/internal/report/Actual/Actual.reference
-  call $~lib/rt/pure/__release
+  global.get $assembly/internal/report/Actual/Actual.isManaged
+  if
+   global.get $assembly/internal/report/Actual/Actual.reference
+   call $~lib/rt/pure/__release
+  end
   local.get $1
   global.set $assembly/internal/report/Actual/Actual.reference
+  i32.const 1
+  global.set $assembly/internal/report/Actual/Actual.isManaged
   i32.const 4
   global.set $assembly/internal/report/Actual/Actual.type
   i32.const 24
@@ -3435,10 +3442,15 @@
   local.get $2
   call $~lib/rt/pure/__retain
   drop
-  global.get $assembly/internal/report/Expected/Expected.reference
-  call $~lib/rt/pure/__release
+  global.get $assembly/internal/report/Expected/Expected.isManaged
+  if
+   global.get $assembly/internal/report/Expected/Expected.reference
+   call $~lib/rt/pure/__release
+  end
   local.get $2
   global.set $assembly/internal/report/Expected/Expected.reference
+  i32.const 1
+  global.set $assembly/internal/report/Expected/Expected.isManaged
   i32.const 4
   global.set $assembly/internal/report/Expected/Expected.type
   i32.const 24
@@ -3453,10 +3465,15 @@
   i32.const 0
   i32.gt_u
   if
-   global.get $assembly/internal/report/Actual/Actual.reference
-   call $~lib/rt/pure/__release
+   global.get $assembly/internal/report/Actual/Actual.isManaged
+   if
+    global.get $assembly/internal/report/Actual/Actual.reference
+    call $~lib/rt/pure/__release
+   end
    i32.const 0
    global.set $assembly/internal/report/Actual/Actual.reference
+   i32.const 0
+   global.set $assembly/internal/report/Actual/Actual.isManaged
   end
   i32.const -1
   global.set $assembly/internal/report/Actual/Actual.stackTrace
@@ -3466,10 +3483,13 @@
   global.set $assembly/internal/report/Expected/Expected.type
   global.get $assembly/internal/report/Expected/Expected.reference
   i32.const 0
-  i32.gt_u
+  i32.eq
   if
-   global.get $assembly/internal/report/Expected/Expected.reference
-   call $~lib/rt/pure/__release
+   global.get $assembly/internal/report/Expected/Expected.isManaged
+   if
+    global.get $assembly/internal/report/Expected/Expected.reference
+    call $~lib/rt/pure/__release
+   end
    i32.const 0
    global.set $assembly/internal/report/Expected/Expected.reference
   end

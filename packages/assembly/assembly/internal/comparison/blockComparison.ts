@@ -46,7 +46,7 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
       // @ts-ignore: this is valid assemblyscript
       Expected.report<T>(null, negated);
     } else {
-      reportExpectedReference(expectedPtr, expectedSize, negated);
+      reportExpectedReference<T>(expectedPtr, expectedSize, negated);
     }
 
     // report the actual reference
@@ -54,11 +54,11 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
       // @ts-ignore this is valid AssemblyScript
       Actual.report<T>(null);
     } else {
-      reportActualReference(actualSize, actualSize);
+      reportActualReference<T>(actualSize, actualSize);
     }
   } else {
-    reportExpectedReference(expectedPtr, expectedSize, negated);
-    reportActualReference(actualSize, actualSize);
+    reportExpectedReference<T>(expectedPtr, expectedSize, negated);
+    reportActualReference<T>(actualSize, actualSize);
   }
 
   if (isNullable<T>()) {
