@@ -70,14 +70,24 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   let parse: any;
 
   try {
+    let folderUsed = "cli";
+    try {
     /** Next, obtain the compiler, and assert it has a main function. */
-    asc = require(path.join(assemblyScriptFolder, "dist", "asc"));
+    asc = require(path.join(assemblyScriptFolder, "cli", "asc"));
+    } catch (ex) {
+      try {
+        folderUsed = "dist";
+        asc = require(path.join(assemblyScriptFolder, "dist", "asc"));
+      }catch (ex) {
+        throw ex;
+      }
+    }
     if (!asc) {
-      throw new Error(`${cliOptions.compiler}/dist/asc has no exports.`);
+      throw new Error(`${cliOptions.compiler}/${folderUsed}/asc has no exports.`);
     }
     if (!asc.main) {
       throw new Error(
-        `${cliOptions.compiler}/dist/asc does not export a main() function.`,
+        `${cliOptions.compiler}/${folderUsed}/asc does not export a main() function.`,
       );
     }
 
@@ -506,13 +516,16 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
               return null;
             }
           },
-          writeFile(name: string, contents: Uint8Array) {
+          writeFile(name: string, contents: Uint8Array, baseDir:string = ".") {
             const ext = path.extname(name);
 
             // get the wasm file
             if (ext === ".wasm") {
               binary = contents;
               if (!outputBinary) return;
+            } else if (ext === ".ts") {
+              filePromises.push(writeFile(path.join(baseDir, name), contents));
+              return;
             }
 
             const outfileName = path.join(

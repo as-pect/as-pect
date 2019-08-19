@@ -45,12 +45,13 @@
  (data (i32.const 216) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
  (data (i32.const 256) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00u\00n\00i\00t\00 \00t\00y\00p\00e\00s\00")
  (data (i32.const 296) "N\00\00\00\01\00\00\00\01\00\00\00N\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00r\00e\00a\00t\00e\00 \00i\00n\00s\00t\00a\00n\00c\00e\00o\00f\00 \00E\00x\00p\00e\00c\00t\00a\00t\00i\00o\00n\00<\00T\00>\00")
- (data (i32.const 392) "R\00\00\00\01\00\00\00\01\00\00\00R\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00r\00e\00a\00t\00e\00 \00a\00n\00 \00e\00x\00p\00e\00c\00t\00a\00t\00i\00o\00n\00 \00w\00i\00t\00h\00 \00a\00 \00v\00a\00l\00u\00e\00")
- (data (i32.const 496) "j\00\00\00\01\00\00\00\01\00\00\00j\00\00\00T\00h\00e\00 \00e\00x\00p\00e\00c\00t\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00r\00e\00p\00o\00r\00t\00 \00v\00a\00l\00u\00e\00s\00 \00c\00o\00r\00r\00e\00c\00t\00l\00y\00.\00")
- (data (i32.const 624) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00u\00n\00i\00t\00.\00s\00p\00e\00c\00.\00t\00s\00")
- (data (i32.const 704) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00s\00h\00o\00u\00l\00d\00 \00n\00e\00g\00a\00t\00e\00 \00t\00h\00e\00 \00_\00n\00o\00t\00 \00p\00r\00o\00p\00e\00r\00t\00y\00")
- (data (i32.const 784) "H\00\00\00\01\00\00\00\01\00\00\00H\00\00\00T\00h\00e\00 \00e\00x\00p\00e\00c\00t\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00w\00a\00s\00 \00n\00o\00t\00 \00n\00e\00g\00a\00t\00e\00d\00.\00")
- (data (i32.const 872) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
+ (data (i32.const 392) "R\00\00\00\01\00\00\00\01\00\00\00R\00\00\00T\00h\00e\00 \00r\00e\00s\00u\00l\00t\00 \00i\00s\00 \00n\00o\00t\00 \00i\00n\00s\00t\00a\00n\00c\00e\00o\00f\00 \00E\00x\00p\00e\00c\00t\00a\00t\00i\00o\00n\00.\00")
+ (data (i32.const 496) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00u\00n\00i\00t\00.\00s\00p\00e\00c\00.\00t\00s\00")
+ (data (i32.const 576) "R\00\00\00\01\00\00\00\01\00\00\00R\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00r\00e\00a\00t\00e\00 \00a\00n\00 \00e\00x\00p\00e\00c\00t\00a\00t\00i\00o\00n\00 \00w\00i\00t\00h\00 \00a\00 \00v\00a\00l\00u\00e\00")
+ (data (i32.const 680) "j\00\00\00\01\00\00\00\01\00\00\00j\00\00\00T\00h\00e\00 \00e\00x\00p\00e\00c\00t\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00r\00e\00p\00o\00r\00t\00 \00v\00a\00l\00u\00e\00s\00 \00c\00o\00r\00r\00e\00c\00t\00l\00y\00.\00")
+ (data (i32.const 808) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00s\00h\00o\00u\00l\00d\00 \00n\00e\00g\00a\00t\00e\00 \00t\00h\00e\00 \00_\00n\00o\00t\00 \00p\00r\00o\00p\00e\00r\00t\00y\00")
+ (data (i32.const 888) "H\00\00\00\01\00\00\00\01\00\00\00H\00\00\00T\00h\00e\00 \00e\00x\00p\00e\00c\00t\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00w\00a\00s\00 \00n\00o\00t\00 \00n\00e\00g\00a\00t\00e\00d\00.\00")
+ (data (i32.const 976) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (table $0 6 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/unit.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/unit.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/unit.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/unit.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -80,8 +81,8 @@
  (global $assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~lib/started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 872))
- (global $~lib/heap/__heap_base i32 (i32.const 916))
+ (global $~lib/rt/__rtti_base i32 (i32.const 976))
+ (global $~lib/heap/__heap_base i32 (i32.const 1020))
  (export "__start" (func $start))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
@@ -1375,7 +1376,9 @@
   end
   local.get $3
   i32.load
-  i32.const -4
+  i32.const 3
+  i32.const -1
+  i32.xor
   i32.and
   local.get $2
   i32.ge_u
@@ -1434,12 +1437,16 @@
   i32.load offset=4
   local.set $1
   local.get $1
-  i32.const -268435456
+  i32.const 268435455
+  i32.const -1
+  i32.xor
   i32.and
   local.get $1
   i32.const 1
   i32.add
-  i32.const -268435456
+  i32.const 268435455
+  i32.const -1
+  i32.xor
   i32.and
   i32.eq
   i32.eqz
@@ -3316,6 +3323,18 @@
   call $assembly/internal/Expectation/expect<i32>
   local.set $0
   local.get $0
+  drop
+  i32.const 1
+  i32.eqz
+  if
+   i32.const 408
+   i32.const 512
+   i32.const 15
+   i32.const 4
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
   call $~lib/rt/pure/__release
  )
  (func $assembly/internal/Test/it (; 56 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
@@ -3339,8 +3358,8 @@
   i32.eq
   i32.eqz
   if
+   i32.const 696
    i32.const 512
-   i32.const 640
    i32.const 23
    i32.const 4
    call $~lib/builtins/abort
@@ -3376,8 +3395,8 @@
   i32.ne
   i32.eqz
   if
-   i32.const 800
-   i32.const 640
+   i32.const 904
+   i32.const 512
    i32.const 33
    i32.const 4
    call $~lib/builtins/abort
@@ -3394,10 +3413,10 @@
   i32.const 312
   i32.const 1
   call $assembly/internal/Test/it
-  i32.const 408
+  i32.const 592
   i32.const 2
   call $assembly/internal/Test/it
-  i32.const 720
+  i32.const 824
   i32.const 3
   call $assembly/internal/Test/it
  )
@@ -3799,12 +3818,16 @@
      i32.load offset=4
      local.set $3
      local.get $3
-     i32.const -268435456
+     i32.const 268435455
+     i32.const -1
+     i32.xor
      i32.and
      local.get $3
      i32.const 1
      i32.add
-     i32.const -268435456
+     i32.const 268435455
+     i32.const -1
+     i32.xor
      i32.and
      i32.eq
      i32.eqz
