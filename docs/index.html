@@ -62,7 +62,9 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<h1 id="jtenner-as-pect">jtenner/as-pect</h1>
+				<a href="#jtenneras-pect" id="jtenneras-pect" style="color: inherit; text-decoration: none;">
+					<h1>jtenner/as-pect</h1>
+				</a>
 				<p>This packages is a monorepo that contains the cli and the core for the <code>@as-pect</code>
 				packages.</p>
 				<p><a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/jtenner/as-pect.svg" alt="Greenkeeper badge"></a>
@@ -70,7 +72,9 @@
 				<a href="https://coveralls.io/github/jtenner/as-pect?branch=master"><img src="https://coveralls.io/repos/github/jtenner/as-pect/badge.svg?branch=master" alt="Coverage Status"></a></p>
 				<p>Write your module in AssemblyScript and get blazing fast bootstrapped tests
 				with WebAssembly speeds!</p>
-				<h2 id="table-of-contents">Table of contents</h2>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of contents</h2>
+				</a>
 				<ol>
 					<li><a href="#philosophy">Philosophy</a></li>
 					<li><a href="#usage">Usage</a></li>
@@ -107,14 +111,18 @@
 					<li><a href="#using-as-pect-as-a-package">Using as-pect as a Package</a></li>
 					<li><a href="#contributors">Contributors</a></li>
 				</ol>
-				<h2 id="philosophy">Philosophy</h2>
+				<a href="#philosophy" id="philosophy" style="color: inherit; text-decoration: none;">
+					<h2>Philosophy</h2>
+				</a>
 				<p>Testing is the first step of every project and you have a responsibility to
 					make sure that the software you write works as intended. The <code>as-pect</code> project
 					was created to help quickly scaffold and bootstrap AssemblyScript tests so
 				that you can be confident in yourself and the software you write.</p>
 				<p>One of the goals of this project is 100% portability to <code>jest</code> so that tests
 				can be run in two different environments.</p>
-				<h2 id="usage">Usage</h2>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
 				<p>To install <code>as-pect</code>, install the latest version(s) from npm.</p>
 				<pre><code>$ npm <span class="hljs-keyword">install</span> @<span class="hljs-keyword">as</span>-pect/cli @<span class="hljs-keyword">as</span>-pect/core @<span class="hljs-keyword">as</span>-pect/<span class="hljs-keyword">assembly</span> assemblyscript/assemblyscript</code></pre><p>To initialize a test suite, run <code>npx asp --init</code>. It will create the following
 				folders and files.</p>
@@ -143,11 +151,16 @@ C <span class="hljs-string">./as-pect.config.js</span></code></pre><p>If you wan
 				<p>The command line defaults to using <code>./aspect.config.js</code>, otherwise you can
 				specify all the configuration options using the command line interface.</p>
 				<p>To change the location of the as-pect configuration, use the <code>--config</code> option.</p>
-				<pre><code>$ npx asp --config as-pect<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.js</span></code></pre><h2 id="comparisons">Comparisons</h2>
+				<pre><code>$ npx asp --config as-pect<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.js</span></code></pre>
+				<a href="#comparisons" id="comparisons" style="color: inherit; text-decoration: none;">
+					<h2>Comparisons</h2>
+				</a>
 				<p>There are a set of comparison functions defined in the <code>types/as-pect.d.ts</code> types
 					definition. These comparison functions allow you to inspect object and memory
 				state.</p>
-				<h3 id="tobe">toBe</h3>
+				<a href="#tobe" id="tobe" style="color: inherit; text-decoration: none;">
+					<h3>toBe</h3>
+				</a>
 				<p>This comparison is used for comparing data using the <code>==</code> operator. In
 					AssemblyScript this operator is used for comparing strings, numbers, and exact
 				reference equality (or pointer comparison.)</p>
@@ -157,7 +170,9 @@ expect&lt;Vec3&gt;(a).toBe(a);
 expect&lt;i32&gt;(<span class="hljs-number">10</span>).toBe(<span class="hljs-number">10</span>);
 expect&lt;Vec3&gt;(<span class="hljs-literal">null</span>).toBe(<span class="hljs-literal">null</span>);</code></pre>
 				<p>This method is safe to use portably with <code>jest</code>.</p>
-				<h3 id="tostrictequal">toStrictEqual</h3>
+				<a href="#tostrictequal" id="tostrictequal" style="color: inherit; text-decoration: none;">
+					<h3>toStrictEqual</h3>
+				</a>
 				<p>This method performs a single <code>memory.compare()</code> on two blocks of data. This is
 					useful for references and strings. For example, using a <code>toBe()</code> assertion on
 				two different references results in a failed assertion:</p>
@@ -198,7 +213,9 @@ assert(!negated);</code></pre>
 				<p>This method is <em>not</em> safe to use portably with <code>jest</code> yet. Once <code>Reflection</code>
 					is supported by AssemblyScript, <code>as-pect</code> will support compatibility
 				between <code>jest</code>&#39;s version of this function.</p>
-				<h3 id="toblockequal">toBlockEqual</h3>
+				<a href="#toblockequal" id="toblockequal" style="color: inherit; text-decoration: none;">
+					<h3>toBlockEqual</h3>
+				</a>
 				<p>This comparison is the same comparison used on <code>ArrayBuffer</code> and <code>String</code>s.
 					It compares the bytes of the heap allocations by obtaining the exact size
 					of the block and then performing a memcompare if the <code>actual</code> and <code>expected</code>
@@ -208,7 +225,9 @@ assert(!negated);</code></pre>
 <span class="hljs-keyword">let</span> buffer2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">100</span>); <span class="hljs-comment">// another buffer</span>
 
 expect&lt;<span class="hljs-built_in">ArrayBuffer</span>&gt;(buffer).toBlockEqual(buffer2);</code></pre>
-				<h3 id="tobetruthy-and-tobefalsy">toBeTruthy and toBeFalsy</h3>
+				<a href="#tobetruthy-and-tobefalsy" id="tobetruthy-and-tobefalsy" style="color: inherit; text-decoration: none;">
+					<h3>toBeTruthy and toBeFalsy</h3>
+				</a>
 				<p>These comparisons are used to determine if a value is truthy or falsy in the
 				JavaScript sense. In JavaScript there are only six falsy values:</p>
 				<ul>
@@ -231,7 +250,9 @@ expect&lt;i32&gt;(<span class="hljs-number">0</span>).toBeFalsy();
 expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).toBeFalsy();
 expect&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">""</span>).toBeFalsy();</code></pre>
 				<p>These methods are safe to use with <code>jest</code>.</p>
-				<h3 id="tobenan">toBeNaN</h3>
+				<a href="#tobenan" id="tobenan" style="color: inherit; text-decoration: none;">
+					<h3>toBeNaN</h3>
+				</a>
 				<p>This comparison is only used for float values to determine if the value is a
 				<code>NaN</code> value.</p>
 				<pre><code class="language-ts">expect&lt;f32&gt;(<span class="hljs-literal">NaN</span>).toBeNaN(); <span class="hljs-comment">// passes</span>
@@ -241,7 +262,9 @@ expect&lt;f64&gt;(<span class="hljs-number">1.0</span>).not.toBeNaN(); <span cla
 expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3()).not.toBeNaN();</code></pre>
 				<p>This method is technically safe to use with <code>jest</code> with the assumption
 				that <code>as-pect</code> will fail if used with a reference type.</p>
-				<h3 id="tobenull">toBeNull</h3>
+				<a href="#tobenull" id="tobenull" style="color: inherit; text-decoration: none;">
+					<h3>toBeNull</h3>
+				</a>
 				<p>This comparison looks specifically for a <code>null</code> value.</p>
 				<pre><code class="language-ts">expect&lt;Vec3&gt;(<span class="hljs-literal">null</span>).toBeNull(); <span class="hljs-comment">// valid assertion</span></code></pre>
 				<p>In the case of numeric values, numbers cannot be <code>null</code> in AssemblyScript.
@@ -249,7 +272,9 @@ expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3()).not.toBeNaN();<
 				<pre><code class="language-ts">expect&lt;i32&gt;(<span class="hljs-literal">null</span>).toBeNull();</code></pre>
 				<p>This method is safe to use with <code>jest</code> assuming you explicitly return <code>null</code>
 				and avoid use of <code>undefined</code> which does not exist in AssemblyScript.</p>
-				<h3 id="tobefinite">toBeFinite</h3>
+				<a href="#tobefinite" id="tobefinite" style="color: inherit; text-decoration: none;">
+					<h3>toBeFinite</h3>
+				</a>
 				<p>This comparison is used to detect if float values are finite. The following
 				values are not finite in JavaScript or AssemblyScript.</p>
 				<ul>
@@ -264,7 +289,9 @@ expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).not.toBeFinite();</code
 				<p>As long as the number values are always <code>f32</code> or <code>f64</code> (or <code>number</code> in
 					JavaScript or AssemblyScript,) <code>toBeFinite</code> is a safe assertion to use
 				portably with jest.</p>
-				<h3 id="tothrow">toThrow</h3>
+				<a href="#tothrow" id="tothrow" style="color: inherit; text-decoration: none;">
+					<h3>toThrow</h3>
+				</a>
 				<p>This comparison is used to test and see if a function throws an error. In the
 					case of AssemblyScript and <code>as-pect</code>, the function will be called from within
 					a JavaScript <code>try</code> block, and if the function throws, the assertion is valid,
@@ -281,7 +308,9 @@ expect&lt;f64&gt;(<span class="hljs-literal">NaN</span>).not.toBeFinite();</code
 					left dangling on the stack will hang around un<code>__release()</code>ed by
 				AssemblyScript.</p>
 				<p>This function is safe to use with <code>jest</code>.</p>
-				<h3 id="tobegreaterthan-and-tobelessthan">toBeGreaterThan and toBeLessThan</h3>
+				<a href="#tobegreaterthan-and-tobelessthan" id="tobegreaterthan-and-tobelessthan" style="color: inherit; text-decoration: none;">
+					<h3>toBeGreaterThan and toBeLessThan</h3>
+				</a>
 				<p>This set of comparisons validate that a value is greater than, less than, or
 				equal to another value. The following assertions are true.</p>
 				<pre><code class="language-ts">expect&lt;i32&gt;(<span class="hljs-number">100</span>).toBeGreaterThan(<span class="hljs-number">42</span>);
@@ -307,7 +336,9 @@ expect&lt;f64&gt;(<span class="hljs-number">1.0</span>).not.toBeLessThanOrEqual(
 expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)).toBeGreaterThan(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>));</code></pre>
 				<p>These methods are safe to use portably with <code>jest</code>, provided they aren&#39;t used
 				with reference types.</p>
-				<h3 id="tobecloseto">toBeCloseTo</h3>
+				<a href="#tobecloseto" id="tobecloseto" style="color: inherit; text-decoration: none;">
+					<h3>toBeCloseTo</h3>
+				</a>
 				<p>When doing floating point math, it&#39;s possible that values will not be exactly as
 				expected because of floating point error.</p>
 				<pre><code class="language-ts">expect&lt;f64&gt;(<span class="hljs-number">0.1</span> + <span class="hljs-number">0.2</span>).toBe(<span class="hljs-number">0.3</span>); <span class="hljs-comment">// fails</span>
@@ -320,7 +351,9 @@ expect&lt;Vec3&gt;(<span class="hljs-keyword">new</span> Vec3(<span class="hljs-
 				<p>Reference values and integer values will result in a runtime error, because
 				<code>toBeCloseTo</code> comparisons require a floating point number to work.</p>
 				<p>This method is safe to use portably with <code>jest</code>.</p>
-				<h3 id="tohavelength">toHaveLength</h3>
+				<a href="#tohavelength" id="tohavelength" style="color: inherit; text-decoration: none;">
+					<h3>toHaveLength</h3>
+				</a>
 				<p>This comparison verifies the length of a given object. This includes Arrays,
 				TypedArrays, ArrayBuffers, and custom classes that have a <code>length</code> property.</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">class</span> LengthExample {
@@ -338,7 +371,9 @@ expect&lt;<span class="hljs-built_in">ArrayBuffer</span>&gt;(buffer).toHaveLengt
 expect&lt;LengthExample&gt;(custom).toHaveLength(<span class="hljs-number">50</span>);</code></pre>
 				<p>This method is safe to use with <code>jest</code>, with the exception of using
 				<code>ArrayBuffer</code>.</p>
-				<h3 id="tocontain-and-toinclude">toContain and toInclude</h3>
+				<a href="#tocontain-and-toinclude" id="tocontain-and-toinclude" style="color: inherit; text-decoration: none;">
+					<h3>toContain and toInclude</h3>
+				</a>
 				<p>This comparison is used to determine if an Array contains a value.</p>
 				<p>All the values returned by <code>T[index]</code> will be compared using the <code>==</code> operator,
 					so overloading the class <code>@operator(&quot;==&quot;)</code> can be used in conjunction with this
@@ -350,7 +385,9 @@ data[<span class="hljs-number">5</span>] = <span class="hljs-number">255</span>;
 
 expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContain(<span class="hljs-number">255</span>);</code></pre>
 				<p>This method is portable with <code>jest</code> using the <code>toContain()</code> method.</p>
-				<h3 id="tocontainequal-and-toincludeequal">toContainEqual and toIncludeEqual</h3>
+				<a href="#tocontainequal-and-toincludeequal" id="tocontainequal-and-toincludeequal" style="color: inherit; text-decoration: none;">
+					<h3>toContainEqual and toIncludeEqual</h3>
+				</a>
 				<p>This comparison is used to determine if an Array contains a reference that
 				equals another reference.</p>
 				<p>All the values returned by <code>T[index]</code> will be compared using the <code>==</code> operator,
@@ -367,7 +404,9 @@ data.push(<span class="hljs-keyword">new</span> Vec(<span class="hljs-number">4<
 expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual(referece);</code></pre>
 				<p>This method is portable with <code>jest</code> using the <code>toContainEqual()</code> method.</p>
 				<!-- markdownlint-enable MD013 MD031 -->
-				<h2 id="configuration-file">Configuration File</h2>
+				<a href="#configuration-file" id="configuration-file" style="color: inherit; text-decoration: none;">
+					<h2>Configuration File</h2>
+				</a>
 				<p>Currently <code>as-pect</code> will compile each file that matches the
 					<a href="https://en.wikipedia.org/wiki/Glob_%28programming%29"><code>glob</code></a>s in the
 					<code>include</code> property of your configuration. The default include is
@@ -376,7 +415,9 @@ expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual
 				AssemblyScript, not of <code>as-pect</code>.</p>
 				<p>A typical configuration is provided when you use <code>asp --init</code> and is located
 				<a href="blob/master/init/as-pect.config.js">here</a>.</p>
-				<h2 id="types-and-tooling">Types And Tooling</h2>
+				<a href="#types-and-tooling" id="types-and-tooling" style="color: inherit; text-decoration: none;">
+					<h2>Types And Tooling</h2>
+				</a>
 				<p>The <code>as-pect</code> cli comes with a way to generate the types for all the globals
 					used by the framework. Simply use the <code>--init</code> or <code>--types</code> flag. When a new
 					version of <code>as-pect</code> is released, simply run the <code>npx asp --types</code> command to
@@ -389,7 +430,9 @@ expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual
 				free to delete the auto-generated types file in your test folder.</p>
 				<pre><code class="language-ts"><span class="hljs-comment">/// &lt;reference path="../node_modules/@as-pect/core/types/as-pect.d.ts" /&gt;</span>
 <span class="hljs-comment">/// &lt;reference path="../node_modules/@as-pect/core/types/as-pect.portable.d.ts" /&gt;</span></code></pre>
-				<h2 id="ci-usage">CI Usage</h2>
+				<a href="#ci-usage" id="ci-usage" style="color: inherit; text-decoration: none;">
+					<h2>CI Usage</h2>
+				</a>
 				<p>If any module fails during compilation, the utility will exit immediately with
 				code 1 so it can be used for quicker ci builds.</p>
 				<p>Adding this line to your <code>.travis.yml</code> will allow you to specify a custom
@@ -403,21 +446,29 @@ expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual
     <span class="hljs-attr">"test:ci"</span>: <span class="hljs-string">"asp --summary"</span>
   }
 }</code></pre>
-				<h2 id="assemblyscript-compiler-options">AssemblyScript Compiler Options</h2>
-				<h3 id="-compiler-cli-argument"><code>--compiler</code> CLI Argument</h3>
+				<a href="#assemblyscript-compiler-options" id="assemblyscript-compiler-options" style="color: inherit; text-decoration: none;">
+					<h2>AssemblyScript Compiler Options</h2>
+				</a>
+				<a href="#code--compilercode-cli-argument" id="code--compilercode-cli-argument" style="color: inherit; text-decoration: none;">
+					<h3><code>--compiler</code> CLI Argument</h3>
+				</a>
 				<p>By default <code>as-pect</code> will use node&#39;s resolver to look for an AssemblyScript
 					module. If you want to specify a different version of the compiler, use
 					<code>--compiler ../relative/path/to/compiler/folder</code>. Note that it expects the following
 					to be the same <code>__folder__/dist/asc.js</code>, <code>__folder__/cli/util/options.js</code>, and
 				<code>__folder__/lib/loader.js</code>.</p>
-				<h3 id="compiler-flags">Compiler Flags</h3>
+				<a href="#compiler-flags" id="compiler-flags" style="color: inherit; text-decoration: none;">
+					<h3>Compiler Flags</h3>
+				</a>
 				<p>Regardless of the installed version, all the compiler flags will be passed to
 				the <code>asc</code> command line tool.</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">const</span> compiler = <span class="hljs-built_in">require</span>(path.join(path.cwd(), options.compiler, <span class="hljs-string">"cli/asc"</span>));</code></pre>
 				<p>Inside the callback, any files that are generated, except for the <code>.wasm</code> file
 					will be output using the <code>{testFolder}/{testName}.{ext}</code> format. This includes
 				source maps, <code>.wat</code> files, <code>.js</code> files, and types files generated by the compiler.</p>
-				<h2 id="reporters">Reporters</h2>
+				<a href="#reporters" id="reporters" style="color: inherit; text-decoration: none;">
+					<h2>Reporters</h2>
+				</a>
 				<p>Reporters are the way tests get reported. When running the CLI, the
 					<code>SummaryReporter</code> is used and all the values will be logged to the console. The
 					test suite itself does not log out test results. If you want to use a custom
@@ -440,7 +491,9 @@ expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual
 				<code>stdout</code> and <code>chalk</code> to provide colored output.</p>
 				<p>If performance is enabled, then the <code>times</code> array will be populated with the
 				runtime values measured in milliseconds.</p>
-				<h3 id="summaryreporter">SummaryReporter</h3>
+				<a href="#summaryreporter" id="summaryreporter" style="color: inherit; text-decoration: none;">
+					<h3>SummaryReporter</h3>
+				</a>
 				<p>This reporter only outputs failed tests and is the default <code>TestReporter</code> used
 				by the <code>as-pect</code> cli. It can be used directly from the configuration file.</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">const</span> { SummaryReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@as-pect/core"</span>);
@@ -455,7 +508,9 @@ expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual
 				<pre><code>npx asp <span class="hljs-comment">--summary</span>
 npx asp <span class="hljs-comment">--summary=enableLogging=false</span></code></pre><p>Note: When using parameters for the builtin reporters, the <code>=</code> is required to
 				parse the querystring parameters correctly.</p>
-				<h3 id="verbosereporter">VerboseReporter</h3>
+				<a href="#verbosereporter" id="verbosereporter" style="color: inherit; text-decoration: none;">
+					<h3>VerboseReporter</h3>
+				</a>
 				<p>This reporter outputs a lot of information, including:</p>
 				<ul>
 					<li>All Test Groups and Test Names for each test</li>
@@ -470,7 +525,10 @@ npx asp <span class="hljs-comment">--summary=enableLogging=false</span></code></
   reporter: <span class="hljs-keyword">new</span> VerboseReporter(),
 };</code></pre>
 				<p>It can also be used from the cli using the <code>--verbose</code> flag.</p>
-				<pre><code>npx asp <span class="hljs-comment">--verbose</span></code></pre><h3 id="jsonreporter">JSONReporter</h3>
+				<pre><code>npx asp <span class="hljs-comment">--verbose</span></code></pre>
+				<a href="#jsonreporter" id="jsonreporter" style="color: inherit; text-decoration: none;">
+					<h3>JSONReporter</h3>
+				</a>
 				<p>The <code>JSONReporter</code> can be used to create <code>json</code> files that contain the test
 					output. The file output location is <code>{testname}.spec.json</code>. It can be used
 				directly from the configuration file.</p>
@@ -517,7 +575,9 @@ npx asp <span class="hljs-comment">--summary=enableLogging=false</span></code></
     variance: result.variance,
   },
 ];</code></pre>
-				<h3 id="csvreporter">CSVReporter</h3>
+				<a href="#csvreporter" id="csvreporter" style="color: inherit; text-decoration: none;">
+					<h3>CSVReporter</h3>
+				</a>
 				<p>The <code>CSVReporter</code> can be used to create <code>csv</code> files that contain the test
 					output. The file output location is <code>{testname}.spec.csv</code>. It can be used
 				directly from the configuration file.</p>
@@ -545,7 +605,9 @@ npx asp <span class="hljs-comment">--summary=enableLogging=false</span></code></
   <span class="hljs-string">"StdDev"</span>, <span class="hljs-comment">// The standard deviation of the run times (performance)</span>
   <span class="hljs-string">"Variance"</span>, <span class="hljs-comment">// The variance of the run times (performance)</span>
 ];</code></pre>
-				<h2 id="portability">Portability</h2>
+				<a href="#portability" id="portability" style="color: inherit; text-decoration: none;">
+					<h2>Portability</h2>
+				</a>
 				<p>It is possible to write <code>as-pect</code> tests that run in <code>jest</code> as well. The
 					compatible functions are documented in the
 					<code>@as-pect/core/types/as-pect.portable.d.ts</code> file and can be added to your
@@ -561,7 +623,9 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
   <span class="hljs-attr">testMatch</span>: [<span class="hljs-string">"assembly/__tests__/**/*.spec.ts"</span>],
 };</code></pre>
 				<p>This is the compatibility table.</p>
-				<h2 id="rtrace-and-memory-leaks">RTrace and Memory Leaks</h2>
+				<a href="#rtrace-and-memory-leaks" id="rtrace-and-memory-leaks" style="color: inherit; text-decoration: none;">
+					<h2>RTrace and Memory Leaks</h2>
+				</a>
 				<p>If an expectation fails and hits an <code>unreachable()</code> instruction, any unreleased
 					references in the function call stack will be held indefinitely as a memory
 					leak. Test Suites don&#39;t stop running if they fail the test callback. However,
@@ -589,7 +653,9 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 					call into JavaScript to query the state of the heap relative to the overall test
 				file, the test group, and each individual test depending on the function.</p>
 				<p>This can be disabled with the <code>--nortrace</code> cli option.</p>
-				<h2 id="performance-testing">Performance Testing</h2>
+				<a href="#performance-testing" id="performance-testing" style="color: inherit; text-decoration: none;">
+					<h2>Performance Testing</h2>
+				</a>
 				<p>To increase performance on testing, do not use the <code>log()</code> function and reduce
 					the amount of IO that <code>as-pect</code> must do to compile your tests. The biggest
 					bottleneck in Web Assembly testing, is compilation. This means that using
@@ -620,7 +686,9 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
     reportMin: <span class="hljs-literal">false</span>,
   },
 };</code></pre>
-				<h2 id="custom-imports-using-cli">Custom Imports Using CLI</h2>
+				<a href="#custom-imports-using-cli" id="custom-imports-using-cli" style="color: inherit; text-decoration: none;">
+					<h2>Custom Imports Using CLI</h2>
+				</a>
 				<p>If a set of custom imports are required for your test module, it&#39;s possible to
 				provide a set of imports for a given test file.</p>
 				<p>If your test is located at <code>assembly/__tests__/customImports.spec.ts</code>, then use
@@ -629,7 +697,9 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 				instantiated.</p>
 				<p><em><strong>IMPORTANT</strong>: THIS WILL IGNORE <code>as-pect.config.js</code>&#39;S IMPORTS COMPLETELY</em></p>
 				<p>Please see the provided example located in <code>assembly/__tests__/customImports.spec.ts</code>.</p>
-				<h2 id="using-as-pect-as-a-package">Using as-pect as a Package</h2>
+				<a href="#using-as-pect-as-a-package" id="using-as-pect-as-a-package" style="color: inherit; text-decoration: none;">
+					<h2>Using as-pect as a Package</h2>
+				</a>
 				<p>It&#39;s possible that running your tests requires a browser environment. Instead
 					of running <code>as-pect</code> from the command line, use the <code>--output-binary</code> flag
 					along with the <code>--norun</code> flag and this will cause <code>as-pect</code> to output the
@@ -677,7 +747,9 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 				<p>If you want to compile each test suite manually, it&#39;s possible to use the <code>asc</code>
 				compiler yourself by including the following file in your compilation.</p>
 				<pre><code>.<span class="hljs-regexp">/node_modules/</span><span class="hljs-keyword">as</span>-pect<span class="hljs-regexp">/assembly/</span>index.ts</code></pre><p>By default, <code>as-pect</code> always shows the generated compiler flags.</p>
-				<h2 id="contributors">Contributors</h2>
+				<a href="#contributors" id="contributors" style="color: inherit; text-decoration: none;">
+					<h2>Contributors</h2>
+				</a>
 				<p>To contribute please see <a href="./CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
 				<p>Thanks to <a href="github.com/willemneal">@willemneal</a> and
 					<a href="github.com/maxgraey">@MaxGraey</a> for all their support in making <code>as-pect</code> the
@@ -689,7 +761,9 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 					<li><a href="github.com/torch2424">@torch2424</a> - Documentation Changes</li>
 					<li><a href="github.com/torch2424">@dcodeio</a> - Made AssemblyScript itself!</li>
 				</ul>
-				<h2 id="special-thanks">Special Thanks</h2>
+				<a href="#special-thanks" id="special-thanks" style="color: inherit; text-decoration: none;">
+					<h2>Special Thanks</h2>
+				</a>
 				<p>Special thanks to the <a href="github.com/AssemblyScript/assemblyscript">AssemblyScript</a>
 				team for creating AssemblyScript itself.</p>
 			</div>
@@ -730,6 +804,7 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -778,7 +853,7 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>

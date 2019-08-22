@@ -89,7 +89,9 @@ export class TestContext extends TestCollector {
 
   private runGroup(group: TestGroup): void {
     if (!group.willRun) {
+      /* istanbul ignore next */
       for (const child of group.children) {
+        /* istanbul ignore next */
         this.runGroup(child);
         /* istanbul ignore next */
         if (this.endGroup) return;

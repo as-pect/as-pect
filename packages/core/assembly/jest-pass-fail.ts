@@ -98,6 +98,10 @@ describe("pass-fail", () => {
   it("should report bool values", () => {
     expect<bool>(false).toBe(true);
   });
+
+  it("should report invalid strings", () => {
+    expect<string>("Test").toBe("invalid");
+  });
 });
 
 describe("fail on group beforeAll", () => {

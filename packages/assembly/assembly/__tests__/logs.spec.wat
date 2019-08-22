@@ -66,11 +66,10 @@
  (data (i32.const 720) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00l\00o\00g\00 \00a\00n\00 \00A\00r\00r\00a\00y\00B\00u\00f\00f\00e\00r\00")
  (data (i32.const 776) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
  (data (i32.const 824) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
- (data (i32.const 880) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00~\00l\00i\00b\00/\00t\00y\00p\00e\00d\00a\00r\00r\00a\00y\00.\00t\00s\00")
- (data (i32.const 936) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00l\00o\00g\00 \00a\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00")
- (data (i32.const 984) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00l\00o\00g\00 \00a\00 \00n\00u\00l\00l\00")
- (data (i32.const 1024) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00T\00h\00i\00s\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00a\00 \00v\00a\00l\00i\00d\00 \00t\00o\00d\00o\00.\00")
- (data (i32.const 1096) "\06\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
+ (data (i32.const 880) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00l\00o\00g\00 \00a\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00")
+ (data (i32.const 928) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00l\00o\00g\00 \00a\00 \00n\00u\00l\00l\00")
+ (data (i32.const 968) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00T\00h\00i\00s\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00a\00 \00v\00a\00l\00i\00d\00 \00t\00o\00d\00o\00.\00")
+ (data (i32.const 1040) "\06\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\001\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (table $0 14 funcref)
  (elem (i32.const 0) $null $start:assembly/__tests__/logs.spec~anonymous|0 $start:assembly/__tests__/logs.spec~anonymous|1 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|0 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|1 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|2 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|3 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|4 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|5 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|6 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|7 $start:assembly/__tests__/logs.spec~anonymous|2~anonymous|8 $start:assembly/__tests__/logs.spec~anonymous|2 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -89,6 +88,7 @@
  (global $assembly/internal/report/Actual/Actual.reference (mut i32) (i32.const 0))
  (global $assembly/internal/report/Actual/Actual.offset (mut i32) (i32.const 0))
  (global $assembly/internal/report/Actual/Actual.stackTrace (mut i32) (i32.const -1))
+ (global $assembly/internal/report/Actual/Actual.isManaged (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.ready (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.type (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.signed (mut i32) (i32.const 0))
@@ -98,10 +98,11 @@
  (global $assembly/internal/report/Expected/Expected.offset (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.negated (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.stackTrace (mut i32) (i32.const 0))
+ (global $assembly/internal/report/Expected/Expected.isManaged (mut i32) (i32.const 0))
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~lib/started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 1096))
- (global $~lib/heap/__heap_base i32 (i32.const 1148))
+ (global $~lib/rt/__rtti_base i32 (i32.const 1040))
+ (global $~lib/heap/__heap_base i32 (i32.const 1092))
  (export "__start" (func $start))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
@@ -3753,19 +3754,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint8Array#__set (; 80 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
-  local.get $1
-  local.get $0
-  i32.load offset=8
-  i32.ge_u
-  if
-   i32.const 176
-   i32.const 896
-   i32.const 131
-   i32.const 44
-   call $~lib/builtins/abort
-   unreachable
-  end
+ (func $~lib/typedarray/Uint8Array#__uset (; 80 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -3828,7 +3817,7 @@
     local.get $1
     i32.const 255
     i32.and
-    call $~lib/typedarray/Uint8Array#__set
+    call $~lib/typedarray/Uint8Array#__uset
     local.get $1
     i32.const 1
     i32.add
@@ -3951,13 +3940,13 @@
   i32.const 736
   i32.const 9
   call $assembly/internal/Test/test
-  i32.const 952
+  i32.const 896
   i32.const 10
   call $assembly/internal/Test/test
-  i32.const 1000
+  i32.const 944
   i32.const 11
   call $assembly/internal/Test/test
-  i32.const 1040
+  i32.const 984
   call $assembly/internal/Test/todo
  )
  (func $start:assembly/internal/noOp~anonymous|0 (; 92 ;) (type $FUNCSIG$v)
@@ -4241,12 +4230,17 @@
   global.set $assembly/internal/report/Expected/Expected.type
   global.get $assembly/internal/report/Expected/Expected.reference
   i32.const 0
-  i32.gt_u
+  i32.eq
   if
-   global.get $assembly/internal/report/Expected/Expected.reference
-   call $~lib/rt/pure/__release
+   global.get $assembly/internal/report/Expected/Expected.isManaged
+   if
+    global.get $assembly/internal/report/Expected/Expected.reference
+    call $~lib/rt/pure/__release
+   end
    i32.const 0
    global.set $assembly/internal/report/Expected/Expected.reference
+   i32.const 0
+   global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
  (func $assembly/internal/report/Actual/Actual.clear (; 103 ;) (type $FUNCSIG$v)
@@ -4256,10 +4250,15 @@
   i32.const 0
   i32.gt_u
   if
-   global.get $assembly/internal/report/Actual/Actual.reference
-   call $~lib/rt/pure/__release
+   global.get $assembly/internal/report/Actual/Actual.isManaged
+   if
+    global.get $assembly/internal/report/Actual/Actual.reference
+    call $~lib/rt/pure/__release
+   end
    i32.const 0
    global.set $assembly/internal/report/Actual/Actual.reference
+   i32.const 0
+   global.set $assembly/internal/report/Actual/Actual.isManaged
   end
   i32.const -1
   global.set $assembly/internal/report/Actual/Actual.stackTrace

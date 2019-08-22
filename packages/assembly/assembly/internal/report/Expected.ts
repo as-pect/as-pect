@@ -88,6 +88,11 @@ export class Expected {
   static stackTrace: i32 = 0;
 
   /**
+   * The indicator if the currently stored pointer is managed.
+   */
+  static isManaged: bool = false;
+
+  /**
    * Clear the expected value.
    */
   static clear(): void {
@@ -96,9 +101,10 @@ export class Expected {
     /**
      * If there is a reference still being retained, release it and set it to null.
      */
-    if (Expected.reference > 0) {
-      __release(Expected.reference);
-      Expected.reference = <usize>0;
+    if (Expected.reference == null) {
+      if (Expected.isManaged) __release(Expected.reference);
+      Expected.reference = null;
+      Expected.isManaged = false;
     }
   }
 
@@ -129,10 +135,13 @@ export class Expected {
       }
 
       let ptr = changetype<usize>(expected);
-      __retain(ptr);
-      __release(Expected.reference);
-      Expected.reference = ptr;
 
+      // if the pointer is managed, retain it
+      if (isManaged<T>()) __retain(ptr);
+
+      if (Expected.isManaged) __release(Expected.reference);
+      Expected.reference = ptr;
+      Expected.isManaged = isManaged<T>();
       // otherwise it might be an array..
       if (expected instanceof ArrayBufferView) {
         Expected.type = ValueType.Array;
@@ -220,11 +229,12 @@ export function __sendExpected(): void {
 
 // @ts-ignore: Decorators *are* valid here
 @inline
-export function reportExpectedReference(ptr: usize, offset: i32, negated: i32): void {
+export function reportExpectedReference<T>(ptr: usize, offset: i32, negated: i32): void {
   Expected.type = ValueType.Reference;
-  __retain(ptr);
-  __release(Expected.reference);
+  if (isManaged<T>()) __retain(ptr);
+  if (Expected.isManaged) __release(Expected.reference);
   Expected.reference = ptr;
   Expected.offset = offset;
   Expected.negated = negated;
+  Expected.isManaged = isManaged<T>();
 }
