@@ -3294,6 +3294,7 @@
    i32.const 0
    i32.const 0
    call $~lib/rt/tlsf/__alloc
+   call $~lib/rt/pure/__retain
    local.set $0
   end
   local.get $0

@@ -612,8 +612,10 @@ export class TestCollector {
    */
   private reportTest(testNamePointer: number, callback: number): void {
     const group = this.groupStack[this.groupStack.length - 1];
+    /* istanbul ignore next */
     if (!group.willRun) return;
     const name = this.getString(testNamePointer, "No test() name provided.");
+    /* istanbul ignore next */
     if (!this.testRegex.test(name)) return;
 
     const test = new TestResult();
@@ -668,8 +670,10 @@ export class TestCollector {
     message: number,
   ): void {
     const group = this.groupStack[this.groupStack.length - 1];
+    /* istanbul ignore next */
     if (!group.willRun) return;
     const name = this.getString(testNamePointer, "No test() name provided.");
+    /* istanbul ignore next */
     if (!this.testRegex.test(name)) return;
 
     const test = new TestResult();
