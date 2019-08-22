@@ -32,7 +32,7 @@
     "types/"
   ],
   "devDependencies": {
-    "assemblyscript": "github:jtenner/assemblyscript#test-unmanaged"
+    "assemblyscript": "github:assemblyscript/assemblyscript"
   },
   "dependencies": {}
 }

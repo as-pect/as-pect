@@ -5020,14 +5020,14 @@
    local.get $6
    local.set $9
    local.get $10
-   i32.const 4
+   i32.const 16
    i32.sub
-   i32.load
+   i32.load offset=12
    local.set $8
    local.get $9
-   i32.const 4
+   i32.const 16
    i32.sub
-   i32.load
+   i32.load offset=12
    local.set $7
    local.get $10
    local.set $13
@@ -5053,7 +5053,7 @@
    global.set $assembly/internal/report/Expected/Expected.negated
    i32.const 1
    global.set $assembly/internal/report/Expected/Expected.isManaged
-   local.get $7
+   local.get $9
    local.set $12
    local.get $7
    local.set $11

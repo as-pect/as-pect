@@ -33,9 +33,9 @@
 	},
 	"homepage": "https://github.com/jtenner/as-pect#readme",
 	"devDependencies": {
-		"@types/jest": "^24.0.15",
-		"assemblyscript": "github:jtenner/assemblyscript#test-unmanaged",
-		"jest": "^24.8.0",
+		"@types/jest": "^24.0.18",
+		"assemblyscript": "github:assemblyscript/assemblyscript",
+		"jest": "^24.9.0",
 		"ts-jest": "^24.0.2"
 	},
 	"dependencies": {
@@ -48,6 +48,6 @@
 		"lib/"
 	],
 	"optionalDependencies": {
-		"csv-stringify": "^5.3.0"
+		"csv-stringify": "^5.3.3"
 	}
 }

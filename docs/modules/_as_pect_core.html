@@ -66,9 +66,13 @@
 		<div class="col-8 col-content">
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
-					<h1 id="-as-pect-core">@as-pect/core</h1>
+					<a href="#as-pectcore" id="as-pectcore" style="color: inherit; text-decoration: none;">
+						<h1>@as-pect/core</h1>
+					</a>
 					<p>Typescript infastructure for running tests.</p>
-					<h2 id="table-of-contents">Table of contents</h2>
+					<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+						<h2>Table of contents</h2>
+					</a>
 					<ol>
 						<li><a href="#usage">Usage</a></li>
 						<li><a href="#reporters">Reporters</a><ul>
@@ -83,7 +87,9 @@
 						<li><a href="#performance-testing">Performance Testing</a></li>
 						<li><a href="#using-as-pect-as-a-package">Using as-pect as a Package</a></li>
 					</ol>
-					<h2 id="usage">Usage</h2>
+					<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+						<h2>Usage</h2>
+					</a>
 					<p>To install <code>@as-pect/core</code>, install the latest version from github along with
 					<code>@as-pect/assembly</code>.</p>
 					<pre><code>$ npm <span class="hljs-keyword">install</span> @<span class="hljs-keyword">as</span>-pect/core @<span class="hljs-keyword">as</span>-pect/<span class="hljs-keyword">assembly</span></code></pre><p>To create a <code>TestContext</code> simply import it and instantiate it.</p>
@@ -118,7 +124,9 @@ ctx.run(wasm);
 
 <span class="hljs-comment">// check if the tests passed</span>
 <span class="hljs-keyword">const</span> pass = ctx.pass;</code></pre>
-					<h2 id="reporters">Reporters</h2>
+					<a href="#reporters" id="reporters" style="color: inherit; text-decoration: none;">
+						<h2>Reporters</h2>
+					</a>
 					<p>Reporters are the way tests get reported. When running the CLI, the
 						<code>SummaryReporter</code> is used and all the values will be logged to the console. The
 						test suite itself does not log out test results. If you want to use a custom
@@ -141,7 +149,9 @@ ctx.run(wasm);
 					<code>stdout</code> and <code>chalk</code> to provide colored output.</p>
 					<p>If performance is enabled, then the <code>times</code> array will be populated with the
 					runtime values measured in milliseconds.</p>
-					<h3 id="summaryreporter">SummaryReporter</h3>
+					<a href="#summaryreporter" id="summaryreporter" style="color: inherit; text-decoration: none;">
+						<h3>SummaryReporter</h3>
+					</a>
 					<p>This reporter only outputs failed tests and is the default <code>TestReporter</code> used
 					by the <code>as-pect</code> cli. It can be used directly from the configuration file.</p>
 					<pre><code class="language-ts"><span class="hljs-keyword">const</span> { SummaryReporter, TestContext } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@as-pect/core"</span>);
@@ -152,7 +162,9 @@ ctx.run(wasm);
     <span class="hljs-comment">// enableLogging: false, // disable logging</span>
   }),
 });</code></pre>
-					<h3 id="verbosereporter">VerboseReporter</h3>
+					<a href="#verbosereporter" id="verbosereporter" style="color: inherit; text-decoration: none;">
+						<h3>VerboseReporter</h3>
+					</a>
 					<p>This reporter outputs a lot of information, including:</p>
 					<ul>
 						<li>All Test Groups and Test Names for each test</li>
@@ -166,7 +178,9 @@ ctx.run(wasm);
 <span class="hljs-keyword">const</span> ctx = <span class="hljs-keyword">new</span> TestContext({
   reporter: <span class="hljs-keyword">new</span> VerboseReporter(),
 });</code></pre>
-					<h3 id="jsonreporter">JSONReporter</h3>
+					<a href="#jsonreporter" id="jsonreporter" style="color: inherit; text-decoration: none;">
+						<h3>JSONReporter</h3>
+					</a>
 					<p>The <code>JSONReporter</code> can be used to create <code>json</code> files that contain the test
 						output. The file output location is <code>{testname}.spec.json</code>. It can be used
 					directly from the configuration file.</p>
@@ -211,7 +225,9 @@ ctx.run(wasm);
     variance: result.variance,
   },
 ];</code></pre>
-					<h3 id="csvreporter">CSVReporter</h3>
+					<a href="#csvreporter" id="csvreporter" style="color: inherit; text-decoration: none;">
+						<h3>CSVReporter</h3>
+					</a>
 					<p>The <code>CSVReporter</code> can be used to create <code>csv</code> files that contain the test
 						output. The file output location is <code>{testname}.spec.csv</code>. It can be used
 					directly from the configuration file.</p>
@@ -238,7 +254,9 @@ ctx.run(wasm);
   <span class="hljs-string">"StdDev"</span>, <span class="hljs-comment">// The standard deviation of the run times (performance)</span>
   <span class="hljs-string">"Variance"</span>, <span class="hljs-comment">// The variance of the run times (performance)</span>
 ];</code></pre>
-					<h2 id="portability">Portability</h2>
+					<a href="#portability" id="portability" style="color: inherit; text-decoration: none;">
+						<h2>Portability</h2>
+					</a>
 					<p>It is possible to write <code>as-pect</code> tests that run in <code>jest</code> as well. The
 						compatible functions are documented in the
 						<code>@as-pect/core/types/as-pect.portable.d.ts</code> file and can be added to your
@@ -264,7 +282,7 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 							</tr>
 						</thead>
 						<tbody><tr>
-								<td>|</td>
+								<td></td>
 								<td></td>
 								<td></td>
 							</tr>
@@ -540,7 +558,9 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 							</tr>
 					</tbody></table>
 					<!-- markdownlint-enable MD013 -->
-					<h2 id="rtrace-and-memory-leaks">RTrace and Memory Leaks</h2>
+					<a href="#rtrace-and-memory-leaks" id="rtrace-and-memory-leaks" style="color: inherit; text-decoration: none;">
+						<h2>RTrace and Memory Leaks</h2>
+					</a>
 					<p>If an expectation fails and hits an <code>unreachable()</code> instruction, any unreleased
 						references in the function call stack will be held indefinitely as a memory
 						leak. Test Suites don&#39;t stop running if they fail the test callback. However,
@@ -567,11 +587,15 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 						execution. Every one of these functions exist in the <code>RTrace</code> namespace and will
 						call into JavaScript to query the state of the heap relative to the overall test
 					file, the test group, and each individual test depending on the function.</p>
-					<h3 id="rtrace-count-">RTrace.count()</h3>
+					<a href="#rtracecount" id="rtracecount" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.count()</h3>
+					</a>
 					<p>The count method returns the current number of heap allocations.</p>
 					<p>Example:</p>
 					<pre><code class="language-ts"><span class="hljs-keyword">const</span> num: i32 = RTrace.count(); <span class="hljs-comment">// The current number of allocations on the heap</span></code></pre>
-					<h3 id="rtrace-start-label-i32-">RTrace.start(label: i32)</h3>
+					<a href="#rtracestartlabel-i32" id="rtracestartlabel-i32" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.start(label: i32)</h3>
+					</a>
 					<p>The start method creates a starting point for a relative number of heap
 						allocations. It should be used in conjunction with the <code>RTrace.end(label)</code>
 						method which returns the relative number of heap allocations compared to the
@@ -585,7 +609,9 @@ RTrace.start(RTraceLabels.MEMORY_INTENSIVE_OPERATION);
 doSomething();
 <span class="hljs-keyword">const</span> end: i32 = RTrace.end(RTraceLabels.MEMORY_INTENSIVE_OPERATION);
 expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
-					<h3 id="rtrace-end-label-i32-">RTrace.end(label: i32)</h3>
+					<a href="#rtraceendlabel-i32" id="rtraceendlabel-i32" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.end(label: i32)</h3>
+					</a>
 					<p>The end method creates an ending point for a relative number of heap
 						allocations to be measured from. It should be used in conjunction with the
 						<code>RTrace.start(label)</code> method which returns the relative number of heap
@@ -599,15 +625,21 @@ RTrace.start(RTraceLabels.MEMORY_INTENSIVE_OPERATION);
 doSomething();
 <span class="hljs-keyword">const</span> end: i32 = RTrace.end(RTraceLabels.MEMORY_INTENSIVE_OPERATION);
 expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
-					<h3 id="rtrace-allocations-">RTrace.allocations()</h3>
+					<a href="#rtraceallocations" id="rtraceallocations" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.allocations()</h3>
+					</a>
 					<p>The allocations function will report the exact number of allocations that have
 					occurred during the course of test file evaluation.</p>
 					<pre><code class="language-ts"><span class="hljs-keyword">const</span> allocations: i32 = RTrace.allocations();</code></pre>
-					<h3 id="rtrace-frees-">RTrace.frees()</h3>
+					<a href="#rtracefrees" id="rtracefrees" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.frees()</h3>
+					</a>
 					<p>The allocations function will report the exact number of frees that have
 					occurred during the course of test file evaluation.</p>
 					<pre><code class="language-ts"><span class="hljs-keyword">const</span> frees: i32 = RTrace.frees();</code></pre>
-					<h3 id="rtrace-groupallocations-">RTrace.groupAllocations()</h3>
+					<a href="#rtracegroupallocations" id="rtracegroupallocations" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.groupAllocations()</h3>
+					</a>
 					<p>The allocations function will report the exact number of allocations that have
 					occurred during the course of the test group&#39;s evaluation.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"a group"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -615,7 +647,9 @@ expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
     <span class="hljs-keyword">const</span> groupAllocations: i32 = RTrace.groupAllocations();
   });
 });</code></pre>
-					<h3 id="rtrace-groupfrees-">RTrace.groupFrees()</h3>
+					<a href="#rtracegroupfrees" id="rtracegroupfrees" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.groupFrees()</h3>
+					</a>
 					<p>The frees function will report the exact number of frees that have occurred
 					during the course of the test group&#39;s evaluation.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"a group"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -623,7 +657,9 @@ expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
     <span class="hljs-keyword">const</span> groupFrees: i32 = RTrace.groupFrees();
   });
 });</code></pre>
-					<h3 id="rtrace-testallocations-">RTrace.testAllocations()</h3>
+					<a href="#rtracetestallocations" id="rtracetestallocations" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.testAllocations()</h3>
+					</a>
 					<p>The allocations function will report the exact number of allocations that have
 					occurred during the course of the test&#39;s evaluation.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"a group"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -631,7 +667,9 @@ expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
     <span class="hljs-keyword">const</span> testAllocations: i32 = RTrace.testAllocations();
   });
 });</code></pre>
-					<h3 id="rtrace-testfrees-">RTrace.testFrees()</h3>
+					<a href="#rtracetestfrees" id="rtracetestfrees" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.testFrees()</h3>
+					</a>
 					<p>The frees function will report the exact number of frees that have occurred
 					during the course of the test&#39;s evaluation.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"a group"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -639,17 +677,23 @@ expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
     <span class="hljs-keyword">const</span> testFrees: i32 = RTrace.testFrees();
   });
 });</code></pre>
-					<h3 id="rtrace-increments-">RTrace.increments()</h3>
+					<a href="#rtraceincrements" id="rtraceincrements" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.increments()</h3>
+					</a>
 					<p>The increments function returns the total number of reference counted increments
 					that occurred over the course of the current test file.</p>
 					<p>Example:</p>
 					<pre><code class="language-ts"><span class="hljs-keyword">const</span> increments: i32 = RTrace.increments();</code></pre>
-					<h3 id="rtrace-decrements-">RTrace.decrements()</h3>
+					<a href="#rtracedecrements" id="rtracedecrements" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.decrements()</h3>
+					</a>
 					<p>The decrements function returns the total number of reference counted decrements
 					that occurred over the course of the current test file.</p>
 					<p>Example:</p>
 					<pre><code class="language-ts"><span class="hljs-keyword">const</span> decrements: i32 = RTrace.decrements();</code></pre>
-					<h3 id="rtrace-groupincrements-">RTrace.groupIncrements()</h3>
+					<a href="#rtracegroupincrements" id="rtracegroupincrements" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.groupIncrements()</h3>
+					</a>
 					<p>The groupIncrements function returns the total number of reference counted
 					increments that occurred over the course of the current testing group.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"A testing group"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -658,7 +702,9 @@ expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
     log&lt;i32&gt;(RTrace.groupIncrements());
   });
 });</code></pre>
-					<h3 id="rtrace-groupdecrements-">RTrace.groupDecrements()</h3>
+					<a href="#rtracegroupdecrements" id="rtracegroupdecrements" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.groupDecrements()</h3>
+					</a>
 					<p>The groupDecrements function returns the total number of reference counted
 					decrements that occurred over the course of the current testing group.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"A testing group"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -667,7 +713,9 @@ expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
     log&lt;i32&gt;(RTrace.groupDecrements());
   });
 });</code></pre>
-					<h3 id="rtrace-testincrements-">RTrace.testIncrements()</h3>
+					<a href="#rtracetestincrements" id="rtracetestincrements" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.testIncrements()</h3>
+					</a>
 					<p>The testIncrements function returns the total number of reference counted
 					increments that occurred over the course of the current testing group.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"A testing group"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -676,7 +724,9 @@ expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
     log&lt;i32&gt;(RTrace.testIncrements());
   });
 });</code></pre>
-					<h3 id="rtrace-testdecrements-">RTrace.testDecrements()</h3>
+					<a href="#rtracetestdecrements" id="rtracetestdecrements" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.testDecrements()</h3>
+					</a>
 					<p>The testDecrements function returns the total number of reference counted
 					decrements that occurred over the course of the current testing group.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"A testing group"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -685,7 +735,9 @@ expect&lt;i32&gt;(end).toBe(<span class="hljs-number">0</span>);</code></pre>
     log&lt;i32&gt;(RTrace.testDecrements());
   });
 });</code></pre>
-					<h3 id="rtrace-collect-">RTrace.collect()</h3>
+					<a href="#rtracecollect" id="rtracecollect" style="color: inherit; text-decoration: none;">
+						<h3>RTrace.collect()</h3>
+					</a>
 					<p>This method triggers a garbage collection.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"something"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   <span class="hljs-comment">// put some tests here</span>
@@ -695,13 +747,17 @@ afterEach(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;<
   <span class="hljs-comment">// trigger a garbage collection after each test</span>
   RTrace.collect();
 });</code></pre>
-					<h2 id="performance-testing">Performance Testing</h2>
+					<a href="#performance-testing" id="performance-testing" style="color: inherit; text-decoration: none;">
+						<h2>Performance Testing</h2>
+					</a>
 					<p>To increase performance on testing, do not use the <code>log()</code> function and reduce
 						the amount of IO that <code>as-pect</code> must do to compile your tests. The biggest
 						bottleneck in Web Assembly testing, is compilation. This means that using
 						things like <code>@inline</code> many times will cause your module to compile more slowly,
 					and as a result the test file will run slower.</p>
-					<h3 id="performance-enabling-via-api">Performance Enabling Via API</h3>
+					<a href="#performance-enabling-via-api" id="performance-enabling-via-api" style="color: inherit; text-decoration: none;">
+						<h3>Performance Enabling Via API</h3>
+					</a>
 					<p>To enable performance using the global test functions, call the
 					<code>Performance.enabled()</code> function with a <code>true</code> value.</p>
 					<pre><code class="language-ts">describe(<span class="hljs-string">"my test suite"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
@@ -757,7 +813,9 @@ it(<span class="hljs-string">"should report the max"</span>, <span class="hljs-f
 					<code>Performance.reportMin</code> function.</p>
 					<pre><code class="language-ts">Performance.reportMin(<span class="hljs-literal">true</span>); <span class="hljs-comment">// false will disable reporting of the min</span>
 it(<span class="hljs-string">"should report the min"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {});</code></pre>
-					<h2 id="performance-enabling-via-configuration">Performance Enabling Via Configuration</h2>
+					<a href="#performance-enabling-via-configuration" id="performance-enabling-via-configuration" style="color: inherit; text-decoration: none;">
+						<h2>Performance Enabling Via Configuration</h2>
+					</a>
 					<p>Providing these values inside an <code>as-pect.config.js</code> configuration will set
 					these as <em>the</em> global defaults.</p>
 					<p>Note that when using the <code>cli</code>, the cli flag inputs will override the
@@ -783,7 +841,9 @@ it(<span class="hljs-string">"should report the min"</span>, <span class="hljs-f
     reportMin: <span class="hljs-literal">false</span>,
   },
 };</code></pre>
-					<h2 id="using-as-pect-as-a-package">Using as-pect as a Package</h2>
+					<a href="#using-as-pect-as-a-package" id="using-as-pect-as-a-package" style="color: inherit; text-decoration: none;">
+						<h2>Using as-pect as a Package</h2>
+					</a>
 					<p>It&#39;s possible that running your tests requires a browser environment. Instead
 						of running <code>as-pect</code> from the command line, use the <code>--output-binary</code> flag
 						along with the <code>--norun</code> flag and this will cause <code>as-pect</code> to output the
@@ -888,7 +948,7 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 					<div class="tsd-signature tsd-kind-icon">util<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;util&quot;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/core/src/reporter/util/createReferenceString.ts#L3">core/src/reporter/util/createReferenceString.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/b0dd40a/packages/core/src/reporter/util/createReferenceString.ts#L3">core/src/reporter/util/createReferenceString.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -905,7 +965,7 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/2101eb9/packages/core/src/util/IPerformanceConfiguration.ts#L30">core/src/util/IPerformanceConfiguration.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/b0dd40a/packages/core/src/util/IPerformanceConfiguration.ts#L30">core/src/util/IPerformanceConfiguration.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1015,6 +1075,7 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
@@ -1063,7 +1124,7 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

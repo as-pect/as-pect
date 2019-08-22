@@ -2,7 +2,7 @@ import { exactComparison } from "./exactComparison";
 import { assert } from "./assert";
 import { reportExpectedReference, Expected } from "../report/Expected";
 import { reportActualReference, Actual } from "../report/Actual";
-
+import { BLOCK_OVERHEAD, BLOCK } from "rt/common";
 /**
  * This method performs a block comparison. It's useful for comparing a string or an ArrayBuffer
  * which are essentially allocated blocks. The size of each block is an `i32` at `pointer - 4` which
@@ -36,8 +36,8 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
   /**
    * The `i32` block sizes exist at `pointer - 4`.
    */
-  let expectedSize = load<i32>(expectedPtr - 4);
-  let actualSize = load<i32>(actualPtr - 4);
+  let expectedSize = changetype<BLOCK>(expectedPtr - BLOCK_OVERHEAD).rtSize;
+  let actualSize = changetype<BLOCK>(actualPtr - BLOCK_OVERHEAD).rtSize;
 
 
   if (isNullable<T>()) {
@@ -54,11 +54,11 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
       // @ts-ignore this is valid AssemblyScript
       Actual.report<T>(null);
     } else {
-      reportActualReference<T>(actualSize, actualSize);
+      reportActualReference<T>(actualPtr, actualSize);
     }
   } else {
     reportExpectedReference<T>(expectedPtr, expectedSize, negated);
-    reportActualReference<T>(actualSize, actualSize);
+    reportActualReference<T>(actualPtr, actualSize);
   }
 
   if (isNullable<T>()) {
