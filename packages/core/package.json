@@ -1,6 +1,6 @@
 {
 	"name": "@as-pect/core",
-	"version": "2.3.1",
+	"version": "2.4.0",
 	"description": "Write AssemblyScript tests at blazing fast speeds",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
@@ -39,7 +39,7 @@
 		"ts-jest": "^24.0.2"
 	},
 	"dependencies": {
-		"@as-pect/assembly": "^2.3.1",
+		"@as-pect/assembly": "^2.4.0",
 		"chalk": "^2.4.2",
 		"long": "^4.0.0"
 	},

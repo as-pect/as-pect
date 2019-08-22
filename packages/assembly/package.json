@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/assembly",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "types": "types/as-pect.d.ts",
   "scripts": {
@@ -33,6 +33,5 @@
   ],
   "devDependencies": {
     "assemblyscript": "github:assemblyscript/assemblyscript"
-  },
-  "dependencies": {}
+  }
 }
