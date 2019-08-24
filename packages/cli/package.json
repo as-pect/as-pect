@@ -38,9 +38,11 @@
   "dependencies": {
     "@as-pect/assembly": "^2.4.0",
     "@as-pect/core": "^2.4.0",
-    "assemblyscript": "github:assemblyscript/assemblyscript",
     "chalk": "^2.4.2",
     "glob": "^7.1.4"
+  },
+  "devDependencies": {
+    "assemblyscript": "github:assemblyscript/assemblyscript"
   },
   "files": [
     "init/",
