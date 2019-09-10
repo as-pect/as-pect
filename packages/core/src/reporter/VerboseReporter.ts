@@ -39,12 +39,12 @@ function stringifyActualValue(
         .join("\n               ");
   }
 
-  const stackString =
-    "\n           " + value.stack.split("\n").join("\n           ");
+  // const stackString =
+  //   "\n           " + value.stack.split("\n").join("\n           ");
 
   return type === ValueType.Expected
-    ? chalk`{green ${value.message}}{blue ${byteString}}{yellow ${stackString}}`
-    : chalk`{red ${value.message}}{blue ${byteString}}{yellow ${stackString}}`;
+    ? chalk`{green ${value.message}}{blue ${byteString}}`
+    : chalk`{red ${value.message}}{blue ${byteString}}`;
 }
 
 /**
