@@ -13,8 +13,9 @@ export class Vec3 {
 
   @operator("==")
   protected __equals(reference: Vec3 | null): bool {
-    if (reference === this) return false;
+    if (reference === this) return true;
     if (i32(reference === null) ^ i32(this === null)) return false;
+    //@ts-ignore
     return this.x == reference.x
       && this.y == reference.y
       && this.z == reference.z;
