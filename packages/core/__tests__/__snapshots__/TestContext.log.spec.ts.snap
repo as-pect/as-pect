@@ -51,6 +51,8 @@ exports[`log output Group: logs Test: logs: bytes 11`] = `Array []`;
 
 exports[`log output Group: logs Test: logs: bytes 12`] = `Array []`;
 
+exports[`log output Group: logs Test: logs: bytes 13`] = `Array []`;
+
 exports[`log output Group: logs Test: logs: message 1`] = `"Hello world!"`;
 
 exports[`log output Group: logs Test: logs: message 2`] = `"Value 42"`;
@@ -74,6 +76,8 @@ exports[`log output Group: logs Test: logs: message 10`] = `"Value -1"`;
 exports[`log output Group: logs Test: logs: message 11`] = `"[0,1,2]"`;
 
 exports[`log output Group: logs Test: logs: message 12`] = `"[-1,-2,-3]"`;
+
+exports[`log output Group: logs Test: logs: message 13`] = `"trace: The thing! 1, 2, 3, 4, 5"`;
 
 exports[`log output Group: logs Test: logs: offset 1`] = `0`;
 
@@ -99,13 +103,15 @@ exports[`log output Group: logs Test: logs: offset 11`] = `0`;
 
 exports[`log output Group: logs Test: logs: offset 12`] = `0`;
 
+exports[`log output Group: logs Test: logs: offset 13`] = `0`;
+
 exports[`log output Group: logs Test: logs: snapshot 1`] = `456`;
 
 exports[`log output Group: logs Test: logs: snapshot 2`] = `42`;
 
 exports[`log output Group: logs Test: logs: snapshot 3`] = `null`;
 
-exports[`log output Group: logs Test: logs: snapshot 4`] = `2448`;
+exports[`log output Group: logs Test: logs: snapshot 4`] = `2480`;
 
 exports[`log output Group: logs Test: logs: snapshot 5`] = `null`;
 
@@ -122,6 +128,8 @@ exports[`log output Group: logs Test: logs: snapshot 10`] = `-1`;
 exports[`log output Group: logs Test: logs: snapshot 11`] = `null`;
 
 exports[`log output Group: logs Test: logs: snapshot 12`] = `null`;
+
+exports[`log output Group: logs Test: logs: snapshot 13`] = `null`;
 
 exports[`log output Group: logs: bytes 1`] = `Array []`;
 
@@ -174,6 +182,8 @@ exports[`log output Group: logs: bytes 11`] = `Array []`;
 
 exports[`log output Group: logs: bytes 12`] = `Array []`;
 
+exports[`log output Group: logs: bytes 13`] = `Array []`;
+
 exports[`log output Group: logs: message 1`] = `"Hello world!"`;
 
 exports[`log output Group: logs: message 2`] = `"Value 42"`;
@@ -197,6 +207,8 @@ exports[`log output Group: logs: message 10`] = `"Value -1"`;
 exports[`log output Group: logs: message 11`] = `"[0,1,2]"`;
 
 exports[`log output Group: logs: message 12`] = `"[-1,-2,-3]"`;
+
+exports[`log output Group: logs: message 13`] = `"trace: The thing! 1, 2, 3, 4, 5"`;
 
 exports[`log output Group: logs: offset 1`] = `0`;
 
@@ -222,6 +234,8 @@ exports[`log output Group: logs: offset 11`] = `0`;
 
 exports[`log output Group: logs: offset 12`] = `0`;
 
+exports[`log output Group: logs: offset 13`] = `0`;
+
 exports[`log output Group: logs: todo 1`] = `"one"`;
 
 exports[`log output Group: logs: todo 2`] = `"two"`;
@@ -234,7 +248,7 @@ exports[`log output Group: logs: value 2`] = `42`;
 
 exports[`log output Group: logs: value 3`] = `null`;
 
-exports[`log output Group: logs: value 4`] = `2448`;
+exports[`log output Group: logs: value 4`] = `2480`;
 
 exports[`log output Group: logs: value 5`] = `null`;
 
@@ -251,6 +265,8 @@ exports[`log output Group: logs: value 10`] = `-1`;
 exports[`log output Group: logs: value 11`] = `null`;
 
 exports[`log output Group: logs: value 12`] = `null`;
+
+exports[`log output Group: logs: value 13`] = `null`;
 
 exports[`log output Group: logs: values 1`] = `Array []`;
 
@@ -293,3 +309,5 @@ Array [
   -3,
 ]
 `;
+
+exports[`log output Group: logs: values 13`] = `Array []`;

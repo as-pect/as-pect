@@ -346,6 +346,9 @@ export class TestCollector {
       // @ts-ignore
       this.abort(...args);
     };
+    /** Override trace completely. */
+    result.env.trace = this.trace.bind(this);
+
     return result;
   }
 
@@ -1659,5 +1662,27 @@ export class TestCollector {
    */
   private getString(pointer: number, defaultValue: string): string {
     return pointer === 0 ? defaultValue : this.wasm!.__getString(pointer);
+  }
+
+  /**
+   * An override implementation of the AssemblyScript trace function.
+   *
+   * @param {number} strPointer - The trace string.
+   * @param {number} count - The number of arguments to be traced.
+   * @param {number[]} args - The traced arguments.
+   */
+  private trace(strPointer: number, count: number, ...args: number[]): void {
+    const value = new LogValue();
+    const target = this.logTarget;
+
+    value.message = `trace: ${this.getString(strPointer, "")} ${args.slice(0, count).join(", ")}`;
+    value.offset = 0;
+    value.pointer = strPointer;
+    value.stack = this.getLogStackTrace();
+    value.target = target;
+    value.value = null;
+
+    // push the log value to the logs
+    target.logs.push(value);
   }
 }

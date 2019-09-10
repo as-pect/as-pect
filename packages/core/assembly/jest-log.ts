@@ -47,6 +47,7 @@ describe("logs", () => {
   log<bool>(false);
   log<Uint8Array>(testArray);
   log<Int8Array>(testArray2);
+  trace("The thing!", 5, 1, 2, 3, 4, 5);
 
   test("logs", () => {
     log<string>("Hello world!");
@@ -63,6 +64,7 @@ describe("logs", () => {
     log<bool>(false);
     log<Uint8Array>(testArray);
     log<Int8Array>(testArray2);
+    trace("The thing!", 5, 1, 2, 3, 4, 5);
   });
 
   todo("one");
