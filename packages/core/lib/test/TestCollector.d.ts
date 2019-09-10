@@ -146,7 +146,8 @@ export declare class TestCollector {
     /**
      * Log a long value.
      *
-     * @param suiteNamePointer - The boxed long value's pointer.
+     * @param {number} boxPointer - The boxed long value's pointer.
+     * @param {1 | 0} signed - An indicator if the long is signed.
      */
     private logLong;
     /**

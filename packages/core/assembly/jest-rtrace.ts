@@ -54,6 +54,7 @@ export class Vec3 {
 }
 
 let globalVecArray: Vec3[] = new Array<Vec3>(0);
+let globalVec: Vec3 | null;
 
 describe("RTrace tests", () => {
   it("should allocate an object", () => {
@@ -69,7 +70,6 @@ describe("RTrace tests", () => {
       globalVecArray.push(new Vec3(1, 2, 3));
     }
   });
-
 
   it("should count references", () => {
     log<i32>(RTrace.count());

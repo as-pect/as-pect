@@ -438,9 +438,7 @@ export class TestCollector {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.bytes = Array.from(
-      this.wasm!.U8.slice(referencePointer, referencePointer + offset),
-    );
+    value.bytes = Array.from(new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset));
     value.message = "Reference Type";
     value.offset = offset;
     value.pointer = referencePointer;
@@ -505,7 +503,7 @@ export class TestCollector {
     const target = this.logTarget;
 
     const long = new Long.fromBytesLE(
-      this.wasm!.U8.slice(boxPointer, boxPointer + 8),
+      new Uint8Array(this.wasm!.memory.buffer, boxPointer, 8),
       !signed,
     );
 
@@ -855,7 +853,7 @@ export class TestCollector {
     const value = new ActualValue();
 
     const long = new Long.fromBytesLE(
-      this.wasm!.U8.slice(boxPointer, boxPointer + 8),
+      new Uint8Array(this.wasm!.memory.buffer, boxPointer, 8),
       !signed,
     );
 
@@ -882,9 +880,7 @@ export class TestCollector {
     value.target = this.logTarget;
     value.pointer = referencePointer;
     value.offset = offset;
-    value.bytes = Array.from(
-      this.wasm!.U8.slice(referencePointer, referencePointer + offset),
-    );
+    value.bytes = Array.from(new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset));
     value.value = referencePointer;
     this.actual = value;
   }
@@ -908,9 +904,7 @@ export class TestCollector {
     value.target = this.logTarget;
     value.pointer = referencePointer;
     value.offset = offset;
-    value.bytes = Array.from(
-      this.wasm!.U8.slice(referencePointer, referencePointer + offset),
-    );
+    value.bytes = Array.from(new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset));
     value.negated = negated === 1;
     value.value = referencePointer;
     this.expected = value;
@@ -932,7 +926,7 @@ export class TestCollector {
     const value = new ActualValue();
 
     const long = new Long.fromBytesLE(
-      this.wasm!.U8.slice(boxPointer, boxPointer + 8),
+      new Uint8Array(this.wasm!.memory.buffer, boxPointer, 8),
       !signed,
     );
 

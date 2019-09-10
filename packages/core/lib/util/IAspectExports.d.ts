@@ -42,8 +42,7 @@ export interface IAspectExports {
     /**
      * Methods below are from ASUtil
      */
-    /** An 8-bit unsigned integer view on the memory. */
-    readonly U8: Uint8Array;
+    readonly memory: WebAssembly.Memory;
     /** Explicit start function, if requested. */
     __start(): void;
     /** Reads (copies) the value of a string from the module's memory. */
