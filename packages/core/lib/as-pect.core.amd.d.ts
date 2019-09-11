@@ -1200,6 +1200,14 @@ declare module "test/TestCollector" {
          * a default value.
          */
         private getString;
+        /**
+         * An override implementation of the AssemblyScript trace function.
+         *
+         * @param {number} strPointer - The trace string.
+         * @param {number} count - The number of arguments to be traced.
+         * @param {number[]} args - The traced arguments.
+         */
+        private trace;
     }
 }
 declare module "test/TestContext" {
