@@ -206,7 +206,10 @@ assert(!negated);</code></pre>
 
   <span class="hljs-comment">// override the operator</span>
   <span class="hljs-meta">@operator</span>(<span class="hljs-string">"=="</span>)
-  <span class="hljs-keyword">protected</span> __equals(ref: Vec3): bool {
+  <span class="hljs-keyword">protected</span> __equals(ref: Vec3 | <span class="hljs-literal">null</span>): bool {
+    <span class="hljs-comment">// === is a strict pointer comparison in AssemblyScript</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> === ref) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">if</span> (ref === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.a == ref.a &amp;&amp; <span class="hljs-keyword">this</span>.b == ref.b &amp;&amp; <span class="hljs-keyword">this</span>.c == ref.c;
   }
 }</code></pre>

@@ -32,6 +32,7 @@
     "types/"
   ],
   "devDependencies": {
-    "assemblyscript": "github:assemblyscript/assemblyscript#22c4cf42f05bd8610e5f8924d27a5b8636405a6d"
+    "assemblyscript": "github:assemblyscript/assemblyscript#22c4cf42f05bd8610e5f8924d27a5b8636405a6d",
+    "markdownlint-cli": "^0.18.0"
   }
 }

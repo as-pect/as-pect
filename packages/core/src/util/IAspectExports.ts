@@ -46,11 +46,10 @@ export interface IAspectExports {
    */
   __cleanup(): void;
 
-  /**
-   * Methods below are from ASUtil
-   */
-
-  readonly memory: WebAssembly.Memory;
+   /** The exported web assembly memory. For compatibility with docs, this is explicit. */
+  readonly memory: {
+    readonly buffer: ArrayBuffer;
+  };
   /** Explicit start function, if requested. */
   __start(): void;
   /** Reads (copies) the value of a string from the module's memory. */

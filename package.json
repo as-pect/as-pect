@@ -33,7 +33,7 @@
     "@as-pect/core": "file:./packages/core",
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.18",
-    "@types/node": "^12.7.4",
+    "@types/node": "^12.7.5",
     "assemblyscript": "github:assemblyscript/assemblyscript#22c4cf42f05bd8610e5f8924d27a5b8636405a6d",
     "coveralls": "^3.0.6",
     "csv-stringify": "^5.3.3",
@@ -46,7 +46,7 @@
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "typedoc": "^0.15.0",
-    "typedoc-plugin-lerna-packages": "^0.1.6",
-    "typescript": "^3.6.2"
+    "typedoc-plugin-lerna-packages": "^0.2.1",
+    "typescript": "^3.6.3"
   }
 }
