@@ -45,7 +45,7 @@ export function init() {
   // create the types file if it doesn't exist for typescript tooling users
   if (!existsSync(typesFile)) {
     console.log(
-      chalk`{bgWhite.black [Log]} Creating file: {yellow assembly/__tests__/as-pect.d.ts}`,
+      chalk`{bgWhite.black [Log]} Creating file: {yellow ./assembly/__tests__/as-pect.d.ts}`,
     );
     createReadStream(typesFileSource, "utf-8").pipe(
       createWriteStream(typesFile, "utf-8"),
@@ -56,7 +56,7 @@ export function init() {
   const configFileSource = join(__dirname, "../init/as-pect.config.js");
   if (!existsSync(configFile)) {
     console.log(
-      chalk`{bgWhite.black [Log]} Creating file: {yellow as-pect.config.js}`,
+      chalk`{bgWhite.black [Log]} Creating file: {yellow ./as-pect.config.js}`,
     );
     createReadStream(configFileSource, "utf-8").pipe(
       createWriteStream(configFile, "utf-8"),

@@ -115,8 +115,10 @@ class Vec3 {
 
   // override the operator
   @operator("==")
-  protected __equals(ref: Vec3): bool {
-    return this.a == ref.a && this.b == ref.b && this.c == ref.c;
+  protected __equals(ref: Vec3 | null): bool {
+    return this === ref
+      || (this !== null && ref !== null
+        && this.a == ref.a && this.b == ref.b && this.c == ref.c);
   }
 }
 ```

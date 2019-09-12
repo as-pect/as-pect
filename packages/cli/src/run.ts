@@ -13,7 +13,6 @@ import { writeFile } from "./util/writeFile";
 import { ICommand } from "./worklets/ICommand";
 import { timeDifference }   from "@as-pect/core/lib/util/timeDifference";
 
-
 /**
  * @ignore
  * This method actually runs the test suites in sequential order synchronously.
@@ -78,7 +77,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       try {
         folderUsed = "dist";
         asc = require(path.join(assemblyScriptFolder, "dist", "asc"));
-      }catch (ex) {
+      } catch (ex) {
         throw ex;
       }
     }

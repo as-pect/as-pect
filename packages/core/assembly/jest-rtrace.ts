@@ -13,6 +13,7 @@ export class Vec3 {
 
   @operator(">")
   protected __greaterThan(reference: Vec3 | null): bool {
+    if (reference === null) return false;
     var magnitude = this.magnitude();
     var refmagnitude = reference.magnitude();
     return magnitude > refmagnitude;
@@ -20,6 +21,7 @@ export class Vec3 {
 
   @operator(">=")
   protected __greaterThanOrEqualTo(reference: Vec3 | null): bool {
+    if (reference === null) return false;
     var magnitude = this.magnitude();
     var refmagnitude = reference.magnitude();
     return magnitude >= refmagnitude;
@@ -27,6 +29,7 @@ export class Vec3 {
 
   @operator("<")
   protected __lessThan(reference: Vec3 | null): bool {
+    if (reference === null) return false;
     var magnitude = this.magnitude();
     var refmagnitude = reference.magnitude();
     return magnitude < refmagnitude;
@@ -34,6 +37,7 @@ export class Vec3 {
 
   @operator("<=")
   protected __lessThanOrEqualTo(reference: Vec3 | null): bool {
+    if (reference === null) return false;
     var magnitude = this.magnitude();
     var refmagnitude = reference.magnitude();
     return magnitude <= refmagnitude;
@@ -42,15 +46,15 @@ export class Vec3 {
   @operator("==")
   protected __equals(reference: Vec3 | null): bool {
     if (this === reference) return true;
-    if (i32(this === null) ^ i32(reference === null)) return false;
+    if (reference === null) return false;
     return this.x == reference.x
       && this.y == reference.y
       && this.z == reference.z;
   }
 }
 
-let globalVec: Vec3 | null = null;
 let globalVecArray: Vec3[] = new Array<Vec3>(0);
+let globalVec: Vec3 | null;
 
 describe("RTrace tests", () => {
   it("should allocate an object", () => {
@@ -66,7 +70,6 @@ describe("RTrace tests", () => {
       globalVecArray.push(new Vec3(1, 2, 3));
     }
   });
-
 
   it("should count references", () => {
     log<i32>(RTrace.count());

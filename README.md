@@ -177,7 +177,10 @@ class Vec3 {
 
   // override the operator
   @operator("==")
-  protected __equals(ref: Vec3): bool {
+  protected __equals(ref: Vec3 | null): bool {
+    // === is a strict pointer comparison in AssemblyScript
+    if (this === ref) return true;
+    if (ref === null) return false;
     return this.a == ref.a && this.b == ref.b && this.c == ref.c;
   }
 }

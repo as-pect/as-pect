@@ -34,7 +34,7 @@ export function portable() {
 
   // Always create the types file
   console.log(
-    chalk`{bgWhite.black [Log]} Creating file: {yellow assembly/__tests__/as-pect.d.ts}`,
+    chalk`{bgWhite.black [Log]} Creating file: {yellow ./assembly/__tests__/as-pect.d.ts}`,
   );
   createReadStream(typesFileSource, "utf-8").pipe(
     createWriteStream(typesFile, "utf-8")

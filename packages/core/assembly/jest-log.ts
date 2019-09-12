@@ -13,8 +13,9 @@ export class Vec3 {
 
   @operator("==")
   protected __equals(reference: Vec3 | null): bool {
-    if (reference === this) return false;
-    if (i32(reference === null) ^ i32(this === null)) return false;
+    if (reference === this) return true;
+    if (reference === null) return false;
+    //@ts-ignore
     return this.x == reference.x
       && this.y == reference.y
       && this.z == reference.z;
@@ -46,6 +47,7 @@ describe("logs", () => {
   log<bool>(false);
   log<Uint8Array>(testArray);
   log<Int8Array>(testArray2);
+  trace("The thing!", 5, 1, 2, 3, 4, 5);
 
   test("logs", () => {
     log<string>("Hello world!");
@@ -62,6 +64,7 @@ describe("logs", () => {
     log<bool>(false);
     log<Uint8Array>(testArray);
     log<Int8Array>(testArray2);
+    trace("The thing!", 5, 1, 2, 3, 4, 5);
   });
 
   todo("one");

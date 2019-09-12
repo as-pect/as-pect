@@ -146,7 +146,8 @@ export declare class TestCollector {
     /**
      * Log a long value.
      *
-     * @param suiteNamePointer - The boxed long value's pointer.
+     * @param {number} boxPointer - The boxed long value's pointer.
+     * @param {1 | 0} signed - An indicator if the long is signed.
      */
     private logLong;
     /**
@@ -612,4 +613,12 @@ export declare class TestCollector {
      * a default value.
      */
     private getString;
+    /**
+     * An override implementation of the AssemblyScript trace function.
+     *
+     * @param {number} strPointer - The trace string.
+     * @param {number} count - The number of arguments to be traced.
+     * @param {number[]} args - The traced arguments.
+     */
+    private trace;
 }

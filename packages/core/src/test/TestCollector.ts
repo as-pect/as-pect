@@ -346,6 +346,9 @@ export class TestCollector {
       // @ts-ignore
       this.abort(...args);
     };
+    /** Override trace completely. */
+    result.env.trace = this.trace.bind(this);
+
     return result;
   }
 
@@ -438,9 +441,7 @@ export class TestCollector {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.bytes = Array.from(
-      this.wasm!.U8.slice(referencePointer, referencePointer + offset),
-    );
+    value.bytes = Array.from(new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset));
     value.message = "Reference Type";
     value.offset = offset;
     value.pointer = referencePointer;
@@ -497,14 +498,15 @@ export class TestCollector {
   /**
    * Log a long value.
    *
-   * @param suiteNamePointer - The boxed long value's pointer.
+   * @param {number} boxPointer - The boxed long value's pointer.
+   * @param {1 | 0} signed - An indicator if the long is signed.
    */
   private logLong(boxPointer: number, signed: 1 | 0): void {
     const value = new LogValue();
     const target = this.logTarget;
 
     const long = new Long.fromBytesLE(
-      this.wasm!.U8.slice(boxPointer, boxPointer + 8),
+      new Uint8Array(this.wasm!.memory.buffer, boxPointer, 8),
       !signed,
     );
 
@@ -854,7 +856,7 @@ export class TestCollector {
     const value = new ActualValue();
 
     const long = new Long.fromBytesLE(
-      this.wasm!.U8.slice(boxPointer, boxPointer + 8),
+      new Uint8Array(this.wasm!.memory.buffer, boxPointer, 8),
       !signed,
     );
 
@@ -881,9 +883,7 @@ export class TestCollector {
     value.target = this.logTarget;
     value.pointer = referencePointer;
     value.offset = offset;
-    value.bytes = Array.from(
-      this.wasm!.U8.slice(referencePointer, referencePointer + offset),
-    );
+    value.bytes = Array.from(new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset));
     value.value = referencePointer;
     this.actual = value;
   }
@@ -907,9 +907,7 @@ export class TestCollector {
     value.target = this.logTarget;
     value.pointer = referencePointer;
     value.offset = offset;
-    value.bytes = Array.from(
-      this.wasm!.U8.slice(referencePointer, referencePointer + offset),
-    );
+    value.bytes = Array.from(new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset));
     value.negated = negated === 1;
     value.value = referencePointer;
     this.expected = value;
@@ -931,7 +929,7 @@ export class TestCollector {
     const value = new ActualValue();
 
     const long = new Long.fromBytesLE(
-      this.wasm!.U8.slice(boxPointer, boxPointer + 8),
+      new Uint8Array(this.wasm!.memory.buffer, boxPointer, 8),
       !signed,
     );
 
@@ -1664,5 +1662,27 @@ export class TestCollector {
    */
   private getString(pointer: number, defaultValue: string): string {
     return pointer === 0 ? defaultValue : this.wasm!.__getString(pointer);
+  }
+
+  /**
+   * An override implementation of the AssemblyScript trace function.
+   *
+   * @param {number} strPointer - The trace string.
+   * @param {number} count - The number of arguments to be traced.
+   * @param {number[]} args - The traced arguments.
+   */
+  private trace(strPointer: number, count: number, ...args: number[]): void {
+    const value = new LogValue();
+    const target = this.logTarget;
+
+    value.message = `trace: ${this.getString(strPointer, "")} ${args.slice(0, count).join(", ")}`;
+    value.offset = 0;
+    value.pointer = strPointer;
+    value.stack = this.getLogStackTrace();
+    value.target = target;
+    value.value = null;
+
+    // push the log value to the logs
+    target.logs.push(value);
   }
 }

@@ -537,11 +537,10 @@ declare module "util/IAspectExports" {
          * This method clears internal actual and expected values.
          */
         __cleanup(): void;
-        /**
-         * Methods below are from ASUtil
-         */
-        /** An 8-bit unsigned integer view on the memory. */
-        readonly U8: Uint8Array;
+        /** The exported web assembly memory. For compatibility with docs, this is explicit. */
+        readonly memory: {
+            readonly buffer: ArrayBuffer;
+        };
         /** Explicit start function, if requested. */
         __start(): void;
         /** Reads (copies) the value of a string from the module's memory. */
@@ -734,7 +733,8 @@ declare module "test/TestCollector" {
         /**
          * Log a long value.
          *
-         * @param suiteNamePointer - The boxed long value's pointer.
+         * @param {number} boxPointer - The boxed long value's pointer.
+         * @param {1 | 0} signed - An indicator if the long is signed.
          */
         private logLong;
         /**
@@ -1200,6 +1200,14 @@ declare module "test/TestCollector" {
          * a default value.
          */
         private getString;
+        /**
+         * An override implementation of the AssemblyScript trace function.
+         *
+         * @param {number} strPointer - The trace string.
+         * @param {number} count - The number of arguments to be traced.
+         * @param {number[]} args - The traced arguments.
+         */
+        private trace;
     }
 }
 declare module "test/TestContext" {
