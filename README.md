@@ -639,7 +639,7 @@ The object ouput definition is shaped like this:
     ran: result.ran,
     // If it passed
     pass: result.pass,
-    // The total test runtim
+    // The total test runtime
     runtime: result.runTime,
     // The error message
     message: result.message,
