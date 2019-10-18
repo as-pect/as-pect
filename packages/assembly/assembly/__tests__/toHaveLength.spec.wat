@@ -5,8 +5,8 @@
  (type $FUNCSIG$viiii (func (param i32 i32 i32 i32)))
  (type $FUNCSIG$vii (func (param i32 i32)))
  (type $FUNCSIG$ii (func (param i32) (result i32)))
- (type $FUNCSIG$viii (func (param i32 i32 i32)))
  (type $FUNCSIG$vi (func (param i32)))
+ (type $FUNCSIG$viii (func (param i32 i32 i32)))
  (type $FUNCSIG$i (func (result i32)))
  (type $FUNCSIG$viij (func (param i32 i32 i64)))
  (type $FUNCSIG$viif (func (param i32 i32 f32)))
@@ -14,10 +14,10 @@
  (type $FUNCSIG$vdii (func (param f64 i32 i32)))
  (type $FUNCSIG$vdiii (func (param f64 i32 i32 i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
+ (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
- (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
  (import "__aspect" "getStackTrace" (func $assembly/internal/report/Actual/getStackTrace (result i32)))
  (import "__aspect" "reportInvalidExpectCall" (func $assembly/internal/report/Expected/reportInvalidExpectCall))
  (import "__aspect" "getStackTrace" (func $assembly/internal/report/Expected/getStackTrace (result i32)))
@@ -91,9 +91,11 @@
  (table $0 69 funcref)
  (elem (i32.const 0) $null $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|0 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|1 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|2 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|3 $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/toHaveLength.spec~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/toHaveLength.spec~anonymous|1 $start:assembly/__tests__/toHaveLength.spec~anonymous|2~anonymous|0 $start:assembly/__tests__/toHaveLength.spec~anonymous|2)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
+ (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
+ (global $~lib/gc/gc.auto (mut i32) (i32.const 1))
+ (global $~lib/rt/pure/ROOTS (mut i32) (i32.const 0))
  (global $~lib/rt/pure/CUR (mut i32) (i32.const 0))
  (global $~lib/rt/pure/END (mut i32) (i32.const 0))
- (global $~lib/rt/pure/ROOTS (mut i32) (i32.const 0))
  (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $assembly/internal/report/Actual/Actual.type (mut i32) (i32.const 0))
  (global $assembly/internal/report/Actual/Actual.signed (mut i32) (i32.const 0))
@@ -1204,7 +1206,298 @@
   end
   local.get $7
  )
- (func $~lib/rt/tlsf/growMemory (; 37 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/markGray (; 37 ;) (type $FUNCSIG$vi) (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  i32.load offset=4
+  local.set $1
+  local.get $1
+  i32.const 1879048192
+  i32.and
+  i32.const 268435456
+  i32.ne
+  if
+   local.get $0
+   local.get $1
+   i32.const 1879048192
+   i32.const -1
+   i32.xor
+   i32.and
+   i32.const 268435456
+   i32.or
+   i32.store offset=4
+   local.get $0
+   i32.const 16
+   i32.add
+   i32.const 2
+   call $~lib/rt/__visit_members
+  end
+ )
+ (func $~lib/rt/tlsf/freeBlock (; 38 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $1
+  i32.load
+  local.set $2
+  local.get $2
+  i32.const 1
+  i32.and
+  i32.eqz
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 24
+   i32.const 563
+   i32.const 2
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $1
+  local.get $2
+  i32.const 1
+  i32.or
+  i32.store
+  local.get $0
+  local.get $1
+  call $~lib/rt/tlsf/insertBlock
+  local.get $1
+  call $~lib/rt/rtrace/onfree
+ )
+ (func $~lib/rt/pure/scanBlack (; 39 ;) (type $FUNCSIG$vi) (param $0 i32)
+  local.get $0
+  local.get $0
+  i32.load offset=4
+  i32.const 1879048192
+  i32.const -1
+  i32.xor
+  i32.and
+  i32.const 0
+  i32.or
+  i32.store offset=4
+  local.get $0
+  i32.const 16
+  i32.add
+  i32.const 4
+  call $~lib/rt/__visit_members
+ )
+ (func $~lib/rt/pure/scan (; 40 ;) (type $FUNCSIG$vi) (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  i32.load offset=4
+  local.set $1
+  local.get $1
+  i32.const 1879048192
+  i32.and
+  i32.const 268435456
+  i32.eq
+  if
+   local.get $1
+   i32.const 268435455
+   i32.and
+   i32.const 0
+   i32.gt_u
+   if
+    local.get $0
+    call $~lib/rt/pure/scanBlack
+   else
+    local.get $0
+    local.get $1
+    i32.const 1879048192
+    i32.const -1
+    i32.xor
+    i32.and
+    i32.const 536870912
+    i32.or
+    i32.store offset=4
+    local.get $0
+    i32.const 16
+    i32.add
+    i32.const 3
+    call $~lib/rt/__visit_members
+   end
+  end
+ )
+ (func $~lib/rt/pure/collectWhite (; 41 ;) (type $FUNCSIG$vi) (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  i32.load offset=4
+  local.set $1
+  local.get $1
+  i32.const 1879048192
+  i32.and
+  i32.const 536870912
+  i32.eq
+  if (result i32)
+   local.get $1
+   i32.const -2147483648
+   i32.and
+   i32.eqz
+  else
+   i32.const 0
+  end
+  if
+   local.get $0
+   local.get $1
+   i32.const 1879048192
+   i32.const -1
+   i32.xor
+   i32.and
+   i32.const 0
+   i32.or
+   i32.store offset=4
+   local.get $0
+   i32.const 16
+   i32.add
+   i32.const 5
+   call $~lib/rt/__visit_members
+   global.get $~lib/rt/tlsf/ROOT
+   local.get $0
+   call $~lib/rt/tlsf/freeBlock
+  end
+ )
+ (func $~lib/rt/pure/__collect (; 42 ;) (type $FUNCSIG$v)
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  global.get $~lib/rt/pure/ROOTS
+  local.set $0
+  local.get $0
+  local.set $1
+  block $break|0
+   local.get $1
+   local.set $2
+   global.get $~lib/rt/pure/CUR
+   local.set $3
+   loop $loop|0
+    local.get $2
+    local.get $3
+    i32.lt_u
+    i32.eqz
+    br_if $break|0
+    local.get $2
+    i32.load
+    local.set $4
+    local.get $4
+    i32.load offset=4
+    local.set $5
+    local.get $5
+    i32.const 1879048192
+    i32.and
+    i32.const 805306368
+    i32.eq
+    if (result i32)
+     local.get $5
+     i32.const 268435455
+     i32.and
+     i32.const 0
+     i32.gt_u
+    else
+     i32.const 0
+    end
+    if
+     local.get $4
+     call $~lib/rt/pure/markGray
+     local.get $1
+     local.get $4
+     i32.store
+     local.get $1
+     i32.const 4
+     i32.add
+     local.set $1
+    else
+     local.get $5
+     i32.const 1879048192
+     i32.and
+     i32.const 0
+     i32.eq
+     if (result i32)
+      local.get $5
+      i32.const 268435455
+      i32.and
+      i32.eqz
+     else
+      i32.const 0
+     end
+     if
+      global.get $~lib/rt/tlsf/ROOT
+      local.get $4
+      call $~lib/rt/tlsf/freeBlock
+     else
+      local.get $4
+      local.get $5
+      i32.const -2147483648
+      i32.const -1
+      i32.xor
+      i32.and
+      i32.store offset=4
+     end
+    end
+    local.get $2
+    i32.const 4
+    i32.add
+    local.set $2
+    br $loop|0
+   end
+   unreachable
+  end
+  local.get $1
+  global.set $~lib/rt/pure/CUR
+  block $break|1
+   local.get $0
+   local.set $5
+   loop $loop|1
+    local.get $5
+    local.get $1
+    i32.lt_u
+    i32.eqz
+    br_if $break|1
+    local.get $5
+    i32.load
+    call $~lib/rt/pure/scan
+    local.get $5
+    i32.const 4
+    i32.add
+    local.set $5
+    br $loop|1
+   end
+   unreachable
+  end
+  block $break|2
+   local.get $0
+   local.set $5
+   loop $loop|2
+    local.get $5
+    local.get $1
+    i32.lt_u
+    i32.eqz
+    br_if $break|2
+    local.get $5
+    i32.load
+    local.set $4
+    local.get $4
+    local.get $4
+    i32.load offset=4
+    i32.const -2147483648
+    i32.const -1
+    i32.xor
+    i32.and
+    i32.store offset=4
+    local.get $4
+    call $~lib/rt/pure/collectWhite
+    local.get $5
+    i32.const 4
+    i32.add
+    local.set $5
+    br $loop|2
+   end
+   unreachable
+  end
+  local.get $0
+  global.set $~lib/rt/pure/CUR
+ )
+ (func $~lib/rt/tlsf/growMemory (; 43 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -1288,7 +1581,7 @@
   call $~lib/rt/tlsf/addMemory
   drop
  )
- (func $~lib/rt/tlsf/prepareBlock (; 38 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/rt/tlsf/prepareBlock (; 44 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -1383,9 +1676,20 @@
    i32.store
   end
  )
- (func $~lib/rt/tlsf/allocateBlock (; 39 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/allocateBlock (; 45 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
+  global.get $~lib/rt/tlsf/collectLock
+  i32.eqz
+  i32.eqz
+  if
+   i32.const 0
+   i32.const 24
+   i32.const 486
+   i32.const 13
+   call $~lib/builtins/abort
+   unreachable
+  end
   local.get $1
   call $~lib/rt/tlsf/prepareSize
   local.set $2
@@ -1396,22 +1700,56 @@
   local.get $3
   i32.eqz
   if
-   local.get $0
-   local.get $2
-   call $~lib/rt/tlsf/growMemory
-   local.get $0
-   local.get $2
-   call $~lib/rt/tlsf/searchBlock
-   local.set $3
-   local.get $3
-   i32.eqz
+   global.get $~lib/gc/gc.auto
    if
+    i32.const 1
+    global.set $~lib/rt/tlsf/collectLock
+    call $~lib/rt/pure/__collect
     i32.const 0
-    i32.const 24
-    i32.const 487
-    i32.const 15
-    call $~lib/builtins/abort
-    unreachable
+    global.set $~lib/rt/tlsf/collectLock
+    local.get $0
+    local.get $2
+    call $~lib/rt/tlsf/searchBlock
+    local.set $3
+    local.get $3
+    i32.eqz
+    if
+     local.get $0
+     local.get $2
+     call $~lib/rt/tlsf/growMemory
+     local.get $0
+     local.get $2
+     call $~lib/rt/tlsf/searchBlock
+     local.set $3
+     local.get $3
+     i32.eqz
+     if
+      i32.const 0
+      i32.const 24
+      i32.const 498
+      i32.const 19
+      call $~lib/builtins/abort
+      unreachable
+     end
+    end
+   else
+    local.get $0
+    local.get $2
+    call $~lib/rt/tlsf/growMemory
+    local.get $0
+    local.get $2
+    call $~lib/rt/tlsf/searchBlock
+    local.set $3
+    local.get $3
+    i32.eqz
+    if
+     i32.const 0
+     i32.const 24
+     i32.const 503
+     i32.const 17
+     call $~lib/builtins/abort
+     unreachable
+    end
    end
   end
   local.get $3
@@ -1424,7 +1762,7 @@
   if
    i32.const 0
    i32.const 24
-   i32.const 489
+   i32.const 506
    i32.const 13
    call $~lib/builtins/abort
    unreachable
@@ -1446,7 +1784,7 @@
   call $~lib/rt/rtrace/onalloc
   local.get $3
  )
- (func $~lib/rt/tlsf/__alloc (; 40 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/__alloc (; 46 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   global.get $~lib/rt/tlsf/ROOT
@@ -1469,7 +1807,7 @@
   i32.const 16
   i32.add
  )
- (func $~lib/rt/pure/increment (; 41 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/increment (; 47 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -1514,7 +1852,7 @@
    unreachable
   end
  )
- (func $~lib/rt/pure/__retain (; 42 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/rt/pure/__retain (; 48 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   global.get $~lib/heap/__heap_base
   i32.gt_u
@@ -1526,36 +1864,7 @@
   end
   local.get $0
  )
- (func $~lib/rt/tlsf/freeBlock (; 43 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  local.get $1
-  i32.load
-  local.set $2
-  local.get $2
-  i32.const 1
-  i32.and
-  i32.eqz
-  i32.eqz
-  if
-   i32.const 0
-   i32.const 24
-   i32.const 546
-   i32.const 2
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $1
-  local.get $2
-  i32.const 1
-  i32.or
-  i32.store
-  local.get $0
-  local.get $1
-  call $~lib/rt/tlsf/insertBlock
-  local.get $1
-  call $~lib/rt/rtrace/onfree
- )
- (func $~lib/rt/__typeinfo (; 44 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/rt/__typeinfo (; 49 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   global.get $~lib/rt/__rtti_base
   local.set $1
@@ -1580,7 +1889,7 @@
   i32.add
   i32.load
  )
- (func $~lib/util/memory/memcpy (; 45 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/util/memory/memcpy (; 50 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -2608,7 +2917,7 @@
    i32.store8
   end
  )
- (func $~lib/memory/memory.copy (; 46 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/memory/memory.copy (; 51 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -2833,13 +3142,13 @@
    end
   end
  )
- (func $~lib/rt/tlsf/__free (; 47 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/tlsf/__free (; 52 ;) (type $FUNCSIG$vi) (param $0 i32)
   global.get $~lib/rt/tlsf/ROOT
   i32.eqz
   if
    i32.const 0
    i32.const 24
-   i32.const 576
+   i32.const 593
    i32.const 13
    call $~lib/builtins/abort
    unreachable
@@ -2859,7 +3168,7 @@
   if
    i32.const 0
    i32.const 24
-   i32.const 577
+   i32.const 594
    i32.const 2
    call $~lib/builtins/abort
    unreachable
@@ -2870,7 +3179,7 @@
   i32.sub
   call $~lib/rt/tlsf/freeBlock
  )
- (func $~lib/rt/pure/growRoots (; 48 ;) (type $FUNCSIG$v)
+ (func $~lib/rt/pure/growRoots (; 53 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -2928,7 +3237,7 @@
   i32.add
   global.set $~lib/rt/pure/END
  )
- (func $~lib/rt/pure/appendRoot (; 49 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/appendRoot (; 54 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   global.get $~lib/rt/pure/CUR
   local.set $1
@@ -2948,7 +3257,7 @@
   i32.add
   global.set $~lib/rt/pure/CUR
  )
- (func $~lib/rt/pure/decrement (; 50 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 55 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -3052,7 +3361,7 @@
    end
   end
  )
- (func $~lib/rt/pure/__release (; 51 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $~lib/rt/pure/__release (; 56 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   global.get $~lib/heap/__heap_base
   i32.gt_u
@@ -3062,268 +3371,6 @@
    i32.sub
    call $~lib/rt/pure/decrement
   end
- )
- (func $~lib/rt/pure/markGray (; 52 ;) (type $FUNCSIG$vi) (param $0 i32)
-  (local $1 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $1
-  local.get $1
-  i32.const 1879048192
-  i32.and
-  i32.const 268435456
-  i32.ne
-  if
-   local.get $0
-   local.get $1
-   i32.const 1879048192
-   i32.const -1
-   i32.xor
-   i32.and
-   i32.const 268435456
-   i32.or
-   i32.store offset=4
-   local.get $0
-   i32.const 16
-   i32.add
-   i32.const 2
-   call $~lib/rt/__visit_members
-  end
- )
- (func $~lib/rt/pure/scanBlack (; 53 ;) (type $FUNCSIG$vi) (param $0 i32)
-  local.get $0
-  local.get $0
-  i32.load offset=4
-  i32.const 1879048192
-  i32.const -1
-  i32.xor
-  i32.and
-  i32.const 0
-  i32.or
-  i32.store offset=4
-  local.get $0
-  i32.const 16
-  i32.add
-  i32.const 4
-  call $~lib/rt/__visit_members
- )
- (func $~lib/rt/pure/scan (; 54 ;) (type $FUNCSIG$vi) (param $0 i32)
-  (local $1 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $1
-  local.get $1
-  i32.const 1879048192
-  i32.and
-  i32.const 268435456
-  i32.eq
-  if
-   local.get $1
-   i32.const 268435455
-   i32.and
-   i32.const 0
-   i32.gt_u
-   if
-    local.get $0
-    call $~lib/rt/pure/scanBlack
-   else
-    local.get $0
-    local.get $1
-    i32.const 1879048192
-    i32.const -1
-    i32.xor
-    i32.and
-    i32.const 536870912
-    i32.or
-    i32.store offset=4
-    local.get $0
-    i32.const 16
-    i32.add
-    i32.const 3
-    call $~lib/rt/__visit_members
-   end
-  end
- )
- (func $~lib/rt/pure/collectWhite (; 55 ;) (type $FUNCSIG$vi) (param $0 i32)
-  (local $1 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $1
-  local.get $1
-  i32.const 1879048192
-  i32.and
-  i32.const 536870912
-  i32.eq
-  if (result i32)
-   local.get $1
-   i32.const -2147483648
-   i32.and
-   i32.eqz
-  else
-   i32.const 0
-  end
-  if
-   local.get $0
-   local.get $1
-   i32.const 1879048192
-   i32.const -1
-   i32.xor
-   i32.and
-   i32.const 0
-   i32.or
-   i32.store offset=4
-   local.get $0
-   i32.const 16
-   i32.add
-   i32.const 5
-   call $~lib/rt/__visit_members
-   global.get $~lib/rt/tlsf/ROOT
-   local.get $0
-   call $~lib/rt/tlsf/freeBlock
-  end
- )
- (func $~lib/rt/pure/__collect (; 56 ;) (type $FUNCSIG$v)
-  (local $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  global.get $~lib/rt/pure/ROOTS
-  local.set $0
-  local.get $0
-  local.set $1
-  block $break|0
-   local.get $1
-   local.set $2
-   global.get $~lib/rt/pure/CUR
-   local.set $3
-   loop $loop|0
-    local.get $2
-    local.get $3
-    i32.lt_u
-    i32.eqz
-    br_if $break|0
-    local.get $2
-    i32.load
-    local.set $4
-    local.get $4
-    i32.load offset=4
-    local.set $5
-    local.get $5
-    i32.const 1879048192
-    i32.and
-    i32.const 805306368
-    i32.eq
-    if (result i32)
-     local.get $5
-     i32.const 268435455
-     i32.and
-     i32.const 0
-     i32.gt_u
-    else
-     i32.const 0
-    end
-    if
-     local.get $4
-     call $~lib/rt/pure/markGray
-     local.get $1
-     local.get $4
-     i32.store
-     local.get $1
-     i32.const 4
-     i32.add
-     local.set $1
-    else
-     local.get $5
-     i32.const 1879048192
-     i32.and
-     i32.const 0
-     i32.eq
-     if (result i32)
-      local.get $5
-      i32.const 268435455
-      i32.and
-      i32.eqz
-     else
-      i32.const 0
-     end
-     if
-      global.get $~lib/rt/tlsf/ROOT
-      local.get $4
-      call $~lib/rt/tlsf/freeBlock
-     else
-      local.get $4
-      local.get $5
-      i32.const -2147483648
-      i32.const -1
-      i32.xor
-      i32.and
-      i32.store offset=4
-     end
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $loop|0
-   end
-   unreachable
-  end
-  local.get $1
-  global.set $~lib/rt/pure/CUR
-  block $break|1
-   local.get $0
-   local.set $5
-   loop $loop|1
-    local.get $5
-    local.get $1
-    i32.lt_u
-    i32.eqz
-    br_if $break|1
-    local.get $5
-    i32.load
-    call $~lib/rt/pure/scan
-    local.get $5
-    i32.const 4
-    i32.add
-    local.set $5
-    br $loop|1
-   end
-   unreachable
-  end
-  block $break|2
-   local.get $0
-   local.set $5
-   loop $loop|2
-    local.get $5
-    local.get $1
-    i32.lt_u
-    i32.eqz
-    br_if $break|2
-    local.get $5
-    i32.load
-    local.set $4
-    local.get $4
-    local.get $4
-    i32.load offset=4
-    i32.const -2147483648
-    i32.const -1
-    i32.xor
-    i32.and
-    i32.store offset=4
-    local.get $4
-    call $~lib/rt/pure/collectWhite
-    local.get $5
-    i32.const 4
-    i32.add
-    local.set $5
-    br $loop|2
-   end
-   unreachable
-  end
-  local.get $0
-  global.set $~lib/rt/pure/CUR
  )
  (func $~lib/string/String#get:length (; 57 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
@@ -3708,7 +3755,7 @@
   if
    i32.const 512
    i32.const 560
-   i32.const 14
+   i32.const 23
    i32.const 56
    call $~lib/builtins/abort
    unreachable
@@ -3791,7 +3838,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 158
+   i32.const 159
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -3858,15 +3905,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/arraybuffer/ArrayBufferView#get:byteLength (; 66 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint8Array#get:length (; 66 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=8
  )
- (func $~lib/typedarray/Uint8Array#get:length (; 67 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
-  local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
- )
- (func $assembly/internal/report/Actual/Actual.report<i32> (; 68 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<i32> (; 67 ;) (type $FUNCSIG$vi) (param $0 i32)
   call $assembly/internal/report/Actual/getStackTrace
   global.set $assembly/internal/report/Actual/Actual.stackTrace
   i32.const 3
@@ -3892,7 +3935,7 @@
   local.get $0
   global.set $assembly/internal/report/Actual/Actual.integer
  )
- (func $assembly/internal/report/Expected/Expected.report<i32> (; 69 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<i32> (; 68 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   global.get $assembly/internal/report/Expected/Expected.ready
   i32.eqz
   if
@@ -3926,7 +3969,7 @@
   local.get $0
   global.set $assembly/internal/report/Expected/Expected.integer
  )
- (func $assembly/internal/report/Actual/Actual.clear (; 70 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/Actual/Actual.clear (; 69 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/report/Actual/Actual.type
   global.get $assembly/internal/report/Actual/Actual.reference
@@ -3946,7 +3989,7 @@
   i32.const -1
   global.set $assembly/internal/report/Actual/Actual.stackTrace
  )
- (func $assembly/internal/report/Expected/Expected.clear (; 71 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/Expected/Expected.clear (; 70 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/report/Expected/Expected.type
   global.get $assembly/internal/report/Expected/Expected.reference
@@ -3964,7 +4007,7 @@
    global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#toHaveLength (; 72 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#toHaveLength (; 71 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4029,7 +4072,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|0 (; 73 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|0 (; 72 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4069,7 +4112,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 74 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 73 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -4079,14 +4122,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#get:not (; 75 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8Array>#get:not (; 74 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|1 (; 76 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|1 (; 75 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4130,7 +4173,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/throws (; 77 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Test/throws (; 76 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -4146,7 +4189,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|2 (; 78 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|2 (; 77 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4190,7 +4233,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|3 (; 79 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0~anonymous|3 (; 78 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4230,7 +4273,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0 (; 80 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8>~anonymous|0 (; 79 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 1
   call $assembly/internal/Test/it
@@ -4246,10 +4289,10 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 81 ;) (type $FUNCSIG$v)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 80 ;) (type $FUNCSIG$v)
   nop
  )
- (func $assembly/internal/Describe/describe (; 82 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 81 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   drop
@@ -4263,7 +4306,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8> (; 83 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8Array,u8> (; 82 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4279,7 +4322,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Uint8ClampedArray#constructor (; 84 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint8ClampedArray#constructor (; 83 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -4295,7 +4338,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint8ClampedArray#__set (; 85 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Uint8ClampedArray#__set (; 84 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -4303,7 +4346,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 278
+   i32.const 283
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -4327,7 +4370,7 @@
   i32.and
   i32.store8
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#constructor (; 86 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#constructor (; 85 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -4369,7 +4412,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint8ClampedArray> (; 87 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint8ClampedArray> (; 86 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4382,11 +4425,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Uint8ClampedArray#get:length (; 88 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint8ClampedArray#get:length (; 87 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#toHaveLength (; 89 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#toHaveLength (; 88 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4451,7 +4494,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|0 (; 90 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|0 (; 89 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4491,14 +4534,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#get:not (; 91 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint8ClampedArray>#get:not (; 90 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|1 (; 92 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|1 (; 91 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4542,7 +4585,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|2 (; 93 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|2 (; 92 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4586,7 +4629,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|3 (; 94 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0~anonymous|3 (; 93 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4626,7 +4669,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0 (; 95 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8>~anonymous|0 (; 94 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 7
   call $assembly/internal/Test/it
@@ -4642,7 +4685,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8> (; 96 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint8ClampedArray,u8> (; 95 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4658,7 +4701,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Int8Array#constructor (; 97 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Int8Array#constructor (; 96 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -4674,7 +4717,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Int8Array#__set (; 98 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Int8Array#__set (; 97 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -4682,7 +4725,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 38
+   i32.const 35
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -4694,7 +4737,7 @@
   local.get $2
   i32.store8
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#constructor (; 99 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#constructor (; 98 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -4736,7 +4779,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Int8Array> (; 100 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Int8Array> (; 99 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -4749,11 +4792,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Int8Array#get:length (; 101 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Int8Array#get:length (; 100 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#toHaveLength (; 102 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#toHaveLength (; 101 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -4818,7 +4861,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|0 (; 103 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|0 (; 102 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4858,14 +4901,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#get:not (; 104 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int8Array>#get:not (; 103 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|1 (; 105 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|1 (; 104 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4909,7 +4952,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|2 (; 106 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|2 (; 105 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4953,7 +4996,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|3 (; 107 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0~anonymous|3 (; 106 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -4993,7 +5036,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0 (; 108 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8>~anonymous|0 (; 107 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 12
   call $assembly/internal/Test/it
@@ -5009,7 +5052,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8> (; 109 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int8Array,i8> (; 108 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5025,7 +5068,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Uint16Array#constructor (; 110 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint16Array#constructor (; 109 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -5041,7 +5084,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint16Array#__set (; 111 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Uint16Array#__set (; 110 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -5051,7 +5094,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 518
+   i32.const 531
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -5065,7 +5108,7 @@
   local.get $2
   i32.store16
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#constructor (; 112 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#constructor (; 111 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -5107,7 +5150,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint16Array> (; 113 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint16Array> (; 112 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5120,13 +5163,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Uint16Array#get:length (; 114 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint16Array#get:length (; 113 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
   i32.const 1
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#toHaveLength (; 115 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#toHaveLength (; 114 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -5191,7 +5234,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|0 (; 116 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|0 (; 115 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5231,14 +5274,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#get:not (; 117 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint16Array>#get:not (; 116 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|1 (; 118 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|1 (; 117 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5282,7 +5325,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|2 (; 119 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|2 (; 118 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5326,7 +5369,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|3 (; 120 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0~anonymous|3 (; 119 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5366,7 +5409,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0 (; 121 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16>~anonymous|0 (; 120 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 17
   call $assembly/internal/Test/it
@@ -5382,7 +5425,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16> (; 122 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint16Array,u16> (; 121 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5398,7 +5441,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Int16Array#constructor (; 123 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Int16Array#constructor (; 122 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -5414,7 +5457,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Int16Array#__set (; 124 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Int16Array#__set (; 123 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -5424,7 +5467,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 398
+   i32.const 407
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -5438,7 +5481,7 @@
   local.get $2
   i32.store16
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#constructor (; 125 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#constructor (; 124 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -5480,7 +5523,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Int16Array> (; 126 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Int16Array> (; 125 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5493,13 +5536,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Int16Array#get:length (; 127 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Int16Array#get:length (; 126 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
   i32.const 1
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#toHaveLength (; 128 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#toHaveLength (; 127 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -5564,7 +5607,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|0 (; 129 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|0 (; 128 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5604,14 +5647,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#get:not (; 130 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int16Array>#get:not (; 129 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|1 (; 131 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|1 (; 130 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5655,7 +5698,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|2 (; 132 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|2 (; 131 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5699,7 +5742,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|3 (; 133 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0~anonymous|3 (; 132 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5739,7 +5782,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0 (; 134 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16>~anonymous|0 (; 133 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 22
   call $assembly/internal/Test/it
@@ -5755,7 +5798,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16> (; 135 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int16Array,i16> (; 134 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5771,7 +5814,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Uint32Array#constructor (; 136 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint32Array#constructor (; 135 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -5787,7 +5830,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint32Array#__set (; 137 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Uint32Array#__set (; 136 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -5797,7 +5840,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 758
+   i32.const 779
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -5811,7 +5854,7 @@
   local.get $2
   i32.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#constructor (; 138 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#constructor (; 137 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -5853,7 +5896,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint32Array> (; 139 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint32Array> (; 138 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -5866,13 +5909,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Uint32Array#get:length (; 140 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint32Array#get:length (; 139 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
   i32.const 2
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#toHaveLength (; 141 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#toHaveLength (; 140 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -5937,7 +5980,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|0 (; 142 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|0 (; 141 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -5977,14 +6020,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#get:not (; 143 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint32Array>#get:not (; 142 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|1 (; 144 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|1 (; 143 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6028,7 +6071,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|2 (; 145 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|2 (; 144 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6072,7 +6115,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|3 (; 146 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0~anonymous|3 (; 145 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6112,7 +6155,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0 (; 147 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32>~anonymous|0 (; 146 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 27
   call $assembly/internal/Test/it
@@ -6128,7 +6171,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32> (; 148 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint32Array,u32> (; 147 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -6144,7 +6187,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Int32Array#constructor (; 149 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Int32Array#constructor (; 148 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -6160,7 +6203,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Int32Array#__set (; 150 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/typedarray/Int32Array#__set (; 149 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -6170,7 +6213,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 638
+   i32.const 655
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -6184,7 +6227,7 @@
   local.get $2
   i32.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#constructor (; 151 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#constructor (; 150 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -6226,7 +6269,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Int32Array> (; 152 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Int32Array> (; 151 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -6239,13 +6282,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Int32Array#get:length (; 153 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Int32Array#get:length (; 152 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
   i32.const 2
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#toHaveLength (; 154 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#toHaveLength (; 153 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -6310,7 +6353,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|0 (; 155 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|0 (; 154 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6350,14 +6393,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#get:not (; 156 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int32Array>#get:not (; 155 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|1 (; 157 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|1 (; 156 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6401,7 +6444,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|2 (; 158 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|2 (; 157 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6445,7 +6488,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|3 (; 159 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0~anonymous|3 (; 158 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6485,7 +6528,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0 (; 160 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32>~anonymous|0 (; 159 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 32
   call $assembly/internal/Test/it
@@ -6501,7 +6544,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32> (; 161 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int32Array,i32> (; 160 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -6517,7 +6560,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Uint64Array#constructor (; 162 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Uint64Array#constructor (; 161 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -6533,7 +6576,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Uint64Array#__set (; 163 ;) (type $FUNCSIG$viij) (param $0 i32) (param $1 i32) (param $2 i64)
+ (func $~lib/typedarray/Uint64Array#__set (; 162 ;) (type $FUNCSIG$viij) (param $0 i32) (param $1 i32) (param $2 i64)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -6543,7 +6586,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 998
+   i32.const 1027
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -6557,7 +6600,7 @@
   local.get $2
   i64.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#constructor (; 164 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#constructor (; 163 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -6599,7 +6642,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint64Array> (; 165 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Uint64Array> (; 164 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -6612,13 +6655,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Uint64Array#get:length (; 166 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Uint64Array#get:length (; 165 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
   i32.const 3
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#toHaveLength (; 167 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#toHaveLength (; 166 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -6683,7 +6726,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|0 (; 168 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|0 (; 167 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6723,14 +6766,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#get:not (; 169 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Uint64Array>#get:not (; 168 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|1 (; 170 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|1 (; 169 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6774,7 +6817,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|2 (; 171 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|2 (; 170 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6818,7 +6861,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|3 (; 172 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0~anonymous|3 (; 171 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -6858,7 +6901,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0 (; 173 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64>~anonymous|0 (; 172 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 37
   call $assembly/internal/Test/it
@@ -6874,7 +6917,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64> (; 174 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Uint64Array,u64> (; 173 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -6890,7 +6933,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Int64Array#constructor (; 175 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Int64Array#constructor (; 174 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -6906,7 +6949,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Int64Array#__set (; 176 ;) (type $FUNCSIG$viij) (param $0 i32) (param $1 i32) (param $2 i64)
+ (func $~lib/typedarray/Int64Array#__set (; 175 ;) (type $FUNCSIG$viij) (param $0 i32) (param $1 i32) (param $2 i64)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -6916,7 +6959,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 878
+   i32.const 903
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -6930,7 +6973,7 @@
   local.get $2
   i64.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#constructor (; 177 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#constructor (; 176 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -6972,7 +7015,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Int64Array> (; 178 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Int64Array> (; 177 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -6985,13 +7028,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Int64Array#get:length (; 179 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Int64Array#get:length (; 178 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
   i32.const 3
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#toHaveLength (; 180 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#toHaveLength (; 179 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -7056,7 +7099,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|0 (; 181 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|0 (; 180 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7096,14 +7139,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#get:not (; 182 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Int64Array>#get:not (; 181 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|1 (; 183 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|1 (; 182 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7147,7 +7190,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|2 (; 184 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|2 (; 183 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7191,7 +7234,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|3 (; 185 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0~anonymous|3 (; 184 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7231,7 +7274,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0 (; 186 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64>~anonymous|0 (; 185 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 42
   call $assembly/internal/Test/it
@@ -7247,7 +7290,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64> (; 187 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Int64Array,i64> (; 186 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -7263,7 +7306,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Float32Array#constructor (; 188 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Float32Array#constructor (; 187 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -7279,7 +7322,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Float32Array#__set (; 189 ;) (type $FUNCSIG$viif) (param $0 i32) (param $1 i32) (param $2 f32)
+ (func $~lib/typedarray/Float32Array#__set (; 188 ;) (type $FUNCSIG$viif) (param $0 i32) (param $1 i32) (param $2 f32)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -7289,7 +7332,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 1118
+   i32.const 1151
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -7303,7 +7346,7 @@
   local.get $2
   f32.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#constructor (; 190 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#constructor (; 189 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -7345,7 +7388,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Float32Array> (; 191 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Float32Array> (; 190 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -7358,13 +7401,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Float32Array#get:length (; 192 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Float32Array#get:length (; 191 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
   i32.const 2
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#toHaveLength (; 193 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#toHaveLength (; 192 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -7429,7 +7472,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|0 (; 194 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|0 (; 193 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7469,14 +7512,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#get:not (; 195 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#get:not (; 194 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|1 (; 196 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|1 (; 195 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7520,7 +7563,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|2 (; 197 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|2 (; 196 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7564,7 +7607,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|3 (; 198 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0~anonymous|3 (; 197 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7604,7 +7647,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0 (; 199 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32>~anonymous|0 (; 198 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 47
   call $assembly/internal/Test/it
@@ -7620,7 +7663,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32> (; 200 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float32Array,f32> (; 199 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -7636,7 +7679,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $~lib/typedarray/Float64Array#constructor (; 201 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/typedarray/Float64Array#constructor (; 200 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -7652,7 +7695,7 @@
   local.set $0
   local.get $0
  )
- (func $~lib/typedarray/Float64Array#__set (; 202 ;) (type $FUNCSIG$viid) (param $0 i32) (param $1 i32) (param $2 f64)
+ (func $~lib/typedarray/Float64Array#__set (; 201 ;) (type $FUNCSIG$viid) (param $0 i32) (param $1 i32) (param $2 f64)
   local.get $1
   local.get $0
   i32.load offset=8
@@ -7662,7 +7705,7 @@
   if
    i32.const 176
    i32.const 616
-   i32.const 1238
+   i32.const 1275
    i32.const 63
    call $~lib/builtins/abort
    unreachable
@@ -7676,7 +7719,7 @@
   local.get $2
   f64.store
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#constructor (; 203 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#constructor (; 202 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -7718,7 +7761,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/typedarray/Float64Array> (; 204 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/typedarray/Float64Array> (; 203 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -7731,13 +7774,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Float64Array#get:length (; 205 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/typedarray/Float64Array#get:length (; 204 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
-  call $~lib/arraybuffer/ArrayBufferView#get:byteLength
+  i32.load offset=8
   i32.const 3
   i32.shr_u
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toHaveLength (; 206 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toHaveLength (; 205 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -7802,7 +7845,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|0 (; 207 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|0 (; 206 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7842,14 +7885,14 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#get:not (; 208 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#get:not (; 207 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|1 (; 209 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|1 (; 208 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7893,7 +7936,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|2 (; 210 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|2 (; 209 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7937,7 +7980,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|3 (; 211 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0~anonymous|3 (; 210 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -7977,7 +8020,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0 (; 212 ;) (type $FUNCSIG$v)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64>~anonymous|0 (; 211 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 52
   call $assembly/internal/Test/it
@@ -7993,7 +8036,7 @@
   i32.const 1320
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64> (; 213 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/__tests__/toHaveLength.spec/runTypedArrayTest<~lib/typedarray/Float64Array,f64> (; 212 ;) (type $FUNCSIG$vi) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -8009,7 +8052,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#constructor (; 214 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#constructor (; 213 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -8051,7 +8094,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/array/Array<i32>> (; 215 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/array/Array<i32>> (; 214 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -8064,11 +8107,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/array/Array<i32>#get:length (; 216 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/array/Array<i32>#get:length (; 215 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=12
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toHaveLength (; 217 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toHaveLength (; 216 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -8133,7 +8176,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|0 (; 218 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|0 (; 217 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toHaveLength.spec/valueArray
   call $assembly/internal/Expectation/expect<~lib/array/Array<i32>>
@@ -8144,14 +8187,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#get:not (; 219 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#get:not (; 218 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|1 (; 220 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|1 (; 219 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toHaveLength.spec/valueArray
@@ -8167,7 +8210,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|2 (; 221 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|2 (; 220 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toHaveLength.spec/valueArray
@@ -8183,7 +8226,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|3 (; 222 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0~anonymous|3 (; 221 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toHaveLength.spec/valueArray
   call $assembly/internal/Expectation/expect<~lib/array/Array<i32>>
@@ -8194,7 +8237,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0 (; 223 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|0 (; 222 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 57
   call $assembly/internal/Test/it
@@ -8210,7 +8253,7 @@
   i32.const 2200
   call $assembly/internal/Test/throws
  )
- (func $assembly/__tests__/toHaveLength.spec/Example#constructor (; 224 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/__tests__/toHaveLength.spec/Example#constructor (; 223 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
@@ -8225,7 +8268,7 @@
   i32.store
   local.get $0
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#constructor (; 225 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#constructor (; 224 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -8267,7 +8310,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example> (; 226 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example> (; 225 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -8280,7 +8323,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#toHaveLength (; 227 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#toHaveLength (; 226 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -8345,7 +8388,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|0 (; 228 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|0 (; 227 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toHaveLength.spec/customExample
   call $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example>
@@ -8356,14 +8399,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#get:not (; 229 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toHaveLength.spec/Example>#get:not (; 228 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|1 (; 230 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|1 (; 229 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toHaveLength.spec/customExample
@@ -8379,7 +8422,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|2 (; 231 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|2 (; 230 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toHaveLength.spec/customExample
@@ -8395,7 +8438,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|3 (; 232 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1~anonymous|3 (; 231 ;) (type $FUNCSIG$v)
   (local $0 i32)
   global.get $assembly/__tests__/toHaveLength.spec/customExample
   call $assembly/internal/Expectation/expect<assembly/__tests__/toHaveLength.spec/Example>
@@ -8406,7 +8449,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1 (; 233 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|1 (; 232 ;) (type $FUNCSIG$v)
   i32.const 432
   i32.const 62
   call $assembly/internal/Test/it
@@ -8422,7 +8465,7 @@
   i32.const 2480
   call $assembly/internal/Test/throws
  )
- (func $~lib/arraybuffer/ArrayBuffer#constructor (; 234 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/arraybuffer/ArrayBuffer#constructor (; 233 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   i32.const 1073741808
@@ -8430,7 +8473,7 @@
   if
    i32.const 512
    i32.const 560
-   i32.const 57
+   i32.const 53
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -8446,7 +8489,7 @@
   local.get $2
   call $~lib/rt/pure/__retain
  )
- (func $assembly/internal/Expectation/Expectation<~lib/arraybuffer/ArrayBuffer>#constructor (; 235 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/arraybuffer/ArrayBuffer>#constructor (; 234 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -8488,7 +8531,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/arraybuffer/ArrayBuffer> (; 236 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/arraybuffer/ArrayBuffer> (; 235 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -8501,13 +8544,13 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/arraybuffer/ArrayBuffer#get:byteLength (; 237 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
+ (func $~lib/arraybuffer/ArrayBuffer#get:byteLength (; 236 ;) (type $FUNCSIG$ii) (param $0 i32) (result i32)
   local.get $0
   i32.const 16
   i32.sub
   i32.load offset=12
  )
- (func $assembly/internal/Expectation/Expectation<~lib/arraybuffer/ArrayBuffer>#toHaveLength (; 238 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/arraybuffer/ArrayBuffer>#toHaveLength (; 237 ;) (type $FUNCSIG$viii) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -8572,7 +8615,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|2~anonymous|0 (; 239 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|2~anonymous|0 (; 238 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   i32.const 0
@@ -8589,12 +8632,12 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toHaveLength.spec~anonymous|2 (; 240 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec~anonymous|2 (; 239 ;) (type $FUNCSIG$v)
   i32.const 2624
   i32.const 67
   call $assembly/internal/Test/it
  )
- (func $start:assembly/__tests__/toHaveLength.spec (; 241 ;) (type $FUNCSIG$v)
+ (func $start:assembly/__tests__/toHaveLength.spec (; 240 ;) (type $FUNCSIG$v)
   (local $0 i32)
   (local $1 i32)
   i32.const 272
@@ -8632,17 +8675,17 @@
   i32.const 68
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__ready (; 242 ;) (type $FUNCSIG$v)
+ (func $assembly/index/__ready (; 241 ;) (type $FUNCSIG$v)
   i32.const 1
   global.set $assembly/internal/report/Expected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 243 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/call/__call (; 242 ;) (type $FUNCSIG$vi) (param $0 i32)
   i32.const 0
   global.set $~lib/argc
   local.get $0
   call_indirect (type $FUNCSIG$v)
  )
- (func $assembly/internal/report/Actual/__sendActual (; 244 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/Actual/__sendActual (; 243 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case8|0
@@ -8740,7 +8783,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/Expected/__sendExpected (; 245 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/report/Expected/__sendExpected (; 244 ;) (type $FUNCSIG$v)
   (local $0 i32)
   block $break|0
    block $case10|0
@@ -8869,24 +8912,24 @@
    br $break|0
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 246 ;) (type $FUNCSIG$vi) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 245 ;) (type $FUNCSIG$vi) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 247 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/RTrace/__disableRTrace (; 246 ;) (type $FUNCSIG$v)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 248 ;) (type $FUNCSIG$i) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 247 ;) (type $FUNCSIG$i) (result i32)
   i32.const 30
  )
- (func $assembly/internal/Expectation/__cleanup (; 249 ;) (type $FUNCSIG$v)
+ (func $assembly/internal/Expectation/__cleanup (; 248 ;) (type $FUNCSIG$v)
   call $assembly/internal/report/Expected/Expected.clear
   call $assembly/internal/report/Actual/Actual.clear
  )
- (func $start (; 250 ;) (type $FUNCSIG$v)
+ (func $start (; 249 ;) (type $FUNCSIG$v)
   global.get $~lib/started
   if
    return
@@ -8896,13 +8939,13 @@
   end
   call $start:assembly/__tests__/toHaveLength.spec
  )
- (func $~lib/array/Array<i32>#__visit_impl (; 251 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<i32>#__visit_impl (; 250 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 252 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 251 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/pure/__visit (; 253 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 252 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -9032,7 +9075,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 254 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 253 ;) (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default
@@ -9083,6 +9126,6 @@
   end
   return
  )
- (func $null (; 255 ;) (type $FUNCSIG$v)
+ (func $null (; 254 ;) (type $FUNCSIG$v)
  )
 )

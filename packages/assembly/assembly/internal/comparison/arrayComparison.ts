@@ -46,7 +46,7 @@ export function arrayComparison<T extends ArrayBufferView>(actual: T, expected: 
   /**
    * Length assertion values should short circuit the comparison.
    */
-  if (actual.dataLength != expected.dataLength) {
+  if (actual.byteLength != expected.byteLength) {
     assert(negated, message);
     return;
   }
