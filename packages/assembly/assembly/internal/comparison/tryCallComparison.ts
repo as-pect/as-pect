@@ -24,7 +24,7 @@ export function tryCallComparison<T>(actual: T, negated: i32, message: string): 
 
   //todo: make this const when AS supports it
   let func: () => void = changetype<() => void>(actual);
-  let throws: bool = !tryCall(func);
+  let throws = !tryCall(func);
   Actual.report<string>(throws ? "Throws" : "Not Throws");
 
   /**

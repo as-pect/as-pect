@@ -23,7 +23,7 @@ export function lengthComparison<T>(actual: T, expected: i32, negated: i32, mess
   let length: i32 = 0;
 
   if (isNullable<T>()) {
-    if (actual == null) {
+    if (actual === null) {
       /**
        * If the reference is null, we can delegate the logic inline to a negated nullComparison.
        *

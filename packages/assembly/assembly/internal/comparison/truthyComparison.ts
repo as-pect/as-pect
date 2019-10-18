@@ -22,7 +22,7 @@ export function truthyComparison<T>(actual: T, negated: i32, message: string): v
   if (isReference<T>()) {
     if (isNullable<T>()) {
       // if the reference is null
-      if (actual == null) {
+      if (actual === null) {
         // it should throw if it's not negated
         assert(negated, message);
       } else if (actual instanceof String) {

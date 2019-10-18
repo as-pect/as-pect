@@ -36,7 +36,7 @@ export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, neg
    * This loop validates that a reference of type `U` exists with the same shape as the expected
    * value within the Array.
    */
-  let included: bool = false;
+  let included = false;
   // @ts-ignore: if T does not have a length property, it will throw a compiler error.
   for (let i: indexof<T> = 0; i < <indexof<T>>actual.length; i++) {
     // @ts-ignore: if this expression does not work, it will throw a compiler error.
@@ -48,7 +48,7 @@ export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, neg
     if (item == expected) {
       included = true;
       break;
-    } else if (item != null && expected != null) {
+    } else if (item !== null && expected !== null) {
       if (expected instanceof ArrayBuffer) {
         let expectedSize = load<i32>(changetype<usize>(expected) - 4);
         let actualSize = load<i32>(changetype<usize>(item) - 4);

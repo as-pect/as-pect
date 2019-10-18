@@ -37,7 +37,7 @@ export function arrayComparison<T extends ArrayBufferView>(actual: T, expected: 
     /**
      * Mutually exclusive nulls should short circut the comparison.
      */
-    if (actual == null || expected == null) {
+    if (actual === null || expected === null) {
       assert(negated, message);
       return;
     }
@@ -51,7 +51,7 @@ export function arrayComparison<T extends ArrayBufferView>(actual: T, expected: 
     return;
   }
 
-  let matches: i32 = 1;
+  let matches = 1;
   /**
    * Finally, check the values to make sure they match. Assume that the arrays match, and if the
    * child items aren't `==` to each other, then we can assume the arrays do not strictly equal
@@ -62,12 +62,15 @@ export function arrayComparison<T extends ArrayBufferView>(actual: T, expected: 
    * T extends Array<U> where U is managed, and we would have to perform this check as well even
    * if the `memory.compare()` failed.
    */
-  let length: i32 = actual.length;
+  let length = actual.length;
   for (let i = 0; i < length; i++) {
-    // @ts-ignore: Actual value if instance of Array, so array access is valid
-    if (unchecked(actual[i]) == unchecked(expected[i])) {
-      continue;
+    let a = unchecked(actual[i]);
+    let b = unchecked(expected[i]);
+    if (isFloat<T>()) {
+      if (isNaN(a) && isNaN(b)) continue;
     }
+    // @ts-ignore: Actual value if instance of Array, so array access is valid
+    if (a == b) continue;
     matches = 0;
     break;
   }

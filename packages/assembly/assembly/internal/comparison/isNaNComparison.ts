@@ -28,7 +28,7 @@ export function isNaNComparison<T>(actual: T, negated: i32, message: string): vo
     // must be a float value
     assert(i32(isFloat<T>(actual)), "toBeNaN assertion must be called on a float value.");
 
-    let isnan: bool = isNaN<T>(actual);
+    let isnan = isNaN<T>(actual);
 
     // Perform the actual isClose assertion
     assert(negated ^ i32(isnan), message);
