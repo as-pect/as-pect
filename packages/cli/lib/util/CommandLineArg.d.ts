@@ -103,7 +103,7 @@ export declare function makeArgMap(args?: CommandLineArgs): ArgMap;
 /**
  * This is the set of stored command line arguments for the asp command line.
  */
-export declare const defaultCliArgs: Map<string, CommandLineArg>;
+export declare const defaultCliArgs: ArgMap;
 /**
  * This method parses command line options like the `asp` command does. It takes an optional
  * second parameter to modify the command line arguments used.

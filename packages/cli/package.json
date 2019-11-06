@@ -39,11 +39,11 @@
     "@as-pect/assembly": "^2.5.0",
     "@as-pect/core": "^2.5.0",
     "chalk": "^2.4.2",
-    "glob": "^7.1.4"
+    "glob": "^7.1.5"
   },
   "devDependencies": {
-    "assemblyscript": "github:assemblyscript/assemblyscript#0bea37cc95d70df546236f6db60293ff94b942c9",
-    "ts-node": "^8.3.0"
+    "assemblyscript": "github:assemblyscript/assemblyscript",
+    "ts-node": "^8.4.1"
   },
   "files": [
     "init/",

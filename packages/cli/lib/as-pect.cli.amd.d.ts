@@ -129,7 +129,7 @@ declare module "util/CommandLineArg" {
     /**
      * This is the set of stored command line arguments for the asp command line.
      */
-    export const defaultCliArgs: Map<string, CommandLineArg>;
+    export const defaultCliArgs: ArgMap;
     /**
      * This method parses command line options like the `asp` command does. It takes an optional
      * second parameter to modify the command line arguments used.

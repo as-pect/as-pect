@@ -33,10 +33,10 @@
 	},
 	"homepage": "https://github.com/jtenner/as-pect#readme",
 	"devDependencies": {
-		"@types/jest": "^24.0.18",
-		"assemblyscript": "github:assemblyscript/assemblyscript#22c4cf42f05bd8610e5f8924d27a5b8636405a6d",
+		"@types/jest": "^24.0.22",
+		"assemblyscript": "github:assemblyscript/assemblyscript",
 		"jest": "^24.9.0",
-		"ts-jest": "^24.0.2"
+		"ts-jest": "^24.1.0"
 	},
 	"dependencies": {
 		"@as-pect/assembly": "^2.5.0",
