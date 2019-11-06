@@ -1434,50 +1434,50 @@
   global.set $~lib/rt/pure/CUR
   block $break|1
    local.get $0
-   local.set $5
+   local.set $3
    loop $loop|1
-    local.get $5
+    local.get $3
     local.get $1
     i32.lt_u
     i32.eqz
     br_if $break|1
-    local.get $5
+    local.get $3
     i32.load
     call $~lib/rt/pure/scan
-    local.get $5
+    local.get $3
     i32.const 4
     i32.add
-    local.set $5
+    local.set $3
     br $loop|1
    end
    unreachable
   end
   block $break|2
    local.get $0
-   local.set $5
+   local.set $3
    loop $loop|2
-    local.get $5
+    local.get $3
     local.get $1
     i32.lt_u
     i32.eqz
     br_if $break|2
-    local.get $5
+    local.get $3
     i32.load
-    local.set $4
-    local.get $4
-    local.get $4
+    local.set $2
+    local.get $2
+    local.get $2
     i32.load offset=4
     i32.const -2147483648
     i32.const -1
     i32.xor
     i32.and
     i32.store offset=4
-    local.get $4
+    local.get $2
     call $~lib/rt/pure/collectWhite
-    local.get $5
+    local.get $3
     i32.const 4
     i32.add
-    local.set $5
+    local.set $3
     br $loop|2
    end
    unreachable
@@ -4098,7 +4098,7 @@
   if
    i32.const 176
    i32.const 376
-   i32.const 92
+   i32.const 93
    i32.const 41
    call $~lib/builtins/abort
    unreachable
@@ -4237,11 +4237,11 @@
   if (result i32)
    i32.const 632
    call $~lib/rt/pure/__retain
-   local.tee $9
+   local.tee $8
   else
    i32.const 664
    call $~lib/rt/pure/__retain
-   local.tee $8
+   local.tee $9
   end
   call $assembly/internal/report/Actual/Actual.report<~lib/string/String>
   local.get $4
@@ -4551,7 +4551,7 @@
   if
    i32.const 176
    i32.const 376
-   i32.const 92
+   i32.const 93
    i32.const 41
    call $~lib/builtins/abort
    unreachable
@@ -4567,7 +4567,7 @@
    call $~lib/rt/pure/__release
    i32.const 1480
    i32.const 376
-   i32.const 96
+   i32.const 97
    i32.const 39
    call $~lib/builtins/abort
    unreachable
@@ -4632,12 +4632,12 @@
      call $~lib/rt/pure/__release
      br $break|0
     end
+    local.get $9
+    call $~lib/rt/pure/__release
     local.get $8
     i32.const 1
     i32.add
     local.set $8
-    local.get $9
-    call $~lib/rt/pure/__release
     br $loop|0
    end
    unreachable
@@ -4646,11 +4646,11 @@
   if (result i32)
    i32.const 632
    call $~lib/rt/pure/__retain
-   local.tee $9
+   local.tee $8
   else
    i32.const 664
    call $~lib/rt/pure/__retain
-   local.tee $8
+   local.tee $9
   end
   call $assembly/internal/report/Actual/Actual.report<~lib/string/String>
   local.get $4

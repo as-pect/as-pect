@@ -1479,50 +1479,50 @@
   global.set $~lib/rt/pure/CUR
   block $break|1
    local.get $0
-   local.set $5
+   local.set $3
    loop $loop|1
-    local.get $5
+    local.get $3
     local.get $1
     i32.lt_u
     i32.eqz
     br_if $break|1
-    local.get $5
+    local.get $3
     i32.load
     call $~lib/rt/pure/scan
-    local.get $5
+    local.get $3
     i32.const 4
     i32.add
-    local.set $5
+    local.set $3
     br $loop|1
    end
    unreachable
   end
   block $break|2
    local.get $0
-   local.set $5
+   local.set $3
    loop $loop|2
-    local.get $5
+    local.get $3
     local.get $1
     i32.lt_u
     i32.eqz
     br_if $break|2
-    local.get $5
+    local.get $3
     i32.load
-    local.set $4
-    local.get $4
-    local.get $4
+    local.set $2
+    local.get $2
+    local.get $2
     i32.load offset=4
     i32.const -2147483648
     i32.const -1
     i32.xor
     i32.and
     i32.store offset=4
-    local.get $4
+    local.get $2
     call $~lib/rt/pure/collectWhite
-    local.get $5
+    local.get $3
     i32.const 4
     i32.add
-    local.set $5
+    local.set $3
     br $loop|2
    end
    unreachable
@@ -3698,7 +3698,7 @@
   if
    i32.const 272
    i32.const 320
-   i32.const 53
+   i32.const 54
    i32.const 42
    call $~lib/builtins/abort
    unreachable
@@ -5869,23 +5869,23 @@
    local.get $8
    local.get $4
    i32.xor
-   local.set $10
+   local.set $11
    local.get $3
    call $~lib/rt/pure/__retain
-   local.set $9
-   local.get $10
+   local.set $10
+   local.get $11
    i32.eqz
    if
-    local.get $9
+    local.get $10
     call $~lib/rt/pure/__release
-    local.get $9
+    local.get $10
     i32.const 568
     i32.const 11
     i32.const 18
     call $~lib/builtins/abort
     unreachable
    end
-   local.get $9
+   local.get $10
    call $~lib/rt/pure/__release
    local.get $3
    call $~lib/rt/pure/__release
@@ -6576,23 +6576,23 @@
    local.get $8
    local.get $4
    i32.xor
-   local.set $10
+   local.set $11
    local.get $3
    call $~lib/rt/pure/__retain
-   local.set $9
-   local.get $10
+   local.set $10
+   local.get $11
    i32.eqz
    if
-    local.get $9
+    local.get $10
     call $~lib/rt/pure/__release
-    local.get $9
+    local.get $10
     i32.const 568
     i32.const 11
     i32.const 18
     call $~lib/builtins/abort
     unreachable
    end
-   local.get $9
+   local.get $10
    call $~lib/rt/pure/__release
    local.get $3
    call $~lib/rt/pure/__release
