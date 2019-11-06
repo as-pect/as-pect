@@ -1,5 +1,5 @@
 import { parse } from "../src/util/CommandLineArg";
-import { createDefaultPerformanceConfiguration } from "@as-pect/core/src/util/IPerformanceConfiguration";
+import { createDefaultPerformanceConfiguration } from "@as-pect/core";
 
 describe("Command line parsing", () => {
   it("should match empty strings", () => {

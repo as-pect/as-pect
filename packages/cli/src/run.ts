@@ -65,7 +65,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
    */
   console.log(chalk`{bgWhite.black [Log]} Loading asc compiler`);
   let asc: any;
-  let instantiateBuffer: any;
+  let instantiateSync: any;
   let parse: any;
 
   try {
@@ -90,17 +90,17 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       );
     }
 
-    /** Next, collect the loader, and assert it has an instantiateBuffer method. */
+    /** Next, collect the loader, and assert it has an instantiateSync method. */
     let loader = require(path.join(assemblyScriptFolder, "lib", "loader"));
     if (!loader) {
       throw new Error(`${cliOptions.compiler}/lib/loader has no exports.`);
     }
-    if (!loader.instantiateBuffer) {
+    if (!loader.instantiateSync) {
       throw new Error(
-        `${cliOptions.compiler}/lib/loader does not export an instantiateBuffer() method.`,
+        `${cliOptions.compiler}/lib/loader does not export an instantiateSync() method.`,
       );
     }
-    instantiateBuffer = loader.instantiateBuffer;
+    instantiateSync = loader.instantiateSync;
 
     /** Finally, collect the cli options from assemblyscript. */
     let options = require(path.join(
@@ -391,7 +391,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       );
 
       // instantiate the module
-      const wasm: IAspectExports = instantiateBuffer(binary, imports);
+      const wasm: IAspectExports = instantiateSync(binary, imports);
 
       if (runner.errors.length > 0) {
         errors.push(...runner.errors);
