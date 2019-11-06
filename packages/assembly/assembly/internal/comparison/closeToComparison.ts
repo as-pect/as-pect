@@ -40,6 +40,6 @@ export function closeToComparison<T>(actual: T, expected: T, decimalPlaces: i32,
    * Epsilon is calculated by using `1 / numberOfDigits` or just `Math.pow(0.1, decimalPlaces)`.
    */
   // @ts-ignore tooling errors because T does not extend a numeric value type. This compiles just fine.
-  var isClose: bool = abs<T>(expected - actual) < Math.pow(0.1, decimalPlaces);
+  var isClose = abs<T>(expected - actual) < Math.pow(0.1, decimalPlaces);
   assert(negated ^ i32(isClose), message);
 }

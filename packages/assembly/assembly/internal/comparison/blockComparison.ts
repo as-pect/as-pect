@@ -42,7 +42,7 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
 
   if (isNullable<T>()) {
     // report the expected reference
-    if (expected == null) {
+    if (expected === null) {
       // @ts-ignore: this is valid assemblyscript
       Expected.report<T>(null, negated);
     } else {
@@ -50,7 +50,7 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
     }
 
     // report the actual reference
-    if (actual == null) {
+    if (actual === null) {
       // @ts-ignore this is valid AssemblyScript
       Actual.report<T>(null);
     } else {
@@ -65,8 +65,8 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
     /**
      * Determine if either the actual or expected reference is null.
      */
-    let actualNull: i32 = i32(actual == null);
-    let expectedNull: i32 = i32(expected == null);
+    let actualNull = i32(actual === null);
+    let expectedNull = i32(expected === null);
 
     /**
      * It is not possible for both values to be null at this point, because of previous assertions,
@@ -91,7 +91,7 @@ export function blockComparison<T>(actual: T, expected: T, negated: i32, message
     /**
      * Next perform a memory compare. If the value is `0`, the blocks equal each other.
      */
-    let blocksEqual: bool = memory.compare(actualPtr, expectedPtr, actualSize) == 0;
+    let blocksEqual = memory.compare(actualPtr, expectedPtr, actualSize) == 0;
     assert(negated ^ i32(blocksEqual), message);
   }
 }

@@ -28,7 +28,7 @@ export function referenceComparison<T>(actual: T, expected: T, negated: i32, mes
 
   if (isNullable<T>()) {
     // fast path, both values aren't null together, so if any of them are null, they do not equal
-    if (expected == null || actual == null) {
+    if (expected === null || actual === null) {
       assert(negated, message);
       return;
     }

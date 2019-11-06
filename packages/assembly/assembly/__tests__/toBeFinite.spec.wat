@@ -3430,7 +3430,6 @@
   (local $4 f64)
   (local $5 i32)
   (local $6 i32)
-  (local $7 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   drop
@@ -3451,29 +3450,27 @@
   global.set $assembly/internal/report/Expected/Expected.negated
   i32.const -1
   global.set $assembly/internal/report/Expected/Expected.stackTrace
+  local.get $3
   local.get $4
   call $~lib/number/isFinite<f64>
-  local.set $5
-  local.get $3
-  local.get $5
   i32.xor
-  local.set $7
+  local.set $6
   local.get $2
   call $~lib/rt/pure/__retain
-  local.set $6
-  local.get $7
+  local.set $5
+  local.get $6
   i32.eqz
   if
-   local.get $6
+   local.get $5
    call $~lib/rt/pure/__release
-   local.get $6
+   local.get $5
    i32.const 472
    i32.const 11
    i32.const 18
    call $~lib/builtins/abort
    unreachable
   end
-  local.get $6
+  local.get $5
   call $~lib/rt/pure/__release
   local.get $2
   call $~lib/rt/pure/__release
