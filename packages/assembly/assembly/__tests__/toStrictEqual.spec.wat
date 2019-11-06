@@ -4556,13 +4556,13 @@
    end
    local.get $5
    i32.const 0
-   call $assembly/__tests__/setup/Vec3/Vec3#__equals
+   i32.eq
    if (result i32)
     i32.const 1
    else
     local.get $6
     i32.const 0
-    call $assembly/__tests__/setup/Vec3/Vec3#__equals
+    i32.eq
    end
    if
     local.get $4
@@ -5441,6 +5441,7 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   drop
@@ -5549,9 +5550,13 @@
       local.get $6
       local.get $9
       call $~lib/array/Array<i32>#__unchecked_get
+      local.set $10
       local.get $5
       local.get $9
       call $~lib/array/Array<i32>#__unchecked_get
+      local.set $11
+      local.get $10
+      local.get $11
       i32.eq
       if
        br $continue|0
@@ -6122,6 +6127,8 @@
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   drop
@@ -6231,15 +6238,25 @@
       local.get $9
       call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__unchecked_get
       local.tee $10
+      call $~lib/rt/pure/__retain
+      local.set $11
       local.get $5
       local.get $9
       call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__unchecked_get
-      local.tee $11
+      local.tee $12
+      call $~lib/rt/pure/__retain
+      local.set $13
+      local.get $11
+      local.get $13
       call $assembly/__tests__/setup/Vec3/Vec3#__equals
       if
        local.get $10
        call $~lib/rt/pure/__release
        local.get $11
+       call $~lib/rt/pure/__release
+       local.get $12
+       call $~lib/rt/pure/__release
+       local.get $13
        call $~lib/rt/pure/__release
        br $continue|0
       end
@@ -6248,6 +6265,10 @@
       local.get $10
       call $~lib/rt/pure/__release
       local.get $11
+      call $~lib/rt/pure/__release
+      local.get $12
+      call $~lib/rt/pure/__release
+      local.get $13
       call $~lib/rt/pure/__release
       br $break|0
      end
@@ -6979,7 +7000,9 @@
   (local $7 i32)
   (local $8 i32)
   (local $9 i32)
-  (local $10 i32)
+  (local $10 f32)
+  (local $11 f32)
+  (local $12 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   drop
@@ -7088,9 +7111,13 @@
       local.get $6
       local.get $9
       call $~lib/typedarray/Float32Array#__uget
+      local.set $10
       local.get $5
       local.get $9
       call $~lib/typedarray/Float32Array#__uget
+      local.set $11
+      local.get $10
+      local.get $11
       f32.eq
       if
        br $continue|0
@@ -7110,11 +7137,11 @@
    local.get $8
    local.get $4
    i32.xor
-   local.set $10
+   local.set $12
    local.get $3
    call $~lib/rt/pure/__retain
    local.set $9
-   local.get $10
+   local.get $12
    i32.eqz
    if
     local.get $9

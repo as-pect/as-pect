@@ -23,7 +23,7 @@ export function falsyComparison<T>(actual: T, negated: i32, message: string): vo
   if (isReference<T>()) {
     if (isNullable<T>()) {
       // it should throw if it's not negated
-      if (actual == null) {
+      if (actual === null) {
         assert(i32(!negated), message);
       } else if (actual instanceof String) {
         let value = changetype<string>(changetype<usize>(actual));

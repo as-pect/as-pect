@@ -25,7 +25,7 @@ export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated:
   /**
    * This loop inspects each item and validates if the expected value is included in the array.
    */
-  let includes: bool = false;
+  let includes = false;
   // @ts-ignore: if T does not have a length property, it will throw a compiler error.
   for (let i: indexof<T> = 0; i < <indexof<T>>actual.length; i++) {
     // @ts-ignore: if this expression does not work, it will throw a compiler error.

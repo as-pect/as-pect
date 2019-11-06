@@ -26,8 +26,7 @@ export function finiteComparison<T>(actual: T, negated: i32, message: string): v
   Expected.stackTrace = -1;
 
   if (isFloat<T>()) {
-    let finite: bool = isFinite<T>(actual);
-    assert(negated ^ i32(finite), message);
+    assert(negated ^ i32(isFinite<T>(actual)), message);
   } else {
     // must be a float value
     assert(i32(false), "toBeFinite must only be called with float value types.");
