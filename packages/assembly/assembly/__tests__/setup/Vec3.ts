@@ -16,7 +16,7 @@ export class Vec3 {
     assert(this);
     assert(reference);
     var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
+    var refmagnitude = reference!.magnitude();
     return magnitude > refmagnitude;
   }
 
@@ -25,7 +25,7 @@ export class Vec3 {
     assert(this);
     assert(reference);
     var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
+    var refmagnitude = reference!.magnitude();
     return magnitude >= refmagnitude;
   }
 
@@ -34,7 +34,7 @@ export class Vec3 {
     assert(this);
     assert(reference);
     var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
+    var refmagnitude = reference!.magnitude();
     return magnitude < refmagnitude;
   }
 
@@ -43,7 +43,7 @@ export class Vec3 {
     assert(this);
     assert(reference);
     var magnitude = this.magnitude();
-    var refmagnitude = reference.magnitude();
+    var refmagnitude = reference!.magnitude();
     return magnitude <= refmagnitude;
   }
 
@@ -51,8 +51,8 @@ export class Vec3 {
   protected __equals(reference: Vec3 | null): bool {
     if (reference === this) return true;
     if (i32(reference === null) ^ i32(this === null)) return false;
-    return this.x == reference.x
-      && this.y == reference.y
-      && this.z == reference.z;
+    return this.x == reference!.x
+        && this.y == reference!.y
+        && this.z == reference!.z;
   }
 }

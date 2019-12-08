@@ -1,12 +1,12 @@
-describe("performance", (): void => {
+describe("performance", () => {
   Performance.enabled(true);
-  test("this should have performance enabled", (): void => {
+  test("this should have performance enabled", () => {
     assert(true, "");
   });
 
   Performance.enabled(true);
   Performance.reportVariance(true);
-  test("this should have variance enabled", (): void => {
+  test("this should have variance enabled", () => {
     for(let i = 0; i < 1000; i++) {
       assert(true, "");
     }
@@ -14,7 +14,7 @@ describe("performance", (): void => {
 
   Performance.enabled(true);
   Performance.reportMin(true);
-  test("this should have min enabled", (): void => {
+  test("this should have min enabled", () => {
     for(let i = 0; i < 1000; i++) {
       assert(true, "");
     }
@@ -22,7 +22,7 @@ describe("performance", (): void => {
 
   Performance.enabled(true);
   Performance.reportMax(true);
-  test("this should have max enabled", (): void => {
+  test("this should have max enabled", () => {
     for(let i = 0; i < 1000; i++) {
       assert(true, "");
     }
@@ -30,7 +30,7 @@ describe("performance", (): void => {
 
   Performance.enabled(true);
   Performance.reportStdDev(true);
-  test("this should have stdDev enabled", (): void => {
+  test("this should have stdDev enabled", () => {
     for(let i = 0; i < 1000; i++) {
       assert(true, "");
     }
@@ -38,7 +38,7 @@ describe("performance", (): void => {
 
   Performance.enabled(true);
   Performance.reportMedian(true);
-  test("this should have stdDev enabled", (): void => {
+  test("this should have stdDev enabled", () => {
     for(let i = 0; i < 1000; i++) {
       assert(true, "");
     }
@@ -46,7 +46,7 @@ describe("performance", (): void => {
 
   Performance.enabled(true);
   Performance.reportAverage(true);
-  test("this should have average enabled", (): void => {
+  test("this should have average enabled", () => {
     for(let i = 0; i < 1000; i++) {
       assert(true, "");
     }
@@ -54,7 +54,7 @@ describe("performance", (): void => {
 
   Performance.enabled(true);
   Performance.roundDecimalPlaces(42);
-  test("this should have set the decimal places", (): void => {
+  test("this should have set the decimal places", () => {
     for(let i = 0; i < 1000; i++) {
       assert(true, "");
     }
@@ -62,7 +62,7 @@ describe("performance", (): void => {
 
   Performance.enabled(true);
   Performance.maxTestRunTime(10);
-  test("this should only run for less than a second", (): void => {
+  test("this should only run for less than a second", () => {
     for(let i = 0; i < 1000; i++) {
       assert(true, "");
     }
@@ -70,7 +70,7 @@ describe("performance", (): void => {
 
   Performance.enabled(true);
   Performance.maxSamples(400);
-  test("this should only run for less than a second", (): void => {
+  test("this should only run for less than a second", () => {
     for(let i = 0; i < 1000; i++) {
       assert(true, "");
     }

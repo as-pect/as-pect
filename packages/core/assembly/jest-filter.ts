@@ -1,53 +1,53 @@
-describe("group one", (): void => {
-  test("test one", (): void => {
+describe("group one", () => {
+  test("test one", () => {
     assert(true);
   });
 
-  test("test two", (): void => {
+  test("test two", () => {
     assert(false);
   });
 
-  throws("test three", (): void => {
+  throws("test three", () => {
     assert(true);
   });
 
-  throws("test four", (): void => {
-    assert(false);
-  });
-});
-
-describe("group two", (): void => {
-  test("test one", (): void => {
-    assert(true);
-  });
-
-  test("test two", (): void => {
-    assert(false);
-  });
-
-  throws("test three", (): void => {
-    assert(true);
-  });
-
-  throws("test four", (): void => {
+  throws("test four", () => {
     assert(false);
   });
 });
 
-describe("group three", (): void => {
-  test("test one", (): void => {
+describe("group two", () => {
+  test("test one", () => {
     assert(true);
   });
 
-  test("test two", (): void => {
+  test("test two", () => {
     assert(false);
   });
 
-  throws("test three", (): void => {
+  throws("test three", () => {
     assert(true);
   });
 
-  throws("test four", (): void => {
+  throws("test four", () => {
+    assert(false);
+  });
+});
+
+describe("group three", () => {
+  test("test one", () => {
+    assert(true);
+  });
+
+  test("test two", () => {
+    assert(false);
+  });
+
+  throws("test three", () => {
+    assert(true);
+  });
+
+  throws("test four", () => {
     assert(false);
   });
 });

@@ -34,12 +34,12 @@ function create<T extends TypedArray<U>, U extends number>(): T {
  * @param {string} typedArrayType - The name of the TypedArray
  */
 function runTypedArrayTest<T extends TypedArray<U>, U extends number>(typedArrayType: string): void {
-  describe("toHaveLength TypedArray type: " + typedArrayType, (): void => {
+  describe("toHaveLength TypedArray type: " + typedArrayType, () => {
 
     /**
      * This test verifies the length is 3 using toHaveLength(3).
      */
-    it("should assert expected length", (): void => {
+    it("should assert expected length", () => {
       var created: T = create<T, U>();
       expect<T>(created).toHaveLength(3);
     });
@@ -47,7 +47,7 @@ function runTypedArrayTest<T extends TypedArray<U>, U extends number>(typedArray
     /**
      * This test throws because the length *is* 3. This is the contrapositive of the previous test.
      */
-    throws("when expected length should not equal the same value", (): void => {
+    throws("when expected length should not equal the same value", () => {
       var created: T = create<T, U>();
       expect<T>(created).not.toHaveLength(3);
     }, "When length is equal, negated assertions should throw.");
@@ -80,18 +80,18 @@ var valueArray: i32[] = [1, 2, 3];
  * Since the TypedArray values are different than regular arrays, we need to verify that Arrays
  * are valid input to the expectation functions.
  */
-describe("toHaveLength Arrays", (): void => {
+describe("toHaveLength Arrays", () => {
   /**
    * This test verifies the valueArray global has length 3.
    */
-  it("should assert expected length", (): void => {
+  it("should assert expected length", () => {
     expect<i32[]>(valueArray).toHaveLength(3);
   });
 
   /**
    * This test throws because the length *is* 3. This is the contrapositive of the previous test.
    */
-  throws("should throw when expected length should not equal the same value", (): void => {
+  throws("should throw when expected length should not equal the same value", () => {
     expect<i32[]>(valueArray).not.toHaveLength(3);
   }, "When length is equal, negated assertions should throw.");
 
@@ -122,18 +122,18 @@ class Example {
 
 var customExample: Example = new Example();
 
-describe("toHaveLength custom classes", (): void => {
+describe("toHaveLength custom classes", () => {
  /**
    * This test verifies the customExample global has length 3.
    */
-  it("should assert expected length", (): void => {
+  it("should assert expected length", () => {
     expect<Example>(customExample).toHaveLength(3);
   });
 
   /**
    * This test throws because the length *is* 3. This is the contrapositive of the previous test.
    */
-  throws("should throw when expected length should not equal the same value", (): void => {
+  throws("should throw when expected length should not equal the same value", () => {
     expect<Example>(customExample).not.toHaveLength(3);
   }, "When length is equal, negated assertions should throw.");
 

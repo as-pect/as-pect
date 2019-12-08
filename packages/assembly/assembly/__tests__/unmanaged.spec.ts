@@ -9,5 +9,4 @@ describe("unmanaged references", () => {
     let end = RTrace.increments();
     expect<i32>(start).toBe(end);
   });
-
 });

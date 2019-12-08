@@ -32,40 +32,40 @@ STORE<f64>(buff3, 2, 6.0);
  * This test suite is responsible for verifing that all the memcmp operations used by toStrictEqual
  * function properly.
  */
-describe("toStrictEqual", (): void => {
+describe("toStrictEqual", () => {
 
   /**
    * toStrictEqual should delegate to the toBe function if the type being compared is a value type.
    */
-  it("should correctly assert toStrictEqual assertions for value types", (): void => {
+  it("should correctly assert toStrictEqual assertions for value types", () => {
     expect<i32>(3).toStrictEqual(3);
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("because value assertions are equal", (): void => {
+  throws("because value assertions are equal", () => {
     expect<i32>(3).not.toStrictEqual(3);
   }, "not.toStrictEqual on value types that are equal should throw.");
 
   /**
    * toStrictEqual should verify if a value type is not equal.
    */
-  it("should assert that value assertions are not equal", (): void => {
+  it("should assert that value assertions are not equal", () => {
     expect<i32>(3).not.toStrictEqual(1);
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("because value assertions are not equal", (): void => {
+  throws("because value assertions are not equal", () => {
     expect<i32>(3).toStrictEqual(1);
   }, "toStrictEqual on value types that are not equal should throw.");
 
   /**
    * toStrictEqual should validate if the references have exactly the same values.
    */
-  it("should correctly assert toStrictEqual assertions for reftypes", (): void => {
+  it("should correctly assert toStrictEqual assertions for reftypes", () => {
     expect<Vec3>(vec1)
       .toStrictEqual(vec3, "toStrictEqual assertions on ref types do not compare same values correctly.");
   });
@@ -73,49 +73,49 @@ describe("toStrictEqual", (): void => {
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("because references are not equal", (): void => {
+  throws("because references are not equal", () => {
     expect<Vec3>(vec1).not.toStrictEqual(vec3);
   }, "toStrictEqual assertions on ref types do not equal each other.");
 
   /**
    * It should validate if the references do not have exactly the same values.
    */
-  it("should correctly assert not.toStrictEqual assertions for reftypes", (): void => {
+  it("should correctly assert not.toStrictEqual assertions for reftypes", () => {
     expect<Vec3>(vec1).not.toStrictEqual(vec2);
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("because the references do not equal each other", (): void => {
+  throws("because the references do not equal each other", () => {
     expect<Vec3>(vec1).toStrictEqual(vec2);
   }, "toStrictEqual assertions on ref types do not compare different values correctly.");
 
   /**
    * Null values should always strictly equal null values.
    */
-  it("should correctly assert toStrictEqual for reftypes that are null", (): void => {
+  it("should correctly assert toStrictEqual for reftypes that are null", () => {
     expect<Vec3 | null>(null).toStrictEqual(null);
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("because null equals null", (): void => {
+  throws("because null equals null", () => {
     expect<Vec3 | null>(null).not.toStrictEqual(null);
   }, "null equals null.");
 
   /**
    * toStrictEqual should assert that a reference is NOT strictly equal to a null reference.
    */
-  it("should validate that references do not stritctly equal null", (): void => {
+  it("should validate that references do not stritctly equal null", () => {
     expect<Vec3 | null>(vec1).not.toStrictEqual(null);
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("because a reference does not strictly equal a null reference", (): void => {
+  throws("because a reference does not strictly equal a null reference", () => {
     expect<Vec3 | null>(vec1).toStrictEqual(null);
   }, "toStrictEqual should throw when actual is not null and expected is null.");
 
@@ -123,14 +123,14 @@ describe("toStrictEqual", (): void => {
   /**
    * toStrictEqual should assert that a null reference is NOT strictly equal to a reference.
    */
-  it("should validate that references do not stritctly equal null", (): void => {
+  it("should validate that references do not stritctly equal null", () => {
     expect<Vec3 | null>(null).not.toStrictEqual(vec1);
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("because a null is expected to strict equal a reference", (): void => {
+  throws("because a null is expected to strict equal a reference", () => {
     expect<Vec3 | null>(null).toStrictEqual(vec1);
   }, "toStrictEqual should throw when actual is null and expected is not null.");
 
@@ -138,14 +138,14 @@ describe("toStrictEqual", (): void => {
    * ArrayBuffers are a special case, because their memory offset extends beyond
    * the offestof<Arraybuffer>() compile time constant.
    */
-  it("should assert arraybuffers are equal", (): void => {
+  it("should assert arraybuffers are equal", () => {
     expect<ArrayBuffer>(buff1).toStrictEqual(buff2);
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("when equal ArrayBuffers are expected not to strictly equal each other", (): void => {
+  throws("when equal ArrayBuffers are expected not to strictly equal each other", () => {
     expect<ArrayBuffer>(buff1).not.toStrictEqual(buff2);
   }, "StrictEqual array buffers should throw when they are not expected to strictly equal each other.");
 
@@ -153,14 +153,14 @@ describe("toStrictEqual", (): void => {
    * ArrayBuffers are a special case, because their memory offset extends beyond
    * the offestof<Arraybuffer>() compile time constant.
    */
-  it("should assert arraybuffers are not equal", (): void => {
+  it("should assert arraybuffers are not equal", () => {
     expect<ArrayBuffer>(buff1).not.toStrictEqual(buff3, "buff1 and buff 3 are not strictly equal");
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
-  throws("when different ArrayBuffers are expected to strictly equal each other", (): void => {
+  throws("when different ArrayBuffers are expected to strictly equal each other", () => {
     expect<ArrayBuffer>(buff1).toStrictEqual(buff3);
   }, "Non-strictEqual array buffers should throw when they are expected to strictly equal each other.");
 
