@@ -6,46 +6,46 @@ const anonIDFunc = (i: i32): i32 => i;
  * This section adds a log value that executes *once* per describle block. The output should show
  * that a string exits.
  */
-beforeAll((): void => {
+beforeAll(() => {
   log<string>("before all outside describe");
 });
 
-afterAll((): void => {
+afterAll(() => {
   log<string>("after all outside describe");
 });
 
 /**
  * This test suite verifies that the log functions do not error when they are called.
  */
-describe("logs", (): void => {
+describe("logs", () => {
 
-  beforeAll((): void => {
+  beforeAll(() => {
     log<string>("Before All");
   });
 
-  afterAll((): void => {
+  afterAll(() => {
     log<string>("After All");
   });
 
-  beforeEach((): void => {
+  beforeEach(() => {
     log<string>("Before Each");
   });
 
-  afterEach((): void => {
+  afterEach(() => {
     log<string>("After Each");
   });
 
   /**
    * This test logs a string. It should be nice output when the test suite runs.
    */
-  test("log a string", (): void => {
+  test("log a string", () => {
     log<string>("Some string value");
   });
 
   /**
    * This test should log a number.
    */
-  test("log a number", (): void => {
+  test("log a number", () => {
     log<i32>(42);
   });
 
@@ -53,7 +53,7 @@ describe("logs", (): void => {
    * This test populates an ArrayBuffer and logs it to the console. It should look like an output
    * reference.
    */
-  test("log an ArrayBuffer", (): void => {
+  test("log an ArrayBuffer", () => {
     var array = new Uint8Array(8);
     for (let i = 0; i < 8; i++) {
       unchecked(array[i] = <u8>i);
@@ -64,14 +64,14 @@ describe("logs", (): void => {
   /**
    * This test logs a simple class reference.
    */
-  test("log a reference", (): void => {
+  test("log a reference", () => {
     log<Vec3>(new Vec3(1, 2, 3));
   });
 
   /**
    * This test logs a null value.
    */
-  test("log a null", (): void => {
+  test("log a null", () => {
     log<Vec3 | null>(null);
   });
 

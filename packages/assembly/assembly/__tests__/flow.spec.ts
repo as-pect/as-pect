@@ -11,39 +11,39 @@ var testCount: i32 = 0;
  *
  * In this case, this second describe block will run first, and set the global values.
  */
-describe("example test", (): void => {
+describe("example test", () => {
 
   /**
    * The following flow tests modify the global values.
    */
-  beforeAll((): void => {
+  beforeAll(() => {
     beforeAllRan += 1;
   });
 
-  beforeEach((): void => {
+  beforeEach(() => {
     beforeEachRan += 1;
   });
 
-  afterEach((): void => {
+  afterEach(() => {
     afterEachRan += 1;
   });
 
-  afterAll((): void => {
+  afterAll(() => {
     afterAllRan += 1;
   });
 
   /**
    * The following three tests increase the testCount.
    */
-  it("should run this example test", (): void => {
+  it("should run this example test", () => {
     testCount += 1;
   });
 
-  it("should run this example test", (): void => {
+  it("should run this example test", () => {
     testCount += 1;
   });
 
-  it("should run this example test", (): void => {
+  it("should run this example test", () => {
     testCount += 1;
   });
 
@@ -51,7 +51,7 @@ describe("example test", (): void => {
    * This test increases the test count, and is garunteed to throw by using an `unreachable()`
    * instruction.
    */
-  throws("this test should run", (): void => {
+  throws("this test should run", () => {
     testCount += 1;
     unreachable();
   });
@@ -65,12 +65,12 @@ describe("example test", (): void => {
  * This test group actually tests the control flow values. It is garunteed to run after the first
  * test suite in this file, and therefore it should have modified the globals.
  */
-describe("flow", (): void => {
+describe("flow", () => {
   /**
    * The beforeEach function runs before each test, therefore we should expect the beforeEachRan
    * value to be exactly 4.
    */
-  it("should call beforeEach twice", (): void => {
+  it("should call beforeEach twice", () => {
     assert(beforeEachRan == 4, "beforeEach run count should be 4");
   });
 
@@ -78,7 +78,7 @@ describe("flow", (): void => {
    * The beforeAll function runs exactly once before the whole test suite, therefore we should
    * expect the beforeAllRan value to be exactly 1.
    */
-  it("should call beforeAll once", (): void => {
+  it("should call beforeAll once", () => {
     assert(beforeAllRan == 1, "beforeAll run count should be 1");
   });
 
@@ -86,7 +86,7 @@ describe("flow", (): void => {
    * The afterEach function runs before each test, therefore we should expect the afterEachRan
    * value to be exactly 4.
    */
-  it("should call afterEach twice", (): void => {
+  it("should call afterEach twice", () => {
     assert(afterEachRan == 4, "afterEach run count should be 4");
   });
 
@@ -94,14 +94,14 @@ describe("flow", (): void => {
    * The afterAll function runs once after the test suite has run, therefore we should expect the
    * afterAllRan value to be exactly 1.
    */
-  it("should call afterAll once", (): void => {
+  it("should call afterAll once", () => {
     assert(afterAllRan == 1, "afterAll run count should be 1");
   });
 
   /**
    * Since there are 4 tests, we should expect the the test count to be 4.
    */
-  it("should call all 4 tests", (): void => {
+  it("should call all 4 tests", () => {
     assert(testCount == 4, "test run count should be 4");
   });
 });
