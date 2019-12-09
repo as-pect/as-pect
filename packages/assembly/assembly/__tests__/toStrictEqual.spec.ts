@@ -1,4 +1,5 @@
 import { Vec3 } from "./setup/Vec3";
+import { EventDispatcher, Listener, Event } from "./setup/Event";
 // @ts-ignore: we are going to use internal store to set arraybuffer contents
 
 @inline
@@ -292,5 +293,16 @@ describe("toStrictEqual", (): void => {
     two[1] = 2.2;
     two[2] = 3.3;
     expect<Float32Array>(one).not.toStrictEqual(two);
+  });
+
+  it("shold compare two function pointers", () => {
+    var eventDispatcher = new EventDispatcher()
+    var listener: Listener = (event: Event) => {}
+    
+		eventDispatcher.events.push(listener);
+		// prettier-ignore
+		expect<Listener>(
+			eventDispatcher.events[0]
+		).toStrictEqual(listener)
   });
 });

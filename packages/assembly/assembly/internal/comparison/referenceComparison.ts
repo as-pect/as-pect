@@ -1,6 +1,7 @@
 import { Actual } from "../report/Actual";
 import { Expected } from "../report/Expected";
 import { assert } from "./assert";
+import { exactComparison } from "./exactComparison";
 
 /**
  * This method performs a reference comparison using `memory.compare()`. The size of the memory
@@ -16,6 +17,15 @@ import { assert } from "./assert";
 // @ts-ignore: Decorators *are* valid here
 @inline
 export function referenceComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
+  
+  if (isFunction<T>(actual)) {
+    const iactual = changetype<i32>(actual);
+    const iexpected = changetype<i32>(expected);
+    Actual.report<i32>(iactual);
+    Expected.report<i32>(iexpected, negated);
+    exactComparison<i32>(iactual, iexpected, negated, message);
+    return;
+  }
   // report the actual and expected values
   Actual.report<T>(actual);
   Expected.report<T>(expected, negated);
