@@ -42,7 +42,7 @@
     "glob": "^7.1.5"
   },
   "devDependencies": {
-    "assemblyscript": "github:assemblyscript/assemblyscript",
+    "assemblyscript": "^0.8.1t",
     "ts-node": "^8.4.1"
   },
   "files": [
