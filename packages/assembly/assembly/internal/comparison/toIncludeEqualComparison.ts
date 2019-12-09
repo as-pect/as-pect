@@ -18,10 +18,10 @@ import { assert } from "./assert";
 // @ts-ignore expected is valueof<T> or it will be a compiler error
 export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, negated: i32, message: string): void {
   /**
-   * If `U` is not a reference, then we delegate to `toIncludeComparison()`.
+   * If `U` is not a reference or is a function pointer, then we delegate to `toIncludeComparison()`.
    */
   // @ts-ignore expected is valueof<T> or it will be a compiler error
-  if (!isReference<valueof<T>>(expected) || expected instanceof string) {
+  if (!isReference<valueof<T>>(expected) || expected instanceof string || isFunction<valueof<T>>(expected)) {
     toIncludeComparison<T>(actual, expected, negated, message);
     return;
   }

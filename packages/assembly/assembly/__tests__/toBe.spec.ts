@@ -1,6 +1,12 @@
 import { Vec3 } from "./setup/Vec3";
+import { EventDispatcher, Listener, listener, anotherListener } from "./setup/Event";
 var vec1: Vec3 = new Vec3(1, 2, 3);
 var vec2: Vec3 = new Vec3(4, 5, 6);
+
+var eventDispatcher = new EventDispatcher();
+eventDispatcher.events.push(listener);
+eventDispatcher.events.push(anotherListener);
+
 
 /**
  * This test suite valides strict equality expectations. For value types, they should strictly
@@ -111,5 +117,25 @@ describe("toBe", (): void => {
   throws("should always throw if both values are NaN", (): void => {
     expect<f64>(NaN).toBe(NaN);
   }, "NaN is not ever equal to NaN.");
+
+  /**
+   * Function pointers should be comparable
+   */
+  it("should compare function pointers", () => {
+		expect<Listener>(
+			eventDispatcher.events[0]
+    ).toBe(listener)
+
+    expect<Listener>(
+			eventDispatcher.events[1]
+    ).not.toBe(listener)
+  });
+
+  /** Contrapositive of above */
+  throws("should always throw if function pointers are not the same", () => {
+    expect<Listener>(
+			eventDispatcher.events[0]
+    ).toBe(anotherListener);
+  })
 });
 
