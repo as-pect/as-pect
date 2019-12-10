@@ -65,6 +65,10 @@ declare module "util/LogValue" {
          * This is the raw logged value.
          */
         value: number | null;
+        /**
+         * This is a function pointer is an index.
+         */
+        fnPointer: number;
     }
 }
 declare module "util/ActualValue" {
@@ -738,6 +742,12 @@ declare module "test/TestCollector" {
          */
         private logLong;
         /**
+         * Log a Function Index.
+         *
+         * @param {number} functionPointer - The function's pointer.
+         */
+        private logFunction;
+        /**
          * This web assembly linked function creates a test group. It's called when the test suite calls
          * the describe("test", callback) function from within AssemblyScript. It receives a pointer to
          * the description of the tests, forks the top level test group, pushes the suiteName to a list,
@@ -907,6 +917,22 @@ declare module "test/TestCollector" {
          * @param {1 | 0} negated - An indicator if the expectation is negated.
          */
         private reportExpectedString;
+        /**
+         * This function reports an expected function pointer index
+         *
+         * @param {number} functionPointer - A pointer that points to the expected string.
+         * @param {1 | 0} negated  - An indicator if the expectation is negated.
+         * @param stackTrace
+         */
+        private reportExpectedFunction;
+        /**
+         * This function reports an actual function pointer index
+         *
+         * @param {number} functionPointer - A pointer that points to the expected string.
+         * @param {1 | 0} negated  - An indicator if the expectation is negated.
+         * @param stackTrace
+         */
+        private reportActualFunction;
         /**
          * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
          * reasons.

@@ -59,12 +59,8 @@ export class Expectation<T> {
    * @param {string} message - The message that describes this assertion.
    */
   public toBe(expected: T, message: string = ""): void {
-    if (isFunction<T>()){
-      exactComparison<i32>(i32(this.actual), i32(expected), this._not, message);
-    } else {
-      // assert value or reference equality
-      exactComparison<T>(this.actual, expected, this._not, message);
-    }
+    // assert value or reference equality
+    exactComparison<T>(this.actual, expected, this._not, message);
     Actual.clear();
     Expected.clear();
   }
@@ -77,7 +73,7 @@ export class Expectation<T> {
    */
   public toStrictEqual(expected: T, message: string = ""): void {
     // if T is not a reference, use exactComparison
-    if (!isReference<T>()) {
+    if (!isReference<T>() || isFunction<T>()) {
       exactComparison<T>(this.actual, expected, this._not, message);
       Actual.clear();
       Expected.clear();

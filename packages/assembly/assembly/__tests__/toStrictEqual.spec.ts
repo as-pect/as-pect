@@ -1,9 +1,8 @@
 import { Vec3 } from "./setup/Vec3";
-import { EventDispatcher, Listener, Event, listener, anotherListener } from "./setup/Event";
+import { Listener, listener, anotherListener, initializeDispatcher } from "./setup/Event";
 
-var eventDispatcher = new EventDispatcher();
-eventDispatcher.events.push(listener);
-eventDispatcher.events.push(anotherListener);
+var eventDispatcher = initializeDispatcher();
+
 
 // @ts-ignore: we are going to use internal store to set arraybuffer contents
 
@@ -305,6 +304,9 @@ describe("toStrictEqual", (): void => {
    */
   it("should strictly compare two function pointers", () => {
     expect<Listener>(eventDispatcher.events[0]).toStrictEqual(listener);
+  });
+  
+  it("should handle the negated function check", () => {
     expect<Listener>(eventDispatcher.events[0]).not.toStrictEqual(anotherListener);
   });
 
@@ -313,5 +315,12 @@ describe("toStrictEqual", (): void => {
    */
   throws("throws if pointers aren't equal", () => {
     expect<Listener>(eventDispatcher.events[0]).toStrictEqual(anotherListener);
+  });
+
+  /**
+   * Throws if two functions are not equal
+   */
+  throws("throws if pointers aren't equal", () => {
+    expect<Listener>(eventDispatcher.events[0]).not.toStrictEqual(listener);
   });
 });

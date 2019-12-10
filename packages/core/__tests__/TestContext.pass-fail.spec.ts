@@ -19,7 +19,7 @@ beforeAll(() => start);
 
 describe("pass-fail output", () => {
   test("Overall Statistics", () => {
-    expect(ctx.pass).toMatchSnapshot("pass")
+    expect(ctx.pass).toMatchSnapshot("pass");
   });
   for (const group of ctx.testGroups) {
     test(`Group: ${group.name}`, () => {

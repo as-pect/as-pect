@@ -15,3 +15,10 @@ export const anotherListener: Listener = (event: Event) => {
   let x: i32 = 0;
   x + x;
 };
+
+export function initializeDispatcher(): EventDispatcher {
+    var eventDispatcher = new EventDispatcher();
+    eventDispatcher.events.push(listener);
+    eventDispatcher.events.push(anotherListener); 
+    return eventDispatcher;
+}

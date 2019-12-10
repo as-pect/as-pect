@@ -1,11 +1,10 @@
 import { Vec3 } from "./setup/Vec3";
-import { EventDispatcher, Listener, listener, anotherListener } from "./setup/Event";
+import { Listener, listener, anotherListener, initializeDispatcher } from "./setup/Event";
 var vec1: Vec3 = new Vec3(1, 2, 3);
 var vec2: Vec3 = new Vec3(4, 5, 6);
 
-var eventDispatcher = new EventDispatcher();
-eventDispatcher.events.push(listener);
-eventDispatcher.events.push(anotherListener);
+var eventDispatcher = initializeDispatcher();
+
 
 
 /**
@@ -124,11 +123,14 @@ describe("toBe", (): void => {
   it("should compare function pointers", () => {
 		expect<Listener>(
 			eventDispatcher.events[0]
-    ).toBe(listener)
+    ).toBe(listener);
+    log(listener);
+  });
 
+  it("should handle negative case for comparing function pointers", () =>{
     expect<Listener>(
 			eventDispatcher.events[1]
-    ).not.toBe(listener)
+    ).not.toBe(listener);
   });
 
   /** Contrapositive of above */
@@ -136,6 +138,13 @@ describe("toBe", (): void => {
     expect<Listener>(
 			eventDispatcher.events[0]
     ).toBe(anotherListener);
-  })
+  });
+
+  /** Contrapositive of negative above */
+  throws("should always throw if function pointers are the same", () => {
+    expect<Listener>(
+      eventDispatcher.events[0]
+    ).not.toBe(listener);
+  });
 });
 

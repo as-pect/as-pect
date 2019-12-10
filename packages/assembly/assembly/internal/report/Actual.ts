@@ -38,6 +38,10 @@ declare function getStackTrace(): i32;
 @external("__aspect", "reportActualBool")
 declare function reportActualBool(value: usize, stackTrace: i32): void;
 
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportActualFunction")
+declare function reportActualFunction(value: i32, stackTrace: i32): void;
+
 /**
  * This class is static and contains private global values that contain metadata about the Actual
  * value.
@@ -124,6 +128,12 @@ export class Actual {
       }
 
       let ptr = changetype<usize>(actual);
+
+      if (isFunction<T>(actual)) {
+        Actual.type = ValueType.Function;
+        Actual.reference = ptr;
+        return;
+      }
 
       // if the reference is managed, retain it for later reporting
       if (isManaged<T>()) __retain(ptr);
@@ -214,6 +224,9 @@ export function __sendActual(): void {
       break;
     case ValueType.Bool:
       reportActualBool(Actual.integer, Actual.stackTrace);
+      break;
+    case ValueType.Function:
+      reportActualFunction(Actual.integer, Actual.stackTrace);
       break;
   }
 }

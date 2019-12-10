@@ -38,4 +38,8 @@ export declare class LogValue {
      * This is the raw logged value.
      */
     value: number | null;
+    /**
+     * This is a function pointer is an index.
+     */
+    fnPointer: number;
 }

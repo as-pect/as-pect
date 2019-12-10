@@ -284,6 +284,7 @@ export class TestCollector {
           logReference: this.logReference.bind(this),
           logString: this.logString.bind(this),
           logValue: this.logValue.bind(this),
+          logFunction: this.logFunction.bind(this),
           maxSamples: this.maxSamples.bind(this),
           maxTestRunTime: this.maxTestRunTime.bind(this),
           performanceEnabled: this.performanceEnabled.bind(this),
@@ -311,6 +312,8 @@ export class TestCollector {
           reportExpectedString: this.reportExpectedString.bind(this),
           reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
           reportExpectedValue: this.reportExpectedValue.bind(this),
+          reportExpectedFunction: this.reportExpectedFunction.bind(this),
+          reportActualFunction: this.reportActualFunction.bind(this),
           reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
           reportMedian: this.reportMedian.bind(this),
@@ -513,6 +516,23 @@ export class TestCollector {
     value.stack = this.getLogStackTrace();
     value.message = `Value ${long.toString()}`;
     value.target = target;
+
+    // push the log value to the logs
+    target.logs.push(value);
+  }
+
+  /**
+   * Log a Function Index.
+   *
+   * @param {number} functionPointer - The function's pointer.
+   */
+  private logFunction(functionPointer: number): void {
+    const value = new LogValue();
+    const target = this.logTarget;
+
+    value.target = target;
+    value.fnPointer = functionPointer;
+    value.message = `[Function ${functionPointer}: [Name] ]`;
 
     // push the log value to the logs
     target.logs.push(value);
@@ -1016,6 +1036,46 @@ export class TestCollector {
     value.negated = negated === 1;
     value.value = stringPointer;
     this.expected = value;
+  }
+
+  /**
+   * This function reports an expected function pointer index
+   *
+   * @param {number} functionPointer - A pointer that points to the expected string.
+   * @param {1 | 0} negated  - An indicator if the expectation is negated.
+   * @param stackTrace
+   */
+  private reportExpectedFunction(
+    functionPointer: number,
+    negated: 1 | 0,
+    stackTrace: number,
+  ): void {
+    const value = new ActualValue();
+    value.message = `[Function ${functionPointer}: [Name] ]`;
+    value.fnPointer = functionPointer;
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    value.negated = negated === 1;
+    this.expected = value;
+  }
+
+  /**
+   * This function reports an actual function pointer index
+   *
+   * @param {number} functionPointer - A pointer that points to the expected string.
+   * @param {1 | 0} negated  - An indicator if the expectation is negated.
+   * @param stackTrace
+   */
+  private reportActualFunction(
+    functionPointer: number,
+    stackTrace: number,
+  ): void {
+    const value = new ActualValue();
+    value.message = `[Function ${functionPointer}: [Name] ]`;
+    value.fnPointer = functionPointer;
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    this.actual = value;
   }
 
   /**
