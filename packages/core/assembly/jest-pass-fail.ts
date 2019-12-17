@@ -21,6 +21,9 @@ export class Vec3 {
   }
 }
 
+const func = (i: i32) => i;
+const otherFunc = (i: i32) => i + i;
+
 
 test("A test outside of a describe block", () => {
   assert(true);
@@ -101,6 +104,10 @@ describe("pass-fail", () => {
 
   it("should report invalid strings", () => {
     expect<string>("Test").toBe("invalid");
+  });
+
+  it("should report failed functions", () => {
+    expect<(i: i32) => i32>(func).toBe(otherFunc);
   });
 });
 
