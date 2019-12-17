@@ -21,8 +21,8 @@ export class Vec3 {
   }
 }
 
-const func = (i: i32) => i;
-const otherFunc = (i: i32) => i + i;
+const func = (i: i32): i32 => i;
+const otherFunc = (i: i32): i32 => i + i;
 
 
 test("A test outside of a describe block", () => {
