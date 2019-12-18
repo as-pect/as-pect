@@ -247,7 +247,7 @@ export default class VerboseReporter extends TestReporter {
 
     this.stdout!.write(chalk`${
   process.stdout.columns
-    ? "~".repeat(process.stdout.columns! - 10)
+    ? "~".repeat(Math.max(process.stdout.columns - 10, 10))
     : "~".repeat(80)
 }
 

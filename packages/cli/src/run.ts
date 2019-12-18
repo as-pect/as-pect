@@ -423,7 +423,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         const end = performance.now();
         failed = testCount !== successCount || errors.length > 0;
         const result = failed ? chalk`{red ✖ FAIL}` : chalk`{green ✔ PASS}`;
-        console.log("~".repeat(process.stdout.columns! - 10));
+        console.log("~".repeat(Math.max(process.stdout.columns - 10, 10)));
 
         for (const error of errors) {
           console.log(chalk`
