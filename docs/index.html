@@ -120,11 +120,24 @@
 				that you can be confident in yourself and the software you write.</p>
 				<p>One of the goals of this project is 100% portability to <code>jest</code> so that tests
 				can be run in two different environments.</p>
+				<p>The most important reason why <code>as-pect</code> exists is to set up and bootstrap
+					AssemblyScript tests otherwise would be a hastle to new developers. For
+					instance, the following steps need to be compelted for each individual test
+				module.</p>
+				<ol>
+					<li>Create a set of testing primitives or rely on <code>assert()</code> to validate module state</li>
+					<li>Compile the module itself</li>
+					<li>Bootstrap imports</li>
+					<li>Write tests</li>
+					<li>Log test output</li>
+				</ol>
+				<p>This process alone could take hours of your time, and <code>as-pect</code> covers this need
+				for testing AssemblyScript modules by simply being an <code>npm install</code> away.</p>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
 				<p>To install <code>as-pect</code>, install the latest version(s) from npm.</p>
-				<pre><code>$ npm <span class="hljs-keyword">install</span> @<span class="hljs-keyword">as</span>-pect/cli @<span class="hljs-keyword">as</span>-pect/core @<span class="hljs-keyword">as</span>-pect/<span class="hljs-keyword">assembly</span> assemblyscript/assemblyscript</code></pre><p>To initialize a test suite, run <code>npx asp --init</code>. It will create the following
+				<pre><code>$ <span class="hljs-built_in">npm</span> install @as-pect/cli assemblyscript/assemblyscript</code></pre><p>To initialize a test suite, run <code>npx asp --init</code>. It will create the following
 				folders and files.</p>
 				<pre><code><span class="hljs-meta">$</span> <span class="hljs-string">npx asp --init</span>
 <span class="hljs-comment">
