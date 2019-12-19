@@ -12,6 +12,8 @@ module.exports = {
     "**/@types/jest/**",
     "**/lib/**",
     "**/cli/init/env.d.ts",
+    "**/cli/init/init-types.d.ts",
+    "**/cli/init/portable-types.d.ts",
   ],
   name: "as-pect",
   includeDeclarations: true,
