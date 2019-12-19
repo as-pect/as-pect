@@ -67,7 +67,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   let asc: any;
   let instantiateSync: any;
   let parse: any;
-
+  let exportTable: boolean = false;
   try {
     let folderUsed = "cli";
     try {
@@ -117,6 +117,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       throw new Error(
         `${cliOptions.compiler}/cli/util/options does not export a parse() method.`,
       );
+    }
+
+    if (asc.options.exportTable) {
+      exportTable = true;
     }
     parse = options.parse;
   } catch (ex) {
@@ -181,9 +185,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     }
   }
 
-
-
-
   // Create the compiler flags
   const flags: ICompilerFlags = Object.assign({}, configuration.flags, {
     "--validate": [],
@@ -209,6 +210,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         flags["--use"].push("--use", "ASC_RTRACE=1")
       }
     }
+  }
+
+  if (exportTable) {
+    flags["--exportTable"] = [];
   }
 
   /** It's useful to notify the user that optimizations will make test compile times slower. */

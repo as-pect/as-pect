@@ -79,7 +79,7 @@ exports[`log output Group: logs Test: logs: message 11`] = `"[0,1,2]"`;
 
 exports[`log output Group: logs Test: logs: message 12`] = `"[-1,-2,-3]"`;
 
-exports[`log output Group: logs Test: logs: message 13`] = `"[Function 1: [Name] ]"`;
+exports[`log output Group: logs Test: logs: message 13`] = `"[Function $1: undefined]"`;
 
 exports[`log output Group: logs Test: logs: message 14`] = `"trace: The thing! 1, 2, 3, 4, 5"`;
 
@@ -218,7 +218,7 @@ exports[`log output Group: logs: message 11`] = `"[0,1,2]"`;
 
 exports[`log output Group: logs: message 12`] = `"[-1,-2,-3]"`;
 
-exports[`log output Group: logs: message 13`] = `"[Function 1: [Name] ]"`;
+exports[`log output Group: logs: message 13`] = `"[Function $1: undefined]"`;
 
 exports[`log output Group: logs: message 14`] = `"trace: The thing! 1, 2, 3, 4, 5"`;
 

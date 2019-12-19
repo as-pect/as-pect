@@ -53,4 +53,6 @@ export interface IAspectExports {
     __getArray(ref: number): number[];
     /** Forces a cycle collection. Only relevant if objects potentially forming reference cycles are used. */
     __collect(): void;
+    /** The WebAssembly function Table. */
+    readonly table?: WebAssembly.Table;
 }

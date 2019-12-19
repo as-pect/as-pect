@@ -532,7 +532,16 @@ export class TestCollector {
 
     value.target = target;
     value.fnPointer = functionPointer;
-    value.message = `[Function ${functionPointer}: [Name] ]`;
+
+    // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
+    const func = this.wasm?.table?.get(functionPointer);
+    if (this.wasm?.table && func) {
+      /* istanbul ignore next */
+      value.message = `[Function $${functionPointer}]`;
+    } else {
+      /* istanbul ignore next */
+      value.message = `[Function $${functionPointer}: ${func?.name}]`;
+    }
 
     // push the log value to the logs
     target.logs.push(value);
@@ -1051,7 +1060,17 @@ export class TestCollector {
     stackTrace: number,
   ): void {
     const value = new ActualValue();
-    value.message = `[Function ${functionPointer}: [Name] ]`;
+
+    // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
+    const func = this.wasm?.table?.get(functionPointer);
+    if (this.wasm?.table && func) {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}]`;
+    } else {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}: ${func?.name}]`;
+    }
+
     value.fnPointer = functionPointer;
     value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
@@ -1071,7 +1090,17 @@ export class TestCollector {
     stackTrace: number,
   ): void {
     const value = new ActualValue();
-    value.message = `[Function ${functionPointer}: [Name] ]`;
+
+    // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
+    const func = this.wasm?.table?.get(functionPointer);
+    if (this.wasm?.table && func) {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}]`;
+    } else {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}: ${func?.name}]`;
+    }
+
     value.fnPointer = functionPointer;
     value.stack = this.stackTraces.get(stackTrace)!;
     value.target = this.logTarget;
