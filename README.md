@@ -53,12 +53,26 @@ that you can be confident in yourself and the software you write.
 One of the goals of this project is 100% portability to `jest` so that tests
 can be run in two different environments.
 
+The most important reason why `as-pect` exists is to set up and bootstrap
+AssemblyScript tests otherwise would be a hastle to new developers. For
+instance, the following steps need to be compelted for each individual test
+module.
+
+1. Create a set of testing primitives or rely on `assert()` to validate module state
+1. Compile the module itself
+1. Bootstrap imports
+1. Write tests
+1. Log test output
+
+This process alone could take hours of your time, and `as-pect` covers this need
+for testing AssemblyScript modules by simply being an `npm install` away.
+
 ## Usage
 
 To install `as-pect`, install the latest version(s) from npm.
 
 ```
-$ npm install @as-pect/cli @as-pect/core @as-pect/assembly assemblyscript/assemblyscript
+$ npm install @as-pect/cli assemblyscript/assemblyscript
 ```
 
 To initialize a test suite, run `npx asp --init`. It will create the following
