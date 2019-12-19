@@ -33,14 +33,14 @@
 	},
 	"homepage": "https://github.com/jtenner/as-pect#readme",
 	"devDependencies": {
-		"@types/jest": "^24.0.22",
-		"assemblyscript": "^0.8.1",
+		"@types/jest": "^24.0.24",
+		"assemblyscript": "^0.8.1-nightly.20191219",
 		"jest": "^24.9.0",
-		"ts-jest": "^24.1.0"
+		"ts-jest": "^24.2.0"
 	},
 	"dependencies": {
 		"@as-pect/assembly": "^2.6.0",
-		"chalk": "^2.4.2",
+		"chalk": "^3.0.0",
 		"long": "^4.0.0"
 	},
 	"files": [
@@ -48,6 +48,6 @@
 		"lib/"
 	],
 	"optionalDependencies": {
-		"csv-stringify": "^5.3.3"
+		"csv-stringify": "^5.3.5"
 	}
 }

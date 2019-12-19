@@ -11,7 +11,7 @@ import { join } from "path";
 export function portable() {
   const assemblyFolder = join(process.cwd(), "assembly");
   const testFolder = join(assemblyFolder, "__tests__");
-  const typesFileSource = require.resolve("@as-pect/assembly/types/as-pect.portable.d.ts");
+  const typesFileSource = require.resolve("@as-pect/cli/init/portable-types.d.ts");
   const typesFile = join(testFolder, "as-pect.d.ts");
 
   console.log("");

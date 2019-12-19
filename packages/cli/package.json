@@ -38,12 +38,12 @@
   "dependencies": {
     "@as-pect/assembly": "^2.6.0",
     "@as-pect/core": "^2.6.0",
-    "chalk": "^2.4.2",
-    "glob": "^7.1.5"
+    "chalk": "^3.0.0",
+    "glob": "^7.1.6"
   },
   "devDependencies": {
-    "assemblyscript": "^0.8.1",
-    "ts-node": "^8.4.1"
+    "assemblyscript": "^0.8.1-nightly.20191219",
+    "ts-node": "^8.5.4"
   },
   "files": [
     "init/",
