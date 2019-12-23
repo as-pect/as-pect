@@ -33,7 +33,7 @@
     "@as-pect/core": "file:./packages/core",
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.22",
-    "@types/node": "^12.12.6",
+    "@types/node": "^13.1.0",
     "assemblyscript": "github:assemblyscript/assemblyscript",
     "coveralls": "^3.0.7",
     "csv-stringify": "^5.3.3",
