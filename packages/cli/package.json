@@ -42,7 +42,7 @@
     "glob": "^7.1.6"
   },
   "devDependencies": {
-    "assemblyscript": "^0.8.1-nightly.20200102",
+    "assemblyscript": "0.8.1-nightly.20200102",
     "ts-node": "^8.5.4"
   },
   "files": [

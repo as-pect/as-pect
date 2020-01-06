@@ -32,7 +32,7 @@
     "types/"
   ],
   "devDependencies": {
-    "assemblyscript": "^0.8.1-nightly.20200102",
-    "markdownlint-cli": "^0.20.0"
+    "assemblyscript": "0.8.1-nightly.20200102",
+    "markdownlint-cli": "^0.21.0"
   }
 }

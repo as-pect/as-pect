@@ -227,7 +227,16 @@ export class TestCollector {
   protected collectTests(): void {
     // reset the performance values first, then collect the tests by calling `__main()`
     this.resetPerformanceValues();
-    this.wasm!.__start();
+
+    /**
+     * In version >0.8.1 of assemblyscript, there was a __start function refactor that helped
+     * conform assemblyscript to the wasi standard. The following line is used for backwards
+     * compatibility to older versions of assemblyscript. Coverage is ignored because one branch
+     * is impossible to test using assemblyscript latest.
+     */
+    /* istanbul ignore next */
+    const startFunc = this.wasm!.__start ?? this.wasm!._start!;
+    startFunc();
     this.wasm!.__ready();
     let topLevelGroup = this.groupStack[0];
 
@@ -534,7 +543,9 @@ export class TestCollector {
     value.fnPointer = functionPointer;
 
     // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
+    /* istanbul ignore next */
     const func = this.wasm?.table?.get(functionPointer);
+    /* istanbul ignore next */
     if (this.wasm?.table && func) {
       /* istanbul ignore next */
       value.message = `[Function $${functionPointer}]`;
@@ -1062,7 +1073,9 @@ export class TestCollector {
     const value = new ActualValue();
 
     // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
+    /* istanbul ignore next */
     const func = this.wasm?.table?.get(functionPointer);
+    /* istanbul ignore next */
     if (this.wasm?.table && func) {
       /* istanbul ignore next */
       value.message = `[Function ${functionPointer}]`;
@@ -1092,7 +1105,9 @@ export class TestCollector {
     const value = new ActualValue();
 
     // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
+    /* istanbul ignore next */
     const func = this.wasm?.table?.get(functionPointer);
+    /* istanbul ignore next */
     if (this.wasm?.table && func) {
       /* istanbul ignore next */
       value.message = `[Function ${functionPointer}]`;

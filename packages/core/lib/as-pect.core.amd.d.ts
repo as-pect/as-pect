@@ -545,8 +545,10 @@ declare module "util/IAspectExports" {
         readonly memory: {
             readonly buffer: ArrayBuffer;
         };
-        /** Explicit start function, if requested. */
+        /** Explicit start function for version 0.8.1. or below. */
         __start(): void;
+        /** Explicit start function. */
+        _start(): void;
         /** Reads (copies) the value of a string from the module's memory. */
         __getString(ref: number): string;
         /** Allocates a new array in the module's memory and returns a reference (pointer) to it. */

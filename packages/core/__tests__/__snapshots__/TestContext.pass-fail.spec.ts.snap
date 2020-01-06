@@ -168,7 +168,7 @@ exports[`pass-fail output Group: pass-fail Test: should expect strings: actual m
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: actual offset 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should expect strings: actual value 1`] = `824`;
+exports[`pass-fail output Group: pass-fail Test: should expect strings: actual value 1`] = `896`;
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: actual values 1`] = `Array []`;
 
@@ -180,7 +180,7 @@ exports[`pass-fail output Group: pass-fail Test: should expect strings: expected
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: expected offset 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should expect strings: expected value 1`] = `848`;
+exports[`pass-fail output Group: pass-fail Test: should expect strings: expected value 1`] = `928`;
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: expected values 1`] = `Array []`;
 
@@ -366,7 +366,7 @@ exports[`pass-fail output Group: pass-fail Test: should report invalid strings: 
 
 exports[`pass-fail output Group: pass-fail Test: should report invalid strings: actual offset 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report invalid strings: actual value 1`] = `2168`;
+exports[`pass-fail output Group: pass-fail Test: should report invalid strings: actual value 1`] = `2352`;
 
 exports[`pass-fail output Group: pass-fail Test: should report invalid strings: actual values 1`] = `Array []`;
 
@@ -378,7 +378,7 @@ exports[`pass-fail output Group: pass-fail Test: should report invalid strings: 
 
 exports[`pass-fail output Group: pass-fail Test: should report invalid strings: expected offset 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report invalid strings: expected value 1`] = `2192`;
+exports[`pass-fail output Group: pass-fail Test: should report invalid strings: expected value 1`] = `2384`;
 
 exports[`pass-fail output Group: pass-fail Test: should report invalid strings: expected values 1`] = `Array []`;
 
@@ -505,7 +505,7 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: actual offset 1`] = `24`;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: actual value 1`] = `5184`;
+exports[`pass-fail output Group: pass-fail Test: should report reference values: actual value 1`] = `5392`;
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: actual values 1`] = `Array []`;
 
@@ -544,7 +544,7 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: expected offset 1`] = `24`;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: expected value 1`] = `5264`;
+exports[`pass-fail output Group: pass-fail Test: should report reference values: expected value 1`] = `5472`;
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: expected values 1`] = `Array []`;
 
