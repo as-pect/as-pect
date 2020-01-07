@@ -1797,6 +1797,7 @@ export class TestCollector {
 
   private funcName(index: number): string {
     if (this.nameSection) return this.nameSection.fromIndex(index);
+    /* istanbul ignore next */
     return "";
   }
 }
