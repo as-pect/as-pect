@@ -6,6 +6,7 @@ import { IAspectExports } from "../../src/util/IAspectExports";
 
 type TestContextCallback = (err: Error | null, result?: TestContext) => void;
 
+
 export function createLogModule(
   linked: any,
   callback: TestContextCallback,
@@ -20,6 +21,7 @@ export function createLogModule(
       "--explicitStart",
       "./assembly/jest-log.ts",
       "../assembly/assembly/index.ts",
+      "--exportTable",  
       "--use",
       "ASC_RTRACE=1",
     ],
@@ -30,6 +32,7 @@ export function createLogModule(
             reporter: new EmptyReporter(),
             fileName: "assembly/jest-log.ts",
             performanceConfiguration: { enabled: false },
+            binary: contents
           });
           const result = instantiateBuffer<IAspectExports>(
             contents,

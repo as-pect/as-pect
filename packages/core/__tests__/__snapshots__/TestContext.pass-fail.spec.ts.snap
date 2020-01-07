@@ -306,7 +306,7 @@ exports[`pass-fail output Group: pass-fail Test: should report expected finite v
 
 exports[`pass-fail output Group: pass-fail Test: should report failed functions: actual bytes 1`] = `Array []`;
 
-exports[`pass-fail output Group: pass-fail Test: should report failed functions: actual message 1`] = `"[Function 0: undefined]"`;
+exports[`pass-fail output Group: pass-fail Test: should report failed functions: actual message 1`] = `"[Function 0]"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report failed functions: actual offset 1`] = `0`;
 
@@ -316,7 +316,7 @@ exports[`pass-fail output Group: pass-fail Test: should report failed functions:
 
 exports[`pass-fail output Group: pass-fail Test: should report failed functions: expected bytes 1`] = `Array []`;
 
-exports[`pass-fail output Group: pass-fail Test: should report failed functions: expected message 1`] = `"[Function 2: undefined]"`;
+exports[`pass-fail output Group: pass-fail Test: should report failed functions: expected message 1`] = `"[Function 2]"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report failed functions: expected negated 1`] = `false`;
 

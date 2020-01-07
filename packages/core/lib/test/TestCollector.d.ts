@@ -4,6 +4,7 @@ import { TestGroup } from "./TestGroup";
 import { ILogTarget } from "../util/ILogTarget";
 import { IWarning } from "./IWarning";
 import { IPerformanceConfiguration } from "../util/IPerformanceConfiguration";
+import { NameSection } from "../util/wasmTools";
 /**
  * @ignore
  * This is a collection of all the parameters required for intantiating a TestCollector.
@@ -28,6 +29,7 @@ export interface ITestCollectorParameters {
     fileName?: string;
     /** Disable RTrace when set to `true`. */
     nortrace?: boolean;
+    binary?: Uint8Array;
 }
 /**
  * @ignore
@@ -35,6 +37,7 @@ export interface ITestCollectorParameters {
  */
 export declare class TestCollector {
     protected wasm: IAspectExports | null;
+    protected nameSection: NameSection | null;
     private groupStack;
     /** A collection of `TestGroup` objects that ran tests after `testContext.run(wasm)` was called. */
     testGroups: TestGroup[];
@@ -643,4 +646,5 @@ export declare class TestCollector {
      * @param {number[]} args - The traced arguments.
      */
     private trace;
+    private funcName;
 }

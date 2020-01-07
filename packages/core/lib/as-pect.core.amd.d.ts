@@ -592,6 +592,45 @@ declare module "util/IPerformanceConfiguration" {
     /** This method creates a default performance configuration. */
     export function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
 }
+declare module "util/wasmTools" {
+    /**
+     * A Buffer for reading wasm sections.
+     */
+    export class WasmBuffer {
+        u8array: Uint8Array;
+        /** Current offset in the buffer. */
+        off: number;
+        constructor(u8array: Uint8Array);
+        /** Read 128LEB unsigned integers. */
+        readVaruint(off?: number): number;
+        /**
+         * Read a UTF8 string from the buffer either at the current offset or one passed in.
+         * Updates the offset of the buffer.
+         */
+        readString(off?: number): string;
+        /** Read a string at an offset without changing the buffere's offset. */
+        peekString(off: number): string;
+    }
+    /**
+     * Utility class for reading the name sections of a wasm binary.
+     * See https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md#name-section
+     */
+    export class NameSection {
+        section: WasmBuffer;
+        /** map of indexs to UTF8 pointers. */
+        private funcNames;
+        constructor(contents: Uint8Array);
+        fromIndex(i: number): string;
+        /** Parses */
+        private parseSection;
+        /** Current offset */
+        get off(): number;
+        /** Update offset */
+        set off(o: number);
+        /** Reads a 128LEB  unsigned integer and updates the offset. */
+        readVaruint(off?: number): number;
+    }
+}
 declare module "test/TestCollector" {
     import { IAspectExports } from "util/IAspectExports";
     import { ActualValue } from "util/ActualValue";
@@ -599,6 +638,7 @@ declare module "test/TestCollector" {
     import { ILogTarget } from "util/ILogTarget";
     import { IWarning } from "test/IWarning";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
+    import { NameSection } from "util/wasmTools";
     /**
      * @ignore
      * This is a collection of all the parameters required for intantiating a TestCollector.
@@ -623,6 +663,7 @@ declare module "test/TestCollector" {
         fileName?: string;
         /** Disable RTrace when set to `true`. */
         nortrace?: boolean;
+        binary?: Uint8Array;
     }
     /**
      * @ignore
@@ -630,6 +671,7 @@ declare module "test/TestCollector" {
      */
     export class TestCollector {
         protected wasm: IAspectExports | null;
+        protected nameSection: NameSection | null;
         private groupStack;
         /** A collection of `TestGroup` objects that ran tests after `testContext.run(wasm)` was called. */
         testGroups: TestGroup[];
@@ -1238,6 +1280,7 @@ declare module "test/TestCollector" {
          * @param {number[]} args - The traced arguments.
          */
         private trace;
+        private funcName;
     }
 }
 declare module "test/TestContext" {

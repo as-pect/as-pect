@@ -33,7 +33,8 @@ testArray2[1] = -2;
 testArray2[2] = -3;
 
 type idFunction = (i: i32) => i32;
-const id_func: idFunction = (i: i32) => i;
+function IdFunction(i: i32): i32  { return i; }
+export const id_func: idFunction = IdFunction;
 
 describe("logs", () => {
   log<string>("Hello world!");

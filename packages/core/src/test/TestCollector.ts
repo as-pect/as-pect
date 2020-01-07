@@ -12,6 +12,7 @@ import { TestResult } from "./TestResult";
 import { PerformanceLimits } from "./PerformanceLimits";
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
+import { NameSection } from "../util/wasmTools";
 
 /**
  * @ignore
@@ -45,6 +46,7 @@ export interface ITestCollectorParameters {
   fileName?: string;
   /** Disable RTrace when set to `true`. */
   nortrace?: boolean;
+  binary?: Uint8Array;
 }
 
 /**
@@ -53,6 +55,7 @@ export interface ITestCollectorParameters {
  */
 export class TestCollector {
   protected wasm: IAspectExports | null = null;
+  protected nameSection: NameSection | null = null;
 
   // test group values
   private groupStack: TestGroup[] = [new TestGroup()];
@@ -217,6 +220,8 @@ export class TestCollector {
 
       /* istanbul ignore next */
       if (props.nortrace) this.rtraceEnabled = false;
+      /* istanbul ignore next */
+      if (props.binary) this.nameSection = new NameSection(props.binary);
     }
   }
 
@@ -548,10 +553,10 @@ export class TestCollector {
     /* istanbul ignore next */
     if (this.wasm?.table && func) {
       /* istanbul ignore next */
-      value.message = `[Function $${functionPointer}]`;
+      value.message = `[Function ${functionPointer}: ${this.funcName(parseInt(func.name))}]`;
     } else {
       /* istanbul ignore next */
-      value.message = `[Function $${functionPointer}: ${func?.name}]`;
+      value.message = `[Function ${functionPointer}]`;
     }
 
     // push the log value to the logs
@@ -1078,10 +1083,10 @@ export class TestCollector {
     /* istanbul ignore next */
     if (this.wasm?.table && func) {
       /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}]`;
+      value.message = `[Function ${functionPointer}: ${this.funcName(parseInt(func.name))}]`;
     } else {
       /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}: ${func?.name}]`;
+      value.message = `[Function ${functionPointer}]`;
     }
 
     value.fnPointer = functionPointer;
@@ -1110,10 +1115,10 @@ export class TestCollector {
     /* istanbul ignore next */
     if (this.wasm?.table && func) {
       /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}]`;
+      value.message = `[Function ${functionPointer}: ${this.funcName(parseInt(func.name))}]`;
     } else {
       /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}: ${func?.name}]`;
+      value.message = `[Function ${functionPointer}]`;
     }
 
     value.fnPointer = functionPointer;
@@ -1788,5 +1793,10 @@ export class TestCollector {
 
     // push the log value to the logs
     target.logs.push(value);
+  }
+
+  private funcName(index: number): string {
+    if (this.nameSection) return this.nameSection.fromIndex(index);
+    return "";
   }
 }

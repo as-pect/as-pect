@@ -1,5 +1,7 @@
 import { Vec3 } from "./setup/Vec3";
 
+function IDFunc(i: i32): i32 { return i; }
+const anonIDFunc = (i: i32): i32 => i;
 /**
  * This section adds a log value that executes *once* per describle block. The output should show
  * that a string exits.
@@ -71,6 +73,20 @@ describe("logs", (): void => {
    */
   test("log a null", (): void => {
     log<Vec3 | null>(null);
+  });
+
+  /**
+   * This test logs a anonymous function pointer
+   */
+  test("log an anonymous function", () => {
+    log<(i: i32) => i32>(anonIDFunc);
+  });
+
+  /**
+   * This test logs a named function pointer
+   */
+  test("log a named function", () => {
+    log<(i: i32) => i32>(IDFunc);
   });
 
   /**

@@ -380,6 +380,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         testRegex: configuration.testRegex,
         performanceConfiguration,
         reporter,
+        binary
       });
 
       // detect custom imports

@@ -14,7 +14,9 @@ module.exports = {
     /** To output a wat file, uncomment the following line. */
     // "--textFile": ["output.wat"],
     /** A runtime must be provided here. */
-    "--runtime": ["full"] // Acceptable values are: full, half, stub (arena), and none
+    "--runtime": ["full"], // Acceptable values are: full, half, stub (arena), and none
+    /** Export function table so that names exported function pointers can be resolved. */
+    "--exportTable": [],
   },
   /**
    * A set of regexp that will disclude source files from testing.
