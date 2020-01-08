@@ -3984,8 +3984,8 @@
  )
  (func $assembly/__tests__/setup/Vec3/Vec3#__lessThan (; 88 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 f64)
-  (local $3 f64)
-  (local $4 i32)
+  (local $3 i32)
+  (local $4 f64)
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
@@ -4013,15 +4013,21 @@
   call $assembly/__tests__/setup/Vec3/Vec3#magnitude
   local.set $2
   local.get $1
+  local.tee $3
+  if (result i32)
+   local.get $3
+  else
+   unreachable
+  end
   call $assembly/__tests__/setup/Vec3/Vec3#magnitude
-  local.set $3
-  local.get $2
-  local.get $3
-  f64.lt
   local.set $4
+  local.get $2
+  local.get $4
+  f64.lt
+  local.set $3
   local.get $1
   call $~lib/rt/pure/__release
-  local.get $4
+  local.get $3
  )
  (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThan (; 89 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)

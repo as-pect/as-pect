@@ -4489,12 +4489,24 @@
   local.get $0
   f64.load
   local.get $1
+  local.tee $2
+  if (result i32)
+   local.get $2
+  else
+   unreachable
+  end
   f64.load
   f64.eq
   if (result i32)
    local.get $0
    f64.load offset=8
    local.get $1
+   local.tee $2
+   if (result i32)
+    local.get $2
+   else
+    unreachable
+   end
    f64.load offset=8
    f64.eq
   else
@@ -4504,6 +4516,12 @@
    local.get $0
    f64.load offset=16
    local.get $1
+   local.tee $2
+   if (result i32)
+    local.get $2
+   else
+    unreachable
+   end
    f64.load offset=16
    f64.eq
   else
