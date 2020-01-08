@@ -21,6 +21,7 @@ export function createLogModule(
       "--explicitStart",
       "./assembly/jest-log.ts",
       "../assembly/assembly/index.ts",
+      "--exportTable",
       "--use",
       "ASC_RTRACE=1",
     ],
