@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - "lts/*"
-  - "latest/*"
+  - "node"
 script:
   - npm run test:ci
 after_success:
