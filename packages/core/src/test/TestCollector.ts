@@ -12,6 +12,7 @@ import { TestResult } from "./TestResult";
 import { PerformanceLimits } from "./PerformanceLimits";
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
+import { NameSection } from "../util/wasmTools";
 
 /**
  * @ignore
@@ -45,6 +46,7 @@ export interface ITestCollectorParameters {
   fileName?: string;
   /** Disable RTrace when set to `true`. */
   nortrace?: boolean;
+  binary?: Uint8Array;
 }
 
 /**
@@ -53,6 +55,7 @@ export interface ITestCollectorParameters {
  */
 export class TestCollector {
   protected wasm: IAspectExports | null = null;
+  protected nameSection: NameSection | null = null;
 
   // test group values
   private groupStack: TestGroup[] = [new TestGroup()];
@@ -217,6 +220,8 @@ export class TestCollector {
 
       /* istanbul ignore next */
       if (props.nortrace) this.rtraceEnabled = false;
+      /* istanbul ignore next */
+      if (props.binary) this.nameSection = new NameSection(props.binary);
     }
   }
 
@@ -227,7 +232,16 @@ export class TestCollector {
   protected collectTests(): void {
     // reset the performance values first, then collect the tests by calling `__main()`
     this.resetPerformanceValues();
-    this.wasm!.__start();
+
+    /**
+     * In version >0.8.1 of assemblyscript, there was a __start function refactor that helped
+     * conform assemblyscript to the wasi standard. The following line is used for backwards
+     * compatibility to older versions of assemblyscript. Coverage is ignored because one branch
+     * is impossible to test using assemblyscript latest.
+     */
+    /* istanbul ignore next */
+    const startFunc = this.wasm!.__start ?? this.wasm!._start!;
+    startFunc();
     this.wasm!.__ready();
     let topLevelGroup = this.groupStack[0];
 
@@ -284,6 +298,7 @@ export class TestCollector {
           logReference: this.logReference.bind(this),
           logString: this.logString.bind(this),
           logValue: this.logValue.bind(this),
+          logFunction: this.logFunction.bind(this),
           maxSamples: this.maxSamples.bind(this),
           maxTestRunTime: this.maxTestRunTime.bind(this),
           performanceEnabled: this.performanceEnabled.bind(this),
@@ -311,6 +326,8 @@ export class TestCollector {
           reportExpectedString: this.reportExpectedString.bind(this),
           reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
           reportExpectedValue: this.reportExpectedValue.bind(this),
+          reportExpectedFunction: this.reportExpectedFunction.bind(this),
+          reportActualFunction: this.reportActualFunction.bind(this),
           reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
           reportMedian: this.reportMedian.bind(this),
@@ -513,6 +530,34 @@ export class TestCollector {
     value.stack = this.getLogStackTrace();
     value.message = `Value ${long.toString()}`;
     value.target = target;
+
+    // push the log value to the logs
+    target.logs.push(value);
+  }
+
+  /**
+   * Log a Function Index.
+   *
+   * @param {number} functionPointer - The function's pointer.
+   */
+  private logFunction(functionPointer: number): void {
+    const value = new LogValue();
+    const target = this.logTarget;
+
+    value.target = target;
+    value.fnPointer = functionPointer;
+
+    // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
+    /* istanbul ignore next */
+    const func = this.wasm?.table?.get(functionPointer);
+    /* istanbul ignore next */
+    if (this.wasm?.table && func) {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}: ${this.funcName(parseInt(func.name))}]`;
+    } else {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}]`;
+    }
 
     // push the log value to the logs
     target.logs.push(value);
@@ -1016,6 +1061,70 @@ export class TestCollector {
     value.negated = negated === 1;
     value.value = stringPointer;
     this.expected = value;
+  }
+
+  /**
+   * This function reports an expected function pointer index
+   *
+   * @param {number} functionPointer - A pointer that points to the expected string.
+   * @param {1 | 0} negated  - An indicator if the expectation is negated.
+   * @param stackTrace
+   */
+  private reportExpectedFunction(
+    functionPointer: number,
+    negated: 1 | 0,
+    stackTrace: number,
+  ): void {
+    const value = new ActualValue();
+
+    // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
+    /* istanbul ignore next */
+    const func = this.wasm?.table?.get(functionPointer);
+    /* istanbul ignore next */
+    if (this.wasm?.table && func) {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}: ${this.funcName(parseInt(func.name))}]`;
+    } else {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}]`;
+    }
+
+    value.fnPointer = functionPointer;
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    value.negated = negated === 1;
+    this.expected = value;
+  }
+
+  /**
+   * This function reports an actual function pointer index
+   *
+   * @param {number} functionPointer - A pointer that points to the expected string.
+   * @param {1 | 0} negated  - An indicator if the expectation is negated.
+   * @param stackTrace
+   */
+  private reportActualFunction(
+    functionPointer: number,
+    stackTrace: number,
+  ): void {
+    const value = new ActualValue();
+
+    // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
+    /* istanbul ignore next */
+    const func = this.wasm?.table?.get(functionPointer);
+    /* istanbul ignore next */
+    if (this.wasm?.table && func) {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}: ${this.funcName(parseInt(func.name))}]`;
+    } else {
+      /* istanbul ignore next */
+      value.message = `[Function ${functionPointer}]`;
+    }
+
+    value.fnPointer = functionPointer;
+    value.stack = this.stackTraces.get(stackTrace)!;
+    value.target = this.logTarget;
+    this.actual = value;
   }
 
   /**
@@ -1684,5 +1793,12 @@ export class TestCollector {
 
     // push the log value to the logs
     target.logs.push(value);
+  }
+
+  private funcName(index: number): string {
+    /* istanbul ignore next */
+    if (this.nameSection) return this.nameSection.fromIndex(index);
+    /* istanbul ignore next */
+    return "";
   }
 }

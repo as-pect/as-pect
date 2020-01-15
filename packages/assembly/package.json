@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/assembly",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "types": "types/as-pect.d.ts",
   "scripts": {
@@ -32,7 +32,7 @@
     "types/"
   ],
   "devDependencies": {
-    "assemblyscript": "github:assemblyscript/assemblyscript",
-    "markdownlint-cli": "^0.19.0"
+    "assemblyscript": "0.8.1-nightly.20200114",
+    "markdownlint-cli": "^0.21.0"
   }
 }

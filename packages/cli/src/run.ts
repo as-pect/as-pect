@@ -67,7 +67,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   let asc: any;
   let instantiateSync: any;
   let parse: any;
-
+  let exportTable: boolean = false;
   try {
     let folderUsed = "cli";
     try {
@@ -117,6 +117,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       throw new Error(
         `${cliOptions.compiler}/cli/util/options does not export a parse() method.`,
       );
+    }
+
+    if (asc.options.exportTable) {
+      exportTable = true;
     }
     parse = options.parse;
   } catch (ex) {
@@ -181,9 +185,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     }
   }
 
-
-
-
   // Create the compiler flags
   const flags: ICompilerFlags = Object.assign({}, configuration.flags, {
     "--validate": [],
@@ -209,6 +210,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         flags["--use"].push("--use", "ASC_RTRACE=1")
       }
     }
+  }
+
+  if (exportTable) {
+    flags["--exportTable"] = [];
   }
 
   /** It's useful to notify the user that optimizations will make test compile times slower. */
@@ -375,6 +380,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         testRegex: configuration.testRegex,
         performanceConfiguration,
         reporter,
+        binary
       });
 
       // detect custom imports
@@ -423,7 +429,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         const end = performance.now();
         failed = testCount !== successCount || errors.length > 0;
         const result = failed ? chalk`{red ✖ FAIL}` : chalk`{green ✔ PASS}`;
-        console.log("~".repeat(process.stdout.columns! - 10));
+        console.log("~".repeat(Math.max(process.stdout.columns - 10, 10)));
 
         for (const error of errors) {
           console.log(chalk`

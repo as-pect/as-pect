@@ -21,53 +21,56 @@ export class Vec3 {
   }
 }
 
+const func = (i: i32): i32 => i;
+const otherFunc = (i: i32): i32 => i + i;
+
 
 test("A test outside of a describe block", () => {
   assert(true);
 });
 
 describe("pass-fail", () => {
-  it("this test should pass", (): void => {
+  it("this test should pass", () => {
     expect<i32>(13 + 29).toBe(42);
   });
 
-  it("should fail", (): void => {
+  it("should fail", () => {
     assert(false, "expected fail");
   });
 
-  it("should expect strings", (): void => {
+  it("should expect strings", () => {
     expect<string>("two").toBe("one");
   });
 
-  it("should report expected finite values", (): void => {
+  it("should report expected finite values", () => {
     expect<f64>(NaN).toBeFinite();
   });
 
-  it("should report falsy expected values", (): void => {
+  it("should report falsy expected values", () => {
     expect<i32>(1).toBeFalsy();
   });
 
-  it("should report truthy expected values", (): void => {
+  it("should report truthy expected values", () => {
     expect<i32>(0).toBeTruthy();
   });
 
-  it("should report reference values", (): void => {
+  it("should report reference values", () => {
     expect<Vec3>(new Vec3(1, 2, 3)).toStrictEqual(new Vec3(4, 5, 6));
   });
 
-  it("should report number values", (): void => {
+  it("should report number values", () => {
     expect<i32>(0).toBe(42);
   });
 
-  it("should report nulls", (): void => {
+  it("should report nulls", () => {
     expect<Vec3 | null>(null).not.toBeNull();
   });
 
-  throws("should report a negated test", (): void => {
+  throws("should report a negated test", () => {
     expect<i32>(0).not.toBe(0);
   });
 
-  throws("should fail when test does not throw", (): void => {
+  throws("should fail when test does not throw", () => {
     expect<i32>(0).toBe(0);
   });
 
@@ -101,6 +104,10 @@ describe("pass-fail", () => {
 
   it("should report invalid strings", () => {
     expect<string>("Test").toBe("invalid");
+  });
+
+  it("should report failed functions", () => {
+    expect<(i: i32) => i32>(func).toBe(otherFunc);
   });
 });
 

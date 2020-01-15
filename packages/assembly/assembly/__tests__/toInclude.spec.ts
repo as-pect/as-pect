@@ -1,4 +1,8 @@
 import { Vec3 } from "./setup/Vec3";
+import { listener, Listener, Event, initializeDispatcher } from "./setup/Event";
+
+var eventDispatcher = initializeDispatcher();
+const newListener: Listener = (event: Event) => { let x = "hello"; }
 
 let numberTester: i32[] = new Array<i32>();
 numberTester.push(1);
@@ -86,5 +90,30 @@ describe("toInclude reference arrays", () => {
    */
   throws("when referenceTester includes a reference but the expectation is negated", () => {
     expect<Vec3[]>(referenceTester).not.toInclude(two);
+  });
+
+  /**
+   * Should find included function pointer.
+   */
+  it("should include a function pointer", () => {
+    expect<Array<Listener>>(eventDispatcher.events).toInclude(listener);
+  });
+
+  it("Should handle the negated included function pointer", () => {
+    expect<Array<Listener>>(eventDispatcher.events).not.toInclude(newListener);
+  });
+
+  /**
+   * Throws if function pointer is not included.
+   */
+  throws("should include a function pointer", () => {
+    expect<Array<Listener>>(eventDispatcher.events).toInclude(newListener);
+  });
+
+   /**
+   * Throws if function pointer is included when it shouldn't be.
+   */
+  throws("should include a function pointer", () => {
+    expect<Array<Listener>>(eventDispatcher.events).not.toInclude(listener);
   });
 });

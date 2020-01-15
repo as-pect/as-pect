@@ -51,6 +51,10 @@ declare function reportExpectedLong(pointer: usize, signed: bool, negated: i32, 
 declare function reportExpectedBool(value: i32, negated: i32, stackTrace: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedFunction")
+declare function reportExpectedFunction(value: i32, negated: i32, stackTrace: i32): void;
+
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "getStackTrace")
 declare function getStackTrace(): i32;
 
@@ -134,8 +138,14 @@ export class Expected {
         }
       }
 
+      
       let ptr = changetype<usize>(expected);
-
+      
+      if (isFunction<T>()){
+        Expected.type = ValueType.Function;
+        Expected.reference = ptr;
+        return;
+      }
       // if the pointer is managed, retain it
       if (isManaged<T>()) __retain(ptr);
 
@@ -224,6 +234,8 @@ export function __sendExpected(): void {
     case ValueType.Bool:
       reportExpectedBool(Expected.integer, Expected.negated, Expected.stackTrace);
       break;
+    case ValueType.Function:
+      reportExpectedFunction(Expected.reference, Expected.negated, Expected.stackTrace);
   }
 }
 

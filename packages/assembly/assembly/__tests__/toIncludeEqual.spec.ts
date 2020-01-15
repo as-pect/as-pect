@@ -1,4 +1,8 @@
 import { Vec3 } from "./setup/Vec3";
+import { listener, Listener, Event, initializeDispatcher } from "./setup/Event";
+
+var eventDispatcher = initializeDispatcher();
+const newListener: Listener = (event: Event) => { let x = "hello" }
 
 let numberTester: i32[] = new Array<i32>();
 numberTester.push(1);
@@ -82,6 +86,32 @@ describe("toIncludeEqual reference arrays", () => {
   throws("when referenceTester includes a reference but the expectation is negated", () => {
     expect<Vec3[]>(referenceTester).not.toIncludeEqual(new Vec3(1, 2, 3));
   });
+
+  /**
+   * Should delegate function pointers to "toInclude".
+   */
+  it("should include a function pointer", () => {
+    expect<Array<Listener>>(eventDispatcher.events).toIncludeEqual(listener);
+  });
+
+  it("should handle case when negated and not included", () => {
+    expect<Array<Listener>>(eventDispatcher.events).not.toIncludeEqual(newListener);
+  });
+
+  /**
+   * Throws if function pointer is not included by delegating to "toInclude".
+   */
+  throws("should include a function pointer", () => {
+    expect<Array<Listener>>(eventDispatcher.events).toIncludeEqual(newListener);
+  });
+
+  /**
+   * Throws if function pointer is not included by delegating to "toInclude".
+   */
+  throws("should include a function pointer", () => {
+    expect<Array<Listener>>(eventDispatcher.events).not.toIncludeEqual(listener);
+  });
+
 });
 
 let typedarray = new Uint8Array(10);

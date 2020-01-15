@@ -32,6 +32,10 @@ testArray2[0] = -1;
 testArray2[1] = -2;
 testArray2[2] = -3;
 
+type idFunction = (i: i32) => i32;
+function IdFunction(i: i32): i32  { return i; }
+export const id_func: idFunction = IdFunction;
+
 describe("logs", () => {
   log<string>("Hello world!");
   log<i32>(42);
@@ -47,6 +51,7 @@ describe("logs", () => {
   log<bool>(false);
   log<Uint8Array>(testArray);
   log<Int8Array>(testArray2);
+  log<idFunction>(id_func);
   trace("The thing!", 5, 1, 2, 3, 4, 5);
 
   test("logs", () => {
@@ -64,6 +69,7 @@ describe("logs", () => {
     log<bool>(false);
     log<Uint8Array>(testArray);
     log<Int8Array>(testArray2);
+    log<idFunction>(id_func);
     trace("The thing!", 5, 1, 2, 3, 4, 5);
   });
 

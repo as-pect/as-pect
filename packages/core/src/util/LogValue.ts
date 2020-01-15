@@ -46,4 +46,9 @@ export class LogValue {
    * This is the raw logged value.
    */
   public value: number | null = null;
+
+  /**
+   * This is a function pointer is an index.
+   */
+  public fnPointer: number = -1;
 }

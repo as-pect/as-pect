@@ -33,6 +33,10 @@ declare function logLong(value: usize, signed: bool): void;
 @external("__aspect", "logBool")
 declare function logBool(value: i32): void;
 
+// @ts-ignore: decorators *are* valid here
+@external("__aspect", "logFunction")
+declare function logFunction(value: i32): void;
+
 let ignoreLogs: bool = false;
 
 /**
@@ -63,6 +67,8 @@ export function log<T>(value: T): void {
     } else if (value instanceof ArrayBuffer) {
       let buff = changetype<ArrayBuffer>(changetype<usize>(value));
       logReference(changetype<usize>(buff), buff.byteLength);
+    } else if (isFunction<T>()) {
+      logFunction(changetype<i32>(value));
     } else {
       logReference(changetype<usize>(value), offsetof<T>());
     }

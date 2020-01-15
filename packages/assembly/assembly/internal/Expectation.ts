@@ -73,7 +73,7 @@ export class Expectation<T> {
    */
   public toStrictEqual(expected: T, message: string = ""): void {
     // if T is not a reference, use exactComparison
-    if (!isReference<T>()) {
+    if (!isReference<T>() || isFunction<T>()) {
       exactComparison<T>(this.actual, expected, this._not, message);
       Actual.clear();
       Expected.clear();

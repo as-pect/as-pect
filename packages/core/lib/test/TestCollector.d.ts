@@ -4,6 +4,7 @@ import { TestGroup } from "./TestGroup";
 import { ILogTarget } from "../util/ILogTarget";
 import { IWarning } from "./IWarning";
 import { IPerformanceConfiguration } from "../util/IPerformanceConfiguration";
+import { NameSection } from "../util/wasmTools";
 /**
  * @ignore
  * This is a collection of all the parameters required for intantiating a TestCollector.
@@ -28,6 +29,7 @@ export interface ITestCollectorParameters {
     fileName?: string;
     /** Disable RTrace when set to `true`. */
     nortrace?: boolean;
+    binary?: Uint8Array;
 }
 /**
  * @ignore
@@ -35,6 +37,7 @@ export interface ITestCollectorParameters {
  */
 export declare class TestCollector {
     protected wasm: IAspectExports | null;
+    protected nameSection: NameSection | null;
     private groupStack;
     /** A collection of `TestGroup` objects that ran tests after `testContext.run(wasm)` was called. */
     testGroups: TestGroup[];
@@ -150,6 +153,12 @@ export declare class TestCollector {
      * @param {1 | 0} signed - An indicator if the long is signed.
      */
     private logLong;
+    /**
+     * Log a Function Index.
+     *
+     * @param {number} functionPointer - The function's pointer.
+     */
+    private logFunction;
     /**
      * This web assembly linked function creates a test group. It's called when the test suite calls
      * the describe("test", callback) function from within AssemblyScript. It receives a pointer to
@@ -320,6 +329,22 @@ export declare class TestCollector {
      * @param {1 | 0} negated - An indicator if the expectation is negated.
      */
     private reportExpectedString;
+    /**
+     * This function reports an expected function pointer index
+     *
+     * @param {number} functionPointer - A pointer that points to the expected string.
+     * @param {1 | 0} negated  - An indicator if the expectation is negated.
+     * @param stackTrace
+     */
+    private reportExpectedFunction;
+    /**
+     * This function reports an actual function pointer index
+     *
+     * @param {number} functionPointer - A pointer that points to the expected string.
+     * @param {1 | 0} negated  - An indicator if the expectation is negated.
+     * @param stackTrace
+     */
+    private reportActualFunction;
     /**
      * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
      * reasons.
@@ -621,4 +646,5 @@ export declare class TestCollector {
      * @param {number[]} args - The traced arguments.
      */
     private trace;
+    private funcName;
 }

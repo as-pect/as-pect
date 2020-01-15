@@ -263,8 +263,8 @@ ctx.run(wasm);
 						project by using the <code>--portable</code> flag. Instead of using the types provided by
 						<code>@types/jest</code>, use the portable ones provided by <code>as-pect</code>. This is the
 					recommended way to setup testing when trying to write portable tests.</p>
-					<pre><code><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">install</span> <span class="hljs-selector-tag">--save-dev</span> <span class="hljs-selector-tag">jest</span> @<span class="hljs-keyword">as</span>-<span class="hljs-keyword">pect</span>/<span class="hljs-keyword">cli</span> typescript assemblyscript/assemblyscript
-npx ts-jest config:init
+					<pre><code>npm install --save-dev jest <span class="hljs-meta">@as</span>-pect<span class="hljs-regexp">/cli typescript assemblyscript/</span>assemblyscript
+npx ts-jest <span class="hljs-string">config:</span>init
 npx asp --portable</code></pre><p>Then change the jest configuration to match these properties as you see fit:</p>
 					<pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = {
   <span class="hljs-attr">preset</span>: <span class="hljs-string">"ts-jest"</span>,
@@ -824,21 +824,21 @@ it(<span class="hljs-string">"should report the min"</span>, <span class="hljs-f
 <span class="hljs-built_in">module</span>.exports = {
   <span class="hljs-attr">performance</span>: {
     <span class="hljs-comment">/** Enable performance statistics gathering for *every* test. */</span>
-    enabled: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">enabled</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-comment">/** Set the maximum number of samples to run for every test. */</span>
-    maxSamples: <span class="hljs-number">10000</span>,
+    <span class="hljs-attr">maxSamples</span>: <span class="hljs-number">10000</span>,
     <span class="hljs-comment">/** Set the maximum test run time in milliseconds for every test. */</span>
-    maxTestRunTime: <span class="hljs-number">2000</span>,
+    <span class="hljs-attr">maxTestRunTime</span>: <span class="hljs-number">2000</span>,
     <span class="hljs-comment">/** Report the median time in the default reporter for every test. */</span>
-    reportMedian: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">reportMedian</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-comment">/** Report the average time in milliseconds for every test. */</span>
-    reportAverage: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">reportAverage</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-comment">/** Report the standard deviation for every test. */</span>
-    reportStandardDeviation: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">reportStandardDeviation</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-comment">/** Report the maximum run time in milliseconds for every test. */</span>
-    reportMax: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">reportMax</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-comment">/** Report the minimum run time in milliseconds for every test. */</span>
-    reportMin: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">reportMin</span>: <span class="hljs-literal">false</span>,
   },
 };</code></pre>
 					<a href="#using-as-pect-as-a-package" id="using-as-pect-as-a-package" style="color: inherit; text-decoration: none;">
@@ -948,7 +948,7 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 					<div class="tsd-signature tsd-kind-icon">util<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;util&quot;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/c187b19/packages/core/src/reporter/util/createReferenceString.ts#L3">core/src/reporter/util/createReferenceString.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/ec5069b/packages/core/src/reporter/util/createReferenceString.ts#L3">core/src/reporter/util/createReferenceString.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -965,7 +965,7 @@ runner.run(wasm); <span class="hljs-comment">// run the tests synchronously</spa
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/c187b19/packages/core/src/util/IPerformanceConfiguration.ts#L30">core/src/util/IPerformanceConfiguration.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/jtenner/as-pect/blob/ec5069b/packages/core/src/util/IPerformanceConfiguration.ts#L30">core/src/util/IPerformanceConfiguration.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

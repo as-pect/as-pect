@@ -11,4 +11,5 @@ export const enum ValueType {
   Finite = 9,
   Long = 10,
   Bool = 11,
+  Function = 12,
 }

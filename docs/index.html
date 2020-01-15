@@ -120,26 +120,39 @@
 				that you can be confident in yourself and the software you write.</p>
 				<p>One of the goals of this project is 100% portability to <code>jest</code> so that tests
 				can be run in two different environments.</p>
+				<p>The most important reason why <code>as-pect</code> exists is to set up and bootstrap
+					AssemblyScript tests otherwise would be a hastle to new developers. For
+					instance, the following steps need to be compelted for each individual test
+				module.</p>
+				<ol>
+					<li>Create a set of testing primitives or rely on <code>assert()</code> to validate module state</li>
+					<li>Compile the module itself</li>
+					<li>Bootstrap imports</li>
+					<li>Write tests</li>
+					<li>Log test output</li>
+				</ol>
+				<p>This process alone could take hours of your time, and <code>as-pect</code> covers this need
+				for testing AssemblyScript modules by simply being an <code>npm install</code> away.</p>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
 				<p>To install <code>as-pect</code>, install the latest version(s) from npm.</p>
-				<pre><code>$ npm <span class="hljs-keyword">install</span> @<span class="hljs-keyword">as</span>-pect/cli @<span class="hljs-keyword">as</span>-pect/core @<span class="hljs-keyword">as</span>-pect/<span class="hljs-keyword">assembly</span> assemblyscript/assemblyscript</code></pre><p>To initialize a test suite, run <code>npx asp --init</code>. It will create the following
+				<pre><code>$ <span class="hljs-built_in">npm</span> install @as-pect/cli assemblyscript/assemblyscript</code></pre><p>To initialize a test suite, run <code>npx asp --init</code>. It will create the following
 				folders and files.</p>
-				<pre><code>$ npx asp <span class="hljs-params">--init</span>
-
-<span class="hljs-comment"># It will create the following folders if they don't exist</span>
-C <span class="hljs-string">./assembly/</span>
-C <span class="hljs-string">./assembly/__tests__/</span>
-
-<span class="hljs-comment"># The as-pect types file will be created here if it doesn't exist</span>
-C <span class="hljs-string">./assembly/__tests__/as-pect.d.ts</span>
-
-<span class="hljs-comment"># An example test file will be created here if the __tests__ folder does not exist</span>
-C <span class="hljs-string">./assembly/__tests__/example.spec.ts</span>
-
-<span class="hljs-comment"># The default configuration file will be created here if it doesn't exist</span>
-C <span class="hljs-string">./as-pect.config.js</span></code></pre><p>If you want <code>asp</code>&#39;s boilerplate located somewhere other than in <code>assembly/</code>,
+				<pre><code><span class="hljs-meta">$</span> <span class="hljs-string">npx asp --init</span>
+<span class="hljs-comment">
+# It will create the following folders if they don't exist</span>
+<span class="hljs-attr">C</span> <span class="hljs-string">./assembly/</span>
+<span class="hljs-attr">C</span> <span class="hljs-string">./assembly/__tests__/</span>
+<span class="hljs-comment">
+# The as-pect types file will be created here if it doesn't exist</span>
+<span class="hljs-attr">C</span> <span class="hljs-string">./assembly/__tests__/as-pect.d.ts</span>
+<span class="hljs-comment">
+# An example test file will be created here if the __tests__ folder does not exist</span>
+<span class="hljs-attr">C</span> <span class="hljs-string">./assembly/__tests__/example.spec.ts</span>
+<span class="hljs-comment">
+# The default configuration file will be created here if it doesn't exist</span>
+<span class="hljs-attr">C</span> <span class="hljs-string">./as-pect.config.js</span></code></pre><p>If you want <code>asp</code>&#39;s boilerplate located somewhere other than in <code>assembly/</code>,
 					you can move it yourself, and update <code>as-pect.config.js</code> to point to the new
 				location accordingly.</p>
 				<p>To run <code>as-pect</code>, use the command line: <code>npx asp</code>, or create an npm script.</p>
@@ -151,7 +164,7 @@ C <span class="hljs-string">./as-pect.config.js</span></code></pre><p>If you wan
 				<p>The command line defaults to using <code>./aspect.config.js</code>, otherwise you can
 				specify all the configuration options using the command line interface.</p>
 				<p>To change the location of the as-pect configuration, use the <code>--config</code> option.</p>
-				<pre><code>$ npx asp --config as-pect<span class="hljs-selector-class">.config</span><span class="hljs-selector-class">.js</span></code></pre>
+				<pre><code>$ npx asp --<span class="hljs-built_in">config</span> as-pect.<span class="hljs-built_in">config</span>.js</code></pre>
 				<a href="#comparisons" id="comparisons" style="color: inherit; text-decoration: none;">
 					<h2>Comparisons</h2>
 				</a>
@@ -441,7 +454,7 @@ expect&lt;<span class="hljs-built_in">Uint8Array</span>&gt;(data).toContainEqual
 				<p>Adding this line to your <code>.travis.yml</code> will allow you to specify a custom
 				script to your CI build.</p>
 				<pre><code class="language-yaml"><span class="hljs-attr">script:</span>
-<span class="hljs-bullet">  -</span> <span class="hljs-string">npm</span> <span class="hljs-string">run</span> <span class="hljs-attr">test:ci</span></code></pre>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">npm</span> <span class="hljs-string">run</span> <span class="hljs-string">test:ci</span></code></pre>
 				<p>Then in your package.json file, you can instruct the <code>&quot;test:ci&quot;</code> script to
 				run the <code>asp</code> command line tool to use the <code>SummaryTestReporter</code> like this:</p>
 				<pre><code class="language-json">{
@@ -556,7 +569,7 @@ npx asp <span class="hljs-comment">--summary=enableLogging=false</span></code></
     ran: result.ran,
     <span class="hljs-comment">// If it passed</span>
     pass: result.pass,
-    <span class="hljs-comment">// The total test runtim</span>
+    <span class="hljs-comment">// The total test runtime</span>
     runtime: result.runTime,
     <span class="hljs-comment">// The error message</span>
     message: result.message,
@@ -617,8 +630,8 @@ npx asp <span class="hljs-comment">--summary=enableLogging=false</span></code></
 					project by using the <code>--portable</code> flag. Instead of using the types provided by
 					<code>@types/jest</code>, use the portable ones provided by <code>as-pect</code>. This is the
 				recommended way to setup testing when trying to write portable tests.</p>
-				<pre><code><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">install</span> <span class="hljs-selector-tag">--save-dev</span> <span class="hljs-selector-tag">jest</span> @<span class="hljs-keyword">as</span>-<span class="hljs-keyword">pect</span>/<span class="hljs-keyword">cli</span> typescript assemblyscript/assemblyscript
-npx ts-jest config:init
+				<pre><code>npm install --save-dev jest <span class="hljs-meta">@as</span>-pect<span class="hljs-regexp">/cli typescript assemblyscript/</span>assemblyscript
+npx ts-jest <span class="hljs-string">config:</span>init
 npx asp --portable</code></pre><p>Then change the jest configuration to match these properties as you see fit:</p>
 				<pre><code class="language-js"><span class="hljs-built_in">module</span>.exports = {
   <span class="hljs-attr">preset</span>: <span class="hljs-string">"ts-jest"</span>,
@@ -672,21 +685,21 @@ npx asp --portable</code></pre><p>Then change the jest configuration to match th
 <span class="hljs-built_in">module</span>.exports = {
   <span class="hljs-attr">performance</span>: {
     <span class="hljs-comment">/** Enable performance statistics gathering for *every* test. */</span>
-    enabled: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">enabled</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-comment">/** Set the maximum number of samples to run for every test. */</span>
-    maxSamples: <span class="hljs-number">10000</span>,
+    <span class="hljs-attr">maxSamples</span>: <span class="hljs-number">10000</span>,
     <span class="hljs-comment">/** Set the maximum test run time in milliseconds for every test. */</span>
-    maxTestRunTime: <span class="hljs-number">2000</span>,
+    <span class="hljs-attr">maxTestRunTime</span>: <span class="hljs-number">2000</span>,
     <span class="hljs-comment">/** Report the median time in the default reporter for every test. */</span>
-    reportMedian: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">reportMedian</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-comment">/** Report the average time in milliseconds for every test. */</span>
-    reportAverage: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">reportAverage</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-comment">/** Report the standard deviation for every test. */</span>
-    reportStandardDeviation: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">reportStandardDeviation</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-comment">/** Report the maximum run time in milliseconds for every test. */</span>
-    reportMax: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">reportMax</span>: <span class="hljs-literal">false</span>,
     <span class="hljs-comment">/** Report the minimum run time in milliseconds for every test. */</span>
-    reportMin: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">reportMin</span>: <span class="hljs-literal">false</span>,
   },
 };</code></pre>
 				<a href="#custom-imports-using-cli" id="custom-imports-using-cli" style="color: inherit; text-decoration: none;">
