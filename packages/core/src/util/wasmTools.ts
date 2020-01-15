@@ -62,7 +62,7 @@ export class NameSection {
 
   fromIndex(i: number): string {
     const ptr = this.funcNames.get(i);
-    if (!ptr) return "Function " + i; 
+    if (!ptr) return "Function " + i;
     return this.section.peekString(ptr);
   }
 
