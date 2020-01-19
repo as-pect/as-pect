@@ -170,8 +170,7 @@ in your project automatically. If you use this method for your types, feel
 free to delete the auto-generated types file in your test folder.
 
 ```ts
-/// <reference path="../node_modules/@as-pect/core/types/as-pect.d.ts" />
-/// <reference path="../node_modules/@as-pect/core/types/as-pect.portable.d.ts" />
+/// <reference path="../node_modules/@as-pect/assembly/types/as-pect.d.ts" />
 ```
 
 ## CI Usage
