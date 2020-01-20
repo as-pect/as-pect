@@ -264,6 +264,11 @@ declare module "test/TestResult" {
          */
         incrementCount: number;
         /**
+         * If the test did not error, this is the number of block increments that occurred during
+         * the test's exection.
+         */
+        reallocationCount: number;
+        /**
          * This is the number of allocations currently on the heap when the `TestResult` execution starts.
          */
         rtraceStart: number;
@@ -373,6 +378,11 @@ declare module "test/TestGroup" {
          * the group's exection.
          */
         incrementCount: number;
+        /**
+         * If the test group did not error, this is the number of block reallocations that occurred during
+         * the group's exection.
+         */
+        reallocationCount: number;
         /**
          * This is the number of allocations currently on the heap when the `TestGroup` execution starts.
          */
@@ -1157,6 +1167,18 @@ declare module "test/TestCollector" {
          */
         protected testDecrementCount: number;
         /**
+         * This is the current number of net reallocations during the `TestContext` execution.
+         */
+        protected reallocationCount: number;
+        /**
+         * This is the current number of net reallocations during the `TestGroup` execution.
+         */
+        protected groupReallocationCount: number;
+        /**
+         * This is the current number of net reallocations during the `TestResult` execution.
+         */
+        protected testReallocationCount: number;
+        /**
          * This map is responsible for keeping track of which blocks are currently allocated by their id.
          */
         protected blocks: Map<number, number>;
@@ -1192,6 +1214,7 @@ declare module "test/TestCollector" {
          * @param {number} block - This is a unique identifier for the affected block.
          */
         private ondecrement;
+        private onrealloc;
         /**
          * This method reports an error to the current logTarget and the `TestContext`.
          *
@@ -1247,6 +1270,18 @@ declare module "test/TestCollector" {
          * This linked method gets all the RTrace allocations for the current test up until this point.
          */
         private getRTraceTestFrees;
+        /**
+         * This linked method gets all the RTrace reallocations for the current TestContext.
+         */
+        private getRTraceReallocs;
+        /**
+         * This linked method gets all the RTrace reallocations for the current TestGroup.
+         */
+        private getRTraceGroupReallocs;
+        /**
+         * This linked method gets all the RTrace reallocations for the current TestResult.
+         */
+        private getRTraceTestReallocs;
         /**
          * This linked method gets all the current RTrace allocations and adds them to an array.
          */

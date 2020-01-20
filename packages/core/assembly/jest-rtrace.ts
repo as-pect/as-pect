@@ -87,6 +87,16 @@ describe("RTrace tests", () => {
       last = globalVecArray.pop();
     }
   });
+
+  test("trigger a reallocation", () => {
+    let a = __retain(__alloc(offsetof<Vec3>(), idof<Vec3>()));
+    let b = new Vec3(1, 2, 3);
+    let c = new Vec3(1, 2, 3);
+    let d = new Vec3(1, 2, 3);
+    let e = new Vec3(1, 2, 3);
+    a = __realloc(changetype<usize>(a), offsetof<Vec3>() + 10000);
+    __release(a);
+  });
 });
 
 let dummyReference: Vec3 = new Vec3(1, 2, 3);
@@ -162,5 +172,17 @@ describe("RTrace api", () => {
     let ref = new Vec3(1, 2, 3);
     RTrace.sizeOf<Vec3>(ref);
     log<Vec3>(ref);
+  });
+
+  test("RTrace.reallocations()", () => {
+    log<i32>(RTrace.reallocations());
+  });
+
+  test("RTrace.groupReallocations()", () => {
+    log<i32>(RTrace.groupReallocations());
+  });
+
+  test("RTrace.testReallocations()", () => {
+    log<i32>(RTrace.testReallocations());
   });
 });

@@ -102,6 +102,12 @@ export class TestGroup implements ILogTarget {
   public incrementCount: number = 0;
 
   /**
+   * If the test group did not error, this is the number of block reallocations that occurred during
+   * the group's exection.
+   */
+  public reallocationCount: number = 0;
+
+  /**
    * This is the number of allocations currently on the heap when the `TestGroup` execution starts.
    */
   public rtraceStart: number = 0;

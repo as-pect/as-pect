@@ -106,6 +106,7 @@ export class TestContext extends TestCollector {
       this.groupFreeCount = 0;
       this.groupDecrementCount = 0;
       this.groupIncrementCount = 0;
+      this.groupReallocationCount = 0;
       group.rtraceStart = this.blocks.size;
       this.groupBlocks.clear();
     }
@@ -151,6 +152,7 @@ export class TestContext extends TestCollector {
       group.freeCount = this.groupFreeCount;
       group.decrementCount = this.groupDecrementCount;
       group.incrementCount = this.groupIncrementCount;
+      group.reallocationCount = this.groupReallocationCount;
       group.rtraceEnd = this.blocks.size;
       group.rtraceDelta = group.rtraceEnd - group.rtraceStart;
     }
@@ -181,6 +183,7 @@ export class TestContext extends TestCollector {
       this.testFreeCount = 0;
       this.testDecrementCount = 0;
       this.testIncrementCount = 0;
+      this.testReallocationCount = 0;
 
       result.rtraceStart = this.blocks.size;
       this.testBlocks.clear();
@@ -250,11 +253,12 @@ export class TestContext extends TestCollector {
     }
 
     if (this.rtraceEnabled) {
-      // calculate reference counts for the group
-      result.allocationCount = this.groupAllocationCount;
-      result.freeCount = this.groupFreeCount;
-      result.decrementCount = this.groupDecrementCount;
-      result.incrementCount = this.groupIncrementCount;
+      // calculate reference counts for the test
+      result.allocationCount = this.testAllocationCount;
+      result.freeCount = this.testFreeCount;
+      result.decrementCount = this.testDecrementCount;
+      result.incrementCount = this.testIncrementCount;
+      result.reallocationCount = this.testReallocationCount;
       result.rtraceEnd = this.blocks.size;
       result.rtraceDelta = result.rtraceEnd - result.rtraceStart;
     }

@@ -126,6 +126,11 @@ export declare class TestResult implements ILogTarget {
      */
     incrementCount: number;
     /**
+     * If the test did not error, this is the number of block increments that occurred during
+     * the test's exection.
+     */
+    reallocationCount: number;
+    /**
      * This is the number of allocations currently on the heap when the `TestResult` execution starts.
      */
     rtraceStart: number;
