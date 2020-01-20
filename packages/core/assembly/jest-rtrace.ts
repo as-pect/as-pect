@@ -89,12 +89,17 @@ describe("RTrace tests", () => {
   });
 
   test("trigger a reallocation", () => {
-    let a = __retain(__alloc(offsetof<Vec3>(), idof<Vec3>()));
+    // create a reference that will be reallocated
+    let a = __retain(__alloc(100, idof<ArrayBuffer>()));
+
+    // add some things to the heap so tlsf must allocate a new block for "a"
     let b = new Vec3(1, 2, 3);
     let c = new Vec3(1, 2, 3);
     let d = new Vec3(1, 2, 3);
     let e = new Vec3(1, 2, 3);
-    a = __realloc(changetype<usize>(a), offsetof<Vec3>() + 10000);
+
+    // manually trigger a reallocation
+    a = __realloc(changetype<usize>(a), 10000);
     __release(a);
   });
 });
