@@ -85,6 +85,8 @@ declare module "util/CommandLineArg" {
         json: string | boolean;
         verbose: string | boolean;
         summary: string | boolean;
+        /** Suppress ASCII art from being printed */
+        nologo: boolean;
         /** Tracks changes made by the cli options */
         changed: Set<string>;
         workers: number;
