@@ -553,6 +553,16 @@ afterEach(() => {
 });
 ```
 
+### RTrace.typeIdOf(pointer: usize)
+
+### RTrace.typeIdOfReference<T>(reference: T)
+
+### RTrace.sizeOf(pointer: usize)
+
+### RTrace.sizeOfReference<T>(reference: T)
+
+### RTrace.refCountOf(ptr: usize)
+
 ## Performance Testing
 
 To increase performance on testing, do not use the `log()` function and reduce

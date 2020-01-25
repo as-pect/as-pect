@@ -1,3 +1,6 @@
+import { BLOCK, BLOCK_OVERHEAD } from "assemblyscript/std/rt/common";
+import { REFCOUNT_MASK } from "assemblysript/std/rt/pure";
+
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "getRTraceCount")
 declare function getRTraceCount(): i32;
@@ -220,23 +223,49 @@ export class RTrace {
   }
 
   /**
-   * Get the class id of the pointer.
+   * Get the type id (class id) of the pointer.
    *
    * @param {usize} pointer - The pointer.
-   * @returns {u32} - The class id of the allocated block.
+   * @returns {u32} - The type id of the allocated block.
    */
-  public static classIdOf(pointer: usize): u32 {
-    return load<u32>(pointer - 8);
+  public static typeIdOf(pointer: usize): u32 {
+    return changetype<BLOCK>(pointer - BLOCK_OVERHEAD).rtId;
   }
 
   /**
-   * Get the size of a block or buffer.
+   * Get the type id (class id) of a reference.
+   *
+   * @param {T} reference - The reference.
+   * @returns {u32} - The type id of the allocated block.
+   */
+  public static typeIdOfReference<T>(reference: T): u32 {
+    if (!isReference<T>()) ERROR("Cannot get Type ID when T is not a reference.");
+    if (isFunction<T>()) ERROR("Cannot get Type ID of function reference.");
+    if (isNullable<T>()) {
+      assert(reference != null, "Cannot get Type ID of reference that is null.");
+    }
+
+    return this.typeIdOf(changetype<usize>(reference));
+  }
+
+  /**
+   * Get the size of a pointer.
+   *
+   * @param {usize} pointer - The pointer.
+   * @returns {u32} - The size of the allocated block.
+   */
+  public static sizeOf(pointer: usize): u32 {
+    return changetype<BLOCK>(pointer - BLOCK_OVERHEAD).rtSize;
+  }
+
+  /**
+   * Get the size of a reference.
    *
    * @param {T} reference - The reference.
    * @returns {u32} - The size of the allocated block.
    */
-  public static sizeOf<T>(reference: T): u32 {
-    return load<u32>(changetype<usize>(reference) - 4);
+  public static sizeOfReference<T>(reference: T): u32 {
+    return this.sizeOf(changetype<usize>(reference));
   }
 
   /**
@@ -271,7 +300,7 @@ export class RTrace {
    * └─┴─────┴───────────────────────────────────────────────────────┘
    */
   public static refCountOf(ptr: usize): u32 {
-    return load<u32>(ptr - 12) & 268435455; // bitmask the refCount bits
+    return changetype<BLOCK>(ptr - BLOCK_OVERHEAD).gcInfo & REFCOUNT_MASK;
   }
 }
 
