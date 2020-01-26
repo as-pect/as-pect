@@ -555,13 +555,43 @@ afterEach(() => {
 
 ### RTrace.typeIdOf(pointer: usize)
 
+Assemblyscript uses [unique class id to recognize a managed type](https://docs.assemblyscript.org/details/runtime#allocating-managed-objects). This method returns the class id of managed object of a pointer.
+
+```ts
+describe("A string", () => {
+  it("should have a typeId of 1", () => {
+    expect(RTrace.typeIdOf("I am a string")).toBe(1);
+  });
+});
+```
+
 ### RTrace.typeIdOfReference<T>(reference: T)
+
+This method does exactly the same thing as `RTrace.typeIdOf`, except that it is for a reference.
 
 ### RTrace.sizeOf(pointer: usize)
 
+Assemblyscript uses [rtSize](https://docs.assemblyscript.org/details/memory#common-header-layout) to store the size of the data. This method returns the size of the data pointed by a pointer.
+
+```ts
+describe("A string", () => {
+  it("should have a size more than 0", () => {
+    expect(RTrace.sizeof("I am a string")).toBeGreaterThan(0);
+  });
+});
+```
+
 ### RTrace.sizeOfReference<T>(reference: T)
 
+This method does exactly the same thing as `RTrace.sizeOf`, except that it is for a reference.
+
 ### RTrace.refCountOf(ptr: usize)
+
+Assemblyscript uses [gcInfo](https://docs.assemblyscript.org/details/memory#common-header-layout) to store the reference count. This method returns that of a pointer.
+
+### RTrace.refCountOfReference<T>(reference: T)
+
+This method does exactly the same thing as `RTrace.refCountOfReference`, except that it is for a reference.
 
 ## Performance Testing
 
