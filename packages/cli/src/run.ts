@@ -212,9 +212,13 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     }
   }
 
+  /** If the export table flag exists on the cli options, use the export table flag. */
   if (exportTable) {
     flags["--exportTable"] = [];
   }
+
+  /** Always import the memory now so that we expose the WebAssembly.Memory object to imports. */
+  flags["--importMemory"] = [];
 
   /** It's useful to notify the user that optimizations will make test compile times slower. */
   if (
@@ -390,11 +394,16 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
           path.basename(file, path.extname(file)) + ".imports.js",
         ),
       );
-      const imports = runner.createImports(
-        (fs.existsSync(customImportFileLocation)
-          ? require(customImportFileLocation)
-          : configuration!.imports) || {},
-      );
+
+      const configurationImports = fs.existsSync(customImportFileLocation)
+        ? require(customImportFileLocation)
+        : configuration!.imports ?? {};
+
+      const memory = new WebAssembly.Memory({ initial: 10 });
+      const stagedImports = typeof configurationImports === "function"
+          ? configurationImports(memory)
+          : configurationImports;
+      const imports = runner.createImports(stagedImports);
 
       // instantiate the module
       const wasm: IAspectExports = instantiateSync(binary, imports);
