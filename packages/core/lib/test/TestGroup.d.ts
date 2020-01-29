@@ -84,6 +84,11 @@ export declare class TestGroup implements ILogTarget {
      */
     incrementCount: number;
     /**
+     * If the test group did not error, this is the number of block reallocations that occurred during
+     * the group's exection.
+     */
+    reallocationCount: number;
+    /**
      * This is the number of allocations currently on the heap when the `TestGroup` execution starts.
      */
     rtraceStart: number;

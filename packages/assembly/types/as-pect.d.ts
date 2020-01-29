@@ -773,6 +773,21 @@ declare class RTrace {
   public static testFrees(): i32;
 
   /**
+   * Gets the current number of reallocations over the course of the TestContext module.
+   */
+  public static reallocations(): i32;
+
+  /**
+   * Gets the current number of reallocations over the course of the TestGroup.
+   */
+  public static groupReallocations(): i32;
+
+  /**
+   * Gets the current number of reallocations over the couse of the TestResult.
+   */
+  public static testReallocations(): i32;
+
+  /**
    * This method triggers a garbage collection.
    */
   public static collect(): void;
