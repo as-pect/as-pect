@@ -404,6 +404,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
           ? configurationImports(memory)
           : configurationImports;
       const imports = runner.createImports(stagedImports);
+      imports.env.memory = memory;
+      console.log(imports);
 
       // instantiate the module
       const wasm: IAspectExports = instantiateSync(binary, imports);
