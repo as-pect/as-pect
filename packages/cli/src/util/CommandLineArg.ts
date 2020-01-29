@@ -53,6 +53,7 @@ export interface Options {
   group: string;
   test: string;
   outputBinary: boolean;
+  memory_size: number,
   norun: boolean;
   nortrace: boolean;
   reporter: string;
@@ -187,6 +188,13 @@ const _Args: CommandLineArgs = {
     ],
     type: "bs",
     value: false,
+  },
+
+  memory_size: {
+    description: "Set the initial size of imported memory in bytes.",
+    type: "i",
+    alias: { name: "m" },
+    value: 10
   },
 
   "max-samples": {

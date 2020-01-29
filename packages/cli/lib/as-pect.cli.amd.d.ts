@@ -75,6 +75,7 @@ declare module "util/CommandLineArg" {
         group: string;
         test: string;
         outputBinary: boolean;
+        memory_size: number;
         norun: boolean;
         nortrace: boolean;
         reporter: string;
