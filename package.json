@@ -32,7 +32,7 @@
     "@as-pect/cli": "file:./packages/cli",
     "@as-pect/core": "file:./packages/core",
     "@types/glob": "^7.1.1",
-    "@types/jest": "^24.9.0",
+    "@types/jest": "^25.1.1",
     "@types/node": "^13.1.7",
     "assemblyscript": "0.8.1-nightly.20200114",
     "coveralls": "^3.0.9",
