@@ -152,15 +152,39 @@ describe("RTrace api", () => {
     RTrace.activeBlocks();
   });
 
-  test("RTrace.classIdOf(pointer: usize)", () => {
+  test("RTrace.sizeOf(pointer: usize)", () => {
     let ref = new Vec3(1, 2, 3);
-    RTrace.classIdOf(changetype<usize>(ref));
+    RTrace.sizeOf(changetype<usize>(ref));
     log<Vec3>(ref);
   });
 
-  test("RTrace.sizeOf(pointer: usize)", () => {
+  test("RTrace.sizeOfReference<T>(reference: T)", () => {
     let ref = new Vec3(1, 2, 3);
-    RTrace.sizeOf<Vec3>(ref);
+    RTrace.sizeOfReference<Vec3>(ref);
+    log<Vec3>(ref);
+  });
+
+  test("RTrace.typeIdOf(pointer: usize)", () => {
+    let ref = new Vec3(1, 2, 3);
+    RTrace.typeIdOf(changetype<usize>(ref));
+    log<Vec3>(ref);
+  });
+
+  test("RTrace.typeIdOfReference<T>(reference: T)", () => {
+    let ref = new Vec3(1, 2, 3);
+    RTrace.typeIdOfReference<Vec3>(ref);
+    log<Vec3>(ref);
+  });
+
+  test("RTrace.refCountOf(pointer: usize)", () => {
+    let ref = new Vec3(1, 2, 3);
+    RTrace.refCountOf(changetype<usize>(ref));
+    log<Vec3>(ref);
+  });
+
+  test("RTrace.refCountOfReference<T>(reference: T)", () => {
+    let ref = new Vec3(1, 2, 3);
+    RTrace.refCountOfReference(ref);
     log<Vec3>(ref);
   });
 });

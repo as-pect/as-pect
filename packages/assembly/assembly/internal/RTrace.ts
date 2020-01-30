@@ -71,27 +71,12 @@ declare function getRTraceGroupBlocks(): usize[];
 @external("__aspect", "getRTraceTestBlocks")
 declare function getRTraceTestBlocks(): usize[];
 
-
 @global
 export class RTrace {
   /**
    * This bool indicates if `RTrace` should call into JavaScript to obtain reference counts.
    */
   public static enabled: bool = true;
-
-  /**
-   * This method checks if the type of the reference can be used.
-   * 
-   * @param {T} reference - the reference
-   * @param {string} getTarget - the information to get from the reference provided
-   */
-  private static assertReferenceType<T>(reference: T, getTarget: string): void {
-    if (!isReference<T>()) ERROR("Cannot get " + getTarget + " when T is not a reference.");
-    if (isFunction<T>()) ERROR("Cannot get " + getTarget + " of function reference.");
-    if (isNullable<T>()) {
-      assert(reference != null, "Cannot get " + getTarget + " of reference that is null.");
-    }
-  }
 
   /**
    * This method returns the current number of active references on the heap.
@@ -253,8 +238,7 @@ export class RTrace {
    * @returns {u32} - The type id of the allocated block.
    */
   public static typeIdOfReference<T>(reference: T): u32 {
-    if (!isManaged<T>()) return 0;
-    RTrace.assertReferenceType<T>(reference, "typeId");
+    assertReferenceType<T>(reference, "typeId");
 
     return RTrace.typeIdOf(changetype<usize>(reference));
   }
@@ -276,8 +260,7 @@ export class RTrace {
    * @returns {u32} - The size of the allocated block.
    */
   public static sizeOfReference<T>(reference: T): u32 {
-    if (!isManaged<T>()) return 0;
-    RTrace.assertReferenceType<T>(reference, "size");
+    assertReferenceType<T>(reference, "size");
 
     return RTrace.sizeOf(changetype<usize>(reference));
   }
@@ -304,7 +287,7 @@ export class RTrace {
   }
 
   /**
-   * Gets the current count of the specified pointer.
+   * Gets the current Is that because  of the specified pointer.
    *
    * ╒══════════════════════ GC Info structure ══════════════════════╕
    * │  3                   2                   1                    │
@@ -323,9 +306,23 @@ export class RTrace {
    */
   public static refCountOfReference<T>(reference: T): u32 {
     if (!isManaged<T>()) return 0;
-    RTrace.assertReferenceType<T>(reference, "refCount");
+    assertReferenceType<T>(reference, "refCount");
 
     return RTrace.refCountOf(changetype<usize>(reference));
+  }
+}
+
+/**
+ * iThis method checks if the type of the reference can be used.
+ * 
+ * @param {T} reference - the reference
+ * @param {string} getTarget - the information to get from the reference provided
+ */
+export function assertReferenceType<T>(reference: T, getTarget: string): void {
+  if (!isReference<T>()) ERROR("Cannot get " + getTarget + " when T is not a reference.");
+  if (isFunction<T>()) ERROR("Cannot get " + getTarget + " of function reference.");
+  if (isNullable<T>()) {
+    assert(reference != null, "Cannot get " + getTarget + " of reference that is null.");
   }
 }
 
@@ -336,3 +333,4 @@ export function __disableRTrace(): void {
 export function __getUsizeArrayId(): u32 {
   return idof<usize[]>();
 }
+

@@ -778,20 +778,36 @@ declare class RTrace {
   public static collect(): void;
 
   /**
-   * Get the class id of the pointer.
+   * Get the type id (class id) of the pointer.
    *
    * @param {usize} pointer - The pointer.
-   * @returns {u32} - The class id of the allocated block.
+   * @returns {u32} - The type id of the allocated block.
    */
-  public static classIdOf(pointer: usize): u32;
+  public static typeIdOf(pointer: usize): u32;
 
   /**
-   * Get the size of a block or buffer.
+   * Get the type id (class id) of a reference.
+   *
+   * @param {T} reference - The reference.
+   * @returns {u32} - The type id of the allocated block.
+   */
+  public static typeIdOfReference<T>(reference: T): u32;
+
+  /**
+   * Get the size of a pointer.
+   *
+   * @param {usize} pointer - The pointer.
+   * @returns {u32} - The size of the allocated block.
+   */
+  public static sizeOf(pointer: usize): u32;
+
+  /**
+   * Get the size of a reference.
    *
    * @param {T} reference - The reference.
    * @returns {u32} - The size of the allocated block.
    */
-  public static sizeOf<T>(reference: T): u32;
+  public static sizeOfReference<T>(reference: T): u32;
 
   /**
    * Get the currently allocated blocks.
@@ -807,6 +823,14 @@ declare class RTrace {
    * Get the current tests allocated blocks.
    */
   public static activeTestBlocks(): usize[];
+
+  public static refCountOf(ptr: usize): u32;
+  
+  /**
+   * Gets the current count of the specified reference.
+   * @param {T} reference - the reference.
+   */
+  public static refCountOfReference<T>(reference: T): u32;
 }
 
 
