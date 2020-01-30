@@ -34,7 +34,7 @@
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.9.0",
     "@types/node": "^13.1.7",
-    "assemblyscript": "0.8.1-nightly.20200114",
+    "assemblyscript": "0.9.1",
     "coveralls": "^3.0.9",
     "csv-stringify": "^5.3.6",
     "jest": "^24.9.0",
