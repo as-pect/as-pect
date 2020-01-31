@@ -9,7 +9,7 @@ declare function getValue(): i32;
 describe("linked functions", () => {
   it("should be linked", () => {
     let result = getValue();
-    expect<i32>(result).toBe(42);
-    log<i32>(result);
+    expect(result).toBe(42);
+    log(result);
   });
 });

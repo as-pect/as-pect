@@ -13,11 +13,11 @@ describe("RTrace", () => {
 
   it("should return a positive number", () => {
     globalVec = new Vec3(1, 2, 3);
-    expect<i32>(RTrace.count()).toBeGreaterThan(0, "RTrace counts should be greater than 0");
+    expect(RTrace.count()).toBeGreaterThan(0, "RTrace counts should be greater than 0");
   });
 
   afterEach(() => {
     let delta = RTrace.end(1);
-    expect<i32>(delta).toBe(1, "There should only now be one global reference to the Vec3 object");
+    expect(delta).toBe(1, "There should only now be one global reference to the Vec3 object");
   });
 });

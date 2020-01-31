@@ -10,10 +10,10 @@ describe("performance", () => {
   Performance.enabled(true);
   Performance.maxSamples(1001);
   test("This is a test with some performance values", () => {
-    var a: f64 = 1;
+    var a = 1.0;
     for (let i = 1; i < 10000; i++) {
       a = a * i / a + 1;
-      log<f64>(a);
+      log(a);
     }
   });
 
@@ -22,6 +22,6 @@ describe("performance", () => {
    */
   Performance.enabled(false);
   test("This is a test without performance enabled", () => {
-    log<string>("This should be visible.");
+    log("This should be visible.");
   });
 });

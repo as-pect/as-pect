@@ -90,7 +90,6 @@
  (global $~lib/gc/gc.auto (mut i32) (i32.const 1))
  (global $assembly/__tests__/lessThanOrEqualTo.spec/vec1 (mut i32) (i32.const 0))
  (global $assembly/__tests__/lessThanOrEqualTo.spec/vec2 (mut i32) (i32.const 0))
- (global $assembly/__tests__/lessThanOrEqualTo.spec/vec3 (mut i32) (i32.const 0))
  (global $assembly/internal/report/Actual/Actual.type (mut i32) (i32.const 0))
  (global $assembly/internal/report/Actual/Actual.signed (mut i32) (i32.const 0))
  (global $assembly/internal/report/Actual/Actual.float (mut f64) (f64.const 0))
@@ -2322,7 +2321,7 @@
   global.get $assembly/__tests__/lessThanOrEqualTo.spec/vec1
   call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3>
   local.tee $0
-  global.get $assembly/__tests__/lessThanOrEqualTo.spec/vec3
+  global.get $assembly/__tests__/lessThanOrEqualTo.spec/vec2
   i32.const 2816
   call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeLessThanOrEqual
   local.get $0
@@ -2582,7 +2581,7 @@
   i32.const 0
   call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3 | null>
   local.tee $0
-  global.get $assembly/__tests__/lessThanOrEqualTo.spec/vec3
+  global.get $assembly/__tests__/lessThanOrEqualTo.spec/vec2
   i32.const 832
   call $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3 | null>#toBeLessThanOrEqual
   local.get $0
@@ -2590,7 +2589,7 @@
  )
  (func $start:assembly/__tests__/lessThanOrEqualTo.spec~anonymous|0~anonymous|10 (; 84 ;)
   (local $0 i32)
-  global.get $assembly/__tests__/lessThanOrEqualTo.spec/vec3
+  global.get $assembly/__tests__/lessThanOrEqualTo.spec/vec2
   call $assembly/internal/Expectation/expect<assembly/__tests__/setup/Vec3/Vec3 | null>
   local.tee $0
   i32.const 0
@@ -2666,17 +2665,11 @@
   call $assembly/__tests__/setup/Vec3/Vec3#constructor
   global.set $assembly/__tests__/lessThanOrEqualTo.spec/vec1
   i32.const 0
-  f64.const 1
-  f64.const 2
-  f64.const 3
-  call $assembly/__tests__/setup/Vec3/Vec3#constructor
-  global.set $assembly/__tests__/lessThanOrEqualTo.spec/vec2
-  i32.const 0
   f64.const 4
   f64.const 5
   f64.const 6
   call $assembly/__tests__/setup/Vec3/Vec3#constructor
-  global.set $assembly/__tests__/lessThanOrEqualTo.spec/vec3
+  global.set $assembly/__tests__/lessThanOrEqualTo.spec/vec2
   i32.const 192
   i32.const 12
   call $assembly/internal/Describe/describe

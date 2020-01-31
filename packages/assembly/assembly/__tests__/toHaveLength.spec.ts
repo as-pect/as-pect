@@ -1,14 +1,14 @@
-runTypedArrayTest<Uint8Array, u8>("Uint8Array");
-runTypedArrayTest<Uint8ClampedArray, u8>("Uint8ClampedArray");
-runTypedArrayTest<Int8Array, i8>("Int8Array");
-runTypedArrayTest<Uint16Array, u16>("Uint16Array");
-runTypedArrayTest<Int16Array, i16>("Int16Array");
-runTypedArrayTest<Uint32Array, u32>("Uint32Array");
-runTypedArrayTest<Int32Array, i32>("Int32Array");
-runTypedArrayTest<Uint64Array, u64>("Uint64Array");
-runTypedArrayTest<Int64Array, i64>("Int64Array");
-runTypedArrayTest<Float32Array, f32>("Float32Array");
-runTypedArrayTest<Float64Array, f64>("Float64Array");
+runTypedArrayTest<Uint8Array>("Uint8Array");
+runTypedArrayTest<Uint8ClampedArray>("Uint8ClampedArray");
+runTypedArrayTest<Int8Array>("Int8Array");
+runTypedArrayTest<Uint16Array>("Uint16Array");
+runTypedArrayTest<Int16Array>("Int16Array");
+runTypedArrayTest<Uint32Array>("Uint32Array");
+runTypedArrayTest<Int32Array>("Int32Array");
+runTypedArrayTest<Uint64Array>("Uint64Array");
+runTypedArrayTest<Int64Array>("Int64Array");
+runTypedArrayTest<Float32Array>("Float32Array");
+runTypedArrayTest<Float64Array>("Float64Array");
 
 /**
  * This method creates a default TypedArray<U> reference like Uint8Array.
@@ -16,31 +16,32 @@ runTypedArrayTest<Float64Array, f64>("Float64Array");
  * @example
  * let value = create<Int16Array, i16>();
  */
-// @ts-ignore: decorators are valid here
-@inline
-function create<T extends TypedArray<U>, U extends number>(): T {
+function create<T extends ArrayBufferView>(): T {
   var value: T = instantiate<T>(3);
-  value[0] = <U>0;
-  value[1] = <U>1;
-  value[2] = <U>2;
+  // @ts-ignore: this is safe
+  unchecked(value[0] = <valueof<T>>0);
+  // @ts-ignore: this is safe
+  unchecked(value[1] = <valueof<T>>1);
+  // @ts-ignore: this is safe
+  unchecked(value[2] = <valueof<T>>2);
   return value;
 }
 
 /**
  * This method creates a describe block that tests the given TypedArray.
  *
- * @param {T extends TypedArray<U>} - The TypedArray type.
+ * @param {T extends ArrayBufferView} - The TypedArray type.
  * @param {U} - The number type.
  * @param {string} typedArrayType - The name of the TypedArray
  */
-function runTypedArrayTest<T extends TypedArray<U>, U extends number>(typedArrayType: string): void {
+function runTypedArrayTest<T extends ArrayBufferView>(typedArrayType: string): void {
   describe("toHaveLength TypedArray type: " + typedArrayType, () => {
 
     /**
      * This test verifies the length is 3 using toHaveLength(3).
      */
     it("should assert expected length", () => {
-      var created: T = create<T, U>();
+      var created = create<T>();
       expect<T>(created).toHaveLength(3);
     });
 
@@ -48,7 +49,7 @@ function runTypedArrayTest<T extends TypedArray<U>, U extends number>(typedArray
      * This test throws because the length *is* 3. This is the contrapositive of the previous test.
      */
     throws("when expected length should not equal the same value", () => {
-      var created: T = create<T, U>();
+      var created = create<T>();
       expect<T>(created).not.toHaveLength(3);
     }, "When length is equal, negated assertions should throw.");
 
@@ -56,7 +57,7 @@ function runTypedArrayTest<T extends TypedArray<U>, U extends number>(typedArray
      * This test verifies that when the expectation is negated, it validates the expected reference.
      */
     it("should verify the length is not another value", () => {
-      var created: T = create<T, U>();
+      var created = create<T>();
       expect<T>(created).not.toHaveLength(10, "The length of created is 3, not 10.");
     });
 
@@ -65,7 +66,7 @@ function runTypedArrayTest<T extends TypedArray<U>, U extends number>(typedArray
      * test.
      */
     throws("when the length is another expected value", () => {
-      var created: T = create<T, U>();
+      var created = create<T>();
       expect<T>(created).toHaveLength(10);
     }, "The length of created is 3, and not 10");
   });

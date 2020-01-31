@@ -10,7 +10,7 @@ describe("unit types", () => {
    * This is a primary unit test of the `as-pect` testing suite.
    */
   it("should create instanceof Expectation<T>", () => {
-    var result: Expectation<i32> = expect<i32>(1);
+    var result = expect(1);
     // @ts-ignore: instanceof checks must include type generics if they are in the definition
     assert(result instanceof Expectation<i32>, "The result is not instanceof Expectation.");
   });
@@ -19,7 +19,7 @@ describe("unit types", () => {
    * This test validates that the actual value is set when using the `expect()` function.
    */
   it("should create an expectation with a value", () => {
-    var result = expect<i32>(1);
+    var result = expect(1);
     assert(result.actual == 1, "The expect function does not report values correctly.");
   });
 
@@ -28,8 +28,8 @@ describe("unit types", () => {
    * In order to access a private value on the reference, we must use `offsetof<T>("_not")`
    */
   it("should negate the _not property", () => {
-    var result = expect<i32>(1).not;
-    var notValue: bool = load<bool>(changetype<usize>(result), offsetof<Expectation<i32>>("_not"));
+    var result = expect(1).not;
+    var notValue = load<bool>(changetype<usize>(result), offsetof<Expectation<i32>>("_not"));
     assert(notValue, "The expect function was not negated.");
   });
 });
