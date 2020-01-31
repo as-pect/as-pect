@@ -231,8 +231,6 @@ export function __sendActual(): void {
   }
 }
 
-// @ts-ignore: Decorators *are* valid here
-@inline
 export function reportActualReference<T>(ptr: usize, offset: i32): void {
   Actual.type = ValueType.Reference;
   if (isManaged<T>()) __retain(ptr);

@@ -5,8 +5,6 @@
  * assertion.
  * @param {string} message - The message that is thrown in the Error.
  */
-// @ts-ignore: Decorators *are* valid here
-@inline
 export function assert(condition: i32, message: string): void {
   if (!condition) throw new Error(message);
 }

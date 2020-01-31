@@ -12,8 +12,6 @@ import { ValueType } from "../report/ValueType";
  * @param {i32} negated - The value indicating that assertion is negated.
  * @param {string} message - The message describing the assertion.
  */
-// @ts-ignore: Decorators *are* valid here!
-@inline
 export function falsyComparison<T>(actual: T, negated: i32, message: string): void {
   Actual.report<T>(actual);
   Expected.type = ValueType.Falsy;

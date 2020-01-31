@@ -13,8 +13,6 @@ import { nullComparison } from "./nullComparison";
  * @param {i32} negated - The indicator that the assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
-// @ts-ignore: Decorators *are* valid here!
-@inline
 export function lengthComparison<T>(actual: T, expected: i32, negated: i32, message: string): void {
   if (!isReference<T>()) {
     ERROR("Expectation<T>#toHaveLength must be called with a Reference type T.")

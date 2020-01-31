@@ -14,8 +14,6 @@ import { BLOCK_OVERHEAD, BLOCK } from "rt/common";
  * @param {i32} negated - The indicator if the assertion is negated.
  * @param {string} message - The message describing the assertion.
  */
-// @ts-ignore inline is valid here in AssemblyScript
-@inline
 export function blockComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
 
   /**

@@ -138,9 +138,8 @@ export class Expected {
         }
       }
 
-      
       let ptr = changetype<usize>(expected);
-      
+
       if (isFunction<T>()){
         Expected.type = ValueType.Function;
         Expected.reference = ptr;
@@ -239,8 +238,6 @@ export function __sendExpected(): void {
   }
 }
 
-// @ts-ignore: Decorators *are* valid here
-@inline
 export function reportExpectedReference<T>(ptr: usize, offset: i32, negated: i32): void {
   Expected.type = ValueType.Reference;
   if (isManaged<T>()) __retain(ptr);
