@@ -287,7 +287,7 @@ export class RTrace {
   }
 
   /**
-   * Gets the current Is that because  of the specified pointer.
+   * Gets the current reference count of the specified pointer.
    *
    * ╒══════════════════════ GC Info structure ══════════════════════╕
    * │  3                   2                   1                    │
