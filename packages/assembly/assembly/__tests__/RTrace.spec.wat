@@ -70,10 +70,9 @@
  (data (i32.const 1680) "X\00\00\00\01\00\00\00\01\00\00\00X\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00e\00t\00u\00r\00n\00 \00a\00 \00c\00o\00r\00r\00e\00c\00t\00 \00t\00y\00p\00e\00 \00i\00d\00 \00o\00f\00 \00a\00 \00p\00o\00i\00n\00t\00e\00r\00")
  (data (i32.const 1792) "\\\00\00\00\01\00\00\00\01\00\00\00\\\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00e\00t\00u\00r\00n\00 \00a\00 \00c\00o\00r\00r\00e\00c\00t\00 \00t\00y\00p\00e\00 \00i\00d\00 \00o\00f\00 \00a\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00")
  (data (i32.const 1904) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00t\00y\00p\00e\00I\00d\00")
- (data (i32.const 1936) "l\00\00\00\01\00\00\00\01\00\00\00l\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00e\00t\00u\00r\00n\00 \00a\00 \00c\00o\00r\00r\00e\00c\00t\00 \00t\00y\00p\00e\00 \00i\00d\00 \00f\00o\00r\00 \00a\00n\00 \00u\00n\00m\00a\00n\00a\00g\00e\00d\00 \00c\00l\00a\00s\00s\00")
- (data (i32.const 2064) "\06\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
- (table $0 14 funcref)
- (elem (i32.const 1) $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|8 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|9 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|10 $start:assembly/__tests__/RTrace.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
+ (data (i32.const 1936) "\06\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
+ (table $0 13 funcref)
+ (elem (i32.const 1) $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|8 $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|9 $start:assembly/__tests__/RTrace.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
  (global $~lib/gc/gc.auto (mut i32) (i32.const 1))
@@ -101,13 +100,13 @@
  (global $assembly/internal/report/Expected/Expected.negated (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.stackTrace (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.isManaged (mut i32) (i32.const 0))
- (global $assembly/internal/noOp/noOp i32 (i32.const 13))
+ (global $assembly/internal/noOp/noOp i32 (i32.const 12))
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
  (global $assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $~started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 2064))
- (global $~lib/heap/__heap_base i32 (i32.const 2116))
+ (global $~lib/rt/__rtti_base i32 (i32.const 1936))
+ (global $~lib/heap/__heap_base i32 (i32.const 1988))
  (export "__argumentsLength" (global $~argumentsLength))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
@@ -4075,13 +4074,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|10 (; 95 ;)
-  (local $0 i32)
-  i32.const 0
-  call $assembly/__tests__/RTrace.spec/TestUnmanaged#constructor
-  local.set $0
- )
- (func $start:assembly/__tests__/RTrace.spec~anonymous|0 (; 96 ;)
+ (func $start:assembly/__tests__/RTrace.spec~anonymous|0 (; 95 ;)
   i32.const 336
   i32.const 1
   call $assembly/internal/Test/it
@@ -4112,14 +4105,11 @@
   i32.const 1808
   i32.const 10
   call $assembly/internal/Test/it
-  i32.const 1952
-  i32.const 11
-  call $assembly/internal/Test/it
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 97 ;)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 96 ;)
   nop
  )
- (func $assembly/internal/Describe/describe (; 98 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 97 ;) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -4133,22 +4123,22 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/RTrace.spec (; 99 ;)
+ (func $start:assembly/__tests__/RTrace.spec (; 98 ;)
   i32.const 304
-  i32.const 12
+  i32.const 11
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__ready (; 100 ;)
+ (func $assembly/index/__ready (; 99 ;)
   i32.const 1
   global.set $assembly/internal/report/Expected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 101 ;) (param $0 i32)
+ (func $assembly/internal/call/__call (; 100 ;) (param $0 i32)
   i32.const 0
   global.set $~argumentsLength
   local.get $0
   call_indirect (type $none_=>_none)
  )
- (func $assembly/internal/report/Actual/__sendActual (; 102 ;)
+ (func $assembly/internal/report/Actual/__sendActual (; 101 ;)
   (local $0 i32)
   block $break|0
    block $case9|0
@@ -4256,7 +4246,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/Expected/__sendExpected (; 103 ;)
+ (func $assembly/internal/report/Expected/__sendExpected (; 102 ;)
   (local $0 i32)
   block $break|0
    block $case11|0
@@ -4395,24 +4385,24 @@
    call $assembly/internal/report/Expected/reportExpectedFunction
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 104 ;) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 103 ;) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 105 ;)
+ (func $assembly/internal/RTrace/__disableRTrace (; 104 ;)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 106 ;) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 105 ;) (result i32)
   i32.const 5
  )
- (func $assembly/internal/Expectation/__cleanup (; 107 ;)
+ (func $assembly/internal/Expectation/__cleanup (; 106 ;)
   call $assembly/internal/report/Expected/Expected.clear
   call $assembly/internal/report/Actual/Actual.clear
  )
- (func $~start (; 108 ;)
+ (func $~start (; 107 ;)
   global.get $~started
   if
    return
@@ -4422,10 +4412,10 @@
   end
   call $start:assembly/__tests__/RTrace.spec
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 109 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 108 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/pure/__visit (; 110 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 109 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -4555,7 +4545,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 111 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 110 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default

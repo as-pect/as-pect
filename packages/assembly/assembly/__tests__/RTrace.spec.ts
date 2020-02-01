@@ -71,19 +71,11 @@ describe("RTrace", () => {
 
   it("should return a correct type id of a pointer", () => {
     let ptr: i32 = __alloc(offsetof<Vec3>(), idof<Vec3>());
-
     expect<i32>(RTrace.typeIdOf(ptr)).toBe(idof<Vec3>());
   });
 
   it("should return a correct type id of a reference", () => {
     let reference: Vec3 = new Vec3(1, 2, 3);
-
     expect<i32>(RTrace.typeIdOfReference<Vec3>(reference)).toBe(idof<Vec3>());
-  });
-
-  it("should return a correct type id for an unmanaged class", () => {
-    let reference: TestUnmanaged = new TestUnmanaged();
-
-    // expect<i32>(RTrace.typeIdOfReference<TestUnmanaged>(reference)).toBe(idof<TestUnmanaged>());
   });
 });
