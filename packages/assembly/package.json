@@ -33,7 +33,7 @@
     "types/"
   ],
   "devDependencies": {
-    "assemblyscript": "^0.9.0",
+    "assemblyscript": "^0.9.1",
     "markdownlint-cli": "^0.21.0",
     "npm-check-updates": "^4.0.1"
   }

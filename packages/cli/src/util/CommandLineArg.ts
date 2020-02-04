@@ -53,7 +53,8 @@ export interface Options {
   group: string;
   test: string;
   outputBinary: boolean;
-  memory_size: number,
+  memorySize: number;
+  memoryMax: number;
   norun: boolean;
   nortrace: boolean;
   reporter: string;
@@ -190,8 +191,14 @@ const _Args: CommandLineArgs = {
     value: false,
   },
 
-  memory_size: {
-    description: "Set the initial size of imported memory in bytes.",
+  "memory-max": {
+    description: "Set the maximum amount of memory pages the wasm module can use.",
+    type: "i",
+    value: -1,
+  },
+
+  "memory-size": {
+    description: "Set the initial wasm memory size in pages [64kb each].",
     type: "i",
     alias: { name: "m" },
     value: 10

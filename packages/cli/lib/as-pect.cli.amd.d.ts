@@ -75,7 +75,8 @@ declare module "util/CommandLineArg" {
         group: string;
         test: string;
         outputBinary: boolean;
-        memory_size: number;
+        memorySize: number;
+        memoryMax: number;
         norun: boolean;
         nortrace: boolean;
         reporter: string;
@@ -233,6 +234,14 @@ declare module "util/IConfiguration" {
          * Specifies if rtrace counting should be skipped. Use with stub allocator.
          */
         nortrace?: boolean;
+        /**
+         * WASM Memory size in pages. Default is 10.
+         */
+        memorySize?: number;
+        /**
+         * WASM Memory max size in pages 64kb. Should be positive. Default is disabled or -1.
+         */
+        memoryMax?: number;
     }
 }
 declare module "util/collectReporter" {

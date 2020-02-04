@@ -270,9 +270,9 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   /**
    * Check to see if the binary files should be written to the fileSystem.
    */
-  const outputBinary: boolean = !!(
-    cliOptions.outputBinary || configuration.outputBinary
-  );
+  const outputBinary = (cliOptions.outputBinary || configuration.outputBinary)
+    ?? false;
+
   if (outputBinary) {
     console.log(chalk`{bgWhite.black [Log]} Outputing Binary *.wasm files.`);
   }
@@ -287,13 +287,47 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   /**
    * Check to see if the tests should be run in the first place.
    */
-  const runTests: boolean = !cliOptions.norun;
+  const runTests = !cliOptions.norun;
   if (!runTests) {
     console.log(
       chalk`{bgWhite.black [Log]} Not running tests, only outputting files.`,
     );
   }
 
+  /**
+   * Check for memory flags from the cli options.
+   */
+  const memorySize = (cliOptions.changed.has("memorySize")
+    ? cliOptions.memorySize
+    : configuration.memorySize) ?? 10;
+  const memoryMax = (cliOptions.changed.has("memoryMax")
+    ? cliOptions.memoryMax
+    : configuration.memoryMax) ?? -1;
+
+  if (!Number.isInteger(memorySize) || memorySize <= 0) {
+    console.error(
+      chalk`{red [Error]} Invalid {yellow memorySize} value (${memorySize}) [valid range is a positive interger]`,
+    );
+    process.exit(1);
+  }
+
+  if (!Number.isInteger(memoryMax) || memoryMax < -1) {
+    console.error(
+      chalk`{red [Error]} Invalid {yellow memoryMax} value (${memoryMax}) [valid range is a positive interger greater than {yellow memorySize}]`,
+    );
+    process.exit(1);
+  }
+
+  if (memoryMax > 0 && memoryMax < memorySize) {
+    console.error(
+      chalk`{red [Error]} Invalid module memory configuration, memorySize (${memorySize}) is greater than memoryMax (${memoryMax}).`,
+    );
+    process.exit(1);
+  }
+
+  /**
+   * Concatenate compiler flags.
+   */
   if (compilerArgs.length > 0) {
     console.log(
       chalk`{bgWhite.black [Log]} Adding compiler arguments: ` +
@@ -301,7 +335,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     );
   }
 
-  const addedTestEntryFiles: Set<string> = new Set<string>();
+  const addedTestEntryFiles = new Set<string>();
 
   /** Get all the test entry files. */
   const testEntryFiles = getTestEntryFiles(cliOptions, include, disclude);
@@ -399,7 +433,15 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         ? require(customImportFileLocation)
         : configuration!.imports ?? {};
 
-      const memory = new WebAssembly.Memory({ initial: 10 });
+      const memoryDescriptor: WebAssembly.MemoryDescriptor = {
+        initial: memorySize,
+      };
+
+      if (memoryMax > 0) {
+        memoryDescriptor.maximum = memoryMax;
+      }
+
+      const memory = new WebAssembly.Memory(memoryDescriptor);
       const stagedImports = typeof configurationImports === "function"
           ? configurationImports(memory)
           : configurationImports;

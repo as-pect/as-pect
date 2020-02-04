@@ -114,7 +114,7 @@
  (global $~started (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 2720))
  (global $~lib/heap/__heap_base i32 (i32.const 2804))
- (export "__argumentsLength" (global $~argumentsLength))
+ (export "__setArgumentsLength" (func $~setArgumentsLength))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
  (export "table" (table $0))
@@ -2519,7 +2519,11 @@
  (func $start:assembly/internal/noOp~anonymous|0 (; 99 ;)
   nop
  )
- (func $assembly/internal/Describe/describe (; 100 ;) (param $0 i32) (param $1 i32)
+ (func $~setArgumentsLength (; 100 ;) (param $0 i32)
+  local.get $0
+  global.set $~argumentsLength
+ )
+ (func $assembly/internal/Describe/describe (; 101 ;) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -2533,7 +2537,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeTruthy.spec (; 101 ;)
+ (func $start:assembly/__tests__/toBeTruthy.spec (; 102 ;)
   i32.const 0
   f64.const 1
   f64.const 2
@@ -2544,17 +2548,17 @@
   i32.const 19
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__ready (; 102 ;)
+ (func $assembly/index/__ready (; 103 ;)
   i32.const 1
   global.set $assembly/internal/report/Expected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 103 ;) (param $0 i32)
+ (func $assembly/internal/call/__call (; 104 ;) (param $0 i32)
   i32.const 0
   global.set $~argumentsLength
   local.get $0
   call_indirect (type $none_=>_none)
  )
- (func $assembly/internal/report/Actual/__sendActual (; 104 ;)
+ (func $assembly/internal/report/Actual/__sendActual (; 105 ;)
   (local $0 i32)
   block $break|0
    block $case9|0
@@ -2662,7 +2666,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/Expected/__sendExpected (; 105 ;)
+ (func $assembly/internal/report/Expected/__sendExpected (; 106 ;)
   (local $0 i32)
   block $break|0
    block $case11|0
@@ -2801,24 +2805,24 @@
    call $assembly/internal/report/Expected/reportExpectedFunction
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 106 ;) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 107 ;) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 107 ;)
+ (func $assembly/internal/RTrace/__disableRTrace (; 108 ;)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 108 ;) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 109 ;) (result i32)
   i32.const 9
  )
- (func $assembly/internal/Expectation/__cleanup (; 109 ;)
+ (func $assembly/internal/Expectation/__cleanup (; 110 ;)
   call $assembly/internal/report/Expected/Expected.clear
   call $assembly/internal/report/Actual/Actual.clear
  )
- (func $~start (; 110 ;)
+ (func $~start (; 111 ;)
   global.get $~started
   if
    return
@@ -2828,10 +2832,10 @@
   end
   call $start:assembly/__tests__/toBeTruthy.spec
  )
- (func $~lib/rt/pure/__collect (; 111 ;)
+ (func $~lib/rt/pure/__collect (; 112 ;)
   return
  )
- (func $~lib/rt/tlsf/freeBlock (; 112 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/freeBlock (; 113 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $1
   i32.load
@@ -2847,7 +2851,7 @@
   local.get $1
   call $~lib/rt/rtrace/onfree
  )
- (func $~lib/rt/pure/decrement (; 113 ;) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 114 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -2924,7 +2928,7 @@
    i32.store offset=4
   end
  )
- (func $~lib/rt/pure/__visit (; 114 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 115 ;) (param $0 i32) (param $1 i32)
   local.get $0
   global.get $~lib/heap/__heap_base
   i32.lt_u
@@ -2948,10 +2952,10 @@
   i32.sub
   call $~lib/rt/pure/decrement
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 115 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 116 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/__visit_members (; 116 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 117 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default

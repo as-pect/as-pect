@@ -49,7 +49,8 @@ export interface Options {
     group: string;
     test: string;
     outputBinary: boolean;
-    memory_size: number;
+    memorySize: number;
+    memoryMax: number;
     norun: boolean;
     nortrace: boolean;
     reporter: string;
