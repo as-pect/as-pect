@@ -61,12 +61,26 @@ declare function getRTraceTestFrees(): i32;
 // @ts-ignore
 @external("__aspect", "getRTraceBlocks")
 declare function getRTraceBlocks(): usize[];
+
 // @ts-ignore
 @external("__aspect", "getRTraceGroupBlocks")
 declare function getRTraceGroupBlocks(): usize[];
+
 // @ts-ignore
 @external("__aspect", "getRTraceTestBlocks")
 declare function getRTraceTestBlocks(): usize[];
+
+// @ts-ignore
+@external("__aspect", "getRTraceReallocs")
+declare function getRTraceReallocs(): i32;
+
+// @ts-ignore
+@external("__aspect", "getRTraceTestReallocs")
+declare function getRTraceTestReallocs(): i32;
+
+// @ts-ignore
+@external("__aspect", "getRTraceGroupReallocs")
+declare function getRTraceGroupReallocs(): i32;
 
 
 @global
@@ -272,6 +286,27 @@ export class RTrace {
    */
   public static refCountOf(ptr: usize): u32 {
     return load<u32>(ptr - 12) & 268435455; // bitmask the refCount bits
+  }
+
+  /**
+   * Gets the current number of reallocations over the course of the TestContext module.
+   */
+  public static reallocations(): i32 {
+    return getRTraceReallocs();
+  }
+
+  /**
+   * Gets the current number of reallocations over the course of the TestGroup.
+   */
+  public static groupReallocations(): i32 {
+    return getRTraceGroupReallocs();
+  }
+
+  /**
+   * Gets the current number of reallocations over the couse of the TestResult.
+   */
+  public static testReallocations(): i32 {
+    return getRTraceTestReallocs();
   }
 }
 

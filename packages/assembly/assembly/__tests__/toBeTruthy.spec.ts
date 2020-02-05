@@ -10,70 +10,99 @@ describe("toBeTruthy", () => {
    * This performs javascript-like assertions, so 1 should be truthy.
    */
   it("should expect 1 to be truthy", () => {
-    expect<i32>(1).toBeTruthy();
+    expect(1).toBeTruthy();
+  });
+
+  /**
+   * This performs javascript-like assertions, so a 1.0 float should be truthy.
+   */
+  it("should expect 1.0 to be truthy", () => {
+    expect(1.0).toBeTruthy();
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
   throws("should error if 1 is fasly", () => {
-    expect<i32>(1).not.toBeTruthy();
+    expect(1).not.toBeTruthy();
   }, "1 is truthy");
+
+
+  /**
+   * This is the contrapositive of the previous float version test.
+   */
+  throws("should error if 1.0 is fasly", () => {
+    expect(1.0).not.toBeTruthy();
+  }, "1.0 is truthy");
 
   /**
    * True should be truthy by definition.
    */
   it("should expect true to be truthy", () => {
-    expect<bool>(true).toBeTruthy("True is truthy by definition");
+    expect(true).toBeTruthy("True is truthy by definition");
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
   throws("should throw if true is not truthy", () => {
-    expect<bool>(true).not.toBeTruthy();
+    expect(true).not.toBeTruthy();
   }, "true is truthy");
 
   /**
    * Any value that is numerically 0 should be falsy, and thus, not truthy.
    */
-  it("should expect zero numbers not to be truthy", () => {
-    expect<i32>(0).not.toBeTruthy("0 is not truthy");
+  it("should expect numbers that equal zero not to be truthy", () => {
+    expect(0).not.toBeTruthy("0 is not truthy");
+  });
+
+  /**
+   * Any value that is numerically 0.0 should be falsy, and thus, not truthy.
+   */
+  it("should expect numbers that equal zero not to be truthy", () => {
+    expect(0.0).not.toBeTruthy("0.0 is not truthy");
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
   throws("should throw if 0 is not truthy", () => {
-    expect<i32>(0).toBeTruthy();
+    expect(0).toBeTruthy();
   }, "0 is not truthy");
+
+  /**
+   * This is the contrapositive of the previous test.
+   */
+  throws("should throw if 0.0 is not truthy", () => {
+    expect(0.0).toBeTruthy();
+  }, "0.0 is not truthy");
 
   /**
    * False should not be truthy by definition.
    */
   it("should expect false not to be truthy", () => {
-    expect<bool>(false).not.toBeTruthy("False is not truthy by definition");
+    expect(false).not.toBeTruthy("False is not truthy by definition");
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
   throws("should throw if false is not truthy", () => {
-    expect<bool>(false).toBeTruthy();
+    expect(false).toBeTruthy();
   }, "false is not truthy");
 
   /**
    * NaN is always falsy.
    */
   it("should expect NaN not to be truthy", () => {
-    expect<f64>(NaN).not.toBeTruthy("NaN is always not truthy");
+    expect(NaN).not.toBeTruthy("NaN is always not truthy");
   });
 
   /**
    * This is the contrapositive of the previous test.
    */
   throws("should throw if NaN is not fasly", () => {
-    expect<f64>(NaN).toBeTruthy("NaN is always not truthy");
+    expect(NaN).toBeTruthy("NaN is always not truthy");
   }, "NaN is not truthy");
 
   /**
@@ -94,13 +123,13 @@ describe("toBeTruthy", () => {
    * This test verifies non-null references are truthy.
    */
   it("should expect non-null references to be truthy", () => {
-    expect<Vec3>(vec1).toBeTruthy("Non-null references are truthy.");
+    expect(vec1).toBeTruthy("Non-null references are truthy.");
   });
 
   /**
    * This test is the contrapositive of the previous test.
    */
   throws("should throw if non-null references are expected not to be truthy", () => {
-    expect<Vec3>(vec1).not.toBeTruthy();
+    expect(vec1).not.toBeTruthy();
   }, "Non-null references are truthy.");
 });

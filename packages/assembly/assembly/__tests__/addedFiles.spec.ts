@@ -10,6 +10,6 @@ describe("added files", () => {
    */
   it("should read globals from included files", () => {
     // @ts-ignore: Please see setup/Test.include.ts
-    expect<i32>(meaningOfLife).toBe(42);
+    expect(meaningOfLife).toBe(42);
   });
 });

@@ -2,32 +2,29 @@ import { Vec3 } from "./setup/Vec3";
 import { listener, Listener, Event, initializeDispatcher } from "./setup/Event";
 
 var eventDispatcher = initializeDispatcher();
-const newListener: Listener = (event: Event) => { let x = "hello" }
+const newListener: Listener = (event: Event): void => { let x = "hello" }
 
-let numberTester: i32[] = new Array<i32>();
-numberTester.push(1);
-numberTester.push(2);
-numberTester.push(3);
+let numberTester = [1, 2, 3];
 
 describe("toIncludeEqual value arrays", () => {
   it("should include numbers", () => {
-    expect<i32[]>(numberTester).toIncludeEqual(2, "numberTester should include 2");
+    expect(numberTester).toIncludeEqual(2, "numberTester should include 2");
   });
 
   throws("when numberTester doesn't include a number", () => {
-    expect<i32[]>(numberTester).toIncludeEqual(4);
+    expect(numberTester).toIncludeEqual(4);
   }, "numberTester should not include 4");
 
   it("should not include numbers", () => {
-    expect<i32[]>(numberTester).not.toIncludeEqual(4, "numberTester should not include 4");
+    expect(numberTester).not.toIncludeEqual(4, "numberTester should not include 4");
   });
 
   throws("when numberTester includes a number but the expectation is negated", () => {
-    expect<i32[]>(numberTester).not.toIncludeEqual(2);
+    expect(numberTester).not.toIncludeEqual(2);
   });
 });
 
-let referenceTester: Vec3[] = new Array<Vec3>();
+let referenceTester = new Array<Vec3>(0);
 let one = new Vec3(1,2,3);
 let two = new Vec3(1,2,3);
 let three = new Vec3(1,2,3);
@@ -45,14 +42,14 @@ describe("toIncludeEqual reference arrays", () => {
    * This test verifies that pointer equality "strictEqual"s a value.
    */
   it("should include a reference", () => {
-    expect<Vec3[]>(referenceTester).toIncludeEqual(two, "referenceTester should include reference two");
+    expect(referenceTester).toIncludeEqual(two, "referenceTester should include reference two");
   });
 
   /**
    * This test throws because two is included as a reference to referenceTester.
    */
   throws("when referenceTester includes a reference but the expectation is negated", () => {
-    expect<Vec3[]>(referenceTester).not.toIncludeEqual(two);
+    expect(referenceTester).not.toIncludeEqual(two);
   });
 
   /**
@@ -60,7 +57,7 @@ describe("toIncludeEqual reference arrays", () => {
    * array.
    */
   it("should include a reference", () => {
-    expect<Vec3[]>(referenceTester).toIncludeEqual(new Vec3(1, 2, 3), "referenceTester should include reference two");
+    expect(referenceTester).toIncludeEqual(new Vec3(1, 2, 3), "referenceTester should include reference two");
   });
 
   /**
@@ -68,14 +65,14 @@ describe("toIncludeEqual reference arrays", () => {
    * value.
    */
   throws("when referenceTester doesn't include a reference", () => {
-    expect<Vec3[]>(referenceTester).toIncludeEqual(new Vec3(4, 5, 6));
+    expect(referenceTester).toIncludeEqual(new Vec3(4, 5, 6));
   }, "numberTester should not include four");
 
   /**
    * This test validates there is no reference that matches any of the elements in referenceTester.
    */
   it("should not include a reference", () => {
-    expect<Vec3[]>(referenceTester).not
+    expect(referenceTester).not
       .toIncludeEqual(new Vec3(4, 5, 6), "referenceTester should not include reference four");
   });
 
@@ -84,32 +81,32 @@ describe("toIncludeEqual reference arrays", () => {
    * array.
    */
   throws("when referenceTester includes a reference but the expectation is negated", () => {
-    expect<Vec3[]>(referenceTester).not.toIncludeEqual(new Vec3(1, 2, 3));
+    expect(referenceTester).not.toIncludeEqual(new Vec3(1, 2, 3));
   });
 
   /**
    * Should delegate function pointers to "toInclude".
    */
   it("should include a function pointer", () => {
-    expect<Array<Listener>>(eventDispatcher.events).toIncludeEqual(listener);
+    expect(eventDispatcher.events).toIncludeEqual(listener);
   });
 
   it("should handle case when negated and not included", () => {
-    expect<Array<Listener>>(eventDispatcher.events).not.toIncludeEqual(newListener);
+    expect(eventDispatcher.events).not.toIncludeEqual(newListener);
   });
 
   /**
    * Throws if function pointer is not included by delegating to "toInclude".
    */
   throws("should include a function pointer", () => {
-    expect<Array<Listener>>(eventDispatcher.events).toIncludeEqual(newListener);
+    expect(eventDispatcher.events).toIncludeEqual(newListener);
   });
 
   /**
    * Throws if function pointer is not included by delegating to "toInclude".
    */
   throws("should include a function pointer", () => {
-    expect<Array<Listener>>(eventDispatcher.events).not.toIncludeEqual(listener);
+    expect(eventDispatcher.events).not.toIncludeEqual(listener);
   });
 
 });
@@ -119,41 +116,38 @@ for (let i = 0; i < 10; i++) typedarray[i] = <u8>i;
 
 describe("TypedArrays", () => {
   it("should include values", () => {
-    expect<Uint8Array>(typedarray).toIncludeEqual(5);
+    expect(typedarray).toIncludeEqual(5);
   });
 
   itThrows("when the value is included", () => {
-    expect<Uint8Array>(typedarray).not.toIncludeEqual(5);
+    expect(typedarray).not.toIncludeEqual(5);
   }, "The underlying array contains the value,");
 
   it("should not include values", () => {
-    expect<Uint8Array>(typedarray).not.toIncludeEqual(11);
+    expect(typedarray).not.toIncludeEqual(11);
   });
 
   itThrows("when the value is included", () => {
-    expect<Uint8Array>(typedarray).toIncludeEqual(11);
+    expect(typedarray).toIncludeEqual(11);
   }, "The value is not included.");
 });
 
-let stringRefs = new Array<string>(0);
-stringRefs.push("one");
-stringRefs.push("two");
-stringRefs.push("three");
+let stringRefs = ["one", "two", "three"];
 
 describe("arrays with strings", () => {
   it("should include values", () => {
-    expect<string[]>(stringRefs).toIncludeEqual("three");
+    expect(stringRefs).toIncludeEqual("three");
   });
 
   itThrows("when the value is included", () => {
-    expect<string[]>(stringRefs).not.toIncludeEqual("three");
+    expect(stringRefs).not.toIncludeEqual("three");
   }, "The underlying array contains the value,");
 
   it("should not include values", () => {
-    expect<string[]>(stringRefs).not.toIncludeEqual("four");
+    expect(stringRefs).not.toIncludeEqual("four");
   });
 
   itThrows("when the value is included", () => {
-    expect<string[]>(stringRefs).toIncludeEqual("four");
+    expect(stringRefs).toIncludeEqual("four");
   }, "The value is not included.");
 });

@@ -1,5 +1,5 @@
 import { ICommand } from "./ICommand";
-import { readdirSync, readFileSync }  from "fs";
+import { readdirSync, readFileSync } from "fs";
 import { join, basename, dirname, extname } from "path";
 import { parentPort, workerData } from "worker_threads";
 import { writeFile } from "../util/writeFile";
@@ -9,25 +9,21 @@ import { writeFile } from "../util/writeFile";
  *
  * This variable holds the AssemblyScript compiler.
  */
-const asc: any = require(join(
-  workerData.assemblyScriptFolder,
-  "dist",
-  "asc",
-));
+const asc = require(join(workerData.assemblyScriptFolder, "dist", "asc"));
 
 /**
  * @ignore
  *
  * This variable holds the fileMap for the compiler.
  */
-const fileMap: Map<string, string> = new Map();
+const fileMap = new Map<string, string>();
 
 /**
  * @ignore
  *
  * This variable holds the folderMap for the compiler.
  */
-const folderMap: Map<string, string[]> = new Map();
+const folderMap = new Map<string, string[]>();
 
 /**
  * @ignore
@@ -51,8 +47,9 @@ function run(command: ICommand) {
         }
 
         try {
-          const results = readdirSync(folder)
-            .filter((file: string) => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
+          const results = readdirSync(folder).filter((file: string) =>
+            /^(?!.*\.d\.ts$).*\.ts$/.test(file),
+          );
           folderMap.set(folder, results);
           return results;
         } catch (e) {

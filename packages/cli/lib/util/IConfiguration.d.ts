@@ -57,4 +57,12 @@ export interface IConfiguration {
      * Specifies if rtrace counting should be skipped. Use with stub allocator.
      */
     nortrace?: boolean;
+    /**
+     * WASM Memory size in pages. Default is 10.
+     */
+    memorySize?: number;
+    /**
+     * WASM Memory max size in pages 64kb. Should be positive. Default is disabled or -1.
+     */
+    memoryMax?: number;
 }

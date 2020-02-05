@@ -13,8 +13,6 @@ import { assert } from "./assert";
  * @param {i32} negated - The indicator that the assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
-// @ts-ignore Decorators *are* valid here
-@inline
 // @ts-ignore expected is valueof<T> or it will be a compiler error
 export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, negated: i32, message: string): void {
   /**
@@ -30,7 +28,7 @@ export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, neg
    * Always report "Included Reference" because it will be negated by the `Expectated.negated`
    * property later.
    */
-  Expected.report<string>("Included Reference", negated);
+  Expected.report("Included Reference", negated);
 
   /**
    * This loop validates that a reference of type `U` exists with the same shape as the expected
@@ -83,6 +81,6 @@ export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, neg
     }
   }
 
-  Actual.report<string>(included ? "Included Reference" : "Not Included Reference");
+  Actual.report(included ? "Included Reference" : "Not Included Reference");
   assert(i32(included) ^ negated, message);
 }

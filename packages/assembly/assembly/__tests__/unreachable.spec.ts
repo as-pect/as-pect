@@ -69,6 +69,6 @@ describe("unreachable", () => {
    * are reliable.
    */
   afterEach(() => {
-    expect<i32>(counter).toBe(1);
+    expect(counter).toBe(1);
   });
 });

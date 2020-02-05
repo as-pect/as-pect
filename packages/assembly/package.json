@@ -7,6 +7,7 @@
     "asp:ci": "node ../cli/lib/test --summary",
     "asp": "node ../cli/lib/test --verbose",
     "mdlint": "markdownlint *.md",
+    "package:version-update": "ncu -u",
     "test:ci": "run-s asp:ci mdlint",
     "test": "run-s asp mdlint",
     "tsc:all": "exit 0"
@@ -32,7 +33,8 @@
     "types/"
   ],
   "devDependencies": {
-    "assemblyscript": "0.8.1-nightly.20200114",
-    "markdownlint-cli": "^0.21.0"
+    "assemblyscript": "^0.9.1",
+    "markdownlint-cli": "^0.21.0",
+    "npm-check-updates": "^4.0.1"
   }
 }

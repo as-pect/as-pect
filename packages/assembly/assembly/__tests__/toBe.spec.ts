@@ -1,11 +1,9 @@
 import { Vec3 } from "./setup/Vec3";
 import { Listener, listener, anotherListener, initializeDispatcher } from "./setup/Event";
-var vec1: Vec3 = new Vec3(1, 2, 3);
-var vec2: Vec3 = new Vec3(4, 5, 6);
+var vec1 = new Vec3(1, 2, 3);
+var vec2 = new Vec3(4, 5, 6);
 
 var eventDispatcher = initializeDispatcher();
-
-
 
 /**
  * This test suite valides strict equality expectations. For value types, they should strictly
@@ -16,56 +14,56 @@ describe("toBe", () => {
    * This test validates value type expectations of equality.
    */
   it("should expect equal value type values to be equal", () => {
-    expect<i32>(42).toBe(42, "Two equal values should be equal.");
+    expect(42).toBe(42, "Two equal values should be equal.");
   });
 
   /**
    * This test is the contrapositive of the previous test.
    */
   throws("should throw if value types are equal", () => {
-    expect<i32>(42).not.toBe(42);
+    expect(42).not.toBe(42);
   }, "Negated toBe assertions with equal values should throw.");
 
   /**
    * This test validates value type expectations of inequality.
    */
   it("should expect unequal value type values to unequal.", () => {
-    expect<i32>(0).not.toBe(42, "Two unequal values should not be equal.");
+    expect(0).not.toBe(42, "Two unequal values should not be equal.");
   });
 
   /**
    * This test is the contrapositive of the previous test.
    */
   throws("should throw if value types are unequal", () => {
-    expect<i32>(0).toBe(42);
+    expect(0).toBe(42);
   }, "toBe assertions with unequal values should throw.");
 
   /**
    * This test validates a reference equals itself.
    */
   it("should validate if a reference is itself", () => {
-    expect<Vec3>(vec1).toBe(vec1, "The same reference should be itself");
+    expect(vec1).toBe(vec1, "The same reference should be itself");
   });
 
   /**
    * This test is the contrapositive of the previous test.
    */
   throws("should throw if a reference is itself", () => {
-    expect<Vec3>(vec1).not.toBe(vec1);
+    expect(vec1).not.toBe(vec1);
   }, "Negated toBe assertions of equal pointers should throw");
 
   /**
    * This test validates that a reference is not expected to be itself.
    */
   it("should validate if a reference is not itself", () => {
-    expect<Vec3>(vec1).not.toBe(vec2, "Two difference references aren't the same.");
+    expect(vec1).not.toBe(vec2, "Two difference references aren't the same.");
   });
 
   /**
    * This test is the contrapositive of the previous test.
    */
   throws("should throw if a reference is itself", () => {
-    expect<Vec3>(vec1).toBe(vec2);
+    expect(vec1).toBe(vec2);
   }, "toBe assertions of unequal pointers should throw");
 
   /**
@@ -100,51 +98,43 @@ describe("toBe", () => {
    * NaN comparisons should always throw for actual values.
    */
   throws("should always throw if actual value is NaN", () => {
-    expect<f64>(NaN).toBe(0);
+    expect(NaN).toBe(0);
   }, "An actual value can never be NaN, and never equals anything.");
 
   /**
    * NaN comparisons should always throw for expected values.
    */
   throws("should always throw if expected value is NaN", () => {
-    expect<f64>(0).toBe(NaN);
+    expect(0.0).toBe(NaN);
   }, "An expected value can never be NaN, and never equals anything.");
 
   /**
    * NaN values should alway throw.
    */
   throws("should always throw if both values are NaN", () => {
-    expect<f64>(NaN).toBe(NaN);
+    expect(NaN).toBe(NaN);
   }, "NaN is not ever equal to NaN.");
 
   /**
    * Function pointers should be comparable
    */
   it("should compare function pointers", () => {
-		expect<Listener>(
-			eventDispatcher.events[0]
-    ).toBe(listener);
+		expect(eventDispatcher.events[0]).toBe(listener, "Function references should be comparable.");
     log(listener);
   });
 
   it("should handle negative case for comparing function pointers", () =>{
-    expect<Listener>(
-			eventDispatcher.events[1]
-    ).not.toBe(listener);
+    expect<Listener>(eventDispatcher.events[1]).not.toBe(listener, "Function references that don't match should not be equal.");
   });
 
   /** Contrapositive of above */
   throws("should always throw if function pointers are not the same", () => {
-    expect<Listener>(
-			eventDispatcher.events[0]
-    ).toBe(anotherListener);
-  });
+    expect<Listener>(eventDispatcher.events[0]).toBe(anotherListener);
+  }, "Function references that do not match should throw when they are not equal.");
 
   /** Contrapositive of negative above */
   throws("should always throw if function pointers are the same", () => {
-    expect<Listener>(
-      eventDispatcher.events[0]
-    ).not.toBe(listener);
-  });
+    expect<Listener>(eventDispatcher.events[0]).not.toBe(listener);
+  }, "Function references that should not match, but do, should throw when they are equal.");
 });
 

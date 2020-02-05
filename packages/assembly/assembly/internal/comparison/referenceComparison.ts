@@ -14,10 +14,8 @@ import { exactComparison } from "./exactComparison";
  * @param {i32} negated - The indicator that the assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
-// @ts-ignore: Decorators *are* valid here
-@inline
+
 export function referenceComparison<T>(actual: T, expected: T, negated: i32, message: string): void {
-  
   if (isFunction<T>(actual)) {
     const iactual = changetype<i32>(actual);
     const iexpected = changetype<i32>(expected);
@@ -27,8 +25,8 @@ export function referenceComparison<T>(actual: T, expected: T, negated: i32, mes
     return;
   }
   // report the actual and expected values
-  Actual.report<T>(actual);
-  Expected.report<T>(expected, negated);
+  Actual.report(actual);
+  Expected.report(expected, negated);
 
   // fast path, the value is itself, operator overload comparison passes, or both values are null
   if (expected == actual) {

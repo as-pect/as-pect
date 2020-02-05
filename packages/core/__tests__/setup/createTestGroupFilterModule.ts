@@ -1,5 +1,8 @@
 import { main } from "assemblyscript/cli/asc";
-import { instantiateSync as instantiateBuffer, ASUtil } from "assemblyscript/lib/loader";
+import {
+  instantiateSync as instantiateBuffer,
+  ASUtil,
+} from "assemblyscript/lib/loader";
 import { TestContext } from "../../src/test/TestContext";
 import EmptyReporter from "../../src/reporter/EmptyReporter";
 import { IAspectExports } from "../../src/util/IAspectExports";

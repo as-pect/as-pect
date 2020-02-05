@@ -284,26 +284,30 @@ export class TestCollector {
           getRTraceGroupDecrements: this.getRTraceGroupDecrements.bind(this),
           getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
           getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
+          getRTraceGroupReallocs: this.getRTraceGroupReallocs.bind(this),
           getRTraceIncrements: this.getRTraceIncrements.bind(this),
+          getRTraceReallocs: this.getRTraceReallocs.bind(this),
           getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
           getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
           getRTraceTestDecrements: this.getRTraceTestDecrements.bind(this),
           getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
           getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
+          getRTraceTestReallocs: this.getRTraceTestReallocs.bind(this),
           getStackTrace: this.getStackTrace.bind(this),
           logArray: this.logArray.bind(this),
           logBool: this.logBool.bind(this),
+          logFunction: this.logFunction.bind(this),
           logLong: this.logLong.bind(this),
           logNull: this.logNull.bind(this),
           logReference: this.logReference.bind(this),
           logString: this.logString.bind(this),
           logValue: this.logValue.bind(this),
-          logFunction: this.logFunction.bind(this),
           maxSamples: this.maxSamples.bind(this),
           maxTestRunTime: this.maxTestRunTime.bind(this),
           performanceEnabled: this.performanceEnabled.bind(this),
           reportActualArray: this.reportActualArray.bind(this),
           reportActualBool: this.reportActualBool.bind(this),
+          reportActualFunction: this.reportActualFunction.bind(this),
           reportActualLong: this.reportActualLong.bind(this),
           reportActualNull: this.reportActualNull.bind(this),
           reportActualReference: this.reportActualReference.bind(this),
@@ -320,14 +324,13 @@ export class TestCollector {
           reportExpectedBool: this.reportExpectedBool.bind(this),
           reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
           reportExpectedFinite: this.reportExpectedFinite.bind(this),
+          reportExpectedFunction: this.reportExpectedFunction.bind(this),
           reportExpectedLong: this.reportExpectedLong.bind(this),
           reportExpectedNull: this.reportExpectedNull.bind(this),
           reportExpectedReference: this.reportExpectedReference.bind(this),
           reportExpectedString: this.reportExpectedString.bind(this),
           reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
           reportExpectedValue: this.reportExpectedValue.bind(this),
-          reportExpectedFunction: this.reportExpectedFunction.bind(this),
-          reportActualFunction: this.reportActualFunction.bind(this),
           reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
           reportMedian: this.reportMedian.bind(this),
@@ -351,6 +354,7 @@ export class TestCollector {
         onfree: this.onfree.bind(this),
         onincrement: this.onincrement.bind(this),
         ondecrement: this.ondecrement.bind(this),
+        onrealloc: this.onrealloc.bind(this),
       };
 
     /** add an env object */
@@ -458,7 +462,9 @@ export class TestCollector {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.bytes = Array.from(new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset));
+    value.bytes = Array.from(
+      new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset),
+    );
     value.message = "Reference Type";
     value.offset = offset;
     value.pointer = referencePointer;
@@ -553,7 +559,9 @@ export class TestCollector {
     /* istanbul ignore next */
     if (this.wasm?.table && func) {
       /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}: ${this.funcName(parseInt(func.name))}]`;
+      value.message = `[Function ${functionPointer}: ${this.funcName(
+        parseInt(func.name),
+      )}]`;
     } else {
       /* istanbul ignore next */
       value.message = `[Function ${functionPointer}]`;
@@ -928,7 +936,9 @@ export class TestCollector {
     value.target = this.logTarget;
     value.pointer = referencePointer;
     value.offset = offset;
-    value.bytes = Array.from(new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset));
+    value.bytes = Array.from(
+      new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset),
+    );
     value.value = referencePointer;
     this.actual = value;
   }
@@ -952,7 +962,9 @@ export class TestCollector {
     value.target = this.logTarget;
     value.pointer = referencePointer;
     value.offset = offset;
-    value.bytes = Array.from(new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset));
+    value.bytes = Array.from(
+      new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset),
+    );
     value.negated = negated === 1;
     value.value = referencePointer;
     this.expected = value;
@@ -1083,7 +1095,9 @@ export class TestCollector {
     /* istanbul ignore next */
     if (this.wasm?.table && func) {
       /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}: ${this.funcName(parseInt(func.name))}]`;
+      value.message = `[Function ${functionPointer}: ${this.funcName(
+        parseInt(func.name),
+      )}]`;
     } else {
       /* istanbul ignore next */
       value.message = `[Function ${functionPointer}]`;
@@ -1115,7 +1129,9 @@ export class TestCollector {
     /* istanbul ignore next */
     if (this.wasm?.table && func) {
       /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}: ${this.funcName(parseInt(func.name))}]`;
+      value.message = `[Function ${functionPointer}: ${this.funcName(
+        parseInt(func.name),
+      )}]`;
     } else {
       /* istanbul ignore next */
       value.message = `[Function ${functionPointer}]`;
@@ -1477,6 +1493,21 @@ export class TestCollector {
   protected testDecrementCount: number = 0;
 
   /**
+   * This is the current number of net reallocations during the `TestContext` execution.
+   */
+  protected reallocationCount: number = 0;
+
+  /**
+   * This is the current number of net reallocations during the `TestGroup` execution.
+   */
+  protected groupReallocationCount: number = 0;
+
+  /**
+   * This is the current number of net reallocations during the `TestResult` execution.
+   */
+  protected testReallocationCount: number = 0;
+
+  /**
    * This map is responsible for keeping track of which blocks are currently allocated by their id.
    */
   protected blocks: Map<number, number> = new Map();
@@ -1615,6 +1646,56 @@ export class TestCollector {
     }
   }
 
+  private onrealloc(oldBlock: number, newBlock: number): void {
+    this.reallocationCount += 1;
+    this.groupReallocationCount += 1;
+    this.testReallocationCount += 1;
+    /**
+     * This is impossible to test, but follows exactly from the AssemblyScript example located
+     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
+     *
+     * Please see this file for further information about how rtrace errors are reported.
+     */
+    /* istanbul ignore next */
+    if (!this.blocks.has(oldBlock)) {
+      /* istanbul ignore next */
+      this.pushError({
+        message:
+          "An orphaned realloc has occurred at old block: " +
+          oldBlock.toString(),
+        stackTrace: this.getLogStackTrace(),
+        type: "Orphaned Reallocation Error (old)",
+      });
+    } else {
+      /* istanbul ignore next */
+      if (!this.blocks.has(newBlock)) {
+        /* istanbul ignore next */
+        this.pushError({
+          message:
+            "An orphaned realloc has occurred at new block: " +
+            newBlock.toString(),
+          stackTrace: this.getLogStackTrace(),
+          type: "Orphaned Reallocation Error (new)",
+        });
+      } else {
+        /* istanbul ignore next */
+        let newRc = this.blocks.get(newBlock);
+        /* istanbul ignore next */
+        if (newRc != 0) {
+          /* istanbul ignore next */
+          this.pushError({
+            message: `An invalid realloc error has occurred from ${oldBlock} to ${newBlock}.`,
+            stackTrace: this.getLogStackTrace(),
+            type: "Invalid Reallocation Error",
+          });
+        } else {
+          let oldRc = this.blocks.get(oldBlock)!;
+          this.blocks.set(newBlock, oldRc);
+        }
+      }
+    }
+  }
+
   /**
    * This method reports an error to the current logTarget and the `TestContext`.
    *
@@ -1721,6 +1802,26 @@ export class TestCollector {
   }
 
   /**
+   * This linked method gets all the RTrace reallocations for the current TestContext.
+   */
+  private getRTraceReallocs(): number {
+    return this.reallocationCount;
+  }
+
+  /**
+   * This linked method gets all the RTrace reallocations for the current TestGroup.
+   */
+  private getRTraceGroupReallocs(): number {
+    return this.groupReallocationCount;
+  }
+  /**
+   * This linked method gets all the RTrace reallocations for the current TestResult.
+   */
+  private getRTraceTestReallocs(): number {
+    return this.testReallocationCount;
+  }
+
+  /**
    * This linked method gets all the current RTrace allocations and adds them to an array.
    */
   private getRTraceBlocks(): number {
@@ -1784,7 +1885,9 @@ export class TestCollector {
     const value = new LogValue();
     const target = this.logTarget;
 
-    value.message = `trace: ${this.getString(strPointer, "")} ${args.slice(0, count).join(", ")}`;
+    value.message = `trace: ${this.getString(strPointer, "")} ${args
+      .slice(0, count)
+      .join(", ")}`;
     value.offset = 0;
     value.pointer = strPointer;
     value.stack = this.getLogStackTrace();

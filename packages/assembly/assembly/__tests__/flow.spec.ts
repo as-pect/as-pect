@@ -1,8 +1,8 @@
-var beforeEachRan: i32 = 0;
-var beforeAllRan: i32 = 0;
-var afterEachRan: i32 = 0;
-var afterAllRan: i32 = 0;
-var testCount: i32 = 0;
+var beforeEachRan = 0;
+var beforeAllRan = 0;
+var afterEachRan = 0;
+var afterAllRan = 0;
+var testCount = 0;
 
 
 /**
