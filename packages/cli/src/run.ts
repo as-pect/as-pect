@@ -270,8 +270,9 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   /**
    * Check to see if the binary files should be written to the fileSystem.
    */
-  const outputBinary = (cliOptions.outputBinary || configuration.outputBinary)
-    ?? false;
+  const outputBinary = (cliOptions.changed.has("outputBinary")
+    ? cliOptions.outputBinary
+    : configuration.outputBinary) ?? false;
 
   if (outputBinary) {
     console.log(chalk`{bgWhite.black [Log]} Outputing Binary *.wasm files.`);
