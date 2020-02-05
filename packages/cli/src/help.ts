@@ -18,11 +18,14 @@ export function help() {
     {bold.green asp} -h
     {bold.green asp} --types                         Copy the types file to assembly/__tests__/as-pect.d.ts
     {bold.green asp} -t
-    {bold.green asp} --memory_size=[number]          Initial size of imported memory in bytes. {yellow (Default: 10 Bytes)}
     {bold.green asp} -m
     {bold.green asp} --nologo                        Suppress ASCII art from printing.
     {bold.green asp} --compiler                      Path to folder relative to project root which contains
                                         {italic.magenta folder}/dist/asc for the compiler and {italic.magenta folder}/lib/loader for loader. {yellow (Default: assemblyscript)}
+
+  {bold.blueBright MODULE OPTIONS}
+    {bold.green --memory-size=[integer]}              Initial size of imported memory in pages of 64kb. {yellow (Default: 10 pages)}
+    {bold.green --memory-max=[integer]}               Set the maximum amount of memory pages the wasm test modules can use. {yellow (Default: -1)}
 
   {bold.blueBright TEST OPTIONS}
     {bold.green --file=[regex]}                       Run the tests of each file that matches this regex. {yellow (Default: /./)}
