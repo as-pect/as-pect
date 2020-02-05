@@ -5,7 +5,7 @@ export class WasmBuffer {
   /** Current offset in the buffer. */
   off: number = 0;
 
-  constructor(public u8array: Uint8Array){}
+  constructor(public u8array: Uint8Array) {}
 
   /** Read 128LEB unsigned integers. */
   readVaruint(off: number = this.off) {
@@ -15,15 +15,15 @@ export class WasmBuffer {
     var pos = off;
     do {
       byt = this.u8array[pos++];
-      val |= (byt & 0x7F) << shl;
+      val |= (byt & 0x7f) << shl;
       if (!(byt & 0x80)) break;
       shl += 7;
     } while (true);
-    this.off = pos
+    this.off = pos;
     return val;
   }
 
-  /** 
+  /**
    * Read a UTF8 string from the buffer either at the current offset or one passed in.
    * Updates the offset of the buffer.
    */
@@ -31,11 +31,13 @@ export class WasmBuffer {
     const name_len = this.readVaruint(off);
     this.off += name_len;
     //@ts-ignore
-    return String.fromCharCodes(this.u8array.slice(this.off - name_len, this.off));
+    return String.fromCharCodes(
+      this.u8array.slice(this.off - name_len, this.off),
+    );
   }
 
   /** Read a string at an offset without changing the buffere's offset. */
-  peekString(off: number): string  {
+  peekString(off: number): string {
     const old_off = this.off;
     const str = this.readString(off);
     this.off = old_off;
@@ -43,7 +45,7 @@ export class WasmBuffer {
   }
 }
 
-/** 
+/**
  * Utility class for reading the name sections of a wasm binary.
  * See https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md#name-section
  */
@@ -70,9 +72,9 @@ export class NameSection {
   private parseSection(): void {
     const off = this.off;
     const kind = this.readVaruint();
-    if (kind != 1) { 
+    if (kind != 1) {
       this.off = off;
-      return; 
+      return;
     }
     const end = this.readVaruint() + this.off;
     const count = this.readVaruint();
@@ -98,7 +100,6 @@ export class NameSection {
 
   /** Reads a 128LEB  unsigned integer and updates the offset. */
   readVaruint(off: number = this.off): number {
-      return this.section.readVaruint(off);
+    return this.section.readVaruint(off);
   }
-
 }

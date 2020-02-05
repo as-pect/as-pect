@@ -10,7 +10,10 @@ const util = require("util");
  * @param {LogValue} value - The log value.
  */
 export function createReferenceString(value: LogValue): string {
-  if (value.values.length > 0) return util.inspect(value.values, { colors: process.stdout.isTTY || false });
+  if (value.values.length > 0)
+    return util.inspect(value.values, {
+      colors: process.stdout.isTTY || false,
+    });
   const { pointer, offset, bytes } = value;
   const referenceEnd = pointer + offset;
   // start with a tabbed out string

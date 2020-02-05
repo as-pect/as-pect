@@ -88,7 +88,6 @@ export class TestResult implements ILogTarget {
   /** This is the run time for the test in milliseconds. */
   public runTime: number = 0;
 
-
   /**
    * Caclculate the average value of the collected times.
    */
@@ -171,7 +170,6 @@ export class TestResult implements ILogTarget {
    * the test's exection.
    */
   public reallocationCount: number = 0;
-
 
   /**
    * This is the number of allocations currently on the heap when the `TestResult` execution starts.

@@ -13,7 +13,14 @@ export type ArgType = "b" | "bs" | "s" | "S" | "I" | "i" | "F" | "f";
  *
  * These are the possible command line argument values.
  */
-export type ArgValue = string | number | boolean | string[] | number | { [key: string]: ArgValue } | Set<string>;
+export type ArgValue =
+  | string
+  | number
+  | boolean
+  | string[]
+  | number
+  | { [key: string]: ArgValue }
+  | Set<string>;
 
 /**
  * @ignore
@@ -192,7 +199,8 @@ const _Args: CommandLineArgs = {
   },
 
   "memory-max": {
-    description: "Set the maximum amount of memory pages the wasm module can use.",
+    description:
+      "Set the maximum amount of memory pages the wasm module can use.",
     type: "i",
     value: -1,
   },
@@ -201,7 +209,7 @@ const _Args: CommandLineArgs = {
     description: "Set the initial wasm memory size in pages [64kb each].",
     type: "i",
     alias: { name: "m" },
-    value: 10
+    value: 10,
   },
 
   "max-samples": {
@@ -222,7 +230,7 @@ const _Args: CommandLineArgs = {
     description: "Suppress ASCII art from being printed.",
     type: "b",
     alias: { name: "nl" },
-    value: false
+    value: false,
   },
 
   nortrace: {
@@ -377,7 +385,7 @@ export type ArgMap = Map<string, CommandLineArg>;
  * @ignore
  * Take a CommandLineArgs object and turn it into an ArgMap.
  *
- * @param args 
+ * @param args
  */
 export function makeArgMap(args: CommandLineArgs = _Args): ArgMap {
   const res = new Map<string, CommandLineArg>();
@@ -417,7 +425,10 @@ const invalidArg = /^[\-]/;
  * @param {string[]} commands - The command line arguments.
  * @param {ArgMap} cliArgs - The set of parsable arguments.
  */
-export function parse(commands: string[], cliArgs: ArgMap = defaultCliArgs): Options {
+export function parse(
+  commands: string[],
+  cliArgs: ArgMap = defaultCliArgs,
+): Options {
   const opts = {
     changed: new Set<string>(),
   } as Options;
@@ -425,7 +436,8 @@ export function parse(commands: string[], cliArgs: ArgMap = defaultCliArgs): Opt
   cliArgs.forEach((arg: CommandLineArg) => {
     const camelCase = toCamelCase(arg.name);
     if (arg.parent) {
-      const parent: { [key: string]: ArgValue; } = opts[arg.parent] as { [key: string]: ArgValue; } || {};
+      const parent: { [key: string]: ArgValue } =
+        (opts[arg.parent] as { [key: string]: ArgValue }) || {};
       if (arg.parent === arg.name) {
         parent.enabled = arg.value as boolean;
       } else {
@@ -480,7 +492,7 @@ export function parse(commands: string[], cliArgs: ArgMap = defaultCliArgs): Opt
       if (arg.parent == name) {
         name = "enabled";
       }
-      (opts[arg.parent] as { [key: string]: ArgValue; })[name] = value;
+      (opts[arg.parent] as { [key: string]: ArgValue })[name] = value;
       opts.changed.add(arg.parent + "." + name);
     } else {
       opts[name] = value;

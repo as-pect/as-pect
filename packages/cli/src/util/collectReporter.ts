@@ -1,4 +1,8 @@
-import { TestReporter, SummaryReporter, CombinationReporter } from "@as-pect/core";
+import {
+  TestReporter,
+  SummaryReporter,
+  CombinationReporter,
+} from "@as-pect/core";
 import { Options } from "./CommandLineArg";
 import querystring from "querystring";
 import chalk from "chalk";
