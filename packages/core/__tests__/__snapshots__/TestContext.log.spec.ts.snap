@@ -111,13 +111,13 @@ exports[`log output Group: logs Test: logs: offset 13`] = `0`;
 
 exports[`log output Group: logs Test: logs: offset 14`] = `0`;
 
-exports[`log output Group: logs Test: logs: snapshot 1`] = `512`;
+exports[`log output Group: logs Test: logs: snapshot 1`] = `464`;
 
 exports[`log output Group: logs Test: logs: snapshot 2`] = `42`;
 
 exports[`log output Group: logs Test: logs: snapshot 3`] = `null`;
 
-exports[`log output Group: logs Test: logs: snapshot 4`] = `2576`;
+exports[`log output Group: logs Test: logs: snapshot 4`] = `2528`;
 
 exports[`log output Group: logs Test: logs: snapshot 5`] = `null`;
 
@@ -256,13 +256,13 @@ exports[`log output Group: logs: todo 2`] = `"two"`;
 
 exports[`log output Group: logs: todo 3`] = `"three"`;
 
-exports[`log output Group: logs: value 1`] = `512`;
+exports[`log output Group: logs: value 1`] = `464`;
 
 exports[`log output Group: logs: value 2`] = `42`;
 
 exports[`log output Group: logs: value 3`] = `null`;
 
-exports[`log output Group: logs: value 4`] = `2576`;
+exports[`log output Group: logs: value 4`] = `2528`;
 
 exports[`log output Group: logs: value 5`] = `null`;
 
