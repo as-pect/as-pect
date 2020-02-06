@@ -78,4 +78,16 @@ describe("RTrace", () => {
     let reference: Vec3 = new Vec3(1, 2, 3);
     expect(RTrace.typeIdOfReference(reference)).toBe(idof<Vec3>());
   });
+
+  throws("when null is passed to typeIdOfReference", () =>{
+    RTrace.typeIdOfReference<Vec3 | null>(null);
+  }, "Null is not a valid parameter value for typeIdOfReference");
+
+  throws("when null is passed to refCountOfReference", () =>{
+    RTrace.refCountOfReference<Vec3 | null>(null);
+  }, "Null is not a valid parameter value for refCountOfReference");
+
+  throws("when null is passed to sizeOfReference", () =>{
+    RTrace.sizeOfReference<Vec3 | null>(null);
+  }, "Null is not a valid parameter value for sizeOfReference");
 });
