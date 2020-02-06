@@ -111,6 +111,7 @@
  (global $assembly/internal/report/Expected/Expected.negated (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.stackTrace (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.isManaged (mut i32) (i32.const 0))
+ (global $~lib/ASC_OPTIMIZE_LEVEL i32 (i32.const 0))
  (global $assembly/internal/noOp/noOp i32 (i32.const 15))
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
@@ -3858,6 +3859,7 @@
  )
  (func $assembly/internal/RTrace/RTrace.refCountOfReference<assembly/__tests__/setup/Vec3/Vec3> (; 87 ;) (param $0 i32) (result i32)
   (local $1 i32)
+  (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -3867,9 +3869,13 @@
   local.get $0
   call $assembly/internal/RTrace/RTrace.refCountOf
   local.set $1
+  local.get $1
+  i32.const 1
+  i32.sub
+  local.set $2
   local.get $0
   call $~lib/rt/pure/__release
-  local.get $1
+  local.get $2
  )
  (func $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|3 (; 88 ;)
   (local $0 i32)
@@ -3888,7 +3894,7 @@
   call $assembly/internal/RTrace/RTrace.refCountOfReference<assembly/__tests__/setup/Vec3/Vec3>
   call $assembly/internal/Expectation/expect<u32>
   local.tee $1
-  i32.const 2
+  i32.const 1
   i32.const 992
   call $assembly/internal/Expectation/Expectation<u32>#toBe
   i32.const 0
@@ -3914,7 +3920,7 @@
   call $assembly/internal/RTrace/RTrace.refCountOfReference<assembly/__tests__/setup/Vec3/Vec3>
   call $assembly/internal/Expectation/expect<u32>
   local.tee $2
-  i32.const 7
+  i32.const 6
   i32.const 992
   call $assembly/internal/Expectation/Expectation<u32>#toBe
   i32.const 0
@@ -3939,7 +3945,7 @@
   call $assembly/internal/RTrace/RTrace.refCountOfReference<assembly/__tests__/setup/Vec3/Vec3>
   call $assembly/internal/Expectation/expect<u32>
   local.tee $3
-  i32.const 4
+  i32.const 3
   i32.const 992
   call $assembly/internal/Expectation/Expectation<u32>#toBe
   i32.const 0
@@ -4277,7 +4283,7 @@
    call $~lib/string/String.__concat
    local.tee $3
    i32.const 2208
-   i32.const 361
+   i32.const 362
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -4329,6 +4335,7 @@
  )
  (func $assembly/internal/RTrace/RTrace.refCountOfReference<assembly/__tests__/setup/Vec3/Vec3 | null> (; 110 ;) (param $0 i32) (result i32)
   (local $1 i32)
+  (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -4338,9 +4345,13 @@
   local.get $0
   call $assembly/internal/RTrace/RTrace.refCountOf
   local.set $1
+  local.get $1
+  i32.const 1
+  i32.sub
+  local.set $2
   local.get $0
   call $~lib/rt/pure/__release
-  local.get $1
+  local.get $2
  )
  (func $start:assembly/__tests__/RTrace.spec~anonymous|0~anonymous|11 (; 111 ;)
   i32.const 0

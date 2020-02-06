@@ -39,12 +39,12 @@ describe("RTrace", () => {
   it('should return a correct reference count of a reference', () => {
     let reference: Vec3 = new Vec3(1, 2, 3);
 
-    expect(RTrace.refCountOfReference(reference)).toBe(2);
+    expect(RTrace.refCountOfReference(reference)).toBe(1);
     for (let i = 0; i < 5; i++) __retain(changetype<usize>(reference));
-    expect(RTrace.refCountOfReference(reference)).toBe(7);
+    expect(RTrace.refCountOfReference(reference)).toBe(6);
 
     for (let i = 0; i < 3; i++) __release(changetype<usize>(reference));
-    expect(RTrace.refCountOfReference(reference)).toBe(4);
+    expect(RTrace.refCountOfReference(reference)).toBe(3);
 
     for (let i = 0; i < 2; i++) __release(changetype<usize>(reference));
   });
