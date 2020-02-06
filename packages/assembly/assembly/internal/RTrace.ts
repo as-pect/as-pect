@@ -1,3 +1,6 @@
+import { BLOCK, BLOCK_OVERHEAD } from "rt/common";
+import { REFCOUNT_MASK } from "rt/pure";
+
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "getRTraceCount")
 declare function getRTraceCount(): i32;
@@ -234,23 +237,55 @@ export class RTrace {
   }
 
   /**
-   * Get the class id of the pointer.
+   * Get the type id (class id) of the pointer.
    *
    * @param {usize} pointer - The pointer.
-   * @returns {u32} - The class id of the allocated block.
+   * @returns {u32} - The type id of the allocated block.
    */
-  public static classIdOf(pointer: usize): u32 {
-    return load<u32>(pointer - 8);
+  public static typeIdOf(pointer: usize): u32 {
+    return changetype<BLOCK>(pointer - BLOCK_OVERHEAD).rtId;
   }
 
   /**
-   * Get the size of a block or buffer.
+   * Get the type id (class id) of a reference.
+   *
+   * @param {T} reference - The reference.
+   * @returns {u32} - The type id of the allocated block.
+   */
+  public static typeIdOfReference<T>(reference: T): u32 {
+    if (!isReference<T>()) ERROR("Cannot get typeId of type T when T is not a reference.");
+    if (isFunction<T>()) ERROR("Cannot get typeId of type T when T is a function.");
+    if (isNullable<T>()) {
+      assert(reference != null, "Cannot get typeId of reference that is null.");
+    }
+
+    return RTrace.typeIdOf(changetype<usize>(reference));
+  }
+
+  /**
+   * Get the size of a pointer.
+   *
+   * @param {usize} pointer - The pointer.
+   * @returns {u32} - The size of the allocated block.
+   */
+  public static sizeOf(pointer: usize): u32 {
+    return changetype<BLOCK>(pointer - BLOCK_OVERHEAD).rtSize;
+  }
+
+  /**
+   * Get the size of a reference.
    *
    * @param {T} reference - The reference.
    * @returns {u32} - The size of the allocated block.
    */
-  public static sizeOf<T>(reference: T): u32 {
-    return load<u32>(changetype<usize>(reference) - 4);
+  public static sizeOfReference<T>(reference: T): u32 {
+    if (!isReference<T>()) ERROR("Cannot get size of type T when T is not a reference.");
+    if (isFunction<T>()) ERROR("Cannot get size of type T when T is a function");
+    if (isNullable<T>()) {
+      assert(reference != null, "Cannot get size of reference that is null.");
+    }
+
+    return RTrace.sizeOf(changetype<usize>(reference));
   }
 
   /**
@@ -275,7 +310,7 @@ export class RTrace {
   }
 
   /**
-   * Gets the current count of the specified pointer.
+   * Gets the current reference count of the specified pointer.
    *
    * ╒══════════════════════ GC Info structure ══════════════════════╕
    * │  3                   2                   1                    │
@@ -285,7 +320,23 @@ export class RTrace {
    * └─┴─────┴───────────────────────────────────────────────────────┘
    */
   public static refCountOf(ptr: usize): u32 {
-    return load<u32>(ptr - 12) & 268435455; // bitmask the refCount bits
+    return changetype<BLOCK>(ptr - BLOCK_OVERHEAD).gcInfo & REFCOUNT_MASK;
+  }
+  
+  /**
+   * Gets the current count of the specified reference.
+   * @param {T} reference - the reference.
+   */
+  public static refCountOfReference<T>(reference: T): u32 {
+    if (!isManaged<T>()) return 0;
+    if (!isReference<T>()) ERROR("Cannot get refCount of type T when T is not a reference.");
+    if (isFunction<T>()) ERROR("Cannot get refCount of type T when T is a function");
+    if (isNullable<T>()) {
+      assert(reference != null, "Cannot get refCount of reference that is null.");
+    }
+
+    let count = RTrace.refCountOf(changetype<usize>(reference));
+    return ASC_OPTIMIZE_LEVEL > 0 ? count : count - 1;
   }
 
   /**
@@ -317,3 +368,4 @@ export function __disableRTrace(): void {
 export function __getUsizeArrayId(): u32 {
   return idof<usize[]>();
 }
+
