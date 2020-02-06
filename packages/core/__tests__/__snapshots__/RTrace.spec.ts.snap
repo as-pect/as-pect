@@ -272,13 +272,13 @@ exports[`RTrace output Group: RTrace api Test: RTrace.refCountOf(pointer: usize)
 
 exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): allocationCount 1`] = `1`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): decrementCount 1`] = `4`;
+exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): decrementCount 1`] = `3`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): errors 1`] = `Array []`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): freeCount 1`] = `1`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): incrementCount 1`] = `4`;
+exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): incrementCount 1`] = `3`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): reallocationCount 1`] = `0`;
 
@@ -308,13 +308,13 @@ exports[`RTrace output Group: RTrace api Test: RTrace.sizeOf(pointer: usize): rt
 
 exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): allocationCount 1`] = `1`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): decrementCount 1`] = `4`;
+exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): decrementCount 1`] = `3`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): errors 1`] = `Array []`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): freeCount 1`] = `1`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): incrementCount 1`] = `4`;
+exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): incrementCount 1`] = `3`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): reallocationCount 1`] = `0`;
 
@@ -434,13 +434,13 @@ exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOf(pointer: usize): 
 
 exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): allocationCount 1`] = `1`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): decrementCount 1`] = `4`;
+exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): decrementCount 1`] = `3`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): errors 1`] = `Array []`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): freeCount 1`] = `1`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): incrementCount 1`] = `4`;
+exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): incrementCount 1`] = `3`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): reallocationCount 1`] = `0`;
 
@@ -452,13 +452,13 @@ exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(refer
 
 exports[`RTrace output Group: RTrace api: allocationCount 1`] = `12`;
 
-exports[`RTrace output Group: RTrace api: decrementCount 1`] = `21`;
+exports[`RTrace output Group: RTrace api: decrementCount 1`] = `18`;
 
 exports[`RTrace output Group: RTrace api: errors 1`] = `Array []`;
 
 exports[`RTrace output Group: RTrace api: freeCount 1`] = `6`;
 
-exports[`RTrace output Group: RTrace api: incrementCount 1`] = `21`;
+exports[`RTrace output Group: RTrace api: incrementCount 1`] = `18`;
 
 exports[`RTrace output Group: RTrace api: reallocationCount 1`] = `0`;
 
