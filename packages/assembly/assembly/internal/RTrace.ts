@@ -323,7 +323,8 @@ export class RTrace {
     if (!isManaged<T>()) return 0;
     assertReferenceType<T>(reference, "refCount");
 
-    return RTrace.refCountOf(changetype<usize>(reference));
+    let count = RTrace.refCountOf(changetype<usize>(reference));
+    return ASC_OPTIMIZE_LEVEL > 0 ? count : count - 1;
   }
 
   /**
