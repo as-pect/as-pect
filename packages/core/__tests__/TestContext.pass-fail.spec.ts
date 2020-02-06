@@ -62,7 +62,9 @@ describe("pass-fail output", () => {
             expect(groupTest.expected.negated).toMatchSnapshot(
               `expected negated`,
             );
-            expect(groupTest.expected.values).toMatchSnapshot(`expected values`);
+            expect(groupTest.expected.values).toMatchSnapshot(
+              `expected values`,
+            );
           }
           // expect(test.functionPointer).toMatchSnapshot(`${group.name}~${test.name} functionPointer`);
           expect(groupTest.message).toMatchSnapshot(`message`);

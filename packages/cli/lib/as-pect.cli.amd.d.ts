@@ -75,6 +75,8 @@ declare module "util/CommandLineArg" {
         group: string;
         test: string;
         outputBinary: boolean;
+        memorySize: number;
+        memoryMax: number;
         norun: boolean;
         nortrace: boolean;
         reporter: string;
@@ -85,6 +87,8 @@ declare module "util/CommandLineArg" {
         json: string | boolean;
         verbose: string | boolean;
         summary: string | boolean;
+        /** Suppress ASCII art from being printed */
+        nologo: boolean;
         /** Tracks changes made by the cli options */
         changed: Set<string>;
         workers: number;
@@ -230,6 +234,14 @@ declare module "util/IConfiguration" {
          * Specifies if rtrace counting should be skipped. Use with stub allocator.
          */
         nortrace?: boolean;
+        /**
+         * WASM Memory size in pages. Default is 10.
+         */
+        memorySize?: number;
+        /**
+         * WASM Memory max size in pages 64kb. Should be positive. Default is disabled or -1.
+         */
+        memoryMax?: number;
     }
 }
 declare module "util/collectReporter" {

@@ -1,9 +1,13 @@
-
 import * as fs from "fs";
 import { performance } from "perf_hooks";
 import * as path from "path";
 import chalk from "chalk";
-import { IAspectExports, TestReporter, TestContext, IWarning } from "@as-pect/core";
+import {
+  IAspectExports,
+  TestReporter,
+  TestContext,
+  IWarning,
+} from "@as-pect/core";
 import { IConfiguration, ICompilerFlags } from "./util/IConfiguration";
 import glob from "glob";
 import { collectReporter } from "./util/collectReporter";
@@ -11,7 +15,7 @@ import { getTestEntryFiles } from "./util/getTestEntryFiles";
 import { Options } from "./util/CommandLineArg";
 import { writeFile } from "./util/writeFile";
 import { ICommand } from "./worklets/ICommand";
-import { timeDifference }   from "@as-pect/core/lib/util/timeDifference";
+import { timeDifference } from "@as-pect/core/lib/util/timeDifference";
 
 /**
  * @ignore
@@ -71,8 +75,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   try {
     let folderUsed = "cli";
     try {
-    /** Next, obtain the compiler, and assert it has a main function. */
-    asc = require(path.join(assemblyScriptFolder, "cli", "asc"));
+      /** Next, obtain the compiler, and assert it has a main function. */
+      asc = require(path.join(assemblyScriptFolder, "cli", "asc"));
     } catch (ex) {
       try {
         folderUsed = "dist";
@@ -82,7 +86,9 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       }
     }
     if (!asc) {
-      throw new Error(`${cliOptions.compiler}/${folderUsed}/asc has no exports.`);
+      throw new Error(
+        `${cliOptions.compiler}/${folderUsed}/asc has no exports.`,
+      );
     }
     if (!asc.main) {
       throw new Error(
@@ -202,19 +208,27 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   /** RTrace is enabled, and the --use ASC_RTRACE=1 cli option must be present. */
   if (!configuration.nortrace) {
-    if (!flags["--use"] || flags["--use"].includes("ASC_RTRACE=1") || !compilerArgs.includes("ASC_RTRACE=1")) {
+    if (
+      !flags["--use"] ||
+      flags["--use"].includes("ASC_RTRACE=1") ||
+      !compilerArgs.includes("ASC_RTRACE=1")
+    ) {
       if (!flags["--use"]) {
         flags["--use"] = ["ASC_RTRACE=1"];
         // inspect to see if the flag is used already
       } else if (!flags["--use"].includes("ASC_RTRACE=1")) {
-        flags["--use"].push("--use", "ASC_RTRACE=1")
+        flags["--use"].push("--use", "ASC_RTRACE=1");
       }
     }
   }
 
+  /** If the export table flag exists on the cli options, use the export table flag. */
   if (exportTable) {
     flags["--exportTable"] = [];
   }
+
+  /** Always import the memory now so that we expose the WebAssembly.Memory object to imports. */
+  flags["--importMemory"] = [];
 
   /** It's useful to notify the user that optimizations will make test compile times slower. */
   if (
@@ -266,9 +280,11 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   /**
    * Check to see if the binary files should be written to the fileSystem.
    */
-  const outputBinary: boolean = !!(
-    cliOptions.outputBinary || configuration.outputBinary
-  );
+  const outputBinary =
+    (cliOptions.changed.has("outputBinary")
+      ? cliOptions.outputBinary
+      : configuration.outputBinary) ?? false;
+
   if (outputBinary) {
     console.log(chalk`{bgWhite.black [Log]} Outputing Binary *.wasm files.`);
   }
@@ -283,13 +299,49 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   /**
    * Check to see if the tests should be run in the first place.
    */
-  const runTests: boolean = !cliOptions.norun;
+  const runTests = !cliOptions.norun;
   if (!runTests) {
     console.log(
       chalk`{bgWhite.black [Log]} Not running tests, only outputting files.`,
     );
   }
 
+  /**
+   * Check for memory flags from the cli options.
+   */
+  const memorySize =
+    (cliOptions.changed.has("memorySize")
+      ? cliOptions.memorySize
+      : configuration.memorySize) ?? 10;
+  const memoryMax =
+    (cliOptions.changed.has("memoryMax")
+      ? cliOptions.memoryMax
+      : configuration.memoryMax) ?? -1;
+
+  if (!Number.isInteger(memorySize) || memorySize <= 0) {
+    console.error(
+      chalk`{red [Error]} Invalid {yellow memorySize} value (${memorySize}) [valid range is a positive interger]`,
+    );
+    process.exit(1);
+  }
+
+  if (!Number.isInteger(memoryMax) || memoryMax < -1) {
+    console.error(
+      chalk`{red [Error]} Invalid {yellow memoryMax} value (${memoryMax}) [valid range is a positive interger greater than {yellow memorySize}]`,
+    );
+    process.exit(1);
+  }
+
+  if (memoryMax > 0 && memoryMax < memorySize) {
+    console.error(
+      chalk`{red [Error]} Invalid module memory configuration, memorySize (${memorySize}) is greater than memoryMax (${memoryMax}).`,
+    );
+    process.exit(1);
+  }
+
+  /**
+   * Concatenate compiler flags.
+   */
   if (compilerArgs.length > 0) {
     console.log(
       chalk`{bgWhite.black [Log]} Adding compiler arguments: ` +
@@ -297,7 +349,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     );
   }
 
-  const addedTestEntryFiles: Set<string> = new Set<string>();
+  const addedTestEntryFiles = new Set<string>();
 
   /** Get all the test entry files. */
   const testEntryFiles = getTestEntryFiles(cliOptions, include, disclude);
@@ -320,10 +372,9 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   let count = testEntryFiles.size;
 
   // create the array of compiler flags from the flags object
-  const flagList: string[] = Object.entries(flags).reduce(
-    (args: string[], [flag, options]) => args.concat(flag, options),
-    [],
-  ).concat(compilerArgs);
+  const flagList: string[] = Object.entries(flags)
+    .reduce((args: string[], [flag, options]) => args.concat(flag, options), [])
+    .concat(compilerArgs);
 
   let testCount = 0;
   let successCount = 0;
@@ -380,7 +431,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         testRegex: configuration.testRegex,
         performanceConfiguration,
         reporter,
-        binary
+        binary,
       });
 
       // detect custom imports
@@ -390,11 +441,26 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
           path.basename(file, path.extname(file)) + ".imports.js",
         ),
       );
-      const imports = runner.createImports(
-        (fs.existsSync(customImportFileLocation)
-          ? require(customImportFileLocation)
-          : configuration!.imports) || {},
-      );
+
+      const configurationImports = fs.existsSync(customImportFileLocation)
+        ? require(customImportFileLocation)
+        : configuration!.imports ?? {};
+
+      const memoryDescriptor: WebAssembly.MemoryDescriptor = {
+        initial: memorySize,
+      };
+
+      if (memoryMax > 0) {
+        memoryDescriptor.maximum = memoryMax;
+      }
+
+      const memory = new WebAssembly.Memory(memoryDescriptor);
+      const stagedImports =
+        typeof configurationImports === "function"
+          ? configurationImports(memory)
+          : configurationImports;
+      const imports = runner.createImports(stagedImports);
+      imports.env.memory = memory;
 
       // instantiate the module
       const wasm: IAspectExports = instantiateSync(binary, imports);
@@ -521,7 +587,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
               return null;
             }
           },
-          writeFile(name: string, contents: Uint8Array, baseDir:string = ".") {
+          writeFile(name: string, contents: Uint8Array, baseDir: string = ".") {
             const ext = path.extname(name);
 
             // get the wasm file

@@ -6,7 +6,7 @@ let outer = true;
 describe("nested describes", () => {
   describe("inner describe", () => {
     it("should run the inner test", () => {
-      expect<bool>(outer).toBeTruthy();
+      expect(outer).toBeTruthy();
     });
   });
 });
@@ -35,19 +35,19 @@ describe("nested control flow", () => {
 
   describe("runs first", () => {
     test("firstTest", () => {
-      expect<i32>(beforeEachFlag).toBe(1, "beforeEach should be 1");
-      expect<i32>(beforeAllFlag).toBe(1, "beforeAll should be 1");
-      expect<i32>(afterEachFlag).toBe(0, "the afterEach callback should not have run yet");
-      expect<i32>(afterAllFlag).toBe(0, "the afterAll callback should not have run yet");
+      expect(beforeEachFlag).toBe(1, "beforeEach should be 1");
+      expect(beforeAllFlag).toBe(1, "beforeAll should be 1");
+      expect(afterEachFlag).toBe(0, "the afterEach callback should not have run yet");
+      expect(afterAllFlag).toBe(0, "the afterAll callback should not have run yet");
     });
   });
 
   describe("runs second", () => {
     test("secondTest", () => {
-      expect<i32>(beforeEachFlag).toBe(2, "beforeEach should be 2");
-      expect<i32>(beforeAllFlag).toBe(1, "beforeAll should be 1");
-      expect<i32>(afterEachFlag).toBe(1, "afterEach should be 1");
-      expect<i32>(afterAllFlag).toBe(0, "the afterAll callback should not have run yet");
+      expect(beforeEachFlag).toBe(2, "beforeEach should be 2");
+      expect(beforeAllFlag).toBe(1, "beforeAll should be 1");
+      expect(afterEachFlag).toBe(1, "afterEach should be 1");
+      expect(afterAllFlag).toBe(0, "the afterAll callback should not have run yet");
     });
   });
 });

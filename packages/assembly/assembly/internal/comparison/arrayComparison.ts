@@ -13,8 +13,6 @@ import { ArrayBufferView } from "arraybuffer";
  * @param {i32} negated - The indicator that the array assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
-// @ts-ignore: Decorators *are* valid here
-@inline
 export function arrayComparison<T extends ArrayBufferView>(actual: T, expected: T, negated: i32, message: string): void {
   // @ts-ignore T extends ArrayBufferView
   if (isManaged<valueof<T>>()) {

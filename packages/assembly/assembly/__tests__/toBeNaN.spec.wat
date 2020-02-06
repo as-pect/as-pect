@@ -7,12 +7,31 @@
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $none_=>_i32 (func (result i32)))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
- (type $f64_=>_none (func (param f64)))
  (type $f64_i32_i32_=>_none (func (param f64 i32 i32)))
+ (type $f64_=>_none (func (param f64)))
  (type $f64_i32_i32_i32_=>_none (func (param f64 i32 i32 i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_f64_=>_i32 (func (param i32 f64) (result i32)))
  (type $f64_=>_i32 (func (param f64) (result i32)))
+ (import "env" "memory" (memory $0 1))
+ (data (i32.const 16) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00")
+ (data (i32.const 64) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00")
+ (data (i32.const 128) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00p\00u\00r\00e\00.\00t\00s\00")
+ (data (i32.const 176) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
+ (data (i32.const 240) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
+ (data (i32.const 288) "\0e\00\00\00\01\00\00\00\01\00\00\00\0e\00\00\00t\00o\00B\00e\00N\00a\00N\00")
+ (data (i32.const 320) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00s\00h\00o\00u\00l\00d\00 \00a\00s\00s\00e\00r\00t\00 \00a\00 \00N\00a\00N\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00")
+ (data (i32.const 400) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00N\00a\00N\00 \00i\00s\00 \00N\00a\00N\00")
+ (data (i32.const 448) "d\00\00\00\01\00\00\00\01\00\00\00d\00\00\00t\00o\00B\00e\00N\00a\00N\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00 \00m\00u\00s\00t\00 \00b\00e\00 \00c\00a\00l\00l\00e\00d\00 \00o\00n\00 \00a\00 \00f\00l\00o\00a\00t\00 \00v\00a\00l\00u\00e\00.\00")
+ (data (i32.const 576) "L\00\00\00\01\00\00\00\01\00\00\00L\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
+ (data (i32.const 672) "<\00\00\00\01\00\00\00\01\00\00\00<\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00N\00a\00N\00 \00i\00s\00 \00n\00o\00t\00 \00N\00a\00N\00")
+ (data (i32.const 752) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
+ (data (i32.const 768) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00N\00a\00N\00 \00m\00u\00s\00t\00 \00b\00e\00 \00N\00a\00N\00")
+ (data (i32.const 816) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00s\00h\00o\00u\00l\00d\00 \00e\00x\00p\00e\00c\00t\00 \00n\00o\00r\00m\00a\00l\00 \00f\00l\00o\00a\00t\00 \00v\00a\00l\00u\00e\00s\00 \00n\00o\00t\00 \00t\00o\00 \00b\00e\00 \00N\00a\00N\00")
+ (data (i32.const 928) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\001\000\00.\000\00 \00i\00s\00 \00n\00o\00t\00 \00N\00a\00N\00")
+ (data (i32.const 976) "t\00\00\00\01\00\00\00\01\00\00\00t\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00a\00 \00n\00o\00r\00m\00a\00l\00 \00f\00l\00o\00a\00t\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00t\00o\00 \00b\00e\00 \00N\00a\00N\00")
+ (data (i32.const 1120) "N\00\00\00\01\00\00\00\01\00\00\00N\00\00\00N\00o\00r\00m\00a\00l\00 \00f\00l\00o\00a\00t\00 \00v\00a\00l\00u\00e\00s\00 \00a\00r\00e\00 \00n\00o\00t\00 \00N\00a\00N\00 \00v\00a\00l\00u\00e\00s\00.\00")
+ (data (i32.const 1216) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
@@ -44,25 +63,6 @@
  (import "__aspect" "reportExpectedLong" (func $assembly/internal/report/Expected/reportExpectedLong (param i32 i32 i32 i32)))
  (import "__aspect" "reportExpectedBool" (func $assembly/internal/report/Expected/reportExpectedBool (param i32 i32 i32)))
  (import "__aspect" "reportExpectedFunction" (func $assembly/internal/report/Expected/reportExpectedFunction (param i32 i32 i32)))
- (memory $0 1)
- (data (i32.const 16) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00")
- (data (i32.const 64) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00")
- (data (i32.const 128) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00p\00u\00r\00e\00.\00t\00s\00")
- (data (i32.const 176) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00I\00n\00d\00e\00x\00 \00o\00u\00t\00 \00o\00f\00 \00r\00a\00n\00g\00e\00")
- (data (i32.const 240) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
- (data (i32.const 288) "\0e\00\00\00\01\00\00\00\01\00\00\00\0e\00\00\00t\00o\00B\00e\00N\00a\00N\00")
- (data (i32.const 320) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00s\00h\00o\00u\00l\00d\00 \00a\00s\00s\00e\00r\00t\00 \00a\00 \00N\00a\00N\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00N\00a\00N\00")
- (data (i32.const 400) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00N\00a\00N\00 \00i\00s\00 \00N\00a\00N\00")
- (data (i32.const 448) "d\00\00\00\01\00\00\00\01\00\00\00d\00\00\00t\00o\00B\00e\00N\00a\00N\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00 \00m\00u\00s\00t\00 \00b\00e\00 \00c\00a\00l\00l\00e\00d\00 \00o\00n\00 \00a\00 \00f\00l\00o\00a\00t\00 \00v\00a\00l\00u\00e\00.\00")
- (data (i32.const 576) "L\00\00\00\01\00\00\00\01\00\00\00L\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
- (data (i32.const 672) "<\00\00\00\01\00\00\00\01\00\00\00<\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00N\00a\00N\00 \00i\00s\00 \00n\00o\00t\00 \00N\00a\00N\00")
- (data (i32.const 752) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
- (data (i32.const 768) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00N\00a\00N\00 \00m\00u\00s\00t\00 \00b\00e\00 \00N\00a\00N\00")
- (data (i32.const 816) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00s\00h\00o\00u\00l\00d\00 \00e\00x\00p\00e\00c\00t\00 \00n\00o\00r\00m\00a\00l\00 \00f\00l\00o\00a\00t\00 \00v\00a\00l\00u\00e\00s\00 \00n\00o\00t\00 \00t\00o\00 \00b\00e\00 \00N\00a\00N\00")
- (data (i32.const 928) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\001\000\00.\000\00 \00i\00s\00 \00n\00o\00t\00 \00N\00a\00N\00")
- (data (i32.const 976) "t\00\00\00\01\00\00\00\01\00\00\00t\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00a\00 \00n\00o\00r\00m\00a\00l\00 \00f\00l\00o\00a\00t\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00t\00o\00 \00b\00e\00 \00N\00a\00N\00")
- (data (i32.const 1120) "N\00\00\00\01\00\00\00\01\00\00\00N\00\00\00N\00o\00r\00m\00a\00l\00 \00f\00l\00o\00a\00t\00 \00v\00a\00l\00u\00e\00s\00 \00a\00r\00e\00 \00n\00o\00t\00 \00N\00a\00N\00 \00v\00a\00l\00u\00e\00s\00.\00")
- (data (i32.const 1216) "\05\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (table $0 7 funcref)
  (elem (i32.const 1) $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/toBeNaN.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
@@ -3355,7 +3355,56 @@
   local.get $0
   global.set $assembly/internal/report/Actual/Actual.float
  )
- (func $assembly/internal/report/Actual/Actual.clear (; 60 ;)
+ (func $assembly/internal/comparison/assert/assert (; 60 ;) (param $0 i32) (param $1 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
+  i32.eqz
+  if
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $1
+   i32.const 592
+   i32.const 9
+   i32.const 18
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $assembly/internal/comparison/isNaNComparison/isNaNComparison<f64> (; 61 ;) (param $0 f64) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $0
+  call $assembly/internal/report/Actual/Actual.report<f64>
+  i32.const 2
+  global.set $assembly/internal/report/Expected/Expected.type
+  f64.const nan:0x8000000000000
+  global.set $assembly/internal/report/Expected/Expected.float
+  local.get $1
+  global.set $assembly/internal/report/Expected/Expected.negated
+  i32.const -1
+  global.set $assembly/internal/report/Expected/Expected.stackTrace
+  i32.const 1
+  i32.const 464
+  call $assembly/internal/comparison/assert/assert
+  local.get $0
+  local.get $0
+  f64.ne
+  local.set $3
+  local.get $1
+  local.get $3
+  i32.xor
+  local.get $2
+  call $assembly/internal/comparison/assert/assert
+  local.get $2
+  call $~lib/rt/pure/__release
+ )
+ (func $assembly/internal/report/Actual/Actual.clear (; 62 ;)
   i32.const 0
   global.set $assembly/internal/report/Actual/Actual.type
   global.get $assembly/internal/report/Actual/Actual.reference
@@ -3375,7 +3424,7 @@
   i32.const -1
   global.set $assembly/internal/report/Actual/Actual.stackTrace
  )
- (func $assembly/internal/report/Expected/Expected.clear (; 61 ;)
+ (func $assembly/internal/report/Expected/Expected.clear (; 63 ;)
   i32.const 0
   global.set $assembly/internal/report/Expected/Expected.type
   global.get $assembly/internal/report/Expected/Expected.reference
@@ -3393,86 +3442,22 @@
    global.set $assembly/internal/report/Expected/Expected.isManaged
   end
  )
- (func $assembly/internal/Expectation/Expectation<f64>#toBeNaN (; 62 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 f64)
-  (local $5 i32)
-  (local $6 i32)
-  (local $7 i32)
+ (func $assembly/internal/Expectation/Expectation<f64>#toBeNaN (; 64 ;) (param $0 i32) (param $1 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
   local.get $0
   f64.load offset=8
-  local.set $4
   local.get $0
   i32.load
-  local.set $3
   local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $2
-  local.get $4
-  call $assembly/internal/report/Actual/Actual.report<f64>
-  i32.const 2
-  global.set $assembly/internal/report/Expected/Expected.type
-  f64.const nan:0x8000000000000
-  global.set $assembly/internal/report/Expected/Expected.float
-  local.get $3
-  global.set $assembly/internal/report/Expected/Expected.negated
-  i32.const -1
-  global.set $assembly/internal/report/Expected/Expected.stackTrace
-  i32.const 1
-  local.set $6
-  i32.const 464
-  local.set $5
-  local.get $6
-  i32.eqz
-  if
-   local.get $5
-   call $~lib/rt/pure/__release
-   local.get $5
-   i32.const 592
-   i32.const 11
-   i32.const 18
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $5
-  call $~lib/rt/pure/__release
-  local.get $4
-  local.get $4
-  f64.ne
-  local.set $6
-  local.get $3
-  local.get $6
-  i32.xor
-  local.set $7
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $5
-  local.get $7
-  i32.eqz
-  if
-   local.get $5
-   call $~lib/rt/pure/__release
-   local.get $5
-   i32.const 592
-   i32.const 11
-   i32.const 18
-   call $~lib/builtins/abort
-   unreachable
-  end
-  local.get $5
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
+  call $assembly/internal/comparison/isNaNComparison/isNaNComparison<f64>
   call $assembly/internal/report/Actual/Actual.clear
   call $assembly/internal/report/Expected/Expected.clear
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|0 (; 63 ;)
+ (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|0 (; 65 ;)
   (local $0 i32)
   f64.const nan:0x8000000000000
   call $assembly/internal/Expectation/expect<f64>
@@ -3482,7 +3467,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/it (; 64 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/it (; 66 ;) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -3492,14 +3477,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<f64>#get:not (; 65 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<f64>#get:not (; 67 ;) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|1 (; 66 ;)
+ (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|1 (; 68 ;)
   (local $0 i32)
   (local $1 i32)
   f64.const nan:0x8000000000000
@@ -3514,7 +3499,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/throws (; 67 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Test/throws (; 69 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -3530,7 +3515,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|2 (; 68 ;)
+ (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|2 (; 70 ;)
   (local $0 i32)
   (local $1 i32)
   f64.const 10
@@ -3545,7 +3530,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|3 (; 69 ;)
+ (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0~anonymous|3 (; 71 ;)
   (local $0 i32)
   f64.const 10
   call $assembly/internal/Expectation/expect<f64>
@@ -3555,7 +3540,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0 (; 70 ;)
+ (func $start:assembly/__tests__/toBeNaN.spec~anonymous|0 (; 72 ;)
   i32.const 336
   i32.const 1
   call $assembly/internal/Test/it
@@ -3571,10 +3556,10 @@
   i32.const 1136
   call $assembly/internal/Test/throws
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 71 ;)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 73 ;)
   nop
  )
- (func $assembly/internal/Describe/describe (; 72 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 74 ;) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -3588,22 +3573,22 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toBeNaN.spec (; 73 ;)
+ (func $start:assembly/__tests__/toBeNaN.spec (; 75 ;)
   i32.const 304
   i32.const 5
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__ready (; 74 ;)
+ (func $assembly/index/__ready (; 76 ;)
   i32.const 1
   global.set $assembly/internal/report/Expected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 75 ;) (param $0 i32)
+ (func $assembly/internal/call/__call (; 77 ;) (param $0 i32)
   i32.const 0
   global.set $~argumentsLength
   local.get $0
   call_indirect (type $none_=>_none)
  )
- (func $assembly/internal/report/Actual/__sendActual (; 76 ;)
+ (func $assembly/internal/report/Actual/__sendActual (; 78 ;)
   (local $0 i32)
   block $break|0
    block $case9|0
@@ -3711,7 +3696,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/Expected/__sendExpected (; 77 ;)
+ (func $assembly/internal/report/Expected/__sendExpected (; 79 ;)
   (local $0 i32)
   block $break|0
    block $case11|0
@@ -3850,24 +3835,24 @@
    call $assembly/internal/report/Expected/reportExpectedFunction
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 78 ;) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 80 ;) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 79 ;)
+ (func $assembly/internal/RTrace/__disableRTrace (; 81 ;)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 80 ;) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 82 ;) (result i32)
   i32.const 4
  )
- (func $assembly/internal/Expectation/__cleanup (; 81 ;)
+ (func $assembly/internal/Expectation/__cleanup (; 83 ;)
   call $assembly/internal/report/Expected/Expected.clear
   call $assembly/internal/report/Actual/Actual.clear
  )
- (func $~start (; 82 ;)
+ (func $~start (; 84 ;)
   global.get $~started
   if
    return
@@ -3877,10 +3862,10 @@
   end
   call $start:assembly/__tests__/toBeNaN.spec
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 83 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 85 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/pure/__visit (; 84 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 86 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -4010,7 +3995,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 85 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 87 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default

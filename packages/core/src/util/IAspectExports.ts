@@ -46,7 +46,7 @@ export interface IAspectExports {
    */
   __cleanup(): void;
 
-   /** The exported web assembly memory. For compatibility with docs, this is explicit. */
+  /** The exported web assembly memory. For compatibility with docs, this is explicit. */
   readonly memory: {
     readonly buffer: ArrayBuffer;
   };

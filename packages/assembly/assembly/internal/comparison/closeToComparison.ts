@@ -12,8 +12,6 @@ import { assert } from "./assert";
  * @param {i32} negated - The value indicating that assertion is negated.
  * @param {string} message - The message describing the assertion.
  */
-// @ts-ignore: Decorators *are* valid here!
-@inline
 export function closeToComparison<T>(actual: T, expected: T, decimalPlaces: i32, negated: i32, message: string): void {
   // T must not be a reference
   if (!isFloat<T>()) {

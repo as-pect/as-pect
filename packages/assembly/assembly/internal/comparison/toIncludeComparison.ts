@@ -12,15 +12,13 @@ import { assert } from "./assert";
  * @param {i32} negated - The indicator that the assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
-// @ts-ignore decorators *are* valid here
-@inline
 // @ts-ignore expected is valueof<T> or it will be a compiler error
 export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated: i32, message: string): void {
   /**
    * Always report that the comparison is looking for an included value. It will be negated by the
    * Expected.negated property later.
    */
-  Expected.report<string>("Included", negated);
+  Expected.report("Included", negated);
 
   /**
    * This loop inspects each item and validates if the expected value is included in the array.
@@ -29,7 +27,7 @@ export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated:
   // @ts-ignore: if T does not have a length property, it will throw a compiler error.
   for (let i: indexof<T> = 0; i < <indexof<T>>actual.length; i++) {
     // @ts-ignore: if this expression does not work, it will throw a compiler error.
-    let val: valueof<T> = actual[i];
+    let val = actual[i];
     if (val === expected) {
       includes = true;
       break;
@@ -39,6 +37,6 @@ export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated:
   /**
    * If the item is included, report "Included", otherwise report "Not Included".
    */
-  Actual.report<string>(includes ? "Included" : "Not Included");
+  Actual.report(includes ? "Included" : "Not Included");
   assert(negated ^ i32(includes), message);
 }

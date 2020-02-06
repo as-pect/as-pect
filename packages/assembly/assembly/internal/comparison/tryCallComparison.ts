@@ -15,8 +15,6 @@ declare function tryCall(func: () => void): bool;
  * @param {i32} negated - The indicator that the assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
-// @ts-ignore: Decorators *are* valid here!
-@inline
 export function tryCallComparison<T>(actual: T, negated: i32, message: string): void {
   if (!isFunction<T>()) {
     ERROR("Expectation<T>#toThrow must be called with a Function type T.");
@@ -25,11 +23,11 @@ export function tryCallComparison<T>(actual: T, negated: i32, message: string): 
   //todo: make this const when AS supports it
   let func: () => void = changetype<() => void>(actual);
   let throws = !tryCall(func);
-  Actual.report<string>(throws ? "Throws" : "Not Throws");
+  Actual.report(throws ? "Throws" : "Not Throws");
 
   /**
    * The expectation should throw by default, and will be negated by `Expectation.negated` later.
    */
-  Expected.report<string>("Throws", negated);
+  Expected.report("Throws", negated);
   assert(negated ^ i32(throws), message);
 }

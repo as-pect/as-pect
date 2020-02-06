@@ -87,6 +87,21 @@ describe("RTrace tests", () => {
       last = globalVecArray.pop();
     }
   });
+
+  test("trigger a reallocation", () => {
+    // create a reference that will be reallocated
+    let a = __retain(__alloc(100, idof<ArrayBuffer>()));
+
+    // add some things to the heap so tlsf must allocate a new block for "a"
+    let b = new Vec3(1, 2, 3);
+    let c = new Vec3(1, 2, 3);
+    let d = new Vec3(1, 2, 3);
+    let e = new Vec3(1, 2, 3);
+
+    // manually trigger a reallocation
+    a = __realloc(changetype<usize>(a), 10000);
+    __release(a);
+  });
 });
 
 let dummyReference: Vec3 = new Vec3(1, 2, 3);
@@ -186,5 +201,17 @@ describe("RTrace api", () => {
     let ref = new Vec3(1, 2, 3);
     RTrace.refCountOfReference(ref);
     log<Vec3>(ref);
+  });
+
+  test("RTrace.reallocations()", () => {
+    log<i32>(RTrace.reallocations());
+  });
+
+  test("RTrace.groupReallocations()", () => {
+    log<i32>(RTrace.groupReallocations());
+  });
+
+  test("RTrace.testReallocations()", () => {
+    log<i32>(RTrace.testReallocations());
   });
 });

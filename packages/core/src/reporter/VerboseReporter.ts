@@ -246,10 +246,10 @@ export default class VerboseReporter extends TestReporter {
     }
 
     this.stdout!.write(chalk`${
-  process.stdout.columns
-    ? "~".repeat(Math.max(process.stdout.columns - 10, 10))
-    : "~".repeat(80)
-}
+      process.stdout.columns
+        ? "~".repeat(Math.max(process.stdout.columns - 10, 10))
+        : "~".repeat(80)
+    }
 
     [File]: ${suite.fileName} ${rtraceDelta}
   [Groups]: {green ${suite.testGroups

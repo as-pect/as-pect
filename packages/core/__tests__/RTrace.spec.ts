@@ -30,6 +30,7 @@ describe("RTrace output", () => {
       expect(group.allocationCount).toMatchSnapshot(`allocationCount`);
       expect(group.incrementCount).toMatchSnapshot(`incrementCount`);
       expect(group.decrementCount).toMatchSnapshot(`decrementCount`);
+      expect(group.reallocationCount).toMatchSnapshot(`reallocationCount`);
       expect(group.rtraceStart).toMatchSnapshot(`rtraceStart`);
       expect(group.rtraceEnd).toMatchSnapshot(`rtraceEnd`);
       expect(group.rtraceDelta).toMatchSnapshot(`rtraceDelta`);
@@ -43,6 +44,9 @@ describe("RTrace output", () => {
           expect(groupTest.allocationCount).toMatchSnapshot(`allocationCount`);
           expect(groupTest.incrementCount).toMatchSnapshot(`incrementCount`);
           expect(groupTest.decrementCount).toMatchSnapshot(`decrementCount`);
+          expect(groupTest.reallocationCount).toMatchSnapshot(
+            `reallocationCount`,
+          );
           expect(groupTest.rtraceStart).toMatchSnapshot(`rtraceStart`);
           expect(groupTest.rtraceEnd).toMatchSnapshot(`rtraceEnd`);
           expect(groupTest.rtraceDelta).toMatchSnapshot(`rtraceDelta`);

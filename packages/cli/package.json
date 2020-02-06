@@ -9,6 +9,7 @@
     "mdlint": "markdownlint *.md",
     "prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
     "rimraf": "rimraf lib/*",
+    "package:version-update": "ncu -u",
     "test:ci": "run-s jest mdlint",
     "test": "run-s jest mdlint",
     "tsc:all": "run-p tsc:default tsc:amd",
@@ -42,7 +43,8 @@
     "glob": "^7.1.6"
   },
   "devDependencies": {
-    "assemblyscript": "0.8.1-nightly.20200114",
+    "assemblyscript": "^0.9.1",
+    "npm-check-updates": "4.0.1",
     "ts-node": "^8.6.2"
   },
   "files": [

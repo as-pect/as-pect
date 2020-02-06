@@ -33,7 +33,7 @@ export function asp(args: string[]) {
   const cliOptions = parse(aspectArgs);
 
   // Skip ascii art if asked for the version
-  if (!cliOptions.version) {
+  if (!cliOptions.version && !cliOptions.nologo) {
     const printAsciiArt = require("./util/asciiArt").printAsciiArt;
     printAsciiArt(pkg.version);
   }

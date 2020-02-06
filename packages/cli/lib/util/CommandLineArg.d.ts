@@ -49,6 +49,8 @@ export interface Options {
     group: string;
     test: string;
     outputBinary: boolean;
+    memorySize: number;
+    memoryMax: number;
     norun: boolean;
     nortrace: boolean;
     reporter: string;
@@ -59,6 +61,8 @@ export interface Options {
     json: string | boolean;
     verbose: string | boolean;
     summary: string | boolean;
+    /** Suppress ASCII art from being printed */
+    nologo: boolean;
     /** Tracks changes made by the cli options */
     changed: Set<string>;
     workers: number;
