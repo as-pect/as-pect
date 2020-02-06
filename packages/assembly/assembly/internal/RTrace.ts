@@ -253,7 +253,11 @@ export class RTrace {
    * @returns {u32} - The type id of the allocated block.
    */
   public static typeIdOfReference<T>(reference: T): u32 {
-    assertReferenceType<T>(reference, "typeId");
+    if (!isReference<T>()) ERROR("Cannot get typeId when T is not a reference.");
+    if (isFunction<T>()) ERROR("Cannot get typeId of function reference.");
+    if (isNullable<T>()) {
+      assert(reference != null, "Cannot get typeId of reference that is null.");
+    }
 
     return RTrace.typeIdOf(changetype<usize>(reference));
   }
@@ -275,7 +279,11 @@ export class RTrace {
    * @returns {u32} - The size of the allocated block.
    */
   public static sizeOfReference<T>(reference: T): u32 {
-    assertReferenceType<T>(reference, "size");
+    if (!isReference<T>()) ERROR("Cannot get size when T is not a reference.");
+    if (isFunction<T>()) ERROR("Cannot get size of function reference.");
+    if (isNullable<T>()) {
+      assert(reference != null, "Cannot get size of reference that is null.");
+    }
 
     return RTrace.sizeOf(changetype<usize>(reference));
   }
@@ -321,7 +329,11 @@ export class RTrace {
    */
   public static refCountOfReference<T>(reference: T): u32 {
     if (!isManaged<T>()) return 0;
-    assertReferenceType<T>(reference, "refCount");
+    if (!isReference<T>()) ERROR("Cannot get refCount when T is not a reference.");
+    if (isFunction<T>()) ERROR("Cannot get refCount of function reference.");
+    if (isNullable<T>()) {
+      assert(reference != null, "Cannot get refCount of reference that is null.");
+    }
 
     let count = RTrace.refCountOf(changetype<usize>(reference));
     return ASC_OPTIMIZE_LEVEL > 0 ? count : count - 1;
@@ -346,20 +358,6 @@ export class RTrace {
    */
   public static testReallocations(): i32 {
     return getRTraceTestReallocs();
-  }
-}
-
-/**
- * iThis method checks if the type of the reference can be used.
- * 
- * @param {T} reference - the reference
- * @param {string} getTarget - the information to get from the reference provided
- */
-export function assertReferenceType<T>(reference: T, getTarget: string): void {
-  if (!isReference<T>()) ERROR("Cannot get " + getTarget + " when T is not a reference.");
-  if (isFunction<T>()) ERROR("Cannot get " + getTarget + " of function reference.");
-  if (isNullable<T>()) {
-    assert(reference != null, "Cannot get " + getTarget + " of reference that is null.");
   }
 }
 
