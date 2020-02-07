@@ -74,8 +74,7 @@ export function log<T>(value: T): void {
     }
   } else {
     if (isFloat<T>()) {
-      // @ts-ignore: this cast is valid because it's already a float
-      logFloat(<f64>value, true);
+      logFloat(f64(value), true);
     } else if (value instanceof bool) {
       logBool(i32(value));
     } else if (value instanceof i64 || value instanceof u64) {
@@ -83,8 +82,7 @@ export function log<T>(value: T): void {
       logLong(changetype<usize>(box), value instanceof i64);
     } else {
       logInteger(
-        // @ts-ignore: this cast is valid because it's already an integer
-        <i32>value,
+        i32(value),
         value instanceof i32 // determine if the value is unsigned
         || value instanceof i16
         || value instanceof i8,
