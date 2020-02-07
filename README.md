@@ -281,7 +281,7 @@ In the case of numeric values, numbers cannot be `null` in AssemblyScript.
 Thus, the following example will throw a runtime error.
 
 ```ts
-expect<i32 | null>(null).toBeNull();
+expect<i32>(null).toBeNull();
 ```
 
 This method is safe to use with `jest` assuming you explicitly return `null`
