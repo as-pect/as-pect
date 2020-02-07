@@ -22,7 +22,7 @@ with WebAssembly speeds!
    - [toBeNaN](#tobenan)
    - [toBeFinite](#tobefinite)
    - [toThrow](#tothrow)
-   - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan)\
+   - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan)
    - [toBeCloseTo](#tobecloseto)
    - [toHaveLength](#tohavelength)
    - [toContain](#tocontain-and-toinclude)
