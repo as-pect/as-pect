@@ -1,17 +1,29 @@
-import { ClassDeclaration, FunctionDeclaration, IdentifierExpression, BlockStatement, FunctionTypeNode, TypeNode, Range } from "assemblyscript";
+import {
+  ClassDeclaration,
+  FunctionDeclaration,
+  BlockStatement,
+  FunctionTypeNode,
+  ReturnStatement,
+
+  FalseExpression,
+} from "assemblyscript";
 
 export function createMember(classDeclaration: ClassDeclaration): FunctionDeclaration {
-  let p = new FunctionDeclaration();
-  p.name.text = "__aspectStrictEquals";
-  p.body = createFunctionBody(classDeclaration);
-  p.signature = createFunctionSignature(classDeclaration);
-  return p;
+  const member = new FunctionDeclaration();
+  member.name.text = "__aspectStrictEquals";
+  member.body = createFunctionBody(classDeclaration);
+  member.signature = createFunctionSignature(classDeclaration);
+  return member;
 }
 
-function createFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
-
+function createFunctionBody(_classDeclaration: ClassDeclaration): BlockStatement {
+  const body = new BlockStatement();
+  const returnStatement = new ReturnStatement();
+  returnStatement.value = new FalseExpression();
+  body.statements.push(returnStatement);
+  return body;
 }
 
-function createFunctionSignature(classDeclaration: ClassDeclaration): FunctionTypeNode {
-
+function createFunctionSignature(_classDeclaration: ClassDeclaration): FunctionTypeNode {
+  
 }
