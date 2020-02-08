@@ -340,6 +340,12 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   }
 
   /**
+   * Add the proper trasform.
+   */
+  flags["--transform"] = flags["--transform"] || [];
+  flags["--transform"].push(require.resolve("@as-pect/core/lib/transform"));
+
+  /**
    * Concatenate compiler flags.
    */
   if (compilerArgs.length > 0) {
