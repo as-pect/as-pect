@@ -902,3 +902,25 @@ declare class Expected {
    */
   public static clear(): void;
 }
+
+/**
+ * Reflection namespace for comparing references of a specific type.
+ */
+declare class Reflect {
+  /** A successful matching indicator. */
+  public static MATCH: i32;
+  /** An indicator that a matching operation has failed. */
+  public static FAIL: i32;
+  /** A const to define when a matching operation should wait because a circular reference is currently resolving a match. */
+  public static DEFER: i32;
+
+  /**
+   * A method used for comparing two values or references to determine if they match each other.
+   *
+   * @param {T} left - One of the values being compared.
+   * @param {T} right - One of the values being compared.
+   * @param {usize[]} stack - Internal use only, used to prevent recursion.
+   * @param {usize[]} cache - Internal use only, used to prevent recursion.
+   */
+  public static equals<T>(left: T, right: T, stack?: usize[], cache?: usize[]): i32;
+}

@@ -1,23 +1,23 @@
 import {
-  ClassDeclaration,
-  FunctionDeclaration,
   BlockStatement,
-  NodeKind,
+  ClassDeclaration,
+  CommonFlags,
   FieldDeclaration,
+  FunctionDeclaration,
   IfStatement,
+  NodeKind,
+  ParameterKind,
+  Range,
+  Statement,
   Token,
   TypeNode,
-  CommonFlags,
-  ArrowKind,
-  TypeName,
-  ParameterKind,
 } from "assemblyscript";
 
 export function createMember(classDeclaration: ClassDeclaration): FunctionDeclaration {
   const range = classDeclaration.name.range;
-
   // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[]): bool
-  return TypeNode.createFunctionDeclaration(
+
+  return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
     null,
     TypeNode.createFunctionType(
@@ -28,27 +28,25 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName(classDeclaration.name.text, range),
             null,
-            false,
+            true,
             range,
           ),
           null,
           ParameterKind.DEFAULT,
           range,
         ),
-        // stackA: usize[]
+        // stack: usize[]
         TypeNode.createParameter(
-          TypeNode.createIdentifierExpression("stackA", range),
+          TypeNode.createIdentifierExpression("stack", range),
           // Array<usize>
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName("Array", range),
-            [
-              TypeNode.createNamedType(
-                TypeNode.createSimpleTypeName("usize", range),
-                null,
-                false,
-                range,
-              ),
-            ],
+            [TypeNode.createNamedType(
+              TypeNode.createSimpleTypeName("usize", range),
+              null,
+              false,
+              range,
+            )],
             false,
             range,
           ),
@@ -56,9 +54,9 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
           ParameterKind.DEFAULT,
           range,
         ),
-        // stackB: usize[]
+        // cache: usize[]
         TypeNode.createParameter(
-          TypeNode.createIdentifierExpression("stackA", range),
+          TypeNode.createIdentifierExpression("cache", range),
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName("Array", range),
             [
@@ -91,40 +89,48 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
     createFunctionBody(classDeclaration),
     null,
     CommonFlags.PUBLIC,
-    ArrowKind.NONE,
     range,
   );
 }
 
 function createFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
-  const body = new BlockStatement();
+  const body: Statement[] = [];
   const range = classDeclaration.name.range;
 
   // if (this === ref) return true;
-  body.statements.push(createExactEqualCheck(classDeclaration));
+  body.push(createExactEqualCheck(classDeclaration));
 
   //if (i32(this === null) ^ i32(ref === null)) return false;
-  body.statements.push(createNullCheck(classDeclaration));
+  body.push(createNullCheck(classDeclaration));
 
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     switch (member.kind) {
       case NodeKind.FIELDDECLARATION: {
-        const fieldDeclaration = <FieldDeclaration>member;
-        body.statements.push(createFieldCheck(classDeclaration, fieldDeclaration));
+        if (member.is(CommonFlags.PUBLIC)) {
+          const fieldDeclaration = <FieldDeclaration>member;
+          body.push(createIfCheck(member.name.text, fieldDeclaration.range));
+        }
+        break;
+      }
+      case NodeKind.FUNCTIONDECLARATION: {
+        if (member.is(CommonFlags.PUBLIC | CommonFlags.GET)) {
+          const functionDeclaration = <FunctionDeclaration>member;
+          body.push(createIfCheck(functionDeclaration.name.text, functionDeclaration.range));
+        }
         break;
       }
     }
   }
 
   // return true
-  body.statements.push(
+  body.push(
     TypeNode.createReturnStatement(
       TypeNode.createTrueExpression(range),
       range,
     )
   );
-  return body;
+  return TypeNode.createBlockStatement(body, range);
 }
 
 function createNullCheck(classDeclaration: ClassDeclaration): IfStatement {
@@ -180,6 +186,7 @@ function createExactEqualCheck(classDeclaration: ClassDeclaration): IfStatement 
       TypeNode.createIdentifierExpression("ref", range),
       range,
     ),
+    // return true
     TypeNode.createReturnStatement(
       TypeNode.createTrueExpression(range),
       range,
@@ -189,16 +196,53 @@ function createExactEqualCheck(classDeclaration: ClassDeclaration): IfStatement 
   );
 }
 
-/**
- * This method is not even a valid field check. TODO: Implement the logic
- * to generate a single if statement that validates value equality.
- */
-function createFieldCheck(_classDeclaration: ClassDeclaration, fieldDeclaration: FieldDeclaration): IfStatement {
-  const range = fieldDeclaration.name.range;
-  // if (false) return false;
+function createIfCheck(name: string, range: Range): IfStatement {
+
+  // if (Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAIL) return false;
   return TypeNode.createIfStatement(
-    TypeNode.createFalseExpression(range),
-    TypeNode.createReturnStatement(TypeNode.createFalseExpression(range), range),
+    // Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAIL
+    TypeNode.createBinaryExpression(
+      Token.EQUALS_EQUALS_EQUALS,
+      // Reflect.equals(this.prop, ref.prop, stack, cache)
+      TypeNode.createCallExpression(
+        TypeNode.createPropertyAccessExpression(
+          TypeNode.createIdentifierExpression("Reflect", range),
+          TypeNode.createIdentifierExpression("equals", range),
+          range,
+        ),
+        null, // types can be inferred by the compiler!
+        // arguments
+        [
+          // this.prop
+          TypeNode.createPropertyAccessExpression(
+            TypeNode.createThisExpression(range),
+            TypeNode.createIdentifierExpression(name, range),
+            range,
+          ),
+          // ref.prop
+          TypeNode.createPropertyAccessExpression(
+            TypeNode.createIdentifierExpression("ref", range),
+            TypeNode.createIdentifierExpression(name, range),
+            range,
+          ),
+          // stack
+          TypeNode.createIdentifierExpression("stack", range),
+          // cache
+          TypeNode.createIdentifierExpression("cache", range),
+        ],
+        range,
+      ),
+      TypeNode.createPropertyAccessExpression(
+        TypeNode.createIdentifierExpression("Reflect", range),
+        TypeNode.createIdentifierExpression("FAIL", range),
+        range,
+      ),
+      range,
+    ),
+    TypeNode.createReturnStatement(
+      TypeNode.createFalseExpression(range),
+      range,
+    ),
     null,
     range,
   );

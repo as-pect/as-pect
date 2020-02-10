@@ -35,7 +35,6 @@
 	"homepage": "https://github.com/jtenner/as-pect#readme",
 	"devDependencies": {
 		"@types/jest": "^25.1.1",
-		"assemblyscript": "^0.9.1",
 		"jest": "^25.1.0",
 		"npm-check-updates": "4.0.1",
 		"ts-jest": "^25.2.0"
@@ -51,5 +50,8 @@
 	],
 	"optionalDependencies": {
 		"csv-stringify": "^5.3.6"
-	}
+	},
+	"peerDependencies": {
+    "assemblyscript": "^0.9.1"
+  }
 }

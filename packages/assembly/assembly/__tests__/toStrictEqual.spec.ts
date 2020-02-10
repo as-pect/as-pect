@@ -1,5 +1,6 @@
 import { Vec3 } from "./setup/Vec3";
 import { listener, anotherListener, initializeDispatcher } from "./setup/Event";
+import { BLOCK } from "assemblyscript/std/assembly/rt/common";
 
 var eventDispatcher = initializeDispatcher();
 
@@ -304,5 +305,25 @@ describe("toStrictEqual", () => {
    */
   throws("throws if pointers aren't equal", () => {
     expect(eventDispatcher.events[0]).not.toStrictEqual(listener);
+  });
+});
+
+
+class A {
+  a: f64 = 1.0;
+  b: B = new B();
+  c: f64 = 3.0;
+}
+class B {
+  a: f64 = 1.0;
+  b: f64 = 2.0;
+  c: f64 = 3.0;
+}
+
+describe("nested structures", () => {
+  test("strict equality with nested structures should work as expected", () => {
+    let a = new A();
+    let b = new A();
+    expect(a).toStrictEqual(b, "nested structures should match in value");
   });
 });
