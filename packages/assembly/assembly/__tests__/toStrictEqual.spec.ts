@@ -310,7 +310,7 @@ describe("toStrictEqual", () => {
 
 class A {
   a: f64 = 1.0;
-  b: B = new B();
+  b: B | null = null;
   c: f64 = 3.0;
 }
 class B {
@@ -319,10 +319,42 @@ class B {
   c: f64 = 3.0;
 }
 
+class C {
+  a: f64 = 1.0;
+  b: D | null = null;
+  c: f64 = 2.0;
+}
+
+class D {
+  a: f64 = 2.0;
+  b: C | null = null;
+  c: f64 = 3.0;
+}
+
 describe("nested structures", () => {
-  test("strict equality with nested structures should work as expected", () => {
+  test("strict equality with nested structures should work as expected", function tryMe(): void {
     let a = new A();
-    let b = new A();
-    expect(a).toStrictEqual(b, "nested structures should match in value");
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    let d = new B();
+    c.b = d;
+
+    expect(a).toStrictEqual(c, "nested structures should match in value");
+  });
+
+  test("circular references don't break", () => {
+    let a = new C();
+    let b = new D();
+    a.b = b;
+    b.b = a;
+
+    let c = new C();
+    let d = new D();
+    c.b = d;
+    d.b = c;
+
+    expect(a).toStrictEqual(c, "circular references should match without infinite recursion.");
+    expect(b).toStrictEqual(d, "circular references should match without infinite recursion.");
   });
 });
