@@ -105,7 +105,7 @@ export class Expected {
     /**
      * If there is a reference still being retained, release it and set it to null.
      */
-    if (Expected.reference == null) {
+    if (Expected.reference != null) {
       if (Expected.isManaged) __release(Expected.reference);
       Expected.reference = null;
       Expected.isManaged = false;
@@ -140,7 +140,7 @@ export class Expected {
 
       let ptr = changetype<usize>(expected);
 
-      if (isFunction<T>()){
+      if (isFunction<T>()) {
         Expected.type = ValueType.Function;
         Expected.reference = ptr;
         return;

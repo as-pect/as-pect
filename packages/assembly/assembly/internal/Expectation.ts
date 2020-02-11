@@ -74,7 +74,8 @@ export class Expectation<T> {
   public toStrictEqual(expected: T, message: string = ""): void {
     let stack = new Array<usize>(0);
     let cache = new Array<usize>(0);
-    let result = Reflect.equals(this.actual, expected, stack, cache);
+    let result: i32 = Reflect.FAIL;
+    result = Reflect.equals(this.actual, expected, stack, cache);
 
     Actual.report<T>(this.actual);
     Expected.report<T>(expected);

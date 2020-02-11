@@ -3779,7 +3779,7 @@
   global.set $assembly/internal/report/Expected/Expected.type
   global.get $assembly/internal/report/Expected/Expected.reference
   i32.const 0
-  i32.eq
+  i32.ne
   if
    global.get $assembly/internal/report/Expected/Expected.isManaged
    if
@@ -3807,6 +3807,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -3830,7 +3832,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -4556,6 +4558,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -4579,7 +4583,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -5065,6 +5069,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -5088,7 +5094,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -5720,6 +5726,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -5743,7 +5751,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -6254,6 +6262,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -6277,7 +6287,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -7049,6 +7059,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -7072,7 +7084,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -8011,6 +8023,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -8034,7 +8048,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -8318,6 +8332,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -8341,7 +8357,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -8983,6 +8999,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -9006,7 +9024,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -9076,6 +9094,9 @@
   end
   local.get $5
   i32.store offset=8
+  local.get $2
+  f64.const 6.9
+  f64.store
   local.get $0
   call $assembly/internal/Expectation/expect<assembly/__tests__/toStrictEqual.spec/A>
   local.tee $4
@@ -9514,6 +9535,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -9537,7 +9560,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -9920,6 +9943,8 @@
   i32.const 0
   call $~lib/array/Array<usize>#constructor
   local.set $4
+  global.get $assembly/internal/Reflect/Reflect.FAIL
+  local.set $5
   local.get $0
   i32.load offset=4
   local.get $1
@@ -9943,7 +9968,7 @@
   if
    local.get $2
    i32.const 544
-   i32.const 82
+   i32.const 83
    i32.const 4
    call $~lib/builtins/abort
    unreachable
@@ -9959,7 +9984,10 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|0 (; 219 ;)
+ (func $assembly/internal/RTrace/RTrace.collect (; 219 ;)
+  call $~lib/rt/pure/__collect
+ )
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|0 (; 220 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -10032,7 +10060,7 @@
   i32.store offset=8
   local.get $4
   local.tee $3
-  local.get $2
+  i32.const 0
   local.tee $6
   local.get $3
   i32.load offset=8
@@ -10059,6 +10087,7 @@
   local.get $4
   i32.const 8416
   call $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/D>#toStrictEqual
+  call $assembly/internal/RTrace/RTrace.collect
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -10072,7 +10101,7 @@
   local.get $6
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1 (; 220 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1 (; 221 ;)
   i32.const 8096
   i32.const 40
   call $assembly/internal/Test/test
@@ -10080,7 +10109,7 @@
   i32.const 41
   call $assembly/internal/Test/test
  )
- (func $start:assembly/__tests__/toStrictEqual.spec (; 221 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec (; 222 ;)
   call $assembly/__tests__/setup/Event/initializeDispatcher
   global.set $assembly/__tests__/toStrictEqual.spec/eventDispatcher
   i32.const 0
@@ -10147,17 +10176,17 @@
   i32.const 42
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__ready (; 222 ;)
+ (func $assembly/index/__ready (; 223 ;)
   i32.const 1
   global.set $assembly/internal/report/Expected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 223 ;) (param $0 i32)
+ (func $assembly/internal/call/__call (; 224 ;) (param $0 i32)
   i32.const 0
   global.set $~argumentsLength
   local.get $0
   call_indirect (type $none_=>_none)
  )
- (func $assembly/internal/report/Actual/__sendActual (; 224 ;)
+ (func $assembly/internal/report/Actual/__sendActual (; 225 ;)
   (local $0 i32)
   block $break|0
    block $case9|0
@@ -10265,7 +10294,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/Expected/__sendExpected (; 225 ;)
+ (func $assembly/internal/report/Expected/__sendExpected (; 226 ;)
   (local $0 i32)
   block $break|0
    block $case11|0
@@ -10404,24 +10433,24 @@
    call $assembly/internal/report/Expected/reportExpectedFunction
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 226 ;) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 227 ;) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 227 ;)
+ (func $assembly/internal/RTrace/__disableRTrace (; 228 ;)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 228 ;) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 229 ;) (result i32)
   i32.const 8
  )
- (func $assembly/internal/Expectation/__cleanup (; 229 ;)
+ (func $assembly/internal/Expectation/__cleanup (; 230 ;)
   call $assembly/internal/report/Expected/Expected.clear
   call $assembly/internal/report/Actual/Actual.clear
  )
- (func $~start (; 230 ;)
+ (func $~start (; 231 ;)
   global.get $~started
   if
    return
@@ -10431,7 +10460,7 @@
   end
   call $start:assembly/__tests__/toStrictEqual.spec
  )
- (func $~lib/rt/pure/markGray (; 231 ;) (param $0 i32)
+ (func $~lib/rt/pure/markGray (; 232 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -10458,7 +10487,7 @@
    call $~lib/rt/__visit_members
   end
  )
- (func $~lib/rt/pure/scanBlack (; 232 ;) (param $0 i32)
+ (func $~lib/rt/pure/scanBlack (; 233 ;) (param $0 i32)
   local.get $0
   local.get $0
   i32.load offset=4
@@ -10475,7 +10504,7 @@
   i32.const 4
   call $~lib/rt/__visit_members
  )
- (func $~lib/rt/pure/scan (; 233 ;) (param $0 i32)
+ (func $~lib/rt/pure/scan (; 234 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -10512,7 +10541,7 @@
    end
   end
  )
- (func $~lib/rt/pure/collectWhite (; 234 ;) (param $0 i32)
+ (func $~lib/rt/pure/collectWhite (; 235 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -10550,7 +10579,7 @@
    call $~lib/rt/tlsf/freeBlock
   end
  )
- (func $~lib/rt/pure/__collect (; 235 ;)
+ (func $~lib/rt/pure/__collect (; 236 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -10691,7 +10720,7 @@
   local.get $0
   global.set $~lib/rt/pure/CUR
  )
- (func $~lib/rt/__typeinfo (; 236 ;) (param $0 i32) (result i32)
+ (func $~lib/rt/__typeinfo (; 237 ;) (param $0 i32) (result i32)
   (local $1 i32)
   global.get $~lib/rt/__rtti_base
   local.set $1
@@ -10716,13 +10745,13 @@
   i32.add
   i32.load
  )
- (func $~lib/rt/tlsf/__free (; 237 ;) (param $0 i32)
+ (func $~lib/rt/tlsf/__free (; 238 ;) (param $0 i32)
   call $~lib/rt/tlsf/maybeInitialize
   local.get $0
   call $~lib/rt/tlsf/checkUsedBlock
   call $~lib/rt/tlsf/freeBlock
  )
- (func $~lib/rt/pure/growRoots (; 238 ;)
+ (func $~lib/rt/pure/growRoots (; 239 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -10780,7 +10809,7 @@
   i32.add
   global.set $~lib/rt/pure/END
  )
- (func $~lib/rt/pure/appendRoot (; 239 ;) (param $0 i32)
+ (func $~lib/rt/pure/appendRoot (; 240 ;) (param $0 i32)
   (local $1 i32)
   global.get $~lib/rt/pure/CUR
   local.set $1
@@ -10800,7 +10829,7 @@
   i32.add
   global.set $~lib/rt/pure/CUR
  )
- (func $~lib/rt/pure/decrement (; 240 ;) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 241 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -10904,7 +10933,7 @@
    end
   end
  )
- (func $~lib/rt/pure/__visit (; 241 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 242 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -11034,16 +11063,16 @@
    end
   end
  )
- (func "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__visit_impl" (; 242 ;) (param $0 i32) (param $1 i32)
+ (func "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__visit_impl" (; 243 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 243 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 244 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/array/Array<i32>#__visit_impl (; 244 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<i32>#__visit_impl (; 245 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 245 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 246 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -11082,7 +11111,7 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 246 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 247 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default

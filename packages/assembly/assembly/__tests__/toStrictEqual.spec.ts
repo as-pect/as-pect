@@ -339,6 +339,7 @@ describe("nested structures", () => {
     let c = new A();
     let d = new B();
     c.b = d;
+    c.a = 6.9;
 
     expect(a).toStrictEqual(c, "nested structures should match in value");
   });
@@ -352,9 +353,12 @@ describe("nested structures", () => {
     let c = new C();
     let d = new D();
     c.b = d;
-    d.b = c;
+    d.b = null; // this should cause these tests to fail
+
+    // need to inspect generated output
 
     expect(a).toStrictEqual(c, "circular references should match without infinite recursion.");
     expect(b).toStrictEqual(d, "circular references should match without infinite recursion.");
+    RTrace.collect();
   });
 });
