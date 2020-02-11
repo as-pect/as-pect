@@ -22,6 +22,7 @@ export function createRTraceModule(
       "../assembly/assembly/index.ts",
       "--use",
       "ASC_RTRACE=1",
+      "--transform", require.resolve("../../lib/transform"),
     ],
     {
       writeFile(fileName: string, contents: Uint8Array) {
