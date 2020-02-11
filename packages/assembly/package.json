@@ -5,7 +5,7 @@
   "types": "types/as-pect.d.ts",
   "scripts": {
     "asp:ci": "node ../cli/lib/test --summary",
-    "asp": "node ../cli/lib/test --verbose",
+    "asp": "node ../cli/lib/test --verbose --file=toStrictEqual",
     "mdlint": "markdownlint *.md",
     "package:version-update": "ncu -u",
     "test:ci": "run-s asp:ci mdlint",

@@ -101,7 +101,7 @@ function createFunctionBody(classDeclaration: ClassDeclaration): BlockStatement 
   for (const member of classDeclaration.members) {
     switch (member.kind) {
       case NodeKind.FIELDDECLARATION: {
-        if (member.is(CommonFlags.PUBLIC)) {
+        if (member.is(CommonFlags.INSTANCE) && !member.is(CommonFlags.PRIVATE | CommonFlags.PROTECTED)) {
           const fieldDeclaration = <FieldDeclaration>member;
           body.push(createIfCheck(member.name.text, fieldDeclaration.range));
         }

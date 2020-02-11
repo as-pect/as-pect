@@ -339,9 +339,8 @@ describe("nested structures", () => {
     let c = new A();
     let d = new B();
     c.b = d;
-    c.a = 6.9;
 
-    expect(a).toStrictEqual(c, "nested structures should match in value");
+    expect<A>(a).toStrictEqual(c, "nested structures should match in value");
   });
 
   test("circular references don't break", () => {
@@ -353,7 +352,7 @@ describe("nested structures", () => {
     let c = new C();
     let d = new D();
     c.b = d;
-    d.b = null; // this should cause these tests to fail
+    d.b = c;
 
     // need to inspect generated output
 

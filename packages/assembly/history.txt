@@ -1,0 +1,41 @@
+git add --all .
+git commit -am "[prelim] return false"
+git push origin strict-equal-transform
+git add --all .
+git push origin strict-equal-transform
+git pull
+git pull origin strict-equal-transform
+rimraf **/node_modules
+npm install
+npx lerna bootstrap
+npm test
+git add --all .
+git commit -am "Closer! if comparison doesn't check for nulls"
+npm test
+git add --all .
+git push origin strict-equal-transform
+npm test
+cd packages/core
+npx jest -u
+git add --all .
+git commit -am "Tests pass, woah"
+git push origin strict-equal-transform
+npm test
+cd ../..
+npm test
+cd packages/assembly
+npm run asp
+npm run asp -- --file=toStrictEqual
+npm run asp -- "--file=toStrictEqual"
+git add --all .
+git commit -am "circular references"
+git push origin strict-equal-transform
+npm run asp -- "--file=toStrictEqual"
+git commit -am "tests should fail, false positives"
+git push origin strict-equal-transform
+npm run asp -- "--file=toStrictEqual"
+  body.push(
+    TypeNode.createExpressionStatement(
+      TypeNode.createCallExpression(
+        TypeNode.createIdentifierExpression("log", range),
+        null,

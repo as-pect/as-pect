@@ -1,4 +1,5 @@
 import { ArrayBufferView } from "arraybuffer";
+import { assert } from "./comparison/assert";
 
 @global
 export class Reflect {
@@ -24,7 +25,7 @@ export class Reflect {
 
       let cacheLength = cache.length;
       // must be EVEN or there's a big problem
-      assert((cacheLength & 0x00000001) === 0);
+      assert(i32((cacheLength & 0x00000001) === 0), "cacheLength should be even");
 
       // check the cache for matched pairs
       for (let i = 0; i < cacheLength; i += 2) {

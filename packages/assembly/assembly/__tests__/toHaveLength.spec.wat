@@ -3511,7 +3511,7 @@
   global.set $assembly/internal/report/Expected/Expected.type
   global.get $assembly/internal/report/Expected/Expected.reference
   i32.const 0
-  i32.eq
+  i32.ne
   if
    global.get $assembly/internal/report/Expected/Expected.isManaged
    if
