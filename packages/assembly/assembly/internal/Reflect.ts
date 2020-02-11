@@ -1,5 +1,11 @@
 import { ArrayBufferView } from "arraybuffer";
+import { Set } from "set";
 import { assert } from "./comparison/assert";
+
+function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
+  return bool((i32(a1 === b1) & i32(a2 === b2)) | (i32(a1 === b2) & i32(a2 === b1)));
+}
+
 
 @global
 export class Reflect {
@@ -29,15 +35,13 @@ export class Reflect {
 
       // check the cache for matched pairs
       for (let i = 0; i < cacheLength; i += 2) {
-        if (a === unchecked(cache[i]) && b === unchecked(cache[i + 1])) return Reflect.MATCH;
+        if (pairSeen(a, b, unchecked(cache[i]), unchecked(cache[i + 1]))) return Reflect.MATCH;
       }
 
       // short circuit because this pair might already be resolving
       let length = stack.length;
       for (let i = 0; i < length; i += 2) {
-        let aSeen = unchecked(stack[i]);
-        let bSeen = unchecked(stack[i + 1]);
-        if (aSeen === a && bSeen === b) return Reflect.MATCH;
+        if (pairSeen(a, b, unchecked(stack[i]), unchecked(stack[i + 1]))) return Reflect.DEFER;
       }
 
       // once we've determined we need to check the references for their values, arraybuffers
@@ -53,6 +57,51 @@ export class Reflect {
         } else return Reflect.FAIL;
       }
 
+      // set match
+      if (left instanceof Set<indexof<T>>) {
+        if (left.size !== right.size) return Reflect.FAIL;
+        stack.push(a);
+        stack.push(b);
+        let leftValues = left.values();
+        let rightValues = right.values();
+        let length = length;
+        let matched = true; // assume true
+        let leftoverLength = length;
+        for (let i = 0; i < length; i++) {
+          let leftItem = unchecked(leftValues[i]);
+          if (right.has(leftItem)) {
+            let index = rightValues.indexOf(leftItem);
+            rightValues.splice(index, 1);
+            leftoverLength--;
+            continue; // short circuit
+          }
+
+          let continueOuter = false;
+          // long path, compare every item in the set
+          for (let j = 0; j < leftoverLength; j++) {
+            let rightItem = unchecked(rightValues[j]);
+            if (Reflect.equals(leftItem, rightItem, stack, cache) !== Reflect.FAIL) {
+              rightValues.splice(j, 1);
+              leftoverLength--;
+              continueOuter = true;
+              break;
+            };
+          }
+          if (continueOuter) continue;
+          matched = false;
+          break;
+        }
+
+        if (matched) {
+          cache.push(a);
+          cache.push(b);
+        }
+
+        stack.pop();
+        stack.pop();
+        return Reflect.MATCH;
+      }
+
       // compile time array values should be compared over a for loop
       if (left instanceof ArrayBufferView) {
         let aLength = left.length;
@@ -61,6 +110,8 @@ export class Reflect {
 
         // assert the lengths are good
         if (aLength !== bLength) return Reflect.FAIL;
+
+
 
         // check each item
         for (let i = 0; i < aLength; i++) {

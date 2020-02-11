@@ -332,7 +332,7 @@ class D {
 }
 
 describe("nested structures", () => {
-  test("strict equality with nested structures should work as expected", function tryMe(): void {
+  test("strict equality with nested structures should work as expected", () => {
     let a = new A();
     let b = new B();
     a.b = b;
@@ -354,10 +354,28 @@ describe("nested structures", () => {
     c.b = d;
     d.b = c;
 
-    // need to inspect generated output
-
     expect(a).toStrictEqual(c, "circular references should match without infinite recursion.");
     expect(b).toStrictEqual(d, "circular references should match without infinite recursion.");
+  });
+
+  test("sets should compare references", () => {
+    let setA = new Set<Vec3>();
+    let setB = new Set<Vec3>();
+
+    let a = new Vec3(1, 2, 3);
+    let b = new Vec3(1, 2, 3);
+    let c = new Vec3(4, 5, 6);
+    let d = new Vec3(4, 5, 6);
+
+    setA.add(a);
+    setA.add(c);
+    setB.add(b);
+    setB.add(d);
+
+    expect(setA).toStrictEqual(setB, "sets with similar values should be strictly equal");
+  });
+
+  afterEach(() => {
     RTrace.collect();
   });
 });
