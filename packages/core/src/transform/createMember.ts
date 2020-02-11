@@ -88,7 +88,7 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
     ),
     createFunctionBody(classDeclaration),
     null,
-    CommonFlags.PUBLIC,
+    CommonFlags.PUBLIC | CommonFlags.INSTANCE,
     range,
   );
 }

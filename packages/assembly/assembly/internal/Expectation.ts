@@ -72,32 +72,13 @@ export class Expectation<T> {
    * @param {string} message - The message that describes this assertion.
    */
   public toStrictEqual(expected: T, message: string = ""): void {
-    // if T is not a reference, use exactComparison
-    if (!isReference<T>() || isFunction<T>()) {
-      exactComparison<T>(this.actual, expected, this._not, message);
-      Actual.clear();
-      Expected.clear();
-      return;
-    }
+    let result = Reflect.equals(this.actual, expected);
 
-    // if T is an array, use arrayComparison
-    if (expected instanceof ArrayBufferView) {
-      arrayComparison<T>(this.actual, expected, this._not, message);
-      Actual.clear();
-      Expected.clear();
-      return;
-    }
+    Actual.report(this.actual);
+    Expected.report(expected);
 
-    // Strings and ArrayBuffer must compare their size, so use blockComparison
-    if (expected instanceof ArrayBuffer || expected instanceof String) {
-      blockComparison<T>(this.actual, expected, this._not, message);
-      Actual.clear();
-      Expected.clear();
-      return;
-    }
+    assert(i32(result === Reflect.MATCH) ^ this._not, message);
 
-    // T is a reference, use referenceComparison
-    referenceComparison<T>(this.actual, expected, this._not, message);
     Actual.clear();
     Expected.clear();
   }

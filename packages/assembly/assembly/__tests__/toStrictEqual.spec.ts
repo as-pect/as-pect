@@ -1,6 +1,5 @@
 import { Vec3 } from "./setup/Vec3";
 import { listener, anotherListener, initializeDispatcher } from "./setup/Event";
-import { BLOCK } from "assemblyscript/std/assembly/rt/common";
 
 var eventDispatcher = initializeDispatcher();
 
