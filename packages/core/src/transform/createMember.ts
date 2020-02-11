@@ -28,7 +28,7 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName(classDeclaration.name.text, range),
             null,
-            true,
+            false,
             range,
           ),
           null,
@@ -97,12 +97,6 @@ function createFunctionBody(classDeclaration: ClassDeclaration): BlockStatement 
   const body: Statement[] = [];
   const range = classDeclaration.name.range;
 
-  // if (this === ref) return true;
-  body.push(createExactEqualCheck(classDeclaration));
-
-  //if (i32(this === null) ^ i32(ref === null)) return false;
-  body.push(createNullCheck(classDeclaration));
-
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     switch (member.kind) {
@@ -131,69 +125,6 @@ function createFunctionBody(classDeclaration: ClassDeclaration): BlockStatement 
     )
   );
   return TypeNode.createBlockStatement(body, range);
-}
-
-function createNullCheck(classDeclaration: ClassDeclaration): IfStatement {
-  const range = classDeclaration.name.range;
-
-  return TypeNode.createIfStatement(
-    // i32(this === null) ^ i32(ref === null)
-    TypeNode.createBinaryExpression(
-      Token.CARET,
-      // i32(this === null)
-      TypeNode.createCallExpression(
-        TypeNode.createIdentifierExpression("i32", range),
-        null,
-        [TypeNode.createBinaryExpression(
-          Token.EQUALS_EQUALS_EQUALS,
-          TypeNode.createThisExpression(range),
-          TypeNode.createNullExpression(range),
-          range,
-        )],
-        range,
-      ),
-      // i32(ref === null)
-      TypeNode.createCallExpression(
-        TypeNode.createIdentifierExpression("i32", range),
-        null,
-        [TypeNode.createBinaryExpression(
-          Token.EQUALS_EQUALS_EQUALS,
-          TypeNode.createIdentifierExpression("ref", range),
-          TypeNode.createNullExpression(range),
-          range,
-        )],
-        range,
-      ),
-      range,
-    ),
-    TypeNode.createReturnStatement(
-      TypeNode.createFalseExpression(range),
-      range,
-    ),
-    null,
-    range,
-  );
-}
-
-function createExactEqualCheck(classDeclaration: ClassDeclaration): IfStatement {
-  const range = classDeclaration.name.range;
-
-  // if (this === ref) return true;
-  return TypeNode.createIfStatement(
-    TypeNode.createBinaryExpression(
-      Token.EQUALS_EQUALS_EQUALS,
-      TypeNode.createThisExpression(range),
-      TypeNode.createIdentifierExpression("ref", range),
-      range,
-    ),
-    // return true
-    TypeNode.createReturnStatement(
-      TypeNode.createTrueExpression(range),
-      range,
-    ),
-    null,
-    range,
-  );
 }
 
 function createIfCheck(name: string, range: Range): IfStatement {

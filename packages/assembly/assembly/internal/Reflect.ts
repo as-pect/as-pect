@@ -84,8 +84,9 @@ export class Reflect {
       // we are trying to resolve this pair, push it to the stack
       stack.push(a);
       stack.push(b);
-      // @ts-ignore: __aspectStrictEquals is defined at this point, and left cannot be null
-      let result = left.__aspectStrictEquals(right, stack, cache);
+
+      // @ts-ignore: __aspectStrictEquals is defined at this point, and left and right cannot be null
+      let result = left!.__aspectStrictEquals(right!, stack, cache);
 
       if (result) {
         cache.push(a);
