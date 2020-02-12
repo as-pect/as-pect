@@ -19,14 +19,19 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
   // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[]): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
-    null,
+    [TypeNode.createTypeParameter(
+      TypeNode.createIdentifierExpression("T", range),
+      null,
+      null,
+      range,
+    )],
     TypeNode.createFunctionType(
       [
         // ref: T,
         TypeNode.createParameter(
           TypeNode.createIdentifierExpression("ref", range),
           TypeNode.createNamedType(
-            TypeNode.createSimpleTypeName(classDeclaration.name.text, range),
+            TypeNode.createSimpleTypeName("T", range),
             null,
             false,
             range,
@@ -88,7 +93,7 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
     ),
     createFunctionBody(classDeclaration),
     null,
-    CommonFlags.PUBLIC | CommonFlags.INSTANCE | (classDeclaration.isGeneric  ? CommonFlags.GENERIC_CONTEXT : 0),
+    CommonFlags.PUBLIC | CommonFlags.INSTANCE | CommonFlags.GENERIC | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     range,
   );
 }

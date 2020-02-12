@@ -102,6 +102,54 @@ export class Reflect {
           stack.pop();
           return Reflect.MATCH;
         }
+
+        if (left instanceof Map<indexof<T>, valueof<T>>) {
+          if (left.size !== right.size) return Reflect.FAIL;
+          stack.push(a);
+          stack.push(b);
+
+          let leftKeys = left.keys();
+          let rightKeys = right.keys();
+
+          let keyLength = leftKeys.length;
+          let leftoverKeyLength = keyLength;
+          // for each key
+          for (let i = 0; i < keyLength; i++) {
+            let leftKey = unchecked(leftKeys[i]);
+            // assume won't find it
+            let found = false;
+
+            // find a matching key
+            for (let j = 0; j < leftoverKeyLength; j++) {
+              let rightKey = unchecked(rightKeys[j]);
+              if (Reflect.equals(leftKey, rightKey, stack, cache) !== Reflect.FAIL) {
+                // the key potentially matches at least
+                let leftValue = left.get(leftKey);
+                let rightValue = right.get(rightKey);
+
+                // the values potentially match
+                if (Reflect.equals(leftValue, rightValue, stack, cache) !== Reflect.FAIL) {
+                  leftoverKeyLength--;
+                  rightKeys.splice(j, 1); // remove this key from the list
+                  found = true;
+                  break;
+                }
+              }
+            }
+            if (found) {
+              continue;
+            } else {
+              // there was no match for this key value pair
+              stack.pop();
+              stack.pop();
+              return Reflect.FAIL;
+            }
+          }
+
+          stack.pop();
+          stack.pop();
+          return Reflect.MATCH;
+        }
       }
 
       // compile time array values should be compared over a for loop
