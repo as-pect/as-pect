@@ -344,7 +344,38 @@ describe("nested structures", () => {
     let d = new B();
     c.b = d;
 
-    expect<A>(a).toStrictEqual(c, "nested structures should match in value");
+    expect(a).toStrictEqual(c, "nested structures should match in value");
+  });
+
+  throws("when strict equality with nested structures is expected", () => {
+    let a = new A();
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    c.b = null; // implied, but shown here to be explicit
+
+    expect(a).toStrictEqual(c);
+  }, "the nested structures should not match in value");
+
+  throws("when strict equality is not expected", () => {
+    let a = new A();
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    let d = new B();
+    c.b = d;
+
+    expect(a).not.toStrictEqual(c);
+  }, "nested structures should match in value");
+
+  test("when strict equality with nested structures is not expected", () => {
+    let a = new A();
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    c.b = null; // implied, but shown here to be explicit
+
+    expect(a).not.toStrictEqual(c);
   });
 
   test("circular references don't break", () => {
@@ -360,6 +391,48 @@ describe("nested structures", () => {
 
     expect(a).toStrictEqual(c, "circular references should match without infinite recursion.");
     expect(b).toStrictEqual(d, "circular references should match without infinite recursion.");
+  });
+
+  throws("when a circular reference occurs but the structure does not match", () => {
+    let a = new C();
+    let b = new D();
+    a.b = b;
+    b.b = a;
+
+    let c = new C();
+    let d = new D();
+    c.b = d;
+    d.b = null;
+
+    expect(a).toStrictEqual(c);
+  }, "circular references should match without infinite recursion.");
+
+  throws("when circular references occur but strict equality is not expected", () => {
+    let a = new C();
+    let b = new D();
+    a.b = b;
+    b.b = a;
+
+    let c = new C();
+    let d = new D();
+    c.b = d;
+    d.b = c;
+
+    expect(a).not.toStrictEqual(c);
+  }, "circular references should match without infinite recursion.");
+
+  test("circular references that do not match", () => {
+    let a = new C();
+    let b = new D();
+    a.b = b;
+    b.b = a;
+
+    let c = new C();
+    let d = new D();
+    c.b = d;
+    d.b = null;
+
+    expect(a).not.toStrictEqual(c, "circular references should that do not match should not match.");
   });
 
   test("equality of generics", () => {
@@ -451,6 +524,34 @@ describe("nested structures", () => {
 
     expect(a).toStrictEqual(b);
   }, "two sets of vec3 that don't equal each other should throw");
+
+  throws("sets of references equal each other", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+    a.add(new Vec3(7, 8, 9));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(4, 5, 6));
+    b.add(new Vec3(7, 8, 9));
+
+    expect(a).not.toStrictEqual(b);
+  }, "two sets of vec3 should be equal");
+
+  test("sets of references that don't equal each other", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+    a.add(new Vec3(7, 8, 9));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(5, 5, 6));
+    b.add(new Vec3(7, 8, 9));
+
+    expect(a).not.toStrictEqual(b);
+  });
 
   afterEach(() => {
     RTrace.collect();

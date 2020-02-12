@@ -146,7 +146,8 @@ export class Reflect {
               return Reflect.FAIL;
             }
           }
-
+          cache.push(a);
+          cache.push(b);
           stack.pop();
           stack.pop();
           return Reflect.MATCH;
