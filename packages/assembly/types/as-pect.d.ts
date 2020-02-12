@@ -924,3 +924,5 @@ declare class Reflect {
    */
   public static equals<T>(left: T, right: T, stack?: usize[], cache?: usize[]): i32;
 }
+
+declare function __aspectForOfProps<T>(left: T, right: T, callback: (a: any, b: any) => any): void;
