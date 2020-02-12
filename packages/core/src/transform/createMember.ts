@@ -15,11 +15,11 @@ import {
 
 export function createMember(classDeclaration: ClassDeclaration): FunctionDeclaration {
   const range = classDeclaration.name.range;
-  // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[]): bool
 
+  // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[]): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
-    classDeclaration.typeParameters,
+    null,
     TypeNode.createFunctionType(
       [
         // ref: T,
