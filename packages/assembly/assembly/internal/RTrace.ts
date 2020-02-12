@@ -1,5 +1,5 @@
 import { BLOCK, BLOCK_OVERHEAD } from "rt/common";
-import { REFCOUNT_MASK } from "rt/pure";
+import { REFCOUNT_MASK } from "./runtime";
 
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "getRTraceCount")
