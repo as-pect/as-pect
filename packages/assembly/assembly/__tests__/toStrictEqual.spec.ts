@@ -391,6 +391,67 @@ describe("nested structures", () => {
     expect(setA).toStrictEqual(setB, "sets with similar values should be strictly equal");
   });
 
+  test("sets of numbers", () => {
+    let a = new Set<i32>();
+    a.add(1);
+    a.add(2);
+    a.add(3);
+    a.add(4);
+
+    let b = new Set<i32>();
+    b.add(1);
+    b.add(2);
+    b.add(3);
+    b.add(4);
+
+    expect(a).toStrictEqual(b, "two sets of numbers should be equal");
+  });
+
+
+  throws("when sets of numbers don't equal each other", () => {
+    let a = new Set<i32>();
+    a.add(1);
+    a.add(2);
+    a.add(3);
+    a.add(4);
+
+    let b = new Set<i32>();
+    b.add(1);
+    b.add(2);
+    b.add(3);
+    b.add(5);
+
+    expect(a).toStrictEqual(b);
+  }, "two sets of numbers that don't equal should throw");
+
+  test("sets of references", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+    a.add(new Vec3(7, 8, 9));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(4, 5, 6));
+    b.add(new Vec3(7, 8, 9));
+
+    expect(a).toStrictEqual(b, "two sets of vec3 should be equal");
+  });
+
+  throws("when sets of references don't equal each other", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+    a.add(new Vec3(7, 8, 9));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(5, 5, 6));
+    b.add(new Vec3(7, 8, 9));
+
+    expect(a).toStrictEqual(b);
+  }, "two sets of vec3 that don't equal each other should throw");
+
   afterEach(() => {
     RTrace.collect();
   });

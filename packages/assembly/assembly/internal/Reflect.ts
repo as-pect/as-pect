@@ -66,37 +66,38 @@ export class Reflect {
           let leftValues = left.values();
           let rightValues = right.values();
           let length = leftValues.length;
-          let matched = true; // assume true
           let leftoverLength = length;
           for (let i = 0; i < length; i++) {
             let leftItem = unchecked(leftValues[i]);
-            if (right.has(leftItem)) {
+            if (rightValues.includes(leftItem)) {
               let index = rightValues.indexOf(leftItem);
               rightValues.splice(index, 1);
               leftoverLength--;
               continue; // short circuit
             }
 
-            let continueOuter = false;
-            // long path, compare every item in the set
-            for (let j = 0; j < leftoverLength; j++) {
-              let rightItem = unchecked(rightValues[j]);
-              if (Reflect.equals(leftItem, rightItem, stack, cache) !== Reflect.FAIL) {
-                rightValues.splice(j, 1);
-                leftoverLength--;
-                continueOuter = true;
-                break;
-              };
+            if (isReference<indexof<T>>() && !isFunction<indexof<T>>()) {
+              let continueOuter = false;
+              // long path, compare every item in the set
+              for (let j = 0; j < leftoverLength; j++) {
+                let rightItem = unchecked(rightValues[j]);
+                if (Reflect.equals(leftItem, rightItem, stack, cache) !== Reflect.FAIL) {
+                  rightValues.splice(j, 1);
+                  leftoverLength--;
+                  continueOuter = true;
+                  break;
+                };
+              }
+              if (continueOuter) continue;
             }
-            if (continueOuter) continue;
-            matched = false;
-            break;
+
+            stack.pop();
+            stack.pop();
+            return Reflect.FAIL;
           }
 
-          if (matched) {
-            cache.push(a);
-            cache.push(b);
-          }
+          cache.push(a);
+          cache.push(b);
 
           stack.pop();
           stack.pop();
