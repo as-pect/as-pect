@@ -101,7 +101,7 @@ export class Actual {
      */
     if (Actual.reference > 0) {
       if (Actual.isManaged) __release(Actual.reference);
-      Actual.reference = null;
+      Actual.reference = 0;
       Actual.isManaged = false;
     }
 

@@ -5,7 +5,7 @@
   "types": "types/as-pect.d.ts",
   "scripts": {
     "asp:ci": "node ../cli/lib/test --summary",
-    "asp": "node ../cli/lib/test --verbose --file=toStrictEqual",
+    "asp": "node ../cli/lib/test --verbose",
     "mdlint": "markdownlint *.md",
     "package:version-update": "ncu -u",
     "test:ci": "run-s asp:ci mdlint",
@@ -37,6 +37,6 @@
     "npm-check-updates": "^4.0.1"
   },
   "peerDependencies": {
-    "assemblyscript": "^0.9.1"
+    "assemblyscript": "0.9.1-nightly.20200212"
   }
 }

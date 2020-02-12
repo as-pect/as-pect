@@ -105,9 +105,9 @@ export class Expected {
     /**
      * If there is a reference still being retained, release it and set it to null.
      */
-    if (Expected.reference != null) {
+    if (Expected.reference !== 0) {
       if (Expected.isManaged) __release(Expected.reference);
-      Expected.reference = null;
+      Expected.reference = 0;
       Expected.isManaged = false;
     }
   }

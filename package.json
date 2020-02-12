@@ -29,7 +29,7 @@
     "@as-pect/core": "file:./packages/core",
     "@types/glob": "^7.1.1",
     "@types/jest": "^25.1.1",
-    "assemblyscript": "^0.9.1",
+    "assemblyscript": "0.9.1-nightly.20200212",
     "@types/node": "^13.7.0",
     "coveralls": "^3.0.9",
     "csv-stringify": "^5.3.6",

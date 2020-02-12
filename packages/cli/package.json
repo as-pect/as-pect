@@ -47,7 +47,7 @@
     "ts-node": "^8.6.2"
   },
   "peerDependencies": {
-    "assemblyscript": "^0.9.1"
+    "assemblyscript": "0.9.1-nightly.20200212"
   },
   "files": [
     "init/",

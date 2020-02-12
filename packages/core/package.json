@@ -52,6 +52,6 @@
 		"csv-stringify": "^5.3.6"
 	},
 	"peerDependencies": {
-    "assemblyscript": "^0.9.1"
+    "assemblyscript": "0.9.1-nightly.20200212"
   }
 }
