@@ -19,7 +19,7 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
 
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
-    null,
+    classDeclaration.typeParameters,
     TypeNode.createFunctionType(
       [
         // ref: T,
@@ -88,7 +88,7 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
     ),
     createFunctionBody(classDeclaration),
     null,
-    CommonFlags.PUBLIC | CommonFlags.INSTANCE,
+    CommonFlags.PUBLIC | CommonFlags.INSTANCE | (classDeclaration.isGeneric  ? CommonFlags.GENERIC_CONTEXT : 0),
     range,
   );
 }

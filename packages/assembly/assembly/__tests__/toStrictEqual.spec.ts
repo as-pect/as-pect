@@ -331,6 +331,10 @@ class D {
   c: f64 = 3.0;
 }
 
+class G<T> {
+  constructor(public field: T) {}
+}
+
 describe("nested structures", () => {
   test("strict equality with nested structures should work as expected", () => {
     let a = new A();
@@ -356,6 +360,18 @@ describe("nested structures", () => {
 
     expect(a).toStrictEqual(c, "circular references should match without infinite recursion.");
     expect(b).toStrictEqual(d, "circular references should match without infinite recursion.");
+  });
+
+  test("equality of generics", () => {
+    let a = new A();
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    let d = new B();
+    c.b = d;
+    let g = new G<A>(a);
+    let h = new G<A>(c);
+    expect<G<A>>(g).toStrictEqual(h, "generics should match if same class types");
   });
 
   test("sets should compare references", () => {
