@@ -4452,6 +4452,8 @@
   local.get $5
   call $~lib/array/Array<usize>#push
   drop
+  i32.const 0
+  local.set $8
   local.get $0
   local.get $1
   local.get $2
@@ -4898,27 +4900,29 @@
   local.get $5
   call $~lib/array/Array<usize>#push
   drop
+  i32.const 0
+  local.set $8
   local.get $0
-  local.tee $8
+  local.tee $9
   if (result i32)
-   local.get $8
+   local.get $9
   else
    i32.const 0
    i32.const 2688
-   i32.const 143
-   i32.const 19
+   i32.const 145
+   i32.const 17
    call $~lib/builtins/abort
    unreachable
   end
   local.get $1
-  local.tee $8
+  local.tee $9
   if (result i32)
-   local.get $8
+   local.get $9
   else
    i32.const 0
    i32.const 2688
-   i32.const 143
-   i32.const 46
+   i32.const 145
+   i32.const 44
    call $~lib/builtins/abort
    unreachable
   end
@@ -8828,27 +8832,29 @@
   local.get $5
   call $~lib/array/Array<usize>#push
   drop
+  i32.const 0
+  local.set $8
   local.get $0
-  local.tee $8
+  local.tee $9
   if (result i32)
-   local.get $8
+   local.get $9
   else
    i32.const 0
    i32.const 2688
-   i32.const 143
-   i32.const 19
+   i32.const 145
+   i32.const 17
    call $~lib/builtins/abort
    unreachable
   end
   local.get $1
-  local.tee $8
+  local.tee $9
   if (result i32)
-   local.get $8
+   local.get $9
   else
    i32.const 0
    i32.const 2688
-   i32.const 143
-   i32.const 46
+   i32.const 145
+   i32.const 44
    call $~lib/builtins/abort
    unreachable
   end
@@ -9117,6 +9123,8 @@
   local.get $5
   call $~lib/array/Array<usize>#push
   drop
+  i32.const 0
+  local.set $8
   local.get $0
   local.get $1
   local.get $2
@@ -9627,27 +9635,29 @@
   local.get $5
   call $~lib/array/Array<usize>#push
   drop
+  i32.const 0
+  local.set $8
   local.get $0
-  local.tee $8
+  local.tee $9
   if (result i32)
-   local.get $8
+   local.get $9
   else
    i32.const 0
    i32.const 2688
-   i32.const 143
-   i32.const 19
+   i32.const 145
+   i32.const 17
    call $~lib/builtins/abort
    unreachable
   end
   local.get $1
-  local.tee $8
+  local.tee $9
   if (result i32)
-   local.get $8
+   local.get $9
   else
    i32.const 0
    i32.const 2688
-   i32.const 143
-   i32.const 46
+   i32.const 145
+   i32.const 44
    call $~lib/builtins/abort
    unreachable
   end
@@ -9937,27 +9947,29 @@
   local.get $5
   call $~lib/array/Array<usize>#push
   drop
+  i32.const 0
+  local.set $8
   local.get $0
-  local.tee $8
+  local.tee $9
   if (result i32)
-   local.get $8
+   local.get $9
   else
    i32.const 0
    i32.const 2688
-   i32.const 143
-   i32.const 19
+   i32.const 145
+   i32.const 17
    call $~lib/builtins/abort
    unreachable
   end
   local.get $1
-  local.tee $8
+  local.tee $9
   if (result i32)
-   local.get $8
+   local.get $9
   else
    i32.const 0
    i32.const 2688
-   i32.const 143
-   i32.const 46
+   i32.const 145
+   i32.const 44
    call $~lib/builtins/abort
    unreachable
   end
@@ -10226,6 +10238,8 @@
   local.get $5
   call $~lib/array/Array<usize>#push
   drop
+  i32.const 0
+  local.set $8
   local.get $0
   local.get $1
   local.get $2
@@ -10590,6 +10604,8 @@
   local.get $5
   call $~lib/array/Array<usize>#push
   drop
+  i32.const 0
+  local.set $8
   local.get $0
   local.get $1
   local.get $2

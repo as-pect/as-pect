@@ -139,8 +139,14 @@ export class Reflect {
       stack.push(a);
       stack.push(b);
 
-      // @ts-ignore: __aspectStrictEquals is defined at this point, and left and right cannot be null
-      let result = left!.__aspectStrictEquals(right!, stack, cache);
+      let result = false;
+      if (isNullable<T>()) {
+        // @ts-ignore: __aspectStrictEquals is defined at this point, and left and right cannot be null
+        result = left!.__aspectStrictEquals(right!, stack, cache);
+      } else {
+        // @ts-ignore: __aspectStrictEquals is defined at this point
+        result = left.__aspectStrictEquals(right, stack, cache);
+      }
 
       if (result) {
         cache.push(a);
