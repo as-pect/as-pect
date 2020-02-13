@@ -1592,13 +1592,31 @@ declare module "index" {
 }
 declare module "transform/createStrictEqualsMember" {
     import { ClassDeclaration, FunctionDeclaration } from "assemblyscript";
+    /**
+     * This method creates a single FunctionDeclaration that allows Reflect.equals
+     * to validate normal class member values.
+     *
+     * @param {ClassDeclaration} classDeclaration - The class that requires a new function.
+     */
     export function createStrictEqualsMember(classDeclaration: ClassDeclaration): FunctionDeclaration;
 }
 declare module "transform/index" {
     import { Parser } from "assemblyscript";
     const _default: {
         new (): {
+            /**
+             * This method results in a pure AST transform that inserts a strictEquals member
+             * into each ClassDeclaration.
+             *
+             * @param {Parser} parser - The AssemblyScript parser.
+             */
             afterParse(parser: Parser): void;
+            /**
+             * This method results in a pure AST transform that inserts a strictEquals member
+             * into each ClassDeclaration.
+             *
+             * @param {Parser} parser - The AssemblyScript parser.
+             */
             readonly program: import("assemblyscript").Program;
             readonly baseDir: string;
             readonly stdout: import("assemblyscript/cli/asc").OutputStream;

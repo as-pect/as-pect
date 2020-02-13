@@ -2,7 +2,19 @@
 import { Parser } from "assemblyscript";
 declare const _default: {
     new (): {
+        /**
+         * This method results in a pure AST transform that inserts a strictEquals member
+         * into each ClassDeclaration.
+         *
+         * @param {Parser} parser - The AssemblyScript parser.
+         */
         afterParse(parser: Parser): void;
+        /**
+         * This method results in a pure AST transform that inserts a strictEquals member
+         * into each ClassDeclaration.
+         *
+         * @param {Parser} parser - The AssemblyScript parser.
+         */
         readonly program: import("assemblyscript").Program;
         readonly baseDir: string;
         readonly stdout: import("assemblyscript/cli/asc").OutputStream;

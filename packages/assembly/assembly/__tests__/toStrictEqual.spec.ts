@@ -444,7 +444,7 @@ describe("nested structures", () => {
     c.b = d;
     let g = new G<A>(a);
     let h = new G<A>(c);
-    expect<G<A>>(g).toStrictEqual(h, "generics should match if same class types");
+    expect(g).toStrictEqual(h, "generics should match if same class types");
   });
 
   test("sets should compare references", () => {
@@ -677,6 +677,34 @@ describe("nested structures", () => {
     b.set("three", new Vec3(7, 8, 1));
 
     expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
+  });
+
+  test("complicated object tree with sets and maps", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(4, 5, 6));
+
+    let c = new Map<Set<Vec3>, string>();
+    c.set(a, "one");
+    c.set(b, "two");
+
+    let d = new Set<Vec3>();
+    d.add(new Vec3(1, 2, 3));
+    d.add(new Vec3(4, 5, 6));
+
+    let e = new Set<Vec3>();
+    e.add(new Vec3(1, 2, 3));
+    e.add(new Vec3(4, 5, 6));
+
+    let f = new Map<Set<Vec3>, string>();
+    f.set(d, "one");
+    f.set(e, "two");
+
+    expect(c).toStrictEqual(f, "complex data structure should match");
   });
 
   afterEach(() => {
