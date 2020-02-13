@@ -553,6 +553,62 @@ describe("nested structures", () => {
     expect(a).not.toStrictEqual(b);
   });
 
+  test("maps with key value pairs of numbers should strictly equal each other", () => {
+    let a = new Map<i32, i32>();
+    a.set(1, 4);
+    a.set(2, 5);
+    a.set(3, 6);
+
+    let b = new Map<i32, i32>();
+    b.set(1, 4);
+    b.set(2, 5);
+    b.set(3, 6);
+
+    expect(a).toStrictEqual(b, "maps should strictly equal each other");
+  });
+
+  throws("when maps with key value pairs of numbers don't strictly equal each other", () => {
+    let a = new Map<i32, i32>();
+    a.set(1, 4);
+    a.set(2, 5);
+    a.set(3, 6);
+
+    let b = new Map<i32, i32>();
+    b.set(1, 4);
+    b.set(2, 8);
+    b.set(3, 6);
+
+    expect(a).toStrictEqual(b);
+  }, "maps with key value pairs of numbers that don't strictly equal each other should throw");
+
+  test("maps with object keys should strictly equal each other", () => {
+    let a = new Map<Vec3, i32>();
+    a.set(new Vec3(1, 2, 3), 1);
+    a.set(new Vec3(4, 5, 6), 2);
+    a.set(new Vec3(7, 8, 9), 3);
+
+    let b = new Map<Vec3, i32>();
+    b.set(new Vec3(1, 2, 3), 1);
+    b.set(new Vec3(4, 5, 6), 2);
+    b.set(new Vec3(7, 8, 9), 3);
+
+    expect(a).toStrictEqual(b, "Maps with object keys should equal each other");
+  });
+
+  throws("when maps with object keys that don't strictly equal each other", () => {
+    let a = new Map<Vec3, i32>();
+    a.set(new Vec3(1, 2, 3), 1);
+    a.set(new Vec3(4, 5, 6), 2);
+    a.set(new Vec3(7, 8, 9), 3);
+
+    let b = new Map<Vec3, i32>();
+    b.set(new Vec3(1, 2, 3), 1);
+    b.set(new Vec3(5, 5, 6), 2);
+    b.set(new Vec3(7, 8, 9), 3);
+
+    expect(a).toStrictEqual(b, "Maps with object keys should equal each other");
+  });
+
   afterEach(() => {
     RTrace.collect();
   });
