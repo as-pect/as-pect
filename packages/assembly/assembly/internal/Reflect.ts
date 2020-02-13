@@ -13,6 +13,11 @@ export class Reflect {
     // use `==` operator to work with operator overloads and strings
     if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
 
+    // short circuit for strings
+    if (left instanceof String) {
+      return Reflect.FAILED_MATCH;
+    }
+
     // if it's possible for T to be null
     if (isNullable<T>()) {
       // mutual exclusion null
