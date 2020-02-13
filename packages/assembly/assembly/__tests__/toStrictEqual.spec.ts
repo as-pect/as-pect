@@ -637,6 +637,48 @@ describe("nested structures", () => {
     expect(a).not.toStrictEqual(b, "Maps with object keys shouldn't equal each other");
   });
 
+  test("maps with string keys and object values equal each other", () => {
+    let a = new Map<string, Vec3>();
+    a.set("one", new Vec3(1, 2, 3));
+    a.set("two", new Vec3(4, 5, 6));
+    a.set("three", new Vec3(7, 8, 9));
+
+    let b = new Map<string, Vec3>();
+    b.set("one", new Vec3(1, 2, 3));
+    b.set("two", new Vec3(4, 5, 6));
+    b.set("three", new Vec3(7, 8, 9));
+
+    expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
+  });
+
+  throws("when maps with string keys don't match and object values equal each other", () => {
+    let a = new Map<string, Vec3>();
+    a.set("one", new Vec3(1, 2, 3));
+    a.set("two", new Vec3(4, 5, 6));
+    a.set("three", new Vec3(7, 8, 9));
+
+    let b = new Map<string, Vec3>();
+    b.set("one", new Vec3(1, 2, 3));
+    b.set("two", new Vec3(4, 5, 6));
+    b.set("four", new Vec3(7, 8, 9)); // should fail
+
+    expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
+  });
+
+  throws("when maps with string keys don't match and object values equal each other", () => {
+    let a = new Map<string, Vec3>();
+    a.set("one", new Vec3(1, 2, 3));
+    a.set("two", new Vec3(4, 5, 6));
+    a.set("three", new Vec3(7, 8, 9));
+
+    let b = new Map<string, Vec3>();
+    b.set("one", new Vec3(1, 2, 3));
+    b.set("two", new Vec3(4, 5, 6));
+    b.set("three", new Vec3(7, 8, 1));
+
+    expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
+  });
+
   afterEach(() => {
     RTrace.collect();
   });
