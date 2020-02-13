@@ -72,15 +72,13 @@ export class Expectation<T> {
    * @param {string} message - The message that describes this assertion.
    */
   public toStrictEqual(expected: T, message: string = ""): void {
-    let stack = new Array<usize>(0);
-    let cache = new Array<usize>(0);
-    let result: i32 = Reflect.FAIL;
-    result = Reflect.equals(this.actual, expected, stack, cache);
+    let result = Reflect.FAILED_MATCH;
+    result = Reflect.equals(this.actual, expected);
 
-    Actual.report<T>(this.actual);
-    Expected.report<T>(expected);
+    Actual.report(this.actual);
+    Expected.report(expected);
 
-    assert(i32(result === Reflect.MATCH) ^ this._not, message);
+    assert(i32(result === Reflect.SUCCESSFUL_MATCH) ^ this._not, message);
 
     Actual.clear();
     Expected.clear();

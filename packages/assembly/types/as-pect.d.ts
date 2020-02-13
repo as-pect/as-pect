@@ -908,11 +908,11 @@ declare class Expected {
  */
 declare class Reflect {
   /** A successful matching indicator. */
-  public static MATCH: i32;
+  public static SUCCESSFUL_MATCH: i32;
   /** An indicator that a matching operation has failed. */
-  public static FAIL: i32;
+  public static FAILED_MATCH: i32;
   /** A const to define when a matching operation should wait because a circular reference is currently resolving a match. */
-  public static DEFER: i32;
+  public static DEFER_MATCH: i32;
 
   /**
    * A method used for comparing two values or references to determine if they match each other.
