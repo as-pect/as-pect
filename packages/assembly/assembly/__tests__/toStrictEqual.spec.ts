@@ -595,6 +595,20 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b, "Maps with object keys should equal each other");
   });
 
+  throws("when maps that equal each other are expected to not strictly equal", () => {
+    let a = new Map<Vec3, i32>();
+    a.set(new Vec3(1, 2, 3), 1);
+    a.set(new Vec3(4, 5, 6), 2);
+    a.set(new Vec3(7, 8, 9), 3);
+
+    let b = new Map<Vec3, i32>();
+    b.set(new Vec3(1, 2, 3), 1);
+    b.set(new Vec3(4, 5, 6), 2);
+    b.set(new Vec3(7, 8, 9), 3);
+
+    expect(a).not.toStrictEqual(b);
+  }, "Maps with object keys should equal each other");
+
   throws("when maps with object keys that don't strictly equal each other", () => {
     let a = new Map<Vec3, i32>();
     a.set(new Vec3(1, 2, 3), 1);
@@ -606,7 +620,21 @@ describe("nested structures", () => {
     b.set(new Vec3(5, 5, 6), 2);
     b.set(new Vec3(7, 8, 9), 3);
 
-    expect(a).toStrictEqual(b, "Maps with object keys should equal each other");
+    expect(a).toStrictEqual(b);
+  }, "Maps with object keys should equal each other");
+
+  test("maps with object keys that don't strictly equal each other", () => {
+    let a = new Map<Vec3, i32>();
+    a.set(new Vec3(1, 2, 3), 1);
+    a.set(new Vec3(4, 5, 6), 2);
+    a.set(new Vec3(7, 8, 9), 3);
+
+    let b = new Map<Vec3, i32>();
+    b.set(new Vec3(1, 2, 3), 1);
+    b.set(new Vec3(5, 5, 6), 2);
+    b.set(new Vec3(7, 8, 9), 3);
+
+    expect(a).not.toStrictEqual(b, "Maps with object keys shouldn't equal each other");
   });
 
   afterEach(() => {

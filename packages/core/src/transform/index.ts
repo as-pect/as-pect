@@ -1,6 +1,6 @@
 import { Transform } from "assemblyscript/cli/transform";
 import { Parser, NodeKind, ClassDeclaration } from "assemblyscript";
-import { createMember } from "./createMember";
+import { createStrictEqualsMember } from "./createStrictEqualsMember";
 
 export = class AspectTransform extends Transform {
   afterParse(parser: Parser): void {
@@ -8,7 +8,7 @@ export = class AspectTransform extends Transform {
       for (const statement of source.statements) {
         if (statement.kind === NodeKind.CLASSDECLARATION) {
           const classDeclaration = <ClassDeclaration>statement;
-          classDeclaration.members.push(createMember(classDeclaration));
+          classDeclaration.members.push(createStrictEqualsMember(classDeclaration));
         }
       }
     }

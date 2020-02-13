@@ -13,7 +13,7 @@ import {
   TypeNode,
 } from "assemblyscript";
 
-export function createMember(classDeclaration: ClassDeclaration): FunctionDeclaration {
+export function createStrictEqualsMember(classDeclaration: ClassDeclaration): FunctionDeclaration {
   const range = classDeclaration.name.range;
 
   // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[]): bool
@@ -91,14 +91,14 @@ export function createMember(classDeclaration: ClassDeclaration): FunctionDeclar
       false,
       range,
     ),
-    createFunctionBody(classDeclaration),
+    createStrictEqualsFunctionBody(classDeclaration),
     null,
     CommonFlags.PUBLIC | CommonFlags.INSTANCE | CommonFlags.GENERIC | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     range,
   );
 }
 
-function createFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
+function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
   const body: Statement[] = [];
   const range = classDeclaration.name.range;
 
@@ -108,14 +108,14 @@ function createFunctionBody(classDeclaration: ClassDeclaration): BlockStatement 
       case NodeKind.FIELDDECLARATION: {
         if (member.is(CommonFlags.INSTANCE) && !member.is(CommonFlags.PRIVATE | CommonFlags.PROTECTED)) {
           const fieldDeclaration = <FieldDeclaration>member;
-          body.push(createIfCheck(member.name.text, fieldDeclaration.range));
+          body.push(createStrictEqualsIfCheck(member.name.text, fieldDeclaration.range));
         }
         break;
       }
       case NodeKind.FUNCTIONDECLARATION: {
         if (member.is(CommonFlags.PUBLIC | CommonFlags.GET)) {
           const functionDeclaration = <FunctionDeclaration>member;
-          body.push(createIfCheck(functionDeclaration.name.text, functionDeclaration.range));
+          body.push(createStrictEqualsIfCheck(functionDeclaration.name.text, functionDeclaration.range));
         }
         break;
       }
@@ -132,11 +132,10 @@ function createFunctionBody(classDeclaration: ClassDeclaration): BlockStatement 
   return TypeNode.createBlockStatement(body, range);
 }
 
-function createIfCheck(name: string, range: Range): IfStatement {
-
-  // if (Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAIL) return false;
+function createStrictEqualsIfCheck(name: string, range: Range): IfStatement {
+  // if (Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAILED_MATCH) return false;
   return TypeNode.createIfStatement(
-    // Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAIL
+    // Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAILED_MATCH
     TypeNode.createBinaryExpression(
       Token.EQUALS_EQUALS_EQUALS,
       // Reflect.equals(this.prop, ref.prop, stack, cache)
@@ -170,7 +169,7 @@ function createIfCheck(name: string, range: Range): IfStatement {
       ),
       TypeNode.createPropertyAccessExpression(
         TypeNode.createIdentifierExpression("Reflect", range),
-        TypeNode.createIdentifierExpression("FAIL", range),
+        TypeNode.createIdentifierExpression("FAILED_MATCH", range),
         range,
       ),
       range,

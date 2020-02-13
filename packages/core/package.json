@@ -21,7 +21,6 @@
 		"mdlint": "markdownlint *.md",
 		"prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
 		"rimraf": "rimraf lib/*",
-		"package:version-update": "ncu -u",
 		"test:ci": "run-s jest mdlint",
 		"test": "run-s jest mdlint",
 		"tsc:all": "run-p tsc:default tsc:amd",
@@ -34,13 +33,12 @@
 	},
 	"homepage": "https://github.com/jtenner/as-pect#readme",
 	"devDependencies": {
-		"@types/jest": "^25.1.1",
+		"@types/jest": "^25.1.2",
 		"jest": "^25.1.0",
-		"npm-check-updates": "4.0.1",
 		"ts-jest": "^25.2.0"
 	},
 	"dependencies": {
-		"@as-pect/assembly": "^2.8.0",
+		"@as-pect/assembly": "^2.8.1",
 		"chalk": "^3.0.0",
 		"long": "^4.0.0"
 	},

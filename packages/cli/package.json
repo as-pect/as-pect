@@ -37,8 +37,8 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
-    "@as-pect/assembly": "^2.8.0",
-    "@as-pect/core": "^2.8.0",
+    "@as-pect/assembly": "^2.8.1",
+    "@as-pect/core": "^2.8.1",
     "chalk": "^3.0.0",
     "glob": "^7.1.6"
   },

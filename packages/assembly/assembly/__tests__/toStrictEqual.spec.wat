@@ -200,9 +200,9 @@
  (global $assembly/internal/report/Expected/Expected.negated (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.stackTrace (mut i32) (i32.const 0))
  (global $assembly/internal/report/Expected/Expected.isManaged (mut i32) (i32.const 0))
- (global $assembly/internal/Reflect/Reflect.FAIL (mut i32) (i32.const 0))
- (global $assembly/internal/Reflect/Reflect.MATCH (mut i32) (i32.const 1))
- (global $assembly/internal/Reflect/Reflect.DEFER (mut i32) (i32.const 2))
+ (global $assembly/internal/Reflect/Reflect.FAIL i32 (i32.const 0))
+ (global $assembly/internal/Reflect/Reflect.MATCH i32 (i32.const 1))
+ (global $assembly/internal/Reflect/Reflect.DEFER i32 (i32.const 2))
  (global $assembly/internal/noOp/noOp i32 (i32.const 39))
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
@@ -3856,7 +3856,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<i32>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -4238,7 +4238,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -4259,7 +4259,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -4280,7 +4280,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -4622,7 +4622,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<assembly/__tests__/setup/Vec3/Vec3>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -4938,7 +4938,7 @@
   else
    i32.const 0
    i32.const 2688
-   i32.const 195
+   i32.const 201
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -4950,7 +4950,7 @@
   else
    i32.const 0
    i32.const 2688
-   i32.const 195
+   i32.const 201
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -5112,7 +5112,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<assembly/__tests__/setup/Vec3/Vec3 | null>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -5748,7 +5748,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<~lib/arraybuffer/ArrayBuffer>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -6123,7 +6123,7 @@
     call $assembly/internal/Reflect/Reflect.equals<i32>
     local.set $12
     local.get $12
-    global.get $assembly/internal/Reflect/Reflect.FAIL
+    i32.const 0
     i32.eq
     if
      global.get $assembly/internal/Reflect/Reflect.FAIL
@@ -6263,7 +6263,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<~lib/array/Array<i32>>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -6872,7 +6872,7 @@
     call $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/setup/Vec3/Vec3>
     local.set $14
     local.get $14
-    global.get $assembly/internal/Reflect/Reflect.FAIL
+    i32.const 0
     i32.eq
     if
      global.get $assembly/internal/Reflect/Reflect.FAIL
@@ -7020,7 +7020,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -7823,7 +7823,7 @@
     call $assembly/internal/Reflect/Reflect.equals<f32>
     local.set $12
     local.get $12
-    global.get $assembly/internal/Reflect/Reflect.FAIL
+    i32.const 0
     i32.eq
     if
      global.get $assembly/internal/Reflect/Reflect.FAIL
@@ -7963,7 +7963,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<~lib/typedarray/Float32Array>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -8272,7 +8272,7 @@
   i32.const 0
   call "$assembly/internal/report/Expected/Expected.report<(event: assembly/__tests__/setup/Event/Event) => void>"
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -8630,7 +8630,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -8651,7 +8651,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -8672,7 +8672,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -8870,7 +8870,7 @@
   else
    i32.const 0
    i32.const 2688
-   i32.const 195
+   i32.const 201
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -8882,7 +8882,7 @@
   else
    i32.const 0
    i32.const 2688
-   i32.const 195
+   i32.const 201
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -8942,7 +8942,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -8963,7 +8963,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/B | null>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -8984,7 +8984,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -9293,7 +9293,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/A>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -9889,7 +9889,7 @@
   else
    i32.const 0
    i32.const 2688
-   i32.const 195
+   i32.const 201
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -9901,7 +9901,7 @@
   else
    i32.const 0
    i32.const 2688
-   i32.const 195
+   i32.const 201
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -9961,7 +9961,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -9982,7 +9982,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/C | null>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -10003,7 +10003,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -10201,7 +10201,7 @@
   else
    i32.const 0
    i32.const 2688
-   i32.const 195
+   i32.const 201
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -10213,7 +10213,7 @@
   else
    i32.const 0
    i32.const 2688
-   i32.const 195
+   i32.const 201
    i32.const 44
    call $~lib/builtins/abort
    unreachable
@@ -10273,7 +10273,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -10294,7 +10294,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/D | null>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -10315,7 +10315,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<f64>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -10624,7 +10624,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/C>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -10990,7 +10990,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/D>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -11553,7 +11553,7 @@
   local.get $2
   local.get $3
   call $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/A>
-  global.get $assembly/internal/Reflect/Reflect.FAIL
+  i32.const 0
   i32.eq
   if
    i32.const 0
@@ -11862,7 +11862,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -13081,7 +13081,7 @@
         local.get $2
         local.get $3
         call $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/setup/Vec3/Vec3>
-        global.get $assembly/internal/Reflect/Reflect.FAIL
+        i32.const 0
         i32.ne
         if
          local.get $9
@@ -13286,7 +13286,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -14501,7 +14501,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<~lib/set/Set<i32>>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -15598,6 +15598,7 @@
   (local $18 i32)
   (local $19 i32)
   (local $20 i32)
+  (local $21 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -15764,58 +15765,60 @@
   local.set $10
   local.get $10
   local.set $11
-  i32.const 0
+  global.get $assembly/internal/Reflect/Reflect.MATCH
   local.set $12
-  loop $for-loop|2
-   local.get $12
-   local.get $10
-   i32.lt_s
-   local.set $13
-   local.get $13
-   if
-    block $for-continue|2
+  i32.const 0
+  local.set $13
+  block $for-break2
+   loop $for-loop|2
+    local.get $13
+    local.get $10
+    i32.lt_s
+    local.set $14
+    local.get $14
+    if
      local.get $8
-     local.get $12
+     local.get $13
      call $~lib/array/Array<i32>#__unchecked_get
-     local.set $14
-     i32.const 0
      local.set $15
      i32.const 0
      local.set $16
+     i32.const 0
+     local.set $17
      block $for-break3
       loop $for-loop|3
-       local.get $16
+       local.get $17
        local.get $11
        i32.lt_s
-       local.set $17
-       local.get $17
+       local.set $18
+       local.get $18
        if
         local.get $9
-        local.get $16
+        local.get $17
         call $~lib/array/Array<i32>#__unchecked_get
-        local.set $18
-        local.get $14
-        local.get $18
+        local.set $19
+        local.get $15
+        local.get $19
         local.get $2
         local.get $3
         call $assembly/internal/Reflect/Reflect.equals<i32>
-        global.get $assembly/internal/Reflect/Reflect.FAIL
+        i32.const 0
         i32.ne
         if
          local.get $0
-         local.get $14
-         call $~lib/map/Map<i32,i32>#get
-         local.set $19
-         local.get $1
-         local.get $18
+         local.get $15
          call $~lib/map/Map<i32,i32>#get
          local.set $20
+         local.get $1
          local.get $19
+         call $~lib/map/Map<i32,i32>#get
+         local.set $21
          local.get $20
+         local.get $21
          local.get $2
          local.get $3
          call $assembly/internal/Reflect/Reflect.equals<i32>
-         global.get $assembly/internal/Reflect/Reflect.FAIL
+         i32.const 0
          i32.ne
          if
           local.get $11
@@ -15823,75 +15826,59 @@
           i32.sub
           local.set $11
           local.get $9
-          local.get $16
+          local.get $17
           i32.const 1
           call $~lib/array/Array<i32>#splice
           call $~lib/rt/pure/__release
           i32.const 1
-          local.set $15
+          local.set $16
           br $for-break3
          end
         end
-        local.get $16
+        local.get $17
         i32.const 1
         i32.add
-        local.set $16
+        local.set $17
         br $for-loop|3
        end
       end
      end
-     local.get $15
+     local.get $16
+     i32.eqz
      if
-      br $for-continue|2
-     else
-      local.get $2
-      call $~lib/array/Array<usize>#pop
-      drop
-      local.get $2
-      call $~lib/array/Array<usize>#pop
-      drop
       global.get $assembly/internal/Reflect/Reflect.FAIL
-      local.set $16
-      local.get $0
-      call $~lib/rt/pure/__release
-      local.get $1
-      call $~lib/rt/pure/__release
-      local.get $2
-      call $~lib/rt/pure/__release
-      local.get $3
-      call $~lib/rt/pure/__release
-      local.get $8
-      call $~lib/rt/pure/__release
-      local.get $9
-      call $~lib/rt/pure/__release
-      local.get $16
-      return
+      local.set $12
+      br $for-break2
      end
-     unreachable
+     local.get $13
+     i32.const 1
+     i32.add
+     local.set $13
+     br $for-loop|2
     end
-    local.get $12
-    i32.const 1
-    i32.add
-    local.set $12
-    br $for-loop|2
    end
   end
-  local.get $3
-  local.get $4
-  call $~lib/array/Array<usize>#push
-  drop
-  local.get $3
-  local.get $5
-  call $~lib/array/Array<usize>#push
-  drop
+  local.get $12
+  i32.const 1
+  i32.eq
+  if
+   local.get $3
+   local.get $4
+   call $~lib/array/Array<usize>#push
+   drop
+   local.get $3
+   local.get $5
+   call $~lib/array/Array<usize>#push
+   drop
+  end
   local.get $2
   call $~lib/array/Array<usize>#pop
   drop
   local.get $2
   call $~lib/array/Array<usize>#pop
   drop
-  global.get $assembly/internal/Reflect/Reflect.MATCH
-  local.set $12
+  local.get $12
+  local.set $13
   local.get $8
   call $~lib/rt/pure/__release
   local.get $9
@@ -15904,7 +15891,7 @@
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
-  local.get $12
+  local.get $13
   return
  )
  (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<i32,i32>> (; 302 ;) (param $0 i32)
@@ -16007,7 +15994,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<~lib/map/Map<i32,i32>>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load
@@ -16789,6 +16776,7 @@
   (local $20 i32)
   (local $21 i32)
   (local $22 i32)
+  (local $23 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -16955,62 +16943,64 @@
   local.set $10
   local.get $10
   local.set $11
-  i32.const 0
+  global.get $assembly/internal/Reflect/Reflect.MATCH
   local.set $12
-  loop $for-loop|2
-   local.get $12
-   local.get $10
-   i32.lt_s
-   local.set $13
-   local.get $13
-   if
-    block $for-continue|2
+  i32.const 0
+  local.set $13
+  block $for-break2
+   loop $for-loop|2
+    local.get $13
+    local.get $10
+    i32.lt_s
+    local.set $14
+    local.get $14
+    if
      local.get $8
-     local.get $12
+     local.get $13
      call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__unchecked_get
-     local.tee $14
+     local.tee $15
      call $~lib/rt/pure/__retain
-     local.set $15
-     i32.const 0
      local.set $16
      i32.const 0
      local.set $17
+     i32.const 0
+     local.set $18
      block $for-break3
       loop $for-loop|3
-       local.get $17
+       local.get $18
        local.get $11
        i32.lt_s
-       local.set $18
-       local.get $18
+       local.set $19
+       local.get $19
        if
         local.get $9
-        local.get $17
+        local.get $18
         call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__unchecked_get
-        local.tee $19
+        local.tee $20
         call $~lib/rt/pure/__retain
-        local.set $20
-        local.get $15
-        local.get $20
+        local.set $21
+        local.get $16
+        local.get $21
         local.get $2
         local.get $3
         call $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/setup/Vec3/Vec3>
-        global.get $assembly/internal/Reflect/Reflect.FAIL
+        i32.const 0
         i32.ne
         if
          local.get $0
-         local.get $15
-         call $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#get
-         local.set $21
-         local.get $1
-         local.get $20
+         local.get $16
          call $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#get
          local.set $22
+         local.get $1
          local.get $21
+         call $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#get
+         local.set $23
          local.get $22
+         local.get $23
          local.get $2
          local.get $3
          call $assembly/internal/Reflect/Reflect.equals<i32>
-         global.get $assembly/internal/Reflect/Reflect.FAIL
+         i32.const 0
          i32.ne
          if
           local.get $11
@@ -17018,91 +17008,75 @@
           i32.sub
           local.set $11
           local.get $9
-          local.get $17
+          local.get $18
           i32.const 1
           call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#splice
           call $~lib/rt/pure/__release
           i32.const 1
-          local.set $16
-          local.get $19
-          call $~lib/rt/pure/__release
+          local.set $17
           local.get $20
+          call $~lib/rt/pure/__release
+          local.get $21
           call $~lib/rt/pure/__release
           br $for-break3
          end
         end
-        local.get $19
-        call $~lib/rt/pure/__release
         local.get $20
         call $~lib/rt/pure/__release
-        local.get $17
+        local.get $21
+        call $~lib/rt/pure/__release
+        local.get $18
         i32.const 1
         i32.add
-        local.set $17
+        local.set $18
         br $for-loop|3
        end
       end
      end
-     local.get $16
+     local.get $17
+     i32.eqz
      if
-      local.get $14
-      call $~lib/rt/pure/__release
-      local.get $15
-      call $~lib/rt/pure/__release
-      br $for-continue|2
-     else
-      local.get $2
-      call $~lib/array/Array<usize>#pop
-      drop
-      local.get $2
-      call $~lib/array/Array<usize>#pop
-      drop
       global.get $assembly/internal/Reflect/Reflect.FAIL
-      local.set $17
-      local.get $0
-      call $~lib/rt/pure/__release
-      local.get $1
-      call $~lib/rt/pure/__release
-      local.get $2
-      call $~lib/rt/pure/__release
-      local.get $3
-      call $~lib/rt/pure/__release
-      local.get $8
-      call $~lib/rt/pure/__release
-      local.get $9
-      call $~lib/rt/pure/__release
-      local.get $14
-      call $~lib/rt/pure/__release
+      local.set $12
       local.get $15
       call $~lib/rt/pure/__release
-      local.get $17
-      return
+      local.get $16
+      call $~lib/rt/pure/__release
+      br $for-break2
      end
-     unreachable
+     local.get $15
+     call $~lib/rt/pure/__release
+     local.get $16
+     call $~lib/rt/pure/__release
+     local.get $13
+     i32.const 1
+     i32.add
+     local.set $13
+     br $for-loop|2
     end
-    local.get $12
-    i32.const 1
-    i32.add
-    local.set $12
-    br $for-loop|2
    end
   end
-  local.get $3
-  local.get $4
-  call $~lib/array/Array<usize>#push
-  drop
-  local.get $3
-  local.get $5
-  call $~lib/array/Array<usize>#push
-  drop
+  local.get $12
+  i32.const 1
+  i32.eq
+  if
+   local.get $3
+   local.get $4
+   call $~lib/array/Array<usize>#push
+   drop
+   local.get $3
+   local.get $5
+   call $~lib/array/Array<usize>#push
+   drop
+  end
   local.get $2
   call $~lib/array/Array<usize>#pop
   drop
   local.get $2
   call $~lib/array/Array<usize>#pop
   drop
-  global.get $assembly/internal/Reflect/Reflect.MATCH
-  local.set $12
+  local.get $12
+  local.set $13
   local.get $8
   call $~lib/rt/pure/__release
   local.get $9
@@ -17115,11 +17089,7 @@
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
-  local.get $14
-  call $~lib/rt/pure/__release
-  local.get $15
-  call $~lib/rt/pure/__release
-  local.get $12
+  local.get $13
   return
  )
  (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>> (; 319 ;) (param $0 i32)
@@ -17222,7 +17192,7 @@
   i32.const 0
   call $assembly/internal/report/Expected/Expected.report<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>>
   local.get $5
-  global.get $assembly/internal/Reflect/Reflect.MATCH
+  i32.const 1
   i32.eq
   local.get $0
   i32.load

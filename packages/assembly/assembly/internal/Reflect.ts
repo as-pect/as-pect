@@ -9,18 +9,14 @@ function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
 
 @global
 export class Reflect {
-  public static FAIL: i32 = 0;
-  public static MATCH: i32 = 1;
-  public static DEFER: i32 = 2;
-
   public static equals<T>(left: T, right: T, stack: usize[] = [], cache: usize[] = []): i32 {
     // use `==` operator to work with operator overloads and strings
-    if (left == right) return Reflect.MATCH; // works immutably for string comparison
+    if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
 
     // if it's possible for T to be null
     if (isNullable<T>()) {
       // mutual exclusion null
-      if (i32(left === null) ^ i32(right === null)) return Reflect.FAIL;
+      if (i32(left === null) ^ i32(right === null)) return Reflect.FAILED_MATCH;
     }
 
     // check every reference that isn't a function reference, because `left == right` suffices
@@ -35,32 +31,32 @@ export class Reflect {
 
       // check the cache for matched pairs
       for (let i = 0; i < cacheLength; i += 2) {
-        if (pairSeen(a, b, unchecked(cache[i]), unchecked(cache[i + 1]))) return Reflect.MATCH;
+        if (pairSeen(a, b, unchecked(cache[i]), unchecked(cache[i + 1]))) return Reflect.SUCCESSFUL_MATCH;
       }
 
       // short circuit because this pair might already be resolving
       let length = stack.length;
       for (let i = 0; i < length; i += 2) {
-        if (pairSeen(a, b, unchecked(stack[i]), unchecked(stack[i + 1]))) return Reflect.DEFER;
+        if (pairSeen(a, b, unchecked(stack[i]), unchecked(stack[i + 1]))) return Reflect.DEFER_MATCH;
       }
 
       // once we've determined we need to check the references for their values, arraybuffers
       // require a memory compare
       if (left instanceof ArrayBuffer) {
         // @ts-ignore: typesafe access to byteLength property because T is ArrayBuffer
-        if (left.byteLength !== right.byteLength) return Reflect.FAIL;
+        if (left.byteLength !== right.byteLength) return Reflect.FAILED_MATCH;
         let result = memory.compare(a, b, left.byteLength);
         if (result === 0) {
           cache.push(a);
           cache.push(b);
-          return Reflect.MATCH;
-        } else return Reflect.FAIL;
+          return Reflect.SUCCESSFUL_MATCH;
+        } else return Reflect.FAILED_MATCH;
       }
 
       if (isDefined(left[0])) { // test for safe indexof usage
         // set match
         if (left instanceof Set<indexof<T>>) {
-          if (left.size !== right.size) return Reflect.FAIL;
+          if (left.size !== right.size) return Reflect.FAILED_MATCH;
           stack.push(a);
           stack.push(b);
           let leftValues = left.values();
@@ -81,7 +77,7 @@ export class Reflect {
               // long path, compare every item in the set
               for (let j = 0; j < leftoverLength; j++) {
                 let rightItem = unchecked(rightValues[j]);
-                if (Reflect.equals(leftItem, rightItem, stack, cache) !== Reflect.FAIL) {
+                if (Reflect.equals(leftItem, rightItem, stack, cache) !== Reflect.FAILED_MATCH) {
                   rightValues.splice(j, 1);
                   leftoverLength--;
                   continueOuter = true;
@@ -93,7 +89,7 @@ export class Reflect {
 
             stack.pop();
             stack.pop();
-            return Reflect.FAIL;
+            return Reflect.FAILED_MATCH;
           }
 
           cache.push(a);
@@ -101,19 +97,24 @@ export class Reflect {
 
           stack.pop();
           stack.pop();
-          return Reflect.MATCH;
+          return Reflect.SUCCESSFUL_MATCH;
         }
 
         if (left instanceof Map<indexof<T>, valueof<T>>) {
-          if (left.size !== right.size) return Reflect.FAIL;
+          if (left.size !== right.size) return Reflect.FAILED_MATCH;
           stack.push(a);
           stack.push(b);
 
+          // collect all the keys and loop over each one
           let leftKeys = left.keys();
           let rightKeys = right.keys();
 
           let keyLength = leftKeys.length;
           let leftoverKeyLength = keyLength;
+
+          // assume we match and determine if the match was a failure
+          let result = Reflect.SUCCESSFUL_MATCH;
+
           // for each key
           for (let i = 0; i < keyLength; i++) {
             let leftKey = unchecked(leftKeys[i]);
@@ -123,13 +124,15 @@ export class Reflect {
             // find a matching key
             for (let j = 0; j < leftoverKeyLength; j++) {
               let rightKey = unchecked(rightKeys[j]);
-              if (Reflect.equals(leftKey, rightKey, stack, cache) !== Reflect.FAIL) {
-                // the key potentially matches at least
+
+              // if the keys match, or are still being resolved
+              if (Reflect.equals(leftKey, rightKey, stack, cache) !== Reflect.FAILED_MATCH) {
+                // the key potentially matches, obtain the values associated with the keys
                 let leftValue = left.get(leftKey);
                 let rightValue = right.get(rightKey);
 
-                // the values potentially match
-                if (Reflect.equals(leftValue, rightValue, stack, cache) !== Reflect.FAIL) {
+                // if the values match, or are still being resolved
+                if (Reflect.equals(leftValue, rightValue, stack, cache) !== Reflect.FAILED_MATCH) {
                   leftoverKeyLength--;
                   rightKeys.splice(j, 1); // remove this key from the list
                   found = true;
@@ -137,20 +140,23 @@ export class Reflect {
                 }
               }
             }
-            if (found) {
-              continue;
-            } else {
-              // there was no match for this key value pair
-              stack.pop();
-              stack.pop();
-              return Reflect.FAIL;
+
+            // if there was no match for this key value pair, the result is Failed
+            if (!found) {
+              result = Reflect.FAILED_MATCH;
+              break;
             }
           }
-          cache.push(a);
-          cache.push(b);
+
+          // if every key matched, result is still equal to `Reflect.MATCH`
+          if (result === Reflect.SUCCESSFUL_MATCH) {
+            cache.push(a);
+            cache.push(b);
+          }
+
           stack.pop();
           stack.pop();
-          return Reflect.MATCH;
+          return result;
         }
       }
 
@@ -161,7 +167,7 @@ export class Reflect {
         let bLength = right.length;
 
         // assert the lengths are good
-        if (aLength !== bLength) return Reflect.FAIL;
+        if (aLength !== bLength) return Reflect.FAILED_MATCH;
 
 
 
@@ -173,14 +179,14 @@ export class Reflect {
             stack,
             cache,
           );
-          if (result === Reflect.FAIL) return Reflect.FAIL;
+          if (result === Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
         }
 
         // cache this result
         cache.push(a);
         cache.push(b);
 
-        return Reflect.MATCH;
+        return Reflect.SUCCESSFUL_MATCH;
       }
 
       // todo: handle Set<keyof<T>> and Map<keyof<T>, valueof<T>>
@@ -205,10 +211,30 @@ export class Reflect {
 
       stack.pop();
       stack.pop();
-      return select(Reflect.MATCH, Reflect.FAIL, result);
+      return select(Reflect.SUCCESSFUL_MATCH, Reflect.FAILED_MATCH, result);
     } else {
       // value type, and strict equality cannot be asserted
-      return Reflect.FAIL;
+      return Reflect.FAILED_MATCH;
     }
   }
+}
+
+export namespace Reflect {
+  /**
+   * A return value from the Reflect.equals function used to indicate two values
+   * do not strictly equal each other.
+   */
+  export const FAILED_MATCH = 0;
+  /**
+   * A return value from the Reflect.equals function used to indicate two values
+   * strictly equal each other.
+   */
+  export const SUCCESSFUL_MATCH = 1;
+  /**
+   * A return value from the Reflect.equals function used to indicate two values
+   * potentially strictly equal each other, but because the pair is currently
+   * resolving because of circular references, we cannot confirm it's a succesful
+   * match. Instead, we *assume* it's succesful and ignore the current pair.
+   */
+  export const DEFER_MATCH = 2;
 }
