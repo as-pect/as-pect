@@ -306,3 +306,490 @@ describe("toStrictEqual", () => {
     expect(eventDispatcher.events[0]).not.toStrictEqual(listener);
   });
 });
+
+
+class A {
+  a: f64 = 1.0;
+  b: B | null = null;
+  c: f64 = 3.0;
+}
+class B {
+  a: f64 = 1.0;
+  b: f64 = 2.0;
+  c: f64 = 3.0;
+}
+
+class C {
+  a: f64 = 1.0;
+  b: D | null = null;
+  c: f64 = 2.0;
+}
+
+class D {
+  a: f64 = 2.0;
+  b: C | null = null;
+  c: f64 = 3.0;
+}
+
+class G<T> {
+  constructor(public field: T) {}
+}
+
+describe("nested structures", () => {
+
+  /**
+   * Nested objects should strictly equal each other.
+   */
+  test("strict equality with nested structures should work as expected", () => {
+    let a = new A();
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    let d = new B();
+    c.b = d;
+
+    expect(a).toStrictEqual(c, "nested structures should match in value");
+  });
+
+  /**
+   * When objects do not strictly equal each other, it should throw an error.
+   */
+  throws("when strict equality with nested structures is expected", () => {
+    let a = new A();
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    c.b = null; // implied, but shown here to be explicit
+
+    expect(a).toStrictEqual(c);
+  }, "the nested structures should not match in value");
+
+  /**
+   * It should throw when objects that strictly equal each other are expected to *not*
+   * strictly equal each other.
+   */
+  throws("when strict equality is not expected", () => {
+    let a = new A();
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    let d = new B();
+    c.b = d;
+
+    expect(a).not.toStrictEqual(c);
+  }, "nested structures should match in value");
+
+  /**
+   * It should pass when objects are expected not to strictly equal each other.
+   */
+  test("when strict equality with nested structures is not expected", () => {
+    let a = new A();
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    c.b = null; // implied, but shown here to be explicit
+
+    expect(a).not.toStrictEqual(c, "nested structures should not match in value");
+  });
+
+  /**
+   * Circular references are a complicated problem to solve, so assert that
+   * strictly equal objects that have circular references match.
+   */
+  test("circular references don't break", () => {
+    let a = new C();
+    let b = new D();
+    a.b = b;
+    b.b = a;
+
+    let c = new C();
+    let d = new D();
+    c.b = d;
+    d.b = c;
+
+    expect(a).toStrictEqual(c, "circular references should match without infinite recursion.");
+    expect(b).toStrictEqual(d, "circular references should match without infinite recursion.");
+  });
+
+  /**
+   * Contrapositive of the previous test.
+   */
+  throws("when a circular reference occurs but the structure does not match", () => {
+    let a = new C();
+    let b = new D();
+    a.b = b;
+    b.b = a;
+
+    let c = new C();
+    let d = new D();
+    c.b = d;
+    d.b = null;
+
+    expect(a).toStrictEqual(c);
+  }, "circular references should match without infinite recursion.");
+
+  /**
+   * Circular references that equal each other should throw when they are expected not to equal.
+   */
+  throws("when circular references occur but strict equality is not expected", () => {
+    let a = new C();
+    let b = new D();
+    a.b = b;
+    b.b = a;
+
+    let c = new C();
+    let d = new D();
+    c.b = d;
+    d.b = c;
+
+    expect(a).not.toStrictEqual(c);
+  }, "circular references should match without infinite recursion.");
+
+  /**
+   * Contrapositive of the previous test.
+   */
+  test("circular references that do not match", () => {
+    let a = new C();
+    let b = new D();
+    a.b = b;
+    b.b = a;
+
+    let c = new C();
+    let d = new D();
+    c.b = d;
+    d.b = null;
+
+    expect(a).not.toStrictEqual(c, "circular references should that do not match should not match.");
+  });
+
+  /**
+   * Passing generic type information into transform parameters is a hastle. Assert
+   * that classes with generic type parameters can strictly equal each other.
+   */
+  test("equality of generics", () => {
+    let a = new A();
+    let b = new B();
+    a.b = b;
+    let c = new A();
+    let d = new B();
+    c.b = d;
+    let g = new G<A>(a);
+    let h = new G<A>(c);
+    expect(g).toStrictEqual(h, "generics should match if same class types");
+  });
+
+  /**
+   * Sets with similar structure should strictly equal.
+   */
+  test("sets should compare references", () => {
+    let setA = new Set<Vec3>();
+    let setB = new Set<Vec3>();
+
+    let a = new Vec3(1, 2, 3);
+    let b = new Vec3(1, 2, 3);
+    let c = new Vec3(4, 5, 6);
+    let d = new Vec3(4, 5, 6);
+
+    setA.add(a);
+    setA.add(c);
+    setB.add(b);
+    setB.add(d);
+
+    expect(setA).toStrictEqual(setB, "sets with similar values should be strictly equal");
+  });
+
+  /**
+   * Sets with numeric values should strictly equal each other.
+   */
+  test("sets of numbers", () => {
+    let a = new Set<i32>();
+    a.add(1);
+    a.add(2);
+    a.add(3);
+    a.add(4);
+
+    let b = new Set<i32>();
+    b.add(1);
+    b.add(2);
+    b.add(3);
+    b.add(4);
+
+    expect(a).toStrictEqual(b, "two sets of numbers should be equal");
+  });
+
+  /**
+   * Sets with dissimilar values should throw.
+   */
+  throws("when sets of numbers don't equal each other", () => {
+    let a = new Set<i32>();
+    a.add(1);
+    a.add(2);
+    a.add(3);
+    a.add(4);
+
+    let b = new Set<i32>();
+    b.add(1);
+    b.add(2);
+    b.add(3);
+    b.add(5);
+
+    expect(a).toStrictEqual(b);
+  }, "two sets of numbers that don't equal should throw");
+
+  /**
+   * Sets of references with similar values should strictly equal each other.
+   */
+  test("sets of references", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+    a.add(new Vec3(7, 8, 9));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(4, 5, 6));
+    b.add(new Vec3(7, 8, 9));
+
+    expect(a).toStrictEqual(b, "two sets of vec3 should be equal");
+  });
+
+  /**
+   * Sets of dissimilar values should throw.
+   */
+  throws("when sets of references don't equal each other", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+    a.add(new Vec3(7, 8, 9));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(5, 5, 6));
+    b.add(new Vec3(7, 8, 9));
+
+    expect(a).toStrictEqual(b);
+  }, "two sets of vec3 that don't equal each other should throw");
+
+  /**
+   * Sets of similar values that shouldn't equal each other should throw.
+   */
+  throws("sets of references equal each other", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+    a.add(new Vec3(7, 8, 9));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(4, 5, 6));
+    b.add(new Vec3(7, 8, 9));
+
+    expect(a).not.toStrictEqual(b);
+  }, "two sets of vec3 should be equal");
+
+  /**
+   * Sets of dissimilar values, expected not to equal each other, should not throw.
+   */
+  test("sets of references that don't equal each other", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+    a.add(new Vec3(7, 8, 9));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(5, 5, 6));
+    b.add(new Vec3(7, 8, 9));
+
+    expect(a).not.toStrictEqual(b);
+  });
+
+  /**
+   * Maps of simple keys and values should match each other.
+   */
+  test("maps with key value pairs of numbers should strictly equal each other", () => {
+    let a = new Map<i32, i32>();
+    a.set(1, 4);
+    a.set(2, 5);
+    a.set(3, 6);
+
+    let b = new Map<i32, i32>();
+    b.set(1, 4);
+    b.set(2, 5);
+    b.set(3, 6);
+
+    expect(a).toStrictEqual(b, "maps should strictly equal each other");
+  });
+
+  /**
+   * Maps with dissimilar values, when expected to match each other, should throw.
+   */
+  throws("when maps with key value pairs of numbers don't strictly equal each other", () => {
+    let a = new Map<i32, i32>();
+    a.set(1, 4);
+    a.set(2, 5);
+    a.set(3, 6);
+
+    let b = new Map<i32, i32>();
+    b.set(1, 4);
+    b.set(2, 8);
+    b.set(3, 6);
+
+    expect(a).toStrictEqual(b);
+  }, "maps with key value pairs of numbers that don't strictly equal each other should throw");
+
+  /**
+   * Maps with object keys should be treated with strict equality rather than exact equality.
+   */
+  test("maps with object keys should strictly equal each other", () => {
+    let a = new Map<Vec3, i32>();
+    a.set(new Vec3(1, 2, 3), 1);
+    a.set(new Vec3(4, 5, 6), 2);
+    a.set(new Vec3(7, 8, 9), 3);
+
+    let b = new Map<Vec3, i32>();
+    b.set(new Vec3(1, 2, 3), 1);
+    b.set(new Vec3(4, 5, 6), 2);
+    b.set(new Vec3(7, 8, 9), 3);
+
+    expect(a).toStrictEqual(b, "Maps with object keys should equal each other");
+  });
+
+  /**
+   * When a Map strictly equals another map, and it's not expected to equal, it should throw.
+   */
+  throws("when maps that equal each other are expected to not strictly equal", () => {
+    let a = new Map<Vec3, i32>();
+    a.set(new Vec3(1, 2, 3), 1);
+    a.set(new Vec3(4, 5, 6), 2);
+    a.set(new Vec3(7, 8, 9), 3);
+
+    let b = new Map<Vec3, i32>();
+    b.set(new Vec3(1, 2, 3), 1);
+    b.set(new Vec3(4, 5, 6), 2);
+    b.set(new Vec3(7, 8, 9), 3);
+
+    expect(a).not.toStrictEqual(b);
+  }, "Maps with object keys should equal each other");
+
+  /**
+   * Maps with dissimilar key value pairs should throw when expected to equal each other.
+   */
+  throws("when maps with object keys that don't strictly equal each other", () => {
+    let a = new Map<Vec3, i32>();
+    a.set(new Vec3(1, 2, 3), 1);
+    a.set(new Vec3(4, 5, 6), 2);
+    a.set(new Vec3(7, 8, 9), 3);
+
+    let b = new Map<Vec3, i32>();
+    b.set(new Vec3(1, 2, 3), 1);
+    b.set(new Vec3(5, 5, 6), 2);
+    b.set(new Vec3(7, 8, 9), 3);
+
+    expect(a).toStrictEqual(b);
+  }, "Maps with object keys should equal each other");
+
+  /**
+   * Maps with dissimilar key value pairs should not throw when not expected to equal each other.
+   */
+  test("maps with object keys that don't strictly equal each other", () => {
+    let a = new Map<Vec3, i32>();
+    a.set(new Vec3(1, 2, 3), 1);
+    a.set(new Vec3(4, 5, 6), 2);
+    a.set(new Vec3(7, 8, 9), 3);
+
+    let b = new Map<Vec3, i32>();
+    b.set(new Vec3(1, 2, 3), 1);
+    b.set(new Vec3(5, 5, 6), 2);
+    b.set(new Vec3(7, 8, 9), 3);
+
+    expect(a).not.toStrictEqual(b, "Maps with object keys shouldn't equal each other");
+  });
+
+  /**
+   * Test maps with string keys.
+   */
+  test("maps with string keys and object values equal each other", () => {
+    let a = new Map<string, Vec3>();
+    a.set("one", new Vec3(1, 2, 3));
+    a.set("two", new Vec3(4, 5, 6));
+    a.set("three", new Vec3(7, 8, 9));
+
+    let b = new Map<string, Vec3>();
+    b.set("one", new Vec3(1, 2, 3));
+    b.set("two", new Vec3(4, 5, 6));
+    b.set("three", new Vec3(7, 8, 9));
+
+    expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
+  });
+
+  /**
+   * Maps with dissimilar key value pairs using strings should not equal each other.
+   */
+  throws("when maps with string keys don't match and object values equal each other", () => {
+    let a = new Map<string, Vec3>();
+    a.set("one", new Vec3(1, 2, 3));
+    a.set("two", new Vec3(4, 5, 6));
+    a.set("three", new Vec3(7, 8, 9));
+
+    let b = new Map<string, Vec3>();
+    b.set("one", new Vec3(1, 2, 3));
+    b.set("two", new Vec3(4, 5, 6));
+    b.set("four", new Vec3(7, 8, 9)); // should fail
+
+    expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
+  });
+
+  /**
+   * Maps with dissimilar values that are expected to equal should throw.
+   */
+  throws("when maps with string keys don't match and object values equal each other", () => {
+    let a = new Map<string, Vec3>();
+    a.set("one", new Vec3(1, 2, 3));
+    a.set("two", new Vec3(4, 5, 6));
+    a.set("three", new Vec3(7, 8, 9));
+
+    let b = new Map<string, Vec3>();
+    b.set("one", new Vec3(1, 2, 3));
+    b.set("two", new Vec3(4, 5, 6));
+    b.set("three", new Vec3(7, 8, 1));
+
+    expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
+  });
+
+  /**
+   * Just a complicated test to validate strict equality for multiple layers of nesting.
+   */
+  test("complicated object tree with sets and maps", () => {
+    let a = new Set<Vec3>();
+    a.add(new Vec3(1, 2, 3));
+    a.add(new Vec3(4, 5, 6));
+
+    let b = new Set<Vec3>();
+    b.add(new Vec3(1, 2, 3));
+    b.add(new Vec3(4, 5, 6));
+
+    let c = new Map<Set<Vec3>, string>();
+    c.set(a, "one");
+    c.set(b, "two");
+
+    let d = new Set<Vec3>();
+    d.add(new Vec3(1, 2, 3));
+    d.add(new Vec3(4, 5, 6));
+
+    let e = new Set<Vec3>();
+    e.add(new Vec3(1, 2, 3));
+    e.add(new Vec3(4, 5, 6));
+
+    let f = new Map<Set<Vec3>, string>();
+    f.set(d, "one");
+    f.set(e, "two");
+
+    expect(c).toStrictEqual(f, "complex data structure should match");
+  });
+
+  afterEach(() => {
+    // perform a garbage collection
+    RTrace.collect();
+  });
+});

@@ -55,6 +55,12 @@ let three = new Vec3(1,2,3);
 referenceTester.push(one);
 referenceTester.push(two);
 referenceTester.push(three);
+
+let referenceSet = new Set<Vec3>();
+referenceSet.add(one);
+referenceSet.add(two);
+referenceSet.add(three);
+
 /**
  * This value is not included.
  */
@@ -113,4 +119,32 @@ describe("toInclude reference arrays", () => {
   throws("should include a function pointer", () => {
     expect(eventDispatcher.events).not.toInclude(listener);
   });
+
+  /**
+   * Sets should be comparable for toInclude comparisons.
+   */
+  it("should include items in the set", () => {
+    expect(referenceSet).toInclude(one, "The item should be included in the set.");
+  });
+
+  /**
+   * If the item is not included in the set, it should throw.
+   */
+  throws("when item is not included in the set", () => {
+    expect(referenceSet).toInclude(new Vec3(10, 11, 12));
+  }, "The item should not be included in the set.");
+
+  /**
+   * If the item is not included in the set, it should throw.
+   */
+  test("should not include an item that is not in the set", () => {
+    expect(referenceSet).not.toInclude(new Vec3(10, 11, 12), "The item should not be included in the set.");
+  });
+
+  /**
+   * If the item is included in the set, it should throw.
+   */
+  throws("when item is not included in the set", () => {
+    expect(referenceSet).not.toInclude(one);
+  }, "The item should be included in the set.");
 });

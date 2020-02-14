@@ -18,6 +18,7 @@ import {
   xtest,
 } from "./internal/Test";
 import { log } from "./internal/log";
+import { Reflect } from "./internal/Reflect";
 import { RTrace } from "./internal/RTrace";
 import { Expected } from "./internal/report/Expected";
 export { __call } from "./internal/call";

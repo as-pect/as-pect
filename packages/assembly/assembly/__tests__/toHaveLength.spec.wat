@@ -117,6 +117,9 @@
  (global $assembly/__tests__/toHaveLength.spec/customExample (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
  (global $assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
+ (global $assembly/internal/Reflect/Reflect.FAILED_MATCH i32 (i32.const 0))
+ (global $assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH i32 (i32.const 1))
+ (global $assembly/internal/Reflect/Reflect.DEFER_MATCH i32 (i32.const 2))
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 2880))
@@ -3508,7 +3511,7 @@
   global.set $assembly/internal/report/Expected/Expected.type
   global.get $assembly/internal/report/Expected/Expected.reference
   i32.const 0
-  i32.eq
+  i32.ne
   if
    global.get $assembly/internal/report/Expected/Expected.isManaged
    if

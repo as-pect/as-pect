@@ -14,73 +14,77 @@ import { assert } from "./assert";
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
 // @ts-ignore expected is valueof<T> or it will be a compiler error
-export function toIncludeEqualComparison<T>(actual: T, expected: valueof<T>, negated: i32, message: string): void {
-  /**
-   * If `U` is not a reference or is a function pointer, then we delegate to `toIncludeComparison()`.
-   */
-  // @ts-ignore expected is valueof<T> or it will be a compiler error
-  if (!isReference<valueof<T>>(expected) || expected instanceof string || isFunction<valueof<T>>(expected)) {
-    toIncludeComparison<T>(actual, expected, negated, message);
-    return;
+export function toIncludeEqualComparison<T, U>(actual: T, expected: U, negated: i32, message: string): void {
+  if (!isDefined(actual[0])) {
+    ERROR("Cannot call toIncludeEquals on actual value of type T where T does not have an index signature.");
   }
 
   /**
-   * Always report "Included Reference" because it will be negated by the `Expectated.negated`
-   * property later.
+   * Assert that the actual value is not null.
    */
-  Expected.report("Included Reference", negated);
+  Actual.report(actual);
+  if (isNullable<T>()) {
+    Expected.report("null", 1);
+    assert(i32(actual !== null), "");
+  }
 
   /**
-   * This loop validates that a reference of type `U` exists with the same shape as the expected
-   * value within the Array.
+   * Always report that the comparison is looking for an included value. It will be negated by the
+   * Expected.negated property later.
    */
-  let included = false;
-  // @ts-ignore: if T does not have a length property, it will throw a compiler error.
-  for (let i: indexof<T> = 0; i < <indexof<T>>actual.length; i++) {
-    // @ts-ignore: if this expression does not work, it will throw a compiler error.
-    let item: valueof<T> = actual[i];
+  Expected.report("Included", negated);
 
-    /**
-     * This is a strict equality shortcut. If the values are equal, it's included.
-     */
-    if (item == expected) {
-      included = true;
-      break;
-    } else if (item !== null && expected !== null) {
-      if (expected instanceof ArrayBuffer) {
-        let expectedSize = load<i32>(changetype<usize>(expected) - 4);
-        let actualSize = load<i32>(changetype<usize>(item) - 4);
-        if (expectedSize == actualSize) {
-          let compare = memory.compare(
-            changetype<usize>(item),
-            changetype<usize>(expected),
-            actualSize,
-          );
+  /**
+   * This loop inspects each item and validates if the expected value is included in the array.
+   */
+  let includes = false;
 
-          /** If the memory.compare() returned 0, then the value is included. */
-          if (compare === 0) {
-            included = true;
-            break;
-          }
+  // test for Sets
+  if (actual instanceof Set<indexof<T>>) {
+    // @ts-ignore: type safe .has(expected) method call
+    if (actual.has(expected)) {
+      includes = true;
+    } else {
+      // if it isn't already in the set, we need to look over each value and inspect it for strict equality
+      // @ts-ignore: type safe .values() method call
+      let values = actual.values();
+      let length = values.length;
+      for (let i = 0; i < length; i++) {
+        let key = unchecked(values[i]);
+        if (Reflect.equals(key, expected) === Reflect.SUCCESSFUL_MATCH) {
+          includes = true;
+          break;
         }
-      } else {
-        /** Perform a memory comparison. */
-        let compare = memory.compare(
-          changetype<usize>(item),
-          changetype<usize>(expected),
-          // @ts-ignore: Compare the two blocks using `offsetof<valueof<T>>()`
-          offsetof<valueof<T>>(),
-        );
+      }
+    }
+  } else {
+    if (!isDefined(actual.length)) ERROR("Can only call toIncludeEquals on array-like objects or Sets.");
+    let length = <indexof<T>>actual.length;
 
-        /** If the memory.compare() returned 0, then the value is included. */
-        if (compare === 0) {
-          included = true;
+    if (isDefined(unchecked(actual[0]))) {
+      // @ts-ignore: if T does not have a length property, it will throw a compiler error.
+      for (let i = <indexof<T>>0; i < length; i++) {
+        // @ts-ignore: if this expression does not work, it will throw a compiler error.
+        if (Reflect.equals(unchecked(actual[i]), expected) === Reflect.SUCCESSFUL_MATCH) {
+          includes = true;
+          break;
+        }
+      }
+    } else {
+      // @ts-ignore: if T does not have a length property, it will throw a compiler error.
+      for (let i = <indexof<T>>0; i < length; i++) {
+        // @ts-ignore: if this expression does not work, it will throw a compiler error.
+        if (Reflect.equals(actual[i], expected) === Reflect.SUCCESSFUL_MATCH) {
+          includes = true;
           break;
         }
       }
     }
   }
 
-  Actual.report(included ? "Included Reference" : "Not Included Reference");
-  assert(i32(included) ^ negated, message);
+  /**
+   * If the item is included, report "Included", otherwise report "Not Included".
+   */
+  Actual.report(includes ? "Included" : "Not Included");
+  assert(negated ^ i32(includes), message);
 }

@@ -1590,4 +1590,47 @@ declare module "index" {
     export * from "util/IPerformanceConfiguration";
     export * from "util/LogValue";
 }
+declare module "transform/createStrictEqualsMember" {
+    import { ClassDeclaration, FunctionDeclaration } from "assemblyscript";
+    /**
+     * This method creates a single FunctionDeclaration that allows Reflect.equals
+     * to validate normal class member values.
+     *
+     * @param {ClassDeclaration} classDeclaration - The class that requires a new function.
+     */
+    export function createStrictEqualsMember(classDeclaration: ClassDeclaration): FunctionDeclaration;
+}
+declare module "transform/index" {
+    import { Parser } from "assemblyscript";
+    const _default: {
+        new (): {
+            /**
+             * This method results in a pure AST transform that inserts a strictEquals member
+             * into each ClassDeclaration.
+             *
+             * @param {Parser} parser - The AssemblyScript parser.
+             */
+            afterParse(parser: Parser): void;
+            /**
+             * This method results in a pure AST transform that inserts a strictEquals member
+             * into each ClassDeclaration.
+             *
+             * @param {Parser} parser - The AssemblyScript parser.
+             */
+            readonly program: import("assemblyscript").Program;
+            readonly baseDir: string;
+            readonly stdout: import("assemblyscript/cli/asc").OutputStream;
+            readonly stderr: import("assemblyscript/cli/asc").OutputStream;
+            readonly log: {
+                (message?: any, ...optionalParams: any[]): void;
+                (message?: any, ...optionalParams: any[]): void;
+            };
+            writeFile(filename: string, contents: string | Uint8Array, baseDir: string): boolean;
+            readFile(filename: string, baseDir: string): string | null;
+            listFiles(dirname: string, baseDir: string): string[] | null;
+            afterCompile?(module: import("assemblyscript").Module): void;
+        };
+    };
+    export = _default;
+}
 //# sourceMappingURL=as-pect.core.amd.d.ts.map

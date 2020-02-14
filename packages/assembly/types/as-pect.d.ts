@@ -520,7 +520,7 @@ declare class Expectation<T> {
    * ```
    */
   // @ts-ignore: expected value should be known at compile time
-  toInclude(expected: valueof<T>, message?: string): void;
+  toInclude<U extends (valueof<T> | indexof<T>)>(expected: U, message?: string): void;
 
   /**
    * This method asserts that a given T that extends `Array<U>` has a value/reference included.
@@ -550,7 +550,7 @@ declare class Expectation<T> {
    * ```
    */
   // @ts-ignore: expected value should be known at compile time
-  toIncludeEqual(expected: valueof<T>, message?: string): void;
+  toIncludeEqual<U extends (indexof<T> | valueof<T>)>(expected: U, message?: string): void;
 
   /**
    * This method asserts that a given T that extends `Array<U>` has a value/reference included and
@@ -565,7 +565,7 @@ declare class Expectation<T> {
    * ```
    */
   // @ts-ignore: expected value should be known at compile time
-  toContainEqual(expected: valueof<T>, message?: string): void;
+  toContainEqual<U extends (indexof<T> | valueof<T>)>(expected: U, message?: string): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
@@ -840,7 +840,7 @@ declare class RTrace {
   public static activeTestBlocks(): usize[];
 
   public static refCountOf(ptr: usize): u32;
-  
+
   /**
    * Gets the current count of the specified reference.
    * @param {T} reference - the reference.
@@ -901,4 +901,26 @@ declare class Expected {
    * Clear the expected value and release any private memory stored as a global.
    */
   public static clear(): void;
+}
+
+/**
+ * Reflection namespace for comparing references of a specific type.
+ */
+declare class Reflect {
+  /** A successful matching indicator. */
+  public static SUCCESSFUL_MATCH: i32;
+  /** An indicator that a matching operation has failed. */
+  public static FAILED_MATCH: i32;
+  /** A const to define when a matching operation should wait because a circular reference is currently resolving a match. */
+  public static DEFER_MATCH: i32;
+
+  /**
+   * A method used for comparing two values or references to determine if they match each other.
+   *
+   * @param {T} left - One of the values being compared.
+   * @param {T} right - One of the values being compared.
+   * @param {usize[]} stack - Internal use only, used to prevent recursion.
+   * @param {usize[]} cache - Internal use only, used to prevent recursion.
+   */
+  public static equals<T>(left: T, right: T, stack?: usize[], cache?: usize[]): i32;
 }
