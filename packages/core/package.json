@@ -1,6 +1,6 @@
 {
 	"name": "@as-pect/core",
-	"version": "2.8.1",
+	"version": "3.0.0-alpha.0",
 	"description": "Write AssemblyScript tests at blazing fast speeds",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
@@ -38,7 +38,7 @@
 		"ts-jest": "^25.2.0"
 	},
 	"dependencies": {
-		"@as-pect/assembly": "^2.8.1",
+		"@as-pect/assembly": "^3.0.0-alpha.0",
 		"chalk": "^3.0.0",
 		"long": "^4.0.0"
 	},
@@ -50,6 +50,6 @@
 		"csv-stringify": "^5.3.6"
 	},
 	"peerDependencies": {
-    "assemblyscript": "0.9.1-nightly.20200212"
-  }
+		"assemblyscript": "0.9.1-nightly.20200212"
+	}
 }
