@@ -121,7 +121,7 @@ describe("toInclude reference arrays", () => {
   });
 
   /**
-   * Sets should be value actual targets for toInclude function calls.
+   * Sets should be comparable for toInclude comparisons.
    */
   it("should include items in the set", () => {
     expect(referenceSet).toInclude(one, "The item should be included in the set.");

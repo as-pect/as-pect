@@ -159,7 +159,7 @@ describe("arrays with strings", () => {
 
 describe("sets", () => {
   /**
-   * Sets should be value actual targets for toInclude function calls.
+   * Sets should be comparable for toIncludeEqual comparisons.
    */
   it("should include items in the set", () => {
     expect(referenceSet).toIncludeEqual(new Vec3(1, 2, 3), "The item should be included in the set.");
