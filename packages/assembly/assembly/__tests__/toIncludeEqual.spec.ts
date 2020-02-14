@@ -26,11 +26,16 @@ describe("toIncludeEqual value arrays", () => {
 
 let referenceTester = new Array<Vec3>(0);
 let one = new Vec3(1,2,3);
-let two = new Vec3(1,2,3);
-let three = new Vec3(1,2,3);
+let two = new Vec3(4,5,6);
+let three = new Vec3(7,8,9);
 referenceTester.push(one);
 referenceTester.push(two);
 referenceTester.push(three);
+
+let referenceSet = new Set<Vec3>();
+referenceSet.add(one);
+referenceSet.add(two);
+referenceSet.add(three);
 
 /**
  * This test block describes the toIncludeEqual method which performs a block comparison on every
@@ -65,7 +70,7 @@ describe("toIncludeEqual reference arrays", () => {
    * value.
    */
   throws("when referenceTester doesn't include a reference", () => {
-    expect(referenceTester).toIncludeEqual(new Vec3(4, 5, 6));
+    expect(referenceTester).toIncludeEqual(new Vec3(10, 11, 12));
   }, "numberTester should not include four");
 
   /**
@@ -73,7 +78,7 @@ describe("toIncludeEqual reference arrays", () => {
    */
   it("should not include a reference", () => {
     expect(referenceTester).not
-      .toIncludeEqual(new Vec3(4, 5, 6), "referenceTester should not include reference four");
+      .toIncludeEqual(new Vec3(10, 11, 12), "referenceTester should not include reference four");
   });
 
   /**
@@ -150,4 +155,34 @@ describe("arrays with strings", () => {
   itThrows("when the value is included", () => {
     expect(stringRefs).toIncludeEqual("four");
   }, "The value is not included.");
+});
+
+describe("sets", () => {
+  /**
+   * Sets should be value actual targets for toInclude function calls.
+   */
+  it("should include items in the set", () => {
+    expect(referenceSet).toIncludeEqual(new Vec3(1, 2, 3), "The item should be included in the set.");
+  });
+
+  /**
+   * If the item is not included in the set, it should throw.
+   */
+  throws("when item is not included in the set", () => {
+    expect(referenceSet).toIncludeEqual(new Vec3(10, 11, 12));
+  }, "The item should not be included in the set.");
+
+  /**
+   * If the item is not included in the set, it should throw.
+   */
+  test("should not include an item that is not in the set", () => {
+    expect(referenceSet).not.toIncludeEqual(new Vec3(10, 11, 12), "The item should not be included in the set.");
+  });
+
+  /**
+   * If the item is included in the set, it should throw.
+   */
+  throws("when item is not included in the set", () => {
+    expect(referenceSet).not.toIncludeEqual(new Vec3(1, 2, 3));
+  }, "The item should be included in the set.");
 });

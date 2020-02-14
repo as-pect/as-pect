@@ -13,7 +13,20 @@ import { assert } from "./assert";
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
 // @ts-ignore expected is valueof<T> or it will be a compiler error
-export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated: i32, message: string): void {
+export function toIncludeComparison<T, U>(actual: T, expected: U, negated: i32, message: string): void {
+  if (!isDefined(actual[0])) {
+    ERROR("Cannot call toIncludeEquals on actual value of type T where T does not have an index signature.");
+  }
+
+  /**
+   * Assert that the actual value is not null.
+   */
+  Actual.report(actual);
+  if (isNullable<T>()) {
+    Expected.report("null", 1);
+    assert(i32(actual !== null), "");
+  }
+
   /**
    * Always report that the comparison is looking for an included value. It will be negated by the
    * Expected.negated property later.
@@ -24,13 +37,32 @@ export function toIncludeComparison<T>(actual: T, expected: valueof<T>, negated:
    * This loop inspects each item and validates if the expected value is included in the array.
    */
   let includes = false;
-  // @ts-ignore: if T does not have a length property, it will throw a compiler error.
-  for (let i: indexof<T> = 0; i < <indexof<T>>actual.length; i++) {
-    // @ts-ignore: if this expression does not work, it will throw a compiler error.
-    let val = actual[i];
-    if (val === expected) {
-      includes = true;
-      break;
+
+  // test for Sets
+  if (actual instanceof Set<indexof<T>>) {
+    // @ts-ignore: type safe .has(expected) method call
+    includes = actual.has(expected);
+  } else {
+    if (!isDefined(actual.length)) ERROR("Can only call toInclude on array-like objects or Sets.");
+    let length = <indexof<T>>actual.length;
+    if (isDefined(unchecked(actual[0]))) {
+      // @ts-ignore: if T does not have a length property, it will throw a compiler error.
+      for (let i = <indexof<T>>0; i < length; i++) {
+        // @ts-ignore: if this expression does not work, it will throw a compiler error.
+        if (unchecked(actual[i]) === expected) {
+          includes = true;
+          break;
+        }
+      }
+    } else {
+      // @ts-ignore: if T does not have a length property, it will throw a compiler error.
+      for (let i = <indexof<T>>0; i < length; i++) {
+        // @ts-ignore: if this expression does not work, it will throw a compiler error.
+        if (actual[i] === expected) {
+          includes = true;
+          break;
+        }
+      }
     }
   }
 

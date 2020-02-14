@@ -170,8 +170,8 @@ export class Expectation<T> {
   }
 
   // @ts-ignore: valueof<T> requires that T extends something with an @operator("[]")
-  public toInclude(expected: valueof<T>, message: string = ""): void {
-    toIncludeComparison<T>(this.actual, expected, this._not, message);
+  public toInclude<U>(expected: U, message: string = ""): void {
+    toIncludeComparison<T, U>(this.actual, expected, this._not, message);
     Actual.clear();
     Expected.clear();
   }
@@ -182,17 +182,17 @@ export class Expectation<T> {
   }
 
   // @ts-ignore: valueof<T> will throw a compiler if it is not valid
-  public toIncludeEqual(expected: valueof<T>, message: string = ""): void {
+  public toIncludeEqual<U>(expected: U, message: string = ""): void {
     // @ts-ignore Array<U> instanceof check
-    toIncludeEqualComparison<T>(this.actual, expected, this._not, message);
+    toIncludeEqualComparison<T, U>(this.actual, expected, this._not, message);
     Actual.clear();
     Expected.clear();
   }
 
   // @ts-ignore: valueof<T> will throw a compiler if it is not valid
-  public toContainEqual(expected: valueof<T>, message: string = ""): void {
+  public toContainEqual<U>(expected: U, message: string = ""): void {
     // @ts-ignore Array<U> instanceof check
-    this.toIncludeEqual(expected, message);
+    this.toIncludeEqual<U>(expected, message);
   }
 }
 

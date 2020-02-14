@@ -520,7 +520,7 @@ declare class Expectation<T> {
    * ```
    */
   // @ts-ignore: expected value should be known at compile time
-  toInclude(expected: valueof<T>, message?: string): void;
+  toInclude<U extends (valueof<T> | indexof<T>)>(expected: U, message?: string): void;
 
   /**
    * This method asserts that a given T that extends `Array<U>` has a value/reference included.
@@ -550,7 +550,7 @@ declare class Expectation<T> {
    * ```
    */
   // @ts-ignore: expected value should be known at compile time
-  toIncludeEqual(expected: valueof<T>, message?: string): void;
+  toIncludeEqual<U extends (indexof<T> | valueof<T>)>(expected: U, message?: string): void;
 
   /**
    * This method asserts that a given T that extends `Array<U>` has a value/reference included and
@@ -565,7 +565,7 @@ declare class Expectation<T> {
    * ```
    */
   // @ts-ignore: expected value should be known at compile time
-  toContainEqual(expected: valueof<T>, message?: string): void;
+  toContainEqual<U extends (indexof<T> | valueof<T>)>(expected: U, message?: string): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
@@ -840,7 +840,7 @@ declare class RTrace {
   public static activeTestBlocks(): usize[];
 
   public static refCountOf(ptr: usize): u32;
-  
+
   /**
    * Gets the current count of the specified reference.
    * @param {T} reference - the reference.
