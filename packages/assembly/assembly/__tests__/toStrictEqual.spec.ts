@@ -336,6 +336,10 @@ class G<T> {
 }
 
 describe("nested structures", () => {
+
+  /**
+   * Nested objects should strictly equal each other.
+   */
   test("strict equality with nested structures should work as expected", () => {
     let a = new A();
     let b = new B();
@@ -347,6 +351,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(c, "nested structures should match in value");
   });
 
+  /**
+   * When objects do not strictly equal each other, it should throw an error.
+   */
   throws("when strict equality with nested structures is expected", () => {
     let a = new A();
     let b = new B();
@@ -357,6 +364,10 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(c);
   }, "the nested structures should not match in value");
 
+  /**
+   * It should throw when objects that strictly equal each other are expected to *not*
+   * strictly equal each other.
+   */
   throws("when strict equality is not expected", () => {
     let a = new A();
     let b = new B();
@@ -368,6 +379,9 @@ describe("nested structures", () => {
     expect(a).not.toStrictEqual(c);
   }, "nested structures should match in value");
 
+  /**
+   * It should pass when objects are expected not to strictly equal each other.
+   */
   test("when strict equality with nested structures is not expected", () => {
     let a = new A();
     let b = new B();
@@ -375,9 +389,13 @@ describe("nested structures", () => {
     let c = new A();
     c.b = null; // implied, but shown here to be explicit
 
-    expect(a).not.toStrictEqual(c);
+    expect(a).not.toStrictEqual(c, "nested structures should not match in value");
   });
 
+  /**
+   * Circular references are a complicated problem to solve, so assert that
+   * strictly equal objects that have circular references match.
+   */
   test("circular references don't break", () => {
     let a = new C();
     let b = new D();
@@ -393,6 +411,9 @@ describe("nested structures", () => {
     expect(b).toStrictEqual(d, "circular references should match without infinite recursion.");
   });
 
+  /**
+   * Contrapositive of the previous test.
+   */
   throws("when a circular reference occurs but the structure does not match", () => {
     let a = new C();
     let b = new D();
@@ -407,6 +428,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(c);
   }, "circular references should match without infinite recursion.");
 
+  /**
+   * Circular references that equal each other should throw when they are expected not to equal.
+   */
   throws("when circular references occur but strict equality is not expected", () => {
     let a = new C();
     let b = new D();
@@ -421,6 +445,9 @@ describe("nested structures", () => {
     expect(a).not.toStrictEqual(c);
   }, "circular references should match without infinite recursion.");
 
+  /**
+   * Contrapositive of the previous test.
+   */
   test("circular references that do not match", () => {
     let a = new C();
     let b = new D();
@@ -435,6 +462,10 @@ describe("nested structures", () => {
     expect(a).not.toStrictEqual(c, "circular references should that do not match should not match.");
   });
 
+  /**
+   * Passing generic type information into transform parameters is a hastle. Assert
+   * that classes with generic type parameters can strictly equal each other.
+   */
   test("equality of generics", () => {
     let a = new A();
     let b = new B();
@@ -447,6 +478,9 @@ describe("nested structures", () => {
     expect(g).toStrictEqual(h, "generics should match if same class types");
   });
 
+  /**
+   * Sets with similar structure should strictly equal.
+   */
   test("sets should compare references", () => {
     let setA = new Set<Vec3>();
     let setB = new Set<Vec3>();
@@ -464,6 +498,9 @@ describe("nested structures", () => {
     expect(setA).toStrictEqual(setB, "sets with similar values should be strictly equal");
   });
 
+  /**
+   * Sets with numeric values should strictly equal each other.
+   */
   test("sets of numbers", () => {
     let a = new Set<i32>();
     a.add(1);
@@ -480,7 +517,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b, "two sets of numbers should be equal");
   });
 
-
+  /**
+   * Sets with dissimilar values should throw.
+   */
   throws("when sets of numbers don't equal each other", () => {
     let a = new Set<i32>();
     a.add(1);
@@ -497,6 +536,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b);
   }, "two sets of numbers that don't equal should throw");
 
+  /**
+   * Sets of references with similar values should strictly equal each other.
+   */
   test("sets of references", () => {
     let a = new Set<Vec3>();
     a.add(new Vec3(1, 2, 3));
@@ -511,6 +553,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b, "two sets of vec3 should be equal");
   });
 
+  /**
+   * Sets of dissimilar values should throw.
+   */
   throws("when sets of references don't equal each other", () => {
     let a = new Set<Vec3>();
     a.add(new Vec3(1, 2, 3));
@@ -525,6 +570,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b);
   }, "two sets of vec3 that don't equal each other should throw");
 
+  /**
+   * Sets of similar values that shouldn't equal each other should throw.
+   */
   throws("sets of references equal each other", () => {
     let a = new Set<Vec3>();
     a.add(new Vec3(1, 2, 3));
@@ -539,6 +587,9 @@ describe("nested structures", () => {
     expect(a).not.toStrictEqual(b);
   }, "two sets of vec3 should be equal");
 
+  /**
+   * Sets of dissimilar values, expected not to equal each other, should not throw.
+   */
   test("sets of references that don't equal each other", () => {
     let a = new Set<Vec3>();
     a.add(new Vec3(1, 2, 3));
@@ -553,6 +604,9 @@ describe("nested structures", () => {
     expect(a).not.toStrictEqual(b);
   });
 
+  /**
+   * Maps of simple keys and values should match each other.
+   */
   test("maps with key value pairs of numbers should strictly equal each other", () => {
     let a = new Map<i32, i32>();
     a.set(1, 4);
@@ -567,6 +621,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b, "maps should strictly equal each other");
   });
 
+  /**
+   * Maps with dissimilar values, when expected to match each other, should throw.
+   */
   throws("when maps with key value pairs of numbers don't strictly equal each other", () => {
     let a = new Map<i32, i32>();
     a.set(1, 4);
@@ -581,6 +638,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b);
   }, "maps with key value pairs of numbers that don't strictly equal each other should throw");
 
+  /**
+   * Maps with object keys should be treated with strict equality rather than exact equality.
+   */
   test("maps with object keys should strictly equal each other", () => {
     let a = new Map<Vec3, i32>();
     a.set(new Vec3(1, 2, 3), 1);
@@ -595,6 +655,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b, "Maps with object keys should equal each other");
   });
 
+  /**
+   * When a Map strictly equals another map, and it's not expected to equal, it should throw.
+   */
   throws("when maps that equal each other are expected to not strictly equal", () => {
     let a = new Map<Vec3, i32>();
     a.set(new Vec3(1, 2, 3), 1);
@@ -609,6 +672,9 @@ describe("nested structures", () => {
     expect(a).not.toStrictEqual(b);
   }, "Maps with object keys should equal each other");
 
+  /**
+   * Maps with dissimilar key value pairs should throw when expected to equal each other.
+   */
   throws("when maps with object keys that don't strictly equal each other", () => {
     let a = new Map<Vec3, i32>();
     a.set(new Vec3(1, 2, 3), 1);
@@ -623,6 +689,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b);
   }, "Maps with object keys should equal each other");
 
+  /**
+   * Maps with dissimilar key value pairs should not throw when not expected to equal each other.
+   */
   test("maps with object keys that don't strictly equal each other", () => {
     let a = new Map<Vec3, i32>();
     a.set(new Vec3(1, 2, 3), 1);
@@ -637,6 +706,9 @@ describe("nested structures", () => {
     expect(a).not.toStrictEqual(b, "Maps with object keys shouldn't equal each other");
   });
 
+  /**
+   * Test maps with string keys.
+   */
   test("maps with string keys and object values equal each other", () => {
     let a = new Map<string, Vec3>();
     a.set("one", new Vec3(1, 2, 3));
@@ -651,6 +723,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
   });
 
+  /**
+   * Maps with dissimilar key value pairs using strings should not equal each other.
+   */
   throws("when maps with string keys don't match and object values equal each other", () => {
     let a = new Map<string, Vec3>();
     a.set("one", new Vec3(1, 2, 3));
@@ -665,6 +740,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
   });
 
+  /**
+   * Maps with dissimilar values that are expected to equal should throw.
+   */
   throws("when maps with string keys don't match and object values equal each other", () => {
     let a = new Map<string, Vec3>();
     a.set("one", new Vec3(1, 2, 3));
@@ -679,6 +757,9 @@ describe("nested structures", () => {
     expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
   });
 
+  /**
+   * Just a complicated test to validate strict equality for multiple layers of nesting.
+   */
   test("complicated object tree with sets and maps", () => {
     let a = new Set<Vec3>();
     a.add(new Vec3(1, 2, 3));
@@ -708,6 +789,7 @@ describe("nested structures", () => {
   });
 
   afterEach(() => {
+    // perform a garbage collection
     RTrace.collect();
   });
 });
