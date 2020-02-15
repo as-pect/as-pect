@@ -30,7 +30,7 @@ declare function createHostValue(
 declare function __aspectPushHostObjectValue(hostObject: i32, value: i32): void;
 
 // @ts-ignore: external declaration
-@external("__aspect", "pushHostObjectKey")
+@external("__aspect", "pushHostObjectKey") @global
 declare function __aspectPushHostObjectKey(hostObject: i32, value: i32): void;
 
 
