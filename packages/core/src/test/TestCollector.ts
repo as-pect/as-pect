@@ -1334,6 +1334,7 @@ export class TestCollector {
     typeName: number, // nameof<T>()
     value: number, // usize | Box<T>
     hasValues: 1 | 0,
+    negated: 1 | 0,
     ): number {
     const hostValue = new HostValue();
     hostValue.isNull = isNull === 1;
@@ -1359,6 +1360,7 @@ export class TestCollector {
       hostValue.value = value;
     }
     hostValue.values = hasValues ? [] : null;
+    hostValue.negated = negated === 1;
     return this.hostValueCache.push(hostValue) - 1;
   }
 

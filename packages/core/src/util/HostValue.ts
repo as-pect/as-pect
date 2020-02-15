@@ -14,4 +14,5 @@ export class HostValue {
   size: number = 0;
   signed: boolean = false;
   stack: string = "";
+  negated: boolean = false;
 }

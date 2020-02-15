@@ -23,6 +23,7 @@ declare function createHostValue(
   typeName: string,
   value: usize,
   hasValues: bool,
+  negated: bool,
 ): i32;
 
 // @ts-ignore: external declaration
@@ -61,6 +62,7 @@ export class Reflect {
           isFunction<T>() ? "Function" : nameof<T>(),
           0,
           false,
+          false,
         );
       }
     }
@@ -88,6 +90,7 @@ export class Reflect {
           "Function",
           changetype<usize>(value),
           false,
+          false,
         );
         return hostValue;
       } else if (value instanceof Set) {
@@ -105,6 +108,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // sets have values
+          false,
         );
 
         // cache this value
@@ -133,6 +137,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // maps have values
+          false,
         );
 
         // cache this value
@@ -169,6 +174,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // maps have values
+          false,
         );
 
         // cache this value
@@ -199,6 +205,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // maps have values
+          false,
         );
 
         // cache this value
@@ -234,6 +241,7 @@ export class Reflect {
           nameof<T>(),
           changetype<usize>(value),
           false,
+          false,
         );
         seen.set(changetype<usize>(value), hostValue);
         return hostValue;
@@ -252,6 +260,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // classes have values
+          false,
         );
 
         // cache this object
@@ -276,6 +285,7 @@ export class Reflect {
         idof<T>(),
         nameof<T>(),
         changetype<usize>(box),
+        false,
         false,
       );
       return hostObject;

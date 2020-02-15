@@ -3,8 +3,8 @@ import { TestContext } from "../test/TestContext";
 import { TestResult } from "../test/TestResult";
 import { TestGroup } from "../test/TestGroup";
 import { IWritable } from "../util/IWriteable";
-import { LogValue } from "../util/LogValue";
-import { createReferenceString } from "./util/createReferenceString";
+import { HostValue } from "../util/HostValue";
+import { stringifyHostValue } from "./util/stringifyHostValue";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -109,11 +109,11 @@ export default class SummaryReporter extends TestReporter {
           );
           if (test.expected !== null)
             suite.stdout!.write(
-              chalk`      {green.bold [Expected]:} ${test.expected.message}\n`,
+              chalk`      {green.bold [Expected]:} ${stringifyHostValue(test.expected, 2).trimLeft()}\n`,
             );
           if (test.actual !== null)
             suite.stdout!.write(
-              chalk`      {red.bold [Actual]  :} ${test.actual.message}\n`,
+              chalk`      {red.bold [Actual]  :} ${stringifyHostValue(test.actual, 2).trimLeft()}\n`,
             );
           if (this.enableLogging) {
             for (const log of test.logs) {
@@ -150,37 +150,11 @@ export default class SummaryReporter extends TestReporter {
   /**
    * A custom logger function for the default reporter that writes the log values using `console.log()`
    *
-   * @param {LogValue} logValue - A value to be logged to the console
+   * @param {HostValue} logValue - A value to be logged to the console
    */
-  public onLog(logValue: LogValue): void {
+  public onLog(logValue: HostValue): void {
     const chalk = require("chalk");
-    // create string representations of the pointer
-    const pointer: string = logValue.pointer.toString();
-    const hexPointer: string = logValue.pointer.toString(16);
-
-    // log the log message
-    if (logValue.pointer > 0) {
-      this.stdout!.write(
-        chalk`     {yellow [Log]:} Reference at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}\n`,
-      );
-    } else {
-      this.stdout!.write(chalk`     {yellow [Log]:} ${logValue.message}\n`);
-    }
-
-    // if there are bytes to show, create a logging representation of the bytes
-    if (logValue.bytes.length > 0 || logValue.values.length > 0) {
-      const value = createReferenceString(logValue);
-      this.stdout!.write(
-        chalk`            {blueBright ${value
-          .split("\n")
-          .join("\n            ")}}\n`,
-      );
-    }
-
-    this.stdout!.write(
-      chalk`        {yellow ${logValue.stack
-        .split("\n")
-        .join("\n        ")}}\n\n`,
-    );
+    const output: string = stringifyHostValue(logValue, 2);
+    this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
   }
 }
