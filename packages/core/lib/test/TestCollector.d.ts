@@ -1,10 +1,10 @@
 import { IAspectExports } from "../util/IAspectExports";
-import { ActualValue } from "../util/ActualValue";
 import { TestGroup } from "./TestGroup";
 import { ILogTarget } from "../util/ILogTarget";
 import { IWarning } from "./IWarning";
 import { IPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 import { NameSection } from "../util/wasmTools";
+import { HostValue } from "../util/HostValue";
 /**
  * @ignore
  * This is a collection of all the parameters required for intantiating a TestCollector.
@@ -52,8 +52,8 @@ export declare class TestCollector {
     fileName: string;
     protected stack: string;
     protected message: string;
-    protected actual: ActualValue | null;
-    protected expected: ActualValue | null;
+    protected actual: HostValue | null;
+    protected expected: HostValue | null;
     private performanceEnabledValue;
     private maxSamplesValue;
     private maxTestRunTimeValue;
@@ -84,6 +84,11 @@ export declare class TestCollector {
      * assemblyscript imports.
      */
     protected rtraceEnabled: boolean;
+    /**
+     * A collection of host values used to help cache and aid in the creation
+     * of nested host values.
+     */
+    private hostValueCache;
     private rtraceLabels;
     constructor(props?: ITestCollectorParameters);
     /**
@@ -112,53 +117,6 @@ export declare class TestCollector {
      * returns 0.
      */
     protected tryCall(pointer: number): 1 | 0;
-    /**
-     * Log a null value to the reporter.
-     */
-    private logBool;
-    /**
-     * Log a null value to the reporter.
-     */
-    private logNull;
-    /**
-     * Log an array to the reporter.
-     *
-     * @param arrayPointer - The array pointer.
-     */
-    private logArray;
-    /**
-     * Log a reference to the reporter.
-     *
-     * @param {number} referencePointer - The pointer to the reference.
-     * @param {number} offset - The offset of the reference.
-     */
-    private logReference;
-    /**
-     * This adds a logged string to the current test.
-     *
-     * @param {number} pointer - The pointer to the logged string reference.
-     */
-    private logString;
-    /**
-     * Log a numevalueric value to the reporter.
-     *
-     * @param {number} value - The value to be logged.
-     * @param {1 | 0} signed - The value indicating if the number is signed.
-     */
-    private logValue;
-    /**
-     * Log a long value.
-     *
-     * @param {number} boxPointer - The boxed long value's pointer.
-     * @param {1 | 0} signed - An indicator if the long is signed.
-     */
-    private logLong;
-    /**
-     * Log a Function Index.
-     *
-     * @param {number} functionPointer - The function's pointer.
-     */
-    private logFunction;
     /**
      * This web assembly linked function creates a test group. It's called when the test suite calls
      * the describe("test", callback) function from within AssemblyScript. It receives a pointer to
@@ -228,123 +186,6 @@ export declare class TestCollector {
      * @param {number} todoPointer - The todo description string pointer.
      */
     private reportTodo;
-    /**
-     * This function reports an actual null value.
-     */
-    private reportActualNull;
-    /**
-     * This function reports an expected null value.
-     *
-     * @param {1 | 0} negated - An indicator if the expectation is negated.
-     */
-    private reportExpectedNull;
-    /**
-     * This function reports an actual numeric value.
-     *
-     * @param {number} numericValue - The value to be expected.
-     * @param {1 | 0} signed - The value indicating if the value is signed.
-     */
-    private reportActualValue;
-    /**
-     * This function reports an actual numeric value.
-     *
-     * @param {number} numericValue - The value to be expected.
-     * @param {1 | 0} signed - The value indicating if the value is signed.
-     */
-    private reportActualBool;
-    /**
-     * This function reports an expected numeric value.
-     *
-     * @param {number} numericValue - The expected value.
-     * @param {1 | 0} signed - The value indicating if the value is signed.
-     * @param {1 | 0} negated - An indicator if the expectation is negated.
-     */
-    private reportExpectedValue;
-    /**
-     * This function reports an expected numeric value.
-     *
-     * @param {number} numericValue - The expected value.
-     * @param {1 | 0} signed - The value indicating if the value is signed.
-     * @param {1 | 0} negated - An indicator if the expectation is negated.
-     */
-    private reportExpectedBool;
-    /**
-     * This function reports an actual long value.
-     *
-     * @param {number} boxPointer - The expected box pointer.
-     * @param {1 | 0} signed - An indicator if the long value is signed.
-     */
-    private reportActualLong;
-    /**
-     * This function reports an actual reference value.
-     *
-     * @param {number} referencePointer - The actual reference pointer.
-     * @param {number} offset - The size of the reference in bytes.
-     */
-    private reportActualReference;
-    /**
-     * This function reports an expected reference value.
-     *
-     * @param {number} referencePointer - The expected reference pointer.
-     * @param {number} offset - The size of the reference in bytes.
-     * @param {1 | 0} negated - An indicator if the expectation is negated.
-     */
-    private reportExpectedReference;
-    /**
-     * This function reports an expected long value.
-     *
-     * @param {number} boxPointer - The expected box pointer.
-     * @param {1 | 0} signed - An indicator if the long value is signed.
-     * @param {1 | 0} negated - An indicator if the expectation is negated.
-     */
-    private reportExpectedLong;
-    /**
-     * This function reports an expected truthy value.
-     *
-     * @param {1 | 0} negated - An indicator if the expectation is negated.
-     */
-    private reportExpectedTruthy;
-    /**
-     * This function reports an expected falsy value.
-     *
-     * @param {1 | 0} negated - An indicator if the expectation is negated.
-     */
-    private reportExpectedFalsy;
-    /**
-     * This function reports an expected finite value.
-     *
-     * @param {1 | 0} negated - An indicator if the expectation is negated.
-     */
-    private reportExpectedFinite;
-    /**
-     * This function reports an actual string value.
-     *
-     * @param {number} stringPointer - A pointer that points to the actual string.
-     */
-    private reportActualString;
-    /**
-     * This function reports an expected string value.
-     *
-     * @param {number} stringPointer - A pointer that points to the expected string.
-     * @param {1 | 0} negated - An indicator if the expectation is negated.
-     */
-    private reportExpectedString;
-    /**
-     * This function reports an expected function pointer index
-     *
-     * @param {number} functionPointer - A pointer that points to the expected string.
-     * @param {1 | 0} negated  - An indicator if the expectation is negated.
-     * @param stackTrace
-     */
-    private reportExpectedFunction;
-    /**
-     * This function reports an actual function pointer index
-     *
-     * @param {number} functionPointer - A pointer that points to the expected string.
-     * @param {1 | 0} negated  - An indicator if the expectation is negated.
-     * @param stackTrace
-     */
-    private reportActualFunction;
     /**
      * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
      * reasons.
@@ -431,19 +272,6 @@ export declare class TestCollector {
      * intended test functions.
      */
     private reportInvalidExpectCall;
-    /**
-     * This method reports an actual array value.
-     *
-     * @param {number} arrayPointer - The Array pointer.
-     */
-    private reportActualArray;
-    /**
-     * This  method reports an expected array value.
-     *
-     * @param {number} arrayPointer - The Array pointer.
-     * @param {1 | 0} negated - Is `1` if the expectation is negated.
-     */
-    private reportExpectedArray;
     /**
      * Gets an error stack trace.
      */
@@ -650,14 +478,6 @@ export declare class TestCollector {
      * This linked method gets all the current RTrace allocations for the current test.
      */
     private getRTraceTestBlocks;
-    private stackID;
-    protected stackTraces: Map<number, string>;
-    /**
-     * This function gets a stack trace, sets it to a number and returns it to web assembly. Later,
-     * when actual and expected values are reporter, this number will be used to get the correct
-     * stack trace.
-     */
-    private getStackTrace;
     /**
      * Gets a string from the wasm module, unless the module string is null. Otherwise it returns
      * a default value.
@@ -671,5 +491,58 @@ export declare class TestCollector {
      * @param {number[]} args - The traced arguments.
      */
     private trace;
+    /**
+     * Retrieve the function name of a given web assembly function.
+     *
+     * @param {number} index - The function index
+     */
     private funcName;
+    private createHostValue;
+    /**
+     * Get a boxed integer of a given kind at a pointer location.
+     *
+     * @param {number} pointer - The pointer location of the number
+     * @param {number} size - The size of the integer in bytes
+     * @param {boolean} signed - If the number is signed
+     */
+    private getInteger;
+    /**
+     * Get a boxed float of a given kind at a pointer location.
+     *
+     * @param {number} pointer - The pointer location of the number
+     * @param {number} size - The size of the float in bytes.
+     */
+    private getFloat;
+    /**
+     * Log a host value.
+     *
+     * @param {number} id - The HostValue id
+     */
+    private logHostValue;
+    /**
+     * Report an actual host value.
+     *
+     * @param {number} id - The HostValue id
+     */
+    private reportActualHostValue;
+    /**
+     * Report an expected host value.
+     *
+     * @param {number} id - The HostValue id
+     */
+    private reportExpectedHostValue;
+    /**
+     * Push a host value to a given host value.
+     *
+     * @param {number} hostObjectID - The target host value parent.
+     * @param {number} valueID - The target host value to be pushed.
+     */
+    private pushHostObjectValue;
+    /**
+     * Push a host value key to a given host value.
+     *
+     * @param {number} hostObjectID - The target host value parent.
+     * @param {number} keyId - The target host value key to be pushed.
+     */
+    private pushHostObjectKey;
 }

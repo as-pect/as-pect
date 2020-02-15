@@ -1,6 +1,4 @@
 import { IAspectExports } from "../util/IAspectExports";
-import { LogValue } from "../util/LogValue";
-import { ActualValue } from "../util/ActualValue";
 import { TestGroup } from "./TestGroup";
 import { ILogTarget } from "../util/ILogTarget";
 import { IWarning } from "./IWarning";
@@ -13,6 +11,8 @@ import { PerformanceLimits } from "./PerformanceLimits";
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
 import { NameSection } from "../util/wasmTools";
+import { HostValue } from "../util/HostValue";
+import { HostValueType } from "@as-pect/assembly/assembly/internal/report/HostValueType";
 
 /**
  * @ignore
@@ -78,8 +78,8 @@ export class TestCollector {
   // test state machine values
   protected stack: string = "";
   protected message: string = "";
-  protected actual: ActualValue | null = null;
-  protected expected: ActualValue | null = null;
+  protected actual: HostValue | null = null;
+  protected expected: HostValue | null = null;
 
   // performance collection values
   private performanceEnabledValue: boolean | undefined;
@@ -119,6 +119,12 @@ export class TestCollector {
    * assemblyscript imports.
    */
   protected rtraceEnabled: boolean = true;
+
+  /**
+   * A collection of host values used to help cache and aid in the creation
+   * of nested host values.
+   */
+  private hostValueCache: HostValue[] = [];
 
   // This map collects the starting values for the labels created by `RTrace.start()`
   private rtraceLabels: Map<number, number> = new Map();
@@ -272,6 +278,7 @@ export class TestCollector {
       ...imports, // get all the user defined imports
       {
         __aspect: {
+          createHostValue: this.createHostValue.bind(this),
           debug: this.debug.bind(this),
           endRTrace: this.endRTrace.bind(this),
           getRTraceAllocations: this.getRTraceAllocations.bind(this),
@@ -293,26 +300,13 @@ export class TestCollector {
           getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
           getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
           getRTraceTestReallocs: this.getRTraceTestReallocs.bind(this),
-          getStackTrace: this.getStackTrace.bind(this),
-          logArray: this.logArray.bind(this),
-          logBool: this.logBool.bind(this),
-          logFunction: this.logFunction.bind(this),
-          logLong: this.logLong.bind(this),
-          logNull: this.logNull.bind(this),
-          logReference: this.logReference.bind(this),
-          logString: this.logString.bind(this),
-          logValue: this.logValue.bind(this),
+          logHostValue: this.logHostValue.bind(this),
           maxSamples: this.maxSamples.bind(this),
           maxTestRunTime: this.maxTestRunTime.bind(this),
           performanceEnabled: this.performanceEnabled.bind(this),
-          reportActualArray: this.reportActualArray.bind(this),
-          reportActualBool: this.reportActualBool.bind(this),
-          reportActualFunction: this.reportActualFunction.bind(this),
-          reportActualLong: this.reportActualLong.bind(this),
-          reportActualNull: this.reportActualNull.bind(this),
-          reportActualReference: this.reportActualReference.bind(this),
-          reportActualString: this.reportActualString.bind(this),
-          reportActualValue: this.reportActualValue.bind(this),
+          pushHostObjectKey: this.pushHostObjectKey.bind(this),
+          pushHostObjectValue: this.pushHostObjectValue.bind(this),
+          reportActualHostValue: this.reportActualHostValue.bind(this),
           reportAfterAll: this.reportAfterAll.bind(this),
           reportAfterEach: this.reportAfterEach.bind(this),
           reportAverage: this.reportAverage.bind(this),
@@ -320,17 +314,7 @@ export class TestCollector {
           reportBeforeEach: this.reportBeforeEach.bind(this),
           reportDescribe: this.reportDescribe.bind(this),
           reportEndDescribe: this.reportEndDescribe.bind(this),
-          reportExpectedArray: this.reportExpectedArray.bind(this),
-          reportExpectedBool: this.reportExpectedBool.bind(this),
-          reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
-          reportExpectedFinite: this.reportExpectedFinite.bind(this),
-          reportExpectedFunction: this.reportExpectedFunction.bind(this),
-          reportExpectedLong: this.reportExpectedLong.bind(this),
-          reportExpectedNull: this.reportExpectedNull.bind(this),
-          reportExpectedReference: this.reportExpectedReference.bind(this),
-          reportExpectedString: this.reportExpectedString.bind(this),
-          reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
-          reportExpectedValue: this.reportExpectedValue.bind(this),
+          reportExpectedHostValue: this.reportExpectedHostValue.bind(this),
           reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
           reportMedian: this.reportMedian.bind(this),
@@ -403,172 +387,6 @@ export class TestCollector {
       return 0;
     }
     return 1;
-  }
-
-  /**
-   * Log a null value to the reporter.
-   */
-  private logBool(boolValue: number): void {
-    const value = new LogValue();
-    const target = this.logTarget;
-
-    value.stack = this.getLogStackTrace();
-    value.message = `Value ${!!boolValue}`;
-    value.value = boolValue;
-    value.target = target;
-  }
-
-  /**
-   * Log a null value to the reporter.
-   */
-  private logNull(): void {
-    // create a new log value
-    const value = new LogValue();
-    const target = this.logTarget;
-
-    // collect log metadata
-    value.stack = this.getLogStackTrace();
-    value.message = "null";
-    value.target = target;
-
-    // push the log value to the logs
-    target.logs.push(value);
-  }
-
-  /**
-   * Log an array to the reporter.
-   *
-   * @param arrayPointer - The array pointer.
-   */
-  private logArray(arrayPointer: number): void {
-    const value = new LogValue();
-    const target = this.logTarget;
-
-    value.stack = this.getLogStackTrace();
-    value.values = this.wasm!.__getArray(arrayPointer);
-    value.message = JSON.stringify(value.values);
-    value.target = target;
-
-    target.logs.push(value);
-  }
-
-  /**
-   * Log a reference to the reporter.
-   *
-   * @param {number} referencePointer - The pointer to the reference.
-   * @param {number} offset - The offset of the reference.
-   */
-  private logReference(referencePointer: number, offset: number): void {
-    const value = new LogValue();
-    const target = this.logTarget;
-
-    value.bytes = Array.from(
-      new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset),
-    );
-    value.message = "Reference Type";
-    value.offset = offset;
-    value.pointer = referencePointer;
-    value.stack = this.getLogStackTrace();
-    value.target = target;
-    value.value = referencePointer;
-
-    // push the log value to the logs
-    target.logs.push(value);
-  }
-
-  /**
-   * This adds a logged string to the current test.
-   *
-   * @param {number} pointer - The pointer to the logged string reference.
-   */
-  private logString(pointer: number): void {
-    const value = new LogValue();
-    const target = this.logTarget;
-
-    value.message = this.getString(pointer, "");
-    value.offset = 0;
-    value.pointer = pointer;
-    value.stack = this.getLogStackTrace();
-    value.target = target;
-    value.value = pointer;
-
-    // push the log value to the logs
-    target.logs.push(value);
-  }
-
-  /**
-   * Log a numevalueric value to the reporter.
-   *
-   * @param {number} value - The value to be logged.
-   * @param {1 | 0} signed - The value indicating if the number is signed.
-   */
-  private logValue(numericValue: number, signed: 1 | 0): void {
-    const value = new LogValue();
-    const target = this.logTarget;
-
-    // convert to unsigned value if the integer is not signed
-    numericValue = signed === 1 ? numericValue : numericValue >>> 0;
-
-    value.stack = this.getLogStackTrace();
-    value.message = `Value ${numericValue.toString()}`;
-    value.value = numericValue;
-    value.target = target;
-
-    // push the log value to the logs
-    target.logs.push(value);
-  }
-
-  /**
-   * Log a long value.
-   *
-   * @param {number} boxPointer - The boxed long value's pointer.
-   * @param {1 | 0} signed - An indicator if the long is signed.
-   */
-  private logLong(boxPointer: number, signed: 1 | 0): void {
-    const value = new LogValue();
-    const target = this.logTarget;
-
-    const long = new Long.fromBytesLE(
-      new Uint8Array(this.wasm!.memory.buffer, boxPointer, 8),
-      !signed,
-    );
-
-    value.stack = this.getLogStackTrace();
-    value.message = `Value ${long.toString()}`;
-    value.target = target;
-
-    // push the log value to the logs
-    target.logs.push(value);
-  }
-
-  /**
-   * Log a Function Index.
-   *
-   * @param {number} functionPointer - The function's pointer.
-   */
-  private logFunction(functionPointer: number): void {
-    const value = new LogValue();
-    const target = this.logTarget;
-
-    value.target = target;
-    value.fnPointer = functionPointer;
-
-    // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
-    /* istanbul ignore next */
-    const func = this.wasm?.table?.get(functionPointer);
-    /* istanbul ignore next */
-    if (this.wasm?.table && func) {
-      /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}: ${this.funcName(
-        parseInt(func.name),
-      )}]`;
-    } else {
-      /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}]`;
-    }
-
-    // push the log value to the logs
-    target.logs.push(value);
   }
 
   /**
@@ -786,364 +604,6 @@ export class TestCollector {
   }
 
   /**
-   * This function reports an actual null value.
-   */
-  private reportActualNull(stackTrace: number): void {
-    const value = new ActualValue();
-    value.message = `null`;
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.value = null;
-    this.actual = value;
-  }
-
-  /**
-   * This function reports an expected null value.
-   *
-   * @param {1 | 0} negated - An indicator if the expectation is negated.
-   */
-  private reportExpectedNull(negated: 1 | 0, stackTrace: number): void {
-    const value = new ActualValue();
-    value.message = `null`;
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    value.value = null;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an actual numeric value.
-   *
-   * @param {number} numericValue - The value to be expected.
-   * @param {1 | 0} signed - The value indicating if the value is signed.
-   */
-  private reportActualValue(
-    numericValue: number,
-    signed: 1 | 0,
-    stackTrace: number,
-  ): void {
-    // flip the sign bits if it's unsigned
-    numericValue = signed === 1 ? numericValue : numericValue >>> 0;
-
-    const value = new ActualValue();
-    value.message = numericValue.toString();
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.value = numericValue;
-    this.actual = value;
-  }
-
-  /**
-   * This function reports an actual numeric value.
-   *
-   * @param {number} numericValue - The value to be expected.
-   * @param {1 | 0} signed - The value indicating if the value is signed.
-   */
-  private reportActualBool(boolValue: 1 | 0, stackTrace: number): void {
-    const value = new ActualValue();
-    value.message = (!!boolValue).toString();
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.value = boolValue;
-    this.actual = value;
-  }
-
-  /**
-   * This function reports an expected numeric value.
-   *
-   * @param {number} numericValue - The expected value.
-   * @param {1 | 0} signed - The value indicating if the value is signed.
-   * @param {1 | 0} negated - An indicator if the expectation is negated.
-   */
-  private reportExpectedValue(
-    numericValue: number,
-    signed: 0 | 1,
-    negated: 0 | 1,
-    stackTrace: number,
-  ): void {
-    // convert to unsigned if the value is unsigned
-    numericValue = signed === 1 ? numericValue : numericValue >>> 0;
-
-    const value = new ActualValue();
-    value.message = numericValue.toString();
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    value.value = numericValue;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an expected numeric value.
-   *
-   * @param {number} numericValue - The expected value.
-   * @param {1 | 0} signed - The value indicating if the value is signed.
-   * @param {1 | 0} negated - An indicator if the expectation is negated.
-   */
-  private reportExpectedBool(
-    boolValue: 0 | 1,
-    negated: 0 | 1,
-    stackTrace: number,
-  ): void {
-    const value = new ActualValue();
-    value.message = (!!boolValue).toString();
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    value.value = boolValue;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an actual long value.
-   *
-   * @param {number} boxPointer - The expected box pointer.
-   * @param {1 | 0} signed - An indicator if the long value is signed.
-   */
-  private reportActualLong(
-    boxPointer: number,
-    signed: 1 | 0,
-    stackTrace: number,
-  ): void {
-    const value = new ActualValue();
-
-    const long = new Long.fromBytesLE(
-      new Uint8Array(this.wasm!.memory.buffer, boxPointer, 8),
-      !signed,
-    );
-
-    value.message = "Long Value: " + long.toString();
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    this.actual = value;
-  }
-
-  /**
-   * This function reports an actual reference value.
-   *
-   * @param {number} referencePointer - The actual reference pointer.
-   * @param {number} offset - The size of the reference in bytes.
-   */
-  private reportActualReference(
-    referencePointer: number,
-    offset: number,
-    stackTrace: number,
-  ): void {
-    const value = new ActualValue();
-    value.message = "Reference Value";
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.pointer = referencePointer;
-    value.offset = offset;
-    value.bytes = Array.from(
-      new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset),
-    );
-    value.value = referencePointer;
-    this.actual = value;
-  }
-
-  /**
-   * This function reports an expected reference value.
-   *
-   * @param {number} referencePointer - The expected reference pointer.
-   * @param {number} offset - The size of the reference in bytes.
-   * @param {1 | 0} negated - An indicator if the expectation is negated.
-   */
-  private reportExpectedReference(
-    referencePointer: number,
-    offset: number,
-    negated: 1 | 0,
-    stackTrace: number,
-  ): void {
-    const value = new ActualValue();
-    value.message = "Reference Value";
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.pointer = referencePointer;
-    value.offset = offset;
-    value.bytes = Array.from(
-      new Uint8Array(this.wasm!.memory.buffer, referencePointer, offset),
-    );
-    value.negated = negated === 1;
-    value.value = referencePointer;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an expected long value.
-   *
-   * @param {number} boxPointer - The expected box pointer.
-   * @param {1 | 0} signed - An indicator if the long value is signed.
-   * @param {1 | 0} negated - An indicator if the expectation is negated.
-   */
-  private reportExpectedLong(
-    boxPointer: number,
-    signed: 1 | 0,
-    negated: 1 | 0,
-    stackTrace: number,
-  ): void {
-    const value = new ActualValue();
-
-    const long = new Long.fromBytesLE(
-      new Uint8Array(this.wasm!.memory.buffer, boxPointer, 8),
-      !signed,
-    );
-
-    value.message = "Long Value: " + long.toString();
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an expected truthy value.
-   *
-   * @param {1 | 0} negated - An indicator if the expectation is negated.
-   */
-  private reportExpectedTruthy(negated: 1 | 0, stackTrace: number): void {
-    const value = new ActualValue();
-    value.message = "Truthy Value";
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an expected falsy value.
-   *
-   * @param {1 | 0} negated - An indicator if the expectation is negated.
-   */
-  private reportExpectedFalsy(negated: 1 | 0, stackTrace: number): void {
-    const value = new ActualValue();
-    value.message = "Falsy Value";
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an expected finite value.
-   *
-   * @param {1 | 0} negated - An indicator if the expectation is negated.
-   */
-  private reportExpectedFinite(negated: 1 | 0, stackTrace: number): void {
-    const value = new ActualValue();
-    value.message = "Finite Value";
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an actual string value.
-   *
-   * @param {number} stringPointer - A pointer that points to the actual string.
-   */
-  private reportActualString(stringPointer: number, stackTrace: number): void {
-    const value = new ActualValue();
-    value.message = this.getString(stringPointer, "Null actual string.");
-    value.pointer = stringPointer;
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.value = stringPointer;
-    this.actual = value;
-  }
-
-  /**
-   * This function reports an expected string value.
-   *
-   * @param {number} stringPointer - A pointer that points to the expected string.
-   * @param {1 | 0} negated - An indicator if the expectation is negated.
-   */
-  private reportExpectedString(
-    stringPointer: number,
-    negated: 1 | 0,
-    stackTrace: number,
-  ): void {
-    const value = new ActualValue();
-    value.message = this.getString(stringPointer, "Null expected string.");
-    value.pointer = stringPointer;
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    value.value = stringPointer;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an expected function pointer index
-   *
-   * @param {number} functionPointer - A pointer that points to the expected string.
-   * @param {1 | 0} negated  - An indicator if the expectation is negated.
-   * @param stackTrace
-   */
-  private reportExpectedFunction(
-    functionPointer: number,
-    negated: 1 | 0,
-    stackTrace: number,
-  ): void {
-    const value = new ActualValue();
-
-    // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
-    /* istanbul ignore next */
-    const func = this.wasm?.table?.get(functionPointer);
-    /* istanbul ignore next */
-    if (this.wasm?.table && func) {
-      /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}: ${this.funcName(
-        parseInt(func.name),
-      )}]`;
-    } else {
-      /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}]`;
-    }
-
-    value.fnPointer = functionPointer;
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    this.expected = value;
-  }
-
-  /**
-   * This function reports an actual function pointer index
-   *
-   * @param {number} functionPointer - A pointer that points to the expected string.
-   * @param {1 | 0} negated  - An indicator if the expectation is negated.
-   * @param stackTrace
-   */
-  private reportActualFunction(
-    functionPointer: number,
-    stackTrace: number,
-  ): void {
-    const value = new ActualValue();
-
-    // Getting the function name is behind an asc feature flag --exportTable, ignore coverage for this
-    /* istanbul ignore next */
-    const func = this.wasm?.table?.get(functionPointer);
-    /* istanbul ignore next */
-    if (this.wasm?.table && func) {
-      /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}: ${this.funcName(
-        parseInt(func.name),
-      )}]`;
-    } else {
-      /* istanbul ignore next */
-      value.message = `[Function ${functionPointer}]`;
-    }
-
-    value.fnPointer = functionPointer;
-    value.stack = this.stackTraces.get(stackTrace)!;
-    value.target = this.logTarget;
-    this.actual = value;
-  }
-
-  /**
    * This function overrides the provided AssemblyScript `env.abort()` function to catch abort
    * reasons.
    *
@@ -1332,37 +792,6 @@ export class TestCollector {
       message: `An expect() function call was used outside of a test function in ${this.fileName}.`,
       stackTrace: this.getLogStackTrace(),
     });
-  }
-
-  /**
-   * This method reports an actual array value.
-   *
-   * @param {number} arrayPointer - The Array pointer.
-   */
-  private reportActualArray(arrayPointer: number, stackTrace: number): void {
-    const array = this.wasm!.__getArray(arrayPointer);
-    const value = new ActualValue();
-    value.values = array;
-    value.message = JSON.stringify(array);
-    value.target = this.logTarget;
-    value.stack = this.stackTraces.get(stackTrace)!;
-    this.actual = value;
-  }
-
-  /**
-   * This  method reports an expected array value.
-   *
-   * @param {number} arrayPointer - The Array pointer.
-   * @param {1 | 0} negated - Is `1` if the expectation is negated.
-   */
-  private reportExpectedArray(arrayPointer: number, negated: 1 | 0): void {
-    const array = this.wasm!.__getArray(arrayPointer);
-    const value = new ActualValue();
-    value.values = array;
-    value.message = JSON.stringify(array);
-    value.target = this.logTarget;
-    value.negated = negated === 1;
-    this.expected = value;
   }
 
   /**
@@ -1851,21 +1280,6 @@ export class TestCollector {
     );
   }
 
-  private stackID: number = 0;
-  protected stackTraces: Map<number, string> = new Map([[-1, ""]]);
-
-  /**
-   * This function gets a stack trace, sets it to a number and returns it to web assembly. Later,
-   * when actual and expected values are reporter, this number will be used to get the correct
-   * stack trace.
-   */
-  private getStackTrace(): number {
-    const id = this.stackID;
-    this.stackID += 1;
-    this.stackTraces.set(id, this.getLogStackTrace());
-    return id;
-  }
-
   /**
    * Gets a string from the wasm module, unless the module string is null. Otherwise it returns
    * a default value.
@@ -1882,26 +1296,272 @@ export class TestCollector {
    * @param {number[]} args - The traced arguments.
    */
   private trace(strPointer: number, count: number, ...args: number[]): void {
-    const value = new LogValue();
-    const target = this.logTarget;
+    const hostValue = new HostValue();
 
-    value.message = `trace: ${this.getString(strPointer, "")} ${args
+    hostValue.pointer = strPointer;
+    hostValue.stack = this.getLogStackTrace();
+    hostValue.typeName = "trace";
+    hostValue.type = HostValueType.String;
+    hostValue.value = `trace: ${this.getString(strPointer, "")} ${args
       .slice(0, count)
       .join(", ")}`;
-    value.offset = 0;
-    value.pointer = strPointer;
-    value.stack = this.getLogStackTrace();
-    value.target = target;
-    value.value = null;
-
     // push the log value to the logs
-    target.logs.push(value);
+    this.logTarget.logs.push(hostValue);
   }
 
+  /**
+   * Retrieve the function name of a given web assembly function.
+   *
+   * @param {number} index - The function index
+   */
   private funcName(index: number): string {
     /* istanbul ignore next */
     if (this.nameSection) return this.nameSection.fromIndex(index);
     /* istanbul ignore next */
     return "";
+  }
+
+  private createHostValue(
+    isNull: 1 | 0,
+    hasKeys: 1 | 0,
+    nullable: 1 | 0,
+    offset: number, // offsetof<T>("propName")
+    pointer: number, // changetype<usize>(this) | 0
+    signed: 1 | 0, // isSigned<T>()
+    size: number, // sizeof<T>()
+    hostTypeValue: HostValueType,
+    typeId: number, // idof<T>()
+    typeName: number, // nameof<T>()
+    value: number, // usize | Box<T>
+    hasValues: 1 | 0,
+    ): number {
+    const hostValue = new HostValue();
+    hostValue.isNull = isNull === 1;
+    hostValue.keys = hasKeys ? [] : null;
+    hostValue.nullable = nullable === 1;
+    hostValue.offset = offset;
+    hostValue.pointer = pointer;
+    hostValue.signed = signed === 1;
+    hostValue.size = size;
+    hostValue.type = hostTypeValue;
+    hostValue.typeId = typeId;
+    hostValue.typeName = this.getString(typeName, "");
+    if (hostTypeValue === HostValueType.Integer) {
+      hostValue.value = this.getInteger(value, size, signed === 1);
+      // get long
+    } else if (hostTypeValue === HostValueType.String) {
+      hostValue.value = this.getString(value, "");
+    } else if (hostTypeValue === HostValueType.Float) {
+      hostValue.value = this.getFloat(value, size);
+    } else if (hostTypeValue === HostValueType.Function) {
+      hostValue.value = `[Function ${value}: ${this.funcName(value)}]`;
+    } else {
+      hostValue.value = value;
+    }
+    hostValue.values = hasValues ? [] : null;
+    return this.hostValueCache.push(hostValue) - 1;
+  }
+
+  /**
+   * Get a boxed integer of a given kind at a pointer location.
+   *
+   * @param {number} pointer - The pointer location of the number
+   * @param {number} size - The size of the integer in bytes
+   * @param {boolean} signed - If the number is signed
+   */
+  private getInteger(pointer: number, size: number, signed: boolean): number {
+    const buffer = this.wasm!.memory.buffer;
+    if (pointer + size >= buffer.byteLength) {
+      this.errors.push({
+        message: `Cannot obtain ${signed ? "" : "un"}signed integer value at pointer ${pointer} of size ${size}: index out of bounds`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return 0;
+    }
+
+    if (size === 1) {
+      if (signed) {
+        return new Int8Array(buffer)[pointer];
+      } else {
+        return new Uint8Array(buffer)[pointer];
+      }
+    } else if (size === 2) {
+      if (signed) {
+        return new Int16Array(buffer)[pointer >>> 1];
+      } else {
+        return new Uint16Array(buffer)[pointer >>> 1];
+      }
+    } else if (size === 4) {
+      if (signed) {
+        return new Int32Array(buffer)[pointer >>> 2];
+      } else {
+        return new Uint32Array(buffer)[pointer >>> 2];
+      }
+    } else if (size === 8) {
+      const long = new Long.fromBytesLE(
+        new Uint8Array(buffer, pointer, 8),
+        !signed,
+      );
+      return long.toString();
+    }
+    this.errors.push({
+      message: `Cannot obtain an ${signed ? "" : "un"}signed integer at ${pointer} of size ${size}`,
+      stackTrace: this.getLogStackTrace(),
+      type: "HostValue",
+    });
+    return 0;
+  }
+
+  /**
+   * Get a boxed float of a given kind at a pointer location.
+   *
+   * @param {number} pointer - The pointer location of the number
+   * @param {number} size - The size of the float in bytes.
+   */
+  private getFloat(pointer: number, size: number): number {
+    const buffer = this.wasm!.memory.buffer;
+    if (pointer + size >= buffer.byteLength) {
+      this.errors.push({
+        message: `Cannot obtain a float value at pointer ${pointer} of size ${size}: index out of bounds`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return 0;
+    }
+    if (size === 4) {
+      return new Float32Array(buffer)[pointer >>> 2];
+    } else if (size === 8) {
+      return new Float64Array(buffer)[pointer >>> 3];
+    }
+    this.errors.push({
+      message: `Cannot obtain a float at ${pointer} of size ${size}`,
+      stackTrace: this.getLogStackTrace(),
+      type: "HostValue",
+    });
+    return 0;
+  }
+
+  /**
+   * Log a host value.
+   *
+   * @param {number} id - The HostValue id
+   */
+  private logHostValue(id: number): void {
+    if (id >= this.hostValueCache.length || id < 0) {
+      this.errors.push({
+        message: `Cannot log HostValue of id ${id}. Index out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return;
+    }
+    this.logTarget.logs.push(this.hostValueCache[id]);
+  }
+
+  /**
+   * Report an actual host value.
+   *
+   * @param {number} id - The HostValue id
+   */
+  private reportActualHostValue(id: number): void {
+    if (id >= this.hostValueCache.length || id < 0) {
+      this.errors.push({
+        message: `Cannot report actual HostValue of id ${id}. Index out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return;
+    }
+    this.actual = this.hostValueCache[id];
+  }
+
+  /**
+   * Report an expected host value.
+   *
+   * @param {number} id - The HostValue id
+   */
+  private reportExpectedHostValue(id: number): void {
+    if (id >= this.hostValueCache.length || id < 0) {
+      this.errors.push({
+        message: `Cannot report expected HostValue of id ${id}. Index out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return;
+    }
+    this.expected = this.hostValueCache[id];
+  }
+
+  /**
+   * Push a host value to a given host value.
+   *
+   * @param {number} hostObjectID - The target host value parent.
+   * @param {number} valueID - The target host value to be pushed.
+   */
+  private pushHostObjectValue(hostObjectID: number, valueID: number): void {
+    if (hostObjectID >= this.hostValueCache.length || hostObjectID < 0) {
+      this.errors.push({
+        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostObjectID}. HostObject id out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return;
+    }
+    if (valueID >= this.hostValueCache.length || valueID < 0) {
+      this.errors.push({
+        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostObjectID}. HostObject value id out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return;
+    }
+    let hostObject = this.hostValueCache[hostObjectID];
+    let valueObject = this.hostValueCache[valueID];
+    if (!hostObject.values) {
+      this.errors.push({
+        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostObjectID}. HostObject was not initialized with a values array.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return;
+    }
+    hostObject.values.push(valueObject);
+  }
+
+  /**
+   * Push a host value key to a given host value.
+   *
+   * @param {number} hostObjectID - The target host value parent.
+   * @param {number} keyId - The target host value key to be pushed.
+   */
+  private pushHostObjectKey(hostObjectID: number, keyId: number): void {
+    if (hostObjectID >= this.hostValueCache.length || hostObjectID < 0) {
+      this.errors.push({
+        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostObjectID}. HostObject id out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return;
+    }
+    if (keyId >= this.hostValueCache.length || keyId < 0) {
+      this.errors.push({
+        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostObjectID}. HostObject key id out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return;
+    }
+    let hostObject = this.hostValueCache[hostObjectID];
+    let valueObject = this.hostValueCache[keyId];
+    if (!hostObject.keys) {
+      this.errors.push({
+        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostObjectID}. HostObject was not initialized with a keys array.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      return;
+    }
+    hostObject.keys.push(valueObject);
   }
 }
