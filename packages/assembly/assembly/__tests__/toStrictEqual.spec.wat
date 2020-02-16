@@ -1,7 +1,7 @@
 (module
  (type $none_=>_none (func))
- (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
+ (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
@@ -14,7 +14,9 @@
  (type $f64_i32_i32_i32_=>_none (func (param f64 i32 i32 i32)))
  (type $i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32) (result i32)))
  (type $i32_f64_f64_f64_=>_i32 (func (param i32 f64 f64 f64) (result i32)))
+ (type $f32_f32_i32_i32_=>_i32 (func (param f32 f32 i32 i32) (result i32)))
  (type $f64_f64_i32_i32_=>_i32 (func (param f64 f64 i32 i32) (result i32)))
+ (type $i32_i32_=>_f32 (func (param i32 i32) (result f32)))
  (import "env" "memory" (memory $0 1))
  (data (i32.const 16) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00")
  (data (i32.const 64) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00")
@@ -178,7 +180,7 @@
  (data (i32.const 13984) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 14000) "\00\00\00\00\01\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 14016) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00~\00l\00i\00b\00/\00r\00t\00.\00t\00s\00")
- (data (i32.const 14064) "9\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00\93\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\930\00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\91\0c\00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\94 \00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\94\04\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\98\04\t\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\98\04A\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\98 A\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\93 \00\00\02\00\00\00\98 A\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00")
+ (data (i32.const 14064) "+\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00\93\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\91\0c\00\00\02\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\94 \00\00\00\00\00\00\10\00\00\00\00\00\00\00\94\04\00\00\00\00\00\00\10\00\00\00\00\00\00\00\98\04\t\00\00\00\00\00\10\00\00\00\00\00\00\00\98\04A\00\00\00\00\00\10\00\00\00\00\00\00\00\98 A\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\98 A\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -261,7 +263,7 @@
  (global $~lib/rt/pure/CUR (mut i32) (i32.const 0))
  (global $~lib/rt/pure/END (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 14064))
- (global $~lib/heap/__heap_base i32 (i32.const 14524))
+ (global $~lib/heap/__heap_base i32 (i32.const 14412))
  (export "__setArgumentsLength" (func $~setArgumentsLength))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
@@ -4793,7 +4795,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 12
+   i32.const 11
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -5315,7 +5317,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 14
+   i32.const 12
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -5929,7 +5931,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 16
+   i32.const 13
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -6234,10 +6236,8 @@
   global.set $assembly/internal/report/Actual/Actual.reference
   i32.const 1
   global.set $assembly/internal/report/Actual/Actual.isManaged
-  i32.const 4
+  i32.const 6
   global.set $assembly/internal/report/Actual/Actual.type
-  i32.const 16
-  global.set $assembly/internal/report/Actual/Actual.offset
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -6534,7 +6534,7 @@
   i32.eqz
   if
    i32.const 5
-   i32.const 18
+   i32.const 14
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -6680,7 +6680,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 19
+   i32.const 16
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -6998,10 +6998,8 @@
   global.set $assembly/internal/report/Actual/Actual.reference
   i32.const 1
   global.set $assembly/internal/report/Actual/Actual.isManaged
-  i32.const 4
+  i32.const 6
   global.set $assembly/internal/report/Actual/Actual.type
-  i32.const 16
-  global.set $assembly/internal/report/Actual/Actual.offset
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -7117,7 +7115,7 @@
   (local $8 i32)
   i32.const 3
   i32.const 2
-  i32.const 11
+  i32.const 15
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -7156,7 +7154,7 @@
   local.set $1
   i32.const 3
   i32.const 2
-  i32.const 11
+  i32.const 15
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -7238,7 +7236,7 @@
   (local $9 i32)
   i32.const 3
   i32.const 2
-  i32.const 11
+  i32.const 15
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -7277,7 +7275,7 @@
   local.set $1
   i32.const 3
   i32.const 2
-  i32.const 11
+  i32.const 15
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -7356,7 +7354,7 @@
   (local $9 i32)
   i32.const 3
   i32.const 2
-  i32.const 11
+  i32.const 15
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -7395,7 +7393,7 @@
   local.set $1
   i32.const 3
   i32.const 2
-  i32.const 11
+  i32.const 15
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -7473,7 +7471,7 @@
   (local $8 i32)
   i32.const 3
   i32.const 2
-  i32.const 11
+  i32.const 15
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -7512,7 +7510,7 @@
   local.set $1
   i32.const 3
   i32.const 2
-  i32.const 11
+  i32.const 15
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -7580,7 +7578,7 @@
    local.get $0
   else
    i32.const 12
-   i32.const 21
+   i32.const 17
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -7611,7 +7609,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 22
+   i32.const 18
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -7656,28 +7654,52 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/typedarray/Float32Array#__aspectStrictEquals<~lib/typedarray/Float32Array> (; 165 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
-  (local $4 i32)
+ (func $~lib/typedarray/Float32Array#get:length (; 165 ;) (param $0 i32) (result i32)
+  local.get $0
+  i32.load offset=8
+  i32.const 2
+  i32.shr_u
+ )
+ (func $~lib/typedarray/Float32Array#__uget (; 166 ;) (param $0 i32) (param $1 i32) (result f32)
+  local.get $0
+  i32.load offset=4
   local.get $1
-  call $~lib/rt/pure/__retain
-  local.set $1
+  i32.const 2
+  i32.shl
+  i32.add
+  f32.load
+ )
+ (func $assembly/internal/Reflect/Reflect.equals<f32> (; 167 ;) (param $0 f32) (param $1 f32) (param $2 i32) (param $3 i32) (result i32)
+  (local $4 i32)
   local.get $2
   call $~lib/rt/pure/__retain
   local.set $2
   local.get $3
   call $~lib/rt/pure/__retain
   local.set $3
-  i32.const 1
-  local.set $4
+  local.get $0
   local.get $1
-  call $~lib/rt/pure/__release
+  f32.eq
+  if
+   global.get $assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
+   local.set $4
+   local.get $2
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $4
+   return
+  end
+  global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
+  local.set $4
   local.get $2
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
   local.get $4
+  return
  )
- (func $assembly/internal/Reflect/Reflect.equals<~lib/typedarray/Float32Array> (; 166 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<~lib/typedarray/Float32Array> (; 168 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -7685,6 +7707,9 @@
   (local $8 i32)
   (local $9 i32)
   (local $10 i32)
+  (local $11 i32)
+  (local $12 i32)
+  (local $13 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -7813,44 +7838,82 @@
     br $for-loop|1
    end
   end
-  local.get $2
+  local.get $0
+  call $~lib/typedarray/Float32Array#get:length
+  local.set $8
+  local.get $1
+  call $~lib/typedarray/Float32Array#get:length
+  local.set $9
+  local.get $8
+  local.get $9
+  i32.ne
+  if
+   global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
+   local.set $10
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $10
+   return
+  end
+  i32.const 0
+  local.set $10
+  loop $for-loop|2
+   local.get $10
+   local.get $8
+   i32.lt_s
+   local.set $11
+   local.get $11
+   if
+    local.get $0
+    local.get $10
+    call $~lib/typedarray/Float32Array#__uget
+    local.get $1
+    local.get $10
+    call $~lib/typedarray/Float32Array#__uget
+    local.get $2
+    local.get $3
+    call $assembly/internal/Reflect/Reflect.equals<f32>
+    local.set $12
+    local.get $12
+    i32.const 0
+    i32.eq
+    if
+     global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
+     local.set $13
+     local.get $0
+     call $~lib/rt/pure/__release
+     local.get $1
+     call $~lib/rt/pure/__release
+     local.get $2
+     call $~lib/rt/pure/__release
+     local.get $3
+     call $~lib/rt/pure/__release
+     local.get $13
+     return
+    end
+    local.get $10
+    i32.const 1
+    i32.add
+    local.set $10
+    br $for-loop|2
+   end
+  end
+  local.get $3
   local.get $4
   call $~lib/array/Array<usize>#push
   drop
-  local.get $2
+  local.get $3
   local.get $5
   call $~lib/array/Array<usize>#push
   drop
-  i32.const 0
-  local.set $8
-  local.get $0
-  local.get $1
-  local.get $2
-  local.get $3
-  call $~lib/typedarray/Float32Array#__aspectStrictEquals<~lib/typedarray/Float32Array>
-  local.set $8
-  local.get $8
-  if
-   local.get $3
-   local.get $4
-   call $~lib/array/Array<usize>#push
-   drop
-   local.get $3
-   local.get $5
-   call $~lib/array/Array<usize>#push
-   drop
-  end
-  local.get $2
-  call $~lib/array/Array<usize>#pop
-  drop
-  local.get $2
-  call $~lib/array/Array<usize>#pop
-  drop
   global.get $assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
-  global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
-  local.get $8
-  select
-  local.set $9
+  local.set $10
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -7859,10 +7922,10 @@
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
-  local.get $9
+  local.get $10
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<~lib/typedarray/Float32Array> (; 167 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<~lib/typedarray/Float32Array> (; 169 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -7883,14 +7946,12 @@
   global.set $assembly/internal/report/Actual/Actual.reference
   i32.const 1
   global.set $assembly/internal/report/Actual/Actual.isManaged
-  i32.const 4
+  i32.const 6
   global.set $assembly/internal/report/Actual/Actual.type
-  i32.const 12
-  global.set $assembly/internal/report/Actual/Actual.offset
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<~lib/typedarray/Float32Array> (; 168 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<~lib/typedarray/Float32Array> (; 170 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -7921,14 +7982,12 @@
   global.set $assembly/internal/report/Expected/Expected.reference
   i32.const 1
   global.set $assembly/internal/report/Expected/Expected.isManaged
-  i32.const 4
+  i32.const 6
   global.set $assembly/internal/report/Expected/Expected.type
-  i32.const 12
-  global.set $assembly/internal/report/Expected/Expected.offset
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#toStrictEqual (; 169 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#toStrictEqual (; 171 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -7992,7 +8051,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|29 (; 170 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|29 (; 172 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -8041,14 +8100,14 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#get:not (; 171 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/typedarray/Float32Array>#get:not (; 173 ;) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|30 (; 172 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|30 (; 174 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -8102,7 +8161,7 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/itThrows (; 173 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Test/itThrows (; 175 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -8118,7 +8177,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__unchecked_get" (; 174 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__unchecked_get" (; 176 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -8127,7 +8186,7 @@
   i32.add
   i32.load
  )
- (func "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__get" (; 175 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__get" (; 177 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   local.get $0
@@ -8157,12 +8216,12 @@
   end
   local.get $2
  )
- (func "$assembly/internal/Expectation/Expectation<(event: assembly/__tests__/setup/Event/Event) => void>#constructor" (; 176 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func "$assembly/internal/Expectation/Expectation<(event: assembly/__tests__/setup/Event/Event) => void>#constructor" (; 178 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 8
-   i32.const 24
+   i32.const 19
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -8178,12 +8237,12 @@
   i32.store offset=4
   local.get $0
  )
- (func "$assembly/internal/Expectation/expect<(event: assembly/__tests__/setup/Event/Event) => void>" (; 177 ;) (param $0 i32) (result i32)
+ (func "$assembly/internal/Expectation/expect<(event: assembly/__tests__/setup/Event/Event) => void>" (; 179 ;) (param $0 i32) (result i32)
   i32.const 0
   local.get $0
   call "$assembly/internal/Expectation/Expectation<(event: assembly/__tests__/setup/Event/Event) => void>#constructor"
  )
- (func "$assembly/internal/Reflect/Reflect.equals<(event: assembly/__tests__/setup/Event/Event) => void>" (; 178 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func "$assembly/internal/Reflect/Reflect.equals<(event: assembly/__tests__/setup/Event/Event) => void>" (; 180 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   local.get $2
   call $~lib/rt/pure/__retain
@@ -8213,7 +8272,7 @@
   local.get $4
   return
  )
- (func "$assembly/internal/report/Actual/Actual.report<(event: assembly/__tests__/setup/Event/Event) => void>" (; 179 ;) (param $0 i32)
+ (func "$assembly/internal/report/Actual/Actual.report<(event: assembly/__tests__/setup/Event/Event) => void>" (; 181 ;) (param $0 i32)
   (local $1 i32)
   call $assembly/internal/report/Actual/getStackTrace
   global.set $assembly/internal/report/Actual/Actual.stackTrace
@@ -8225,7 +8284,7 @@
   global.set $assembly/internal/report/Actual/Actual.reference
   return
  )
- (func "$assembly/internal/report/Expected/Expected.report<(event: assembly/__tests__/setup/Event/Event) => void>" (; 180 ;) (param $0 i32) (param $1 i32)
+ (func "$assembly/internal/report/Expected/Expected.report<(event: assembly/__tests__/setup/Event/Event) => void>" (; 182 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   global.get $assembly/internal/report/Expected/Expected.ready
   i32.eqz
@@ -8245,7 +8304,7 @@
   global.set $assembly/internal/report/Expected/Expected.reference
   return
  )
- (func "$assembly/internal/Expectation/Expectation<(event: assembly/__tests__/setup/Event/Event) => void>#toStrictEqual" (; 181 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func "$assembly/internal/Expectation/Expectation<(event: assembly/__tests__/setup/Event/Event) => void>#toStrictEqual" (; 183 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -8304,7 +8363,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|31 (; 182 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|31 (; 184 ;)
   (local $0 i32)
   global.get $assembly/__tests__/toStrictEqual.spec/eventDispatcher
   i32.load
@@ -8318,14 +8377,14 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func "$assembly/internal/Expectation/Expectation<(event: assembly/__tests__/setup/Event/Event) => void>#get:not" (; 183 ;) (param $0 i32) (result i32)
+ (func "$assembly/internal/Expectation/Expectation<(event: assembly/__tests__/setup/Event/Event) => void>#get:not" (; 185 ;) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|32 (; 184 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|32 (; 186 ;)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toStrictEqual.spec/eventDispatcher
@@ -8344,7 +8403,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|33 (; 185 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|33 (; 187 ;)
   (local $0 i32)
   global.get $assembly/__tests__/toStrictEqual.spec/eventDispatcher
   i32.load
@@ -8358,7 +8417,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|34 (; 186 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0~anonymous|34 (; 188 ;)
   (local $0 i32)
   (local $1 i32)
   global.get $assembly/__tests__/toStrictEqual.spec/eventDispatcher
@@ -8377,7 +8436,7 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0 (; 187 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|0 (; 189 ;)
   i32.const 400
   i32.const 3
   call $assembly/internal/Test/it
@@ -8501,14 +8560,14 @@
   i32.const 656
   call $assembly/internal/Test/throws
  )
- (func $start:assembly/internal/noOp~anonymous|0 (; 188 ;)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 190 ;)
   nop
  )
- (func $~setArgumentsLength (; 189 ;) (param $0 i32)
+ (func $~setArgumentsLength (; 191 ;) (param $0 i32)
   local.get $0
   global.set $~argumentsLength
  )
- (func $assembly/internal/Describe/describe (; 190 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Describe/describe (; 192 ;) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -8522,12 +8581,12 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toStrictEqual.spec/A#constructor (; 191 ;) (param $0 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/A#constructor (; 193 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 25
+   i32.const 20
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -8544,12 +8603,12 @@
   f64.store offset=16
   local.get $0
  )
- (func $assembly/__tests__/toStrictEqual.spec/B#constructor (; 192 ;) (param $0 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/B#constructor (; 194 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 26
+   i32.const 21
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -8565,7 +8624,7 @@
   f64.store offset=16
   local.get $0
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/A>#constructor (; 193 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/A>#constructor (; 195 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -8576,7 +8635,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 27
+   i32.const 22
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -8608,7 +8667,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<assembly/__tests__/toStrictEqual.spec/A> (; 194 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<assembly/__tests__/toStrictEqual.spec/A> (; 196 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -8621,7 +8680,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/__tests__/toStrictEqual.spec/B#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/B> (; 195 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/B#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/B> (; 197 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -8705,7 +8764,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/B | null> (; 196 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/B | null> (; 198 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -8933,7 +8992,7 @@
   local.get $9
   return
  )
- (func $assembly/__tests__/toStrictEqual.spec/A#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/A> (; 197 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/A#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/A> (; 199 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -9017,7 +9076,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/A> (; 198 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/A> (; 200 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -9202,7 +9261,7 @@
   local.get $9
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<assembly/__tests__/toStrictEqual.spec/A> (; 199 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<assembly/__tests__/toStrictEqual.spec/A> (; 201 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -9230,7 +9289,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/A> (; 200 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/A> (; 202 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -9268,7 +9327,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/A>#toStrictEqual (; 201 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/A>#toStrictEqual (; 203 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -9332,7 +9391,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|0 (; 202 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|0 (; 204 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -9403,7 +9462,7 @@
   local.get $4
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Test/test (; 203 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/Test/test (; 205 ;) (param $0 i32) (param $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -9413,7 +9472,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|1 (; 204 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|1 (; 206 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -9478,14 +9537,14 @@
   local.get $4
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/A>#get:not (; 205 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/A>#get:not (; 207 ;) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|2 (; 206 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|2 (; 208 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -9560,7 +9619,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|3 (; 207 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|3 (; 209 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -9629,12 +9688,12 @@
   local.get $3
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toStrictEqual.spec/C#constructor (; 208 ;) (param $0 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/C#constructor (; 210 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 29
+   i32.const 23
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -9651,12 +9710,12 @@
   f64.store offset=16
   local.get $0
  )
- (func $assembly/__tests__/toStrictEqual.spec/D#constructor (; 209 ;) (param $0 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/D#constructor (; 211 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 30
+   i32.const 24
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -9673,7 +9732,7 @@
   f64.store offset=16
   local.get $0
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/C>#constructor (; 210 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/C>#constructor (; 212 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -9684,7 +9743,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 31
+   i32.const 25
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -9716,7 +9775,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<assembly/__tests__/toStrictEqual.spec/C> (; 211 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<assembly/__tests__/toStrictEqual.spec/C> (; 213 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -9729,7 +9788,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/C | null> (; 212 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/C | null> (; 214 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -9957,7 +10016,7 @@
   local.get $9
   return
  )
- (func $assembly/__tests__/toStrictEqual.spec/D#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/D> (; 213 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/D#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/D> (; 215 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -10041,7 +10100,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/D | null> (; 214 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/D | null> (; 216 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -10269,7 +10328,7 @@
   local.get $9
   return
  )
- (func $assembly/__tests__/toStrictEqual.spec/C#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/C> (; 215 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/C#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/C> (; 217 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -10353,7 +10412,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/C> (; 216 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/C> (; 218 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -10538,7 +10597,7 @@
   local.get $9
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<assembly/__tests__/toStrictEqual.spec/C> (; 217 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<assembly/__tests__/toStrictEqual.spec/C> (; 219 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -10566,7 +10625,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/C> (; 218 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/C> (; 220 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -10604,7 +10663,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/C>#toStrictEqual (; 219 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/C>#toStrictEqual (; 221 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -10668,7 +10727,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/D>#constructor (; 220 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/D>#constructor (; 222 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -10679,7 +10738,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 33
+   i32.const 26
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -10711,7 +10770,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<assembly/__tests__/toStrictEqual.spec/D> (; 221 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<assembly/__tests__/toStrictEqual.spec/D> (; 223 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -10724,7 +10783,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/D> (; 222 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/D> (; 224 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -10909,7 +10968,7 @@
   local.get $9
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<assembly/__tests__/toStrictEqual.spec/D> (; 223 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<assembly/__tests__/toStrictEqual.spec/D> (; 225 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -10937,7 +10996,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/D> (; 224 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/D> (; 226 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -10975,7 +11034,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/D>#toStrictEqual (; 225 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/D>#toStrictEqual (; 227 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -11039,7 +11098,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|4 (; 226 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|4 (; 228 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -11152,7 +11211,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|5 (; 227 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|5 (; 229 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -11257,14 +11316,14 @@
   local.get $6
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/C>#get:not (; 228 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/C>#get:not (; 230 ;) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|6 (; 229 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|6 (; 231 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -11373,7 +11432,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|7 (; 230 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|7 (; 232 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -11482,7 +11541,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>#constructor (; 231 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>#constructor (; 233 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
@@ -11490,7 +11549,7 @@
   i32.eqz
   if
    i32.const 4
-   i32.const 35
+   i32.const 27
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -11503,7 +11562,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>>#constructor (; 232 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>>#constructor (; 234 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -11514,7 +11573,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 36
+   i32.const 28
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -11546,7 +11605,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 233 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 235 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -11559,7 +11618,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 234 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 236 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -11601,7 +11660,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 235 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 237 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -11786,7 +11845,7 @@
   local.get $9
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 236 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 238 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -11814,7 +11873,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 237 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (; 239 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -11852,7 +11911,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>>#toStrictEqual (; 238 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>>#toStrictEqual (; 240 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -11916,7 +11975,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|8 (; 239 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|8 (; 241 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -11999,7 +12058,7 @@
   local.get $6
   call $~lib/rt/pure/__release
  )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#clear (; 240 ;) (param $0 i32)
+ (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#clear (; 242 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -12039,12 +12098,12 @@
   i32.const 0
   i32.store offset=20
  )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#constructor (; 241 ;) (param $0 i32) (result i32)
+ (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#constructor (; 243 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 38
+   i32.const 29
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -12071,7 +12130,7 @@
   call $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#clear
   local.get $0
  )
- (func $~lib/util/hash/hash32 (; 242 ;) (param $0 i32) (result i32)
+ (func $~lib/util/hash/hash32 (; 244 ;) (param $0 i32) (result i32)
   (local $1 i32)
   i32.const -2128831035
   local.set $1
@@ -12113,7 +12172,7 @@
   local.set $1
   local.get $1
  )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#find (; 243 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#find (; 245 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -12173,7 +12232,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#rehash (; 244 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#rehash (; 246 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -12331,7 +12390,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#add (; 245 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#add (; 247 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -12438,7 +12497,7 @@
   call $~lib/rt/pure/__release
   local.get $2
  )
- (func $assembly/internal/Expectation/Expectation<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#constructor (; 246 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#constructor (; 248 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -12449,7 +12508,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 39
+   i32.const 30
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -12481,7 +12540,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 247 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 249 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -12494,17 +12553,17 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#get:size (; 248 ;) (param $0 i32) (result i32)
+ (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#get:size (; 250 ;) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=20
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#constructor (; 249 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#constructor (; 251 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
   else
    i32.const 16
-   i32.const 11
+   i32.const 15
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -12520,7 +12579,7 @@
   i32.store offset=12
   local.get $0
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__unchecked_set (; 250 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__unchecked_set (; 252 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   local.get $2
@@ -12550,7 +12609,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__set (; 251 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__set (; 253 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $2
   call $~lib/rt/pure/__retain
   local.set $2
@@ -12591,7 +12650,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#values (; 252 ;) (param $0 i32) (result i32)
+ (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#values (; 254 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -12653,7 +12712,7 @@
   end
   local.get $3
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#indexOf (; 253 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#indexOf (; 255 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -12737,7 +12796,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#includes (; 254 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#includes (; 256 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -12754,7 +12813,7 @@
   local.get $3
   return
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#splice (; 255 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#splice (; 257 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -12811,7 +12870,7 @@
   local.set $2
   local.get $2
   i32.const 2
-  i32.const 11
+  i32.const 15
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -12862,7 +12921,7 @@
   i32.store offset=12
   local.get $6
  )
- (func $assembly/internal/Reflect/Reflect.equals<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 256 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 258 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -13215,7 +13274,7 @@
   local.get $12
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 257 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 259 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -13243,7 +13302,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 258 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 260 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -13281,7 +13340,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#toStrictEqual (; 259 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#toStrictEqual (; 261 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -13345,7 +13404,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|9 (; 260 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|9 (; 262 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -13420,7 +13479,7 @@
   local.get $6
   call $~lib/rt/pure/__release
  )
- (func $~lib/set/Set<i32>#clear (; 261 ;) (param $0 i32)
+ (func $~lib/set/Set<i32>#clear (; 263 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -13460,12 +13519,12 @@
   i32.const 0
   i32.store offset=20
  )
- (func $~lib/set/Set<i32>#constructor (; 262 ;) (param $0 i32) (result i32)
+ (func $~lib/set/Set<i32>#constructor (; 264 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 41
+   i32.const 31
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -13492,7 +13551,7 @@
   call $~lib/set/Set<i32>#clear
   local.get $0
  )
- (func $~lib/set/Set<i32>#find (; 263 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/set/Set<i32>#find (; 265 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   local.get $0
@@ -13540,7 +13599,7 @@
   end
   i32.const 0
  )
- (func $~lib/set/Set<i32>#rehash (; 264 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/set/Set<i32>#rehash (; 266 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -13693,7 +13752,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $~lib/set/Set<i32>#add (; 265 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/set/Set<i32>#add (; 267 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -13786,7 +13845,7 @@
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/internal/Expectation/Expectation<~lib/set/Set<i32>>#constructor (; 266 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/set/Set<i32>>#constructor (; 268 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -13797,7 +13856,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 42
+   i32.const 32
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -13829,7 +13888,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/set/Set<i32>> (; 267 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/set/Set<i32>> (; 269 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -13842,11 +13901,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/set/Set<i32>#get:size (; 268 ;) (param $0 i32) (result i32)
+ (func $~lib/set/Set<i32>#get:size (; 270 ;) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=20
  )
- (func $~lib/array/Array<i32>#constructor (; 269 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<i32>#constructor (; 271 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
@@ -13868,7 +13927,7 @@
   i32.store offset=12
   local.get $0
  )
- (func $~lib/array/Array<i32>#__unchecked_set (; 270 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/Array<i32>#__unchecked_set (; 272 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -13878,7 +13937,7 @@
   local.get $2
   i32.store
  )
- (func $~lib/array/Array<i32>#__set (; 271 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/Array<i32>#__set (; 273 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $1
   local.get $0
   i32.load offset=12
@@ -13912,7 +13971,7 @@
   local.get $2
   call $~lib/array/Array<i32>#__unchecked_set
  )
- (func $~lib/set/Set<i32>#values (; 272 ;) (param $0 i32) (result i32)
+ (func $~lib/set/Set<i32>#values (; 274 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -13974,7 +14033,7 @@
   end
   local.get $3
  )
- (func $~lib/array/Array<i32>#indexOf (; 273 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<i32>#indexOf (; 275 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -14043,7 +14102,7 @@
   end
   i32.const -1
  )
- (func $~lib/array/Array<i32>#includes (; 274 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<i32>#includes (; 276 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   local.get $0
   local.get $1
   local.get $2
@@ -14052,7 +14111,7 @@
   i32.ge_s
   return
  )
- (func $~lib/array/Array<i32>#splice (; 275 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<i32>#splice (; 277 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -14160,7 +14219,7 @@
   i32.store offset=12
   local.get $6
  )
- (func $assembly/internal/Reflect/Reflect.equals<~lib/set/Set<i32>> (; 276 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<~lib/set/Set<i32>> (; 278 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -14435,7 +14494,7 @@
   local.get $12
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<~lib/set/Set<i32>> (; 277 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<~lib/set/Set<i32>> (; 279 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -14463,7 +14522,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<~lib/set/Set<i32>> (; 278 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<~lib/set/Set<i32>> (; 280 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -14501,7 +14560,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/set/Set<i32>>#toStrictEqual (; 279 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/set/Set<i32>>#toStrictEqual (; 281 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -14565,7 +14624,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|10 (; 280 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|10 (; 282 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -14620,7 +14679,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|11 (; 281 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|11 (; 283 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -14675,7 +14734,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|12 (; 282 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|12 (; 284 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -14770,7 +14829,7 @@
   local.get $8
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|13 (; 283 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|13 (; 285 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -14865,14 +14924,14 @@
   local.get $8
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#get:not (; 284 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#get:not (; 286 ;) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|14 (; 285 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|14 (; 287 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -14972,7 +15031,7 @@
   local.get $9
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|15 (; 286 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|15 (; 288 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -15072,7 +15131,7 @@
   local.get $9
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<i32,i32>#clear (; 287 ;) (param $0 i32)
+ (func $~lib/map/Map<i32,i32>#clear (; 289 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -15112,12 +15171,12 @@
   i32.const 0
   i32.store offset=20
  )
- (func $~lib/map/Map<i32,i32>#constructor (; 288 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<i32,i32>#constructor (; 290 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 44
+   i32.const 33
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -15144,7 +15203,7 @@
   call $~lib/map/Map<i32,i32>#clear
   local.get $0
  )
- (func $~lib/map/Map<i32,i32>#find (; 289 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/map/Map<i32,i32>#find (; 291 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   local.get $0
@@ -15192,7 +15251,7 @@
   end
   i32.const 0
  )
- (func $~lib/map/Map<i32,i32>#rehash (; 290 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/map/Map<i32,i32>#rehash (; 292 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -15349,7 +15408,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<i32,i32>#set (; 291 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/map/Map<i32,i32>#set (; 293 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -15454,7 +15513,7 @@
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $assembly/internal/Expectation/Expectation<~lib/map/Map<i32,i32>>#constructor (; 292 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/map/Map<i32,i32>>#constructor (; 294 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -15465,7 +15524,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 45
+   i32.const 34
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -15497,7 +15556,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/map/Map<i32,i32>> (; 293 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/map/Map<i32,i32>> (; 295 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -15510,11 +15569,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/map/Map<i32,i32>#get:size (; 294 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<i32,i32>#get:size (; 296 ;) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=20
  )
- (func $~lib/array/Array<i32>#set:length (; 295 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<i32>#set:length (; 297 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   i32.load offset=12
@@ -15527,7 +15586,7 @@
   local.get $1
   i32.store offset=12
  )
- (func $~lib/map/Map<i32,i32>#keys (; 296 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<i32,i32>#keys (; 298 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -15592,7 +15651,7 @@
   call $~lib/array/Array<i32>#set:length
   local.get $3
  )
- (func $~lib/map/Map<i32,i32>#get (; 297 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/map/Map<i32,i32>#get (; 299 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -15619,7 +15678,7 @@
   local.get $3
   i32.load offset=4
  )
- (func $assembly/internal/Reflect/Reflect.equals<~lib/map/Map<i32,i32>> (; 298 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<~lib/map/Map<i32,i32>> (; 300 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -15933,7 +15992,7 @@
   local.get $13
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<i32,i32>> (; 299 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<i32,i32>> (; 301 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -15961,7 +16020,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<~lib/map/Map<i32,i32>> (; 300 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<~lib/map/Map<i32,i32>> (; 302 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -15999,7 +16058,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/map/Map<i32,i32>>#toStrictEqual (; 301 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/map/Map<i32,i32>>#toStrictEqual (; 303 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -16063,7 +16122,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|16 (; 302 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|16 (; 304 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -16116,7 +16175,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|17 (; 303 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|17 (; 305 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -16169,7 +16228,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#clear (; 304 ;) (param $0 i32)
+ (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#clear (; 306 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -16209,12 +16268,12 @@
   i32.const 0
   i32.store offset=20
  )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#constructor (; 305 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#constructor (; 307 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 47
+   i32.const 35
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -16241,7 +16300,7 @@
   call $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#clear
   local.get $0
  )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#find (; 306 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#find (; 308 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -16301,7 +16360,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#rehash (; 307 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#rehash (; 309 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -16463,7 +16522,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#set (; 308 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#set (; 310 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -16581,7 +16640,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Expectation/Expectation<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>>#constructor (; 309 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>>#constructor (; 311 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -16592,7 +16651,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 48
+   i32.const 36
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -16624,7 +16683,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>> (; 310 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>> (; 312 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -16637,11 +16696,11 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#get:size (; 311 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#get:size (; 313 ;) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=20
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#set:length (; 312 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#set:length (; 314 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -16693,7 +16752,7 @@
   local.get $1
   i32.store offset=12
  )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#keys (; 313 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#keys (; 315 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -16758,7 +16817,7 @@
   call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#set:length
   local.get $3
  )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#get (; 314 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#get (; 316 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -16800,7 +16859,7 @@
   call $~lib/rt/pure/__release
   local.get $2
  )
- (func $assembly/internal/Reflect/Reflect.equals<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>> (; 315 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>> (; 317 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -17136,7 +17195,7 @@
   local.get $13
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>> (; 316 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>> (; 318 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -17164,7 +17223,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>> (; 317 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>> (; 319 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -17202,7 +17261,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>>#toStrictEqual (; 318 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>>#toStrictEqual (; 320 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -17266,7 +17325,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|18 (; 319 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|18 (; 321 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -17367,14 +17426,14 @@
   local.get $8
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>>#get:not (; 320 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>>#get:not (; 322 ;) (param $0 i32) (result i32)
   local.get $0
   i32.const 1
   i32.store
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|19 (; 321 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|19 (; 323 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -17480,7 +17539,7 @@
   local.get $9
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|20 (; 322 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|20 (; 324 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -17581,7 +17640,7 @@
   local.get $8
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|21 (; 323 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|21 (; 325 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -17687,7 +17746,7 @@
   local.get $9
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#clear (; 324 ;) (param $0 i32)
+ (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#clear (; 326 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -17727,12 +17786,12 @@
   i32.const 0
   i32.store offset=20
  )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#constructor (; 325 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#constructor (; 327 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 50
+   i32.const 37
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -17759,7 +17818,7 @@
   call $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#clear
   local.get $0
  )
- (func $~lib/string/String#get:length (; 326 ;) (param $0 i32) (result i32)
+ (func $~lib/string/String#get:length (; 328 ;) (param $0 i32) (result i32)
   local.get $0
   i32.const 16
   i32.sub
@@ -17767,7 +17826,7 @@
   i32.const 1
   i32.shr_u
  )
- (func $~lib/util/hash/hashStr (; 327 ;) (param $0 i32) (result i32)
+ (func $~lib/util/hash/hashStr (; 329 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -17818,7 +17877,7 @@
   call $~lib/rt/pure/__release
   local.get $3
  )
- (func $~lib/util/string/compareImpl (; 328 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $~lib/util/string/compareImpl (; 330 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
@@ -17940,7 +17999,7 @@
   call $~lib/rt/pure/__release
   local.get $7
  )
- (func $~lib/string/String.__eq (; 329 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/string/String.__eq (; 331 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -18013,7 +18072,7 @@
   call $~lib/rt/pure/__release
   local.get $2
  )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#find (; 330 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#find (; 332 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -18073,7 +18132,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#rehash (; 331 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#rehash (; 333 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -18235,7 +18294,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#set (; 332 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#set (; 334 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -18370,7 +18429,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>>#constructor (; 333 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>>#constructor (; 335 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -18381,7 +18440,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 51
+   i32.const 38
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -18413,7 +18472,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>> (; 334 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>> (; 336 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -18426,17 +18485,17 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#get:size (; 335 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#get:size (; 337 ;) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=20
  )
- (func $~lib/array/Array<~lib/string/String>#constructor (; 336 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<~lib/string/String>#constructor (; 338 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
   else
    i32.const 16
-   i32.const 52
+   i32.const 39
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -18452,7 +18511,7 @@
   i32.store offset=12
   local.get $0
  )
- (func $~lib/array/Array<~lib/string/String>#__unchecked_set (; 337 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/Array<~lib/string/String>#__unchecked_set (; 339 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   local.get $2
@@ -18482,7 +18541,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $~lib/array/Array<~lib/string/String>#__set (; 338 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/Array<~lib/string/String>#__set (; 340 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $2
   call $~lib/rt/pure/__retain
   local.set $2
@@ -18523,7 +18582,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $~lib/array/Array<~lib/string/String>#set:length (; 339 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<~lib/string/String>#set:length (; 341 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -18575,7 +18634,7 @@
   local.get $1
   i32.store offset=12
  )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#keys (; 340 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#keys (; 342 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -18640,11 +18699,11 @@
   call $~lib/array/Array<~lib/string/String>#set:length
   local.get $3
  )
- (func $~lib/array/Array<~lib/string/String>#get:length (; 341 ;) (param $0 i32) (result i32)
+ (func $~lib/array/Array<~lib/string/String>#get:length (; 343 ;) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=12
  )
- (func $~lib/array/Array<~lib/string/String>#__unchecked_get (; 342 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<~lib/string/String>#__unchecked_get (; 344 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -18654,7 +18713,7 @@
   i32.load
   call $~lib/rt/pure/__retain
  )
- (func $assembly/internal/Reflect/Reflect.equals<~lib/string/String> (; 343 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<~lib/string/String> (; 345 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -18698,7 +18757,7 @@
   local.get $4
   return
  )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#get (; 344 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#get (; 346 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -18741,7 +18800,7 @@
   call $~lib/rt/pure/__release
   local.get $2
  )
- (func $~lib/array/Array<~lib/string/String>#splice (; 345 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<~lib/string/String>#splice (; 347 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -18798,7 +18857,7 @@
   local.set $2
   local.get $2
   i32.const 2
-  i32.const 52
+  i32.const 39
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -18849,7 +18908,7 @@
   i32.store offset=12
   local.get $6
  )
- (func $assembly/internal/Reflect/Reflect.equals<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>> (; 346 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>> (; 348 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -19193,7 +19252,7 @@
   local.get $13
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>> (; 347 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>> (; 349 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -19221,7 +19280,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>> (; 348 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>> (; 350 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -19259,7 +19318,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>>#toStrictEqual (; 349 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>>#toStrictEqual (; 351 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -19323,7 +19382,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|22 (; 350 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|22 (; 352 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -19424,7 +19483,7 @@
   local.get $8
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|23 (; 351 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|23 (; 353 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -19525,7 +19584,7 @@
   local.get $8
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|24 (; 352 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|24 (; 354 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -19626,7 +19685,7 @@
   local.get $8
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#clear (; 353 ;) (param $0 i32)
+ (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#clear (; 355 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -19666,12 +19725,12 @@
   i32.const 0
   i32.store offset=20
  )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#constructor (; 354 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#constructor (; 356 ;) (param $0 i32) (result i32)
   local.get $0
   i32.eqz
   if
    i32.const 24
-   i32.const 54
+   i32.const 40
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -19698,7 +19757,7 @@
   call $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#clear
   local.get $0
  )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#find (; 355 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#find (; 357 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -19758,7 +19817,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#rehash (; 356 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#rehash (; 358 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -19920,7 +19979,7 @@
   local.get $5
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#set (; 357 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#set (; 359 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -20055,7 +20114,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>>#constructor (; 358 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>>#constructor (; 360 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -20066,7 +20125,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 55
+   i32.const 41
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -20098,7 +20157,7 @@
   call $~lib/rt/pure/__release
   local.get $0
  )
- (func $assembly/internal/Expectation/expect<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>> (; 359 ;) (param $0 i32) (result i32)
+ (func $assembly/internal/Expectation/expect<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>> (; 361 ;) (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -20111,17 +20170,17 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#get:size (; 360 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#get:size (; 362 ;) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=20
  )
- (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#constructor (; 361 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#constructor (; 363 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   if (result i32)
    local.get $0
   else
    i32.const 16
-   i32.const 40
+   i32.const 42
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -20137,7 +20196,7 @@
   i32.store offset=12
   local.get $0
  )
- (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__unchecked_set (; 362 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__unchecked_set (; 364 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   local.get $2
@@ -20167,7 +20226,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__set (; 363 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__set (; 365 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $2
   call $~lib/rt/pure/__retain
   local.set $2
@@ -20208,7 +20267,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#set:length (; 364 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#set:length (; 366 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -20260,7 +20319,7 @@
   local.get $1
   i32.store offset=12
  )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#keys (; 365 ;) (param $0 i32) (result i32)
+ (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#keys (; 367 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -20325,11 +20384,11 @@
   call $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#set:length
   local.get $3
  )
- (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#get:length (; 366 ;) (param $0 i32) (result i32)
+ (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#get:length (; 368 ;) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=12
  )
- (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__unchecked_get (; 367 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__unchecked_get (; 369 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   i32.load offset=4
   local.get $1
@@ -20339,7 +20398,7 @@
   i32.load
   call $~lib/rt/pure/__retain
  )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#get (; 368 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#get (; 370 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -20382,7 +20441,7 @@
   call $~lib/rt/pure/__release
   local.get $2
  )
- (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#splice (; 369 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#splice (; 371 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -20439,7 +20498,7 @@
   local.set $2
   local.get $2
   i32.const 2
-  i32.const 40
+  i32.const 42
   i32.const 0
   call $~lib/rt/__allocArray
   call $~lib/rt/pure/__retain
@@ -20490,7 +20549,7 @@
   i32.store offset=12
   local.get $6
  )
- (func $assembly/internal/Reflect/Reflect.equals<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>> (; 370 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.equals<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>> (; 372 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
@@ -20834,7 +20893,7 @@
   local.get $13
   return
  )
- (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>> (; 371 ;) (param $0 i32)
+ (func $assembly/internal/report/Actual/Actual.report<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>> (; 373 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -20862,7 +20921,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/report/Expected/Expected.report<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>> (; 372 ;) (param $0 i32) (param $1 i32)
+ (func $assembly/internal/report/Expected/Expected.report<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>> (; 374 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   call $~lib/rt/pure/__retain
@@ -20900,7 +20959,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>>#toStrictEqual (; 373 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/internal/Expectation/Expectation<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>>#toStrictEqual (; 375 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -20964,7 +21023,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|25 (; 374 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|25 (; 376 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -21127,17 +21186,17 @@
   local.get $14
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/RTrace/RTrace.collect (; 375 ;)
+ (func $assembly/internal/RTrace/RTrace.collect (; 377 ;)
   call $~lib/rt/pure/__collect
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|26 (; 376 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1~anonymous|26 (; 378 ;)
   call $assembly/internal/RTrace/RTrace.collect
  )
- (func $assembly/internal/Test/afterEach (; 377 ;) (param $0 i32)
+ (func $assembly/internal/Test/afterEach (; 379 ;) (param $0 i32)
   local.get $0
   call $assembly/internal/Test/reportAfterEach
  )
- (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1 (; 378 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec~anonymous|1 (; 380 ;)
   i32.const 8432
   i32.const 40
   call $assembly/internal/Test/test
@@ -21231,7 +21290,7 @@
   i32.const 66
   call $assembly/internal/Test/afterEach
  )
- (func $start:assembly/__tests__/toStrictEqual.spec (; 379 ;)
+ (func $start:assembly/__tests__/toStrictEqual.spec (; 381 ;)
   call $assembly/__tests__/setup/Event/initializeDispatcher
   global.set $assembly/__tests__/toStrictEqual.spec/eventDispatcher
   i32.const 0
@@ -21298,17 +21357,17 @@
   i32.const 67
   call $assembly/internal/Describe/describe
  )
- (func $assembly/index/__ready (; 380 ;)
+ (func $assembly/index/__ready (; 382 ;)
   i32.const 1
   global.set $assembly/internal/report/Expected/Expected.ready
  )
- (func $assembly/internal/call/__call (; 381 ;) (param $0 i32)
+ (func $assembly/internal/call/__call (; 383 ;) (param $0 i32)
   i32.const 0
   global.set $~argumentsLength
   local.get $0
   call_indirect (type $none_=>_none)
  )
- (func $assembly/internal/report/Actual/__sendActual (; 382 ;)
+ (func $assembly/internal/report/Actual/__sendActual (; 384 ;)
   (local $0 i32)
   block $break|0
    block $case9|0
@@ -21416,7 +21475,7 @@
    br $break|0
   end
  )
- (func $assembly/internal/report/Expected/__sendExpected (; 383 ;)
+ (func $assembly/internal/report/Expected/__sendExpected (; 385 ;)
   (local $0 i32)
   block $break|0
    block $case11|0
@@ -21555,24 +21614,24 @@
    call $assembly/internal/report/Expected/reportExpectedFunction
   end
  )
- (func $assembly/internal/log/__ignoreLogs (; 384 ;) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 386 ;) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 385 ;)
+ (func $assembly/internal/RTrace/__disableRTrace (; 387 ;)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 386 ;) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 388 ;) (result i32)
   i32.const 8
  )
- (func $assembly/internal/Expectation/__cleanup (; 387 ;)
+ (func $assembly/internal/Expectation/__cleanup (; 389 ;)
   call $assembly/internal/report/Expected/Expected.clear
   call $assembly/internal/report/Actual/Actual.clear
  )
- (func $~start (; 388 ;)
+ (func $~start (; 390 ;)
   global.get $~started
   if
    return
@@ -21582,7 +21641,7 @@
   end
   call $start:assembly/__tests__/toStrictEqual.spec
  )
- (func $~lib/rt/pure/markGray (; 389 ;) (param $0 i32)
+ (func $~lib/rt/pure/markGray (; 391 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -21609,7 +21668,7 @@
    call $~lib/rt/__visit_members
   end
  )
- (func $~lib/rt/pure/scanBlack (; 390 ;) (param $0 i32)
+ (func $~lib/rt/pure/scanBlack (; 392 ;) (param $0 i32)
   local.get $0
   local.get $0
   i32.load offset=4
@@ -21626,7 +21685,7 @@
   i32.const 4
   call $~lib/rt/__visit_members
  )
- (func $~lib/rt/pure/scan (; 391 ;) (param $0 i32)
+ (func $~lib/rt/pure/scan (; 393 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -21663,7 +21722,7 @@
    end
   end
  )
- (func $~lib/rt/pure/collectWhite (; 392 ;) (param $0 i32)
+ (func $~lib/rt/pure/collectWhite (; 394 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -21701,7 +21760,7 @@
    call $~lib/rt/tlsf/freeBlock
   end
  )
- (func $~lib/rt/pure/__collect (; 393 ;)
+ (func $~lib/rt/pure/__collect (; 395 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -21842,7 +21901,7 @@
   local.get $0
   global.set $~lib/rt/pure/CUR
  )
- (func $~lib/rt/__typeinfo (; 394 ;) (param $0 i32) (result i32)
+ (func $~lib/rt/__typeinfo (; 396 ;) (param $0 i32) (result i32)
   (local $1 i32)
   global.get $~lib/rt/__rtti_base
   local.set $1
@@ -21867,13 +21926,13 @@
   i32.add
   i32.load
  )
- (func $~lib/rt/tlsf/__free (; 395 ;) (param $0 i32)
+ (func $~lib/rt/tlsf/__free (; 397 ;) (param $0 i32)
   call $~lib/rt/tlsf/maybeInitialize
   local.get $0
   call $~lib/rt/tlsf/checkUsedBlock
   call $~lib/rt/tlsf/freeBlock
  )
- (func $~lib/rt/pure/growRoots (; 396 ;)
+ (func $~lib/rt/pure/growRoots (; 398 ;)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -21931,7 +21990,7 @@
   i32.add
   global.set $~lib/rt/pure/END
  )
- (func $~lib/rt/pure/appendRoot (; 397 ;) (param $0 i32)
+ (func $~lib/rt/pure/appendRoot (; 399 ;) (param $0 i32)
   (local $1 i32)
   global.get $~lib/rt/pure/CUR
   local.set $1
@@ -21951,7 +22010,7 @@
   i32.add
   global.set $~lib/rt/pure/CUR
  )
- (func $~lib/rt/pure/decrement (; 398 ;) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 400 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -22055,7 +22114,7 @@
    end
   end
  )
- (func $~lib/rt/pure/__visit (; 399 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 401 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -22185,16 +22244,16 @@
    end
   end
  )
- (func "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__visit_impl" (; 400 ;) (param $0 i32) (param $1 i32)
+ (func "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__visit_impl" (; 402 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 401 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 403 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/array/Array<i32>#__visit_impl (; 402 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<i32>#__visit_impl (; 404 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 403 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 405 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -22233,358 +22292,7 @@
    end
   end
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3 | null>#__visit_impl (; 404 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<~lib/arraybuffer/ArrayBuffer>#__visit_impl (; 405 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<~lib/array/Array<i32>>#__visit_impl (; 406 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl (; 407 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<~lib/typedarray/Float32Array>#__visit_impl (; 408 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<assembly/__tests__/toStrictEqual.spec/A>#__visit_impl (; 409 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<assembly/__tests__/toStrictEqual.spec/C>#__visit_impl (; 410 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<assembly/__tests__/toStrictEqual.spec/D>#__visit_impl (; 411 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>>#__visit_impl (; 412 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 413 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 406 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -22640,46 +22348,7 @@
   local.get $1
   call $~lib/rt/pure/__visit
  )
- (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl (; 414 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/set/Set<i32>#__visit_impl (; 415 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/set/Set<i32>#__visit_impl (; 407 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   i32.load
@@ -22692,46 +22361,7 @@
   local.get $1
   call $~lib/rt/pure/__visit
  )
- (func $~lib/array/Array<~lib/set/Set<i32>>#__visit_impl (; 416 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/map/Map<i32,i32>#__visit_impl (; 417 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/map/Map<i32,i32>#__visit_impl (; 408 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $0
   i32.load
@@ -22744,46 +22374,7 @@
   local.get $1
   call $~lib/rt/pure/__visit
  )
- (func $~lib/array/Array<~lib/map/Map<i32,i32>>#__visit_impl (; 418 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#__visit_impl (; 419 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#__visit_impl (; 409 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -22839,46 +22430,7 @@
   local.get $1
   call $~lib/rt/pure/__visit
  )
- (func $~lib/array/Array<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>>#__visit_impl (; 420 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 421 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 410 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -22940,7 +22492,7 @@
   local.get $1
   call $~lib/rt/pure/__visit
  )
- (func $~lib/array/Array<~lib/string/String>#__visit_impl (; 422 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<~lib/string/String>#__visit_impl (; 411 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -22979,46 +22531,7 @@
    end
   end
  )
- (func $~lib/array/Array<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl (; 423 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#__visit_impl (; 424 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#__visit_impl (; 412 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -23080,7 +22593,7 @@
   local.get $1
   call $~lib/rt/pure/__visit
  )
- (func $~lib/array/Array<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>>#__visit_impl (; 425 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl (; 413 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -23119,188 +22632,104 @@
    end
   end
  )
- (func $~lib/rt/__visit_members (; 426 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 414 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default
-    block $switch$1$case$58
-     block $switch$1$case$56
-      block $switch$1$case$55
-       block $switch$1$case$54
-        block $switch$1$case$52
-         block $switch$1$case$51
-          block $switch$1$case$49
-           block $switch$1$case$48
-            block $switch$1$case$46
-             block $switch$1$case$45
-              block $switch$1$case$43
-               block $switch$1$case$42
-                block $switch$1$case$40
-                 block $switch$1$case$39
-                  block $switch$1$case$36
-                   block $switch$1$case$34
-                    block $switch$1$case$30
-                     block $switch$1$case$27
-                      block $switch$1$case$25
-                       block $switch$1$case$22
-                        block $switch$1$case$19
-                         block $switch$1$case$17
-                          block $switch$1$case$15
-                           block $switch$1$case$13
-                            block $switch$1$case$12
-                             block $switch$1$case$11
-                              block $switch$1$case$10
-                               block $switch$1$case$7
-                                block $switch$1$case$4
-                                 block $switch$1$case$2
-                                  local.get $0
-                                  i32.const 8
-                                  i32.sub
-                                  i32.load
-                                  br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$7 $switch$1$case$2 $switch$1$case$2 $switch$1$case$10 $switch$1$case$11 $switch$1$case$12 $switch$1$case$13 $switch$1$case$12 $switch$1$case$15 $switch$1$case$12 $switch$1$case$17 $switch$1$case$12 $switch$1$case$19 $switch$1$case$2 $switch$1$case$12 $switch$1$case$22 $switch$1$case$4 $switch$1$case$12 $switch$1$case$25 $switch$1$case$2 $switch$1$case$27 $switch$1$case$2 $switch$1$case$12 $switch$1$case$30 $switch$1$case$27 $switch$1$case$27 $switch$1$case$12 $switch$1$case$34 $switch$1$case$12 $switch$1$case$36 $switch$1$case$4 $switch$1$case$12 $switch$1$case$39 $switch$1$case$40 $switch$1$case$12 $switch$1$case$42 $switch$1$case$43 $switch$1$case$12 $switch$1$case$45 $switch$1$case$46 $switch$1$case$12 $switch$1$case$48 $switch$1$case$49 $switch$1$case$12 $switch$1$case$51 $switch$1$case$52 $switch$1$case$12 $switch$1$case$54 $switch$1$case$55 $switch$1$case$56 $switch$1$case$12 $switch$1$case$58 $switch$1$default
-                                 end
-                                 return
-                                end
-                                br $block$4$break
-                               end
-                               local.get $0
-                               local.get $1
-                               call "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__visit_impl"
-                               br $block$4$break
-                              end
-                              local.get $0
-                              local.get $1
-                              call $~lib/array/Array<usize>#__visit_impl
-                              br $block$4$break
-                             end
-                             local.get $0
-                             local.get $1
-                             call $~lib/array/Array<i32>#__visit_impl
-                             br $block$4$break
-                            end
-                            local.get $0
-                            i32.load offset=4
-                            local.tee $2
-                            if
-                             local.get $2
-                             local.get $1
-                             call $~lib/rt/pure/__visit
-                            end
-                            return
-                           end
-                           local.get $0
-                           local.get $1
-                           call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
-                           br $block$4$break
-                          end
-                          local.get $0
-                          local.get $1
-                          call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3 | null>#__visit_impl
-                          br $block$4$break
-                         end
-                         local.get $0
-                         local.get $1
-                         call $~lib/array/Array<~lib/arraybuffer/ArrayBuffer>#__visit_impl
-                         br $block$4$break
-                        end
-                        local.get $0
-                        local.get $1
-                        call $~lib/array/Array<~lib/array/Array<i32>>#__visit_impl
-                        br $block$4$break
-                       end
-                       local.get $0
-                       local.get $1
-                       call $~lib/array/Array<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl
-                       br $block$4$break
-                      end
-                      local.get $0
-                      local.get $1
-                      call $~lib/array/Array<~lib/typedarray/Float32Array>#__visit_impl
-                      br $block$4$break
-                     end
-                     local.get $0
-                     i32.load offset=8
-                     local.tee $2
-                     if
-                      local.get $2
-                      local.get $1
-                      call $~lib/rt/pure/__visit
-                     end
-                     return
-                    end
+    block $switch$1$case$44
+     block $switch$1$case$42
+      block $switch$1$case$41
+       block $switch$1$case$39
+        block $switch$1$case$37
+         block $switch$1$case$35
+          block $switch$1$case$33
+           block $switch$1$case$31
+            block $switch$1$case$22
+             block $switch$1$case$17
+              block $switch$1$case$12
+               block $switch$1$case$11
+                block $switch$1$case$10
+                 block $switch$1$case$7
+                  block $switch$1$case$4
+                   block $switch$1$case$2
                     local.get $0
-                    local.get $1
-                    call $~lib/array/Array<assembly/__tests__/toStrictEqual.spec/A>#__visit_impl
-                    br $block$4$break
+                    i32.const 8
+                    i32.sub
+                    i32.load
+                    br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$7 $switch$1$case$2 $switch$1$case$2 $switch$1$case$10 $switch$1$case$11 $switch$1$case$12 $switch$1$case$12 $switch$1$case$12 $switch$1$case$12 $switch$1$case$2 $switch$1$case$17 $switch$1$case$12 $switch$1$case$4 $switch$1$case$12 $switch$1$case$2 $switch$1$case$22 $switch$1$case$2 $switch$1$case$12 $switch$1$case$22 $switch$1$case$22 $switch$1$case$12 $switch$1$case$12 $switch$1$case$4 $switch$1$case$12 $switch$1$case$31 $switch$1$case$12 $switch$1$case$33 $switch$1$case$12 $switch$1$case$35 $switch$1$case$12 $switch$1$case$37 $switch$1$case$12 $switch$1$case$39 $switch$1$case$12 $switch$1$case$41 $switch$1$case$42 $switch$1$case$12 $switch$1$case$44 $switch$1$default
                    end
-                   local.get $0
-                   local.get $1
-                   call $~lib/array/Array<assembly/__tests__/toStrictEqual.spec/C>#__visit_impl
-                   br $block$4$break
+                   return
                   end
-                  local.get $0
-                  local.get $1
-                  call $~lib/array/Array<assembly/__tests__/toStrictEqual.spec/D>#__visit_impl
                   br $block$4$break
                  end
                  local.get $0
                  local.get $1
-                 call $~lib/array/Array<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>>#__visit_impl
+                 call "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__visit_impl"
                  br $block$4$break
                 end
                 local.get $0
                 local.get $1
-                call $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
-                return
+                call $~lib/array/Array<usize>#__visit_impl
+                br $block$4$break
                end
                local.get $0
                local.get $1
-               call $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl
+               call $~lib/array/Array<i32>#__visit_impl
                br $block$4$break
               end
               local.get $0
-              local.get $1
-              call $~lib/set/Set<i32>#__visit_impl
+              i32.load offset=4
+              local.tee $2
+              if
+               local.get $2
+               local.get $1
+               call $~lib/rt/pure/__visit
+              end
               return
              end
              local.get $0
              local.get $1
-             call $~lib/array/Array<~lib/set/Set<i32>>#__visit_impl
+             call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
              br $block$4$break
             end
             local.get $0
-            local.get $1
-            call $~lib/map/Map<i32,i32>#__visit_impl
+            i32.load offset=8
+            local.tee $2
+            if
+             local.get $2
+             local.get $1
+             call $~lib/rt/pure/__visit
+            end
             return
            end
            local.get $0
            local.get $1
-           call $~lib/array/Array<~lib/map/Map<i32,i32>>#__visit_impl
-           br $block$4$break
+           call $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
+           return
           end
           local.get $0
           local.get $1
-          call $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#__visit_impl
+          call $~lib/set/Set<i32>#__visit_impl
           return
          end
          local.get $0
          local.get $1
-         call $~lib/array/Array<~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>>#__visit_impl
-         br $block$4$break
+         call $~lib/map/Map<i32,i32>#__visit_impl
+         return
         end
         local.get $0
         local.get $1
-        call $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
+        call $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#__visit_impl
         return
        end
        local.get $0
        local.get $1
-       call $~lib/array/Array<~lib/string/String>#__visit_impl
-       br $block$4$break
+       call $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
+       return
       end
       local.get $0
       local.get $1
-      call $~lib/array/Array<~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl
+      call $~lib/array/Array<~lib/string/String>#__visit_impl
       br $block$4$break
      end
      local.get $0
@@ -23310,7 +22739,7 @@
     end
     local.get $0
     local.get $1
-    call $~lib/array/Array<~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>>#__visit_impl
+    call $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl
     br $block$4$break
    end
    unreachable

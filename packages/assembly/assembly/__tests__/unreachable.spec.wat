@@ -28,7 +28,7 @@
  (data (i32.const 896) "z\00\00\00\01\00\00\00\01\00\00\00z\00\00\00u\00n\00r\00e\00a\00c\00h\00a\00b\00l\00e\00 \00s\00h\00o\00u\00l\00d\00 \00c\00a\00u\00s\00e\00 \00n\00e\00g\00a\00t\00e\00d\00 \00t\00o\00T\00h\00r\00o\00w\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00t\00o\00 \00t\00h\00r\00o\00w\00.\00")
  (data (i32.const 1040) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00e\00x\00p\00e\00c\00t\00F\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00c\00a\00l\00l\00b\00a\00c\00k\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00t\00h\00r\00o\00w\00")
  (data (i32.const 1168) "\8a\00\00\00\01\00\00\00\01\00\00\00\8a\00\00\00f\00u\00n\00c\00t\00i\00o\00n\00s\00 \00t\00h\00a\00t\00 \00d\00o\00 \00n\00o\00t\00 \00t\00h\00r\00o\00w\00 \00s\00h\00o\00u\00l\00d\00 \00c\00a\00u\00s\00e\00 \00t\00o\00T\00h\00r\00o\00w\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00t\00o\00 \00t\00h\00r\00o\00w\00.\00")
- (data (i32.const 1328) "\07\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
+ (data (i32.const 1328) "\06\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -99,7 +99,7 @@
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 1328))
- (global $~lib/heap/__heap_base i32 (i32.const 1388))
+ (global $~lib/heap/__heap_base i32 (i32.const 1380))
  (export "__setArgumentsLength" (func $~setArgumentsLength))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
@@ -1889,7 +1889,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 5
+   i32.const 4
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -2336,7 +2336,7 @@
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
  (func $assembly/internal/RTrace/__getUsizeArrayId (; 93 ;) (result i32)
-  i32.const 6
+  i32.const 5
  )
  (func $assembly/internal/Expectation/__cleanup (; 94 ;)
   call $assembly/internal/report/Expected/Expected.clear
@@ -2472,69 +2472,24 @@
   i32.sub
   call $~lib/rt/pure/decrement
  )
- (func $~lib/array/Array<~lib/string/String>#__visit_impl (; 100 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<usize>#__visit_impl (; 101 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 100 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/__visit_members (; 102 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 101 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default
-    block $switch$1$case$8
-     block $switch$1$case$6
-      block $switch$1$case$4
-       block $switch$1$case$2
-        local.get $0
-        i32.const 8
-        i32.sub
-        i32.load
-        br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$6 $switch$1$case$2 $switch$1$case$8 $switch$1$default
-       end
-       return
+    block $switch$1$case$7
+     block $switch$1$case$4
+      block $switch$1$case$2
+       local.get $0
+       i32.const 8
+       i32.sub
+       i32.load
+       br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$2 $switch$1$case$7 $switch$1$default
       end
-      br $block$4$break
+      return
      end
-     local.get $0
-     local.get $1
-     call $~lib/array/Array<~lib/string/String>#__visit_impl
      br $block$4$break
     end
     local.get $0

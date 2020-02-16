@@ -50,7 +50,7 @@
  (data (i32.const 2368) "\\\00\00\00\01\00\00\00\01\00\00\00\\\00\00\00s\00h\00o\00u\00l\00d\00 \00e\00x\00p\00e\00c\00t\00 \00n\00o\00n\00-\00n\00u\00l\00l\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00s\00 \00t\00o\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
  (data (i32.const 2480) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00N\00o\00n\00-\00n\00u\00l\00l\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00s\00 \00a\00r\00e\00 \00t\00r\00u\00t\00h\00y\00.\00")
  (data (i32.const 2560) "\82\00\00\00\01\00\00\00\01\00\00\00\82\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00n\00o\00n\00-\00n\00u\00l\00l\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00s\00 \00a\00r\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00n\00o\00t\00 \00t\00o\00 \00b\00e\00 \00t\00r\00u\00t\00h\00y\00")
- (data (i32.const 2720) "\0c\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\930\00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\93\00\00\00\02\00\00\00")
+ (data (i32.const 2720) "\n\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -116,7 +116,7 @@
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 2720))
- (global $~lib/heap/__heap_base i32 (i32.const 2820))
+ (global $~lib/heap/__heap_base i32 (i32.const 2804))
  (export "__setArgumentsLength" (func $~setArgumentsLength))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
@@ -2310,7 +2310,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 9
+   i32.const 8
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -2819,7 +2819,7 @@
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
  (func $assembly/internal/RTrace/__getUsizeArrayId (; 109 ;) (result i32)
-  i32.const 11
+  i32.const 9
  )
  (func $assembly/internal/Expectation/__cleanup (; 110 ;)
   call $assembly/internal/report/Expected/Expected.clear
@@ -2955,126 +2955,36 @@
   i32.sub
   call $~lib/rt/pure/decrement
  )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3 | null>#__visit_impl (; 116 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 117 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.load offset=4
-  local.set $2
-  local.get $2
-  local.get $0
-  i32.load offset=12
-  i32.const 2
-  i32.shl
-  i32.add
-  local.set $3
-  loop $while-continue|0
-   local.get $2
-   local.get $3
-   i32.lt_u
-   local.set $4
-   local.get $4
-   if
-    local.get $2
-    i32.load
-    local.set $5
-    local.get $5
-    if
-     local.get $5
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
-    local.get $2
-    i32.const 4
-    i32.add
-    local.set $2
-    br $while-continue|0
-   end
-  end
- )
- (func $~lib/array/Array<usize>#__visit_impl (; 118 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 116 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/__visit_members (; 119 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 117 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default
-    block $switch$1$case$13
-     block $switch$1$case$12
-      block $switch$1$case$10
-       block $switch$1$case$9
-        block $switch$1$case$4
-         block $switch$1$case$2
-          local.get $0
-          i32.const 8
-          i32.sub
-          i32.load
-          br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$9 $switch$1$case$10 $switch$1$case$9 $switch$1$case$12 $switch$1$case$13 $switch$1$default
-         end
-         return
-        end
-        br $block$4$break
-       end
-       local.get $0
-       i32.load offset=4
-       local.tee $2
-       if
-        local.get $2
-        local.get $1
-        call $~lib/rt/pure/__visit
+    block $switch$1$case$11
+     block $switch$1$case$9
+      block $switch$1$case$4
+       block $switch$1$case$2
+        local.get $0
+        i32.const 8
+        i32.sub
+        i32.load
+        br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$2 $switch$1$case$9 $switch$1$case$9 $switch$1$case$11 $switch$1$default
        end
        return
       end
-      local.get $0
-      local.get $1
-      call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3 | null>#__visit_impl
       br $block$4$break
      end
      local.get $0
-     local.get $1
-     call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
-     br $block$4$break
+     i32.load offset=4
+     local.tee $2
+     if
+      local.get $2
+      local.get $1
+      call $~lib/rt/pure/__visit
+     end
+     return
     end
     local.get $0
     local.get $1

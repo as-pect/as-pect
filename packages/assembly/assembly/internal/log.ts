@@ -59,7 +59,7 @@ export function log<T>(value: T): void {
         return;
       }
     }
-    if (value instanceof Array) {
+    if (value instanceof ArrayBufferView) {
       logArray(changetype<usize>(value));
     } else if (value instanceof String) {
       // @ts-ignore: this cast is valid because it's already a string

@@ -1,3 +1,4 @@
+import { ArrayBufferView } from "arraybuffer";
 import { Set } from "set";
 import { assert } from "./comparison/assert";
 
@@ -165,7 +166,7 @@ export class Reflect {
       }
 
       // compile time array values should be compared over a for loop
-      if (left instanceof Array) {
+      if (left instanceof ArrayBufferView) {
         let aLength = left.length;
         // @ts-ignore: typesafe access to length
         let bLength = right.length;
