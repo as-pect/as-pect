@@ -23,7 +23,6 @@ declare function createHostValue(
   typeName: string,
   value: usize,
   hasValues: bool,
-  negated: bool,
 ): i32;
 
 // @ts-ignore: external declaration
@@ -34,15 +33,13 @@ declare function __aspectPushHostObjectValue(hostObject: i32, value: i32): void;
 @external("__aspect", "pushHostObjectKey") @global
 declare function __aspectPushHostObjectKey(hostObject: i32, value: i32): void;
 
-
-
 @global
 // @ts-ignore: global decorator is allowed here
 export class Reflect {
   /**
    * Create a host value for inspection.
    *
-   * @param {T} value - THe value to be inspected.
+   * @param {T} value - The value to be inspected.
    * @param {Map<usize, i32>} seen - A map of pointers to hostObject for caching purposes.
    */
   public static toHostValue<T>(value: T, seen: Map<usize, i32> = new Map<usize, i32>()): i32 {
@@ -61,7 +58,6 @@ export class Reflect {
           idof<T>(),
           isFunction<T>() ? "Function" : nameof<T>(),
           0,
-          false,
           false,
         );
       }
@@ -90,7 +86,6 @@ export class Reflect {
           "Function",
           changetype<usize>(value),
           false,
-          false,
         );
         return hostValue;
       } else if (value instanceof Set) {
@@ -108,7 +103,6 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // sets have values
-          false,
         );
 
         // cache this value
@@ -137,7 +131,6 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // maps have values
-          false,
         );
 
         // cache this value
@@ -174,7 +167,6 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // maps have values
-          false,
         );
 
         // cache this value
@@ -205,7 +197,6 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // maps have values
-          false,
         );
 
         // cache this value
@@ -241,7 +232,6 @@ export class Reflect {
           nameof<T>(),
           changetype<usize>(value),
           false,
-          false,
         );
         seen.set(changetype<usize>(value), hostValue);
         return hostValue;
@@ -260,7 +250,6 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // classes have values
-          false,
         );
 
         // cache this object
@@ -285,7 +274,6 @@ export class Reflect {
         idof<T>(),
         nameof<T>(),
         changetype<usize>(box),
-        false,
         false,
       );
       return hostObject;

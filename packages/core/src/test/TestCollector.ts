@@ -278,6 +278,8 @@ export class TestCollector {
       ...imports, // get all the user defined imports
       {
         __aspect: {
+          clearActual: this.clearActual.bind(this),
+          clearExpected: this.clearExpected.bind(this),
           createHostValue: this.createHostValue.bind(this),
           debug: this.debug.bind(this),
           endRTrace: this.endRTrace.bind(this),
@@ -1483,7 +1485,7 @@ export class TestCollector {
    *
    * @param {number} id - The HostValue id
    */
-  private reportExpectedHostValue(id: number): void {
+  private reportExpectedHostValue(id: number, negated: number): void {
     if (id >= this.hostValueCache.length || id < 0) {
       this.errors.push({
         message: `Cannot report expected HostValue of id ${id}. Index out of bounds.`,
@@ -1493,6 +1495,7 @@ export class TestCollector {
       return;
     }
     this.expected = this.hostValueCache[id];
+    this.expected.negated = !!negated;
   }
 
   /**
@@ -1565,5 +1568,13 @@ export class TestCollector {
       return;
     }
     hostObject.keys.push(valueObject);
+  }
+
+  private clearExpected(): void {
+    this.expected = null;
+  }
+
+  private clearActual(): void {
+    this.actual = null;
   }
 }

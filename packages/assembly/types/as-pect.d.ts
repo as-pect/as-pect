@@ -915,6 +915,13 @@ declare class Reflect {
   public static DEFER_MATCH: i32;
 
   /**
+   * Create a host value for inspection.
+   *
+   * @param {T} value - The value to be inspected.
+   * @param {Map<usize, i32>} seen - A map of pointers to hostObject for caching purposes.
+   */
+  public static toHostValue<T>(value: T, seen?: Map<usize, i32>): i32
+  /**
    * A method used for comparing two values or references to determine if they match each other.
    *
    * @param {T} left - One of the values being compared.
