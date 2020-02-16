@@ -39,8 +39,7 @@ export function toIncludeComparison<T, U>(actual: T, expected: U, negated: i32, 
   let includes = false;
 
   // test for Sets
-  if (actual instanceof Set<indexof<T>>) {
-    // @ts-ignore: type safe .has(expected) method call
+  if (actual instanceof Set) {
     includes = actual.has(expected);
   } else {
     if (!isDefined(actual.length)) ERROR("Can only call toInclude on array-like objects or Sets.");
