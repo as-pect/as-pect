@@ -505,7 +505,7 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: actual offset 1`] = `24`;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: actual value 1`] = `5760`;
+exports[`pass-fail output Group: pass-fail Test: should report reference values: actual value 1`] = `5728`;
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: actual values 1`] = `Array []`;
 
@@ -544,7 +544,7 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: expected offset 1`] = `24`;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: expected value 1`] = `5840`;
+exports[`pass-fail output Group: pass-fail Test: should report reference values: expected value 1`] = `5808`;
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: expected values 1`] = `Array []`;
 
