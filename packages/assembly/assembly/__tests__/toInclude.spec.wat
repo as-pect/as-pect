@@ -48,7 +48,7 @@
  (data (i32.const 2576) "H\00\00\00\01\00\00\00\01\00\00\00H\00\00\00w\00h\00e\00n\00 \00i\00t\00e\00m\00 \00i\00s\00 \00n\00o\00t\00 \00i\00n\00c\00l\00u\00d\00e\00d\00 \00i\00n\00 \00t\00h\00e\00 \00s\00e\00t\00")
  (data (i32.const 2672) "V\00\00\00\01\00\00\00\01\00\00\00V\00\00\00T\00h\00e\00 \00i\00t\00e\00m\00 \00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00b\00e\00 \00i\00n\00c\00l\00u\00d\00e\00d\00 \00i\00n\00 \00t\00h\00e\00 \00s\00e\00t\00.\00")
  (data (i32.const 2784) "b\00\00\00\01\00\00\00\01\00\00\00b\00\00\00s\00h\00o\00u\00l\00d\00 \00n\00o\00t\00 \00i\00n\00c\00l\00u\00d\00e\00 \00a\00n\00 \00i\00t\00e\00m\00 \00t\00h\00a\00t\00 \00i\00s\00 \00n\00o\00t\00 \00i\00n\00 \00t\00h\00e\00 \00s\00e\00t\00")
- (data (i32.const 2912) "\10\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00\93\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\94\04\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\94 \00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
+ (data (i32.const 2912) "\14\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00\93\04\00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\94 \00\00\00\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\10\00\00\00\00\00\00\00\93 \00\00\02\00\00\00\93\00\00\00\02\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -128,7 +128,7 @@
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
  (global $~lib/rt/__rtti_base i32 (i32.const 2912))
- (global $~lib/heap/__heap_base i32 (i32.const 3044))
+ (global $~lib/heap/__heap_base i32 (i32.const 3076))
  (export "__setArgumentsLength" (func $~setArgumentsLength))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
@@ -3646,8 +3646,10 @@
   global.set $assembly/internal/report/Actual/Actual.reference
   i32.const 1
   global.set $assembly/internal/report/Actual/Actual.isManaged
-  i32.const 6
+  i32.const 4
   global.set $assembly/internal/report/Actual/Actual.type
+  i32.const 16
+  global.set $assembly/internal/report/Actual/Actual.offset
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -3999,7 +4001,7 @@
    local.get $0
   else
    i32.const 16
-   i32.const 10
+   i32.const 11
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
   end
@@ -4020,7 +4022,7 @@
   i32.eqz
   if
    i32.const 24
-   i32.const 9
+   i32.const 10
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -4116,15 +4118,15 @@
   i32.sub
   i32.store offset=4
   local.get $0
-  local.tee $1
+  local.tee $2
   i32.const 0
   i32.const 32
   call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $2
-  local.get $1
+  local.set $1
+  local.get $2
   i32.load offset=8
   call $~lib/rt/pure/__release
-  local.get $2
+  local.get $1
   i32.store offset=8
   local.get $0
   i32.const 4
@@ -4141,7 +4143,7 @@
   i32.eqz
   if
    i32.const 24
-   i32.const 11
+   i32.const 12
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -4472,41 +4474,41 @@
    end
   end
   local.get $0
-  local.tee $9
+  local.tee $11
   local.get $3
-  local.tee $11
-  local.get $9
-  i32.load
-  local.tee $13
-  i32.ne
-  if
-   local.get $11
-   call $~lib/rt/pure/__retain
-   local.set $11
-   local.get $13
-   call $~lib/rt/pure/__release
-  end
-  local.get $11
-  i32.store
-  local.get $0
-  local.get $1
-  i32.store offset=4
-  local.get $0
-  local.tee $9
-  local.get $5
   local.tee $12
-  local.get $9
-  i32.load offset=8
-  local.tee $11
+  local.get $11
+  i32.load
+  local.tee $9
   i32.ne
   if
    local.get $12
    call $~lib/rt/pure/__retain
    local.set $12
-   local.get $11
+   local.get $9
    call $~lib/rt/pure/__release
   end
   local.get $12
+  i32.store
+  local.get $0
+  local.get $1
+  i32.store offset=4
+  local.get $0
+  local.tee $13
+  local.get $5
+  local.tee $9
+  local.get $13
+  i32.load offset=8
+  local.tee $11
+  i32.ne
+  if
+   local.get $9
+   call $~lib/rt/pure/__retain
+   local.set $9
+   local.get $11
+   call $~lib/rt/pure/__release
+  end
+  local.get $9
   i32.store offset=8
   local.get $0
   local.get $4
@@ -4638,7 +4640,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 12
+   i32.const 13
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -4704,8 +4706,10 @@
   global.set $assembly/internal/report/Actual/Actual.reference
   i32.const 1
   global.set $assembly/internal/report/Actual/Actual.isManaged
-  i32.const 6
+  i32.const 4
   global.set $assembly/internal/report/Actual/Actual.type
+  i32.const 16
+  global.set $assembly/internal/report/Actual/Actual.offset
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -4897,7 +4901,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 13
+   i32.const 15
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -4963,8 +4967,10 @@
   global.set $assembly/internal/report/Actual/Actual.reference
   i32.const 1
   global.set $assembly/internal/report/Actual/Actual.isManaged
-  i32.const 6
+  i32.const 4
   global.set $assembly/internal/report/Actual/Actual.type
+  i32.const 16
+  global.set $assembly/internal/report/Actual/Actual.offset
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -5143,7 +5149,7 @@
   i32.eqz
   if
    i32.const 8
-   i32.const 14
+   i32.const 17
    call $~lib/rt/tlsf/__alloc
    call $~lib/rt/pure/__retain
    local.set $0
@@ -5785,7 +5791,7 @@
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
  (func $assembly/internal/RTrace/__getUsizeArrayId (; 142 ;) (result i32)
-  i32.const 15
+  i32.const 19
  )
  (func $assembly/internal/Expectation/__cleanup (; 143 ;)
   call $assembly/internal/report/Expected/Expected.clear
@@ -5911,20 +5917,7 @@
  (func $~lib/array/Array<i32>#__visit_impl (; 149 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/set/Set<i32>#__visit_impl (; 150 ;) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  local.get $0
-  i32.load
-  local.get $1
-  call $~lib/rt/pure/__visit
-  local.get $0
-  i32.load offset=8
-  local.set $2
-  local.get $2
-  local.get $1
-  call $~lib/rt/pure/__visit
- )
- (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 151 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<~lib/array/Array<i32>>#__visit_impl (; 150 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -5963,7 +5956,85 @@
    end
   end
  )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 152 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<~lib/string/String>#__visit_impl (; 151 ;) (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  i32.load offset=4
+  local.set $2
+  local.get $2
+  local.get $0
+  i32.load offset=12
+  i32.const 2
+  i32.shl
+  i32.add
+  local.set $3
+  loop $while-continue|0
+   local.get $2
+   local.get $3
+   i32.lt_u
+   local.set $4
+   local.get $4
+   if
+    local.get $2
+    i32.load
+    local.set $5
+    local.get $5
+    if
+     local.get $5
+     local.get $1
+     call $~lib/rt/pure/__visit
+    end
+    local.get $2
+    i32.const 4
+    i32.add
+    local.set $2
+    br $while-continue|0
+   end
+  end
+ )
+ (func $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 152 ;) (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  i32.load offset=4
+  local.set $2
+  local.get $2
+  local.get $0
+  i32.load offset=12
+  i32.const 2
+  i32.shl
+  i32.add
+  local.set $3
+  loop $while-continue|0
+   local.get $2
+   local.get $3
+   i32.lt_u
+   local.set $4
+   local.get $4
+   if
+    local.get $2
+    i32.load
+    local.set $5
+    local.get $5
+    if
+     local.get $5
+     local.get $1
+     call $~lib/rt/pure/__visit
+    end
+    local.get $2
+    i32.const 4
+    i32.add
+    local.set $2
+    br $while-continue|0
+   end
+  end
+ )
+ (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl (; 153 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -6019,66 +6090,207 @@
   local.get $1
   call $~lib/rt/pure/__visit
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 153 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl (; 154 ;) (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  i32.load offset=4
+  local.set $2
+  local.get $2
+  local.get $0
+  i32.load offset=12
+  i32.const 2
+  i32.shl
+  i32.add
+  local.set $3
+  loop $while-continue|0
+   local.get $2
+   local.get $3
+   i32.lt_u
+   local.set $4
+   local.get $4
+   if
+    local.get $2
+    i32.load
+    local.set $5
+    local.get $5
+    if
+     local.get $5
+     local.get $1
+     call $~lib/rt/pure/__visit
+    end
+    local.get $2
+    i32.const 4
+    i32.add
+    local.set $2
+    br $while-continue|0
+   end
+  end
+ )
+ (func "$~lib/array/Array<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>#__visit_impl" (; 155 ;) (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  i32.load offset=4
+  local.set $2
+  local.get $2
+  local.get $0
+  i32.load offset=12
+  i32.const 2
+  i32.shl
+  i32.add
+  local.set $3
+  loop $while-continue|0
+   local.get $2
+   local.get $3
+   i32.lt_u
+   local.set $4
+   local.get $4
+   if
+    local.get $2
+    i32.load
+    local.set $5
+    local.get $5
+    if
+     local.get $5
+     local.get $1
+     call $~lib/rt/pure/__visit
+    end
+    local.get $2
+    i32.const 4
+    i32.add
+    local.set $2
+    br $while-continue|0
+   end
+  end
+ )
+ (func $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl (; 156 ;) (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  i32.load offset=4
+  local.set $2
+  local.get $2
+  local.get $0
+  i32.load offset=12
+  i32.const 2
+  i32.shl
+  i32.add
+  local.set $3
+  loop $while-continue|0
+   local.get $2
+   local.get $3
+   i32.lt_u
+   local.set $4
+   local.get $4
+   if
+    local.get $2
+    i32.load
+    local.set $5
+    local.get $5
+    if
+     local.get $5
+     local.get $1
+     call $~lib/rt/pure/__visit
+    end
+    local.get $2
+    i32.const 4
+    i32.add
+    local.set $2
+    br $while-continue|0
+   end
+  end
+ )
+ (func $~lib/array/Array<usize>#__visit_impl (; 157 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/__visit_members (; 154 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 158 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default
-    block $switch$1$case$17
-     block $switch$1$case$13
-      block $switch$1$case$12
-       block $switch$1$case$10
-        block $switch$1$case$9
-         block $switch$1$case$8
-          block $switch$1$case$7
-           block $switch$1$case$4
-            block $switch$1$case$2
+    block $switch$1$case$21
+     block $switch$1$case$20
+      block $switch$1$case$18
+       block $switch$1$case$16
+        block $switch$1$case$14
+         block $switch$1$case$13
+          block $switch$1$case$11
+           block $switch$1$case$10
+            block $switch$1$case$9
+             block $switch$1$case$8
+              block $switch$1$case$7
+               block $switch$1$case$4
+                block $switch$1$case$2
+                 local.get $0
+                 i32.const 8
+                 i32.sub
+                 i32.load
+                 br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$7 $switch$1$case$8 $switch$1$case$9 $switch$1$case$10 $switch$1$case$11 $switch$1$case$2 $switch$1$case$13 $switch$1$case$14 $switch$1$case$9 $switch$1$case$16 $switch$1$case$9 $switch$1$case$18 $switch$1$case$9 $switch$1$case$20 $switch$1$case$21 $switch$1$default
+                end
+                return
+               end
+               br $block$4$break
+              end
+              local.get $0
+              local.get $1
+              call "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__visit_impl"
+              br $block$4$break
+             end
              local.get $0
-             i32.const 8
-             i32.sub
-             i32.load
-             br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$7 $switch$1$case$8 $switch$1$case$9 $switch$1$case$10 $switch$1$case$2 $switch$1$case$12 $switch$1$case$13 $switch$1$case$9 $switch$1$case$9 $switch$1$case$9 $switch$1$case$17 $switch$1$default
+             local.get $1
+             call $~lib/array/Array<i32>#__visit_impl
+             br $block$4$break
+            end
+            local.get $0
+            i32.load offset=4
+            local.tee $2
+            if
+             local.get $2
+             local.get $1
+             call $~lib/rt/pure/__visit
             end
             return
            end
+           local.get $0
+           local.get $1
+           call $~lib/array/Array<~lib/array/Array<i32>>#__visit_impl
            br $block$4$break
           end
           local.get $0
           local.get $1
-          call "$~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>#__visit_impl"
+          call $~lib/array/Array<~lib/string/String>#__visit_impl
           br $block$4$break
          end
          local.get $0
          local.get $1
-         call $~lib/array/Array<i32>#__visit_impl
+         call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
          br $block$4$break
         end
         local.get $0
-        i32.load offset=4
-        local.tee $2
-        if
-         local.get $2
-         local.get $1
-         call $~lib/rt/pure/__visit
-        end
+        local.get $1
+        call $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
         return
        end
        local.get $0
        local.get $1
-       call $~lib/set/Set<i32>#__visit_impl
-       return
+       call $~lib/array/Array<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl
+       br $block$4$break
       end
       local.get $0
       local.get $1
-      call $~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
+      call "$~lib/array/Array<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>#__visit_impl"
       br $block$4$break
      end
      local.get $0
      local.get $1
-     call $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#__visit_impl
-     return
+     call $~lib/array/Array<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>#__visit_impl
+     br $block$4$break
     end
     local.get $0
     local.get $1

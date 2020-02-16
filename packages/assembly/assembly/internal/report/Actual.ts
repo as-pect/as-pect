@@ -145,7 +145,7 @@ export class Actual {
       Actual.isManaged = isManaged<T>();
 
       // it might be an array
-      if (actual instanceof ArrayBufferView) {
+      if (actual instanceof Array) {
         Actual.type = ValueType.Array;
         // or a string
       } else if (actual instanceof String) {

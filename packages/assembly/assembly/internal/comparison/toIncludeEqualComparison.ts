@@ -40,7 +40,7 @@ export function toIncludeEqualComparison<T, U>(actual: T, expected: U, negated: 
   let includes = false;
 
   // test for Sets
-  if (actual instanceof Set<indexof<T>>) {
+  if (actual instanceof Set) {
     // @ts-ignore: type safe .has(expected) method call
     if (actual.has(expected)) {
       includes = true;

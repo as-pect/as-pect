@@ -152,7 +152,7 @@ export class Expected {
       Expected.reference = ptr;
       Expected.isManaged = isManaged<T>();
       // otherwise it might be an array..
-      if (expected instanceof ArrayBufferView) {
+      if (expected instanceof Array) {
         Expected.type = ValueType.Array;
         // or a string...
       } else if (expected instanceof String) {

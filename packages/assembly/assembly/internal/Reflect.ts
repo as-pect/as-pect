@@ -1,4 +1,3 @@
-import { ArrayBufferView } from "arraybuffer";
 import { Set } from "set";
 import { assert } from "./comparison/assert";
 
@@ -60,7 +59,7 @@ export class Reflect {
 
       if (isDefined(left[0])) { // test for safe indexof usage
         // set match
-        if (left instanceof Set<indexof<T>>) {
+        if (left instanceof Set) {
           if (left.size !== right.size) return Reflect.FAILED_MATCH;
           stack.push(a);
           stack.push(b);
@@ -105,7 +104,7 @@ export class Reflect {
           return Reflect.SUCCESSFUL_MATCH;
         }
 
-        if (left instanceof Map<indexof<T>, valueof<T>>) {
+        if (left instanceof Map) {
           if (left.size !== right.size) return Reflect.FAILED_MATCH;
           stack.push(a);
           stack.push(b);
@@ -166,7 +165,7 @@ export class Reflect {
       }
 
       // compile time array values should be compared over a for loop
-      if (left instanceof ArrayBufferView) {
+      if (left instanceof Array) {
         let aLength = left.length;
         // @ts-ignore: typesafe access to length
         let bLength = right.length;
