@@ -48,7 +48,6 @@ export class Reflect {
       // once we've determined we need to check the references for their values, arraybuffers
       // require a memory compare
       if (left instanceof ArrayBuffer) {
-        // @ts-ignore: typesafe access to byteLength property because T is ArrayBuffer
         if (left.byteLength !== right.byteLength) return Reflect.FAILED_MATCH;
         let result = memory.compare(a, b, left.byteLength);
         if (result === 0) {
@@ -58,111 +57,109 @@ export class Reflect {
         } else return Reflect.FAILED_MATCH;
       }
 
-      if (isDefined(left[0])) { // test for safe indexof usage
-        // set match
-        if (left instanceof Set) {
-          if (left.size !== right.size) return Reflect.FAILED_MATCH;
-          stack.push(a);
-          stack.push(b);
-          let leftValues = left.values();
-          let rightValues = right.values();
-          let length = leftValues.length;
-          let leftoverLength = length;
-          for (let i = 0; i < length; i++) {
-            let leftItem = unchecked(leftValues[i]);
-            if (rightValues.includes(leftItem)) {
-              let index = rightValues.indexOf(leftItem);
-              rightValues.splice(index, 1);
-              leftoverLength--;
-              continue; // short circuit
-            }
-
-            if (isReference<indexof<T>>() && !isFunction<indexof<T>>()) {
-              let continueOuter = false;
-              // long path, compare every item in the set
-              for (let j = 0; j < leftoverLength; j++) {
-                let rightItem = unchecked(rightValues[j]);
-                if (Reflect.equals(leftItem, rightItem, stack, cache) !== Reflect.FAILED_MATCH) {
-                  rightValues.splice(j, 1);
-                  leftoverLength--;
-                  continueOuter = true;
-                  break;
-                };
-              }
-              if (continueOuter) continue;
-            }
-
-            stack.pop();
-            stack.pop();
-            return Reflect.FAILED_MATCH;
+      // set match
+      if (left instanceof Set) {
+        if (left.size !== right.size) return Reflect.FAILED_MATCH;
+        stack.push(a);
+        stack.push(b);
+        let leftValues = left.values();
+        let rightValues = right.values();
+        let length = leftValues.length;
+        let leftoverLength = length;
+        for (let i = 0; i < length; i++) {
+          let leftItem = unchecked(leftValues[i]);
+          if (rightValues.includes(leftItem)) {
+            let index = rightValues.indexOf(leftItem);
+            rightValues.splice(index, 1);
+            leftoverLength--;
+            continue; // short circuit
           }
 
+          if (isReference<indexof<T>>() && !isFunction<indexof<T>>()) {
+            let continueOuter = false;
+            // long path, compare every item in the set
+            for (let j = 0; j < leftoverLength; j++) {
+              let rightItem = unchecked(rightValues[j]);
+              if (Reflect.equals(leftItem, rightItem, stack, cache) !== Reflect.FAILED_MATCH) {
+                rightValues.splice(j, 1);
+                leftoverLength--;
+                continueOuter = true;
+                break;
+              };
+            }
+            if (continueOuter) continue;
+          }
+
+          stack.pop();
+          stack.pop();
+          return Reflect.FAILED_MATCH;
+        }
+
+        cache.push(a);
+        cache.push(b);
+
+        stack.pop();
+        stack.pop();
+        return Reflect.SUCCESSFUL_MATCH;
+      }
+
+      if (left instanceof Map) {
+        if (left.size !== right.size) return Reflect.FAILED_MATCH;
+        stack.push(a);
+        stack.push(b);
+
+        // collect all the keys and loop over each one
+        let leftKeys = left.keys();
+        let rightKeys = right.keys();
+
+        let keyLength = leftKeys.length;
+        let leftoverKeyLength = keyLength;
+
+        // assume we match and determine if the match was a failure
+        let result = Reflect.SUCCESSFUL_MATCH;
+
+        // for each key
+        for (let i = 0; i < keyLength; i++) {
+          let leftKey = unchecked(leftKeys[i]);
+          // assume won't find it
+          let found = false;
+
+          // find a matching key
+          for (let j = 0; j < leftoverKeyLength; j++) {
+            let rightKey = unchecked(rightKeys[j]);
+
+            // if the keys match, or are still being resolved
+            if (Reflect.equals(leftKey, rightKey, stack, cache) !== Reflect.FAILED_MATCH) {
+              // the key potentially matches, obtain the values associated with the keys
+              let leftValue = left.get(leftKey);
+              let rightValue = right.get(rightKey);
+
+              // if the values match, or are still being resolved
+              if (Reflect.equals(leftValue, rightValue, stack, cache) !== Reflect.FAILED_MATCH) {
+                leftoverKeyLength--;
+                rightKeys.splice(j, 1); // remove this key from the list
+                found = true;
+                break;
+              }
+            }
+          }
+
+          // if there was no match for this key value pair, the result is Failed
+          if (!found) {
+            result = Reflect.FAILED_MATCH;
+            break;
+          }
+        }
+
+        // if every key matched, result is still equal to `Reflect.MATCH`
+        if (result === Reflect.SUCCESSFUL_MATCH) {
           cache.push(a);
           cache.push(b);
-
-          stack.pop();
-          stack.pop();
-          return Reflect.SUCCESSFUL_MATCH;
         }
 
-        if (left instanceof Map) {
-          if (left.size !== right.size) return Reflect.FAILED_MATCH;
-          stack.push(a);
-          stack.push(b);
-
-          // collect all the keys and loop over each one
-          let leftKeys = left.keys();
-          let rightKeys = right.keys();
-
-          let keyLength = leftKeys.length;
-          let leftoverKeyLength = keyLength;
-
-          // assume we match and determine if the match was a failure
-          let result = Reflect.SUCCESSFUL_MATCH;
-
-          // for each key
-          for (let i = 0; i < keyLength; i++) {
-            let leftKey = unchecked(leftKeys[i]);
-            // assume won't find it
-            let found = false;
-
-            // find a matching key
-            for (let j = 0; j < leftoverKeyLength; j++) {
-              let rightKey = unchecked(rightKeys[j]);
-
-              // if the keys match, or are still being resolved
-              if (Reflect.equals(leftKey, rightKey, stack, cache) !== Reflect.FAILED_MATCH) {
-                // the key potentially matches, obtain the values associated with the keys
-                let leftValue = left.get(leftKey);
-                let rightValue = right.get(rightKey);
-
-                // if the values match, or are still being resolved
-                if (Reflect.equals(leftValue, rightValue, stack, cache) !== Reflect.FAILED_MATCH) {
-                  leftoverKeyLength--;
-                  rightKeys.splice(j, 1); // remove this key from the list
-                  found = true;
-                  break;
-                }
-              }
-            }
-
-            // if there was no match for this key value pair, the result is Failed
-            if (!found) {
-              result = Reflect.FAILED_MATCH;
-              break;
-            }
-          }
-
-          // if every key matched, result is still equal to `Reflect.MATCH`
-          if (result === Reflect.SUCCESSFUL_MATCH) {
-            cache.push(a);
-            cache.push(b);
-          }
-
-          stack.pop();
-          stack.pop();
-          return result;
-        }
+        stack.pop();
+        stack.pop();
+        return result;
       }
 
       // compile time array values should be compared over a for loop
