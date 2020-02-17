@@ -318,6 +318,7 @@ export class TestCollector {
           reportEndDescribe: this.reportEndDescribe.bind(this),
           reportExpectedHostValue: this.reportExpectedHostValue.bind(this),
           reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
+          reportExpectedFinite: this.reportExpectedFinite.bind(this),
           reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
           reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
@@ -1608,5 +1609,17 @@ export class TestCollector {
 
     expected.negated = negated === 1;
     expected.type = HostValueType.Falsy;
+  }
+
+  /**
+   * Report an expected finite value, and if it's negated.
+   *
+   * @param {1 | 0} negated - An indicator if the expectation is negated.
+   */
+  private reportExpectedFinite(negated: number): void {
+    const expected = this.expected = new HostValue();
+
+    expected.negated = negated === 1;
+    expected.type = HostValueType.Finite;
   }
 }
