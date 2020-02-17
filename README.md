@@ -22,7 +22,7 @@ with WebAssembly speeds!
    - [toBeNaN](#tobenan)
    - [toBeFinite](#tobefinite)
    - [toThrow](#tothrow)
-   - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan)\
+   - [toBeGreaterThan/toBeLessThan](#tobegreaterthan-and-tobelessthan)
    - [toBeCloseTo](#tobecloseto)
    - [toHaveLength](#tohavelength)
    - [toContain](#tocontain-and-toinclude)
@@ -134,9 +134,9 @@ For example, the following statements are valid `toBe` assertions:
 
 ```ts
 let a = new Vec3(1, 2, 3);
-expect<Vec3>(a).toBe(a);
-expect<i32>(10).toBe(10);
-expect<Vec3>(null).toBe(null);
+expect(a).toBe(a);
+expect(10).toBe(10);
+expect<Vec3 | null>(null).toBe(null);
 ```
 
 This method is safe to use portably with `jest`.
@@ -150,7 +150,7 @@ two different references results in a failed assertion:
 ```ts
 let a = new Vec3(1, 2, 3);
 let b = new Vec3(1, 2, 3);
-expect<Vec3>(a).toBe(b); // fails!
+expect(a).toBe(b); // fails!
 ```
 
 Instead, it's posible to compare two different references like this:
@@ -187,7 +187,11 @@ method:
 
 ```ts
 class Vec3 {
-  constructor(public a: f64 = 0.0, public b: f64 = 0.0, public c: f64 = 0.0) {}
+  constructor(
+    public a: f64 = 0.0,
+    public b: f64 = 0.0,
+    public c: f64 = 0.0,
+  ) {}
 
   // override the operator
   @operator("==")
@@ -214,10 +218,10 @@ blocks match.
 Only use this comparison when comparing `ArrayBuffer` references.
 
 ```ts
-let buffer = new ArrayBuffer(100); // 100 bytes long heap allocation
+let buffer1 = new ArrayBuffer(100); // 100 bytes long heap allocation
 let buffer2 = new ArrayBuffer(100); // another buffer
 
-expect<ArrayBuffer>(buffer).toBlockEqual(buffer2);
+expect(buffer1).toBlockEqual(buffer2);
 ```
 
 ### toBeTruthy and toBeFalsy
@@ -236,15 +240,15 @@ In AssemblyScript, there is no `undefined`, so `as-pect` will treat each of
 those values as falsy. Truthy values are anything that is not falsy,
 
 ```ts
-expect<bool>(true).toBeTruthy();
-expect<Vec3>(new Vec3(1, 2, 3)).toBeTruthy();
-expect<i32>(1).toBeTruthy();
-expect<string>("Something!").toBeTruthy();
-expect<bool>(false).toBeFalsy();
-expect<Vec3>(null).toBeFalsy();
-expect<i32>(0).toBeFalsy();
-expect<f64>(NaN).toBeFalsy();
-expect<string>("").toBeFalsy();
+expect(true).toBeTruthy();
+expect(new Vec3(1, 2, 3)).toBeTruthy();
+expect(1).toBeTruthy();
+expect("Something!").toBeTruthy();
+expect(false).toBeFalsy();
+expect<Vec3 | null>(null).toBeFalsy();
+expect(0).toBeFalsy();
+expect(NaN).toBeFalsy();
+expect("").toBeFalsy();
 ```
 
 These methods are safe to use with `jest`.
@@ -256,10 +260,10 @@ This comparison is only used for float values to determine if the value is a
 
 ```ts
 expect<f32>(NaN).toBeNaN(); // passes
-expect<f64>(1.0).not.toBeNaN(); // passes
+expect(1.0).not.toBeNaN(); // passes
 
 /** This results in a runtime error, despite not being NaN. */
-expect<Vec3>(new Vec3()).not.toBeNaN();
+expect(new Vec3()).not.toBeNaN();
 ```
 
 This method is technically safe to use with `jest` with the assumption
@@ -270,7 +274,7 @@ that `as-pect` will fail if used with a reference type.
 This comparison looks specifically for a `null` value.
 
 ```ts
-expect<Vec3>(null).toBeNull(); // valid assertion
+expect<Vec3 | null>(null).toBeNull(); // valid assertion
 ```
 
 In the case of numeric values, numbers cannot be `null` in AssemblyScript.
@@ -295,9 +299,9 @@ values are not finite in JavaScript or AssemblyScript.
 The following assertions are true.
 
 ```ts
-expect<f64>(1.0).toBeFinite();
-expect<f32>(Infinity).not.toBeFinite();
-expect<f64>(NaN).not.toBeFinite();
+expect(1.0).toBeFinite();
+expect(Infinity as f32).not.toBeFinite();
+expect(NaN).not.toBeFinite();
 ```
 
 As long as the number values are always `f32` or `f64` (or `number` in
@@ -334,11 +338,11 @@ This set of comparisons validate that a value is greater than, less than, or
 equal to another value. The following assertions are true.
 
 ```ts
-expect<i32>(100).toBeGreaterThan(42);
-expect<i32>(0).toBeLessThan(100);
-expect<i32>(0).not.toBeGreaterThan(100);
-expect<f64>(1.0).toBeGreaterThanOrEqual(1.0);
-expect<f64>(1.0).not.toBeLessThanOrEqual(0);
+expect(100).toBeGreaterThan(42);
+expect(0).toBeLessThan(100);
+expect(0).not.toBeGreaterThan(100);
+expect(1.0).toBeGreaterThanOrEqual(1.0);
+expect(1.0).not.toBeLessThanOrEqual(0);
 ```
 
 These assertions also work with reference types when the
@@ -370,7 +374,7 @@ When doing floating point math, it's possible that values will not be exactly as
 expected because of floating point error.
 
 ```ts
-expect<f64>(0.1 + 0.2).toBe(0.3); // fails
+expect(0.1 + 0.2).toBe(0.3); // fails
 
 > 0.1 + 0.2
 0.30000000000000004
@@ -380,7 +384,7 @@ Instead, use `expect().toBeCloseTo()` to validate an expected floating point
 value.
 
 ```ts
-expect<f64>(0.1 + 0.2).toBeCloseTo(0.3); // passes!
+expect(0.1 + 0.2).toBeCloseTo(0.3); // passes!
 ```
 
 Reference values and integer values will result in a runtime error, because
@@ -403,10 +407,10 @@ const typedarray = new Uint8Array(42);
 const buffer = new ArrayBuffer(29);
 const custom = new LengthExample(50);
 
-expect<Array<Vec3>>(array).toHaveLength(100);
-expect<Uint8Array>(typedarray).toHaveLength(42);
-expect<ArrayBuffer>(buffer).toHaveLength(29);
-expect<LengthExample>(custom).toHaveLength(50);
+expect(array).toHaveLength(100);
+expect(typedarray).toHaveLength(42);
+expect(buffer).toHaveLength(29);
+expect(custom).toHaveLength(50);
 ```
 
 This method is safe to use with `jest`, with the exception of using
@@ -426,7 +430,7 @@ will be checked.
 const data = new Uint8Array(100);
 data[5] = 255;
 
-expect<Uint8Array>(data).toContain(255);
+expect(data).toContain(255);
 ```
 
 This method is portable with `jest` using the `toContain()` method.
@@ -444,12 +448,13 @@ matches the `index` type. All values from `0` to `length - 1` will be checked.
 
 ```ts
 const reference = new Vec3(1, 2, 3);
-const data = new Array<Vec3>(0);
-data.push(new Vec(0, 0, 0));
-data.push(new Vec(1, 2, 3));
-data.push(new Vec(4, 5, 6));
+const data = [
+  new Vec(0, 0, 0),
+  new Vec(1, 2, 3),
+  new Vec(4, 5, 6),
+];
 
-expect<Uint8Array>(data).toContainEqual(referece);
+expect(data).toContainEqual(referece);
 ```
 
 This method is portable with `jest` using the `toContainEqual()` method.
