@@ -114,7 +114,7 @@ function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
   }
 
   let body = "\n";
-  ctx.indent += 1;
+  ctx.level += 1;
   const length = Math.min(hostValue.keys!.length, ctx.maxPropertyCount);
   for (let i = 0; i < length; i++) {
     const key = hostValue.keys![i];
@@ -123,7 +123,8 @@ function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
 
     if (ctx.level < 5) {
       // render expanded value, but trim the whitespace on the left side
-      const valueString = formatters[formatterIndexFor(value.type, HostValueFormatType.Expanded)](value, ctx).trimLeft();
+      const valueString = formatters[formatterIndexFor(value.type, HostValueFormatType.Expanded)](value, ctx)
+        .trimLeft();
       body += `${keyString}: ${valueString},\n`
     } else {
       // render value
@@ -133,7 +134,7 @@ function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
   }
 
   if (length > ctx.maxPropertyCount) body += `+${length - ctx.maxPropertyCount} properties`;
-  ctx.indent -= 1;
+  ctx.level -= 1;
   return `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)} {${body}${spacing}}`;
 }
 
@@ -151,7 +152,7 @@ function displayArrayExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
   const spacing = " ".repeat(ctx.level * 2 + ctx.indent);
   if (ctx.level < 5) {
     let body = "\n";
-    ctx.indent += 1;
+    ctx.level += 1;
     const length = Math.min(hostValue.values!.length, ctx.maxPropertyCount);
     for (let i = 0; i < length; i++) {
       const value = hostValue.values![i];
@@ -161,7 +162,7 @@ function displayArrayExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
       body += `${valueString},\n`
     }
     if (length > ctx.maxPropertyCount) body += ` +${length - ctx.maxPropertyCount} values`;
-    ctx.indent -= 1;
+    ctx.level -= 1;
     return `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)} [${body}${spacing}]`;
   } else {
     let body = `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)} [`;
@@ -200,4 +201,3 @@ formatters[formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Expan
 formatters[formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Inline)] = displayArrayExpanded;
 formatters[formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Key)] = displayClassWithSpacing;
 formatters[formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Value)] = displayArrayExpanded;
-

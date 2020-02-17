@@ -14,6 +14,19 @@ afterAll(() => {
   log("after all outside describe");
 });
 
+class A {
+  a: f64 = 1.0;
+  b: B = new B();
+  c: i32 = 3;
+}
+
+class B {
+  a: u8 = 1;
+  b: i16 = 2;
+  c: u32 = 3;
+  d: i64 = 4;
+}
+
 /**
  * This test suite verifies that the log functions do not error when they are called.
  */
@@ -87,6 +100,11 @@ describe("logs", () => {
    */
   test("log a named function", () => {
     log(IDFunc);
+  });
+
+  test("log a nested class", () => {
+    let a = new A();
+    log(a);
   });
 
   /**
