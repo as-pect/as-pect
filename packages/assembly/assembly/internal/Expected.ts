@@ -58,6 +58,9 @@ export class Expected {
     reportExpectedFalsy(negated);
   }
 
+  /**
+   * Clear the expected value.
+   */
   static clear(): void {
     clearExpected();
   }
