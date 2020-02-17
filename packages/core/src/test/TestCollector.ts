@@ -1310,6 +1310,7 @@ export class TestCollector {
     hostValue.value = `trace: ${this.getString(strPointer, "")} ${args
       .slice(0, count)
       .join(", ")}`;
+
     // push the log value to the logs
     this.logTarget.logs.push(hostValue);
   }
@@ -1339,7 +1340,6 @@ export class TestCollector {
     typeName: number, // nameof<T>()
     value: number, // usize | Box<T>
     hasValues: 1 | 0,
-    negated: 1 | 0,
     ): number {
     const hostValue = new HostValue();
     hostValue.isNull = isNull === 1;
@@ -1352,6 +1352,8 @@ export class TestCollector {
     hostValue.type = hostTypeValue;
     hostValue.typeId = typeId;
     hostValue.typeName = this.getString(typeName, "");
+    hostValue.values = hasValues ? [] : null;
+
     if (hostTypeValue === HostValueType.Integer) {
       hostValue.value = this.getInteger(value, size, signed === 1);
       // get long
@@ -1360,12 +1362,11 @@ export class TestCollector {
     } else if (hostTypeValue === HostValueType.Float) {
       hostValue.value = this.getFloat(value, size);
     } else if (hostTypeValue === HostValueType.Function) {
-      hostValue.value = `[Function ${value}: ${this.funcName(value)}]`;
+      hostValue.value = this.funcName(value);
     } else {
       hostValue.value = value;
     }
-    hostValue.values = hasValues ? [] : null;
-    hostValue.negated = negated === 1;
+
     return this.hostValueCache.push(hostValue) - 1;
   }
 
@@ -1504,13 +1505,13 @@ export class TestCollector {
   /**
    * Push a host value to a given host value.
    *
-   * @param {number} hostObjectID - The target host value parent.
+   * @param {number} hostValueID - The target host value parent.
    * @param {number} valueID - The target host value to be pushed.
    */
-  private pushHostObjectValue(hostObjectID: number, valueID: number): void {
-    if (hostObjectID >= this.hostValueCache.length || hostObjectID < 0) {
+  private pushHostObjectValue(hostValueID: number, valueID: number): void {
+    if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
       this.errors.push({
-        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostObjectID}. HostObject id out of bounds.`,
+        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostObject id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
@@ -1518,35 +1519,37 @@ export class TestCollector {
     }
     if (valueID >= this.hostValueCache.length || valueID < 0) {
       this.errors.push({
-        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostObjectID}. HostObject value id out of bounds.`,
+        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostObject value id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
       return;
     }
-    let hostObject = this.hostValueCache[hostObjectID];
-    let valueObject = this.hostValueCache[valueID];
-    if (!hostObject.values) {
+
+    let hostValue = this.hostValueCache[hostValueID];
+    let value = this.hostValueCache[valueID];
+
+    if (!hostValue.values) {
       this.errors.push({
-        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostObjectID}. HostObject was not initialized with a values array.`,
+        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostObject was not initialized with a values array.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
       return;
     }
-    hostObject.values.push(valueObject);
+    hostValue.values.push(value);
   }
 
   /**
    * Push a host value key to a given host value.
    *
-   * @param {number} hostObjectID - The target host value parent.
+   * @param {number} hostValueID - The target host value parent.
    * @param {number} keyId - The target host value key to be pushed.
    */
-  private pushHostObjectKey(hostObjectID: number, keyId: number): void {
-    if (hostObjectID >= this.hostValueCache.length || hostObjectID < 0) {
+  private pushHostObjectKey(hostValueID: number, keyId: number): void {
+    if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
       this.errors.push({
-        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostObjectID}. HostObject id out of bounds.`,
+        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostObject id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
@@ -1554,23 +1557,24 @@ export class TestCollector {
     }
     if (keyId >= this.hostValueCache.length || keyId < 0) {
       this.errors.push({
-        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostObjectID}. HostObject key id out of bounds.`,
+        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostObject key id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
       return;
     }
-    let hostObject = this.hostValueCache[hostObjectID];
-    let valueObject = this.hostValueCache[keyId];
-    if (!hostObject.keys) {
+    let hostValue = this.hostValueCache[hostValueID];
+    let key = this.hostValueCache[keyId];
+
+    if (!hostValue.keys) {
       this.errors.push({
-        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostObjectID}. HostObject was not initialized with a keys array.`,
+        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostObject was not initialized with a keys array.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
       return;
     }
-    hostObject.keys.push(valueObject);
+    hostValue.keys.push(key);
   }
 
   /**

@@ -534,14 +534,14 @@ export declare class TestCollector {
     /**
      * Push a host value to a given host value.
      *
-     * @param {number} hostObjectID - The target host value parent.
+     * @param {number} hostValueID - The target host value parent.
      * @param {number} valueID - The target host value to be pushed.
      */
     private pushHostObjectValue;
     /**
      * Push a host value key to a given host value.
      *
-     * @param {number} hostObjectID - The target host value parent.
+     * @param {number} hostValueID - The target host value parent.
      * @param {number} keyId - The target host value key to be pushed.
      */
     private pushHostObjectKey;

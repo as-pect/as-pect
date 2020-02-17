@@ -36,8 +36,8 @@ export function createAddHostValueKeyValuePairsMember(classDeclaration: ClassDec
         ),
       ],
       TypeNode.createNamedType(
-        TypeNode.createSimpleTypeName("bool", range),
-        null,
+        TypeNode.createSimpleTypeName("void", range),
+        [],
         false,
         range,
       ),
@@ -83,13 +83,6 @@ function createAddHostValueKeyValuePairsFunctionBody(classDeclaration: ClassDecl
     }
   }
 
-  // return true;
-  body.push(
-    TypeNode.createReturnStatement(
-      TypeNode.createTrueExpression(range),
-      range,
-    )
-  );
   return TypeNode.createBlockStatement(body, range);
 }
 

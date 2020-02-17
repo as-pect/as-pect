@@ -22,10 +22,10 @@ export class Actual {
   /**
    * This method reports an actual value.
    *
-   * @param {T} expected - The expected value and it's type.
+   * @param {T} actual - The actual value and it's type.
    */
-  static report<T>(expected: T): void {
-    reportActualHostValue(Reflect.toHostValue(expected));
+  static report<T>(actual: T): void {
+    reportActualHostValue(Reflect.toHostValue(actual));
   }
 
   /**

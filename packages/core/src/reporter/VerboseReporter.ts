@@ -234,7 +234,7 @@ export default class VerboseReporter extends TestReporter {
    */
   public onLog(logValue: HostValue): void {
     const chalk = require("chalk");
-    const output: string = stringifyHostValue(logValue, 2).trimLeft();
+    const output: string = stringifyHostValue(logValue, 12).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
   }
 }

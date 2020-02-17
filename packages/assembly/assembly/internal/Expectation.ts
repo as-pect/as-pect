@@ -67,7 +67,7 @@ export class Expectation<T> {
     let result = Reflect.FAILED_MATCH;
     result = Reflect.equals(this.actual, expected);
 
-    let equals = i32(result === Reflect.SUCCESSFUL_MATCH);
+    let equals = i32(result == Reflect.SUCCESSFUL_MATCH);
     Actual.report(this.actual);
     Expected.report(expected);
 
@@ -99,10 +99,10 @@ export class Expectation<T> {
       if (isNullable<T>()) {
         // strings require an extra length check
         if (actual instanceof String) {
-          let truthy = i32(changetype<usize>(actual) != null && actual.length > 0);
+          let truthy = i32(changetype<usize>(actual) != 0 && actual.length > 0);
           assert(truthy ^ negated, message);
         } else {
-          let truthy = i32(changetype<usize>(actual) !== null);
+          let truthy = i32(changetype<usize>(actual) != 0);
           assert(truthy ^ negated, message);
         }
       } else {
@@ -110,6 +110,8 @@ export class Expectation<T> {
         if (actual instanceof String) {
           let truthy = i32(actual.length > 0);
           assert(truthy ^ negated, message);
+        } else {
+          assert(i32(!negated), message);
         }
       }
     } else {
@@ -136,10 +138,10 @@ export class Expectation<T> {
       if (isNullable<T>()) {
         // strings require an extra length check
         if (actual instanceof String) {
-          let falsy = i32(changetype<usize>(actual) == null || actual.length == 0);
+          let falsy = i32(changetype<usize>(actual) == 0 || actual.length == 0);
           assert(falsy ^ negated, message);
         } else {
-          let falsy = i32(changetype<usize>(actual) == null);
+          let falsy = i32(changetype<usize>(actual) == 0);
           assert(falsy ^ negated, message);
         }
       } else {
@@ -147,6 +149,8 @@ export class Expectation<T> {
         if (actual instanceof String) {
           let falsy = i32(actual.length == 0);
           assert(falsy ^ negated, message);
+        } else {
+          assert(negated, message);
         }
       }
     } else {
@@ -296,7 +300,7 @@ export class Expectation<T> {
     Actual.report(actual);
     // @ts-ignore: T is nullable and a reference
     Expected.report<T>(null, negated);
-    assert(negated ^ i32(changetype<usize>(actual) === null), message);
+    assert(negated ^ i32(changetype<usize>(actual) == 0), message);
     Actual.clear();
     Expected.clear();
   }
@@ -362,12 +366,17 @@ export class Expectation<T> {
   public toHaveLength(expected: i32, message: string = ""): void {
     let actual = this.actual;
     let negated = this._not;
-    // @ts-ignore: This results in a compile time check for a length property with a better error message
-    if (!isDefined(actual.length)) ERROR("Expectation<T>#toHaveLength cannot be called on type T where T.length is not defined.");
+    let length = <i32>0;
+
+    if (actual instanceof ArrayBuffer) {
+      length = actual.byteLength;
+    } else {
+      // @ts-ignore: This results in a compile time check for a length property with a better error message
+      if (!isDefined(actual.length)) ERROR("Expectation<T>#toHaveLength cannot be called on type T where T.length is not defined.");
+      length = actual.length;
+    }
     Actual.report(actual);
 
-    // @ts-ignore: length is defined here
-    let length = <i32>actual.length;
     Expected.report(length);
 
     let lengthsEqual = i32(length == expected);
