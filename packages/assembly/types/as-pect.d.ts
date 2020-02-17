@@ -898,6 +898,27 @@ declare class Expected {
   public static report<T>(value: T, negated?: i32): void;
 
   /**
+   * Report an expected truthy value to the host, and if the expectation is negated.
+   *
+   * @param {i32} negated - A value, 1 or 0 indicating if the expectation is negated.
+   */
+  static reportTruthy(negated?: i32): void;
+
+  /**
+   * Report an expected falsy value to the host, and if the expectation is negated.
+   *
+   * @param {i32} negated - A value, 1 or 0 indicating if the expectation is negated.
+   */
+  static reportFalsy(negated?: i32): void;
+
+  /**
+   * Report an expected finite value to the host, and if the expectation is negated.
+   *
+   * @param {i32} negated - A value, 1 or 0 indicating if the expectation is negated.
+   */
+  static reportFinite(negated?: i32): void;
+
+  /**
    * Clear the expected value and release any private memory stored as a global.
    */
   public static clear(): void;
