@@ -28,5 +28,3 @@ import { Performance } from "./internal/performance";
 export function __ready(): void {
   Expected.ready = true;
 }
-
-export { __cleanup } from "./internal/Expectation";

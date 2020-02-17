@@ -35,15 +35,19 @@ export function createAddHostValueKeyValuePairsMember(classDeclaration: ClassDec
           range,
         ),
       ],
-      // :void
-      createGenericTypeParameter("void", range),
+      TypeNode.createNamedType(
+        TypeNode.createSimpleTypeName("bool", range),
+        null,
+        false,
+        range,
+      ),
       null,
       false,
       range,
     ),
     createAddHostValueKeyValuePairsFunctionBody(classDeclaration),
     null,
-    CommonFlags.PUBLIC | CommonFlags.INSTANCE | CommonFlags.GENERIC | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+    CommonFlags.PUBLIC | CommonFlags.INSTANCE | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     range
   );
 }
@@ -88,6 +92,7 @@ function createAddHostValueKeyValuePairsFunctionBody(classDeclaration: ClassDecl
   );
   return TypeNode.createBlockStatement(body, range);
 }
+
 // __aspectPushHostObjectKey
 function createPushHostObjectKeyStatement(name: string, range: Range): Statement {
   // __aspectPushHostObjectKey(hostObject, Reflect.toHostValue("propertyName", seen));

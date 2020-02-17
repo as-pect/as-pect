@@ -476,14 +476,6 @@ declare module "util/IAspectExports" {
          */
         __ready(): void;
         /**
-         * This method notifies the wasm module to send the current `Actual` value.
-         */
-        __sendActual(): void;
-        /**
-         * This method notifies the wasm module to send the current `Expected` value.
-         */
-        __sendExpected(): void;
-        /**
          * This method notifies the `wasm` module to conditionally ignore `log<T>(value: T)` values
          * because a performance test is running.
          *
@@ -498,10 +490,6 @@ declare module "util/IAspectExports" {
          * This method returns the `usize[]` of the current module.
          */
         __getUsizeArrayId(): number;
-        /**
-         * This method clears internal actual and expected values.
-         */
-        __cleanup(): void;
         /** The exported web assembly memory. For compatibility with docs, this is explicit. */
         readonly memory: {
             readonly buffer: ArrayBuffer;
