@@ -1,5 +1,5 @@
 import { HostValue } from "../../util/HostValue";
-import { HostValueType } from "@as-pect/assembly/assembly/internal/report/HostValueType";
+import { HostValueType } from "@as-pect/assembly/assembly/internal/HostValueType";
 
 class StringifyHostValueContext {
   public level: number = 0;

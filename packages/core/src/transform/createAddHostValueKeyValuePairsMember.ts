@@ -3,9 +3,9 @@ import { createGenericTypeParameter } from "./createGenericTypeParameter";
 
 export function createAddHostValueKeyValuePairsMember(classDeclaration: ClassDeclaration): FunctionDeclaration {
   const range = classDeclaration.name.range;
-  // __aspectAddHostValueKeyValuePairsMember(hostObject: i32, seen: Map<usize, i32>): void
+  // __aspectAddHostValueKeyValuePairs(hostObject: i32, seen: Map<usize, i32>): void
   return TypeNode.createMethodDeclaration(
-    TypeNode.createIdentifierExpression("__aspectAddHostValueKeyValuePairsMember", range),
+    TypeNode.createIdentifierExpression("__aspectAddHostValueKeyValuePairs", range),
     null,
     TypeNode.createFunctionType(
       [

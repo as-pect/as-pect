@@ -1,4 +1,4 @@
-import { HostValueType } from "@as-pect/assembly/assembly/internal/report/HostValueType";
+import { HostValueType } from "@as-pect/assembly/assembly/internal/HostValueType";
 export declare class HostValue {
     type: HostValueType;
     typeName: string | null;
@@ -13,4 +13,5 @@ export declare class HostValue {
     size: number;
     signed: boolean;
     stack: string;
+    negated: boolean;
 }

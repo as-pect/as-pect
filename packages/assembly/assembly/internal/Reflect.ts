@@ -150,7 +150,7 @@ export class Reflect {
         }
 
         return hostObject;
-      } else if (value instanceof TypedArray) {
+      } else if (value instanceof ArrayBufferView) {
         let length = value.length;
 
         // create a Set host object
@@ -174,10 +174,12 @@ export class Reflect {
 
         // loop over each value and push it to the host object
         for (let i = 0; i < length; i++) {
+          // @ts-ignore index signature is garunteed at this point
           let arrayValue = unchecked(value[i]);
           let hostArrayValueID = Reflect.toHostValue(arrayValue, seen);
           __aspectPushHostObjectValue(hostObject, hostArrayValueID);
         }
+
         return hostObject;
       } else if (isArrayLike<T>()) {
         // @ts-ignore: arraylike has length property
@@ -271,7 +273,7 @@ export class Reflect {
         isSigned<T>(),
         sizeof<T>(),
         isInteger<T>() ? HostValueType.Integer : HostValueType.Float,
-        idof<T>(),
+        0,
         nameof<T>(),
         changetype<usize>(box),
         false,

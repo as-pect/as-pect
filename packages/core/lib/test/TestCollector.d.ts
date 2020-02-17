@@ -545,4 +545,30 @@ export declare class TestCollector {
      * @param {number} keyId - The target host value key to be pushed.
      */
     private pushHostObjectKey;
+    /**
+     * Clear the expected value.
+     */
+    private clearExpected;
+    /**
+     * Clear the actual value.
+     */
+    private clearActual;
+    /**
+     * Report an expected truthy value, and if it's negated.
+     *
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
+    private reportExpectedTruthy;
+    /**
+     * Report an expected truthy value, and if it's negated.
+     *
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
+    private reportExpectedFalsy;
+    /**
+     * Report an expected finite value, and if it's negated.
+     *
+     * @param {1 | 0} negated - An indicator if the expectation is negated.
+     */
+    private reportExpectedFinite;
 }
