@@ -1,5 +1,5 @@
 // @ts-ignore: Decorators *are* valid here!
-@external("_aspect", "reportActualHostValue")
+@external("__aspect", "reportActualHostValue")
 declare function reportActualHostValue(id: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!

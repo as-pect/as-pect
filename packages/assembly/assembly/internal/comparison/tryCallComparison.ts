@@ -1,6 +1,6 @@
-import { assert } from "./assert";
-import { Actual } from "../report/Actual";
-import { Expected } from "../report/Expected";
+import { assert } from "../assert";
+import { Actual } from "../Actual";
+import { Expected } from "../Expected";
 
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "tryCall")

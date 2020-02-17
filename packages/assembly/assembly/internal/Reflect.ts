@@ -1,8 +1,8 @@
 import { ArrayBufferView } from "arraybuffer";
 import { Set } from "set";
-import { assert } from "./comparison/assert";
-import { HostValueType } from "./report/HostValueType";
-import { Box } from "./report/Box";
+import { assert } from "./assert";
+import { HostValueType } from "./HostValueType";
+import { Box } from "./Box";
 
 function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
   return bool((i32(a1 === b1) & i32(a2 === b2)) | (i32(a1 === b2) & i32(a2 === b1)));

@@ -1,7 +1,7 @@
 import { toIncludeComparison } from "./toIncludeComparison";
-import { Actual } from "../report/Actual";
-import { Expected } from "../report/Expected";
-import { assert } from "./assert";
+import { Actual } from "../Actual";
+import { Expected } from "../Expected";
+import { assert } from "../assert";
 
 /**
  * This method perfoms a memory compare on all relevant items in an array, asserting that a

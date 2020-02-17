@@ -1,8 +1,8 @@
 
 
-import { Actual } from "../report/Actual";
-import { assert } from "./assert";
-import { Expected } from "../report/Expected";
+import { Actual } from "../Actual";
+import { assert } from "../assert";
+import { Expected } from "../Expected";
 import { ValueType } from "../report/ValueType";
 
 /**

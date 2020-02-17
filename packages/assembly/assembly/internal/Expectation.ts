@@ -17,8 +17,9 @@ import { lengthComparison } from "./comparison/lengthComparison";
 import { toIncludeComparison } from "./comparison/toIncludeComparison";
 import { toIncludeEqualComparison } from "./comparison/toIncludeEqualComparison";
 import { arrayComparison } from "./comparison/arrayComparison";
-import { Actual } from "./report/Actual";
-import { Expected } from "./report/Expected";
+import { Actual } from "./Actual";
+import { Expected } from "./Expected";
+import { assert } from "./assert";
 
 /**
  * The AssemblyScript class that represents an expecation.
@@ -59,8 +60,12 @@ export class Expectation<T> {
    * @param {string} message - The message that describes this assertion.
    */
   public toBe(expected: T, message: string = ""): void {
-    // assert value or reference equality
-    exactComparison<T>(this.actual, expected, this._not, message);
+    let equals = i32(this.actual == expected);
+    Actual.report(this.actual);
+    Expected.report(expected);
+
+    // The assertion is either the items equal, or the expectation is negated
+    assert(equals ^ this._not, message);
     Actual.clear();
     Expected.clear();
   }
@@ -75,29 +80,48 @@ export class Expectation<T> {
     let result = Reflect.FAILED_MATCH;
     result = Reflect.equals(this.actual, expected);
 
+    let equals = i32(result === Reflect.SUCCESSFUL_MATCH);
     Actual.report(this.actual);
     Expected.report(expected);
 
-    assert(i32(result === Reflect.SUCCESSFUL_MATCH) ^ this._not, message);
+    assert(equals ^ this._not, message);
 
     Actual.clear();
     Expected.clear();
   }
 
   /**
-   * This exactly compares two different blocks of memory of type `T`.
+   * This method performs a strict equal comparison of two T values.
    *
+   * @deprecated
    * @param {T} expected - This is the expected block reference.
    * @param {string} message - The message that describes this expectation.
    */
   public toBlockEqual(expected: T, message: string = ""): void {
-    blockComparison<T>(this.actual, expected, this._not, message);
-    Actual.clear();
-    Expected.clear();
+    WARNING("toBlockEqual has been deprecated and results in a toStrictEqual call.");
+    this.toStrictEqual(expected, message);
   }
 
   public toBeTruthy(message: string = ""): void {
-    truthyComparison<T>(this.actual, this._not, message);
+    let actual = this.actual;
+    Actual.report(actual);
+    let negated = this._not;
+    Expected.reportTruthy();
+
+    if (isNullable<T>()) {
+      assert(i32(actual != null) ^ negated, message);
+    }
+
+    if (actual instanceof String) {
+      assert(negated ^ i32(actual.length != 0), message);
+    } else if (isFloat<T>(actual)) {
+      let truthy = i32(!isNaN(actual) && (actual != 0.0));
+      assert(truthy ^ negated, message);
+    } else if (isInteger<T>(actual)) {
+      let truthy = i32(actual != 0);
+      assert(truthy ^ negated, message);
+    }
+
     Actual.clear();
     Expected.clear();
   }

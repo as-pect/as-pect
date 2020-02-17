@@ -1,6 +1,6 @@
-import { Actual } from "../report/Actual";
-import { Expected } from "../report/Expected";
-import { assert } from "./assert";
+import { Actual } from "../Actual";
+import { Expected } from "../Expected";
+import { assert } from "../assert";
 
 /**
  * This method compares two float values and asserts they are close to each other.

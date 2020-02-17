@@ -12,7 +12,7 @@ import { PerformanceLimits } from "./PerformanceLimits";
 import Long from "long";
 import { NameSection } from "../util/wasmTools";
 import { HostValue } from "../util/HostValue";
-import { HostValueType } from "@as-pect/assembly/assembly/internal/report/HostValueType";
+import { HostValueType } from "@as-pect/assembly/assembly/internal/HostValueType";
 
 /**
  * @ignore
@@ -317,6 +317,8 @@ export class TestCollector {
           reportDescribe: this.reportDescribe.bind(this),
           reportEndDescribe: this.reportEndDescribe.bind(this),
           reportExpectedHostValue: this.reportExpectedHostValue.bind(this),
+          reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
+          reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
           reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
           reportMedian: this.reportMedian.bind(this),
@@ -1570,11 +1572,41 @@ export class TestCollector {
     hostObject.keys.push(valueObject);
   }
 
+  /**
+   * Clear the expected value.
+   */
   private clearExpected(): void {
     this.expected = null;
   }
 
+  /**
+   * Clear the actual value.
+   */
   private clearActual(): void {
     this.actual = null;
+  }
+
+  /**
+   * Report an expected truthy value, and if it's negated.
+   *
+   * @param {1 | 0} negated - An indicator if the expectation is negated.
+   */
+  private reportExpectedTruthy(negated: number): void {
+    const expected = this.expected = new HostValue();
+
+    expected.negated = negated === 1;
+    expected.type = HostValueType.Truthy;
+  }
+
+  /**
+   * Report an expected truthy value, and if it's negated.
+   *
+   * @param {1 | 0} negated - An indicator if the expectation is negated.
+   */
+  private reportExpectedFalsy(negated: number): void {
+    const expected = this.expected = new HostValue();
+
+    expected.negated = negated === 1;
+    expected.type = HostValueType.Falsy;
   }
 }

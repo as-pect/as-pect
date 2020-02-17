@@ -1,6 +1,6 @@
-import { Actual } from "../report/Actual";
-import { assert } from "./assert";
-import { Expected } from "../report/Expected";
+import { Actual } from "../Actual";
+import { assert } from "../assert";
+import { Expected } from "../Expected";
 
 export function nullComparison<T>(actual: T, negated: i32, message: string): void {
   if (!isReference<T>()) ERROR("Expectation<T>#toBeNull must be called with a Reference type T.");

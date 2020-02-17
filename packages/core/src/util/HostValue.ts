@@ -1,4 +1,4 @@
-import { HostValueType } from "@as-pect/assembly/assembly/internal/report/HostValueType";
+import { HostValueType } from "@as-pect/assembly/assembly/internal/HostValueType";
 
 export class HostValue {
   type: HostValueType = HostValueType.None;

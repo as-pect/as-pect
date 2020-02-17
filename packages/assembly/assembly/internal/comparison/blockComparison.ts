@@ -1,7 +1,7 @@
 import { exactComparison } from "./exactComparison";
-import { assert } from "./assert";
-import { reportExpectedReference, Expected } from "../report/Expected";
-import { reportActualReference, Actual } from "../report/Actual";
+import { assert } from "../assert";
+import { reportExpectedReference, Expected } from "../Expected";
+import { reportActualReference, Actual } from "../Actual";
 import { BLOCK_OVERHEAD, BLOCK } from "rt/common";
 /**
  * This method performs a block comparison. It's useful for comparing a string or an ArrayBuffer
