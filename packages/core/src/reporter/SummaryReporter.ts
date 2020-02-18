@@ -154,7 +154,7 @@ export default class SummaryReporter extends TestReporter {
    */
   public onLog(logValue: HostValue): void {
     const chalk = require("chalk");
-    const output: string = stringifyHostValue(logValue, 2);
+    const output = stringifyHostValue(logValue, 12).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
   }
 }
