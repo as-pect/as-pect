@@ -1340,7 +1340,7 @@ export class TestCollector {
     typeName: number, // nameof<T>()
     value: number, // usize | Box<T>
     hasValues: 1 | 0,
-    ): number {
+  ): number {
     const hostValue = new HostValue();
     hostValue.isNull = isNull === 1;
     hostValue.keys = hasKeys ? [] : null;
@@ -1384,7 +1384,9 @@ export class TestCollector {
     if (pointer + size >= buffer.byteLength) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot obtain ${signed ? "" : "un"}signed integer value at pointer ${pointer} of size ${size}: index out of bounds`,
+        message: `Cannot obtain ${
+          signed ? "" : "un"
+        }signed integer value at pointer ${pointer} of size ${size}: index out of bounds`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
@@ -1392,39 +1394,44 @@ export class TestCollector {
       return 0;
     }
 
-    if (size === 1) {
-      if (signed) {
-        return new Int8Array(buffer)[pointer];
-      } else {
-        return new Uint8Array(buffer)[pointer];
-      }
-    } else if (size === 2) {
-      if (signed) {
-        return new Int16Array(buffer)[pointer >>> 1];
-      } else {
-        return new Uint16Array(buffer)[pointer >>> 1];
-      }
-    } else if (size === 4) {
-      if (signed) {
-        return new Int32Array(buffer)[pointer >>> 2];
-      } else {
-        return new Uint32Array(buffer)[pointer >>> 2];
-      }
-    } else if (size === 8) {
-      const long = new Long.fromBytesLE(
-        new Uint8Array(buffer, pointer, 8),
-        !signed,
-      );
-      return long.toString();
+    switch (size) {
+      case 1:
+        if (signed) {
+          return new Int8Array(buffer)[pointer];
+        } else {
+          return new Uint8Array(buffer)[pointer];
+        }
+      case 2:
+        if (signed) {
+          return new Int16Array(buffer)[pointer >>> 1];
+        } else {
+          return new Uint16Array(buffer)[pointer >>> 1];
+        }
+      case 4:
+        if (signed) {
+          return new Int32Array(buffer)[pointer >>> 2];
+        } else {
+          return new Uint32Array(buffer)[pointer >>> 2];
+        }
+      case 8:
+        const long = new Long.fromBytesLE(
+          new Uint8Array(buffer, pointer, 8),
+          !signed,
+        );
+        return long.toString();
+      /* istanbul ignore next */
+      default:
+        /* istanbul ignore next */
+        this.errors.push({
+          message: `Cannot obtain an ${
+            signed ? "" : "un"
+          }signed integer at ${pointer} of size ${size}`,
+          stackTrace: this.getLogStackTrace(),
+          type: "HostValue",
+        });
+        /* istanbul ignore next */
+        return 0;
     }
-    /* istanbul ignore next */
-    this.errors.push({
-      message: `Cannot obtain an ${signed ? "" : "un"}signed integer at ${pointer} of size ${size}`,
-      stackTrace: this.getLogStackTrace(),
-      type: "HostValue",
-    });
-    /* istanbul ignore next */
-    return 0;
   }
 
   /**
@@ -1446,22 +1453,23 @@ export class TestCollector {
       /* istanbul ignore next */
       return 0;
     }
-    if (size === 4) {
-      return new Float32Array(buffer)[pointer >>> 2];
+    switch (size) {
+      case 4:
+        return new Float32Array(buffer)[pointer >>> 2];
+      case 8:
+        return new Float64Array(buffer)[pointer >>> 3];
       /* istanbul ignore next */
-    } else if (size === 8) {
-      return new Float64Array(buffer)[pointer >>> 3];
+      default:
+        // sanity checks
+        /* istanbul ignore next */
+        this.errors.push({
+          message: `Cannot obtain a float at ${pointer} of size ${size}`,
+          stackTrace: this.getLogStackTrace(),
+          type: "HostValue",
+        });
+        /* istanbul ignore next */
+        return 0;
     }
-    // sanity checks
-
-    /* istanbul ignore next */
-    this.errors.push({
-      message: `Cannot obtain a float at ${pointer} of size ${size}`,
-      stackTrace: this.getLogStackTrace(),
-      type: "HostValue",
-    });
-    /* istanbul ignore next */
-    return 0;
   }
 
   /**

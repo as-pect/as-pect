@@ -47,6 +47,12 @@ formatters[formatterIndexFor(HostValueType.Truthy, HostValueFormatType.Expanded)
 const finiteFormatter = (hostValue: HostValue) => `${hostValue.negated ? "Not " : ""}Finite`;
 formatters[formatterIndexFor(HostValueType.Finite, HostValueFormatType.Expanded)] = finiteFormatter;
 
+// Booleans
+formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Expanded)] = displayNoQuoteStringWithSpacing;
+formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Inline)] = displayNoQuoteStringWithSpacing;
+formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Key)] = displayNoQuoteStringWithSpacing;
+formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Value)] = displayNoQuoteStringWithSpacing;
+
 function displayClassNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
   return ctx.classNameColor(`[${hostValue.typeName}]`);
 }
@@ -79,11 +85,14 @@ function displayStringWithSpacing(hostValue: HostValue, ctx: StringifyHostValueC
   return " ".repeat(ctx.indent + ctx.level * 2) + ctx.stringColor(`"${hostValue.value.toString().replace(/"/g, '\\"')}"`);
 }
 
+function displayNoQuoteStringWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+  return " ".repeat(ctx.indent + ctx.level * 2) + ctx.stringColor(`${hostValue.value.toString().replace(/"/g, '\\"')}`);
+}
 
 // Strings
 formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Expanded)] = displayStringWithSpacing;
 formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Inline)] = displayStringNoSpacing;
-formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Key)] = displayStringWithSpacing;
+formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Key)] = displayNoQuoteStringWithSpacing;
 formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Value)] = displayStringNoSpacing;
 
 function displayFunctionExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
