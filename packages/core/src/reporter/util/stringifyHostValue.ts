@@ -72,7 +72,7 @@ function displayNumberWithSpacing(hostValue: HostValue, ctx: StringifyHostValueC
   if (ctx.impliedTypeInfo || hostValue.typeName === "i32" || hostValue.typeName === "f64") {
     return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.numberColor(hostValue.value.toString());
   }
-  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + `${ctx.numberColor(hostValue.value.toString())} ${ctx.classNameColor(`as ${hostValue.typeName}`)}`;
+  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + `${ctx.numberColor(hostValue.value.toString())} ${ctx.keywordColor("as")} ${ctx.classNameColor(hostValue.typeName!)}`;
 }
 
 function displayNumberNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
@@ -149,20 +149,22 @@ function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
     const key = hostValue.keys![i];
     const keyString = formatters[formatterIndexFor(key.type, HostValueFormatType.Key)](key, ctx);
     const value = hostValue.values![i];
-
-    if (ctx.level < 5) {
+    const valueString = ctx.level < 5
       // render expanded value, but trim the whitespace on the left side
-      const valueString = formatters[formatterIndexFor(value.type, HostValueFormatType.Expanded)](value, ctx)
-        .trimLeft();
-      body += `${keyString}: ${valueString},\n`
-    } else {
+      ? formatters[formatterIndexFor(value.type, HostValueFormatType.Expanded)](value, ctx)
+        .trimLeft()
       // render value
-      const valueString = formatters[formatterIndexFor(value.type, HostValueFormatType.Value)](value, ctx);
-      body += `${keyString}: ${valueString},\n`
+      : formatters[formatterIndexFor(value.type, HostValueFormatType.Value)](value, ctx);
+
+    if (i === (length - 1)) {
+      // remove last trailing comma
+      body += `${keyString}: ${valueString}\n`;
+    } else {
+      body += `${keyString}: ${valueString},\n`;
     }
   }
 
-  if (length > ctx.maxPropertyCount) body += `... +${length - ctx.maxPropertyCount} properties`;
+  if (length > ctx.maxPropertyCount) body += `${spacing}... +${length - ctx.maxPropertyCount} properties`;
   ctx.level -= 1;
   ctx.impliedTypeInfo = previousImpliedTypeInfo;
   if (previousImpliedTypeInfo) return `${spacing}{${body}${spacing}}`
@@ -193,9 +195,14 @@ function displayArrayExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
 
       // render expanded value, but trim the whitespace on the left side
       const valueString = formatters[formatterIndexFor(value.type, HostValueFormatType.Expanded)](value, ctx);
-      body += `${valueString},\n`
+      if (i === (length - 1)) {
+        // remove trailing comma
+        body += `${valueString}\n`;
+      } else {
+        body += `${valueString},\n`;
+      }
     }
-    if (length > ctx.maxPropertyCount) body += `... +${length - ctx.maxPropertyCount} values`;
+    if (length > ctx.maxPropertyCount) body += `${spacing}... +${length - ctx.maxPropertyCount} values`;
     ctx.level -= 1;
     ctx.impliedTypeInfo = previousImpliedTypeInfo;
     if (previousImpliedTypeInfo) return `${spacing}[${body}${spacing}]`;
