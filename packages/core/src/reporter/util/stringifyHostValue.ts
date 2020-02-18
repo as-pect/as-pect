@@ -4,7 +4,9 @@ import chalk from "chalk";
 
 class StringifyHostValueContext {
   public level: number = 0;
+  public impliedTypeInfo: boolean = false;
 
+  public keywordColor = (input: string) => chalk`{yellow ${input}}`;
   public stringColor = (input: string) => chalk`{cyan ${input}}`;
   public classNameColor = (input: string) => chalk`{white ${input}}`;
   public numberColor = (input: string) => chalk`{green ${input}}`;
@@ -12,6 +14,7 @@ class StringifyHostValueContext {
   public constructor(
     public indent: number = 0,
     public maxPropertyCount: number = 50,
+    public tab: number = 4,
   ) {}
 }
 
@@ -47,22 +50,36 @@ formatters[formatterIndexFor(HostValueType.Truthy, HostValueFormatType.Expanded)
 const finiteFormatter = (hostValue: HostValue) => `${hostValue.negated ? "Not " : ""}Finite`;
 formatters[formatterIndexFor(HostValueType.Finite, HostValueFormatType.Expanded)] = finiteFormatter;
 
+function displayBooleanNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+  return ctx.keywordColor(hostValue.value === 1 ? "true" : "false");
+}
+
+function displayBooleanWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+  return " ".repeat(ctx.indent + ctx.tab * ctx.level) + ctx.keywordColor(hostValue.value === 1 ? "true" : "false");
+}
+
 // Booleans
-formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Expanded)] = displayNoQuoteStringWithSpacing;
-formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Inline)] = displayNoQuoteStringWithSpacing;
-formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Key)] = displayNoQuoteStringWithSpacing;
-formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Value)] = displayNoQuoteStringWithSpacing;
+formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Expanded)] = displayBooleanWithSpacing;
+formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Inline)] = displayBooleanNoSpacing;
+formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Key)] = displayBooleanWithSpacing;
+formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Value)] = displayBooleanNoSpacing;
 
 function displayClassNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
   return ctx.classNameColor(`[${hostValue.typeName}]`);
 }
 
 function displayNumberWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  return " ".repeat(ctx.indent + ctx.level * 2) + `${ctx.classNameColor(`<${hostValue.typeName}>`)}${ctx.numberColor(hostValue.value.toString())}`;
+  if (ctx.impliedTypeInfo || hostValue.typeName === "i32" || hostValue.typeName === "f64") {
+    return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.numberColor(hostValue.value.toString());
+  }
+  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + `${ctx.numberColor(hostValue.value.toString())} ${ctx.classNameColor(`as ${hostValue.typeName}`)}`;
 }
 
 function displayNumberNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  return `${ctx.classNameColor(`<${hostValue.typeName}>`)}${ctx.numberColor(hostValue.value.toString())}`;
+  if (ctx.impliedTypeInfo || hostValue.typeName === "i32" || hostValue.typeName === "f64") {
+    return ctx.numberColor(hostValue.value.toString());
+  }
+  return `${ctx.numberColor(hostValue.value.toString())} ${ctx.classNameColor(`as ${hostValue.typeName}`)}`;
 }
 
 // Floats
@@ -82,11 +99,11 @@ function displayStringNoSpacing(hostValue: HostValue, ctx: StringifyHostValueCon
 }
 
 function displayStringWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  return " ".repeat(ctx.indent + ctx.level * 2) + ctx.stringColor(`"${hostValue.value.toString().replace(/"/g, '\\"')}"`);
+  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.stringColor(`"${hostValue.value.toString().replace(/"/g, '\\"')}"`);
 }
 
 function displayNoQuoteStringWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  return " ".repeat(ctx.indent + ctx.level * 2) + ctx.stringColor(`${hostValue.value.toString().replace(/"/g, '\\"')}`);
+  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.stringColor(`${hostValue.value.toString().replace(/"/g, '\\"')}`);
 }
 
 // Strings
@@ -96,13 +113,13 @@ formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Key)] = d
 formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Value)] = displayStringNoSpacing;
 
 function displayFunctionExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  return " ".repeat(ctx.indent + ctx.level * 2) + ctx.classNameColor(`[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`);
+  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.classNameColor(`[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`);
 }
 
 const displayFuncNoNameNoPointer = (_: HostValue, ctx: StringifyHostValueContext) => ctx.classNameColor("[Function]");
 
 function displayFunctionKey(_: HostValue, ctx: StringifyHostValueContext): string {
-  return " ".repeat(ctx.indent + ctx.level * 2) + ctx.classNameColor(`[Function]`);
+  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.classNameColor(`[Function]`);
 }
 
 function displayFunctionValue(hostValue: HostValue, ctx: StringifyHostValueContext): string {
@@ -117,8 +134,11 @@ formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Key)] =
 formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Value)] = displayFunctionValue;
 
 function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  const spacing = " ".repeat(ctx.level * 2 + ctx.indent);
+  const spacing = " ".repeat(ctx.level * ctx.tab + ctx.indent);
+  const previousImpliedTypeInfo = ctx.impliedTypeInfo;
+  ctx.impliedTypeInfo = false;
   if (hostValue.isNull) {
+    if (previousImpliedTypeInfo) return `${spacing}null`;
     return `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)} null`;
   }
 
@@ -142,13 +162,15 @@ function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
     }
   }
 
-  if (length > ctx.maxPropertyCount) body += `+${length - ctx.maxPropertyCount} properties`;
+  if (length > ctx.maxPropertyCount) body += `... +${length - ctx.maxPropertyCount} properties`;
   ctx.level -= 1;
-  return `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)} {${body}${spacing}}`;
+  ctx.impliedTypeInfo = previousImpliedTypeInfo;
+  if (previousImpliedTypeInfo) return `${spacing}{${body}${spacing}}`
+  return `${spacing}${ctx.classNameColor(`${hostValue.typeName}`)} {${body}${spacing}}`;
 }
 
 function displayClassWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  return `${" ".repeat(ctx.level * 2 + ctx.indent)}${ctx.classNameColor(`[${hostValue.typeName}]`)}`;
+  return `${" ".repeat(ctx.level * ctx.tab + ctx.indent)}${ctx.classNameColor(`[${hostValue.typeName}]`)}`;
 }
 
 // Classes
@@ -158,8 +180,11 @@ formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Key)] = di
 formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Value)] = displayClassExpanded;
 
 function displayArrayExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  const spacing = " ".repeat(ctx.level * 2 + ctx.indent);
-  if (ctx.level < 5) {
+  const spacing = " ".repeat(ctx.level * ctx.tab + ctx.indent);
+  const previousImpliedTypeInfo = ctx.impliedTypeInfo;
+  ctx.impliedTypeInfo = true;
+
+  if (ctx.level < 5 && hostValue.type === HostValueType.Array) {
     let body = "\n";
     ctx.level += 1;
     const length = Math.min(hostValue.values!.length, ctx.maxPropertyCount);
@@ -170,24 +195,28 @@ function displayArrayExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
       const valueString = formatters[formatterIndexFor(value.type, HostValueFormatType.Expanded)](value, ctx);
       body += `${valueString},\n`
     }
-    if (length > ctx.maxPropertyCount) body += ` +${length - ctx.maxPropertyCount} values`;
+    if (length > ctx.maxPropertyCount) body += `... +${length - ctx.maxPropertyCount} values`;
     ctx.level -= 1;
-    return `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)} [${body}${spacing}]`;
+    ctx.impliedTypeInfo = previousImpliedTypeInfo;
+    if (previousImpliedTypeInfo) return `${spacing}[${body}${spacing}]`;
+    return `${spacing}${ctx.classNameColor(`${hostValue.typeName}`)} [${body}${spacing}]`;
   } else {
-    let body = `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)} [`;
+    let body = spacing;
+    if (!previousImpliedTypeInfo) body += ctx.classNameColor(hostValue.typeName!) + " ";
+    body += "[";
     let i = 0;
     let length = hostValue.values!.length;
     for (; i < length; i++) {
       let value = hostValue.values![i];
       const result = formatters[formatterIndexFor(value.type, HostValueFormatType.Inline)](value, ctx) + ", ";
-      if (result.length > 80) {
+      if (body.length > 80) {
         break;
       }
-      body = result;
+      body += result;
     }
-
-    body += `+${length - i} items]`;
-
+    if ((length - i) > 0) body += `... +${length - i} items`;
+    body += "]";
+    ctx.impliedTypeInfo = previousImpliedTypeInfo;
     // render value
     return body;
   }

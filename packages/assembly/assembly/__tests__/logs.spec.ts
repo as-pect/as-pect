@@ -102,9 +102,26 @@ describe("logs", () => {
     log(IDFunc);
   });
 
+  /**
+   * Log a class with nested properties.
+   */
   test("log a nested class", () => {
     let a = new A();
     log(a);
+  });
+
+  /**
+   * Log true.
+   */
+  test("log true", () => {
+    log(true);
+  });
+
+  /**
+   * Log false.
+   */
+  test("log false", () => {
+    log(false);
   });
 
   /**

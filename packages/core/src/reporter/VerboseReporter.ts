@@ -237,6 +237,7 @@ export default class VerboseReporter extends TestReporter {
     const output: string = stringifyHostValue(logValue, 12).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
     this.stdout!.write(chalk`   {yellow [Stack]:} ${logValue.stack.split("\n")
-      .join("\n             ")}\n`);
+      .join("\n             ")}\n`
+      .trimLeft());
   }
 }

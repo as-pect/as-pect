@@ -489,7 +489,7 @@ HostValue {
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
-  "value": 8016,
+  "value": 0,
   "values": null,
 }
 `;
@@ -513,7 +513,7 @@ HostValue {
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
-  "value": 8016,
+  "value": 1,
   "values": null,
 }
 `;

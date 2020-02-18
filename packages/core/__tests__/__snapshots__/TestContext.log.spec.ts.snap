@@ -446,7 +446,7 @@ HostValue {
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
-  "value": 3584,
+  "value": 1,
   "values": null,
 }
 `;
@@ -469,7 +469,7 @@ HostValue {
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
-  "value": 3584,
+  "value": 0,
   "values": null,
 }
 `;
@@ -666,7 +666,7 @@ HostValue {
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
-  "value": "~lib/rt/rtrace/onalloc",
+  "value": "assembly/jest-log/IdFunction",
   "values": null,
 }
 `;
@@ -1171,7 +1171,7 @@ HostValue {
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
-  "value": 3584,
+  "value": 1,
   "values": null,
 }
 `;
@@ -1196,7 +1196,7 @@ HostValue {
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
-  "value": 3584,
+  "value": 0,
   "values": null,
 }
 `;
@@ -1411,7 +1411,7 @@ HostValue {
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
-  "value": "~lib/rt/rtrace/onalloc",
+  "value": "assembly/jest-log/IdFunction",
   "values": null,
 }
 `;

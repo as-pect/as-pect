@@ -1322,7 +1322,7 @@ export class TestCollector {
    */
   private funcName(index: number): string {
     /* istanbul ignore next */
-    if (this.nameSection) return this.nameSection.fromIndex(index);
+    if (this.nameSection) return this.nameSection.fromIndex(parseInt(this.wasm!.table!.get(index)!.name));
     /* istanbul ignore next */
     return "";
   }
@@ -1355,7 +1355,7 @@ export class TestCollector {
     hostValue.values = hasValues ? [] : null;
     hostValue.stack = this.getLogStackTrace();
 
-    if (hostTypeValue === HostValueType.Integer) {
+    if (hostTypeValue === HostValueType.Integer || hostTypeValue === HostValueType.Boolean) {
       hostValue.value = this.getInteger(value, size, signed === 1);
       // get long
     } else if (hostTypeValue === HostValueType.String) {
