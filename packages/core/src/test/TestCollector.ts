@@ -1322,7 +1322,7 @@ export class TestCollector {
    */
   private funcName(index: number): string {
     /* istanbul ignore next */
-    if (this.nameSection) return this.nameSection.fromIndex(index);
+    if (this.nameSection) return this.nameSection.fromIndex(parseInt(this.wasm!.table!.get(index)!.name));
     /* istanbul ignore next */
     return "";
   }
