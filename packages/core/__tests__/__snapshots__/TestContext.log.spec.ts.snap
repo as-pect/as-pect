@@ -666,7 +666,7 @@ HostValue {
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
-  "value": "~lib/rt/rtrace/onalloc",
+  "value": "assembly/jest-log/IdFunction",
   "values": null,
 }
 `;
@@ -1411,7 +1411,7 @@ HostValue {
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
-  "value": "~lib/rt/rtrace/onalloc",
+  "value": "assembly/jest-log/IdFunction",
   "values": null,
 }
 `;
