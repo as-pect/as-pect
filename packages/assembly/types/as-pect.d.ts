@@ -951,4 +951,11 @@ declare class Reflect {
    * @param {usize[]} cache - Internal use only, used to prevent recursion.
    */
   public static equals<T>(left: T, right: T, stack?: usize[], cache?: usize[]): i32;
+
+  /**
+   * Attach a stack trace to a value.
+   *
+   * @param {i32} hostValueID - The host value to attach the current stack trace to.
+   */
+  public static attachStackTrace(id: i32): void;
 }

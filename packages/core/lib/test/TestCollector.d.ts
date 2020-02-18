@@ -571,4 +571,10 @@ export declare class TestCollector {
      * @param {1 | 0} negated - An indicator if the expectation is negated.
      */
     private reportExpectedFinite;
+    /**
+     * Attaches a stack trace to the given hostValue by it's id.
+     *
+     * @param {number} hostValueID - The given host value.
+     */
+    private attachStackTraceToHostValue;
 }

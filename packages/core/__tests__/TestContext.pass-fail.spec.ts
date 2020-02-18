@@ -42,7 +42,7 @@ describe("pass-fail output", () => {
         test(`Test: ${groupTest.name}`, () => {
           expect(groupTest.pass).toMatchSnapshot(`pass`);
           expect(groupTest.actual).toMatchSnapshot("actual");
-          expect(groupTest.expected).toMatchSnapshot("actual");
+          expect(groupTest.expected).toMatchSnapshot("expected");
           expect(groupTest.message).toMatchSnapshot(`message`);
           expect(groupTest.negated).toMatchSnapshot(`negated`);
         });

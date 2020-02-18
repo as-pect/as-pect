@@ -17,5 +17,7 @@ export function __ignoreLogs(value: bool): void {
 @global
 export function log<T>(value: T): void {
   if (ignoreLogs) return;
-  logHostValue(Reflect.toHostValue(value));
+  let hostValue = Reflect.toHostValue(value);
+  Reflect.attachStackTrace(hostValue);
+  logHostValue(hostValue);
 }

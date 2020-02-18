@@ -25,7 +25,9 @@ export class Actual {
    * @param {T} actual - The actual value and it's type.
    */
   static report<T>(actual: T): void {
-    reportActualHostValue(Reflect.toHostValue(actual));
+    let value = Reflect.toHostValue(actual);
+    Reflect.attachStackTrace(value);
+    reportActualHostValue(value);
   }
 
   /**

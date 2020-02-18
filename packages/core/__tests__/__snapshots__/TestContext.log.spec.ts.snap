@@ -10,11 +10,10 @@ HostValue {
   "pointer": 464,
   "signed": false,
   "size": 12,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[42]:0x1518)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[45]:0x15fa)
-    at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[47]:0x162e)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c04)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[49]:0x1668)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2cc1)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -33,11 +32,10 @@ HostValue {
   "pointer": 3472,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[49]:0x167f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[50]:0x16b7)
-    at ../assembly/assembly/internal/log/log<i32> (wasm-function[51]:0x16d5)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c08)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i32> (wasm-function[53]:0x1719)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2cc5)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -56,11 +54,10 @@ HostValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3 | null> (wasm-function[56]:0x17c7)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3 | null>|trampoline (wasm-function[57]:0x185a)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[58]:0x1887)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c0c)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[60]:0x18d5)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2cc9)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 1,
   "typeId": 7,
   "typeName": "Vec3",
@@ -82,13 +79,7 @@ HostValue {
       "pointer": 720,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[42]:0x1518)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x1750)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c2f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -104,13 +95,7 @@ HostValue {
       "pointer": 784,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[42]:0x1518)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x1768)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c2f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -126,13 +111,7 @@ HostValue {
       "pointer": 816,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[42]:0x1518)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x1780)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c2f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -146,11 +125,10 @@ HostValue {
   "pointer": 3328,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1903)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c2f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[64]:0x19d2)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2cec)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 1,
   "typeId": 7,
   "typeName": "Vec3",
@@ -165,13 +143,7 @@ HostValue {
       "pointer": 3520,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[54]:0x172d)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x175d)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c2f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -187,13 +159,7 @@ HostValue {
       "pointer": 3520,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[54]:0x172d)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x1775)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c2f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -209,13 +175,7 @@ HostValue {
       "pointer": 3520,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[54]:0x172d)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x178d)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c2f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -236,11 +196,10 @@ HostValue {
   "pointer": 3376,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[68]:0x247b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[69]:0x24f5)
-    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[70]:0x2522)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c40)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[72]:0x2584)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2cfd)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 11,
   "typeId": 9,
   "typeName": "Array<i32>",
@@ -255,12 +214,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[49]:0x167f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[68]:0x24aa)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[69]:0x24f5)
-    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[70]:0x2522)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c40)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -276,12 +230,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[49]:0x167f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[68]:0x24aa)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[69]:0x24f5)
-    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[70]:0x2522)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c40)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -297,12 +246,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[49]:0x167f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[68]:0x24aa)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[69]:0x24f5)
-    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[70]:0x2522)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c40)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -323,11 +267,10 @@ HostValue {
   "pointer": 3584,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64> (wasm-function[72]:0x2573)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64>|trampoline (wasm-function[73]:0x25ab)
-    at ../assembly/assembly/internal/log/log<i64> (wasm-function[74]:0x25c9)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c4a)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i64> (wasm-function[76]:0x2635)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d07)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -346,11 +289,10 @@ HostValue {
   "pointer": 3584,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32> (wasm-function[76]:0x2616)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32>|trampoline (wasm-function[77]:0x264e)
-    at ../assembly/assembly/internal/log/log<u32> (wasm-function[78]:0x266c)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c51)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<u32> (wasm-function[80]:0x26e2)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d0e)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",
@@ -369,11 +311,10 @@ HostValue {
   "pointer": 3584,
   "signed": false,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u64> (wasm-function[80]:0x26b9)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u64>|trampoline (wasm-function[81]:0x26f1)
-    at ../assembly/assembly/internal/log/log<u64> (wasm-function[82]:0x270f)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c5a)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<u64> (wasm-function[84]:0x278f)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d17)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 7,
   "typeId": 0,
   "typeName": "u64",
@@ -392,11 +333,10 @@ HostValue {
   "pointer": 3584,
   "signed": true,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8> (wasm-function[84]:0x275c)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8>|trampoline (wasm-function[85]:0x2794)
-    at ../assembly/assembly/internal/log/log<i8> (wasm-function[86]:0x27b2)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c5e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i8> (wasm-function[88]:0x283c)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d1b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 7,
   "typeId": 0,
   "typeName": "i8",
@@ -415,11 +355,10 @@ HostValue {
   "pointer": 3584,
   "signed": true,
   "size": 2,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i16> (wasm-function[88]:0x27ff)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i16>|trampoline (wasm-function[89]:0x2837)
-    at ../assembly/assembly/internal/log/log<i16> (wasm-function[90]:0x2855)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c62)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i16> (wasm-function[92]:0x28e9)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d1f)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 7,
   "typeId": 0,
   "typeName": "i16",
@@ -438,11 +377,10 @@ HostValue {
   "pointer": 3584,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool> (wasm-function[92]:0x28a2)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool>|trampoline (wasm-function[93]:0x28da)
-    at ../assembly/assembly/internal/log/log<bool> (wasm-function[94]:0x28f8)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c66)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<bool> (wasm-function[96]:0x2996)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d23)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -461,11 +399,10 @@ HostValue {
   "pointer": 3584,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool> (wasm-function[92]:0x28a2)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool>|trampoline (wasm-function[93]:0x28da)
-    at ../assembly/assembly/internal/log/log<bool> (wasm-function[94]:0x28f8)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c6a)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<bool> (wasm-function[96]:0x2996)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d27)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -484,11 +421,10 @@ HostValue {
   "pointer": 3200,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array> (wasm-function[99]:0x29bc)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline (wasm-function[100]:0x2a36)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[101]:0x2a63)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c6e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[103]:0x2b0b)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d2b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 11,
   "typeId": 3,
   "typeName": "Uint8Array",
@@ -503,12 +439,7 @@ HostValue {
       "pointer": 3584,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u8> (wasm-function[98]:0x295b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array> (wasm-function[99]:0x29eb)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline (wasm-function[100]:0x2a36)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[101]:0x2a63)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c6e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "u8",
@@ -524,12 +455,7 @@ HostValue {
       "pointer": 3584,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u8> (wasm-function[98]:0x295b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array> (wasm-function[99]:0x29eb)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline (wasm-function[100]:0x2a36)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[101]:0x2a63)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c6e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "u8",
@@ -545,12 +471,7 @@ HostValue {
       "pointer": 3584,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u8> (wasm-function[98]:0x295b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array> (wasm-function[99]:0x29eb)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline (wasm-function[100]:0x2a36)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[101]:0x2a63)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c6e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "u8",
@@ -571,11 +492,10 @@ HostValue {
   "pointer": 3264,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array> (wasm-function[104]:0x2ad0)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array>|trampoline (wasm-function[105]:0x2b4a)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[106]:0x2b77)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c72)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[108]:0x2c29)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d2f)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 11,
   "typeId": 4,
   "typeName": "Int8Array",
@@ -590,12 +510,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8> (wasm-function[84]:0x275c)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array> (wasm-function[104]:0x2aff)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array>|trampoline (wasm-function[105]:0x2b4a)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[106]:0x2b77)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c72)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i8",
@@ -611,12 +526,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8> (wasm-function[84]:0x275c)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array> (wasm-function[104]:0x2aff)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array>|trampoline (wasm-function[105]:0x2b4a)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[106]:0x2b77)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c72)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i8",
@@ -632,12 +542,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8> (wasm-function[84]:0x275c)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array> (wasm-function[104]:0x2aff)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array>|trampoline (wasm-function[105]:0x2b4a)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[106]:0x2b77)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c72)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i8",
@@ -658,11 +563,10 @@ HostValue {
   "pointer": 1,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32> (wasm-function[107]:0x2ba4)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32>|trampoline (wasm-function[108]:0x2bd8)
-    at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[109]:0x2bf6)
-    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2c76)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[111]:0x2cb2)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d33)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -681,8 +585,8 @@ HostValue {
   "pointer": 1280,
   "signed": false,
   "size": 0,
-  "stack": "    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[110]:0x2caa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x2ef0)",
+  "stack": "    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[112]:0x2d67)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fad)",
   "type": 2,
   "typeId": 0,
   "typeName": "trace",
@@ -701,13 +605,12 @@ HostValue {
   "pointer": 464,
   "signed": false,
   "size": 12,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[42]:0x1518)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[45]:0x15fa)
-    at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[47]:0x162e)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2ce1)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[49]:0x1668)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2d9e)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -726,13 +629,12 @@ HostValue {
   "pointer": 3472,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[49]:0x167f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[50]:0x16b7)
-    at ../assembly/assembly/internal/log/log<i32> (wasm-function[51]:0x16d5)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2ce5)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i32> (wasm-function[53]:0x1719)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2da2)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -751,13 +653,12 @@ HostValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3 | null> (wasm-function[56]:0x17c7)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3 | null>|trampoline (wasm-function[57]:0x185a)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[58]:0x1887)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2ce9)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[60]:0x18d5)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2da6)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 1,
   "typeId": 7,
   "typeName": "Vec3",
@@ -779,14 +680,7 @@ HostValue {
       "pointer": 720,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[42]:0x1518)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x1750)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d0c)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)",
+      "stack": "",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -802,14 +696,7 @@ HostValue {
       "pointer": 784,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[42]:0x1518)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x1768)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d0c)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)",
+      "stack": "",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -825,14 +712,7 @@ HostValue {
       "pointer": 816,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[42]:0x1518)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x1780)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d0c)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)",
+      "stack": "",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -846,13 +726,12 @@ HostValue {
   "pointer": 3328,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1903)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d0c)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[64]:0x19d2)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2dc9)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 1,
   "typeId": 7,
   "typeName": "Vec3",
@@ -867,14 +746,7 @@ HostValue {
       "pointer": 3520,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[54]:0x172d)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x175d)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d0c)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)",
+      "stack": "",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -890,14 +762,7 @@ HostValue {
       "pointer": 3520,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[54]:0x172d)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x1775)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d0c)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)",
+      "stack": "",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -913,14 +778,7 @@ HostValue {
       "pointer": 3520,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[54]:0x172d)
-    at assembly/jest-log/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[55]:0x178d)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3> (wasm-function[60]:0x1917)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-log/Vec3>|trampoline (wasm-function[61]:0x194d)
-    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[62]:0x197a)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d0c)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)",
+      "stack": "",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -941,13 +799,12 @@ HostValue {
   "pointer": 3376,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[68]:0x247b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[69]:0x24f5)
-    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[70]:0x2522)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d1d)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[72]:0x2584)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2dda)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 11,
   "typeId": 9,
   "typeName": "Array<i32>",
@@ -962,14 +819,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[49]:0x167f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[68]:0x24aa)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[69]:0x24f5)
-    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[70]:0x2522)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d1d)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -985,14 +835,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[49]:0x167f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[68]:0x24aa)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[69]:0x24f5)
-    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[70]:0x2522)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d1d)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -1008,14 +851,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[49]:0x167f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[68]:0x24aa)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[69]:0x24f5)
-    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[70]:0x2522)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d1d)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -1036,13 +872,12 @@ HostValue {
   "pointer": 3584,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64> (wasm-function[72]:0x2573)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64>|trampoline (wasm-function[73]:0x25ab)
-    at ../assembly/assembly/internal/log/log<i64> (wasm-function[74]:0x25c9)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d27)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i64> (wasm-function[76]:0x2635)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2de4)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -1061,13 +896,12 @@ HostValue {
   "pointer": 3584,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32> (wasm-function[76]:0x2616)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32>|trampoline (wasm-function[77]:0x264e)
-    at ../assembly/assembly/internal/log/log<u32> (wasm-function[78]:0x266c)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d2e)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<u32> (wasm-function[80]:0x26e2)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2deb)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",
@@ -1086,13 +920,12 @@ HostValue {
   "pointer": 3584,
   "signed": false,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u64> (wasm-function[80]:0x26b9)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u64>|trampoline (wasm-function[81]:0x26f1)
-    at ../assembly/assembly/internal/log/log<u64> (wasm-function[82]:0x270f)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d37)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<u64> (wasm-function[84]:0x278f)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2df4)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 7,
   "typeId": 0,
   "typeName": "u64",
@@ -1111,13 +944,12 @@ HostValue {
   "pointer": 3584,
   "signed": true,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8> (wasm-function[84]:0x275c)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8>|trampoline (wasm-function[85]:0x2794)
-    at ../assembly/assembly/internal/log/log<i8> (wasm-function[86]:0x27b2)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d3b)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i8> (wasm-function[88]:0x283c)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2df8)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 7,
   "typeId": 0,
   "typeName": "i8",
@@ -1136,13 +968,12 @@ HostValue {
   "pointer": 3584,
   "signed": true,
   "size": 2,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i16> (wasm-function[88]:0x27ff)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i16>|trampoline (wasm-function[89]:0x2837)
-    at ../assembly/assembly/internal/log/log<i16> (wasm-function[90]:0x2855)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d3f)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i16> (wasm-function[92]:0x28e9)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2dfc)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 7,
   "typeId": 0,
   "typeName": "i16",
@@ -1161,13 +992,12 @@ HostValue {
   "pointer": 3584,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool> (wasm-function[92]:0x28a2)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool>|trampoline (wasm-function[93]:0x28da)
-    at ../assembly/assembly/internal/log/log<bool> (wasm-function[94]:0x28f8)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d43)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<bool> (wasm-function[96]:0x2996)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2e00)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -1186,13 +1016,12 @@ HostValue {
   "pointer": 3584,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool> (wasm-function[92]:0x28a2)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool>|trampoline (wasm-function[93]:0x28da)
-    at ../assembly/assembly/internal/log/log<bool> (wasm-function[94]:0x28f8)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d47)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<bool> (wasm-function[96]:0x2996)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2e04)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -1211,13 +1040,12 @@ HostValue {
   "pointer": 3200,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array> (wasm-function[99]:0x29bc)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline (wasm-function[100]:0x2a36)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[101]:0x2a63)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d4b)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[103]:0x2b0b)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2e08)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 11,
   "typeId": 3,
   "typeName": "Uint8Array",
@@ -1232,14 +1060,7 @@ HostValue {
       "pointer": 3584,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u8> (wasm-function[98]:0x295b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array> (wasm-function[99]:0x29eb)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline (wasm-function[100]:0x2a36)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[101]:0x2a63)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d4b)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "u8",
@@ -1255,14 +1076,7 @@ HostValue {
       "pointer": 3584,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u8> (wasm-function[98]:0x295b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array> (wasm-function[99]:0x29eb)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline (wasm-function[100]:0x2a36)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[101]:0x2a63)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d4b)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "u8",
@@ -1278,14 +1092,7 @@ HostValue {
       "pointer": 3584,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u8> (wasm-function[98]:0x295b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array> (wasm-function[99]:0x29eb)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline (wasm-function[100]:0x2a36)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[101]:0x2a63)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d4b)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "u8",
@@ -1306,13 +1113,12 @@ HostValue {
   "pointer": 3264,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array> (wasm-function[104]:0x2ad0)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array>|trampoline (wasm-function[105]:0x2b4a)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[106]:0x2b77)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d4f)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[108]:0x2c29)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2e0c)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 11,
   "typeId": 4,
   "typeName": "Int8Array",
@@ -1327,14 +1133,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8> (wasm-function[84]:0x275c)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array> (wasm-function[104]:0x2aff)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array>|trampoline (wasm-function[105]:0x2b4a)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[106]:0x2b77)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d4f)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i8",
@@ -1350,14 +1149,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8> (wasm-function[84]:0x275c)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array> (wasm-function[104]:0x2aff)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array>|trampoline (wasm-function[105]:0x2b4a)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[106]:0x2b77)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d4f)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i8",
@@ -1373,14 +1165,7 @@ HostValue {
       "pointer": 3584,
       "signed": true,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i8> (wasm-function[84]:0x275c)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array> (wasm-function[104]:0x2aff)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Int8Array>|trampoline (wasm-function[105]:0x2b4a)
-    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[106]:0x2b77)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d4f)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+      "stack": "",
       "type": 7,
       "typeId": 0,
       "typeName": "i8",
@@ -1401,13 +1186,12 @@ HostValue {
   "pointer": 1,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32> (wasm-function[107]:0x2ba4)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32>|trampoline (wasm-function[108]:0x2bd8)
-    at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[109]:0x2bf6)
-    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d53)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[111]:0x2cb2)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2e10)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -1426,10 +1210,10 @@ HostValue {
   "pointer": 1280,
   "signed": false,
   "size": 0,
-  "stack": "    at start:assembly/jest-log~anonymous|0 (wasm-function[113]:0x2d87)
-    at ../assembly/assembly/internal/Describe/describe (wasm-function[115]:0x2dbe)
-    at start:assembly/jest-log (wasm-function[116]:0x2e0f)
-    at ~start (wasm-function[130]:0x2f17)",
+  "stack": "    at start:assembly/jest-log~anonymous|0 (wasm-function[115]:0x2e44)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[117]:0x2e7b)
+    at start:assembly/jest-log (wasm-function[118]:0x2ecc)
+    at ~start (wasm-function[132]:0x2fd4)",
   "type": 2,
   "typeId": 0,
   "typeName": "trace",

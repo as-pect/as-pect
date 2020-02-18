@@ -278,6 +278,7 @@ export class TestCollector {
       ...imports, // get all the user defined imports
       {
         __aspect: {
+          attachStackTraceToHostValue: this.attachStackTraceToHostValue.bind(this),
           clearActual: this.clearActual.bind(this),
           clearExpected: this.clearExpected.bind(this),
           createHostValue: this.createHostValue.bind(this),
@@ -1353,7 +1354,6 @@ export class TestCollector {
     hostValue.typeId = typeId;
     hostValue.typeName = this.getString(typeName, "");
     hostValue.values = hasValues ? [] : null;
-    hostValue.stack = this.getLogStackTrace();
 
     if (hostTypeValue === HostValueType.Integer || hostTypeValue === HostValueType.Boolean) {
       hostValue.value = this.getInteger(value, size, signed === 1);
@@ -1547,7 +1547,7 @@ export class TestCollector {
     if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostObject id out of bounds.`,
+        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
@@ -1559,7 +1559,7 @@ export class TestCollector {
     if (valueID >= this.hostValueCache.length || valueID < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostObject value id out of bounds.`,
+        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
@@ -1574,7 +1574,7 @@ export class TestCollector {
     if (!hostValue.values) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostObject was not initialized with a values array.`,
+        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostValue was not initialized with a values array.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
@@ -1596,7 +1596,7 @@ export class TestCollector {
     if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostObject id out of bounds.`,
+        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
@@ -1608,7 +1608,7 @@ export class TestCollector {
     if (keyId >= this.hostValueCache.length || keyId < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostObject key id out of bounds.`,
+        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostValue key id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
@@ -1623,7 +1623,7 @@ export class TestCollector {
     if (!hostValue.keys) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostObject was not initialized with a keys array.`,
+        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostValue was not initialized with a keys array.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
@@ -1681,5 +1681,25 @@ export class TestCollector {
 
     expected.negated = negated === 1;
     expected.type = HostValueType.Finite;
+  }
+
+  /**
+   * Attaches a stack trace to the given hostValue by it's id.
+   *
+   * @param {number} hostValueID - The given host value.
+   */
+  private attachStackTraceToHostValue(hostValueID: number): void {
+    /* istanbul ignore next */
+    if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
+      /* istanbul ignore next */
+      this.errors.push({
+        message: `Cannot push a stack trace to HostValue ${hostValueID}. HostValue id out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "HostValue",
+      });
+      /* istanbul ignore next */
+      return;
+    }
+    this.hostValueCache[hostValueID].stack = this.getLogStackTrace();
   }
 }

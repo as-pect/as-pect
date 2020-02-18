@@ -40,8 +40,9 @@ export class Expected {
       reportInvalidExpectCall();
       return;
     }
-
-    reportExpectedHostValue(Reflect.toHostValue(expected), negated);
+    let value = Reflect.toHostValue(expected);
+    Reflect.attachStackTrace(value);
+    reportExpectedHostValue(value, negated);
   }
 
   /**
