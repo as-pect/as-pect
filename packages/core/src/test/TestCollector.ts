@@ -1380,12 +1380,15 @@ export class TestCollector {
    */
   private getInteger(pointer: number, size: number, signed: boolean): number {
     const buffer = this.wasm!.memory.buffer;
+    /* istanbul ignore next */
     if (pointer + size >= buffer.byteLength) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot obtain ${signed ? "" : "un"}signed integer value at pointer ${pointer} of size ${size}: index out of bounds`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return 0;
     }
 
@@ -1414,11 +1417,13 @@ export class TestCollector {
       );
       return long.toString();
     }
+    /* istanbul ignore next */
     this.errors.push({
       message: `Cannot obtain an ${signed ? "" : "un"}signed integer at ${pointer} of size ${size}`,
       stackTrace: this.getLogStackTrace(),
       type: "HostValue",
     });
+    /* istanbul ignore next */
     return 0;
   }
 
@@ -1430,24 +1435,32 @@ export class TestCollector {
    */
   private getFloat(pointer: number, size: number): number {
     const buffer = this.wasm!.memory.buffer;
+    /* istanbul ignore next */
     if (pointer + size >= buffer.byteLength) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot obtain a float value at pointer ${pointer} of size ${size}: index out of bounds`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return 0;
     }
     if (size === 4) {
       return new Float32Array(buffer)[pointer >>> 2];
+      /* istanbul ignore next */
     } else if (size === 8) {
       return new Float64Array(buffer)[pointer >>> 3];
     }
+    // sanity checks
+
+    /* istanbul ignore next */
     this.errors.push({
       message: `Cannot obtain a float at ${pointer} of size ${size}`,
       stackTrace: this.getLogStackTrace(),
       type: "HostValue",
     });
+    /* istanbul ignore next */
     return 0;
   }
 
@@ -1457,12 +1470,15 @@ export class TestCollector {
    * @param {number} id - The HostValue id
    */
   private logHostValue(id: number): void {
+    /* istanbul ignore next */
     if (id >= this.hostValueCache.length || id < 0) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot log HostValue of id ${id}. Index out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return;
     }
     this.logTarget.logs.push(this.hostValueCache[id]);
@@ -1474,12 +1490,16 @@ export class TestCollector {
    * @param {number} id - The HostValue id
    */
   private reportActualHostValue(id: number): void {
+    // ignored lines are santiy checks for error reporting
+    /* istanbul ignore next */
     if (id >= this.hostValueCache.length || id < 0) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot report actual HostValue of id ${id}. Index out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return;
     }
     this.actual = this.hostValueCache[id];
@@ -1491,12 +1511,16 @@ export class TestCollector {
    * @param {number} id - The HostValue id
    */
   private reportExpectedHostValue(id: number, negated: number): void {
+    // ignored lines are error reporting for sanity checks
+    /* istanbul ignore next */
     if (id >= this.hostValueCache.length || id < 0) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot report expected HostValue of id ${id}. Index out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return;
     }
     this.expected = this.hostValueCache[id];
@@ -1510,32 +1534,43 @@ export class TestCollector {
    * @param {number} valueID - The target host value to be pushed.
    */
   private pushHostObjectValue(hostValueID: number, valueID: number): void {
+    // each ignored line for test coverage is error reporting for sanity checks
+    /* istanbul ignore next */
     if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostObject id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return;
     }
+
+    /* istanbul ignore next */
     if (valueID >= this.hostValueCache.length || valueID < 0) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostObject value id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return;
     }
 
     let hostValue = this.hostValueCache[hostValueID];
     let value = this.hostValueCache[valueID];
 
+    /* istanbul ignore next */
     if (!hostValue.values) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostObject was not initialized with a values array.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return;
     }
     hostValue.values.push(value);
@@ -1548,31 +1583,43 @@ export class TestCollector {
    * @param {number} keyId - The target host value key to be pushed.
    */
   private pushHostObjectKey(hostValueID: number, keyId: number): void {
+    // every ignored line for test coverage in this function are sanity checks
+    /* istanbul ignore next */
     if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostObject id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return;
     }
+
+    /* istanbul ignore next */
     if (keyId >= this.hostValueCache.length || keyId < 0) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostObject key id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return;
     }
     let hostValue = this.hostValueCache[hostValueID];
     let key = this.hostValueCache[keyId];
 
+    // this is a failsafe if a keys[] does not exist on the HostValue
+    /* istanbul ignore next */
     if (!hostValue.keys) {
+      /* istanbul ignore next */
       this.errors.push({
         message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostObject was not initialized with a keys array.`,
         stackTrace: this.getLogStackTrace(),
         type: "HostValue",
       });
+      /* istanbul ignore next */
       return;
     }
     hostValue.keys.push(key);

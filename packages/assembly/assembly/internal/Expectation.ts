@@ -93,7 +93,7 @@ export class Expectation<T> {
     let actual = this.actual;
     Actual.report(actual);
     let negated = this._not;
-    Expected.reportTruthy();
+    Expected.reportTruthy(negated);
 
     if (isReference(actual)) {
       if (isNullable<T>()) {
@@ -132,7 +132,7 @@ export class Expectation<T> {
     let actual = this.actual;
     Actual.report(actual);
     let negated = this._not;
-    Expected.reportTruthy();
+    Expected.reportFalsy(negated);
 
     if (isReference(actual)) {
       if (isNullable<T>()) {

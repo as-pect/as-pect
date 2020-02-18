@@ -208,12 +208,12 @@ HostValue {
   "pointer": 896,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[72]:0x1ac1)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[73]:0x1ade)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[75]:0x1b34)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[76]:0x1b66)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[73]:0x1b39)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[74]:0x1b56)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[76]:0x1bac)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[77]:0x1bde)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -232,12 +232,12 @@ HostValue {
   "pointer": 928,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[72]:0x1ac1)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[74]:0x1b08)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[75]:0x1b3a)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[76]:0x1b66)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[73]:0x1b39)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[75]:0x1b80)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[76]:0x1bb2)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[77]:0x1bde)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -289,15 +289,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 6544,
+  "pointer": 7168,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[139]:0x3520)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[140]:0x359b)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[141]:0x35b9)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[143]:0x363b)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[144]:0x3690)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[141]:0x35a1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[142]:0x361c)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[143]:0x363a)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[145]:0x36bc)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[146]:0x3711)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 11,
   "typeId": 12,
   "typeName": "Array<i32>",
@@ -309,16 +309,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6976,
+      "pointer": 7600,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[139]:0x3550)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[140]:0x359b)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[141]:0x35b9)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[143]:0x363b)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[144]:0x3690)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[141]:0x35d1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[142]:0x361c)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[143]:0x363a)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[145]:0x36bc)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[146]:0x3711)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -331,16 +331,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6976,
+      "pointer": 7600,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[139]:0x3550)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[140]:0x359b)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[141]:0x35b9)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[143]:0x363b)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[144]:0x3690)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[141]:0x35d1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[142]:0x361c)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[143]:0x363a)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[145]:0x36bc)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[146]:0x3711)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -353,16 +353,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6976,
+      "pointer": 7600,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[139]:0x3550)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[140]:0x359b)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[141]:0x35b9)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[143]:0x363b)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[144]:0x3690)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[141]:0x35d1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[142]:0x361c)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[143]:0x363a)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[145]:0x36bc)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[146]:0x3711)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -380,15 +380,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 6640,
+  "pointer": 7264,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[139]:0x3520)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[140]:0x359b)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[142]:0x35e4)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[143]:0x3642)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[144]:0x3690)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[141]:0x35a1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[142]:0x361c)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[144]:0x3665)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[145]:0x36c3)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[146]:0x3711)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 11,
   "typeId": 12,
   "typeName": "Array<i32>",
@@ -400,16 +400,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6976,
+      "pointer": 7600,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[139]:0x3550)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[140]:0x359b)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[142]:0x35e4)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[143]:0x3642)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[144]:0x3690)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[141]:0x35d1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[142]:0x361c)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[144]:0x3665)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[145]:0x36c3)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[146]:0x3711)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -422,16 +422,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6976,
+      "pointer": 7600,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[139]:0x3550)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[140]:0x359b)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[142]:0x35e4)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[143]:0x3642)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[144]:0x3690)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[141]:0x35d1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[142]:0x361c)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[144]:0x3665)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[145]:0x36c3)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[146]:0x3711)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -444,16 +444,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6976,
+      "pointer": 7600,
       "signed": true,
       "size": 4,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[139]:0x3550)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[140]:0x359b)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[142]:0x35e4)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[143]:0x3642)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[144]:0x3690)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (wasm-function[141]:0x35d1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (wasm-function[142]:0x361c)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[144]:0x3665)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[145]:0x36c3)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[146]:0x3711)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
@@ -477,19 +477,19 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7392,
+  "pointer": 8016,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool> (wasm-function[180]:0x3f1b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool>|trampoline (wasm-function[181]:0x3f53)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[182]:0x3f6b)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[184]:0x3fb0)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[185]:0x3fdf)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool> (wasm-function[182]:0x3f9c)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool>|trampoline (wasm-function[183]:0x3fd4)
+    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[184]:0x3fec)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[186]:0x4031)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[187]:0x4060)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
-  "value": 7392,
+  "value": 8016,
   "values": null,
 }
 `;
@@ -501,19 +501,19 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7392,
+  "pointer": 8016,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool> (wasm-function[180]:0x3f1b)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool>|trampoline (wasm-function[181]:0x3f53)
-    at ../assembly/assembly/internal/Expected/Expected.report<bool> (wasm-function[183]:0x3f88)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[184]:0x3fb7)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[185]:0x3fdf)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool> (wasm-function[182]:0x3f9c)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<bool>|trampoline (wasm-function[183]:0x3fd4)
+    at ../assembly/assembly/internal/Expected/Expected.report<bool> (wasm-function[185]:0x4009)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[186]:0x4038)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[187]:0x4060)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
-  "value": 7392,
+  "value": 8016,
   "values": null,
 }
 `;
@@ -531,15 +531,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 6272,
+  "pointer": 6896,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64>|trampoline (wasm-function[81]:0x1c29)
-    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[82]:0x1c40)
-    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[84]:0x1c69)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|3 (wasm-function[85]:0x1ca6)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64>|trampoline (wasm-function[82]:0x1ca1)
+    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[83]:0x1cb8)
+    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[85]:0x1ce1)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|3 (wasm-function[86]:0x1d1e)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 8,
   "typeId": 0,
   "typeName": "f64",
@@ -573,6 +573,16 @@ exports[`pass-fail output Group: pass-fail Test: should report expected finite v
 
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: pass 1`] = `false`;
 
+exports[`pass-fail output Group: pass-fail Test: should report f32 values: actual 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report f32 values: actual 2`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report f32 values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report f32 values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report f32 values: pass 1`] = `true`;
+
 exports[`pass-fail output Group: pass-fail Test: should report failed functions: actual 1`] = `
 HostValue {
   "isNull": false,
@@ -583,12 +593,12 @@ HostValue {
   "pointer": 1,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32> (wasm-function[189]:0x4059)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32>|trampoline (wasm-function[190]:0x408d)
-    at ../assembly/assembly/internal/Actual/Actual.report<(i: i32) => i32> (wasm-function[191]:0x40a5)
-    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[193]:0x40e4)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[194]:0x4113)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32> (wasm-function[191]:0x40da)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32>|trampoline (wasm-function[192]:0x410e)
+    at ../assembly/assembly/internal/Actual/Actual.report<(i: i32) => i32> (wasm-function[193]:0x4126)
+    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[195]:0x4165)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[196]:0x4194)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -607,12 +617,12 @@ HostValue {
   "pointer": 2,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32> (wasm-function[189]:0x4059)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32>|trampoline (wasm-function[190]:0x408d)
-    at ../assembly/assembly/internal/Expected/Expected.report<(i: i32) => i32> (wasm-function[192]:0x40c2)
-    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[193]:0x40eb)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[194]:0x4113)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32> (wasm-function[191]:0x40da)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<(i: i32) => i32>|trampoline (wasm-function[192]:0x410e)
+    at ../assembly/assembly/internal/Expected/Expected.report<(i: i32) => i32> (wasm-function[194]:0x4143)
+    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[195]:0x416c)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[196]:0x4194)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -634,15 +644,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 6304,
+  "pointer": 6928,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[49]:0x1448)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[51]:0x1466)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeFalsy (wasm-function[87]:0x1cc7)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|4 (wasm-function[88]:0x1cfa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[50]:0x14c0)
+    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[52]:0x14de)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeFalsy (wasm-function[88]:0x1d3f)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|4 (wasm-function[89]:0x1d72)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -662,7 +672,7 @@ HostValue {
   "signed": false,
   "size": 0,
   "stack": "",
-  "type": 13,
+  "type": 14,
   "typeId": 0,
   "typeName": null,
   "value": 0,
@@ -676,6 +686,46 @@ exports[`pass-fail output Group: pass-fail Test: should report falsy expected va
 
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: pass 1`] = `false`;
 
+exports[`pass-fail output Group: pass-fail Test: should report falsy values: actual 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy values: actual 2`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report falsy values: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass-fail Test: should report finite values: actual 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report finite values: actual 2`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report finite values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report finite values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report finite values: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: actual 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: actual 2`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: actual 3`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: actual 4`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: message 2`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: negated 2`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: pass 1`] = `true`;
+
+exports[`pass-fail output Group: pass-fail Test: should report i16 values: pass 2`] = `true`;
+
 exports[`pass-fail output Group: pass-fail Test: should report invalid strings: actual 1`] = `
 HostValue {
   "isNull": false,
@@ -686,12 +736,12 @@ HostValue {
   "pointer": 3072,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[72]:0x1ac1)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[73]:0x1ade)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[75]:0x1b34)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[186]:0x3ff8)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[73]:0x1b39)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[74]:0x1b56)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[76]:0x1bac)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[188]:0x4079)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -710,12 +760,12 @@ HostValue {
   "pointer": 3104,
   "signed": false,
   "size": 7,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[72]:0x1ac1)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[74]:0x1b08)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[75]:0x1b3a)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[186]:0x3ff8)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (wasm-function[73]:0x1b39)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[75]:0x1b80)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[76]:0x1bb2)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[188]:0x4079)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -737,15 +787,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7328,
+  "pointer": 7952,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64> (wasm-function[162]:0x3c89)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64>|trampoline (wasm-function[163]:0x3cc1)
-    at ../assembly/assembly/internal/Actual/Actual.report<i64> (wasm-function[164]:0x3cd9)
-    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[166]:0x3d18)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[167]:0x3d4f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64> (wasm-function[164]:0x3d0a)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64>|trampoline (wasm-function[165]:0x3d42)
+    at ../assembly/assembly/internal/Actual/Actual.report<i64> (wasm-function[166]:0x3d5a)
+    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[168]:0x3d99)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[169]:0x3dd0)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -761,15 +811,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7328,
+  "pointer": 7952,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64> (wasm-function[162]:0x3c89)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64>|trampoline (wasm-function[163]:0x3cc1)
-    at ../assembly/assembly/internal/Expected/Expected.report<i64> (wasm-function[165]:0x3cf6)
-    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[166]:0x3d1f)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[167]:0x3d4f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64> (wasm-function[164]:0x3d0a)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i64>|trampoline (wasm-function[165]:0x3d42)
+    at ../assembly/assembly/internal/Expected/Expected.report<i64> (wasm-function[167]:0x3d77)
+    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[168]:0x3da0)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[169]:0x3dd0)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -794,12 +844,12 @@ HostValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3 | null> (wasm-function[123]:0x30a2)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3 | null>|trampoline (wasm-function[124]:0x3135)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[125]:0x3152)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[127]:0x31a4)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[128]:0x31d6)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3 | null> (wasm-function[125]:0x3121)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3 | null>|trampoline (wasm-function[126]:0x31b4)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[127]:0x31d1)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[129]:0x3223)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[130]:0x3256)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -818,12 +868,12 @@ HostValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3 | null> (wasm-function[123]:0x30a2)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3 | null>|trampoline (wasm-function[124]:0x3135)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[126]:0x317c)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[127]:0x31aa)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[128]:0x31d6)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3 | null> (wasm-function[125]:0x3121)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3 | null>|trampoline (wasm-function[126]:0x31b4)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[128]:0x31fb)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[129]:0x3229)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[130]:0x3256)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -845,15 +895,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 6624,
+  "pointer": 7248,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[49]:0x1448)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[51]:0x1466)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[56]:0x14db)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[119]:0x2fec)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[50]:0x14c0)
+    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[52]:0x14de)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[57]:0x1553)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[121]:0x306b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -869,15 +919,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 6624,
+  "pointer": 7248,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[49]:0x1448)
-    at ../assembly/assembly/internal/Expected/Expected.report<i32> (wasm-function[52]:0x1482)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[56]:0x14e1)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[119]:0x2fec)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[50]:0x14c0)
+    at ../assembly/assembly/internal/Expected/Expected.report<i32> (wasm-function[53]:0x14fa)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[57]:0x1559)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[121]:0x306b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -905,14 +955,14 @@ HostValue {
       "pointer": 1744,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2de4)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2ed9)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f58)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e63)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[117]:0x2f58)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fd7)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -928,14 +978,14 @@ HostValue {
       "pointer": 1776,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2dfc)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2ed9)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f58)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e7b)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[117]:0x2f58)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fd7)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -951,14 +1001,14 @@ HostValue {
       "pointer": 1808,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2e14)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2ed9)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f58)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e93)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[117]:0x2f58)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fd7)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -969,15 +1019,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 6192,
+  "pointer": 6816,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e72)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2ed9)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f58)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2ef1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[117]:0x2f58)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fd7)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -989,17 +1039,17 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6592,
+      "pointer": 7216,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2df1)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2ed9)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f58)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e70)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[117]:0x2f58)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fd7)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1012,17 +1062,17 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6592,
+      "pointer": 7216,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2e09)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2ed9)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f58)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e88)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[117]:0x2f58)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fd7)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1035,17 +1085,17 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6592,
+      "pointer": 7216,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2e21)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2ed9)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f58)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2ea0)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[117]:0x2f58)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fd7)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1069,14 +1119,14 @@ HostValue {
       "pointer": 1744,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2de4)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[116]:0x2f03)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f5e)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e63)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[118]:0x2f82)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fdd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -1092,14 +1142,14 @@ HostValue {
       "pointer": 1776,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2dfc)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[116]:0x2f03)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f5e)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e7b)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[118]:0x2f82)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fdd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -1115,14 +1165,14 @@ HostValue {
       "pointer": 1808,
       "signed": false,
       "size": 1,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[71]:0x1a7f)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2e14)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[116]:0x2f03)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f5e)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (wasm-function[72]:0x1af7)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e93)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[118]:0x2f82)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fdd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 2,
       "typeId": 1,
       "typeName": "String",
@@ -1133,15 +1183,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 6272,
+  "pointer": 6896,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e72)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[116]:0x2f03)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f5e)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2ef1)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[118]:0x2f82)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fdd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -1153,17 +1203,17 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6592,
+      "pointer": 7216,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2df1)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[116]:0x2f03)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f5e)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e70)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[118]:0x2f82)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fdd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1176,17 +1226,17 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6592,
+      "pointer": 7216,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2e09)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[116]:0x2f03)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f5e)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2e88)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[118]:0x2f82)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fdd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1199,17 +1249,17 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 6592,
+      "pointer": 7216,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[112]:0x2e21)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[113]:0x2e86)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[114]:0x2ebc)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[116]:0x2f03)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[117]:0x2f5e)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[118]:0x2fce)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at assembly/jest-pass-fail/Vec3#__aspectAddHostValueKeyValuePairs (wasm-function[114]:0x2ea0)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3> (wasm-function[115]:0x2f05)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<assembly/jest-pass-fail/Vec3>|trampoline (wasm-function[116]:0x2f3b)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[118]:0x2f82)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[119]:0x2fdd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[120]:0x304d)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1233,15 +1283,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 6336,
+  "pointer": 6960,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[44]:0x1151)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[49]:0x1448)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[51]:0x1466)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeTruthy (wasm-function[89]:0x1d14)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|5 (wasm-function[90]:0x1d47)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32> (wasm-function[45]:0x11c9)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline (wasm-function[50]:0x14c0)
+    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[52]:0x14de)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeTruthy (wasm-function[91]:0x1d93)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|5 (wasm-function[92]:0x1dc6)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -1275,6 +1325,16 @@ exports[`pass-fail output Group: pass-fail Test: should report truthy expected v
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: pass 1`] = `false`;
 
+exports[`pass-fail output Group: pass-fail Test: should report truthy values: actual 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy values: actual 2`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report truthy values: pass 1`] = `true`;
+
 exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual 1`] = `
 HostValue {
   "isNull": false,
@@ -1282,15 +1342,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 6832,
+  "pointer": 7456,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[153]:0x3a31)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[154]:0x3aac)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[155]:0x3aca)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[157]:0x3b4c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[158]:0x3bfa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[155]:0x3ab2)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[156]:0x3b2d)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[157]:0x3b4b)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[159]:0x3bcd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[160]:0x3c7b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 11,
   "typeId": 15,
   "typeName": "Float64Array",
@@ -1302,16 +1362,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7296,
+      "pointer": 7920,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[153]:0x3a61)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[154]:0x3aac)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[155]:0x3aca)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[157]:0x3b4c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[158]:0x3bfa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[155]:0x3ae2)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[156]:0x3b2d)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[157]:0x3b4b)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[159]:0x3bcd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[160]:0x3c7b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1324,16 +1384,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7296,
+      "pointer": 7920,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[153]:0x3a61)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[154]:0x3aac)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[155]:0x3aca)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[157]:0x3b4c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[158]:0x3bfa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[155]:0x3ae2)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[156]:0x3b2d)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[157]:0x3b4b)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[159]:0x3bcd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[160]:0x3c7b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1346,16 +1406,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7296,
+      "pointer": 7920,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[153]:0x3a61)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[154]:0x3aac)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[155]:0x3aca)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[157]:0x3b4c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[158]:0x3bfa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[155]:0x3ae2)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[156]:0x3b2d)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[157]:0x3b4b)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[159]:0x3bcd)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[160]:0x3c7b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1373,15 +1433,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 6912,
+  "pointer": 7536,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[153]:0x3a31)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[154]:0x3aac)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[156]:0x3af5)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[157]:0x3b53)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[158]:0x3bfa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[155]:0x3ab2)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[156]:0x3b2d)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[158]:0x3b76)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[159]:0x3bd4)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[160]:0x3c7b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 11,
   "typeId": 15,
   "typeName": "Float64Array",
@@ -1393,16 +1453,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7296,
+      "pointer": 7920,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[153]:0x3a61)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[154]:0x3aac)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[156]:0x3af5)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[157]:0x3b53)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[158]:0x3bfa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[155]:0x3ae2)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[156]:0x3b2d)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[158]:0x3b76)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[159]:0x3bd4)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[160]:0x3c7b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1415,16 +1475,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7296,
+      "pointer": 7920,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[153]:0x3a61)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[154]:0x3aac)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[156]:0x3af5)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[157]:0x3b53)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[158]:0x3bfa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[155]:0x3ae2)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[156]:0x3b2d)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[158]:0x3b76)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[159]:0x3bd4)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[160]:0x3c7b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1437,16 +1497,16 @@ HostValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7296,
+      "pointer": 7920,
       "signed": true,
       "size": 8,
-      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[80]:0x1bf1)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[153]:0x3a61)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[154]:0x3aac)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[156]:0x3af5)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[157]:0x3b53)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[158]:0x3bfa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+      "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<f64> (wasm-function[81]:0x1c69)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array> (wasm-function[155]:0x3ae2)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Float64Array>|trampoline (wasm-function[156]:0x3b2d)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[158]:0x3b76)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[159]:0x3bd4)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[160]:0x3c7b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
       "type": 8,
       "typeId": 0,
       "typeName": "f64",
@@ -1470,15 +1530,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7360,
+  "pointer": 7984,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32> (wasm-function[171]:0x3dd6)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32>|trampoline (wasm-function[172]:0x3e0e)
-    at ../assembly/assembly/internal/Actual/Actual.report<u32> (wasm-function[173]:0x3e26)
-    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[175]:0x3e65)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[176]:0x3e94)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32> (wasm-function[173]:0x3e57)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32>|trampoline (wasm-function[174]:0x3e8f)
+    at ../assembly/assembly/internal/Actual/Actual.report<u32> (wasm-function[175]:0x3ea7)
+    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[177]:0x3ee6)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[178]:0x3f15)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",
@@ -1494,15 +1554,15 @@ HostValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7360,
+  "pointer": 7984,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32> (wasm-function[171]:0x3dd6)
-    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32>|trampoline (wasm-function[172]:0x3e0e)
-    at ../assembly/assembly/internal/Expected/Expected.report<u32> (wasm-function[174]:0x3e43)
-    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[175]:0x3e6c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[176]:0x3e94)
-    at ../assembly/assembly/internal/call/__call (wasm-function[238]:0x43d5)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32> (wasm-function[173]:0x3e57)
+    at ../assembly/assembly/internal/Reflect/Reflect.toHostValue<u32>|trampoline (wasm-function[174]:0x3e8f)
+    at ../assembly/assembly/internal/Expected/Expected.report<u32> (wasm-function[176]:0x3ec4)
+    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[177]:0x3eed)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[178]:0x3f15)
+    at ../assembly/assembly/internal/call/__call (wasm-function[281]:0x4a78)",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",
@@ -1516,6 +1576,16 @@ exports[`pass-fail output Group: pass-fail Test: should report u32 values: messa
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: negated 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: pass 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u64 values: actual 1`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u64 values: actual 2`] = `null`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u64 values: message 1`] = `""`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u64 values: negated 1`] = `false`;
+
+exports[`pass-fail output Group: pass-fail Test: should report u64 values: pass 1`] = `true`;
 
 exports[`pass-fail output Group: pass-fail Test: this test should pass: actual 1`] = `null`;
 
