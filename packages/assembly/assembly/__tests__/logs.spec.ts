@@ -25,6 +25,10 @@ class B {
   b: i16 = 2;
   c: u32 = 3;
   d: i64 = 4;
+  e: A | null = null;
+  f: f32 = 5.0;
+  g: f64 = 6.0;
+  h: i32 = 7;
 }
 
 /**
@@ -122,6 +126,17 @@ describe("logs", () => {
    */
   test("log false", () => {
     log(false);
+  });
+
+  /**
+   * Log a circular reference.
+   */
+  test("circular references", () => {
+    let a = new A();
+    let b = new B();
+    b.e = a;
+    a.b = b;
+    log(a);
   });
 
   /**

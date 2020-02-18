@@ -6,10 +6,12 @@ class StringifyHostValueContext {
   public level: number = 0;
   public impliedTypeInfo: boolean = false;
 
+  public seen: WeakSet<HostValue> = new WeakSet<HostValue>();
+
   public keywordColor = (input: string) => chalk`{yellow ${input}}`;
   public stringColor = (input: string) => chalk`{cyan ${input}}`;
-  public classNameColor = (input: string) => chalk`{white ${input}}`;
-  public numberColor = (input: string) => chalk`{green ${input}}`;
+  public classNameColor = (input: string) => chalk`{green ${input}}`;
+  public numberColor = (input: string) => chalk`{white ${input}}`;
 
   public constructor(
     public indent: number = 0,
@@ -69,17 +71,25 @@ function displayClassNoSpacing(hostValue: HostValue, ctx: StringifyHostValueCont
 }
 
 function displayNumberWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  if (ctx.impliedTypeInfo || hostValue.typeName === "i32" || hostValue.typeName === "f64") {
-    return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.numberColor(hostValue.value.toString());
+  let numericString = hostValue.value.toString();
+  if (hostValue.type === HostValueType.Float && !(/\.[0-9]/.test(numericString))) {
+    numericString += ".0";
   }
-  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + `${ctx.numberColor(hostValue.value.toString())} ${ctx.keywordColor("as")} ${ctx.classNameColor(hostValue.typeName!)}`;
+  if (ctx.impliedTypeInfo || hostValue.typeName === "i32" || hostValue.typeName === "f64") {
+    return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.numberColor(numericString);
+  }
+  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + `${ctx.numberColor(numericString)} ${ctx.keywordColor("as")} ${ctx.classNameColor(hostValue.typeName!)}`;
 }
 
 function displayNumberNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  if (ctx.impliedTypeInfo || hostValue.typeName === "i32" || hostValue.typeName === "f64") {
-    return ctx.numberColor(hostValue.value.toString());
+  let numericString = hostValue.value.toString();
+  if (hostValue.type === HostValueType.Float && !(/\.[0-9]/.test(numericString))) {
+    numericString += ".0";
   }
-  return `${ctx.numberColor(hostValue.value.toString())} ${ctx.classNameColor(`as ${hostValue.typeName}`)}`;
+  if (ctx.impliedTypeInfo || hostValue.typeName === "i32" || hostValue.typeName === "f64") {
+    return ctx.numberColor(numericString);
+  }
+  return `${ctx.numberColor(numericString)} ${ctx.classNameColor(`as ${hostValue.typeName}`)}`;
 }
 
 // Floats
@@ -135,13 +145,15 @@ formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Value)]
 
 function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
   const spacing = " ".repeat(ctx.level * ctx.tab + ctx.indent);
-  const previousImpliedTypeInfo = ctx.impliedTypeInfo;
+  if (ctx.seen.has(hostValue)) return spacing + ctx.classNameColor("[Circular Reference]");
   ctx.impliedTypeInfo = false;
+  const previousImpliedTypeInfo = ctx.impliedTypeInfo;
   if (hostValue.isNull) {
     if (previousImpliedTypeInfo) return `${spacing}null`;
-    return `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)} null`;
+    return `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)}null`;
   }
 
+  ctx.seen.add(hostValue);
   let body = "\n";
   ctx.level += 1;
   const length = Math.min(hostValue.keys!.length, ctx.maxPropertyCount);
@@ -167,6 +179,7 @@ function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
   if (length > ctx.maxPropertyCount) body += `${spacing}... +${length - ctx.maxPropertyCount} properties`;
   ctx.level -= 1;
   ctx.impliedTypeInfo = previousImpliedTypeInfo;
+  ctx.seen.delete(hostValue);
   if (previousImpliedTypeInfo) return `${spacing}{${body}${spacing}}`
   return `${spacing}${ctx.classNameColor(`${hostValue.typeName}`)} {${body}${spacing}}`;
 }
@@ -183,10 +196,13 @@ formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Value)] = 
 
 function displayArrayExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
   const spacing = " ".repeat(ctx.level * ctx.tab + ctx.indent);
+  if (ctx.seen.has(hostValue)) return spacing + ctx.classNameColor("[Circular Reference]");
+
+  ctx.seen.add(hostValue);
   const previousImpliedTypeInfo = ctx.impliedTypeInfo;
   ctx.impliedTypeInfo = true;
 
-  if (ctx.level < 5 && hostValue.type === HostValueType.Array) {
+  if (ctx.level < 5 && hostValue.type === HostValueType.Array) { // expanded only for arrays
     let body = "\n";
     ctx.level += 1;
     const length = Math.min(hostValue.values!.length, ctx.maxPropertyCount);
@@ -205,9 +221,10 @@ function displayArrayExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
     if (length > ctx.maxPropertyCount) body += `${spacing}... +${length - ctx.maxPropertyCount} values`;
     ctx.level -= 1;
     ctx.impliedTypeInfo = previousImpliedTypeInfo;
+    ctx.seen.delete(hostValue);
     if (previousImpliedTypeInfo) return `${spacing}[${body}${spacing}]`;
     return `${spacing}${ctx.classNameColor(`${hostValue.typeName}`)} [${body}${spacing}]`;
-  } else {
+  } else {  // inline
     let body = spacing;
     if (!previousImpliedTypeInfo) body += ctx.classNameColor(hostValue.typeName!) + " ";
     body += "[";
@@ -224,6 +241,7 @@ function displayArrayExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
     if ((length - i) > 0) body += `... +${length - i} items`;
     body += "]";
     ctx.impliedTypeInfo = previousImpliedTypeInfo;
+    ctx.seen.delete(hostValue);
     // render value
     return body;
   }

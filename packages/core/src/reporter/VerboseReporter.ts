@@ -236,8 +236,8 @@ export default class VerboseReporter extends TestReporter {
     const chalk = require("chalk");
     const output: string = stringifyHostValue(logValue, 12).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
-    this.stdout!.write(chalk`   {yellow [Stack]:} ${logValue.stack.split("\n")
-      .join("\n             ")}\n`
-      .trimLeft());
+    this.stdout!.write(chalk`   {yellow [Stack]:} ${logValue.stack.trimLeft()
+      .split("\n")
+      .join("\n             ")}\n`);
   }
 }
