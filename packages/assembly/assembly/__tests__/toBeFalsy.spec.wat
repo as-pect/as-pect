@@ -66,7 +66,7 @@
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
  (import "__aspect" "createHostValue" (func $assembly/internal/Reflect/createHostValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (import "__aspect" "reportActualHostValue" (func $assembly/internal/Actual/reportActualHostValue (param i32)))
- (import "__aspect" "reportExpectedTruthy" (func $assembly/internal/Expected/reportExpectedTruthy (param i32)))
+ (import "__aspect" "reportExpectedFalsy" (func $assembly/internal/Expected/reportExpectedFalsy (param i32)))
  (import "__aspect" "clearActual" (func $assembly/internal/Actual/clearActual))
  (import "__aspect" "clearExpected" (func $assembly/internal/Expected/clearExpected))
  (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
@@ -2041,9 +2041,9 @@
   call $assembly/internal/Reflect/Reflect.toHostValue<i32>|trampoline
   call $assembly/internal/Actual/reportActualHostValue
  )
- (func $assembly/internal/Expected/Expected.reportTruthy (; 41 ;) (param $0 i32)
+ (func $assembly/internal/Expected/Expected.reportFalsy (; 41 ;) (param $0 i32)
   local.get $0
-  call $assembly/internal/Expected/reportExpectedTruthy
+  call $assembly/internal/Expected/reportExpectedFalsy
  )
  (func $assembly/internal/assert/assert (; 42 ;) (param $0 i32) (param $1 i32)
   local.get $1
@@ -2085,8 +2085,8 @@
   local.get $0
   i32.load
   local.set $3
-  i32.const 0
-  call $assembly/internal/Expected/Expected.reportTruthy
+  local.get $3
+  call $assembly/internal/Expected/Expected.reportFalsy
   local.get $2
   i32.const 0
   i32.eq
@@ -2245,8 +2245,8 @@
   local.get $0
   i32.load
   local.set $3
-  i32.const 0
-  call $assembly/internal/Expected/Expected.reportTruthy
+  local.get $3
+  call $assembly/internal/Expected/Expected.reportFalsy
   local.get $2
   local.get $2
   f64.ne
@@ -2463,8 +2463,8 @@
   local.get $0
   i32.load
   local.set $3
-  i32.const 0
-  call $assembly/internal/Expected/Expected.reportTruthy
+  local.get $3
+  call $assembly/internal/Expected/Expected.reportFalsy
   local.get $2
   i32.const 0
   i32.ne
@@ -3307,8 +3307,8 @@
   local.get $0
   i32.load
   local.set $3
-  i32.const 0
-  call $assembly/internal/Expected/Expected.reportTruthy
+  local.get $3
+  call $assembly/internal/Expected/Expected.reportFalsy
   local.get $2
   i32.const 0
   i32.eq

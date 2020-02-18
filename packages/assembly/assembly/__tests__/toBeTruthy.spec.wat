@@ -2087,7 +2087,7 @@
   local.get $0
   i32.load
   local.set $3
-  i32.const 0
+  local.get $3
   call $assembly/internal/Expected/Expected.reportTruthy
   local.get $2
   i32.const 0
@@ -2247,7 +2247,7 @@
   local.get $0
   i32.load
   local.set $3
-  i32.const 0
+  local.get $3
   call $assembly/internal/Expected/Expected.reportTruthy
   local.get $2
   local.get $2
@@ -2466,7 +2466,7 @@
   local.get $0
   i32.load
   local.set $3
-  i32.const 0
+  local.get $3
   call $assembly/internal/Expected/Expected.reportTruthy
   local.get $2
   i32.const 0
@@ -3317,7 +3317,7 @@
   local.get $0
   i32.load
   local.set $3
-  i32.const 0
+  local.get $3
   call $assembly/internal/Expected/Expected.reportTruthy
   local.get $2
   i32.const 0
