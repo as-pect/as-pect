@@ -41,32 +41,8 @@ describe("pass-fail output", () => {
       for (const groupTest of group.tests) {
         test(`Test: ${groupTest.name}`, () => {
           expect(groupTest.pass).toMatchSnapshot(`pass`);
-          if (groupTest.actual) {
-            expect(groupTest.actual.bytes).toMatchSnapshot(`actual bytes`);
-            expect(groupTest.actual.message).toMatchSnapshot(`actual message`);
-            expect(groupTest.actual.offset).toMatchSnapshot(`actual offset`);
-            expect(groupTest.actual.target).toBe(groupTest);
-            expect(groupTest.actual.value).toMatchSnapshot(`actual value`);
-            expect(groupTest.actual.values).toMatchSnapshot(`actual values`);
-          }
-          if (groupTest.expected) {
-            expect(groupTest.expected.bytes).toMatchSnapshot(`expected bytes`);
-            expect(groupTest.expected.message).toMatchSnapshot(
-              `expected message`,
-            );
-            expect(groupTest.expected.offset).toMatchSnapshot(
-              `expected offset`,
-            );
-            expect(groupTest.expected.target).toBe(groupTest);
-            expect(groupTest.expected.value).toMatchSnapshot(`expected value`);
-            expect(groupTest.expected.negated).toMatchSnapshot(
-              `expected negated`,
-            );
-            expect(groupTest.expected.values).toMatchSnapshot(
-              `expected values`,
-            );
-          }
-          // expect(test.functionPointer).toMatchSnapshot(`${group.name}~${test.name} functionPointer`);
+          expect(groupTest.actual).toMatchSnapshot("actual");
+          expect(groupTest.expected).toMatchSnapshot("actual");
           expect(groupTest.message).toMatchSnapshot(`message`);
           expect(groupTest.negated).toMatchSnapshot(`negated`);
         });
