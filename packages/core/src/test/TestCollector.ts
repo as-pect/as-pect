@@ -1353,6 +1353,7 @@ export class TestCollector {
     hostValue.typeId = typeId;
     hostValue.typeName = this.getString(typeName, "");
     hostValue.values = hasValues ? [] : null;
+    hostValue.stack = this.getLogStackTrace();
 
     if (hostTypeValue === HostValueType.Integer) {
       hostValue.value = this.getInteger(value, size, signed === 1);

@@ -52,7 +52,7 @@ function displayClassNoSpacing(hostValue: HostValue, ctx: StringifyHostValueCont
 }
 
 function displayNumberWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  return `${ctx.classNameColor(`${" ".repeat(ctx.indent + ctx.level * 2)}<${hostValue.typeName}>`)}${ctx.numberColor(hostValue.value.toString())}`;
+  return " ".repeat(ctx.indent + ctx.level * 2) + `${ctx.classNameColor(`<${hostValue.typeName}>`)}${ctx.numberColor(hostValue.value.toString())}`;
 }
 
 function displayNumberNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
@@ -76,7 +76,7 @@ function displayStringNoSpacing(hostValue: HostValue, ctx: StringifyHostValueCon
 }
 
 function displayStringWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  return ctx.stringColor(`${" ".repeat(ctx.indent + ctx.level * 2)}"${hostValue.value.toString().replace(/"/g, '\\"')}"`);
+  return " ".repeat(ctx.indent + ctx.level * 2) + ctx.stringColor(`"${hostValue.value.toString().replace(/"/g, '\\"')}"`);
 }
 
 
@@ -87,13 +87,13 @@ formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Key)] = d
 formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Value)] = displayStringNoSpacing;
 
 function displayFunctionExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
-  return ctx.classNameColor(`${" ".repeat(ctx.indent + ctx.level * 2)}[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`);
+  return " ".repeat(ctx.indent + ctx.level * 2) + ctx.classNameColor(`[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`);
 }
 
 const displayFuncNoNameNoPointer = (_: HostValue, ctx: StringifyHostValueContext) => ctx.classNameColor("[Function]");
 
 function displayFunctionKey(_: HostValue, ctx: StringifyHostValueContext): string {
-  return ctx.classNameColor(`${" ".repeat(ctx.indent + ctx.level * 2)}[Function]`);
+  return " ".repeat(ctx.indent + ctx.level * 2) + ctx.classNameColor(`[Function]`);
 }
 
 function displayFunctionValue(hostValue: HostValue, ctx: StringifyHostValueContext): string {
