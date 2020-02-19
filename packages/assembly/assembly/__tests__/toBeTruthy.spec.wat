@@ -11,7 +11,7 @@
  (type $f64_i32_=>_i32 (func (param f64 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $f64_=>_none (func (param f64)))
- (type $i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
+ (type $i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (type $i32_f64_f64_f64_=>_i32 (func (param i32 f64 f64 f64) (result i32)))
  (type $f64_=>_i32 (func (param f64) (result i32)))
  (import "env" "memory" (memory $0 1))
@@ -66,7 +66,7 @@
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
- (import "__aspect" "createHostValue" (func $assembly/internal/Reflect/createHostValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
+ (import "__aspect" "createHostValue" (func $assembly/internal/Reflect/createHostValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (import "__aspect" "attachStackTraceToHostValue" (func $assembly/internal/Reflect/attachStackTraceToHostValue (param i32)))
  (import "__aspect" "reportActualHostValue" (func $assembly/internal/Actual/reportActualHostValue (param i32)))
  (import "__aspect" "reportExpectedTruthy" (func $assembly/internal/Expected/reportExpectedTruthy (param i32)))
@@ -1635,6 +1635,7 @@
   i32.const 320
   local.get $2
   i32.const 0
+  i32.const 0
   call $assembly/internal/Reflect/createHostValue
   local.set $3
   local.get $3
@@ -2197,6 +2198,7 @@
   i32.const 640
   local.get $2
   i32.const 0
+  i32.const 0
   call $assembly/internal/Reflect/createHostValue
   local.set $3
   local.get $3
@@ -2420,6 +2422,7 @@
   i32.const 0
   i32.const 1088
   local.get $2
+  i32.const 0
   i32.const 0
   call $assembly/internal/Reflect/createHostValue
   local.set $3
@@ -3132,6 +3135,7 @@
    i32.const 2672
    i32.const 0
    i32.const 0
+   i32.const 1
    call $assembly/internal/Reflect/createHostValue
    local.set $2
    local.get $0
@@ -3169,6 +3173,7 @@
   i32.const 2672
   local.get $0
   i32.const 0
+  i32.const 1
   call $assembly/internal/Reflect/createHostValue
   local.set $2
   local.get $1
@@ -3250,6 +3255,7 @@
    i32.const 2496
    i32.const 0
    i32.const 0
+   i32.const 1
    call $assembly/internal/Reflect/createHostValue
    local.set $2
    local.get $0
@@ -3286,6 +3292,7 @@
   i32.const 3
   i32.const 2496
   i32.const 0
+  i32.const 1
   i32.const 1
   call $assembly/internal/Reflect/createHostValue
   local.set $2

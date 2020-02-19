@@ -15,4 +15,5 @@ export class HostValue {
   signed: boolean = false;
   stack: string = "";
   negated: boolean = false;
+  isManaged: boolean = false;
 }

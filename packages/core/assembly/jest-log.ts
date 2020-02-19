@@ -36,6 +36,13 @@ type idFunction = (i: i32) => i32;
 function IdFunction(i: i32): i32  { return i; }
 export const id_func: idFunction = IdFunction;
 
+@unmanaged
+class UnmanagedClass {
+  a: f64 = 1;
+  b: f64 = 2;
+  c: f64 = 3;
+}
+
 describe("logs", () => {
   log<string>("Hello world!");
   log<i32>(42);
@@ -55,22 +62,25 @@ describe("logs", () => {
   trace("The thing!", 5, 1, 2, 3, 4, 5);
 
   test("logs", () => {
-    log<string>("Hello world!");
-    log<i32>(42);
+    log("Hello world!");
+    log(42);
     log<Vec3 | null>(null);
-    log<Vec3>(new Vec3(1, 2, 3));
-    log<i32[]>([1, 2, 3]);
-    log<i64>(9999999999999);
-    log<u32>(1234567);
-    log<u64>(999999999999);
-    log<i8>(-1);
-    log<i16>(-1);
-    log<bool>(true);
-    log<bool>(false);
-    log<Uint8Array>(testArray);
-    log<Int8Array>(testArray2);
-    log<idFunction>(id_func);
+    log(new Vec3(1, 2, 3));
+    log([1, 2, 3]);
+    log(<i64>9999999999999);
+    log(<u32>1234567);
+    log(<u64>999999999999);
+    log(<i8>-1);
+    log(<i16>-1);
+    log(true);
+    log(false);
+    log(testArray);
+    log(testArray2);
+    log(id_func);
     trace("The thing!", 5, 1, 2, 3, 4, 5);
+    let e = new UnmanagedClass();
+    log(e);
+    __free(changetype<usize>(e));
   });
 
   todo("one");

@@ -10,7 +10,7 @@
  (type $none_=>_i32 (func (result i32)))
  (type $f64_i32_=>_i32 (func (param f64 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
- (type $i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
+ (type $i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (type $i32_f64_=>_i32 (func (param i32 f64) (result i32)))
  (import "env" "memory" (memory $0 1))
  (data (i32.const 16) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00")
@@ -32,7 +32,7 @@
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
  (import "__aspect" "performanceEnabled" (func $assembly/internal/performance/performanceEnabled (param i32)))
  (import "__aspect" "maxSamples" (func $assembly/internal/performance/maxSamples (param f64)))
- (import "__aspect" "createHostValue" (func $assembly/internal/Reflect/createHostValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
+ (import "__aspect" "createHostValue" (func $assembly/internal/Reflect/createHostValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (import "__aspect" "attachStackTraceToHostValue" (func $assembly/internal/Reflect/attachStackTraceToHostValue (param i32)))
  (import "__aspect" "logHostValue" (func $assembly/internal/log/logHostValue (param i32)))
  (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
@@ -1555,6 +1555,7 @@
   i32.const 352
   local.get $2
   i32.const 0
+  i32.const 0
   call $assembly/internal/Reflect/createHostValue
   local.set $3
   local.get $3
@@ -2448,6 +2449,7 @@
    i32.const 672
    i32.const 0
    i32.const 0
+   i32.const 1
    call $assembly/internal/Reflect/createHostValue
    local.set $2
    local.get $0
@@ -2485,6 +2487,7 @@
   i32.const 672
   local.get $0
   i32.const 0
+  i32.const 1
   call $assembly/internal/Reflect/createHostValue
   local.set $2
   local.get $1

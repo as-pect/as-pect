@@ -1340,7 +1340,8 @@ export class TestCollector {
     typeId: number, // idof<T>()
     typeName: number, // nameof<T>()
     value: number, // usize | Box<T>
-    hasValues: 1 | 0,
+    hasValues: 1 | 0, // bool
+    isManaged: 1 | 0, // bool
   ): number {
     const hostValue = new HostValue();
     hostValue.isNull = isNull === 1;
@@ -1354,6 +1355,7 @@ export class TestCollector {
     hostValue.typeId = typeId;
     hostValue.typeName = this.getString(typeName, "");
     hostValue.values = hasValues ? [] : null;
+    hostValue.isManaged = isManaged === 1;
 
     if (hostTypeValue === HostValueType.Integer || hostTypeValue === HostValueType.Boolean) {
       hostValue.value = this.getInteger(value, size, signed === 1);
