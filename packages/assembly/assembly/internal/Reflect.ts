@@ -5,7 +5,7 @@ import { HostValueType } from "./HostValueType";
 import { Box } from "./Box";
 
 function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
-  return bool((i32(a1 === b1) & i32(a2 === b2)) | (i32(a1 === b2) & i32(a2 === b1)));
+  return bool((i32(a1 == b1) & i32(a2 == b2)) | (i32(a1 == b2) & i32(a2 == b1)));
 }
 
 // @ts-ignore: Decorators *are* valid here!
@@ -51,7 +51,7 @@ export class Reflect {
   public static toHostValue<T>(value: T, seen: Map<usize, i32> = new Map<usize, i32>()): i32 {
     // if the value is null, create a Null host value
     if (isNullable<T>()) {
-      if (value === null) {
+      if (value == null) {
         return createHostValue(
           true,
           false,
@@ -320,6 +320,11 @@ export class Reflect {
     // use `==` operator to work with operator overloads and strings
     if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
 
+    // floats should equal each other
+    if (isFloat<T>(left)) {
+      if (i32(isNaN(left)) & i32(isNaN(right))) return Reflect.SUCCESSFUL_MATCH;
+    }
+
     // short circuit for strings
     if (left instanceof String) {
       return Reflect.FAILED_MATCH;
@@ -328,7 +333,7 @@ export class Reflect {
     // if it's possible for T to be null
     if (isNullable<T>()) {
       // mutual exclusion null
-      if (i32(left === null) ^ i32(right === null)) return Reflect.FAILED_MATCH;
+      if (i32(left == null) ^ i32(right == null)) return Reflect.FAILED_MATCH;
     }
 
     // check every reference that isn't a function reference, because `left == right` suffices
@@ -339,7 +344,7 @@ export class Reflect {
 
       let cacheLength = cache.length;
       // must be EVEN or there's a big problem
-      assert(i32((cacheLength & 0x00000001) === 0), "cacheLength should be even");
+      assert(i32((cacheLength & 0x00000001) == 0), "cacheLength should be even");
 
       // check the cache for matched pairs
       for (let i = 0; i < cacheLength; i += 2) {
@@ -356,9 +361,9 @@ export class Reflect {
       // require a memory compare
       if (left instanceof ArrayBuffer) {
         // @ts-ignore: typesafe access to byteLength property because T is ArrayBuffer
-        if (left.byteLength !== right.byteLength) return Reflect.FAILED_MATCH;
+        if (left.byteLength != right.byteLength) return Reflect.FAILED_MATCH;
         let result = memory.compare(a, b, left.byteLength);
-        if (result === 0) {
+        if (result == 0) {
           cache.push(a);
           cache.push(b);
           return Reflect.SUCCESSFUL_MATCH;
@@ -370,7 +375,7 @@ export class Reflect {
         // set match
         if (left instanceof Set) {
           // @ts-ignore: size is a valid property of Set
-          if (left.size !== right.size) return Reflect.FAILED_MATCH;
+          if (left.size != right.size) return Reflect.FAILED_MATCH;
           stack.push(a);
           stack.push(b);
           // @ts-ignore: values() is a valid function of Set
@@ -381,28 +386,17 @@ export class Reflect {
           let leftoverLength = length;
           for (let i = 0; i < length; i++) {
             let leftItem = unchecked(leftValues[i]);
-            if (rightValues.includes(leftItem)) {
-              let index = rightValues.indexOf(leftItem);
-              rightValues.splice(index, 1);
-              leftoverLength--;
-              continue; // short circuit
+            let continueOuter = false;
+            for (let j = 0; j < leftoverLength; j++) {
+              let rightItem = unchecked(rightValues[j]);
+              if (Reflect.equals(leftItem, rightItem, stack, cache) != Reflect.FAILED_MATCH) {
+                rightValues.splice(j, 1);
+                leftoverLength--;
+                continueOuter = true;
+                break;
+              };
             }
-
-            // @ts-ignore: T satisfies the indexof<T> condition
-            if (isReference<indexof<T>>() && !isFunction<indexof<T>>()) {
-              let continueOuter = false;
-              // long path, compare every item in the set
-              for (let j = 0; j < leftoverLength; j++) {
-                let rightItem = unchecked(rightValues[j]);
-                if (Reflect.equals(leftItem, rightItem, stack, cache) !== Reflect.FAILED_MATCH) {
-                  rightValues.splice(j, 1);
-                  leftoverLength--;
-                  continueOuter = true;
-                  break;
-                };
-              }
-              if (continueOuter) continue;
-            }
+            if (continueOuter) continue;
 
             stack.pop();
             stack.pop();
@@ -419,7 +413,7 @@ export class Reflect {
 
         if (left instanceof Map) {
           // @ts-ignore: size is a valid property of Map
-          if (left.size !== right.size) return Reflect.FAILED_MATCH;
+          if (left.size != right.size) return Reflect.FAILED_MATCH;
           stack.push(a);
           stack.push(b);
 
@@ -446,14 +440,14 @@ export class Reflect {
               let rightKey = unchecked(rightKeys[j]);
 
               // if the keys match, or are still being resolved
-              if (Reflect.equals(leftKey, rightKey, stack, cache) !== Reflect.FAILED_MATCH) {
+              if (Reflect.equals(leftKey, rightKey, stack, cache) != Reflect.FAILED_MATCH) {
                 // the key potentially matches, obtain the values associated with the keys
                 let leftValue = left.get(leftKey);
                 // @ts-ignore: get() is a valid function of Map
                 let rightValue = right.get(rightKey);
 
                 // if the values match, or are still being resolved
-                if (Reflect.equals(leftValue, rightValue, stack, cache) !== Reflect.FAILED_MATCH) {
+                if (Reflect.equals(leftValue, rightValue, stack, cache) != Reflect.FAILED_MATCH) {
                   leftoverKeyLength--;
                   rightKeys.splice(j, 1); // remove this key from the list
                   found = true;
@@ -470,7 +464,7 @@ export class Reflect {
           }
 
           // if every key matched, result is still equal to `Reflect.MATCH`
-          if (result === Reflect.SUCCESSFUL_MATCH) {
+          if (result == Reflect.SUCCESSFUL_MATCH) {
             cache.push(a);
             cache.push(b);
           }
@@ -489,9 +483,7 @@ export class Reflect {
         let bLength = right.length;
 
         // assert the lengths are good
-        if (aLength !== bLength) return Reflect.FAILED_MATCH;
-
-
+        if (aLength != bLength) return Reflect.FAILED_MATCH;
 
         // check each item
         for (let i = 0; i < aLength; i++) {
@@ -501,7 +493,7 @@ export class Reflect {
             stack,
             cache,
           );
-          if (result === Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
+          if (result == Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
         }
 
         // cache this result

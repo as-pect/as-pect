@@ -5755,6 +5755,23 @@
    local.get $4
    return
   end
+  local.get $0
+  local.get $0
+  f64.ne
+  local.get $1
+  local.get $1
+  f64.ne
+  i32.and
+  if
+   global.get $assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
+   local.set $4
+   local.get $2
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $4
+   return
+  end
   global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
   local.set $4
   local.get $2

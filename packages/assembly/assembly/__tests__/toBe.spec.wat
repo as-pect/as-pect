@@ -4890,7 +4890,7 @@
   local.set $1
   local.get $0
   i32.const 0
-  i32.eq
+  call $assembly/__tests__/setup/Vec3/Vec3#__equals
   if
    i32.const 1
    i32.const 0
