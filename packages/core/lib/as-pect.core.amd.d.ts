@@ -1466,12 +1466,6 @@ declare module "transform/emptyTransformer" {
     import { Parser } from "./assemblyscript";
     const _default: {
         new (): {
-            /**
-             * This method results in a pure AST transform that inserts a strictEquals member
-             * into each ClassDeclaration.
-             *
-             * @param {Parser} parser - The AssemblyScript parser.
-             */
             afterParse(_: Parser): void;
             readonly program: import("transform/assemblyscript").Program;
             readonly baseDir: string;
@@ -1487,6 +1481,9 @@ declare module "transform/emptyTransformer" {
             afterCompile?(module: import("transform/assemblyscript").Module): void;
         };
     };
+    /**
+     * Just an empty transformer.
+     */
     export = _default;
 }
 declare module "transform/index" {
@@ -1502,6 +1499,12 @@ declare module "transform/index" {
             afterParse(parser: Parser): void;
             readonly program: import("transform/assemblyscript").Program;
             readonly baseDir: string;
+            /**
+             * This method results in a pure AST transform that inserts a strictEquals member
+             * into each ClassDeclaration.
+             *
+             * @param {Parser} parser - The AssemblyScript parser.
+             */
             readonly stdout: import("assemblyscript/cli/asc").OutputStream;
             readonly stderr: import("assemblyscript/cli/asc").OutputStream;
             readonly log: {

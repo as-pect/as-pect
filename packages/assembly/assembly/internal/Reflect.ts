@@ -56,7 +56,7 @@ export class Reflect {
         return createHostValue(
           true,
           false,
-          true,
+          isNullable<T>(),
           0,
           0,
           false,
@@ -313,7 +313,7 @@ export class Reflect {
     return 0;
   }
 
-  public static equals<T>(left: T, right: T, stack: usize[] = [], cache: usize[] = []): i32 { 
+  public static equals<T>(left: T, right: T, stack: usize[] = [], cache: usize[] = []): i32 {
     // use `==` operator to work with operator overloads and strings
     if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
 
@@ -330,7 +330,7 @@ export class Reflect {
     // if it's possible for T to be null
     if (isNullable<T>()) {
       // mutual exclusion null
-      if (i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == null)) return Reflect.FAILED_MATCH;
+      if (i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == 0)) return Reflect.FAILED_MATCH;
     }
 
     // check every reference that isn't a function reference, because `left == right` suffices
