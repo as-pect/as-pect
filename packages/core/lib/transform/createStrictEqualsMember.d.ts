@@ -1,4 +1,4 @@
-import { ClassDeclaration, FunctionDeclaration } from "assemblyscript";
+import { ClassDeclaration, FunctionDeclaration } from "./assemblyscript";
 /**
  * This method creates a single FunctionDeclaration that allows Reflect.equals
  * to validate normal class member values.

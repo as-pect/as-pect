@@ -31,6 +31,12 @@ class B {
   h: i32 = 7;
 }
 
+class Empty {
+  s: string;
+  t: Array<A>;
+  m: Map<B,Empty>;
+}
+
 /**
  * This test suite verifies that the log functions do not error when they are called.
  */
@@ -137,6 +143,14 @@ describe("logs", () => {
     b.e = a;
     a.b = b;
     log(a);
+  });
+
+  /**
+   * Log reference with null values.
+   */
+  test("log class with unitialized references", () => {
+    let e = new Empty();
+    log(e);
   });
 
   /**

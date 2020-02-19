@@ -23,9 +23,9 @@
  (data (i32.const 416) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
  (data (i32.const 480) "T\00\00\00\01\00\00\00\01\00\00\00T\00\00\00T\00h\00i\00s\00 \00i\00s\00 \00a\00 \00t\00e\00s\00t\00 \00w\00i\00t\00h\00o\00u\00t\00 \00p\00e\00r\00f\00o\00r\00m\00a\00n\00c\00e\00 \00e\00n\00a\00b\00l\00e\00d\00")
  (data (i32.const 592) ".\00\00\00\01\00\00\00\01\00\00\00.\00\00\00T\00h\00i\00s\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00v\00i\00s\00i\00b\00l\00e\00.\00")
- (data (i32.const 656) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t\00")
- (data (i32.const 720) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s\00")
- (data (i32.const 768) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00S\00t\00r\00i\00n\00g\00")
+ (data (i32.const 656) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00S\00t\00r\00i\00n\00g\00")
+ (data (i32.const 688) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t\00")
+ (data (i32.const 752) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s\00")
  (data (i32.const 800) "\06\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\98\04\01\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
@@ -2143,8 +2143,8 @@
   local.get $3
   i32.eqz
   if
-   i32.const 672
-   i32.const 736
+   i32.const 704
+   i32.const 768
    i32.const 111
    i32.const 16
    call $~lib/builtins/abort
@@ -2432,6 +2432,31 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 1
+   i32.const 672
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $1
   local.get $0
   call $~lib/map/Map<usize,i32>#has
@@ -2457,7 +2482,7 @@
   call $~lib/string/String#get:length
   i32.const 2
   i32.const 1
-  i32.const 784
+  i32.const 672
   local.get $0
   i32.const 0
   call $assembly/internal/Reflect/createHostValue

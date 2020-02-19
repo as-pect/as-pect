@@ -38,9 +38,9 @@
  (data (i32.const 1392) "P\00\00\00\01\00\00\00\01\00\00\00P\00\00\00s\00h\00o\00u\00l\00d\00 \00v\00a\00l\00i\00d\00a\00t\00e\00 \00i\00f\00 \00a\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00i\00s\00 \00i\00t\00s\00e\00l\00f\00")
  (data (i32.const 1488) "F\00\00\00\01\00\00\00\01\00\00\00F\00\00\00T\00h\00e\00 \00s\00a\00m\00e\00 \00r\00e\00f\00e\00r\00e\00n\00c\00e\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \00i\00t\00s\00e\00l\00f\00")
  (data (i32.const 1584) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00s\00e\00t\00u\00p\00/\00V\00e\00c\003\00.\00t\00s\00")
- (data (i32.const 1664) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t\00")
- (data (i32.const 1728) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s\00")
- (data (i32.const 1776) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00V\00e\00c\003\00")
+ (data (i32.const 1664) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00V\00e\00c\003\00")
+ (data (i32.const 1696) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t\00")
+ (data (i32.const 1760) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s\00")
  (data (i32.const 1808) "\02\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00x\00")
  (data (i32.const 1840) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00S\00t\00r\00i\00n\00g\00")
  (data (i32.const 1872) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00f\006\004\00")
@@ -4174,8 +4174,8 @@
   local.get $3
   i32.eqz
   if
-   i32.const 1680
-   i32.const 1744
+   i32.const 1712
+   i32.const 1776
    i32.const 111
    i32.const 16
    call $~lib/builtins/abort
@@ -4469,6 +4469,31 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 1
+   i32.const 1856
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $1
   local.get $0
   call $~lib/map/Map<usize,i32>#has
@@ -4611,6 +4636,31 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 4
+   i32.const 1680
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $1
   local.get $0
   call $~lib/map/Map<usize,i32>#has
@@ -4636,7 +4686,7 @@
   call $assembly/internal/RTrace/RTrace.sizeOf
   i32.const 1
   i32.const 4
-  i32.const 1792
+  i32.const 1680
   i32.const 0
   i32.const 1
   call $assembly/internal/Reflect/createHostValue
@@ -4890,7 +4940,7 @@
   local.set $1
   local.get $0
   i32.const 0
-  call $assembly/__tests__/setup/Vec3/Vec3#__equals
+  i32.eq
   if
    i32.const 1
    i32.const 0
@@ -4901,7 +4951,7 @@
    i32.const 4
    i32.const 1
    i32.const 4
-   i32.const 1792
+   i32.const 1680
    i32.const 0
    i32.const 0
    call $assembly/internal/Reflect/createHostValue
@@ -4938,7 +4988,7 @@
   call $assembly/internal/RTrace/RTrace.sizeOf
   i32.const 1
   i32.const 4
-  i32.const 1792
+  i32.const 1680
   i32.const 0
   i32.const 1
   call $assembly/internal/Reflect/createHostValue
@@ -5341,6 +5391,29 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 6
+   i32.const 30
+   i32.const 4368
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   i32.const 0
   i32.const 0
   i32.const 0

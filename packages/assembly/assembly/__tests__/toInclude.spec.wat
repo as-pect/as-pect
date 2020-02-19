@@ -25,9 +25,9 @@
  (data (i32.const 400) ",\00\00\00\01\00\00\00\01\00\00\00,\00\00\00t\00o\00I\00n\00c\00l\00u\00d\00e\00 \00v\00a\00l\00u\00e\00 \00a\00r\00r\00a\00y\00s\00")
  (data (i32.const 464) ",\00\00\00\01\00\00\00\01\00\00\00,\00\00\00s\00h\00o\00u\00l\00d\00 \00i\00n\00c\00l\00u\00d\00e\00 \00n\00u\00m\00b\00e\00r\00s\00")
  (data (i32.const 528) ":\00\00\00\01\00\00\00\01\00\00\00:\00\00\00n\00u\00m\00b\00e\00r\00T\00e\00s\00t\00e\00r\00 \00s\00h\00o\00u\00l\00d\00 \00i\00n\00c\00l\00u\00d\00e\00 \002\00")
- (data (i32.const 608) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t\00")
- (data (i32.const 672) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s\00")
- (data (i32.const 720) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00A\00r\00r\00a\00y\00<\00i\003\002\00>\00")
+ (data (i32.const 608) "\14\00\00\00\01\00\00\00\01\00\00\00\14\00\00\00A\00r\00r\00a\00y\00<\00i\003\002\00>\00")
+ (data (i32.const 656) "$\00\00\00\01\00\00\00\01\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t\00")
+ (data (i32.const 720) "\16\00\00\00\01\00\00\00\01\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s\00")
  (data (i32.const 768) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00i\003\002\00")
  (data (i32.const 800) "\10\00\00\00\01\00\00\00\01\00\00\00\10\00\00\00I\00n\00c\00l\00u\00d\00e\00d\00")
  (data (i32.const 832) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00S\00t\00r\00i\00n\00g\00")
@@ -3728,8 +3728,8 @@
   local.get $3
   i32.eqz
   if
-   i32.const 624
-   i32.const 688
+   i32.const 672
+   i32.const 736
    i32.const 111
    i32.const 16
    call $~lib/builtins/abort
@@ -4099,6 +4099,31 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 6
+   i32.const 624
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $1
   local.get $0
   call $~lib/map/Map<usize,i32>#has
@@ -4126,7 +4151,7 @@
   local.get $2
   i32.const 11
   i32.const 6
-  i32.const 736
+  i32.const 624
   i32.const 0
   i32.const 1
   call $assembly/internal/Reflect/createHostValue
@@ -4313,6 +4338,31 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 1
+   i32.const 848
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $1
   local.get $0
   call $~lib/map/Map<usize,i32>#has
@@ -5401,6 +5451,31 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 10
+   i32.const 1936
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $1
   local.get $0
   call $~lib/map/Map<usize,i32>#has
@@ -5463,6 +5538,31 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 11
+   i32.const 1824
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $1
   local.get $0
   call $~lib/map/Map<usize,i32>#has
@@ -5824,6 +5924,29 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 6
+   i32.const 30
+   i32.const 2912
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   i32.const 0
   i32.const 0
   i32.const 0
@@ -5858,6 +5981,31 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 5
+   i32.const 2768
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $1
   local.get $0
   call $~lib/map/Map<usize,i32>#has
@@ -6334,6 +6482,31 @@
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
+  local.get $0
+  i32.const 0
+  i32.eq
+  if
+   i32.const 1
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 0
+   i32.const 4
+   i32.const 1
+   i32.const 12
+   i32.const 3248
+   i32.const 0
+   i32.const 0
+   call $assembly/internal/Reflect/createHostValue
+   local.set $2
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   return
+  end
   local.get $1
   local.get $0
   call $~lib/map/Map<usize,i32>#has

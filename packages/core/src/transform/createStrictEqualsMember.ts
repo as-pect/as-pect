@@ -13,7 +13,7 @@ import {
   TypeNode,
   ParameterNode,
   PropertyAccessExpression,
-} from "assemblyscript";
+} from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
 
 /**
