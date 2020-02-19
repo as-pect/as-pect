@@ -1499,6 +1499,12 @@ declare module "transform/index" {
             afterParse(parser: Parser): void;
             readonly program: import("transform/assemblyscript").Program;
             readonly baseDir: string;
+            /**
+             * This method results in a pure AST transform that inserts a strictEquals member
+             * into each ClassDeclaration.
+             *
+             * @param {Parser} parser - The AssemblyScript parser.
+             */
             readonly stdout: import("assemblyscript/cli/asc").OutputStream;
             readonly stderr: import("assemblyscript/cli/asc").OutputStream;
             readonly log: {
