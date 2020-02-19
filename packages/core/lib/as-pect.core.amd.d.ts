@@ -29,6 +29,7 @@ declare module "util/HostValue" {
         signed: boolean;
         stack: string;
         negated: boolean;
+        isManaged: boolean;
     }
 }
 declare module "util/ILogTarget" {

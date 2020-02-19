@@ -27,6 +27,7 @@ declare function createHostValue(
   typeName: string,
   value: usize,
   hasValues: bool,
+  isManaged: bool,
 ): i32;
 
 // @ts-ignore: external declaration
@@ -62,10 +63,11 @@ export class Reflect {
           false,
           sizeof<T>(),
           isFunction<T>() ? HostValueType.Function : HostValueType.Class,
-          idof<T>(),
+          isManaged<T>() ? idof<T>() : 0,
           isFunction<T>() ? "Function" : nameof<T>(),
           0,
           false,
+          isManaged<T>(),
         );
       }
 
@@ -89,6 +91,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true,
+          true,
         );
         seen.set(changetype<usize>(value), hostValue);
         let length = value.byteLength;
@@ -98,7 +101,7 @@ export class Reflect {
             Reflect.toHostValue(load<u8>(changetype<usize>(value) + <usize>i), seen),
           );
         }
-        return hostValue
+        return hostValue;
       } else if (isFunction<T>()) {
         let hostValue = createHostValue(
           false,
@@ -113,6 +116,7 @@ export class Reflect {
           "Function",
           changetype<usize>(value),
           false,
+          isManaged<T>(),
         );
         return hostValue;
       } else if (value instanceof Set) {
@@ -130,6 +134,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // sets have values
+          true,
         );
 
         // cache this value
@@ -158,6 +163,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // maps have values
+          true,
         );
 
         // cache this value
@@ -194,6 +200,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // maps have values
+          isManaged<T>(),
         );
 
         // cache this value
@@ -222,6 +229,7 @@ export class Reflect {
           nameof<T>(),
           changetype<usize>(value),
           false,
+          true,
         );
         seen.set(changetype<usize>(value), hostValue);
         return hostValue;
@@ -243,6 +251,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // maps have values
+          isManaged<T>(),
         );
 
         // cache this value
@@ -279,6 +288,7 @@ export class Reflect {
           nameof<T>(),
           0,
           true, // classes have values
+          isManaged<T>(),
         );
 
         // cache this object
@@ -306,6 +316,7 @@ export class Reflect {
         0,
         nameof<T>(),
         changetype<usize>(box),
+        false,
         false,
       );
       return hostObject;

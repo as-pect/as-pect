@@ -37,6 +37,13 @@ class Empty {
   m: Map<B,Empty>;
 }
 
+@unmanaged
+class UnmanagedClass {
+  a: f64 = 1;
+  b: f64 = 2;
+  c: f64 = 3;
+}
+
 /**
  * This test suite verifies that the log functions do not error when they are called.
  */
@@ -151,6 +158,15 @@ describe("logs", () => {
   test("log class with unitialized references", () => {
     let e = new Empty();
     log(e);
+  });
+
+  /**
+   * Log an unmanaged reference.
+   */
+  test("log unmanaged", () => {
+    let e = new UnmanagedClass();
+    log(e);
+    __free(changetype<usize>(e));
   });
 
   /**
