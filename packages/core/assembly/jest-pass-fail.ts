@@ -109,6 +109,34 @@ describe("pass-fail", () => {
   it("should report failed functions", () => {
     expect<(i: i32) => i32>(func).toBe(otherFunc);
   });
+
+  it("should report truthy values", () => {
+    expect(true).toBeTruthy();
+  });
+
+  it("should report falsy values", () => {
+    expect(false).toBeFalsy();
+  });
+
+  it("should report finite values", () => {
+    expect(3.14).toBeFinite();
+  });
+
+  it("should report f32 values", () => {
+    expect(<f32>3.14).toBe(3.14);
+  });
+
+  it("should report i16 values", () => {
+    expect(<i16>2048).toBe(2048);
+  });
+
+  it("should report i16 values", () => {
+    expect(<u16>2048).toBe(2048);
+  });
+
+  it("should report u64 values", () => {
+    expect(<u64>123456).toBe(123456);
+  });
 });
 
 describe("fail on group beforeAll", () => {

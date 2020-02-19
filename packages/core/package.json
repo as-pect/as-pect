@@ -35,7 +35,7 @@
 	"devDependencies": {
 		"@types/jest": "^25.1.2",
 		"jest": "^25.1.0",
-		"ts-jest": "^25.2.0"
+		"ts-jest": "^25.2.1"
 	},
 	"dependencies": {
 		"@as-pect/assembly": "^3.0.0-alpha.0",

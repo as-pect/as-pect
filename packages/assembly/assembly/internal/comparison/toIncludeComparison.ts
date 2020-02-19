@@ -1,6 +1,6 @@
-import { Actual } from "../report/Actual";
-import { Expected } from "../report/Expected";
-import { assert } from "./assert";
+import { Actual } from "../Actual";
+import { Expected } from "../Expected";
+import { assert } from "../assert";
 
 /**
  * This method performs an "include" comparison. The expectation is that the expected value is
@@ -12,8 +12,8 @@ import { assert } from "./assert";
  * @param {i32} negated - The indicator that the assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
-// @ts-ignore expected is valueof<T> or it will be a compiler error
 export function toIncludeComparison<T, U>(actual: T, expected: U, negated: i32, message: string): void {
+  // @ts-ignore: checking if a property is defined is compile safe
   if (!isDefined(actual[0])) {
     ERROR("Cannot call toIncludeEquals on actual value of type T where T does not have an index signature.");
   }

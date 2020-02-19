@@ -14,6 +14,7 @@ import {
   ParameterNode,
   PropertyAccessExpression,
 } from "assemblyscript";
+import { createGenericTypeParameter } from "./createGenericTypeParameter";
 
 /**
  * This method creates a single FunctionDeclaration that allows Reflect.equals
@@ -182,21 +183,6 @@ function createDefaultParameter(name: string, typeNode: TypeNode, range: Range):
     typeNode,
     null,
     ParameterKind.DEFAULT,
-    range,
-  );
-}
-
-/**
- * This method makes a generic named parameter.
- *
- * @param {string} name - The name of the type.
- * @param {Range} range - The range given for the type parameter.
- */
-function createGenericTypeParameter(name: string, range: Range): TypeNode {
-  return TypeNode.createNamedType(
-    TypeNode.createSimpleTypeName(name, range),
-    null,
-    false,
     range,
   );
 }

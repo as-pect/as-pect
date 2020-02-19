@@ -14,6 +14,23 @@ afterAll(() => {
   log("after all outside describe");
 });
 
+class A {
+  a: f64 = 1.0;
+  b: B = new B();
+  c: i32 = 3;
+}
+
+class B {
+  a: u8 = 1;
+  b: i16 = 2;
+  c: u32 = 3;
+  d: i64 = 4;
+  e: A | null = null;
+  f: f32 = 5.0;
+  g: f64 = 6.0;
+  h: i32 = 7;
+}
+
 /**
  * This test suite verifies that the log functions do not error when they are called.
  */
@@ -87,6 +104,39 @@ describe("logs", () => {
    */
   test("log a named function", () => {
     log(IDFunc);
+  });
+
+  /**
+   * Log a class with nested properties.
+   */
+  test("log a nested class", () => {
+    let a = new A();
+    log(a);
+  });
+
+  /**
+   * Log true.
+   */
+  test("log true", () => {
+    log(true);
+  });
+
+  /**
+   * Log false.
+   */
+  test("log false", () => {
+    log(false);
+  });
+
+  /**
+   * Log a circular reference.
+   */
+  test("circular references", () => {
+    let a = new A();
+    let b = new B();
+    b.e = a;
+    a.b = b;
+    log(a);
   });
 
   /**

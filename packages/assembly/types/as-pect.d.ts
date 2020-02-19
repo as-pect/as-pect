@@ -898,6 +898,27 @@ declare class Expected {
   public static report<T>(value: T, negated?: i32): void;
 
   /**
+   * Report an expected truthy value to the host, and if the expectation is negated.
+   *
+   * @param {i32} negated - A value, 1 or 0 indicating if the expectation is negated.
+   */
+  static reportTruthy(negated?: i32): void;
+
+  /**
+   * Report an expected falsy value to the host, and if the expectation is negated.
+   *
+   * @param {i32} negated - A value, 1 or 0 indicating if the expectation is negated.
+   */
+  static reportFalsy(negated?: i32): void;
+
+  /**
+   * Report an expected finite value to the host, and if the expectation is negated.
+   *
+   * @param {i32} negated - A value, 1 or 0 indicating if the expectation is negated.
+   */
+  static reportFinite(negated?: i32): void;
+
+  /**
    * Clear the expected value and release any private memory stored as a global.
    */
   public static clear(): void;
@@ -915,6 +936,13 @@ declare class Reflect {
   public static DEFER_MATCH: i32;
 
   /**
+   * Create a host value for inspection.
+   *
+   * @param {T} value - The value to be inspected.
+   * @param {Map<usize, i32>} seen - A map of pointers to hostObject for caching purposes.
+   */
+  public static toHostValue<T>(value: T, seen?: Map<usize, i32>): i32
+  /**
    * A method used for comparing two values or references to determine if they match each other.
    *
    * @param {T} left - One of the values being compared.
@@ -923,4 +951,11 @@ declare class Reflect {
    * @param {usize[]} cache - Internal use only, used to prevent recursion.
    */
   public static equals<T>(left: T, right: T, stack?: usize[], cache?: usize[]): i32;
+
+  /**
+   * Attach a stack trace to a value.
+   *
+   * @param {i32} hostValueID - The host value to attach the current stack trace to.
+   */
+  public static attachStackTrace(id: i32): void;
 }

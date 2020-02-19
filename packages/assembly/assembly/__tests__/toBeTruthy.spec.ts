@@ -1,6 +1,6 @@
 import { Vec3 } from "./setup/Vec3";
 
-var vec1 = new Vec3(1, 2, 3);
+var vec1: Vec3 | null = new Vec3(1, 2, 3);
 
 /**
  * This test suite is designed to test the toBeTruthy assertion.

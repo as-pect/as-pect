@@ -1,17 +1,329 @@
 import { ArrayBufferView } from "arraybuffer";
 import { Set } from "set";
-import { assert } from "./comparison/assert";
+import { assert } from "./assert";
+import { HostValueType } from "./HostValueType";
+import { Box } from "./Box";
 
 function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
-  return bool((i32(a1 === b1) & i32(a2 === b2)) | (i32(a1 === b2) & i32(a2 === b1)));
+  return bool((i32(a1 == b1) & i32(a2 == b2)) | (i32(a1 == b2) & i32(a2 == b1)));
 }
 
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "attachStackTraceToHostValue")
+declare function attachStackTraceToHostValue(id: i32): void;
+
+// @ts-ignore: linked function decorator
+@external("__aspect", "createHostValue")
+declare function createHostValue(
+  isNull: bool,
+  hasKeys: bool,
+  nullable: bool,
+  offset: i32,
+  pointer: usize,
+  signed: bool,
+  size: i32,
+  hostTypeValue: HostValueType,
+  typeId: i32,
+  typeName: string,
+  value: usize,
+  hasValues: bool,
+): i32;
+
+// @ts-ignore: external declaration
+@external("__aspect", "pushHostObjectValue")
+@global
+declare function __aspectPushHostObjectValue(hostObject: i32, value: i32): void;
+
+// @ts-ignore: external declaration
+@external("__aspect", "pushHostObjectKey")
+@global
+declare function __aspectPushHostObjectKey(hostObject: i32, value: i32): void;
 
 @global
+// @ts-ignore: global decorator is allowed here
 export class Reflect {
+  /**
+   * Create a host value for inspection.
+   *
+   * @param {T} value - The value to be inspected.
+   * @param {Map<usize, i32>} seen - A map of pointers to hostObject for caching purposes.
+   */
+  public static toHostValue<T>(value: T, seen: Map<usize, i32> = new Map<usize, i32>()): i32 {
+    // if the value is null, create a Null host value
+    if (isNullable<T>()) {
+      if (value == null) {
+        return createHostValue(
+          true,
+          false,
+          true,
+          0,
+          0,
+          false,
+          sizeof<T>(),
+          isFunction<T>() ? HostValueType.Function : HostValueType.Class,
+          idof<T>(),
+          isFunction<T>() ? "Function" : nameof<T>(),
+          0,
+          false,
+        );
+      }
+    }
+
+    // if T is a reference
+    if (isReference<T>()) {
+
+      // check the cache for anything that isn't a function
+      if (!isFunction<T>()) {
+        if (seen.has(changetype<usize>(value))) {
+          return seen.get(changetype<usize>(value));
+        }
+      }
+      if (value instanceof ArrayBuffer) {
+        let hostValue = createHostValue(
+          false,
+          false,
+          isNullable<T>(),
+          value.byteLength,
+          changetype<usize>(value),
+          false,
+          value.byteLength,
+          HostValueType.ArrayBuffer,
+          idof<T>(),
+          nameof<T>(),
+          0,
+          true,
+        );
+        seen.set(changetype<usize>(value), hostValue);
+        let length = value.byteLength;
+        for (let i = 0; i < length; i++) {
+          __aspectPushHostObjectValue(
+            hostValue,
+            Reflect.toHostValue(load<u8>(changetype<usize>(value) + <usize>i), seen),
+          );
+        }
+        return hostValue
+      } else if (isFunction<T>()) {
+        let hostValue = createHostValue(
+          false,
+          false,
+          isNullable<T>(),
+          0,
+          changetype<usize>(value),
+          false,
+          0,
+          HostValueType.Function,
+          idof<T>(),
+          "Function",
+          changetype<usize>(value),
+          false,
+        );
+        return hostValue;
+      } else if (value instanceof Set) {
+        // create a Set host object
+        let hostObject = createHostValue(
+          false,
+          false, // sets don't have keys
+          isNullable<T>(),
+          0,
+          changetype<usize>(value),
+          false,
+          value.size,
+          HostValueType.Set,
+          idof<T>(),
+          nameof<T>(),
+          0,
+          true, // sets have values
+        );
+
+        // cache this value
+        seen.set(changetype<usize>(value), hostObject);
+
+        // loop over each item and push it to the Set
+        let values = value.values();
+        let length = values.length;
+        for (let i = 0; i < length; i++) {
+          let value = unchecked(values[i]);
+          let hostValueID = Reflect.toHostValue(value, seen);
+          __aspectPushHostObjectValue(hostObject, hostValueID);
+        }
+      } else if (value instanceof Map) {
+        // create a Set host object
+        let hostObject = createHostValue(
+          false,
+          true, // maps have keys
+          isNullable<T>(),
+          0,
+          changetype<usize>(value),
+          false,
+          value.size,
+          HostValueType.Map,
+          idof<T>(),
+          nameof<T>(),
+          0,
+          true, // maps have values
+        );
+
+        // cache this value
+        seen.set(changetype<usize>(value), hostObject);
+
+        // loop over each key and push the key value pair to the host Map
+        let keys = value.keys();
+        let length = keys.length;
+        for (let i = 0; i < length; i++) {
+          let mapKey = unchecked(keys[i]);
+          let hostKeyID = Reflect.toHostValue(mapKey, seen);
+          __aspectPushHostObjectKey(hostObject, hostKeyID);
+
+          let mapValue = value.get(mapKey);
+          let hostValueID = Reflect.toHostValue(mapValue, seen);
+          __aspectPushHostObjectKey(hostObject, hostValueID);
+        }
+
+        return hostObject;
+      } else if (value instanceof ArrayBufferView) {
+        let length = value.length;
+
+        // create a Set host object
+        let hostObject = createHostValue(
+          false,
+          false, // arrays don't have keys
+          isNullable<T>(),
+          0,
+          changetype<usize>(value),
+          false,
+          length,
+          HostValueType.TypedArray,
+          idof<T>(),
+          nameof<T>(),
+          0,
+          true, // maps have values
+        );
+
+        // cache this value
+        seen.set(changetype<usize>(value), hostObject);
+
+        // loop over each value and push it to the host object
+        for (let i = 0; i < length; i++) {
+          // @ts-ignore index signature is garunteed at this point
+          let arrayValue = unchecked(value[i]);
+          let hostArrayValueID = Reflect.toHostValue(arrayValue, seen);
+          __aspectPushHostObjectValue(hostObject, hostArrayValueID);
+        }
+
+        return hostObject;
+      } else if (value instanceof String) {
+        let hostValue = createHostValue(
+          false,
+          false,
+          isNullable<T>(),
+          0,
+          changetype<usize>(value),
+          false,
+          value.length,
+          HostValueType.String,
+          idof<T>(),
+          nameof<T>(),
+          changetype<usize>(value),
+          false,
+        );
+        seen.set(changetype<usize>(value), hostValue);
+        return hostValue;
+      } else if (isArrayLike<T>()) {
+        // @ts-ignore: arraylike has length property
+        let length = <i32>value.length;
+
+        // create a Set host object
+        let hostObject = createHostValue(
+          false,
+          false, // arrays don't have keys
+          isNullable<T>(),
+          0,
+          changetype<usize>(value),
+          false,
+          length,
+          HostValueType.Array,
+          isManaged<T>() ? idof<T>() : 0,
+          nameof<T>(),
+          0,
+          true, // maps have values
+        );
+
+        // cache this value
+        seen.set(changetype<usize>(value), hostObject);
+
+        // loop over each array item and push it to the host object
+        for (let i = 0; i < length; i++) {
+          // @ts-ignore: index signature in arraylike
+          if (isDefined(unchecked(value[0]))) {
+            // @ts-ignore: index signature in arraylike
+            let arrayValue = unchecked(value[i]);
+            let hostArrayValueID = Reflect.toHostValue(arrayValue, seen);
+            __aspectPushHostObjectValue(hostObject, hostArrayValueID);
+          } else {
+            // @ts-ignore: index signature in arraylike
+            let arrayValue = value[i];
+            let hostArrayValueID = Reflect.toHostValue(arrayValue, seen);
+            __aspectPushHostObjectValue(hostObject, hostArrayValueID);
+          }
+        }
+        return hostObject;
+      } else {
+        // generic class
+        let hostValue = createHostValue(
+          false,
+          true, // classes have keys
+          isNullable<T>(),
+          offsetof<T>(),
+          changetype<usize>(value),
+          false,
+          RTrace.sizeOf(changetype<usize>(value)),
+          HostValueType.Class,
+          isManaged<T>() ? idof<T>() : 0,
+          nameof<T>(),
+          0,
+          true, // classes have values
+        );
+
+        // cache this object
+        seen.set(changetype<usize>(value), hostValue);
+
+        // @ts-ignore: __aspectAddHostValueKeyValuePairs is auto-generated by the transform
+        value.__aspectAddHostValueKeyValuePairs(hostValue, seen);
+
+        return hostValue;
+      }
+    } else {
+      // box the number first before passing up the pointer to collect the value
+      let box = new Box<T>(value);
+      let hostObject = createHostValue(
+        false,
+        false,
+        false,
+        0,
+        changetype<usize>(box),
+        isSigned<T>(),
+        sizeof<T>(),
+        isBoolean<T>()
+          ? HostValueType.Boolean
+          : (isInteger<T>() ? HostValueType.Integer : HostValueType.Float),
+        0,
+        nameof<T>(),
+        changetype<usize>(box),
+        false,
+      );
+      return hostObject;
+    }
+    return 0;
+  }
+
   public static equals<T>(left: T, right: T, stack: usize[] = [], cache: usize[] = []): i32 {
     // use `==` operator to work with operator overloads and strings
     if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
+
+    // floats should equal each other
+    if (isFloat<T>(left)) {
+      if (i32(isNaN(left)) & i32(isNaN(right))) return Reflect.SUCCESSFUL_MATCH;
+    }
 
     // short circuit for strings
     if (left instanceof String) {
@@ -21,7 +333,7 @@ export class Reflect {
     // if it's possible for T to be null
     if (isNullable<T>()) {
       // mutual exclusion null
-      if (i32(left === null) ^ i32(right === null)) return Reflect.FAILED_MATCH;
+      if (i32(left == null) ^ i32(right == null)) return Reflect.FAILED_MATCH;
     }
 
     // check every reference that isn't a function reference, because `left == right` suffices
@@ -32,7 +344,7 @@ export class Reflect {
 
       let cacheLength = cache.length;
       // must be EVEN or there's a big problem
-      assert(i32((cacheLength & 0x00000001) === 0), "cacheLength should be even");
+      assert(i32((cacheLength & 0x00000001) == 0), "cacheLength should be even");
 
       // check the cache for matched pairs
       for (let i = 0; i < cacheLength; i += 2) {
@@ -48,39 +360,36 @@ export class Reflect {
       // once we've determined we need to check the references for their values, arraybuffers
       // require a memory compare
       if (left instanceof ArrayBuffer) {
-        if (left.byteLength !== right.byteLength) return Reflect.FAILED_MATCH;
+        // @ts-ignore: typesafe access to byteLength property because T is ArrayBuffer
+        if (left.byteLength != right.byteLength) return Reflect.FAILED_MATCH;
         let result = memory.compare(a, b, left.byteLength);
-        if (result === 0) {
+        if (result == 0) {
           cache.push(a);
           cache.push(b);
           return Reflect.SUCCESSFUL_MATCH;
         } else return Reflect.FAILED_MATCH;
       }
 
-      // set match
-      if (left instanceof Set) {
-        if (left.size !== right.size) return Reflect.FAILED_MATCH;
-        stack.push(a);
-        stack.push(b);
-        let leftValues = left.values();
-        let rightValues = right.values();
-        let length = leftValues.length;
-        let leftoverLength = length;
-        for (let i = 0; i < length; i++) {
-          let leftItem = unchecked(leftValues[i]);
-          if (rightValues.includes(leftItem)) {
-            let index = rightValues.indexOf(leftItem);
-            rightValues.splice(index, 1);
-            leftoverLength--;
-            continue; // short circuit
-          }
-
-          if (isReference<indexof<T>>() && !isFunction<indexof<T>>()) {
+      // @ts-ignore: valid index signature check
+      if (isDefined(left[0])) { // test for safe indexof usage
+        // set match
+        if (left instanceof Set) {
+          // @ts-ignore: size is a valid property of Set
+          if (left.size != right.size) return Reflect.FAILED_MATCH;
+          stack.push(a);
+          stack.push(b);
+          // @ts-ignore: values() is a valid function of Set
+          let leftValues = left.values();
+          // @ts-ignore: values() is a valid function of Set
+          let rightValues = right.values();
+          let length = leftValues.length;
+          let leftoverLength = length;
+          for (let i = 0; i < length; i++) {
+            let leftItem = unchecked(leftValues[i]);
             let continueOuter = false;
-            // long path, compare every item in the set
             for (let j = 0; j < leftoverLength; j++) {
               let rightItem = unchecked(rightValues[j]);
-              if (Reflect.equals(leftItem, rightItem, stack, cache) !== Reflect.FAILED_MATCH) {
+              if (Reflect.equals(leftItem, rightItem, stack, cache) != Reflect.FAILED_MATCH) {
                 rightValues.splice(j, 1);
                 leftoverLength--;
                 continueOuter = true;
@@ -88,90 +397,93 @@ export class Reflect {
               };
             }
             if (continueOuter) continue;
+
+            stack.pop();
+            stack.pop();
+            return Reflect.FAILED_MATCH;
           }
 
+          cache.push(a);
+          cache.push(b);
+
           stack.pop();
           stack.pop();
-          return Reflect.FAILED_MATCH;
+          return Reflect.SUCCESSFUL_MATCH;
         }
 
-        cache.push(a);
-        cache.push(b);
+        if (left instanceof Map) {
+          // @ts-ignore: size is a valid property of Map
+          if (left.size != right.size) return Reflect.FAILED_MATCH;
+          stack.push(a);
+          stack.push(b);
 
-        stack.pop();
-        stack.pop();
-        return Reflect.SUCCESSFUL_MATCH;
-      }
+          // collect all the keys and loop over each one
+          let leftKeys = left.keys();
+          // @ts-ignore: keys() is a valid function of Map
+          let rightKeys = right.keys();
 
-      if (left instanceof Map) {
-        if (left.size !== right.size) return Reflect.FAILED_MATCH;
-        stack.push(a);
-        stack.push(b);
+          // @ts-ignore: length is a valid property of Array
+          let keyLength = leftKeys.length;
+          let leftoverKeyLength = keyLength;
 
-        // collect all the keys and loop over each one
-        let leftKeys = left.keys();
-        let rightKeys = right.keys();
+          // assume we match and determine if the match was a failure
+          let result = Reflect.SUCCESSFUL_MATCH;
 
-        let keyLength = leftKeys.length;
-        let leftoverKeyLength = keyLength;
+          // for each key
+          for (let i = 0; i < keyLength; i++) {
+            let leftKey = unchecked(leftKeys[i]);
+            // assume won't find it
+            let found = false;
 
-        // assume we match and determine if the match was a failure
-        let result = Reflect.SUCCESSFUL_MATCH;
+            // find a matching key
+            for (let j = 0; j < leftoverKeyLength; j++) {
+              let rightKey = unchecked(rightKeys[j]);
 
-        // for each key
-        for (let i = 0; i < keyLength; i++) {
-          let leftKey = unchecked(leftKeys[i]);
-          // assume won't find it
-          let found = false;
+              // if the keys match, or are still being resolved
+              if (Reflect.equals(leftKey, rightKey, stack, cache) != Reflect.FAILED_MATCH) {
+                // the key potentially matches, obtain the values associated with the keys
+                let leftValue = left.get(leftKey);
+                // @ts-ignore: get() is a valid function of Map
+                let rightValue = right.get(rightKey);
 
-          // find a matching key
-          for (let j = 0; j < leftoverKeyLength; j++) {
-            let rightKey = unchecked(rightKeys[j]);
-
-            // if the keys match, or are still being resolved
-            if (Reflect.equals(leftKey, rightKey, stack, cache) !== Reflect.FAILED_MATCH) {
-              // the key potentially matches, obtain the values associated with the keys
-              let leftValue = left.get(leftKey);
-              let rightValue = right.get(rightKey);
-
-              // if the values match, or are still being resolved
-              if (Reflect.equals(leftValue, rightValue, stack, cache) !== Reflect.FAILED_MATCH) {
-                leftoverKeyLength--;
-                rightKeys.splice(j, 1); // remove this key from the list
-                found = true;
-                break;
+                // if the values match, or are still being resolved
+                if (Reflect.equals(leftValue, rightValue, stack, cache) != Reflect.FAILED_MATCH) {
+                  leftoverKeyLength--;
+                  rightKeys.splice(j, 1); // remove this key from the list
+                  found = true;
+                  break;
+                }
               }
+            }
+
+            // if there was no match for this key value pair, the result is Failed
+            if (!found) {
+              result = Reflect.FAILED_MATCH;
+              break;
             }
           }
 
-          // if there was no match for this key value pair, the result is Failed
-          if (!found) {
-            result = Reflect.FAILED_MATCH;
-            break;
+          // if every key matched, result is still equal to `Reflect.MATCH`
+          if (result == Reflect.SUCCESSFUL_MATCH) {
+            cache.push(a);
+            cache.push(b);
           }
-        }
 
-        // if every key matched, result is still equal to `Reflect.MATCH`
-        if (result === Reflect.SUCCESSFUL_MATCH) {
-          cache.push(a);
-          cache.push(b);
+          stack.pop();
+          stack.pop();
+          return result;
         }
-
-        stack.pop();
-        stack.pop();
-        return result;
       }
 
       // compile time array values should be compared over a for loop
       if (left instanceof ArrayBufferView) {
+        // @ts-ignore: typesafe access to length
         let aLength = left.length;
         // @ts-ignore: typesafe access to length
         let bLength = right.length;
 
         // assert the lengths are good
-        if (aLength !== bLength) return Reflect.FAILED_MATCH;
-
-
+        if (aLength != bLength) return Reflect.FAILED_MATCH;
 
         // check each item
         for (let i = 0; i < aLength; i++) {
@@ -181,7 +493,7 @@ export class Reflect {
             stack,
             cache,
           );
-          if (result === Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
+          if (result == Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
         }
 
         // cache this result
@@ -218,6 +530,15 @@ export class Reflect {
       // value type, and strict equality cannot be asserted
       return Reflect.FAILED_MATCH;
     }
+  }
+
+  /**
+   * Attach a stack trace to a value.
+   *
+   * @param {i32} hostValueID - The host value to attach the current stack trace to.
+   */
+  public static attachStackTrace(id: i32): void {
+    attachStackTraceToHostValue(id);
   }
 }
 

@@ -1,54 +1,12 @@
 import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
 import { TestContext } from "../test/TestContext";
-import { LogValue } from "../util/LogValue";
-import { ActualValue } from "../util/ActualValue";
 import { TestReporter } from "../test/TestReporter";
 import { IWritable } from "../util/IWriteable";
-import { createReferenceString } from "./util/createReferenceString";
+import { HostValue } from "../util/HostValue";
+import { stringifyHostValue } from "./util/stringifyHostValue";
 
 /**
- * @ignore
- * This enum is used by the VerboseReporter to distinguish Actual and expected types.
- */
-const enum ValueType {
-  Actual,
-  Expected,
-}
-
-/**
- * @ignore
- * This method stringifies an actual or expected test value.
- *
- * @param {ValueType} type - Actual or Expected.
- * @param {ActualValue | null} value - The reported value.
- */
-function stringifyActualValue(
-  type: ValueType,
-  value: ActualValue | null,
-): string {
-  const chalk = require("chalk");
-  if (!value) return "";
-  let byteString: string = "";
-
-  if (value.bytes.length > 0 || value.values.length > 0) {
-    byteString =
-      "\n               " +
-      createReferenceString(value)
-        .split("\n")
-        .join("\n               ");
-  }
-
-  // const stackString =
-  //   "\n           " + value.stack.split("\n").join("\n           ");
-
-  return type === ValueType.Expected
-    ? chalk`{green ${value.message}}{blue ${byteString}}`
-    : chalk`{red ${value.message}}{blue ${byteString}}`;
-}
-
-/**
- * @ignore
  * This weakmap is used to keep track of which logs have already been printed, and from what index.
  */
 const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
@@ -125,11 +83,8 @@ export default class VerboseReporter extends TestReporter {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
       if (!test.negated) {
-        this.stdout!.write(`  [Actual]: ${stringifyActualValue(
-          ValueType.Actual,
-          test.actual,
-        )}
-[Expected]: ${stringifyActualValue(ValueType.Expected, test.expected)}
+        this.stdout!.write(`  [Actual]: ${stringifyHostValue(test.actual!, 2)}
+[Expected]: ${stringifyHostValue(test.expected!, 2)}
 `);
       }
 
@@ -275,37 +230,14 @@ export default class VerboseReporter extends TestReporter {
   /**
    * A custom logger function for the default reporter that writes the log values using `console.log()`
    *
-   * @param {LogValue} logValue - A value to be logged to the console
+   * @param {HostValue} logValue - A value to be logged to the console
    */
-  public onLog(logValue: LogValue): void {
+  public onLog(logValue: HostValue): void {
     const chalk = require("chalk");
-    // create string representations of the pointer
-    var pointer: string = logValue.pointer.toString();
-    var hexPointer: string = logValue.pointer.toString(16);
-
-    // log the log message
-    if (logValue.pointer > 0) {
-      this.stdout!.write(
-        chalk`\n     {yellow [Log]:} Reference at address [${pointer}] [hex: 0x${hexPointer}] ${logValue.message}\n`,
-      );
-    } else {
-      this.stdout!.write(chalk`\n     {yellow [Log]:} ${logValue.message}\n`);
-    }
-
-    // if there are bytes to show, create a logging representation of the bytes
-    if (logValue.bytes.length > 0 || logValue.values.length > 0) {
-      const value = createReferenceString(logValue);
-      this.stdout!.write(
-        chalk`            {blueBright ${value
-          .split("\n")
-          .join("\n            ")}}\n`,
-      );
-    }
-
-    this.stdout!.write(
-      chalk`        {yellow ${logValue.stack
-        .split("\n")
-        .join("\n        ")}}\n`,
-    );
+    const output: string = stringifyHostValue(logValue, 12).trimLeft();
+    this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
+    this.stdout!.write(chalk`   {yellow [Stack]:} ${logValue.stack.trimLeft()
+      .split("\n")
+      .join("\n             ")}\n`);
   }
 }

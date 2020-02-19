@@ -1,6 +1,6 @@
 import { TestReporter } from "../test/TestReporter";
 import { TestContext } from "../test/TestContext";
-import { LogValue } from "../util/LogValue";
+import { HostValue } from "../util/HostValue";
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
  * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
@@ -25,7 +25,7 @@ export default class SummaryReporter extends TestReporter {
     /**
      * A custom logger function for the default reporter that writes the log values using `console.log()`
      *
-     * @param {LogValue} logValue - A value to be logged to the console
+     * @param {HostValue} logValue - A value to be logged to the console
      */
-    onLog(logValue: LogValue): void;
+    onLog(logValue: HostValue): void;
 }

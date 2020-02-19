@@ -208,7 +208,6 @@ export class TestContext extends TestCollector {
          */
         if (this.endGroup) {
           this.wasm!.__ignoreLogs(0);
-          this.wasm!.__cleanup();
           this.wasm!.__collect();
           return;
         }
@@ -218,7 +217,6 @@ export class TestContext extends TestCollector {
         // check to see if the afterEach functions errored (see above)
         if (this.endGroup) {
           this.wasm!.__ignoreLogs(0);
-          this.wasm!.__cleanup();
           this.wasm!.__collect();
           return;
         }
@@ -302,8 +300,6 @@ export class TestContext extends TestCollector {
       group.pass = false;
       // if it's not negated then set the message, the actual, expected, and stack values
       if (!result.negated) {
-        this.wasm!.__sendActual();
-        this.wasm!.__sendExpected();
         result.actual = this.actual;
         result.expected = this.expected;
         result.message = this.message;
@@ -312,7 +308,6 @@ export class TestContext extends TestCollector {
     }
 
     if (testCallResult === 0) {
-      this.wasm!.__cleanup();
       this.wasm!.__collect();
     }
 

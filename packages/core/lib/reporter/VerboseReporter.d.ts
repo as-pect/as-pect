@@ -1,9 +1,9 @@
 import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
 import { TestContext } from "../test/TestContext";
-import { LogValue } from "../util/LogValue";
 import { TestReporter } from "../test/TestReporter";
 import { IWritable } from "../util/IWriteable";
+import { HostValue } from "../util/HostValue";
 /**
  * This is the default test reporter class for the `asp` command line application. It will pipe
  * all relevant details about each tests to the `stdout` WriteStream.
@@ -55,7 +55,7 @@ export default class VerboseReporter extends TestReporter {
     /**
      * A custom logger function for the default reporter that writes the log values using `console.log()`
      *
-     * @param {LogValue} logValue - A value to be logged to the console
+     * @param {HostValue} logValue - A value to be logged to the console
      */
-    onLog(logValue: LogValue): void;
+    onLog(logValue: HostValue): void;
 }

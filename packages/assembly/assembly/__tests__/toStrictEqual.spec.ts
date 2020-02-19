@@ -59,6 +59,20 @@ describe("toStrictEqual", () => {
   }, "toStrictEqual on value types that are not equal should throw.");
 
   /**
+   * NaN should strict equal NaN
+   */
+  it("should expect NaN toStrictEqual NaN", () => {
+    expect(<f64>NaN).toStrictEqual(NaN, "NaN should strict equal NaN");
+  });
+
+  /**
+   * NaN should strict equal NaN
+   */
+  throws("when NaN does not strictEqual NaN", () => {
+    expect(<f64>NaN).not.toStrictEqual(NaN);
+  }, "NaN should strict equal NaN");
+
+  /**
    * toStrictEqual should validate if the references have exactly the same values.
    */
   it("should correctly assert toStrictEqual assertions for reftypes", () => {
@@ -244,8 +258,7 @@ describe("toStrictEqual", () => {
   it("should validate that two arrays of disimilar references are not strictly equal", () => {
     let a = [new Vec3(1, 2, 3), new Vec3(4, 5, 6), new Vec3(7, 8, 9)];
     let b = [new Vec3(9, 8, 7), new Vec3(4, 5, 6), new Vec3(7, 8, 9)];
-    expect(a).not.toStrictEqual(b, "The two arrays are expected not to strictly equal each other",
-    );
+    expect(a).not.toStrictEqual(b, "The two arrays are expected not to strictly equal each other");
   });
 
   /**

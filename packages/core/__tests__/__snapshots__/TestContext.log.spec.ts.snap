@@ -1,331 +1,1229 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`log output Group: logs Test: logs: bytes 1`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 2`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 3`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 4`] = `
-Array [
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  240,
-  63,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  64,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  8,
-  64,
-]
+exports[`log output Group: logs Test: logs: log 1`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 464,
+  "signed": false,
+  "size": 12,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[49]:0x1668)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d34)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 2,
+  "typeId": 1,
+  "typeName": "String",
+  "value": "Hello world!",
+  "values": null,
+}
 `;
 
-exports[`log output Group: logs Test: logs: bytes 5`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 6`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 7`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 8`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 9`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 10`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 11`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 12`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 13`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: bytes 14`] = `Array []`;
-
-exports[`log output Group: logs Test: logs: message 1`] = `"Hello world!"`;
-
-exports[`log output Group: logs Test: logs: message 2`] = `"Value 42"`;
-
-exports[`log output Group: logs Test: logs: message 3`] = `"null"`;
-
-exports[`log output Group: logs Test: logs: message 4`] = `"Reference Type"`;
-
-exports[`log output Group: logs Test: logs: message 5`] = `"[1,2,3]"`;
-
-exports[`log output Group: logs Test: logs: message 6`] = `"Value 9999999999999"`;
-
-exports[`log output Group: logs Test: logs: message 7`] = `"Value 1234567"`;
-
-exports[`log output Group: logs Test: logs: message 8`] = `"Value 999999999999"`;
-
-exports[`log output Group: logs Test: logs: message 9`] = `"Value -1"`;
-
-exports[`log output Group: logs Test: logs: message 10`] = `"Value -1"`;
-
-exports[`log output Group: logs Test: logs: message 11`] = `"[0,1,2]"`;
-
-exports[`log output Group: logs Test: logs: message 12`] = `"[-1,-2,-3]"`;
-
-exports[`log output Group: logs Test: logs: message 13`] = `"[Function 1: assembly/jest-log/IdFunction]"`;
-
-exports[`log output Group: logs Test: logs: message 14`] = `"trace: The thing! 1, 2, 3, 4, 5"`;
-
-exports[`log output Group: logs Test: logs: offset 1`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 2`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 3`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 4`] = `24`;
-
-exports[`log output Group: logs Test: logs: offset 5`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 6`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 7`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 8`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 9`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 10`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 11`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 12`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 13`] = `0`;
-
-exports[`log output Group: logs Test: logs: offset 14`] = `0`;
-
-exports[`log output Group: logs Test: logs: snapshot 1`] = `464`;
-
-exports[`log output Group: logs Test: logs: snapshot 2`] = `42`;
-
-exports[`log output Group: logs Test: logs: snapshot 3`] = `null`;
-
-exports[`log output Group: logs Test: logs: snapshot 4`] = `2528`;
-
-exports[`log output Group: logs Test: logs: snapshot 5`] = `null`;
-
-exports[`log output Group: logs Test: logs: snapshot 6`] = `null`;
-
-exports[`log output Group: logs Test: logs: snapshot 7`] = `1234567`;
-
-exports[`log output Group: logs Test: logs: snapshot 8`] = `null`;
-
-exports[`log output Group: logs Test: logs: snapshot 9`] = `-1`;
-
-exports[`log output Group: logs Test: logs: snapshot 10`] = `-1`;
-
-exports[`log output Group: logs Test: logs: snapshot 11`] = `null`;
-
-exports[`log output Group: logs Test: logs: snapshot 12`] = `null`;
-
-exports[`log output Group: logs Test: logs: snapshot 13`] = `null`;
-
-exports[`log output Group: logs Test: logs: snapshot 14`] = `null`;
-
-exports[`log output Group: logs: bytes 1`] = `Array []`;
-
-exports[`log output Group: logs: bytes 2`] = `Array []`;
-
-exports[`log output Group: logs: bytes 3`] = `Array []`;
-
-exports[`log output Group: logs: bytes 4`] = `
-Array [
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  240,
-  63,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  64,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  8,
-  64,
-]
+exports[`log output Group: logs Test: logs: log 2`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3472,
+  "signed": true,
+  "size": 4,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i32> (wasm-function[53]:0x1719)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d38)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i32",
+  "value": 42,
+  "values": null,
+}
 `;
 
-exports[`log output Group: logs: bytes 5`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 3`] = `
+HostValue {
+  "isNull": true,
+  "keys": null,
+  "negated": false,
+  "nullable": true,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 4,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[61]:0x1948)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d3c)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 1,
+  "typeId": 7,
+  "typeName": "Vec3",
+  "value": 0,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: bytes 6`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 4`] = `
+HostValue {
+  "isNull": false,
+  "keys": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 720,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 2,
+      "typeId": 1,
+      "typeName": "String",
+      "value": "x",
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 784,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 2,
+      "typeId": 1,
+      "typeName": "String",
+      "value": "y",
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 816,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 2,
+      "typeId": 1,
+      "typeName": "String",
+      "value": "z",
+      "values": null,
+    },
+  ],
+  "negated": false,
+  "nullable": false,
+  "offset": 24,
+  "pointer": 3328,
+  "signed": false,
+  "size": 24,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[65]:0x1a45)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d5f)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 1,
+  "typeId": 7,
+  "typeName": "Vec3",
+  "value": 0,
+  "values": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3520,
+      "signed": true,
+      "size": 8,
+      "stack": "",
+      "type": 8,
+      "typeId": 0,
+      "typeName": "f64",
+      "value": 1,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3520,
+      "signed": true,
+      "size": 8,
+      "stack": "",
+      "type": 8,
+      "typeId": 0,
+      "typeName": "f64",
+      "value": 2,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3520,
+      "signed": true,
+      "size": 8,
+      "stack": "",
+      "type": 8,
+      "typeId": 0,
+      "typeName": "f64",
+      "value": 3,
+      "values": null,
+    },
+  ],
+}
+`;
 
-exports[`log output Group: logs: bytes 7`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 5`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3376,
+  "signed": false,
+  "size": 3,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[73]:0x25f7)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d70)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 11,
+  "typeId": 9,
+  "typeName": "Array<i32>",
+  "value": 0,
+  "values": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 4,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i32",
+      "value": 1,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 4,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i32",
+      "value": 2,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 4,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i32",
+      "value": 3,
+      "values": null,
+    },
+  ],
+}
+`;
 
-exports[`log output Group: logs: bytes 8`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 6`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": true,
+  "size": 8,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i64> (wasm-function[77]:0x26a8)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d7a)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i64",
+  "value": "9999999999999",
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: bytes 9`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 7`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": false,
+  "size": 4,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<u32> (wasm-function[81]:0x2755)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d81)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "u32",
+  "value": 1234567,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: bytes 10`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 8`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": false,
+  "size": 8,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<u64> (wasm-function[85]:0x2802)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d8a)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "u64",
+  "value": "999999999999",
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: bytes 11`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 9`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": true,
+  "size": 1,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i8> (wasm-function[89]:0x28af)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d8e)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i8",
+  "value": -1,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: bytes 12`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 10`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": true,
+  "size": 2,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i16> (wasm-function[93]:0x295c)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d92)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i16",
+  "value": -1,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: bytes 13`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 11`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": false,
+  "size": 1,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<bool> (wasm-function[97]:0x2a09)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d96)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 9,
+  "typeId": 0,
+  "typeName": "bool",
+  "value": 1,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: bytes 14`] = `Array []`;
+exports[`log output Group: logs Test: logs: log 12`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": false,
+  "size": 1,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<bool> (wasm-function[97]:0x2a09)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d9a)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 9,
+  "typeId": 0,
+  "typeName": "bool",
+  "value": 0,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 1`] = `"Hello world!"`;
+exports[`log output Group: logs Test: logs: log 13`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3200,
+  "signed": false,
+  "size": 3,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[104]:0x2b7e)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2d9e)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 11,
+  "typeId": 3,
+  "typeName": "Uint8Array",
+  "value": 0,
+  "values": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "u8",
+      "value": 0,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "u8",
+      "value": 1,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "u8",
+      "value": 2,
+      "values": null,
+    },
+  ],
+}
+`;
 
-exports[`log output Group: logs: message 2`] = `"Value 42"`;
+exports[`log output Group: logs Test: logs: log 14`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3264,
+  "signed": false,
+  "size": 3,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[109]:0x2c9c)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2da2)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 11,
+  "typeId": 4,
+  "typeName": "Int8Array",
+  "value": 0,
+  "values": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i8",
+      "value": -1,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i8",
+      "value": -2,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i8",
+      "value": -3,
+      "values": null,
+    },
+  ],
+}
+`;
 
-exports[`log output Group: logs: message 3`] = `"null"`;
+exports[`log output Group: logs Test: logs: log 15`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 1,
+  "signed": false,
+  "size": 0,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[112]:0x2d25)
+    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2da6)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 6,
+  "typeId": 13,
+  "typeName": "Function",
+  "value": "assembly/jest-log/IdFunction",
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 4`] = `"Reference Type"`;
+exports[`log output Group: logs Test: logs: log 16`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 1280,
+  "signed": false,
+  "size": 0,
+  "stack": "    at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[113]:0x2dda)
+    at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x2fae)",
+  "type": 2,
+  "typeId": 0,
+  "typeName": "trace",
+  "value": "trace: The thing! 1, 2, 3, 4, 5",
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 5`] = `"[1,2,3]"`;
+exports[`log output Group: logs: log 1`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 464,
+  "signed": false,
+  "size": 12,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[49]:0x1668)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e11)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 2,
+  "typeId": 1,
+  "typeName": "String",
+  "value": "Hello world!",
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 6`] = `"Value 9999999999999"`;
+exports[`log output Group: logs: log 2`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3472,
+  "signed": true,
+  "size": 4,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i32> (wasm-function[53]:0x1719)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e15)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i32",
+  "value": 42,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 7`] = `"Value 1234567"`;
+exports[`log output Group: logs: log 3`] = `
+HostValue {
+  "isNull": true,
+  "keys": null,
+  "negated": false,
+  "nullable": true,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 4,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[61]:0x1948)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e19)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 1,
+  "typeId": 7,
+  "typeName": "Vec3",
+  "value": 0,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 8`] = `"Value 999999999999"`;
+exports[`log output Group: logs: log 4`] = `
+HostValue {
+  "isNull": false,
+  "keys": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 720,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 2,
+      "typeId": 1,
+      "typeName": "String",
+      "value": "x",
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 784,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 2,
+      "typeId": 1,
+      "typeName": "String",
+      "value": "y",
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 816,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 2,
+      "typeId": 1,
+      "typeName": "String",
+      "value": "z",
+      "values": null,
+    },
+  ],
+  "negated": false,
+  "nullable": false,
+  "offset": 24,
+  "pointer": 3328,
+  "signed": false,
+  "size": 24,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[65]:0x1a45)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e3c)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 1,
+  "typeId": 7,
+  "typeName": "Vec3",
+  "value": 0,
+  "values": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3520,
+      "signed": true,
+      "size": 8,
+      "stack": "",
+      "type": 8,
+      "typeId": 0,
+      "typeName": "f64",
+      "value": 1,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3520,
+      "signed": true,
+      "size": 8,
+      "stack": "",
+      "type": 8,
+      "typeId": 0,
+      "typeName": "f64",
+      "value": 2,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3520,
+      "signed": true,
+      "size": 8,
+      "stack": "",
+      "type": 8,
+      "typeId": 0,
+      "typeName": "f64",
+      "value": 3,
+      "values": null,
+    },
+  ],
+}
+`;
 
-exports[`log output Group: logs: message 9`] = `"Value -1"`;
+exports[`log output Group: logs: log 5`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3376,
+  "signed": false,
+  "size": 3,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[73]:0x25f7)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e4d)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 11,
+  "typeId": 9,
+  "typeName": "Array<i32>",
+  "value": 0,
+  "values": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 4,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i32",
+      "value": 1,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 4,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i32",
+      "value": 2,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 4,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i32",
+      "value": 3,
+      "values": null,
+    },
+  ],
+}
+`;
 
-exports[`log output Group: logs: message 10`] = `"Value -1"`;
+exports[`log output Group: logs: log 6`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": true,
+  "size": 8,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i64> (wasm-function[77]:0x26a8)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e57)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i64",
+  "value": "9999999999999",
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 11`] = `"[0,1,2]"`;
+exports[`log output Group: logs: log 7`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": false,
+  "size": 4,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<u32> (wasm-function[81]:0x2755)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e5e)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "u32",
+  "value": 1234567,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 12`] = `"[-1,-2,-3]"`;
+exports[`log output Group: logs: log 8`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": false,
+  "size": 8,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<u64> (wasm-function[85]:0x2802)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e67)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "u64",
+  "value": "999999999999",
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 13`] = `"[Function 1: assembly/jest-log/IdFunction]"`;
+exports[`log output Group: logs: log 9`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": true,
+  "size": 1,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i8> (wasm-function[89]:0x28af)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e6b)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i8",
+  "value": -1,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: message 14`] = `"trace: The thing! 1, 2, 3, 4, 5"`;
+exports[`log output Group: logs: log 10`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": true,
+  "size": 2,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<i16> (wasm-function[93]:0x295c)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e6f)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i16",
+  "value": -1,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: offset 1`] = `0`;
+exports[`log output Group: logs: log 11`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": false,
+  "size": 1,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<bool> (wasm-function[97]:0x2a09)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e73)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 9,
+  "typeId": 0,
+  "typeName": "bool",
+  "value": 1,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: offset 2`] = `0`;
+exports[`log output Group: logs: log 12`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3584,
+  "signed": false,
+  "size": 1,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<bool> (wasm-function[97]:0x2a09)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e77)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 9,
+  "typeId": 0,
+  "typeName": "bool",
+  "value": 0,
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: offset 3`] = `0`;
+exports[`log output Group: logs: log 13`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3200,
+  "signed": false,
+  "size": 3,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[104]:0x2b7e)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e7b)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 11,
+  "typeId": 3,
+  "typeName": "Uint8Array",
+  "value": 0,
+  "values": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "u8",
+      "value": 0,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "u8",
+      "value": 1,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "u8",
+      "value": 2,
+      "values": null,
+    },
+  ],
+}
+`;
 
-exports[`log output Group: logs: offset 4`] = `24`;
+exports[`log output Group: logs: log 14`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3264,
+  "signed": false,
+  "size": 3,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[109]:0x2c9c)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e7f)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 11,
+  "typeId": 4,
+  "typeName": "Int8Array",
+  "value": 0,
+  "values": Array [
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i8",
+      "value": -1,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i8",
+      "value": -2,
+      "values": null,
+    },
+    HostValue {
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 3584,
+      "signed": true,
+      "size": 1,
+      "stack": "",
+      "type": 7,
+      "typeId": 0,
+      "typeName": "i8",
+      "value": -3,
+      "values": null,
+    },
+  ],
+}
+`;
 
-exports[`log output Group: logs: offset 5`] = `0`;
+exports[`log output Group: logs: log 15`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 1,
+  "signed": false,
+  "size": 0,
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x163a)
+    at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[112]:0x2d25)
+    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2e83)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 6,
+  "typeId": 13,
+  "typeName": "Function",
+  "value": "assembly/jest-log/IdFunction",
+  "values": null,
+}
+`;
 
-exports[`log output Group: logs: offset 6`] = `0`;
-
-exports[`log output Group: logs: offset 7`] = `0`;
-
-exports[`log output Group: logs: offset 8`] = `0`;
-
-exports[`log output Group: logs: offset 9`] = `0`;
-
-exports[`log output Group: logs: offset 10`] = `0`;
-
-exports[`log output Group: logs: offset 11`] = `0`;
-
-exports[`log output Group: logs: offset 12`] = `0`;
-
-exports[`log output Group: logs: offset 13`] = `0`;
-
-exports[`log output Group: logs: offset 14`] = `0`;
+exports[`log output Group: logs: log 16`] = `
+HostValue {
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 1280,
+  "signed": false,
+  "size": 0,
+  "stack": "    at start:assembly/jest-log~anonymous|0 (wasm-function[116]:0x2eb7)
+    at ../assembly/assembly/internal/Describe/describe (wasm-function[118]:0x2eee)
+    at start:assembly/jest-log (wasm-function[119]:0x2f3f)
+    at ~start (wasm-function[132]:0x2fd5)",
+  "type": 2,
+  "typeId": 0,
+  "typeName": "trace",
+  "value": "trace: The thing! 1, 2, 3, 4, 5",
+  "values": null,
+}
+`;
 
 exports[`log output Group: logs: todo 1`] = `"one"`;
 
 exports[`log output Group: logs: todo 2`] = `"two"`;
 
 exports[`log output Group: logs: todo 3`] = `"three"`;
-
-exports[`log output Group: logs: value 1`] = `464`;
-
-exports[`log output Group: logs: value 2`] = `42`;
-
-exports[`log output Group: logs: value 3`] = `null`;
-
-exports[`log output Group: logs: value 4`] = `2528`;
-
-exports[`log output Group: logs: value 5`] = `null`;
-
-exports[`log output Group: logs: value 6`] = `null`;
-
-exports[`log output Group: logs: value 7`] = `1234567`;
-
-exports[`log output Group: logs: value 8`] = `null`;
-
-exports[`log output Group: logs: value 9`] = `-1`;
-
-exports[`log output Group: logs: value 10`] = `-1`;
-
-exports[`log output Group: logs: value 11`] = `null`;
-
-exports[`log output Group: logs: value 12`] = `null`;
-
-exports[`log output Group: logs: value 13`] = `null`;
-
-exports[`log output Group: logs: value 14`] = `null`;
-
-exports[`log output Group: logs: values 1`] = `Array []`;
-
-exports[`log output Group: logs: values 2`] = `Array []`;
-
-exports[`log output Group: logs: values 3`] = `Array []`;
-
-exports[`log output Group: logs: values 4`] = `Array []`;
-
-exports[`log output Group: logs: values 5`] = `
-Array [
-  1,
-  2,
-  3,
-]
-`;
-
-exports[`log output Group: logs: values 6`] = `Array []`;
-
-exports[`log output Group: logs: values 7`] = `Array []`;
-
-exports[`log output Group: logs: values 8`] = `Array []`;
-
-exports[`log output Group: logs: values 9`] = `Array []`;
-
-exports[`log output Group: logs: values 10`] = `Array []`;
-
-exports[`log output Group: logs: values 11`] = `
-Array [
-  0,
-  1,
-  2,
-]
-`;
-
-exports[`log output Group: logs: values 12`] = `
-Array [
-  -1,
-  -2,
-  -3,
-]
-`;
-
-exports[`log output Group: logs: values 13`] = `Array []`;
-
-exports[`log output Group: logs: values 14`] = `Array []`;

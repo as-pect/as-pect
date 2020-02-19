@@ -1,7 +1,6 @@
-import { LogValue } from "../util/LogValue";
-import { ActualValue } from "../util/ActualValue";
 import { ILogTarget } from "../util/ILogTarget";
 import { IWarning } from "./IWarning";
+import { HostValue } from "../util/HostValue";
 /**
  * This is the data class that contains all the data about each `test()` or `it()` function defined
  * in the `AssemblyScript` module.
@@ -18,13 +17,13 @@ export declare class TestResult implements ILogTarget {
     /** The time in milliseconds indicating how long the test ran for each run. */
     times: number[];
     /** The reported actual value description. */
-    actual: ActualValue | null;
+    actual: HostValue | null;
     /** The reported expected value description. */
-    expected: ActualValue | null;
+    expected: HostValue | null;
     /** If the test failed, this is the message describing why the test failed. */
     message: string;
     /** A set of strings logged by the test itself. */
-    logs: LogValue[];
+    logs: HostValue[];
     /** The generated stack trace if the test errored. */
     stack: string | null;
     /** This value is set to true if the test is expected to throw. */
