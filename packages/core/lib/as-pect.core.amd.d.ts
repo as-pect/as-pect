@@ -1457,9 +1457,36 @@ declare module "transform/createStrictEqualsMember" {
      */
     export function createStrictEqualsMember(classDeclaration: ClassDeclaration): FunctionDeclaration;
 }
-declare module "transform/index" {
+declare module "transform/emptyTransformer" {
     import { Parser } from "assemblyscript";
     const _default: {
+        new (): {
+            /**
+             * This method results in a pure AST transform that inserts a strictEquals member
+             * into each ClassDeclaration.
+             *
+             * @param {Parser} parser - The AssemblyScript parser.
+             */
+            afterParse(_: Parser): void;
+            readonly program: import("assemblyscript").Program;
+            readonly baseDir: string;
+            readonly stdout: import("assemblyscript/cli/asc").OutputStream;
+            readonly stderr: import("assemblyscript/cli/asc").OutputStream;
+            readonly log: {
+                (message?: any, ...optionalParams: any[]): void;
+                (message?: any, ...optionalParams: any[]): void;
+            };
+            writeFile(filename: string, contents: string | Uint8Array, baseDir: string): boolean;
+            readFile(filename: string, baseDir: string): string | null;
+            listFiles(dirname: string, baseDir: string): string[] | null;
+            afterCompile?(module: import("assemblyscript").Module): void;
+        };
+    };
+    export = _default;
+}
+declare module "transform/index" {
+    import { Parser } from "assemblyscript";
+    const _default_1: {
         new (): {
             /**
              * This method results in a pure AST transform that inserts a strictEquals member
@@ -1482,6 +1509,6 @@ declare module "transform/index" {
             afterCompile?(module: import("assemblyscript").Module): void;
         };
     };
-    export = _default;
+    export = _default_1;
 }
 //# sourceMappingURL=as-pect.core.amd.d.ts.map
