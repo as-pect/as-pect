@@ -1433,8 +1433,13 @@ declare module "index" {
     export * from "util/IPerformanceConfiguration";
     export * from "util/HostValue";
 }
+declare module "transform/assemblyscript" {
+    export var Transform: any;
+    const _exports: any;
+    export = _exports;
+}
 declare module "transform/createGenericTypeParameter" {
-    import { Range, TypeNode } from "assemblyscript";
+    import { Range, TypeNode } from "./assemblyscript";
     /**
      * This method makes a generic named parameter.
      *
@@ -1444,11 +1449,11 @@ declare module "transform/createGenericTypeParameter" {
     export function createGenericTypeParameter(name: string, range: Range): TypeNode;
 }
 declare module "transform/createAddHostValueKeyValuePairsMember" {
-    import { FunctionDeclaration, ClassDeclaration } from "assemblyscript";
+    import { FunctionDeclaration, ClassDeclaration } from "./assemblyscript";
     export function createAddHostValueKeyValuePairsMember(classDeclaration: ClassDeclaration): FunctionDeclaration;
 }
 declare module "transform/createStrictEqualsMember" {
-    import { ClassDeclaration, FunctionDeclaration } from "assemblyscript";
+    import { ClassDeclaration, FunctionDeclaration } from "./assemblyscript";
     /**
      * This method creates a single FunctionDeclaration that allows Reflect.equals
      * to validate normal class member values.
@@ -1458,7 +1463,7 @@ declare module "transform/createStrictEqualsMember" {
     export function createStrictEqualsMember(classDeclaration: ClassDeclaration): FunctionDeclaration;
 }
 declare module "transform/emptyTransformer" {
-    import { Parser } from "assemblyscript";
+    import { Parser } from "./assemblyscript";
     const _default: {
         new (): {
             /**
@@ -1468,7 +1473,7 @@ declare module "transform/emptyTransformer" {
              * @param {Parser} parser - The AssemblyScript parser.
              */
             afterParse(_: Parser): void;
-            readonly program: import("assemblyscript").Program;
+            readonly program: import("transform/assemblyscript").Program;
             readonly baseDir: string;
             readonly stdout: import("assemblyscript/cli/asc").OutputStream;
             readonly stderr: import("assemblyscript/cli/asc").OutputStream;
@@ -1479,13 +1484,13 @@ declare module "transform/emptyTransformer" {
             writeFile(filename: string, contents: string | Uint8Array, baseDir: string): boolean;
             readFile(filename: string, baseDir: string): string | null;
             listFiles(dirname: string, baseDir: string): string[] | null;
-            afterCompile?(module: import("assemblyscript").Module): void;
+            afterCompile?(module: import("transform/assemblyscript").Module): void;
         };
     };
     export = _default;
 }
 declare module "transform/index" {
-    import { Parser } from "assemblyscript";
+    import { Parser } from "./assemblyscript";
     const _default_1: {
         new (): {
             /**
@@ -1495,7 +1500,7 @@ declare module "transform/index" {
              * @param {Parser} parser - The AssemblyScript parser.
              */
             afterParse(parser: Parser): void;
-            readonly program: import("assemblyscript").Program;
+            readonly program: import("transform/assemblyscript").Program;
             readonly baseDir: string;
             readonly stdout: import("assemblyscript/cli/asc").OutputStream;
             readonly stderr: import("assemblyscript/cli/asc").OutputStream;
@@ -1506,7 +1511,7 @@ declare module "transform/index" {
             writeFile(filename: string, contents: string | Uint8Array, baseDir: string): boolean;
             readFile(filename: string, baseDir: string): string | null;
             listFiles(dirname: string, baseDir: string): string[] | null;
-            afterCompile?(module: import("assemblyscript").Module): void;
+            afterCompile?(module: import("transform/assemblyscript").Module): void;
         };
     };
     export = _default_1;

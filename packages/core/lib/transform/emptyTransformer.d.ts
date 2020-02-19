@@ -1,5 +1,5 @@
 /// <reference types="assemblyscript/dist/assemblyscript" />
-import { Parser } from "assemblyscript";
+import { Parser } from "./assemblyscript";
 declare const _default: {
     new (): {
         /**
@@ -9,7 +9,7 @@ declare const _default: {
          * @param {Parser} parser - The AssemblyScript parser.
          */
         afterParse(_: Parser): void;
-        readonly program: import("assemblyscript").Program;
+        readonly program: import("assemblyscript/src/program").Program;
         readonly baseDir: string;
         readonly stdout: import("assemblyscript/cli/asc").OutputStream;
         readonly stderr: import("assemblyscript/cli/asc").OutputStream;
@@ -20,7 +20,7 @@ declare const _default: {
         writeFile(filename: string, contents: string | Uint8Array, baseDir: string): boolean;
         readFile(filename: string, baseDir: string): string | null;
         listFiles(dirname: string, baseDir: string): string[] | null;
-        afterCompile?(module: import("assemblyscript").Module): void;
+        afterCompile?(module: import("assemblyscript/src/module").Module): void;
     };
 };
 export = _default;

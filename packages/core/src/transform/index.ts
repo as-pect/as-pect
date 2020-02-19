@@ -1,5 +1,5 @@
-import { Transform } from "assemblyscript/cli/transform";
-import { Parser, NodeKind, ClassDeclaration } from "assemblyscript";
+// import { Transform } from "assemblyscript/cli/transform";
+import { Parser, NodeKind, ClassDeclaration, Transform } from "./assemblyscript";
 import { createStrictEqualsMember } from "./createStrictEqualsMember";
 import { createAddHostValueKeyValuePairsMember } from "./createAddHostValueKeyValuePairsMember";
 export = class AspectTransform extends Transform {

@@ -1,4 +1,4 @@
-import { FunctionDeclaration, ClassDeclaration, TypeNode, CommonFlags, ParameterKind, BlockStatement, NodeKind, FieldDeclaration, Statement, Range } from "assemblyscript";
+import { FunctionDeclaration, ClassDeclaration, TypeNode, CommonFlags, ParameterKind, BlockStatement, NodeKind, FieldDeclaration, Statement, Range } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
 
 export function createAddHostValueKeyValuePairsMember(classDeclaration: ClassDeclaration): FunctionDeclaration {

@@ -344,6 +344,11 @@ class D {
   c: f64 = 3.0;
 }
 
+class Empty {
+  s: string;
+  t: Array<A>;
+}
+
 class G<T> {
   constructor(public field: T) {}
 }
@@ -734,6 +739,26 @@ describe("nested structures", () => {
     b.set("three", new Vec3(7, 8, 9));
 
     expect(a).toStrictEqual(b, "maps with similar key value pairs should equal");
+  });
+
+  /**
+   * Test class with unitialized references.
+   */
+  test("classes with unitialized references", () => {
+    let a = new Empty();
+    let b = new Empty();
+
+    expect(a).toStrictEqual(b, "Objects with the same unitialized fields are the same.");
+  });
+
+    /**
+   * Test class with unitialized references.
+   */
+  test("classes with some unitialized references shouldn't not equal others with all unitialized references", () => {
+    let a = new Empty();
+    let b = new Empty();
+    a.s = "hello";
+    expect(a).not.toStrictEqual(b, "Objects with one field different shouldn't be equal");
   });
 
   /**

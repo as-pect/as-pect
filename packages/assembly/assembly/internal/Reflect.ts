@@ -49,9 +49,10 @@ export class Reflect {
    * @param {Map<usize, i32>} seen - A map of pointers to hostObject for caching purposes.
    */
   public static toHostValue<T>(value: T, seen: Map<usize, i32> = new Map<usize, i32>()): i32 {
-    // if the value is null, create a Null host value
-    if (isNullable<T>()) {
-      if (value == null) {
+    // if T is a reference
+    if (isReference<T>()) {
+      // if the value is null, create a Null host value
+      if (changetype<usize>(value) == 0) {
         return createHostValue(
           true,
           false,
@@ -67,10 +68,6 @@ export class Reflect {
           false,
         );
       }
-    }
-
-    // if T is a reference
-    if (isReference<T>()) {
 
       // check the cache for anything that isn't a function
       if (!isFunction<T>()) {
@@ -316,7 +313,7 @@ export class Reflect {
     return 0;
   }
 
-  public static equals<T>(left: T, right: T, stack: usize[] = [], cache: usize[] = []): i32 {
+  public static equals<T>(left: T, right: T, stack: usize[] = [], cache: usize[] = []): i32 { 
     // use `==` operator to work with operator overloads and strings
     if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
 
@@ -333,7 +330,7 @@ export class Reflect {
     // if it's possible for T to be null
     if (isNullable<T>()) {
       // mutual exclusion null
-      if (i32(left == null) ^ i32(right == null)) return Reflect.FAILED_MATCH;
+      if (i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == null)) return Reflect.FAILED_MATCH;
     }
 
     // check every reference that isn't a function reference, because `left == right` suffices

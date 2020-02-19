@@ -1,5 +1,4 @@
-import { Transform } from "assemblyscript/cli/transform";
-import { Parser } from "assemblyscript";
+import {Transform, Parser} from "./assemblyscript";
 
 export = class AspectTransform extends Transform {
   /**
@@ -8,7 +7,6 @@ export = class AspectTransform extends Transform {
    *
    * @param {Parser} parser - The AssemblyScript parser.
    */
-  //@ts-ignore
   afterParse(_: Parser): void {
   }
 }

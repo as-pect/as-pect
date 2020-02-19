@@ -17,11 +17,11 @@ var __extends = (this && this.__extends) || (function () {
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "assemblyscript/cli/transform"], factory);
+        define(["require", "exports", "./assemblyscript"], factory);
     }
 })(function (require, exports) {
     "use strict";
-    var transform_1 = require("assemblyscript/cli/transform");
+    var assemblyscript_1 = require("./assemblyscript");
     return /** @class */ (function (_super) {
         __extends(AspectTransform, _super);
         function AspectTransform() {
@@ -33,10 +33,9 @@ var __extends = (this && this.__extends) || (function () {
          *
          * @param {Parser} parser - The AssemblyScript parser.
          */
-        //@ts-ignore
         AspectTransform.prototype.afterParse = function (_) {
         };
         return AspectTransform;
-    }(transform_1.Transform));
+    }(assemblyscript_1.Transform));
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW1wdHlUcmFuc2Zvcm1lci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy90cmFuc2Zvcm0vZW1wdHlUcmFuc2Zvcm1lci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQUFBLDBEQUF5RDtJQUd6RDtRQUF1QyxtQ0FBUztRQUF2Qzs7UUFVVCxDQUFDO1FBVEM7Ozs7O1dBS0c7UUFDSCxZQUFZO1FBQ1osb0NBQVUsR0FBVixVQUFXLENBQVM7UUFDcEIsQ0FBQztRQUNILHNCQUFDO0lBQUQsQ0FBQyxBQVZRLENBQThCLHFCQUFTLEdBVS9DIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW1wdHlUcmFuc2Zvcm1lci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy90cmFuc2Zvcm0vZW1wdHlUcmFuc2Zvcm1lci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQUFBLG1EQUFtRDtJQUVuRDtRQUF1QyxtQ0FBUztRQUF2Qzs7UUFTVCxDQUFDO1FBUkM7Ozs7O1dBS0c7UUFDSCxvQ0FBVSxHQUFWLFVBQVcsQ0FBUztRQUNwQixDQUFDO1FBQ0gsc0JBQUM7SUFBRCxDQUFDLEFBVFEsQ0FBOEIsMEJBQVMsR0FTL0MifQ==

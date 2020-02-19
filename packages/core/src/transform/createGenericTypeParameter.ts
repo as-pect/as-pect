@@ -1,4 +1,4 @@
-import { Range, TypeNode } from "assemblyscript";
+import { Range, TypeNode } from "./assemblyscript";
 /**
  * This method makes a generic named parameter.
  *
