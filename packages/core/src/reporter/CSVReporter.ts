@@ -5,7 +5,6 @@ import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
 import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
-import { stringifyHostValue } from "./util/stringifyHostValue";
 
 /**
  * @ignore
@@ -66,8 +65,8 @@ export default class CSVReporter extends TestReporter {
       result.pass ? "PASS" : "FAIL",
       result.runTime.toString(),
       result.message,
-      result.actual ? stringifyHostValue(result.actual, 0) : "",
-      result.expected ? stringifyHostValue(result.expected, 0) : "",
+      result.actual ? result.actual.stringify({ indent: 0 }) : "",
+      result.expected ? result.expected.stringify({ indent: 0 }) : "",
       result.hasAverage ? result.average.toString() : "",
       result.hasMedian ? result.median.toString() : "",
       result.hasMax ? result.max.toString() : "",

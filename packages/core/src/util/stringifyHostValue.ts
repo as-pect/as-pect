@@ -1,34 +1,52 @@
-import { HostValue } from "../../util/HostValue";
+import { HostValue } from "./HostValue";
 import { HostValueType } from "@as-pect/assembly/assembly/internal/HostValueType";
 import chalk from "chalk";
 
-class StringifyHostValueContext {
+class StringifyContext {
   public level: number = 0;
   public impliedTypeInfo: boolean = false;
 
   public seen: WeakSet<HostValue> = new WeakSet<HostValue>();
 
-  public keywordColor = (input: string) => chalk`{yellow ${input}}`;
-  public stringColor = (input: string) => chalk`{cyan ${input}}`;
-  public classNameColor = (input: string) => chalk`{green ${input}}`;
-  public numberColor = (input: string) => chalk`{white ${input}}`;
+  public keywordColor: (prop: string) => string = chalk.yellow;
+  public stringColor: (prop: string) => string = chalk.cyan;
+  public classNameColor: (prop: string) => string = chalk.green;
+  public numberColor: (prop: string) => string = chalk.white;
 
-  public constructor(
-    public indent: number = 0,
-    public maxPropertyCount: number = 50,
-    public tab: number = 4,
-  ) {}
+  public indent: number = 0;
+  public maxPropertyCount: number = 50;
+  public tab: number = 4;
+  public constructor() {}
 }
 
-export function stringifyHostValue(hostValue: HostValue, indent: number): string {
+export type StringifyHostValueProps = {
+  keywordColor: (prop: string) => string;
+  stringColor: (prop: string) => string;
+  classNameColor: (prop: string) => string;
+  numberColor: (prop: string) => string;
+  indent: number;
+  tab: number;
+  maxPropertyCount: number;
+};
+
+export function stringifyHostValue(hostValue: HostValue, props: Partial<StringifyHostValueProps>): string {
+  const context = new StringifyContext();
+  context.keywordColor = props.keywordColor ?? context.keywordColor;
+  context.stringColor = props.stringColor ?? context.stringColor;
+  context.classNameColor = props.classNameColor ?? context.classNameColor;
+  context.numberColor = props.numberColor ?? context.numberColor;
+  context.indent = props.indent ?? context.indent;
+  context.tab = props.tab ?? context.tab;
+  context.maxPropertyCount = props.maxPropertyCount ?? context.maxPropertyCount;
+
   return formatters[formatterIndexFor(hostValue.type, HostValueFormatType.Expanded)](
     hostValue,
-    new StringifyHostValueContext(indent),
+    context,
   );
 }
 
 
-type HostNameTypeFormatter = (hostValue: HostValue, ctx: StringifyHostValueContext) => string;
+type HostNameTypeFormatter = (hostValue: HostValue, ctx: StringifyContext) => string;
 
 const enum HostValueFormatType {
   Expanded = 0,
@@ -52,11 +70,11 @@ formatters[formatterIndexFor(HostValueType.Truthy, HostValueFormatType.Expanded)
 const finiteFormatter = (hostValue: HostValue) => `${hostValue.negated ? "Not " : ""}Finite`;
 formatters[formatterIndexFor(HostValueType.Finite, HostValueFormatType.Expanded)] = finiteFormatter;
 
-function displayBooleanNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayBooleanNoSpacing(hostValue: HostValue, ctx: StringifyContext): string {
   return ctx.keywordColor(hostValue.value === 1 ? "true" : "false");
 }
 
-function displayBooleanWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayBooleanWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
   return " ".repeat(ctx.indent + ctx.tab * ctx.level) + ctx.keywordColor(hostValue.value === 1 ? "true" : "false");
 }
 
@@ -66,11 +84,11 @@ formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Inline)]
 formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Key)] = displayBooleanWithSpacing;
 formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Value)] = displayBooleanNoSpacing;
 
-function displayClassNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayClassNoSpacing(hostValue: HostValue, ctx: StringifyContext): string {
   return ctx.classNameColor(`[${hostValue.typeName}]`);
 }
 
-function displayNumberWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayNumberWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
   let numericString = hostValue.value.toString();
   if (hostValue.type === HostValueType.Float && !(/\.[0-9]/.test(numericString))) {
     numericString += ".0";
@@ -81,7 +99,7 @@ function displayNumberWithSpacing(hostValue: HostValue, ctx: StringifyHostValueC
   return " ".repeat(ctx.indent + ctx.level * ctx.tab) + `${ctx.numberColor(numericString)} ${ctx.keywordColor("as")} ${ctx.classNameColor(hostValue.typeName!)}`;
 }
 
-function displayNumberNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayNumberNoSpacing(hostValue: HostValue, ctx: StringifyContext): string {
   let numericString = hostValue.value.toString();
   if (hostValue.type === HostValueType.Float && !(/\.[0-9]/.test(numericString))) {
     numericString += ".0";
@@ -104,15 +122,15 @@ formatters[formatterIndexFor(HostValueType.Integer, HostValueFormatType.Inline)]
 formatters[formatterIndexFor(HostValueType.Integer, HostValueFormatType.Key)] = displayNumberWithSpacing;
 formatters[formatterIndexFor(HostValueType.Integer, HostValueFormatType.Value)] = displayNumberNoSpacing;
 
-function displayStringNoSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayStringNoSpacing(hostValue: HostValue, ctx: StringifyContext): string {
   return ctx.stringColor(`"${hostValue.value.toString().replace(/"/g, '\\"')}"`);
 }
 
-function displayStringWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayStringWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
   return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.stringColor(`"${hostValue.value.toString().replace(/"/g, '\\"')}"`);
 }
 
-function displayNoQuoteStringWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayNoQuoteStringWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
   return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.stringColor(`${hostValue.value.toString().replace(/"/g, '\\"')}`);
 }
 
@@ -122,17 +140,17 @@ formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Inline)] 
 formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Key)] = displayNoQuoteStringWithSpacing;
 formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Value)] = displayStringNoSpacing;
 
-function displayFunctionExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayFunctionExpanded(hostValue: HostValue, ctx: StringifyContext): string {
   return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.classNameColor(`[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`);
 }
 
-const displayFuncNoNameNoPointer = (_: HostValue, ctx: StringifyHostValueContext) => ctx.classNameColor("[Function]");
+const displayFuncNoNameNoPointer = (_: HostValue, ctx: StringifyContext) => ctx.classNameColor("[Function]");
 
-function displayFunctionKey(_: HostValue, ctx: StringifyHostValueContext): string {
+function displayFunctionKey(_: HostValue, ctx: StringifyContext): string {
   return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.classNameColor(`[Function]`);
 }
 
-function displayFunctionValue(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayFunctionValue(hostValue: HostValue, ctx: StringifyContext): string {
   return ctx.classNameColor(`[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`);
 }
 
@@ -143,7 +161,7 @@ formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Inline)
 formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Key)] = displayFunctionKey;
 formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Value)] = displayFunctionValue;
 
-function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayClassExpanded(hostValue: HostValue, ctx: StringifyContext): string {
   const spacing = " ".repeat(ctx.level * ctx.tab + ctx.indent);
   if (ctx.seen.has(hostValue)) return spacing + ctx.classNameColor("[Circular Reference]");
   ctx.impliedTypeInfo = false;
@@ -184,7 +202,7 @@ function displayClassExpanded(hostValue: HostValue, ctx: StringifyHostValueConte
   return `${spacing}${ctx.classNameColor(`${hostValue.typeName}`)} {${body}${spacing}}`;
 }
 
-function displayClassWithSpacing(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayClassWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
   return `${" ".repeat(ctx.level * ctx.tab + ctx.indent)}${ctx.classNameColor(`[${hostValue.typeName}]`)}`;
 }
 
@@ -194,7 +212,7 @@ formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Inline)] =
 formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Key)] = displayClassWithSpacing;
 formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Value)] = displayClassExpanded;
 
-function displayArrayExpanded(hostValue: HostValue, ctx: StringifyHostValueContext): string {
+function displayArrayExpanded(hostValue: HostValue, ctx: StringifyContext): string {
   const spacing = " ".repeat(ctx.level * ctx.tab + ctx.indent);
   if (ctx.seen.has(hostValue)) return spacing + ctx.classNameColor("[Circular Reference]");
 

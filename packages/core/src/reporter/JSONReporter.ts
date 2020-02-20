@@ -4,7 +4,6 @@ import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
 import { TestGroup } from "../test/TestGroup";
 import { TestResult } from "../test/TestResult";
-import { stringifyHostValue } from "./util/stringifyHostValue";
 
 /**
  * This class reports all relevant test statistics to a JSON file located at
@@ -46,8 +45,8 @@ export default class JSONReporter extends TestReporter {
           pass: result.pass,
           runtime: result.runTime,
           message: result.message,
-          actual: result.actual ? stringifyHostValue(result.actual, 0) : null,
-          expected: result.expected ? stringifyHostValue(result.expected, 0) : null,
+          actual: result.actual ? result.actual.stringify({ indent: 0 }) : null,
+          expected: result.expected ? result.expected.stringify({ indent: 0 }) : null,
           average: result.average,
           median: result.median,
           max: result.max,
