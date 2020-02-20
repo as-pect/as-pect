@@ -179,7 +179,7 @@ export class Reflect {
 
           let mapValue = value.get(mapKey);
           let hostValueID = Reflect.toHostValue(mapValue, seen);
-          __aspectPushHostObjectKey(hostObject, hostValueID);
+          __aspectPushHostObjectValue(hostObject, hostValueID);
         }
 
         return hostObject;
@@ -195,7 +195,7 @@ export class Reflect {
           changetype<usize>(value),
           false,
           length,
-          HostValueType.TypedArray,
+          value instanceof Array ? HostValueType.Array : HostValueType.TypedArray,
           idof<T>(),
           nameof<T>(),
           0,

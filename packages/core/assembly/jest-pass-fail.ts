@@ -122,6 +122,10 @@ describe("pass-fail", () => {
     expect(3.14).toBeFinite();
   });
 
+  it ("should report not finite values", () => {
+    expect(NaN).not.toBeFinite();
+  });
+
   it("should report f32 values", () => {
     expect(<f32>3.14).toBe(3.14);
   });

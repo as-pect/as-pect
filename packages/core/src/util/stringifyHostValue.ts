@@ -15,8 +15,9 @@ class StringifyContext {
 
   public indent: number = 0;
   public maxPropertyCount: number = 50;
+  public maxLineLength: number = 80;
+  public maxExpandLevel: number = 3;
   public tab: number = 4;
-  public constructor() {}
 }
 
 export type StringifyHostValueProps = {
@@ -27,6 +28,8 @@ export type StringifyHostValueProps = {
   indent: number;
   tab: number;
   maxPropertyCount: number;
+  maxLineLength: number;
+  maxExpandLevel: number;
 };
 
 export function stringifyHostValue(
@@ -263,22 +266,6 @@ function displayFunctionExpanded(
 const displayFuncNoNameNoPointer = (_: HostValue, ctx: StringifyContext) =>
   ctx.classNameFormatter("[Function]");
 
-function displayFunctionKey(_: HostValue, ctx: StringifyContext): string {
-  return (
-    " ".repeat(ctx.indent + ctx.level * ctx.tab) +
-    ctx.classNameFormatter(`[Function]`)
-  );
-}
-
-function displayFunctionValue(
-  hostValue: HostValue,
-  ctx: StringifyContext,
-): string {
-  return ctx.classNameFormatter(
-    `[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`,
-  );
-}
-
 // Functions
 formatters[
   formatterIndexFor(HostValueType.Function, HostValueFormatType.Expanded)
@@ -288,10 +275,10 @@ formatters[
 ] = displayFuncNoNameNoPointer;
 formatters[
   formatterIndexFor(HostValueType.Function, HostValueFormatType.Key)
-] = displayFunctionKey;
+] = displayFunctionExpanded;
 formatters[
   formatterIndexFor(HostValueType.Function, HostValueFormatType.Value)
-] = displayFunctionValue;
+] = displayFunctionExpanded;
 
 function displayClassExpanded(
   hostValue: HostValue,
@@ -310,26 +297,27 @@ function displayClassExpanded(
   ctx.seen.add(hostValue);
   let body = "\n";
   ctx.level += 1;
-  const length = Math.min(hostValue.keys!.length, ctx.maxPropertyCount);
-  for (let i = 0; i < length; i++) {
+  const length = hostValue.keys!.length;
+  const displayCount = Math.min(length, ctx.maxPropertyCount);
+  for (let i = 0; i < displayCount; i++) {
     const key = hostValue.keys![i];
     const keyString = formatters[
       formatterIndexFor(key.type, HostValueFormatType.Key)
     ](key, ctx);
     const value = hostValue.values![i];
     const valueString =
-      ctx.level < 5
+      ctx.level < ctx.maxExpandLevel
         ? // render expanded value, but trim the whitespace on the left side
           formatters[
             formatterIndexFor(value.type, HostValueFormatType.Expanded)
           ](value, ctx).trimLeft()
         : // render value
-          formatters[formatterIndexFor(value.type, HostValueFormatType.Value)](
+          formatters[formatterIndexFor(value.type, HostValueFormatType.Inline)](
             value,
             ctx,
           );
 
-    if (i === length - 1) {
+    if (i === displayCount - 1) {
       // remove last trailing comma
       body += `${keyString}: ${valueString}\n`;
     } else {
@@ -383,12 +371,12 @@ function displayArrayExpanded(
   const previousImpliedTypeInfo = ctx.impliedTypeInfo;
   ctx.impliedTypeInfo = true;
 
-  if (ctx.level < 5 && hostValue.type === HostValueType.Array) {
+  if (ctx.level < ctx.maxExpandLevel && hostValue.type === HostValueType.Array) {
     // expanded only for arrays
     let body = "\n";
     ctx.level += 1;
     const length = Math.min(hostValue.values!.length, ctx.maxPropertyCount);
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < length && i < ctx.maxPropertyCount; i++) {
       const value = hostValue.values![i];
 
       // render expanded value, but trim the whitespace on the left side
@@ -402,7 +390,7 @@ function displayArrayExpanded(
         body += `${valueString},\n`;
       }
     }
-    if (length > ctx.maxPropertyCount)
+    if (length >= ctx.maxPropertyCount)
       body += `${spacing}... +${length - ctx.maxPropertyCount} values`;
     ctx.level -= 1;
     ctx.impliedTypeInfo = previousImpliedTypeInfo;
@@ -416,6 +404,7 @@ function displayArrayExpanded(
     let body = spacing;
     if (!previousImpliedTypeInfo)
       body += ctx.classNameFormatter(hostValue.typeName!) + " ";
+
     body += "[";
     let i = 0;
     let length = hostValue.values!.length;
@@ -426,7 +415,7 @@ function displayArrayExpanded(
           value,
           ctx,
         ) + ", ";
-      if (body.length > 80) {
+      if (body.length > ctx.maxLineLength) {
         break;
       }
       body += result;
@@ -481,3 +470,17 @@ formatters[
 formatters[
   formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Value)
 ] = displayArrayExpanded;
+
+// Map
+formatters[
+  formatterIndexFor(HostValueType.Map, HostValueFormatType.Expanded)
+] = displayClassExpanded;
+formatters[
+  formatterIndexFor(HostValueType.Map, HostValueFormatType.Inline)
+] = displayClassNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Map, HostValueFormatType.Key)
+] = displayClassWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Map, HostValueFormatType.Value)
+] = displayClassExpanded;

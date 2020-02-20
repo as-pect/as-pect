@@ -21,6 +21,9 @@ beforeEach(() => start);
 const stringifyOptions: Partial<StringifyHostValueProps> = {
   indent: 2,
   tab: 4,
+  maxLineLength: 80,
+  maxPropertyCount: 10,
+  maxExpandLevel: 3,
   classNameFormatter: name => "class: " + name,
   keywordFormatter: keyword => "keyword: " + keyword,
   numberFormatter: number => "number: " + number,

@@ -22,6 +22,7 @@ declare module "util/stringifyHostValue" {
         indent: number;
         tab: number;
         maxPropertyCount: number;
+        maxLineLength: number;
     };
     export function stringifyHostValue(hostValue: HostValue, props: Partial<StringifyHostValueProps>): string;
 }

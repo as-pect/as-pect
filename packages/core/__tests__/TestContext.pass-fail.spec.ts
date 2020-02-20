@@ -1,5 +1,6 @@
 import { TestContext } from "../src/test/TestContext";
 import { createPassFailModule } from "./setup/createPassFailModule";
+import { StringifyHostValueProps } from "../src/util/stringifyHostValue";
 
 let ctx: TestContext;
 
@@ -16,6 +17,18 @@ let start = new Promise<void>((resolve, reject) => {
 });
 
 beforeAll(() => start);
+
+const stringifyOptions: Partial<StringifyHostValueProps> = {
+  indent: 2,
+  tab: 4,
+  maxLineLength: 80,
+  maxPropertyCount: 10,
+  maxExpandLevel: 3,
+  classNameFormatter: name => "class: " + name,
+  keywordFormatter: keyword => "keyword: " + keyword,
+  numberFormatter: number => "number: " + number,
+  stringFormatter: str => "string: " + str,
+};
 
 describe("pass-fail output", () => {
   test("Overall Statistics", () => {
@@ -42,7 +55,9 @@ describe("pass-fail output", () => {
         test(`Test: ${groupTest.name}`, () => {
           expect(groupTest.pass).toMatchSnapshot(`pass`);
           expect(groupTest.actual).toMatchSnapshot("actual");
+          if (groupTest.actual) expect(groupTest.actual.stringify(stringifyOptions)).toMatchSnapshot("actual-stringify");
           expect(groupTest.expected).toMatchSnapshot("expected");
+          if (groupTest.expected) expect(groupTest.expected.stringify(stringifyOptions)).toMatchSnapshot("expected-stringify");
           expect(groupTest.message).toMatchSnapshot(`message`);
           expect(groupTest.negated).toMatchSnapshot(`negated`);
         });

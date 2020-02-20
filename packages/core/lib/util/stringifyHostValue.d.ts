@@ -7,5 +7,6 @@ export declare type StringifyHostValueProps = {
     indent: number;
     tab: number;
     maxPropertyCount: number;
+    maxLineLength: number;
 };
 export declare function stringifyHostValue(hostValue: HostValue, props: Partial<StringifyHostValueProps>): string;
