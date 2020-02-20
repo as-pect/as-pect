@@ -162,7 +162,7 @@ class NestedTypeImpliedArrayB {
 }
 
 class NestedTypeImpliedArrayC {
-  c: u8[][] = [];
+  c: u8[][] = [[<u8>0]];
 }
 
 
@@ -241,14 +241,23 @@ describe("logs", () => {
 
     log(new NestedForInlineU8A());
 
-    log(new NestedForInlineBoolA());
+    log(new NestedForInlineBoolA()); // truee for inline position
 
-    let falseTester = new NestedForInlineBoolA();
+    let falseTester = new NestedForInlineBoolA(); // false for inlined position
     falseTester.a.b.c = false;
+    log(falseTester);
 
-    let nestedTypeImpliedArray = new NestedTypeImpliedArrayA();
-    nestedTypeImpliedArray.a.b.c.push([<u8>0]);
-    log(nestedTypeImpliedArray);
+    log(new NestedTypeImpliedArrayA()); // type info is implied in inline position
+    log(new NestedTypeImpliedArrayC()); // type info is implied in expanded position
+
+    let lotsOfFieldsArray = new Array<LotsOfFields>(); // implied type information for class display
+    for (let i = 0; i < 4; i++)
+      lotsOfFieldsArray.push(new LotsOfFields());
+    log(lotsOfFieldsArray);
+
+    let anotherFieldsArray = new Array<LotsOfFields | null>(); // implied type information on null output
+    anotherFieldsArray.push(null);
+    log(anotherFieldsArray);
   });
 
   todo("one");

@@ -110,20 +110,32 @@ describe("pass-fail", () => {
     expect<(i: i32) => i32>(func).toBe(otherFunc);
   });
 
+  it("should report not truthy values", () => {
+    expect(true).not.toBeTruthy();
+  });
+
   it("should report truthy values", () => {
-    expect(true).toBeTruthy();
+    expect(false).toBeTruthy();
+  });
+
+  it("should report not falsy values", () => {
+    expect(false).not.toBeFalsy();
   });
 
   it("should report falsy values", () => {
-    expect(false).toBeFalsy();
+    expect(true).toBeFalsy();
   });
 
   it("should report finite values", () => {
     expect(3.14).toBeFinite();
   });
 
-  it ("should report not finite values", () => {
-    expect(NaN).not.toBeFinite();
+  it("should report finite values", () => {
+    expect(NaN).toBeFinite();
+  });
+
+  it("should report finite values", () => {
+    expect(3.0).not.toBeFinite();
   });
 
   it("should report f32 values", () => {

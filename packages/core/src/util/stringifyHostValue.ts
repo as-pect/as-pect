@@ -37,14 +37,20 @@ export function stringifyHostValue(
   props: Partial<StringifyHostValueProps>,
 ): string {
   const context = new StringifyContext();
-  context.keywordFormatter = props.keywordFormatter ?? context.keywordFormatter;
-  context.stringFormatter = props.stringFormatter ?? context.stringFormatter;
-  context.classNameFormatter =
-    props.classNameFormatter ?? context.classNameFormatter;
-  context.numberFormatter = props.numberFormatter ?? context.numberFormatter;
-  context.indent = props.indent ?? context.indent;
-  context.tab = props.tab ?? context.tab;
-  context.maxPropertyCount = props.maxPropertyCount ?? context.maxPropertyCount;
+  /* istanbul ignore next */
+  if (props.keywordFormatter) context.keywordFormatter = props.keywordFormatter;
+  /* istanbul ignore next */
+  if (props.stringFormatter) context.stringFormatter = props.stringFormatter;
+  /* istanbul ignore next */
+  if (props.classNameFormatter) context.classNameFormatter = props.classNameFormatter;
+  /* istanbul ignore next */
+  if (props.numberFormatter) context.numberFormatter = props.numberFormatter;
+  /* istanbul ignore next */
+  if (typeof props.indent === "number") context.indent = props.indent;
+  /* istanbul ignore next */
+  if (typeof props.tab === "number") context.tab = props.tab;
+  /* istanbul ignore next */
+  if (typeof props.maxPropertyCount === "number") context.maxPropertyCount = props.maxPropertyCount;
 
   return formatters[
     formatterIndexFor(hostValue.type, HostValueFormatType.Expanded)
@@ -64,6 +70,7 @@ const enum HostValueFormatType {
 }
 
 const formatters: HostNameTypeFormatter[] = [];
+/* istanbul ignore next */
 const emptyFormatter = () => "";
 for (let i = 0; i < 14 * 4; i++) formatters.push(emptyFormatter);
 
@@ -287,11 +294,15 @@ function displayClassExpanded(
   const spacing = " ".repeat(ctx.level * ctx.tab + ctx.indent);
   if (ctx.seen.has(hostValue))
     return spacing + ctx.classNameFormatter("[Circular Reference]");
-  ctx.impliedTypeInfo = false;
+
   const previousImpliedTypeInfo = ctx.impliedTypeInfo;
+  ctx.impliedTypeInfo = false;
   if (hostValue.isNull) {
-    if (previousImpliedTypeInfo) return `${spacing}null`;
-    return `${spacing}${ctx.classNameFormatter(`<${hostValue.typeName}>`)}null`;
+    if (previousImpliedTypeInfo) {
+      return `${spacing}null`;
+    } else {
+      return `${spacing}${ctx.classNameFormatter(`<${hostValue.typeName}>`)}null`;
+    }
   }
 
   ctx.seen.add(hostValue);
@@ -330,10 +341,13 @@ function displayClassExpanded(
   ctx.level -= 1;
   ctx.impliedTypeInfo = previousImpliedTypeInfo;
   ctx.seen.delete(hostValue);
-  if (previousImpliedTypeInfo) return `${spacing}{${body}${spacing}}`;
-  return `${spacing}${ctx.classNameFormatter(
-    hostValue.typeName!,
-  )} {${body}${spacing}}`;
+  if (previousImpliedTypeInfo) {
+    return `${spacing}{${body}${spacing}}`;
+  } else {
+    return `${spacing}${ctx.classNameFormatter(
+      hostValue.typeName!,
+    )} {${body}${spacing}}`;
+  }
 }
 
 function displayClassWithSpacing(
