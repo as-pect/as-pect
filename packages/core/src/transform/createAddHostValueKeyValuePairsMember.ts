@@ -1,11 +1,27 @@
-import { FunctionDeclaration, ClassDeclaration, TypeNode, CommonFlags, ParameterKind, BlockStatement, NodeKind, FieldDeclaration, Statement, Range } from "./assemblyscript";
+import {
+  FunctionDeclaration,
+  ClassDeclaration,
+  TypeNode,
+  CommonFlags,
+  ParameterKind,
+  BlockStatement,
+  NodeKind,
+  FieldDeclaration,
+  Statement,
+  Range,
+} from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
 
-export function createAddHostValueKeyValuePairsMember(classDeclaration: ClassDeclaration): FunctionDeclaration {
+export function createAddHostValueKeyValuePairsMember(
+  classDeclaration: ClassDeclaration,
+): FunctionDeclaration {
   const range = classDeclaration.name.range;
   // __aspectAddHostValueKeyValuePairs(hostObject: i32, seen: Map<usize, i32>): void
   return TypeNode.createMethodDeclaration(
-    TypeNode.createIdentifierExpression("__aspectAddHostValueKeyValuePairs", range),
+    TypeNode.createIdentifierExpression(
+      "__aspectAddHostValueKeyValuePairs",
+      range,
+    ),
     null,
     TypeNode.createFunctionType(
       [
@@ -47,26 +63,42 @@ export function createAddHostValueKeyValuePairsMember(classDeclaration: ClassDec
     ),
     createAddHostValueKeyValuePairsFunctionBody(classDeclaration),
     null,
-    CommonFlags.PUBLIC | CommonFlags.INSTANCE | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
-    range
+    CommonFlags.PUBLIC |
+      CommonFlags.INSTANCE |
+      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+    range,
   );
 }
 
-function createAddHostValueKeyValuePairsFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
+function createAddHostValueKeyValuePairsFunctionBody(
+  classDeclaration: ClassDeclaration,
+): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
 
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, and it isn't marked private or protected
-    if (member.is(CommonFlags.INSTANCE) && !member.is(CommonFlags.PRIVATE | CommonFlags.PROTECTED)) {
+    if (
+      member.is(CommonFlags.INSTANCE) &&
+      !member.is(CommonFlags.PRIVATE | CommonFlags.PROTECTED)
+    ) {
       switch (member.kind) {
-
         // field declarations automatically get added
         case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
-          body.push(createPushHostObjectKeyStatement(member.name.text, fieldDeclaration.range));
-          body.push(createPushHostObjectValueStatement(member.name.text, fieldDeclaration.range));
+          body.push(
+            createPushHostObjectKeyStatement(
+              member.name.text,
+              fieldDeclaration.range,
+            ),
+          );
+          body.push(
+            createPushHostObjectValueStatement(
+              member.name.text,
+              fieldDeclaration.range,
+            ),
+          );
           break;
         }
 
@@ -74,8 +106,18 @@ function createAddHostValueKeyValuePairsFunctionBody(classDeclaration: ClassDecl
         case NodeKind.FUNCTIONDECLARATION: {
           if (member.is(CommonFlags.GET)) {
             const functionDeclaration = <FunctionDeclaration>member;
-            body.push(createPushHostObjectKeyStatement(functionDeclaration.name.text, functionDeclaration.range));
-            body.push(createPushHostObjectValueStatement(functionDeclaration.name.text, functionDeclaration.range));
+            body.push(
+              createPushHostObjectKeyStatement(
+                functionDeclaration.name.text,
+                functionDeclaration.range,
+              ),
+            );
+            body.push(
+              createPushHostObjectValueStatement(
+                functionDeclaration.name.text,
+                functionDeclaration.range,
+              ),
+            );
           }
           break;
         }
@@ -87,7 +129,10 @@ function createAddHostValueKeyValuePairsFunctionBody(classDeclaration: ClassDecl
 }
 
 // __aspectPushHostObjectKey
-function createPushHostObjectKeyStatement(name: string, range: Range): Statement {
+function createPushHostObjectKeyStatement(
+  name: string,
+  range: Range,
+): Statement {
   // __aspectPushHostObjectKey(hostObject, Reflect.toHostValue("propertyName", seen));
   return TypeNode.createExpressionStatement(
     TypeNode.createCallExpression(
@@ -113,13 +158,14 @@ function createPushHostObjectKeyStatement(name: string, range: Range): Statement
         ),
       ],
       range,
-    )
+    ),
   );
 }
 
-
-function createPushHostObjectValueStatement(name: string, range: Range): Statement {
-
+function createPushHostObjectValueStatement(
+  name: string,
+  range: Range,
+): Statement {
   // __aspectPushHostObjectValue(hostObject, Reflect.toHostValue(this.propertyName, seen));
   return TypeNode.createExpressionStatement(
     // __aspectPushHostObjectValue(hostObject, Reflect.toHostValue(this.propertyName, seen))
@@ -153,6 +199,6 @@ function createPushHostObjectValueStatement(name: string, range: Range): Stateme
         ),
       ],
       range,
-    )
+    ),
   );
 }

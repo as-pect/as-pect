@@ -27,9 +27,8 @@ var __extends = (this && this.__extends) || (function () {
         function AspectTransform() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
-        AspectTransform.prototype.afterParse = function (_) {
-        };
+        AspectTransform.prototype.afterParse = function (_) { };
         return AspectTransform;
     }(assemblyscript_1.Transform));
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW1wdHlUcmFuc2Zvcm1lci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy90cmFuc2Zvcm0vZW1wdHlUcmFuc2Zvcm1lci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQUFBLG1EQUFxRDtJQUtyRDtRQUF1QyxtQ0FBUztRQUF2Qzs7UUFHVCxDQUFDO1FBRkMsb0NBQVUsR0FBVixVQUFXLENBQVM7UUFDcEIsQ0FBQztRQUNILHNCQUFDO0lBQUQsQ0FBQyxBQUhRLENBQThCLDBCQUFTLEdBRy9DIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW1wdHlUcmFuc2Zvcm1lci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy90cmFuc2Zvcm0vZW1wdHlUcmFuc2Zvcm1lci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQUFBLG1EQUFxRDtJQUtyRDtRQUF1QyxtQ0FBUztRQUF2Qzs7UUFFVCxDQUFDO1FBREMsb0NBQVUsR0FBVixVQUFXLENBQVMsSUFBUyxDQUFDO1FBQ2hDLHNCQUFDO0lBQUQsQ0FBQyxBQUZRLENBQThCLDBCQUFTLEdBRTlDIn0=

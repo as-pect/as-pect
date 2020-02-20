@@ -17,15 +17,14 @@
 		"assemblyscript"
 	],
 	"scripts": {
-		"jest": "jest",
-		"mdlint": "markdownlint *.md",
 		"prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
 		"rimraf": "rimraf lib/*",
-		"test:ci": "run-s jest mdlint",
-		"test": "run-s jest mdlint",
+		"test:ci": "jest",
+		"test": "jest",
 		"tsc:all": "run-p tsc:default tsc:amd",
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
 		"tsc:default": "tsc",
+		"test:update-snapshots": "jest -u",
 		"tsc": "run-s prettier rimraf tsc:all"
 	},
 	"bugs": {

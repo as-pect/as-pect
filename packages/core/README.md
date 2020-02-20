@@ -556,8 +556,11 @@ afterEach(() => {
 ### RTrace.typeIdOf(pointer: usize)
 
 <!-- markdownlint-disable MD013 -->
+
 Assemblyscript uses [unique class id to recognize a managed type](https://docs.assemblyscript.org/details/runtime#allocating-managed-objects).
+
 <!-- markdownlint-enable MD013 -->
+
 This method returns the class id of managed object of a pointer.
 
 ```ts
@@ -566,8 +569,11 @@ it("should return a correct type id of a pointer", () => {
   expect<i32>(RTrace.typeIdOf(ptr)).toBe(idof<Vec3>());
 });
 ```
+
 <!-- markdownlint-disable MD033 -->
+
 ### RTrace.typeIdOfReference<T>(reference: T)
+
 <!-- markdownlint-enable MD033 -->
 
 This method does exactly the same thing as `RTrace.typeIdOf`,
@@ -581,9 +587,13 @@ it("should return a correct type id of a reference", () => {
 ```
 
 ### RTrace.sizeOf(pointer: usize)
+
 <!-- markdownlint-disable MD013 -->
+
 Assemblyscript uses [rtSize](https://docs.assemblyscript.org/details/memory#common-header-layout) to store the size of the data.
+
 <!-- markdownlint-enable MD013 -->
+
 This method returns the size of the data pointed by a pointer.
 
 ```ts
@@ -592,8 +602,11 @@ it("should return a correct size of a pointer", () => {
   expect<i32>(RTrace.sizeOf(ptr)).toBe(offsetof<Vec3>());
 });
 ```
+
 <!-- markdownlint-disable MD033 -->
+
 ### RTrace.sizeOfReference<T>(reference: T)
+
 <!-- markdownlint-enable MD033 -->
 
 This method does exactly the same thing as `RTrace.sizeOf`,
@@ -609,12 +622,17 @@ it("should return a correct size of a reference", () => {
 ### RTrace.refCountOf(ptr: usize)
 
 <!-- markdownlint-disable MD013 -->
+
 Assemblyscript uses [gcInfo](https://docs.assemblyscript.org/details/memory#common-header-layout) to store the reference count.
+
 <!-- markdownlint-enable MD013 -->
+
 This method returns that of a pointer.
 
 <!-- markdownlint-disable MD033 -->
+
 ### RTrace.refCountOfReference<T>(reference: T)
+
 <!-- markdownlint-enable MD033 -->
 
 This method does exactly the same thing as `RTrace.refCountOfReference`,
