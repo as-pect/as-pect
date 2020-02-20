@@ -1,5 +1,6 @@
 import { TestContext } from "../src/test/TestContext";
 import { createLogModule } from "./setup/createLogModule";
+import { StringifyHostValueProps } from "../src/util/stringifyHostValue";
 
 let ctx: TestContext;
 
@@ -16,6 +17,15 @@ let start = new Promise<void>((resolve, reject) => {
 });
 
 beforeEach(() => start);
+
+const stringifyOptions: Partial<StringifyHostValueProps> = {
+  indent: 2,
+  tab: 4,
+  classNameColor: (name) => "class: " + name,
+  keywordColor: (keyword) => "keyword: " + keyword,
+  numberColor: (number) => "number: " + number,
+  stringColor: (str) => "string: " + str,
+};
 
 describe("log output", () => {
   test("Overall Statistics", () => {});
@@ -35,6 +45,7 @@ describe("log output", () => {
         test(`Test: ${groupTest.name}`, () => {
           for (const log of groupTest.logs) {
             expect(log).toMatchSnapshot("log");
+            expect(log.stringify(stringifyOptions)).toMatchSnapshot("stringify");
           }
           expect(groupTest.pass).toBeTruthy();
         });

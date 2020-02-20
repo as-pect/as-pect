@@ -12,24 +12,39 @@ declare module "test/IWarning" {
         stackTrace: string;
     }
 }
+declare module "util/stringifyHostValue" {
+    import { HostValue } from "util/HostValue";
+    export type StringifyHostValueProps = {
+        keywordColor: (prop: string) => string;
+        stringColor: (prop: string) => string;
+        classNameColor: (prop: string) => string;
+        numberColor: (prop: string) => string;
+        indent: number;
+        tab: number;
+        maxPropertyCount: number;
+    };
+    export function stringifyHostValue(hostValue: HostValue, props: Partial<StringifyHostValueProps>): string;
+}
 declare module "util/HostValue" {
     import { HostValueType } from "../../assembly/assembly/internal/HostValueType";
+    import { StringifyHostValueProps } from "util/stringifyHostValue";
     export class HostValue {
-        type: HostValueType;
-        typeName: string | null;
-        pointer: number;
-        typeId: number;
-        keys: HostValue[] | null;
-        values: HostValue[] | null;
-        offset: number;
-        value: number | string;
-        isNull: boolean;
-        nullable: boolean;
-        size: number;
-        signed: boolean;
-        stack: string;
-        negated: boolean;
         isManaged: boolean;
+        isNull: boolean;
+        keys: HostValue[] | null;
+        negated: boolean;
+        nullable: boolean;
+        offset: number;
+        pointer: number;
+        signed: boolean;
+        size: number;
+        stack: string;
+        type: HostValueType;
+        typeId: number;
+        typeName: string | null;
+        value: number | string;
+        values: HostValue[] | null;
+        stringify(props: Partial<StringifyHostValueProps>): string;
     }
 }
 declare module "util/ILogTarget" {
@@ -381,10 +396,6 @@ declare module "util/IWriteable" {
         /** This method is used for writing string contents to something that is writable. */
         write(chunk: string): void;
     }
-}
-declare module "reporter/util/stringifyHostValue" {
-    import { HostValue } from "util/HostValue";
-    export function stringifyHostValue(hostValue: HostValue, indent: number): string;
 }
 declare module "reporter/VerboseReporter" {
     import { TestGroup } from "test/TestGroup";

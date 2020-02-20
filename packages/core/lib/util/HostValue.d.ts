@@ -1,18 +1,20 @@
 import { HostValueType } from "@as-pect/assembly/assembly/internal/HostValueType";
+import { StringifyHostValueProps } from "./stringifyHostValue";
 export declare class HostValue {
-    type: HostValueType;
-    typeName: string | null;
-    pointer: number;
-    typeId: number;
-    keys: HostValue[] | null;
-    values: HostValue[] | null;
-    offset: number;
-    value: number | string;
-    isNull: boolean;
-    nullable: boolean;
-    size: number;
-    signed: boolean;
-    stack: string;
-    negated: boolean;
     isManaged: boolean;
+    isNull: boolean;
+    keys: HostValue[] | null;
+    negated: boolean;
+    nullable: boolean;
+    offset: number;
+    pointer: number;
+    signed: boolean;
+    size: number;
+    stack: string;
+    type: HostValueType;
+    typeId: number;
+    typeName: string | null;
+    value: number | string;
+    values: HostValue[] | null;
+    stringify(props: Partial<StringifyHostValueProps>): string;
 }

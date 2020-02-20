@@ -753,6 +753,52 @@ HostValue {
 }
 `;
 
+exports[`log output Group: logs Test: logs: stringify 1`] = `"  string: \\"Hello world!\\""`;
+
+exports[`log output Group: logs Test: logs: stringify 2`] = `"  number: 42"`;
+
+exports[`log output Group: logs Test: logs: stringify 3`] = `"  class: <Vec3>null"`;
+
+exports[`log output Group: logs Test: logs: stringify 4`] = `
+"  class: Vec3 {
+      string: x: number: 1.0,
+      string: y: number: 2.0,
+      string: z: number: 3.0
+  }"
+`;
+
+exports[`log output Group: logs Test: logs: stringify 5`] = `"  class: Array<i32> [number: 1, number: 2, number: 3, ]"`;
+
+exports[`log output Group: logs Test: logs: stringify 6`] = `"  number: 9999999999999 keyword: as class: i64"`;
+
+exports[`log output Group: logs Test: logs: stringify 7`] = `"  number: 1234567 keyword: as class: u32"`;
+
+exports[`log output Group: logs Test: logs: stringify 8`] = `"  number: 999999999999 keyword: as class: u64"`;
+
+exports[`log output Group: logs Test: logs: stringify 9`] = `"  number: -1 keyword: as class: i8"`;
+
+exports[`log output Group: logs Test: logs: stringify 10`] = `"  number: -1 keyword: as class: i16"`;
+
+exports[`log output Group: logs Test: logs: stringify 11`] = `"  keyword: true"`;
+
+exports[`log output Group: logs Test: logs: stringify 12`] = `"  keyword: false"`;
+
+exports[`log output Group: logs Test: logs: stringify 13`] = `"  class: Uint8Array [number: 0, number: 1, number: 2, ]"`;
+
+exports[`log output Group: logs Test: logs: stringify 14`] = `"  class: Int8Array [number: -1, number: -2, number: -3, ]"`;
+
+exports[`log output Group: logs Test: logs: stringify 15`] = `"  class: [Function 1: assembly/jest-log/IdFunction]"`;
+
+exports[`log output Group: logs Test: logs: stringify 16`] = `"  string: \\"trace: The thing! 1, 2, 3, 4, 5\\""`;
+
+exports[`log output Group: logs Test: logs: stringify 17`] = `
+"  class: UnmanagedClass {
+      string: a: number: 1.0,
+      string: b: number: 2.0,
+      string: c: number: 3.0
+  }"
+`;
+
 exports[`log output Group: logs: log 1`] = `
 HostValue {
   "isManaged": true,
