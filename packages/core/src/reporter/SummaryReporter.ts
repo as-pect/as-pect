@@ -3,8 +3,7 @@ import { TestContext } from "../test/TestContext";
 import { TestResult } from "../test/TestResult";
 import { TestGroup } from "../test/TestGroup";
 import { IWritable } from "../util/IWriteable";
-import { HostValue } from "../util/HostValue";
-import { stringifyHostValue } from "./util/stringifyHostValue";
+import { ReflectedValue } from "../util/ReflectedValue";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -109,11 +108,15 @@ export default class SummaryReporter extends TestReporter {
           );
           if (test.expected !== null)
             suite.stdout!.write(
-              chalk`      {green.bold [Expected]:} ${stringifyHostValue(test.expected, 2).trimLeft()}\n`,
+              chalk`      {green.bold [Expected]:} ${test.expected
+                .stringify({ indent: 2 })
+                .trimLeft()}\n`,
             );
           if (test.actual !== null)
             suite.stdout!.write(
-              chalk`      {red.bold [Actual]  :} ${stringifyHostValue(test.actual, 2).trimLeft()}\n`,
+              chalk`      {red.bold [Actual]  :} ${test.actual
+                .stringify({ indent: 2 })
+                .trimLeft()}\n`,
             );
           if (this.enableLogging) {
             for (const log of test.logs) {
@@ -150,11 +153,11 @@ export default class SummaryReporter extends TestReporter {
   /**
    * A custom logger function for the default reporter that writes the log values using `console.log()`
    *
-   * @param {HostValue} logValue - A value to be logged to the console
+   * @param {ReflectedValue} logValue - A value to be logged to the console
    */
-  public onLog(logValue: HostValue): void {
+  public onLog(logValue: ReflectedValue): void {
     const chalk = require("chalk");
-    const output = stringifyHostValue(logValue, 12).trimLeft();
+    const output = logValue.stringify({ indent: 12 }).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
   }
 }

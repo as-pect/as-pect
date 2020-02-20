@@ -103,19 +103,19 @@
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
  (import "rtrace" "onrealloc" (func $~lib/rt/rtrace/onrealloc (param i32 i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
- (import "__aspect" "createHostValue" (func $assembly/internal/Reflect/createHostValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
- (import "__aspect" "pushHostObjectValue" (func $assembly/internal/Reflect/__aspectPushHostObjectValue (param i32 i32)))
- (import "__aspect" "attachStackTraceToHostValue" (func $assembly/internal/Reflect/attachStackTraceToHostValue (param i32)))
- (import "__aspect" "reportActualHostValue" (func $assembly/internal/Actual/reportActualHostValue (param i32)))
+ (import "__aspect" "createReflectedValue" (func $assembly/internal/Reflect/createReflectedValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
+ (import "__aspect" "pushReflectedObjectValue" (func $assembly/internal/Reflect/__aspectPushReflectedObjectValue (param i32 i32)))
+ (import "__aspect" "attachStackTraceToReflectedValue" (func $assembly/internal/Reflect/attachStackTraceToReflectedValue (param i32)))
+ (import "__aspect" "reportActualReflectedValue" (func $assembly/internal/Actual/reportActualReflectedValue (param i32)))
  (import "__aspect" "reportInvalidExpectCall" (func $assembly/internal/Expected/reportInvalidExpectCall))
- (import "__aspect" "reportExpectedHostValue" (func $assembly/internal/Expected/reportExpectedHostValue (param i32 i32)))
+ (import "__aspect" "reportExpectedReflectedValue" (func $assembly/internal/Expected/reportExpectedReflectedValue (param i32 i32)))
  (import "__aspect" "clearActual" (func $assembly/internal/Actual/clearActual))
  (import "__aspect" "clearExpected" (func $assembly/internal/Expected/clearExpected))
  (import "__aspect" "reportTest" (func $assembly/internal/Test/reportTest (param i32 i32)))
  (import "__aspect" "reportNegatedTest" (func $assembly/internal/Test/reportNegatedTest (param i32 i32 i32)))
  (import "__aspect" "reportDescribe" (func $assembly/internal/Describe/reportDescribe (param i32)))
  (import "__aspect" "reportEndDescribe" (func $assembly/internal/Describe/reportEndDescribe))
- (import "__aspect" "pushHostObjectKey" (func $assembly/internal/Reflect/__aspectPushHostObjectKey (param i32 i32)))
+ (import "__aspect" "pushReflectedObjectKey" (func $assembly/internal/Reflect/__aspectPushReflectedObjectKey (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (table $0 36 funcref)
  (elem (i32.const 1) $start:assembly/__tests__/setup/Event~anonymous|0 $start:assembly/__tests__/setup/Event~anonymous|1 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|0 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|1 $start:assembly/internal/noOp~anonymous|0 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|0 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|1 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|2 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|3 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|4 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|5 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|6 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|7 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|8 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2~anonymous|9 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|2 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|0 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|1 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|2 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3~anonymous|3 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|3 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|4~anonymous|0 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|4~anonymous|1 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|4~anonymous|2 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|4~anonymous|3 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|4 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|5~anonymous|0 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|5~anonymous|1 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|5~anonymous|2 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|5~anonymous|3 $start:assembly/__tests__/toIncludeEqual.spec~anonymous|5)
@@ -4086,7 +4086,7 @@
   i32.store
   local.get $0
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<i32> (; 61 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<i32> (; 61 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -4110,7 +4110,7 @@
   local.get $2
   i32.const 0
   i32.const 0
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $3
   local.get $3
   local.set $4
@@ -4121,7 +4121,7 @@
   local.get $4
   return
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>> (; 62 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<i32>> (; 62 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -4151,7 +4151,7 @@
    i32.const 0
    i32.const 0
    i32.const 1
-   call $assembly/internal/Reflect/createHostValue
+   call $assembly/internal/Reflect/createReflectedValue
    local.set $2
    local.get $0
    call $~lib/rt/pure/__release
@@ -4185,13 +4185,13 @@
   local.get $0
   i32.const 0
   local.get $2
-  i32.const 11
+  i32.const 10
   i32.const 6
   i32.const 640
   i32.const 0
   i32.const 1
   i32.const 1
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $3
   local.get $1
   local.get $0
@@ -4213,11 +4213,11 @@
     local.set $6
     local.get $6
     local.get $1
-    call $assembly/internal/Reflect/Reflect.toHostValue<i32>
+    call $assembly/internal/Reflect/Reflect.toReflectedValue<i32>
     local.set $7
     local.get $3
     local.get $7
-    call $assembly/internal/Reflect/__aspectPushHostObjectValue
+    call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
     local.get $4
     i32.const 1
     i32.add
@@ -4306,7 +4306,7 @@
   call $~lib/map/Map<usize,i32>#clear
   local.get $0
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline (; 65 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<i32>>|trampoline (; 65 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   block $1of1
@@ -4326,7 +4326,7 @@
   end
   local.get $0
   local.get $1
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<i32>>
   local.set $3
   local.get $2
   call $~lib/rt/pure/__release
@@ -4338,7 +4338,7 @@
  )
  (func $assembly/internal/Reflect/Reflect.attachStackTrace (; 67 ;) (param $0 i32)
   local.get $0
-  call $assembly/internal/Reflect/attachStackTraceToHostValue
+  call $assembly/internal/Reflect/attachStackTraceToReflectedValue
  )
  (func $assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (; 68 ;) (param $0 i32)
   (local $1 i32)
@@ -4349,12 +4349,12 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<i32>>|trampoline
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<i32>>|trampoline
   local.set $1
   local.get $1
   call $assembly/internal/Reflect/Reflect.attachStackTrace
   local.get $1
-  call $assembly/internal/Actual/reportActualHostValue
+  call $assembly/internal/Actual/reportActualReflectedValue
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -4366,7 +4366,7 @@
   i32.const 1
   i32.shr_u
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String> (; 70 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String> (; 70 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -4392,7 +4392,7 @@
    i32.const 0
    i32.const 0
    i32.const 1
-   call $assembly/internal/Reflect/createHostValue
+   call $assembly/internal/Reflect/createReflectedValue
    local.set $2
    local.get $0
    call $~lib/rt/pure/__release
@@ -4430,7 +4430,7 @@
   local.get $0
   i32.const 0
   i32.const 1
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $2
   local.get $1
   local.get $0
@@ -4446,7 +4446,7 @@
   local.get $3
   return
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline (; 71 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>|trampoline (; 71 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   block $1of1
@@ -4466,7 +4466,7 @@
   end
   local.get $0
   local.get $1
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>
   local.set $3
   local.get $2
   call $~lib/rt/pure/__release
@@ -4489,13 +4489,13 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>|trampoline
   local.set $2
   local.get $2
   call $assembly/internal/Reflect/Reflect.attachStackTrace
   local.get $2
   local.get $1
-  call $assembly/internal/Expected/reportExpectedHostValue
+  call $assembly/internal/Expected/reportExpectedReflectedValue
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -4538,12 +4538,12 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>|trampoline
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>|trampoline
   local.set $1
   local.get $1
   call $assembly/internal/Reflect/Reflect.attachStackTrace
   local.get $1
-  call $assembly/internal/Actual/reportActualHostValue
+  call $assembly/internal/Actual/reportActualReflectedValue
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -5464,7 +5464,7 @@
   f64.store
   local.get $0
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<f64> (; 105 ;) (param $0 f64) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<f64> (; 105 ;) (param $0 f64) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -5488,7 +5488,7 @@
   local.get $2
   i32.const 0
   i32.const 0
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $3
   local.get $3
   local.set $4
@@ -5499,47 +5499,47 @@
   local.get $4
   return
  )
- (func $assembly/__tests__/setup/Vec3/Vec3#__aspectAddHostValueKeyValuePairs (; 106 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $assembly/__tests__/setup/Vec3/Vec3#__aspectAddReflectedValueKeyValuePairs (; 106 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   local.get $2
   call $~lib/rt/pure/__retain
   local.set $2
   local.get $1
   i32.const 2016
   local.get $2
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>
-  call $assembly/internal/Reflect/__aspectPushHostObjectKey
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>
+  call $assembly/internal/Reflect/__aspectPushReflectedObjectKey
   local.get $1
   local.get $0
   f64.load
   local.get $2
-  call $assembly/internal/Reflect/Reflect.toHostValue<f64>
-  call $assembly/internal/Reflect/__aspectPushHostObjectValue
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<f64>
+  call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
   local.get $1
   i32.const 2080
   local.get $2
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>
-  call $assembly/internal/Reflect/__aspectPushHostObjectKey
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>
+  call $assembly/internal/Reflect/__aspectPushReflectedObjectKey
   local.get $1
   local.get $0
   f64.load offset=8
   local.get $2
-  call $assembly/internal/Reflect/Reflect.toHostValue<f64>
-  call $assembly/internal/Reflect/__aspectPushHostObjectValue
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<f64>
+  call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
   local.get $1
   i32.const 2112
   local.get $2
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>
-  call $assembly/internal/Reflect/__aspectPushHostObjectKey
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>
+  call $assembly/internal/Reflect/__aspectPushReflectedObjectKey
   local.get $1
   local.get $0
   f64.load offset=16
   local.get $2
-  call $assembly/internal/Reflect/Reflect.toHostValue<f64>
-  call $assembly/internal/Reflect/__aspectPushHostObjectValue
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<f64>
+  call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<assembly/__tests__/setup/Vec3/Vec3> (; 107 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<assembly/__tests__/setup/Vec3/Vec3> (; 107 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $0
@@ -5565,7 +5565,7 @@
    i32.const 0
    i32.const 0
    i32.const 1
-   call $assembly/internal/Reflect/createHostValue
+   call $assembly/internal/Reflect/createReflectedValue
    local.set $2
    local.get $0
    call $~lib/rt/pure/__release
@@ -5603,7 +5603,7 @@
   i32.const 0
   i32.const 1
   i32.const 1
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $2
   local.get $1
   local.get $0
@@ -5613,7 +5613,7 @@
   local.get $0
   local.get $2
   local.get $1
-  call $assembly/__tests__/setup/Vec3/Vec3#__aspectAddHostValueKeyValuePairs
+  call $assembly/__tests__/setup/Vec3/Vec3#__aspectAddReflectedValueKeyValuePairs
   local.get $2
   local.set $3
   local.get $0
@@ -5623,7 +5623,7 @@
   local.get $3
   return
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>> (; 108 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>> (; 108 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -5654,7 +5654,7 @@
    i32.const 0
    i32.const 0
    i32.const 1
-   call $assembly/internal/Reflect/createHostValue
+   call $assembly/internal/Reflect/createReflectedValue
    local.set $2
    local.get $0
    call $~lib/rt/pure/__release
@@ -5688,13 +5688,13 @@
   local.get $0
   i32.const 0
   local.get $2
-  i32.const 11
+  i32.const 10
   i32.const 12
   i32.const 1872
   i32.const 0
   i32.const 1
   i32.const 1
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $3
   local.get $1
   local.get $0
@@ -5718,11 +5718,11 @@
     local.set $7
     local.get $7
     local.get $1
-    call $assembly/internal/Reflect/Reflect.toHostValue<assembly/__tests__/setup/Vec3/Vec3>
+    call $assembly/internal/Reflect/Reflect.toReflectedValue<assembly/__tests__/setup/Vec3/Vec3>
     local.set $8
     local.get $3
     local.get $8
-    call $assembly/internal/Reflect/__aspectPushHostObjectValue
+    call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
     local.get $6
     call $~lib/rt/pure/__release
     local.get $7
@@ -5743,7 +5743,7 @@
   local.get $4
   return
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>|trampoline (; 109 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>|trampoline (; 109 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   block $1of1
@@ -5763,7 +5763,7 @@
   end
   local.get $0
   local.get $1
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>
   local.set $3
   local.get $2
   call $~lib/rt/pure/__release
@@ -5778,12 +5778,12 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>|trampoline
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<assembly/__tests__/setup/Vec3/Vec3>>|trampoline
   local.set $1
   local.get $1
   call $assembly/internal/Reflect/Reflect.attachStackTrace
   local.get $1
-  call $assembly/internal/Actual/reportActualHostValue
+  call $assembly/internal/Actual/reportActualReflectedValue
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -6511,7 +6511,7 @@
   i32.add
   i32.load
  )
- (func "$assembly/internal/Reflect/Reflect.toHostValue<(event: assembly/__tests__/setup/Event/Event) => void>" (; 132 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func "$assembly/internal/Reflect/Reflect.toReflectedValue<(event: assembly/__tests__/setup/Event/Event) => void>" (; 132 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   local.get $1
@@ -6534,7 +6534,7 @@
    i32.const 0
    i32.const 0
    i32.const 0
-   call $assembly/internal/Reflect/createHostValue
+   call $assembly/internal/Reflect/createReflectedValue
    local.set $2
    local.get $1
    call $~lib/rt/pure/__release
@@ -6554,7 +6554,7 @@
   local.get $0
   i32.const 0
   i32.const 0
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $2
   local.get $2
   local.set $3
@@ -6563,7 +6563,7 @@
   local.get $3
   return
  )
- (func "$assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>" (; 133 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func "$assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>" (; 133 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -6593,7 +6593,7 @@
    i32.const 0
    i32.const 0
    i32.const 1
-   call $assembly/internal/Reflect/createHostValue
+   call $assembly/internal/Reflect/createReflectedValue
    local.set $2
    local.get $0
    call $~lib/rt/pure/__release
@@ -6627,13 +6627,13 @@
   local.get $0
   i32.const 0
   local.get $2
-  i32.const 11
+  i32.const 10
   i32.const 5
   i32.const 2976
   i32.const 0
   i32.const 1
   i32.const 1
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $3
   local.get $1
   local.get $0
@@ -6655,11 +6655,11 @@
     local.set $6
     local.get $6
     local.get $1
-    call "$assembly/internal/Reflect/Reflect.toHostValue<(event: assembly/__tests__/setup/Event/Event) => void>"
+    call "$assembly/internal/Reflect/Reflect.toReflectedValue<(event: assembly/__tests__/setup/Event/Event) => void>"
     local.set $7
     local.get $3
     local.get $7
-    call $assembly/internal/Reflect/__aspectPushHostObjectValue
+    call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
     local.get $4
     i32.const 1
     i32.add
@@ -6676,7 +6676,7 @@
   local.get $4
   return
  )
- (func "$assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>|trampoline" (; 134 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func "$assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>|trampoline" (; 134 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   block $1of1
@@ -6696,7 +6696,7 @@
   end
   local.get $0
   local.get $1
-  call "$assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>"
+  call "$assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>"
   local.set $3
   local.get $2
   call $~lib/rt/pure/__release
@@ -6711,12 +6711,12 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call "$assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>|trampoline"
+  call "$assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<(event: assembly/__tests__/setup/Event/Event) => void>>|trampoline"
   local.set $1
   local.get $1
   call $assembly/internal/Reflect/Reflect.attachStackTrace
   local.get $1
-  call $assembly/internal/Actual/reportActualHostValue
+  call $assembly/internal/Actual/reportActualReflectedValue
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -7083,7 +7083,7 @@
   i32.store8
   local.get $0
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<u8> (; 152 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<u8> (; 152 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -7107,7 +7107,7 @@
   local.get $2
   i32.const 0
   i32.const 0
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $3
   local.get $3
   local.set $4
@@ -7118,7 +7118,7 @@
   local.get $4
   return
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array> (; 153 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/typedarray/Uint8Array> (; 153 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -7148,7 +7148,7 @@
    i32.const 0
    i32.const 0
    i32.const 1
-   call $assembly/internal/Reflect/createHostValue
+   call $assembly/internal/Reflect/createReflectedValue
    local.set $2
    local.get $0
    call $~lib/rt/pure/__release
@@ -7188,7 +7188,7 @@
   i32.const 0
   i32.const 1
   i32.const 1
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $3
   local.get $1
   local.get $0
@@ -7210,11 +7210,11 @@
     local.set $6
     local.get $6
     local.get $1
-    call $assembly/internal/Reflect/Reflect.toHostValue<u8>
+    call $assembly/internal/Reflect/Reflect.toReflectedValue<u8>
     local.set $7
     local.get $3
     local.get $7
-    call $assembly/internal/Reflect/__aspectPushHostObjectValue
+    call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
     local.get $4
     i32.const 1
     i32.add
@@ -7231,7 +7231,7 @@
   local.get $4
   return
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline (; 154 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/typedarray/Uint8Array>|trampoline (; 154 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   block $1of1
@@ -7251,7 +7251,7 @@
   end
   local.get $0
   local.get $1
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/typedarray/Uint8Array>
   local.set $3
   local.get $2
   call $~lib/rt/pure/__release
@@ -7266,12 +7266,12 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/typedarray/Uint8Array>|trampoline
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/typedarray/Uint8Array>|trampoline
   local.set $1
   local.get $1
   call $assembly/internal/Reflect/Reflect.attachStackTrace
   local.get $1
-  call $assembly/internal/Actual/reportActualHostValue
+  call $assembly/internal/Actual/reportActualReflectedValue
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -7551,7 +7551,7 @@
   i32.load
   call $~lib/rt/pure/__retain
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<~lib/string/String>> (; 169 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<~lib/string/String>> (; 169 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -7582,7 +7582,7 @@
    i32.const 0
    i32.const 0
    i32.const 1
-   call $assembly/internal/Reflect/createHostValue
+   call $assembly/internal/Reflect/createReflectedValue
    local.set $2
    local.get $0
    call $~lib/rt/pure/__release
@@ -7616,13 +7616,13 @@
   local.get $0
   i32.const 0
   local.get $2
-  i32.const 11
+  i32.const 10
   i32.const 20
   i32.const 4176
   i32.const 0
   i32.const 1
   i32.const 1
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $3
   local.get $1
   local.get $0
@@ -7646,11 +7646,11 @@
     local.set $7
     local.get $7
     local.get $1
-    call $assembly/internal/Reflect/Reflect.toHostValue<~lib/string/String>
+    call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>
     local.set $8
     local.get $3
     local.get $8
-    call $assembly/internal/Reflect/__aspectPushHostObjectValue
+    call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
     local.get $6
     call $~lib/rt/pure/__release
     local.get $7
@@ -7671,7 +7671,7 @@
   local.get $4
   return
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<~lib/string/String>>|trampoline (; 170 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<~lib/string/String>>|trampoline (; 170 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   block $1of1
@@ -7691,7 +7691,7 @@
   end
   local.get $0
   local.get $1
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<~lib/string/String>>
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<~lib/string/String>>
   local.set $3
   local.get $2
   call $~lib/rt/pure/__release
@@ -7706,12 +7706,12 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/array/Array<~lib/string/String>>|trampoline
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/array/Array<~lib/string/String>>|trampoline
   local.set $1
   local.get $1
   call $assembly/internal/Reflect/Reflect.attachStackTrace
   local.get $1
-  call $assembly/internal/Actual/reportActualHostValue
+  call $assembly/internal/Actual/reportActualReflectedValue
   local.get $0
   call $~lib/rt/pure/__release
  )
@@ -8353,7 +8353,7 @@
   end
   local.get $3
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 189 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>> (; 189 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -8385,7 +8385,7 @@
    i32.const 0
    i32.const 0
    i32.const 1
-   call $assembly/internal/Reflect/createHostValue
+   call $assembly/internal/Reflect/createReflectedValue
    local.set $2
    local.get $0
    call $~lib/rt/pure/__release
@@ -8423,7 +8423,7 @@
   i32.const 0
   i32.const 1
   i32.const 1
-  call $assembly/internal/Reflect/createHostValue
+  call $assembly/internal/Reflect/createReflectedValue
   local.set $2
   local.get $1
   local.get $0
@@ -8453,11 +8453,11 @@
     local.set $8
     local.get $8
     local.get $1
-    call $assembly/internal/Reflect/Reflect.toHostValue<assembly/__tests__/setup/Vec3/Vec3>
+    call $assembly/internal/Reflect/Reflect.toReflectedValue<assembly/__tests__/setup/Vec3/Vec3>
     local.set $9
     local.get $2
     local.get $9
-    call $assembly/internal/Reflect/__aspectPushHostObjectValue
+    call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
     local.get $7
     call $~lib/rt/pure/__release
     local.get $8
@@ -8479,7 +8479,7 @@
   call $~lib/rt/pure/__release
   local.get $4
  )
- (func $assembly/internal/Reflect/Reflect.toHostValue<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>|trampoline (; 190 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>|trampoline (; 190 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   block $1of1
@@ -8499,7 +8499,7 @@
   end
   local.get $0
   local.get $1
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>
   local.set $3
   local.get $2
   call $~lib/rt/pure/__release
@@ -8514,12 +8514,12 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
-  call $assembly/internal/Reflect/Reflect.toHostValue<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>|trampoline
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>>|trampoline
   local.set $1
   local.get $1
   call $assembly/internal/Reflect/Reflect.attachStackTrace
   local.get $1
-  call $assembly/internal/Actual/reportActualHostValue
+  call $assembly/internal/Actual/reportActualReflectedValue
   local.get $0
   call $~lib/rt/pure/__release
  )

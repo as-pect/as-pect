@@ -1,6 +1,6 @@
 // @ts-ignore: decorators *are* valid here
-@external("__aspect", "logHostValue")
-declare function logHostValue(value: i32): void;
+@external("__aspect", "logReflectedValue")
+declare function logReflectedValue(value: i32): void;
 
 let ignoreLogs: bool = false;
 
@@ -17,7 +17,7 @@ export function __ignoreLogs(value: bool): void {
 @global
 export function log<T>(value: T): void {
   if (ignoreLogs) return;
-  let hostValue = Reflect.toHostValue(value);
-  Reflect.attachStackTrace(hostValue);
-  logHostValue(hostValue);
+  let reflectedId = Reflect.toReflectedValue(value);
+  Reflect.attachStackTrace(reflectedId);
+  logReflectedValue(reflectedId);
 }

@@ -1,5 +1,6 @@
 import { TestContext } from "../src/test/TestContext";
 import { createLogModule } from "./setup/createLogModule";
+import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue";
 
 let ctx: TestContext;
 
@@ -17,12 +18,27 @@ let start = new Promise<void>((resolve, reject) => {
 
 beforeEach(() => start);
 
+const stringifyOptions: Partial<StringifyReflectedValueProps> = {
+  indent: 2,
+  tab: 4,
+  maxLineLength: 80,
+  maxPropertyCount: 10,
+  maxExpandLevel: 3,
+  classNameFormatter: name => "class: " + name,
+  keywordFormatter: keyword => "keyword: " + keyword,
+  numberFormatter: number => "number: " + number,
+  stringFormatter: str => "string: " + str,
+};
+
 describe("log output", () => {
   test("Overall Statistics", () => {});
   for (const group of ctx.testGroups) {
     test(`Group: ${group.name}`, () => {
       for (const log of group.logs) {
+        const stack = log.stack;
+        log.stack = "";
         expect(log).toMatchSnapshot("log");
+        log.stack = stack;
       }
       for (const todo of group.todos) {
         expect(todo).toMatchSnapshot(`todo`);
@@ -34,7 +50,13 @@ describe("log output", () => {
       for (const groupTest of group.tests) {
         test(`Test: ${groupTest.name}`, () => {
           for (const log of groupTest.logs) {
+            const stack = log.stack;
+            log.stack = "";
             expect(log).toMatchSnapshot("log");
+            expect(log.stringify(stringifyOptions)).toMatchSnapshot(
+              "stringify",
+            );
+            log.stack = stack;
           }
           expect(groupTest.pass).toBeTruthy();
         });

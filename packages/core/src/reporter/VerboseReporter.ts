@@ -3,8 +3,7 @@ import { TestResult } from "../test/TestResult";
 import { TestContext } from "../test/TestContext";
 import { TestReporter } from "../test/TestReporter";
 import { IWritable } from "../util/IWriteable";
-import { HostValue } from "../util/HostValue";
-import { stringifyHostValue } from "./util/stringifyHostValue";
+import { ReflectedValue } from "../util/ReflectedValue";
 
 /**
  * This weakmap is used to keep track of which logs have already been printed, and from what index.
@@ -83,8 +82,8 @@ export default class VerboseReporter extends TestReporter {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
       if (!test.negated) {
-        this.stdout!.write(`  [Actual]: ${stringifyHostValue(test.actual!, 2)}
-[Expected]: ${stringifyHostValue(test.expected!, 2)}
+        this.stdout!.write(`  [Actual]: ${test.actual!.stringify({ indent: 2 })}
+[Expected]: ${test.expected!.stringify({ indent: 2 })}
 `);
       }
 
@@ -230,14 +229,17 @@ export default class VerboseReporter extends TestReporter {
   /**
    * A custom logger function for the default reporter that writes the log values using `console.log()`
    *
-   * @param {HostValue} logValue - A value to be logged to the console
+   * @param {ReflectedValue} logValue - A value to be logged to the console
    */
-  public onLog(logValue: HostValue): void {
+  public onLog(logValue: ReflectedValue): void {
     const chalk = require("chalk");
-    const output: string = stringifyHostValue(logValue, 12).trimLeft();
+    const output: string = logValue.stringify({ indent: 12 }).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
-    this.stdout!.write(chalk`   {yellow [Stack]:} ${logValue.stack.trimLeft()
-      .split("\n")
-      .join("\n             ")}\n`);
+    this.stdout!.write(
+      chalk`   {yellow [Stack]:} ${logValue.stack
+        .trimLeft()
+        .split("\n")
+        .join("\n             ")}\n`,
+    );
   }
 }

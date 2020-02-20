@@ -19,4 +19,4 @@ export * from "./test/TestResult";
 export * from "./util/IAspectExports";
 export * from "./util/ILogTarget";
 export * from "./util/IPerformanceConfiguration";
-export * from "./util/HostValue";
+export * from "./util/ReflectedValue";

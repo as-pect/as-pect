@@ -11,8 +11,8 @@ import { PerformanceLimits } from "./PerformanceLimits";
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
 import { NameSection } from "../util/wasmTools";
-import { HostValue } from "../util/HostValue";
-import { HostValueType } from "@as-pect/assembly/assembly/internal/HostValueType";
+import { ReflectedValue } from "../util/ReflectedValue";
+import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
 
 /**
  * @ignore
@@ -78,8 +78,8 @@ export class TestCollector {
   // test state machine values
   protected stack: string = "";
   protected message: string = "";
-  protected actual: HostValue | null = null;
-  protected expected: HostValue | null = null;
+  protected actual: ReflectedValue | null = null;
+  protected expected: ReflectedValue | null = null;
 
   // performance collection values
   private performanceEnabledValue: boolean | undefined;
@@ -121,10 +121,10 @@ export class TestCollector {
   protected rtraceEnabled: boolean = true;
 
   /**
-   * A collection of host values used to help cache and aid in the creation
-   * of nested host values.
+   * A collection of reflected values used to help cache and aid in the creation
+   * of nested reflected values.
    */
-  private hostValueCache: HostValue[] = [];
+  private reflectedValueCache: ReflectedValue[] = [];
 
   // This map collects the starting values for the labels created by `RTrace.start()`
   private rtraceLabels: Map<number, number> = new Map();
@@ -278,12 +278,12 @@ export class TestCollector {
       ...imports, // get all the user defined imports
       {
         __aspect: {
-          attachStackTraceToHostValue: this.attachStackTraceToHostValue.bind(
+          attachStackTraceToReflectedValue: this.attachStackTraceToReflectedValue.bind(
             this,
           ),
           clearActual: this.clearActual.bind(this),
           clearExpected: this.clearExpected.bind(this),
-          createHostValue: this.createHostValue.bind(this),
+          createReflectedValue: this.createReflectedValue.bind(this),
           debug: this.debug.bind(this),
           endRTrace: this.endRTrace.bind(this),
           getRTraceAllocations: this.getRTraceAllocations.bind(this),
@@ -305,13 +305,13 @@ export class TestCollector {
           getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
           getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
           getRTraceTestReallocs: this.getRTraceTestReallocs.bind(this),
-          logHostValue: this.logHostValue.bind(this),
+          logReflectedValue: this.logReflectedValue.bind(this),
           maxSamples: this.maxSamples.bind(this),
           maxTestRunTime: this.maxTestRunTime.bind(this),
           performanceEnabled: this.performanceEnabled.bind(this),
-          pushHostObjectKey: this.pushHostObjectKey.bind(this),
-          pushHostObjectValue: this.pushHostObjectValue.bind(this),
-          reportActualHostValue: this.reportActualHostValue.bind(this),
+          pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
+          pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
+          reportActualReflectedValue: this.reportActualReflectedValue.bind(this),
           reportAfterAll: this.reportAfterAll.bind(this),
           reportAfterEach: this.reportAfterEach.bind(this),
           reportAverage: this.reportAverage.bind(this),
@@ -319,9 +319,9 @@ export class TestCollector {
           reportBeforeEach: this.reportBeforeEach.bind(this),
           reportDescribe: this.reportDescribe.bind(this),
           reportEndDescribe: this.reportEndDescribe.bind(this),
-          reportExpectedHostValue: this.reportExpectedHostValue.bind(this),
           reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
           reportExpectedFinite: this.reportExpectedFinite.bind(this),
+          reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(this),
           reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
           reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
@@ -1304,18 +1304,18 @@ export class TestCollector {
    * @param {number[]} args - The traced arguments.
    */
   private trace(strPointer: number, count: number, ...args: number[]): void {
-    const hostValue = new HostValue();
+    const reflectedValue = new ReflectedValue();
 
-    hostValue.pointer = strPointer;
-    hostValue.stack = this.getLogStackTrace();
-    hostValue.typeName = "trace";
-    hostValue.type = HostValueType.String;
-    hostValue.value = `trace: ${this.getString(strPointer, "")} ${args
+    reflectedValue.pointer = strPointer;
+    reflectedValue.stack = this.getLogStackTrace();
+    reflectedValue.typeName = "trace";
+    reflectedValue.type = ReflectedValueType.String;
+    reflectedValue.value = `trace: ${this.getString(strPointer, "")} ${args
       .slice(0, count)
       .join(", ")}`;
 
     // push the log value to the logs
-    this.logTarget.logs.push(hostValue);
+    this.logTarget.logs.push(reflectedValue);
   }
 
   /**
@@ -1333,7 +1333,7 @@ export class TestCollector {
     return "";
   }
 
-  private createHostValue(
+  private createReflectedValue(
     isNull: 1 | 0,
     hasKeys: 1 | 0,
     nullable: 1 | 0,
@@ -1341,44 +1341,44 @@ export class TestCollector {
     pointer: number, // changetype<usize>(this) | 0
     signed: 1 | 0, // isSigned<T>()
     size: number, // sizeof<T>()
-    hostTypeValue: HostValueType,
+    reflectedTypeValue: ReflectedValueType,
     typeId: number, // idof<T>()
     typeName: number, // nameof<T>()
     value: number, // usize | Box<T>
     hasValues: 1 | 0, // bool
     isManaged: 1 | 0, // bool
   ): number {
-    const hostValue = new HostValue();
-    hostValue.isNull = isNull === 1;
-    hostValue.keys = hasKeys ? [] : null;
-    hostValue.nullable = nullable === 1;
-    hostValue.offset = offset;
-    hostValue.pointer = pointer;
-    hostValue.signed = signed === 1;
-    hostValue.size = size;
-    hostValue.type = hostTypeValue;
-    hostValue.typeId = typeId;
-    hostValue.typeName = this.getString(typeName, "");
-    hostValue.values = hasValues ? [] : null;
-    hostValue.isManaged = isManaged === 1;
+    const reflectedValue = new ReflectedValue();
+    reflectedValue.isNull = isNull === 1;
+    reflectedValue.keys = hasKeys ? [] : null;
+    reflectedValue.nullable = nullable === 1;
+    reflectedValue.offset = offset;
+    reflectedValue.pointer = pointer;
+    reflectedValue.signed = signed === 1;
+    reflectedValue.size = size;
+    reflectedValue.type = reflectedTypeValue;
+    reflectedValue.typeId = typeId;
+    reflectedValue.typeName = this.getString(typeName, "");
+    reflectedValue.values = hasValues ? [] : null;
+    reflectedValue.isManaged = isManaged === 1;
 
     if (
-      hostTypeValue === HostValueType.Integer ||
-      hostTypeValue === HostValueType.Boolean
+      reflectedTypeValue === ReflectedValueType.Integer ||
+      reflectedTypeValue === ReflectedValueType.Boolean
     ) {
-      hostValue.value = this.getInteger(value, size, signed === 1);
+      reflectedValue.value = this.getInteger(value, size, signed === 1);
       // get long
-    } else if (hostTypeValue === HostValueType.String) {
-      hostValue.value = this.getString(value, "");
-    } else if (hostTypeValue === HostValueType.Float) {
-      hostValue.value = this.getFloat(value, size);
-    } else if (hostTypeValue === HostValueType.Function) {
-      hostValue.value = this.funcName(value);
+    } else if (reflectedTypeValue === ReflectedValueType.String) {
+      reflectedValue.value = this.getString(value, "");
+    } else if (reflectedTypeValue === ReflectedValueType.Float) {
+      reflectedValue.value = this.getFloat(value, size);
+    } else if (reflectedTypeValue === ReflectedValueType.Function) {
+      reflectedValue.value = this.funcName(value);
     } else {
-      hostValue.value = value;
+      reflectedValue.value = value;
     }
 
-    return this.hostValueCache.push(hostValue) - 1;
+    return this.reflectedValueCache.push(reflectedValue) - 1;
   }
 
   /**
@@ -1398,7 +1398,7 @@ export class TestCollector {
           signed ? "" : "un"
         }signed integer value at pointer ${pointer} of size ${size}: index out of bounds`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return 0;
@@ -1437,7 +1437,7 @@ export class TestCollector {
             signed ? "" : "un"
           }signed integer at ${pointer} of size ${size}`,
           stackTrace: this.getLogStackTrace(),
-          type: "HostValue",
+          type: "ReflectedValue",
         });
         /* istanbul ignore next */
         return 0;
@@ -1458,7 +1458,7 @@ export class TestCollector {
       this.errors.push({
         message: `Cannot obtain a float value at pointer ${pointer} of size ${size}: index out of bounds`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return 0;
@@ -1475,7 +1475,7 @@ export class TestCollector {
         this.errors.push({
           message: `Cannot obtain a float at ${pointer} of size ${size}`,
           stackTrace: this.getLogStackTrace(),
-          type: "HostValue",
+          type: "ReflectedValue",
         });
         /* istanbul ignore next */
         return 0;
@@ -1483,164 +1483,164 @@ export class TestCollector {
   }
 
   /**
-   * Log a host value.
+   * Log a reflected value.
    *
-   * @param {number} id - The HostValue id
+   * @param {number} id - The ReflectedValue id
    */
-  private logHostValue(id: number): void {
+  private logReflectedValue(id: number): void {
     /* istanbul ignore next */
-    if (id >= this.hostValueCache.length || id < 0) {
+    if (id >= this.reflectedValueCache.length || id < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot log HostValue of id ${id}. Index out of bounds.`,
+        message: `Cannot log ReflectedValue of id ${id}. Index out of bounds.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
-    this.logTarget.logs.push(this.hostValueCache[id]);
+    this.logTarget.logs.push(this.reflectedValueCache[id]);
   }
 
   /**
-   * Report an actual host value.
+   * Report an actual reflected value.
    *
-   * @param {number} id - The HostValue id
+   * @param {number} id - The ReflectedValue id
    */
-  private reportActualHostValue(id: number): void {
+  private reportActualReflectedValue(id: number): void {
     // ignored lines are santiy checks for error reporting
     /* istanbul ignore next */
-    if (id >= this.hostValueCache.length || id < 0) {
+    if (id >= this.reflectedValueCache.length || id < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot report actual HostValue of id ${id}. Index out of bounds.`,
+        message: `Cannot report actual ReflectedValue of id ${id}. Index out of bounds.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
-    this.actual = this.hostValueCache[id];
+    this.actual = this.reflectedValueCache[id];
   }
 
   /**
-   * Report an expected host value.
+   * Report an expected reflected value.
    *
-   * @param {number} id - The HostValue id
+   * @param {number} id - The ReflectedValue id
    */
-  private reportExpectedHostValue(id: number, negated: number): void {
+  private reportExpectedReflectedValue(id: number, negated: number): void {
     // ignored lines are error reporting for sanity checks
     /* istanbul ignore next */
-    if (id >= this.hostValueCache.length || id < 0) {
+    if (id >= this.reflectedValueCache.length || id < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot report expected HostValue of id ${id}. Index out of bounds.`,
+        message: `Cannot report expected ReflectedValue of id ${id}. Index out of bounds.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
-    this.expected = this.hostValueCache[id];
+    this.expected = this.reflectedValueCache[id];
     this.expected.negated = !!negated;
   }
 
   /**
-   * Push a host value to a given host value.
+   * Push a reflected value to a given reflected value.
    *
-   * @param {number} hostValueID - The target host value parent.
-   * @param {number} valueID - The target host value to be pushed.
+   * @param {number} reflectedValueID - The target reflected value parent.
+   * @param {number} childID - The child value by it's id to be pushed.
    */
-  private pushHostObjectValue(hostValueID: number, valueID: number): void {
+  private pushReflectedObjectValue(reflectedValueID: number, childID: number): void {
     // each ignored line for test coverage is error reporting for sanity checks
     /* istanbul ignore next */
-    if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
+    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostValue id out of bounds.`,
+        message: `Cannot push ReflectedValue of id ${childID} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
 
     /* istanbul ignore next */
-    if (valueID >= this.hostValueCache.length || valueID < 0) {
+    if (childID >= this.reflectedValueCache.length || childID < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostValue id out of bounds.`,
+        message: `Cannot push ReflectedValue of id ${childID} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
 
-    let hostValue = this.hostValueCache[hostValueID];
-    let value = this.hostValueCache[valueID];
+    let reflectedParentValue = this.reflectedValueCache[reflectedValueID];
+    let childValue = this.reflectedValueCache[childID];
 
     /* istanbul ignore next */
-    if (!hostValue.values) {
+    if (!reflectedParentValue.values) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${valueID} to HostValue ${hostValueID}. HostValue was not initialized with a values array.`,
+        message: `Cannot push ReflectedValue of id ${childID} to ReflectedValue ${reflectedValueID}. ReflectedValue was not initialized with a values array.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
-    hostValue.values.push(value);
+    reflectedParentValue.values.push(childValue);
   }
 
   /**
-   * Push a host value key to a given host value.
+   * Push a reflected value key to a given reflected value.
    *
-   * @param {number} hostValueID - The target host value parent.
-   * @param {number} keyId - The target host value key to be pushed.
+   * @param {number} reflectedValueID - The target reflected value parent.
+   * @param {number} keyId - The target reflected value key to be pushed.
    */
-  private pushHostObjectKey(hostValueID: number, keyId: number): void {
+  private pushReflectedObjectKey(reflectedValueID: number, keyId: number): void {
     // every ignored line for test coverage in this function are sanity checks
     /* istanbul ignore next */
-    if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
+    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostValue id out of bounds.`,
+        message: `Cannot push ReflectedValue of id ${keyId} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
 
     /* istanbul ignore next */
-    if (keyId >= this.hostValueCache.length || keyId < 0) {
+    if (keyId >= this.reflectedValueCache.length || keyId < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostValue key id out of bounds.`,
+        message: `Cannot push ReflectedValue of id ${keyId} to ReflectedValue ${reflectedValueID}. ReflectedValue key id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
-    let hostValue = this.hostValueCache[hostValueID];
-    let key = this.hostValueCache[keyId];
+    let reflectedValue = this.reflectedValueCache[reflectedValueID];
+    let key = this.reflectedValueCache[keyId];
 
-    // this is a failsafe if a keys[] does not exist on the HostValue
+    // this is a failsafe if a keys[] does not exist on the ReflectedValue
     /* istanbul ignore next */
-    if (!hostValue.keys) {
+    if (!reflectedValue.keys) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push HostValue of id ${keyId} to HostValue ${hostValueID}. HostValue was not initialized with a keys array.`,
+        message: `Cannot push ReflectedValue of id ${keyId} to ReflectedValue ${reflectedValueID}. ReflectedValue was not initialized with a keys array.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
-    hostValue.keys.push(key);
+    reflectedValue.keys.push(key);
   }
 
   /**
@@ -1663,10 +1663,10 @@ export class TestCollector {
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
   private reportExpectedTruthy(negated: number): void {
-    const expected = (this.expected = new HostValue());
+    const expected = (this.expected = new ReflectedValue());
 
     expected.negated = negated === 1;
-    expected.type = HostValueType.Truthy;
+    expected.type = ReflectedValueType.Truthy;
   }
 
   /**
@@ -1675,10 +1675,10 @@ export class TestCollector {
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
   private reportExpectedFalsy(negated: number): void {
-    const expected = (this.expected = new HostValue());
+    const expected = (this.expected = new ReflectedValue());
 
     expected.negated = negated === 1;
-    expected.type = HostValueType.Falsy;
+    expected.type = ReflectedValueType.Falsy;
   }
 
   /**
@@ -1687,29 +1687,29 @@ export class TestCollector {
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
   private reportExpectedFinite(negated: number): void {
-    const expected = (this.expected = new HostValue());
+    const expected = (this.expected = new ReflectedValue());
 
     expected.negated = negated === 1;
-    expected.type = HostValueType.Finite;
+    expected.type = ReflectedValueType.Finite;
   }
 
   /**
-   * Attaches a stack trace to the given hostValue by it's id.
+   * Attaches a stack trace to the given reflectedValue by it's id.
    *
-   * @param {number} hostValueID - The given host value.
+   * @param {number} reflectedValueID - The given reflected value by it's id.
    */
-  private attachStackTraceToHostValue(hostValueID: number): void {
+  private attachStackTraceToReflectedValue(reflectedValueID: number): void {
     /* istanbul ignore next */
-    if (hostValueID >= this.hostValueCache.length || hostValueID < 0) {
+    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
       /* istanbul ignore next */
       this.errors.push({
-        message: `Cannot push a stack trace to HostValue ${hostValueID}. HostValue id out of bounds.`,
+        message: `Cannot push a stack trace to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
-        type: "HostValue",
+        type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
-    this.hostValueCache[hostValueID].stack = this.getLogStackTrace();
+    this.reflectedValueCache[reflectedValueID].stack = this.getLogStackTrace();
   }
 }

@@ -1,7 +1,7 @@
 import { ArrayBufferView } from "arraybuffer";
 import { Set } from "set";
 import { assert } from "./assert";
-import { HostValueType } from "./HostValueType";
+import { ReflectedValueType } from "./ReflectedValueType";
 import { Box } from "./Box";
 
 function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
@@ -9,12 +9,12 @@ function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
 }
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "attachStackTraceToHostValue")
-declare function attachStackTraceToHostValue(id: i32): void;
+@external("__aspect", "attachStackTraceToReflectedValue")
+declare function attachStackTraceToReflectedValue(id: i32): void;
 
 // @ts-ignore: linked function decorator
-@external("__aspect", "createHostValue")
-declare function createHostValue(
+@external("__aspect", "createReflectedValue")
+declare function createReflectedValue(
   isNull: bool,
   hasKeys: bool,
   nullable: bool,
@@ -22,7 +22,7 @@ declare function createHostValue(
   pointer: usize,
   signed: bool,
   size: i32,
-  hostTypeValue: HostValueType,
+  reflectedTypeValue: ReflectedValueType,
   typeId: i32,
   typeName: string,
   value: usize,
@@ -31,30 +31,30 @@ declare function createHostValue(
 ): i32;
 
 // @ts-ignore: external declaration
-@external("__aspect", "pushHostObjectValue")
+@external("__aspect", "pushReflectedObjectValue")
 @global
-declare function __aspectPushHostObjectValue(hostObject: i32, value: i32): void;
+declare function __aspectPushReflectedObjectValue(parentID: i32, value: i32): void;
 
 // @ts-ignore: external declaration
-@external("__aspect", "pushHostObjectKey")
+@external("__aspect", "pushReflectedObjectKey")
 @global
-declare function __aspectPushHostObjectKey(hostObject: i32, value: i32): void;
+declare function __aspectPushReflectedObjectKey(parentID: i32, value: i32): void;
 
 @global
 // @ts-ignore: global decorator is allowed here
 export class Reflect {
   /**
-   * Create a host value for inspection.
+   * Create a reflected value for inspection.
    *
    * @param {T} value - The value to be inspected.
-   * @param {Map<usize, i32>} seen - A map of pointers to hostObject for caching purposes.
+   * @param {Map<usize, i32>} seen - A map of pointers to ReflectedValue ids for caching purposes.
    */
-  public static toHostValue<T>(value: T, seen: Map<usize, i32> = new Map<usize, i32>()): i32 {
+  public static toReflectedValue<T>(value: T, seen: Map<usize, i32> = new Map<usize, i32>()): i32 {
     // if T is a reference
     if (isReference<T>()) {
-      // if the value is null, create a Null host value
+      // if the value is null, create a Null reflected value
       if (changetype<usize>(value) == 0) {
-        return createHostValue(
+        return createReflectedValue(
           true,
           false,
           isNullable<T>(),
@@ -62,7 +62,7 @@ export class Reflect {
           0,
           false,
           sizeof<T>(),
-          isFunction<T>() ? HostValueType.Function : HostValueType.Class,
+          isFunction<T>() ? ReflectedValueType.Function : ReflectedValueType.Class,
           isManaged<T>() ? idof<T>() : 0,
           isFunction<T>() ? "Function" : nameof<T>(),
           0,
@@ -78,7 +78,7 @@ export class Reflect {
         }
       }
       if (value instanceof ArrayBuffer) {
-        let hostValue = createHostValue(
+        let reflectedValue = createReflectedValue(
           false,
           false,
           isNullable<T>(),
@@ -86,24 +86,24 @@ export class Reflect {
           changetype<usize>(value),
           false,
           value.byteLength,
-          HostValueType.ArrayBuffer,
+          ReflectedValueType.ArrayBuffer,
           idof<T>(),
           nameof<T>(),
           0,
           true,
           true,
         );
-        seen.set(changetype<usize>(value), hostValue);
+        seen.set(changetype<usize>(value), reflectedValue);
         let length = value.byteLength;
         for (let i = 0; i < length; i++) {
-          __aspectPushHostObjectValue(
-            hostValue,
-            Reflect.toHostValue(load<u8>(changetype<usize>(value) + <usize>i), seen),
+          __aspectPushReflectedObjectValue(
+            reflectedValue,
+            Reflect.toReflectedValue(load<u8>(changetype<usize>(value) + <usize>i), seen),
           );
         }
-        return hostValue;
+        return reflectedValue;
       } else if (isFunction<T>()) {
-        let hostValue = createHostValue(
+        let reflectedValue = createReflectedValue(
           false,
           false,
           isNullable<T>(),
@@ -111,17 +111,17 @@ export class Reflect {
           changetype<usize>(value),
           false,
           0,
-          HostValueType.Function,
+          ReflectedValueType.Function,
           idof<T>(),
           "Function",
           changetype<usize>(value),
           false,
           isManaged<T>(),
         );
-        return hostValue;
+        return reflectedValue;
       } else if (value instanceof Set) {
-        // create a Set host object
-        let hostObject = createHostValue(
+        // create a Set reflected value
+        let reflectedObject = createReflectedValue(
           false,
           false, // sets don't have keys
           isNullable<T>(),
@@ -129,7 +129,7 @@ export class Reflect {
           changetype<usize>(value),
           false,
           value.size,
-          HostValueType.Set,
+          ReflectedValueType.Set,
           idof<T>(),
           nameof<T>(),
           0,
@@ -138,19 +138,19 @@ export class Reflect {
         );
 
         // cache this value
-        seen.set(changetype<usize>(value), hostObject);
+        seen.set(changetype<usize>(value), reflectedObject);
 
         // loop over each item and push it to the Set
         let values = value.values();
         let length = values.length;
         for (let i = 0; i < length; i++) {
           let value = unchecked(values[i]);
-          let hostValueID = Reflect.toHostValue(value, seen);
-          __aspectPushHostObjectValue(hostObject, hostValueID);
+          let reflectedValueID = Reflect.toReflectedValue(value, seen);
+          __aspectPushReflectedObjectValue(reflectedObject, reflectedValueID);
         }
       } else if (value instanceof Map) {
-        // create a Set host object
-        let hostObject = createHostValue(
+        // create a Set reflected object
+        let reflectedValue = createReflectedValue(
           false,
           true, // maps have keys
           isNullable<T>(),
@@ -158,7 +158,7 @@ export class Reflect {
           changetype<usize>(value),
           false,
           value.size,
-          HostValueType.Map,
+          ReflectedValueType.Map,
           idof<T>(),
           nameof<T>(),
           0,
@@ -167,27 +167,27 @@ export class Reflect {
         );
 
         // cache this value
-        seen.set(changetype<usize>(value), hostObject);
+        seen.set(changetype<usize>(value), reflectedValue);
 
-        // loop over each key and push the key value pair to the host Map
+        // loop over each key and push the key value pair to the reflected Map
         let keys = value.keys();
         let length = keys.length;
         for (let i = 0; i < length; i++) {
           let mapKey = unchecked(keys[i]);
-          let hostKeyID = Reflect.toHostValue(mapKey, seen);
-          __aspectPushHostObjectKey(hostObject, hostKeyID);
+          let reflectedKeyID = Reflect.toReflectedValue(mapKey, seen);
+          __aspectPushReflectedObjectKey(reflectedValue, reflectedKeyID);
 
           let mapValue = value.get(mapKey);
-          let hostValueID = Reflect.toHostValue(mapValue, seen);
-          __aspectPushHostObjectKey(hostObject, hostValueID);
+          let reflectedValueID = Reflect.toReflectedValue(mapValue, seen);
+          __aspectPushReflectedObjectValue(reflectedValue, reflectedValueID);
         }
 
-        return hostObject;
+        return reflectedValue;
       } else if (value instanceof ArrayBufferView) {
         let length = value.length;
 
-        // create a Set host object
-        let hostObject = createHostValue(
+        // create an arraylike reflected value
+        let reflectedValue = createReflectedValue(
           false,
           false, // arrays don't have keys
           isNullable<T>(),
@@ -195,7 +195,7 @@ export class Reflect {
           changetype<usize>(value),
           false,
           length,
-          HostValueType.TypedArray,
+          value instanceof Array ? ReflectedValueType.Array : ReflectedValueType.TypedArray,
           idof<T>(),
           nameof<T>(),
           0,
@@ -204,19 +204,19 @@ export class Reflect {
         );
 
         // cache this value
-        seen.set(changetype<usize>(value), hostObject);
+        seen.set(changetype<usize>(value), reflectedValue);
 
-        // loop over each value and push it to the host object
+        // loop over each value and push it to the reflected value
         for (let i = 0; i < length; i++) {
           // @ts-ignore index signature is garunteed at this point
           let arrayValue = unchecked(value[i]);
-          let hostArrayValueID = Reflect.toHostValue(arrayValue, seen);
-          __aspectPushHostObjectValue(hostObject, hostArrayValueID);
+          let reflectedArrayValueID = Reflect.toReflectedValue(arrayValue, seen);
+          __aspectPushReflectedObjectValue(reflectedValue, reflectedArrayValueID);
         }
 
-        return hostObject;
+        return reflectedValue;
       } else if (value instanceof String) {
-        let hostValue = createHostValue(
+        let reflectedStringID = createReflectedValue(
           false,
           false,
           isNullable<T>(),
@@ -224,21 +224,21 @@ export class Reflect {
           changetype<usize>(value),
           false,
           value.length,
-          HostValueType.String,
+          ReflectedValueType.String,
           idof<T>(),
           nameof<T>(),
           changetype<usize>(value),
           false,
           true,
         );
-        seen.set(changetype<usize>(value), hostValue);
-        return hostValue;
+        seen.set(changetype<usize>(value), reflectedStringID);
+        return reflectedStringID;
       } else if (isArrayLike<T>()) {
         // @ts-ignore: arraylike has length property
         let length = <i32>value.length;
 
-        // create a Set host object
-        let hostObject = createHostValue(
+        // create an arraylike reflected value
+        let reflectedValue = createReflectedValue(
           false,
           false, // arrays don't have keys
           isNullable<T>(),
@@ -246,7 +246,7 @@ export class Reflect {
           changetype<usize>(value),
           false,
           length,
-          HostValueType.Array,
+          ReflectedValueType.Array,
           isManaged<T>() ? idof<T>() : 0,
           nameof<T>(),
           0,
@@ -255,27 +255,27 @@ export class Reflect {
         );
 
         // cache this value
-        seen.set(changetype<usize>(value), hostObject);
+        seen.set(changetype<usize>(value), reflectedValue);
 
-        // loop over each array item and push it to the host object
+        // loop over each array item and push it to the reflected value
         for (let i = 0; i < length; i++) {
           // @ts-ignore: index signature in arraylike
           if (isDefined(unchecked(value[0]))) {
             // @ts-ignore: index signature in arraylike
             let arrayValue = unchecked(value[i]);
-            let hostArrayValueID = Reflect.toHostValue(arrayValue, seen);
-            __aspectPushHostObjectValue(hostObject, hostArrayValueID);
+            let reflectedArrayValueID = Reflect.toReflectedValue(arrayValue, seen);
+            __aspectPushReflectedObjectValue(reflectedValue, reflectedArrayValueID);
           } else {
             // @ts-ignore: index signature in arraylike
             let arrayValue = value[i];
-            let hostArrayValueID = Reflect.toHostValue(arrayValue, seen);
-            __aspectPushHostObjectValue(hostObject, hostArrayValueID);
+            let reflectedArrayValueID = Reflect.toReflectedValue(arrayValue, seen);
+            __aspectPushReflectedObjectValue(reflectedValue, reflectedArrayValueID);
           }
         }
-        return hostObject;
+        return reflectedValue;
       } else {
         // generic class
-        let hostValue = createHostValue(
+        let reflectedObjectID = createReflectedValue(
           false,
           true, // classes have keys
           isNullable<T>(),
@@ -283,7 +283,7 @@ export class Reflect {
           changetype<usize>(value),
           false,
           RTrace.sizeOf(changetype<usize>(value)),
-          HostValueType.Class,
+          ReflectedValueType.Class,
           isManaged<T>() ? idof<T>() : 0,
           nameof<T>(),
           0,
@@ -292,17 +292,17 @@ export class Reflect {
         );
 
         // cache this object
-        seen.set(changetype<usize>(value), hostValue);
+        seen.set(changetype<usize>(value), reflectedObjectID);
 
-        // @ts-ignore: __aspectAddHostValueKeyValuePairs is auto-generated by the transform
-        value.__aspectAddHostValueKeyValuePairs(hostValue, seen);
+        // @ts-ignore: __aspectAddReflectedValueKeyValuePairs is auto-generated by the transform
+        value.__aspectAddReflectedValueKeyValuePairs(reflectedObjectID, seen);
 
-        return hostValue;
+        return reflectedObjectID;
       }
     } else {
       // box the number first before passing up the pointer to collect the value
       let box = new Box<T>(value);
-      let hostObject = createHostValue(
+      let reflectedValue = createReflectedValue(
         false,
         false,
         false,
@@ -311,15 +311,15 @@ export class Reflect {
         isSigned<T>(),
         sizeof<T>(),
         isBoolean<T>()
-          ? HostValueType.Boolean
-          : (isInteger<T>() ? HostValueType.Integer : HostValueType.Float),
+          ? ReflectedValueType.Boolean
+          : (isInteger<T>() ? ReflectedValueType.Integer : ReflectedValueType.Float),
         0,
         nameof<T>(),
         changetype<usize>(box),
         false,
         false,
       );
-      return hostObject;
+      return reflectedValue;
     }
     return 0;
   }
@@ -543,10 +543,10 @@ export class Reflect {
   /**
    * Attach a stack trace to a value.
    *
-   * @param {i32} hostValueID - The host value to attach the current stack trace to.
+   * @param {i32} id - The reflected value to attach the current stack trace to.
    */
   public static attachStackTrace(id: i32): void {
-    attachStackTraceToHostValue(id);
+    attachStackTraceToReflectedValue(id);
   }
 }
 

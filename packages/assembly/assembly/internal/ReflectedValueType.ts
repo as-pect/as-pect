@@ -1,5 +1,5 @@
 
-export const enum HostValueType {
+export const enum ReflectedValueType {
   None = 0,
   Class = 1,
   String = 2,

@@ -4,7 +4,7 @@ import { ILogTarget } from "../util/ILogTarget";
 import { IWarning } from "./IWarning";
 import { IPerformanceConfiguration } from "../util/IPerformanceConfiguration";
 import { NameSection } from "../util/wasmTools";
-import { HostValue } from "../util/HostValue";
+import { ReflectedValue } from "../util/ReflectedValue";
 /**
  * @ignore
  * This is a collection of all the parameters required for intantiating a TestCollector.
@@ -52,8 +52,8 @@ export declare class TestCollector {
     fileName: string;
     protected stack: string;
     protected message: string;
-    protected actual: HostValue | null;
-    protected expected: HostValue | null;
+    protected actual: ReflectedValue | null;
+    protected expected: ReflectedValue | null;
     private performanceEnabledValue;
     private maxSamplesValue;
     private maxTestRunTimeValue;
@@ -85,10 +85,10 @@ export declare class TestCollector {
      */
     protected rtraceEnabled: boolean;
     /**
-     * A collection of host values used to help cache and aid in the creation
-     * of nested host values.
+     * A collection of reflected values used to help cache and aid in the creation
+     * of nested reflected values.
      */
-    private hostValueCache;
+    private reflectedValueCache;
     private rtraceLabels;
     constructor(props?: ITestCollectorParameters);
     /**
@@ -497,7 +497,7 @@ export declare class TestCollector {
      * @param {number} index - The function index
      */
     private funcName;
-    private createHostValue;
+    private createReflectedValue;
     /**
      * Get a boxed integer of a given kind at a pointer location.
      *
@@ -514,37 +514,37 @@ export declare class TestCollector {
      */
     private getFloat;
     /**
-     * Log a host value.
+     * Log a reflected value.
      *
-     * @param {number} id - The HostValue id
+     * @param {number} id - The ReflectedValue id
      */
-    private logHostValue;
+    private logReflectedValue;
     /**
-     * Report an actual host value.
+     * Report an actual reflected value.
      *
-     * @param {number} id - The HostValue id
+     * @param {number} id - The ReflectedValue id
      */
-    private reportActualHostValue;
+    private reportActualReflectedValue;
     /**
-     * Report an expected host value.
+     * Report an expected reflected value.
      *
-     * @param {number} id - The HostValue id
+     * @param {number} id - The ReflectedValue id
      */
-    private reportExpectedHostValue;
+    private reportExpectedReflectedValue;
     /**
-     * Push a host value to a given host value.
+     * Push a reflected value to a given reflected value.
      *
-     * @param {number} hostValueID - The target host value parent.
-     * @param {number} valueID - The target host value to be pushed.
+     * @param {number} reflectedValueID - The target reflected value parent.
+     * @param {number} childID - The child value by it's id to be pushed.
      */
-    private pushHostObjectValue;
+    private pushReflectedObjectValue;
     /**
-     * Push a host value key to a given host value.
+     * Push a reflected value key to a given reflected value.
      *
-     * @param {number} hostValueID - The target host value parent.
-     * @param {number} keyId - The target host value key to be pushed.
+     * @param {number} reflectedValueID - The target reflected value parent.
+     * @param {number} keyId - The target reflected value key to be pushed.
      */
-    private pushHostObjectKey;
+    private pushReflectedObjectKey;
     /**
      * Clear the expected value.
      */
@@ -572,9 +572,9 @@ export declare class TestCollector {
      */
     private reportExpectedFinite;
     /**
-     * Attaches a stack trace to the given hostValue by it's id.
+     * Attaches a stack trace to the given reflectedValue by it's id.
      *
-     * @param {number} hostValueID - The given host value.
+     * @param {number} reflectedValueID - The given reflected value by it's id.
      */
-    private attachStackTraceToHostValue;
+    private attachStackTraceToReflectedValue;
 }

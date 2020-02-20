@@ -1,11 +1,11 @@
 import { IWarning } from "../test/IWarning";
-import { HostValue } from "./HostValue";
+import { ReflectedValue } from "./ReflectedValue";
 
 /**
  * This interface describes the shape of an object that can contain log values, warnings, and errors.
  */
 export interface ILogTarget {
-  logs: HostValue[];
+  logs: ReflectedValue[];
   errors: IWarning[];
   warnings: IWarning[];
 }
