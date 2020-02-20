@@ -1,9 +1,9 @@
 import { HostValue } from "./HostValue";
 export declare type StringifyHostValueProps = {
-    keywordColor: (prop: string) => string;
-    stringColor: (prop: string) => string;
-    classNameColor: (prop: string) => string;
-    numberColor: (prop: string) => string;
+    keywordFormatter: (prop: string) => string;
+    stringFormatter: (prop: string) => string;
+    classNameFormatter: (prop: string) => string;
+    numberFormatter: (prop: string) => string;
     indent: number;
     tab: number;
     maxPropertyCount: number;

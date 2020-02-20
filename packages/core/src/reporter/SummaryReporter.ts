@@ -108,11 +108,15 @@ export default class SummaryReporter extends TestReporter {
           );
           if (test.expected !== null)
             suite.stdout!.write(
-              chalk`      {green.bold [Expected]:} ${test.expected.stringify({ indent: 2 }).trimLeft()}\n`,
+              chalk`      {green.bold [Expected]:} ${test.expected
+                .stringify({ indent: 2 })
+                .trimLeft()}\n`,
             );
           if (test.actual !== null)
             suite.stdout!.write(
-              chalk`      {red.bold [Actual]  :} ${test.actual.stringify({ indent: 2 }).trimLeft()}\n`,
+              chalk`      {red.bold [Actual]  :} ${test.actual
+                .stringify({ indent: 2 })
+                .trimLeft()}\n`,
             );
           if (this.enableLogging) {
             for (const log of test.logs) {

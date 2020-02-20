@@ -8,10 +8,10 @@ class StringifyContext {
 
   public seen: WeakSet<HostValue> = new WeakSet<HostValue>();
 
-  public keywordColor: (prop: string) => string = chalk.yellow;
-  public stringColor: (prop: string) => string = chalk.cyan;
-  public classNameColor: (prop: string) => string = chalk.green;
-  public numberColor: (prop: string) => string = chalk.white;
+  public keywordFormatter: (prop: string) => string = chalk.yellow;
+  public stringFormatter: (prop: string) => string = chalk.cyan;
+  public classNameFormatter: (prop: string) => string = chalk.green;
+  public numberFormatter: (prop: string) => string = chalk.white;
 
   public indent: number = 0;
   public maxPropertyCount: number = 50;
@@ -20,33 +20,38 @@ class StringifyContext {
 }
 
 export type StringifyHostValueProps = {
-  keywordColor: (prop: string) => string;
-  stringColor: (prop: string) => string;
-  classNameColor: (prop: string) => string;
-  numberColor: (prop: string) => string;
+  keywordFormatter: (prop: string) => string;
+  stringFormatter: (prop: string) => string;
+  classNameFormatter: (prop: string) => string;
+  numberFormatter: (prop: string) => string;
   indent: number;
   tab: number;
   maxPropertyCount: number;
 };
 
-export function stringifyHostValue(hostValue: HostValue, props: Partial<StringifyHostValueProps>): string {
+export function stringifyHostValue(
+  hostValue: HostValue,
+  props: Partial<StringifyHostValueProps>,
+): string {
   const context = new StringifyContext();
-  context.keywordColor = props.keywordColor ?? context.keywordColor;
-  context.stringColor = props.stringColor ?? context.stringColor;
-  context.classNameColor = props.classNameColor ?? context.classNameColor;
-  context.numberColor = props.numberColor ?? context.numberColor;
+  context.keywordFormatter = props.keywordFormatter ?? context.keywordFormatter;
+  context.stringFormatter = props.stringFormatter ?? context.stringFormatter;
+  context.classNameFormatter =
+    props.classNameFormatter ?? context.classNameFormatter;
+  context.numberFormatter = props.numberFormatter ?? context.numberFormatter;
   context.indent = props.indent ?? context.indent;
   context.tab = props.tab ?? context.tab;
   context.maxPropertyCount = props.maxPropertyCount ?? context.maxPropertyCount;
 
-  return formatters[formatterIndexFor(hostValue.type, HostValueFormatType.Expanded)](
-    hostValue,
-    context,
-  );
+  return formatters[
+    formatterIndexFor(hostValue.type, HostValueFormatType.Expanded)
+  ](hostValue, context);
 }
 
-
-type HostNameTypeFormatter = (hostValue: HostValue, ctx: StringifyContext) => string;
+type HostNameTypeFormatter = (
+  hostValue: HostValue,
+  ctx: StringifyContext,
+) => string;
 
 const enum HostValueFormatType {
   Expanded = 0,
@@ -59,116 +64,247 @@ const formatters: HostNameTypeFormatter[] = [];
 const emptyFormatter = () => "";
 for (let i = 0; i < 14 * 4; i++) formatters.push(emptyFormatter);
 
-const formatterIndexFor = (valueType: HostValueType, type: HostValueFormatType) => valueType * 4 + type;
+const formatterIndexFor = (
+  valueType: HostValueType,
+  type: HostValueFormatType,
+) => valueType * 4 + type;
 
-const falsyFormatter = (hostValue: HostValue) => `${hostValue.negated ? "Not " : ""}Falsy`;
-formatters[formatterIndexFor(HostValueType.Falsy, HostValueFormatType.Expanded)] = falsyFormatter;
+const falsyFormatter = (hostValue: HostValue) =>
+  `${hostValue.negated ? "Not " : ""}Falsy`;
+formatters[
+  formatterIndexFor(HostValueType.Falsy, HostValueFormatType.Expanded)
+] = falsyFormatter;
 
-const truthyFormatter = (hostValue: HostValue) => `${hostValue.negated ? "Not " : ""}Truthy`;
-formatters[formatterIndexFor(HostValueType.Truthy, HostValueFormatType.Expanded)] = truthyFormatter;
+const truthyFormatter = (hostValue: HostValue) =>
+  `${hostValue.negated ? "Not " : ""}Truthy`;
+formatters[
+  formatterIndexFor(HostValueType.Truthy, HostValueFormatType.Expanded)
+] = truthyFormatter;
 
-const finiteFormatter = (hostValue: HostValue) => `${hostValue.negated ? "Not " : ""}Finite`;
-formatters[formatterIndexFor(HostValueType.Finite, HostValueFormatType.Expanded)] = finiteFormatter;
+const finiteFormatter = (hostValue: HostValue) =>
+  `${hostValue.negated ? "Not " : ""}Finite`;
+formatters[
+  formatterIndexFor(HostValueType.Finite, HostValueFormatType.Expanded)
+] = finiteFormatter;
 
-function displayBooleanNoSpacing(hostValue: HostValue, ctx: StringifyContext): string {
-  return ctx.keywordColor(hostValue.value === 1 ? "true" : "false");
+function displayBooleanNoSpacing(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
+  return ctx.keywordFormatter(hostValue.value === 1 ? "true" : "false");
 }
 
-function displayBooleanWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
-  return " ".repeat(ctx.indent + ctx.tab * ctx.level) + ctx.keywordColor(hostValue.value === 1 ? "true" : "false");
+function displayBooleanWithSpacing(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
+  return (
+    " ".repeat(ctx.indent + ctx.tab * ctx.level) +
+    ctx.keywordFormatter(hostValue.value === 1 ? "true" : "false")
+  );
 }
 
 // Booleans
-formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Expanded)] = displayBooleanWithSpacing;
-formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Inline)] = displayBooleanNoSpacing;
-formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Key)] = displayBooleanWithSpacing;
-formatters[formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Value)] = displayBooleanNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Expanded)
+] = displayBooleanWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Inline)
+] = displayBooleanNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Key)
+] = displayBooleanWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Boolean, HostValueFormatType.Value)
+] = displayBooleanNoSpacing;
 
-function displayClassNoSpacing(hostValue: HostValue, ctx: StringifyContext): string {
-  return ctx.classNameColor(`[${hostValue.typeName}]`);
+function displayClassNoSpacing(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
+  return ctx.classNameFormatter(`[${hostValue.typeName}]`);
 }
 
-function displayNumberWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
+function displayNumberWithSpacing(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
   let numericString = hostValue.value.toString();
-  if (hostValue.type === HostValueType.Float && !(/\.[0-9]/.test(numericString))) {
+  if (
+    hostValue.type === HostValueType.Float &&
+    !/\.[0-9]/.test(numericString)
+  ) {
     numericString += ".0";
   }
-  if (ctx.impliedTypeInfo || hostValue.typeName === "i32" || hostValue.typeName === "f64") {
-    return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.numberColor(numericString);
+  if (
+    ctx.impliedTypeInfo ||
+    hostValue.typeName === "i32" ||
+    hostValue.typeName === "f64"
+  ) {
+    return (
+      " ".repeat(ctx.indent + ctx.level * ctx.tab) +
+      ctx.numberFormatter(numericString)
+    );
   }
-  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + `${ctx.numberColor(numericString)} ${ctx.keywordColor("as")} ${ctx.classNameColor(hostValue.typeName!)}`;
+  return (
+    " ".repeat(ctx.indent + ctx.level * ctx.tab) +
+    `${ctx.numberFormatter(numericString)} ${ctx.keywordFormatter(
+      "as",
+    )} ${ctx.classNameFormatter(hostValue.typeName!)}`
+  );
 }
 
-function displayNumberNoSpacing(hostValue: HostValue, ctx: StringifyContext): string {
+function displayNumberNoSpacing(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
   let numericString = hostValue.value.toString();
-  if (hostValue.type === HostValueType.Float && !(/\.[0-9]/.test(numericString))) {
+  if (
+    hostValue.type === HostValueType.Float &&
+    !/\.[0-9]/.test(numericString)
+  ) {
     numericString += ".0";
   }
-  if (ctx.impliedTypeInfo || hostValue.typeName === "i32" || hostValue.typeName === "f64") {
-    return ctx.numberColor(numericString);
+  if (
+    ctx.impliedTypeInfo ||
+    hostValue.typeName === "i32" ||
+    hostValue.typeName === "f64"
+  ) {
+    return ctx.numberFormatter(numericString);
   }
-  return `${ctx.numberColor(numericString)} ${ctx.classNameColor(`as ${hostValue.typeName}`)}`;
+  return `${ctx.numberFormatter(numericString)} ${ctx.classNameFormatter(
+    `as ${hostValue.typeName}`,
+  )}`;
 }
 
 // Floats
-formatters[formatterIndexFor(HostValueType.Float, HostValueFormatType.Expanded)] = displayNumberWithSpacing;
-formatters[formatterIndexFor(HostValueType.Float, HostValueFormatType.Inline)] = displayNumberNoSpacing;
-formatters[formatterIndexFor(HostValueType.Float, HostValueFormatType.Key)] = displayNumberWithSpacing;
-formatters[formatterIndexFor(HostValueType.Float, HostValueFormatType.Value)] = displayNumberNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Float, HostValueFormatType.Expanded)
+] = displayNumberWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Float, HostValueFormatType.Inline)
+] = displayNumberNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Float, HostValueFormatType.Key)
+] = displayNumberWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Float, HostValueFormatType.Value)
+] = displayNumberNoSpacing;
 
 // Integers
-formatters[formatterIndexFor(HostValueType.Integer, HostValueFormatType.Expanded)] = displayNumberWithSpacing;
-formatters[formatterIndexFor(HostValueType.Integer, HostValueFormatType.Inline)] = displayNumberNoSpacing;
-formatters[formatterIndexFor(HostValueType.Integer, HostValueFormatType.Key)] = displayNumberWithSpacing;
-formatters[formatterIndexFor(HostValueType.Integer, HostValueFormatType.Value)] = displayNumberNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Integer, HostValueFormatType.Expanded)
+] = displayNumberWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Integer, HostValueFormatType.Inline)
+] = displayNumberNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Integer, HostValueFormatType.Key)
+] = displayNumberWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Integer, HostValueFormatType.Value)
+] = displayNumberNoSpacing;
 
-function displayStringNoSpacing(hostValue: HostValue, ctx: StringifyContext): string {
-  return ctx.stringColor(`"${hostValue.value.toString().replace(/"/g, '\\"')}"`);
+function displayStringNoSpacing(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
+  return ctx.stringFormatter(
+    `"${hostValue.value.toString().replace(/"/g, '\\"')}"`,
+  );
 }
 
-function displayStringWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
-  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.stringColor(`"${hostValue.value.toString().replace(/"/g, '\\"')}"`);
+function displayStringWithSpacing(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
+  return (
+    " ".repeat(ctx.indent + ctx.level * ctx.tab) +
+    ctx.stringFormatter(`"${hostValue.value.toString().replace(/"/g, '\\"')}"`)
+  );
 }
 
-function displayNoQuoteStringWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
-  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.stringColor(`${hostValue.value.toString().replace(/"/g, '\\"')}`);
+function displayNoQuoteStringWithSpacing(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
+  return (
+    " ".repeat(ctx.indent + ctx.level * ctx.tab) +
+    ctx.stringFormatter(`${hostValue.value.toString().replace(/"/g, '\\"')}`)
+  );
 }
 
 // Strings
-formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Expanded)] = displayStringWithSpacing;
-formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Inline)] = displayStringNoSpacing;
-formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Key)] = displayNoQuoteStringWithSpacing;
-formatters[formatterIndexFor(HostValueType.String, HostValueFormatType.Value)] = displayStringNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.String, HostValueFormatType.Expanded)
+] = displayStringWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.String, HostValueFormatType.Inline)
+] = displayStringNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.String, HostValueFormatType.Key)
+] = displayNoQuoteStringWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.String, HostValueFormatType.Value)
+] = displayStringNoSpacing;
 
-function displayFunctionExpanded(hostValue: HostValue, ctx: StringifyContext): string {
-  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.classNameColor(`[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`);
+function displayFunctionExpanded(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
+  return (
+    " ".repeat(ctx.indent + ctx.level * ctx.tab) +
+    ctx.classNameFormatter(
+      `[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`,
+    )
+  );
 }
 
-const displayFuncNoNameNoPointer = (_: HostValue, ctx: StringifyContext) => ctx.classNameColor("[Function]");
+const displayFuncNoNameNoPointer = (_: HostValue, ctx: StringifyContext) =>
+  ctx.classNameFormatter("[Function]");
 
 function displayFunctionKey(_: HostValue, ctx: StringifyContext): string {
-  return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.classNameColor(`[Function]`);
+  return (
+    " ".repeat(ctx.indent + ctx.level * ctx.tab) +
+    ctx.classNameFormatter(`[Function]`)
+  );
 }
 
-function displayFunctionValue(hostValue: HostValue, ctx: StringifyContext): string {
-  return ctx.classNameColor(`[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`);
+function displayFunctionValue(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
+  return ctx.classNameFormatter(
+    `[Function ${hostValue.pointer}: ${hostValue.value.toString()}]`,
+  );
 }
-
 
 // Functions
-formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Expanded)] = displayFunctionExpanded;
-formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Inline)] = displayFuncNoNameNoPointer;
-formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Key)] = displayFunctionKey;
-formatters[formatterIndexFor(HostValueType.Function, HostValueFormatType.Value)] = displayFunctionValue;
+formatters[
+  formatterIndexFor(HostValueType.Function, HostValueFormatType.Expanded)
+] = displayFunctionExpanded;
+formatters[
+  formatterIndexFor(HostValueType.Function, HostValueFormatType.Inline)
+] = displayFuncNoNameNoPointer;
+formatters[
+  formatterIndexFor(HostValueType.Function, HostValueFormatType.Key)
+] = displayFunctionKey;
+formatters[
+  formatterIndexFor(HostValueType.Function, HostValueFormatType.Value)
+] = displayFunctionValue;
 
-function displayClassExpanded(hostValue: HostValue, ctx: StringifyContext): string {
+function displayClassExpanded(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
   const spacing = " ".repeat(ctx.level * ctx.tab + ctx.indent);
-  if (ctx.seen.has(hostValue)) return spacing + ctx.classNameColor("[Circular Reference]");
+  if (ctx.seen.has(hostValue))
+    return spacing + ctx.classNameFormatter("[Circular Reference]");
   ctx.impliedTypeInfo = false;
   const previousImpliedTypeInfo = ctx.impliedTypeInfo;
   if (hostValue.isNull) {
     if (previousImpliedTypeInfo) return `${spacing}null`;
-    return `${spacing}${ctx.classNameColor(`<${hostValue.typeName}>`)}null`;
+    return `${spacing}${ctx.classNameFormatter(`<${hostValue.typeName}>`)}null`;
   }
 
   ctx.seen.add(hostValue);
@@ -177,16 +313,23 @@ function displayClassExpanded(hostValue: HostValue, ctx: StringifyContext): stri
   const length = Math.min(hostValue.keys!.length, ctx.maxPropertyCount);
   for (let i = 0; i < length; i++) {
     const key = hostValue.keys![i];
-    const keyString = formatters[formatterIndexFor(key.type, HostValueFormatType.Key)](key, ctx);
+    const keyString = formatters[
+      formatterIndexFor(key.type, HostValueFormatType.Key)
+    ](key, ctx);
     const value = hostValue.values![i];
-    const valueString = ctx.level < 5
-      // render expanded value, but trim the whitespace on the left side
-      ? formatters[formatterIndexFor(value.type, HostValueFormatType.Expanded)](value, ctx)
-        .trimLeft()
-      // render value
-      : formatters[formatterIndexFor(value.type, HostValueFormatType.Value)](value, ctx);
+    const valueString =
+      ctx.level < 5
+        ? // render expanded value, but trim the whitespace on the left side
+          formatters[
+            formatterIndexFor(value.type, HostValueFormatType.Expanded)
+          ](value, ctx).trimLeft()
+        : // render value
+          formatters[formatterIndexFor(value.type, HostValueFormatType.Value)](
+            value,
+            ctx,
+          );
 
-    if (i === (length - 1)) {
+    if (i === length - 1) {
       // remove last trailing comma
       body += `${keyString}: ${valueString}\n`;
     } else {
@@ -194,33 +337,54 @@ function displayClassExpanded(hostValue: HostValue, ctx: StringifyContext): stri
     }
   }
 
-  if (length > ctx.maxPropertyCount) body += `${spacing}... +${length - ctx.maxPropertyCount} properties`;
+  if (length > ctx.maxPropertyCount)
+    body += `${spacing}... +${length - ctx.maxPropertyCount} properties`;
   ctx.level -= 1;
   ctx.impliedTypeInfo = previousImpliedTypeInfo;
   ctx.seen.delete(hostValue);
-  if (previousImpliedTypeInfo) return `${spacing}{${body}${spacing}}`
-  return `${spacing}${ctx.classNameColor(`${hostValue.typeName}`)} {${body}${spacing}}`;
+  if (previousImpliedTypeInfo) return `${spacing}{${body}${spacing}}`;
+  return `${spacing}${ctx.classNameFormatter(
+    hostValue.typeName!,
+  )} {${body}${spacing}}`;
 }
 
-function displayClassWithSpacing(hostValue: HostValue, ctx: StringifyContext): string {
-  return `${" ".repeat(ctx.level * ctx.tab + ctx.indent)}${ctx.classNameColor(`[${hostValue.typeName}]`)}`;
+function displayClassWithSpacing(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
+  return `${" ".repeat(
+    ctx.level * ctx.tab + ctx.indent,
+  )}${ctx.classNameFormatter(`[${hostValue.typeName}]`)}`;
 }
 
 // Classes
-formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Expanded)] = displayClassExpanded;
-formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Inline)] = displayClassNoSpacing;
-formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Key)] = displayClassWithSpacing;
-formatters[formatterIndexFor(HostValueType.Class, HostValueFormatType.Value)] = displayClassExpanded;
+formatters[
+  formatterIndexFor(HostValueType.Class, HostValueFormatType.Expanded)
+] = displayClassExpanded;
+formatters[
+  formatterIndexFor(HostValueType.Class, HostValueFormatType.Inline)
+] = displayClassNoSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Class, HostValueFormatType.Key)
+] = displayClassWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Class, HostValueFormatType.Value)
+] = displayClassExpanded;
 
-function displayArrayExpanded(hostValue: HostValue, ctx: StringifyContext): string {
+function displayArrayExpanded(
+  hostValue: HostValue,
+  ctx: StringifyContext,
+): string {
   const spacing = " ".repeat(ctx.level * ctx.tab + ctx.indent);
-  if (ctx.seen.has(hostValue)) return spacing + ctx.classNameColor("[Circular Reference]");
+  if (ctx.seen.has(hostValue))
+    return spacing + ctx.classNameFormatter("[Circular Reference]");
 
   ctx.seen.add(hostValue);
   const previousImpliedTypeInfo = ctx.impliedTypeInfo;
   ctx.impliedTypeInfo = true;
 
-  if (ctx.level < 5 && hostValue.type === HostValueType.Array) { // expanded only for arrays
+  if (ctx.level < 5 && hostValue.type === HostValueType.Array) {
+    // expanded only for arrays
     let body = "\n";
     ctx.level += 1;
     const length = Math.min(hostValue.values!.length, ctx.maxPropertyCount);
@@ -228,35 +392,46 @@ function displayArrayExpanded(hostValue: HostValue, ctx: StringifyContext): stri
       const value = hostValue.values![i];
 
       // render expanded value, but trim the whitespace on the left side
-      const valueString = formatters[formatterIndexFor(value.type, HostValueFormatType.Expanded)](value, ctx);
-      if (i === (length - 1)) {
+      const valueString = formatters[
+        formatterIndexFor(value.type, HostValueFormatType.Expanded)
+      ](value, ctx);
+      if (i === length - 1) {
         // remove trailing comma
         body += `${valueString}\n`;
       } else {
         body += `${valueString},\n`;
       }
     }
-    if (length > ctx.maxPropertyCount) body += `${spacing}... +${length - ctx.maxPropertyCount} values`;
+    if (length > ctx.maxPropertyCount)
+      body += `${spacing}... +${length - ctx.maxPropertyCount} values`;
     ctx.level -= 1;
     ctx.impliedTypeInfo = previousImpliedTypeInfo;
     ctx.seen.delete(hostValue);
     if (previousImpliedTypeInfo) return `${spacing}[${body}${spacing}]`;
-    return `${spacing}${ctx.classNameColor(`${hostValue.typeName}`)} [${body}${spacing}]`;
-  } else {  // inline
+    return `${spacing}${ctx.classNameFormatter(
+      `${hostValue.typeName}`,
+    )} [${body}${spacing}]`;
+  } else {
+    // inline
     let body = spacing;
-    if (!previousImpliedTypeInfo) body += ctx.classNameColor(hostValue.typeName!) + " ";
+    if (!previousImpliedTypeInfo)
+      body += ctx.classNameFormatter(hostValue.typeName!) + " ";
     body += "[";
     let i = 0;
     let length = hostValue.values!.length;
     for (; i < length; i++) {
       let value = hostValue.values![i];
-      const result = formatters[formatterIndexFor(value.type, HostValueFormatType.Inline)](value, ctx) + ", ";
+      const result =
+        formatters[formatterIndexFor(value.type, HostValueFormatType.Inline)](
+          value,
+          ctx,
+        ) + ", ";
       if (body.length > 80) {
         break;
       }
       body += result;
     }
-    if ((length - i) > 0) body += `... +${length - i} items`;
+    if (length - i > 0) body += `... +${length - i} items`;
     body += "]";
     ctx.impliedTypeInfo = previousImpliedTypeInfo;
     ctx.seen.delete(hostValue);
@@ -266,19 +441,43 @@ function displayArrayExpanded(hostValue: HostValue, ctx: StringifyContext): stri
 }
 
 // Array
-formatters[formatterIndexFor(HostValueType.Array, HostValueFormatType.Expanded)] = displayArrayExpanded;
-formatters[formatterIndexFor(HostValueType.Array, HostValueFormatType.Inline)] = displayArrayExpanded;
-formatters[formatterIndexFor(HostValueType.Array, HostValueFormatType.Key)] = displayClassWithSpacing;
-formatters[formatterIndexFor(HostValueType.Array, HostValueFormatType.Value)] = displayArrayExpanded;
+formatters[
+  formatterIndexFor(HostValueType.Array, HostValueFormatType.Expanded)
+] = displayArrayExpanded;
+formatters[
+  formatterIndexFor(HostValueType.Array, HostValueFormatType.Inline)
+] = displayArrayExpanded;
+formatters[
+  formatterIndexFor(HostValueType.Array, HostValueFormatType.Key)
+] = displayClassWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.Array, HostValueFormatType.Value)
+] = displayArrayExpanded;
 
 // ArrayBuffer
-formatters[formatterIndexFor(HostValueType.ArrayBuffer, HostValueFormatType.Expanded)] = displayArrayExpanded;
-formatters[formatterIndexFor(HostValueType.ArrayBuffer, HostValueFormatType.Inline)] = displayArrayExpanded;
-formatters[formatterIndexFor(HostValueType.ArrayBuffer, HostValueFormatType.Key)] = displayClassWithSpacing;
-formatters[formatterIndexFor(HostValueType.ArrayBuffer, HostValueFormatType.Value)] = displayArrayExpanded;
+formatters[
+  formatterIndexFor(HostValueType.ArrayBuffer, HostValueFormatType.Expanded)
+] = displayArrayExpanded;
+formatters[
+  formatterIndexFor(HostValueType.ArrayBuffer, HostValueFormatType.Inline)
+] = displayArrayExpanded;
+formatters[
+  formatterIndexFor(HostValueType.ArrayBuffer, HostValueFormatType.Key)
+] = displayClassWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.ArrayBuffer, HostValueFormatType.Value)
+] = displayArrayExpanded;
 
 // TypedArray
-formatters[formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Expanded)] = displayArrayExpanded;
-formatters[formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Inline)] = displayArrayExpanded;
-formatters[formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Key)] = displayClassWithSpacing;
-formatters[formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Value)] = displayArrayExpanded;
+formatters[
+  formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Expanded)
+] = displayArrayExpanded;
+formatters[
+  formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Inline)
+] = displayArrayExpanded;
+formatters[
+  formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Key)
+] = displayClassWithSpacing;
+formatters[
+  formatterIndexFor(HostValueType.TypedArray, HostValueFormatType.Value)
+] = displayArrayExpanded;

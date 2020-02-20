@@ -46,7 +46,9 @@ export default class JSONReporter extends TestReporter {
           runtime: result.runTime,
           message: result.message,
           actual: result.actual ? result.actual.stringify({ indent: 0 }) : null,
-          expected: result.expected ? result.expected.stringify({ indent: 0 }) : null,
+          expected: result.expected
+            ? result.expected.stringify({ indent: 0 })
+            : null,
           average: result.average,
           median: result.median,
           max: result.max,

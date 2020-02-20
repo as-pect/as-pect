@@ -1,24 +1,51 @@
 import { HostValueType } from "@as-pect/assembly/assembly/internal/HostValueType";
-import { StringifyHostValueProps, stringifyHostValue } from "./stringifyHostValue";
+import {
+  StringifyHostValueProps,
+  stringifyHostValue,
+} from "./stringifyHostValue";
 
+/**
+ * A JavaScript object that represents a reflected value from the as-pect testing
+ * module.
+ */
 export class HostValue {
+  /** An indicator if the reflected object was managed by the runtime. */
   isManaged: boolean = false;
+  /** An indicator if the reflected object was null. */
   isNull: boolean = false;
+  /** A set of keys for Maps or Classes in the reflected object. */
   keys: HostValue[] | null = null;
+  /** Used to indicate if an expected assertion value was negated. */
   negated: boolean = false;
+  /** An indicator wether the reflected object was in a nullable context. */
   nullable: boolean = false;
+  /** The size of the heap allocation for a given class. */
   offset: number = 0;
+  /** The pointer to the value in the module. */
   pointer: number = 0;
+  /** An indicator if a number was signed. */
   signed: boolean = false;
+  /** The size of an array, or the byte size of a number. */
   size: number = 0;
+  /** A stack trace for the given value. */
   stack: string = "";
+  /** The host value type. */
   type: HostValueType = HostValueType.None;
+  /** The runtime class id for the reflected host value. */
   typeId: number = 0;
+  /** The name of the class for a given reflected host value. */
   typeName: string | null = null;
+  /** A string or number representing the host value. */
   value: number | string = 0;
+  /** A set of values that are contained in a given reflected Set, Map, or Class object. */
   values: HostValue[] | null = null;
 
-  stringify(props: Partial<StringifyHostValueProps>): string {
+  /**
+   * Stringify the HostValue with custom formatting.
+   *
+   * @param {Partial<StringifyHostValueProps>} props - The stringify configuration
+   */
+  stringify(props: Partial<StringifyHostValueProps> = {}): string {
     return stringifyHostValue(this, props);
   }
 }

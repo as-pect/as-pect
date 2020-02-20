@@ -21,10 +21,10 @@ beforeEach(() => start);
 const stringifyOptions: Partial<StringifyHostValueProps> = {
   indent: 2,
   tab: 4,
-  classNameColor: (name) => "class: " + name,
-  keywordColor: (keyword) => "keyword: " + keyword,
-  numberColor: (number) => "number: " + number,
-  stringColor: (str) => "string: " + str,
+  classNameFormatter: name => "class: " + name,
+  keywordFormatter: keyword => "keyword: " + keyword,
+  numberFormatter: number => "number: " + number,
+  stringFormatter: str => "string: " + str,
 };
 
 describe("log output", () => {
@@ -45,7 +45,9 @@ describe("log output", () => {
         test(`Test: ${groupTest.name}`, () => {
           for (const log of groupTest.logs) {
             expect(log).toMatchSnapshot("log");
-            expect(log.stringify(stringifyOptions)).toMatchSnapshot("stringify");
+            expect(log.stringify(stringifyOptions)).toMatchSnapshot(
+              "stringify",
+            );
           }
           expect(groupTest.pass).toBeTruthy();
         });

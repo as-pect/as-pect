@@ -235,8 +235,11 @@ export default class VerboseReporter extends TestReporter {
     const chalk = require("chalk");
     const output: string = logValue.stringify({ indent: 12 }).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
-    this.stdout!.write(chalk`   {yellow [Stack]:} ${logValue.stack.trimLeft()
-      .split("\n")
-      .join("\n             ")}\n`);
+    this.stdout!.write(
+      chalk`   {yellow [Stack]:} ${logValue.stack
+        .trimLeft()
+        .split("\n")
+        .join("\n             ")}\n`,
+    );
   }
 }
