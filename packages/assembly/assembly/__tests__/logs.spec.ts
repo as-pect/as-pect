@@ -44,6 +44,20 @@ class UnmanagedClass {
   c: f64 = 3;
 }
 
+class CustomDisplayStringClass {
+  x: i32 = 2;
+  y: string = "joe";
+
+  __aspectDisplayAs(): String { return this.y + " has " + this.x.toString() + " cookies"; }
+}
+
+class CustomDisplayNumberClass {
+  x: i32 = 2;
+  y: string = "joe";
+
+  __aspectDisplayAs(): i32 { return this.y.length + this.x; }
+}
+
 /**
  * This test suite verifies that the log functions do not error when they are called.
  */
@@ -167,6 +181,22 @@ describe("logs", () => {
     let e = new UnmanagedClass();
     log(e);
     __free(changetype<usize>(e));
+  });
+
+  /**
+   * Log a class with a custom display method that returns a string
+   */
+  test("log class with custom display method that returns a string", () => {
+    let e = new CustomDisplayStringClass();
+    log(e);
+  });
+
+  /**
+   * Log a class with a custom display method that returns an int
+   */
+  test("log class with custom display method that returns an integer", () => {
+    let e = new CustomDisplayNumberClass();
+    log(e);
   });
 
   /**

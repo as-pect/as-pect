@@ -209,11 +209,11 @@ HostValue {
   "pointer": 896,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:0x1bdb)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c3c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:0x1c6e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:26)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:31)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:16)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -233,11 +233,11 @@ HostValue {
   "pointer": 928,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:0x1c0f)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c42)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:0x1c6e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:40)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:37)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:16)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -293,11 +293,11 @@ HostValue {
   "pointer": 7168,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[145]:0x379d)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:0x3829)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:0x387e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[145]:27)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:73)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:41)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 11,
   "typeId": 12,
   "typeName": "Array<i32>",
@@ -369,11 +369,11 @@ HostValue {
   "pointer": 7264,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[146]:0x37d2)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:0x3830)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:0x387e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[146]:41)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:80)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:41)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 11,
   "typeId": 12,
   "typeName": "Array<i32>",
@@ -451,11 +451,11 @@ HostValue {
   "pointer": 8016,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x41da)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:0x4229)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:0x4258)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:21)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:30)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:15)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -475,11 +475,11 @@ HostValue {
   "pointer": 8016,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<bool> (wasm-function[187]:0x4201)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:0x4230)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:0x4258)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<bool> (wasm-function[187]:31)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:37)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:15)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -505,11 +505,11 @@ HostValue {
   "pointer": 6896,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d53)
-    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1d7d)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|3 (wasm-function[88]:0x1dba)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:20)
+    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:27)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|3 (wasm-function[88]:19)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 8,
   "typeId": 0,
   "typeName": "f64",
@@ -565,11 +565,11 @@ HostValue {
   "pointer": 1,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<(i: i32) => i32> (wasm-function[195]:0x4359)
-    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:0x43a2)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:0x43d1)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<(i: i32) => i32> (wasm-function[195]:21)
+    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:24)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:15)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -589,11 +589,11 @@ HostValue {
   "pointer": 2,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<(i: i32) => i32> (wasm-function[196]:0x4380)
-    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:0x43a9)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:0x43d1)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<(i: i32) => i32> (wasm-function[196]:31)
+    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:31)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:15)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -619,11 +619,11 @@ HostValue {
   "pointer": 6928,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x1519)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeFalsy (wasm-function[90]:0x1ddb)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|4 (wasm-function[91]:0x1e0e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:20)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeFalsy (wasm-function[90]:18)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|4 (wasm-function[91]:12)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -709,11 +709,11 @@ HostValue {
   "pointer": 3072,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:0x1bdb)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c3c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:0x4271)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:26)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:31)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:16)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -733,11 +733,11 @@ HostValue {
   "pointer": 3104,
   "signed": false,
   "size": 7,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:0x1c0f)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c42)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:0x4271)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:40)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:37)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:16)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -763,11 +763,11 @@ HostValue {
   "pointer": 7952,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<i64> (wasm-function[168]:0x3f1c)
-    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:0x3f65)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:0x3f9c)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<i64> (wasm-function[168]:21)
+    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:24)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:23)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -787,11 +787,11 @@ HostValue {
   "pointer": 7952,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<i64> (wasm-function[169]:0x3f43)
-    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:0x3f6c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:0x3f9c)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<i64> (wasm-function[169]:31)
+    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:31)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:23)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -817,11 +817,11 @@ HostValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[129]:0x32e8)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:0x3346)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:0x337a)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[129]:27)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:27)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:16)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -841,11 +841,11 @@ HostValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[130]:0x331d)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:0x334d)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:0x337a)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[130]:41)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:34)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:16)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -871,11 +871,11 @@ HostValue {
   "pointer": 7248,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x1519)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:0x1599)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:0x3174)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:20)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:24)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:14)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -895,11 +895,11 @@ HostValue {
   "pointer": 7248,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<i32> (wasm-function[55]:0x153f)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:0x159f)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:0x3174)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<i32> (wasm-function[55]:30)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:30)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:14)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -977,11 +977,11 @@ HostValue {
   "pointer": 6816,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[119]:0x3056)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:0x30e0)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:0x3156)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[119]:26)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:72)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:76)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -1105,11 +1105,11 @@ HostValue {
   "pointer": 6896,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[120]:0x308a)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:0x30e6)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:0x3156)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[120]:40)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:78)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:76)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -1187,11 +1187,11 @@ HostValue {
   "pointer": 6960,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x1519)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeTruthy (wasm-function[93]:0x1e2f)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|5 (wasm-function[94]:0x1e62)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:20)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeTruthy (wasm-function[93]:18)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|5 (wasm-function[94]:12)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -1247,11 +1247,11 @@ HostValue {
   "pointer": 7456,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[159]:0x3cf7)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:0x3d83)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:0x3e31)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[159]:27)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:73)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:129)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 11,
   "typeId": 15,
   "typeName": "Float64Array",
@@ -1323,11 +1323,11 @@ HostValue {
   "pointer": 7536,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[160]:0x3d2c)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:0x3d8a)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:0x3e31)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[160]:41)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:80)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:129)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 11,
   "typeId": 15,
   "typeName": "Float64Array",
@@ -1405,11 +1405,11 @@ HostValue {
   "pointer": 7984,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Actual/Actual.report<u32> (wasm-function[177]:0x407f)
-    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:0x40c8)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:0x40f7)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Actual/Actual.report<u32> (wasm-function[177]:21)
+    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:24)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:15)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",
@@ -1429,11 +1429,11 @@ HostValue {
   "pointer": 7984,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1501)
-    at ../assembly/assembly/internal/Expected/Expected.report<u32> (wasm-function[178]:0x40a6)
-    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:0x40cf)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:0x40f7)
-    at ../assembly/assembly/internal/call/__call (wasm-function[283]:0x4d0d)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:3)
+    at ../assembly/assembly/internal/Expected/Expected.report<u32> (wasm-function[178]:31)
+    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:31)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:15)
+    at ../assembly/assembly/internal/call/__call (wasm-function[283]:7)",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",
