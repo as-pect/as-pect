@@ -1,5 +1,10 @@
 // import { Transform } from "assemblyscript/cli/transform";
-import { Parser, NodeKind, ClassDeclaration, Transform } from "./assemblyscript";
+import {
+  Parser,
+  NodeKind,
+  ClassDeclaration,
+  Transform,
+} from "./assemblyscript";
 import { createStrictEqualsMember } from "./createStrictEqualsMember";
 import { createAddHostValueKeyValuePairsMember } from "./createAddHostValueKeyValuePairsMember";
 export = class AspectTransform extends Transform {
@@ -12,19 +17,20 @@ export = class AspectTransform extends Transform {
   afterParse(parser: Parser): void {
     // for each program source
     for (const source of parser.program.sources) {
-
       // for each statement in the source
       for (const statement of source.statements) {
-
         // find each class declaration
         if (statement.kind === NodeKind.CLASSDECLARATION) {
-
           // cast and create a strictEquals function
           const classDeclaration = <ClassDeclaration>statement;
-          classDeclaration.members.push(createStrictEqualsMember(classDeclaration));
-          classDeclaration.members.push(createAddHostValueKeyValuePairsMember(classDeclaration));
+          classDeclaration.members.push(
+            createStrictEqualsMember(classDeclaration),
+          );
+          classDeclaration.members.push(
+            createAddHostValueKeyValuePairsMember(classDeclaration),
+          );
         }
       }
     }
   }
-}
+};

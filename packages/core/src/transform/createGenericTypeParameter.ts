@@ -5,6 +5,14 @@ import { Range, TypeNode } from "./assemblyscript";
  * @param {string} name - The name of the type.
  * @param {Range} range - The range given for the type parameter.
  */
-export function createGenericTypeParameter(name: string, range: Range): TypeNode {
-  return TypeNode.createNamedType(TypeNode.createSimpleTypeName(name, range), null, false, range);
+export function createGenericTypeParameter(
+  name: string,
+  range: Range,
+): TypeNode {
+  return TypeNode.createNamedType(
+    TypeNode.createSimpleTypeName(name, range),
+    null,
+    false,
+    range,
+  );
 }

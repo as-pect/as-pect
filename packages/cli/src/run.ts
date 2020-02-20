@@ -379,7 +379,16 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   // create the array of compiler flags from the flags object
   const flagList: string[] = Object.entries(flags)
-    .reduce((args: string[], [flag, options]) => args.concat(flag, options.length == 0 || (typeof options == "string") ? options : options.join(",")), [])
+    .reduce(
+      (args: string[], [flag, options]) =>
+        args.concat(
+          flag,
+          options.length == 0 || typeof options == "string"
+            ? options
+            : options.join(","),
+        ),
+      [],
+    )
     .concat(compilerArgs);
 
   let testCount = 0;

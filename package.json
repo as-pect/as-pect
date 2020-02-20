@@ -5,12 +5,13 @@
     "bootstrap": "lerna bootstrap",
     "coveralls": "cat ./packages/core/coverage/lcov.info | coveralls",
     "jest": "jest",
-    "mdlint": "markdownlint *.md",
     "test": "run-s tsc:all test:all",
+    "test:update-snapshots": "lerna run test:update-snapshots",
     "test:ci": "run-s bootstrap tsc:all test:ci:all",
     "test:ci:all": "lerna run test:ci",
     "test:all": "lerna run test",
-    "tsc:all": "lerna run tsc:all"
+    "tsc:all": "lerna run tsc:all",
+    "prettier": "lerna run prettier"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,6 @@
     "csv-stringify": "^5.3.6",
     "jest": "^25.1.0",
     "lerna": "^3.20.2",
-    "markdownlint-cli": "^0.22.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
