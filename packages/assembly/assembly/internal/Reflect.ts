@@ -77,7 +77,16 @@ export class Reflect {
           return seen.get(changetype<usize>(value));
         }
       }
-      if (value instanceof ArrayBuffer) {
+
+      // @ts-ignore: __aspectDisplayAs() can potentially be implemented
+      if (isDefined(value.__aspectDisplayAs())) {
+        // @ts-ignore: typesafe call to __aspectDisplayAs()
+        let displayValue = value.__aspectDisplayAs();
+        if (!isInteger(displayValue) && !isFloat(displayValue) && !isManaged(displayValue)) {
+          ERROR("__aspectDisplayAs() function should return a managed type or a number");
+        }
+        return Reflect.toReflectedValue(displayValue, seen);
+      } else if (value instanceof ArrayBuffer) {
         let reflectedValue = createReflectedValue(
           false,
           false,

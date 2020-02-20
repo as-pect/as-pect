@@ -165,6 +165,16 @@ class NestedTypeImpliedArrayC {
   c: u8[][] = [[<u8>0]];
 }
 
+class MeaningOfLife {
+  its: i32 = 42;
+}
+
+class Overridden {
+  __aspectDisplayAs(): MeaningOfLife {
+    return new MeaningOfLife();
+  }
+}
+
 
 describe("logs", () => {
   log<string>("Hello world!");
@@ -258,6 +268,7 @@ describe("logs", () => {
     let anotherFieldsArray = new Array<Vec3 | null>(); // implied type information on null output
     anotherFieldsArray.push(null);
     log(anotherFieldsArray);
+    log(new Overridden());
   });
 
   todo("one");
