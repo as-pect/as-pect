@@ -35,7 +35,10 @@ describe("log output", () => {
   for (const group of ctx.testGroups) {
     test(`Group: ${group.name}`, () => {
       for (const log of group.logs) {
+        const stack = log.stack;
+        log.stack = "";
         expect(log).toMatchSnapshot("log");
+        log.stack = stack;
       }
       for (const todo of group.todos) {
         expect(todo).toMatchSnapshot(`todo`);
@@ -47,10 +50,13 @@ describe("log output", () => {
       for (const groupTest of group.tests) {
         test(`Test: ${groupTest.name}`, () => {
           for (const log of groupTest.logs) {
+            const stack = log.stack;
+            log.stack = "";
             expect(log).toMatchSnapshot("log");
             expect(log.stringify(stringifyOptions)).toMatchSnapshot(
               "stringify",
             );
+            log.stack = stack;
           }
           expect(groupTest.pass).toBeTruthy();
         });

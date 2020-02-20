@@ -205,11 +205,11 @@ describe("logs", () => {
     log(e);
     __free(changetype<usize>(e));
     let lotsOfValues = new Array<i32>();
-    for (let i = 0; i < 1000; i++) lotsOfValues.push(i); // for expanded values
+    for (let i = 0; i < 20; i++) lotsOfValues.push(i); // for expanded values
     log(lotsOfValues);
     log(new LotsOfFields());
-    let g = new Float64Array(1000);
-    for (let i = 0; i < 1000; i++) g[i] = <f64>i;
+    let g = new Float64Array(20);
+    for (let i = 0; i < 20; i++) g[i] = <f64>i;
     log(g);
     log([1, 2, 3]); // short array
     let circular = new Circular();
@@ -224,12 +224,12 @@ describe("logs", () => {
     log(circularArray);
     log(new NestedA());
 
-    let m = new Map<LotsOfFields, i32>();
-    let key1 = new LotsOfFields();
+    let m = new Map<Vec3, i32>();
+    let key1 = new Vec3(1, 2, 3);
     m.set(key1, 42);
-    let key2 = new LotsOfFields();
+    let key2 = new Vec3(1, 2, 3);
     m.set(key2, 43);
-    let key3 = new LotsOfFields();
+    let key3 = new Vec3(1, 2, 3);
     m.set(key3, 44);
     log(m);
 
@@ -250,12 +250,12 @@ describe("logs", () => {
     log(new NestedTypeImpliedArrayA()); // type info is implied in inline position
     log(new NestedTypeImpliedArrayC()); // type info is implied in expanded position
 
-    let lotsOfFieldsArray = new Array<LotsOfFields>(); // implied type information for class display
+    let lotsOfFieldsArray = new Array<Vec3>(); // implied type information for class display
     for (let i = 0; i < 4; i++)
-      lotsOfFieldsArray.push(new LotsOfFields());
+      lotsOfFieldsArray.push(new Vec3(1, 2, 3));
     log(lotsOfFieldsArray);
 
-    let anotherFieldsArray = new Array<LotsOfFields | null>(); // implied type information on null output
+    let anotherFieldsArray = new Array<Vec3 | null>(); // implied type information on null output
     anotherFieldsArray.push(null);
     log(anotherFieldsArray);
   });
