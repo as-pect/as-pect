@@ -20,7 +20,8 @@ export function createPerformanceConfigurationModule(
       "--explicitStart",
       "./assembly/jest-performance-configuration.ts",
       "../assembly/assembly/index.ts",
-      "--transform", require.resolve("../../lib/transform"),
+      "--transform",
+      require.resolve("../../lib/transform"),
     ],
     {
       writeFile(fileName: string, contents: Uint8Array) {

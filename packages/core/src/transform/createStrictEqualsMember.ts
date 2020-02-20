@@ -22,22 +22,30 @@ import { createGenericTypeParameter } from "./createGenericTypeParameter";
  *
  * @param {ClassDeclaration} classDeclaration - The class that requires a new function.
  */
-export function createStrictEqualsMember(classDeclaration: ClassDeclaration): FunctionDeclaration {
+export function createStrictEqualsMember(
+  classDeclaration: ClassDeclaration,
+): FunctionDeclaration {
   const range = classDeclaration.name.range;
 
   // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[]): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
-    [TypeNode.createTypeParameter(
-      TypeNode.createIdentifierExpression("T", range),
-      null,
-      null,
-      range,
-    )],
+    [
+      TypeNode.createTypeParameter(
+        TypeNode.createIdentifierExpression("T", range),
+        null,
+        null,
+        range,
+      ),
+    ],
     TypeNode.createFunctionType(
       [
         // ref: T,
-        createDefaultParameter("ref", createGenericTypeParameter("T", range), range),
+        createDefaultParameter(
+          "ref",
+          createGenericTypeParameter("T", range),
+          range,
+        ),
         // stack: usize[]
         createDefaultParameter("stack", createUsizeArrayType(range), range),
         // cache: usize[]
@@ -51,7 +59,10 @@ export function createStrictEqualsMember(classDeclaration: ClassDeclaration): Fu
     ),
     createStrictEqualsFunctionBody(classDeclaration),
     null,
-    CommonFlags.PUBLIC | CommonFlags.INSTANCE | CommonFlags.GENERIC | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+    CommonFlags.PUBLIC |
+      CommonFlags.INSTANCE |
+      CommonFlags.GENERIC |
+      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     range,
   );
 }
@@ -63,7 +74,12 @@ export function createStrictEqualsMember(classDeclaration: ClassDeclaration): Fu
  * @param {Range} range - The given source range.
  */
 function createSimpleNamedType(name: string, range: Range): TypeNode {
-  return TypeNode.createNamedType(TypeNode.createSimpleTypeName(name, range), null, false, range);
+  return TypeNode.createNamedType(
+    TypeNode.createSimpleTypeName(name, range),
+    null,
+    false,
+    range,
+  );
 }
 
 /**
@@ -72,9 +88,19 @@ function createSimpleNamedType(name: string, range: Range): TypeNode {
  * @param {Range} range - The source range.
  */
 function createUsizeArrayType(range: Range): TypeNode {
-  return TypeNode.createNamedType(TypeNode.createSimpleTypeName("Array", range), [
-    TypeNode.createNamedType(TypeNode.createSimpleTypeName("usize", range), null, false, range),
-  ], false, range);
+  return TypeNode.createNamedType(
+    TypeNode.createSimpleTypeName("Array", range),
+    [
+      TypeNode.createNamedType(
+        TypeNode.createSimpleTypeName("usize", range),
+        null,
+        false,
+        range,
+      ),
+    ],
+    false,
+    range,
+  );
 }
 
 /**
@@ -82,20 +108,26 @@ function createUsizeArrayType(range: Range): TypeNode {
  *
  * @param {ClassDeclaration} classDeclaration - The class declaration.
  */
-function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
+function createStrictEqualsFunctionBody(
+  classDeclaration: ClassDeclaration,
+): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
 
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, and it isn't marked private or protected
-    if (member.is(CommonFlags.INSTANCE) && !member.is(CommonFlags.PRIVATE | CommonFlags.PROTECTED)) {
+    if (
+      member.is(CommonFlags.INSTANCE) &&
+      !member.is(CommonFlags.PRIVATE | CommonFlags.PROTECTED)
+    ) {
       switch (member.kind) {
-
         // field declarations automatically get added
         case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
-          body.push(createStrictEqualsIfCheck(member.name.text, fieldDeclaration.range));
+          body.push(
+            createStrictEqualsIfCheck(member.name.text, fieldDeclaration.range),
+          );
           break;
         }
 
@@ -103,7 +135,12 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
         case NodeKind.FUNCTIONDECLARATION: {
           if (member.is(CommonFlags.GET)) {
             const functionDeclaration = <FunctionDeclaration>member;
-            body.push(createStrictEqualsIfCheck(functionDeclaration.name.text, functionDeclaration.range));
+            body.push(
+              createStrictEqualsIfCheck(
+                functionDeclaration.name.text,
+                functionDeclaration.range,
+              ),
+            );
           }
           break;
         }
@@ -113,10 +150,7 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
 
   // return true;
   body.push(
-    TypeNode.createReturnStatement(
-      TypeNode.createTrueExpression(range),
-      range,
-    )
+    TypeNode.createReturnStatement(TypeNode.createTrueExpression(range), range),
   );
   return TypeNode.createBlockStatement(body, range);
 }
@@ -177,7 +211,11 @@ function createStrictEqualsIfCheck(name: string, range: Range): IfStatement {
  * @param {TypeNode} typeNode - The type of the parameter.
  * @param {Range} range - The source range of the parameter.
  */
-function createDefaultParameter(name: string, typeNode: TypeNode, range: Range): ParameterNode {
+function createDefaultParameter(
+  name: string,
+  typeNode: TypeNode,
+  range: Range,
+): ParameterNode {
   return TypeNode.createParameter(
     TypeNode.createIdentifierExpression(name, range),
     typeNode,
@@ -194,7 +232,11 @@ function createDefaultParameter(name: string, typeNode: TypeNode, range: Range):
  * @param {string} property - The name of the identifier representing the property.
  * @param {Range} range - The range of the property access.
  */
-function createPropertyAccess(root: string, property: string, range: Range): PropertyAccessExpression {
+function createPropertyAccess(
+  root: string,
+  property: string,
+  range: Range,
+): PropertyAccessExpression {
   // root.property
   return TypeNode.createPropertyAccessExpression(
     TypeNode.createIdentifierExpression(root, range),

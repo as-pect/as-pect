@@ -9,7 +9,9 @@
     "mdlint": "markdownlint *.md",
     "test:ci": "run-s asp:ci mdlint",
     "test": "run-s asp mdlint",
-    "tsc:all": "exit 0"
+    "tsc:all": "exit 0",
+    "prettier": "exit 0",
+    "test:update-snapshots": "exit 0"
   },
   "repository": {
     "type": "git",

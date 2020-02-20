@@ -278,7 +278,9 @@ export class TestCollector {
       ...imports, // get all the user defined imports
       {
         __aspect: {
-          attachStackTraceToHostValue: this.attachStackTraceToHostValue.bind(this),
+          attachStackTraceToHostValue: this.attachStackTraceToHostValue.bind(
+            this,
+          ),
           clearActual: this.clearActual.bind(this),
           clearExpected: this.clearExpected.bind(this),
           createHostValue: this.createHostValue.bind(this),
@@ -1323,7 +1325,10 @@ export class TestCollector {
    */
   private funcName(index: number): string {
     /* istanbul ignore next */
-    if (this.nameSection) return this.nameSection.fromIndex(parseInt(this.wasm!.table!.get(index)!.name));
+    if (this.nameSection)
+      return this.nameSection.fromIndex(
+        parseInt(this.wasm!.table!.get(index)!.name),
+      );
     /* istanbul ignore next */
     return "";
   }
@@ -1357,7 +1362,10 @@ export class TestCollector {
     hostValue.values = hasValues ? [] : null;
     hostValue.isManaged = isManaged === 1;
 
-    if (hostTypeValue === HostValueType.Integer || hostTypeValue === HostValueType.Boolean) {
+    if (
+      hostTypeValue === HostValueType.Integer ||
+      hostTypeValue === HostValueType.Boolean
+    ) {
       hostValue.value = this.getInteger(value, size, signed === 1);
       // get long
     } else if (hostTypeValue === HostValueType.String) {
@@ -1655,7 +1663,7 @@ export class TestCollector {
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
   private reportExpectedTruthy(negated: number): void {
-    const expected = this.expected = new HostValue();
+    const expected = (this.expected = new HostValue());
 
     expected.negated = negated === 1;
     expected.type = HostValueType.Truthy;
@@ -1667,7 +1675,7 @@ export class TestCollector {
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
   private reportExpectedFalsy(negated: number): void {
-    const expected = this.expected = new HostValue();
+    const expected = (this.expected = new HostValue());
 
     expected.negated = negated === 1;
     expected.type = HostValueType.Falsy;
@@ -1679,7 +1687,7 @@ export class TestCollector {
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
   private reportExpectedFinite(negated: number): void {
-    const expected = this.expected = new HostValue();
+    const expected = (this.expected = new HostValue());
 
     expected.negated = negated === 1;
     expected.type = HostValueType.Finite;
