@@ -25,7 +25,7 @@ describe("unreachable", () => {
    * be valid.
    */
   it("should should throw", () => {
-    expectFn(() => {
+    expect(() => {
       counter = 1;
       unreachable();
     }).toThrow("unreachable instructions should throw.");
@@ -35,7 +35,7 @@ describe("unreachable", () => {
    * This test validates that a negated toThrow assertion is valid.
    */
   it("should run normally", () => {
-    expectFn(() => {
+    expect(() => {
       counter = 1;
     }).not.toThrow("unreachable instructions should throw.");
   });

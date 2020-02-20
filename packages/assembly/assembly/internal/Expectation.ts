@@ -172,7 +172,8 @@ export class Expectation<T> {
     let actual = this.actual;
     let negated = this._not;
 
-    if (!isFunction<T>()) ERROR("Expectation<T>#toThrow must be called with a Function type T.");
+    if (!isFunction<T>()) ERROR("Expectation#toThrow assertion called on actual T where T is not a function reference");
+    if (idof<T>() != idof<() => void>()) ERROR("Expectation#toThrow assertion called on actual T where T is not a function reference with signature () => void");
 
     //todo: make this const when AS supports it
     let func: () => void = changetype<() => void>(actual);
@@ -423,6 +424,7 @@ export function expect<T>(actual: T): Expectation<T> {
 }
 
 /**
+ * @deprecated
  * A shorthand for `expect<(): => void>(callback: () => void)`.
  *
  * @param {() => void} cb - The callback to be tested.
@@ -430,5 +432,6 @@ export function expect<T>(actual: T): Expectation<T> {
 // @ts-ignore: decorators *are* valid here
 @global
 export function expectFn(cb: () => void): Expectation<() => void> {
-  return new Expectation<() => void>(cb);
+  WARNING("expectFn has been deprecated. Use expect without a generic type instead");
+  return new Expectation(cb);
 }
