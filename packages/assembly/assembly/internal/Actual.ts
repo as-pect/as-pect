@@ -1,6 +1,6 @@
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportActualHostValue")
-declare function reportActualHostValue(id: i32): void;
+@external("__aspect", "reportActualReflectedValue")
+declare function reportActualReflectedValue(id: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "clearActual")
@@ -25,9 +25,9 @@ export class Actual {
    * @param {T} actual - The actual value and it's type.
    */
   static report<T>(actual: T): void {
-    let value = Reflect.toHostValue(actual);
+    let value = Reflect.toReflectedValue(actual);
     Reflect.attachStackTrace(value);
-    reportActualHostValue(value);
+    reportActualReflectedValue(value);
   }
 
   /**

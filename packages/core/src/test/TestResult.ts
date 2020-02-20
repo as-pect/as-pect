@@ -5,7 +5,7 @@ import { mean } from "../math/mean";
 import { round } from "../math/round";
 import { median } from "../math/median";
 import { variance } from "../math/variance";
-import { HostValue } from "../util/HostValue";
+import { ReflectedValue } from "../util/ReflectedValue";
 
 /**
  * This is the data class that contains all the data about each `test()` or `it()` function defined
@@ -23,13 +23,13 @@ export class TestResult implements ILogTarget {
   /** The time in milliseconds indicating how long the test ran for each run. */
   public times: number[] = [];
   /** The reported actual value description. */
-  public actual: HostValue | null = null;
+  public actual: ReflectedValue | null = null;
   /** The reported expected value description. */
-  public expected: HostValue | null = null;
+  public expected: ReflectedValue | null = null;
   /** If the test failed, this is the message describing why the test failed. */
   public message: string = "";
   /** A set of strings logged by the test itself. */
-  public logs: HostValue[] = [];
+  public logs: ReflectedValue[] = [];
   /** The generated stack trace if the test errored. */
   public stack: string | null = null;
   /** This value is set to true if the test is expected to throw. */

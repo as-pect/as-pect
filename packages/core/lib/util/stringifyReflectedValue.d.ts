@@ -1,5 +1,5 @@
-import { HostValue } from "./HostValue";
-export declare type StringifyHostValueProps = {
+import { ReflectedValue } from "./ReflectedValue";
+export declare type StringifyReflectedValueProps = {
     keywordFormatter: (prop: string) => string;
     stringFormatter: (prop: string) => string;
     classNameFormatter: (prop: string) => string;
@@ -8,5 +8,6 @@ export declare type StringifyHostValueProps = {
     tab: number;
     maxPropertyCount: number;
     maxLineLength: number;
+    maxExpandLevel: number;
 };
-export declare function stringifyHostValue(hostValue: HostValue, props: Partial<StringifyHostValueProps>): string;
+export declare function stringifyReflectedValue(reflectedValue: ReflectedValue, props: Partial<StringifyReflectedValueProps>): string;

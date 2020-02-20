@@ -1,20 +1,20 @@
-import { HostValueType } from "@as-pect/assembly/assembly/internal/HostValueType";
+import {  ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
 import {
-  StringifyHostValueProps,
-  stringifyHostValue,
-} from "./stringifyHostValue";
+  StringifyReflectedValueProps,
+  stringifyReflectedValue,
+} from "./stringifyReflectedValue";
 
 /**
  * A JavaScript object that represents a reflected value from the as-pect testing
  * module.
  */
-export class HostValue {
+export class ReflectedValue {
   /** An indicator if the reflected object was managed by the runtime. */
   isManaged: boolean = false;
   /** An indicator if the reflected object was null. */
   isNull: boolean = false;
   /** A set of keys for Maps or Classes in the reflected object. */
-  keys: HostValue[] | null = null;
+  keys: ReflectedValue[] | null = null;
   /** Used to indicate if an expected assertion value was negated. */
   negated: boolean = false;
   /** An indicator wether the reflected object was in a nullable context. */
@@ -29,23 +29,23 @@ export class HostValue {
   size: number = 0;
   /** A stack trace for the given value. */
   stack: string = "";
-  /** The host value type. */
-  type: HostValueType = HostValueType.None;
-  /** The runtime class id for the reflected host value. */
+  /** The reflected value type. */
+  type: ReflectedValueType = ReflectedValueType.None;
+  /** The runtime class id for the reflected reflected value. */
   typeId: number = 0;
-  /** The name of the class for a given reflected host value. */
+  /** The name of the class for a given reflected reflected value. */
   typeName: string | null = null;
-  /** A string or number representing the host value. */
+  /** A string or number representing the reflected value. */
   value: number | string = 0;
   /** A set of values that are contained in a given reflected Set, Map, or Class object. */
-  values: HostValue[] | null = null;
+  values: ReflectedValue[] | null = null;
 
   /**
-   * Stringify the HostValue with custom formatting.
+   * Stringify the ReflectedValue with custom formatting.
    *
-   * @param {Partial<StringifyHostValueProps>} props - The stringify configuration
+   * @param {Partial<StringifyReflectedValueProps>} props - The stringify configuration
    */
-  stringify(props: Partial<StringifyHostValueProps> = {}): string {
-    return stringifyHostValue(this, props);
+  stringify(props: Partial<StringifyReflectedValueProps> = {}): string {
+    return stringifyReflectedValue(this, props);
   }
 }

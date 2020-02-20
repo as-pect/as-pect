@@ -12,22 +12,22 @@ import {
 } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
 
-export function createAddHostValueKeyValuePairsMember(
+export function createAddReflectedValueKeyValuePairsMember(
   classDeclaration: ClassDeclaration,
 ): FunctionDeclaration {
   const range = classDeclaration.name.range;
-  // __aspectAddHostValueKeyValuePairs(hostObject: i32, seen: Map<usize, i32>): void
+  // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>): void
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression(
-      "__aspectAddHostValueKeyValuePairs",
+      "__aspectAddReflectedValueKeyValuePairs",
       range,
     ),
     null,
     TypeNode.createFunctionType(
       [
-        // hostObject: i32
+        // reflectedValue: i32
         TypeNode.createParameter(
-          TypeNode.createIdentifierExpression("hostObject", range),
+          TypeNode.createIdentifierExpression("reflectedValue", range),
           createGenericTypeParameter("i32", range),
           null,
           ParameterKind.DEFAULT,
@@ -61,7 +61,7 @@ export function createAddHostValueKeyValuePairsMember(
       false,
       range,
     ),
-    createAddHostValueKeyValuePairsFunctionBody(classDeclaration),
+    createAddReflectedValueKeyValuePairsFunctionBody(classDeclaration),
     null,
     CommonFlags.PUBLIC |
       CommonFlags.INSTANCE |
@@ -70,7 +70,7 @@ export function createAddHostValueKeyValuePairsMember(
   );
 }
 
-function createAddHostValueKeyValuePairsFunctionBody(
+function createAddReflectedValueKeyValuePairsFunctionBody(
   classDeclaration: ClassDeclaration,
 ): BlockStatement {
   const body = new Array<Statement>();
@@ -88,13 +88,13 @@ function createAddHostValueKeyValuePairsFunctionBody(
         case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
           body.push(
-            createPushHostObjectKeyStatement(
+            createPushReflectedObjectKeyStatement(
               member.name.text,
               fieldDeclaration.range,
             ),
           );
           body.push(
-            createPushHostObjectValueStatement(
+            createPushReflectedObjectValueStatement(
               member.name.text,
               fieldDeclaration.range,
             ),
@@ -107,13 +107,13 @@ function createAddHostValueKeyValuePairsFunctionBody(
           if (member.is(CommonFlags.GET)) {
             const functionDeclaration = <FunctionDeclaration>member;
             body.push(
-              createPushHostObjectKeyStatement(
+              createPushReflectedObjectKeyStatement(
                 functionDeclaration.name.text,
                 functionDeclaration.range,
               ),
             );
             body.push(
-              createPushHostObjectValueStatement(
+              createPushReflectedObjectValueStatement(
                 functionDeclaration.name.text,
                 functionDeclaration.range,
               ),
@@ -128,25 +128,25 @@ function createAddHostValueKeyValuePairsFunctionBody(
   return TypeNode.createBlockStatement(body, range);
 }
 
-// __aspectPushHostObjectKey
-function createPushHostObjectKeyStatement(
+// __aspectPushReflectedObjectKey
+function createPushReflectedObjectKeyStatement(
   name: string,
   range: Range,
 ): Statement {
-  // __aspectPushHostObjectKey(hostObject, Reflect.toHostValue("propertyName", seen));
+  // __aspectPushReflectedObjectKey(reflectedValue, Reflect.toReflectedValue("propertyName", seen));
   return TypeNode.createExpressionStatement(
     TypeNode.createCallExpression(
-      TypeNode.createIdentifierExpression("__aspectPushHostObjectKey", range),
+      TypeNode.createIdentifierExpression("__aspectPushReflectedObjectKey", range),
       null,
       [
-        // hostObject
-        TypeNode.createIdentifierExpression("hostObject", range),
-        // Reflect.toHostValue("propertyName", seen)
+        // reflectedValue
+        TypeNode.createIdentifierExpression("reflectedValue", range),
+        // Reflect.toReflectedValue("propertyName", seen)
         TypeNode.createCallExpression(
-          // Reflect.toHostValue
+          // Reflect.toReflectedValue
           TypeNode.createPropertyAccessExpression(
             TypeNode.createIdentifierExpression("Reflect", range),
-            TypeNode.createIdentifierExpression("toHostValue", range),
+            TypeNode.createIdentifierExpression("toReflectedValue", range),
             range,
           ),
           null,
@@ -162,26 +162,26 @@ function createPushHostObjectKeyStatement(
   );
 }
 
-function createPushHostObjectValueStatement(
+function createPushReflectedObjectValueStatement(
   name: string,
   range: Range,
 ): Statement {
-  // __aspectPushHostObjectValue(hostObject, Reflect.toHostValue(this.propertyName, seen));
+  // __aspectPushReflectedObjectValue(reflectedValue, Reflect.toReflectedValue(this.propertyName, seen));
   return TypeNode.createExpressionStatement(
-    // __aspectPushHostObjectValue(hostObject, Reflect.toHostValue(this.propertyName, seen))
+    // __aspectPushReflectedObjectValue(reflectedValue, Reflect.toReflectedValue(this.propertyName, seen))
     TypeNode.createCallExpression(
-      // __aspectPushHostObjectValue
-      TypeNode.createIdentifierExpression("__aspectPushHostObjectValue", range),
+      // __aspectPushReflectedObjectValue
+      TypeNode.createIdentifierExpression("__aspectPushReflectedObjectValue", range),
       null,
       [
-        // hostObject
-        TypeNode.createIdentifierExpression("hostObject", range),
-        // Reflect.toHostValue(this.propertyName, seen))
+        // reflectedValue
+        TypeNode.createIdentifierExpression("reflectedValue", range),
+        // Reflect.toReflectedValue(this.propertyName, seen))
         TypeNode.createCallExpression(
-          // Reflect.toHostValue
+          // Reflect.toReflectedValue
           TypeNode.createPropertyAccessExpression(
             TypeNode.createIdentifierExpression("Reflect", range),
-            TypeNode.createIdentifierExpression("toHostValue", range),
+            TypeNode.createIdentifierExpression("toReflectedValue", range),
             range,
           ),
           null,

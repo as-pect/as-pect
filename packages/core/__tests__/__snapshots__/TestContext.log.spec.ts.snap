@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`log output Group: logs Test: logs: log 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -21,7 +21,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 2`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -41,7 +41,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 3`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": true,
   "keys": null,
@@ -61,11 +61,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 4`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -82,7 +82,7 @@ HostValue {
       "value": "x",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -99,7 +99,7 @@ HostValue {
       "value": "y",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -129,7 +129,7 @@ HostValue {
   "typeName": "Vec3",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -146,7 +146,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -163,7 +163,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -185,7 +185,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 5`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -201,7 +201,7 @@ HostValue {
   "typeName": "Array<i32>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -218,7 +218,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -235,7 +235,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -257,7 +257,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 6`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -277,7 +277,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 7`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -297,7 +297,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 8`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -317,7 +317,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 9`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -337,7 +337,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 10`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -357,7 +357,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 11`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -377,7 +377,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 12`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -397,7 +397,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 13`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -413,7 +413,7 @@ HostValue {
   "typeName": "Uint8Array",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -430,7 +430,7 @@ HostValue {
       "value": 0,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -447,7 +447,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -469,7 +469,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 14`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -485,7 +485,7 @@ HostValue {
   "typeName": "Int8Array",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -502,7 +502,7 @@ HostValue {
       "value": -1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -519,7 +519,7 @@ HostValue {
       "value": -2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -541,7 +541,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 15`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -561,7 +561,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 16`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -581,11 +581,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 17`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -602,7 +602,7 @@ HostValue {
       "value": "a",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -619,7 +619,7 @@ HostValue {
       "value": "b",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -649,7 +649,7 @@ HostValue {
   "typeName": "UnmanagedClass",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -666,7 +666,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -683,7 +683,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -705,7 +705,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 18`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -721,7 +721,7 @@ HostValue {
   "typeName": "Array<i32>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -738,7 +738,7 @@ HostValue {
       "value": 0,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -755,7 +755,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -772,7 +772,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -789,7 +789,7 @@ HostValue {
       "value": 3,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -806,7 +806,7 @@ HostValue {
       "value": 4,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -823,7 +823,7 @@ HostValue {
       "value": 5,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -840,7 +840,7 @@ HostValue {
       "value": 6,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -857,7 +857,7 @@ HostValue {
       "value": 7,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -874,7 +874,7 @@ HostValue {
       "value": 8,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -891,7 +891,7 @@ HostValue {
       "value": 9,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -908,7 +908,7 @@ HostValue {
       "value": 10,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -925,7 +925,7 @@ HostValue {
       "value": 11,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -942,7 +942,7 @@ HostValue {
       "value": 12,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -959,7 +959,7 @@ HostValue {
       "value": 13,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -976,7 +976,7 @@ HostValue {
       "value": 14,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -993,7 +993,7 @@ HostValue {
       "value": 15,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1010,7 +1010,7 @@ HostValue {
       "value": 16,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1027,7 +1027,7 @@ HostValue {
       "value": 17,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1044,7 +1044,7 @@ HostValue {
       "value": 18,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1066,11 +1066,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 19`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1087,7 +1087,7 @@ HostValue {
       "value": "a",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1104,7 +1104,7 @@ HostValue {
       "value": "b",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1121,7 +1121,7 @@ HostValue {
       "value": "c",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1138,7 +1138,7 @@ HostValue {
       "value": "d",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1155,7 +1155,7 @@ HostValue {
       "value": "e",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1172,7 +1172,7 @@ HostValue {
       "value": "f",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1189,7 +1189,7 @@ HostValue {
       "value": "g",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1206,7 +1206,7 @@ HostValue {
       "value": "h",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1223,7 +1223,7 @@ HostValue {
       "value": "i",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1240,7 +1240,7 @@ HostValue {
       "value": "j",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1257,7 +1257,7 @@ HostValue {
       "value": "k",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1274,7 +1274,7 @@ HostValue {
       "value": "l",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1291,7 +1291,7 @@ HostValue {
       "value": "m",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1308,7 +1308,7 @@ HostValue {
       "value": "n",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1325,7 +1325,7 @@ HostValue {
       "value": "o",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1342,7 +1342,7 @@ HostValue {
       "value": "p",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1359,7 +1359,7 @@ HostValue {
       "value": "q",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1376,7 +1376,7 @@ HostValue {
       "value": "r",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1393,7 +1393,7 @@ HostValue {
       "value": "s",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1410,7 +1410,7 @@ HostValue {
       "value": "t",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1427,7 +1427,7 @@ HostValue {
       "value": "u",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1444,7 +1444,7 @@ HostValue {
       "value": "v",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1461,7 +1461,7 @@ HostValue {
       "value": "w",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1478,7 +1478,7 @@ HostValue {
       "value": "x",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1495,7 +1495,7 @@ HostValue {
       "value": "y",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1525,7 +1525,7 @@ HostValue {
   "typeName": "LotsOfFields",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1542,7 +1542,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1559,7 +1559,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1576,7 +1576,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1593,7 +1593,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1610,7 +1610,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1627,7 +1627,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1644,7 +1644,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1661,7 +1661,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1678,7 +1678,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1695,7 +1695,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1712,7 +1712,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1729,7 +1729,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1746,7 +1746,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1763,7 +1763,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1780,7 +1780,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1797,7 +1797,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1814,7 +1814,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1831,7 +1831,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1848,7 +1848,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1865,7 +1865,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1882,7 +1882,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1899,7 +1899,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1916,7 +1916,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1933,7 +1933,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1950,7 +1950,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1972,7 +1972,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 20`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -1988,7 +1988,7 @@ HostValue {
   "typeName": "Float64Array",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2005,7 +2005,7 @@ HostValue {
       "value": 0,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2022,7 +2022,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2039,7 +2039,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2056,7 +2056,7 @@ HostValue {
       "value": 3,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2073,7 +2073,7 @@ HostValue {
       "value": 4,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2090,7 +2090,7 @@ HostValue {
       "value": 5,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2107,7 +2107,7 @@ HostValue {
       "value": 6,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2124,7 +2124,7 @@ HostValue {
       "value": 7,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2141,7 +2141,7 @@ HostValue {
       "value": 8,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2158,7 +2158,7 @@ HostValue {
       "value": 9,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2175,7 +2175,7 @@ HostValue {
       "value": 10,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2192,7 +2192,7 @@ HostValue {
       "value": 11,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2209,7 +2209,7 @@ HostValue {
       "value": 12,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2226,7 +2226,7 @@ HostValue {
       "value": 13,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2243,7 +2243,7 @@ HostValue {
       "value": 14,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2260,7 +2260,7 @@ HostValue {
       "value": 15,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2277,7 +2277,7 @@ HostValue {
       "value": 16,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2294,7 +2294,7 @@ HostValue {
       "value": 17,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2311,7 +2311,7 @@ HostValue {
       "value": 18,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2333,7 +2333,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 21`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -2349,7 +2349,7 @@ HostValue {
   "typeName": "Array<i32>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2366,7 +2366,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2383,7 +2383,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2405,11 +2405,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 22`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -2426,7 +2426,7 @@ HostValue {
       "value": "a",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -2443,7 +2443,7 @@ HostValue {
       "value": "b",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -2460,7 +2460,7 @@ HostValue {
       "value": "c",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -2490,7 +2490,7 @@ HostValue {
   "typeName": "Circular",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2508,7 +2508,7 @@ HostValue {
       "values": null,
     },
     [Circular],
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -2525,7 +2525,7 @@ HostValue {
       "value": 3,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": true,
       "keys": null,
@@ -2547,7 +2547,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 23`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -2563,11 +2563,11 @@ HostValue {
   "typeName": "Array<assembly/jest-log/Circular>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -2584,7 +2584,7 @@ HostValue {
           "value": "a",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -2601,7 +2601,7 @@ HostValue {
           "value": "b",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -2618,7 +2618,7 @@ HostValue {
           "value": "c",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -2648,7 +2648,7 @@ HostValue {
       "typeName": "Circular",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -2665,7 +2665,7 @@ HostValue {
           "value": 1,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": true,
           "keys": null,
@@ -2682,7 +2682,7 @@ HostValue {
           "value": 0,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -2707,11 +2707,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 24`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -2741,11 +2741,11 @@ HostValue {
   "typeName": "NestedA",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -2775,11 +2775,11 @@ HostValue {
       "typeName": "NestedB",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": null,
@@ -2809,11 +2809,11 @@ HostValue {
           "typeName": "NestedC",
           "value": 0,
           "values": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": Array [
-                HostValue {
+                ReflectedValue {
                   "isManaged": true,
                   "isNull": false,
                   "keys": null,
@@ -2843,11 +2843,11 @@ HostValue {
               "typeName": "NestedD",
               "value": 0,
               "values": Array [
-                HostValue {
+                ReflectedValue {
                   "isManaged": true,
                   "isNull": false,
                   "keys": Array [
-                    HostValue {
+                    ReflectedValue {
                       "isManaged": true,
                       "isNull": false,
                       "keys": null,
@@ -2877,11 +2877,11 @@ HostValue {
                   "typeName": "NestedE",
                   "value": 0,
                   "values": Array [
-                    HostValue {
+                    ReflectedValue {
                       "isManaged": true,
                       "isNull": false,
                       "keys": Array [
-                        HostValue {
+                        ReflectedValue {
                           "isManaged": true,
                           "isNull": false,
                           "keys": null,
@@ -2911,7 +2911,7 @@ HostValue {
                       "typeName": "NestedF",
                       "value": 0,
                       "values": Array [
-                        HostValue {
+                        ReflectedValue {
                           "isManaged": false,
                           "isNull": false,
                           "keys": null,
@@ -2943,15 +2943,15 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 25`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -2968,7 +2968,7 @@ HostValue {
           "value": "x",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -2985,7 +2985,7 @@ HostValue {
           "value": "y",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3015,7 +3015,7 @@ HostValue {
       "typeName": "Vec3",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -3032,7 +3032,7 @@ HostValue {
           "value": 1,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -3049,7 +3049,7 @@ HostValue {
           "value": 2,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -3068,11 +3068,11 @@ HostValue {
         },
       ],
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3089,7 +3089,7 @@ HostValue {
           "value": "x",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3106,7 +3106,7 @@ HostValue {
           "value": "y",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3136,7 +3136,7 @@ HostValue {
       "typeName": "Vec3",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -3153,7 +3153,7 @@ HostValue {
           "value": 1,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -3170,7 +3170,7 @@ HostValue {
           "value": 2,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -3202,7 +3202,7 @@ HostValue {
   "typeName": "Map<assembly/jest-log/Vec3,i32>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -3219,7 +3219,7 @@ HostValue {
       "value": 43,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -3241,7 +3241,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 26`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -3261,11 +3261,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 27`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -3295,11 +3295,11 @@ HostValue {
   "typeName": "NestedForInlineFunctionA",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3329,11 +3329,11 @@ HostValue {
       "typeName": "NestedForInlineFunctionB",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": null,
@@ -3363,7 +3363,7 @@ HostValue {
           "typeName": "NestedForInlineFunctionC",
           "value": 0,
           "values": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": false,
               "isNull": false,
               "keys": null,
@@ -3389,11 +3389,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 28`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -3423,11 +3423,11 @@ HostValue {
   "typeName": "NestedForInlineStringA",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3457,11 +3457,11 @@ HostValue {
       "typeName": "NestedForInlineStringB",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": null,
@@ -3491,7 +3491,7 @@ HostValue {
           "typeName": "NestedForInlineStringC",
           "value": 0,
           "values": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": null,
@@ -3517,11 +3517,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 29`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -3551,11 +3551,11 @@ HostValue {
   "typeName": "NestedForInlineU8A",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3585,11 +3585,11 @@ HostValue {
       "typeName": "NestedForInlineU8B",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": null,
@@ -3619,7 +3619,7 @@ HostValue {
           "typeName": "NestedForInlineU8C",
           "value": 0,
           "values": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": false,
               "isNull": false,
               "keys": null,
@@ -3645,11 +3645,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 30`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -3679,11 +3679,11 @@ HostValue {
   "typeName": "NestedForInlineBoolA",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3713,11 +3713,11 @@ HostValue {
       "typeName": "NestedForInlineBoolB",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": null,
@@ -3747,7 +3747,7 @@ HostValue {
           "typeName": "NestedForInlineBoolC",
           "value": 0,
           "values": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": false,
               "isNull": false,
               "keys": null,
@@ -3773,11 +3773,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 31`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -3807,11 +3807,11 @@ HostValue {
   "typeName": "NestedForInlineBoolA",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3841,11 +3841,11 @@ HostValue {
       "typeName": "NestedForInlineBoolB",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": null,
@@ -3875,7 +3875,7 @@ HostValue {
           "typeName": "NestedForInlineBoolC",
           "value": 0,
           "values": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": false,
               "isNull": false,
               "keys": null,
@@ -3901,11 +3901,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 32`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -3935,11 +3935,11 @@ HostValue {
   "typeName": "NestedTypeImpliedArrayA",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -3969,11 +3969,11 @@ HostValue {
       "typeName": "NestedTypeImpliedArrayB",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": null,
@@ -4003,7 +4003,7 @@ HostValue {
           "typeName": "NestedTypeImpliedArrayC",
           "value": 0,
           "values": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": true,
               "isNull": false,
               "keys": null,
@@ -4019,7 +4019,7 @@ HostValue {
               "typeName": "Array<~lib/array/Array<u8>>",
               "value": 0,
               "values": Array [
-                HostValue {
+                ReflectedValue {
                   "isManaged": true,
                   "isNull": false,
                   "keys": null,
@@ -4035,7 +4035,7 @@ HostValue {
                   "typeName": "Array<u8>",
                   "value": 0,
                   "values": Array [
-                    HostValue {
+                    ReflectedValue {
                       "isManaged": false,
                       "isNull": false,
                       "keys": null,
@@ -4065,11 +4065,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 33`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -4099,7 +4099,7 @@ HostValue {
   "typeName": "NestedTypeImpliedArrayC",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -4115,7 +4115,7 @@ HostValue {
       "typeName": "Array<~lib/array/Array<u8>>",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4131,7 +4131,7 @@ HostValue {
           "typeName": "Array<u8>",
           "value": 0,
           "values": Array [
-            HostValue {
+            ReflectedValue {
               "isManaged": false,
               "isNull": false,
               "keys": null,
@@ -4157,7 +4157,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 34`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -4173,11 +4173,11 @@ HostValue {
   "typeName": "Array<assembly/jest-log/Vec3>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4194,7 +4194,7 @@ HostValue {
           "value": "x",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4211,7 +4211,7 @@ HostValue {
           "value": "y",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4241,7 +4241,7 @@ HostValue {
       "typeName": "Vec3",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4258,7 +4258,7 @@ HostValue {
           "value": 1,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4275,7 +4275,7 @@ HostValue {
           "value": 2,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4294,11 +4294,11 @@ HostValue {
         },
       ],
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4315,7 +4315,7 @@ HostValue {
           "value": "x",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4332,7 +4332,7 @@ HostValue {
           "value": "y",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4362,7 +4362,7 @@ HostValue {
       "typeName": "Vec3",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4379,7 +4379,7 @@ HostValue {
           "value": 1,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4396,7 +4396,7 @@ HostValue {
           "value": 2,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4415,11 +4415,11 @@ HostValue {
         },
       ],
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4436,7 +4436,7 @@ HostValue {
           "value": "x",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4453,7 +4453,7 @@ HostValue {
           "value": "y",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4483,7 +4483,7 @@ HostValue {
       "typeName": "Vec3",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4500,7 +4500,7 @@ HostValue {
           "value": 1,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4517,7 +4517,7 @@ HostValue {
           "value": 2,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4536,11 +4536,11 @@ HostValue {
         },
       ],
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4557,7 +4557,7 @@ HostValue {
           "value": "x",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4574,7 +4574,7 @@ HostValue {
           "value": "y",
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": true,
           "isNull": false,
           "keys": null,
@@ -4604,7 +4604,7 @@ HostValue {
       "typeName": "Vec3",
       "value": 0,
       "values": Array [
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4621,7 +4621,7 @@ HostValue {
           "value": 1,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4638,7 +4638,7 @@ HostValue {
           "value": 2,
           "values": null,
         },
-        HostValue {
+        ReflectedValue {
           "isManaged": false,
           "isNull": false,
           "keys": null,
@@ -4662,7 +4662,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs Test: logs: log 35`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -4678,7 +4678,7 @@ HostValue {
   "typeName": "Array<assembly/jest-log/Vec3 | null>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": true,
       "keys": null,
@@ -4932,7 +4932,7 @@ exports[`log output Group: logs Test: logs: stringify 35`] = `
 `;
 
 exports[`log output Group: logs: log 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -4952,7 +4952,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 2`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -4972,7 +4972,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 3`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": true,
   "keys": null,
@@ -4992,11 +4992,11 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 4`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -5013,7 +5013,7 @@ HostValue {
       "value": "x",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -5030,7 +5030,7 @@ HostValue {
       "value": "y",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -5060,7 +5060,7 @@ HostValue {
   "typeName": "Vec3",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5077,7 +5077,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5094,7 +5094,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5116,7 +5116,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 5`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -5132,7 +5132,7 @@ HostValue {
   "typeName": "Array<i32>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5149,7 +5149,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5166,7 +5166,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5188,7 +5188,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 6`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -5208,7 +5208,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 7`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -5228,7 +5228,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 8`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -5248,7 +5248,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 9`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -5268,7 +5268,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 10`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -5288,7 +5288,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 11`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -5308,7 +5308,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 12`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -5328,7 +5328,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 13`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -5344,7 +5344,7 @@ HostValue {
   "typeName": "Uint8Array",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5361,7 +5361,7 @@ HostValue {
       "value": 0,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5378,7 +5378,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5400,7 +5400,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 14`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -5416,7 +5416,7 @@ HostValue {
   "typeName": "Int8Array",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5433,7 +5433,7 @@ HostValue {
       "value": -1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5450,7 +5450,7 @@ HostValue {
       "value": -2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -5472,7 +5472,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 15`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -5492,7 +5492,7 @@ HostValue {
 `;
 
 exports[`log output Group: logs: log 16`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,

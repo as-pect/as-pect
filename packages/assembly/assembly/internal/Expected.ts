@@ -3,8 +3,8 @@
 declare function reportInvalidExpectCall(): void;
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportExpectedHostValue")
-declare function reportExpectedHostValue(id: i32, negated: i32): void;
+@external("__aspect", "reportExpectedReflectedValue")
+declare function reportExpectedReflectedValue(id: i32, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedTruthy")
@@ -40,9 +40,9 @@ export class Expected {
       reportInvalidExpectCall();
       return;
     }
-    let value = Reflect.toHostValue(expected);
+    let value = Reflect.toReflectedValue(expected);
     Reflect.attachStackTrace(value);
-    reportExpectedHostValue(value, negated);
+    reportExpectedReflectedValue(value, negated);
   }
 
   /**

@@ -1,7 +1,7 @@
 import { ILogTarget } from "../util/ILogTarget";
 import { TestResult } from "./TestResult";
 import { IWarning } from "./IWarning";
-import { HostValue } from "../util/HostValue";
+import { ReflectedValue } from "../util/ReflectedValue";
 /**
  * This test group class is designed with a data oriented layout in mind. Each test property is
  * represented by an array.
@@ -34,7 +34,7 @@ export declare class TestGroup implements ILogTarget {
     /**
      * This is the set of log values that were collected before and after the tests ran.
      */
-    logs: HostValue[];
+    logs: ReflectedValue[];
     /**
      * This is the name of the test.
      */

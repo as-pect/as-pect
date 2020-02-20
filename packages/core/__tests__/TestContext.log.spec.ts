@@ -1,6 +1,6 @@
 import { TestContext } from "../src/test/TestContext";
 import { createLogModule } from "./setup/createLogModule";
-import { StringifyHostValueProps } from "../src/util/stringifyHostValue";
+import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue";
 
 let ctx: TestContext;
 
@@ -18,7 +18,7 @@ let start = new Promise<void>((resolve, reject) => {
 
 beforeEach(() => start);
 
-const stringifyOptions: Partial<StringifyHostValueProps> = {
+const stringifyOptions: Partial<StringifyReflectedValueProps> = {
   indent: 2,
   tab: 4,
   maxLineLength: 80,

@@ -936,12 +936,12 @@ declare class Reflect {
   public static DEFER_MATCH: i32;
 
   /**
-   * Create a host value for inspection.
+   * Create a reflected value for inspection.
    *
    * @param {T} value - The value to be inspected.
-   * @param {Map<usize, i32>} seen - A map of pointers to hostObject for caching purposes.
+   * @param {Map<usize, i32>} seen - A map of pointers to hostValues for caching purposes.
    */
-  public static toHostValue<T>(value: T, seen?: Map<usize, i32>): i32
+  public static toReflectedValue<T>(value: T, seen?: Map<usize, i32>): i32
   /**
    * A method used for comparing two values or references to determine if they match each other.
    *
@@ -955,7 +955,7 @@ declare class Reflect {
   /**
    * Attach a stack trace to a value.
    *
-   * @param {i32} hostValueID - The host value to attach the current stack trace to.
+   * @param {i32} id - The reflected value to attach the current stack trace to.
    */
   public static attachStackTrace(id: i32): void;
 }

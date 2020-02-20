@@ -12,9 +12,9 @@ declare module "test/IWarning" {
         stackTrace: string;
     }
 }
-declare module "util/stringifyHostValue" {
-    import { HostValue } from "util/HostValue";
-    export type StringifyHostValueProps = {
+declare module "util/stringifyReflectedValue" {
+    import { ReflectedValue } from "util/ReflectedValue";
+    export type StringifyReflectedValueProps = {
         keywordFormatter: (prop: string) => string;
         stringFormatter: (prop: string) => string;
         classNameFormatter: (prop: string) => string;
@@ -23,23 +23,24 @@ declare module "util/stringifyHostValue" {
         tab: number;
         maxPropertyCount: number;
         maxLineLength: number;
+        maxExpandLevel: number;
     };
-    export function stringifyHostValue(hostValue: HostValue, props: Partial<StringifyHostValueProps>): string;
+    export function stringifyReflectedValue(reflectedValue: ReflectedValue, props: Partial<StringifyReflectedValueProps>): string;
 }
-declare module "util/HostValue" {
-    import { HostValueType } from "../../assembly/assembly/internal/HostValueType";
-    import { StringifyHostValueProps } from "util/stringifyHostValue";
+declare module "util/ReflectedValue" {
+    import { ReflectedValueType } from "../../assembly/assembly/internal/ReflectedValueType";
+    import { StringifyReflectedValueProps } from "util/stringifyReflectedValue";
     /**
      * A JavaScript object that represents a reflected value from the as-pect testing
      * module.
      */
-    export class HostValue {
+    export class ReflectedValue {
         /** An indicator if the reflected object was managed by the runtime. */
         isManaged: boolean;
         /** An indicator if the reflected object was null. */
         isNull: boolean;
         /** A set of keys for Maps or Classes in the reflected object. */
-        keys: HostValue[] | null;
+        keys: ReflectedValue[] | null;
         /** Used to indicate if an expected assertion value was negated. */
         negated: boolean;
         /** An indicator wether the reflected object was in a nullable context. */
@@ -54,32 +55,32 @@ declare module "util/HostValue" {
         size: number;
         /** A stack trace for the given value. */
         stack: string;
-        /** The host value type. */
-        type: HostValueType;
-        /** The runtime class id for the reflected host value. */
+        /** The reflected value type. */
+        type: ReflectedValueType;
+        /** The runtime class id for the reflected reflected value. */
         typeId: number;
-        /** The name of the class for a given reflected host value. */
+        /** The name of the class for a given reflected reflected value. */
         typeName: string | null;
-        /** A string or number representing the host value. */
+        /** A string or number representing the reflected value. */
         value: number | string;
         /** A set of values that are contained in a given reflected Set, Map, or Class object. */
-        values: HostValue[] | null;
+        values: ReflectedValue[] | null;
         /**
-         * Stringify the HostValue with custom formatting.
+         * Stringify the ReflectedValue with custom formatting.
          *
-         * @param {Partial<StringifyHostValueProps>} props - The stringify configuration
+         * @param {Partial<StringifyReflectedValueProps>} props - The stringify configuration
          */
-        stringify(props?: Partial<StringifyHostValueProps>): string;
+        stringify(props?: Partial<StringifyReflectedValueProps>): string;
     }
 }
 declare module "util/ILogTarget" {
     import { IWarning } from "test/IWarning";
-    import { HostValue } from "util/HostValue";
+    import { ReflectedValue } from "util/ReflectedValue";
     /**
      * This interface describes the shape of an object that can contain log values, warnings, and errors.
      */
     export interface ILogTarget {
-        logs: HostValue[];
+        logs: ReflectedValue[];
         errors: IWarning[];
         warnings: IWarning[];
     }
@@ -138,7 +139,7 @@ declare module "math/variance" {
 declare module "test/TestResult" {
     import { ILogTarget } from "util/ILogTarget";
     import { IWarning } from "test/IWarning";
-    import { HostValue } from "util/HostValue";
+    import { ReflectedValue } from "util/ReflectedValue";
     /**
      * This is the data class that contains all the data about each `test()` or `it()` function defined
      * in the `AssemblyScript` module.
@@ -155,13 +156,13 @@ declare module "test/TestResult" {
         /** The time in milliseconds indicating how long the test ran for each run. */
         times: number[];
         /** The reported actual value description. */
-        actual: HostValue | null;
+        actual: ReflectedValue | null;
         /** The reported expected value description. */
-        expected: HostValue | null;
+        expected: ReflectedValue | null;
         /** If the test failed, this is the message describing why the test failed. */
         message: string;
         /** A set of strings logged by the test itself. */
-        logs: HostValue[];
+        logs: ReflectedValue[];
         /** The generated stack trace if the test errored. */
         stack: string | null;
         /** This value is set to true if the test is expected to throw. */
@@ -295,7 +296,7 @@ declare module "test/TestGroup" {
     import { ILogTarget } from "util/ILogTarget";
     import { TestResult } from "test/TestResult";
     import { IWarning } from "test/IWarning";
-    import { HostValue } from "util/HostValue";
+    import { ReflectedValue } from "util/ReflectedValue";
     /**
      * This test group class is designed with a data oriented layout in mind. Each test property is
      * represented by an array.
@@ -328,7 +329,7 @@ declare module "test/TestGroup" {
         /**
          * This is the set of log values that were collected before and after the tests ran.
          */
-        logs: HostValue[];
+        logs: ReflectedValue[];
         /**
          * This is the name of the test.
          */
@@ -428,7 +429,7 @@ declare module "reporter/VerboseReporter" {
     import { TestContext } from "test/TestContext";
     import { TestReporter } from "test/TestReporter";
     import { IWritable } from "util/IWriteable";
-    import { HostValue } from "util/HostValue";
+    import { ReflectedValue } from "util/ReflectedValue";
     /**
      * This is the default test reporter class for the `asp` command line application. It will pipe
      * all relevant details about each tests to the `stdout` WriteStream.
@@ -480,9 +481,9 @@ declare module "reporter/VerboseReporter" {
         /**
          * A custom logger function for the default reporter that writes the log values using `console.log()`
          *
-         * @param {HostValue} logValue - A value to be logged to the console
+         * @param {ReflectedValue} logValue - A value to be logged to the console
          */
-        onLog(logValue: HostValue): void;
+        onLog(logValue: ReflectedValue): void;
     }
 }
 declare module "util/timeDifference" {
@@ -624,7 +625,7 @@ declare module "test/TestCollector" {
     import { IWarning } from "test/IWarning";
     import { IPerformanceConfiguration } from "util/IPerformanceConfiguration";
     import { NameSection } from "util/wasmTools";
-    import { HostValue } from "util/HostValue";
+    import { ReflectedValue } from "util/ReflectedValue";
     /**
      * @ignore
      * This is a collection of all the parameters required for intantiating a TestCollector.
@@ -672,8 +673,8 @@ declare module "test/TestCollector" {
         fileName: string;
         protected stack: string;
         protected message: string;
-        protected actual: HostValue | null;
-        protected expected: HostValue | null;
+        protected actual: ReflectedValue | null;
+        protected expected: ReflectedValue | null;
         private performanceEnabledValue;
         private maxSamplesValue;
         private maxTestRunTimeValue;
@@ -705,10 +706,10 @@ declare module "test/TestCollector" {
          */
         protected rtraceEnabled: boolean;
         /**
-         * A collection of host values used to help cache and aid in the creation
-         * of nested host values.
+         * A collection of reflected values used to help cache and aid in the creation
+         * of nested reflected values.
          */
-        private hostValueCache;
+        private reflectedValueCache;
         private rtraceLabels;
         constructor(props?: ITestCollectorParameters);
         /**
@@ -1117,7 +1118,7 @@ declare module "test/TestCollector" {
          * @param {number} index - The function index
          */
         private funcName;
-        private createHostValue;
+        private createReflectedValue;
         /**
          * Get a boxed integer of a given kind at a pointer location.
          *
@@ -1134,37 +1135,37 @@ declare module "test/TestCollector" {
          */
         private getFloat;
         /**
-         * Log a host value.
+         * Log a reflected value.
          *
-         * @param {number} id - The HostValue id
+         * @param {number} id - The ReflectedValue id
          */
-        private logHostValue;
+        private logReflectedValue;
         /**
-         * Report an actual host value.
+         * Report an actual reflected value.
          *
-         * @param {number} id - The HostValue id
+         * @param {number} id - The ReflectedValue id
          */
-        private reportActualHostValue;
+        private reportActualReflectedValue;
         /**
-         * Report an expected host value.
+         * Report an expected reflected value.
          *
-         * @param {number} id - The HostValue id
+         * @param {number} id - The ReflectedValue id
          */
-        private reportExpectedHostValue;
+        private reportExpectedReflectedValue;
         /**
-         * Push a host value to a given host value.
+         * Push a reflected value to a given reflected value.
          *
-         * @param {number} hostValueID - The target host value parent.
-         * @param {number} valueID - The target host value to be pushed.
+         * @param {number} reflectedValueID - The target reflected value parent.
+         * @param {number} childID - The child value by it's id to be pushed.
          */
-        private pushHostObjectValue;
+        private pushReflectedObjectValue;
         /**
-         * Push a host value key to a given host value.
+         * Push a reflected value key to a given reflected value.
          *
-         * @param {number} hostValueID - The target host value parent.
-         * @param {number} keyId - The target host value key to be pushed.
+         * @param {number} reflectedValueID - The target reflected value parent.
+         * @param {number} keyId - The target reflected value key to be pushed.
          */
-        private pushHostObjectKey;
+        private pushReflectedObjectKey;
         /**
          * Clear the expected value.
          */
@@ -1192,11 +1193,11 @@ declare module "test/TestCollector" {
          */
         private reportExpectedFinite;
         /**
-         * Attaches a stack trace to the given hostValue by it's id.
+         * Attaches a stack trace to the given reflectedValue by it's id.
          *
-         * @param {number} hostValueID - The given host value.
+         * @param {number} reflectedValueID - The given reflected value by it's id.
          */
-        private attachStackTraceToHostValue;
+        private attachStackTraceToReflectedValue;
     }
 }
 declare module "test/TestContext" {
@@ -1417,7 +1418,7 @@ declare module "reporter/JSONReporter" {
 declare module "reporter/SummaryReporter" {
     import { TestReporter } from "test/TestReporter";
     import { TestContext } from "test/TestContext";
-    import { HostValue } from "util/HostValue";
+    import { ReflectedValue } from "util/ReflectedValue";
     /**
      * This test reporter should be used when logging output and test validation only needs happen on
      * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
@@ -1442,9 +1443,9 @@ declare module "reporter/SummaryReporter" {
         /**
          * A custom logger function for the default reporter that writes the log values using `console.log()`
          *
-         * @param {HostValue} logValue - A value to be logged to the console
+         * @param {ReflectedValue} logValue - A value to be logged to the console
          */
-        onLog(logValue: HostValue): void;
+        onLog(logValue: ReflectedValue): void;
     }
 }
 declare module "index" {
@@ -1468,7 +1469,7 @@ declare module "index" {
     export * from "util/IAspectExports";
     export * from "util/ILogTarget";
     export * from "util/IPerformanceConfiguration";
-    export * from "util/HostValue";
+    export * from "util/ReflectedValue";
 }
 declare module "transform/assemblyscript" {
     export var Transform: any;
@@ -1485,9 +1486,9 @@ declare module "transform/createGenericTypeParameter" {
      */
     export function createGenericTypeParameter(name: string, range: Range): TypeNode;
 }
-declare module "transform/createAddHostValueKeyValuePairsMember" {
+declare module "transform/createAddReflectedValueKeyValuePairsMember" {
     import { FunctionDeclaration, ClassDeclaration } from "./assemblyscript";
-    export function createAddHostValueKeyValuePairsMember(classDeclaration: ClassDeclaration): FunctionDeclaration;
+    export function createAddReflectedValueKeyValuePairsMember(classDeclaration: ClassDeclaration): FunctionDeclaration;
 }
 declare module "transform/createStrictEqualsMember" {
     import { ClassDeclaration, FunctionDeclaration } from "./assemblyscript";

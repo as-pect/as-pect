@@ -199,7 +199,7 @@ exports[`pass-fail output Group: pass on group beforeEach: pass 1`] = `true`;
 exports[`pass-fail output Group: pass on group beforeEach: reason 1`] = `""`;
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -209,11 +209,11 @@ HostValue {
   "pointer": 896,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:0x1be9)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c4a)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:0x1c7c)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:0x1c0c)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c6d)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:0x1c9f)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -225,7 +225,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should expect strings: actual-stringify 1`] = `"  string: \\"two\\""`;
 
 exports[`pass-fail output Group: pass-fail Test: should expect strings: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -235,11 +235,11 @@ HostValue {
   "pointer": 928,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:0x1c1d)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c50)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:0x1c7c)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:0x1c40)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c73)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:0x1c9f)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -287,7 +287,7 @@ exports[`pass-fail output Group: pass-fail Test: should report a negated test: n
 exports[`pass-fail output Group: pass-fail Test: should report a negated test: pass 1`] = `true`;
 
 exports[`pass-fail output Group: pass-fail Test: should report array values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -297,17 +297,17 @@ HostValue {
   "pointer": 7328,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[145]:0x37ab)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:0x3837)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:0x388c)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[145]:0x37ce)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:0x385a)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:0x38af)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 10,
   "typeId": 12,
   "typeName": "Array<i32>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -324,7 +324,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -341,7 +341,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -371,7 +371,7 @@ exports[`pass-fail output Group: pass-fail Test: should report array values: act
 `;
 
 exports[`pass-fail output Group: pass-fail Test: should report array values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -381,17 +381,17 @@ HostValue {
   "pointer": 7424,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[146]:0x37e0)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:0x383e)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:0x388c)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[146]:0x3803)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:0x3861)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:0x38af)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 10,
   "typeId": 12,
   "typeName": "Array<i32>",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -408,7 +408,7 @@ HostValue {
       "value": 4,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -425,7 +425,7 @@ HostValue {
       "value": 5,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -461,7 +461,7 @@ exports[`pass-fail output Group: pass-fail Test: should report array values: neg
 exports[`pass-fail output Group: pass-fail Test: should report array values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report bool values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -471,11 +471,11 @@ HostValue {
   "pointer": 8176,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x41e8)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:0x4237)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:0x4266)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x420b)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:0x425a)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:0x4289)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -487,7 +487,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report bool values: actual-stringify 1`] = `"  keyword: false"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report bool values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -497,11 +497,11 @@ HostValue {
   "pointer": 8176,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<bool> (wasm-function[187]:0x420f)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:0x423e)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:0x4266)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<bool> (wasm-function[187]:0x4232)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:0x4261)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:0x4289)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -519,7 +519,7 @@ exports[`pass-fail output Group: pass-fail Test: should report bool values: nega
 exports[`pass-fail output Group: pass-fail Test: should report bool values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -529,11 +529,11 @@ HostValue {
   "pointer": 7056,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d61)
-    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1d8b)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|3 (wasm-function[88]:0x1dc8)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d84)
+    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1dae)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|3 (wasm-function[88]:0x1deb)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 8,
   "typeId": 0,
   "typeName": "f64",
@@ -545,7 +545,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual-stringify 1`] = `"  number: NaN.0"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -583,7 +583,7 @@ exports[`pass-fail output Group: pass-fail Test: should report f32 values: negat
 exports[`pass-fail output Group: pass-fail Test: should report f32 values: pass 1`] = `true`;
 
 exports[`pass-fail output Group: pass-fail Test: should report failed functions: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -593,11 +593,11 @@ HostValue {
   "pointer": 1,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<(i: i32) => i32> (wasm-function[195]:0x4367)
-    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:0x43b0)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:0x43df)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<(i: i32) => i32> (wasm-function[195]:0x438a)
+    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:0x43d3)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:0x4402)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -609,7 +609,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report failed functions: actual-stringify 1`] = `"  class: [Function 1: ]"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report failed functions: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -619,11 +619,11 @@ HostValue {
   "pointer": 2,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<(i: i32) => i32> (wasm-function[196]:0x438e)
-    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:0x43b7)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:0x43df)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<(i: i32) => i32> (wasm-function[196]:0x43b1)
+    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:0x43da)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:0x4402)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -641,7 +641,7 @@ exports[`pass-fail output Group: pass-fail Test: should report failed functions:
 exports[`pass-fail output Group: pass-fail Test: should report failed functions: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -651,11 +651,11 @@ HostValue {
   "pointer": 7088,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x1527)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeFalsy (wasm-function[90]:0x1de9)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|4 (wasm-function[91]:0x1e1c)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x154a)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeFalsy (wasm-function[90]:0x1e0c)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|4 (wasm-function[91]:0x1e3f)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -667,7 +667,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual-stringify 1`] = `"  number: 1"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -695,7 +695,7 @@ exports[`pass-fail output Group: pass-fail Test: should report falsy expected va
 exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report falsy values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -705,11 +705,11 @@ HostValue {
   "pointer": 8368,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x41e8)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy (wasm-function[203]:0x447a)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|21 (wasm-function[205]:0x44d1)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x420b)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy (wasm-function[203]:0x449d)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|21 (wasm-function[205]:0x44f4)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -721,7 +721,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report falsy values: actual-stringify 1`] = `"  keyword: true"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report falsy values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -751,7 +751,7 @@ exports[`pass-fail output Group: pass-fail Test: should report falsy values: pas
 exports[`pass-fail output Group: pass-fail Test: should report finite values: actual 1`] = `null`;
 
 exports[`pass-fail output Group: pass-fail Test: should report finite values: actual 2`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -761,11 +761,11 @@ HostValue {
   "pointer": 8400,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d61)
-    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1d8b)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|23 (wasm-function[207]:0x4508)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d84)
+    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1dae)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|23 (wasm-function[207]:0x452b)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 8,
   "typeId": 0,
   "typeName": "f64",
@@ -775,7 +775,7 @@ HostValue {
 `;
 
 exports[`pass-fail output Group: pass-fail Test: should report finite values: actual 3`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -785,11 +785,11 @@ HostValue {
   "pointer": 8432,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d61)
-    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1d8b)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|24 (wasm-function[209]:0x4536)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d84)
+    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1dae)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|24 (wasm-function[209]:0x4559)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 8,
   "typeId": 0,
   "typeName": "f64",
@@ -805,7 +805,7 @@ exports[`pass-fail output Group: pass-fail Test: should report finite values: ac
 exports[`pass-fail output Group: pass-fail Test: should report finite values: expected 1`] = `null`;
 
 exports[`pass-fail output Group: pass-fail Test: should report finite values: expected 2`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -825,7 +825,7 @@ HostValue {
 `;
 
 exports[`pass-fail output Group: pass-fail Test: should report finite values: expected 3`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -887,7 +887,7 @@ exports[`pass-fail output Group: pass-fail Test: should report i16 values: pass 
 exports[`pass-fail output Group: pass-fail Test: should report i16 values: pass 2`] = `true`;
 
 exports[`pass-fail output Group: pass-fail Test: should report invalid strings: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -897,11 +897,11 @@ HostValue {
   "pointer": 3072,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:0x1be9)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c4a)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:0x427f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:0x1c0c)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c6d)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:0x42a2)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -913,7 +913,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report invalid strings: actual-stringify 1`] = `"  string: \\"Test\\""`;
 
 exports[`pass-fail output Group: pass-fail Test: should report invalid strings: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -923,11 +923,11 @@ HostValue {
   "pointer": 3104,
   "signed": false,
   "size": 7,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:0x1c1d)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c50)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:0x427f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:0x1c40)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c73)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:0x42a2)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -945,7 +945,7 @@ exports[`pass-fail output Group: pass-fail Test: should report invalid strings: 
 exports[`pass-fail output Group: pass-fail Test: should report invalid strings: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report long values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -955,11 +955,11 @@ HostValue {
   "pointer": 8112,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<i64> (wasm-function[168]:0x3f2a)
-    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:0x3f73)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:0x3faa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<i64> (wasm-function[168]:0x3f4d)
+    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:0x3f96)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:0x3fcd)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -971,7 +971,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report long values: actual-stringify 1`] = `"  number: -9999999999 keyword: as class: i64"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report long values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -981,11 +981,11 @@ HostValue {
   "pointer": 8112,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<i64> (wasm-function[169]:0x3f51)
-    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:0x3f7a)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:0x3faa)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<i64> (wasm-function[169]:0x3f74)
+    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:0x3f9d)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:0x3fcd)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -1003,7 +1003,7 @@ exports[`pass-fail output Group: pass-fail Test: should report long values: nega
 exports[`pass-fail output Group: pass-fail Test: should report long values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report not falsy values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1013,11 +1013,11 @@ HostValue {
   "pointer": 8336,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x41e8)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy (wasm-function[203]:0x447a)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|20 (wasm-function[204]:0x44b7)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x420b)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy (wasm-function[203]:0x449d)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|20 (wasm-function[204]:0x44da)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -1029,7 +1029,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report not falsy values: actual-stringify 1`] = `"  keyword: false"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report not falsy values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1057,7 +1057,7 @@ exports[`pass-fail output Group: pass-fail Test: should report not falsy values:
 exports[`pass-fail output Group: pass-fail Test: should report not falsy values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report not truthy values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1067,11 +1067,11 @@ HostValue {
   "pointer": 8272,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x41e8)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (wasm-function[200]:0x4408)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|18 (wasm-function[201]:0x4445)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x420b)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (wasm-function[200]:0x442b)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|18 (wasm-function[201]:0x4468)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -1083,7 +1083,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report not truthy values: actual-stringify 1`] = `"  keyword: true"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report not truthy values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1111,7 +1111,7 @@ exports[`pass-fail output Group: pass-fail Test: should report not truthy values
 exports[`pass-fail output Group: pass-fail Test: should report not truthy values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report nulls: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": true,
   "keys": null,
@@ -1121,11 +1121,11 @@ HostValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[129]:0x32f6)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:0x3354)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:0x3388)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[129]:0x3319)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:0x3377)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:0x33ab)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -1137,7 +1137,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report nulls: actual-stringify 1`] = `"  class: <Vec3>null"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report nulls: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": true,
   "keys": null,
@@ -1147,11 +1147,11 @@ HostValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[130]:0x332b)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:0x335b)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:0x3388)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[130]:0x334e)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:0x337e)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:0x33ab)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -1169,7 +1169,7 @@ exports[`pass-fail output Group: pass-fail Test: should report nulls: negated 1`
 exports[`pass-fail output Group: pass-fail Test: should report nulls: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report number values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1179,11 +1179,11 @@ HostValue {
   "pointer": 7408,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x1527)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:0x15a7)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:0x3182)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x154a)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:0x15ca)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:0x31a5)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -1195,7 +1195,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report number values: actual-stringify 1`] = `"  number: 0"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report number values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1205,11 +1205,11 @@ HostValue {
   "pointer": 7408,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<i32> (wasm-function[55]:0x154d)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:0x15ad)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:0x3182)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<i32> (wasm-function[55]:0x1570)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:0x15d0)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:0x31a5)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -1227,11 +1227,11 @@ exports[`pass-fail output Group: pass-fail Test: should report number values: ne
 exports[`pass-fail output Group: pass-fail Test: should report number values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1248,7 +1248,7 @@ HostValue {
       "value": "x",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1265,7 +1265,7 @@ HostValue {
       "value": "y",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1289,17 +1289,17 @@ HostValue {
   "pointer": 6976,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[119]:0x3064)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:0x30ee)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:0x3164)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[119]:0x3087)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:0x3111)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:0x3187)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1316,7 +1316,7 @@ HostValue {
       "value": 1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1333,7 +1333,7 @@ HostValue {
       "value": 2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1363,11 +1363,11 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
 `;
 
 exports[`pass-fail output Group: pass-fail Test: should report reference values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1384,7 +1384,7 @@ HostValue {
       "value": "x",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1401,7 +1401,7 @@ HostValue {
       "value": "y",
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": true,
       "isNull": false,
       "keys": null,
@@ -1425,17 +1425,17 @@ HostValue {
   "pointer": 7056,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[120]:0x3098)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:0x30f4)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:0x3164)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[120]:0x30bb)
+    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:0x3117)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:0x3187)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1452,7 +1452,7 @@ HostValue {
       "value": 4,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1469,7 +1469,7 @@ HostValue {
       "value": 5,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1505,7 +1505,7 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
 exports[`pass-fail output Group: pass-fail Test: should report reference values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1515,11 +1515,11 @@ HostValue {
   "pointer": 7120,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x1527)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeTruthy (wasm-function[93]:0x1e3d)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|5 (wasm-function[94]:0x1e70)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x154a)
+    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeTruthy (wasm-function[93]:0x1e60)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|5 (wasm-function[94]:0x1e93)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -1531,7 +1531,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual-stringify 1`] = `"  number: 0"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1559,7 +1559,7 @@ exports[`pass-fail output Group: pass-fail Test: should report truthy expected v
 exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1569,11 +1569,11 @@ HostValue {
   "pointer": 8304,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x41e8)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (wasm-function[200]:0x4408)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|19 (wasm-function[202]:0x445f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x420b)
+    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (wasm-function[200]:0x442b)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|19 (wasm-function[202]:0x4482)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -1585,7 +1585,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report truthy values: actual-stringify 1`] = `"  keyword: false"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report truthy values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1613,7 +1613,7 @@ exports[`pass-fail output Group: pass-fail Test: should report truthy values: ne
 exports[`pass-fail output Group: pass-fail Test: should report truthy values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -1623,17 +1623,17 @@ HostValue {
   "pointer": 7616,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[159]:0x3d05)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:0x3d91)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:0x3e3f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[159]:0x3d28)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:0x3db4)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:0x3e62)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 11,
   "typeId": 15,
   "typeName": "Float64Array",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1650,7 +1650,7 @@ HostValue {
       "value": 1.1,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1667,7 +1667,7 @@ HostValue {
       "value": 2.2,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1691,7 +1691,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual-stringify 1`] = `"  class: Float64Array [number: 1.1, number: 2.2, number: 3.3, ]"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": true,
   "isNull": false,
   "keys": null,
@@ -1701,17 +1701,17 @@ HostValue {
   "pointer": 7696,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[160]:0x3d3a)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:0x3d98)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:0x3e3f)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[160]:0x3d5d)
+    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:0x3dbb)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:0x3e62)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 11,
   "typeId": 15,
   "typeName": "Float64Array",
   "value": 0,
   "values": Array [
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1728,7 +1728,7 @@ HostValue {
       "value": 4.4,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1745,7 +1745,7 @@ HostValue {
       "value": 5.5,
       "values": null,
     },
-    HostValue {
+    ReflectedValue {
       "isManaged": false,
       "isNull": false,
       "keys": null,
@@ -1775,7 +1775,7 @@ exports[`pass-fail output Group: pass-fail Test: should report typedarray values
 exports[`pass-fail output Group: pass-fail Test: should report typedarray values: pass 1`] = `false`;
 
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1785,11 +1785,11 @@ HostValue {
   "pointer": 8144,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Actual/Actual.report<u32> (wasm-function[177]:0x408d)
-    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:0x40d6)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:0x4105)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Actual/Actual.report<u32> (wasm-function[177]:0x40b0)
+    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:0x40f9)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:0x4128)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",
@@ -1801,7 +1801,7 @@ HostValue {
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual-stringify 1`] = `"  number: 4294967294 keyword: as class: u32"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected 1`] = `
-HostValue {
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
@@ -1811,11 +1811,11 @@ HostValue {
   "pointer": 8144,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x150f)
-    at ../assembly/assembly/internal/Expected/Expected.report<u32> (wasm-function[178]:0x40b4)
-    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:0x40dd)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:0x4105)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4dd0)",
+  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
+    at ../assembly/assembly/internal/Expected/Expected.report<u32> (wasm-function[178]:0x40d7)
+    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:0x4100)
+    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:0x4128)
+    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4df3)",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",

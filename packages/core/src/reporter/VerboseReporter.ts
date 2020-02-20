@@ -3,7 +3,7 @@ import { TestResult } from "../test/TestResult";
 import { TestContext } from "../test/TestContext";
 import { TestReporter } from "../test/TestReporter";
 import { IWritable } from "../util/IWriteable";
-import { HostValue } from "../util/HostValue";
+import { ReflectedValue } from "../util/ReflectedValue";
 
 /**
  * This weakmap is used to keep track of which logs have already been printed, and from what index.
@@ -229,9 +229,9 @@ export default class VerboseReporter extends TestReporter {
   /**
    * A custom logger function for the default reporter that writes the log values using `console.log()`
    *
-   * @param {HostValue} logValue - A value to be logged to the console
+   * @param {ReflectedValue} logValue - A value to be logged to the console
    */
-  public onLog(logValue: HostValue): void {
+  public onLog(logValue: ReflectedValue): void {
     const chalk = require("chalk");
     const output: string = logValue.stringify({ indent: 12 }).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
