@@ -27,10 +27,10 @@
  (data (i32.const 800) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
  (data (i32.const 864) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
  (data (i32.const 944) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00 \00n\00o\00r\00m\00a\00l\00l\00y\00")
- (data (i32.const 1008) "`\00\00\00\01\00\00\00\01\00\00\00`\00\00\00e\00x\00p\00e\00c\00t\00F\00n\00.\00n\00o\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00c\00a\00l\00l\00b\00a\00c\00k\00 \00t\00h\00r\00o\00w\00s\00")
+ (data (i32.const 1008) "\\\00\00\00\01\00\00\00\01\00\00\00\\\00\00\00e\00x\00p\00e\00c\00t\00.\00n\00o\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00c\00a\00l\00l\00b\00a\00c\00k\00 \00t\00h\00r\00o\00w\00s\00")
  (data (i32.const 1120) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
  (data (i32.const 1136) "z\00\00\00\01\00\00\00\01\00\00\00z\00\00\00u\00n\00r\00e\00a\00c\00h\00a\00b\00l\00e\00 \00s\00h\00o\00u\00l\00d\00 \00c\00a\00u\00s\00e\00 \00n\00e\00g\00a\00t\00e\00d\00 \00t\00o\00T\00h\00r\00o\00w\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00t\00o\00 \00t\00h\00r\00o\00w\00.\00")
- (data (i32.const 1280) "h\00\00\00\01\00\00\00\01\00\00\00h\00\00\00e\00x\00p\00e\00c\00t\00F\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00c\00a\00l\00l\00b\00a\00c\00k\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00t\00h\00r\00o\00w\00")
+ (data (i32.const 1280) "d\00\00\00\01\00\00\00\01\00\00\00d\00\00\00e\00x\00p\00e\00c\00t\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00c\00a\00l\00l\00b\00a\00c\00k\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00t\00h\00r\00o\00w\00")
  (data (i32.const 1408) "\8a\00\00\00\01\00\00\00\01\00\00\00\8a\00\00\00f\00u\00n\00c\00t\00i\00o\00n\00s\00 \00t\00h\00a\00t\00 \00d\00o\00 \00n\00o\00t\00 \00t\00h\00r\00o\00w\00 \00s\00h\00o\00u\00l\00d\00 \00c\00a\00u\00s\00e\00 \00t\00o\00T\00h\00r\00o\00w\00 \00a\00s\00s\00e\00r\00t\00i\00o\00n\00s\00 \00t\00o\00 \00t\00h\00r\00o\00w\00.\00")
  (data (i32.const 1568) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00i\003\002\00")
  (data (i32.const 1600) "\08\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\98\04\01\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
@@ -1578,7 +1578,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/internal/Expectation/expectFn (; 38 ;) (param $0 i32) (result i32)
+ (func "$assembly/internal/Expectation/expect<() => void>" (; 38 ;) (param $0 i32) (result i32)
   i32.const 0
   local.get $0
   call "$assembly/internal/Expectation/Expectation<() => void>#constructor"
@@ -2578,7 +2578,7 @@
  (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2 (; 60 ;)
   (local $0 i32)
   i32.const 3
-  call $assembly/internal/Expectation/expectFn
+  call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   i32.const 448
   call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
@@ -2610,7 +2610,7 @@
   (local $0 i32)
   (local $1 i32)
   i32.const 5
-  call $assembly/internal/Expectation/expectFn
+  call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
   local.tee $1
@@ -2630,7 +2630,7 @@
   (local $0 i32)
   (local $1 i32)
   i32.const 7
-  call $assembly/internal/Expectation/expectFn
+  call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
   local.tee $1
@@ -2644,7 +2644,7 @@
  (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4 (; 67 ;)
   (local $0 i32)
   i32.const 8
-  call $assembly/internal/Expectation/expectFn
+  call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   i32.const 1152
   call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
@@ -2658,7 +2658,7 @@
  (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0 (; 69 ;)
   (local $0 i32)
   i32.const 10
-  call $assembly/internal/Expectation/expectFn
+  call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   i32.const 1136
   call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
@@ -2668,7 +2668,7 @@
  (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5 (; 70 ;)
   (local $0 i32)
   i32.const 11
-  call $assembly/internal/Expectation/expectFn
+  call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   i32.const 1424
   call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"

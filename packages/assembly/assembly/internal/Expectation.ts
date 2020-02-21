@@ -172,10 +172,10 @@ export class Expectation<T> {
     let actual = this.actual;
     let negated = this._not;
 
-    if (!isFunction<T>()) ERROR("Expectation<T>#toThrow must be called with a Function type T.");
+    if (!isFunction<T>()) ERROR("Expectation#toThrow assertion called on actual T where T is not a function reference");
+    if (idof<T>() != idof<() => void>()) ERROR("Expectation#toThrow assertion called on actual T where T is not a function reference with signature () => void");
 
-    //todo: make this const when AS supports it
-    let func: () => void = changetype<() => void>(actual);
+    let func = changetype<() => void>(actual);
     let throws = i32(!tryCall(func));
     Actual.report(throws ? "Throws" : "Not Throws");
 
@@ -373,6 +373,7 @@ export class Expectation<T> {
     } else {
       // @ts-ignore: This results in a compile time check for a length property with a better error message
       if (!isDefined(actual.length)) ERROR("Expectation<T>#toHaveLength cannot be called on type T where T.length is not defined.");
+      // @ts-ignore: This results in a compile time check for a length property with a better error message
       length = actual.length;
     }
     Actual.report(actual);
@@ -396,9 +397,7 @@ export class Expectation<T> {
     this.toInclude(expected, message);
   }
 
-  // @ts-ignore: valueof<T> will throw a compiler if it is not valid
   public toIncludeEqual<U>(expected: U, message: string = ""): void {
-    // @ts-ignore Array<U> instanceof check
     toIncludeEqualComparison<T, U>(this.actual, expected, this._not, message);
     Actual.clear();
     Expected.clear();
@@ -423,6 +422,7 @@ export function expect<T>(actual: T): Expectation<T> {
 }
 
 /**
+ * @deprecated
  * A shorthand for `expect<(): => void>(callback: () => void)`.
  *
  * @param {() => void} cb - The callback to be tested.
@@ -430,5 +430,6 @@ export function expect<T>(actual: T): Expectation<T> {
 // @ts-ignore: decorators *are* valid here
 @global
 export function expectFn(cb: () => void): Expectation<() => void> {
-  return new Expectation<() => void>(cb);
+  WARNING("expectFn() has been deprecated. Use expect() instead.");
+  return new Expectation(cb);
 }
