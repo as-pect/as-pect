@@ -947,7 +947,7 @@ define("run", ["require", "exports", "fs", "perf_hooks", "path", "chalk", "@as-p
          */
         var outputBinary = (_a = (cliOptions.changed.has("outputBinary")
             ? cliOptions.outputBinary
-            : configuration.outputBinary), (_a !== null && _a !== void 0 ? _a : false));
+            : configuration.outputBinary)) !== null && _a !== void 0 ? _a : false;
         if (outputBinary) {
             console.log(chalk_5.default(templateObject_32 || (templateObject_32 = __makeTemplateObject(["{bgWhite.black [Log]} Outputing Binary *.wasm files."], ["{bgWhite.black [Log]} Outputing Binary *.wasm files."]))));
         }
@@ -969,10 +969,10 @@ define("run", ["require", "exports", "fs", "perf_hooks", "path", "chalk", "@as-p
          */
         var memorySize = (_b = (cliOptions.changed.has("memorySize")
             ? cliOptions.memorySize
-            : configuration.memorySize), (_b !== null && _b !== void 0 ? _b : 10));
+            : configuration.memorySize)) !== null && _b !== void 0 ? _b : 10;
         var memoryMax = (_c = (cliOptions.changed.has("memoryMax")
             ? cliOptions.memoryMax
-            : configuration.memoryMax), (_c !== null && _c !== void 0 ? _c : -1));
+            : configuration.memoryMax)) !== null && _c !== void 0 ? _c : -1;
         if (!Number.isInteger(memorySize) || memorySize <= 0) {
             console.error(chalk_5.default(templateObject_35 || (templateObject_35 = __makeTemplateObject(["{red [Error]} Invalid {yellow memorySize} value (", ") [valid range is a positive interger]"], ["{red [Error]} Invalid {yellow memorySize} value (", ") [valid range is a positive interger]"])), memorySize));
             process.exit(1);
@@ -1066,7 +1066,7 @@ define("run", ["require", "exports", "fs", "perf_hooks", "path", "chalk", "@as-p
                 var customImportFileLocation = path.resolve(path.join(path.dirname(file), path.basename(file, path.extname(file)) + ".imports.js"));
                 var configurationImports = fs.existsSync(customImportFileLocation)
                     ? require(customImportFileLocation)
-                    : (_a = configuration.imports, (_a !== null && _a !== void 0 ? _a : {}));
+                    : (_a = configuration.imports) !== null && _a !== void 0 ? _a : {};
                 var memoryDescriptor = {
                     initial: memorySize,
                 };

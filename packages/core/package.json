@@ -38,6 +38,7 @@
 	},
 	"dependencies": {
 		"@as-pect/assembly": "^3.0.0-alpha.3",
+		"@as-pect/snapshot": "^3.0.0-alpha.3",
 		"chalk": "^3.0.0",
 		"long": "^4.0.0"
 	},

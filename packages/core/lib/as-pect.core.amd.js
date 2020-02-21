@@ -1367,7 +1367,7 @@ define("test/TestCollector", ["require", "exports", "test/TestGroup", "util/IPer
              * is impossible to test using assemblyscript latest.
              */
             /* istanbul ignore next */
-            var startFunc = (_a = this.wasm.__start, (_a !== null && _a !== void 0 ? _a : this.wasm._start));
+            var startFunc = (_a = this.wasm.__start) !== null && _a !== void 0 ? _a : this.wasm._start;
             startFunc();
             this.wasm.__ready();
             var topLevelGroup = this.groupStack[0];
