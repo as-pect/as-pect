@@ -5,3 +5,4 @@
  * AssemblyScript developers following the standard way of creating a new AssemblyScript project.
  */
 export declare function init(): void;
+//# sourceMappingURL=init.d.ts.map

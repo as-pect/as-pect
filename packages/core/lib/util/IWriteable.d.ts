@@ -5,3 +5,4 @@ export interface IWritable {
     /** This method is used for writing string contents to something that is writable. */
     write(chunk: string): void;
 }
+//# sourceMappingURL=IWriteable.d.ts.map

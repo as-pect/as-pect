@@ -9,3 +9,4 @@ export { parse, defaultCliArgs, Options } from "./util/CommandLineArg";
  * @param {string[]} args - The arguments from the command line
  */
 export declare function asp(args: string[]): void;
+//# sourceMappingURL=index.d.ts.map

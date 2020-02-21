@@ -116,3 +116,4 @@ export declare const defaultCliArgs: ArgMap;
  * @param {ArgMap} cliArgs - The set of parsable arguments.
  */
 export declare function parse(commands: string[], cliArgs?: ArgMap): Options;
+//# sourceMappingURL=CommandLineArg.d.ts.map

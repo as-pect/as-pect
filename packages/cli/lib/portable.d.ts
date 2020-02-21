@@ -5,3 +5,4 @@
  * `./assembly/__tests__/` for the current project.
  */
 export declare function portable(): void;
+//# sourceMappingURL=portable.d.ts.map

@@ -6,3 +6,4 @@
  * @param {Uint8Array} contents - The file contents to write to the disk.
  */
 export declare function writeFile(file: string, contents: Uint8Array): Promise<void>;
+//# sourceMappingURL=writeFile.d.ts.map

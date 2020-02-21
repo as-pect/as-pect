@@ -10,4 +10,4 @@
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiSUxvZ1RhcmdldC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlsL0lMb2dUYXJnZXQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiJ9
+//# sourceMappingURL=ILogTarget.js.map

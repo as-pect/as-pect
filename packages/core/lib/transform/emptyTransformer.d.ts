@@ -21,3 +21,4 @@ declare const _default: {
  * Just an empty transformer.
  */
 export = _default;
+//# sourceMappingURL=emptyTransformer.d.ts.map

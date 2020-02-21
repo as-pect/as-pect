@@ -27,3 +27,4 @@ export interface IPerformanceConfiguration {
 }
 /** This method creates a default performance configuration. */
 export declare function createDefaultPerformanceConfiguration(): IPerformanceConfiguration;
+//# sourceMappingURL=IPerformanceConfiguration.d.ts.map

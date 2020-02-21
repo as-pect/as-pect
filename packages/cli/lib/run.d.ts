@@ -7,3 +7,4 @@ import { Options } from "./util/CommandLineArg";
  * @param {string[]} compilerArgs - The `asc` compiler arguments.
  */
 export declare function run(cliOptions: Options, compilerArgs: string[]): void;
+//# sourceMappingURL=run.d.ts.map

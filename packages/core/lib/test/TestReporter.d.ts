@@ -51,3 +51,4 @@ export declare abstract class TestReporter {
      */
     abstract onTodo(group: TestGroup, todo: string): void;
 }
+//# sourceMappingURL=TestReporter.d.ts.map

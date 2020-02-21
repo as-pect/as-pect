@@ -21,3 +21,4 @@ export default class CSVReporter extends TestReporter {
     onTestFinish(group: TestGroup, result: TestResult): void;
     onTodo(group: TestGroup, desc: string): void;
 }
+//# sourceMappingURL=CSVReporter.d.ts.map

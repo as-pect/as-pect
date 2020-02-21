@@ -6,3 +6,4 @@
  * @param {number} places - The number of decimal places used for rounding.
  */
 export declare function round(input: number, places: number): number;
+//# sourceMappingURL=round.d.ts.map

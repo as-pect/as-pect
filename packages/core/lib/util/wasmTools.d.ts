@@ -35,3 +35,4 @@ export declare class NameSection {
     /** Reads a 128LEB  unsigned integer and updates the offset. */
     readVaruint(off?: number): number;
 }
+//# sourceMappingURL=wasmTools.d.ts.map

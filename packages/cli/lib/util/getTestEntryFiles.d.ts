@@ -8,3 +8,4 @@ import { Options } from "./CommandLineArg";
  * @param {RegExp[]} disclude - An array of RegExp provided by the configuration.
  */
 export declare function getTestEntryFiles(cliOptions: Options, include: string[], disclude: RegExp[]): Set<string>;
+//# sourceMappingURL=getTestEntryFiles.d.ts.map

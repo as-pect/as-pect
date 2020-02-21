@@ -13,3 +13,4 @@ export declare function capitalize(word: string): string;
  * @param {string} from - The string seperator.
  */
 export declare function toCamelCase(str: string, from?: string): string;
+//# sourceMappingURL=strings.d.ts.map

@@ -19,3 +19,4 @@ export * from "./util/IAspectExports";
 export * from "./util/ILogTarget";
 export * from "./util/IPerformanceConfiguration";
 export * from "./util/ReflectedValue";
+//# sourceMappingURL=index.d.ts.map

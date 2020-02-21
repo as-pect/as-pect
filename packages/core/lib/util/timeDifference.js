@@ -22,4 +22,4 @@
         return Math.round((end - start) * 1000) / 1000;
     };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGltZURpZmZlcmVuY2UuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvdXRpbC90aW1lRGlmZmVyZW5jZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7OztJQUFBOzs7Ozs7OztPQVFHO0lBQ1UsUUFBQSxjQUFjLEdBQUcsVUFBQyxHQUFXLEVBQUUsS0FBYTtRQUN2RCxPQUFBLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxHQUFHLEdBQUcsS0FBSyxDQUFDLEdBQUcsSUFBSSxDQUFDLEdBQUcsSUFBSTtJQUF2QyxDQUF1QyxDQUFDIn0=
+//# sourceMappingURL=timeDifference.js.map

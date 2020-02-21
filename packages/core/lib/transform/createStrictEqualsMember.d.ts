@@ -6,3 +6,4 @@ import { ClassDeclaration, FunctionDeclaration } from "./assemblyscript";
  * @param {ClassDeclaration} classDeclaration - The class that requires a new function.
  */
 export declare function createStrictEqualsMember(classDeclaration: ClassDeclaration): FunctionDeclaration;
+//# sourceMappingURL=createStrictEqualsMember.d.ts.map

@@ -20,3 +20,4 @@ export default class JSONReporter extends TestReporter {
     onTestFinish(group: TestGroup, result: TestResult): void;
     onTodo(group: TestGroup, desc: string): void;
 }
+//# sourceMappingURL=JSONReporter.d.ts.map

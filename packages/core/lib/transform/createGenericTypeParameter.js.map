@@ -1,0 +1,1 @@
+{"version":3,"file":"createGenericTypeParameter.js","sourceRoot":"","sources":["../../src/transform/createGenericTypeParameter.ts"],"names":[],"mappings":";;;;;;;;;;;IAAA,mDAAmD;IACnD;;;;;OAKG;IACH,SAAgB,0BAA0B,CACxC,IAAY,EACZ,KAAY;QAEZ,OAAO,yBAAQ,CAAC,eAAe,CAC7B,yBAAQ,CAAC,oBAAoB,CAAC,IAAI,EAAE,KAAK,CAAC,EAC1C,IAAI,EACJ,KAAK,EACL,KAAK,CACN,CAAC;IACJ,CAAC;IAVD,gEAUC"}

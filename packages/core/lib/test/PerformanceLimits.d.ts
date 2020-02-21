@@ -9,3 +9,4 @@ export declare const enum PerformanceLimits {
     MinimumDecimalPlaces = 0,
     MaximumDecimalPlaces = 8
 }
+//# sourceMappingURL=PerformanceLimits.d.ts.map
