@@ -16,7 +16,7 @@ export function createAddReflectedValueKeyValuePairsMember(
   classDeclaration: ClassDeclaration,
 ): FunctionDeclaration {
   const range = classDeclaration.name.range;
-  // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>): void
+  // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, forDisplay: bool): void
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression(
       "__aspectAddReflectedValueKeyValuePairs",
@@ -46,6 +46,14 @@ export function createAddReflectedValueKeyValuePairsMember(
             false,
             range,
           ),
+          null,
+          ParameterKind.DEFAULT,
+          range,
+        ),
+        // forDisplay: bool
+        TypeNode.createParameter(
+          TypeNode.createIdentifierExpression("forDisplay", range),
+          createGenericTypeParameter("bool", range),
           null,
           ParameterKind.DEFAULT,
           range,
@@ -151,8 +159,12 @@ function createPushReflectedObjectKeyStatement(
           ),
           null,
           [
+            // property name
             TypeNode.createStringLiteralExpression(name, range),
+            // seen
             TypeNode.createIdentifierExpression("seen", range),
+            // forDisplay
+            TypeNode.createIdentifierExpression("forDisplay", range),
           ],
           range,
         ),
@@ -194,6 +206,8 @@ function createPushReflectedObjectValueStatement(
             ),
             // seen
             TypeNode.createIdentifierExpression("seen", range),
+            // forDisplay
+            TypeNode.createIdentifierExpression("forDisplay", range),
           ],
           range,
         ),

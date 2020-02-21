@@ -13,7 +13,7 @@
     var createGenericTypeParameter_1 = require("./createGenericTypeParameter");
     function createAddReflectedValueKeyValuePairsMember(classDeclaration) {
         var range = classDeclaration.name.range;
-        // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>): void
+        // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, forDisplay: bool): void
         return assemblyscript_1.TypeNode.createMethodDeclaration(assemblyscript_1.TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range), null, assemblyscript_1.TypeNode.createFunctionType([
             // reflectedValue: i32
             assemblyscript_1.TypeNode.createParameter(assemblyscript_1.TypeNode.createIdentifierExpression("reflectedValue", range), createGenericTypeParameter_1.createGenericTypeParameter("i32", range), null, assemblyscript_1.ParameterKind.DEFAULT, range),
@@ -22,6 +22,8 @@
                 createGenericTypeParameter_1.createGenericTypeParameter("usize", range),
                 createGenericTypeParameter_1.createGenericTypeParameter("i32", range),
             ], false, range), null, assemblyscript_1.ParameterKind.DEFAULT, range),
+            // forDisplay: bool
+            assemblyscript_1.TypeNode.createParameter(assemblyscript_1.TypeNode.createIdentifierExpression("forDisplay", range), createGenericTypeParameter_1.createGenericTypeParameter("bool", range), null, assemblyscript_1.ParameterKind.DEFAULT, range),
         ], assemblyscript_1.TypeNode.createNamedType(assemblyscript_1.TypeNode.createSimpleTypeName("void", range), [], false, range), null, false, range), createAddReflectedValueKeyValuePairsFunctionBody(classDeclaration), null, assemblyscript_1.CommonFlags.PUBLIC |
             assemblyscript_1.CommonFlags.INSTANCE |
             (classDeclaration.isGeneric ? assemblyscript_1.CommonFlags.GENERIC_CONTEXT : 0), range);
@@ -68,8 +70,12 @@
             assemblyscript_1.TypeNode.createCallExpression(
             // Reflect.toReflectedValue
             assemblyscript_1.TypeNode.createPropertyAccessExpression(assemblyscript_1.TypeNode.createIdentifierExpression("Reflect", range), assemblyscript_1.TypeNode.createIdentifierExpression("toReflectedValue", range), range), null, [
+                // property name
                 assemblyscript_1.TypeNode.createStringLiteralExpression(name, range),
+                // seen
                 assemblyscript_1.TypeNode.createIdentifierExpression("seen", range),
+                // forDisplay
+                assemblyscript_1.TypeNode.createIdentifierExpression("forDisplay", range),
             ], range),
         ], range));
     }
@@ -90,6 +96,8 @@
                 assemblyscript_1.TypeNode.createPropertyAccessExpression(assemblyscript_1.TypeNode.createThisExpression(range), assemblyscript_1.TypeNode.createIdentifierExpression(name, range), range),
                 // seen
                 assemblyscript_1.TypeNode.createIdentifierExpression("seen", range),
+                // forDisplay
+                assemblyscript_1.TypeNode.createIdentifierExpression("forDisplay", range),
             ], range),
         ], range));
     }

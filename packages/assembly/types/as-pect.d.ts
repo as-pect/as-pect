@@ -940,8 +940,11 @@ declare class Reflect {
    *
    * @param {T} value - The value to be inspected.
    * @param {Map<usize, i32>} seen - A map of pointers to hostValues for caching purposes.
+   * @param {bool} forDisplay - A boolean indicating if the reflect value will be displayed for Reflection
+   * purposes. Pass `false` if using the reflected value for snapshot comparisons. Otherwise, pass `true`.
    */
-  public static toReflectedValue<T>(value: T, seen?: Map<usize, i32>): i32
+  public static toReflectedValue<T>(value: T, seen?: Map<usize, i32>, forDisplay?: bool): i32;
+
   /**
    * A method used for comparing two values or references to determine if they match each other.
    *

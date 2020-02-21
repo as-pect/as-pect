@@ -74,7 +74,7 @@ const example6: ISnapshotData = {
     },
     test3: {
       snapshot6: "someMatchingValue",
-    }
+    },
   },
 };
 

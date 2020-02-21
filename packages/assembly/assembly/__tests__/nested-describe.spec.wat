@@ -3,10 +3,10 @@
  (type $none_=>_none (func))
  (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
+ (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $none_=>_i32 (func (result i32)))
- (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (import "env" "memory" (memory $0 1))
@@ -1569,39 +1569,39 @@
   i32.store8
   local.get $0
  )
- (func $assembly/internal/Reflect/Reflect.toReflectedValue<bool> (; 36 ;) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<bool> (; 36 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
+  (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
   i32.const 0
   local.get $0
   call $assembly/internal/Box/Box<bool>#constructor
-  local.set $2
+  local.set $3
   i32.const 0
   i32.const 0
   i32.const 0
   i32.const 0
-  local.get $2
+  local.get $3
   i32.const 0
   i32.const 1
   i32.const 9
   i32.const 0
   i32.const 368
-  local.get $2
+  local.get $3
   i32.const 0
   i32.const 0
   call $assembly/internal/Reflect/createReflectedValue
-  local.set $3
-  local.get $3
   local.set $4
-  local.get $2
+  local.get $4
+  local.set $5
+  local.get $3
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
-  local.get $4
+  local.get $5
   return
  )
  (func $~lib/memory/memory.fill (; 37 ;) (param $0 i32) (param $1 i32) (param $2 i32)
@@ -1964,31 +1964,36 @@
   call $~lib/map/Map<usize,i32>#clear
   local.get $0
  )
- (func $assembly/internal/Reflect/Reflect.toReflectedValue<bool>|trampoline (; 41 ;) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<bool>|trampoline (; 41 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
-  block $1of1
-   block $0of1
-    block $outOfRange
-     global.get $~argumentsLength
-     i32.const 1
-     i32.sub
-     br_table $0of1 $1of1 $outOfRange
+  (local $4 i32)
+  block $2of2
+   block $1of2
+    block $0of2
+     block $outOfRange
+      global.get $~argumentsLength
+      i32.const 1
+      i32.sub
+      br_table $0of2 $1of2 $2of2 $outOfRange
+     end
+     unreachable
     end
-    unreachable
+    i32.const 0
+    call $~lib/map/Map<usize,i32>#constructor
+    local.tee $3
+    local.set $1
    end
-   i32.const 0
-   call $~lib/map/Map<usize,i32>#constructor
-   local.tee $2
-   local.set $1
+   i32.const 1
+   local.set $2
   end
   local.get $0
   local.get $1
-  call $assembly/internal/Reflect/Reflect.toReflectedValue<bool>
-  local.set $3
   local.get $2
-  call $~lib/rt/pure/__release
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<bool>
+  local.set $4
   local.get $3
+  call $~lib/rt/pure/__release
+  local.get $4
  )
  (func $~setArgumentsLength (; 42 ;) (param $0 i32)
   local.get $0
@@ -2004,6 +2009,7 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
+  i32.const 1
   call $assembly/internal/Reflect/Reflect.toReflectedValue<bool>|trampoline
   local.set $1
   local.get $1
@@ -2201,66 +2207,71 @@
   i32.store
   local.get $0
  )
- (func $assembly/internal/Reflect/Reflect.toReflectedValue<i32> (; 67 ;) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<i32> (; 67 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
+  (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
   i32.const 0
   local.get $0
   call $assembly/internal/Box/Box<i32>#constructor
-  local.set $2
+  local.set $3
   i32.const 0
   i32.const 0
   i32.const 0
   i32.const 0
-  local.get $2
+  local.get $3
   i32.const 1
   i32.const 4
   i32.const 7
   i32.const 0
   i32.const 832
-  local.get $2
+  local.get $3
   i32.const 0
   i32.const 0
   call $assembly/internal/Reflect/createReflectedValue
-  local.set $3
-  local.get $3
   local.set $4
-  local.get $2
+  local.get $4
+  local.set $5
+  local.get $3
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
-  local.get $4
+  local.get $5
   return
  )
- (func $assembly/internal/Reflect/Reflect.toReflectedValue<i32>|trampoline (; 68 ;) (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<i32>|trampoline (; 68 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
-  block $1of1
-   block $0of1
-    block $outOfRange
-     global.get $~argumentsLength
-     i32.const 1
-     i32.sub
-     br_table $0of1 $1of1 $outOfRange
+  (local $4 i32)
+  block $2of2
+   block $1of2
+    block $0of2
+     block $outOfRange
+      global.get $~argumentsLength
+      i32.const 1
+      i32.sub
+      br_table $0of2 $1of2 $2of2 $outOfRange
+     end
+     unreachable
     end
-    unreachable
+    i32.const 0
+    call $~lib/map/Map<usize,i32>#constructor
+    local.tee $3
+    local.set $1
    end
-   i32.const 0
-   call $~lib/map/Map<usize,i32>#constructor
-   local.tee $2
-   local.set $1
+   i32.const 1
+   local.set $2
   end
   local.get $0
   local.get $1
-  call $assembly/internal/Reflect/Reflect.toReflectedValue<i32>
-  local.set $3
   local.get $2
-  call $~lib/rt/pure/__release
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<i32>
+  local.set $4
   local.get $3
+  call $~lib/rt/pure/__release
+  local.get $4
  )
  (func $assembly/internal/Actual/Actual.report<i32> (; 69 ;) (param $0 i32)
   (local $1 i32)
@@ -2268,6 +2279,7 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
+  i32.const 1
   call $assembly/internal/Reflect/Reflect.toReflectedValue<i32>|trampoline
   local.set $1
   local.get $1
@@ -2287,6 +2299,7 @@
   global.set $~argumentsLength
   local.get $0
   i32.const 0
+  i32.const 1
   call $assembly/internal/Reflect/Reflect.toReflectedValue<i32>|trampoline
   local.set $2
   local.get $2

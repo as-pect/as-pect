@@ -3444,7 +3444,7 @@ define("transform/createAddReflectedValueKeyValuePairsMember", ["require", "expo
     Object.defineProperty(exports, "__esModule", { value: true });
     function createAddReflectedValueKeyValuePairsMember(classDeclaration) {
         var range = classDeclaration.name.range;
-        // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>): void
+        // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, forDisplay: bool): void
         return assemblyscript_2.TypeNode.createMethodDeclaration(assemblyscript_2.TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range), null, assemblyscript_2.TypeNode.createFunctionType([
             // reflectedValue: i32
             assemblyscript_2.TypeNode.createParameter(assemblyscript_2.TypeNode.createIdentifierExpression("reflectedValue", range), createGenericTypeParameter_1.createGenericTypeParameter("i32", range), null, assemblyscript_2.ParameterKind.DEFAULT, range),
@@ -3453,6 +3453,8 @@ define("transform/createAddReflectedValueKeyValuePairsMember", ["require", "expo
                 createGenericTypeParameter_1.createGenericTypeParameter("usize", range),
                 createGenericTypeParameter_1.createGenericTypeParameter("i32", range),
             ], false, range), null, assemblyscript_2.ParameterKind.DEFAULT, range),
+            // forDisplay: bool
+            assemblyscript_2.TypeNode.createParameter(assemblyscript_2.TypeNode.createIdentifierExpression("forDisplay", range), createGenericTypeParameter_1.createGenericTypeParameter("bool", range), null, assemblyscript_2.ParameterKind.DEFAULT, range),
         ], assemblyscript_2.TypeNode.createNamedType(assemblyscript_2.TypeNode.createSimpleTypeName("void", range), [], false, range), null, false, range), createAddReflectedValueKeyValuePairsFunctionBody(classDeclaration), null, assemblyscript_2.CommonFlags.PUBLIC |
             assemblyscript_2.CommonFlags.INSTANCE |
             (classDeclaration.isGeneric ? assemblyscript_2.CommonFlags.GENERIC_CONTEXT : 0), range);
@@ -3499,8 +3501,12 @@ define("transform/createAddReflectedValueKeyValuePairsMember", ["require", "expo
             assemblyscript_2.TypeNode.createCallExpression(
             // Reflect.toReflectedValue
             assemblyscript_2.TypeNode.createPropertyAccessExpression(assemblyscript_2.TypeNode.createIdentifierExpression("Reflect", range), assemblyscript_2.TypeNode.createIdentifierExpression("toReflectedValue", range), range), null, [
+                // property name
                 assemblyscript_2.TypeNode.createStringLiteralExpression(name, range),
+                // seen
                 assemblyscript_2.TypeNode.createIdentifierExpression("seen", range),
+                // forDisplay
+                assemblyscript_2.TypeNode.createIdentifierExpression("forDisplay", range),
             ], range),
         ], range));
     }
@@ -3521,6 +3527,8 @@ define("transform/createAddReflectedValueKeyValuePairsMember", ["require", "expo
                 assemblyscript_2.TypeNode.createPropertyAccessExpression(assemblyscript_2.TypeNode.createThisExpression(range), assemblyscript_2.TypeNode.createIdentifierExpression(name, range), range),
                 // seen
                 assemblyscript_2.TypeNode.createIdentifierExpression("seen", range),
+                // forDisplay
+                assemblyscript_2.TypeNode.createIdentifierExpression("forDisplay", range),
             ], range),
         ], range));
     }

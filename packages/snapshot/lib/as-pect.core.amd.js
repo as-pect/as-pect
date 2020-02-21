@@ -170,7 +170,9 @@ define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "
          *
          * @param {Partial<ISnapshotStringifyOptions>} stringifyParameters - The stringify parameters.
          */
-        diff(other, stringifyParameters = {}) {
+        diff(other, 
+        /* istanbul ignore next */
+        stringifyParameters = {}) {
             /* istanbul ignore next */
             if (!this.data || !other.data)
                 /* istanbul ignore next */
@@ -301,15 +303,21 @@ define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "
         for (const change of changes) {
             if (change.added) {
                 output +=
-                    " ".repeat(props.indent) + props.addedFormat("+ " + change.value);
+                    " ".repeat(props.indent) +
+                        props.addedFormat("+ " + change.value) +
+                        "\n";
             }
             else if (change.removed) {
                 output +=
-                    " ".repeat(props.indent) + props.removedFormat("- " + change.value);
+                    " ".repeat(props.indent) +
+                        props.removedFormat("- " + change.value) +
+                        "\n";
             }
             else {
                 output +=
-                    " ".repeat(props.indent) + props.defaultFormat("  " + change.value);
+                    " ".repeat(props.indent) +
+                        props.defaultFormat("  " + change.value) +
+                        "\n";
             }
         }
         return output;

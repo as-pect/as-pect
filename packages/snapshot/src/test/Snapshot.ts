@@ -214,13 +214,19 @@ function stringifyChanges(
   for (const change of changes) {
     if (change.added) {
       output +=
-        " ".repeat(props.indent) + props.addedFormat("+ " + change.value) + "\n";
+        " ".repeat(props.indent) +
+        props.addedFormat("+ " + change.value) +
+        "\n";
     } else if (change.removed) {
       output +=
-        " ".repeat(props.indent) + props.removedFormat("- " + change.value) + "\n";
+        " ".repeat(props.indent) +
+        props.removedFormat("- " + change.value) +
+        "\n";
     } else {
       output +=
-        " ".repeat(props.indent) + props.defaultFormat("  " + change.value) + "\n";
+        " ".repeat(props.indent) +
+        props.defaultFormat("  " + change.value) +
+        "\n";
     }
   }
   return output;
