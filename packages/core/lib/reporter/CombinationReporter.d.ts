@@ -17,3 +17,4 @@ export default class CombinationReporter extends TestReporter {
     onTestFinish(group: TestGroup, result: TestResult): void;
     onTodo(group: TestGroup, todo: string): void;
 }
+//# sourceMappingURL=CombinationReporter.d.ts.map

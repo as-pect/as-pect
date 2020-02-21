@@ -5,3 +5,4 @@
  * `./assembly/__tests__/` for the current project.
  */
 export declare function types(): void;
+//# sourceMappingURL=types.d.ts.map

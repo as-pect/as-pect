@@ -8,3 +8,4 @@ export interface ILogTarget {
     errors: IWarning[];
     warnings: IWarning[];
 }
+//# sourceMappingURL=ILogTarget.d.ts.map

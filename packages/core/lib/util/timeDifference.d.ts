@@ -8,3 +8,4 @@
  * @returns {number} - The difference of the two times rounded to the nearest three decimal places.
  */
 export declare const timeDifference: (end: number, start: number) => number;
+//# sourceMappingURL=timeDifference.d.ts.map

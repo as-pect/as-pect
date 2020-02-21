@@ -118,3 +118,4 @@ export declare class TestGroup implements ILogTarget {
      */
     warnings: IWarning[];
 }
+//# sourceMappingURL=TestGroup.d.ts.map

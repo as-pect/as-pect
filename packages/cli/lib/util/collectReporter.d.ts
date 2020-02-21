@@ -7,3 +7,4 @@ import { Options } from "./CommandLineArg";
  * @param {Options} cliOptions - The command line arguments.
  */
 export declare function collectReporter(cliOptions: Options): TestReporter;
+//# sourceMappingURL=collectReporter.d.ts.map

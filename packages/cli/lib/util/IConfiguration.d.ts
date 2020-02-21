@@ -66,3 +66,4 @@ export interface IConfiguration {
      */
     memoryMax?: number;
 }
+//# sourceMappingURL=IConfiguration.d.ts.map

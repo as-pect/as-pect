@@ -7,3 +7,4 @@ export interface ICommand {
     type: string;
     props: any;
 }
+//# sourceMappingURL=ICommand.d.ts.map

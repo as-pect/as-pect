@@ -59,3 +59,4 @@ export default class VerboseReporter extends TestReporter {
      */
     onLog(logValue: ReflectedValue): void;
 }
+//# sourceMappingURL=VerboseReporter.d.ts.map

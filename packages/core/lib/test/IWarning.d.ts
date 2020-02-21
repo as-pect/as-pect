@@ -9,3 +9,4 @@ export interface IWarning {
     /** This is the stack trace. */
     stackTrace: string;
 }
+//# sourceMappingURL=IWarning.d.ts.map

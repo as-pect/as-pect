@@ -31,4 +31,4 @@ var __extends = (this && this.__extends) || (function () {
         return AspectTransform;
     }(assemblyscript_1.Transform));
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW1wdHlUcmFuc2Zvcm1lci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy90cmFuc2Zvcm0vZW1wdHlUcmFuc2Zvcm1lci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQUFBLG1EQUFxRDtJQUtyRDtRQUF1QyxtQ0FBUztRQUF2Qzs7UUFFVCxDQUFDO1FBREMsb0NBQVUsR0FBVixVQUFXLENBQVMsSUFBUyxDQUFDO1FBQ2hDLHNCQUFDO0lBQUQsQ0FBQyxBQUZRLENBQThCLDBCQUFTLEdBRTlDIn0=
+//# sourceMappingURL=emptyTransformer.js.map

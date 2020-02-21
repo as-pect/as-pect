@@ -5,3 +5,4 @@
  * @param {number[]} input - The set of numbers used to calculate the median.
  */
 export declare function median(input: number[]): number;
+//# sourceMappingURL=median.d.ts.map

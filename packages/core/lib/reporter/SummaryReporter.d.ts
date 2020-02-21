@@ -29,3 +29,4 @@ export default class SummaryReporter extends TestReporter {
      */
     onLog(logValue: ReflectedValue): void;
 }
+//# sourceMappingURL=SummaryReporter.d.ts.map

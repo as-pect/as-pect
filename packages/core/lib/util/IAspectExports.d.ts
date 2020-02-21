@@ -46,3 +46,4 @@ export interface IAspectExports {
     /** The WebAssembly function Table. */
     readonly table?: WebAssembly.Table;
 }
+//# sourceMappingURL=IAspectExports.d.ts.map
