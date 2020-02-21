@@ -12,16 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var grammar_1 = __importDefault(require("./grammar"));
-    var nearley_1 = require("nearley");
+    const grammar_1 = __importDefault(require("./grammar"));
+    const nearley_1 = require("nearley");
     function createSnapshotParser() {
         return new nearley_1.Parser(nearley_1.Grammar.fromCompiled(grammar_1.default));
     }
     exports.createSnapshotParser = createSnapshotParser;
     function parseSnapshot(snapshot) {
-        var parser = createSnapshotParser();
+        const parser = createSnapshotParser();
         parser.feed(snapshot);
-        var results = parser.results;
+        const results = parser.results;
         if (results.length !== 1)
             throw new Error("Invalid snapshot.");
         return results[0];

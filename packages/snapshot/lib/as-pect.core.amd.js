@@ -13,38 +13,38 @@ define("parser/grammar", ["require", "exports"], function (require, exports) {
     ;
     ;
     ;
-    var grammar = {
+    const grammar = {
         Lexer: undefined,
         ParserRules: [
             { "name": "_$ebnf$1", "symbols": [] },
-            { "name": "_$ebnf$1", "symbols": ["_$ebnf$1", "wschar"], "postprocess": function (d) { return d[0].concat([d[1]]); } },
+            { "name": "_$ebnf$1", "symbols": ["_$ebnf$1", "wschar"], "postprocess": (d) => d[0].concat([d[1]]) },
             { "name": "_", "symbols": ["_$ebnf$1"], "postprocess": function (d) { return null; } },
             { "name": "__$ebnf$1", "symbols": ["wschar"] },
-            { "name": "__$ebnf$1", "symbols": ["__$ebnf$1", "wschar"], "postprocess": function (d) { return d[0].concat([d[1]]); } },
+            { "name": "__$ebnf$1", "symbols": ["__$ebnf$1", "wschar"], "postprocess": (d) => d[0].concat([d[1]]) },
             { "name": "__", "symbols": ["__$ebnf$1"], "postprocess": function (d) { return null; } },
             { "name": "wschar", "symbols": [/[ \t\n\v\f]/], "postprocess": id },
             { "name": "snapshots$ebnf$1", "symbols": [] },
             { "name": "snapshots$ebnf$1$subexpression$1", "symbols": ["snapshot", "_"] },
-            { "name": "snapshots$ebnf$1", "symbols": ["snapshots$ebnf$1", "snapshots$ebnf$1$subexpression$1"], "postprocess": function (d) { return d[0].concat([d[1]]); } },
+            { "name": "snapshots$ebnf$1", "symbols": ["snapshots$ebnf$1", "snapshots$ebnf$1$subexpression$1"], "postprocess": (d) => d[0].concat([d[1]]) },
             { "name": "snapshots", "symbols": ["_", "snapshots$ebnf$1"], "postprocess": function (d) {
-                    var snapshotPairs = d[1].map(function (e) { return e[0]; });
-                    var result = {};
-                    for (var i = 0; i < snapshotPairs.length; i++) {
-                        var _a = snapshotPairs[i], groupName = _a[0], testName = _a[1], snapshotName = _a[2], value = _a[3];
-                        var group = result[groupName] = (result[groupName] || {});
-                        var test_1 = group[testName] = (group[testName] || {});
-                        if (test_1.hasOwnProperty(snapshotName))
+                    const snapshotPairs = d[1].map((e) => e[0]);
+                    const result = {};
+                    for (let i = 0; i < snapshotPairs.length; i++) {
+                        const [groupName, testName, snapshotName, value] = snapshotPairs[i];
+                        const group = result[groupName] = (result[groupName] || {});
+                        const test = group[testName] = (group[testName] || {});
+                        if (test.hasOwnProperty(snapshotName))
                             throw new Error("Invalid snapshot, duplicate detected: " + groupName + " " + testName + " " + snapshotName);
-                        test_1[snapshotName] = value;
+                        test[snapshotName] = value;
                     }
                     return result;
                 }
             },
-            { "name": "snapshot$string$1", "symbols": [{ "literal": "e" }, { "literal": "x" }, { "literal": "p" }, { "literal": "o" }, { "literal": "r" }, { "literal": "t" }, { "literal": "s" }, { "literal": "[" }, { "literal": "`" }], "postprocess": function (d) { return d.join(''); } },
-            { "name": "snapshot$string$2", "symbols": [{ "literal": "`" }, { "literal": "]" }, { "literal": "[" }, { "literal": "`" }], "postprocess": function (d) { return d.join(''); } },
-            { "name": "snapshot$string$3", "symbols": [{ "literal": "`" }, { "literal": "]" }, { "literal": "[" }, { "literal": "`" }], "postprocess": function (d) { return d.join(''); } },
-            { "name": "snapshot$string$4", "symbols": [{ "literal": "`" }, { "literal": "]" }, { "literal": " " }, { "literal": "=" }, { "literal": " " }, { "literal": "`" }], "postprocess": function (d) { return d.join(''); } },
-            { "name": "snapshot$string$5", "symbols": [{ "literal": "`" }, { "literal": ";" }], "postprocess": function (d) { return d.join(''); } },
+            { "name": "snapshot$string$1", "symbols": [{ "literal": "e" }, { "literal": "x" }, { "literal": "p" }, { "literal": "o" }, { "literal": "r" }, { "literal": "t" }, { "literal": "s" }, { "literal": "[" }, { "literal": "`" }], "postprocess": (d) => d.join('') },
+            { "name": "snapshot$string$2", "symbols": [{ "literal": "`" }, { "literal": "]" }, { "literal": "[" }, { "literal": "`" }], "postprocess": (d) => d.join('') },
+            { "name": "snapshot$string$3", "symbols": [{ "literal": "`" }, { "literal": "]" }, { "literal": "[" }, { "literal": "`" }], "postprocess": (d) => d.join('') },
+            { "name": "snapshot$string$4", "symbols": [{ "literal": "`" }, { "literal": "]" }, { "literal": " " }, { "literal": "=" }, { "literal": " " }, { "literal": "`" }], "postprocess": (d) => d.join('') },
+            { "name": "snapshot$string$5", "symbols": [{ "literal": "`" }, { "literal": ";" }], "postprocess": (d) => d.join('') },
             { "name": "snapshot", "symbols": ["snapshot$string$1", "value", "snapshot$string$2", "value", "snapshot$string$3", "value", "snapshot$string$4", "value", "snapshot$string$5"], "postprocess": function parseSnapshot(d) {
                     return [d[1], d[3], d[5], d[7]];
                 }
@@ -52,13 +52,13 @@ define("parser/grammar", ["require", "exports"], function (require, exports) {
             { "name": "value$ebnf$1", "symbols": [] },
             { "name": "value$ebnf$1$subexpression$1", "symbols": [/[^`]/] },
             { "name": "value$ebnf$1$subexpression$1", "symbols": ["escapedTick"] },
-            { "name": "value$ebnf$1", "symbols": ["value$ebnf$1", "value$ebnf$1$subexpression$1"], "postprocess": function (d) { return d[0].concat([d[1]]); } },
+            { "name": "value$ebnf$1", "symbols": ["value$ebnf$1", "value$ebnf$1$subexpression$1"], "postprocess": (d) => d[0].concat([d[1]]) },
             { "name": "value", "symbols": ["value$ebnf$1"], "postprocess": function parseValue(d) {
                     return d[0].join("");
                 }
             },
-            { "name": "escapedTick$string$1", "symbols": [{ "literal": "\\" }, { "literal": "`" }], "postprocess": function (d) { return d.join(''); } },
-            { "name": "escapedTick", "symbols": ["escapedTick$string$1"], "postprocess": function () { return "`"; } }
+            { "name": "escapedTick$string$1", "symbols": [{ "literal": "\\" }, { "literal": "`" }], "postprocess": (d) => d.join('') },
+            { "name": "escapedTick", "symbols": ["escapedTick$string$1"], "postprocess": () => "`" }
         ],
         ParserStart: "snapshots",
     };
@@ -73,9 +73,9 @@ define("parser/index", ["require", "exports", "parser/grammar", "nearley"], func
     }
     exports.createSnapshotParser = createSnapshotParser;
     function parseSnapshot(snapshot) {
-        var parser = createSnapshotParser();
+        const parser = createSnapshotParser();
         parser.feed(snapshot);
-        var results = parser.results;
+        const results = parser.results;
         if (results.length !== 1)
             throw new Error("Invalid snapshot.");
         return results[0];
@@ -93,21 +93,18 @@ define("index", ["require", "exports", "parser/index"], function (require, expor
 define("test/unparse", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var escapeTick = function (input) { return input.replace(/`/g, "\\`"); };
+    const escapeTick = (input) => input.replace(/`/g, "\\`");
     /**
      * Convert an ISnapshotData into a stringified representation.
      *
      * @param {ISnapshotData} data - The snapshot data to be converted.
      */
     function unparse(data) {
-        var output = "";
-        for (var _i = 0, _a = Object.entries(data); _i < _a.length; _i++) {
-            var _b = _a[_i], groupName = _b[0], group = _b[1];
-            for (var _c = 0, _d = Object.entries(group); _c < _d.length; _c++) {
-                var _e = _d[_c], testName = _e[0], test_2 = _e[1];
-                for (var _f = 0, _g = Object.entries(test_2); _f < _g.length; _f++) {
-                    var _h = _g[_f], snapshotName = _h[0], snapshot = _h[1];
-                    output += "exports[`" + escapeTick(groupName) + "`][`" + escapeTick(testName) + "`][`" + escapeTick(snapshotName) + "`] = `" + escapeTick(snapshot) + "`\n\n";
+        let output = "";
+        for (const [groupName, group] of Object.entries(data)) {
+            for (const [testName, test] of Object.entries(group)) {
+                for (const [snapshotName, snapshot] of Object.entries(test)) {
+                    output += `exports[\`${escapeTick(groupName)}\`][\`${escapeTick(testName)}\`][\`${escapeTick(snapshotName)}\`] = \`${escapeTick(snapshot)}\`\n\n`;
                 }
             }
         }
@@ -115,28 +112,234 @@ define("test/unparse", ["require", "exports"], function (require, exports) {
     }
     exports.unparse = unparse;
 });
-define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse"], function (require, exports, parser_2, unparse_1) {
+define("test/SnapshotDiff", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Snapshot = /** @class */ (function () {
-        function Snapshot() {
+    /** Represents a snapshot diff. Simple data class. */
+    class SnapshotDiff {
+        constructor() {
+            /** The snapshot comparison type. */
+            this.type = 0 /* None */;
+            /** The snapshot diff itself. */
+            this.diff = null;
+            /** The left side of the change comparison. */
+            this.left = null;
+            /** The identified group name. */
+            this.groupName = null;
+            /** The identified test name. */
+            this.testName = null;
+            /** The identified snapshot name. */
+            this.snapshotName = null;
+            /** The right side of the change comparison. */
+            this.right = null;
+        }
+    }
+    exports.SnapshotDiff = SnapshotDiff;
+});
+define("test/SnapshotComparison", ["require", "exports", "chalk", "test/SnapshotDiff", "diff"], function (require, exports, chalk_1, SnapshotDiff_1, diff_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    chalk_1 = __importDefault(chalk_1);
+    diff_1 = __importDefault(diff_1);
+    /** Represents a snapshot comparison. */
+    class SnapshotComparison {
+        constructor(left, right) {
+            this.left = left;
+            this.right = right;
+        }
+        /**
+         * Diff the current state of the left and the right snapshot.
+         *
+         * @param {Partial<ISnapshotStringifyOptions>} stringifyParameters - The stringify parameters.
+         */
+        diff(stringifyParameters = {}) {
+            if (!this.left.data || !this.right.data)
+                throw new Error("Cannot evaluate diff on uninitialized left or right side");
+            const effectiveStringifyParameters = Object.assign({
+                addedFormat: chalk_1.default.green,
+                removedFormat: chalk_1.default.red,
+                defaultFormat: chalk_1.default.gray,
+                indent: 0,
+            }, stringifyParameters);
+            let output = [];
+            const leftData = this.left.data;
+            const rightData = this.right.data;
+            // for each snapshot in the left side
+            for (const [groupName, group] of Object.entries(leftData)) {
+                for (const [testName, test] of Object.entries(group)) {
+                    for (const [snapshotName, snapshot] of Object.entries(test)) {
+                        const rightGroup = rightData[groupName];
+                        if (!rightGroup) {
+                            // the group doesn't exist, it was added
+                            const diff = new SnapshotDiff_1.SnapshotDiff();
+                            diff.left = snapshot;
+                            diff.type = 1 /* Added */;
+                            diff.groupName = groupName;
+                            diff.testName = testName;
+                            diff.snapshotName = snapshotName;
+                            output.push(diff);
+                            continue;
+                        }
+                        const rightTest = rightGroup[testName];
+                        if (!rightTest) {
+                            // the test doesn't exist
+                            const diff = new SnapshotDiff_1.SnapshotDiff();
+                            diff.left = snapshot;
+                            diff.type = 1 /* Added */;
+                            diff.groupName = groupName;
+                            diff.testName = testName;
+                            diff.snapshotName = snapshotName;
+                            output.push(diff);
+                            continue;
+                        }
+                        const rightSnapshot = rightTest[snapshotName];
+                        if (!rightSnapshot) {
+                            // the snapshot doesn't exist
+                            const diff = new SnapshotDiff_1.SnapshotDiff();
+                            diff.left = snapshot;
+                            diff.type = 1 /* Added */;
+                            diff.groupName = groupName;
+                            diff.testName = testName;
+                            diff.snapshotName = snapshotName;
+                            output.push(diff);
+                            continue;
+                        }
+                        // the snapshot exists
+                        if (snapshot !== rightSnapshot) {
+                            // there is a difference
+                            const diffObject = new SnapshotDiff_1.SnapshotDiff();
+                            diffObject.diff = stringifyChanges(snapshot, rightSnapshot, effectiveStringifyParameters);
+                            diffObject.groupName = groupName;
+                            diffObject.left = snapshot;
+                            diffObject.right = rightSnapshot;
+                            diffObject.snapshotName = snapshotName;
+                            diffObject.testName = testName;
+                            diffObject.type = 3 /* Different */;
+                            output.push(diffObject);
+                            continue;
+                        }
+                    }
+                }
+            }
+            // for each snapshot in the right side
+            for (const [groupName, group] of Object.entries(rightData)) {
+                for (const [testName, test] of Object.entries(group)) {
+                    for (const [snapshotName, snapshot] of Object.entries(test)) {
+                        const leftGroup = leftData[groupName];
+                        if (!leftGroup) {
+                            // the group doesn't exist, it was removed
+                            const diff = new SnapshotDiff_1.SnapshotDiff();
+                            diff.right = snapshot;
+                            diff.type = 2 /* Removed */;
+                            diff.groupName = groupName;
+                            diff.testName = testName;
+                            diff.snapshotName = snapshotName;
+                            output.push(diff);
+                            continue;
+                        }
+                        const leftTest = leftGroup[testName];
+                        if (!leftTest) {
+                            // the test doesn't exist
+                            const diff = new SnapshotDiff_1.SnapshotDiff();
+                            diff.right = snapshot;
+                            diff.type = 2 /* Removed */;
+                            diff.groupName = groupName;
+                            diff.testName = testName;
+                            diff.snapshotName = snapshotName;
+                            output.push(diff);
+                            continue;
+                        }
+                        const leftSnapshot = leftTest[snapshotName];
+                        if (!leftSnapshot) {
+                            // the snapshot doesn't exist
+                            const diff = new SnapshotDiff_1.SnapshotDiff();
+                            diff.right = snapshot;
+                            diff.type = 2 /* Removed */;
+                            diff.groupName = groupName;
+                            diff.testName = testName;
+                            diff.snapshotName = snapshotName;
+                            output.push(diff);
+                            continue;
+                        }
+                    }
+                }
+            }
+            return output;
+        }
+    }
+    exports.SnapshotComparison = SnapshotComparison;
+    /**
+     * Stringify the changes between two string values.
+     *
+     * @param {string} left - The left side.
+     * @param {string} right - The right side.
+     * @param {ISnapshotStringifyOptions} props - The stringify options.
+     */
+    function stringifyChanges(left, right, props) {
+        const changes = diff_1.default.diffLines(left, right);
+        let output = "";
+        for (const change of changes) {
+            if (change.added) {
+                output +=
+                    " ".repeat(props.indent) + props.addedFormat("+ " + change.value);
+            }
+            else if (change.removed) {
+                output +=
+                    " ".repeat(props.indent) + props.removedFormat("- " + change.value);
+            }
+            else {
+                output +=
+                    " ".repeat(props.indent) + props.defaultFormat("  " + change.value);
+            }
+        }
+        return output;
+    }
+});
+define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "test/SnapshotComparison"], function (require, exports, parser_2, unparse_1, SnapshotComparison_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    class Snapshot {
+        constructor() {
+            /** The snapshot data in object format. */
             this.data = null;
+            //** The stringified data in string format. */
             this.stringified = null;
         }
-        Snapshot.fromSnapshotData = function (data) {
-            var result = new Snapshot();
+        /**
+         * Create a Snapshot from an ISnapshotData.
+         *
+         * @param {ISnapshotData} data - The snapshot data.
+         */
+        static fromSnapshotData(data) {
+            const result = new Snapshot();
             result.stringified = unparse_1.unparse(data);
             result.data = data;
             return result;
-        };
-        Snapshot.fromString = function (data) {
-            var result = new Snapshot();
+        }
+        /**
+         * Create a Snapshot from string content.
+         *
+         * @param {string} data - The stringified snapshot data.
+         */
+        static fromString(data) {
+            if (typeof data !== "string")
+                throw new Error("Cannot create snapshot from string when data is not a string.");
+            const result = new Snapshot();
             result.stringified = data;
             result.data = parser_2.parseSnapshot(data);
             return result;
-        };
-        return Snapshot;
-    }());
+        }
+        /**
+         * Compare two snapshots from each other.
+         *
+         * @param {Snapshot} other -
+         */
+        compareTo(other) {
+            if (!this.stringified || !other.stringified)
+                throw new Error("Cannot compare snapshots when Snapshot was not initialized.");
+            return new SnapshotComparison_1.SnapshotComparison(this, other);
+        }
+    }
     exports.Snapshot = Snapshot;
 });
 //# sourceMappingURL=as-pect.core.amd.js.map

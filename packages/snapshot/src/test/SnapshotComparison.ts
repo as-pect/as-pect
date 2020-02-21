@@ -20,24 +20,29 @@ export interface ISnapshotStringifyOptions {
 
 /** Represents a snapshot comparison. */
 export class SnapshotComparison {
-  public constructor(
-    public left: Snapshot,
-    public right: Snapshot,
-  ) {}
+  public constructor(public left: Snapshot, public right: Snapshot) {}
 
   /**
    * Diff the current state of the left and the right snapshot.
    *
    * @param {Partial<ISnapshotStringifyOptions>} stringifyParameters - The stringify parameters.
    */
-  public diff(stringifyParameters: Partial<ISnapshotStringifyOptions> = {}): SnapshotDiff[] {
-    if (!this.left.data || !this.right.data) throw new Error("Cannot evaluate diff on uninitialized left or right side");
-    const effectiveStringifyParameters = Object.assign({
-      addedFormat: chalk.green,
-      removedFormat: chalk.red,
-      defaultFormat: chalk.gray,
-      indent: 0,
-    }, stringifyParameters);
+  public diff(
+    stringifyParameters: Partial<ISnapshotStringifyOptions> = {},
+  ): SnapshotDiff[] {
+    if (!this.left.data || !this.right.data)
+      throw new Error(
+        "Cannot evaluate diff on uninitialized left or right side",
+      );
+    const effectiveStringifyParameters = Object.assign(
+      {
+        addedFormat: chalk.green,
+        removedFormat: chalk.red,
+        defaultFormat: chalk.gray,
+        indent: 0,
+      },
+      stringifyParameters,
+    );
 
     let output: SnapshotDiff[] = [];
     const leftData = this.left.data;
@@ -90,7 +95,11 @@ export class SnapshotComparison {
           if (snapshot !== rightSnapshot) {
             // there is a difference
             const diffObject = new SnapshotDiff();
-            diffObject.diff = stringifyChanges(snapshot, rightSnapshot, effectiveStringifyParameters);
+            diffObject.diff = stringifyChanges(
+              snapshot,
+              rightSnapshot,
+              effectiveStringifyParameters,
+            );
             diffObject.groupName = groupName;
             diffObject.left = snapshot;
             diffObject.right = rightSnapshot;
@@ -160,16 +169,23 @@ export class SnapshotComparison {
  * @param {string} right - The right side.
  * @param {ISnapshotStringifyOptions} props - The stringify options.
  */
-function stringifyChanges(left: string, right: string, props: ISnapshotStringifyOptions): string {
+function stringifyChanges(
+  left: string,
+  right: string,
+  props: ISnapshotStringifyOptions,
+): string {
   const changes = diff.diffLines(left, right);
   let output = "";
   for (const change of changes) {
     if (change.added) {
-      output += " ".repeat(props.indent) +  props.addedFormat("+ " + change.value);
+      output +=
+        " ".repeat(props.indent) + props.addedFormat("+ " + change.value);
     } else if (change.removed) {
-      output += " ".repeat(props.indent) +  props.removedFormat("- " + change.value);
+      output +=
+        " ".repeat(props.indent) + props.removedFormat("- " + change.value);
     } else {
-      output += " ".repeat(props.indent) +  props.defaultFormat("  " + change.value);
+      output +=
+        " ".repeat(props.indent) + props.defaultFormat("  " + change.value);
     }
   }
   return output;

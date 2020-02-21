@@ -14,9 +14,9 @@ export function unparse(data: ISnapshotData): string {
     for (const [testName, test] of Object.entries(group)) {
       for (const [snapshotName, snapshot] of Object.entries(test)) {
         output += `exports[\`${escapeTick(groupName)}\`][\`${escapeTick(
-          testName
+          testName,
         )}\`][\`${escapeTick(snapshotName)}\`] = \`${escapeTick(
-          snapshot
+          snapshot,
         )}\`\n\n`;
       }
     }
