@@ -316,12 +316,7 @@ a JavaScript `try` block, and if the function throws, the assertion is valid,
 unless it is negated with the `not` property.
 
 ```ts
-expect<() => void>(() => {
-  throw new Error("Whoops!");
-}).toThrow(); // valid assertion
-
-// alternative shorter convenience syntax
-expectFn(() => {
+expect(() => {
   throw new Error("Whoops!");
 }).toThrow();
 ```

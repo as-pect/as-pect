@@ -25,7 +25,7 @@ describe("unreachable", () => {
    * be valid.
    */
   it("should should throw", () => {
-    expectFn(() => {
+    expect(() => {
       counter = 1;
       unreachable();
     }).toThrow("unreachable instructions should throw.");
@@ -35,7 +35,7 @@ describe("unreachable", () => {
    * This test validates that a negated toThrow assertion is valid.
    */
   it("should run normally", () => {
-    expectFn(() => {
+    expect(() => {
       counter = 1;
     }).not.toThrow("unreachable instructions should throw.");
   });
@@ -44,9 +44,9 @@ describe("unreachable", () => {
    * This test validates that a negated toThrow assertion throws when the callback
    * itself throws.
    */
-  it("expectFn.not should throw if the callback throws", () => {
-    expectFn(() => {
-      expectFn(() => {
+  it("expect.not should throw if the callback throws", () => {
+    expect(() => {
+      expect(() => {
         counter = 1;
         unreachable();
       }).not.toThrow();
@@ -56,9 +56,9 @@ describe("unreachable", () => {
   /**
    * This test validates that a toThrow assertion throws when the callback does not throw.
    */
-  it("expectFn should throw if the callback does not throw", () => {
-    expectFn(() => {
-      expectFn(() => {
+  it("expect should throw if the callback does not throw", () => {
+    expect(() => {
+      expect(() => {
         counter = 1;
       }).toThrow();
     }).toThrow("functions that do not throw should cause toThrow assertions to throw.");
