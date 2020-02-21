@@ -1,5 +1,18 @@
 import { ISnapshotData } from "../parser";
-import { SnapshotComparison } from "./SnapshotComparison";
+import { SnapshotDiff } from "./SnapshotDiff";
+/** Stringify format function callback type. */
+export declare type SnapshotFormatCallback = (input: string) => string;
+/** The stringify options. */
+export interface ISnapshotStringifyOptions {
+    /** How many spaces to indent. */
+    indent: number;
+    /** String format for added lines. */
+    addedFormat: SnapshotFormatCallback;
+    /** String format for removed lines. */
+    removedFormat: SnapshotFormatCallback;
+    /** String format for default lines. */
+    defaultFormat: SnapshotFormatCallback;
+}
 export declare class Snapshot {
     /** The snapshot data in object format. */
     data: ISnapshotData | null;
@@ -9,7 +22,7 @@ export declare class Snapshot {
      *
      * @param {ISnapshotData} data - The snapshot data.
      */
-    static fromSnapshotData(data: ISnapshotData): Snapshot;
+    static fromData(data: ISnapshotData): Snapshot;
     /**
      * Create a Snapshot from string content.
      *
@@ -17,10 +30,10 @@ export declare class Snapshot {
      */
     static fromString(data: string): Snapshot;
     /**
-     * Compare two snapshots from each other.
+     * Diff the current state of the left and the right snapshot.
      *
-     * @param {Snapshot} other -
+     * @param {Partial<ISnapshotStringifyOptions>} stringifyParameters - The stringify parameters.
      */
-    compareTo(other: Snapshot): SnapshotComparison;
+    diff(other: Snapshot, stringifyParameters?: Partial<ISnapshotStringifyOptions>): SnapshotDiff[];
 }
 //# sourceMappingURL=Snapshot.d.ts.map

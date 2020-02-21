@@ -4,7 +4,7 @@
         if (v !== undefined) module.exports = v;
     }
     else if (typeof define === "function" && define.amd) {
-        define(["require", "exports", "./parser"], factory);
+        define(["require", "exports", "./parser", "./test/Snapshot", "./test/SnapshotDiff", "./test/unparse"], factory);
     }
 })(function (require, exports) {
     "use strict";
@@ -13,5 +13,8 @@
     }
     Object.defineProperty(exports, "__esModule", { value: true });
     __export(require("./parser"));
+    __export(require("./test/Snapshot"));
+    __export(require("./test/SnapshotDiff"));
+    __export(require("./test/unparse"));
 });
 //# sourceMappingURL=index.js.map

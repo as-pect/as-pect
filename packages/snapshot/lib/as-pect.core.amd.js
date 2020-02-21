@@ -82,14 +82,6 @@ define("parser/index", ["require", "exports", "parser/grammar", "nearley"], func
     }
     exports.parseSnapshot = parseSnapshot;
 });
-define("index", ["require", "exports", "parser/index"], function (require, exports, parser_1) {
-    "use strict";
-    function __export(m) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-    }
-    Object.defineProperty(exports, "__esModule", { value: true });
-    __export(parser_1);
-});
 define("test/unparse", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -136,25 +128,53 @@ define("test/SnapshotDiff", ["require", "exports"], function (require, exports) 
     }
     exports.SnapshotDiff = SnapshotDiff;
 });
-define("test/SnapshotComparison", ["require", "exports", "chalk", "test/SnapshotDiff", "diff"], function (require, exports, chalk_1, SnapshotDiff_1, diff_1) {
+define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "diff", "chalk", "test/SnapshotDiff"], function (require, exports, parser_1, unparse_1, diff_1, chalk_1, SnapshotDiff_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     chalk_1 = __importDefault(chalk_1);
-    diff_1 = __importDefault(diff_1);
-    /** Represents a snapshot comparison. */
-    class SnapshotComparison {
-        constructor(left, right) {
-            this.left = left;
-            this.right = right;
+    class Snapshot {
+        constructor() {
+            /** The snapshot data in object format. */
+            this.data = null;
+            //** The stringified data in string format. */
+            this.stringified = null;
+        }
+        /**
+         * Create a Snapshot from an ISnapshotData.
+         *
+         * @param {ISnapshotData} data - The snapshot data.
+         */
+        static fromData(data) {
+            const result = new Snapshot();
+            result.stringified = unparse_1.unparse(data);
+            result.data = data;
+            return result;
+        }
+        /**
+         * Create a Snapshot from string content.
+         *
+         * @param {string} data - The stringified snapshot data.
+         */
+        static fromString(data) {
+            /* istanbul ignore next */
+            if (typeof data !== "string")
+                /* istanbul ignore next */
+                throw new Error("Cannot create snapshot from string when data is not a string.");
+            const result = new Snapshot();
+            result.stringified = data;
+            result.data = parser_1.parseSnapshot(data);
+            return result;
         }
         /**
          * Diff the current state of the left and the right snapshot.
          *
          * @param {Partial<ISnapshotStringifyOptions>} stringifyParameters - The stringify parameters.
          */
-        diff(stringifyParameters = {}) {
-            if (!this.left.data || !this.right.data)
-                throw new Error("Cannot evaluate diff on uninitialized left or right side");
+        diff(other, stringifyParameters = {}) {
+            /* istanbul ignore next */
+            if (!this.data || !other.data)
+                /* istanbul ignore next */
+                throw new Error("Cannot evaluate diff on uninitialized snapshot data");
             const effectiveStringifyParameters = Object.assign({
                 addedFormat: chalk_1.default.green,
                 removedFormat: chalk_1.default.red,
@@ -162,8 +182,8 @@ define("test/SnapshotComparison", ["require", "exports", "chalk", "test/Snapshot
                 indent: 0,
             }, stringifyParameters);
             let output = [];
-            const leftData = this.left.data;
-            const rightData = this.right.data;
+            const leftData = this.data;
+            const rightData = other.data;
             // for each snapshot in the left side
             for (const [groupName, group] of Object.entries(leftData)) {
                 for (const [testName, test] of Object.entries(group)) {
@@ -267,7 +287,7 @@ define("test/SnapshotComparison", ["require", "exports", "chalk", "test/Snapshot
             return output;
         }
     }
-    exports.SnapshotComparison = SnapshotComparison;
+    exports.Snapshot = Snapshot;
     /**
      * Stringify the changes between two string values.
      *
@@ -276,7 +296,7 @@ define("test/SnapshotComparison", ["require", "exports", "chalk", "test/Snapshot
      * @param {ISnapshotStringifyOptions} props - The stringify options.
      */
     function stringifyChanges(left, right, props) {
-        const changes = diff_1.default.diffLines(left, right);
+        const changes = diff_1.diffLines(left, right);
         let output = "";
         for (const change of changes) {
             if (change.added) {
@@ -295,51 +315,15 @@ define("test/SnapshotComparison", ["require", "exports", "chalk", "test/Snapshot
         return output;
     }
 });
-define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "test/SnapshotComparison"], function (require, exports, parser_2, unparse_1, SnapshotComparison_1) {
+define("index", ["require", "exports", "parser/index", "test/Snapshot", "test/SnapshotDiff", "test/unparse"], function (require, exports, parser_2, Snapshot_1, SnapshotDiff_2, unparse_2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    class Snapshot {
-        constructor() {
-            /** The snapshot data in object format. */
-            this.data = null;
-            //** The stringified data in string format. */
-            this.stringified = null;
-        }
-        /**
-         * Create a Snapshot from an ISnapshotData.
-         *
-         * @param {ISnapshotData} data - The snapshot data.
-         */
-        static fromSnapshotData(data) {
-            const result = new Snapshot();
-            result.stringified = unparse_1.unparse(data);
-            result.data = data;
-            return result;
-        }
-        /**
-         * Create a Snapshot from string content.
-         *
-         * @param {string} data - The stringified snapshot data.
-         */
-        static fromString(data) {
-            if (typeof data !== "string")
-                throw new Error("Cannot create snapshot from string when data is not a string.");
-            const result = new Snapshot();
-            result.stringified = data;
-            result.data = parser_2.parseSnapshot(data);
-            return result;
-        }
-        /**
-         * Compare two snapshots from each other.
-         *
-         * @param {Snapshot} other -
-         */
-        compareTo(other) {
-            if (!this.stringified || !other.stringified)
-                throw new Error("Cannot compare snapshots when Snapshot was not initialized.");
-            return new SnapshotComparison_1.SnapshotComparison(this, other);
-        }
+    function __export(m) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
-    exports.Snapshot = Snapshot;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    __export(parser_2);
+    __export(Snapshot_1);
+    __export(SnapshotDiff_2);
+    __export(unparse_2);
 });
 //# sourceMappingURL=as-pect.core.amd.js.map

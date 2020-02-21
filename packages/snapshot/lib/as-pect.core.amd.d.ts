@@ -46,9 +46,6 @@ declare module "parser/index" {
     export function createSnapshotParser(): Parser;
     export function parseSnapshot(snapshot: string): ISnapshotData;
 }
-declare module "index" {
-    export * from "parser/index";
-}
 declare module "test/unparse" {
     import { ISnapshotData } from "parser/index";
     /**
@@ -83,8 +80,8 @@ declare module "test/SnapshotDiff" {
         right: string | null;
     }
 }
-declare module "test/SnapshotComparison" {
-    import { Snapshot } from "test/Snapshot";
+declare module "test/Snapshot" {
+    import { ISnapshotData } from "parser/index";
     import { SnapshotDiff } from "test/SnapshotDiff";
     /** Stringify format function callback type. */
     export type SnapshotFormatCallback = (input: string) => string;
@@ -99,22 +96,6 @@ declare module "test/SnapshotComparison" {
         /** String format for default lines. */
         defaultFormat: SnapshotFormatCallback;
     }
-    /** Represents a snapshot comparison. */
-    export class SnapshotComparison {
-        left: Snapshot;
-        right: Snapshot;
-        constructor(left: Snapshot, right: Snapshot);
-        /**
-         * Diff the current state of the left and the right snapshot.
-         *
-         * @param {Partial<ISnapshotStringifyOptions>} stringifyParameters - The stringify parameters.
-         */
-        diff(stringifyParameters?: Partial<ISnapshotStringifyOptions>): SnapshotDiff[];
-    }
-}
-declare module "test/Snapshot" {
-    import { ISnapshotData } from "parser/index";
-    import { SnapshotComparison } from "test/SnapshotComparison";
     export class Snapshot {
         /** The snapshot data in object format. */
         data: ISnapshotData | null;
@@ -124,7 +105,7 @@ declare module "test/Snapshot" {
          *
          * @param {ISnapshotData} data - The snapshot data.
          */
-        static fromSnapshotData(data: ISnapshotData): Snapshot;
+        static fromData(data: ISnapshotData): Snapshot;
         /**
          * Create a Snapshot from string content.
          *
@@ -132,11 +113,17 @@ declare module "test/Snapshot" {
          */
         static fromString(data: string): Snapshot;
         /**
-         * Compare two snapshots from each other.
+         * Diff the current state of the left and the right snapshot.
          *
-         * @param {Snapshot} other -
+         * @param {Partial<ISnapshotStringifyOptions>} stringifyParameters - The stringify parameters.
          */
-        compareTo(other: Snapshot): SnapshotComparison;
+        diff(other: Snapshot, stringifyParameters?: Partial<ISnapshotStringifyOptions>): SnapshotDiff[];
     }
+}
+declare module "index" {
+    export * from "parser/index";
+    export * from "test/Snapshot";
+    export * from "test/SnapshotDiff";
+    export * from "test/unparse";
 }
 //# sourceMappingURL=as-pect.core.amd.d.ts.map
