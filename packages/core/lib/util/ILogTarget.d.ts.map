@@ -1,1 +1,0 @@
-{"version":3,"file":"ILogTarget.d.ts","sourceRoot":"","sources":["../../src/util/ILogTarget.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAAE,MAAM,kBAAkB,CAAC;AAC5C,OAAO,EAAE,cAAc,EAAE,MAAM,kBAAkB,CAAC;AAElD;;GAEG;AACH,MAAM,WAAW,UAAU;IACzB,IAAI,EAAE,cAAc,EAAE,CAAC;IACvB,MAAM,EAAE,QAAQ,EAAE,CAAC;IACnB,QAAQ,EAAE,QAAQ,EAAE,CAAC;CACtB"}
