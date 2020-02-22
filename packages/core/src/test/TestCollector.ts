@@ -621,19 +621,19 @@ export class TestCollector {
    *
    * @param {number} reasonPointer - This points to the message value that causes the expectation to
    * fail.
-   * @param {number} _fileNamePointer - The file name that reported the error. (Ignored)
-   * @param {number} _line - The line that reported the error. (Ignored)
-   * @param {number} _col - The column that reported the error. (Ignored)
+   * @param {number} fileNamePointer - The file name that reported the error. (Ignored)
+   * @param {number} line - The line that reported the error. (Ignored)
+   * @param {number} col - The column that reported the error. (Ignored)
    */
   private abort(
     reasonPointer: number,
-    _fileNamePointer: number,
-    _line: number,
-    _col: number,
+    fileNamePointer: number,
+    line: number,
+    col: number,
   ): void {
     this.message = this.getString(
       reasonPointer,
-      "No assertion message provided.",
+      `Error in ${this.getString(fileNamePointer, "[No Filename Provided]")}:${line}:${col} `,
     );
   }
 
