@@ -4,7 +4,6 @@ var afterEachRan = 0;
 var afterAllRan = 0;
 var testCount = 0;
 
-
 /**
  * Describe blocks that finish last run first, so that inner describe blocks run *after* their
  * parent runs.
@@ -12,7 +11,6 @@ var testCount = 0;
  * In this case, this second describe block will run first, and set the global values.
  */
 describe("example test", () => {
-
   /**
    * The following flow tests modify the global values.
    */

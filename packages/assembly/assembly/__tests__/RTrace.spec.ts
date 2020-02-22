@@ -2,7 +2,8 @@ import { Vec3 } from "./setup/Vec3";
 
 let globalVec: Vec3;
 
-@unmanaged class TestUnmanaged {}
+@unmanaged
+class TestUnmanaged {}
 
 /**
  * The only valid test we can perform in AssemblyScript to verify `RTrace` works is to assert that
@@ -13,18 +14,27 @@ describe("RTrace", () => {
     RTrace.start(1);
     globalVec = new Vec3(1, 2, 3);
 
-    expect(RTrace.count()).toBeGreaterThan(0, "RTrace counts should be greater than 0");
+    expect(RTrace.count()).toBeGreaterThan(
+      0,
+      "RTrace counts should be greater than 0"
+    );
 
     let delta = RTrace.end(1);
-    expect(delta).toBeGreaterThan(0, "delta from RTrace.end() should be greater than 0");
+    expect(delta).toBeGreaterThan(
+      0,
+      "delta from RTrace.end() should be greater than 0"
+    );
   });
 
   it("should return a positive number", () => {
     globalVec = new Vec3(1, 2, 3);
-    expect(RTrace.count()).toBeGreaterThan(0, "RTrace counts should be greater than 0");
+    expect(RTrace.count()).toBeGreaterThan(
+      0,
+      "RTrace counts should be greater than 0"
+    );
   });
 
-  it('should return a correct reference count of a pointer', () => {
+  it("should return a correct reference count of a pointer", () => {
     let ptr = __alloc(offsetof<Vec3>(), idof<Vec3>());
 
     for (let i = 0; i < 5; i++) __retain(ptr);
@@ -36,7 +46,7 @@ describe("RTrace", () => {
     for (let i = 0; i < 2; i++) __release(ptr);
   });
 
-  it('should return a correct reference count of a reference', () => {
+  it("should return a correct reference count of a reference", () => {
     let reference: Vec3 = new Vec3(1, 2, 3);
 
     expect(RTrace.refCountOfReference(reference)).toBe(1);
@@ -66,7 +76,9 @@ describe("RTrace", () => {
 
   it("should return a correct size of an unmanaged class", () => {
     let reference: TestUnmanaged = new TestUnmanaged();
-    expect(RTrace.sizeOfReference<TestUnmanaged>(reference)).toBe(offsetof<TestUnmanaged>());
+    expect(RTrace.sizeOfReference<TestUnmanaged>(reference)).toBe(
+      offsetof<TestUnmanaged>()
+    );
   });
 
   it("should return a correct type id of a pointer", () => {
@@ -79,15 +91,27 @@ describe("RTrace", () => {
     expect(RTrace.typeIdOfReference(reference)).toBe(idof<Vec3>());
   });
 
-  throws("when null is passed to typeIdOfReference", () =>{
-    RTrace.typeIdOfReference<Vec3 | null>(null);
-  }, "Null is not a valid parameter value for typeIdOfReference");
+  throws(
+    "when null is passed to typeIdOfReference",
+    () => {
+      RTrace.typeIdOfReference<Vec3 | null>(null);
+    },
+    "Null is not a valid parameter value for typeIdOfReference"
+  );
 
-  throws("when null is passed to refCountOfReference", () =>{
-    RTrace.refCountOfReference<Vec3 | null>(null);
-  }, "Null is not a valid parameter value for refCountOfReference");
+  throws(
+    "when null is passed to refCountOfReference",
+    () => {
+      RTrace.refCountOfReference<Vec3 | null>(null);
+    },
+    "Null is not a valid parameter value for refCountOfReference"
+  );
 
-  throws("when null is passed to sizeOfReference", () =>{
-    RTrace.sizeOfReference<Vec3 | null>(null);
-  }, "Null is not a valid parameter value for sizeOfReference");
+  throws(
+    "when null is passed to sizeOfReference",
+    () => {
+      RTrace.sizeOfReference<Vec3 | null>(null);
+    },
+    "Null is not a valid parameter value for sizeOfReference"
+  );
 });

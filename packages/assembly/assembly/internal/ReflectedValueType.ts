@@ -1,4 +1,3 @@
-
 export const enum ReflectedValueType {
   None = 0,
   Class = 1,
@@ -14,5 +13,5 @@ export const enum ReflectedValueType {
   TypedArray = 11,
   Finite = 12,
   Truthy = 13,
-  Falsy = 14,
+  Falsy = 14
 }

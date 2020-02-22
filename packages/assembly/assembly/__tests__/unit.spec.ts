@@ -11,8 +11,13 @@ describe("unit types", () => {
    */
   it("should create instanceof Expectation<T>", () => {
     var result = expect(1);
+
+    assert(result, "The result is not a reference");
     // @ts-ignore: instanceof checks must include type generics if they are in the definition
-    assert(result instanceof Expectation<i32>, "The result is not instanceof Expectation.");
+    assert(
+      result instanceof Expectation,
+      "The result is not instanceof Expectation."
+    );
   });
 
   /**
@@ -20,7 +25,10 @@ describe("unit types", () => {
    */
   it("should create an expectation with a value", () => {
     var result = expect(1);
-    assert(result.actual == 1, "The expect function does not report values correctly.");
+    assert(
+      result.actual == 1,
+      "The expect function does not report values correctly."
+    );
   });
 
   /**
@@ -29,7 +37,10 @@ describe("unit types", () => {
    */
   it("should negate the _not property", () => {
     var result = expect(1).not;
-    var notValue = load<bool>(changetype<usize>(result), offsetof<Expectation<i32>>("_not"));
+    var notValue = load<bool>(
+      changetype<usize>(result),
+      offsetof<Expectation<i32>>("_not")
+    );
     assert(notValue, "The expect function was not negated.");
   });
 });

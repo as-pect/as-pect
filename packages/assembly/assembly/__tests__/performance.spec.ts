@@ -12,7 +12,7 @@ describe("performance", () => {
   test("This is a test with some performance values", () => {
     var a = 1.0;
     for (let i = 1; i < 10000; i++) {
-      a = a * i / a + 1;
+      a = (a * i) / a + 1;
       log(a);
     }
   });

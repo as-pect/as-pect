@@ -15,7 +15,7 @@ import {
   itThrows,
   debug,
   xit,
-  xtest,
+  xtest
 } from "./internal/Test";
 import { log } from "./internal/log";
 import { Reflect } from "./internal/Reflect";

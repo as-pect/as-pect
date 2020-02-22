@@ -1,6 +1,8 @@
 import { Vec3 } from "./setup/Vec3";
 
-function IDFunc(i: i32): i32 { return i; }
+function IDFunc(i: i32): i32 {
+  return i;
+}
 const anonIDFunc = (i: i32): i32 => i;
 /**
  * This section adds a log value that executes *once* per describle block. The output should show
@@ -34,7 +36,7 @@ class B {
 class Empty {
   s: string;
   t: Array<A>;
-  m: Map<B,Empty>;
+  m: Map<B, Empty>;
 }
 
 @unmanaged
@@ -48,21 +50,24 @@ class CustomDisplayStringClass {
   x: i32 = 2;
   y: string = "joe";
 
-  __aspectDisplayAs(): String { return this.y + " has " + this.x.toString() + " cookies"; }
+  __aspectDisplayAs(): String {
+    return this.y + " has " + this.x.toString() + " cookies";
+  }
 }
 
 class CustomDisplayNumberClass {
   x: i32 = 2;
   y: string = "joe";
 
-  __aspectDisplayAs(): i32 { return this.y.length + this.x; }
+  __aspectDisplayAs(): i32 {
+    return this.y.length + this.x;
+  }
 }
 
 /**
  * This test suite verifies that the log functions do not error when they are called.
  */
 describe("logs", () => {
-
   beforeAll(() => {
     log("Before All");
   });
@@ -100,7 +105,7 @@ describe("logs", () => {
   test("log an ArrayBuffer", () => {
     var array = new Uint8Array(8);
     for (let i = 0; i < 8; i++) {
-      unchecked(array[i] = <u8>i);
+      unchecked((array[i] = <u8>i));
     }
     log(array.buffer);
   });

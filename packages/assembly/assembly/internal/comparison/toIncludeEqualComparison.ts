@@ -14,9 +14,16 @@ import { assert } from "../assert";
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
 // @ts-ignore expected is valueof<T> or it will be a compiler error
-export function toIncludeEqualComparison<T, U>(actual: T, expected: U, negated: i32, message: string): void {
+export function toIncludeEqualComparison<T, U>(
+  actual: T,
+  expected: U,
+  negated: i32,
+  message: string
+): void {
   if (!isDefined(actual[0])) {
-    ERROR("Cannot call toIncludeEquals on actual value of type T where T does not have an index signature.");
+    ERROR(
+      "Cannot call toIncludeEquals on actual value of type T where T does not have an index signature."
+    );
   }
 
   /**
@@ -57,14 +64,18 @@ export function toIncludeEqualComparison<T, U>(actual: T, expected: U, negated: 
       }
     }
   } else {
-    if (!isDefined(actual.length)) ERROR("Can only call toIncludeEquals on array-like objects or Sets.");
+    if (!isDefined(actual.length))
+      ERROR("Can only call toIncludeEquals on array-like objects or Sets.");
     let length = <indexof<T>>actual.length;
 
     if (isDefined(unchecked(actual[0]))) {
       // @ts-ignore: if T does not have a length property, it will throw a compiler error.
       for (let i = <indexof<T>>0; i < length; i++) {
         // @ts-ignore: if this expression does not work, it will throw a compiler error.
-        if (Reflect.equals(unchecked(actual[i]), expected) === Reflect.SUCCESSFUL_MATCH) {
+        if (
+          Reflect.equals(unchecked(actual[i]), expected) ===
+          Reflect.SUCCESSFUL_MATCH
+        ) {
           includes = true;
           break;
         }

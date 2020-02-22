@@ -15,10 +15,14 @@ describe("unreachable", () => {
    * This is a unit test that a throws `unreachable()`. It should report success, because it's
    * expected to throw.
    */
-  throws("when garunteed unreachable", () => {
-    counter = 1;
-    unreachable();
-  }, "This test should throw");
+  throws(
+    "when garunteed unreachable",
+    () => {
+      counter = 1;
+      unreachable();
+    },
+    "This test should throw"
+  );
 
   /**
    * This test verifies that an unreachable() instruction causes the toThrow assertion to
@@ -61,7 +65,9 @@ describe("unreachable", () => {
       expect(() => {
         counter = 1;
       }).toThrow();
-    }).toThrow("functions that do not throw should cause toThrow assertions to throw.");
+    }).toThrow(
+      "functions that do not throw should cause toThrow assertions to throw."
+    );
   });
 
   /**

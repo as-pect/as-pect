@@ -10,7 +10,7 @@
     "test:ci": "run-s asp:ci mdlint",
     "test": "run-s asp mdlint",
     "tsc:all": "exit 0",
-    "prettier": "exit 0",
+    "prettier": "prettier --write \"assembly/**/*.ts\" \"./*.md\"",
     "test:update-snapshots": "exit 0"
   },
   "repository": {
@@ -34,7 +34,8 @@
     "types/"
   ],
   "devDependencies": {
-    "markdownlint-cli": "^0.22.0"
+    "markdownlint-cli": "^0.22.0",
+    "prettier": "^1.19.1"
   },
   "peerDependencies": {
     "assemblyscript": "0.9.2"
