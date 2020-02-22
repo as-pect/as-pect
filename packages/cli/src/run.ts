@@ -360,6 +360,13 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   /** Get all the test entry files. */
   const testEntryFiles = getTestEntryFiles(cliOptions, include, disclude);
 
+  if (testEntryFiles.size === 0) {
+    console.error(
+      chalk`{red [Error]} No files matching the pattern were found.`,
+    );
+    process.exit(1);
+  }
+
   for (const pattern of add) {
     // push all the added files to the added entry point list
     for (const entry of glob.sync(pattern)) {

@@ -1000,6 +1000,10 @@ define("run", ["require", "exports", "fs", "perf_hooks", "path", "chalk", "@as-p
         var addedTestEntryFiles = new Set();
         /** Get all the test entry files. */
         var testEntryFiles = getTestEntryFiles_1.getTestEntryFiles(cliOptions, include, disclude);
+        if (testEntryFiles.size === 0) {
+            console.error(chalk_5.default(templateObject_39 || (templateObject_39 = __makeTemplateObject(["{red [Error]} No files matching the pattern were found."], ["{red [Error]} No files matching the pattern were found."]))));
+            process.exit(1);
+        }
         for (var _i = 0, add_1 = add; _i < add_1.length; _i++) {
             var pattern = add_1[_i];
             // push all the added files to the added entry point list
@@ -1033,8 +1037,8 @@ define("run", ["require", "exports", "fs", "perf_hooks", "path", "chalk", "@as-p
         var failed = false;
         var folderMap = new Map();
         var fileMap = new Map();
-        console.log(chalk_5.default(templateObject_39 || (templateObject_39 = __makeTemplateObject(["{bgWhite.black [Log]} Effective command line args:"], ["{bgWhite.black [Log]} Effective command line args:"]))));
-        console.log(chalk_5.default(templateObject_40 || (templateObject_40 = __makeTemplateObject(["  {green [TestFile.ts]} {yellow ", "} ", ""], ["  {green [TestFile.ts]} {yellow ",
+        console.log(chalk_5.default(templateObject_40 || (templateObject_40 = __makeTemplateObject(["{bgWhite.black [Log]} Effective command line args:"], ["{bgWhite.black [Log]} Effective command line args:"]))));
+        console.log(chalk_5.default(templateObject_41 || (templateObject_41 = __makeTemplateObject(["  {green [TestFile.ts]} {yellow ", "} ", ""], ["  {green [TestFile.ts]} {yellow ",
             "} ", ""])), Array.from(addedTestEntryFiles).join(" "), flagList.join(" ")));
         // add a line seperator between the next line and this line
         console.log("");
@@ -1043,13 +1047,13 @@ define("run", ["require", "exports", "fs", "perf_hooks", "path", "chalk", "@as-p
             var _a;
             // if there are any compilation errors, stop the test suite
             if (error) {
-                console.error(chalk_5.default(templateObject_41 || (templateObject_41 = __makeTemplateObject(["{red [Error]} There was a compilation error when trying to create the wasm binary for file: ", "."], ["{red [Error]} There was a compilation error when trying to create the wasm binary for file: ", "."])), file));
+                console.error(chalk_5.default(templateObject_42 || (templateObject_42 = __makeTemplateObject(["{red [Error]} There was a compilation error when trying to create the wasm binary for file: ", "."], ["{red [Error]} There was a compilation error when trying to create the wasm binary for file: ", "."])), file));
                 console.error(error);
                 return process.exit(1);
             }
             // if the binary wasn't emitted, stop the test suite
             if (!binary) {
-                console.error(chalk_5.default(templateObject_42 || (templateObject_42 = __makeTemplateObject(["{red [Error]} There was no output binary file: ", ". Did you forget to emit the binary with {yellow --binaryFile}?"], ["{red [Error]} There was no output binary file: ", ". Did you forget to emit the binary with {yellow --binaryFile}?"])), file));
+                console.error(chalk_5.default(templateObject_43 || (templateObject_43 = __makeTemplateObject(["{red [Error]} There was no output binary file: ", ". Did you forget to emit the binary with {yellow --binaryFile}?"], ["{red [Error]} There was no output binary file: ", ". Did you forget to emit the binary with {yellow --binaryFile}?"])), file));
                 return process.exit(1);
             }
             if (runTests) {
@@ -1100,13 +1104,13 @@ define("run", ["require", "exports", "fs", "perf_hooks", "path", "chalk", "@as-p
                 if (runTests) {
                     var end = perf_hooks_1.performance.now();
                     failed = testCount !== successCount || errors.length > 0;
-                    var result = failed ? chalk_5.default(templateObject_43 || (templateObject_43 = __makeTemplateObject(["{red \u2716 FAIL}"], ["{red \u2716 FAIL}"]))) : chalk_5.default(templateObject_44 || (templateObject_44 = __makeTemplateObject(["{green \u2714 PASS}"], ["{green \u2714 PASS}"])));
+                    var result = failed ? chalk_5.default(templateObject_44 || (templateObject_44 = __makeTemplateObject(["{red \u2716 FAIL}"], ["{red \u2716 FAIL}"]))) : chalk_5.default(templateObject_45 || (templateObject_45 = __makeTemplateObject(["{green \u2714 PASS}"], ["{green \u2714 PASS}"])));
                     console.log("~".repeat(Math.max(process.stdout.columns - 10, 10)));
                     for (var _i = 0, errors_1 = errors; _i < errors_1.length; _i++) {
                         var error_1 = errors_1[_i];
-                        console.log(chalk_5.default(templateObject_45 || (templateObject_45 = __makeTemplateObject(["\n [Error]: {red ", "}: ", "\n [Stack]: {yellow ", "}\n"], ["\n [Error]: {red ", "}: ", "\n [Stack]: {yellow ", "}\n"])), error_1.type, error_1.message, error_1.stackTrace.split("\n").join("\n            ")));
+                        console.log(chalk_5.default(templateObject_46 || (templateObject_46 = __makeTemplateObject(["\n [Error]: {red ", "}: ", "\n [Stack]: {yellow ", "}\n"], ["\n [Error]: {red ", "}: ", "\n [Stack]: {yellow ", "}\n"])), error_1.type, error_1.message, error_1.stackTrace.split("\n").join("\n            ")));
                     }
-                    console.log(chalk_5.default(templateObject_46 || (templateObject_46 = __makeTemplateObject(["\n  [Result]: ", "\n   [Files]: ", " total\n  [Groups]: ", " count, ", " pass\n   [Tests]: ", " pass, ", " fail, ", " total\n    [Time]: ", "ms"], ["\n  [Result]: ", "\n   [Files]: ", " total\n  [Groups]: ", " count, ", " pass\n   [Tests]: ", " pass, ",
+                    console.log(chalk_5.default(templateObject_47 || (templateObject_47 = __makeTemplateObject(["\n  [Result]: ", "\n   [Files]: ", " total\n  [Groups]: ", " count, ", " pass\n   [Tests]: ", " pass, ", " fail, ", " total\n    [Time]: ", "ms"], ["\n  [Result]: ", "\n   [Files]: ", " total\n  [Groups]: ", " count, ", " pass\n   [Tests]: ", " pass, ",
                         " fail, ", " total\n    [Time]: ", "ms"])), result, testEntryFiles.size.toString(), groupCount.toString(), groupSuccessCount.toString(), successCount.toString(), (testCount - successCount).toString(), testCount.toString(), timeDifference_1.timeDifference(end, start).toString()));
                     if (worklets.length > 0) {
                         for (var _b = 0, worklets_1 = worklets; _b < worklets_1.length; _b++) {
@@ -1201,7 +1205,7 @@ define("run", ["require", "exports", "fs", "perf_hooks", "path", "chalk", "@as-p
         }
     }
     exports.run = run;
-    var templateObject_19, templateObject_20, templateObject_21, templateObject_22, templateObject_23, templateObject_24, templateObject_25, templateObject_26, templateObject_27, templateObject_28, templateObject_29, templateObject_30, templateObject_31, templateObject_32, templateObject_33, templateObject_34, templateObject_35, templateObject_36, templateObject_37, templateObject_38, templateObject_39, templateObject_40, templateObject_41, templateObject_42, templateObject_43, templateObject_44, templateObject_45, templateObject_46;
+    var templateObject_19, templateObject_20, templateObject_21, templateObject_22, templateObject_23, templateObject_24, templateObject_25, templateObject_26, templateObject_27, templateObject_28, templateObject_29, templateObject_30, templateObject_31, templateObject_32, templateObject_33, templateObject_34, templateObject_35, templateObject_36, templateObject_37, templateObject_38, templateObject_39, templateObject_40, templateObject_41, templateObject_42, templateObject_43, templateObject_44, templateObject_45, templateObject_46, templateObject_47;
 });
 require("../lib/index.js").asp(process.argv.slice(2));
 define("types", ["require", "exports", "chalk", "fs", "path"], function (require, exports, chalk_6, fs_4, path_3) {
@@ -1220,24 +1224,24 @@ define("types", ["require", "exports", "chalk", "fs", "path"], function (require
         var typesFileSource = require.resolve("@as-pect/cli/init/init-types.d.ts");
         var typesFile = path_3.join(testFolder, "as-pect.d.ts");
         console.log("");
-        console.log(chalk_6.default(templateObject_47 || (templateObject_47 = __makeTemplateObject(["{bgWhite.black [Log]} Initializing types."], ["{bgWhite.black [Log]} Initializing types."]))));
+        console.log(chalk_6.default(templateObject_48 || (templateObject_48 = __makeTemplateObject(["{bgWhite.black [Log]} Initializing types."], ["{bgWhite.black [Log]} Initializing types."]))));
         console.log("");
         // Create the assembly folder if it doesn't exist
         if (!fs_4.existsSync(assemblyFolder)) {
-            console.log(chalk_6.default(templateObject_48 || (templateObject_48 = __makeTemplateObject(["{bgWhite.black [Log]} Creating folder: {yellow ./assembly/}"], ["{bgWhite.black [Log]} Creating folder: {yellow ./assembly/}"]))));
+            console.log(chalk_6.default(templateObject_49 || (templateObject_49 = __makeTemplateObject(["{bgWhite.black [Log]} Creating folder: {yellow ./assembly/}"], ["{bgWhite.black [Log]} Creating folder: {yellow ./assembly/}"]))));
             fs_4.mkdirSync(assemblyFolder);
         }
         // Create the test folder if it doesn't exist
         if (!fs_4.existsSync(testFolder)) {
-            console.log(chalk_6.default(templateObject_49 || (templateObject_49 = __makeTemplateObject(["{bgWhite.black [Log]} Creating folder: {yellow ./assembly/__tests__/}"], ["{bgWhite.black [Log]} Creating folder: {yellow ./assembly/__tests__/}"]))));
+            console.log(chalk_6.default(templateObject_50 || (templateObject_50 = __makeTemplateObject(["{bgWhite.black [Log]} Creating folder: {yellow ./assembly/__tests__/}"], ["{bgWhite.black [Log]} Creating folder: {yellow ./assembly/__tests__/}"]))));
             fs_4.mkdirSync(testFolder);
         }
         // Always create the types file
-        console.log(chalk_6.default(templateObject_50 || (templateObject_50 = __makeTemplateObject(["{bgWhite.black [Log]} Creating file: {yellow ./assembly/__tests__/as-pect.d.ts}"], ["{bgWhite.black [Log]} Creating file: {yellow ./assembly/__tests__/as-pect.d.ts}"]))));
+        console.log(chalk_6.default(templateObject_51 || (templateObject_51 = __makeTemplateObject(["{bgWhite.black [Log]} Creating file: {yellow ./assembly/__tests__/as-pect.d.ts}"], ["{bgWhite.black [Log]} Creating file: {yellow ./assembly/__tests__/as-pect.d.ts}"]))));
         fs_4.createReadStream(typesFileSource, "utf-8").pipe(fs_4.createWriteStream(typesFile, "utf-8"));
     }
     exports.types = types;
-    var templateObject_47, templateObject_48, templateObject_49, templateObject_50;
+    var templateObject_48, templateObject_49, templateObject_50, templateObject_51;
 });
 define("util/asciiArt", ["require", "exports", "chalk"], function (require, exports, chalk_7) {
     "use strict";
@@ -1250,10 +1254,10 @@ define("util/asciiArt", ["require", "exports", "chalk"], function (require, expo
      * @param {string} version - The cli version
      */
     function printAsciiArt(version) {
-        console.log(chalk_7.default(templateObject_51 || (templateObject_51 = __makeTemplateObject(["{bold.bgWhite.black ", "       ___   _____                       __    \n      /   | / ___/      ____  ___  _____/ /_   \n     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/   \n    / ___ |___/ /_____/ /_/ /  __/ /__/ /_     \n   /_/  |_/____/     / .___/\\___/\\___/\\__/     \n                    /_/                        }\n\n\u26A1AS-pect\u26A1 Test suite runner {bgGreenBright.bold.black [", "]}\n"], ["{bold.bgWhite.black ", "       ___   _____                       __    \n      /   | / ___/      ____  ___  _____/ /_   \n     / /| | \\\\__ \\\\______/ __ \\\\/ _ \\\\/ ___/ __/   \n    / ___ |___/ /_____/ /_/ /  __/ /__/ /_     \n   /_/  |_/____/     / .___/\\\\___/\\\\___/\\\\__/     \n                    /_/                        }\n\n\u26A1AS-pect\u26A1 Test suite runner {bgGreenBright.bold.black [", "]}\n"])), "", version));
+        console.log(chalk_7.default(templateObject_52 || (templateObject_52 = __makeTemplateObject(["{bold.bgWhite.black ", "       ___   _____                       __    \n      /   | / ___/      ____  ___  _____/ /_   \n     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/   \n    / ___ |___/ /_____/ /_/ /  __/ /__/ /_     \n   /_/  |_/____/     / .___/\\___/\\___/\\__/     \n                    /_/                        }\n\n\u26A1AS-pect\u26A1 Test suite runner {bgGreenBright.bold.black [", "]}\n"], ["{bold.bgWhite.black ", "       ___   _____                       __    \n      /   | / ___/      ____  ___  _____/ /_   \n     / /| | \\\\__ \\\\______/ __ \\\\/ _ \\\\/ ___/ __/   \n    / ___ |___/ /_____/ /_/ /  __/ /__/ /_     \n   /_/  |_/____/     / .___/\\\\___/\\\\___/\\\\__/     \n                    /_/                        }\n\n\u26A1AS-pect\u26A1 Test suite runner {bgGreenBright.bold.black [", "]}\n"])), "", version));
     }
     exports.printAsciiArt = printAsciiArt;
-    var templateObject_51;
+    var templateObject_52;
 });
 define("worklets/compiler", ["require", "exports", "fs", "path", "worker_threads", "util/writeFile"], function (require, exports, fs_5, path_4, worker_threads_1, writeFile_2) {
     "use strict";
