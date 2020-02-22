@@ -2,16 +2,15 @@ import { Parser } from "nearley";
 /**
  * Signifies a parsed snapshot.
  */
-export interface ISnapshotData {
-    /** The testing group that the snapshots belong to. */
-    [groupName: string]: {
-        /** The test name that the snapshots belong to. */
-        [testName: string]: {
-            /** The snapshot itself. */
-            [snapshotName: string]: string;
-        };
-    };
-}
+export declare type SnapshotData = Map<string, Map<string, Map<string, string>>>;
+/**
+ * Create a parser manually.
+ */
 export declare function createSnapshotParser(): Parser;
-export declare function parseSnapshot(snapshot: string): ISnapshotData;
+/**
+ * Parse a snapshot string and return a SnapshotData map.
+ *
+ * @param {string} snapshot- A snapshot stored in stringified format.
+ */
+export declare function parseSnapshot(snapshot: string): SnapshotData;
 //# sourceMappingURL=index.d.ts.map

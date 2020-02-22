@@ -3,27 +3,18 @@
 
 snapshots -> _ (snapshot _):* {%
 	function (d) {
-		/**
-		 * Signifies a parsed snapshot.
-		 */
-		interface ISnapshotData {
-			/** The testing group that the snapshots belong to. */
-			[groupName: string]: {
-				/** The test name that the snapshots belong to. */
-				[testName: string]: {
-					/** The snapshot itself. */
-					[snapshotName: string]: string;
-				};
-			};
-		}
+		type SnapshotData = Map<string, Map<string, Map<string, string>>>;
+
 		const snapshotPairs = d[1].map((e: any) => e[0]);
-		const result: ISnapshotData = {};
+		const result: SnapshotData = new Map();
 		for (let i = 0; i < snapshotPairs.length; i++) {
 			const [groupName, testName, snapshotName, value] = snapshotPairs[i];
-			const group = result[groupName] = (result[groupName] || {});
-			const test = group[testName] = (group[testName] || {});
-            if (test.hasOwnProperty(snapshotName)) throw new Error("Invalid snapshot, duplicate detected: " + groupName + " " + testName + " " + snapshotName);
-            test[snapshotName] = value;
+			if (!result.has(groupName)) result.set(groupName, new Map());
+			const group = result.get(groupName)!;
+			if (!group.has(testName)) group.set(testName, new Map());
+			const test = group.get(testName)!;
+			if (test.has(snapshotName)) throw new Error("Invalid snapshot, duplicate detected: " + groupName + " " + testName + " " + snapshotName);
+			test.set(snapshotName, value);
 		}
 		return result;
 	}

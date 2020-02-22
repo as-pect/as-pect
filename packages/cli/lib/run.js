@@ -290,6 +290,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
         var addedTestEntryFiles = new Set();
         /** Get all the test entry files. */
         var testEntryFiles = getTestEntryFiles_1.getTestEntryFiles(cliOptions, include, disclude);
+        if (testEntryFiles.size === 0) {
+            console.error(chalk_1.default(templateObject_21 || (templateObject_21 = __makeTemplateObject(["{red [Error]} No files matching the pattern were found."], ["{red [Error]} No files matching the pattern were found."]))));
+            process.exit(1);
+        }
         for (var _i = 0, add_1 = add; _i < add_1.length; _i++) {
             var pattern = add_1[_i];
             // push all the added files to the added entry point list
@@ -323,8 +327,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
         var failed = false;
         var folderMap = new Map();
         var fileMap = new Map();
-        console.log(chalk_1.default(templateObject_21 || (templateObject_21 = __makeTemplateObject(["{bgWhite.black [Log]} Effective command line args:"], ["{bgWhite.black [Log]} Effective command line args:"]))));
-        console.log(chalk_1.default(templateObject_22 || (templateObject_22 = __makeTemplateObject(["  {green [TestFile.ts]} {yellow ", "} ", ""], ["  {green [TestFile.ts]} {yellow ",
+        console.log(chalk_1.default(templateObject_22 || (templateObject_22 = __makeTemplateObject(["{bgWhite.black [Log]} Effective command line args:"], ["{bgWhite.black [Log]} Effective command line args:"]))));
+        console.log(chalk_1.default(templateObject_23 || (templateObject_23 = __makeTemplateObject(["  {green [TestFile.ts]} {yellow ", "} ", ""], ["  {green [TestFile.ts]} {yellow ",
             "} ", ""])), Array.from(addedTestEntryFiles).join(" "), flagList.join(" ")));
         // add a line seperator between the next line and this line
         console.log("");
@@ -333,13 +337,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
             var _a;
             // if there are any compilation errors, stop the test suite
             if (error) {
-                console.error(chalk_1.default(templateObject_23 || (templateObject_23 = __makeTemplateObject(["{red [Error]} There was a compilation error when trying to create the wasm binary for file: ", "."], ["{red [Error]} There was a compilation error when trying to create the wasm binary for file: ", "."])), file));
+                console.error(chalk_1.default(templateObject_24 || (templateObject_24 = __makeTemplateObject(["{red [Error]} There was a compilation error when trying to create the wasm binary for file: ", "."], ["{red [Error]} There was a compilation error when trying to create the wasm binary for file: ", "."])), file));
                 console.error(error);
                 return process.exit(1);
             }
             // if the binary wasn't emitted, stop the test suite
             if (!binary) {
-                console.error(chalk_1.default(templateObject_24 || (templateObject_24 = __makeTemplateObject(["{red [Error]} There was no output binary file: ", ". Did you forget to emit the binary with {yellow --binaryFile}?"], ["{red [Error]} There was no output binary file: ", ". Did you forget to emit the binary with {yellow --binaryFile}?"])), file));
+                console.error(chalk_1.default(templateObject_25 || (templateObject_25 = __makeTemplateObject(["{red [Error]} There was no output binary file: ", ". Did you forget to emit the binary with {yellow --binaryFile}?"], ["{red [Error]} There was no output binary file: ", ". Did you forget to emit the binary with {yellow --binaryFile}?"])), file));
                 return process.exit(1);
             }
             if (runTests) {
@@ -390,13 +394,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
                 if (runTests) {
                     var end = perf_hooks_1.performance.now();
                     failed = testCount !== successCount || errors.length > 0;
-                    var result = failed ? chalk_1.default(templateObject_25 || (templateObject_25 = __makeTemplateObject(["{red \u2716 FAIL}"], ["{red \u2716 FAIL}"]))) : chalk_1.default(templateObject_26 || (templateObject_26 = __makeTemplateObject(["{green \u2714 PASS}"], ["{green \u2714 PASS}"])));
+                    var result = failed ? chalk_1.default(templateObject_26 || (templateObject_26 = __makeTemplateObject(["{red \u2716 FAIL}"], ["{red \u2716 FAIL}"]))) : chalk_1.default(templateObject_27 || (templateObject_27 = __makeTemplateObject(["{green \u2714 PASS}"], ["{green \u2714 PASS}"])));
                     console.log("~".repeat(Math.max(process.stdout.columns - 10, 10)));
                     for (var _i = 0, errors_1 = errors; _i < errors_1.length; _i++) {
                         var error_1 = errors_1[_i];
-                        console.log(chalk_1.default(templateObject_27 || (templateObject_27 = __makeTemplateObject(["\n [Error]: {red ", "}: ", "\n [Stack]: {yellow ", "}\n"], ["\n [Error]: {red ", "}: ", "\n [Stack]: {yellow ", "}\n"])), error_1.type, error_1.message, error_1.stackTrace.split("\n").join("\n            ")));
+                        console.log(chalk_1.default(templateObject_28 || (templateObject_28 = __makeTemplateObject(["\n [Error]: {red ", "}: ", "\n [Stack]: {yellow ", "}\n"], ["\n [Error]: {red ", "}: ", "\n [Stack]: {yellow ", "}\n"])), error_1.type, error_1.message, error_1.stackTrace.split("\n").join("\n            ")));
                     }
-                    console.log(chalk_1.default(templateObject_28 || (templateObject_28 = __makeTemplateObject(["\n  [Result]: ", "\n   [Files]: ", " total\n  [Groups]: ", " count, ", " pass\n   [Tests]: ", " pass, ", " fail, ", " total\n    [Time]: ", "ms"], ["\n  [Result]: ", "\n   [Files]: ", " total\n  [Groups]: ", " count, ", " pass\n   [Tests]: ", " pass, ",
+                    console.log(chalk_1.default(templateObject_29 || (templateObject_29 = __makeTemplateObject(["\n  [Result]: ", "\n   [Files]: ", " total\n  [Groups]: ", " count, ", " pass\n   [Tests]: ", " pass, ", " fail, ", " total\n    [Time]: ", "ms"], ["\n  [Result]: ", "\n   [Files]: ", " total\n  [Groups]: ", " count, ", " pass\n   [Tests]: ", " pass, ",
                         " fail, ", " total\n    [Time]: ", "ms"])), result, testEntryFiles.size.toString(), groupCount.toString(), groupSuccessCount.toString(), successCount.toString(), (testCount - successCount).toString(), testCount.toString(), timeDifference_1.timeDifference(end, start).toString()));
                     if (worklets.length > 0) {
                         for (var _b = 0, worklets_1 = worklets; _b < worklets_1.length; _b++) {
@@ -491,6 +495,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
         }
     }
     exports.run = run;
-    var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14, templateObject_15, templateObject_16, templateObject_17, templateObject_18, templateObject_19, templateObject_20, templateObject_21, templateObject_22, templateObject_23, templateObject_24, templateObject_25, templateObject_26, templateObject_27, templateObject_28;
+    var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14, templateObject_15, templateObject_16, templateObject_17, templateObject_18, templateObject_19, templateObject_20, templateObject_21, templateObject_22, templateObject_23, templateObject_24, templateObject_25, templateObject_26, templateObject_27, templateObject_28, templateObject_29;
 });
 //# sourceMappingURL=run.js.map

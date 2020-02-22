@@ -1,4 +1,4 @@
-import { ISnapshotData } from "../parser";
+import { SnapshotData } from "../parser";
 import { SnapshotDiff } from "./SnapshotDiff";
 /** Stringify format function callback type. */
 export declare type SnapshotFormatCallback = (input: string) => string;
@@ -15,14 +15,14 @@ export interface ISnapshotStringifyOptions {
 }
 export declare class Snapshot {
     /** The snapshot data in object format. */
-    data: ISnapshotData | null;
+    data: SnapshotData | null;
     stringified: string | null;
     /**
      * Create a Snapshot from an ISnapshotData.
      *
-     * @param {ISnapshotData} data - The snapshot data.
+     * @param {SnapshotData} data - The snapshot data.
      */
-    static fromData(data: ISnapshotData): Snapshot;
+    static fromData(data: SnapshotData): Snapshot;
     /**
      * Create a Snapshot from string content.
      *

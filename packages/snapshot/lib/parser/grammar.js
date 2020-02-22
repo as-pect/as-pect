@@ -33,14 +33,18 @@
             { "name": "snapshots$ebnf$1", "symbols": ["snapshots$ebnf$1", "snapshots$ebnf$1$subexpression$1"], "postprocess": (d) => d[0].concat([d[1]]) },
             { "name": "snapshots", "symbols": ["_", "snapshots$ebnf$1"], "postprocess": function (d) {
                     const snapshotPairs = d[1].map((e) => e[0]);
-                    const result = {};
+                    const result = new Map();
                     for (let i = 0; i < snapshotPairs.length; i++) {
                         const [groupName, testName, snapshotName, value] = snapshotPairs[i];
-                        const group = result[groupName] = (result[groupName] || {});
-                        const test = group[testName] = (group[testName] || {});
-                        if (test.hasOwnProperty(snapshotName))
+                        if (!result.has(groupName))
+                            result.set(groupName, new Map());
+                        const group = result.get(groupName);
+                        if (!group.has(testName))
+                            group.set(testName, new Map());
+                        const test = group.get(testName);
+                        if (test.has(snapshotName))
                             throw new Error("Invalid snapshot, duplicate detected: " + groupName + " " + testName + " " + snapshotName);
-                        test[snapshotName] = value;
+                        test.set(snapshotName, value);
                     }
                     return result;
                 }

@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
         /**
          * Create a Snapshot from an ISnapshotData.
          *
-         * @param {ISnapshotData} data - The snapshot data.
+         * @param {SnapshotData} data - The snapshot data.
          */
         static fromData(data) {
             const result = new Snapshot();
@@ -72,10 +72,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
             const leftData = this.data;
             const rightData = other.data;
             // for each snapshot in the left side
-            for (const [groupName, group] of Object.entries(leftData)) {
-                for (const [testName, test] of Object.entries(group)) {
-                    for (const [snapshotName, snapshot] of Object.entries(test)) {
-                        const rightGroup = rightData[groupName];
+            for (const groupName of leftData.keys()) {
+                const group = leftData.get(groupName);
+                if (!group)
+                    continue;
+                for (const testName of group.keys()) {
+                    const test = group.get(testName);
+                    if (!test)
+                        continue;
+                    for (const snapshotName of test.keys()) {
+                        const snapshot = test.get(snapshotName);
+                        if (typeof snapshot !== "string")
+                            continue;
+                        const rightGroup = rightData.get(groupName);
                         if (!rightGroup) {
                             // the group doesn't exist, it was added
                             const diff = new SnapshotDiff_1.SnapshotDiff();
@@ -87,7 +96,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
                             output.push(diff);
                             continue;
                         }
-                        const rightTest = rightGroup[testName];
+                        const rightTest = rightGroup.get(testName);
                         if (!rightTest) {
                             // the test doesn't exist
                             const diff = new SnapshotDiff_1.SnapshotDiff();
@@ -99,8 +108,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
                             output.push(diff);
                             continue;
                         }
-                        const rightSnapshot = rightTest[snapshotName];
-                        if (!rightSnapshot) {
+                        const rightSnapshot = rightTest.get(snapshotName);
+                        if (typeof rightSnapshot !== "string") {
                             // the snapshot doesn't exist
                             const diff = new SnapshotDiff_1.SnapshotDiff();
                             diff.left = snapshot;
@@ -129,10 +138,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
                 }
             }
             // for each snapshot in the right side
-            for (const [groupName, group] of Object.entries(rightData)) {
-                for (const [testName, test] of Object.entries(group)) {
-                    for (const [snapshotName, snapshot] of Object.entries(test)) {
-                        const leftGroup = leftData[groupName];
+            for (const groupName of rightData.keys()) {
+                const group = rightData.get(groupName);
+                if (!group)
+                    continue;
+                for (const testName of group.keys()) {
+                    const test = group.get(testName);
+                    if (!test)
+                        continue;
+                    for (const snapshotName of test.keys()) {
+                        const snapshot = test.get(snapshotName);
+                        if (typeof snapshot !== "string")
+                            continue;
+                        const leftGroup = leftData.get(groupName);
                         if (!leftGroup) {
                             // the group doesn't exist, it was removed
                             const diff = new SnapshotDiff_1.SnapshotDiff();
@@ -144,7 +162,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
                             output.push(diff);
                             continue;
                         }
-                        const leftTest = leftGroup[testName];
+                        const leftTest = leftGroup.get(testName);
                         if (!leftTest) {
                             // the test doesn't exist
                             const diff = new SnapshotDiff_1.SnapshotDiff();
@@ -156,8 +174,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
                             output.push(diff);
                             continue;
                         }
-                        const leftSnapshot = leftTest[snapshotName];
-                        if (!leftSnapshot) {
+                        const leftSnapshot = leftTest.get(snapshotName);
+                        if (typeof leftSnapshot !== "string") {
                             // the snapshot doesn't exist
                             const diff = new SnapshotDiff_1.SnapshotDiff();
                             diff.right = snapshot;

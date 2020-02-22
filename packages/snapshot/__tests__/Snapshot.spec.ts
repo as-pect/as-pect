@@ -1,4 +1,4 @@
-import { Snapshot, ISnapshotData, ISnapshotStringifyOptions } from "../src";
+import { Snapshot, SnapshotData, ISnapshotStringifyOptions } from "../src";
 const example1 = `
 exports[\`group 1\`][\`test 1\`][\`snapshot 1\`] = \`
   Array<i32> [1, 2, 3]
@@ -14,69 +14,51 @@ exports[\`group 1\`][\`test 1\`][\`snapshot 1\`] = \`
 \`;
 `;
 
-const example3: ISnapshotData = {
-  group1: {
-    test1: {
-      snapshot1: "testValue",
-      snapshot2: "testValue2",
-    },
-  },
-  group2: {
-    test1: {
-      snapshot1: "testValue3",
-      snapshot2: "testValue4",
-    },
-  },
-  group4: {
-    test1: {
-      snapshot1: "testValue7",
-      snapshot3: "testValue8",
-    },
-  },
-};
+type SnapshotMock = [string, string, string, string][];
 
-const example4: ISnapshotData = {
-  group1: {
-    test1: {
-      snapshot1: "testValue5",
-      snapshot2: "testValue6",
-    },
-  },
-  group2: {
-    test1: {
-      snapshot1: "testValue7",
-      snapshot3: "testValue8",
-    },
-  },
-  group3: {
-    test1: {
-      snapshot1: "testValue7",
-      snapshot3: "testValue8",
-    },
-  },
-};
+function mock(mock: SnapshotMock): SnapshotData {
+  let result: SnapshotData = new Map();
 
-const example5: ISnapshotData = {
-  group1: {
-    test1: {
-      snapshot5: "testValue9",
-    },
-    test3: {
-      snapshot6: "someMatchingValue",
-    },
-  },
-};
+  for (let [group, test, snapshot, value] of mock) {
+    if (!result.has(group)) result.set(group, new Map());
+    const groupMap = result.get(group)!;
 
-const example6: ISnapshotData = {
-  group1: {
-    test2: {
-      snapshot5: "testValue9",
-    },
-    test3: {
-      snapshot6: "someMatchingValue",
-    },
-  },
-};
+    if (!groupMap.has(test)) groupMap.set(test, new Map());
+    const testMap = groupMap.get(test)!;
+
+    testMap.set(snapshot, value);
+  }
+
+  return result;
+}
+
+const example3 = mock([
+  ["group1", "test1", "snapshot1", "testValue"],
+  ["group1", "test1", "snapshot2", "testValue2"],
+  ["group2", "test1", "snapshot1", "testValue3"],
+  ["group2", "test1", "snapshot2", "testValue4"],
+  ["group4", "test1", "snapshot1", "testValue7"],
+  ["group4", "test1", "snapshot3", "testValue8"],
+]);
+
+const example4 = mock([
+  ["group1", "test1", "snapshot1", "testValue5"],
+  ["group1", "test1", "snapshot2", "testValue6"],
+  ["group2", "test1", "snapshot1", "testValue7"],
+  ["group2", "test1", "snapshot3", "testValue8"],
+  ["group3", "test1", "snapshot1", "testValue7"],
+  ["group3", "test1", "snapshot3", "testValue8"],
+]);
+
+const example5 = mock([
+  ["group1", "test1", "snapshot5", "testValue9"],
+  ["group1", "test3", "snapshot6", "someMatchingValue"],
+]);
+
+const example6 = mock([
+  ["group1", "test2", "snapshot5", "testValue9"],
+  ["group1", "test3", "snapshot6", "someMatchingValue"],
+]);
 
 const options: Partial<ISnapshotStringifyOptions> = {
   addedFormat: str => "added: " + str,

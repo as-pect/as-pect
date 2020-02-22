@@ -1,8 +1,8 @@
-import { ISnapshotData } from "../parser";
+import { SnapshotData } from "../parser";
 /**
  * Convert an ISnapshotData into a stringified representation.
  *
- * @param {ISnapshotData} data - The snapshot data to be converted.
+ * @param {SnapshotData} data - The snapshot data to be converted.
  */
-export declare function unparse(data: ISnapshotData): string;
+export declare function unparse(data: SnapshotData): string;
 //# sourceMappingURL=unparse.d.ts.map

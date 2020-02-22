@@ -33,27 +33,26 @@ declare module "parser/index" {
     /**
      * Signifies a parsed snapshot.
      */
-    export interface ISnapshotData {
-        /** The testing group that the snapshots belong to. */
-        [groupName: string]: {
-            /** The test name that the snapshots belong to. */
-            [testName: string]: {
-                /** The snapshot itself. */
-                [snapshotName: string]: string;
-            };
-        };
-    }
+    export type SnapshotData = Map<string, Map<string, Map<string, string>>>;
+    /**
+     * Create a parser manually.
+     */
     export function createSnapshotParser(): Parser;
-    export function parseSnapshot(snapshot: string): ISnapshotData;
+    /**
+     * Parse a snapshot string and return a SnapshotData map.
+     *
+     * @param {string} snapshot- A snapshot stored in stringified format.
+     */
+    export function parseSnapshot(snapshot: string): SnapshotData;
 }
 declare module "test/unparse" {
-    import { ISnapshotData } from "parser/index";
+    import { SnapshotData } from "parser/index";
     /**
      * Convert an ISnapshotData into a stringified representation.
      *
-     * @param {ISnapshotData} data - The snapshot data to be converted.
+     * @param {SnapshotData} data - The snapshot data to be converted.
      */
-    export function unparse(data: ISnapshotData): string;
+    export function unparse(data: SnapshotData): string;
 }
 declare module "test/SnapshotDiff" {
     export const enum SnapshotDiffType {
@@ -81,7 +80,7 @@ declare module "test/SnapshotDiff" {
     }
 }
 declare module "test/Snapshot" {
-    import { ISnapshotData } from "parser/index";
+    import { SnapshotData } from "parser/index";
     import { SnapshotDiff } from "test/SnapshotDiff";
     /** Stringify format function callback type. */
     export type SnapshotFormatCallback = (input: string) => string;
@@ -98,14 +97,14 @@ declare module "test/Snapshot" {
     }
     export class Snapshot {
         /** The snapshot data in object format. */
-        data: ISnapshotData | null;
+        data: SnapshotData | null;
         stringified: string | null;
         /**
          * Create a Snapshot from an ISnapshotData.
          *
-         * @param {ISnapshotData} data - The snapshot data.
+         * @param {SnapshotData} data - The snapshot data.
          */
-        static fromData(data: ISnapshotData): Snapshot;
+        static fromData(data: SnapshotData): Snapshot;
         /**
          * Create a Snapshot from string content.
          *

@@ -149,23 +149,23 @@ Array [
 
 exports[`Snapshots from strings Snapshot shape: fromdata 1`] = `
 Snapshot {
-  "data": Object {
-    "group1": Object {
-      "test1": Object {
-        "snapshot1": "testValue",
-        "snapshot2": "testValue2",
+  "data": Map {
+    "group1" => Map {
+      "test1" => Map {
+        "snapshot1" => "testValue",
+        "snapshot2" => "testValue2",
       },
     },
-    "group2": Object {
-      "test1": Object {
-        "snapshot1": "testValue3",
-        "snapshot2": "testValue4",
+    "group2" => Map {
+      "test1" => Map {
+        "snapshot1" => "testValue3",
+        "snapshot2" => "testValue4",
       },
     },
-    "group4": Object {
-      "test1": Object {
-        "snapshot1": "testValue7",
-        "snapshot3": "testValue8",
+    "group4" => Map {
+      "test1" => Map {
+        "snapshot1" => "testValue7",
+        "snapshot3" => "testValue8",
       },
     },
   },
@@ -187,23 +187,23 @@ exports[\`group4\`][\`test1\`][\`snapshot3\`] = \`testValue8\`
 
 exports[`Snapshots from strings Snapshot shape: fromdata 2`] = `
 Snapshot {
-  "data": Object {
-    "group1": Object {
-      "test1": Object {
-        "snapshot1": "testValue5",
-        "snapshot2": "testValue6",
+  "data": Map {
+    "group1" => Map {
+      "test1" => Map {
+        "snapshot1" => "testValue5",
+        "snapshot2" => "testValue6",
       },
     },
-    "group2": Object {
-      "test1": Object {
-        "snapshot1": "testValue7",
-        "snapshot3": "testValue8",
+    "group2" => Map {
+      "test1" => Map {
+        "snapshot1" => "testValue7",
+        "snapshot3" => "testValue8",
       },
     },
-    "group3": Object {
-      "test1": Object {
-        "snapshot1": "testValue7",
-        "snapshot3": "testValue8",
+    "group3" => Map {
+      "test1" => Map {
+        "snapshot1" => "testValue7",
+        "snapshot3" => "testValue8",
       },
     },
   },
@@ -225,10 +225,10 @@ exports[\`group3\`][\`test1\`][\`snapshot3\`] = \`testValue8\`
 
 exports[`Snapshots from strings Snapshot shape: fromstring 1`] = `
 Snapshot {
-  "data": Object {
-    "group 1": Object {
-      "test 1": Object {
-        "snapshot 1": "
+  "data": Map {
+    "group 1" => Map {
+      "test 1" => Map {
+        "snapshot 1" => "
   Array<i32> [1, 2, 3]
 ",
       },
@@ -244,10 +244,10 @@ exports[\`group 1\`][\`test 1\`][\`snapshot 1\`] = \`
 
 exports[`Snapshots from strings Snapshot shape: fromstring 2`] = `
 Snapshot {
-  "data": Object {
-    "group 1": Object {
-      "test 1": Object {
-        "snapshot 1": "
+  "data": Map {
+    "group 1" => Map {
+      "test 1" => Map {
+        "snapshot 1" => "
   Vec3 {
     x: 1.0,
     y: 2.0,

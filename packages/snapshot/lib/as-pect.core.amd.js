@@ -28,14 +28,18 @@ define("parser/grammar", ["require", "exports"], function (require, exports) {
             { "name": "snapshots$ebnf$1", "symbols": ["snapshots$ebnf$1", "snapshots$ebnf$1$subexpression$1"], "postprocess": (d) => d[0].concat([d[1]]) },
             { "name": "snapshots", "symbols": ["_", "snapshots$ebnf$1"], "postprocess": function (d) {
                     const snapshotPairs = d[1].map((e) => e[0]);
-                    const result = {};
+                    const result = new Map();
                     for (let i = 0; i < snapshotPairs.length; i++) {
                         const [groupName, testName, snapshotName, value] = snapshotPairs[i];
-                        const group = result[groupName] = (result[groupName] || {});
-                        const test = group[testName] = (group[testName] || {});
-                        if (test.hasOwnProperty(snapshotName))
+                        if (!result.has(groupName))
+                            result.set(groupName, new Map());
+                        const group = result.get(groupName);
+                        if (!group.has(testName))
+                            group.set(testName, new Map());
+                        const test = group.get(testName);
+                        if (test.has(snapshotName))
                             throw new Error("Invalid snapshot, duplicate detected: " + groupName + " " + testName + " " + snapshotName);
-                        test[snapshotName] = value;
+                        test.set(snapshotName, value);
                     }
                     return result;
                 }
@@ -68,10 +72,18 @@ define("parser/index", ["require", "exports", "parser/grammar", "nearley"], func
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     grammar_1 = __importDefault(grammar_1);
+    /**
+     * Create a parser manually.
+     */
     function createSnapshotParser() {
         return new nearley_1.Parser(nearley_1.Grammar.fromCompiled(grammar_1.default));
     }
     exports.createSnapshotParser = createSnapshotParser;
+    /**
+     * Parse a snapshot string and return a SnapshotData map.
+     *
+     * @param {string} snapshot- A snapshot stored in stringified format.
+     */
     function parseSnapshot(snapshot) {
         const parser = createSnapshotParser();
         parser.feed(snapshot);
@@ -89,14 +101,23 @@ define("test/unparse", ["require", "exports"], function (require, exports) {
     /**
      * Convert an ISnapshotData into a stringified representation.
      *
-     * @param {ISnapshotData} data - The snapshot data to be converted.
+     * @param {SnapshotData} data - The snapshot data to be converted.
      */
     function unparse(data) {
         let output = "";
-        for (const [groupName, group] of Object.entries(data)) {
-            for (const [testName, test] of Object.entries(group)) {
-                for (const [snapshotName, snapshot] of Object.entries(test)) {
-                    output += `exports[\`${escapeTick(groupName)}\`][\`${escapeTick(testName)}\`][\`${escapeTick(snapshotName)}\`] = \`${escapeTick(snapshot)}\`\n\n`;
+        for (const groupKey of data.keys()) {
+            const group = data.get(groupKey);
+            if (!group)
+                continue;
+            for (const testKey of group.keys()) {
+                const test = group.get(testKey);
+                if (!test)
+                    continue;
+                for (const snapshotKey of test.keys()) {
+                    const snapshot = test.get(snapshotKey);
+                    if (typeof snapshot !== "string")
+                        continue;
+                    output += `exports[\`${escapeTick(groupKey)}\`][\`${escapeTick(testKey)}\`][\`${escapeTick(snapshotKey)}\`] = \`${escapeTick(snapshot)}\`\n\n`;
                 }
             }
         }
@@ -142,7 +163,7 @@ define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "
         /**
          * Create a Snapshot from an ISnapshotData.
          *
-         * @param {ISnapshotData} data - The snapshot data.
+         * @param {SnapshotData} data - The snapshot data.
          */
         static fromData(data) {
             const result = new Snapshot();
@@ -187,10 +208,19 @@ define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "
             const leftData = this.data;
             const rightData = other.data;
             // for each snapshot in the left side
-            for (const [groupName, group] of Object.entries(leftData)) {
-                for (const [testName, test] of Object.entries(group)) {
-                    for (const [snapshotName, snapshot] of Object.entries(test)) {
-                        const rightGroup = rightData[groupName];
+            for (const groupName of leftData.keys()) {
+                const group = leftData.get(groupName);
+                if (!group)
+                    continue;
+                for (const testName of group.keys()) {
+                    const test = group.get(testName);
+                    if (!test)
+                        continue;
+                    for (const snapshotName of test.keys()) {
+                        const snapshot = test.get(snapshotName);
+                        if (typeof snapshot !== "string")
+                            continue;
+                        const rightGroup = rightData.get(groupName);
                         if (!rightGroup) {
                             // the group doesn't exist, it was added
                             const diff = new SnapshotDiff_1.SnapshotDiff();
@@ -202,7 +232,7 @@ define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "
                             output.push(diff);
                             continue;
                         }
-                        const rightTest = rightGroup[testName];
+                        const rightTest = rightGroup.get(testName);
                         if (!rightTest) {
                             // the test doesn't exist
                             const diff = new SnapshotDiff_1.SnapshotDiff();
@@ -214,8 +244,8 @@ define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "
                             output.push(diff);
                             continue;
                         }
-                        const rightSnapshot = rightTest[snapshotName];
-                        if (!rightSnapshot) {
+                        const rightSnapshot = rightTest.get(snapshotName);
+                        if (typeof rightSnapshot !== "string") {
                             // the snapshot doesn't exist
                             const diff = new SnapshotDiff_1.SnapshotDiff();
                             diff.left = snapshot;
@@ -244,10 +274,19 @@ define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "
                 }
             }
             // for each snapshot in the right side
-            for (const [groupName, group] of Object.entries(rightData)) {
-                for (const [testName, test] of Object.entries(group)) {
-                    for (const [snapshotName, snapshot] of Object.entries(test)) {
-                        const leftGroup = leftData[groupName];
+            for (const groupName of rightData.keys()) {
+                const group = rightData.get(groupName);
+                if (!group)
+                    continue;
+                for (const testName of group.keys()) {
+                    const test = group.get(testName);
+                    if (!test)
+                        continue;
+                    for (const snapshotName of test.keys()) {
+                        const snapshot = test.get(snapshotName);
+                        if (typeof snapshot !== "string")
+                            continue;
+                        const leftGroup = leftData.get(groupName);
                         if (!leftGroup) {
                             // the group doesn't exist, it was removed
                             const diff = new SnapshotDiff_1.SnapshotDiff();
@@ -259,7 +298,7 @@ define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "
                             output.push(diff);
                             continue;
                         }
-                        const leftTest = leftGroup[testName];
+                        const leftTest = leftGroup.get(testName);
                         if (!leftTest) {
                             // the test doesn't exist
                             const diff = new SnapshotDiff_1.SnapshotDiff();
@@ -271,8 +310,8 @@ define("test/Snapshot", ["require", "exports", "parser/index", "test/unparse", "
                             output.push(diff);
                             continue;
                         }
-                        const leftSnapshot = leftTest[snapshotName];
-                        if (!leftSnapshot) {
+                        const leftSnapshot = leftTest.get(snapshotName);
+                        if (typeof leftSnapshot !== "string") {
                             // the snapshot doesn't exist
                             const diff = new SnapshotDiff_1.SnapshotDiff();
                             diff.right = snapshot;

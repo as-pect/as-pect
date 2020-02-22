@@ -4,25 +4,24 @@ import { Parser, Grammar } from "nearley";
 /**
  * Signifies a parsed snapshot.
  */
-export interface ISnapshotData {
-  /** The testing group that the snapshots belong to. */
-  [groupName: string]: {
-    /** The test name that the snapshots belong to. */
-    [testName: string]: {
-      /** The snapshot itself. */
-      [snapshotName: string]: string;
-    };
-  };
-}
+export type SnapshotData = Map<string, Map<string, Map<string, string>>>;
 
+/**
+ * Create a parser manually.
+ */
 export function createSnapshotParser(): Parser {
   return new Parser(Grammar.fromCompiled(grammar));
 }
 
-export function parseSnapshot(snapshot: string): ISnapshotData {
+/**
+ * Parse a snapshot string and return a SnapshotData map.
+ *
+ * @param {string} snapshot- A snapshot stored in stringified format.
+ */
+export function parseSnapshot(snapshot: string): SnapshotData {
   const parser = createSnapshotParser();
   parser.feed(snapshot);
   const results = parser.results;
   if (results.length !== 1) throw new Error("Invalid snapshot.");
-  return results[0] as ISnapshotData;
+  return results[0] as SnapshotData;
 }
