@@ -5,5 +5,4 @@
 // @ts-ignore: decorator
 @inline const COLOR_SHIFT: u32 = ctz(BUFFERED_MASK) - COLOR_BITS;
 // @ts-ignore: decorator
-@inline
-export const REFCOUNT_MASK: u32 = (1 << COLOR_SHIFT) - 1;
+@inline export const REFCOUNT_MASK: u32 = (1 << COLOR_SHIFT) - 1;

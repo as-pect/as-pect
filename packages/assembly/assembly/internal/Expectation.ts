@@ -488,10 +488,17 @@ export class Expectation<T> {
     Expected.clear();
   }
 
-  // @ts-ignore: valueof<T> will throw a compiler if it is not valid
   public toContainEqual<U>(expected: U, message: string = ""): void {
-    // @ts-ignore Array<U> instanceof check
     this.toIncludeEqual<U>(expected, message);
+  }
+
+  public toMatchSnapshot(name: string): void {
+    // Reflecting the actual value twice is required, because one will be displayed
+    // with formatting, and the other is compared for raw data.
+    Actual.report(this.actual);
+    Expected.reportSnapshot(name, this.actual, this._not); // possibly throws here
+    Actual.clear();
+    Expected.clear();
   }
 }
 

@@ -568,6 +568,13 @@ declare class Expectation<T> {
   toContainEqual<U extends (indexof<T> | valueof<T>)>(expected: U, message?: string): void;
 
   /**
+   * Match an external snapshots.
+   *
+   * @param {string} name - The name of the expected snapshot.
+   */
+  toMatchSnapshot(name: string): void;
+
+  /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
    *
    * @example
