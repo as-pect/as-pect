@@ -838,7 +838,7 @@ export class TestCollector {
   /**
    * Gets a log stack trace.
    */
-  private getLogStackTrace(): string {
+  protected getLogStackTrace(): string {
     return new Error("Get stack trace.")
       .stack!.toString()
       .split("\n")

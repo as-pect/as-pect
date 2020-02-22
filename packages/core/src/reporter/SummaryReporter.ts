@@ -131,13 +131,17 @@ export default class SummaryReporter extends TestReporter {
 
     for (const warning of suite.warnings) {
       this.stdout!.write(
-        chalk`{yellow  [Warning]}: ${warning.type} ${warning.message}\n`,
+        chalk`{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
       );
-      this.stdout!.write(
-        chalk`{yellow    [Stack]}: {yellow ${warning.stackTrace
-          .split("\n")
-          .join("\n           ")}}\n\n`,
-      );
+      const stack = warning.stackTrace.trim();
+      if (stack) {
+        this.stdout!.write(
+          chalk`{yellow    [Stack]}: {yellow ${stack
+            .split("\n")
+            .join("\n      ")}}\n`,
+        );
+      }
+      this.stdout!.write("\n");
     }
 
     for (const error of suite.errors) {

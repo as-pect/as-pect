@@ -192,6 +192,13 @@ export class TestContext extends TestCollector {
     result.start = performance.now();
     // If performance is enabled, use the performance values, otherwise, just run once.
     if (result.performance) {
+      // performance is now deprecated!
+      this.warnings.push({
+        message: "The performance API is deprecated.",
+        stackTrace: this.getLogStackTrace(),
+        type: "Performance",
+      });
+
       // we must ignore the log values to increase performance execution speed
       this.wasm!.__ignoreLogs(1);
       let runCount = 0;
