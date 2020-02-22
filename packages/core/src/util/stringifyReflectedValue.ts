@@ -350,7 +350,7 @@ function displayClassExpanded(
         : // render value
           formatters[
             formatterIndexFor(value.type, ReflectedValueFormatType.Inline)
-          ](value, ctx);
+          ](value, ctx).trimLeft();
 
     if (i === displayCount - 1) {
       // remove last trailing comma
@@ -451,17 +451,19 @@ function displayArrayExpanded(
     let length = hostValue.values!.length;
     for (; i < length; i++) {
       let value = hostValue.values![i];
+      const resultStart = i === 0 ? " " : ", ";
       const result =
+        resultStart +
         formatters[
           formatterIndexFor(value.type, ReflectedValueFormatType.Inline)
-        ](value, ctx) + ", ";
+        ](value, ctx).trimLeft();
       if (body.length > ctx.maxLineLength) {
         break;
       }
       body += result;
     }
     if (length - i > 0) body += `... +${length - i} items`;
-    body += "]";
+    body += " ]";
     ctx.impliedTypeInfo = previousImpliedTypeInfo;
     ctx.seen.delete(hostValue);
     // render value

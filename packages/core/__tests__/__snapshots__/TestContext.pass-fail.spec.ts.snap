@@ -1688,7 +1688,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual-stringify 1`] = `"  class: Float64Array [number: 1.1, number: 2.2, number: 3.3, ]"`;
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual-stringify 1`] = `"  class: Float64Array [ number: 1.1, number: 2.2, number: 3.3 ]"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected 1`] = `
 ReflectedValue {
@@ -1766,7 +1766,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected-stringify 1`] = `"  class: Float64Array [number: 4.4, number: 5.5, number: 6.6, ]"`;
+exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected-stringify 1`] = `"  class: Float64Array [ number: 4.4, number: 5.5, number: 6.6 ]"`;
 
 exports[`pass-fail output Group: pass-fail Test: should report typedarray values: message 1`] = `""`;
 

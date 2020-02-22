@@ -4653,9 +4653,9 @@ exports[`log output Group: logs Test: logs: stringify 11`] = `"  keyword: true"`
 
 exports[`log output Group: logs Test: logs: stringify 12`] = `"  keyword: false"`;
 
-exports[`log output Group: logs Test: logs: stringify 13`] = `"  class: Uint8Array [number: 0, number: 1, number: 2, ]"`;
+exports[`log output Group: logs Test: logs: stringify 13`] = `"  class: Uint8Array [ number: 0, number: 1, number: 2 ]"`;
 
-exports[`log output Group: logs Test: logs: stringify 14`] = `"  class: Int8Array [number: -1, number: -2, number: -3, ]"`;
+exports[`log output Group: logs Test: logs: stringify 14`] = `"  class: Int8Array [ number: -1, number: -2, number: -3 ]"`;
 
 exports[`log output Group: logs Test: logs: stringify 15`] = `"  class: [Function 1: assembly/jest-log/IdFunction]"`;
 
@@ -4699,7 +4699,7 @@ exports[`log output Group: logs Test: logs: stringify 19`] = `
   ... +16 properties  }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 20`] = `"  class: Float64Array [number: 0.0, number: 1.0, number: 2.0, number: 3.0, number: 4.0, ... +15 items]"`;
+exports[`log output Group: logs Test: logs: stringify 20`] = `"  class: Float64Array [ number: 0.0, number: 1.0, number: 2.0, number: 3.0, number: 4.0... +15 items ]"`;
 
 exports[`log output Group: logs Test: logs: stringify 21`] = `
 "  class: Array<i32> [
@@ -4801,7 +4801,7 @@ exports[`log output Group: logs Test: logs: stringify 32`] = `
 "  class: NestedTypeImpliedArrayA {
       string: a: class: NestedTypeImpliedArrayB {
           string: b: class: NestedTypeImpliedArrayC {
-              string: c:               class: Array<~lib/array/Array<u8>> [              [number: 0, ], ]
+              string: c: class: Array<~lib/array/Array<u8>> [ [ number: 0 ] ]
           }
       }
   }"

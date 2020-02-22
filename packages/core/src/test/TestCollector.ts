@@ -633,7 +633,10 @@ export class TestCollector {
   ): void {
     this.message = this.getString(
       reasonPointer,
-      `Error in ${this.getString(fileNamePointer, "[No Filename Provided]")}:${line}:${col} `,
+      `Error in ${this.getString(
+        fileNamePointer,
+        "[No Filename Provided]",
+      )}:${line}:${col} `,
     );
   }
 
