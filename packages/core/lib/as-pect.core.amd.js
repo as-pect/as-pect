@@ -3054,99 +3054,7 @@ define("reporter/CombinationReporter", ["require", "exports", "test/TestReporter
     }(TestReporter_2.TestReporter));
     exports.default = CombinationReporter;
 });
-define("reporter/CSVReporter", ["require", "exports", "test/TestReporter", "csv-stringify", "fs", "path"], function (require, exports, TestReporter_3, csv_stringify_1, fs_1, path_1) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    csv_stringify_1 = __importDefault(csv_stringify_1);
-    /**
-     * @ignore
-     * This is a list of all the columns in the exported csv file.
-     */
-    var csvColumns = [
-        "Group",
-        "Name",
-        "Ran",
-        "Pass",
-        "Runtime",
-        "Message",
-        "Actual",
-        "Expected",
-        "Average",
-        "Median",
-        "Max",
-        "Min",
-        "StdDev",
-        "Variance",
-    ];
-    /**
-     * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
-     * contain a set of tests with relevant pass and fail information.
-     */
-    var CSVReporter = /** @class */ (function (_super) {
-        __extends(CSVReporter, _super);
-        function CSVReporter(_options) {
-            var _this = _super.call(this) || this;
-            _this.output = null;
-            _this.fileName = null;
-            return _this;
-        }
-        CSVReporter.prototype.onStart = function (suite) {
-            this.output = csv_stringify_1.default({ columns: csvColumns });
-            var extension = path_1.extname(suite.fileName);
-            var dir = path_1.dirname(suite.fileName);
-            var base = path_1.basename(suite.fileName, extension);
-            var outPath = path_1.join(process.cwd(), dir, base + ".csv");
-            this.fileName = fs_1.createWriteStream(outPath, "utf8");
-            this.output.pipe(this.fileName);
-            this.output.write(csvColumns);
-        };
-        CSVReporter.prototype.onGroupStart = function () { };
-        CSVReporter.prototype.onGroupFinish = function () { };
-        CSVReporter.prototype.onFinish = function () {
-            this.output.end();
-        };
-        CSVReporter.prototype.onTestStart = function () { };
-        CSVReporter.prototype.onTestFinish = function (group, result) {
-            this.output.write([
-                group.name,
-                result.ran ? "RAN" : "NOT RUN",
-                result.name,
-                result.pass ? "PASS" : "FAIL",
-                result.runTime.toString(),
-                result.message,
-                result.actual ? result.actual.stringify({ indent: 0 }) : "",
-                result.expected ? result.expected.stringify({ indent: 0 }) : "",
-                result.hasAverage ? result.average.toString() : "",
-                result.hasMedian ? result.median.toString() : "",
-                result.hasMax ? result.max.toString() : "",
-                result.hasMin ? result.min.toString() : "",
-                result.hasStdDev ? result.stdDev.toString() : "",
-                result.hasVariance ? result.variance.toString() : "",
-            ]);
-        };
-        CSVReporter.prototype.onTodo = function (group, desc) {
-            this.output.write([
-                group.name,
-                "TODO",
-                desc,
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-            ]);
-        };
-        return CSVReporter;
-    }(TestReporter_3.TestReporter));
-    exports.default = CSVReporter;
-});
-define("reporter/EmptyReporter", ["require", "exports", "test/TestReporter"], function (require, exports, TestReporter_4) {
+define("reporter/EmptyReporter", ["require", "exports", "test/TestReporter"], function (require, exports, TestReporter_3) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
@@ -3166,86 +3074,10 @@ define("reporter/EmptyReporter", ["require", "exports", "test/TestReporter"], fu
         EmptyReporter.prototype.onTestStart = function () { };
         EmptyReporter.prototype.onTodo = function () { };
         return EmptyReporter;
-    }(TestReporter_4.TestReporter));
+    }(TestReporter_3.TestReporter));
     exports.default = EmptyReporter;
 });
-define("reporter/JSONReporter", ["require", "exports", "test/TestReporter", "fs", "path"], function (require, exports, TestReporter_5, fs_2, path_2) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    /**
-     * This class reports all relevant test statistics to a JSON file located at
-     * `{testLocation}.spec.json`.
-     */
-    var JSONReporter = /** @class */ (function (_super) {
-        __extends(JSONReporter, _super);
-        function JSONReporter(_options) {
-            var _this = _super.call(this) || this;
-            _this.file = null;
-            _this.first = true;
-            return _this;
-        }
-        JSONReporter.prototype.onStart = function (suite) {
-            var extension = path_2.extname(suite.fileName);
-            var dir = path_2.dirname(suite.fileName);
-            var base = path_2.basename(suite.fileName, extension);
-            var outPath = path_2.join(process.cwd(), dir, base + ".json");
-            this.file = fs_2.createWriteStream(outPath, "utf8");
-            this.file.write("[");
-            this.first = true;
-        };
-        JSONReporter.prototype.onGroupStart = function () { };
-        JSONReporter.prototype.onGroupFinish = function () { };
-        JSONReporter.prototype.onFinish = function () {
-            this.file.end("\n]");
-        };
-        JSONReporter.prototype.onTestStart = function () { };
-        JSONReporter.prototype.onTestFinish = function (group, result) {
-            this.file.write((this.first ? "\n" : ",\n") +
-                JSON.stringify({
-                    group: group.name,
-                    name: result.name,
-                    ran: result.ran,
-                    pass: result.pass,
-                    runtime: result.runTime,
-                    message: result.message,
-                    actual: result.actual ? result.actual.stringify({ indent: 0 }) : null,
-                    expected: result.expected
-                        ? result.expected.stringify({ indent: 0 })
-                        : null,
-                    average: result.average,
-                    median: result.median,
-                    max: result.max,
-                    min: result.min,
-                    stdDev: result.stdDev,
-                    variance: result.variance,
-                }));
-            this.first = false;
-        };
-        JSONReporter.prototype.onTodo = function (group, desc) {
-            this.file.write((this.first ? "\n" : ",\n") +
-                JSON.stringify({
-                    group: group.name,
-                    name: "TODO:" + desc,
-                    ran: false,
-                    pass: null,
-                    runtime: 0,
-                    message: "",
-                    actual: null,
-                    expected: null,
-                    average: 0,
-                    median: 0,
-                    max: 0,
-                    min: 0,
-                    stdDev: 0,
-                    variance: 0,
-                }));
-            this.first = false;
-        };
-        return JSONReporter;
-    }(TestReporter_5.TestReporter));
-    exports.default = JSONReporter;
-});
-define("reporter/SummaryReporter", ["require", "exports", "test/TestReporter"], function (require, exports, TestReporter_6) {
+define("reporter/SummaryReporter", ["require", "exports", "test/TestReporter"], function (require, exports, TestReporter_4) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
@@ -3380,31 +3212,27 @@ define("reporter/SummaryReporter", ["require", "exports", "test/TestReporter"], 
             this.stdout.write(chalk(templateObject_37 || (templateObject_37 = __makeTemplateObject(["     {yellow [Log]:} ", "\n"], ["     {yellow [Log]:} ", "\\n"])), output));
         };
         return SummaryReporter;
-    }(TestReporter_6.TestReporter));
+    }(TestReporter_4.TestReporter));
     exports.default = SummaryReporter;
     var templateObject_26, templateObject_27, templateObject_28, templateObject_29, templateObject_30, templateObject_31, templateObject_32, templateObject_33, templateObject_34, templateObject_35, templateObject_36, templateObject_37;
 });
-define("index", ["require", "exports", "reporter/CombinationReporter", "reporter/CSVReporter", "reporter/EmptyReporter", "reporter/JSONReporter", "reporter/SummaryReporter", "reporter/VerboseReporter", "test/TestContext", "test/TestGroup", "test/TestReporter", "test/TestResult", "util/IPerformanceConfiguration", "util/ReflectedValue"], function (require, exports, CombinationReporter_1, CSVReporter_1, EmptyReporter_1, JSONReporter_1, SummaryReporter_1, VerboseReporter_2, TestContext_1, TestGroup_2, TestReporter_7, TestResult_2, IPerformanceConfiguration_2, ReflectedValue_2) {
+define("index", ["require", "exports", "reporter/CombinationReporter", "reporter/EmptyReporter", "reporter/SummaryReporter", "reporter/VerboseReporter", "test/TestContext", "test/TestGroup", "test/TestReporter", "test/TestResult", "util/IPerformanceConfiguration", "util/ReflectedValue"], function (require, exports, CombinationReporter_1, EmptyReporter_1, SummaryReporter_1, VerboseReporter_2, TestContext_1, TestGroup_2, TestReporter_5, TestResult_2, IPerformanceConfiguration_2, ReflectedValue_2) {
     "use strict";
     function __export(m) {
         for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
     }
     Object.defineProperty(exports, "__esModule", { value: true });
     CombinationReporter_1 = __importDefault(CombinationReporter_1);
-    CSVReporter_1 = __importDefault(CSVReporter_1);
     EmptyReporter_1 = __importDefault(EmptyReporter_1);
-    JSONReporter_1 = __importDefault(JSONReporter_1);
     SummaryReporter_1 = __importDefault(SummaryReporter_1);
     VerboseReporter_2 = __importDefault(VerboseReporter_2);
     exports.CombinationReporter = CombinationReporter_1.default;
-    exports.CSVReporter = CSVReporter_1.default;
     exports.EmptyReporter = EmptyReporter_1.default;
-    exports.JSONReporter = JSONReporter_1.default;
     exports.SummaryReporter = SummaryReporter_1.default;
     exports.VerboseReporter = VerboseReporter_2.default;
     __export(TestContext_1);
     __export(TestGroup_2);
-    __export(TestReporter_7);
+    __export(TestReporter_5);
     __export(TestResult_2);
     __export(IPerformanceConfiguration_2);
     __export(ReflectedValue_2);

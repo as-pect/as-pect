@@ -27,6 +27,8 @@
     "@as-pect/assembly": "file:./packages/assembly",
     "@as-pect/cli": "file:./packages/cli",
     "@as-pect/core": "file:./packages/core",
+    "@as-pect/csv-reporter": "file:./packages/csv-reporter",
+    "@as-pect/json-reporter": "file:./packages/json-reporter",
     "@types/node": "^13.7.4",
     "@types/glob": "^7.1.1",
     "@types/jest": "^25.1.3",

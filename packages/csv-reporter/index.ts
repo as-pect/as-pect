@@ -1,10 +1,7 @@
-import { TestReporter } from "../test/TestReporter";
-import { TestContext } from "../test/TestContext";
+import { TestReporter, TestContext, TestGroup, TestResult } from "@as-pect/core";
 import stringify, { Stringifier } from "csv-stringify";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
-import { TestGroup } from "../test/TestGroup";
-import { TestResult } from "../test/TestResult";
 
 /**
  * @ignore

@@ -1,4 +1,3 @@
-/// <reference types="node" />
 declare module "test/IWarning" {
     /**
      * This interface describes a warning object.
@@ -28,7 +27,7 @@ declare module "util/stringifyReflectedValue" {
     export function stringifyReflectedValue(reflectedValue: ReflectedValue, props: Partial<StringifyReflectedValueProps>): string;
 }
 declare module "util/ReflectedValue" {
-    import { ReflectedValueType } from "../../assembly/assembly/internal/ReflectedValueType";
+    import { ReflectedValueType } from "../node_modules/@as-pect/assembly/assembly/internal/ReflectedValueType";
     import { StringifyReflectedValueProps } from "util/stringifyReflectedValue";
     /**
      * A JavaScript object that represents a reflected value from the as-pect testing
@@ -1351,30 +1350,6 @@ declare module "reporter/CombinationReporter" {
         onTodo(group: TestGroup, todo: string): void;
     }
 }
-declare module "reporter/CSVReporter" {
-    import { TestReporter } from "test/TestReporter";
-    import { TestContext } from "test/TestContext";
-    import { Stringifier } from "csv-stringify";
-    import { WriteStream } from "fs";
-    import { TestGroup } from "test/TestGroup";
-    import { TestResult } from "test/TestResult";
-    /**
-     * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
-     * contain a set of tests with relevant pass and fail information.
-     */
-    export default class CSVReporter extends TestReporter {
-        protected output: Stringifier | null;
-        protected fileName: WriteStream | null;
-        constructor(_options?: any);
-        onStart(suite: TestContext): void;
-        onGroupStart(): void;
-        onGroupFinish(): void;
-        onFinish(): void;
-        onTestStart(): void;
-        onTestFinish(group: TestGroup, result: TestResult): void;
-        onTodo(group: TestGroup, desc: string): void;
-    }
-}
 declare module "reporter/EmptyReporter" {
     import { TestReporter } from "test/TestReporter";
     /**
@@ -1390,29 +1365,6 @@ declare module "reporter/EmptyReporter" {
         onTestFinish(): void;
         onTestStart(): void;
         onTodo(): void;
-    }
-}
-declare module "reporter/JSONReporter" {
-    import { TestReporter } from "test/TestReporter";
-    import { TestContext } from "test/TestContext";
-    import { WriteStream } from "fs";
-    import { TestGroup } from "test/TestGroup";
-    import { TestResult } from "test/TestResult";
-    /**
-     * This class reports all relevant test statistics to a JSON file located at
-     * `{testLocation}.spec.json`.
-     */
-    export default class JSONReporter extends TestReporter {
-        constructor(_options?: any);
-        protected file: WriteStream | null;
-        private first;
-        onStart(suite: TestContext): void;
-        onGroupStart(): void;
-        onGroupFinish(): void;
-        onFinish(): void;
-        onTestStart(): void;
-        onTestFinish(group: TestGroup, result: TestResult): void;
-        onTodo(group: TestGroup, desc: string): void;
     }
 }
 declare module "reporter/SummaryReporter" {
@@ -1450,15 +1402,11 @@ declare module "reporter/SummaryReporter" {
 }
 declare module "index" {
     import CombinationReporter from "reporter/CombinationReporter";
-    import CSVReporter from "reporter/CSVReporter";
     import EmptyReporter from "reporter/EmptyReporter";
-    import JSONReporter from "reporter/JSONReporter";
     import SummaryReporter from "reporter/SummaryReporter";
     import VerboseReporter from "reporter/VerboseReporter";
     export { CombinationReporter };
-    export { CSVReporter };
     export { EmptyReporter };
-    export { JSONReporter };
     export { SummaryReporter };
     export { VerboseReporter };
     export * from "test/IWarning";

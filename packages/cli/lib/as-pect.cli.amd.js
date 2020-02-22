@@ -604,7 +604,7 @@ define("util/collectReporter", ["require", "exports", "@as-pect/core", "querystr
     function collectReporter(cliOptions) {
         var reporters = [];
         if (cliOptions.csv) {
-            var CSVReporter = require("@as-pect/core").CSVReporter;
+            var CSVReporter = require("@as-pect/csv-reporter").default;
             if (typeof cliOptions.csv === "string") {
                 var options = querystring_1.default.parse(cliOptions.csv || "");
                 reporters.push(new CSVReporter(options));
@@ -615,7 +615,7 @@ define("util/collectReporter", ["require", "exports", "@as-pect/core", "querystr
             process.stdout.write(chalk_4.default(templateObject_12 || (templateObject_12 = __makeTemplateObject(["{bgWhite.black [Log]} Using {yellow CSVReporter}\n"], ["{bgWhite.black [Log]} Using {yellow CSVReporter}\\n"]))));
         }
         if (cliOptions.json) {
-            var JSONReporter = require("@as-pect/core").JSONReporter;
+            var JSONReporter = require("@as-pect/json-reporter").default;
             if (typeof cliOptions.json === "string") {
                 var options = querystring_1.default.parse(cliOptions.json || "");
                 reporters.push(new JSONReporter(options));
