@@ -55,9 +55,15 @@ describe("pass-fail output", () => {
         test(`Test: ${groupTest.name}`, () => {
           expect(groupTest.pass).toMatchSnapshot(`pass`);
           expect(groupTest.actual).toMatchSnapshot("actual");
-          if (groupTest.actual) expect(groupTest.actual.stringify(stringifyOptions)).toMatchSnapshot("actual-stringify");
+          if (groupTest.actual)
+            expect(
+              groupTest.actual.stringify(stringifyOptions),
+            ).toMatchSnapshot("actual-stringify");
           expect(groupTest.expected).toMatchSnapshot("expected");
-          if (groupTest.expected) expect(groupTest.expected.stringify(stringifyOptions)).toMatchSnapshot("expected-stringify");
+          if (groupTest.expected)
+            expect(
+              groupTest.expected.stringify(stringifyOptions),
+            ).toMatchSnapshot("expected-stringify");
           expect(groupTest.message).toMatchSnapshot(`message`);
           expect(groupTest.negated).toMatchSnapshot(`negated`);
         });

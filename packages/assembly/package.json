@@ -10,7 +10,7 @@
     "test:ci": "run-s asp:ci mdlint",
     "test": "run-s asp mdlint",
     "tsc:all": "exit 0",
-    "prettier": "exit 0",
+    "prettier": "prettier --write \"assembly/**/*.ts\" \"./*.md\"",
     "test:update-snapshots": "exit 0"
   },
   "repository": {

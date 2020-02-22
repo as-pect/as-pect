@@ -13,9 +13,13 @@ describe("toBeFinite", () => {
   /**
    * This is the contrapositive version of the previous test.
    */
-  throws("should throw if a normal float value is not finite", () => {
-    expect(10.0).not.toBeFinite();
-  }, "Normal float values should be finite.");
+  throws(
+    "should throw if a normal float value is not finite",
+    () => {
+      expect(10.0).not.toBeFinite();
+    },
+    "Normal float values should be finite.",
+  );
 
   /**
    * Infinity is never finite.
@@ -27,9 +31,13 @@ describe("toBeFinite", () => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  throws("should throw if an actual infinity is expected to be finite", () => {
-    expect(Infinity).toBeFinite();
-  }, "Infinity is never finite.");
+  throws(
+    "should throw if an actual infinity is expected to be finite",
+    () => {
+      expect(Infinity).toBeFinite();
+    },
+    "Infinity is never finite.",
+  );
 
   /**
    * NaN is never finite.
@@ -41,7 +49,11 @@ describe("toBeFinite", () => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  throws("should throw if an actual NaN is expected to be finite", () => {
-    expect(NaN).toBeFinite();
-  }, "NaN is never finite.");
+  throws(
+    "should throw if an actual NaN is expected to be finite",
+    () => {
+      expect(NaN).toBeFinite();
+    },
+    "NaN is never finite.",
+  );
 });

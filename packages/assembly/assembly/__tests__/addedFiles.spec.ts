@@ -4,7 +4,6 @@
  * includes a single global constant, and that value should be accessible from this test suite.
  */
 describe("added files", () => {
-
   /**
    * This test simply expects a global value to be defined from setup/Test.include.ts.
    */

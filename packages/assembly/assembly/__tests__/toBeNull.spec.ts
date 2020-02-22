@@ -17,9 +17,13 @@ describe("toBeNull", () => {
   /**
    * This test is the contrapositive of the previous test.
    */
-  throws("when null is expected not to be null", () => {
-    expect<Vec3 | null>(null).not.toBeNull();
-  }, "Null cannot be expected to be null.");
+  throws(
+    "when null is expected not to be null",
+    () => {
+      expect<Vec3 | null>(null).not.toBeNull();
+    },
+    "Null cannot be expected to be null.",
+  );
 
   /**
    * This test verifies that reference types are not null.
@@ -28,7 +32,11 @@ describe("toBeNull", () => {
     expect(vec1).not.toBeNull("Reference values should not be null");
   });
 
-  throws("when a reference value is be not null", () => {
-    expect(vec1).toBeNull();
-  }, "Reference values that aren't null shouldn't be expected to be null.");
+  throws(
+    "when a reference value is be not null",
+    () => {
+      expect(vec1).toBeNull();
+    },
+    "Reference values that aren't null shouldn't be expected to be null.",
+  );
 });

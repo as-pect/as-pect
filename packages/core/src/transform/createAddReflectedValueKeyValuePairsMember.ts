@@ -136,7 +136,10 @@ function createPushReflectedObjectKeyStatement(
   // __aspectPushReflectedObjectKey(reflectedValue, Reflect.toReflectedValue("propertyName", seen));
   return TypeNode.createExpressionStatement(
     TypeNode.createCallExpression(
-      TypeNode.createIdentifierExpression("__aspectPushReflectedObjectKey", range),
+      TypeNode.createIdentifierExpression(
+        "__aspectPushReflectedObjectKey",
+        range,
+      ),
       null,
       [
         // reflectedValue
@@ -171,7 +174,10 @@ function createPushReflectedObjectValueStatement(
     // __aspectPushReflectedObjectValue(reflectedValue, Reflect.toReflectedValue(this.propertyName, seen))
     TypeNode.createCallExpression(
       // __aspectPushReflectedObjectValue
-      TypeNode.createIdentifierExpression("__aspectPushReflectedObjectValue", range),
+      TypeNode.createIdentifierExpression(
+        "__aspectPushReflectedObjectValue",
+        range,
+      ),
       null,
       [
         // reflectedValue

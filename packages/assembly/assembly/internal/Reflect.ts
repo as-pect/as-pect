@@ -5,7 +5,9 @@ import { ReflectedValueType } from "./ReflectedValueType";
 import { Box } from "./Box";
 
 function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
-  return bool((i32(a1 == b1) & i32(a2 == b2)) | (i32(a1 == b2) & i32(a2 == b1)));
+  return bool(
+    (i32(a1 == b1) & i32(a2 == b2)) | (i32(a1 == b2) & i32(a2 == b1)),
+  );
 }
 
 // @ts-ignore: Decorators *are* valid here!
@@ -33,12 +35,18 @@ declare function createReflectedValue(
 // @ts-ignore: external declaration
 @external("__aspect", "pushReflectedObjectValue")
 @global
-declare function __aspectPushReflectedObjectValue(parentID: i32, value: i32): void;
+declare function __aspectPushReflectedObjectValue(
+  parentID: i32,
+  value: i32,
+): void;
 
 // @ts-ignore: external declaration
 @external("__aspect", "pushReflectedObjectKey")
 @global
-declare function __aspectPushReflectedObjectKey(parentID: i32, value: i32): void;
+declare function __aspectPushReflectedObjectKey(
+  parentID: i32,
+  value: i32,
+): void;
 
 @global
 // @ts-ignore: global decorator is allowed here
@@ -49,7 +57,10 @@ export class Reflect {
    * @param {T} value - The value to be inspected.
    * @param {Map<usize, i32>} seen - A map of pointers to ReflectedValue ids for caching purposes.
    */
-  public static toReflectedValue<T>(value: T, seen: Map<usize, i32> = new Map<usize, i32>()): i32 {
+  public static toReflectedValue<T>(
+    value: T,
+    seen: Map<usize, i32> = new Map<usize, i32>(),
+  ): i32 {
     // if T is a reference
     if (isReference<T>()) {
       // if the value is null, create a Null reflected value
@@ -62,7 +73,9 @@ export class Reflect {
           0,
           false,
           sizeof<T>(),
-          isFunction<T>() ? ReflectedValueType.Function : ReflectedValueType.Class,
+          isFunction<T>()
+            ? ReflectedValueType.Function
+            : ReflectedValueType.Class,
           isManaged<T>() ? idof<T>() : 0,
           isFunction<T>() ? "Function" : nameof<T>(),
           0,
@@ -82,8 +95,14 @@ export class Reflect {
       if (isDefined(value.__aspectDisplayAs())) {
         // @ts-ignore: typesafe call to __aspectDisplayAs()
         let displayValue = value.__aspectDisplayAs();
-        if (!isInteger(displayValue) && !isFloat(displayValue) && !isManaged(displayValue)) {
-          ERROR("__aspectDisplayAs() function should return a managed type or a number");
+        if (
+          !isInteger(displayValue) &&
+          !isFloat(displayValue) &&
+          !isManaged(displayValue)
+        ) {
+          ERROR(
+            "__aspectDisplayAs() function should return a managed type or a number",
+          );
         }
         return Reflect.toReflectedValue(displayValue, seen);
       } else if (value instanceof ArrayBuffer) {
@@ -107,7 +126,10 @@ export class Reflect {
         for (let i = 0; i < length; i++) {
           __aspectPushReflectedObjectValue(
             reflectedValue,
-            Reflect.toReflectedValue(load<u8>(changetype<usize>(value) + <usize>i), seen),
+            Reflect.toReflectedValue(
+              load<u8>(changetype<usize>(value) + <usize>i),
+              seen,
+            ),
           );
         }
         return reflectedValue;
@@ -204,7 +226,9 @@ export class Reflect {
           changetype<usize>(value),
           false,
           length,
-          value instanceof Array ? ReflectedValueType.Array : ReflectedValueType.TypedArray,
+          value instanceof Array
+            ? ReflectedValueType.Array
+            : ReflectedValueType.TypedArray,
           idof<T>(),
           nameof<T>(),
           0,
@@ -219,8 +243,14 @@ export class Reflect {
         for (let i = 0; i < length; i++) {
           // @ts-ignore index signature is garunteed at this point
           let arrayValue = unchecked(value[i]);
-          let reflectedArrayValueID = Reflect.toReflectedValue(arrayValue, seen);
-          __aspectPushReflectedObjectValue(reflectedValue, reflectedArrayValueID);
+          let reflectedArrayValueID = Reflect.toReflectedValue(
+            arrayValue,
+            seen,
+          );
+          __aspectPushReflectedObjectValue(
+            reflectedValue,
+            reflectedArrayValueID,
+          );
         }
 
         return reflectedValue;
@@ -272,13 +302,25 @@ export class Reflect {
           if (isDefined(unchecked(value[0]))) {
             // @ts-ignore: index signature in arraylike
             let arrayValue = unchecked(value[i]);
-            let reflectedArrayValueID = Reflect.toReflectedValue(arrayValue, seen);
-            __aspectPushReflectedObjectValue(reflectedValue, reflectedArrayValueID);
+            let reflectedArrayValueID = Reflect.toReflectedValue(
+              arrayValue,
+              seen,
+            );
+            __aspectPushReflectedObjectValue(
+              reflectedValue,
+              reflectedArrayValueID,
+            );
           } else {
             // @ts-ignore: index signature in arraylike
             let arrayValue = value[i];
-            let reflectedArrayValueID = Reflect.toReflectedValue(arrayValue, seen);
-            __aspectPushReflectedObjectValue(reflectedValue, reflectedArrayValueID);
+            let reflectedArrayValueID = Reflect.toReflectedValue(
+              arrayValue,
+              seen,
+            );
+            __aspectPushReflectedObjectValue(
+              reflectedValue,
+              reflectedArrayValueID,
+            );
           }
         }
         return reflectedValue;
@@ -321,7 +363,9 @@ export class Reflect {
         sizeof<T>(),
         isBoolean<T>()
           ? ReflectedValueType.Boolean
-          : (isInteger<T>() ? ReflectedValueType.Integer : ReflectedValueType.Float),
+          : isInteger<T>()
+          ? ReflectedValueType.Integer
+          : ReflectedValueType.Float,
         0,
         nameof<T>(),
         changetype<usize>(box),
@@ -333,7 +377,12 @@ export class Reflect {
     return 0;
   }
 
-  public static equals<T>(left: T, right: T, stack: usize[] = [], cache: usize[] = []): i32 {
+  public static equals<T>(
+    left: T,
+    right: T,
+    stack: usize[] = [],
+    cache: usize[] = [],
+  ): i32 {
     // use `==` operator to work with operator overloads and strings
     if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
 
@@ -350,7 +399,10 @@ export class Reflect {
     // if it's possible for T to be null
     if (isNullable<T>()) {
       // mutual exclusion null
-      if (i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == 0)) return Reflect.FAILED_MATCH;
+      if (
+        i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == 0)
+      )
+        return Reflect.FAILED_MATCH;
     }
 
     // check every reference that isn't a function reference, because `left == right` suffices
@@ -361,17 +413,22 @@ export class Reflect {
 
       let cacheLength = cache.length;
       // must be EVEN or there's a big problem
-      assert(i32((cacheLength & 0x00000001) == 0), "cacheLength should be even");
+      assert(
+        i32((cacheLength & 0x00000001) == 0),
+        "cacheLength should be even",
+      );
 
       // check the cache for matched pairs
       for (let i = 0; i < cacheLength; i += 2) {
-        if (pairSeen(a, b, unchecked(cache[i]), unchecked(cache[i + 1]))) return Reflect.SUCCESSFUL_MATCH;
+        if (pairSeen(a, b, unchecked(cache[i]), unchecked(cache[i + 1])))
+          return Reflect.SUCCESSFUL_MATCH;
       }
 
       // short circuit because this pair might already be resolving
       let length = stack.length;
       for (let i = 0; i < length; i += 2) {
-        if (pairSeen(a, b, unchecked(stack[i]), unchecked(stack[i + 1]))) return Reflect.DEFER_MATCH;
+        if (pairSeen(a, b, unchecked(stack[i]), unchecked(stack[i + 1])))
+          return Reflect.DEFER_MATCH;
       }
 
       // once we've determined we need to check the references for their values, arraybuffers
@@ -388,7 +445,8 @@ export class Reflect {
       }
 
       // @ts-ignore: valid index signature check
-      if (isDefined(left[0])) { // test for safe indexof usage
+      if (isDefined(left[0])) {
+        // test for safe indexof usage
         // set match
         if (left instanceof Set) {
           // @ts-ignore: size is a valid property of Set
@@ -406,12 +464,15 @@ export class Reflect {
             let continueOuter = false;
             for (let j = 0; j < leftoverLength; j++) {
               let rightItem = unchecked(rightValues[j]);
-              if (Reflect.equals(leftItem, rightItem, stack, cache) != Reflect.FAILED_MATCH) {
+              if (
+                Reflect.equals(leftItem, rightItem, stack, cache) !=
+                Reflect.FAILED_MATCH
+              ) {
                 rightValues.splice(j, 1);
                 leftoverLength--;
                 continueOuter = true;
                 break;
-              };
+              }
             }
             if (continueOuter) continue;
 
@@ -457,14 +518,20 @@ export class Reflect {
               let rightKey = unchecked(rightKeys[j]);
 
               // if the keys match, or are still being resolved
-              if (Reflect.equals(leftKey, rightKey, stack, cache) != Reflect.FAILED_MATCH) {
+              if (
+                Reflect.equals(leftKey, rightKey, stack, cache) !=
+                Reflect.FAILED_MATCH
+              ) {
                 // the key potentially matches, obtain the values associated with the keys
                 let leftValue = left.get(leftKey);
                 // @ts-ignore: get() is a valid function of Map
                 let rightValue = right.get(rightKey);
 
                 // if the values match, or are still being resolved
-                if (Reflect.equals(leftValue, rightValue, stack, cache) != Reflect.FAILED_MATCH) {
+                if (
+                  Reflect.equals(leftValue, rightValue, stack, cache) !=
+                  Reflect.FAILED_MATCH
+                ) {
                   leftoverKeyLength--;
                   rightKeys.splice(j, 1); // remove this key from the list
                   found = true;
@@ -506,7 +573,8 @@ export class Reflect {
         for (let i = 0; i < aLength; i++) {
           let result = Reflect.equals(
             // @ts-ignore: typesafe and runtime check safe array access
-            unchecked(left[i]), unchecked(right[i]),
+            unchecked(left[i]),
+            unchecked(right[i]),
             stack,
             cache,
           );

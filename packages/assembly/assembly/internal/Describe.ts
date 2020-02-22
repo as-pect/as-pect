@@ -8,7 +8,6 @@ declare function reportDescribe(suiteName: string): void;
 @external("__aspect", "reportEndDescribe")
 declare function reportEndDescribe(): void;
 
-
 // @ts-ignore: Decorators *are* valid here!
 @global
 export function describe(name: string = "", tests: () => void = noOp): void {

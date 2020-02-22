@@ -116,9 +116,14 @@ class Vec3 {
   // override the operator
   @operator("==")
   protected __equals(ref: Vec3 | null): bool {
-    return this === ref
-      || (this !== null && ref !== null
-        && this.a == ref.a && this.b == ref.b && this.c == ref.c);
+    return (
+      this === ref ||
+      (this !== null &&
+        ref !== null &&
+        this.a == ref.a &&
+        this.b == ref.b &&
+        this.c == ref.c)
+    );
   }
 }
 ```
@@ -391,7 +396,11 @@ custom assertion like this:
 <!-- markdownlint-disable MD013 -->
 
 ```ts
-function expectToBeEven(value: i32, negated: bool = false, message: string = null): void {
+function expectToBeEven(
+  value: i32,
+  negated: bool = false,
+  message: string = null,
+): void {
   Actual.report<i32>(value);
   Expected.report<string>("Even", i32(negated));
 

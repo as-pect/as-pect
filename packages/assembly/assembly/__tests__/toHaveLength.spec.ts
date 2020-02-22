@@ -19,11 +19,11 @@ runTypedArrayTest<Float64Array>("Float64Array");
 function create<T extends ArrayBufferView>(): T {
   var value: T = instantiate<T>(3);
   // @ts-ignore: this is safe
-  unchecked(value[0] = <valueof<T>>0);
+  unchecked((value[0] = <valueof<T>>0));
   // @ts-ignore: this is safe
-  unchecked(value[1] = <valueof<T>>1);
+  unchecked((value[1] = <valueof<T>>1));
   // @ts-ignore: this is safe
-  unchecked(value[2] = <valueof<T>>2);
+  unchecked((value[2] = <valueof<T>>2));
   return value;
 }
 
@@ -34,9 +34,10 @@ function create<T extends ArrayBufferView>(): T {
  * @param {U} - The number type.
  * @param {string} typedArrayType - The name of the TypedArray
  */
-function runTypedArrayTest<T extends ArrayBufferView>(typedArrayType: string): void {
+function runTypedArrayTest<T extends ArrayBufferView>(
+  typedArrayType: string,
+): void {
   describe("toHaveLength TypedArray type: " + typedArrayType, () => {
-
     /**
      * This test verifies the length is 3 using toHaveLength(3).
      */
@@ -48,27 +49,38 @@ function runTypedArrayTest<T extends ArrayBufferView>(typedArrayType: string): v
     /**
      * This test throws because the length *is* 3. This is the contrapositive of the previous test.
      */
-    throws("when expected length should not equal the same value", () => {
-      var created = create<T>();
-      expect<T>(created).not.toHaveLength(3);
-    }, "When length is equal, negated assertions should throw.");
+    throws(
+      "when expected length should not equal the same value",
+      () => {
+        var created = create<T>();
+        expect<T>(created).not.toHaveLength(3);
+      },
+      "When length is equal, negated assertions should throw.",
+    );
 
     /**
      * This test verifies that when the expectation is negated, it validates the expected reference.
      */
     it("should verify the length is not another value", () => {
       var created = create<T>();
-      expect<T>(created).not.toHaveLength(10, "The length of created is 3, not 10.");
+      expect<T>(created).not.toHaveLength(
+        10,
+        "The length of created is 3, not 10.",
+      );
     });
 
     /**
      * This test throws when the expectation is not negated. It's the contrapositive of the previous
      * test.
      */
-    throws("when the length is another expected value", () => {
-      var created = create<T>();
-      expect<T>(created).toHaveLength(10);
-    }, "The length of created is 3, and not 10");
+    throws(
+      "when the length is another expected value",
+      () => {
+        var created = create<T>();
+        expect<T>(created).toHaveLength(10);
+      },
+      "The length of created is 3, and not 10",
+    );
   });
 }
 
@@ -92,24 +104,35 @@ describe("toHaveLength Arrays", () => {
   /**
    * This test throws because the length *is* 3. This is the contrapositive of the previous test.
    */
-  throws("should throw when expected length should not equal the same value", () => {
-    expect<i32[]>(valueArray).not.toHaveLength(3);
-  }, "When length is equal, negated assertions should throw.");
+  throws(
+    "should throw when expected length should not equal the same value",
+    () => {
+      expect<i32[]>(valueArray).not.toHaveLength(3);
+    },
+    "When length is equal, negated assertions should throw.",
+  );
 
-    /**
-     * This test verifies that when the expectation is negated, it validates the expected reference.
-     */
-    it("should verify the length is not another value", () => {
-      expect<i32[]>(valueArray).not.toHaveLength(10, "The length of valueArray is 3, not 10.");
-    });
+  /**
+   * This test verifies that when the expectation is negated, it validates the expected reference.
+   */
+  it("should verify the length is not another value", () => {
+    expect<i32[]>(valueArray).not.toHaveLength(
+      10,
+      "The length of valueArray is 3, not 10.",
+    );
+  });
 
-    /**
-     * This test throws when the expectation is not negated. It's the contrapositive of the previous
-     * test.
-     */
-    throws("when the length is another expected value", () => {
+  /**
+   * This test throws when the expectation is not negated. It's the contrapositive of the previous
+   * test.
+   */
+  throws(
+    "when the length is another expected value",
+    () => {
       expect<i32[]>(valueArray).toHaveLength(10);
-    }, "The length of valueArray is 3, and not 10");
+    },
+    "The length of valueArray is 3, and not 10",
+  );
 });
 
 /**
@@ -124,7 +147,7 @@ class Example {
 var customExample: Example = new Example();
 
 describe("toHaveLength custom classes", () => {
- /**
+  /**
    * This test verifies the customExample global has length 3.
    */
   it("should assert expected length", () => {
@@ -134,28 +157,42 @@ describe("toHaveLength custom classes", () => {
   /**
    * This test throws because the length *is* 3. This is the contrapositive of the previous test.
    */
-  throws("should throw when expected length should not equal the same value", () => {
-    expect<Example>(customExample).not.toHaveLength(3);
-  }, "When length is equal, negated assertions should throw.");
+  throws(
+    "should throw when expected length should not equal the same value",
+    () => {
+      expect<Example>(customExample).not.toHaveLength(3);
+    },
+    "When length is equal, negated assertions should throw.",
+  );
 
   /**
    * This test verifies that when the expectation is negated, it validates the expected reference.
    */
   it("should verify the length is not another value", () => {
-    expect<Example>(customExample).not.toHaveLength(10, "The length of customExample is 3, not 10.");
+    expect<Example>(customExample).not.toHaveLength(
+      10,
+      "The length of customExample is 3, not 10.",
+    );
   });
 
   /**
    * This test throws when the expectation is not negated. It's the contrapositive of the previous
    * test.
    */
-  throws("when the length is another expected value", () => {
-    expect<Example>(customExample).toHaveLength(10);
-  }, "The length of customExample is 3, and not 10");
+  throws(
+    "when the length is another expected value",
+    () => {
+      expect<Example>(customExample).toHaveLength(10);
+    },
+    "The length of customExample is 3, and not 10",
+  );
 });
 
 describe("ArrayBuffer", () => {
   it("should compare ArrayBuffer lengths", () => {
-    expect<ArrayBuffer>(new ArrayBuffer(100)).toHaveLength(100, "An array buffer with length 100 should have length 100.");
+    expect<ArrayBuffer>(new ArrayBuffer(100)).toHaveLength(
+      100,
+      "An array buffer with length 100 should have length 100.",
+    );
   });
 });
