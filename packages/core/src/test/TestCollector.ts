@@ -13,7 +13,22 @@ import Long from "long";
 import { NameSection } from "../util/wasmTools";
 import { ReflectedValue } from "../util/ReflectedValue";
 import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
+import { SnapshotData } from "@as-pect/snapshot";
+import { ReportedSnapshot } from "./ReportedSnapshot";
+import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
 
+const identity = (input: string) => input;
+const snapshotOptions: StringifyReflectedValueProps = {
+  classNameFormatter: identity,
+  indent: 0,
+  keywordFormatter: identity,
+  maxExpandLevel: Infinity,
+  maxLineLength: Infinity,
+  maxPropertyCount: Infinity,
+  numberFormatter: identity,
+  stringFormatter: identity,
+  tab: 4,
+};
 /**
  * @ignore
  * This function is a filter for stack trace lines.
@@ -46,7 +61,10 @@ export interface ITestCollectorParameters {
   fileName?: string;
   /** Disable RTrace when set to `true`. */
   nortrace?: boolean;
+  /** Pass the web assembly binary in so that function names can be parsed. */
   binary?: Uint8Array;
+  /** Pass in a set of snapshots to compare this module to. */
+  snapshots?: SnapshotData;
 }
 
 /**
@@ -128,6 +146,19 @@ export class TestCollector {
 
   // This map collects the starting values for the labels created by `RTrace.start()`
   private rtraceLabels: Map<number, number> = new Map();
+
+  /** The expected external snapshots. */
+  public expectedSnapshots: SnapshotData = new Map();
+
+  /** The actual generated snapshots. */
+  public resultSnapshots: SnapshotData = new Map();
+
+  /** The current effective group name for snapshot collection. */
+  protected snapshotGroupName: string = "";
+  /** The current effective test name for snapshot collection. */
+  protected snapshotTestName: string = "";
+  /** A current set of reported snapshots. */
+  protected reportedSnapshots: ReportedSnapshot[] = [];
 
   constructor(props?: ITestCollectorParameters) {
     /* istanbul ignore next */
@@ -322,6 +353,7 @@ export class TestCollector {
           reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
           reportExpectedFinite: this.reportExpectedFinite.bind(this),
           reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(this),
+          reportExpectedSnapshot: this.reportExpectedSnapshot.bind(this),
           reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
           reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
@@ -1691,6 +1723,42 @@ export class TestCollector {
 
     expected.negated = negated === 1;
     expected.type = ReflectedValueType.Finite;
+  }
+
+  private reportExpectedSnapshot(namePointer: number, reflectedValue: number, negated: number): void {
+    /* istanbul ignore next */
+    if (namePointer === 0) {
+      /* istanbul ignore next */
+      this.errors.push({
+        message: "Snapshot must have a name. Snapshot name was reported null.",
+        stackTrace: this.getLogStackTrace(),
+        type: "Snapshot",
+      });
+      /* istanbul ignore next */
+      return;
+    }
+    const snapshotName = this.getString(namePointer, "");
+    /* istanbul ignore next */
+    if (reflectedValue >= this.reflectedValueCache.length || reflectedValue < 0) {
+      /* istanbul ignore next */
+      this.errors.push({
+        message: `Cannot report snapshot "${snapshotName}" of ReflectedValue with id ${reflectedValue}. ReflectedValue id out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "ReflectedValue",
+      });
+      /* istanbul ignore next */
+      return;
+    }
+
+    const snapshotValue = this.reflectedValueCache[reflectedValue];
+
+    const reported = new ReportedSnapshot();
+    reported.group = this.snapshotGroupName; // this is set by child class
+    reported.negated = negated === 1;
+    reported.snapshot = snapshotName;
+    reported.test = this.snapshotTestName; // this is set by child class
+    reported.value = snapshotValue.stringify(snapshotOptions);
+    this.reportedSnapshots.push(reported);
   }
 
   /**
