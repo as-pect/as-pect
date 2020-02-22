@@ -82,8 +82,9 @@ export default class VerboseReporter extends TestReporter {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
       if (!test.negated) {
+        const expected = test.expected!;
         this.stdout!.write(`  [Actual]: ${test.actual!.stringify({ indent: 2 })}
-[Expected]: ${test.expected!.stringify({ indent: 2 })}
+[Expected]: ${expected.negated ? "Not " : ""} ${expected.stringify({ indent: 2 })}
 `);
       }
 

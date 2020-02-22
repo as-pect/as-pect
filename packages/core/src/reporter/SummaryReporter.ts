@@ -106,12 +106,14 @@ export default class SummaryReporter extends TestReporter {
           suite.stdout!.write(
             chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`,
           );
-          if (test.expected !== null)
+          if (test.expected !== null) {
+            const expected = test.expected;
             suite.stdout!.write(
-              chalk`      {green.bold [Expected]:} ${test.expected
+              chalk`      {green.bold [Expected]:} ${expected.negated ? "Not " : ""} ${expected
                 .stringify({ indent: 2 })
                 .trimLeft()}\n`,
             );
+          }
           if (test.actual !== null)
             suite.stdout!.write(
               chalk`      {red.bold [Actual]  :} ${test.actual
