@@ -4,7 +4,7 @@ describe("invalid performance configurations", () => {
   Performance.maxSamples(999999999);
   it("test 1", autoPass);
 
-  Performance.maxSamples(-1)
+  Performance.maxSamples(-1);
   it("test 2", autoPass);
 
   Performance.maxTestRunTime(19999);
