@@ -7,6 +7,7 @@ import { TestReporter } from "../../src";
 type TestContextCallback = (err: Error | null, result?: TestContext) => void;
 
 export function createReporterModule(
+  file: string,
   linked: any,
   callback: TestContextCallback,
   reporter: TestReporter,
@@ -19,7 +20,7 @@ export function createReporterModule(
       "--binaryFile",
       "output.wasm",
       "--explicitStart",
-      "./assembly/jest-reporter.ts",
+      file,
       "../assembly/assembly/index.ts",
       "--use",
       "ASC_RTRACE=1",

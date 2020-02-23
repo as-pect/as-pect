@@ -28,6 +28,7 @@ export default class VerboseReporter extends TestReporter {
    * @param {TestContext} suite - The test context being started.
    */
   public onStart(suite: TestContext): void {
+    /* istanbul ignore next */
     this.stdout = suite.stdout || process.stdout;
   }
 
@@ -39,6 +40,7 @@ export default class VerboseReporter extends TestReporter {
   public onGroupStart(group: TestGroup): void {
     if (group.tests.length === 0) return;
     const chalk = require("chalk");
+    /* istanbul ignore next */
     if (group.name) this.stdout!.write(chalk`[Describe]: ${group.name}\n\n`);
     for (const logValue of group.logs) {
       this.onLog(logValue);
@@ -71,8 +73,14 @@ export default class VerboseReporter extends TestReporter {
       const rtraceDelta =
         test.rtraceDelta === 0
           ? ""
-          : chalk` {yellow RTrace: ${(test.rtraceDelta > 0 ? "+" : "-") +
-              test.rtraceDelta.toString()}}`;
+          : chalk` {yellow RTrace: ${(
+            /* istanbul ignore next */
+            test.rtraceDelta > 0
+              /* istanbul ignore next */
+              ? "+"
+              /* istanbul ignore next */
+              : ""
+            ) + test.rtraceDelta.toString()}}`;
       this.stdout!.write(
         test.negated
           ? chalk` {green  [Throws]: ✔} ${test.name}${rtraceDelta}\n`
@@ -90,9 +98,12 @@ export default class VerboseReporter extends TestReporter {
 `);
       }
 
+      /* istanbul ignore next */
       if (test.message) {
         this.stdout!.write(chalk` [Message]: {yellow ${test.message}}\n`);
       }
+
+      /* istanbul ignore next */
       if (test.stack) {
         this.stdout!.write(
           `   [Stack]: ${test.stack.split("\n").join("\n        ")}\n`,
@@ -168,6 +179,7 @@ export default class VerboseReporter extends TestReporter {
    * @param {TestContext} suite - The finished test context.
    */
   public onFinish(suite: TestContext): void {
+    /* istanbul ignore next */
     if (suite.testGroups.length === 0) return;
     const chalk = require("chalk");
 

@@ -10,8 +10,6 @@ const writer = {
   reset() { writer.result = ""; }
 };
 
-
-
 class ReporterWrapper extends VerboseReporter {
   onStart(ctx: TestContext) {
     ctx.stdout = writer;
@@ -60,14 +58,27 @@ class ReporterWrapper extends VerboseReporter {
 }
 
 let start = new Promise<void>((resolve, reject) => {
-  createReporterModule({}, (err, _result) => {
-    if (err) {
-      console.log(err);
-      reject(err);
-    } else {
-      resolve();
-    }
-  }, new ReporterWrapper());
-});
+  createReporterModule(
+    "./assembly/jest-reporter.ts",
+    {}, (err, _result) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+        resolve();
+      }
+    }, new ReporterWrapper());
+}).then(() => new Promise<void>((resolve, reject) => {
+  createReporterModule(
+    "./assembly/jest-reporter2.ts",
+    {}, (err, _result) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+        resolve();
+      }
+    }, new ReporterWrapper());
+}));
 
 beforeAll(() => start);

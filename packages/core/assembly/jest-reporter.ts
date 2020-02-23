@@ -31,6 +31,12 @@ describe("examples", () => {
     expect(a).toStrictEqual(new Float64Array(3));
   });
 
+  throws("this should throw but it does not", () => {}, "it should throw");
+
+  test("something negated fails", () => {
+    expect(42).not.toBe(42, "42 is 42");
+  });
+
   todo("example todo");
 
   log("testing in a group");
