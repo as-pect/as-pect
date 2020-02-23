@@ -1,4 +1,9 @@
-import { TestReporter, TestContext, TestResult, TestGroup } from "@as-pect/core";
+import {
+  TestReporter,
+  TestContext,
+  TestResult,
+  TestGroup,
+} from "@as-pect/core";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
 

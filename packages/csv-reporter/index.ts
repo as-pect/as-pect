@@ -1,4 +1,9 @@
-import { TestReporter, TestContext, TestGroup, TestResult } from "@as-pect/core";
+import {
+  TestReporter,
+  TestContext,
+  TestGroup,
+  TestResult,
+} from "@as-pect/core";
 import stringify, { Stringifier } from "csv-stringify";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
