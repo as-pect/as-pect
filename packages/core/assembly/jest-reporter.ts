@@ -22,6 +22,15 @@ describe("examples", () => {
     expect(-1).toBe(42, "Here is an example failure message.");
   });
 
+  throws("when two things should equal each other", () => {
+    let a = new Float64Array(3);
+    a[0] = 0;
+    a[1] = 1;
+    a[2] = 2;
+
+    expect(a).toStrictEqual(new Float64Array(3));
+  });
+
   todo("example todo");
 
   log("testing in a group");

@@ -71,22 +71,22 @@ export default class VerboseReporter extends TestReporter {
       const rtraceDelta =
         test.rtraceDelta === 0
           ? ""
-          : chalk`{yellow RTrace: ${(test.rtraceDelta > 0 ? "+" : "-") +
+          : chalk` {yellow RTrace: ${(test.rtraceDelta > 0 ? "+" : "-") +
               test.rtraceDelta.toString()}}`;
       this.stdout!.write(
         test.negated
-          ? chalk` {green  [Throws]: ✔} ${test.name} ${rtraceDelta}\n`
-          : chalk` {green [Success]: ✔} ${test.name} ${rtraceDelta}\n`,
+          ? chalk` {green  [Throws]: ✔} ${test.name}${rtraceDelta}\n`
+          : chalk` {green [Success]: ✔} ${test.name}${rtraceDelta}\n`,
       );
     } else {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
       if (!test.negated) {
         const expected = test.expected!;
-        this.stdout!.write(`  [Actual]: ${test.actual!.stringify({ indent: 2 })}
-[Expected]: ${expected.negated ? "Not " : ""} ${expected.stringify({
+        this.stdout!.write(`  [Actual]: ${test.actual!.stringify({ indent: 2 }).trimLeft()}
+[Expected]: ${expected.negated ? "Not " : ""}${expected.stringify({
           indent: 2,
-        })}
+        }).trimLeft()}
 `);
       }
 
@@ -95,7 +95,7 @@ export default class VerboseReporter extends TestReporter {
       }
       if (test.stack) {
         this.stdout!.write(
-          `   [Stack]: ${test.stack.split("\n").join("\n           ")}\n`,
+          `   [Stack]: ${test.stack.split("\n").join("\n        ")}\n`,
         );
       }
     }
@@ -187,17 +187,26 @@ export default class VerboseReporter extends TestReporter {
 
     const rtcount = suite.allocationCount - suite.freeCount;
 
-    const rtraceDelta =
+    const rTrace =
       rtcount === 0
+        /* istanbul ignore next */
         ? ""
-        : chalk`{yellow RTrace: ${(rtcount > 0 ? "+" : "-") +
-            rtcount.toString()}}`;
+        /* istanbul ignore next */
+        : chalk` {yellow RTrace: ${
+          /* istanbul ignore next */
+          rtcount > 0
+            /* istanbul ignore next */
+            ? `+${rtcount}`
+            /* istanbul ignore next */
+            : rtcount.toString()
+        }}`;
 
     for (const warning of suite.warnings) {
       this.stdout!.write(
         chalk`\n{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
       );
       const stack = warning.stackTrace.trim();
+      /* istanbul ignore next */
       if (stack) {
         this.stdout!.write(
           chalk`{yellow    [Stack]}: {yellow ${stack
@@ -221,11 +230,13 @@ export default class VerboseReporter extends TestReporter {
 
     this.stdout!.write(chalk`${
       process.stdout.columns
+        /* istanbul ignore next */
         ? "~".repeat(Math.max(process.stdout.columns - 10, 10))
+        /* istanbul ignore next */
         : "~".repeat(80)
     }
 
-    [File]: ${suite.fileName} ${rtraceDelta}
+    [File]: ${suite.fileName}${rTrace}
   [Groups]: {green ${suite.testGroups
     .filter(e => e.pass)
     .length.toString()} pass}, ${suite.testGroups.length.toString()} total
@@ -259,6 +270,7 @@ export default class VerboseReporter extends TestReporter {
     const output: string = logValue.stringify({ indent: 12 }).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
     const stack = logValue.stack.trim();
+    /* istanbul ignore next */
     if (stack) {
       this.stdout!.write(
         chalk`   {yellow [Stack]:} ${stack

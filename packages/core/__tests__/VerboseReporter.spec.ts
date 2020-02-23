@@ -1,5 +1,6 @@
 import { VerboseReporter, TestContext, TestGroup, TestResult } from "../src";
 import { createReporterModule } from "./setup/createReporterModule";
+import strip from "strip-ansi";
 
 const writer = {
   result: "",
@@ -9,43 +10,51 @@ const writer = {
   reset() { writer.result = ""; }
 };
 
+
+
 class ReporterWrapper extends VerboseReporter {
   onStart(ctx: TestContext) {
     ctx.stdout = writer;
     writer.reset();
     super.onStart(ctx);
-    expect(writer.result).toMatchSnapshot("start");
+    const result = strip(writer.result);
+    test("onStart", () => expect(result).toMatchSnapshot("start"));
     writer.reset();
   }
   onGroupStart(group: TestGroup): void {
     writer.reset();
     super.onGroupStart(group);
-    expect(writer.result).toMatchSnapshot("start " + group.name);
+    const result = strip(writer.result);
+    test("onGroupStart", () => expect(result).toMatchSnapshot(group.name));
     writer.reset();
   }
   onGroupEnd(group: TestGroup): void {
     writer.reset();
     super.onGroupFinish(group);
-    expect(writer.result).toMatchSnapshot("end " + group.name);
+    const result = strip(writer.result);
+    test("onGroupEnd", () => expect(result).toMatchSnapshot(group.name));
     writer.reset();
   }
-  onTestStart(group: TestGroup, test: TestResult): void {
+  onTestStart(group: TestGroup, testResult: TestResult): void {
     writer.reset();
-    super.onTestStart(group, test);
-    expect(writer.result).toMatchSnapshot(`start ${group.name} ${test.name}`);
+    super.onTestStart(group, testResult);
+    const result = strip(writer.result);
+    test("onTestStart", () => expect(result).toMatchSnapshot(`${group.name} ${testResult.name}`));
     writer.reset();
   }
-  onTestFinish(group: TestGroup, test: TestResult): void {
+  onTestFinish(group: TestGroup, testResult: TestResult): void {
     writer.reset();
-    super.onTestFinish(group, test);
-    expect(writer.result).toMatchSnapshot(`end ${group.name} ${test.name}`);
+    super.onTestFinish(group, testResult);
+    const result = strip(writer.result);
+    test("onTestFinish", () => expect(result).toMatchSnapshot(`${group.name} ${testResult.name}`));
     writer.reset();
   }
 
   onTodo(group: TestGroup, todo: string): void {
     writer.reset();
     super.onTodo(group, todo);
-    expect(writer.result).toMatchSnapshot(`todo ${group.name}`);
+    const result = strip(writer.result);
+    test("todo", () => expect(result).toMatchSnapshot(`${group.name}`));
     writer.reset();
   }
 }
@@ -62,7 +71,3 @@ let start = new Promise<void>((resolve, reject) => {
 });
 
 beforeAll(() => start);
-
-test("todos", () => {
-
-});
