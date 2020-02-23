@@ -100,43 +100,56 @@ export default class VerboseReporter extends TestReporter {
       }
     }
 
-    /** If performance mode was enabled for this test, report the statistics. */
+    /** If performance mode was enabled for this test, report the statistics. Deprecated. */
+    /* istanbul ignore next */
     if (test.performance) {
+      /* istanbul ignore next */
       this.stdout!.write(
         chalk` {yellow [Samples]}: ${test.times.length.toString()} runs\n`,
       );
 
+      /* istanbul ignore next */
       if (test.hasAverage) {
+        /* istanbul ignore next */
         this.stdout!.write(
           chalk`    {yellow [Mean]}: ${test.average.toString()}ms\n`,
         );
       }
 
+      /* istanbul ignore next */
       if (test.hasMedian) {
+        /* istanbul ignore next */
         this.stdout!.write(
           chalk`  {yellow [Median]}: ${test.median.toString()}ms\n`,
         );
       }
 
+      /* istanbul ignore next */
       if (test.hasVariance) {
         this.stdout!.write(
           chalk`{yellow [Variance]}: ${test.variance.toString()}ms\n`,
         );
       }
 
+      /* istanbul ignore next */
       if (test.hasStdDev) {
+        /* istanbul ignore next */
         this.stdout!.write(
           chalk`  {yellow [StdDev]}: ${test.stdDev.toString()}ms\n`,
         );
       }
 
+      /* istanbul ignore next */
       if (test.hasMax) {
+        /* istanbul ignore next */
         this.stdout!.write(
           chalk`     {yellow [Max]}: ${test.max.toString()}ms\n`,
         );
       }
 
+      /* istanbul ignore next */
       if (test.hasMin) {
+        /* istanbul ignore next */
         this.stdout!.write(
           chalk`     {yellow [Min]}: ${test.min.toString()}ms\n`,
         );
@@ -228,8 +241,11 @@ export default class VerboseReporter extends TestReporter {
    * @param {TestGroup} _group - The test group the todo belongs to.
    * @param {string} todo - The todo.
    */
+  /* istanbul ignore next */
   public onTodo(_group: TestGroup, todo: string): void {
+    /* istanbul ignore next */
     const chalk = require("chalk");
+    /* istanbul ignore next */
     this.stdout!.write(chalk`    {yellow [Todo]:} ${todo}\n`);
   }
 

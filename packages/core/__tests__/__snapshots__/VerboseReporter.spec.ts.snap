@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `""`;
+
+exports[` 2`] = `""`;
+
+exports[` 3`] = `
+"[Describe]: examples
+
+     [33m[Log]:[39m [36m\\"testing in a group\\"[39m
+   [33m[Stack]:[39m at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[42]:0x115a)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[60]:0x1648)
+            at start:assembly/jest-reporter~anonymous|0 (wasm-function[66]:0x16c1)
+            at ../assembly/assembly/internal/Describe/describe (wasm-function[68]:0x16da)
+            at start:assembly/jest-reporter (wasm-function[69]:0x16eb)
+            at ~start (wasm-function[75]:0x1724)
+"
+`;
+
+exports[` 4`] = `""`;
+
+exports[` 5`] = `
+" [32m[Success]: ✔[39m example 1 
+"
+`;
+
+exports[` 6`] = `""`;
+
+exports[` 7`] = `
+" [32m[Success]: ✔[39m log value 
+     [33m[Log]:[39m [36m\\"testing in a test\\"[39m
+   [33m[Stack]:[39m at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[42]:0x115a)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[60]:0x1648)
+            at start:assembly/jest-reporter~anonymous|0~anonymous|1 (wasm-function[61]:0x1658)
+            at ../assembly/assembly/internal/call/__call (wasm-function[71]:0x16fd)
+"
+`;
+
+exports[` 8`] = `""`;
+
+exports[` 9`] = `
+" [32m[Success]: ✔[39m push an error to the error array 
+"
+`;
+
+exports[` 10`] = `""`;
+
+exports[` 11`] = `
+"    [31m[Fail]: ✖[39m something fails
+  [Actual]:   [37m-1[39m
+[Expected]:    [37m42[39m
+ [Message]: [33mHere is an example failure message.[39m
+   [Stack]: RuntimeError: unreachable
+               at ../assembly/assembly/internal/assert/assert (wasm-function[45]:0x11c1)
+               at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[48]:0x1204)
+               at start:assembly/jest-reporter~anonymous|0~anonymous|3 (wasm-function[64]:0x1678)
+               at ../assembly/assembly/internal/call/__call (wasm-function[71]:0x16fd)
+"
+`;
