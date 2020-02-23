@@ -187,11 +187,7 @@ method:
 
 ```ts
 class Vec3 {
-  constructor(
-    public a: f64 = 0.0,
-    public b: f64 = 0.0,
-    public c: f64 = 0.0,
-  ) {}
+  constructor(public a: f64 = 0.0, public b: f64 = 0.0, public c: f64 = 0.0) {}
 
   // override the operator
   @operator("==")
@@ -443,11 +439,7 @@ matches the `index` type. All values from `0` to `length - 1` will be checked.
 
 ```ts
 const reference = new Vec3(1, 2, 3);
-const data = [
-  new Vec(0, 0, 0),
-  new Vec(1, 2, 3),
-  new Vec(4, 5, 6),
-];
+const data = [new Vec(0, 0, 0), new Vec(1, 2, 3), new Vec(4, 5, 6)];
 
 expect(data).toContainEqual(referece);
 ```

@@ -24,7 +24,11 @@ declare function reportTodo(description: string): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportNegatedTest")
-declare function reportNegatedTest(description: string, callback: () => void, message: string): void;
+declare function reportNegatedTest(
+  description: string,
+  callback: () => void,
+  message: string,
+): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "debug")
@@ -87,12 +91,20 @@ export function afterAll(callback: () => void): void {
 
 // @ts-ignore: decorators *are* valid here
 @global
-export function itThrows(description: string, callback: () => void, message: string = ""): void {
+export function itThrows(
+  description: string,
+  callback: () => void,
+  message: string = "",
+): void {
   reportNegatedTest(description, callback, message);
 }
 
 // @ts-ignore: decorators *are* valid here
 @global
-export function throws(description: string, callback: () => void, message: string = ""): void {
+export function throws(
+  description: string,
+  callback: () => void,
+  message: string = "",
+): void {
   reportNegatedTest(description, callback, message);
 }

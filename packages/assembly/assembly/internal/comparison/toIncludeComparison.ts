@@ -12,10 +12,17 @@ import { assert } from "../assert";
  * @param {i32} negated - The indicator that the assertion is negated.
  * @param {string} message - The message provided to the TestResult if the comparison fails.
  */
-export function toIncludeComparison<T, U>(actual: T, expected: U, negated: i32, message: string): void {
+export function toIncludeComparison<T, U>(
+  actual: T,
+  expected: U,
+  negated: i32,
+  message: string,
+): void {
   // @ts-ignore: checking if a property is defined is compile safe
   if (!isDefined(actual[0])) {
-    ERROR("Cannot call toIncludeEquals on actual value of type T where T does not have an index signature.");
+    ERROR(
+      "Cannot call toIncludeEquals on actual value of type T where T does not have an index signature.",
+    );
   }
 
   /**
@@ -42,7 +49,8 @@ export function toIncludeComparison<T, U>(actual: T, expected: U, negated: i32, 
   if (actual instanceof Set) {
     includes = actual.has(expected);
   } else {
-    if (!isDefined(actual.length)) ERROR("Can only call toInclude on array-like objects or Sets.");
+    if (!isDefined(actual.length))
+      ERROR("Can only call toInclude on array-like objects or Sets.");
     let length = <indexof<T>>actual.length;
     if (isDefined(unchecked(actual[0]))) {
       // @ts-ignore: if T does not have a length property, it will throw a compiler error.

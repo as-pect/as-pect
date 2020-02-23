@@ -17,7 +17,6 @@
 		"assemblyscript"
 	],
 	"scripts": {
-		"prettier": "prettier --write \"src/**/*.ts\" \"./__tests__/*.ts\" \"./__tests__/setup/*.ts\" \"./*.md\"",
 		"rimraf": "rimraf lib/*",
 		"test:ci": "jest",
 		"test": "jest",
@@ -25,7 +24,7 @@
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
 		"tsc:default": "tsc",
 		"test:update-snapshots": "jest -u",
-		"tsc": "run-s prettier rimraf tsc:all"
+		"tsc": "run-s rimraf tsc:all"
 	},
 	"bugs": {
 		"url": "https://github.com/jtenner/aspect/issues"

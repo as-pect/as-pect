@@ -85,7 +85,6 @@ declare function getRTraceTestReallocs(): i32;
 @external("__aspect", "getRTraceGroupReallocs")
 declare function getRTraceGroupReallocs(): i32;
 
-
 @global
 export class RTrace {
   /**
@@ -253,8 +252,10 @@ export class RTrace {
    * @returns {u32} - The type id of the allocated block.
    */
   public static typeIdOfReference<T>(reference: T): u32 {
-    if (!isReference<T>()) ERROR("Cannot get typeId of type T when T is not a reference.");
-    if (isFunction<T>()) ERROR("Cannot get typeId of type T when T is a function.");
+    if (!isReference<T>())
+      ERROR("Cannot get typeId of type T when T is not a reference.");
+    if (isFunction<T>())
+      ERROR("Cannot get typeId of type T when T is a function.");
     if (isNullable<T>()) {
       assert(reference != null, "Cannot get typeId of reference that is null.");
     }
@@ -279,8 +280,10 @@ export class RTrace {
    * @returns {u32} - The size of the allocated block.
    */
   public static sizeOfReference<T>(reference: T): u32 {
-    if (!isReference<T>()) ERROR("Cannot get size of type T when T is not a reference.");
-    if (isFunction<T>()) ERROR("Cannot get size of type T when T is a function");
+    if (!isReference<T>())
+      ERROR("Cannot get size of type T when T is not a reference.");
+    if (isFunction<T>())
+      ERROR("Cannot get size of type T when T is a function");
     if (isNullable<T>()) {
       assert(reference != null, "Cannot get size of reference that is null.");
     }
@@ -322,17 +325,22 @@ export class RTrace {
   public static refCountOf(ptr: usize): u32 {
     return changetype<BLOCK>(ptr - BLOCK_OVERHEAD).gcInfo & REFCOUNT_MASK;
   }
-  
+
   /**
    * Gets the current count of the specified reference.
    * @param {T} reference - the reference.
    */
   public static refCountOfReference<T>(reference: T): u32 {
     if (!isManaged<T>()) return 0;
-    if (!isReference<T>()) ERROR("Cannot get refCount of type T when T is not a reference.");
-    if (isFunction<T>()) ERROR("Cannot get refCount of type T when T is a function");
+    if (!isReference<T>())
+      ERROR("Cannot get refCount of type T when T is not a reference.");
+    if (isFunction<T>())
+      ERROR("Cannot get refCount of type T when T is a function");
     if (isNullable<T>()) {
-      assert(reference != null, "Cannot get refCount of reference that is null.");
+      assert(
+        reference != null,
+        "Cannot get refCount of reference that is null.",
+      );
     }
 
     let count = RTrace.refCountOf(changetype<usize>(reference));
@@ -368,4 +376,3 @@ export function __disableRTrace(): void {
 export function __getUsizeArrayId(): u32 {
   return idof<usize[]>();
 }
-

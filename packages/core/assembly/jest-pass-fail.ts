@@ -2,10 +2,7 @@
  * This is a standard Vec3 Class that contains three float values.
  */
 export class Vec3 {
-  constructor(
-    public x: f64,
-    public y: f64,
-    public z: f64) {}
+  constructor(public x: f64, public y: f64, public z: f64) {}
 
   magnitude(): f64 {
     return sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
@@ -15,15 +12,14 @@ export class Vec3 {
   protected __equals(reference: Vec3 | null): bool {
     if (reference === this) return false;
     if (reference === null) return false;
-    return this.x == reference.x
-      && this.y == reference.y
-      && this.z == reference.z;
+    return (
+      this.x == reference.x && this.y == reference.y && this.z == reference.z
+    );
   }
 }
 
 const func = (i: i32): i32 => i;
 const otherFunc = (i: i32): i32 => i + i;
-
 
 test("A test outside of a describe block", () => {
   assert(true);
@@ -194,7 +190,6 @@ describe("fail on group afterAll", () => {
     assert(true, "");
   });
 });
-
 
 /** This set of tests verify that succesful beforeAll callbacks are hit in the TestContext.ts file. */
 

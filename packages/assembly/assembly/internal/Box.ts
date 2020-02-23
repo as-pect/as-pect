@@ -3,7 +3,5 @@
  * heap.
  */
 export class Box<T> {
-  constructor(
-    public value: T,
-  ) {}
+  constructor(public value: T) {}
 }

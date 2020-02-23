@@ -42,7 +42,8 @@ export function stringifyReflectedValue(
   /* istanbul ignore next */
   if (props.stringFormatter) context.stringFormatter = props.stringFormatter;
   /* istanbul ignore next */
-  if (props.classNameFormatter) context.classNameFormatter = props.classNameFormatter;
+  if (props.classNameFormatter)
+    context.classNameFormatter = props.classNameFormatter;
   /* istanbul ignore next */
   if (props.numberFormatter) context.numberFormatter = props.numberFormatter;
   /* istanbul ignore next */
@@ -50,7 +51,8 @@ export function stringifyReflectedValue(
   /* istanbul ignore next */
   if (typeof props.tab === "number") context.tab = props.tab;
   /* istanbul ignore next */
-  if (typeof props.maxPropertyCount === "number") context.maxPropertyCount = props.maxPropertyCount;
+  if (typeof props.maxPropertyCount === "number")
+    context.maxPropertyCount = props.maxPropertyCount;
 
   return formatters[
     formatterIndexFor(reflectedValue.type, ReflectedValueFormatType.Expanded)
@@ -88,13 +90,19 @@ formatters[
 const truthyFormatter = (reflectedValue: ReflectedValue) =>
   `${reflectedValue.negated ? "Not " : ""}Truthy`;
 formatters[
-  formatterIndexFor(ReflectedValueType.Truthy, ReflectedValueFormatType.Expanded)
+  formatterIndexFor(
+    ReflectedValueType.Truthy,
+    ReflectedValueFormatType.Expanded,
+  )
 ] = truthyFormatter;
 
 const finiteFormatter = (reflectedValue: ReflectedValue) =>
   `${reflectedValue.negated ? "Not " : ""}Finite`;
 formatters[
-  formatterIndexFor(ReflectedValueType.Finite, ReflectedValueFormatType.Expanded)
+  formatterIndexFor(
+    ReflectedValueType.Finite,
+    ReflectedValueFormatType.Expanded,
+  )
 ] = finiteFormatter;
 
 function displayBooleanNoSpacing(
@@ -116,7 +124,10 @@ function displayBooleanWithSpacing(
 
 // Booleans
 formatters[
-  formatterIndexFor(ReflectedValueType.Boolean, ReflectedValueFormatType.Expanded)
+  formatterIndexFor(
+    ReflectedValueType.Boolean,
+    ReflectedValueFormatType.Expanded,
+  )
 ] = displayBooleanWithSpacing;
 formatters[
   formatterIndexFor(ReflectedValueType.Boolean, ReflectedValueFormatType.Inline)
@@ -203,7 +214,10 @@ formatters[
 
 // Integers
 formatters[
-  formatterIndexFor(ReflectedValueType.Integer, ReflectedValueFormatType.Expanded)
+  formatterIndexFor(
+    ReflectedValueType.Integer,
+    ReflectedValueFormatType.Expanded,
+  )
 ] = displayNumberWithSpacing;
 formatters[
   formatterIndexFor(ReflectedValueType.Integer, ReflectedValueFormatType.Inline)
@@ -246,7 +260,10 @@ function displayNoQuoteStringWithSpacing(
 
 // Strings
 formatters[
-  formatterIndexFor(ReflectedValueType.String, ReflectedValueFormatType.Expanded)
+  formatterIndexFor(
+    ReflectedValueType.String,
+    ReflectedValueFormatType.Expanded,
+  )
 ] = displayStringWithSpacing;
 formatters[
   formatterIndexFor(ReflectedValueType.String, ReflectedValueFormatType.Inline)
@@ -275,10 +292,16 @@ const displayFuncNoNameNoPointer = (_: ReflectedValue, ctx: StringifyContext) =>
 
 // Functions
 formatters[
-  formatterIndexFor(ReflectedValueType.Function, ReflectedValueFormatType.Expanded)
+  formatterIndexFor(
+    ReflectedValueType.Function,
+    ReflectedValueFormatType.Expanded,
+  )
 ] = displayFunctionExpanded;
 formatters[
-  formatterIndexFor(ReflectedValueType.Function, ReflectedValueFormatType.Inline)
+  formatterIndexFor(
+    ReflectedValueType.Function,
+    ReflectedValueFormatType.Inline,
+  )
 ] = displayFuncNoNameNoPointer;
 formatters[
   formatterIndexFor(ReflectedValueType.Function, ReflectedValueFormatType.Key)
@@ -301,7 +324,9 @@ function displayClassExpanded(
     if (previousImpliedTypeInfo) {
       return `${spacing}null`;
     } else {
-      return `${spacing}${ctx.classNameFormatter(`<${hostValue.typeName}>`)}null`;
+      return `${spacing}${ctx.classNameFormatter(
+        `<${hostValue.typeName}>`,
+      )}null`;
     }
   }
 
@@ -323,10 +348,9 @@ function displayClassExpanded(
             formatterIndexFor(value.type, ReflectedValueFormatType.Expanded)
           ](value, ctx).trimLeft()
         : // render value
-          formatters[formatterIndexFor(value.type, ReflectedValueFormatType.Inline)](
-            value,
-            ctx,
-          );
+          formatters[
+            formatterIndexFor(value.type, ReflectedValueFormatType.Inline)
+          ](value, ctx).trimLeft();
 
     if (i === displayCount - 1) {
       // remove last trailing comma
@@ -385,7 +409,10 @@ function displayArrayExpanded(
   const previousImpliedTypeInfo = ctx.impliedTypeInfo;
   ctx.impliedTypeInfo = true;
 
-  if (ctx.level < ctx.maxExpandLevel && hostValue.type === ReflectedValueType.Array) {
+  if (
+    ctx.level < ctx.maxExpandLevel &&
+    hostValue.type === ReflectedValueType.Array
+  ) {
     // expanded only for arrays
     let body = "\n";
     ctx.level += 1;
@@ -424,18 +451,19 @@ function displayArrayExpanded(
     let length = hostValue.values!.length;
     for (; i < length; i++) {
       let value = hostValue.values![i];
+      const resultStart = i === 0 ? " " : ", ";
       const result =
-        formatters[formatterIndexFor(value.type, ReflectedValueFormatType.Inline)](
-          value,
-          ctx,
-        ) + ", ";
+        resultStart +
+        formatters[
+          formatterIndexFor(value.type, ReflectedValueFormatType.Inline)
+        ](value, ctx).trimLeft();
       if (body.length > ctx.maxLineLength) {
         break;
       }
       body += result;
     }
     if (length - i > 0) body += `... +${length - i} items`;
-    body += "]";
+    body += " ]";
     ctx.impliedTypeInfo = previousImpliedTypeInfo;
     ctx.seen.delete(hostValue);
     // render value
@@ -459,30 +487,51 @@ formatters[
 
 // ArrayBuffer
 formatters[
-  formatterIndexFor(ReflectedValueType.ArrayBuffer, ReflectedValueFormatType.Expanded)
+  formatterIndexFor(
+    ReflectedValueType.ArrayBuffer,
+    ReflectedValueFormatType.Expanded,
+  )
 ] = displayArrayExpanded;
 formatters[
-  formatterIndexFor(ReflectedValueType.ArrayBuffer, ReflectedValueFormatType.Inline)
+  formatterIndexFor(
+    ReflectedValueType.ArrayBuffer,
+    ReflectedValueFormatType.Inline,
+  )
 ] = displayArrayExpanded;
 formatters[
-  formatterIndexFor(ReflectedValueType.ArrayBuffer, ReflectedValueFormatType.Key)
+  formatterIndexFor(
+    ReflectedValueType.ArrayBuffer,
+    ReflectedValueFormatType.Key,
+  )
 ] = displayClassWithSpacing;
 formatters[
-  formatterIndexFor(ReflectedValueType.ArrayBuffer, ReflectedValueFormatType.Value)
+  formatterIndexFor(
+    ReflectedValueType.ArrayBuffer,
+    ReflectedValueFormatType.Value,
+  )
 ] = displayArrayExpanded;
 
 // TypedArray
 formatters[
-  formatterIndexFor(ReflectedValueType.TypedArray, ReflectedValueFormatType.Expanded)
+  formatterIndexFor(
+    ReflectedValueType.TypedArray,
+    ReflectedValueFormatType.Expanded,
+  )
 ] = displayArrayExpanded;
 formatters[
-  formatterIndexFor(ReflectedValueType.TypedArray, ReflectedValueFormatType.Inline)
+  formatterIndexFor(
+    ReflectedValueType.TypedArray,
+    ReflectedValueFormatType.Inline,
+  )
 ] = displayArrayExpanded;
 formatters[
   formatterIndexFor(ReflectedValueType.TypedArray, ReflectedValueFormatType.Key)
 ] = displayClassWithSpacing;
 formatters[
-  formatterIndexFor(ReflectedValueType.TypedArray, ReflectedValueFormatType.Value)
+  formatterIndexFor(
+    ReflectedValueType.TypedArray,
+    ReflectedValueFormatType.Value,
+  )
 ] = displayArrayExpanded;
 
 // Map

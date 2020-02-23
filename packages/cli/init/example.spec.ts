@@ -1,9 +1,5 @@
 class Vec3 {
-  constructor(
-    public x: f64 = 0,
-    public y: f64 = 0,
-    public z: f64 = 0,
-  ) {}
+  constructor(public x: f64 = 0, public y: f64 = 0, public z: f64 = 0) {}
 }
 describe("example", () => {
   it("should be 42", () => {
@@ -19,7 +15,10 @@ describe("example", () => {
     let a = new Vec3(1, 2, 3);
     let b = new Vec3(1, 2, 3);
 
-    expect<Vec3>(a).toStrictEqual(b, "a and b have the same values, (discluding child references)");
+    expect<Vec3>(a).toStrictEqual(
+      b,
+      "a and b have the same values, (discluding child references)",
+    );
   });
 
   it("should compare strings", () => {
@@ -37,7 +36,7 @@ describe("example", () => {
     log<string>("Hello world!"); // strings!
     log<f64>(3.1415); // floats!
     log<u8>(244); // integers!
-    log<u64>(0xFFFFFFFF); // long values!
+    log<u64>(0xffffffff); // long values!
     log<ArrayBuffer>(new ArrayBuffer(50)); // bytes!
   });
 });

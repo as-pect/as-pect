@@ -311,7 +311,9 @@ export class TestCollector {
           performanceEnabled: this.performanceEnabled.bind(this),
           pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
           pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
-          reportActualReflectedValue: this.reportActualReflectedValue.bind(this),
+          reportActualReflectedValue: this.reportActualReflectedValue.bind(
+            this,
+          ),
           reportAfterAll: this.reportAfterAll.bind(this),
           reportAfterEach: this.reportAfterEach.bind(this),
           reportAverage: this.reportAverage.bind(this),
@@ -321,7 +323,9 @@ export class TestCollector {
           reportEndDescribe: this.reportEndDescribe.bind(this),
           reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
           reportExpectedFinite: this.reportExpectedFinite.bind(this),
-          reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(this),
+          reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(
+            this,
+          ),
           reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
           reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
           reportMax: this.reportMax.bind(this),
@@ -617,19 +621,22 @@ export class TestCollector {
    *
    * @param {number} reasonPointer - This points to the message value that causes the expectation to
    * fail.
-   * @param {number} _fileNamePointer - The file name that reported the error. (Ignored)
-   * @param {number} _line - The line that reported the error. (Ignored)
-   * @param {number} _col - The column that reported the error. (Ignored)
+   * @param {number} fileNamePointer - The file name that reported the error. (Ignored)
+   * @param {number} line - The line that reported the error. (Ignored)
+   * @param {number} col - The column that reported the error. (Ignored)
    */
   private abort(
     reasonPointer: number,
-    _fileNamePointer: number,
-    _line: number,
-    _col: number,
+    fileNamePointer: number,
+    line: number,
+    col: number,
   ): void {
     this.message = this.getString(
       reasonPointer,
-      "No assertion message provided.",
+      `Error in ${this.getString(
+        fileNamePointer,
+        "[No Filename Provided]",
+      )}:${line}:${col} `,
     );
   }
 
@@ -831,7 +838,7 @@ export class TestCollector {
   /**
    * Gets a log stack trace.
    */
-  private getLogStackTrace(): string {
+  protected getLogStackTrace(): string {
     return new Error("Get stack trace.")
       .stack!.toString()
       .split("\n")
@@ -1310,9 +1317,10 @@ export class TestCollector {
     reflectedValue.stack = this.getLogStackTrace();
     reflectedValue.typeName = "trace";
     reflectedValue.type = ReflectedValueType.String;
-    reflectedValue.value = `trace: ${this.getString(strPointer, "")} ${args
-      .slice(0, count)
-      .join(", ")}`;
+    reflectedValue.value = `trace: ${this.getString(
+      strPointer,
+      "",
+    )} ${args.slice(0, count).join(", ")}`;
 
     // push the log value to the logs
     this.logTarget.logs.push(reflectedValue);
@@ -1551,10 +1559,16 @@ export class TestCollector {
    * @param {number} reflectedValueID - The target reflected value parent.
    * @param {number} childID - The child value by it's id to be pushed.
    */
-  private pushReflectedObjectValue(reflectedValueID: number, childID: number): void {
+  private pushReflectedObjectValue(
+    reflectedValueID: number,
+    childID: number,
+  ): void {
     // each ignored line for test coverage is error reporting for sanity checks
     /* istanbul ignore next */
-    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
+    if (
+      reflectedValueID >= this.reflectedValueCache.length ||
+      reflectedValueID < 0
+    ) {
       /* istanbul ignore next */
       this.errors.push({
         message: `Cannot push ReflectedValue of id ${childID} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
@@ -1600,10 +1614,16 @@ export class TestCollector {
    * @param {number} reflectedValueID - The target reflected value parent.
    * @param {number} keyId - The target reflected value key to be pushed.
    */
-  private pushReflectedObjectKey(reflectedValueID: number, keyId: number): void {
+  private pushReflectedObjectKey(
+    reflectedValueID: number,
+    keyId: number,
+  ): void {
     // every ignored line for test coverage in this function are sanity checks
     /* istanbul ignore next */
-    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
+    if (
+      reflectedValueID >= this.reflectedValueCache.length ||
+      reflectedValueID < 0
+    ) {
       /* istanbul ignore next */
       this.errors.push({
         message: `Cannot push ReflectedValue of id ${keyId} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
@@ -1700,7 +1720,10 @@ export class TestCollector {
    */
   private attachStackTraceToReflectedValue(reflectedValueID: number): void {
     /* istanbul ignore next */
-    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
+    if (
+      reflectedValueID >= this.reflectedValueCache.length ||
+      reflectedValueID < 0
+    ) {
       /* istanbul ignore next */
       this.errors.push({
         message: `Cannot push a stack trace to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,

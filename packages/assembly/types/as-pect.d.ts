@@ -90,8 +90,11 @@ declare function test(description: string, callback: () => void): void;
  * });
  * ```
  */
-declare function throws(description: string, callback: () => void, message?: string): void;
-
+declare function throws(
+  description: string,
+  callback: () => void,
+  message?: string,
+): void;
 
 /**
  * This function creates a test that is expected to fail. This is useful to verify if a given
@@ -112,7 +115,11 @@ declare function throws(description: string, callback: () => void, message?: str
  * });
  * ```
  */
-declare function itThrows(description: string, callback: () => void, message?: string): void;
+declare function itThrows(
+  description: string,
+  callback: () => void,
+  message?: string,
+): void;
 
 /**
  * This function creates a callback that is called before each individual test is run in this test
@@ -257,7 +264,6 @@ declare function log<T>(value: T | null): void;
  */
 // @ts-ignore
 declare class Expectation<T> {
-
   /**
    * Create a new expectation.
    *
@@ -520,7 +526,10 @@ declare class Expectation<T> {
    * ```
    */
   // @ts-ignore: expected value should be known at compile time
-  toInclude<U extends (valueof<T> | indexof<T>)>(expected: U, message?: string): void;
+  toInclude<U extends valueof<T> | indexof<T>>(
+    expected: U,
+    message?: string,
+  ): void;
 
   /**
    * This method asserts that a given T that extends `Array<U>` has a value/reference included.
@@ -534,7 +543,7 @@ declare class Expectation<T> {
    * expect<i32[]>([1, 2, 3]).toContain(3);
    * ```
    */
-   // @ts-ignore: expected value should be known at compile time
+  // @ts-ignore: expected value should be known at compile time
   toContain(expected: valueof<T>, message?: string): void;
 
   /**
@@ -550,7 +559,10 @@ declare class Expectation<T> {
    * ```
    */
   // @ts-ignore: expected value should be known at compile time
-  toIncludeEqual<U extends (indexof<T> | valueof<T>)>(expected: U, message?: string): void;
+  toIncludeEqual<U extends indexof<T> | valueof<T>>(
+    expected: U,
+    message?: string,
+  ): void;
 
   /**
    * This method asserts that a given T that extends `Array<U>` has a value/reference included and
@@ -565,7 +577,10 @@ declare class Expectation<T> {
    * ```
    */
   // @ts-ignore: expected value should be known at compile time
-  toContainEqual<U extends (indexof<T> | valueof<T>)>(expected: U, message?: string): void;
+  toContainEqual<U extends indexof<T> | valueof<T>>(
+    expected: U,
+    message?: string,
+  ): void;
 
   /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
@@ -668,9 +683,9 @@ declare class Performance {
   public static reportVariance(value: bool): void;
 }
 /**
- * Assemblyscript uses reference counting to perform garbage collection.  This means when you 
+ * Assemblyscript uses reference counting to perform garbage collection.  This means when you
  * allocate a managed object and return it, it's reference count is one.  If another variable aliases
- * it then the reference count goes up. This static class contains a few convenience methods for 
+ * it then the reference count goes up. This static class contains a few convenience methods for
  * developers to test the current number of blocks allocated on the heap to make sure you aren't leaking
  * references, e.i. keeping references to objects you expect to be collected.
  */
@@ -848,7 +863,6 @@ declare class RTrace {
   public static refCountOfReference<T>(reference: T): u32;
 }
 
-
 /**
  * This class is static and contains private global values that contain metadata about the Actual
  * value.
@@ -873,7 +887,6 @@ declare class Actual {
    */
   public static clear(): void;
 }
-
 
 /**
  * This class is static and contains private global values that contain metadata about the Expected
@@ -941,7 +954,7 @@ declare class Reflect {
    * @param {T} value - The value to be inspected.
    * @param {Map<usize, i32>} seen - A map of pointers to hostValues for caching purposes.
    */
-  public static toReflectedValue<T>(value: T, seen?: Map<usize, i32>): i32
+  public static toReflectedValue<T>(value: T, seen?: Map<usize, i32>): i32;
   /**
    * A method used for comparing two values or references to determine if they match each other.
    *
@@ -950,7 +963,12 @@ declare class Reflect {
    * @param {usize[]} stack - Internal use only, used to prevent recursion.
    * @param {usize[]} cache - Internal use only, used to prevent recursion.
    */
-  public static equals<T>(left: T, right: T, stack?: usize[], cache?: usize[]): i32;
+  public static equals<T>(
+    left: T,
+    right: T,
+    stack?: usize[],
+    cache?: usize[],
+  ): i32;
 
   /**
    * Attach a stack trace to a value.

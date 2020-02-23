@@ -37,8 +37,14 @@ describe("nested control flow", () => {
     test("firstTest", () => {
       expect(beforeEachFlag).toBe(1, "beforeEach should be 1");
       expect(beforeAllFlag).toBe(1, "beforeAll should be 1");
-      expect(afterEachFlag).toBe(0, "the afterEach callback should not have run yet");
-      expect(afterAllFlag).toBe(0, "the afterAll callback should not have run yet");
+      expect(afterEachFlag).toBe(
+        0,
+        "the afterEach callback should not have run yet",
+      );
+      expect(afterAllFlag).toBe(
+        0,
+        "the afterAll callback should not have run yet",
+      );
     });
   });
 
@@ -47,7 +53,10 @@ describe("nested control flow", () => {
       expect(beforeEachFlag).toBe(2, "beforeEach should be 2");
       expect(beforeAllFlag).toBe(1, "beforeAll should be 1");
       expect(afterEachFlag).toBe(1, "afterEach should be 1");
-      expect(afterAllFlag).toBe(0, "the afterAll callback should not have run yet");
+      expect(afterAllFlag).toBe(
+        0,
+        "the afterAll callback should not have run yet",
+      );
     });
   });
 });

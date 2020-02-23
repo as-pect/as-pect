@@ -106,12 +106,14 @@ export default class SummaryReporter extends TestReporter {
           suite.stdout!.write(
             chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`,
           );
-          if (test.expected !== null)
+          if (test.expected !== null) {
+            const expected = test.expected;
             suite.stdout!.write(
-              chalk`      {green.bold [Expected]:} ${test.expected
-                .stringify({ indent: 2 })
-                .trimLeft()}\n`,
+              chalk`      {green.bold [Expected]:} ${
+                expected.negated ? "Not " : ""
+              } ${expected.stringify({ indent: 2 }).trimLeft()}\n`,
             );
+          }
           if (test.actual !== null)
             suite.stdout!.write(
               chalk`      {red.bold [Actual]  :} ${test.actual
@@ -129,13 +131,17 @@ export default class SummaryReporter extends TestReporter {
 
     for (const warning of suite.warnings) {
       this.stdout!.write(
-        chalk`{yellow  [Warning]}: ${warning.type} ${warning.message}\n`,
+        chalk`{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
       );
-      this.stdout!.write(
-        chalk`{yellow    [Stack]}: {yellow ${warning.stackTrace
-          .split("\n")
-          .join("\n           ")}}\n\n`,
-      );
+      const stack = warning.stackTrace.trim();
+      if (stack) {
+        this.stdout!.write(
+          chalk`{yellow    [Stack]}: {yellow ${stack
+            .split("\n")
+            .join("\n      ")}}\n`,
+        );
+      }
+      this.stdout!.write("\n");
     }
 
     for (const error of suite.errors) {

@@ -82,8 +82,11 @@ export default class VerboseReporter extends TestReporter {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
       if (!test.negated) {
+        const expected = test.expected!;
         this.stdout!.write(`  [Actual]: ${test.actual!.stringify({ indent: 2 })}
-[Expected]: ${test.expected!.stringify({ indent: 2 })}
+[Expected]: ${expected.negated ? "Not " : ""} ${expected.stringify({
+          indent: 2,
+        })}
 `);
       }
 
@@ -179,13 +182,17 @@ export default class VerboseReporter extends TestReporter {
 
     for (const warning of suite.warnings) {
       this.stdout!.write(
-        chalk`\n{yellow  [Warning]}: ${warning.type} ${warning.message}`,
+        chalk`\n{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
       );
-      this.stdout!.write(
-        chalk`\n{yellow    [Stack]}: {yellow ${warning.stackTrace
-          .split("\n")
-          .join("\n           ")}}\n`,
-      );
+      const stack = warning.stackTrace.trim();
+      if (stack) {
+        this.stdout!.write(
+          chalk`{yellow    [Stack]}: {yellow ${stack
+            .split("\n")
+            .join("\n      ")}}\n`,
+        );
+      }
+      this.stdout!.write("\n");
     }
 
     for (const error of suite.errors) {
@@ -235,11 +242,14 @@ export default class VerboseReporter extends TestReporter {
     const chalk = require("chalk");
     const output: string = logValue.stringify({ indent: 12 }).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
-    this.stdout!.write(
-      chalk`   {yellow [Stack]:} ${logValue.stack
-        .trimLeft()
-        .split("\n")
-        .join("\n             ")}\n`,
-    );
+    const stack = logValue.stack.trim();
+    if (stack) {
+      this.stdout!.write(
+        chalk`   {yellow [Stack]:} ${stack
+          .trimLeft()
+          .split("\n")
+          .join("\n        ")}\n`,
+      );
+    }
   }
 }

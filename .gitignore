@@ -4,3 +4,4 @@ coverage
 \.vscode/
 .cache
 dist
+lib

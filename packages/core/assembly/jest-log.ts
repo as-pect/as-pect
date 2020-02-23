@@ -2,10 +2,7 @@
  * This is a standard Vec3 Class that contains three float values.
  */
 export class Vec3 {
-  constructor(
-    public x: f64,
-    public y: f64,
-    public z: f64) {}
+  constructor(public x: f64, public y: f64, public z: f64) {}
 
   magnitude(): f64 {
     return sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
@@ -16,9 +13,9 @@ export class Vec3 {
     if (reference === this) return true;
     if (reference === null) return false;
     //@ts-ignore
-    return this.x == reference.x
-      && this.y == reference.y
-      && this.z == reference.z;
+    return (
+      this.x == reference.x && this.y == reference.y && this.z == reference.z
+    );
   }
 }
 
@@ -33,7 +30,9 @@ testArray2[1] = -2;
 testArray2[2] = -3;
 
 type idFunction = (i: i32) => i32;
-function IdFunction(i: i32): i32  { return i; }
+function IdFunction(i: i32): i32 {
+  return i;
+}
 export const id_func: idFunction = IdFunction;
 
 @unmanaged
@@ -152,7 +151,6 @@ class NestedForInlineBoolC {
   c: bool = true;
 }
 
-
 class NestedTypeImpliedArrayA {
   a: NestedTypeImpliedArrayB = new NestedTypeImpliedArrayB();
 }
@@ -174,7 +172,6 @@ class Overridden {
     return new MeaningOfLife();
   }
 }
-
 
 describe("logs", () => {
   log<string>("Hello world!");
@@ -243,7 +240,9 @@ describe("logs", () => {
     m.set(key3, 44);
     log(m);
 
-    log(function thisIsTheFunctionName(): string { return ""; }); // log a function
+    log(function thisIsTheFunctionName(): string {
+      return "";
+    }); // log a function
 
     log(new NestedForInlineFunctionA());
 
@@ -261,8 +260,7 @@ describe("logs", () => {
     log(new NestedTypeImpliedArrayC()); // type info is implied in expanded position
 
     let lotsOfFieldsArray = new Array<Vec3>(); // implied type information for class display
-    for (let i = 0; i < 4; i++)
-      lotsOfFieldsArray.push(new Vec3(1, 2, 3));
+    for (let i = 0; i < 4; i++) lotsOfFieldsArray.push(new Vec3(1, 2, 3));
     log(lotsOfFieldsArray);
 
     let anotherFieldsArray = new Array<Vec3 | null>(); // implied type information on null output

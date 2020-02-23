@@ -1,4 +1,3 @@
-
 export const enum ReflectedValueType {
   None = 0,
   Class = 1,

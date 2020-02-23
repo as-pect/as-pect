@@ -78,8 +78,11 @@ declare function test(description: string, callback: () => void): void;
  *   });
  * });
  */
-declare function throws(description: string, callback: () => void, message?: string): void;
-
+declare function throws(
+  description: string,
+  callback: () => void,
+  message?: string,
+): void;
 
 /**
  * This function creates a test that is expected to fail. This is useful to verify if a given
@@ -96,7 +99,11 @@ declare function throws(description: string, callback: () => void, message?: str
  *   }, "The value is actually 42.");
  * });
  */
-declare function itThrows(description: string, callback: () => void, message?: string): void;
+declare function itThrows(
+  description: string,
+  callback: () => void,
+  message?: string,
+): void;
 
 /**
  * This function creates a callback that is called before each individual test is run in this test
