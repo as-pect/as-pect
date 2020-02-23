@@ -44,9 +44,6 @@
 		"init/",
 		"lib/"
 	],
-	"optionalDependencies": {
-		"csv-stringify": "^5.3.6"
-	},
 	"peerDependencies": {
 		"assemblyscript": "0.9.2"
 	}

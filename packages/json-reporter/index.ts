@@ -1,9 +1,11 @@
-import { TestReporter } from "../test/TestReporter";
-import { TestContext } from "../test/TestContext";
+import {
+  TestReporter,
+  TestContext,
+  TestResult,
+  TestGroup,
+} from "@as-pect/core";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
-import { TestGroup } from "../test/TestGroup";
-import { TestResult } from "../test/TestResult";
 
 /**
  * This class reports all relevant test statistics to a JSON file located at
