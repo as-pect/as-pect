@@ -1,0 +1,25 @@
+{
+  "name": "@as-pect/csv-reporter",
+  "version": "3.0.0-alpha.3",
+  "description": "csv reporter for as-pect",
+  "main": "lib/index.js",
+	"types": "lib/index.d.ts",
+  "scripts": {
+    "tsc:all": "run-p tsc:default tsc:amd",
+    "tsc:amd": "tsc --outfile lib/as-pect.csv-reporter.amd.js --module amd --declaration --declarationMap",
+    "tsc:default": "tsc",
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jtenner/as-pect/tree/master/packages/csv-reporter"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "csv-stringify": "^5.3.6"
+  },
+  "dependencies": {
+    "@as-pect/core": "^3.0.0-alpha.3"
+  }
+}

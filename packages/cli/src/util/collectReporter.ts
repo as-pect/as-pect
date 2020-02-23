@@ -17,7 +17,7 @@ export function collectReporter(cliOptions: Options): TestReporter {
   const reporters: TestReporter[] = [];
 
   if (cliOptions.csv) {
-    const CSVReporter = require("@as-pect/core").CSVReporter;
+    const CSVReporter = require("@as-pect/csv-reporter").default;
     if (typeof cliOptions.csv === "string") {
       const options = querystring.parse(cliOptions.csv || "");
       reporters.push(new CSVReporter(options));
@@ -30,7 +30,7 @@ export function collectReporter(cliOptions: Options): TestReporter {
   }
 
   if (cliOptions.json) {
-    const JSONReporter = require("@as-pect/core").JSONReporter;
+    const JSONReporter = require("@as-pect/json-reporter").default;
     if (typeof cliOptions.json === "string") {
       const options = querystring.parse(cliOptions.json || "");
       reporters.push(new JSONReporter(options));
