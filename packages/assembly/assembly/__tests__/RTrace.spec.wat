@@ -2360,7 +2360,8 @@
   i32.load offset=4
   call $assembly/internal/Actual/Actual.report<u32>
   local.get $1
-  i32.const 0
+  local.get $0
+  i32.load
   call $assembly/internal/Expected/Expected.report<u32>
   local.get $3
   local.get $0

@@ -90,12 +90,15 @@ export default class VerboseReporter extends TestReporter {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
 
       if (!test.negated) {
-        const expected = test.expected!;
-        this.stdout!.write(`  [Actual]: ${test.actual!.stringify({ indent: 2 }).trimLeft()}
-[Expected]: ${expected.negated ? "Not " : ""}${expected.stringify({
-          indent: 2,
-        }).trimLeft()}
-`);
+        if (test.actual) {
+          this.stdout!.write(`  [Actual]: ${test.actual!.stringify({ indent: 2 }).trimLeft()}\n`);
+        }
+        if (test.expected) {
+          const expected = test.expected;
+          this.stdout!.write(`[Expected]: ${expected.negated ? "Not " : ""}${expected.stringify({
+            indent: 2,
+          }).trimLeft()}\n`);
+        }
       }
 
       /* istanbul ignore next */

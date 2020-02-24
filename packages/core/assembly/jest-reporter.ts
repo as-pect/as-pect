@@ -34,6 +34,7 @@ describe("examples", () => {
   throws("this should throw but it does not", () => {}, "it should throw");
 
   test("something negated fails", () => {
+    log("another string");
     expect(42).not.toBe(42, "42 is 42");
   });
 

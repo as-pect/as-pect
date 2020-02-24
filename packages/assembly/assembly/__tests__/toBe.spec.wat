@@ -3805,7 +3805,8 @@
   i32.load offset=4
   call $assembly/internal/Actual/Actual.report<i32>
   local.get $1
-  i32.const 0
+  local.get $0
+  i32.load
   call $assembly/internal/Expected/Expected.report<i32>
   local.get $3
   local.get $0
@@ -4803,7 +4804,8 @@
   i32.load offset=4
   call $assembly/internal/Actual/Actual.report<assembly/__tests__/setup/Vec3/Vec3>
   local.get $1
-  i32.const 0
+  local.get $0
+  i32.load
   call $assembly/internal/Expected/Expected.report<assembly/__tests__/setup/Vec3/Vec3>
   local.get $3
   local.get $0
@@ -5107,7 +5109,8 @@
   i32.load offset=4
   call $assembly/internal/Actual/Actual.report<assembly/__tests__/setup/Vec3/Vec3 | null>
   local.get $1
-  i32.const 0
+  local.get $0
+  i32.load
   call $assembly/internal/Expected/Expected.report<assembly/__tests__/setup/Vec3/Vec3 | null>
   local.get $3
   local.get $0
@@ -5282,7 +5285,8 @@
   f64.load offset=8
   call $assembly/internal/Actual/Actual.report<f64>
   local.get $1
-  i32.const 0
+  local.get $0
+  i32.load
   call $assembly/internal/Expected/Expected.report<f64>
   local.get $3
   local.get $0
@@ -5518,7 +5522,8 @@
   i32.load offset=4
   call "$assembly/internal/Actual/Actual.report<(event: assembly/__tests__/setup/Event/Event) => void>"
   local.get $1
-  i32.const 0
+  local.get $0
+  i32.load
   call "$assembly/internal/Expected/Expected.report<(event: assembly/__tests__/setup/Event/Event) => void>"
   local.get $3
   local.get $0

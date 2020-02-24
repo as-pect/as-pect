@@ -1,6 +1,8 @@
 describe("a passing suite", () => {
+  log("Something else!");
   test("passes", () => {
     expect(42).toBe(42, "Pass");
+    log("Something!");
   });
 
   throws("it throws successfully!", () => {
