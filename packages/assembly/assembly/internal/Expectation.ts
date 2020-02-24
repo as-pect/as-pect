@@ -362,16 +362,30 @@ export class Expectation<T> {
   }
 
   public toBeNull(message: string = ""): void {
-    if (!isNullable<T>())
-      ERROR("toBeNull assertion must be called with a nullable type T.");
     let negated = this._not;
     let actual = this.actual;
-    Actual.report(actual);
-    // @ts-ignore: T is nullable and a reference
-    Expected.report<T>(null, negated);
-    assert(negated ^ i32(changetype<usize>(actual) == 0), message);
-    Actual.clear();
-    Expected.clear();
+
+    if (actual instanceof usize) {
+      Actual.report(actual);
+      Expected.report(<usize>0, negated);
+      // @ts-ignore: actual is instanceof number type
+      assert(negated ^ i32(actual == 0), message);
+      Actual.clear();
+      Expected.clear();
+    } else if (isReference(actual)) {
+      Actual.report(actual);
+      if (isNullable(actual)) {
+        // @ts-ignore T is nullable
+        Expected.report<T>(null, negated);
+      } else {
+        Expected.report<T | null>(null, negated);
+      }
+      assert(negated ^ i32(changetype<usize>(actual) == 0), message);
+      Actual.clear();
+      Expected.clear();
+    } else {
+      ERROR("toBeNull assertion must be called with a reference type T.");
+    }
   }
 
   public toBeCloseTo(
