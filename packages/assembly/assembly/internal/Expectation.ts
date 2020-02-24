@@ -49,7 +49,7 @@ export class Expectation<T> {
   public toBe(expected: T, message: string = ""): void {
     let equals = i32(this.actual == expected);
     Actual.report(this.actual);
-    Expected.report(expected);
+    Expected.report(expected, this._not);
 
     // The assertion is either the items equal, or the expectation is negated
     assert(equals ^ this._not, message);

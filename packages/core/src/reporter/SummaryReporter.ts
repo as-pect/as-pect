@@ -15,18 +15,30 @@ export default class SummaryReporter extends TestReporter {
 
   constructor(options?: any) {
     super();
+    /* istanbul ignore next */
     if (options) {
       // can be "false" from cli
-      if (!options.enableLogging || options.enableLogging === "false")
+      /* istanbul ignore next */
+      if (
+        !options.enableLogging ||
+        /* istanbul ignore next */ options.enableLogging === "false"
+      )
+        /* istanbul ignore next */
         this.enableLogging = false;
     }
   }
 
+  /* istanbul ignore next */
   public onStart(): void {}
+  /* istanbul ignore next */
   public onGroupStart(): void {}
+  /* istanbul ignore next */
   public onGroupFinish(): void {}
+  /* istanbul ignore next */
   public onTestStart(): void {}
+  /* istanbul ignore next */
   public onTestFinish(): void {}
+  /* istanbul ignore next */
   public onTodo(): void {}
 
   private stdout: IWritable | null = null;
@@ -65,6 +77,7 @@ export default class SummaryReporter extends TestReporter {
       );
 
       /** If logging is enabled, log all the values. */
+      /* istanbul ignore next */
       if (this.enableLogging) {
         for (const group of suite.testGroups) {
           for (const log of group.logs) {
@@ -87,6 +100,7 @@ export default class SummaryReporter extends TestReporter {
 
       /** If the group failed, report that the group failed. */
       for (const group of suite.testGroups) {
+        /* istanbul ignore next */
         if (group.pass) continue;
         suite.stdout!.write(chalk`  {red Failed:} ${group.name}\n`);
 
@@ -95,6 +109,7 @@ export default class SummaryReporter extends TestReporter {
           suite.stdout!.write(chalk`    {yellow Reason:} ${group.reason}`);
 
         /** Log each log item in the failed group. */
+        /* istanbul ignore next */
         if (this.enableLogging) {
           for (const log of group.logs) {
             this.onLog(log);
@@ -120,6 +135,7 @@ export default class SummaryReporter extends TestReporter {
                 .stringify({ indent: 2 })
                 .trimLeft()}\n`,
             );
+          /* istanbul ignore next */
           if (this.enableLogging) {
             for (const log of test.logs) {
               this.onLog(log);
@@ -134,6 +150,7 @@ export default class SummaryReporter extends TestReporter {
         chalk`{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
       );
       const stack = warning.stackTrace.trim();
+      /* istanbul ignore next */
       if (stack) {
         this.stdout!.write(
           chalk`{yellow    [Stack]}: {yellow ${stack

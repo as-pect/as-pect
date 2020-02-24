@@ -1550,7 +1550,7 @@ export class TestCollector {
       return;
     }
     this.expected = this.reflectedValueCache[id];
-    this.expected.negated = !!negated;
+    this.expected.negated = negated === 1;
   }
 
   /**

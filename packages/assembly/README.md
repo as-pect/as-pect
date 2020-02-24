@@ -37,7 +37,8 @@ following AssemblyScript `asc` cli options:
 ```
 asc entry.ts ./node_modules/@as-pect/assembly/assembly/index.ts \
   --use ASC_RTRACE=1 \
-  --explicitStart
+  --explicitStart \
+  --transform ./node_modules/@as-pect/core/lib/transform/index.ts
 ```
 
 This will compile the binary with all of the required `as-pect` setup functions.
