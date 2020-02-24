@@ -3,5 +3,7 @@ describe("a passing suite", () => {
     expect(42).toBe(42, "Pass");
   });
 
-  beforeEach(() => { assert(false, "It's going to error!"); });
+  beforeEach(() => {
+    assert(false, "It's going to error!");
+  });
 });

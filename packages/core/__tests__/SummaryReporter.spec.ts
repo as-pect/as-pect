@@ -7,7 +7,9 @@ const writer = {
   write(input: string): void {
     writer.result += input;
   },
-  reset() { writer.result = ""; }
+  reset() {
+    writer.result = "";
+  },
 };
 
 class ReporterWrapper extends SummaryReporter {
@@ -41,7 +43,8 @@ class ReporterWrapper extends SummaryReporter {
     writer.reset();
     super.onTestStart();
     const result = strip(writer.result);
-    test("onTestStart", () => expect(result).toMatchSnapshot(`${group.name} ${testResult.name}`));
+    test("onTestStart", () =>
+      expect(result).toMatchSnapshot(`${group.name} ${testResult.name}`));
     writer.reset();
   }
   // @ts-ignore
@@ -49,7 +52,8 @@ class ReporterWrapper extends SummaryReporter {
     writer.reset();
     super.onTestFinish();
     const result = strip(writer.result);
-    test("onTestFinish", () => expect(result).toMatchSnapshot(`${group.name} ${testResult.name}`));
+    test("onTestFinish", () =>
+      expect(result).toMatchSnapshot(`${group.name} ${testResult.name}`));
     writer.reset();
   }
   onFinish(ctx: TestContext): void {
@@ -74,36 +78,53 @@ class ReporterWrapper extends SummaryReporter {
 let start = new Promise<void>((resolve, reject) => {
   createReporterModule(
     "./assembly/jest-reporter.ts",
-    {}, (err, _result) => {
+    {},
+    (err, _result) => {
       if (err) {
         console.log(err);
         reject(err);
       } else {
         resolve();
       }
-    }, new ReporterWrapper());
-}).then(() => new Promise<void>((resolve, reject) => {
-  createReporterModule(
-    "./assembly/jest-reporter2.ts",
-    {}, (err, _result) => {
-      if (err) {
-        console.log(err);
-        reject(err);
-      } else {
-        resolve();
-      }
-    }, new ReporterWrapper());
-})).then(() => new Promise<void>((resolve, reject) => {
-  createReporterModule(
-    "./assembly/jest-reporter3.ts",
-    {}, (err, _result) => {
-      if (err) {
-        console.log(err);
-        reject(err);
-      } else {
-        resolve();
-      }
-    }, new ReporterWrapper());
-}));
+    },
+    new ReporterWrapper(),
+  );
+})
+  .then(
+    () =>
+      new Promise<void>((resolve, reject) => {
+        createReporterModule(
+          "./assembly/jest-reporter2.ts",
+          {},
+          (err, _result) => {
+            if (err) {
+              console.log(err);
+              reject(err);
+            } else {
+              resolve();
+            }
+          },
+          new ReporterWrapper(),
+        );
+      }),
+  )
+  .then(
+    () =>
+      new Promise<void>((resolve, reject) => {
+        createReporterModule(
+          "./assembly/jest-reporter3.ts",
+          {},
+          (err, _result) => {
+            if (err) {
+              console.log(err);
+              reject(err);
+            } else {
+              resolve();
+            }
+          },
+          new ReporterWrapper(),
+        );
+      }),
+  );
 
 beforeAll(() => start);

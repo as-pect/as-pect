@@ -16,7 +16,7 @@ describe("examples", () => {
   test("push an error to the error array", () => {
     // causes a reflection error because -1 can't be a valid id
     logReflectedValue(-1);
-  })
+  });
 
   test("something fails", () => {
     expect(-1).toBe(42, "Here is an example failure message.");

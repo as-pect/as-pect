@@ -73,14 +73,12 @@ export default class VerboseReporter extends TestReporter {
       const rtraceDelta =
         test.rtraceDelta === 0
           ? ""
-          : chalk` {yellow RTrace: ${(
-            /* istanbul ignore next */
-            test.rtraceDelta > 0
-              /* istanbul ignore next */
-              ? "+"
-              /* istanbul ignore next */
-              : ""
-            ) + test.rtraceDelta.toString()}}`;
+          : chalk` {yellow RTrace: ${/* istanbul ignore next */
+            (test.rtraceDelta > 0
+              ? /* istanbul ignore next */
+                "+"
+              : /* istanbul ignore next */
+                "") + test.rtraceDelta.toString()}}`;
       this.stdout!.write(
         test.negated
           ? chalk` {green  [Throws]: ✔} ${test.name}${rtraceDelta}\n`
@@ -91,13 +89,19 @@ export default class VerboseReporter extends TestReporter {
 
       if (!test.negated) {
         if (test.actual) {
-          this.stdout!.write(`  [Actual]: ${test.actual!.stringify({ indent: 2 }).trimLeft()}\n`);
+          this.stdout!.write(
+            `  [Actual]: ${test.actual!.stringify({ indent: 2 }).trimLeft()}\n`,
+          );
         }
         if (test.expected) {
           const expected = test.expected;
-          this.stdout!.write(`[Expected]: ${expected.negated ? "Not " : ""}${expected.stringify({
-            indent: 2,
-          }).trimLeft()}\n`);
+          this.stdout!.write(
+            `[Expected]: ${expected.negated ? "Not " : ""}${expected
+              .stringify({
+                indent: 2,
+              })
+              .trimLeft()}\n`,
+          );
         }
       }
 
@@ -204,17 +208,17 @@ export default class VerboseReporter extends TestReporter {
 
     const rTrace =
       rtcount === 0
-        /* istanbul ignore next */
-        ? ""
-        /* istanbul ignore next */
-        : chalk` {yellow RTrace: ${
-          /* istanbul ignore next */
-          rtcount > 0
+        ? /* istanbul ignore next */
+          ""
+        : /* istanbul ignore next */
+          chalk` {yellow RTrace: ${
             /* istanbul ignore next */
-            ? `+${rtcount}`
-            /* istanbul ignore next */
-            : rtcount.toString()
-        }}`;
+            rtcount > 0
+              ? /* istanbul ignore next */
+                `+${rtcount}`
+              : /* istanbul ignore next */
+                rtcount.toString()
+          }}`;
 
     for (const warning of suite.warnings) {
       this.stdout!.write(
@@ -245,10 +249,10 @@ export default class VerboseReporter extends TestReporter {
 
     this.stdout!.write(chalk`${
       process.stdout.columns
-        /* istanbul ignore next */
-        ? "~".repeat(Math.max(process.stdout.columns - 10, 10))
-        /* istanbul ignore next */
-        : "~".repeat(80)
+        ? /* istanbul ignore next */
+          "~".repeat(Math.max(process.stdout.columns - 10, 10))
+        : /* istanbul ignore next */
+          "~".repeat(80)
     }
 
     [File]: ${suite.fileName}${rTrace}

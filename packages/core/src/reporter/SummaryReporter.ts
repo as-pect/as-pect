@@ -19,7 +19,10 @@ export default class SummaryReporter extends TestReporter {
     if (options) {
       // can be "false" from cli
       /* istanbul ignore next */
-      if (!options.enableLogging || /* istanbul ignore next */ options.enableLogging === "false")
+      if (
+        !options.enableLogging ||
+        /* istanbul ignore next */ options.enableLogging === "false"
+      )
         /* istanbul ignore next */
         this.enableLogging = false;
     }

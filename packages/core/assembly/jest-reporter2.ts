@@ -5,7 +5,11 @@ describe("a passing suite", () => {
     log("Something!");
   });
 
-  throws("it throws successfully!", () => {
-    expect(42).not.toBe(42);
-  }, "42 is 42");
+  throws(
+    "it throws successfully!",
+    () => {
+      expect(42).not.toBe(42);
+    },
+    "42 is 42",
+  );
 });
