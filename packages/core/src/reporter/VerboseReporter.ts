@@ -73,12 +73,14 @@ export default class VerboseReporter extends TestReporter {
       const rtraceDelta =
         test.rtraceDelta === 0
           ? ""
-          : chalk` {yellow RTrace: ${/* istanbul ignore next */
-            (test.rtraceDelta > 0
-              ? /* istanbul ignore next */
-                "+"
-              : /* istanbul ignore next */
-                "") + test.rtraceDelta.toString()}}`;
+          : chalk` {yellow RTrace: ${
+              /* istanbul ignore next */
+              (test.rtraceDelta > 0
+                ? /* istanbul ignore next */
+                  "+"
+                : /* istanbul ignore next */
+                  "") + test.rtraceDelta.toString()
+            }}`;
       this.stdout!.write(
         test.negated
           ? chalk` {green  [Throws]: ✔} ${test.name}${rtraceDelta}\n`

@@ -44,17 +44,25 @@ describe("toBeNull", () => {
     expect(changetype<Vec3>(0)).toBeNull("0 is always null");
   });
 
-  throws("when a non-nullable reference is expected to be null", () => {
-    expect(new Vec3(1, 2, 3)).toBeNull();
-  }, "non-nullable references can be null, but should throw when they aren't");
+  throws(
+    "when a non-nullable reference is expected to be null",
+    () => {
+      expect(new Vec3(1, 2, 3)).toBeNull();
+    },
+    "non-nullable references can be null, but should throw when they aren't",
+  );
 
   test("non-nullable reference types can still be null", () => {
     expect(new Vec3(1, 2, 3)).not.toBeNull("new Vec3 is never null");
   });
 
-  throws("when a non-nullable reference is expected not to be null", () => {
-    expect(changetype<Vec3>(0)).not.toBeNull();
-  }, "non-nullable references can be null and should throw when they are when the expectation is negated");
+  throws(
+    "when a non-nullable reference is expected not to be null",
+    () => {
+      expect(changetype<Vec3>(0)).not.toBeNull();
+    },
+    "non-nullable references can be null and should throw when they are when the expectation is negated",
+  );
 
   test("null usize 0 should be null", () => {
     expect(<usize>0).toBeNull("0 is null when it's a usize");
