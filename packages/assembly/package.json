@@ -6,9 +6,8 @@
   "scripts": {
     "asp:ci": "node ../cli/lib/test --summary",
     "asp": "node ../cli/lib/test --verbose",
-    "mdlint": "markdownlint *.md",
-    "test:ci": "run-s asp:ci mdlint",
-    "test": "run-s asp mdlint",
+    "test:ci": "run-s asp:ci",
+    "test": "run-s asp",
     "tsc:all": "exit 0",
     "test:update-snapshots": "exit 0"
   },
@@ -32,10 +31,7 @@
     "assembly/index.ts",
     "types/"
   ],
-  "devDependencies": {
-    "markdownlint-cli": "^0.22.0"
-  },
   "peerDependencies": {
-    "assemblyscript": "0.9.2"
+    "assemblyscript": "^0.9.2"
   }
 }

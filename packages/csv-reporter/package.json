@@ -14,7 +14,7 @@
     "type": "git",
     "url": "https://github.com/jtenner/as-pect/tree/master/packages/csv-reporter"
   },
-  "author": "",
+  "author": "Joshua Tenner",
   "license": "MIT",
   "devDependencies": {
     "csv-stringify": "^5.3.6"

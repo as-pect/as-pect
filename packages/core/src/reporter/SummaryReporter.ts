@@ -126,7 +126,7 @@ export default class SummaryReporter extends TestReporter {
             suite.stdout!.write(
               chalk`      {green.bold [Expected]:} ${
                 expected.negated ? "Not " : ""
-              } ${expected.stringify({ indent: 2 }).trimLeft()}\n`,
+              }${expected.stringify({ indent: 2 }).trimLeft()}\n`,
             );
           }
           if (test.actual !== null)
