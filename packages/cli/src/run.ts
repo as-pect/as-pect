@@ -481,8 +481,15 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       let wasm: IAspectExports;
 
       if (typeof configurationImports === "function") {
-        const createImports = runner.createImports.bind(runner, { env: { memory } });
-        wasm = configurationImports(memory, createImports, instantiateSync, binary);
+        const createImports = runner.createImports.bind(runner, {
+          env: { memory },
+        });
+        wasm = configurationImports(
+          memory,
+          createImports,
+          instantiateSync,
+          binary,
+        );
         if (!wasm) {
           console.error(
             chalk`{red [Error]} Imports configuration function did not return an AssemblyScript module. (Did you forget to return it?)`,

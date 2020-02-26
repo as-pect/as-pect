@@ -318,9 +318,7 @@ export class TestCollector {
       performanceEnabled: this.performanceEnabled.bind(this),
       pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
       pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
-      reportActualReflectedValue: this.reportActualReflectedValue.bind(
-        this,
-      ),
+      reportActualReflectedValue: this.reportActualReflectedValue.bind(this),
       reportAfterAll: this.reportAfterAll.bind(this),
       reportAfterEach: this.reportAfterEach.bind(this),
       reportAverage: this.reportAverage.bind(this),
