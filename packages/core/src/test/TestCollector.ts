@@ -273,100 +273,106 @@ export class TestCollector {
    * @param {any[]} imports - Every import item specified.
    */
   public createImports(...imports: any[]): any {
-    const result = Object.assign(
-      {},
-      ...imports, // get all the user defined imports
-      {
-        __aspect: {
-          attachStackTraceToReflectedValue: this.attachStackTraceToReflectedValue.bind(
-            this,
-          ),
-          clearActual: this.clearActual.bind(this),
-          clearExpected: this.clearExpected.bind(this),
-          createReflectedValue: this.createReflectedValue.bind(this),
-          debug: this.debug.bind(this),
-          endRTrace: this.endRTrace.bind(this),
-          getRTraceAllocations: this.getRTraceAllocations.bind(this),
-          getRTraceBlocks: this.getRTraceBlocks.bind(this),
-          getRTraceCount: this.getRTraceCount.bind(this),
-          getRTraceDecrements: this.getRTraceDecrements.bind(this),
-          getRTraceFrees: this.getRTraceFrees.bind(this),
-          getRTraceGroupAllocations: this.getRTraceGroupAllocations.bind(this),
-          getRTraceGroupBlocks: this.getRTraceGroupBlocks.bind(this),
-          getRTraceGroupDecrements: this.getRTraceGroupDecrements.bind(this),
-          getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
-          getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
-          getRTraceGroupReallocs: this.getRTraceGroupReallocs.bind(this),
-          getRTraceIncrements: this.getRTraceIncrements.bind(this),
-          getRTraceReallocs: this.getRTraceReallocs.bind(this),
-          getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
-          getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
-          getRTraceTestDecrements: this.getRTraceTestDecrements.bind(this),
-          getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
-          getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
-          getRTraceTestReallocs: this.getRTraceTestReallocs.bind(this),
-          logReflectedValue: this.logReflectedValue.bind(this),
-          maxSamples: this.maxSamples.bind(this),
-          maxTestRunTime: this.maxTestRunTime.bind(this),
-          performanceEnabled: this.performanceEnabled.bind(this),
-          pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
-          pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
-          reportActualReflectedValue: this.reportActualReflectedValue.bind(
-            this,
-          ),
-          reportAfterAll: this.reportAfterAll.bind(this),
-          reportAfterEach: this.reportAfterEach.bind(this),
-          reportAverage: this.reportAverage.bind(this),
-          reportBeforeAll: this.reportBeforeAll.bind(this),
-          reportBeforeEach: this.reportBeforeEach.bind(this),
-          reportDescribe: this.reportDescribe.bind(this),
-          reportEndDescribe: this.reportEndDescribe.bind(this),
-          reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
-          reportExpectedFinite: this.reportExpectedFinite.bind(this),
-          reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(
-            this,
-          ),
-          reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
-          reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
-          reportMax: this.reportMax.bind(this),
-          reportMedian: this.reportMedian.bind(this),
-          reportMin: this.reportMin.bind(this),
-          reportNegatedTest: this.reportNegatedTest.bind(this),
-          reportStdDev: this.reportStdDev.bind(this),
-          reportTest: this.reportTest.bind(this),
-          reportTodo: this.reportTodo.bind(this),
-          reportVariance: this.reportVariance.bind(this),
-          roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
-          startRTrace: this.startRTrace.bind(this),
-          tryCall: this.tryCall.bind(this),
-        },
-      },
-    );
+    const finalImports: any = {};
+
+    for (const moduleImport of imports) {
+      for (const [key, value] of Object.entries(moduleImport)) {
+        /* istanbul ignore next */
+        if (key === "__aspect") continue;
+        /* istanbul ignore next */
+        finalImports[key] = Object.assign(finalImports[key] || {}, value);
+      }
+    }
+
+    finalImports.__aspect = {
+      attachStackTraceToReflectedValue: this.attachStackTraceToReflectedValue.bind(
+        this,
+      ),
+      clearActual: this.clearActual.bind(this),
+      clearExpected: this.clearExpected.bind(this),
+      createReflectedValue: this.createReflectedValue.bind(this),
+      debug: this.debug.bind(this),
+      endRTrace: this.endRTrace.bind(this),
+      getRTraceAllocations: this.getRTraceAllocations.bind(this),
+      getRTraceBlocks: this.getRTraceBlocks.bind(this),
+      getRTraceCount: this.getRTraceCount.bind(this),
+      getRTraceDecrements: this.getRTraceDecrements.bind(this),
+      getRTraceFrees: this.getRTraceFrees.bind(this),
+      getRTraceGroupAllocations: this.getRTraceGroupAllocations.bind(this),
+      getRTraceGroupBlocks: this.getRTraceGroupBlocks.bind(this),
+      getRTraceGroupDecrements: this.getRTraceGroupDecrements.bind(this),
+      getRTraceGroupFrees: this.getRTraceGroupFrees.bind(this),
+      getRTraceGroupIncrements: this.getRTraceGroupIncrements.bind(this),
+      getRTraceGroupReallocs: this.getRTraceGroupReallocs.bind(this),
+      getRTraceIncrements: this.getRTraceIncrements.bind(this),
+      getRTraceReallocs: this.getRTraceReallocs.bind(this),
+      getRTraceTestAllocations: this.getRTraceTestAllocations.bind(this),
+      getRTraceTestBlocks: this.getRTraceTestBlocks.bind(this),
+      getRTraceTestDecrements: this.getRTraceTestDecrements.bind(this),
+      getRTraceTestFrees: this.getRTraceTestFrees.bind(this),
+      getRTraceTestIncrements: this.getRTraceTestIncrements.bind(this),
+      getRTraceTestReallocs: this.getRTraceTestReallocs.bind(this),
+      logReflectedValue: this.logReflectedValue.bind(this),
+      maxSamples: this.maxSamples.bind(this),
+      maxTestRunTime: this.maxTestRunTime.bind(this),
+      performanceEnabled: this.performanceEnabled.bind(this),
+      pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
+      pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
+      reportActualReflectedValue: this.reportActualReflectedValue.bind(
+        this,
+      ),
+      reportAfterAll: this.reportAfterAll.bind(this),
+      reportAfterEach: this.reportAfterEach.bind(this),
+      reportAverage: this.reportAverage.bind(this),
+      reportBeforeAll: this.reportBeforeAll.bind(this),
+      reportBeforeEach: this.reportBeforeEach.bind(this),
+      reportDescribe: this.reportDescribe.bind(this),
+      reportEndDescribe: this.reportEndDescribe.bind(this),
+      reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
+      reportExpectedFinite: this.reportExpectedFinite.bind(this),
+      reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(
+        this,
+      ),
+      reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
+      reportInvalidExpectCall: this.reportInvalidExpectCall.bind(this),
+      reportMax: this.reportMax.bind(this),
+      reportMedian: this.reportMedian.bind(this),
+      reportMin: this.reportMin.bind(this),
+      reportNegatedTest: this.reportNegatedTest.bind(this),
+      reportStdDev: this.reportStdDev.bind(this),
+      reportTest: this.reportTest.bind(this),
+      reportTodo: this.reportTodo.bind(this),
+      reportVariance: this.reportVariance.bind(this),
+      roundDecimalPlaces: this.roundDecimalPlaces.bind(this),
+      startRTrace: this.startRTrace.bind(this),
+      tryCall: this.tryCall.bind(this),
+    };
 
     /** If RTrace is enabled, add it to the imports. */
-    if (this.rtraceEnabled)
-      result.rtrace = {
+    if (this.rtraceEnabled) {
+      finalImports.rtrace = {
         onalloc: this.onalloc.bind(this),
         onfree: this.onfree.bind(this),
         onincrement: this.onincrement.bind(this),
         ondecrement: this.ondecrement.bind(this),
         onrealloc: this.onrealloc.bind(this),
       };
+    }
 
     /** add an env object */
-    result.env = result.env || {};
+    finalImports.env = finalImports.env || {};
 
     /** Override the abort function */
-    const previousAbort = result.env.abort || (() => {});
-    result.env.abort = (...args: any[]) => {
+    const previousAbort = finalImports.env.abort || (() => {});
+    finalImports.env.abort = (...args: any[]) => {
       previousAbort(...args);
       // @ts-ignore
       this.abort(...args);
     };
     /** Override trace completely. */
-    result.env.trace = this.trace.bind(this);
+    finalImports.env.trace = this.trace.bind(this);
 
-    return result;
+    return finalImports;
   }
 
   /**
