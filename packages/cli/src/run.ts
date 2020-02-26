@@ -477,15 +477,30 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       }
 
       const memory = new WebAssembly.Memory(memoryDescriptor);
-      const stagedImports =
-        typeof configurationImports === "function"
-          ? configurationImports(memory)
-          : configurationImports;
-      const imports = runner.createImports(stagedImports);
-      imports.env.memory = memory;
 
-      // instantiate the module
-      const wasm: IAspectExports = instantiateSync(binary, imports);
+      let wasm: IAspectExports;
+
+      if (typeof configurationImports === "function") {
+        const createImports = runner.createImports.bind(runner, {
+          env: { memory },
+        });
+        wasm = configurationImports(
+          memory,
+          createImports,
+          instantiateSync,
+          binary,
+        );
+        if (!wasm) {
+          console.error(
+            chalk`{red [Error]} Imports configuration function did not return an AssemblyScript module. (Did you forget to return it?)`,
+          );
+          process.exit(1);
+        }
+      } else {
+        const imports = runner.createImports(configurationImports);
+        imports.env.memory = memory;
+        wasm = instantiateSync(binary, imports);
+      }
 
       if (runner.errors.length > 0) {
         errors.push(...runner.errors);
