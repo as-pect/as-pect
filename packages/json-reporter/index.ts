@@ -26,7 +26,7 @@ export default class JSONReporter implements IReporter {
     this.first = true;
   }
 
-  public onExit(ctx: TestContext, node: TestNode): void {
+  public onExit(_ctx: TestContext, node: TestNode): void {
     if (node.type === TestNodeType.Group) {
       this.onGroupFinish(node)
     }
@@ -38,22 +38,9 @@ export default class JSONReporter implements IReporter {
 
   onGroupFinish(group: TestNode) {
     if (group.children.length === 0) return;
-  
-    const tests: TestNode[] = group.getTestChildren();
-    const allTodosUnderGroup: string[][] = tests.map(({ todos }) => todos);
-  
-    for (let i = 0; i < tests.length; i++) {
-      this.onTestFinish(group, tests[i]);
-    }
-  
-    /**
-     * @fixme can do this better
-     */
-    group.todos.forEach((desc) => this.onTodo(group, desc));
-  
-    allTodosUnderGroup.forEach((todo) => {
-      todo.forEach((desc) => this.onTodo(group, desc))
-    });
+
+    group.groupTests.forEach((test) => this.onTestFinish(group, test));
+    group.groupTodos.forEach((desc) => this.onTodo(group, desc));
   }
 
   onTestFinish(group: TestNode, test: TestNode): void {

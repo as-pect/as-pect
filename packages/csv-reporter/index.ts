@@ -56,18 +56,8 @@ export default class CSVReporter implements IReporter {
   onGroupFinish(group: TestNode): void {
     if (group.children.length === 0) return;
 
-    const tests: TestNode[] = group.getTestChildren();
-    const allTodosUnderGroup: string[][] = tests.map(({ todos }) => todos);
-
-    for (let i = 0; i < tests.length; i++) {
-      this.onTestFinish(group, tests[i]);
-    }
-
-    group.todos.forEach((desc) => this.onTodo(group, desc));
-
-    allTodosUnderGroup.forEach((todo) => {
-      todo.forEach((desc) => this.onTodo(group, desc))
-    });
+    group.groupTests.forEach((test) => this.onTestFinish(group, test));
+    group.groupTodos.forEach((desc) => this.onTodo(group, desc));
   }
   
   onTestFinish(group: TestNode, test: TestNode) {
