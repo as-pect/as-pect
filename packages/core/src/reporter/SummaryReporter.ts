@@ -36,29 +36,27 @@ export class SummaryReporter extends EmptyReporter {
     /**
      * Reporting strategy. If the node passes, only display it if it's a group.
      */
+    const tests = node.groupTests;
+    const count = tests.length;
+    const deltaT = node.deltaT;
+    const todos = node.groupTodos;
+    const todoCount = todos.length;
+
+    if (tests.length === 0) return;
+
     if (node.pass) {
       if (node.type === TestNodeType.Group) {
-        const tests = node.groupTests;
-        const todos = node.groupTodos;
-        const count = tests.length;
         const chalk = require("chalk");
-        const deltaT = node.deltaT;
-        const todoCount = todos.length;
         this.stdout!.write(
           chalk`{green ${node.name}} Pass: {green ${count}} / ${count} Todo: {blue ${todoCount}} Time: {blue ${deltaT}ms}\n`,
         );
       }
     } else {
       // this node didn't pass, report it
-      const tests = node.groupTests;
       const failed = tests.filter(e => !e.pass);
-      const todoCount = node.todos.length;
-      const chalk = require("chalk");
-      const deltaT = node.deltaT;
-      const count = tests.length;
       const failedCount = failed.length;
 
-
+      const chalk = require("chalk");
       this.stdout!.write(
         chalk`{red ${node.name}} Pass: {red ${count - failedCount}} / ${count} Todo: {blue ${todoCount}} Time: {blue ${deltaT}ms}\n`,
       );

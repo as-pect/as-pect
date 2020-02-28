@@ -500,7 +500,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         testCount += runner.testCount;
         successCount += runner.testPassCount;
         groupCount += runner.groupCount;
-        groupSuccessCount = runner.groupPassCount;
+        groupSuccessCount += runner.groupPassCount;
         errors.push(...runner.errors); // if there are any runtime allocation errors add them
       }
     }
