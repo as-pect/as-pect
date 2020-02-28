@@ -184,7 +184,8 @@ export class TestContext {
     // set the start timer for this node
     node.start = performance.now();
 
-    const rtraceStart = this.blocks.size;
+    // set the rtraceStart value
+    node.rtraceStart = this.blocks.size;
 
     // set the target node for collection
     this.targetNode = node;
