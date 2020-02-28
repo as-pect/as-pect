@@ -70,4 +70,15 @@ export class TestNode {
   end: number = 0;
   /** The delta number of heap allocations. */
   rtraceDelta: number = 0;
+
+  /** Collect all the children of this node that are nested tests. */
+  getTestChildren(ref: TestNode[] = []): TestNode[] {
+    const children = this.children;
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i];
+      child.getTestChildren(ref);
+      if (child.type === TestNodeType.Test) ref.push(child);
+    }
+    return ref;
+  }
 }

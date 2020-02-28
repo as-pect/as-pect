@@ -133,6 +133,14 @@ export class TestContext {
         type: "TestContext Initialization"
       });
     }
+
+    if (typeof props.reporter.onFinish !== "function") {
+      this.rootNode.errors.push({
+        message: "Invalid reporter callback: onFinish is not a function",
+        stackTrace: "",
+        type: "TestContext Initialization"
+      });
+    }
   }
 
   /**
