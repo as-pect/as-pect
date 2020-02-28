@@ -1,4 +1,4 @@
-import { VerboseReporter, TestContext, TestGroup, TestResult } from "../src";
+import { VerboseReporter, TestContext, TestNode } from "../src";
 import { createReporterModule } from "./setup/createReporterModule";
 import strip from "strip-ansi";
 
@@ -13,29 +13,26 @@ const writer = {
 };
 
 class ReporterWrapper extends VerboseReporter {
-  onStart(ctx: TestContext) {
-    ctx.stdout = writer;
-    writer.reset();
-    super.onStart(ctx);
-    const result = strip(writer.result);
-    test("onStart", () => expect(result).toMatchSnapshot("start"));
-    writer.reset();
+  constructor() {
+    super();
+    this.stdout = writer;
+    this.stderr = writer;
   }
-  onGroupStart(group: TestGroup): void {
+  onGroupStart(group: TestNode): void {
     writer.reset();
     super.onGroupStart(group);
     const result = strip(writer.result);
     test("onGroupStart", () => expect(result).toMatchSnapshot(group.name));
     writer.reset();
   }
-  onGroupEnd(group: TestGroup): void {
+  onGroupEnd(group: TestNode): void {
     writer.reset();
     super.onGroupFinish(group);
     const result = strip(writer.result);
     test("onGroupEnd", () => expect(result).toMatchSnapshot(group.name));
     writer.reset();
   }
-  onTestStart(group: TestGroup, testResult: TestResult): void {
+  onTestStart(group: TestNode, testResult: TestNode): void {
     writer.reset();
     super.onTestStart(group, testResult);
     const result = strip(writer.result);
@@ -43,7 +40,7 @@ class ReporterWrapper extends VerboseReporter {
       expect(result).toMatchSnapshot(`${group.name} ${testResult.name}`));
     writer.reset();
   }
-  onTestFinish(group: TestGroup, testResult: TestResult): void {
+  onTestFinish(group: TestNode, testResult: TestNode): void {
     writer.reset();
     super.onTestFinish(group, testResult);
     const result = strip(writer.result);
@@ -53,14 +50,16 @@ class ReporterWrapper extends VerboseReporter {
   }
   onFinish(ctx: TestContext): void {
     writer.reset();
-    ctx.time = 0;
-    ctx.startupTime = 0;
+    ctx.rootNode.visit(e => {
+      e.start = 0;
+      e.end = 0;
+    });
     super.onFinish(ctx);
     const result = strip(writer.result);
     test("onFinish", () => expect(result).toMatchSnapshot(`finish`));
     writer.reset();
   }
-  onTodo(group: TestGroup, todo: string): void {
+  onTodo(group: TestNode, todo: string): void {
     writer.reset();
     super.onTodo(group, todo);
     const result = strip(writer.result);

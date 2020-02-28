@@ -1,6 +1,7 @@
 import { TestContext } from "../src/test/TestContext";
 import { createLogModule } from "./setup/createLogModule";
 import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue";
+import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 
 let ctx: TestContext;
 
@@ -32,35 +33,38 @@ const stringifyOptions: Partial<StringifyReflectedValueProps> = {
 
 describe("log output", () => {
   test("Overall Statistics", () => {});
-  for (const group of ctx.testGroups) {
-    test(`Group: ${group.name}`, () => {
-      for (const log of group.logs) {
-        const stack = log.stack;
-        log.stack = "";
-        expect(log).toMatchSnapshot("log");
-        log.stack = stack;
-      }
-      for (const todo of group.todos) {
-        expect(todo).toMatchSnapshot(`todo`);
-      }
-      expect(group.pass).toBeTruthy();
-    });
 
-    describe(`Group: ${group.name}`, () => {
-      for (const groupTest of group.tests) {
-        test(`Test: ${groupTest.name}`, () => {
-          for (const log of groupTest.logs) {
-            const stack = log.stack;
-            log.stack = "";
-            expect(log).toMatchSnapshot("log");
-            expect(log.stringify(stringifyOptions)).toMatchSnapshot(
-              "stringify",
-            );
-            log.stack = stack;
-          }
-          expect(groupTest.pass).toBeTruthy();
-        });
-      }
-    });
-  }
+  ctx.rootNode.visit(group => {
+    if (group.type === TestNodeType.Group) {
+      test(`Group: ${group.name}`, () => {
+        for (const log of group.logs) {
+          const stack = log.stack;
+          log.stack = "";
+          expect(log).toMatchSnapshot("log");
+          log.stack = stack;
+        }
+        for (const todo of group.todos) {
+          expect(todo).toMatchSnapshot(`todo`);
+        }
+        expect(group.pass).toBeTruthy();
+      });
+
+      describe(`Group: ${group.name}`, () => {
+        for (const groupTest of group.groupTests) {
+          test(`Test: ${groupTest.name}`, () => {
+            for (const log of groupTest.logs) {
+              const stack = log.stack;
+              log.stack = "";
+              expect(log).toMatchSnapshot("log");
+              expect(log.stringify(stringifyOptions)).toMatchSnapshot(
+                "stringify",
+              );
+              log.stack = stack;
+            }
+            expect(groupTest.pass).toBeTruthy();
+          });
+        }
+      });
+    }
+  });
 });
