@@ -136,25 +136,12 @@ export class VerboseReporter implements IReporter {
     const suite = ctx.rootNode;
     /* istanbul ignore next */
     if (suite.children.length === 0) return;
-    let groupCount = 0;
-    let passGroupCount = 0;
-    let testCount = 0;
-    let passTestCount = 0;
-    let todoCount = 0;
     const errors: IWarning[] = [];
     const warnings: IWarning[] = [];
 
     visitAllChildren(suite, (node) => {
-      if (node.type === TestNodeType.Group) {
-        groupCount += 1;
-        if (node.pass) passGroupCount += 1;
-      } else {
-        testCount += 1;
-        if (node.pass) passTestCount += 1;
-      }
       for (const error of node.errors) errors.push(error);
       for (const warning of node.warnings) warnings.push(warning);
-      todoCount += node.todos.length;
     });
 
     const chalk = require("chalk");
@@ -162,9 +149,9 @@ export class VerboseReporter implements IReporter {
     const result = suite.pass ? chalk`{green ✔ PASS}` : chalk`{red ✖ FAIL}`;
 
     const failText =
-      testCount === passTestCount
+      ctx.testPassCount === ctx.testCount
         ? `0 fail`
-        : chalk`{red ${(testCount - passTestCount).toString()} fail}`;
+        : chalk`{red ${(ctx.testCount - ctx.testPassCount).toString()} fail}`;
 
     const rtcount = suite.rtraceDelta;
 
@@ -218,10 +205,10 @@ export class VerboseReporter implements IReporter {
     }
 
     [File]: ${ctx.fileName}${rTrace}
-  [Groups]: {green ${passGroupCount}, ${groupCount} total
+  [Groups]: {green ${ctx.groupPassCount}, ${ctx.groupCount} total
   [Result]: ${result}
- [Summary]: {green ${passTestCount} pass},  ${failText}, ${testCount} total
-    [Todo]: {yellow ${todoCount}}
+ [Summary]: {green ${ctx.testPassCount} pass},  ${failText}, ${ctx.testCount} total
+    [Todo]: {yellow ${ctx.todoCount}}
     [Time]: {blue ${time}ms}\n\n`);
   }
 

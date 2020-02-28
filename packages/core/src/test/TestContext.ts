@@ -87,6 +87,21 @@ export class TestContext {
   /** Filter the groups by regex. */
   protected groupRegex: RegExp = new RegExp("");
 
+  /** The test count. */
+  public testCount: number = 0;
+
+  /** The group count. */
+  public groupCount: number = 0;
+
+  /** The number of passing tests count. */
+  public testPassCount: number = 0;
+
+  /** The number of passing groups count. */
+  public groupPassCount: number = 0;
+
+  /** The number of todos. */
+  public todoCount: number = 0;
+
   /**
    * RTrace is a funciton that helps with debugging reference counting and can be used to find
    * leaks. If it is enabled, it will be included automatically by the bootstrap in the
@@ -141,6 +156,9 @@ export class TestContext {
         type: "TestContext Initialization"
       });
     }
+
+    /** The root node is a group. */
+    this.rootNode.type = TestNodeType.Group;
   }
 
   /**
@@ -157,6 +175,7 @@ export class TestContext {
     // determine if this test suite passed or failed
     this.pass = this.rootNode.pass;
 
+    // finish the report
     this.reporter.onFinish(this);
   }
 
@@ -182,7 +201,7 @@ export class TestContext {
         node.expected = null;
       }
       node.end = performance.now();
-      node.rtraceDelta = this.blocks.size - rtraceStart;
+      this.addResult(node, success);
       this.reporter.onExit(this, node);
       return;
     }
@@ -194,9 +213,8 @@ export class TestContext {
         // collect all the top level function pointers, tests, groups, and logs
         this.wasm!._start();
       } catch (ex) {
-        this.collectStatistics(node);
         node.end = performance.now();
-        node.rtraceDelta = this.blocks.size - rtraceStart;
+        this.addResult(node, false);
         return;
       }
     } else {
@@ -205,15 +223,15 @@ export class TestContext {
       if (!success) {
         // collection or test failure, stop traversal of this node
         this.collectStatistics(node);
-        node.end = performance.now();
-        node.rtraceDelta = this.blocks.size - rtraceStart;
+        this.addResult(node, false);
         return;
       }
     }
 
     // Errors can occur at any level before you visit them, even if nothing was thrown
     if (node.errors.length > 0) {
-      node.end = performance.now();
+      this.collectStatistics(node);
+      this.addResult(node, false);
       return;
     }
 
@@ -223,8 +241,7 @@ export class TestContext {
     // We now have the responsibility to run each beforeAll callback before traversing children
     if (!this.runFunctions(node.beforeAll)) {
       this.collectStatistics(node);
-      node.end = performance.now();
-      node.rtraceDelta = this.blocks.size - rtraceStart;
+      this.addResult(node, false);
       this.reporter.onExit(this, node);
       return;
     }
@@ -240,7 +257,7 @@ export class TestContext {
         if (child.type === TestNodeType.Test) {
           if (!this.runBeforeEach(node)) {
             this.collectStatistics(node);
-            node.rtraceDelta = this.blocks.size - rtraceStart;
+            this.addResult(node, false);
             this.reporter.onExit(this, node);
             return;
           }
@@ -253,8 +270,7 @@ export class TestContext {
         if (child.type === TestNodeType.Test) {
           if (!this.runAfterEach(node)) {
             this.collectStatistics(node);
-            node.end = performance.now();
-            node.rtraceDelta = this.blocks.size - rtraceStart;
+            this.addResult(node, false);
             this.reporter.onExit(this, node);
             return;
           }
@@ -265,8 +281,7 @@ export class TestContext {
     // We now have the responsibility to run each afterAll callback after traversing children
     if (!this.runFunctions(node.afterAll)) {
       this.collectStatistics(node);
-      node.end = performance.now();
-      node.rtraceDelta = this.blocks.size - rtraceStart;
+      this.addResult(node, false);
       this.reporter.onExit(this, node);
       return;
     }
@@ -275,7 +290,7 @@ export class TestContext {
     node.pass = node.children.reduce(
       (pass: boolean, node: TestNode) => pass && node.pass, true);
     node.end = performance.now();
-    node.rtraceDelta = this.blocks.size - rtraceStart;
+    this.addResult(node, true);
     this.reporter.onExit(this, node);
   }
 
@@ -285,6 +300,20 @@ export class TestContext {
     node.actual = this.actual;
     node.expected = this.expected;
     node.message = this.message;
+    node.end = performance.now();
+    node.rtraceEnd = this.blocks.size;
+  }
+
+  /** Add a test or group result to the statistics. */
+  private addResult(node: TestNode, pass: boolean): void {
+    if (node.type === TestNodeType.Group) {
+      this.groupCount += 1;
+      if (pass) this.groupPassCount += 1;
+    } else {
+      this.testCount += 1;
+      if (pass) this.groupPassCount += 1;
+    }
+    this.todoCount += node.todos.length;
   }
 
   /** Run a series of callbacks into web assembly. */
@@ -298,15 +327,17 @@ export class TestContext {
   /** Run every before each callback in the proper order. */
   private runBeforeEach(node: TestNode): boolean {
     return node.parent
+      //run parents first and bail early if the parents failed
       ? this.runBeforeEach(node.parent) && this.runFunctions(node.beforeEach)
       : this.runFunctions(node.beforeEach);
-  }
+    }
 
-  /** Run every before each callback in the proper order. */
-  private runAfterEach(node: TestNode): boolean {
-    return node.parent
-      ? this.runAfterEach(node.parent) && this.runFunctions(node.beforeEach)
-      : this.runFunctions(node.beforeEach);
+    /** Run every before each callback in the proper order. */
+    private runAfterEach(node: TestNode): boolean {
+      return node.parent
+        //run parents first and bail early if the parents failed
+        ? this.runAfterEach(node.parent) && this.runFunctions(node.beforeEach)
+        : this.runFunctions(node.beforeEach);
   }
 
   /**

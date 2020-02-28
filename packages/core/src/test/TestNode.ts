@@ -68,8 +68,17 @@ export class TestNode {
 
   /** End time. */
   end: number = 0;
+
+  /** The number of active heap allocations when the node started. */
+  rtraceStart: number = 0;
+
+  /** The number of active heap allocations when the node ended. */
+  rtraceEnd: number = 0;
+
   /** The delta number of heap allocations. */
-  rtraceDelta: number = 0;
+  get rtraceDelta(): number {
+    return this.rtraceEnd - this.rtraceStart;
+  };
 
   /** Collect all the children of this node that are nested tests. */
   getTestChildren(ref: TestNode[] = []): TestNode[] {
