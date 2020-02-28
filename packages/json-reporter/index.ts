@@ -1,68 +1,87 @@
 import {
-  TestReporter,
-  TestContext,
-  TestResult,
-  TestGroup,
-} from "@as-pect/core";
+  IReporter,
+} from "../../packages/core/src/reporter/IReporter";
+import { TestContext } from '../core/src/test/TestContext';
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
+import { TestNode } from '../core/src/test/TestNode';
+import { TestNodeType } from '@as-pect/assembly/assembly/internal/TestNodeType';
 
 /**
  * This class reports all relevant test statistics to a JSON file located at
  * `{testLocation}.spec.json`.
  */
-export default class JSONReporter extends TestReporter {
-  constructor(_options?: any) {
-    super();
-  }
-
+export default class JSONReporter implements IReporter {
   protected file: WriteStream | null = null;
-
+  
   private first: boolean = true;
-  public onStart(suite: TestContext): void {
-    const extension = extname(suite.fileName);
-    const dir = dirname(suite.fileName);
-    const base = basename(suite.fileName, extension);
+  
+  public onEnter(ctx: TestContext): void {
+    const extension = extname(ctx.fileName);
+    const dir = dirname(ctx.fileName);
+    const base = basename(ctx.fileName, extension);
     const outPath = join(process.cwd(), dir, base + ".json");
     this.file = createWriteStream(outPath, "utf8");
     this.file.write("[");
     this.first = true;
   }
 
-  public onGroupStart(): void {}
-  public onGroupFinish(): void {}
-  public onFinish(): void {
-    this.file!.end("\n]");
+  public onExit(ctx: TestContext, node: TestNode): void {
+    if (node.type === TestNodeType.Group) {
+      this.onGroupFinish(node)
+    }
   }
 
-  public onTestStart() {}
+  public onFinish(_ctx: TestContext): void {
+    this.file!.end();
+  }
 
-  public onTestFinish(group: TestGroup, result: TestResult) {
+  onGroupFinish(group: TestNode) {
+    if (group.children.length === 0) return;
+  
+    const tests: TestNode[] = group.getTestChildren();
+    const allTodosUnderGroup: string[][] = tests.map(({ todos }) => todos);
+  
+    for (let i = 0; i < tests.length; i++) {
+      this.onTestFinish(group, tests[i]);
+    }
+  
+    /**
+     * @fixme can do this better
+     */
+    group.todos.forEach((desc) => this.onTodo(group, desc));
+  
+    allTodosUnderGroup.forEach((todo) => {
+      todo.forEach((desc) => this.onTodo(group, desc))
+    });
+  }
+
+  onTestFinish(group: TestNode, test: TestNode): void {
     this.file!.write(
       (this.first ? "\n" : ",\n") +
         JSON.stringify({
           group: group.name,
-          name: result.name,
-          ran: result.ran,
-          pass: result.pass,
-          runtime: result.runTime,
-          message: result.message,
-          actual: result.actual ? result.actual.stringify({ indent: 0 }) : null,
-          expected: result.expected
-            ? result.expected.stringify({ indent: 0 })
+          name: test.name,
+          /**
+           * @todo uncomment when ran is implemented
+           */
+          // ran: test.ran,
+          pass: test.pass,
+          runtime: test.deltaT,
+          message: test.message,
+          actual: test.actual ? test.actual.stringify({ indent: 0 }) : null,
+          /**
+           * @todo manage output for negated cases better
+           */
+          expected: test.expected
+            ? test.expected.stringify({ indent: 0 })
             : null,
-          average: result.average,
-          median: result.median,
-          max: result.max,
-          min: result.min,
-          stdDev: result.stdDev,
-          variance: result.variance,
         }),
     );
     this.first = false;
   }
 
-  public onTodo(group: TestGroup, desc: string) {
+  onTodo(group: TestNode, desc: string) {
     this.file!.write(
       (this.first ? "\n" : ",\n") +
         JSON.stringify({
@@ -74,12 +93,6 @@ export default class JSONReporter extends TestReporter {
           message: "",
           actual: null,
           expected: null,
-          average: 0,
-          median: 0,
-          max: 0,
-          min: 0,
-          stdDev: 0,
-          variance: 0,
         }),
     );
     this.first = false;
