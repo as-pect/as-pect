@@ -305,11 +305,60 @@ export class TestContext {
     this.reporter.onExit(this, node);
   }
 
+  /**
+   * @external("__aspect", "reportTestNode")
+   * declare function reportTestNode(
+   *   type: TestNodeType,
+   *   description: string,
+   *   callback: () => void,
+   *   negated: bool,
+   *   message: string | null,
+   * ): void;
+   */
   /** Report a TestNode */
   private reportTestNode(
-
+    type: TestNodeType,
+    descriptionPointer: number,
+    callbackPointer: number,
+    negated: 1 | 0,
+    messagePointer: number,
   ): void {
-    
+    const parent = this.targetNode;
+    const node = new TestNode();
+    node.type = type;
+    node.name = this.getString(descriptionPointer, node.name);
+    node.callback = callbackPointer;
+    node.negated = negated === 1;
+    node.message = node.negated
+      ? this.getString(messagePointer, "No Message Provided.")
+      : node.message;
+
+    // namespacing for snapshots later
+    const namespacePrefix = `${parent.namespace}!~${node.name}`;
+    let i = 0;
+
+    while (true) {
+      const namespace = `${namespacePrefix}[${i}]`;
+
+      let found = false;
+      parent.visit((node): boolean | void => {
+        if (found) return false;
+        if (node.namespace === namespacePrefix) {
+          found = true;
+          return false;
+        }
+      });
+
+      if (!found) {
+        node.namespace = namespace;
+        break;
+      }
+      i++;
+    }
+
+    // fix the node hierarchy
+    node.parent = parent;
+    parent.children.push(node);
   }
 
   /** Obtain the stack trace, actual, expected, and message values, and attach them to a given node. */
@@ -329,7 +378,7 @@ export class TestContext {
       if (pass) this.groupPassCount += 1;
     } else {
       this.testCount += 1;
-      if (pass) this.groupPassCount += 1;
+      if (pass) this.testPassCount += 1;
     }
     this.todoCount += node.todos.length;
   }
@@ -348,14 +397,14 @@ export class TestContext {
       //run parents first and bail early if the parents failed
       ? this.runBeforeEach(node.parent) && this.runFunctions(node.beforeEach)
       : this.runFunctions(node.beforeEach);
-    }
+  }
 
     /** Run every before each callback in the proper order. */
-    private runAfterEach(node: TestNode): boolean {
-      return node.parent
-        //run parents first and bail early if the parents failed
-        ? this.runAfterEach(node.parent) && this.runFunctions(node.beforeEach)
-        : this.runFunctions(node.beforeEach);
+  private runAfterEach(node: TestNode): boolean {
+    return node.parent
+      //run parents first and bail early if the parents failed
+      ? this.runAfterEach(node.parent) && this.runFunctions(node.afterEach)
+      : this.runFunctions(node.afterEach);
   }
 
   /**
@@ -412,6 +461,7 @@ export class TestContext {
         this,
       ),
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
+      reportTestNode: this.reportTestNode.bind(this),
       reportTodo: this.reportTodo.bind(this),
       startRTrace: this.startRTrace.bind(this),
       tryCall: this.tryCall.bind(this),

@@ -5,7 +5,6 @@ import { TestNode } from "../test/TestNode";
 import { EmptyReporter } from "./EmptyReporter";
 import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 import { IWarning } from "../test/IWarning";
-import { visitImmediateChildren } from "../util/visitChildren";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -39,37 +38,29 @@ export class SummaryReporter extends EmptyReporter {
      */
     if (node.pass) {
       if (node.type === TestNodeType.Group) {
-        let todo: string[] = [];
-        let count = 0;
-
-        visitImmediateChildren(node, TestNodeType.Test, (child) => {
-          todo = todo.concat(child.todos);
-          count++;
-        });
+        const tests = node.groupTests;
+        const todos = node.groupTodos;
+        const count = tests.length;
         const chalk = require("chalk");
-        const deltaT = Math.round((node.end - node.start) * 1000) / 1000;
-        const todoCount = todo.length;
+        const deltaT = node.deltaT;
+        const todoCount = todos.length;
         this.stdout!.write(
           chalk`{green ${node.name}} Pass: {green ${count}} / ${count} Todo: {blue ${todoCount}} Time: {blue ${deltaT}ms}\n`,
         );
       }
     } else {
       // this node didn't pass, report it
-      const failedTests: TestNode[] = [];
+      const tests = node.groupTests;
+      const failed = tests.filter(e => !e.pass);
+      const todoCount = node.todos.length;
       const chalk = require("chalk");
-      const deltaT = Math.round((node.end - node.start) * 1000) / 1000;
-      let count = 0;
-      let todoCount = 0;
+      const deltaT = node.deltaT;
+      const count = tests.length;
+      const failedCount = failed.length;
 
-      // visit each child and inspect the tests, report each failure
-      visitImmediateChildren(node, TestNodeType.Test, (child) => {
-        count++;
-        if (!child.pass) failedTests.push(child);
-        todoCount += child.todos.length;
-      });
 
       this.stdout!.write(
-        chalk`{red ${node.name}} Pass: {red ${failedTests.length}} / ${count} Todo: {blue ${todoCount}} Time: {blue ${deltaT}ms}\n`,
+        chalk`{red ${node.name}} Pass: {red ${count - failedCount}} / ${count} Todo: {blue ${todoCount}} Time: {blue ${deltaT}ms}\n`,
       );
 
       if (this.enableLogging) {
@@ -79,13 +70,13 @@ export class SummaryReporter extends EmptyReporter {
       }
 
       // loop over the failed tests
-      for (let i = 0; i < failedTests.length; i++) {
-        const failed = failedTests[i];
+      for (let i = 0; i < failed.length; i++) {
+        const test = failed[i];
         this.stdout!.write(
-          chalk`    {red.bold ❌ ${failed.name}} - ${failed.message}\n`,
+          chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`,
         );
-        const actual = failed.actual;
-        const expected = failed.expected;
+        const actual = test.actual;
+        const expected = test.expected;
 
         if (expected) {
           this.stdout!.write(
@@ -103,8 +94,8 @@ export class SummaryReporter extends EmptyReporter {
           );
         }
 
-        for (let i = 0; i < failed.logs.length; i++) {
-          this.onLog(failed.logs[i]);
+        for (let i = 0; i < test.logs.length; i++) {
+          this.onLog(test.logs[i]);
         }
       }
     }

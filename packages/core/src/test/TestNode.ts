@@ -127,4 +127,13 @@ export class TestNode {
     });
     return result;
   }
+
+  /** Get all the groups beneath this node. */
+  get childGroups(): TestNode[] {
+    const result: TestNode[] = [];
+    this.visit(node => {
+      if (node.type === TestNodeType.Group) result.push(node);
+    });
+    return result;
+  }
 }
