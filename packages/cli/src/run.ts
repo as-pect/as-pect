@@ -250,14 +250,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   const reporter: IReporter =
     configuration.reporter || collectReporter(cliOptions);
 
-  if (configuration.performance) {
-    Object.getOwnPropertyNames(configuration.performance).forEach(option => {
-      if (cliOptions.changed.has("performance." + option)) {
-        cliOptions.performance[option] = configuration.performance![option]!;
-      }
-    });
-  }
-
   // include all the file globs
   console.log(
     chalk`{bgWhite.black [Log]} Including files: ${include.join(", ")}`,

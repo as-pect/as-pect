@@ -305,6 +305,13 @@ export class TestContext {
     this.reporter.onExit(this, node);
   }
 
+  /** Report a TestNode */
+  private reportTestNode(
+
+  ): void {
+    
+  }
+
   /** Obtain the stack trace, actual, expected, and message values, and attach them to a given node. */
   private collectStatistics(node: TestNode): void {
     node.stackTrace = this.stack;

@@ -1,6 +1,3 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportInvalidExpectCall")
-declare function reportInvalidExpectCall(): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedReflectedValue")
@@ -25,21 +22,12 @@ declare function clearExpected(): void;
 @global
 export class Expected {
   /**
-   * This value indicates if the test suite is currently running.
-   */
-  static ready: bool = false;
-
-  /**
    * This method reports an expected value, and wether the expectation was negated.
    *
    * @param {T} expected - The expected value and it's type.
    * @param {i32} negated - A value indicating if the expectation is negated (1 is true) (default: 0)
    */
   static report<T>(expected: T, negated: i32 = 0): void {
-    if (!Expected.ready) {
-      reportInvalidExpectCall();
-      return;
-    }
     let value = Reflect.toReflectedValue(expected);
     Reflect.attachStackTrace(value);
     reportExpectedReflectedValue(value, negated);
