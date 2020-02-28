@@ -5,6 +5,7 @@ export * from "./reporter/SummaryReporter";
 export * from "./reporter/VerboseReporter";
 export * from "./test/IWarning";
 export * from "./test/TestContext";
+export * from "./test/TestNode";
 export * from "./util/IAspectExports";
 export * from "./util/IPerformanceConfiguration";
 export * from "./util/ReflectedValue";

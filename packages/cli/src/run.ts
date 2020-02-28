@@ -4,7 +4,7 @@ import * as path from "path";
 import chalk from "chalk";
 import {
   IAspectExports,
-  TestReporter,
+  TestNode,
   TestContext,
   IWarning,
 } from "@as-pect/core";
