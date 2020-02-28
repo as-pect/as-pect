@@ -7,6 +7,7 @@ import {
   TestNode,
   TestContext,
   IWarning,
+  IReporter,
 } from "@as-pect/core";
 import { IConfiguration, ICompilerFlags } from "./util/IConfiguration";
 import glob from "glob";
@@ -247,7 +248,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   const disclude: RegExp[] = configuration.disclude || [];
 
   // if a reporter is specified in cli arguments, override configuration
-  const reporter: TestReporter =
+  const reporter: IReporter =
     configuration.reporter || collectReporter(cliOptions);
 
   if (configuration.performance) {
@@ -451,7 +452,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         fileName: file,
         groupRegex: configuration.groupRegex,
         testRegex: configuration.testRegex,
-        performanceConfiguration,
         reporter,
         binary,
       });
@@ -507,19 +507,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       } else {
         // call run buffer because it's already compiled
         runner.run(wasm);
-        testCount += runner.testGroups.reduce(
-          (left, right) => left + right.tests.length,
-          0,
-        );
-        successCount += runner.testGroups.reduce(
-          (left, right) => left + right.tests.filter(e => e.pass).length,
-          0,
-        );
-        groupCount += runner.testGroups.length;
-        groupSuccessCount = runner.testGroups.reduce(
-          (left, right) => left + (right.pass ? 1 : 0),
-          groupSuccessCount,
-        );
+        testCount += runner.testCount;
+        successCount += runner.testPassCount;
+        groupCount += runner.groupCount;
+        groupSuccessCount = runner.groupPassCount;
         errors.push(...runner.errors); // if there are any runtime allocation errors add them
       }
     }

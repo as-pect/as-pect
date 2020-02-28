@@ -9,6 +9,7 @@ import { TestNode } from "./TestNode";
 import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 import { IReporter } from "../reporter/IReporter";
 import { performance } from "perf_hooks";
+import { IWarning } from "./IWarning";
 
 /**
  * This function is a filter for stack trace lines.
@@ -118,6 +119,12 @@ export class TestContext {
   /* This map collects the starting values for the labels created by `RTrace.start()` */
   private rtraceLabels: Map<number, number> = new Map();
 
+  /** A collection of errors. */
+  public errors: IWarning[] = [];
+
+  /** A collection of warnings. */
+  public warnings: IWarning[] = [];
+
   constructor(props: ITestContextParameters) {
 
     /* istanbul ignore next */
@@ -165,7 +172,7 @@ export class TestContext {
    * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
    * process of test collection and evaluation.
    */
-  protected run(wasm: IAspectExports): void {
+  public run(wasm: IAspectExports): void {
     // set the wasm
     this.wasm = wasm;
 
@@ -666,7 +673,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (this.blocks.has(block)) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message:
           "A duplicate allocation has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
@@ -696,7 +703,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (!this.blocks.has(block)) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message:
           "An orphaned dellocation has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
@@ -726,7 +733,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (!this.blocks.has(block)) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message:
           "An orphaned increment has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
@@ -755,7 +762,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (!this.blocks.has(block)) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message:
           "An orphaned decrement has occurred at block: " + block.toString(),
         stackTrace: this.getLogStackTrace(),
@@ -779,7 +786,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (!this.blocks.has(oldBlock)) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message:
           "An orphaned realloc has occurred at old block: " +
           oldBlock.toString(),
@@ -790,7 +797,7 @@ export class TestContext {
       /* istanbul ignore next */
       if (!this.blocks.has(newBlock)) {
         /* istanbul ignore next */
-        this.targetNode.errors.push({
+        this.pushError({
           message:
             "An orphaned realloc has occurred at new block: " +
             newBlock.toString(),
@@ -803,7 +810,7 @@ export class TestContext {
         /* istanbul ignore next */
         if (newRc != 0) {
           /* istanbul ignore next */
-          this.targetNode.errors.push({
+          this.pushError({
             message: `An invalid realloc error has occurred from ${oldBlock} to ${newBlock}.`,
             stackTrace: this.getLogStackTrace(),
             type: "Invalid Reallocation Error",
@@ -1013,7 +1020,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (pointer + size >= buffer.byteLength) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot obtain ${
           signed ? "" : "un"
         }signed integer value at pointer ${pointer} of size ${size}: index out of bounds`,
@@ -1052,7 +1059,7 @@ export class TestContext {
       /* istanbul ignore next */
       default:
         /* istanbul ignore next */
-        this.targetNode.errors.push({
+        this.pushError({
           message: `Cannot obtain an ${
             signed ? "" : "un"
           }signed integer at ${pointer} of size ${size}`,
@@ -1075,7 +1082,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (pointer + size >= buffer.byteLength) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot obtain a float value at pointer ${pointer} of size ${size}: index out of bounds`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1092,7 +1099,7 @@ export class TestContext {
       default:
         // sanity checks
         /* istanbul ignore next */
-        this.targetNode.errors.push({
+        this.pushError({
           message: `Cannot obtain a float at ${pointer} of size ${size}`,
           stackTrace: this.getLogStackTrace(),
           type: "ReflectedValue",
@@ -1111,7 +1118,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (id >= this.reflectedValueCache.length || id < 0) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot log ReflectedValue of id ${id}. Index out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1132,7 +1139,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (id >= this.reflectedValueCache.length || id < 0) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot report actual ReflectedValue of id ${id}. Index out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1153,7 +1160,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (id >= this.reflectedValueCache.length || id < 0) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot report expected ReflectedValue of id ${id}. Index out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1182,7 +1189,7 @@ export class TestContext {
       reflectedValueID < 0
     ) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot push ReflectedValue of id ${childID} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1194,7 +1201,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (childID >= this.reflectedValueCache.length || childID < 0) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot push ReflectedValue of id ${childID} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1209,7 +1216,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (!reflectedParentValue.values) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot push ReflectedValue of id ${childID} to ReflectedValue ${reflectedValueID}. ReflectedValue was not initialized with a values array.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1237,7 +1244,7 @@ export class TestContext {
       reflectedValueID < 0
     ) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot push ReflectedValue of id ${keyId} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1249,7 +1256,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (keyId >= this.reflectedValueCache.length || keyId < 0) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot push ReflectedValue of id ${keyId} to ReflectedValue ${reflectedValueID}. ReflectedValue key id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1264,7 +1271,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (!reflectedValue.keys) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot push ReflectedValue of id ${keyId} to ReflectedValue ${reflectedValueID}. ReflectedValue was not initialized with a keys array.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1337,7 +1344,7 @@ export class TestContext {
       reflectedValueID < 0
     ) {
       /* istanbul ignore next */
-      this.targetNode.errors.push({
+      this.pushError({
         message: `Cannot push a stack trace to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
@@ -1346,5 +1353,17 @@ export class TestContext {
       return;
     }
     this.reflectedValueCache[reflectedValueID].stack = this.getLogStackTrace();
+  }
+
+  /** Push an error to the errors array. */
+  protected pushError(error: IWarning): void {
+    this.targetNode.errors.push(error);
+    this.errors.push(error);
+  }
+
+  /** Push an warning to the warnings array. */
+  protected pushWarning(warning: IWarning): void {
+    this.targetNode.warnings.push(warning);
+    this.warnings.push(warning);
   }
 }
