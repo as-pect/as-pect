@@ -16,6 +16,7 @@ const csvColumns = [
   "Group",
   "Name",
   "Ran",
+  "Negated",
   "Pass",
   "Runtime",
   "Message",
@@ -27,10 +28,10 @@ const csvColumns = [
  * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
  * contain a set of tests with relevant pass and fail information.
  */
-export default class CSVReporter implements IReporter {
+export class CSVReporter implements IReporter {
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
-  
+
   public onEnter(ctx: TestContext): void {
     this.output = stringify({ columns: csvColumns });
     const extension = extname(ctx.fileName);
@@ -39,7 +40,6 @@ export default class CSVReporter implements IReporter {
     const outPath = join(process.cwd(), dir, base + ".csv");
     this.fileName = createWriteStream(outPath, "utf8");
     this.output.pipe(this.fileName);
-    
     this.output.write(csvColumns);
   }
 
@@ -59,23 +59,20 @@ export default class CSVReporter implements IReporter {
     group.groupTests.forEach((test) => this.onTestFinish(group, test));
     group.groupTodos.forEach((desc) => this.onTodo(group, desc));
   }
-  
+
   onTestFinish(group: TestNode, test: TestNode) {
     this.output!.write([
       group.name,
-      /**
-       * @todo uncomment when ran is implemented
-       */
-      // test.ran ? "RAN" : "NOT RUN",
+      test.ran ? "RAN" : "NOT RUN",
       test.name,
+      test.negated ? "TRUE" : "FALSE",
       test.pass ? "PASS" : "FAIL",
-      test.deltaT,
+      test.deltaT.toString(),
       test.message,
       test.actual ? test.actual.stringify({ indent: 0 }) : "",
-      /**
-       * @todo manage output for negated cases
-       */
-      test.expected ? test.expected.stringify({ indent: 0 }) : "",
+      test.expected
+        ? `${test.negated ? "Not " : ""}${test.expected.stringify({ indent: 0 })}`
+        : "",
     ]);
   }
 
@@ -84,6 +81,7 @@ export default class CSVReporter implements IReporter {
       group.name,
       "TODO",
       desc,
+      "",
       "",
       "",
       "",
