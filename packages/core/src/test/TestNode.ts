@@ -83,6 +83,10 @@ export class TestNode {
     return this.rtraceEnd - this.rtraceStart;
   };
 
+  get deltaT(): number {
+    return Math.round((this.end - this.start) * 1000) / 1000;
+  }
+
   /** Collect all the children of this node that are nested tests. */
   getTestChildren(ref: TestNode[] = []): TestNode[] {
     const children = this.children;
