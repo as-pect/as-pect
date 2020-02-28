@@ -11,11 +11,11 @@ import { TestNodeType } from '@as-pect/assembly/assembly/internal/TestNodeType';
  * This class reports all relevant test statistics to a JSON file located at
  * `{testLocation}.spec.json`.
  */
-export default class JSONReporter implements IReporter {
+export class JSONReporter implements IReporter {
   protected file: WriteStream | null = null;
-  
+
   private first: boolean = true;
-  
+
   public onEnter(ctx: TestContext): void {
     const extension = extname(ctx.fileName);
     const dir = dirname(ctx.fileName);
@@ -49,19 +49,14 @@ export default class JSONReporter implements IReporter {
         JSON.stringify({
           group: group.name,
           name: test.name,
-          /**
-           * @todo uncomment when ran is implemented
-           */
-          // ran: test.ran,
+          ran: test.ran,
           pass: test.pass,
+          negated: test.negated,
           runtime: test.deltaT,
           message: test.message,
           actual: test.actual ? test.actual.stringify({ indent: 0 }) : null,
-          /**
-           * @todo manage output for negated cases better
-           */
           expected: test.expected
-            ? test.expected.stringify({ indent: 0 })
+            ? `${test.negated ? "Not " : ""}${test.expected.stringify({ indent: 0 })}`
             : null,
         }),
     );
@@ -73,9 +68,10 @@ export default class JSONReporter implements IReporter {
       (this.first ? "\n" : ",\n") +
         JSON.stringify({
           group: group.name,
-          name: "TODO:" + desc,
+          name: "TODO: " + desc,
           ran: false,
           pass: null,
+          negated: false,
           runtime: 0,
           message: "",
           actual: null,

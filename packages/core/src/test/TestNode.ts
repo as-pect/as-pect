@@ -98,6 +98,10 @@ export class TestNode {
     return ref;
   }
 
+  /**
+   * Recursively visit this node's children conditionally. Return false to the callback
+   * if you don't want to visit that particular node's children.
+   */
   visit(callback: (node: TestNode) => boolean | void): void {
     const children = this.children;
     for (let i = 0; i < children.length; i++) {
@@ -106,10 +110,12 @@ export class TestNode {
     }
   }
 
+  /** Get this group's todos, recursively. */
   get groupTodos(): string[] {
     return (<string[]>[]).concat.apply(this.todos, this.groupTests.map(e => e.todos));
   }
 
+  /** Get this group's tests, recursively. */
   get groupTests(): TestNode[] {
     const result: TestNode[] = [];
     this.visit((node): boolean | void => {
