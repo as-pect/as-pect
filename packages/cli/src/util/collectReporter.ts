@@ -1,5 +1,5 @@
 import {
-  TestReporter,
+  IReporter,
   SummaryReporter,
   CombinationReporter,
 } from "@as-pect/core";
@@ -13,11 +13,11 @@ import chalk from "chalk";
  *
  * @param {Options} cliOptions - The command line arguments.
  */
-export function collectReporter(cliOptions: Options): TestReporter {
-  const reporters: TestReporter[] = [];
+export function collectReporter(cliOptions: Options): IReporter {
+  const reporters: IReporter[] = [];
 
   if (cliOptions.csv) {
-    const CSVReporter = require("@as-pect/csv-reporter").default;
+    const CSVReporter = require("@as-pect/csv-reporter").CSVReporter;
     if (typeof cliOptions.csv === "string") {
       const options = querystring.parse(cliOptions.csv || "");
       reporters.push(new CSVReporter(options));
@@ -30,7 +30,7 @@ export function collectReporter(cliOptions: Options): TestReporter {
   }
 
   if (cliOptions.json) {
-    const JSONReporter = require("@as-pect/json-reporter").default;
+    const JSONReporter = require("@as-pect/json-reporter").JSONReporter;
     if (typeof cliOptions.json === "string") {
       const options = querystring.parse(cliOptions.json || "");
       reporters.push(new JSONReporter(options));

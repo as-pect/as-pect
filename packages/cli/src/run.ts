@@ -4,7 +4,6 @@ import * as path from "path";
 import chalk from "chalk";
 import {
   IAspectExports,
-  TestNode,
   TestContext,
   IWarning,
   IReporter,
@@ -258,7 +257,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       }
     });
   }
-  const performanceConfiguration = cliOptions.performance;
 
   // include all the file globs
   console.log(

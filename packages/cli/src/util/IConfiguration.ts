@@ -1,4 +1,4 @@
-import { TestReporter, IPerformanceConfiguration } from "@as-pect/core";
+import { IReporter } from "@as-pect/core";
 
 /**
  * This is the shape of the compiler flags.
@@ -35,14 +35,10 @@ export interface IConfiguration {
    */
   imports?: any;
   /**
-   * Set the default performance measurement values.
-   */
-  performance?: Partial<IPerformanceConfiguration>;
-  /**
    * A custom reporter that extends the `TestReporter` class, and is responsible for generating log
    * output.
    */
-  reporter?: TestReporter;
+  reporter?: IReporter;
   /**
    * A regular expression that instructs the TestContext to only run tests that match this regex.
    */
