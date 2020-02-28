@@ -24,17 +24,17 @@ describe("TestGroup filtering", () => {
     // @ts-ignore setting the protected groupRegex property is just for testing
     context.groupRegex = /two/i;
     context.run(wasm);
-    expect(context.testGroups).toHaveLength(1);
+    expect(context.rootNode.groupTests).toHaveLength(1);
   });
 
   test("test filtering", () => {
     // @ts-ignore setting the protected testRegex property is just for testing
     context.testRegex = /two/i;
     context.run(wasm);
-    expect(context.testGroups).toHaveLength(3);
+    expect(context.rootNode.childGroups).toHaveLength(3);
 
-    context.testGroups.forEach(group => {
-      expect(group.tests).toHaveLength(1);
+    context.rootNode.childGroups.forEach(group => {
+      expect(group.children).toHaveLength(1);
     });
   });
 
@@ -42,6 +42,6 @@ describe("TestGroup filtering", () => {
     // @ts-ignore setting the protected testRegex property is just for testing
     context.testRegex = /five/i;
     context.run(wasm);
-    expect(context.testGroups).toHaveLength(0);
+    expect(context.rootNode.groupTests).toHaveLength(0);
   });
 });
