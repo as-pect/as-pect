@@ -188,6 +188,14 @@ export class TestContext {
 
   /** Visit a node and evaluate it's children. */
   protected visit(node: TestNode): void {
+    // validate this node will run
+    if (node !== this.rootNode) {
+      const regexTester = node.type === TestNodeType.Group
+        ? this.groupRegex
+        : this.testRegex;
+      if (!regexTester.test(node.name)) return;
+    }
+
     // this node is being tested for sure
     node.ran = true;
 
