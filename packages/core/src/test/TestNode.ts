@@ -75,6 +75,9 @@ export class TestNode {
   /** The number of active heap allocations when the node ended. */
   rtraceEnd: number = 0;
 
+  /** If the TestNode ran. */
+  ran: boolean = false;
+
   /** The delta number of heap allocations. */
   get rtraceDelta(): number {
     return this.rtraceEnd - this.rtraceStart;
@@ -89,5 +92,29 @@ export class TestNode {
       if (child.type === TestNodeType.Test) ref.push(child);
     }
     return ref;
+  }
+
+  visit(callback: (node: TestNode) => boolean | void): void {
+    const children = this.children;
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i];
+      if (callback(child) !== false) child.visit(callback);
+    }
+  }
+
+  get groupTodos(): string[] {
+    return (<string[]>[]).concat.apply(this.todos, this.groupTests.map(e => e.todos));
+  }
+
+  get groupTests(): TestNode[] {
+    const result: TestNode[] = [];
+    this.visit((node): boolean | void => {
+      if (node.type === TestNodeType.Test) {
+        result.push(node);
+      } else {
+        return false;
+      }
+    });
+    return result;
   }
 }

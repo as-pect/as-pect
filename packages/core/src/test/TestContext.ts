@@ -181,6 +181,9 @@ export class TestContext {
 
   /** Visit a node and evaluate it's children. */
   protected visit(node: TestNode): void {
+    // this node is being tested for sure
+    node.ran = true;
+
     // set the start timer for this node
     node.start = performance.now();
 
