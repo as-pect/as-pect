@@ -1,5 +1,6 @@
 import { createModule } from "./setup/createInvalidExpectationModule";
 import { TestContext } from "../src/test/TestContext";
+import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 
 let ctx: TestContext;
 let start = new Promise<void>((resolve, reject) => {
@@ -28,8 +29,11 @@ describe("an invalid expect call test suite", () => {
   });
 
   it("should not run any tests", () => {
-    for (const group of ctx.testGroups) {
-      expect(group.tests.filter(e => e.ran)).toHaveLength(0);
-    }
+    let testsRan = 0;
+    ctx.rootNode.visit((node) => {
+      if (node.type === TestNodeType.Test && node.ran) testsRan += 1;
+    });
+
+    expect(testsRan).toBe(0);
   });
 });
