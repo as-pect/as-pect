@@ -1,39 +1,47 @@
-import { TestNode } from "../test/TestNode";
 import { TestContext } from "../test/TestContext";
 import { IWritable } from "../util/IWriteable";
 import { ReflectedValue } from "../util/ReflectedValue";
 import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
-import { visitImmediateChildren, visitAllChildren } from "../util/visitChildren";
+import { TestNode } from "../test/TestNode";
 import { IReporter } from "./IReporter";
-import { IWarning } from "../test/IWarning";
-
 
 /**
  * This is the default test reporter class for the `asp` command line application. It will pipe
  * all relevant details about each tests to the `stdout` WriteStream.
  */
 export class VerboseReporter implements IReporter {
-  public stdout: IWritable | null = null;
+  protected stdout: IWritable | null = null;
+  protected stderr: IWritable | null = null;
+
+  constructor(_options?: any) {}
 
   onEnter(_ctx: TestContext, node: TestNode): void {
     if (node.type === TestNodeType.Group) {
       this.onGroupStart(node);
+    } else {
+      this.onTestStart(node.parent!, node);
     }
   }
 
   onExit(_ctx: TestContext, node: TestNode): void {
     if (node.type === TestNodeType.Group) {
       this.onGroupFinish(node);
+    } else {
+      this.onTestFinish(node.parent!, node);
+    }
+    const todos = node.todos;
+    for (let i = 0; i < todos.length; i++) {
+      this.onTodo(node, todos[i]);
     }
   }
 
   /**
    * This method reports a TestGroup is starting.
    *
-   * @param {TestGroup} group - The started test group.
+   * @param {TestNode} group - The started test group.
    */
   public onGroupStart(group: TestNode): void {
-    if (group.children.length === 0) return;
+    if (group.groupTests.length === 0) return;
     const chalk = require("chalk");
     /* istanbul ignore next */
     if (group.name) this.stdout!.write(chalk`[Describe]: ${group.name}\n\n`);
@@ -48,20 +56,12 @@ export class VerboseReporter implements IReporter {
    * @param {TestGroup} group - The finished TestGroup.
    */
   public onGroupFinish(group: TestNode): void {
-    if (group.children.length === 0) return;
-    const tests: TestNode[] = [];
-    visitImmediateChildren(group, TestNodeType.Test, (child) => {
-      tests.push(child);
-    });
-
-    for (let i = 0; i < tests.length; i++) {
-      this.onTestFinish(group, tests[i]);
-    }
+    if (group.groupTests.length === 0) return;
     this.stdout!.write("\n");
   }
 
   /** This method is a stub for onTestStart(). */
-  public onTestStart(_group: TestContext, _test: TestNode): void {}
+  public onTestStart(_group: TestNode, _test: TestNode): void {}
 
   /**
    * This method reports a completed test.
@@ -121,6 +121,7 @@ export class VerboseReporter implements IReporter {
         );
       }
     }
+
     /** Log the values to stdout if this was a typical test. */
     for (const logValue of test.logs) {
       this.onLog(logValue);
@@ -130,30 +131,24 @@ export class VerboseReporter implements IReporter {
   /**
    * This method reports that a TestContext has finished.
    *
-   * @param {TestContext} ctx - The finished test context.
+   * @param {TestContext} suite - The finished test context.
    */
-  public onFinish(ctx: TestContext): void {
-    const suite = ctx.rootNode;
+  public onFinish(suite: TestContext): void {
     /* istanbul ignore next */
-    if (suite.children.length === 0) return;
-    const errors: IWarning[] = [];
-    const warnings: IWarning[] = [];
-
-    visitAllChildren(suite, (node) => {
-      for (const error of node.errors) errors.push(error);
-      for (const warning of node.warnings) warnings.push(warning);
-    });
-
+    if (suite.rootNode.children.length === 0) return;
     const chalk = require("chalk");
 
     const result = suite.pass ? chalk`{green ✔ PASS}` : chalk`{red ✖ FAIL}`;
 
-    const failText =
-      ctx.testPassCount === ctx.testCount
-        ? `0 fail`
-        : chalk`{red ${(ctx.testCount - ctx.testPassCount).toString()} fail}`;
+    const count = suite.testCount;
+    const successCount = suite.testCount;
 
-    const rtcount = suite.rtraceDelta;
+    const failText =
+      count === successCount
+        ? `0 fail`
+        : chalk`{red ${(count - successCount).toString()} fail}`;
+
+    const rtcount = suite.allocationCount - suite.freeCount;
 
     const rTrace =
       rtcount === 0
@@ -195,7 +190,7 @@ export class VerboseReporter implements IReporter {
           .join("\n           ")}}\n`,
       );
     }
-    const time = Math.round(1000 * (suite.end - suite.start)) / 1000;
+
     this.stdout!.write(chalk`${
       process.stdout.columns
         ? /* istanbul ignore next */
@@ -204,12 +199,11 @@ export class VerboseReporter implements IReporter {
           "~".repeat(80)
     }
 
-    [File]: ${ctx.fileName}${rTrace}
-  [Groups]: {green ${ctx.groupPassCount}, ${ctx.groupCount} total
+    [File]: ${suite.fileName}${rTrace}
+  [Groups]: {green ${suite.groupCount} pass}, ${suite.groupCount} total
   [Result]: ${result}
- [Summary]: {green ${ctx.testPassCount} pass},  ${failText}, ${ctx.testCount} total
-    [Todo]: {yellow ${ctx.todoCount}}
-    [Time]: {blue ${time}ms}\n\n`);
+ [Summary]: {green ${suite.testPassCount} pass},  ${failText}, ${suite.testCount} total
+    [Time]: ${suite.rootNode.deltaT}ms\n\n`);
   }
 
   /**
@@ -219,7 +213,7 @@ export class VerboseReporter implements IReporter {
    * @param {string} todo - The todo.
    */
   /* istanbul ignore next */
-  public onTodo(todo: string): void {
+  public onTodo(_group: TestNode, todo: string): void {
     /* istanbul ignore next */
     const chalk = require("chalk");
     /* istanbul ignore next */
