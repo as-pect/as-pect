@@ -1,6 +1,5 @@
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportTest")
-declare function reportTest(testName: string, callback: () => void): void;
+import { TestNodeType } from "./TestNodeType";
+import { noOp } from "./noOp";
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportBeforeEach")
@@ -23,11 +22,13 @@ declare function reportAfterAll(callback: () => void): void;
 declare function reportTodo(description: string): void;
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportNegatedTest")
-declare function reportNegatedTest(
+@external("__aspect", "reportTestNode")
+declare function reportTestNode(
+  type: TestNodeType,
   description: string,
   callback: () => void,
-  message: string,
+  negated: bool,
+  message: string | null,
 ): void;
 
 // @ts-ignore: Decorators *are* valid here!
@@ -56,13 +57,25 @@ export function xtest(description: string, callback: () => void): void {
 // @ts-ignore: decorators *are* valid here
 @global
 export function it(description: string, runner: () => void): void {
-  reportTest(description, runner);
+  reportTestNode(
+    TestNodeType.Test,
+    description,
+    runner,
+    false,
+    null,
+  );
 }
 
 // @ts-ignore: decorators *are* valid here
 @global
 export function test(description: string, runner: () => void): void {
-  reportTest(description, runner);
+  reportTestNode(
+    TestNodeType.Test,
+    description,
+    runner,
+    false,
+    null,
+  );
 }
 
 // @ts-ignore: decorators *are* valid here
@@ -93,18 +106,42 @@ export function afterAll(callback: () => void): void {
 @global
 export function itThrows(
   description: string,
-  callback: () => void,
-  message: string = "",
+  runner: () => void,
+  message: string | null = null,
 ): void {
-  reportNegatedTest(description, callback, message);
+  reportTestNode(
+    TestNodeType.Test,
+    description,
+    runner,
+    true,
+    message,
+  );
 }
 
 // @ts-ignore: decorators *are* valid here
 @global
 export function throws(
   description: string,
-  callback: () => void,
-  message: string = "",
+  runner: () => void,
+  message: string | null = null,
 ): void {
-  reportNegatedTest(description, callback, message);
+  reportTestNode(
+    TestNodeType.Test,
+    description,
+    runner,
+    true,
+    message,
+  );
+}
+
+// @ts-ignore: Decorators *are* valid here!
+@global
+export function describe(description: string = "", runner: () => void = noOp): void {
+  reportTestNode(
+    TestNodeType.Group,
+    description,
+    runner,
+    false,
+    null,
+  );
 }

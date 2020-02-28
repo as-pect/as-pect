@@ -8,10 +8,6 @@ export interface IAspectExports {
    * @param {number} pointer - The function pointer.
    */
   __call(pointer: number): void;
-  /**
-   * This method is called when the tests are ready to run.
-   */
-  __ready(): void;
 
   /**
    * This method notifies the `wasm` module to conditionally ignore `log<T>(value: T)` values
@@ -35,8 +31,6 @@ export interface IAspectExports {
   readonly memory: {
     readonly buffer: ArrayBuffer;
   };
-  /** Explicit start function for version 0.8.1. or below. */
-  __start(): void;
   /** Explicit start function. */
   _start(): void;
 
