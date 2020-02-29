@@ -1,4 +1,4 @@
-import { TestContext, TestNode, SummaryReporter } from "../src";
+import { TestContext, SummaryReporter } from "../src";
 import { createReporterModule } from "./setup/createReporterModule";
 import strip from "strip-ansi";
 

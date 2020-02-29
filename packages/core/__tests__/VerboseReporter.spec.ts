@@ -54,6 +54,8 @@ class ReporterWrapper extends VerboseReporter {
       e.start = 0;
       e.end = 0;
     });
+    ctx.rootNode.start = 0;
+    ctx.rootNode.end = 0;
     super.onFinish(ctx);
     const result = strip(writer.result);
     test("onFinish", () => expect(result).toMatchSnapshot(`finish`));

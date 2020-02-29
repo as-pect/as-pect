@@ -11,8 +11,6 @@ describe("examples", () => {
     log("testing in a test");
   });
 
-  // this will become deprecated, need to come up with a better way to push warnings to the reporter
-  Performance.maxSamples(10001);
   test("push an error to the error array", () => {
     // causes a reflection error because -1 can't be a valid id
     logReflectedValue(-1);

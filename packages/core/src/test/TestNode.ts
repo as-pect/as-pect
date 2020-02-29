@@ -83,6 +83,7 @@ export class TestNode {
     return this.rtraceEnd - this.rtraceStart;
   };
 
+  /** The difference between the start and end TestNode runtime. */
   get deltaT(): number {
     return Math.round((this.end - this.start) * 1000) / 1000;
   }
