@@ -142,10 +142,13 @@ export class SummaryReporter implements IReporter {
       }
     }
 
+    // There are no warnings left in the as-pect test suite software
     for (const warning of suite.warnings) {
+      /* istanbul ignore next */
       this.stdout!.write(
         chalk`{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
       );
+      /* istanbul ignore next */
       const stack = warning.stackTrace.trim();
       /* istanbul ignore next */
       if (stack) {
@@ -153,8 +156,9 @@ export class SummaryReporter implements IReporter {
           chalk`{yellow    [Stack]}: {yellow ${stack
             .split("\n")
             .join("\n      ")}}\n`,
-        );
-      }
+          );
+        }
+      /* istanbul ignore next */
       this.stdout!.write("\n");
     }
 
