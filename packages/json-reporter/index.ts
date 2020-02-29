@@ -1,11 +1,9 @@
-import {
-  IReporter,
-} from "../../packages/core/src/reporter/IReporter";
-import { TestContext } from '../core/src/test/TestContext';
+import { IReporter } from "../../packages/core/src/reporter/IReporter";
+import { TestContext } from "../core/src/test/TestContext";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
-import { TestNode } from '../core/src/test/TestNode';
-import { TestNodeType } from '@as-pect/assembly/assembly/internal/TestNodeType';
+import { TestNode } from "../core/src/test/TestNode";
+import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 
 /**
  * This class reports all relevant test statistics to a JSON file located at
@@ -28,7 +26,7 @@ export class JSONReporter implements IReporter {
 
   public onExit(_ctx: TestContext, node: TestNode): void {
     if (node.type === TestNodeType.Group) {
-      this.onGroupFinish(node)
+      this.onGroupFinish(node);
     }
   }
 
@@ -39,8 +37,8 @@ export class JSONReporter implements IReporter {
   onGroupFinish(group: TestNode) {
     if (group.children.length === 0) return;
 
-    group.groupTests.forEach((test) => this.onTestFinish(group, test));
-    group.groupTodos.forEach((desc) => this.onTodo(group, desc));
+    group.groupTests.forEach(test => this.onTestFinish(group, test));
+    group.groupTodos.forEach(desc => this.onTodo(group, desc));
   }
 
   onTestFinish(group: TestNode, test: TestNode): void {
@@ -56,7 +54,9 @@ export class JSONReporter implements IReporter {
           message: test.message,
           actual: test.actual ? test.actual.stringify({ indent: 0 }) : null,
           expected: test.expected
-            ? `${test.negated ? "Not " : ""}${test.expected.stringify({ indent: 0 })}`
+            ? `${test.negated ? "Not " : ""}${test.expected.stringify({
+                indent: 0,
+              })}`
             : null,
         }),
     );

@@ -1,4 +1,3 @@
-
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedReflectedValue")
 declare function reportExpectedReflectedValue(id: i32, negated: i32): void;

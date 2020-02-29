@@ -51,7 +51,7 @@ exports[`onTestFinish: examples this should throw but it does not 1`] = `
 `;
 
 exports[`onTestFinish: examples when two things should equal each other 1`] = `
-"  [Throws]: ✔ when two things should equal each other RTrace: -1
+"  [Throws]: ✔ when two things should equal each other RTrace: +9
 "
 `;
 

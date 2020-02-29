@@ -18,7 +18,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.activeNodeBlocks(): rtrace
 
 exports[`RTrace output Group: RTrace api Test: RTrace.allocations(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.allocations(): rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api Test: RTrace.allocations(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.allocations(): rtraceEnd 1`] = `0`;
 
@@ -26,7 +26,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.allocations(): rtraceStart
 
 exports[`RTrace output Group: RTrace api Test: RTrace.count(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.count(): rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api Test: RTrace.count(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.count(): rtraceEnd 1`] = `0`;
 
@@ -34,7 +34,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.count(): rtraceStart 1`] =
 
 exports[`RTrace output Group: RTrace api Test: RTrace.decrements(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.decrements(): rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api Test: RTrace.decrements(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.decrements(): rtraceEnd 1`] = `0`;
 
@@ -42,7 +42,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.decrements(): rtraceStart 
 
 exports[`RTrace output Group: RTrace api Test: RTrace.frees(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.frees(): rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api Test: RTrace.frees(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.frees(): rtraceEnd 1`] = `0`;
 
@@ -50,7 +50,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.frees(): rtraceStart 1`] =
 
 exports[`RTrace output Group: RTrace api Test: RTrace.increments(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.increments(): rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api Test: RTrace.increments(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.increments(): rtraceEnd 1`] = `0`;
 
@@ -58,7 +58,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.increments(): rtraceStart 
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeAllocations(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.nodeAllocations(): rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api Test: RTrace.nodeAllocations(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeAllocations(): rtraceEnd 1`] = `0`;
 
@@ -66,7 +66,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.nodeAllocations(): rtraceS
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeDecrements(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.nodeDecrements(): rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api Test: RTrace.nodeDecrements(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeDecrements(): rtraceEnd 1`] = `0`;
 
@@ -74,7 +74,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.nodeDecrements(): rtraceSt
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeFrees(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.nodeFrees(): rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api Test: RTrace.nodeFrees(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeFrees(): rtraceEnd 1`] = `0`;
 
@@ -82,7 +82,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.nodeFrees(): rtraceStart 1
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeIncrements(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.nodeIncrements(): rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api Test: RTrace.nodeIncrements(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeIncrements(): rtraceEnd 1`] = `0`;
 
@@ -90,7 +90,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.nodeIncrements(): rtraceSt
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeReallocations(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.nodeReallocations(): rtraceDelta 1`] = `-10`;
+exports[`RTrace output Group: RTrace api Test: RTrace.nodeReallocations(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.nodeReallocations(): rtraceEnd 1`] = `0`;
 
@@ -98,7 +98,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.nodeReallocations(): rtrac
 
 exports[`RTrace output Group: RTrace api Test: RTrace.reallocations(): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.reallocations(): rtraceDelta 1`] = `-10`;
+exports[`RTrace output Group: RTrace api Test: RTrace.reallocations(): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.reallocations(): rtraceEnd 1`] = `0`;
 
@@ -106,7 +106,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.reallocations(): rtraceSta
 
 exports[`RTrace output Group: RTrace api Test: RTrace.refCountOf(pointer: usize): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.refCountOf(pointer: usize): rtraceDelta 1`] = `-10`;
+exports[`RTrace output Group: RTrace api Test: RTrace.refCountOf(pointer: usize): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.refCountOf(pointer: usize): rtraceEnd 1`] = `0`;
 
@@ -114,7 +114,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.refCountOf(pointer: usize)
 
 exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): rtraceDelta 1`] = `-10`;
+exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(reference: T): rtraceEnd 1`] = `0`;
 
@@ -122,7 +122,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.refCountOfReference<T>(ref
 
 exports[`RTrace output Group: RTrace api Test: RTrace.sizeOf(pointer: usize): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.sizeOf(pointer: usize): rtraceDelta 1`] = `-10`;
+exports[`RTrace output Group: RTrace api Test: RTrace.sizeOf(pointer: usize): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.sizeOf(pointer: usize): rtraceEnd 1`] = `0`;
 
@@ -130,7 +130,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.sizeOf(pointer: usize): rt
 
 exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): rtraceDelta 1`] = `-10`;
+exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(reference: T): rtraceEnd 1`] = `0`;
 
@@ -138,7 +138,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.sizeOfReference<T>(referen
 
 exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOf(pointer: usize): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOf(pointer: usize): rtraceDelta 1`] = `-10`;
+exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOf(pointer: usize): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOf(pointer: usize): rtraceEnd 1`] = `0`;
 
@@ -146,7 +146,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOf(pointer: usize): 
 
 exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): rtraceDelta 1`] = `-10`;
+exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(reference: T): rtraceEnd 1`] = `0`;
 
@@ -154,7 +154,7 @@ exports[`RTrace output Group: RTrace api Test: RTrace.typeIdOfReference<T>(refer
 
 exports[`RTrace output Group: RTrace api: errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace api: rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace api: rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace api: rtraceEnd 1`] = `0`;
 
@@ -162,7 +162,7 @@ exports[`RTrace output Group: RTrace api: rtraceStart 1`] = `6`;
 
 exports[`RTrace output Group: RTrace tests Test: should allocate a bunch of objects: errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace tests Test: should allocate a bunch of objects: rtraceDelta 1`] = `-3`;
+exports[`RTrace output Group: RTrace tests Test: should allocate a bunch of objects: rtraceDelta 1`] = `3`;
 
 exports[`RTrace output Group: RTrace tests Test: should allocate a bunch of objects: rtraceEnd 1`] = `0`;
 
@@ -170,7 +170,7 @@ exports[`RTrace output Group: RTrace tests Test: should allocate a bunch of obje
 
 exports[`RTrace output Group: RTrace tests Test: should allocate an object: errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace tests Test: should allocate an object: rtraceDelta 1`] = `-3`;
+exports[`RTrace output Group: RTrace tests Test: should allocate an object: rtraceDelta 1`] = `1`;
 
 exports[`RTrace output Group: RTrace tests Test: should allocate an object: rtraceEnd 1`] = `0`;
 
@@ -178,7 +178,7 @@ exports[`RTrace output Group: RTrace tests Test: should allocate an object: rtra
 
 exports[`RTrace output Group: RTrace tests Test: should count references: errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace tests Test: should count references: rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace tests Test: should count references: rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace tests Test: should count references: rtraceEnd 1`] = `0`;
 
@@ -186,7 +186,7 @@ exports[`RTrace output Group: RTrace tests Test: should count references: rtrace
 
 exports[`RTrace output Group: RTrace tests Test: should deallocate all the objects: errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace tests Test: should deallocate all the objects: rtraceDelta 1`] = `-7`;
+exports[`RTrace output Group: RTrace tests Test: should deallocate all the objects: rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace tests Test: should deallocate all the objects: rtraceEnd 1`] = `0`;
 
@@ -194,7 +194,7 @@ exports[`RTrace output Group: RTrace tests Test: should deallocate all the objec
 
 exports[`RTrace output Group: RTrace tests Test: should deallocate an object: errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace tests Test: should deallocate an object: rtraceDelta 1`] = `-4`;
+exports[`RTrace output Group: RTrace tests Test: should deallocate an object: rtraceDelta 1`] = `-1`;
 
 exports[`RTrace output Group: RTrace tests Test: should deallocate an object: rtraceEnd 1`] = `0`;
 
@@ -202,7 +202,7 @@ exports[`RTrace output Group: RTrace tests Test: should deallocate an object: rt
 
 exports[`RTrace output Group: RTrace tests Test: should start a label: errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace tests Test: should start a label: rtraceDelta 1`] = `-6`;
+exports[`RTrace output Group: RTrace tests Test: should start a label: rtraceDelta 1`] = `1`;
 
 exports[`RTrace output Group: RTrace tests Test: should start a label: rtraceEnd 1`] = `0`;
 
@@ -210,7 +210,7 @@ exports[`RTrace output Group: RTrace tests Test: should start a label: rtraceSta
 
 exports[`RTrace output Group: RTrace tests Test: trigger a reallocation: errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace tests Test: trigger a reallocation: rtraceDelta 1`] = `-7`;
+exports[`RTrace output Group: RTrace tests Test: trigger a reallocation: rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace tests Test: trigger a reallocation: rtraceEnd 1`] = `0`;
 
@@ -218,7 +218,7 @@ exports[`RTrace output Group: RTrace tests Test: trigger a reallocation: rtraceS
 
 exports[`RTrace output Group: RTrace tests: errors 1`] = `Array []`;
 
-exports[`RTrace output Group: RTrace tests: rtraceDelta 1`] = `-3`;
+exports[`RTrace output Group: RTrace tests: rtraceDelta 1`] = `0`;
 
 exports[`RTrace output Group: RTrace tests: rtraceEnd 1`] = `0`;
 

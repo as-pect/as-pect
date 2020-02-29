@@ -245,7 +245,6 @@ export class RTrace {
     return getRTraceNodeBlocks();
   }
 
-
   /**
    * Gets the current reference count of the specified pointer.
    *

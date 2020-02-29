@@ -1,24 +1,17 @@
 import { TestContext } from "../test/TestContext";
 import { IWritable } from "../util/IWriteable";
 import { ReflectedValue } from "../util/ReflectedValue";
-import { TestNode } from "../test/TestNode";
-import { EmptyReporter } from "./EmptyReporter";
-import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
-import { IWarning } from "../test/IWarning";
+import { IReporter } from "./IReporter";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
  * the group level. It is useful for CI builds and also reduces IO output to speed up the testing
  * process.
  */
-export class SummaryReporter extends EmptyReporter {
+export class SummaryReporter implements IReporter {
   private enableLogging: boolean = true;
 
-  private warnings: IWarning[] = [];
-  private errors: IWarning[] = [];
-
   constructor(options?: any) {
-    super();
     /* istanbul ignore next */
     if (options) {
       // can be "false" from cli
@@ -32,85 +25,124 @@ export class SummaryReporter extends EmptyReporter {
     }
   }
 
-  onExit(_ctx: TestContext, node: TestNode): void {
-    /**
-     * Reporting strategy. If the node passes, only display it if it's a group.
-     */
-    const tests = node.groupTests;
-    const count = tests.length;
-    const deltaT = node.deltaT;
-    const todos = node.groupTodos;
-    const todoCount = todos.length;
+  /* istanbul ignore next */
+  public onEnter(): void {}
 
-    if (tests.length === 0) return;
+  /* istanbul ignore next */
+  public onExit(): void {}
 
-    if (node.pass) {
-      if (node.type === TestNodeType.Group) {
-        const chalk = require("chalk");
-        this.stdout!.write(
-          chalk`{green ${node.name}} Pass: {green ${count}} / ${count} Todo: {blue ${todoCount}} Time: {blue ${deltaT}ms}\n`,
-        );
-      }
-    } else {
-      // this node didn't pass, report it
-      const failed = tests.filter(e => !e.pass);
-      const failedCount = failed.length;
+  /* istanbul ignore next */
+  public onStart(): void {}
+  /* istanbul ignore next */
+  public onGroupStart(): void {}
+  /* istanbul ignore next */
+  public onGroupFinish(): void {}
+  /* istanbul ignore next */
+  public onTestStart(): void {}
+  /* istanbul ignore next */
+  public onTestFinish(): void {}
+  /* istanbul ignore next */
+  public onTodo(): void {}
 
-      const chalk = require("chalk");
+  private stdout: IWritable | null = null;
+
+  /**
+   * This method reports a test context is finished running.
+   *
+   * @param {TestContext} suite - The finished test suite.
+   */
+  public onFinish(suite: TestContext): void {
+    const chalk = require("chalk");
+    const testGroups = suite.rootNode.childGroups;
+
+    // TODO: Figure out a better way to flatten this array.
+
+    const todos = ([] as string[]).concat.apply(
+      [],
+      testGroups.map(e => e.groupTodos),
+    ).length;
+    const total = suite.testCount;
+    const passCount = suite.testPassCount;
+    const deltaT = suite.rootNode.deltaT;
+
+    /** Report if all the groups passed. */
+    if (suite.pass) {
       this.stdout!.write(
-        chalk`{red ${node.name}} Pass: {red ${count - failedCount}} / ${count} Todo: {blue ${todoCount}} Time: {blue ${deltaT}ms}\n`,
+        chalk`{green.bold ✔ ${
+          suite.fileName
+        }} Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
+      /** If logging is enabled, log all the values. */
+      /* istanbul ignore next */
       if (this.enableLogging) {
-        for (let i = 0; i < node.logs.length; i++) {
-          this.onLog(node.logs[i]);
+        for (const group of testGroups) {
+          for (const log of group.logs) {
+            this.onLog(log);
+          }
+
+          for (const test of group.groupTests) {
+            for (const log of test.logs) {
+              this.onLog(log);
+            }
+          }
         }
       }
+    } else {
+      this.stdout!.write(
+        chalk`{red.bold ❌ ${
+          suite.fileName
+        }} Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
+      );
 
-      // loop over the failed tests
-      for (let i = 0; i < failed.length; i++) {
-        const test = failed[i];
-        this.stdout!.write(
-          chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`,
-        );
-        const actual = test.actual;
-        const expected = test.expected;
+      /** If the group failed, report that the group failed. */
+      for (const group of testGroups) {
+        /* istanbul ignore next */
+        if (group.pass) continue;
+        this.stdout!.write(chalk`  {red Failed:} ${group.name}\n`);
 
-        if (expected) {
-          this.stdout!.write(
-            chalk`      {green.bold [Expected]:} ${
-              expected.negated ? "Not " : ""
-            }${expected.stringify({ indent: 2 }).trimLeft()}\n`,
-          );
+        /** Display the reason if there is one. */
+        // if (group.reason)
+        //   this.stdout!.write(chalk`    {yellow Reason:} ${group.reason}`);
+
+        /** Log each log item in the failed group. */
+        /* istanbul ignore next */
+        if (this.enableLogging) {
+          for (const log of group.logs) {
+            this.onLog(log);
+          }
         }
 
-        if (actual) {
+        inner: for (const test of group.groupTests) {
+          if (test.pass) continue inner;
           this.stdout!.write(
-            chalk`      {red.bold [Actual]  :} ${actual
-              .stringify({ indent: 2 })
-              .trimLeft()}\n`,
+            chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`,
           );
-        }
-
-        for (let i = 0; i < test.logs.length; i++) {
-          this.onLog(test.logs[i]);
+          if (test.expected !== null) {
+            const expected = test.expected;
+            this.stdout!.write(
+              chalk`      {green.bold [Expected]:} ${
+                expected.negated ? "Not " : ""
+              }${expected.stringify({ indent: 2 }).trimLeft()}\n`,
+            );
+          }
+          if (test.actual !== null)
+            this.stdout!.write(
+              chalk`      {red.bold [Actual]  :} ${test.actual
+                .stringify({ indent: 2 })
+                .trimLeft()}\n`,
+            );
+          /* istanbul ignore next */
+          if (this.enableLogging) {
+            for (const log of test.logs) {
+              this.onLog(log);
+            }
+          }
         }
       }
     }
 
-    for (let i = 0; i < node.warnings.length; i++) {
-      this.warnings.push(node.warnings[i]);
-    }
-    for (let i = 0; i < node.errors.length; i++) {
-      this.errors.push(node.errors[i]);
-    }
-  }
-
-  onFinish(_ctx: TestContext) {
-    const chalk = require("chalk");
-    for (let i = 0; i < this.warnings.length; i++) {
-      const warning = this.warnings[i];
-
+    for (const warning of suite.warnings) {
       this.stdout!.write(
         chalk`{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
       );
@@ -121,12 +153,12 @@ export class SummaryReporter extends EmptyReporter {
           chalk`{yellow    [Stack]}: {yellow ${stack
             .split("\n")
             .join("\n      ")}}\n`,
-            );
+        );
       }
       this.stdout!.write("\n");
     }
-    for (let i = 0; i < this.errors.length; i++) {
-      const error = this.errors[i];
+
+    for (const error of suite.errors) {
       this.stdout!.write(
         chalk`{red    [Error]}: ${error.type} ${error.message}\n`,
       );
@@ -137,9 +169,6 @@ export class SummaryReporter extends EmptyReporter {
       );
     }
   }
-
-  public stdout: IWritable | null = null;
-
 
   /**
    * A custom logger function for the default reporter that writes the log values using `console.log()`

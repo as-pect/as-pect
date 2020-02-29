@@ -1,8 +1,4 @@
-import {
-  IReporter,
-  SummaryReporter,
-  CombinationReporter,
-} from "@as-pect/core";
+import { IReporter, SummaryReporter, CombinationReporter } from "@as-pect/core";
 import { Options } from "./CommandLineArg";
 import querystring from "querystring";
 import chalk from "chalk";
@@ -47,7 +43,7 @@ export function collectReporter(cliOptions: Options): IReporter {
     const reporter = new SummaryReporter(
       typeof cliOptions.summary === "string"
         ? querystring.parse(cliOptions.summary || "")
-        : {}
+        : {},
     );
     reporter.stdout = process.stdout;
     reporter.stderr = process.stderr;
@@ -62,7 +58,7 @@ export function collectReporter(cliOptions: Options): IReporter {
     const reporter = new VerboseReporter(
       typeof cliOptions.summary === "string"
         ? querystring.parse(cliOptions.summary || "")
-        : {}
+        : {},
     );
     reporter.stdout = process.stdout;
     reporter.stderr = process.stderr;

@@ -1,3 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`onFinish: finish 1`] = `""`;
+exports[`onFinish: finish 1`] = `
+"❌ assembly/jest-reporter.ts Pass: 3 / 7 Todo: 1 Time: 0ms
+  Failed: examples
+     [Log]: \\"testing in a group\\"
+    ❌ push an error to the error array - 
+    ❌ something fails - Here is an example failure message.
+      [Expected]: 42
+      [Actual]  : -1
+    ❌ this should throw but it does not - it should throw
+    ❌ something negated fails - 42 is 42
+      [Expected]: Not 42
+      [Actual]  : 42
+     [Log]: \\"another string\\"
+   [Error]: ReflectedValue Cannot log ReflectedValue of id -1. Index out of bounds.
+   [Stack]:     at start:assembly/jest-reporter~anonymous|0~anonymous|2 (wasm-function[61]:0x166c)
+               at ../assembly/assembly/internal/call/__call (wasm-function[100]:0x2a42)
+
+"
+`;

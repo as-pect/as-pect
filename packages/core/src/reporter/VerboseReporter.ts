@@ -202,7 +202,9 @@ export class VerboseReporter implements IReporter {
     [File]: ${suite.fileName}${rTrace}
   [Groups]: {green ${suite.groupCount} pass}, ${suite.groupCount} total
   [Result]: ${result}
- [Summary]: {green ${suite.testPassCount} pass},  ${failText}, ${suite.testCount} total
+ [Summary]: {green ${suite.testPassCount} pass},  ${failText}, ${
+      suite.testCount
+    } total
     [Time]: ${suite.rootNode.deltaT}ms\n\n`);
   }
 

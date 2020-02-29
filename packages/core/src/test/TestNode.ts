@@ -78,25 +78,29 @@ export class TestNode {
   /** If the TestNode ran. */
   ran: boolean = false;
 
+  /** The node allocations. */
+  allocations: number = 0;
+
+  /** The node deallocations */
+  frees: number = 0;
+
+  /** The node increments. */
+  increments: number = 0;
+
+  /** The node decrements. */
+  decrements: number = 0;
+
+  /** The node reallocations. */
+  reallocs: number = 0;
+
   /** The delta number of heap allocations. */
   get rtraceDelta(): number {
-    return this.rtraceEnd - this.rtraceStart;
-  };
+    return this.allocations - this.frees;
+  }
 
   /** The difference between the start and end TestNode runtime. */
   get deltaT(): number {
     return Math.round((this.end - this.start) * 1000) / 1000;
-  }
-
-  /** Collect all the children of this node that are nested tests. */
-  getTestChildren(ref: TestNode[] = []): TestNode[] {
-    const children = this.children;
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
-      child.getTestChildren(ref);
-      if (child.type === TestNodeType.Test) ref.push(child);
-    }
-    return ref;
   }
 
   /**
@@ -113,7 +117,10 @@ export class TestNode {
 
   /** Get this group's todos, recursively. */
   get groupTodos(): string[] {
-    return (<string[]>[]).concat.apply(this.todos, this.groupTests.map(e => e.todos));
+    return (<string[]>[]).concat.apply(
+      this.todos,
+      this.groupTests.map(e => e.todos),
+    );
   }
 
   /** Get this group's tests, recursively. */

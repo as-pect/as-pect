@@ -126,7 +126,6 @@ export class TestContext {
   public warnings: IWarning[] = [];
 
   constructor(props: ITestContextParameters) {
-
     /* istanbul ignore next */
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
@@ -144,7 +143,7 @@ export class TestContext {
       this.rootNode.errors.push({
         message: "Invalid reporter callback: onEnter is not a function",
         stackTrace: "",
-        type: "TestContext Initialization"
+        type: "TestContext Initialization",
       });
     }
 
@@ -152,7 +151,7 @@ export class TestContext {
       this.rootNode.errors.push({
         message: "Invalid reporter callback: onExit is not a function",
         stackTrace: "",
-        type: "TestContext Initialization"
+        type: "TestContext Initialization",
       });
     }
 
@@ -160,7 +159,7 @@ export class TestContext {
       this.rootNode.errors.push({
         message: "Invalid reporter callback: onFinish is not a function",
         stackTrace: "",
-        type: "TestContext Initialization"
+        type: "TestContext Initialization",
       });
     }
 
@@ -190,9 +189,8 @@ export class TestContext {
   protected visit(node: TestNode): void {
     // validate this node will run
     if (node !== this.rootNode) {
-      const regexTester = node.type === TestNodeType.Group
-        ? this.groupRegex
-        : this.testRegex;
+      const regexTester =
+        node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
       if (!regexTester.test(node.name)) return;
     }
 
@@ -224,7 +222,6 @@ export class TestContext {
       this.reporter.onExit(this, node);
       return;
     }
-
 
     // perform test collection and evaluate the node, each node must set pass to `true` if it passes
     if (node === this.rootNode) {
@@ -307,7 +304,9 @@ export class TestContext {
 
     // if any children failed, this node failed too, but assume it passes
     node.pass = node.children.reduce(
-      (pass: boolean, node: TestNode) => pass && node.pass, true);
+      (pass: boolean, node: TestNode) => pass && node.pass,
+      true,
+    );
     node.end = performance.now();
     this.addResult(node, true);
     this.reporter.onExit(this, node);
@@ -402,16 +401,16 @@ export class TestContext {
   /** Run every before each callback in the proper order. */
   private runBeforeEach(node: TestNode): boolean {
     return node.parent
-      //run parents first and bail early if the parents failed
-      ? this.runBeforeEach(node.parent) && this.runFunctions(node.beforeEach)
+      ? //run parents first and bail early if the parents failed
+        this.runBeforeEach(node.parent) && this.runFunctions(node.beforeEach)
       : this.runFunctions(node.beforeEach);
   }
 
-    /** Run every before each callback in the proper order. */
+  /** Run every before each callback in the proper order. */
   private runAfterEach(node: TestNode): boolean {
     return node.parent
-      //run parents first and bail early if the parents failed
-      ? this.runAfterEach(node.parent) && this.runFunctions(node.afterEach)
+      ? //run parents first and bail early if the parents failed
+        this.runAfterEach(node.parent) && this.runFunctions(node.afterEach)
       : this.runFunctions(node.afterEach);
   }
 
@@ -534,7 +533,6 @@ export class TestContext {
     return 1;
   }
 
-
   /**
    * This web assembly linked function sets the group's "beforeEach" callback pointer to
    * the current groupStackItem.
@@ -582,7 +580,9 @@ export class TestContext {
    * @param {number} todoPointer - The todo description string pointer.
    */
   private reportTodo(todoPointer: number): void {
-    this.targetNode.todos.push(this.getString(todoPointer, "No todo() value provided."));
+    this.targetNode.todos.push(
+      this.getString(todoPointer, "No todo() value provided."),
+    );
   }
 
   /**
@@ -667,19 +667,9 @@ export class TestContext {
   public allocationCount: number = 0;
 
   /**
-   * This is the current number of net allocations that occured during `TestNode` execution.
-   */
-  protected nodeAllocationCount: number = 0;
-
-  /**
    * This is the current number of net dellocations that occurred during `TestContext` execution.
    */
   public freeCount: number = 0;
-
-  /**
-   * This is the current number of net allocations that occured during `TestNode` execution.
-   */
-  protected nodeFreeCount: number = 0;
 
   /**
    * This is the current number of net increments that occurred during `TestContext` execution.
@@ -687,29 +677,14 @@ export class TestContext {
   protected incrementCount: number = 0;
 
   /**
-   * This is the current number of net increments that occurred during `TestNode` execution.
-   */
-  protected nodeIncrementCount: number = 0;
-
-  /**
    * This is the current number of net decrements that occurred during `TestContext` execution.
    */
   protected decrementCount: number = 0;
 
   /**
-   * This is the current number of net decrements that occurred during `TestNode` execution.
-   */
-  protected nodeDecrementCount: number = 0;
-
-  /**
    * This is the current number of net reallocations during the `TestContext` execution.
    */
   protected reallocationCount: number = 0;
-
-  /**
-   * This is the current number of net reallocations during the `TestNode` execution.
-   */
-  protected nodeReallocationCount: number = 0;
 
   /**
    * This map is responsible for keeping track of which blocks are currently allocated by their id.
@@ -728,7 +703,7 @@ export class TestContext {
    */
   private onalloc(block: number): void {
     this.allocationCount += 1;
-    this.nodeAllocationCount += 1;
+    this.targetNode.allocations += 1;
     /**
      * This is impossible to test but follows exactly from the AssemblyScript example located
      * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
@@ -758,7 +733,7 @@ export class TestContext {
    */
   private onfree(block: number): void {
     this.freeCount += 1;
-    this.nodeFreeCount += 1;
+    this.targetNode.frees += 1;
     /**
      * This is impossible to test, but follows exactly from the AssemblyScript example located
      * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
@@ -788,7 +763,7 @@ export class TestContext {
    */
   private onincrement(block: number): void {
     this.incrementCount += 1;
-    this.nodeIncrementCount += 1;
+    this.targetNode.increments += 1;
     /**
      * This is impossible to test, but follows exactly from the AssemblyScript example located
      * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
@@ -817,7 +792,7 @@ export class TestContext {
    */
   private ondecrement(block: number): void {
     this.decrementCount += 1;
-    this.nodeDecrementCount += 1;
+    this.targetNode.decrements += 1;
     /**
      * This is impossible to test, but follows exactly from the AssemblyScript example located
      * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
@@ -841,7 +816,7 @@ export class TestContext {
 
   private onrealloc(oldBlock: number, newBlock: number): void {
     this.reallocationCount += 1;
-    this.nodeReallocationCount += 1;
+    this.targetNode.reallocs += 1;
     /**
      * This is impossible to test, but follows exactly from the AssemblyScript example located
      * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
@@ -899,7 +874,7 @@ export class TestContext {
    * This linked method gets all the RTrace increments for this entire test up until this point.
    */
   private getRTraceNodeIncrements(): number {
-    return this.nodeIncrementCount;
+    return this.targetNode.increments;
   }
 
   /**
@@ -913,7 +888,7 @@ export class TestContext {
    * This linked method gets all the RTrace decrements for the current node up until this point.
    */
   private getRTraceNodeDecrements(): number {
-    return this.nodeDecrementCount;
+    return this.targetNode.decrements;
   }
 
   /**
@@ -934,14 +909,14 @@ export class TestContext {
    * This linked method gets all the RTrace increments for this TestNode up until this point.
    */
   private getRTraceNodeAllocations(): number {
-    return this.nodeAllocationCount;
+    return this.targetNode.allocations;
   }
 
   /**
    * This linked method gets all the RTrace frees for the current TestNode up until this point.
    */
   private getRTraceNodeFrees(): number {
-    return this.nodeFreeCount;
+    return this.targetNode.frees;
   }
 
   /**
@@ -955,9 +930,8 @@ export class TestContext {
    * This linked method gets all the RTrace reallocations for the current TestNode.
    */
   private getRTraceNodeReallocs(): number {
-    return this.nodeReallocationCount;
+    return this.targetNode.reallocs;
   }
-
 
   /**
    * This linked method gets all the current RTrace allocations and adds them to an array.

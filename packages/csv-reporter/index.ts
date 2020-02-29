@@ -1,12 +1,10 @@
-import {
-  IReporter,
-} from "../../packages/core/src/reporter/IReporter";
+import { IReporter } from "../../packages/core/src/reporter/IReporter";
 import stringify, { Stringifier } from "csv-stringify";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
-import { TestContext } from '../core/src/test/TestContext';
-import { TestNode } from '../core/src/test/TestNode';
-import { TestNodeType } from '@as-pect/assembly/assembly/internal/TestNodeType';
+import { TestContext } from "../core/src/test/TestContext";
+import { TestNode } from "../core/src/test/TestNode";
+import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 
 /**
  * @ignore
@@ -45,7 +43,7 @@ export class CSVReporter implements IReporter {
 
   public onExit(_ctx: TestContext, node: TestNode): void {
     if (node.type === TestNodeType.Group) {
-      this.onGroupFinish(node)
+      this.onGroupFinish(node);
     }
   }
 
@@ -56,8 +54,8 @@ export class CSVReporter implements IReporter {
   onGroupFinish(group: TestNode): void {
     if (group.children.length === 0) return;
 
-    group.groupTests.forEach((test) => this.onTestFinish(group, test));
-    group.groupTodos.forEach((desc) => this.onTodo(group, desc));
+    group.groupTests.forEach(test => this.onTestFinish(group, test));
+    group.groupTodos.forEach(desc => this.onTodo(group, desc));
   }
 
   onTestFinish(group: TestNode, test: TestNode) {
@@ -71,22 +69,14 @@ export class CSVReporter implements IReporter {
       test.message,
       test.actual ? test.actual.stringify({ indent: 0 }) : "",
       test.expected
-        ? `${test.negated ? "Not " : ""}${test.expected.stringify({ indent: 0 })}`
+        ? `${test.negated ? "Not " : ""}${test.expected.stringify({
+            indent: 0,
+          })}`
         : "",
     ]);
   }
 
   onTodo(group: TestNode, desc: string) {
-    this.output!.write([
-      group.name,
-      "TODO",
-      desc,
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-    ]);
+    this.output!.write([group.name, "TODO", desc, "", "", "", "", "", ""]);
   }
 }

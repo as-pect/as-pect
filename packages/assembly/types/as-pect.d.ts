@@ -763,7 +763,6 @@ declare class RTrace {
    */
   public static nodeFrees(): i32;
 
-
   /**
    * Gets the current number of reallocations over the course of the TestContext module.
    */

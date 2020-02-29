@@ -57,25 +57,13 @@ export function xtest(description: string, callback: () => void): void {
 // @ts-ignore: decorators *are* valid here
 @global
 export function it(description: string, runner: () => void): void {
-  reportTestNode(
-    TestNodeType.Test,
-    description,
-    runner,
-    false,
-    null,
-  );
+  reportTestNode(TestNodeType.Test, description, runner, false, null);
 }
 
 // @ts-ignore: decorators *are* valid here
 @global
 export function test(description: string, runner: () => void): void {
-  reportTestNode(
-    TestNodeType.Test,
-    description,
-    runner,
-    false,
-    null,
-  );
+  reportTestNode(TestNodeType.Test, description, runner, false, null);
 }
 
 // @ts-ignore: decorators *are* valid here
@@ -109,13 +97,7 @@ export function itThrows(
   runner: () => void,
   message: string | null = null,
 ): void {
-  reportTestNode(
-    TestNodeType.Test,
-    description,
-    runner,
-    true,
-    message,
-  );
+  reportTestNode(TestNodeType.Test, description, runner, true, message);
 }
 
 // @ts-ignore: decorators *are* valid here
@@ -125,23 +107,14 @@ export function throws(
   runner: () => void,
   message: string | null = null,
 ): void {
-  reportTestNode(
-    TestNodeType.Test,
-    description,
-    runner,
-    true,
-    message,
-  );
+  reportTestNode(TestNodeType.Test, description, runner, true, message);
 }
 
 // @ts-ignore: Decorators *are* valid here!
 @global
-export function describe(description: string = "", runner: () => void = noOp): void {
-  reportTestNode(
-    TestNodeType.Group,
-    description,
-    runner,
-    false,
-    null,
-  );
+export function describe(
+  description: string = "",
+  runner: () => void = noOp,
+): void {
+  reportTestNode(TestNodeType.Group, description, runner, false, null);
 }
