@@ -164,19 +164,25 @@ export class VerboseReporter implements IReporter {
                 rtcount.toString()
           }}`;
 
+    // There are currently no warnings provided by the as-pect testing suite
+    /* istanbul ignore next */
     for (const warning of suite.warnings) {
+      /* istanbul ignore next */
       this.stdout!.write(
         chalk`\n{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
       );
+      /* istanbul ignore next */
       const stack = warning.stackTrace.trim();
       /* istanbul ignore next */
       if (stack) {
+        /* istanbul ignore next */
         this.stdout!.write(
           chalk`{yellow    [Stack]}: {yellow ${stack
             .split("\n")
             .join("\n      ")}}\n`,
         );
       }
+      /* istanbul ignore next */
       this.stdout!.write("\n");
     }
 

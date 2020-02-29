@@ -41,5 +41,9 @@
 	],
 	"peerDependencies": {
 		"assemblyscript": "0.9.2"
+	},
+	"devDependencies": {
+		"jest": "^25.1.0",
+		"ts-jest": "^25.2.1"
 	}
 }

@@ -129,6 +129,7 @@ export class TestContext {
     if (props.fileName) this.fileName = props.fileName;
     if (props.testRegex) this.testRegex = props.testRegex;
     if (props.groupRegex) this.groupRegex = props.groupRegex;
+    /* istanbul ignore next */
     if (props.nortrace) this.rtraceEnabled = false;
     if (props.binary) this.nameSection = new NameSection(props.binary);
 
@@ -264,34 +265,32 @@ export class TestContext {
       return;
     }
 
-    // cannot traverse a negated node
-    if (!node.negated) {
-      // now that the tests have been collected and the beforeAll has run, visit each child
-      const children = node.children;
-      for (let i = 0; i < children.length; i++) {
-        const child = children[i];
 
-        // in the context of running a test, run the beforeEach functions
-        if (child.type === TestNodeType.Test) {
-          if (!this.runBeforeEach(node)) {
-            this.collectStatistics(node);
-            this.addResult(node, false);
-            this.reporter.onExit(this, node);
-            return;
-          }
+    // now that the tests have been collected and the beforeAll has run, visit each child
+    const children = node.children;
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i];
+
+      // in the context of running a test, run the beforeEach functions
+      if (child.type === TestNodeType.Test) {
+        if (!this.runBeforeEach(node)) {
+          this.collectStatistics(node);
+          this.addResult(node, false);
+          this.reporter.onExit(this, node);
+          return;
         }
+      }
 
-        // now we can visit the child
-        this.visit(child);
+      // now we can visit the child
+      this.visit(child);
 
-        // in the context of running a test, run the afterEach functions
-        if (child.type === TestNodeType.Test) {
-          if (!this.runAfterEach(node)) {
-            this.collectStatistics(node);
-            this.addResult(node, false);
-            this.reporter.onExit(this, node);
-            return;
-          }
+      // in the context of running a test, run the afterEach functions
+      if (child.type === TestNodeType.Test) {
+        if (!this.runAfterEach(node)) {
+          this.collectStatistics(node);
+          this.addResult(node, false);
+          this.reporter.onExit(this, node);
+          return;
         }
       }
     }
