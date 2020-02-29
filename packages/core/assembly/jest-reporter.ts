@@ -7,6 +7,11 @@ describe("examples", () => {
     expect(1).toBe(1, "Here is an example message");
   });
 
+  // duplicated test for namespace generation test coverage
+  test("example 1", () => {
+    expect(1).toBe(1, "Here is an example message");
+  });
+
   test("log value", () => {
     log("testing in a test");
   });

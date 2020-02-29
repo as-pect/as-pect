@@ -126,21 +126,16 @@ export class TestContext {
   public warnings: IWarning[] = [];
 
   constructor(props: ITestContextParameters) {
-    /* istanbul ignore next */
     if (props.fileName) this.fileName = props.fileName;
-    /* istanbul ignore next */
     if (props.testRegex) this.testRegex = props.testRegex;
-    /* istanbul ignore next */
     if (props.groupRegex) this.groupRegex = props.groupRegex;
-    /* istanbul ignore next */
     if (props.nortrace) this.rtraceEnabled = false;
-    /* istanbul ignore next */
     if (props.binary) this.nameSection = new NameSection(props.binary);
 
     this.reporter = props.reporter;
 
     if (typeof props.reporter.onEnter !== "function") {
-      this.rootNode.errors.push({
+      this.pushError({
         message: "Invalid reporter callback: onEnter is not a function",
         stackTrace: "",
         type: "TestContext Initialization",
@@ -148,7 +143,7 @@ export class TestContext {
     }
 
     if (typeof props.reporter.onExit !== "function") {
-      this.rootNode.errors.push({
+      this.pushError({
         message: "Invalid reporter callback: onExit is not a function",
         stackTrace: "",
         type: "TestContext Initialization",
@@ -156,7 +151,7 @@ export class TestContext {
     }
 
     if (typeof props.reporter.onFinish !== "function") {
-      this.rootNode.errors.push({
+      this.pushError({
         message: "Invalid reporter callback: onFinish is not a function",
         stackTrace: "",
         type: "TestContext Initialization",
@@ -229,8 +224,15 @@ export class TestContext {
         // collect all the top level function pointers, tests, groups, and logs
         this.wasm!._start();
       } catch (ex) {
+        /**
+         * If this catch occurs, the entire test suite is completed.
+         * This is a sanity check.
+         */
+        /* istanbul ignore next */
         node.end = performance.now();
+        /* istanbul ignore next */
         this.addResult(node, false);
+        /* istanbul ignore next */
         return;
       }
     } else {
@@ -349,17 +351,20 @@ export class TestContext {
 
       let found = false;
       parent.visit((node): boolean | void => {
+        // This visitor garuntees unique namespace generaton, sanity checks
+
         if (found) return false;
-        if (node.namespace === namespacePrefix) {
+        if (node.namespace === namespace) {
           found = true;
-          return false;
         }
+        if (found) return false;
       });
 
       if (!found) {
         node.namespace = namespace;
         break;
       }
+
       i++;
     }
 
@@ -1402,7 +1407,9 @@ export class TestContext {
 
   /** Push an warning to the warnings array. */
   protected pushWarning(warning: IWarning): void {
+    /* istanbul ignore next */
     this.targetNode.warnings.push(warning);
+    /* istanbul ignore next */
     this.warnings.push(warning);
   }
 }

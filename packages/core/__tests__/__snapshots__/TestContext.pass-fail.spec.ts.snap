@@ -1204,7 +1204,33 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: r
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: decrements 1`] = `6`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: frees 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: increments 1`] = `6`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1224,7 +1250,57 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: actual 2`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: actual-stringify 1`] = `"  number: NaN.0"`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: expected 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 0,
+  "stack": "No Stack Trace",
+  "type": 12,
+  "typeId": 0,
+  "typeName": null,
+  "value": 0,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: expected-stringify 1`] = `"Finite"`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: frees 1`] = `4`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: increments 1`] = `6`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: message 1`] = `""`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1244,67 +1320,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: actual-stringify 1`] = `"  number: NaN.0"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: actual-stringify 1`] = `"  number: 3.0"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: actual-stringify 2`] = `"  number: 3.0"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterAllPointers 2`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: allocations 1`] = `5`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterAllPointers 3`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterEachPointers 2`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: decrements 1`] = `5`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterEachPointers 3`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: allocations 1`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: allocations 2`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: allocations 3`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeAllPointers 2`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeAllPointers 3`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeEachPointers 2`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeEachPointers 3`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: decrements 1`] = `6`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: decrements 2`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: decrements 3`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: expected 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": false,
-  "size": 0,
-  "stack": "No Stack Trace",
-  "type": 12,
-  "typeId": 0,
-  "typeName": null,
-  "value": 0,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: expected 2`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1324,103 +1354,73 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: expected-stringify 1`] = `"Finite"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: expected-stringify 1`] = `"Not Finite"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: expected-stringify 2`] = `"Not Finite"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: frees 1`] = `4`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: frees 1`] = `5`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: increments 1`] = `7`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: frees 2`] = `4`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: frees 3`] = `4`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: increments 1`] = `6`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: increments 2`] = `6`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: increments 3`] = `7`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: message 1`] = `null`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: message 2`] = `""`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: message 3`] = `""`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: pass 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: pass 2`] = `false`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: pass 3`] = `false`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: ran 2`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: ran 3`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: reallocs 2`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: reallocs 3`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: type 2`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: type 3`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: type 1`] = `0`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: afterAllPointers 2`] = `0`;
-
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: afterEachPointers 2`] = `0`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: allocations 1`] = `9`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: allocations 2`] = `9`;
-
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: beforeAllPointers 2`] = `0`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: beforeEachPointers 2`] = `0`;
-
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: decrements 1`] = `11`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: decrements 2`] = `11`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: frees 1`] = `9`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: frees 2`] = `9`;
-
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: increments 1`] = `11`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: increments 2`] = `11`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: message 2`] = `null`;
-
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: pass 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: pass 2`] = `true`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: ran 2`] = `true`;
-
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: reallocs 2`] = `0`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: type 2`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: allocations 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: decrements 1`] = `11`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: frees 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: increments 1`] = `11`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: type 1`] = `0`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: actual 1`] = `
 ReflectedValue {
