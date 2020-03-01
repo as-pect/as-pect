@@ -44,7 +44,8 @@ export class SummaryReporter implements IReporter {
   /* istanbul ignore next */
   public onTodo(): void {}
 
-  private stdout: IWritable | null = null;
+  public stdout: IWritable | null = null;
+  public stderr: IWritable | null = null;
 
   /**
    * This method reports a test context is finished running.

@@ -10,8 +10,8 @@ import { IReporter } from "./IReporter";
  * all relevant details about each tests to the `stdout` WriteStream.
  */
 export class VerboseReporter implements IReporter {
-  protected stdout: IWritable | null = null;
-  protected stderr: IWritable | null = null;
+  public stdout: IWritable | null = null;
+  public stderr: IWritable | null = null;
 
   constructor(_options?: any) {}
 
@@ -197,13 +197,7 @@ export class VerboseReporter implements IReporter {
       );
     }
 
-    this.stdout!.write(chalk`${
-      process.stdout.columns
-        ? /* istanbul ignore next */
-          "~".repeat(Math.max(process.stdout.columns - 10, 10))
-        : /* istanbul ignore next */
-          "~".repeat(80)
-    }
+    this.stdout!.write(chalk`
 
     [File]: ${suite.fileName}${rTrace}
   [Groups]: {green ${suite.groupCount} pass}, ${suite.groupCount} total
