@@ -30,31 +30,6 @@ module.exports = {
     };
     instance = instantiateSync(binary, createImports(myImports));
     return instance;
-  }
-  /**
-   * All performance statistics reporting can be configured here.
-   */
-  performance: {
-    /** Enable performance statistics gathering. */
-    enabled: false,
-    /** Set the maximum number of samples to run for each test. */
-    maxSamples: 1000,
-    /** Set the number of decimal places to round to. */
-    roundDecimalPlaces: 3,
-    /** Set the maximum test run time in milliseconds. */
-    maxTestRunTime: 5000,
-    /** Report the median time in the default reporter. */
-    reportMedian: true,
-    /** Report the average time in milliseconds. */
-    reportAverage: true,
-    /** Report the standard deviation. */
-    reportStandardDeviation: true,
-    /** Report the maximum run time in milliseconds. */
-    reportMax: true,
-    /** Report the minimum run time in milliseconds. */
-    reportMin: true,
-    /** Report the variance. */
-    reportVariance: true,
   },
   /** Use the summary reporter. */
   // reporter: new SummaryTestReporter(),
