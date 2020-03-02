@@ -1,7 +1,7 @@
 import { main } from "assemblyscript/cli/asc";
 import { instantiateSync as instantiateBuffer } from "assemblyscript/lib/loader";
 import { TestContext } from "../../src/test/TestContext";
-import EmptyReporter from "../../src/reporter/EmptyReporter";
+import { EmptyReporter } from "../../src/reporter/EmptyReporter";
 import { IAspectExports } from "../../src/util/IAspectExports";
 
 type TestContextCallback = (err: Error | null, result?: TestContext) => void;
@@ -31,7 +31,6 @@ export function createRTraceModule(
           ctx = new TestContext({
             reporter: new EmptyReporter(),
             fileName: "assembly/jest-rtrace.ts",
-            performanceConfiguration: { enabled: false },
           });
           const result = instantiateBuffer<IAspectExports>(
             contents,

@@ -2,7 +2,7 @@ import { main } from "assemblyscript/cli/asc";
 import { instantiateSync as instantiateBuffer } from "assemblyscript/lib/loader";
 import { TestContext } from "../../src/test/TestContext";
 import { IAspectExports } from "../../src/util/IAspectExports";
-import { TestReporter } from "../../src";
+import { IReporter } from "../../src";
 
 type TestContextCallback = (err: Error | null, result?: TestContext) => void;
 
@@ -10,7 +10,7 @@ export function createReporterModule(
   file: string,
   linked: any,
   callback: TestContextCallback,
-  reporter: TestReporter,
+  reporter: IReporter,
 ): void {
   let ctx: TestContext;
   main(
@@ -33,7 +33,6 @@ export function createReporterModule(
           ctx = new TestContext({
             reporter,
             fileName: "assembly/jest-reporter.ts",
-            performanceConfiguration: { enabled: false },
           });
           const result = instantiateBuffer<IAspectExports>(
             contents,

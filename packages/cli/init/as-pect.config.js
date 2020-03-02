@@ -23,27 +23,13 @@ module.exports = {
   /**
    * Add your required AssemblyScript imports here.
    */
-  imports: {},
-  /**
-   * All performance statistics reporting can be configured here.
-   */
-  performance: {
-    /** Enable performance statistics gathering for every test. */
-    enabled: false,
-    /** Set the maximum number of samples to run for every test. */
-    maxSamples: 10000,
-    /** Set the maximum test run time in milliseconds for every test. */
-    maxTestRunTime: 5000,
-    /** Report the median time in the default reporter for every test. */
-    reportMedian: true,
-    /** Report the average time in milliseconds for every test. */
-    reportAverage: true,
-    /** Report the standard deviation for every test. */
-    reportStandardDeviation: false,
-    /** Report the maximum run time in milliseconds for every test. */
-    reportMax: false,
-    /** Report the minimum run time in milliseconds for every test. */
-    reportMin: false,
+  imports(memory, createImports, instantiateSync, binary) {
+    let instance; // Imports can reference this
+    const myImports = {
+      // put your web assembly imports here, and return the module
+    };
+    instance = instantiateSync(binary, createImports(myImports));
+    return instance;
   },
   /**
    * Add a custom reporter here if you want one. The following example is in typescript.

@@ -1,51 +1,50 @@
-import { TestGroup } from "../test/TestGroup";
-import { TestResult } from "../test/TestResult";
 import { TestContext } from "../test/TestContext";
-import { TestReporter } from "../test/TestReporter";
 import { IWritable } from "../util/IWriteable";
 import { ReflectedValue } from "../util/ReflectedValue";
-
-/**
- * This weakmap is used to keep track of which logs have already been printed, and from what index.
- */
-const groupLogIndex: WeakMap<TestGroup, number> = new WeakMap();
+import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
+import { TestNode } from "../test/TestNode";
+import { IReporter } from "./IReporter";
 
 /**
  * This is the default test reporter class for the `asp` command line application. It will pipe
  * all relevant details about each tests to the `stdout` WriteStream.
  */
-export default class VerboseReporter extends TestReporter {
-  protected stdout: IWritable | null = null;
+export class VerboseReporter implements IReporter {
+  public stdout: IWritable | null = null;
+  public stderr: IWritable | null = null;
 
-  constructor(_options?: any) {
-    super();
+  constructor(_options?: any) {}
+
+  onEnter(_ctx: TestContext, node: TestNode): void {
+    if (node.type === TestNodeType.Group) {
+      this.onGroupStart(node);
+    } else {
+      this.onTestStart(node.parent!, node);
+    }
   }
 
-  /**
-   * This method reports a starting TestContext. This method can be called many times, but may
-   * be instantiated once
-   *
-   * @param {TestContext} suite - The test context being started.
-   */
-  public onStart(suite: TestContext): void {
-    /* istanbul ignore next */
-    this.stdout = suite.stdout || process.stdout;
+  onExit(_ctx: TestContext, node: TestNode): void {
+    if (node.type === TestNodeType.Group) {
+      this.onGroupFinish(node);
+    } else {
+      this.onTestFinish(node.parent!, node);
+    }
   }
 
   /**
    * This method reports a TestGroup is starting.
    *
-   * @param {TestGroup} group - The started test group.
+   * @param {TestNode} group - The started test group.
    */
-  public onGroupStart(group: TestGroup): void {
-    if (group.tests.length === 0) return;
+  public onGroupStart(group: TestNode): void {
+    /* istanbul ignore next */
+    if (group.groupTests.length === 0) return;
     const chalk = require("chalk");
     /* istanbul ignore next */
     if (group.name) this.stdout!.write(chalk`[Describe]: ${group.name}\n\n`);
     for (const logValue of group.logs) {
       this.onLog(logValue);
     }
-    groupLogIndex.set(group, group.logs.length);
   }
 
   /**
@@ -53,21 +52,26 @@ export default class VerboseReporter extends TestReporter {
    *
    * @param {TestGroup} group - The finished TestGroup.
    */
-  public onGroupFinish(group: TestGroup): void {
-    if (group.tests.length === 0) return;
+  public onGroupFinish(group: TestNode): void {
+    if (group.groupTests.length === 0) return;
+
+    for (const todo of group.groupTodos) {
+      this.onTodo(group, todo);
+    }
+
     this.stdout!.write("\n");
   }
 
   /** This method is a stub for onTestStart(). */
-  public onTestStart(_group: TestGroup, _test: TestResult): void {}
+  public onTestStart(_group: TestNode, _test: TestNode): void {}
 
   /**
    * This method reports a completed test.
    *
-   * @param {TestGroup} _group - The TestGroup that the TestResult belongs to.
-   * @param {TestResult} test - The finished TestResult
+   * @param {TestNode} _group - The TestGroup that the TestResult belongs to.
+   * @param {TestNode} test - The finished TestResult
    */
-  public onTestFinish(_group: TestGroup, test: TestResult): void {
+  public onTestFinish(_group: TestNode, test: TestNode): void {
     const chalk = require("chalk");
     if (test.pass) {
       const rtraceDelta =
@@ -113,72 +117,16 @@ export default class VerboseReporter extends TestReporter {
       }
 
       /* istanbul ignore next */
-      if (test.stack) {
+      if (test.stackTrace) {
         this.stdout!.write(
-          `   [Stack]: ${test.stack.split("\n").join("\n        ")}\n`,
+          `   [Stack]: ${test.stackTrace.split("\n").join("\n        ")}\n`,
         );
       }
     }
 
-    /** If performance mode was enabled for this test, report the statistics. Deprecated. */
-    /* istanbul ignore next */
-    if (test.performance) {
-      /* istanbul ignore next */
-      this.stdout!.write(
-        chalk` {yellow [Samples]}: ${test.times.length.toString()} runs\n`,
-      );
-
-      /* istanbul ignore next */
-      if (test.hasAverage) {
-        /* istanbul ignore next */
-        this.stdout!.write(
-          chalk`    {yellow [Mean]}: ${test.average.toString()}ms\n`,
-        );
-      }
-
-      /* istanbul ignore next */
-      if (test.hasMedian) {
-        /* istanbul ignore next */
-        this.stdout!.write(
-          chalk`  {yellow [Median]}: ${test.median.toString()}ms\n`,
-        );
-      }
-
-      /* istanbul ignore next */
-      if (test.hasVariance) {
-        this.stdout!.write(
-          chalk`{yellow [Variance]}: ${test.variance.toString()}ms\n`,
-        );
-      }
-
-      /* istanbul ignore next */
-      if (test.hasStdDev) {
-        /* istanbul ignore next */
-        this.stdout!.write(
-          chalk`  {yellow [StdDev]}: ${test.stdDev.toString()}ms\n`,
-        );
-      }
-
-      /* istanbul ignore next */
-      if (test.hasMax) {
-        /* istanbul ignore next */
-        this.stdout!.write(
-          chalk`     {yellow [Max]}: ${test.max.toString()}ms\n`,
-        );
-      }
-
-      /* istanbul ignore next */
-      if (test.hasMin) {
-        /* istanbul ignore next */
-        this.stdout!.write(
-          chalk`     {yellow [Min]}: ${test.min.toString()}ms\n`,
-        );
-      }
-    } else {
-      /** Log the values to stdout if this was a typical test. */
-      for (const logValue of test.logs) {
-        this.onLog(logValue);
-      }
+    /** Log the values to stdout if this was a typical test. */
+    for (const logValue of test.logs) {
+      this.onLog(logValue);
     }
   }
 
@@ -189,19 +137,15 @@ export default class VerboseReporter extends TestReporter {
    */
   public onFinish(suite: TestContext): void {
     /* istanbul ignore next */
-    if (suite.testGroups.length === 0) return;
+    if (suite.rootNode.children.length === 0) return;
     const chalk = require("chalk");
 
     const result = suite.pass ? chalk`{green ✔ PASS}` : chalk`{red ✖ FAIL}`;
 
-    const count = suite.testGroups
-      .map(e => e.tests.length)
-      .reduce((a, b) => a + b, 0);
-    const successCount = suite.testGroups
-      .map(e => e.tests.filter(f => f.pass).length)
-      .reduce((a, b) => a + b, 0);
+    const count = suite.testCount;
+    const successCount = suite.testPassCount;
 
-    const fail =
+    const failText =
       count === successCount
         ? `0 fail`
         : chalk`{red ${(count - successCount).toString()} fail}`;
@@ -222,19 +166,25 @@ export default class VerboseReporter extends TestReporter {
                 rtcount.toString()
           }}`;
 
+    // There are currently no warnings provided by the as-pect testing suite
+    /* istanbul ignore next */
     for (const warning of suite.warnings) {
+      /* istanbul ignore next */
       this.stdout!.write(
         chalk`\n{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
       );
+      /* istanbul ignore next */
       const stack = warning.stackTrace.trim();
       /* istanbul ignore next */
       if (stack) {
+        /* istanbul ignore next */
         this.stdout!.write(
           chalk`{yellow    [Stack]}: {yellow ${stack
             .split("\n")
             .join("\n      ")}}\n`,
         );
       }
+      /* istanbul ignore next */
       this.stdout!.write("\n");
     }
 
@@ -249,22 +199,15 @@ export default class VerboseReporter extends TestReporter {
       );
     }
 
-    this.stdout!.write(chalk`${
-      process.stdout.columns
-        ? /* istanbul ignore next */
-          "~".repeat(Math.max(process.stdout.columns - 10, 10))
-        : /* istanbul ignore next */
-          "~".repeat(80)
-    }
-
-    [File]: ${suite.fileName}${rTrace}
-  [Groups]: {green ${suite.testGroups
-    .filter(e => e.pass)
-    .length.toString()} pass}, ${suite.testGroups.length.toString()} total
+    this.stdout!.write(chalk`    [File]: ${suite.fileName}${rTrace}
+  [Groups]: {green ${suite.groupCount} pass}, ${suite.groupCount} total
   [Result]: ${result}
- [Summary]: {green ${successCount.toString()} pass},  ${fail}, ${count.toString()} total
- [Startup]: ${suite.startupTime.toString()}ms
-    [Time]: ${suite.time.toString()}ms\n\n`);
+ [Summary]: {green ${suite.testPassCount} pass},  ${failText}, ${
+      suite.testCount
+    } total
+    [Time]: ${suite.rootNode.deltaT}ms
+
+${"~".repeat(80)}\n\n`);
   }
 
   /**
@@ -274,7 +217,7 @@ export default class VerboseReporter extends TestReporter {
    * @param {string} todo - The todo.
    */
   /* istanbul ignore next */
-  public onTodo(_group: TestGroup, todo: string): void {
+  public onTodo(_group: TestNode, todo: string): void {
     /* istanbul ignore next */
     const chalk = require("chalk");
     /* istanbul ignore next */

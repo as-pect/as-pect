@@ -15,18 +15,19 @@ To view the documentation, it's located [here](https://tenner-joshua.gitbook.io/
 
 To contribute please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-Thanks to [@willemneal](github.com/willemneal) and
-[@MaxGraey](github.com/maxgraey) for all their support in making `as-pect` the
+Thanks to [@willemneal](https://github.com/willemneal) and
+[@MaxGraey](https://github.com/maxgraey) for all their support in making `as-pect` the
 best software it can be.
 
 Other Contributors:
 
-- [@trusktr](github.com/trusktr) - Documentation Changes
-- [@MaxGraey](github.com/maxgraey) - Performance API suggestions
-- [@torch2424](github.com/torch2424) - Documentation Changes
-- [@dcodeio](github.com/torch2424) - Made AssemblyScript itself!
+- [@trusktr](https://github.com/trusktr) - Documentation Changes
+- [@MaxGraey](https://github.com/maxgraey) - Performance API suggestions
+- [@torch2424](https://github.com/torch2424) - Documentation Changes
+- [@dcodeio](https://github.com/torch2424) - Made AssemblyScript itself!
+- [@9oelM](https://github.com/9oelM) - Misc functionalities
 
 ## Special Thanks
 
-Special thanks to the [AssemblyScript](github.com/AssemblyScript/assemblyscript)
+Special thanks to the [AssemblyScript](https://github.com/AssemblyScript/assemblyscript)
 team for creating AssemblyScript itself.

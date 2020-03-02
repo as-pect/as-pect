@@ -4,7 +4,7 @@ import {
   ASUtil,
 } from "assemblyscript/lib/loader";
 import { TestContext } from "../../src/test/TestContext";
-import EmptyReporter from "../../src/reporter/EmptyReporter";
+import { EmptyReporter } from "../../src/reporter/EmptyReporter";
 import { IAspectExports } from "../../src/util/IAspectExports";
 
 interface ICreateModuleCallbackResult {
@@ -42,7 +42,6 @@ export function createTestGroupFilterModule(
           context = new TestContext({
             reporter: new EmptyReporter(),
             fileName: "assembly/jest-filter.ts",
-            performanceConfiguration: { enabled: false },
           });
           wasm = instantiateBuffer<IAspectExports>(
             contents,

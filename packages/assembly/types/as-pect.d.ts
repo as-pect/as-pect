@@ -729,27 +729,15 @@ declare class RTrace {
 
   /**
    * This method returns the number of increments that have occurred over the course of a test
-   * group.
+   * node.
    */
-  public static groupIncrements(): i32;
+  public static nodeIncrements(): i32;
 
   /**
    * This method returns the number of decrements that have occurred over the course of a test
-   * group.
+   * node.
    */
-  public static groupDecrements(): i32;
-
-  /**
-   * This method returns the number of increments that have occurred over the course of a test
-   * group.
-   */
-  public static testIncrements(): i32;
-
-  /**
-   * This method returns the number of decrements that have occurred over the course of a test
-   * group.
-   */
-  public static testDecrements(): i32;
+  public static nodeDecrements(): i32;
 
   /**
    * This method returns the number of allocations that have occurred over the course of a test
@@ -765,27 +753,15 @@ declare class RTrace {
 
   /**
    * This method returns the number of allocations that have occurred over the course of a test
-   * group.
+   * node.
    */
-  public static groupAllocations(): i32;
+  public static nodeAllocations(): i32;
 
   /**
    * This method returns the number of frees that have occurred over the course of a test
-   * group.
+   * node.
    */
-  public static groupFrees(): i32;
-
-  /**
-   * This method returns the number of allocations that have occurred over the course of a test
-   * group.
-   */
-  public static testAllocations(): i32;
-
-  /**
-   * This method returns the number of frees that have occurred over the course of a test
-   * group.
-   */
-  public static testFrees(): i32;
+  public static nodeFrees(): i32;
 
   /**
    * Gets the current number of reallocations over the course of the TestContext module.
@@ -793,14 +769,9 @@ declare class RTrace {
   public static reallocations(): i32;
 
   /**
-   * Gets the current number of reallocations over the course of the TestGroup.
+   * Gets the current number of reallocations over the course of the test node.
    */
-  public static groupReallocations(): i32;
-
-  /**
-   * Gets the current number of reallocations over the couse of the TestResult.
-   */
-  public static testReallocations(): i32;
+  public static nodeReallocations(): i32;
 
   /**
    * This method triggers a garbage collection.

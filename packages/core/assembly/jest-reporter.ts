@@ -7,12 +7,15 @@ describe("examples", () => {
     expect(1).toBe(1, "Here is an example message");
   });
 
+  // duplicated test for namespace generation test coverage
+  test("example 1", () => {
+    expect(1).toBe(1, "Here is an example message");
+  });
+
   test("log value", () => {
     log("testing in a test");
   });
 
-  // this will become deprecated, need to come up with a better way to push warnings to the reporter
-  Performance.maxSamples(10001);
   test("push an error to the error array", () => {
     // causes a reflection error because -1 can't be a valid id
     logReflectedValue(-1);

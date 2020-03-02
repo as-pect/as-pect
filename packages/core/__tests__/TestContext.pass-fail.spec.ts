@@ -34,40 +34,45 @@ describe("pass-fail output", () => {
   test("Overall Statistics", () => {
     expect(ctx.pass).toMatchSnapshot("pass");
   });
-  for (const group of ctx.testGroups) {
-    test(`Group: ${group.name}`, () => {
-      expect(group.pass).toMatchSnapshot(`pass`);
-      expect(group.afterAllPointers.length).toMatchSnapshot(`afterAllPointers`);
-      expect(group.afterEachPointers.length).toMatchSnapshot(
-        `afterEachPointers`,
-      );
-      expect(group.beforeEachPointers.length).toMatchSnapshot(
-        `beforeEachPointers`,
-      );
-      expect(group.beforeAllPointers.length).toMatchSnapshot(
-        `beforeAllPointers`,
-      );
-      expect(group.reason).toMatchSnapshot(`reason`);
-    });
 
-    describe(`Group: ${group.name}`, () => {
-      for (const groupTest of group.tests) {
-        test(`Test: ${groupTest.name}`, () => {
-          expect(groupTest.pass).toMatchSnapshot(`pass`);
-          expect(groupTest.actual).toMatchSnapshot("actual");
-          if (groupTest.actual)
-            expect(
-              groupTest.actual.stringify(stringifyOptions),
-            ).toMatchSnapshot("actual-stringify");
-          expect(groupTest.expected).toMatchSnapshot("expected");
-          if (groupTest.expected)
-            expect(
-              groupTest.expected.stringify(stringifyOptions),
-            ).toMatchSnapshot("expected-stringify");
-          expect(groupTest.message).toMatchSnapshot(`message`);
-          expect(groupTest.negated).toMatchSnapshot(`negated`);
-        });
+  ctx.rootNode.visit(group => {
+    test(`Node: ${group.namespace}`, () => {
+      expect(group.pass).toMatchSnapshot(`pass`);
+      expect(group.ran).toMatchSnapshot("ran");
+      expect(group.afterAll.length).toMatchSnapshot(`afterAllPointers`);
+      expect(group.afterEach.length).toMatchSnapshot(`afterEachPointers`);
+      expect(group.beforeEach.length).toMatchSnapshot(`beforeEachPointers`);
+      expect(group.beforeAll.length).toMatchSnapshot(`beforeAllPointers`);
+      expect(group.allocations).toMatchSnapshot("allocations");
+      expect(group.reallocs).toMatchSnapshot("reallocs");
+      expect(group.frees).toMatchSnapshot("frees");
+      expect(group.increments).toMatchSnapshot("increments");
+      expect(group.decrements).toMatchSnapshot("decrements");
+
+      if (group.actual) {
+        group.actual.stack = group.actual.stack
+          ? "Has Stack Trace"
+          : "No Stack Trace";
+
+        expect(group.actual).toMatchSnapshot("actual");
+        expect(group.actual.stringify(stringifyOptions)).toMatchSnapshot(
+          "actual-stringify",
+        );
       }
+
+      if (group.expected) {
+        group.expected.stack = group.expected.stack
+          ? "Has Stack Trace"
+          : "No Stack Trace";
+
+        expect(group.expected).toMatchSnapshot("expected");
+        expect(group.expected.stringify(stringifyOptions)).toMatchSnapshot(
+          "expected-stringify",
+        );
+      }
+
+      expect(group.message).toMatchSnapshot("message");
+      expect(group.type).toMatchSnapshot("type");
     });
-  }
+  });
 });

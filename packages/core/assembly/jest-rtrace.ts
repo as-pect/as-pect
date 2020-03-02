@@ -121,17 +121,11 @@ describe("RTrace api", () => {
   test("RTrace.decrements()", () => {
     RTrace.decrements();
   });
-  test("RTrace.groupIncrements()", () => {
-    RTrace.groupIncrements();
+  test("RTrace.nodeIncrements()", () => {
+    RTrace.nodeIncrements();
   });
-  test("RTrace.groupDecrements()", () => {
-    RTrace.groupDecrements();
-  });
-  test("RTrace.testIncrements()", () => {
-    RTrace.testIncrements();
-  });
-  test("RTrace.testDecrements()", () => {
-    RTrace.testDecrements();
+  test("RTrace.nodeDecrements()", () => {
+    RTrace.nodeDecrements();
   });
   test("RTrace.allocations()", () => {
     RTrace.allocations();
@@ -139,25 +133,15 @@ describe("RTrace api", () => {
   test("RTrace.frees()", () => {
     RTrace.frees();
   });
-  test("RTrace.groupAllocations()", () => {
-    RTrace.groupAllocations();
+  test("RTrace.nodeAllocations()", () => {
+    RTrace.nodeAllocations();
   });
-  test("RTrace.groupFrees()", () => {
-    RTrace.groupFrees();
-  });
-  test("RTrace.testAllocations()", () => {
-    RTrace.testAllocations();
-  });
-  test("RTrace.testFrees()", () => {
-    RTrace.testFrees();
+  test("RTrace.nodeFrees()", () => {
+    RTrace.nodeFrees();
   });
 
-  test("RTrace.activeTestBlocks()", () => {
-    RTrace.activeTestBlocks();
-  });
-
-  test("RTrace.activeGroupBlocks()", () => {
-    RTrace.activeGroupBlocks();
+  test("RTrace.activeNodeBlocks()", () => {
+    RTrace.activeNodeBlocks();
   });
 
   test("RTrace.activeBlocks()", () => {
@@ -172,43 +156,39 @@ describe("RTrace api", () => {
 
   test("RTrace.sizeOfReference<T>(reference: T)", () => {
     let ref = new Vec3(1, 2, 3);
-    RTrace.sizeOfReference<Vec3>(ref);
+    RTrace.sizeOfReference(ref);
     log<Vec3>(ref);
   });
 
   test("RTrace.typeIdOf(pointer: usize)", () => {
     let ref = new Vec3(1, 2, 3);
     RTrace.typeIdOf(changetype<usize>(ref));
-    log<Vec3>(ref);
+    log(ref);
   });
 
   test("RTrace.typeIdOfReference<T>(reference: T)", () => {
     let ref = new Vec3(1, 2, 3);
-    RTrace.typeIdOfReference<Vec3>(ref);
-    log<Vec3>(ref);
+    RTrace.typeIdOfReference(ref);
+    log(ref);
   });
 
   test("RTrace.refCountOf(pointer: usize)", () => {
     let ref = new Vec3(1, 2, 3);
     RTrace.refCountOf(changetype<usize>(ref));
-    log<Vec3>(ref);
+    log(ref);
   });
 
   test("RTrace.refCountOfReference<T>(reference: T)", () => {
     let ref = new Vec3(1, 2, 3);
     RTrace.refCountOfReference(ref);
-    log<Vec3>(ref);
+    log(ref);
   });
 
   test("RTrace.reallocations()", () => {
-    log<i32>(RTrace.reallocations());
+    log(RTrace.reallocations());
   });
 
-  test("RTrace.groupReallocations()", () => {
-    log<i32>(RTrace.groupReallocations());
-  });
-
-  test("RTrace.testReallocations()", () => {
-    log<i32>(RTrace.testReallocations());
+  test("RTrace.nodeReallocations()", () => {
+    log(RTrace.nodeReallocations());
   });
 });

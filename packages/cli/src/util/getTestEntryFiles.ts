@@ -16,7 +16,7 @@ export function getTestEntryFiles(
 ): Set<string> {
   const testEntryFiles = new Set<string>();
   const fileRegexArg = cliOptions.file;
-  const fileRegex: RegExp = new RegExp(fileRegexArg);
+  const fileRegex = new RegExp(fileRegexArg);
   // for each pattern to be included
   for (const pattern of include) {
     // push all the resulting files so that each file gets tested individually

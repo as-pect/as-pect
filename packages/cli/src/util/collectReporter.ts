@@ -1,8 +1,4 @@
-import {
-  TestReporter,
-  SummaryReporter,
-  CombinationReporter,
-} from "@as-pect/core";
+import { IReporter } from "@as-pect/core";
 import { Options } from "./CommandLineArg";
 import querystring from "querystring";
 import chalk from "chalk";
@@ -13,11 +9,11 @@ import chalk from "chalk";
  *
  * @param {Options} cliOptions - The command line arguments.
  */
-export function collectReporter(cliOptions: Options): TestReporter {
-  const reporters: TestReporter[] = [];
+export function collectReporter(cliOptions: Options): IReporter {
+  const reporters: IReporter[] = [];
 
   if (cliOptions.csv) {
-    const CSVReporter = require("@as-pect/csv-reporter").default;
+    const CSVReporter = require("@as-pect/csv-reporter");
     if (typeof cliOptions.csv === "string") {
       const options = querystring.parse(cliOptions.csv || "");
       reporters.push(new CSVReporter(options));
@@ -30,7 +26,7 @@ export function collectReporter(cliOptions: Options): TestReporter {
   }
 
   if (cliOptions.json) {
-    const JSONReporter = require("@as-pect/json-reporter").default;
+    const JSONReporter = require("@as-pect/json-reporter");
     if (typeof cliOptions.json === "string") {
       const options = querystring.parse(cliOptions.json || "");
       reporters.push(new JSONReporter(options));
@@ -44,12 +40,14 @@ export function collectReporter(cliOptions: Options): TestReporter {
 
   if (cliOptions.summary) {
     const SummaryReporter = require("@as-pect/core").SummaryReporter;
-    if (typeof cliOptions.summary === "string") {
-      const options = querystring.parse(cliOptions.summary || "");
-      reporters.push(new SummaryReporter(options));
-    } else {
-      reporters.push(new SummaryReporter());
-    }
+    const reporter = new SummaryReporter(
+      typeof cliOptions.summary === "string"
+        ? querystring.parse(cliOptions.summary || "")
+        : {},
+    );
+    reporter.stdout = process.stdout;
+    reporter.stderr = process.stderr;
+    reporters.push(reporter);
     process.stdout.write(
       chalk`{bgWhite.black [Log]} Using {yellow SummaryReporter}\n`,
     );
@@ -57,12 +55,14 @@ export function collectReporter(cliOptions: Options): TestReporter {
 
   if (cliOptions.verbose) {
     const VerboseReporter = require("@as-pect/core").VerboseReporter;
-    if (typeof cliOptions.verbose === "string") {
-      const options = querystring.parse(cliOptions.verbose || "");
-      reporters.push(new VerboseReporter(options));
-    } else {
-      reporters.push(new VerboseReporter());
-    }
+    const reporter = new VerboseReporter(
+      typeof cliOptions.summary === "string"
+        ? querystring.parse(cliOptions.summary || "")
+        : {},
+    );
+    reporter.stdout = process.stdout;
+    reporter.stderr = process.stderr;
+    reporters.push(reporter);
     process.stdout.write(
       chalk`{bgWhite.black [Log]} Using {yellow VerboseReporter}\n`,
     );
@@ -92,6 +92,7 @@ export function collectReporter(cliOptions: Options): TestReporter {
   }
 
   if (reporters.length === 0) {
+    const SummaryReporter = require("@as-pect/core").SummaryReporter;
     process.stdout.write(
       chalk`{bgWhite.black [Log]} Using {yellow SummaryReporter}\n`,
     );
@@ -99,6 +100,7 @@ export function collectReporter(cliOptions: Options): TestReporter {
       enableLogging: true,
     });
   } else {
+    const CombinationReporter = require("@as-pect/core").CombinationReporter;
     return new CombinationReporter(reporters);
   }
 }

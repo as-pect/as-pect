@@ -1,4 +1,3 @@
-import { IPerformanceConfiguration } from "@as-pect/core/src/util/IPerformanceConfiguration";
 import { toCamelCase } from "./strings";
 
 /**
@@ -65,7 +64,6 @@ export interface Options {
   norun: boolean;
   nortrace: boolean;
   reporter: string;
-  performance: IPerformanceConfiguration;
   portable: boolean;
   compiler: string;
   csv: string | boolean;
@@ -212,20 +210,6 @@ const _Args: CommandLineArgs = {
     value: 10,
   },
 
-  "max-samples": {
-    description: "Set the maximum number of samples to run for each test.",
-    type: "i",
-    value: 10000,
-    parent: "performance",
-  },
-
-  "max-test-run-time": {
-    description: "Set the maximum test run time in milliseconds.",
-    type: "i",
-    value: 2000,
-    parent: "performance",
-  },
-
   nologo: {
     description: "Suppress ASCII art from being printed.",
     type: "b",
@@ -255,59 +239,10 @@ const _Args: CommandLineArgs = {
     value: false,
   },
 
-  performance: {
-    description: "Enable performance statistics for {bold every} test.",
-    type: "b",
-    value: false,
-    parent: "performance",
-  },
-
   portable: {
     description: "Add the portable jest/as-pect types to your project.",
     type: "b",
     value: false,
-  },
-
-  "report-average": {
-    description: "Enable/Disable reporting of the average time.",
-    type: "b",
-    value: true,
-    parent: "performance",
-  },
-
-  "report-max": {
-    description: "Enable/Disable reporting of the largest run time.",
-    type: "b",
-    value: false,
-    parent: "performance",
-  },
-
-  "report-median": {
-    description: "Enable/Disable reporting of the median time.",
-    type: "b",
-    value: true,
-    parent: "performance",
-  },
-
-  "report-min": {
-    description: "Enable/Disable reporting of the smallest run time.",
-    type: "b",
-    value: false,
-    parent: "performance",
-  },
-
-  "report-standard-deviation": {
-    description: "Enable / Disable reporting of the standard deviation.",
-    type: "b",
-    value: false,
-    parent: "performance",
-  },
-
-  "report-variance": {
-    description: "Enable/Disable reporting of the variance.",
-    type: "b",
-    value: false,
-    parent: "performance",
   },
 
   reporter: {
@@ -320,13 +255,6 @@ const _Args: CommandLineArgs = {
         "Use the default exported object from this module as the reporter.",
       ],
     ],
-  },
-
-  "round-decimal-places": {
-    description: "Set the number of decimal places to round to.",
-    type: "i",
-    value: 3,
-    parent: "performance",
   },
 
   summary: {

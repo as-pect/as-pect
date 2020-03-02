@@ -1,204 +1,500 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pass-fail output Group:  Test: A test outside of a describe block: actual 1`] = `null`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group:  Test: A test outside of a describe block: expected 1`] = `null`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group:  Test: A test outside of a describe block: message 1`] = `""`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: allocations 1`] = `0`;
 
-exports[`pass-fail output Group:  Test: A test outside of a describe block: negated 1`] = `false`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group:  Test: A test outside of a describe block: pass 1`] = `true`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: : afterAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: decrements 1`] = `0`;
 
-exports[`pass-fail output Group: : afterEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: frees 1`] = `0`;
 
-exports[`pass-fail output Group: : beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: increments 1`] = `0`;
 
-exports[`pass-fail output Group: : beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: message 1`] = `null`;
 
-exports[`pass-fail output Group: : pass 1`] = `false`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: pass 1`] = `true`;
 
-exports[`pass-fail output Group: : reason 1`] = `"Test suite  failed because of an afterAll() callback occurred."`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: fail on group afterAll Test: should run: actual 1`] = `null`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll Test: should run: expected 1`] = `null`;
+exports[`pass-fail output Node: !~A test outside of a describe block[0]: type 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll Test: should run: message 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll Test: should run: negated 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll Test: should run: pass 1`] = `true`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: allocations 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll: afterAllPointers 1`] = `1`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: decrements 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: frees 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll: pass 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: increments 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterAll: reason 1`] = `"Test suite fail on group afterAll failed because of an afterAll() callback occurred."`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: message 1`] = `null`;
 
-exports[`pass-fail output Group: fail on group afterEach Test: should run: actual 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: pass 1`] = `true`;
 
-exports[`pass-fail output Group: fail on group afterEach Test: should run: expected 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: fail on group afterEach Test: should run: message 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterEach Test: should run: negated 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: type 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterEach Test: should run: pass 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: afterAllPointers 1`] = `1`;
 
-exports[`pass-fail output Group: fail on group afterEach: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterEach: afterEachPointers 1`] = `1`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: allocations 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterEach: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterEach: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterEach: pass 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: decrements 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group afterEach: reason 1`] = `"Test suite fail on group afterEach failed because an error occurred in an afterEach() callback."`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: frees 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeAll Test: shouldn't run: actual 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: increments 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeAll Test: shouldn't run: expected 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: message 1`] = `"This should fail in afterAll"`;
 
-exports[`pass-fail output Group: fail on group beforeAll Test: shouldn't run: message 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: fail on group beforeAll Test: shouldn't run: negated 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: fail on group beforeAll Test: shouldn't run: pass 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeAll: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterAll[0]: type 1`] = `1`;
 
-exports[`pass-fail output Group: fail on group beforeAll: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeAll: beforeAllPointers 1`] = `1`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeAll: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: allocations 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeAll: pass 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeAll: reason 1`] = `"Test suite fail on group beforeAll failed because an error occurred in a beforeAll() callback."`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeEach Test: shouldn't run: actual 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: decrements 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeEach Test: shouldn't run: expected 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: frees 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeEach Test: shouldn't run: message 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: increments 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeEach Test: shouldn't run: negated 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: message 1`] = `null`;
 
-exports[`pass-fail output Group: fail on group beforeEach Test: shouldn't run: pass 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: pass 1`] = `true`;
 
-exports[`pass-fail output Group: fail on group beforeEach: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: fail on group beforeEach: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeEach: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: type 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeEach: beforeEachPointers 1`] = `1`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: fail on group beforeEach: pass 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: afterEachPointers 1`] = `1`;
 
-exports[`pass-fail output Group: fail on group beforeEach: reason 1`] = `"Test suite fail on group beforeEach failed because an error occurred in a beforeEach() callback."`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: allocations 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterAll Test: should run: actual 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterAll Test: should run: expected 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterAll Test: should run: message 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: decrements 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterAll Test: should run: negated 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: frees 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterAll Test: should run: pass 1`] = `true`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: increments 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterAll: afterAllPointers 1`] = `1`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: message 1`] = `"This should fail in afterEach"`;
 
-exports[`pass-fail output Group: pass on group afterAll: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: pass on group afterAll: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: pass on group afterAll: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterAll: pass 1`] = `true`;
+exports[`pass-fail output Node: !~fail on group afterEach[0]: type 1`] = `1`;
 
-exports[`pass-fail output Group: pass on group afterAll: reason 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterEach Test: should run: actual 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterEach Test: should run: expected 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: allocations 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterEach Test: should run: message 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterEach Test: should run: negated 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterEach Test: should run: pass 1`] = `true`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: decrements 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterEach: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: frees 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterEach: afterEachPointers 1`] = `1`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: increments 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group afterEach: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: message 1`] = `null`;
 
-exports[`pass-fail output Group: pass on group afterEach: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: pass on group afterEach: pass 1`] = `true`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: ran 1`] = `false`;
 
-exports[`pass-fail output Group: pass on group afterEach: reason 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeAll Test: should run: actual 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: type 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeAll Test: should run: expected 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeAll Test: should run: message 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeAll Test: should run: negated 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: allocations 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeAll Test: should run: pass 1`] = `true`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: beforeAllPointers 1`] = `1`;
 
-exports[`pass-fail output Group: pass on group beforeAll: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeAll: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: decrements 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeAll: beforeAllPointers 1`] = `1`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: frees 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeAll: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: increments 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeAll: pass 1`] = `true`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: message 1`] = `"This should fail in beforeAll"`;
 
-exports[`pass-fail output Group: pass on group beforeAll: reason 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: pass on group beforeEach Test: should run: actual 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: pass on group beforeEach Test: should run: expected 1`] = `null`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeEach Test: should run: message 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group beforeAll[0]: type 1`] = `1`;
 
-exports[`pass-fail output Group: pass on group beforeEach Test: should run: negated 1`] = `false`;
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeEach Test: should run: pass 1`] = `true`;
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeEach: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: allocations 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeEach: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeEach: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeEach: beforeEachPointers 1`] = `1`;
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: decrements 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeEach: pass 1`] = `true`;
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: frees 1`] = `0`;
 
-exports[`pass-fail output Group: pass on group beforeEach: reason 1`] = `""`;
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: increments 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should expect strings: actual 1`] = `
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: ran 1`] = `false`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: beforeEachPointers 1`] = `1`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: message 1`] = `"This should fail in beforeEach"`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~fail on group beforeEach[0]: type 1`] = `1`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: beforeAllPointers 1`] = `1`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: message 1`] = `""`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: type 1`] = `1`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~nested fail in beforeAll[0]: type 1`] = `1`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: afterAllPointers 1`] = `1`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterAll[0]: type 1`] = `1`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: afterEachPointers 1`] = `1`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group afterEach[0]: type 1`] = `1`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: beforeAllPointers 1`] = `1`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeAll[0]: type 1`] = `1`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: beforeEachPointers 1`] = `1`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass on group beforeEach[0]: type 1`] = `1`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -209,11 +505,7 @@ ReflectedValue {
   "pointer": 896,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:0x1c0f)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c70)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:0x1ca5)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -222,9 +514,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should expect strings: actual-stringify 1`] = `"  string: \\"two\\""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: actual-stringify 1`] = `"  string: \\"two\\""`;
 
-exports[`pass-fail output Group: pass-fail Test: should expect strings: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: allocations 1`] = `7`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: decrements 1`] = `12`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -235,11 +539,7 @@ ReflectedValue {
   "pointer": 928,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:0x1c43)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c79)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|2 (wasm-function[79]:0x1ca5)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -248,45 +548,101 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should expect strings: expected-stringify 1`] = `"  string: \\"one\\""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: expected-stringify 1`] = `"  string: \\"one\\""`;
 
-exports[`pass-fail output Group: pass-fail Test: should expect strings: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: frees 1`] = `6`;
 
-exports[`pass-fail output Group: pass-fail Test: should expect strings: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: increments 1`] = `13`;
 
-exports[`pass-fail output Group: pass-fail Test: should expect strings: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail when test does not throw: actual 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail when test does not throw: expected 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail when test does not throw: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail when test does not throw: negated 1`] = `true`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: type 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail when test does not throw: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail: actual 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail: expected 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: allocations 1`] = `9`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail: message 1`] = `"expected fail"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should fail: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: decrements 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail Test: should report a negated test: actual 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: frees 1`] = `9`;
 
-exports[`pass-fail output Group: pass-fail Test: should report a negated test: expected 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: increments 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail Test: should report a negated test: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: message 1`] = `"No Message Provided."`;
 
-exports[`pass-fail output Group: pass-fail Test: should report a negated test: negated 1`] = `true`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: pass-fail Test: should report a negated test: pass 1`] = `true`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: pass-fail Test: should report array values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: message 1`] = `"expected fail"`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: allocations 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: decrements 1`] = `10`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: frees 1`] = `8`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: increments 1`] = `12`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -297,11 +653,7 @@ ReflectedValue {
   "pointer": 7328,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/array/Array<i32>> (wasm-function[145]:0x37d4)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:0x3860)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:0x38b5)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 10,
   "typeId": 12,
   "typeName": "Array<i32>",
@@ -362,7 +714,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report array values: actual-stringify 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: actual-stringify 1`] = `
 "  class: Array<i32> [
       number: 1,
       number: 2,
@@ -370,7 +722,19 @@ exports[`pass-fail output Group: pass-fail Test: should report array values: act
   ]"
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report array values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: allocations 1`] = `21`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: decrements 1`] = `36`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -381,11 +745,7 @@ ReflectedValue {
   "pointer": 7424,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/array/Array<i32>> (wasm-function[146]:0x3809)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/array/Array<i32>>#toStrictEqual (wasm-function[147]:0x3867)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|11 (wasm-function[148]:0x38b5)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 10,
   "typeId": 12,
   "typeName": "Array<i32>",
@@ -446,7 +806,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report array values: expected-stringify 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: expected-stringify 1`] = `
 "  class: Array<i32> [
       number: 4,
       number: 5,
@@ -454,13 +814,21 @@ exports[`pass-fail output Group: pass-fail Test: should report array values: exp
   ]"
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report array values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: frees 1`] = `12`;
 
-exports[`pass-fail output Group: pass-fail Test: should report array values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: increments 1`] = `47`;
 
-exports[`pass-fail output Group: pass-fail Test: should report array values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report bool values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -471,11 +839,7 @@ ReflectedValue {
   "pointer": 8176,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x4217)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:0x4266)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:0x4298)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -484,9 +848,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report bool values: actual-stringify 1`] = `"  keyword: false"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: actual-stringify 1`] = `"  keyword: false"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report bool values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: allocations 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: decrements 1`] = `10`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -497,11 +873,7 @@ ReflectedValue {
   "pointer": 8176,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<bool> (wasm-function[187]:0x423e)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBe (wasm-function[188]:0x4270)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|15 (wasm-function[189]:0x4298)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -510,15 +882,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report bool values: expected-stringify 1`] = `"  keyword: true"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: expected-stringify 1`] = `"  keyword: true"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report bool values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: frees 1`] = `8`;
 
-exports[`pass-fail output Group: pass-fail Test: should report bool values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: increments 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail Test: should report bool values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -529,11 +909,7 @@ ReflectedValue {
   "pointer": 7056,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d8a)
-    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1db4)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|3 (wasm-function[88]:0x1df1)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 8,
   "typeId": 0,
   "typeName": "f64",
@@ -542,9 +918,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report expected finite values: actual-stringify 1`] = `"  number: NaN.0"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: actual-stringify 1`] = `"  number: NaN.0"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -555,7 +943,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 0,
-  "stack": "",
+  "stack": "No Stack Trace",
   "type": 12,
   "typeId": 0,
   "typeName": null,
@@ -564,25 +952,49 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report expected finite values: expected-stringify 1`] = `"Finite"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: expected-stringify 1`] = `"Finite"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report expected finite values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: frees 1`] = `4`;
 
-exports[`pass-fail output Group: pass-fail Test: should report expected finite values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: increments 1`] = `6`;
 
-exports[`pass-fail output Group: pass-fail Test: should report expected finite values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report f32 values: actual 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: pass-fail Test: should report f32 values: expected 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: pass-fail Test: should report f32 values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report f32 values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: type 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report f32 values: pass 1`] = `true`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report failed functions: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: allocations 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: decrements 1`] = `11`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: frees 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: increments 1`] = `11`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -593,11 +1005,7 @@ ReflectedValue {
   "pointer": 1,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<(i: i32) => i32> (wasm-function[195]:0x4399)
-    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:0x43e2)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:0x4414)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -606,9 +1014,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report failed functions: actual-stringify 1`] = `"  class: [Function 1: ]"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: actual-stringify 1`] = `"  class: [Function 1: ]"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report failed functions: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: allocations 1`] = `7`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: decrements 1`] = `8`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -619,11 +1039,7 @@ ReflectedValue {
   "pointer": 2,
   "signed": false,
   "size": 0,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<(i: i32) => i32> (wasm-function[196]:0x43c0)
-    at ../assembly/assembly/internal/Expectation/Expectation<(i: i32) => i32>#toBe (wasm-function[197]:0x43ec)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|17 (wasm-function[198]:0x4414)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 6,
   "typeId": 13,
   "typeName": "Function",
@@ -632,15 +1048,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report failed functions: expected-stringify 1`] = `"  class: [Function 2: ]"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: expected-stringify 1`] = `"  class: [Function 2: ]"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report failed functions: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: frees 1`] = `6`;
 
-exports[`pass-fail output Group: pass-fail Test: should report failed functions: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: increments 1`] = `9`;
 
-exports[`pass-fail output Group: pass-fail Test: should report failed functions: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -651,11 +1075,7 @@ ReflectedValue {
   "pointer": 7088,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x154a)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeFalsy (wasm-function[90]:0x1e12)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|4 (wasm-function[91]:0x1e45)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -664,9 +1084,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: actual-stringify 1`] = `"  number: 1"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: actual-stringify 1`] = `"  number: 1"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -677,7 +1109,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 0,
-  "stack": "",
+  "stack": "No Stack Trace",
   "type": 14,
   "typeId": 0,
   "typeName": null,
@@ -686,15 +1118,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: expected-stringify 1`] = `"Falsy"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: expected-stringify 1`] = `"Falsy"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: frees 1`] = `4`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: increments 1`] = `6`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy expected values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -705,11 +1145,7 @@ ReflectedValue {
   "pointer": 8368,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x4217)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy (wasm-function[203]:0x44af)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|21 (wasm-function[205]:0x4506)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -718,9 +1154,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy values: actual-stringify 1`] = `"  keyword: true"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: actual-stringify 1`] = `"  keyword: true"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -731,7 +1179,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 0,
-  "stack": "",
+  "stack": "No Stack Trace",
   "type": 14,
   "typeId": 0,
   "typeName": null,
@@ -740,17 +1188,49 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy values: expected-stringify 1`] = `"Falsy"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: expected-stringify 1`] = `"Falsy"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: frees 1`] = `4`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: increments 1`] = `6`;
 
-exports[`pass-fail output Group: pass-fail Test: should report falsy values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: actual 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: actual 2`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: decrements 1`] = `6`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: frees 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: increments 1`] = `6`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -761,11 +1241,7 @@ ReflectedValue {
   "pointer": 8400,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d8a)
-    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1db4)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|23 (wasm-function[207]:0x453d)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 8,
   "typeId": 0,
   "typeName": "f64",
@@ -774,7 +1250,57 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: actual 3`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: actual-stringify 1`] = `"  number: NaN.0"`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: expected 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 0,
+  "stack": "No Stack Trace",
+  "type": 12,
+  "typeId": 0,
+  "typeName": null,
+  "value": 0,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: expected-stringify 1`] = `"Finite"`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: frees 1`] = `4`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: increments 1`] = `6`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: message 1`] = `""`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -785,11 +1311,7 @@ ReflectedValue {
   "pointer": 8432,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<f64> (wasm-function[85]:0x1d8a)
-    at ../assembly/assembly/internal/Expectation/Expectation<f64>#toBeFinite (wasm-function[87]:0x1db4)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|24 (wasm-function[209]:0x456b)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 8,
   "typeId": 0,
   "typeName": "f64",
@@ -798,33 +1320,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: actual-stringify 1`] = `"  number: NaN.0"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: actual-stringify 1`] = `"  number: 3.0"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: actual-stringify 2`] = `"  number: 3.0"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: expected 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: expected 2`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": false,
-  "size": 0,
-  "stack": "",
-  "type": 12,
-  "typeId": 0,
-  "typeName": null,
-  "value": 0,
-  "values": null,
-}
-`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: allocations 1`] = `5`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: expected 3`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -835,7 +1345,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 0,
-  "stack": "",
+  "stack": "No Stack Trace",
   "type": 12,
   "typeId": 0,
   "typeName": null,
@@ -844,49 +1354,75 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: expected-stringify 1`] = `"Finite"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: expected-stringify 1`] = `"Not Finite"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: expected-stringify 2`] = `"Not Finite"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: frees 1`] = `4`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: increments 1`] = `7`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: message 2`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: message 3`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: negated 2`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: negated 3`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: type 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: pass 1`] = `true`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: pass 2`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report finite values: pass 3`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: allocations 1`] = `9`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: actual 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: actual 2`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: expected 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: decrements 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: expected 2`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: frees 1`] = `9`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: increments 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: message 2`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: message 1`] = `null`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: pass 1`] = `true`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: negated 2`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: pass 1`] = `true`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report i16 values: pass 2`] = `true`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: type 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report invalid strings: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: allocations 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: decrements 1`] = `11`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: frees 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: increments 1`] = `11`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -897,11 +1433,7 @@ ReflectedValue {
   "pointer": 3072,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/string/String> (wasm-function[76]:0x1c0f)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c70)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:0x42b1)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -910,9 +1442,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report invalid strings: actual-stringify 1`] = `"  string: \\"Test\\""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: actual-stringify 1`] = `"  string: \\"Test\\""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report invalid strings: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: allocations 1`] = `7`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: decrements 1`] = `12`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -923,11 +1467,7 @@ ReflectedValue {
   "pointer": 3104,
   "signed": false,
   "size": 7,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/string/String> (wasm-function[77]:0x1c43)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/string/String>#toBe (wasm-function[78]:0x1c79)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|16 (wasm-function[190]:0x42b1)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 2,
   "typeId": 1,
   "typeName": "String",
@@ -936,15 +1476,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report invalid strings: expected-stringify 1`] = `"  string: \\"invalid\\""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: expected-stringify 1`] = `"  string: \\"invalid\\""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report invalid strings: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: frees 1`] = `6`;
 
-exports[`pass-fail output Group: pass-fail Test: should report invalid strings: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: increments 1`] = `13`;
 
-exports[`pass-fail output Group: pass-fail Test: should report invalid strings: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report long values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -955,11 +1503,7 @@ ReflectedValue {
   "pointer": 8112,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<i64> (wasm-function[168]:0x3f53)
-    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:0x3f9c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:0x3fd6)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -968,9 +1512,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report long values: actual-stringify 1`] = `"  number: -9999999999 keyword: as class: i64"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: actual-stringify 1`] = `"  number: -9999999999 keyword: as class: i64"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report long values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: allocations 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: decrements 1`] = `10`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -981,11 +1537,7 @@ ReflectedValue {
   "pointer": 8112,
   "signed": true,
   "size": 8,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<i64> (wasm-function[169]:0x3f7a)
-    at ../assembly/assembly/internal/Expectation/Expectation<i64>#toBe (wasm-function[170]:0x3fa6)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|13 (wasm-function[171]:0x3fd6)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
@@ -994,15 +1546,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report long values: expected-stringify 1`] = `"  number: 9999999999 keyword: as class: i64"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: expected-stringify 1`] = `"  number: 9999999999 keyword: as class: i64"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report long values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: frees 1`] = `8`;
 
-exports[`pass-fail output Group: pass-fail Test: should report long values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: increments 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail Test: should report long values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not falsy values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1013,11 +1573,7 @@ ReflectedValue {
   "pointer": 8336,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x4217)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeFalsy (wasm-function[203]:0x44af)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|20 (wasm-function[204]:0x44ec)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -1026,9 +1582,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report not falsy values: actual-stringify 1`] = `"  keyword: false"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: actual-stringify 1`] = `"  keyword: false"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not falsy values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1039,7 +1607,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 0,
-  "stack": "",
+  "stack": "No Stack Trace",
   "type": 14,
   "typeId": 0,
   "typeName": null,
@@ -1048,15 +1616,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report not falsy values: expected-stringify 1`] = `"Not Falsy"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: expected-stringify 1`] = `"Not Falsy"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not falsy values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: frees 1`] = `4`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not falsy values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: increments 1`] = `7`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not falsy values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not truthy values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1067,11 +1643,7 @@ ReflectedValue {
   "pointer": 8272,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x4217)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (wasm-function[200]:0x443d)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|18 (wasm-function[201]:0x447a)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -1080,9 +1652,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report not truthy values: actual-stringify 1`] = `"  keyword: true"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: actual-stringify 1`] = `"  keyword: true"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not truthy values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1093,7 +1677,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 0,
-  "stack": "",
+  "stack": "No Stack Trace",
   "type": 13,
   "typeId": 0,
   "typeName": null,
@@ -1102,15 +1686,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report not truthy values: expected-stringify 1`] = `"Not Truthy"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: expected-stringify 1`] = `"Not Truthy"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not truthy values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: frees 1`] = `4`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not truthy values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: increments 1`] = `7`;
 
-exports[`pass-fail output Group: pass-fail Test: should report not truthy values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report nulls: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": true,
@@ -1121,11 +1713,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[129]:0x331f)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:0x337d)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:0x33b1)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -1134,9 +1722,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report nulls: actual-stringify 1`] = `"  class: <Vec3>null"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: actual-stringify 1`] = `"  class: <Vec3>null"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report nulls: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: allocations 1`] = `7`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: decrements 1`] = `8`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": true,
@@ -1147,11 +1747,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3 | null> (wasm-function[130]:0x3354)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3 | null>#toBeNull (wasm-function[131]:0x3384)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|8 (wasm-function[132]:0x33b1)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -1160,15 +1756,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report nulls: expected-stringify 1`] = `"  class: <Vec3>null"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: expected-stringify 1`] = `"  class: <Vec3>null"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report nulls: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: frees 1`] = `6`;
 
-exports[`pass-fail output Group: pass-fail Test: should report nulls: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: increments 1`] = `10`;
 
-exports[`pass-fail output Group: pass-fail Test: should report nulls: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report number values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1179,11 +1783,7 @@ ReflectedValue {
   "pointer": 7408,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x154a)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:0x15ca)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:0x31ab)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -1192,9 +1792,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report number values: actual-stringify 1`] = `"  number: 0"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: actual-stringify 1`] = `"  number: 0"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report number values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: allocations 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: decrements 1`] = `10`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1205,11 +1817,7 @@ ReflectedValue {
   "pointer": 7408,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<i32> (wasm-function[55]:0x1570)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[59]:0x15d3)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|7 (wasm-function[123]:0x31ab)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -1218,15 +1826,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report number values: expected-stringify 1`] = `"  number: 42"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: expected-stringify 1`] = `"  number: 42"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report number values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: frees 1`] = `8`;
 
-exports[`pass-fail output Group: pass-fail Test: should report number values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: increments 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail Test: should report number values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1289,11 +1905,7 @@ ReflectedValue {
   "pointer": 6976,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<assembly/jest-pass-fail/Vec3> (wasm-function[119]:0x308d)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:0x3117)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:0x318d)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -1354,7 +1966,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: actual-stringify 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: actual-stringify 1`] = `
 "  class: Vec3 {
       string: x: number: 1.0,
       string: y: number: 2.0,
@@ -1362,7 +1974,19 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
   }"
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: allocations 1`] = `19`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: decrements 1`] = `60`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1425,11 +2049,7 @@ ReflectedValue {
   "pointer": 7056,
   "signed": false,
   "size": 24,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<assembly/jest-pass-fail/Vec3> (wasm-function[120]:0x30c1)
-    at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-pass-fail/Vec3>#toStrictEqual (wasm-function[121]:0x311d)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|6 (wasm-function[122]:0x318d)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 1,
   "typeId": 9,
   "typeName": "Vec3",
@@ -1490,7 +2110,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: expected-stringify 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: expected-stringify 1`] = `
 "  class: Vec3 {
       string: x: number: 4.0,
       string: y: number: 5.0,
@@ -1498,13 +2118,21 @@ exports[`pass-fail output Group: pass-fail Test: should report reference values:
   }"
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: frees 1`] = `12`;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: increments 1`] = `69`;
 
-exports[`pass-fail output Group: pass-fail Test: should report reference values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1515,11 +2143,7 @@ ReflectedValue {
   "pointer": 7120,
   "signed": true,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<i32> (wasm-function[54]:0x154a)
-    at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBeTruthy (wasm-function[93]:0x1e66)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|5 (wasm-function[94]:0x1e99)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 7,
   "typeId": 0,
   "typeName": "i32",
@@ -1528,9 +2152,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: actual-stringify 1`] = `"  number: 0"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: actual-stringify 1`] = `"  number: 0"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1541,7 +2177,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 0,
-  "stack": "",
+  "stack": "No Stack Trace",
   "type": 13,
   "typeId": 0,
   "typeName": null,
@@ -1550,15 +2186,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: expected-stringify 1`] = `"Truthy"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: expected-stringify 1`] = `"Truthy"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: frees 1`] = `4`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: increments 1`] = `6`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy expected values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1569,11 +2213,7 @@ ReflectedValue {
   "pointer": 8304,
   "signed": false,
   "size": 1,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<bool> (wasm-function[186]:0x4217)
-    at ../assembly/assembly/internal/Expectation/Expectation<bool>#toBeTruthy (wasm-function[200]:0x443d)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|19 (wasm-function[202]:0x4494)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 9,
   "typeId": 0,
   "typeName": "bool",
@@ -1582,9 +2222,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy values: actual-stringify 1`] = `"  keyword: false"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: actual-stringify 1`] = `"  keyword: false"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: allocations 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: decrements 1`] = `5`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1595,7 +2247,7 @@ ReflectedValue {
   "pointer": 0,
   "signed": false,
   "size": 0,
-  "stack": "",
+  "stack": "No Stack Trace",
   "type": 13,
   "typeId": 0,
   "typeName": null,
@@ -1604,15 +2256,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy values: expected-stringify 1`] = `"Truthy"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: expected-stringify 1`] = `"Truthy"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: frees 1`] = `4`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: increments 1`] = `6`;
 
-exports[`pass-fail output Group: pass-fail Test: should report truthy values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1623,11 +2283,7 @@ ReflectedValue {
   "pointer": 7616,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<~lib/typedarray/Float64Array> (wasm-function[159]:0x3d2e)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:0x3dba)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:0x3e68)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 11,
   "typeId": 15,
   "typeName": "Float64Array",
@@ -1688,9 +2344,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report typedarray values: actual-stringify 1`] = `"  class: Float64Array [ number: 1.1, number: 2.2, number: 3.3 ]"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: actual-stringify 1`] = `"  class: Float64Array [ number: 1.1, number: 2.2, number: 3.3 ]"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: allocations 1`] = `21`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: decrements 1`] = `36`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1701,11 +2369,7 @@ ReflectedValue {
   "pointer": 7696,
   "signed": false,
   "size": 3,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<~lib/typedarray/Float64Array> (wasm-function[160]:0x3d63)
-    at ../assembly/assembly/internal/Expectation/Expectation<~lib/typedarray/Float64Array>#toStrictEqual (wasm-function[161]:0x3dc1)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|12 (wasm-function[162]:0x3e68)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 11,
   "typeId": 15,
   "typeName": "Float64Array",
@@ -1766,15 +2430,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report typedarray values: expected-stringify 1`] = `"  class: Float64Array [ number: 4.4, number: 5.5, number: 6.6 ]"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: expected-stringify 1`] = `"  class: Float64Array [ number: 4.4, number: 5.5, number: 6.6 ]"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report typedarray values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: frees 1`] = `12`;
 
-exports[`pass-fail output Group: pass-fail Test: should report typedarray values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: increments 1`] = `47`;
 
-exports[`pass-fail output Group: pass-fail Test: should report typedarray values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1785,11 +2457,7 @@ ReflectedValue {
   "pointer": 8144,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Actual/Actual.report<u32> (wasm-function[177]:0x40b9)
-    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:0x4102)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:0x4134)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",
@@ -1798,9 +2466,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report u32 values: actual-stringify 1`] = `"  number: 4294967294 keyword: as class: u32"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: actual-stringify 1`] = `"  number: 4294967294 keyword: as class: u32"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected 1`] = `
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: allocations 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: decrements 1`] = `10`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1811,11 +2491,7 @@ ReflectedValue {
   "pointer": 8144,
   "signed": false,
   "size": 4,
-  "stack": "    at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[53]:0x1532)
-    at ../assembly/assembly/internal/Expected/Expected.report<u32> (wasm-function[178]:0x40e0)
-    at ../assembly/assembly/internal/Expectation/Expectation<u32>#toBe (wasm-function[179]:0x410c)
-    at start:assembly/jest-pass-fail~anonymous|3~anonymous|14 (wasm-function[180]:0x4134)
-    at ../assembly/assembly/internal/call/__call (wasm-function[289]:0x4e11)",
+  "stack": "Has Stack Trace",
   "type": 7,
   "typeId": 0,
   "typeName": "u32",
@@ -1824,44 +2500,98 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Group: pass-fail Test: should report u32 values: expected-stringify 1`] = `"  number: 4294967293 keyword: as class: u32"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: expected-stringify 1`] = `"  number: 4294967293 keyword: as class: u32"`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u32 values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: frees 1`] = `8`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u32 values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: increments 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u32 values: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: message 1`] = `""`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u64 values: actual 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: pass 1`] = `false`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u64 values: expected 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u64 values: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: reallocs 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u64 values: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: type 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: should report u64 values: pass 1`] = `true`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: this test should pass: actual 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: this test should pass: expected 1`] = `null`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: allocations 1`] = `9`;
 
-exports[`pass-fail output Group: pass-fail Test: this test should pass: message 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: this test should pass: negated 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Group: pass-fail Test: this test should pass: pass 1`] = `true`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: decrements 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: frees 1`] = `9`;
 
-exports[`pass-fail output Group: pass-fail: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: increments 1`] = `11`;
 
-exports[`pass-fail output Group: pass-fail: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: message 1`] = `null`;
 
-exports[`pass-fail output Group: pass-fail: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: pass 1`] = `true`;
 
-exports[`pass-fail output Group: pass-fail: pass 1`] = `false`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: ran 1`] = `true`;
 
-exports[`pass-fail output Group: pass-fail: reason 1`] = `""`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: allocations 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: decrements 1`] = `11`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: frees 1`] = `9`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: increments 1`] = `11`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: pass 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~pass-fail[0]: type 1`] = `1`;
 
 exports[`pass-fail output Overall Statistics: pass 1`] = `false`;

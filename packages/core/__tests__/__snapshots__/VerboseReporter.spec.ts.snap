@@ -2,47 +2,44 @@
 
 exports[`onFinish: finish 1`] = `
 "
- [Warning]: PerformanceConfigurationWarning -> Invalid Performance Configuration: maxSamples exceeds 10000
-   [Stack]: at ../assembly/assembly/internal/performance/Performance.maxSamples (wasm-function[65]:0x1702)
-          at start:assembly/jest-reporter~anonymous|0 (wasm-function[102]:0x2a94)
-          at ../assembly/assembly/internal/Describe/describe (wasm-function[104]:0x2ae0)
-          at start:assembly/jest-reporter (wasm-function[105]:0x2af1)
-          at ~start (wasm-function[111]:0x2b2a)
-
-
    [Error]: ReflectedValue Cannot log ReflectedValue of id -1. Index out of bounds.
-   [Stack]:     at start:assembly/jest-reporter~anonymous|0~anonymous|2 (wasm-function[66]:0x1709)
-               at ../assembly/assembly/internal/call/__call (wasm-function[107]:0x2b03)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+   [Stack]:     at start:assembly/jest-reporter~anonymous|0~anonymous|3 (wasm-function[62]:0x1684)
+               at ../assembly/assembly/internal/call/__call (wasm-function[101]:0x2a61)
     [File]: assembly/jest-reporter.ts RTrace: +11
-  [Groups]: 0 pass, 1 total
+  [Groups]: 2 pass, 2 total
   [Result]: ✖ FAIL
- [Summary]: 4 pass,  3 fail, 7 total
- [Startup]: 0ms
+ [Summary]: 4 pass,  4 fail, 8 total
     [Time]: 0ms
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 "
 `;
 
-exports[`onGroupStart 1`] = `""`;
+exports[`onGroupEnd 1`] = `""`;
+
+exports[`onGroupEnd: examples 1`] = `
+"
+"
+`;
 
 exports[`onGroupStart: examples 1`] = `
 "[Describe]: examples
 
      [Log]: \\"testing in a group\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[45]:0x11fa)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[63]:0x16eb)
-            at start:assembly/jest-reporter~anonymous|0 (wasm-function[102]:0x2ac7)
-            at ../assembly/assembly/internal/Describe/describe (wasm-function[104]:0x2ae0)
-            at start:assembly/jest-reporter (wasm-function[105]:0x2af1)
-            at ~start (wasm-function[111]:0x2b2a)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[40]:0x1166)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[60]:0x166d)
+            at start:assembly/jest-reporter~anonymous|0 (wasm-function[98]:0x2a33)
+            at ../assembly/assembly/internal/call/__call (wasm-function[101]:0x2a61)
 "
 `;
 
-exports[`onStart: start 1`] = `""`;
-
 exports[`onTestFinish: examples example 1 1`] = `
+" [Success]: ✔ example 1
+"
+`;
+
+exports[`onTestFinish: examples example 1 2`] = `
 " [Success]: ✔ example 1
 "
 `;
@@ -50,15 +47,15 @@ exports[`onTestFinish: examples example 1 1`] = `
 exports[`onTestFinish: examples log value 1`] = `
 " [Success]: ✔ log value
      [Log]: \\"testing in a test\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[45]:0x11fa)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[63]:0x16eb)
-            at start:assembly/jest-reporter~anonymous|0~anonymous|1 (wasm-function[64]:0x16fb)
-            at ../assembly/assembly/internal/call/__call (wasm-function[107]:0x2b03)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[40]:0x1166)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[60]:0x166d)
+            at start:assembly/jest-reporter~anonymous|0~anonymous|2 (wasm-function[61]:0x167d)
+            at ../assembly/assembly/internal/call/__call (wasm-function[101]:0x2a61)
 "
 `;
 
 exports[`onTestFinish: examples push an error to the error array 1`] = `
-" [Success]: ✔ push an error to the error array
+"    [Fail]: ✖ push an error to the error array
 "
 `;
 
@@ -68,10 +65,10 @@ exports[`onTestFinish: examples something fails 1`] = `
 [Expected]: 42
  [Message]: Here is an example failure message.
    [Stack]: RuntimeError: unreachable
-            at ../assembly/assembly/internal/assert/assert (wasm-function[48]:0x1261)
-            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[51]:0x12a7)
-            at start:assembly/jest-reporter~anonymous|0~anonymous|3 (wasm-function[67]:0x171b)
-            at ../assembly/assembly/internal/call/__call (wasm-function[107]:0x2b03)
+            at ../assembly/assembly/internal/assert/assert (wasm-function[43]:0x11c3)
+            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[46]:0x1209)
+            at start:assembly/jest-reporter~anonymous|0~anonymous|4 (wasm-function[63]:0x1696)
+            at ../assembly/assembly/internal/call/__call (wasm-function[101]:0x2a61)
 "
 `;
 
@@ -81,15 +78,15 @@ exports[`onTestFinish: examples something negated fails 1`] = `
 [Expected]: Not 42
  [Message]: 42 is 42
    [Stack]: RuntimeError: unreachable
-            at ../assembly/assembly/internal/assert/assert (wasm-function[48]:0x1261)
-            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[51]:0x12a7)
-            at start:assembly/jest-reporter~anonymous|0~anonymous|6 (wasm-function[100]:0x2a5f)
-            at ../assembly/assembly/internal/call/__call (wasm-function[107]:0x2b03)
+            at ../assembly/assembly/internal/assert/assert (wasm-function[43]:0x11c3)
+            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[46]:0x1209)
+            at start:assembly/jest-reporter~anonymous|0~anonymous|7 (wasm-function[96]:0x29d0)
+            at ../assembly/assembly/internal/call/__call (wasm-function[101]:0x2a61)
      [Log]: \\"another string\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[45]:0x11fa)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[63]:0x16eb)
-            at start:assembly/jest-reporter~anonymous|0~anonymous|6 (wasm-function[100]:0x2a4e)
-            at ../assembly/assembly/internal/call/__call (wasm-function[107]:0x2b03)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[40]:0x1166)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[60]:0x166d)
+            at start:assembly/jest-reporter~anonymous|0~anonymous|7 (wasm-function[96]:0x29bf)
+            at ../assembly/assembly/internal/call/__call (wasm-function[101]:0x2a61)
 "
 `;
 
@@ -106,6 +103,8 @@ exports[`onTestFinish: examples when two things should equal each other 1`] = `
 
 exports[`onTestStart: examples example 1 1`] = `""`;
 
+exports[`onTestStart: examples example 1 2`] = `""`;
+
 exports[`onTestStart: examples log value 1`] = `""`;
 
 exports[`onTestStart: examples push an error to the error array 1`] = `""`;
@@ -117,3 +116,8 @@ exports[`onTestStart: examples something negated fails 1`] = `""`;
 exports[`onTestStart: examples this should throw but it does not 1`] = `""`;
 
 exports[`onTestStart: examples when two things should equal each other 1`] = `""`;
+
+exports[`todo: examples 1`] = `
+"    [Todo]: example todo
+"
+`;

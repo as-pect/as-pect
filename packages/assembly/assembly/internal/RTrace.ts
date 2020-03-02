@@ -22,20 +22,12 @@ declare function getRTraceIncrements(): i32;
 declare function getRTraceDecrements(): i32;
 
 // @ts-ignore: Decorators *are* valid here
-@external("__aspect", "getRTraceGroupIncrements")
-declare function getRTraceGroupIncrements(): i32;
+@external("__aspect", "getRTraceNodeIncrements")
+declare function getRTraceNodeIncrements(): i32;
 
 // @ts-ignore: Decorators *are* valid here
-@external("__aspect", "getRTraceGroupDecrements")
-declare function getRTraceGroupDecrements(): i32;
-
-// @ts-ignore: Decorators *are* valid here
-@external("__aspect", "getRTraceTestIncrements")
-declare function getRTraceTestIncrements(): i32;
-
-// @ts-ignore: Decorators *are* valid here
-@external("__aspect", "getRTraceTestDecrements")
-declare function getRTraceTestDecrements(): i32;
+@external("__aspect", "getRTraceNodeDecrements")
+declare function getRTraceNodeDecrements(): i32;
 
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "getRTraceAllocations")
@@ -46,44 +38,28 @@ declare function getRTraceAllocations(): i32;
 declare function getRTraceFrees(): i32;
 
 // @ts-ignore: Decorators *are* valid here
-@external("__aspect", "getRTraceGroupAllocations")
-declare function getRTraceGroupAllocations(): i32;
+@external("__aspect", "getRTraceNodeAllocations")
+declare function getRTraceNodeAllocations(): i32;
 
 // @ts-ignore: Decorators *are* valid here
-@external("__aspect", "getRTraceGroupFrees")
-declare function getRTraceGroupFrees(): i32;
-
-// @ts-ignore: Decorators *are* valid here
-@external("__aspect", "getRTraceTestAllocations")
-declare function getRTraceTestAllocations(): i32;
-
-// @ts-ignore: Decorators *are* valid here
-@external("__aspect", "getRTraceTestFrees")
-declare function getRTraceTestFrees(): i32;
+@external("__aspect", "getRTraceNodeFrees")
+declare function getRTraceNodeFrees(): i32;
 
 // @ts-ignore
 @external("__aspect", "getRTraceBlocks")
 declare function getRTraceBlocks(): usize[];
 
 // @ts-ignore
-@external("__aspect", "getRTraceGroupBlocks")
-declare function getRTraceGroupBlocks(): usize[];
-
-// @ts-ignore
-@external("__aspect", "getRTraceTestBlocks")
-declare function getRTraceTestBlocks(): usize[];
+@external("__aspect", "getRTraceNodeBlocks")
+declare function getRTraceNodeBlocks(): usize[];
 
 // @ts-ignore
 @external("__aspect", "getRTraceReallocs")
 declare function getRTraceReallocs(): i32;
 
 // @ts-ignore
-@external("__aspect", "getRTraceTestReallocs")
-declare function getRTraceTestReallocs(): i32;
-
-// @ts-ignore
-@external("__aspect", "getRTraceGroupReallocs")
-declare function getRTraceGroupReallocs(): i32;
+@external("__aspect", "getRTraceNodeReallocs")
+declare function getRTraceNodeReallocs(): i32;
 
 @global
 export class RTrace {
@@ -142,8 +118,8 @@ export class RTrace {
    * This method returns the number of increments that have occurred over the course of a test
    * group.
    */
-  public static groupIncrements(): i32 {
-    if (RTrace.enabled) return getRTraceGroupIncrements();
+  public static nodeIncrements(): i32 {
+    if (RTrace.enabled) return getRTraceNodeIncrements();
     return 0;
   }
 
@@ -151,26 +127,8 @@ export class RTrace {
    * This method returns the number of decrements that have occurred over the course of a test
    * group.
    */
-  public static groupDecrements(): i32 {
-    if (RTrace.enabled) return getRTraceGroupDecrements();
-    return 0;
-  }
-
-  /**
-   * This method returns the number of increments that have occurred over the course of a test
-   * group.
-   */
-  public static testIncrements(): i32 {
-    if (RTrace.enabled) return getRTraceTestIncrements();
-    return 0;
-  }
-
-  /**
-   * This method returns the number of decrements that have occurred over the course of a test
-   * group.
-   */
-  public static testDecrements(): i32 {
-    if (RTrace.enabled) return getRTraceTestDecrements();
+  public static nodeDecrements(): i32 {
+    if (RTrace.enabled) return getRTraceNodeDecrements();
     return 0;
   }
 
@@ -196,8 +154,8 @@ export class RTrace {
    * This method returns the number of allocations that have occurred over the course of a test
    * group.
    */
-  public static groupAllocations(): i32 {
-    if (RTrace.enabled) return getRTraceGroupAllocations();
+  public static nodeAllocations(): i32 {
+    if (RTrace.enabled) return getRTraceNodeAllocations();
     return 0;
   }
 
@@ -205,26 +163,8 @@ export class RTrace {
    * This method returns the number of frees that have occurred over the course of a test
    * group.
    */
-  public static groupFrees(): i32 {
-    if (RTrace.enabled) return getRTraceGroupFrees();
-    return 0;
-  }
-
-  /**
-   * This method returns the number of allocations that have occurred over the course of a test
-   * group.
-   */
-  public static testAllocations(): i32 {
-    if (RTrace.enabled) return getRTraceTestAllocations();
-    return 0;
-  }
-
-  /**
-   * This method returns the number of frees that have occurred over the course of a test
-   * group.
-   */
-  public static testFrees(): i32 {
-    if (RTrace.enabled) return getRTraceTestFrees();
+  public static nodeFrees(): i32 {
+    if (RTrace.enabled) return getRTraceNodeFrees();
     return 0;
   }
 
@@ -299,17 +239,10 @@ export class RTrace {
   }
 
   /**
-   * Get the current groups allocated blocks.
+   * Get the current node allocated blocks.
    */
-  public static activeGroupBlocks(): usize[] {
-    return getRTraceGroupBlocks();
-  }
-
-  /**
-   * Get the current tests allocated blocks.
-   */
-  public static activeTestBlocks(): usize[] {
-    return getRTraceTestBlocks();
+  public static activeNodeBlocks(): usize[] {
+    return getRTraceNodeBlocks();
   }
 
   /**
@@ -355,17 +288,10 @@ export class RTrace {
   }
 
   /**
-   * Gets the current number of reallocations over the course of the TestGroup.
+   * Gets the current number of reallocations over the course of the TestNOde..
    */
-  public static groupReallocations(): i32 {
-    return getRTraceGroupReallocs();
-  }
-
-  /**
-   * Gets the current number of reallocations over the couse of the TestResult.
-   */
-  public static testReallocations(): i32 {
-    return getRTraceTestReallocs();
+  public static nodeReallocations(): i32 {
+    return getRTraceNodeReallocs();
   }
 }
 
