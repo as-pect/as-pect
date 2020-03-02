@@ -91,11 +91,17 @@ export class TestContext {
   /** The test count. */
   public testCount: number = 0;
 
-  /** The group count. */
-  public groupCount: number = 0;
+  /** The number of tests that ran. */
+  public testRunCount: number = 0;
 
   /** The number of passing tests count. */
   public testPassCount: number = 0;
+
+  /** The group count. */
+  public groupCount: number = 0;
+
+  /** The number of groups that ran. */
+  public groupRunCount: number = 0;
 
   /** The number of passing groups count. */
   public groupPassCount: number = 0;
@@ -197,6 +203,11 @@ export class TestContext {
 
     // this node is being tested for sure
     node.ran = true;
+    if (node.type === TestNodeType.Group) {
+      this.groupRunCount += 1;
+    } else {
+      this.testRunCount += 1;
+    }
 
     // set the start timer for this node
     node.start = performance.now();

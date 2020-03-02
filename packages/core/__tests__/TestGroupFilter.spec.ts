@@ -48,10 +48,6 @@ describe("TestGroup filtering", () => {
     // @ts-ignore setting the protected testRegex property is just for testing
     context.testRegex = /five/i;
     context.run(wasm);
-    let count = 0;
-    context.rootNode.visit(node => {
-      if (node.type === TestNodeType.Test && node.ran) count += 1;
-    });
-    expect(count).toBe(0);
+    expect(context.testRunCount).toBe(0);
   });
 });
