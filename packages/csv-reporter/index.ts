@@ -26,7 +26,7 @@ const csvColumns = [
  * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
  * contain a set of tests with relevant pass and fail information.
  */
-export class CSVReporter implements IReporter {
+module.exports = class CSVReporter implements IReporter {
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
 
@@ -51,14 +51,14 @@ export class CSVReporter implements IReporter {
     this.output!.end();
   }
 
-  onGroupFinish(group: TestNode): void {
+  protected onGroupFinish(group: TestNode): void {
     if (group.children.length === 0) return;
 
     group.groupTests.forEach(test => this.onTestFinish(group, test));
     group.groupTodos.forEach(desc => this.onTodo(group, desc));
   }
 
-  onTestFinish(group: TestNode, test: TestNode) {
+  protected onTestFinish(group: TestNode, test: TestNode) {
     this.output!.write([
       group.name,
       test.ran ? "RAN" : "NOT RUN",
@@ -76,7 +76,7 @@ export class CSVReporter implements IReporter {
     ]);
   }
 
-  onTodo(group: TestNode, desc: string) {
+  protected onTodo(group: TestNode, desc: string) {
     this.output!.write([group.name, "TODO", desc, "", "", "", "", "", ""]);
   }
 }

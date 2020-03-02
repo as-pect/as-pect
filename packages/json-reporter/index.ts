@@ -9,7 +9,7 @@ import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
  * This class reports all relevant test statistics to a JSON file located at
  * `{testLocation}.spec.json`.
  */
-export class JSONReporter implements IReporter {
+module.exports = class JSONReporter implements IReporter {
   protected file: WriteStream | null = null;
 
   private first: boolean = true;
@@ -34,14 +34,14 @@ export class JSONReporter implements IReporter {
     this.file!.end();
   }
 
-  onGroupFinish(group: TestNode) {
+  protected onGroupFinish(group: TestNode) {
     if (group.children.length === 0) return;
 
     group.groupTests.forEach(test => this.onTestFinish(group, test));
     group.groupTodos.forEach(desc => this.onTodo(group, desc));
   }
 
-  onTestFinish(group: TestNode, test: TestNode): void {
+  protected onTestFinish(group: TestNode, test: TestNode): void {
     this.file!.write(
       (this.first ? "\n" : ",\n") +
         JSON.stringify({
@@ -63,7 +63,7 @@ export class JSONReporter implements IReporter {
     this.first = false;
   }
 
-  onTodo(group: TestNode, desc: string) {
+  protected onTodo(group: TestNode, desc: string) {
     this.file!.write(
       (this.first ? "\n" : ",\n") +
         JSON.stringify({
