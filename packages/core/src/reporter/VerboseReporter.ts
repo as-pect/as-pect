@@ -29,10 +29,6 @@ export class VerboseReporter implements IReporter {
     } else {
       this.onTestFinish(node.parent!, node);
     }
-    const todos = node.todos;
-    for (let i = 0; i < todos.length; i++) {
-      this.onTodo(node, todos[i]);
-    }
   }
 
   /**
@@ -41,6 +37,7 @@ export class VerboseReporter implements IReporter {
    * @param {TestNode} group - The started test group.
    */
   public onGroupStart(group: TestNode): void {
+    /* istanbul ignore next */
     if (group.groupTests.length === 0) return;
     const chalk = require("chalk");
     /* istanbul ignore next */
@@ -57,6 +54,11 @@ export class VerboseReporter implements IReporter {
    */
   public onGroupFinish(group: TestNode): void {
     if (group.groupTests.length === 0) return;
+
+    for (const todo of group.groupTodos) {
+      this.onTodo(group, todo);
+    }
+
     this.stdout!.write("\n");
   }
 
@@ -141,7 +143,7 @@ export class VerboseReporter implements IReporter {
     const result = suite.pass ? chalk`{green ✔ PASS}` : chalk`{red ✖ FAIL}`;
 
     const count = suite.testCount;
-    const successCount = suite.testCount;
+    const successCount = suite.testPassCount;
 
     const failText =
       count === successCount

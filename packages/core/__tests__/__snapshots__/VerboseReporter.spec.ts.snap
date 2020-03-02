@@ -10,13 +10,18 @@ exports[`onFinish: finish 1`] = `
     [File]: assembly/jest-reporter.ts RTrace: +11
   [Groups]: 2 pass, 2 total
   [Result]: ✖ FAIL
- [Summary]: 4 pass,  0 fail, 8 total
+ [Summary]: 4 pass,  4 fail, 8 total
     [Time]: 0ms
 
 "
 `;
 
-exports[`onGroupStart 1`] = `""`;
+exports[`onGroupEnd 1`] = `""`;
+
+exports[`onGroupEnd: examples 1`] = `
+"
+"
+`;
 
 exports[`onGroupStart: examples 1`] = `
 "[Describe]: examples
@@ -49,6 +54,42 @@ exports[`onTestFinish: examples log value 1`] = `
 "
 `;
 
+exports[`onTestFinish: examples push an error to the error array 1`] = `
+"    [Fail]: ✖ push an error to the error array
+"
+`;
+
+exports[`onTestFinish: examples something fails 1`] = `
+"    [Fail]: ✖ something fails
+  [Actual]: -1
+[Expected]: 42
+ [Message]: Here is an example failure message.
+   [Stack]: RuntimeError: unreachable
+            at ../assembly/assembly/internal/assert/assert (wasm-function[43]:0x11c3)
+            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[46]:0x1209)
+            at start:assembly/jest-reporter~anonymous|0~anonymous|4 (wasm-function[63]:0x1696)
+            at ../assembly/assembly/internal/call/__call (wasm-function[101]:0x2a61)
+"
+`;
+
+exports[`onTestFinish: examples something negated fails 1`] = `
+"    [Fail]: ✖ something negated fails
+  [Actual]: 42
+[Expected]: Not 42
+ [Message]: 42 is 42
+   [Stack]: RuntimeError: unreachable
+            at ../assembly/assembly/internal/assert/assert (wasm-function[43]:0x11c3)
+            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[46]:0x1209)
+            at start:assembly/jest-reporter~anonymous|0~anonymous|7 (wasm-function[96]:0x29d0)
+            at ../assembly/assembly/internal/call/__call (wasm-function[101]:0x2a61)
+     [Log]: \\"another string\\"
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[40]:0x1166)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[60]:0x166d)
+            at start:assembly/jest-reporter~anonymous|0~anonymous|7 (wasm-function[96]:0x29bf)
+            at ../assembly/assembly/internal/call/__call (wasm-function[101]:0x2a61)
+"
+`;
+
 exports[`onTestFinish: examples this should throw but it does not 1`] = `
 "    [Fail]: ✖ this should throw but it does not
  [Message]: it should throw
@@ -65,6 +106,12 @@ exports[`onTestStart: examples example 1 1`] = `""`;
 exports[`onTestStart: examples example 1 2`] = `""`;
 
 exports[`onTestStart: examples log value 1`] = `""`;
+
+exports[`onTestStart: examples push an error to the error array 1`] = `""`;
+
+exports[`onTestStart: examples something fails 1`] = `""`;
+
+exports[`onTestStart: examples something negated fails 1`] = `""`;
 
 exports[`onTestStart: examples this should throw but it does not 1`] = `""`;
 

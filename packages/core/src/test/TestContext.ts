@@ -127,7 +127,9 @@ export class TestContext {
 
   constructor(props: ITestContextParameters) {
     if (props.fileName) this.fileName = props.fileName;
+    /* istanbul ignore next */
     if (props.testRegex) this.testRegex = props.testRegex;
+    /* istanbul ignore next */
     if (props.groupRegex) this.groupRegex = props.groupRegex;
     /* istanbul ignore next */
     if (props.nortrace) this.rtraceEnabled = false;
@@ -204,8 +206,8 @@ export class TestContext {
 
     // in the case of a throws() test
     if (node.negated) {
-      this.reporter.onEnter(this, node);
       const success = this.tryCall(node.callback) === 0; // we want the value to be 0
+      this.reporter.onEnter(this, node);
       if (success) {
         node.message = null;
         node.stackTrace = null;
@@ -225,24 +227,25 @@ export class TestContext {
         // collect all the top level function pointers, tests, groups, and logs
         this.wasm!._start();
       } catch (ex) {
+        this.reporter.onEnter(this, node);
         /**
          * If this catch occurs, the entire test suite is completed.
          * This is a sanity check.
          */
-        /* istanbul ignore next */
         node.end = performance.now();
-        /* istanbul ignore next */
         this.addResult(node, false);
-        /* istanbul ignore next */
+        this.reporter.onExit(this, node);
         return;
       }
     } else {
       // gather all the tests and groups, validate program state at this level
       const success = this.tryCall(node.callback) === 1;
+      this.reporter.onEnter(this, node);
       if (!success) {
         // collection or test failure, stop traversal of this node
         this.collectStatistics(node);
         this.addResult(node, false);
+        this.reporter.onExit(this, node);
         return;
       }
     }
@@ -251,11 +254,9 @@ export class TestContext {
     if (node.errors.length > 0) {
       this.collectStatistics(node);
       this.addResult(node, false);
+      this.reporter.onExit(this, node);
       return;
     }
-
-    // notify the reporter of the start of a TestNode evaluation
-    this.reporter.onEnter(this, node);
 
     // We now have the responsibility to run each beforeAll callback before traversing children
     if (!this.runFunctions(node.beforeAll)) {

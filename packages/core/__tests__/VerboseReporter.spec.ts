@@ -25,7 +25,7 @@ class ReporterWrapper extends VerboseReporter {
     test("onGroupStart", () => expect(result).toMatchSnapshot(group.name));
     writer.reset();
   }
-  onGroupEnd(group: TestNode): void {
+  onGroupFinish(group: TestNode): void {
     writer.reset();
     super.onGroupFinish(group);
     const result = strip(writer.result);
@@ -108,6 +108,24 @@ let start = new Promise<void>((resolve, reject) => {
       new Promise<void>((resolve, reject) => {
         createReporterModule(
           "./assembly/jest-reporter3.ts",
+          {},
+          (err, _result) => {
+            if (err) {
+              console.log(err);
+              reject(err);
+            } else {
+              resolve();
+            }
+          },
+          new ReporterWrapper(),
+        );
+      }),
+  )
+  .then(
+    () =>
+      new Promise<void>((resolve, reject) => {
+        createReporterModule(
+          "./assembly/jest-reporter4.ts",
           {},
           (err, _result) => {
             if (err) {
