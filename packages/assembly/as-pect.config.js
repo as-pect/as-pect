@@ -23,7 +23,14 @@ module.exports = {
   /**
    * Add your required AssemblyScript imports here.
    */
-  imports: {},
+  imports(memory, createImports, instantiateSync, binary) {
+    let instance; // Imports can reference this
+    const myImports = {
+      // put your web assembly imports here, and return the module
+    };
+    instance = instantiateSync(binary, createImports(myImports));
+    return instance;
+  }
   /**
    * All performance statistics reporting can be configured here.
    */
