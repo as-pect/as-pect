@@ -1,6 +1,7 @@
 import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 import { IWarning } from "./IWarning";
 import { ReflectedValue } from "../util/ReflectedValue";
+import { timeDifference } from "../util/timeDifference";
 
 export class TestNode {
   /** The TestNode type. */
@@ -100,7 +101,7 @@ export class TestNode {
 
   /** The difference between the start and end TestNode runtime. */
   get deltaT(): number {
-    return Math.round((this.end - this.start) * 1000) / 1000;
+    return timeDifference(this.end, this.start);
   }
 
   /**
