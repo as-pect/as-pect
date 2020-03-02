@@ -103,6 +103,9 @@ export class TestContext {
   /** The number of todos. */
   public todoCount: number = 0;
 
+  /** A collection of all the generated namespaces for shapshot purposes. */
+  protected namespaces: Set<string> = new Set<string>();
+
   /**
    * RTrace is a funciton that helps with debugging reference counting and can be used to find
    * leaks. If it is enabled, it will be included automatically by the bootstrap in the
@@ -345,27 +348,15 @@ export class TestContext {
     // namespacing for snapshots later
     const namespacePrefix = `${parent.namespace}!~${node.name}`;
     let i = 0;
-
     while (true) {
       const namespace = `${namespacePrefix}[${i}]`;
-
-      let found = false;
-      parent.visit((node): boolean | void => {
-        // This visitor garuntees unique namespace generaton, sanity checks
-
-        if (found) return false;
-        if (node.namespace === namespace) {
-          found = true;
-        }
-        if (found) return false;
-      });
-
-      if (!found) {
-        node.namespace = namespace;
-        break;
+      if (this.namespaces.has(namespace)) {
+        i++;
+        continue;
       }
-
-      i++;
+      node.namespace = namespace;
+      this.namespaces.add(namespace);
+      break;
     }
 
     // fix the node hierarchy
@@ -1406,6 +1397,7 @@ export class TestContext {
   }
 
   /** Push an warning to the warnings array. */
+  /* istanbul ignore next */
   protected pushWarning(warning: IWarning): void {
     /* istanbul ignore next */
     this.targetNode.warnings.push(warning);

@@ -521,8 +521,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
  [Stack]: {yellow ${error.stackTrace.split("\n").join("\n            ")}}
 `);
         }
-        console.log(chalk`
-  [Result]: ${result}
+        console.log(chalk`  [Result]: ${result}
    [Files]: ${testEntryFiles.size.toString()} total
   [Groups]: ${groupCount.toString()} count, ${groupSuccessCount.toString()} pass
    [Tests]: ${successCount.toString()} pass, ${(

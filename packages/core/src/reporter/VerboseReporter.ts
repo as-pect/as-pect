@@ -199,15 +199,15 @@ export class VerboseReporter implements IReporter {
       );
     }
 
-    this.stdout!.write(chalk`
-
-    [File]: ${suite.fileName}${rTrace}
+    this.stdout!.write(chalk`    [File]: ${suite.fileName}${rTrace}
   [Groups]: {green ${suite.groupCount} pass}, ${suite.groupCount} total
   [Result]: ${result}
  [Summary]: {green ${suite.testPassCount} pass},  ${failText}, ${
       suite.testCount
     } total
-    [Time]: ${suite.rootNode.deltaT}ms\n\n`);
+    [Time]: ${suite.rootNode.deltaT}ms
+
+${"~".repeat(80)}\n\n`);
   }
 
   /**
