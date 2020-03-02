@@ -1,6 +1,6 @@
 # jtenner/as-pect
 
-This packages is a monorepo that contains the cli and the core for the `@as-pect` packages.
+This package is a monorepo that contains the cli and the core for the `@as-pect` packages.
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/jtenner/as-pect.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/jtenner/as-pect.svg?branch=master)](https://travis-ci.org/jtenner/as-pect)
