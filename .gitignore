@@ -5,3 +5,4 @@ coverage
 .cache
 dist
 lib
+packages/assembly/assembly/__tests__/**/*.wasm
