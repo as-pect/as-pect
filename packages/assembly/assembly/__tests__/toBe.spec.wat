@@ -5410,7 +5410,7 @@
   i32.const 0
   i32.const 0
   i32.const 6
-  i32.const 30
+  i32.const 31
   i32.const 4368
   local.get $0
   i32.const 0

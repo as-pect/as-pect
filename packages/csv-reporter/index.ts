@@ -79,4 +79,4 @@ module.exports = class CSVReporter implements IReporter {
   protected onTodo(group: TestNode, desc: string) {
     this.output!.write([group.name, "TODO", desc, "", "", "", "", "", ""]);
   }
-}
+};

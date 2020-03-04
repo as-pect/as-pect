@@ -3,7 +3,7 @@ import {
   ClassDeclaration,
   CommonFlags,
   FieldDeclaration,
-  FunctionDeclaration,
+  MethodDeclaration,
   IfStatement,
   NodeKind,
   ParameterKind,
@@ -13,6 +13,7 @@ import {
   TypeNode,
   ParameterNode,
   PropertyAccessExpression,
+  Expression,
 } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
 
@@ -24,7 +25,7 @@ import { createGenericTypeParameter } from "./createGenericTypeParameter";
  */
 export function createStrictEqualsMember(
   classDeclaration: ClassDeclaration,
-): FunctionDeclaration {
+): MethodDeclaration {
   const range = classDeclaration.name.range;
 
   // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: string[]): bool
@@ -47,11 +48,15 @@ export function createStrictEqualsMember(
           range,
         ),
         // stack: usize[]
-        createDefaultParameter("stack", createUsizeArrayType(range), range),
+        createDefaultParameter("stack", createArrayType("usize", range), range),
         // cache: usize[]
-        createDefaultParameter("cache", createUsizeArrayType(range), range),
+        createDefaultParameter("cache", createArrayType("usize", range), range),
         // ignore: string[]
-        createDefaultParameter("ignore", createUsizeArrayType(range), range),
+        createDefaultParameter(
+          "ignore",
+          createArrayType("string", range),
+          range,
+        ),
       ],
       // : bool
       createSimpleNamedType("bool", range),
@@ -89,12 +94,12 @@ function createSimpleNamedType(name: string, range: Range): TypeNode {
  *
  * @param {Range} range - The source range.
  */
-function createUsizeArrayType(range: Range): TypeNode {
+function createArrayType(name: string, range: Range): TypeNode {
   return TypeNode.createNamedType(
     TypeNode.createSimpleTypeName("Array", range),
     [
       TypeNode.createNamedType(
-        TypeNode.createSimpleTypeName("usize", range),
+        TypeNode.createSimpleTypeName(name, range),
         null,
         false,
         range,
@@ -115,7 +120,7 @@ function createStrictEqualsFunctionBody(
 ): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
-
+  const members = new Array<string>();
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, and it isn't marked private or protected
@@ -130,19 +135,21 @@ function createStrictEqualsFunctionBody(
           body.push(
             createStrictEqualsIfCheck(member.name.text, fieldDeclaration.range),
           );
+          members.push(member.name.text);
           break;
         }
 
         // function declarations can be getters, check the get flag
-        case NodeKind.FUNCTIONDECLARATION: {
+        case NodeKind.METHODDECLARATION: {
           if (member.is(CommonFlags.GET)) {
-            const functionDeclaration = <FunctionDeclaration>member;
+            const methodDeclaration = <MethodDeclaration>member;
             body.push(
               createStrictEqualsIfCheck(
-                functionDeclaration.name.text,
-                functionDeclaration.range,
+                methodDeclaration.name.text,
+                methodDeclaration.range,
               ),
             );
+            members.push(member.name.text);
           }
           break;
         }
@@ -150,6 +157,8 @@ function createStrictEqualsFunctionBody(
     }
   }
 
+  // if (isDefined(...)) super.__aspectStrictEquals(ref, stack, cache, ignore.concat([...props]));
+  body.push(createSuperCallStatement(classDeclaration, members));
   // return true;
   body.push(
     TypeNode.createReturnStatement(TypeNode.createTrueExpression(range), range),
@@ -193,7 +202,24 @@ function createStrictEqualsIfCheck(name: string, range: Range): IfStatement {
     range,
   );
 
-  const includesCheck = 0;// TODO: Implement this
+  // !ignore.includes("prop")
+  const includesCheck = TypeNode.createUnaryPrefixExpression(
+    Token.EXCLAMATION,
+    // ignore.includes("prop")
+    TypeNode.createCallExpression(
+      // ignore.includes
+      TypeNode.createPropertyAccessExpression(
+        TypeNode.createIdentifierExpression("ignore", range),
+        TypeNode.createIdentifierExpression("includes", range),
+        range,
+      ),
+      null,
+      // ("prop")
+      [TypeNode.createStringLiteralExpression(name, range)],
+      range,
+    ),
+    range,
+  );
 
   // if (Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAILED_MATCH) return false;
   return TypeNode.createIfStatement(
@@ -252,6 +278,83 @@ function createPropertyAccess(
   return TypeNode.createPropertyAccessExpression(
     TypeNode.createIdentifierExpression(root, range),
     TypeNode.createIdentifierExpression(property, range),
+    range,
+  );
+}
+
+function createSuperCallStatement(
+  classDeclaration: ClassDeclaration,
+  members: string[],
+): Statement {
+  const range = classDeclaration.name.range;
+  const ifStatement = TypeNode.createIfStatement(
+    TypeNode.createCallExpression(
+      TypeNode.createIdentifierExpression("isDefined", range),
+      null,
+      [
+        TypeNode.createPropertyAccessExpression(
+          TypeNode.createSuperExpression(range),
+          TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
+          range,
+        ),
+      ],
+      range,
+    ),
+    TypeNode.createBlockStatement([
+      TypeNode.createIfStatement(
+        TypeNode.createUnaryPrefixExpression(
+          Token.EXCLAMATION,
+          createSuperCallExpression(members, range),
+          range,
+        ),
+        TypeNode.createReturnStatement(
+          TypeNode.createFalseExpression(range),
+          range,
+        ),
+        null,
+        range,
+      ),
+    ], range),
+    null,
+    range,
+  );
+  return ifStatement;
+}
+
+function createSuperCallExpression(
+  propNames: string[],
+  range: Range,
+): Expression {
+  return TypeNode.createCallExpression(
+    TypeNode.createPropertyAccessExpression(
+      TypeNode.createSuperExpression(range),
+      TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
+      range,
+    ),
+    null,
+    [
+      TypeNode.createIdentifierExpression("ref", range),
+      TypeNode.createIdentifierExpression("stack", range),
+      TypeNode.createIdentifierExpression("cache", range),
+      // ignore.concat([... props])
+      TypeNode.createCallExpression(
+        TypeNode.createPropertyAccessExpression(
+          TypeNode.createIdentifierExpression("ignore", range),
+          TypeNode.createIdentifierExpression("concat", range),
+          range,
+        ),
+        null,
+        [
+          TypeNode.createArrayLiteralExpression(
+            propNames.map(e =>
+              TypeNode.createStringLiteralExpression(e, range),
+            ),
+            range,
+          ),
+        ],
+        range,
+      ),
+    ],
     range,
   );
 }

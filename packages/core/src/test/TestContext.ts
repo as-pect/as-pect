@@ -280,7 +280,6 @@ export class TestContext {
       return;
     }
 
-
     // now that the tests have been collected and the beforeAll has run, visit each child
     const children = node.children;
     for (let i = 0; i < children.length; i++) {
