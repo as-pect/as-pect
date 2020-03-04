@@ -27,7 +27,7 @@ export function createStrictEqualsMember(
 ): FunctionDeclaration {
   const range = classDeclaration.name.range;
 
-  // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[]): bool
+  // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: string[]): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
     [
@@ -50,6 +50,8 @@ export function createStrictEqualsMember(
         createDefaultParameter("stack", createUsizeArrayType(range), range),
         // cache: usize[]
         createDefaultParameter("cache", createUsizeArrayType(range), range),
+        // ignore: string[]
+        createDefaultParameter("ignore", createUsizeArrayType(range), range),
       ],
       // : bool
       createSimpleNamedType("bool", range),
@@ -163,34 +165,43 @@ function createStrictEqualsFunctionBody(
  * @param {Range} range - The source range for the given property.
  */
 function createStrictEqualsIfCheck(name: string, range: Range): IfStatement {
+  const equalsCheck = TypeNode.createBinaryExpression(
+    Token.EQUALS_EQUALS_EQUALS,
+    // Reflect.equals(this.prop, ref.prop, stack, cache)
+    TypeNode.createCallExpression(
+      // Reflect.equals
+      createPropertyAccess("Reflect", "equals", range),
+      null, // types can be inferred by the compiler!
+      // arguments
+      [
+        // this.prop
+        TypeNode.createPropertyAccessExpression(
+          TypeNode.createThisExpression(range),
+          TypeNode.createIdentifierExpression(name, range),
+          range,
+        ),
+        // ref.prop
+        createPropertyAccess("ref", name, range),
+        // stack
+        TypeNode.createIdentifierExpression("stack", range),
+        // cache
+        TypeNode.createIdentifierExpression("cache", range),
+      ],
+      range,
+    ),
+    createPropertyAccess("Reflect", "FAILED_MATCH", range),
+    range,
+  );
+
+  const includesCheck = 0;// TODO: Implement this
+
   // if (Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAILED_MATCH) return false;
   return TypeNode.createIfStatement(
     // Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAILED_MATCH
     TypeNode.createBinaryExpression(
-      Token.EQUALS_EQUALS_EQUALS,
-      // Reflect.equals(this.prop, ref.prop, stack, cache)
-      TypeNode.createCallExpression(
-        // Reflect.equals
-        createPropertyAccess("Reflect", "equals", range),
-        null, // types can be inferred by the compiler!
-        // arguments
-        [
-          // this.prop
-          TypeNode.createPropertyAccessExpression(
-            TypeNode.createThisExpression(range),
-            TypeNode.createIdentifierExpression(name, range),
-            range,
-          ),
-          // ref.prop
-          createPropertyAccess("ref", name, range),
-          // stack
-          TypeNode.createIdentifierExpression("stack", range),
-          // cache
-          TypeNode.createIdentifierExpression("cache", range),
-        ],
-        range,
-      ),
-      createPropertyAccess("Reflect", "FAILED_MATCH", range),
+      Token.AMPERSAND_AMPERSAND,
+      includesCheck,
+      equalsCheck,
       range,
     ),
 
