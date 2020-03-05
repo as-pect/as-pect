@@ -117,7 +117,7 @@ function createStrictEqualsFunctionBody(
 ): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
-  const members = new Array<number>();
+  const nameHashes = new Array<number>();
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, and it isn't marked private or protected
@@ -137,7 +137,7 @@ function createStrictEqualsFunctionBody(
               fieldDeclaration.range,
             ),
           );
-          members.push(hashValue);
+          nameHashes.push(hashValue);
           break;
         }
 
@@ -153,7 +153,7 @@ function createStrictEqualsFunctionBody(
                 methodDeclaration.name.range,
               ),
             );
-            members.push(hashValue);
+            nameHashes.push(hashValue);
           }
           break;
         }
@@ -162,7 +162,7 @@ function createStrictEqualsFunctionBody(
   }
 
   // if (isDefined(...)) super.__aspectStrictEquals(ref, stack, cache, ignore.concat([...props]));
-  body.push(createSuperCallStatement(classDeclaration, members));
+  body.push(createSuperCallStatement(classDeclaration, nameHashes));
   // return true;
   body.push(
     TypeNode.createReturnStatement(TypeNode.createTrueExpression(range), range),
@@ -295,11 +295,11 @@ function createPropertyAccess(
  * wrapping it in a check to make sure the super function is defined first.
  *
  * @param {ClassDeclaration} classDeclaration - The given class declaration.
- * @param {number[]} members - A collection of hash values of the comparing class properties.
+ * @param {number[]} nameHashes - A collection of hash values of the comparing class properties.
  */
 function createSuperCallStatement(
   classDeclaration: ClassDeclaration,
-  members: number[],
+  nameHashes: number[],
 ): Statement {
   const range = classDeclaration.name.range;
   const ifStatement = TypeNode.createIfStatement(
@@ -320,7 +320,7 @@ function createSuperCallStatement(
         TypeNode.createIfStatement(
           TypeNode.createUnaryPrefixExpression(
             Token.EXCLAMATION,
-            createSuperCallExpression(members, range),
+            createSuperCallExpression(nameHashes, range),
             range,
           ),
           TypeNode.createReturnStatement(

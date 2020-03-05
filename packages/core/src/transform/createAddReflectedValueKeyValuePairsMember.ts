@@ -105,7 +105,7 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
 ): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
-  const names = new Array<number>();
+  const nameHashes = new Array<number>();
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, and it isn't marked private or protected
@@ -124,7 +124,7 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
             hashValue,
             fieldDeclaration.range,
           );
-          names.push(hashValue);
+          nameHashes.push(hashValue);
           break;
         }
 
@@ -139,7 +139,7 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
               hashValue,
               methodDeclaration.range,
             );
-            names.push(hashValue);
+            nameHashes.push(hashValue);
           }
           break;
         }
@@ -148,7 +148,7 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
   }
 
   // call into super first after all the property checks have been added
-  body.unshift(createIsDefinedIfStatement(names, range));
+  body.unshift(createIsDefinedIfStatement(nameHashes, range));
 
   return TypeNode.createBlockStatement(body, range);
 }
@@ -157,10 +157,10 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
  * Create an isDefined() function call with an if statement to prevent calls to
  * super where they should not be made.
  *
- * @param {number[]} names - The array of property names to ignore in the children
+ * @param {number[]} nameHashes - The array of property names to ignore in the children
  * @param {Range} range - The reporting range of this statement
  */
-function createIsDefinedIfStatement(names: number[], range: Range): Statement {
+function createIsDefinedIfStatement(nameHashes: number[], range: Range): Statement {
   // if (isDefined(super.__aspectAddReflectedValueKeyValuePairs))
   //   super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, ignore.concat([...]))
   return TypeNode.createIfStatement(
@@ -211,7 +211,7 @@ function createIsDefinedIfStatement(names: number[], range: Range): Statement {
                 [
                   // [...propNames]
                   TypeNode.createArrayLiteralExpression(
-                    names.map(e =>
+                    nameHashes.map(e =>
                       TypeNode.createIntegerLiteralExpression(
                         f64_as_i64(e),
                         range,
