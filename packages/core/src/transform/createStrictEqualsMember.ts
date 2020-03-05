@@ -175,7 +175,7 @@ function createStrictEqualsFunctionBody(
  */
 function createStrictEqualsIfCheck(name: string, range: Range): IfStatement {
   const equalsCheck = TypeNode.createBinaryExpression(
-    Token.EQUALS_EQUALS_EQUALS,
+    Token.EQUALS_EQUALS,
     // Reflect.equals(this.prop, ref.prop, stack, cache)
     TypeNode.createCallExpression(
       // Reflect.equals
