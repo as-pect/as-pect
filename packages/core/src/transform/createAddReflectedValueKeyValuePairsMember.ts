@@ -12,6 +12,7 @@ import {
   Token,
 } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
+import { hash } from "./hash";
 
 /**
  * Create a prototype method called __aspectAddReflectedValueKeyValuePairs on a given
@@ -23,7 +24,7 @@ export function createAddReflectedValueKeyValuePairsMember(
   classDeclaration: ClassDeclaration,
 ): MethodDeclaration {
   const range = classDeclaration.name.range;
-  // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, ignore: string[]): void
+  // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, ignore: i64[]): void
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression(
       "__aspectAddReflectedValueKeyValuePairs",
@@ -58,13 +59,13 @@ export function createAddReflectedValueKeyValuePairsMember(
           range,
         ),
 
-        // ignore: string[]
+        // ignore: i64[]
         TypeNode.createParameter(
           TypeNode.createIdentifierExpression("ignore", range),
-          // Array<string> -> string[]
+          // Array<i64> -> i64[]
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName("Array", range),
-            [createGenericTypeParameter("string", range)],
+            [createGenericTypeParameter("i64", range)],
             false,
             range,
           ),
@@ -104,7 +105,7 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
 ): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
-  const names = new Array<string>();
+  const names = new Array<number>();
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, and it isn't marked private or protected
@@ -116,12 +117,14 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
         // field declarations automatically get added
         case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
+          const hashValue = hash(member.name.text);
           pushKeyValueIfStatement(
             body,
             member.name.text,
+            hashValue,
             fieldDeclaration.range,
           );
-          names.push(member.name.text);
+          names.push(hashValue);
           break;
         }
 
@@ -129,12 +132,14 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
         case NodeKind.METHODDECLARATION: {
           if (member.is(CommonFlags.GET)) {
             const methodDeclaration = <MethodDeclaration>member;
+            const hashValue = hash(member.name.text);
             pushKeyValueIfStatement(
               body,
               member.name.text,
+              hashValue,
               methodDeclaration.range,
             );
-            names.push(member.name.text);
+            names.push(hashValue);
           }
           break;
         }
@@ -152,10 +157,10 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
  * Create an isDefined() function call with an if statement to prevent calls to
  * super where they should not be made.
  *
- * @param {string[]} names - The array of property names to ignore in the children
+ * @param {number[]} names - The array of property names to ignore in the children
  * @param {Range} range - The reporting range of this statement
  */
-function createIsDefinedIfStatement(names: string[], range: Range): Statement {
+function createIsDefinedIfStatement(names: number[], range: Range): Statement {
   // if (isDefined(super.__aspectAddReflectedValueKeyValuePairs))
   //   super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, ignore.concat([...]))
   return TypeNode.createIfStatement(
@@ -207,7 +212,7 @@ function createIsDefinedIfStatement(names: string[], range: Range): Statement {
                   // [...propNames]
                   TypeNode.createArrayLiteralExpression(
                     names.map(e =>
-                      TypeNode.createStringLiteralExpression(e, range),
+                      TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range),
                     ),
                     range,
                   ),
@@ -237,6 +242,7 @@ function createIsDefinedIfStatement(names: string[], range: Range): Statement {
 function pushKeyValueIfStatement(
   body: Statement[],
   name: string,
+  hashValue: number,
   range: Range,
 ): void {
   body.push(
@@ -253,8 +259,8 @@ function pushKeyValueIfStatement(
           ),
           null,
           [
-            // "propName"
-            TypeNode.createStringLiteralExpression(name, range),
+            // hashValue
+            TypeNode.createIntegerLiteralExpression(f64_as_i64(hashValue), range),
           ],
           range,
         ),

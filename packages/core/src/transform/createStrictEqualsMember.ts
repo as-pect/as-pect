@@ -16,6 +16,7 @@ import {
   Expression,
 } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
+import { hash } from "./hash";
 
 /**
  * This method creates a single FunctionDeclaration that allows Reflect.equals
@@ -28,7 +29,7 @@ export function createStrictEqualsMember(
 ): MethodDeclaration {
   const range = classDeclaration.name.range;
 
-  // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: string[]): bool
+  // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: i64[]): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
     [
@@ -51,10 +52,10 @@ export function createStrictEqualsMember(
         createDefaultParameter("stack", createArrayType("usize", range), range),
         // cache: usize[]
         createDefaultParameter("cache", createArrayType("usize", range), range),
-        // ignore: string[]
+        // ignore: i64[]
         createDefaultParameter(
           "ignore",
-          createArrayType("string", range),
+          createArrayType("i64", range),
           range,
         ),
       ],
@@ -120,7 +121,7 @@ function createStrictEqualsFunctionBody(
 ): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
-  const members = new Array<string>();
+  const members = new Array<number>();
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, and it isn't marked private or protected
@@ -132,10 +133,11 @@ function createStrictEqualsFunctionBody(
         // field declarations automatically get added
         case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
+          const hashValue = hash(member.name.text);
           body.push(
-            createStrictEqualsIfCheck(member.name.text, fieldDeclaration.range),
+            createStrictEqualsIfCheck(member.name.text, hashValue, fieldDeclaration.range),
           );
-          members.push(member.name.text);
+          members.push(hashValue);
           break;
         }
 
@@ -143,13 +145,15 @@ function createStrictEqualsFunctionBody(
         case NodeKind.METHODDECLARATION: {
           if (member.is(CommonFlags.GET)) {
             const methodDeclaration = <MethodDeclaration>member;
+            const hashValue = hash(member.name.text);
             body.push(
               createStrictEqualsIfCheck(
                 methodDeclaration.name.text,
-                methodDeclaration.range,
+                hashValue,
+                methodDeclaration.name.range,
               ),
             );
-            members.push(member.name.text);
+            members.push(hashValue);
           }
           break;
         }
@@ -173,7 +177,7 @@ function createStrictEqualsFunctionBody(
  * @param {string} name - The name of the property.
  * @param {Range} range - The source range for the given property.
  */
-function createStrictEqualsIfCheck(name: string, range: Range): IfStatement {
+function createStrictEqualsIfCheck(name: string, hashValue: number, range: Range): IfStatement {
   const equalsCheck = TypeNode.createBinaryExpression(
     Token.EQUALS_EQUALS,
     // Reflect.equals(this.prop, ref.prop, stack, cache)
@@ -215,7 +219,7 @@ function createStrictEqualsIfCheck(name: string, range: Range): IfStatement {
       ),
       null,
       // ("prop")
-      [TypeNode.createStringLiteralExpression(name, range)],
+      [TypeNode.createIntegerLiteralExpression(f64_as_i64(hashValue), range)],
       range,
     ),
     range,
@@ -282,9 +286,16 @@ function createPropertyAccess(
   );
 }
 
+/**
+ * This method creates the function call into super.__aspectStrictEquals,
+ * wrapping it in a check to make sure the super function is defined first.
+ *
+ * @param {ClassDeclaration} classDeclaration - The given class declaration.
+ * @param {number[]} members - A collection of hash values of the comparing class properties.
+ */
 function createSuperCallStatement(
   classDeclaration: ClassDeclaration,
-  members: string[],
+  members: number[],
 ): Statement {
   const range = classDeclaration.name.range;
   const ifStatement = TypeNode.createIfStatement(
@@ -324,8 +335,14 @@ function createSuperCallStatement(
   return ifStatement;
 }
 
+/**
+ * This method actually creates the super.__aspectStrictEquals function call.
+ *
+ * @param {number[]} hashValues - The collection of hashed property name values
+ * @param {Range} range - The super call expression range
+ */
 function createSuperCallExpression(
-  propNames: string[],
+  hashValues: number[],
   range: Range,
 ): Expression {
   return TypeNode.createCallExpression(
@@ -349,8 +366,8 @@ function createSuperCallExpression(
         null,
         [
           TypeNode.createArrayLiteralExpression(
-            propNames.map(e =>
-              TypeNode.createStringLiteralExpression(e, range),
+            hashValues.map(e =>
+              TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range),
             ),
             range,
           ),
