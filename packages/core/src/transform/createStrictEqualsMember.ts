@@ -16,7 +16,7 @@ import {
   Expression,
 } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
-import { hash } from "./hash";
+import { djb2Hash } from "./hash";
 
 /**
  * This method creates a single FunctionDeclaration that allows Reflect.equals
@@ -129,7 +129,7 @@ function createStrictEqualsFunctionBody(
         // field declarations automatically get added
         case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
-          const hashValue = hash(member.name.text);
+          const hashValue = djb2Hash(member.name.text);
           body.push(
             createStrictEqualsIfCheck(
               member.name.text,
@@ -145,7 +145,7 @@ function createStrictEqualsFunctionBody(
         case NodeKind.METHODDECLARATION: {
           if (member.is(CommonFlags.GET)) {
             const methodDeclaration = <MethodDeclaration>member;
-            const hashValue = hash(member.name.text);
+            const hashValue = djb2Hash(member.name.text);
             body.push(
               createStrictEqualsIfCheck(
                 methodDeclaration.name.text,

@@ -12,7 +12,7 @@ import {
   Token,
 } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
-import { hash } from "./hash";
+import { djb2Hash } from "./hash";
 
 /**
  * Create a prototype method called __aspectAddReflectedValueKeyValuePairs on a given
@@ -117,7 +117,7 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
         // field declarations automatically get added
         case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
-          const hashValue = hash(member.name.text);
+          const hashValue = djb2Hash(member.name.text);
           pushKeyValueIfStatement(
             body,
             member.name.text,
@@ -132,7 +132,7 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
         case NodeKind.METHODDECLARATION: {
           if (member.is(CommonFlags.GET)) {
             const methodDeclaration = <MethodDeclaration>member;
-            const hashValue = hash(member.name.text);
+            const hashValue = djb2Hash(member.name.text);
             pushKeyValueIfStatement(
               body,
               member.name.text,
