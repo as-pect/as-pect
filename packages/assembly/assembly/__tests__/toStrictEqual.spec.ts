@@ -973,7 +973,6 @@ describe("nested structures", () => {
   });
 });
 
-
 class Parent {
   get a(): i32 {
     assert(false, "This should never reach.");
@@ -995,10 +994,14 @@ describe("inherited classes", () => {
     expect(new Child()).toStrictEqual(new Child());
   });
 
-  throws("when parent properties aren't equal", () => {
-    let a = new Child();
-    let b = new Child();
-    a.b = 10;
-    expect(a).toStrictEqual(b);
-  }, "parent properties should be compared");
+  throws(
+    "when parent properties aren't equal",
+    () => {
+      let a = new Child();
+      let b = new Child();
+      a.b = 10;
+      expect(a).toStrictEqual(b);
+    },
+    "parent properties should be compared",
+  );
 });

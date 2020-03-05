@@ -13,6 +13,12 @@ import {
 } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
 
+/**
+ * Create a prototype method called __aspectAddReflectedValueKeyValuePairs on a given
+ * ClassDeclaration dynamically.
+ *
+ * @param {ClassDeclaration} classDeclaration - The target classDeclaration
+ */
 export function createAddReflectedValueKeyValuePairsMember(
   classDeclaration: ClassDeclaration,
 ): MethodDeclaration {
@@ -55,19 +61,19 @@ export function createAddReflectedValueKeyValuePairsMember(
         // ignore: string[]
         TypeNode.createParameter(
           TypeNode.createIdentifierExpression("ignore", range),
+          // Array<string> -> string[]
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName("Array", range),
-            [
-              createGenericTypeParameter("string", range),
-            ],
+            [createGenericTypeParameter("string", range)],
             false,
             range,
           ),
           null,
           ParameterKind.DEFAULT,
           range,
-        )
+        ),
       ],
+      // : void
       TypeNode.createNamedType(
         TypeNode.createSimpleTypeName("void", range),
         [],
@@ -87,6 +93,12 @@ export function createAddReflectedValueKeyValuePairsMember(
   );
 }
 
+/**
+ * Iterate over a given ClassDeclaration and return a block statement that contains the
+ * body of a supposed function that reports the key value pairs of a given class.
+ *
+ * @param {ClassDeclaration} classDeclaration - The class declaration to be reported
+ */
 function createAddReflectedValueKeyValuePairsFunctionBody(
   classDeclaration: ClassDeclaration,
 ): BlockStatement {
@@ -104,7 +116,11 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
         // field declarations automatically get added
         case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
-          pushKeyValueIfStatement(body, member.name.text, fieldDeclaration.range);
+          pushKeyValueIfStatement(
+            body,
+            member.name.text,
+            fieldDeclaration.range,
+          );
           names.push(member.name.text);
           break;
         }
@@ -113,7 +129,11 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
         case NodeKind.METHODDECLARATION: {
           if (member.is(CommonFlags.GET)) {
             const methodDeclaration = <MethodDeclaration>member;
-            pushKeyValueIfStatement(body, member.name.text, methodDeclaration.range);
+            pushKeyValueIfStatement(
+              body,
+              member.name.text,
+              methodDeclaration.range,
+            );
             names.push(member.name.text);
           }
           break;
@@ -122,34 +142,59 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
     }
   }
 
+  body.push(createIsDefinedIfStatement(names, range));
 
-  // if (isDefined(super.__aspectAddReflectedValueKeyValuePairs)) super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, ignore.concat([...]))
-  body.push(
-    TypeNode.createIfStatement(
-      TypeNode.createCallExpression(
-        TypeNode.createIdentifierExpression("isDefined", range),
-        null,
-        [
-          TypeNode.createPropertyAccessExpression(
-            TypeNode.createSuperExpression(range),
-            TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range),
+  return TypeNode.createBlockStatement(body, range);
+}
+
+/**
+ * Create an isDefined() function call with an if statement to prevent calls to super where they should
+ * not be made.
+ *
+ * @param {string[]} names - The array of property names to ignore in the children
+ * @param {Range} range - The reporting range of this statement
+ */
+function createIsDefinedIfStatement(names: string[], range: Range): Statement {
+  // if (isDefined(super.__aspectAddReflectedValueKeyValuePairs))
+  //   super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, ignore.concat([...]))
+  return TypeNode.createIfStatement(
+    // isDefined(super.__aspectAddReflectedValueKeyValuePairs)
+    TypeNode.createCallExpression(
+      TypeNode.createIdentifierExpression("isDefined", range),
+      null,
+      [
+        // super.__aspectAddReflectedValueKeyValuePairs
+        TypeNode.createPropertyAccessExpression(
+          TypeNode.createSuperExpression(range),
+          TypeNode.createIdentifierExpression(
+            "__aspectAddReflectedValueKeyValuePairs",
             range,
           ),
-        ],
-        range,
-      ),
-      TypeNode.createBlockStatement([
+          range,
+        ),
+      ],
+      range,
+    ),
+    TypeNode.createBlockStatement(
+      [
         TypeNode.createExpressionStatement(
+          // super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, ignore.concat([...]))
           TypeNode.createCallExpression(
             TypeNode.createPropertyAccessExpression(
               TypeNode.createSuperExpression(range),
-              TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range),
+              TypeNode.createIdentifierExpression(
+                "__aspectAddReflectedValueKeyValuePairs",
+                range,
+              ),
               range,
             ),
             null,
             [
+              // reflectedValue,
               TypeNode.createIdentifierExpression("reflectedValue", range),
+              // seen,
               TypeNode.createIdentifierExpression("seen", range),
+              // ignore.concat([...])
               TypeNode.createCallExpression(
                 TypeNode.createPropertyAccessExpression(
                   TypeNode.createIdentifierExpression("ignore", range),
@@ -158,8 +203,11 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
                 ),
                 null,
                 [
+                  // [...propNames]
                   TypeNode.createArrayLiteralExpression(
-                    names.map(e => TypeNode.createStringLiteralExpression(e, range)),
+                    names.map(e =>
+                      TypeNode.createStringLiteralExpression(e, range),
+                    ),
                     range,
                   ),
                 ],
@@ -169,20 +217,33 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
             range,
           ),
         ),
-      ], range),
-      null,
+      ],
       range,
     ),
+    null,
+    range,
   );
-
-  return TypeNode.createBlockStatement(body, range);
 }
 
-function pushKeyValueIfStatement(body: Statement[], name: string, range: Range): void {
+/**
+ * For each key-value pair, we need to perform a runtime check to make sure that this property
+ * was not overridden in the parent of a given class.
+ *
+ * @param {Statement[]} body - The collection of statements for the function body
+ * @param {string} name - The name of the property
+ * @param {Range} range - The range for these statements
+ */
+function pushKeyValueIfStatement(
+  body: Statement[],
+  name: string,
+  range: Range,
+): void {
   body.push(
+    // if (!ignore.includes("propName")) { ... }
     TypeNode.createIfStatement(
       TypeNode.createUnaryPrefixExpression(
         Token.EXCLAMATION,
+        // ignore.includes("propName")
         TypeNode.createCallExpression(
           TypeNode.createPropertyAccessExpression(
             TypeNode.createIdentifierExpression("ignore", range),
@@ -191,19 +252,23 @@ function pushKeyValueIfStatement(body: Statement[], name: string, range: Range):
           ),
           null,
           [
+            // "propName"
             TypeNode.createStringLiteralExpression(name, range),
           ],
           range,
         ),
         range,
       ),
-      TypeNode.createBlockStatement([
-        createPushReflectedObjectKeyStatement(name, range),
-        createPushReflectedObjectValueStatement(name, range),
-      ], range),
+      TypeNode.createBlockStatement(
+        [
+          createPushReflectedObjectKeyStatement(name, range),
+          createPushReflectedObjectValueStatement(name, range),
+        ],
+        range,
+      ),
       null,
       range,
-    )
+    ),
   );
 }
 

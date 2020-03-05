@@ -300,21 +300,24 @@ function createSuperCallStatement(
       ],
       range,
     ),
-    TypeNode.createBlockStatement([
-      TypeNode.createIfStatement(
-        TypeNode.createUnaryPrefixExpression(
-          Token.EXCLAMATION,
-          createSuperCallExpression(members, range),
+    TypeNode.createBlockStatement(
+      [
+        TypeNode.createIfStatement(
+          TypeNode.createUnaryPrefixExpression(
+            Token.EXCLAMATION,
+            createSuperCallExpression(members, range),
+            range,
+          ),
+          TypeNode.createReturnStatement(
+            TypeNode.createFalseExpression(range),
+            range,
+          ),
+          null,
           range,
         ),
-        TypeNode.createReturnStatement(
-          TypeNode.createFalseExpression(range),
-          range,
-        ),
-        null,
-        range,
-      ),
-    ], range),
+      ],
+      range,
+    ),
     null,
     range,
   );
