@@ -149,8 +149,8 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
 }
 
 /**
- * Create an isDefined() function call with an if statement to prevent calls to super where they should
- * not be made.
+ * Create an isDefined() function call with an if statement to prevent calls to
+ * super where they should not be made.
  *
  * @param {string[]} names - The array of property names to ignore in the children
  * @param {Range} range - The reporting range of this statement
@@ -273,7 +273,13 @@ function pushKeyValueIfStatement(
   );
 }
 
-// __aspectPushReflectedObjectKey
+/**
+ * Create a function call to __aspectPushReflectedObjectKey to add a key to a given
+ * reflected value.
+ *
+ * @param {string} name - The name of the property
+ * @param {Range} range - The reange for this function call
+ */
 function createPushReflectedObjectKeyStatement(
   name: string,
   range: Range,
@@ -310,6 +316,13 @@ function createPushReflectedObjectKeyStatement(
   );
 }
 
+/**
+ * Create a function call to __aspectPushReflectedObjectValue to add a key to a given
+ * reflected value.
+ *
+ * @param {string} name - The name of the property
+ * @param {Range} range - The reange for this function call
+ */
 function createPushReflectedObjectValueStatement(
   name: string,
   range: Range,
