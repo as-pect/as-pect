@@ -142,7 +142,8 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
     }
   }
 
-  body.push(createIsDefinedIfStatement(names, range));
+  // call into super first after all the property checks have been added
+  body.unshift(createIsDefinedIfStatement(names, range));
 
   return TypeNode.createBlockStatement(body, range);
 }

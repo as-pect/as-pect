@@ -26573,6 +26573,24 @@
   local.get $3
   call $~lib/rt/pure/__retain
   local.set $3
+  local.get $0
+  local.get $1
+  local.get $2
+  local.get $3
+  i32.const 2
+  i32.const 2
+  i32.const 15
+  i32.const 17424
+  call $~lib/rt/__allocArray
+  call $~lib/rt/pure/__retain
+  local.tee $5
+  call $~lib/array/Array<~lib/string/String>#concat
+  local.tee $4
+  call $assembly/__tests__/toStrictEqual.spec/Parent#__aspectAddReflectedValueKeyValuePairs
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $4
+  call $~lib/rt/pure/__release
   local.get $3
   i32.const 9648
   i32.const 0
@@ -26609,24 +26627,6 @@
    call $assembly/internal/Reflect/Reflect.toReflectedValue<i32>
    call $assembly/internal/Reflect/__aspectPushReflectedObjectValue
   end
-  local.get $0
-  local.get $1
-  local.get $2
-  local.get $3
-  i32.const 2
-  i32.const 2
-  i32.const 15
-  i32.const 17424
-  call $~lib/rt/__allocArray
-  call $~lib/rt/pure/__retain
-  local.tee $5
-  call $~lib/array/Array<~lib/string/String>#concat
-  local.tee $4
-  call $assembly/__tests__/toStrictEqual.spec/Parent#__aspectAddReflectedValueKeyValuePairs
-  local.get $5
-  call $~lib/rt/pure/__release
-  local.get $4
-  call $~lib/rt/pure/__release
   local.get $2
   call $~lib/rt/pure/__release
   local.get $3
