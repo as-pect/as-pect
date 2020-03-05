@@ -53,11 +53,7 @@ export function createStrictEqualsMember(
         // cache: usize[]
         createDefaultParameter("cache", createArrayType("usize", range), range),
         // ignore: i64[]
-        createDefaultParameter(
-          "ignore",
-          createArrayType("i64", range),
-          range,
-        ),
+        createDefaultParameter("ignore", createArrayType("i64", range), range),
       ],
       // : bool
       createSimpleNamedType("bool", range),
@@ -135,7 +131,11 @@ function createStrictEqualsFunctionBody(
           const fieldDeclaration = <FieldDeclaration>member;
           const hashValue = hash(member.name.text);
           body.push(
-            createStrictEqualsIfCheck(member.name.text, hashValue, fieldDeclaration.range),
+            createStrictEqualsIfCheck(
+              member.name.text,
+              hashValue,
+              fieldDeclaration.range,
+            ),
           );
           members.push(hashValue);
           break;
@@ -177,7 +177,11 @@ function createStrictEqualsFunctionBody(
  * @param {string} name - The name of the property.
  * @param {Range} range - The source range for the given property.
  */
-function createStrictEqualsIfCheck(name: string, hashValue: number, range: Range): IfStatement {
+function createStrictEqualsIfCheck(
+  name: string,
+  hashValue: number,
+  range: Range,
+): IfStatement {
   const equalsCheck = TypeNode.createBinaryExpression(
     Token.EQUALS_EQUALS,
     // Reflect.equals(this.prop, ref.prop, stack, cache)

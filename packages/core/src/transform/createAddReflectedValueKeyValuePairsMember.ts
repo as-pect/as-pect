@@ -212,7 +212,10 @@ function createIsDefinedIfStatement(names: number[], range: Range): Statement {
                   // [...propNames]
                   TypeNode.createArrayLiteralExpression(
                     names.map(e =>
-                      TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range),
+                      TypeNode.createIntegerLiteralExpression(
+                        f64_as_i64(e),
+                        range,
+                      ),
                     ),
                     range,
                   ),
@@ -260,7 +263,10 @@ function pushKeyValueIfStatement(
           null,
           [
             // hashValue
-            TypeNode.createIntegerLiteralExpression(f64_as_i64(hashValue), range),
+            TypeNode.createIntegerLiteralExpression(
+              f64_as_i64(hashValue),
+              range,
+            ),
           ],
           range,
         ),
