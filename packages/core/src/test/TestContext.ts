@@ -26,16 +26,7 @@ export interface ITestContextParameters {
   testRegex?: RegExp;
   /** A regular expression that filters what test groups can be run. Must be set before calling `testContext.run(wasm);` */
   groupRegex?: RegExp;
-  /**
-   * Put the AssemblyScript test filename here.
-   *
-   * @example
-   * ```ts
-   * const ctx = new TestContext({
-   *   fileName: "example.spec.ts",
-   * });
-   * ```
-   */
+  /** The test file name. */
   fileName?: string;
   /** Disable RTrace when set to `true`. */
   nortrace?: boolean;
@@ -45,9 +36,7 @@ export interface ITestContextParameters {
   reporter: IReporter;
 }
 
-/**
- * This class is responsible for collecting all the tests in a test binary.
- */
+/** This class is responsible for collecting and running all the tests in a test binary. */
 export class TestContext {
   /** The web assembly module if it was set. */
   protected wasm: IAspectExports | null = null;
@@ -327,16 +316,6 @@ export class TestContext {
     this.reporter.onExit(this, node);
   }
 
-  /**
-   * @external("__aspect", "reportTestNode")
-   * declare function reportTestNode(
-   *   type: TestNodeType,
-   *   description: string,
-   *   callback: () => void,
-   *   negated: bool,
-   *   message: string | null,
-   * ): void;
-   */
   /** Report a TestNode */
   private reportTestNode(
     type: TestNodeType,
