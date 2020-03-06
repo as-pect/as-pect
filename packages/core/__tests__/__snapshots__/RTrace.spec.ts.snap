@@ -240,8 +240,8 @@ exports[`RTrace output Group: a group reference counting error: rtraceEnd 1`] = 
 
 exports[`RTrace output Group: a group reference counting error: rtraceStart 1`] = `7`;
 
-exports[`RTrace output Overall Statistics: allocationCount 1`] = `76`;
+exports[`RTrace output Overall Statistics: allocationCount 1`] = `82`;
 
 exports[`RTrace output Overall Statistics: errors 1`] = `Array []`;
 
-exports[`RTrace output Overall Statistics: freeCount 1`] = `66`;
+exports[`RTrace output Overall Statistics: freeCount 1`] = `72`;

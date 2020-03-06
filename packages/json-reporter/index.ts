@@ -80,4 +80,4 @@ module.exports = class JSONReporter implements IReporter {
     );
     this.first = false;
   }
-}
+};

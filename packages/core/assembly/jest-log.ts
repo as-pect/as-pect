@@ -173,8 +173,26 @@ class Overridden {
   }
 }
 
+class Parent {
+  a: i32 = 0;
+
+  get b(): i32 {
+    return 1;
+  }
+
+  c: i32 = 2;
+}
+
+class Child extends Parent {
+  get b(): i32 {
+    return 4;
+  }
+
+  d: i32 = 6;
+}
+
 describe("logs", () => {
-  log<string>("Hello world!");
+  log("Hello world!");
   log<i32>(42);
   log<Vec3 | null>(null);
   log<Vec3>(new Vec3(1, 2, 3));
@@ -267,6 +285,8 @@ describe("logs", () => {
     anotherFieldsArray.push(null);
     log(anotherFieldsArray);
     log(new Overridden());
+
+    log(new Child());
   });
 
   todo("one");

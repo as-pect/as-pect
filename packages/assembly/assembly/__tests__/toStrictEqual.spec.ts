@@ -972,3 +972,36 @@ describe("nested structures", () => {
     RTrace.collect();
   });
 });
+
+class Parent {
+  get a(): i32 {
+    assert(false, "This should never reach.");
+    return 1;
+  }
+  b: i32 = 2;
+}
+
+class Child extends Parent {
+  get a(): i32 {
+    return 2;
+  }
+
+  c: i32 = 3;
+}
+
+describe("inherited classes", () => {
+  test("expect classes with inheritence to equal each other", () => {
+    expect(new Child()).toStrictEqual(new Child());
+  });
+
+  throws(
+    "when parent properties aren't equal",
+    () => {
+      let a = new Child();
+      let b = new Child();
+      a.b = 10;
+      expect(a).toStrictEqual(b);
+    },
+    "parent properties should be compared",
+  );
+});

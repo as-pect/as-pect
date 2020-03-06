@@ -157,8 +157,8 @@ export class SummaryReporter implements IReporter {
           chalk`{yellow    [Stack]}: {yellow ${stack
             .split("\n")
             .join("\n      ")}}\n`,
-          );
-        }
+        );
+      }
       /* istanbul ignore next */
       this.stdout!.write("\n");
     }
