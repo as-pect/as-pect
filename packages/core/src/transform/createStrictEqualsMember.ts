@@ -1,19 +1,20 @@
 import {
+  AssertionKind,
   BlockStatement,
   ClassDeclaration,
   CommonFlags,
+  Expression,
   FieldDeclaration,
-  MethodDeclaration,
   IfStatement,
+  MethodDeclaration,
   NodeKind,
   ParameterKind,
+  ParameterNode,
+  PropertyAccessExpression,
   Range,
   Statement,
   Token,
   TypeNode,
-  ParameterNode,
-  PropertyAccessExpression,
-  Expression,
 } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
 import { djb2Hash } from "./hash";
@@ -29,7 +30,7 @@ export function createStrictEqualsMember(
 ): MethodDeclaration {
   const range = classDeclaration.name.range;
 
-  // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: i64[]): bool
+  // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: StaticArray<i64>): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
     [
@@ -52,8 +53,24 @@ export function createStrictEqualsMember(
         createDefaultParameter("stack", createArrayType("usize", range), range),
         // cache: usize[]
         createDefaultParameter("cache", createArrayType("usize", range), range),
-        // ignore: i64[]
-        createDefaultParameter("ignore", createArrayType("i64", range), range),
+        // ignore: StaticArray<i64>
+        createDefaultParameter(
+          "ignore",
+          TypeNode.createNamedType(
+            TypeNode.createSimpleTypeName("StaticArray", range),
+            [
+              TypeNode.createNamedType(
+                TypeNode.createSimpleTypeName("i64", range),
+                null,
+                false,
+                range,
+              ),
+            ],
+            false,
+            range,
+          ),
+          range,
+        ),
       ],
       // : bool
       createSimpleNamedType("bool", range),
@@ -87,7 +104,7 @@ function createSimpleNamedType(name: string, range: Range): TypeNode {
 }
 
 /**
- * This method creates an Array<usize> type with the given range.
+ * This method creates an Array<name> type with the given range.
  *
  * @param {Range} range - The source range.
  */
@@ -222,7 +239,7 @@ function createStrictEqualsIfCheck(
         range,
       ),
       null,
-      // ("prop")
+      // (nameHash)
       [TypeNode.createIntegerLiteralExpression(f64_as_i64(hashValue), range)],
       range,
     ),
@@ -360,18 +377,37 @@ function createSuperCallExpression(
       TypeNode.createIdentifierExpression("ref", range),
       TypeNode.createIdentifierExpression("stack", range),
       TypeNode.createIdentifierExpression("cache", range),
-      // ignore.concat([... props])
+      // StaticArray.concat(ignore, [... props] as StaticArray<i64>)
       TypeNode.createCallExpression(
         TypeNode.createPropertyAccessExpression(
-          TypeNode.createIdentifierExpression("ignore", range),
+          TypeNode.createIdentifierExpression("StaticArray", range),
           TypeNode.createIdentifierExpression("concat", range),
           range,
         ),
         null,
         [
-          TypeNode.createArrayLiteralExpression(
-            hashValues.map(e =>
-              TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range),
+          TypeNode.createIdentifierExpression("ignore", range),
+          // [...] as StaticArray<i64>
+          TypeNode.createAssertionExpression(
+            AssertionKind.AS,
+            TypeNode.createArrayLiteralExpression(
+              hashValues.map(e =>
+                TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range),
+              ),
+              range,
+            ),
+            TypeNode.createNamedType(
+              TypeNode.createSimpleTypeName("StaticArray", range),
+              [
+                TypeNode.createNamedType(
+                  TypeNode.createSimpleTypeName("i64", range),
+                  null,
+                  false,
+                  range,
+                ),
+              ],
+              false,
+              range,
             ),
             range,
           ),

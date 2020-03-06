@@ -1,15 +1,16 @@
 import {
-  ClassDeclaration,
-  TypeNode,
-  CommonFlags,
-  ParameterKind,
+  AssertionKind,
   BlockStatement,
-  NodeKind,
+  ClassDeclaration,
+  CommonFlags,
   FieldDeclaration,
   MethodDeclaration,
-  Statement,
+  NodeKind,
+  ParameterKind,
   Range,
+  Statement,
   Token,
+  TypeNode,
 } from "./assemblyscript";
 import { createGenericTypeParameter } from "./createGenericTypeParameter";
 import { djb2Hash } from "./hash";
@@ -24,7 +25,7 @@ export function createAddReflectedValueKeyValuePairsMember(
   classDeclaration: ClassDeclaration,
 ): MethodDeclaration {
   const range = classDeclaration.name.range;
-  // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, ignore: i64[]): void
+  // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, ignore: StaticArray<i64>): void
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression(
       "__aspectAddReflectedValueKeyValuePairs",
@@ -64,7 +65,7 @@ export function createAddReflectedValueKeyValuePairsMember(
           TypeNode.createIdentifierExpression("ignore", range),
           // Array<i64> -> i64[]
           TypeNode.createNamedType(
-            TypeNode.createSimpleTypeName("Array", range),
+            TypeNode.createSimpleTypeName("StaticArray", range),
             [createGenericTypeParameter("i64", range)],
             false,
             range,
@@ -162,7 +163,7 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
  */
 function createIsDefinedIfStatement(nameHashes: number[], range: Range): Statement {
   // if (isDefined(super.__aspectAddReflectedValueKeyValuePairs))
-  //   super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, ignore.concat([...]))
+  //   super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, StaticArray.concat(ignore, [...] as StaticArray<i64>))
   return TypeNode.createIfStatement(
     // isDefined(super.__aspectAddReflectedValueKeyValuePairs)
     TypeNode.createCallExpression(
@@ -184,7 +185,7 @@ function createIsDefinedIfStatement(nameHashes: number[], range: Range): Stateme
     TypeNode.createBlockStatement(
       [
         TypeNode.createExpressionStatement(
-          // super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, ignore.concat([...]))
+          // super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, StaticArray.concat(ignore, [...] as StaticArray<i64>))
           TypeNode.createCallExpression(
             TypeNode.createPropertyAccessExpression(
               TypeNode.createSuperExpression(range),
@@ -200,22 +201,40 @@ function createIsDefinedIfStatement(nameHashes: number[], range: Range): Stateme
               TypeNode.createIdentifierExpression("reflectedValue", range),
               // seen,
               TypeNode.createIdentifierExpression("seen", range),
-              // ignore.concat([...])
+              // StaticArray.concat(ignore, [...])
               TypeNode.createCallExpression(
                 TypeNode.createPropertyAccessExpression(
-                  TypeNode.createIdentifierExpression("ignore", range),
+                  TypeNode.createIdentifierExpression("StaticArray", range),
                   TypeNode.createIdentifierExpression("concat", range),
                   range,
                 ),
                 null,
                 [
+                  TypeNode.createIdentifierExpression("ignore", range),
                   // [...propNames]
-                  TypeNode.createArrayLiteralExpression(
-                    nameHashes.map(e =>
-                      TypeNode.createIntegerLiteralExpression(
-                        f64_as_i64(e),
-                        range,
+                  TypeNode.createAssertionExpression(
+                    AssertionKind.AS,
+                    TypeNode.createArrayLiteralExpression(
+                      nameHashes.map(e =>
+                        TypeNode.createIntegerLiteralExpression(
+                          f64_as_i64(e),
+                          range,
+                        ),
                       ),
+                      range,
+                    ),
+                    TypeNode.createNamedType(
+                      TypeNode.createSimpleTypeName("StaticArray", range),
+                      [
+                        TypeNode.createNamedType(
+                          TypeNode.createSimpleTypeName("i64", range),
+                          null,
+                          false,
+                          range,
+                        ),
+                      ],
+                      false,
+                      range,
                     ),
                     range,
                   ),

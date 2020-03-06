@@ -1918,7 +1918,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7488,
+      "pointer": 7456,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1935,7 +1935,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7488,
+      "pointer": 7456,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1952,7 +1952,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7488,
+      "pointer": 7456,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1978,13 +1978,13 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: allocations 1`] = `25`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: allocations 1`] = `22`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: beforeAllPointers 1`] = `0`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: decrements 1`] = `69`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: decrements 1`] = `66`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: expected 1`] = `
 ReflectedValue {
@@ -2062,7 +2062,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7488,
+      "pointer": 7456,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2079,7 +2079,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7488,
+      "pointer": 7456,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2096,7 +2096,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7488,
+      "pointer": 7456,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2118,9 +2118,9 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0
   }"
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: frees 1`] = `18`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: frees 1`] = `15`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: increments 1`] = `78`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: increments 1`] = `75`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: message 1`] = `""`;
 
