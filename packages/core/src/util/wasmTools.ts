@@ -50,22 +50,23 @@ export class WasmBuffer {
  * See https://github.com/WebAssembly/design/blob/master/BinaryEncoding.md#name-section
  */
 export class NameSection {
-  section: WasmBuffer;
+  section: WasmBuffer | undefined;
 
   /** map of indexs to UTF8 pointers. */
   private funcNames: Map<number, number> = new Map();
 
   constructor(contents: Uint8Array) {
-    const mod = new WebAssembly.Module(contents);
-    const section = WebAssembly.Module.customSections(mod, "name")[0];
-    this.section = new WasmBuffer(new Uint8Array(section));
-    this.parseSection();
+    WebAssembly.compile(contents).then((mod) => {
+      const section = WebAssembly.Module.customSections(mod, "name")[0];
+      this.section = new WasmBuffer(new Uint8Array(section));
+      this.parseSection();
+    });
   }
 
   fromIndex(i: number): string {
     const ptr = this.funcNames.get(i);
     if (!ptr) return "Function " + i;
-    return this.section.peekString(ptr);
+    return this.section!.peekString(ptr);
   }
 
   /** Parses */
@@ -90,16 +91,16 @@ export class NameSection {
 
   /** Current offset */
   get off(): number {
-    return this.section.off;
+    return this.section!.off;
   }
 
   /** Update offset */
   set off(o: number) {
-    this.section.off = o;
+    this.section!.off = o;
   }
 
   /** Reads a 128LEB  unsigned integer and updates the offset. */
   readVaruint(off: number = this.off): number {
-    return this.section.readVaruint(off);
+    return this.section!.readVaruint(off);
   }
 }

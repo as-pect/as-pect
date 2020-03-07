@@ -8,7 +8,7 @@ import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/Reflecte
 import { TestNode } from "./TestNode";
 import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 import { IReporter } from "../reporter/IReporter";
-import { performance } from "perf_hooks";
+import now from "performance-now";
 import { IWarning } from "./IWarning";
 import {
   Snapshot,
@@ -252,7 +252,7 @@ export class TestContext {
     }
 
     // set the start timer for this node
-    node.start = performance.now();
+    node.start = now();
 
     // set the rtraceStart value
     node.rtraceStart = this.blocks.size;
@@ -271,7 +271,7 @@ export class TestContext {
         node.actual = null;
         node.expected = null;
       }
-      node.end = performance.now();
+      node.end = now();
       this.addResult(node, success);
       this.reporter.onExit(this, node);
       return;
@@ -288,7 +288,7 @@ export class TestContext {
          * If this catch occurs, the entire test suite is completed.
          * This is a sanity check.
          */
-        node.end = performance.now();
+        node.end = now();
         this.addResult(node, false);
         this.reporter.onExit(this, node);
         return;
@@ -364,7 +364,7 @@ export class TestContext {
       (pass: boolean, node: TestNode) => pass && node.pass,
       true,
     );
-    node.end = performance.now();
+    node.end = now();
     this.addResult(node, true);
     this.reporter.onExit(this, node);
   }
@@ -412,7 +412,7 @@ export class TestContext {
     node.actual = this.actual;
     node.expected = this.expected;
     node.message = this.message;
-    node.end = performance.now();
+    node.end = now();
     node.rtraceEnd = this.blocks.size;
   }
 
