@@ -63,7 +63,8 @@ class ReporterWrapper extends VerboseReporter {
     if (ctx.snaphots.values.size > 0) {
       console.log(result);
     }
-    test("onFinish", () => expect(result).toMatchSnapshot(`finish ${ctx.fileName}`));
+    test("onFinish", () =>
+      expect(result).toMatchSnapshot(`finish ${ctx.fileName}`));
     writer.reset();
   }
   onTodo(group: TestNode, todo: string): void {

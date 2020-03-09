@@ -41,10 +41,7 @@ export function createSnapshotModule(
                   "Vec3 {\n  x: 1.0,\n  y: 2.0,\n  z: 4.0,\n  a: 10.0\n}",
                 ],
                 // same
-                [
-                  "a few snapshots!~a string[0]",
-                  '"some string"',
-                ],
+                ["a few snapshots!~a string[0]", '"some string"'],
                 // added: ['a few snapshots!~some integer[0]', '504'],
                 ["a few snapshots!~some float value[0]", "3.14"],
                 // removed from module
