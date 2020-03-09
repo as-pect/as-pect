@@ -10,6 +10,26 @@ import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 import { IReporter } from "../reporter/IReporter";
 import { performance } from "perf_hooks";
 import { IWarning } from "./IWarning";
+import {
+  Snapshot,
+  SnapshotDiffResultType,
+  SnapshotDiff,
+} from "@as-pect/snapshots";
+import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
+
+const id = (a: string) => a;
+
+const stringifyOptions: Partial<StringifyReflectedValueProps> = {
+  classNameFormatter: id,
+  indent: 0,
+  keywordFormatter: id,
+  maxExpandLevel: Infinity,
+  maxLineLength: Infinity,
+  maxPropertyCount: Infinity,
+  numberFormatter: id,
+  stringFormatter: id,
+  tab: 2,
+};
 
 /**
  * This function is a filter for stack trace lines.
@@ -34,6 +54,8 @@ export interface ITestContextParameters {
   binary?: Uint8Array;
   /** The reporter. */
   reporter: IReporter;
+  /** The expected snapshot output. */
+  snapshots?: Snapshot;
 }
 
 /** This class is responsible for collecting and running all the tests in a test binary. */
@@ -123,6 +145,15 @@ export class TestContext {
   /** A collection of warnings. */
   public warnings: IWarning[] = [];
 
+  /** A collection of collected snapshots. */
+  public snaphots = new Snapshot();
+
+  /** The expected snapshots. */
+  public expectedSnapshots: Snapshot;
+
+  /** The resulting snapshot diff. */
+  public snapshotDiff: SnapshotDiff | null = null;
+
   constructor(props: ITestContextParameters) {
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
@@ -132,6 +163,8 @@ export class TestContext {
     /* istanbul ignore next */
     if (props.nortrace) this.rtraceEnabled = false;
     if (props.binary) this.nameSection = new NameSection(props.binary);
+
+    this.expectedSnapshots = props.snapshots ? props.snapshots : new Snapshot();
 
     this.reporter = props.reporter;
 
@@ -174,8 +207,25 @@ export class TestContext {
     // start by visiting the root node
     this.visit(this.rootNode);
 
+    // calculate snapshot diff
+    const snapshotDiff = this.snaphots.diff(this.expectedSnapshots);
+
+    // determine if this test suite passed
+    const snapshotsPass = Array.from(snapshotDiff.results.values()).reduce(
+      (result, value) => {
+        return !result
+          ? false
+          : value.type === SnapshotDiffResultType.Added ||
+              value.type === SnapshotDiffResultType.NoChange;
+      },
+      true,
+    );
+
+    // store the diff results
+    this.snapshotDiff = snapshotDiff;
+
     // determine if this test suite passed or failed
-    this.pass = this.rootNode.pass;
+    this.pass = snapshotsPass && this.rootNode.pass;
 
     // finish the report
     this.reporter.onFinish(this);
@@ -452,6 +502,7 @@ export class TestContext {
       reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(
         this,
       ),
+      reportExpectedSnapshot: this.reportExpectedSnapshot.bind(this),
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
       reportTestNode: this.reportTestNode.bind(this),
       reportTodo: this.reportTodo.bind(this),
@@ -1392,5 +1443,36 @@ export class TestContext {
     this.targetNode.warnings.push(warning);
     /* istanbul ignore next */
     this.warnings.push(warning);
+  }
+
+  /**
+   * Report an expected snapshot.
+   *
+   * @param {number} reflectedValueID - The id of the reflected actual value.
+   * @param {number} namePointer - The name of the snapshot.
+   */
+  protected reportExpectedSnapshot(
+    reflectedValueID: number,
+    namePointer: number,
+  ): void {
+    const name = `${this.targetNode.name}!~${this.getString(namePointer, "")}`;
+    /* istanbul ignore next */
+    if (
+      reflectedValueID >= this.reflectedValueCache.length ||
+      reflectedValueID < 0
+    ) {
+      /* istanbul ignore next */
+      this.pushError({
+        message: `Cannot add snapshot ${name} with reflected value ${reflectedValueID}. ReflectedValue id out of bounds.`,
+        stackTrace: this.getLogStackTrace(),
+        type: "ReflectedValue",
+      });
+      /* istanbul ignore next */
+      return;
+    }
+    this.snaphots.add(
+      name,
+      this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
+    );
   }
 }

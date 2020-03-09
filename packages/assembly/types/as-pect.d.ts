@@ -583,6 +583,13 @@ declare class Expectation<T> {
   ): void;
 
   /**
+   * Match a snapshot with a given name for this test.
+   *
+   * @param {string | null} name - The snapshot name.
+   */
+  toMatchSnapshot(name?: string | null): void;
+
+  /**
    * This computed property is chainable, and negates the existing expectation. It returns itself.
    *
    * @example
@@ -745,6 +752,11 @@ declare class RTrace {
    */
   public static activeTestBlocks(): usize[];
 
+  /**
+   * Get the arc reference count of a given pointer to a managed reference.
+   *
+   * @param {usize} ptr - The pointer to the managed reference.
+   */
   public static refCountOf(ptr: usize): u32;
 
   /**
@@ -821,6 +833,14 @@ declare class Expected {
    * @param {i32} negated - A value, 1 or 0 indicating if the expectation is negated.
    */
   static reportFinite(negated?: i32): void;
+
+  /**
+   * Report a snapshot of type T with a given name.
+   *
+   * @param {T} actual - The actual value.
+   * @param {string} name - The snapshot name.
+   */
+  static reportSnapshot<T>(actual: T, name?: string | null): void;
 
   /**
    * Clear the expected value and release any private memory stored as a global.

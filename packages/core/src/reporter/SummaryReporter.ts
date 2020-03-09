@@ -2,6 +2,7 @@ import { TestContext } from "../test/TestContext";
 import { IWritable } from "../util/IWriteable";
 import { ReflectedValue } from "../util/ReflectedValue";
 import { IReporter } from "./IReporter";
+import { SnapshotDiffResultType, SnapshotDiffResult } from "@as-pect/snapshots";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -172,6 +173,26 @@ export class SummaryReporter implements IReporter {
           .split("\n")
           .join("\n           ")}}\n\n`,
       );
+    }
+
+    const diff = suite.snapshotDiff!.results;
+
+    for (const [name, result] of diff.entries()) {
+      if (result.type === SnapshotDiffResultType.Different || result.type === SnapshotDiffResultType.Removed) {
+        this.stdout!.write(`{red [Snapshot]}: ${name}\n`);
+
+        const changes = result.changes;
+        for (const change of changes) {
+          if (change.added) {
+            this.stdout!.write(`            {green + ${change.value}}\n`);
+          } else if (change.removed) {
+            this.stdout!.write(`            {red - ${change.value}}\n`);
+          } else {
+            this.stdout!.write(`              ${change.value}\n`);
+          }
+        }
+        this.stdout!.write("\n");
+      }
     }
   }
 

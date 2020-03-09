@@ -6176,8 +6176,8 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 605
-   i32.const 44
+   i32.const 606
+   i32.const 10
    call $~lib/builtins/abort
    unreachable
   end
@@ -10679,8 +10679,8 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 605
-   i32.const 44
+   i32.const 606
+   i32.const 10
    call $~lib/builtins/abort
    unreachable
   end
@@ -12070,8 +12070,8 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 605
-   i32.const 44
+   i32.const 606
+   i32.const 10
    call $~lib/builtins/abort
    unreachable
   end
@@ -12428,8 +12428,8 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 605
-   i32.const 44
+   i32.const 606
+   i32.const 10
    call $~lib/builtins/abort
    unreachable
   end

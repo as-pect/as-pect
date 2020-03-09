@@ -6,9 +6,7 @@ const tick = /`/g;
 
 export class Snapshot {
   public static parse(input: string): Snapshot {
-    const parser = new Parser(
-      Grammar.fromCompiled(grammar),
-    );
+    const parser = new Parser(Grammar.fromCompiled(grammar));
     parser.feed(input);
     if (parser.results.length !== 1)
       throw new Error("Ambiguous grammar or parsing.");
