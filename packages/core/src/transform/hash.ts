@@ -10,6 +10,6 @@ export function djb2Hash(str: string): number {
   let h = 5381;
   for (let p = 0; p < points.length; p++)
     // h = h * 33 + c;
-    h = ((h << 5) + h) + points[p].codePointAt(0)!;
+    h = (h << 5) + h + points[p].codePointAt(0)!;
   return h;
 }

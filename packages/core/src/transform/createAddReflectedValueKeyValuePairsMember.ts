@@ -161,7 +161,10 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
  * @param {number[]} nameHashes - The array of property names to ignore in the children
  * @param {Range} range - The reporting range of this statement
  */
-function createIsDefinedIfStatement(nameHashes: number[], range: Range): Statement {
+function createIsDefinedIfStatement(
+  nameHashes: number[],
+  range: Range,
+): Statement {
   // if (isDefined(super.__aspectAddReflectedValueKeyValuePairs))
   //   super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, StaticArray.concat(ignore, [...] as StaticArray<i64>))
   return TypeNode.createIfStatement(
