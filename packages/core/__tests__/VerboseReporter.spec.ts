@@ -1,5 +1,7 @@
 import { VerboseReporter, TestContext, TestNode } from "../src";
 import { createReporterModule } from "./setup/createReporterModule";
+import { createSnapshotModule } from "./setup/createSnapshotModule";
+
 import strip from "strip-ansi";
 
 const writer = {
@@ -58,7 +60,10 @@ class ReporterWrapper extends VerboseReporter {
     ctx.rootNode.end = 0;
     super.onFinish(ctx);
     const result = strip(writer.result);
-    test("onFinish", () => expect(result).toMatchSnapshot(`finish`));
+    if (ctx.snaphots.values.size > 0) {
+      console.log(result);
+    }
+    test("onFinish", () => expect(result).toMatchSnapshot(`finish ${ctx.fileName}`));
     writer.reset();
   }
   onTodo(group: TestNode, todo: string): void {
@@ -126,6 +131,23 @@ let start = new Promise<void>((resolve, reject) => {
       new Promise<void>((resolve, reject) => {
         createReporterModule(
           "./assembly/jest-reporter4.ts",
+          {},
+          (err, _result) => {
+            if (err) {
+              console.log(err);
+              reject(err);
+            } else {
+              resolve();
+            }
+          },
+          new ReporterWrapper(),
+        );
+      }),
+  )
+  .then(
+    () =>
+      new Promise<void>((resolve, reject) => {
+        createSnapshotModule(
           {},
           (err, _result) => {
             if (err) {

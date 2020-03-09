@@ -16,6 +16,7 @@ import { Options } from "./util/CommandLineArg";
 import { writeFile } from "./util/writeFile";
 import { ICommand } from "./worklets/ICommand";
 import { timeDifference } from "@as-pect/core/lib/util/timeDifference";
+import { Snapshot, SnapshotDiffResultType } from "@as-pect/snapshots";
 
 /**
  * @ignore
@@ -437,6 +438,20 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     }
 
     if (runTests) {
+      // get the folder and test basename
+      const testFolderName = path.dirname(file);
+      const testBaseName = path.basename(file, path.extname(file));
+
+      const snapshotFolder = path.resolve(
+        path.join(testFolderName, "__snapshots__"),
+      );
+
+      // collect the expected snapshots
+      const snapshotsLocation = path.join(
+        snapshotFolder,
+        testBaseName + ".spec.snap",
+      );
+
       // create a test runner
       const runner = new TestContext({
         fileName: file,
@@ -444,14 +459,14 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         testRegex: configuration.testRegex,
         reporter,
         binary,
+        snapshots: fs.existsSync(snapshotsLocation)
+          ? Snapshot.parse(fs.readFileSync(snapshotsLocation, "utf8"))
+          : new Snapshot(),
       });
 
       // detect custom imports
       const customImportFileLocation = path.resolve(
-        path.join(
-          path.dirname(file),
-          path.basename(file, path.extname(file)) + ".imports.js",
-        ),
+        path.join(testFolderName, testBaseName + ".imports.js"),
       );
 
       const configurationImports = fs.existsSync(customImportFileLocation)
@@ -501,7 +516,30 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         successCount += runner.testPassCount;
         groupCount += runner.groupCount;
         groupSuccessCount += runner.groupPassCount;
-        errors.push(...runner.errors); // if there are any runtime allocation errors add them
+        errors.push(...runner.errors); // if there are any errors, add them
+
+        // if the update flag was passed, update the snapshots
+        if (cliOptions.update) {
+          const output = runner.snaphots.stringify();
+          if (!fs.existsSync(snapshotFolder)) fs.mkdirSync(snapshotFolder);
+          filePromises.push(writeFile(snapshotsLocation, output));
+        } else {
+          // check for any added snapshots
+          const result = runner.expectedSnapshots;
+          const diff = runner.snapshotDiff;
+          for (const [name, diffResult] of diff!.results.entries()) {
+            if (diffResult.type === SnapshotDiffResultType.Added) {
+              result.values.set(name, diffResult.left!);
+            }
+          }
+
+          // if there are any snapshots to report, report them
+          if (result.values.size > 0) {
+            const output = result.stringify();
+            if (!fs.existsSync(snapshotFolder)) fs.mkdirSync(snapshotFolder);
+            filePromises.push(writeFile(snapshotsLocation, output));
+          }
+        }
       }
     }
 

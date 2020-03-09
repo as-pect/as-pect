@@ -4,6 +4,7 @@ import { ReflectedValue } from "../util/ReflectedValue";
 import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 import { TestNode } from "../test/TestNode";
 import { IReporter } from "./IReporter";
+import { SnapshotDiffResultType } from "@as-pect/snapshots";
 
 /**
  * This is the default test reporter class for the `asp` command line application. It will pipe
@@ -199,9 +200,42 @@ export class VerboseReporter implements IReporter {
       );
     }
 
+    const diff = suite.snapshotDiff!.results;
+    let addedCount = 0;
+    let removedCount = 0;
+    let differentCount = 0;
+    let totalCount = 0;
+
+    for (const [name, result] of diff.entries()) {
+      if (
+        result.type === SnapshotDiffResultType.Different ||
+        result.type === SnapshotDiffResultType.Removed
+      ) {
+        this.stdout!.write(chalk`{red [Snapshot]}: ${name}\n`);
+
+        const changes = result.changes;
+        for (const change of changes) {
+          if (change.added) {
+            this.stdout!.write(chalk`            {green + ${change.value}}\n`);
+          } else if (change.removed) {
+            this.stdout!.write(chalk`            {red - ${change.value}}\n`);
+          } else {
+            this.stdout!.write(chalk`              ${change.value}\n`);
+          }
+        }
+        this.stdout!.write("\n");
+      }
+      totalCount += 1;
+      addedCount += result.type === SnapshotDiffResultType.Added ? 1 : 0;
+      removedCount += result.type === SnapshotDiffResultType.Removed ? 1 : 0;
+      differentCount +=
+        result.type === SnapshotDiffResultType.Different ? 1 : 0;
+    }
+
     this.stdout!.write(chalk`    [File]: ${suite.fileName}${rTrace}
   [Groups]: {green ${suite.groupCount} pass}, ${suite.groupCount} total
   [Result]: ${result}
+[Snapshot]: ${totalCount} total, ${addedCount} added, ${removedCount} removed, ${differentCount} different
  [Summary]: {green ${suite.testPassCount} pass},  ${failText}, ${
       suite.testCount
     } total

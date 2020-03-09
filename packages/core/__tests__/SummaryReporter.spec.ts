@@ -1,6 +1,7 @@
 import { TestContext, SummaryReporter } from "../src";
 import { createReporterModule } from "./setup/createReporterModule";
 import strip from "strip-ansi";
+import { createSnapshotModule } from "./setup/createSnapshotModule";
 
 const writer = {
   result: "",
@@ -70,6 +71,23 @@ let start = new Promise<void>((resolve, reject) => {
       new Promise<void>((resolve, reject) => {
         createReporterModule(
           "./assembly/jest-reporter3.ts",
+          {},
+          (err, _result) => {
+            if (err) {
+              console.log(err);
+              reject(err);
+            } else {
+              resolve();
+            }
+          },
+          new ReporterWrapper(),
+        );
+      }),
+  )
+  .then(
+    () =>
+      new Promise<void>((resolve, reject) => {
+        createSnapshotModule(
           {},
           (err, _result) => {
             if (err) {

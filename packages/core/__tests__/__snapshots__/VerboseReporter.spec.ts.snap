@@ -8,6 +8,24 @@ exports[`onFinish: finish 1`] = `
     [File]: assembly/jest-reporter.ts RTrace: +11
   [Groups]: 2 pass, 2 total
   [Result]: ✖ FAIL
+[Snapshot]: 0 total, 0 added, 0 removed, 0 different
+ [Summary]: 4 pass,  4 fail, 8 total
+    [Time]: 0ms
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+"
+`;
+
+exports[`onFinish: finish assembly/jest-reporter.ts 1`] = `
+"
+   [Error]: ReflectedValue Cannot log ReflectedValue of id -1. Index out of bounds.
+   [Stack]:     at start:assembly/jest-reporter~anonymous|0~anonymous|3 (wasm-function[62]:0x1685)
+               at ../assembly/assembly/internal/call/__call (wasm-function[102]:0x2a73)
+    [File]: assembly/jest-reporter.ts RTrace: +11
+  [Groups]: 2 pass, 2 total
+  [Result]: ✖ FAIL
+[Snapshot]: 0 total, 0 added, 0 removed, 0 different
  [Summary]: 4 pass,  4 fail, 8 total
     [Time]: 0ms
 

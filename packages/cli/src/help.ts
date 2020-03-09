@@ -48,8 +48,11 @@ export function help() {
     {bold.green --nortrace}                           Skip rtrace reference counting calculations.
       {bold.green -nr}
 
-    {bold.green asp} --workers 3                      Enable the experimental worker worklets {yellow (default: 0 {gray [disabled]})}
+    {bold.green asp --workers} 3                      Enable the experimental worker worklets {yellow (default: 0 {gray [disabled]})}
       {bold.green asp} -w
+
+    {bold.green --update}                             Update the snapshots for each tested module.
+      {bold.green asp} -u
 
   {bold.blueBright REPORTER OPTIONS}
     --summary                            Use the summary reporter. {yellow (This is the default if no reporter is specified.)}
