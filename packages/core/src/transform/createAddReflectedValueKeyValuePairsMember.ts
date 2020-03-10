@@ -112,7 +112,8 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
     // if it's an instance member, and it isn't marked private or protected
     if (
       member.is(CommonFlags.INSTANCE) &&
-      !member.is(CommonFlags.PRIVATE | CommonFlags.PROTECTED)
+      !member.is(CommonFlags.PRIVATE) &&
+      !member.is(CommonFlags.PROTECTED)
     ) {
       switch (member.kind) {
         // field declarations automatically get added
@@ -161,7 +162,10 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
  * @param {number[]} nameHashes - The array of property names to ignore in the children
  * @param {Range} range - The reporting range of this statement
  */
-function createIsDefinedIfStatement(nameHashes: number[], range: Range): Statement {
+function createIsDefinedIfStatement(
+  nameHashes: number[],
+  range: Range,
+): Statement {
   // if (isDefined(super.__aspectAddReflectedValueKeyValuePairs))
   //   super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, StaticArray.concat(ignore, [...] as StaticArray<i64>))
   return TypeNode.createIfStatement(
