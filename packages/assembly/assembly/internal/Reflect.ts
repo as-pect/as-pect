@@ -104,7 +104,7 @@ export class Reflect {
             "__aspectReflectAs() function should return a managed type or a number",
           );
         }
-        return Reflect.toReflectedValue(displayValue, seen, forDisplay);
+        return Reflect.toReflectedValue(displayValue, seen);
       }
 
       if (value instanceof ArrayBuffer) {
