@@ -19,37 +19,29 @@ export class SummaryReporterWrapper extends SummaryReporter {
     this.stdout = this.writer;
     this.stderr = this.writer;
   }
-  // @ts-ignore
   onGroupStart(group: TestNode): void {
     this.writer.reset();
-    // @ts-ignore
     super.onGroupStart(group);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onGroupStart ${group.name}`, result);
     this.writer.reset();
   }
-  // @ts-ignore
   onGroupFinish(group: TestNode): void {
     this.writer.reset();
-    // @ts-ignore
     super.onGroupFinish(group);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onGroupEnd ${group.name}`, result);
     this.writer.reset();
   }
-  // @ts-ignore
   onTestStart(group: TestNode, testResult: TestNode): void {
     this.writer.reset();
-    // @ts-ignore
     super.onTestStart(group, testResult);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onTestStart ${group.name} ${testResult.name}`, result);
     this.writer.reset();
   }
-  // @ts-ignore
   onTestFinish(group: TestNode, testResult: TestNode): void {
     this.writer.reset();
-    // @ts-ignore
     super.onTestFinish(group, testResult);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onTestFinish ${group.name} ${testResult.name}`, result);

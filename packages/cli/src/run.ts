@@ -390,6 +390,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     )
     .concat(compilerArgs);
 
+
   let testCount = 0;
   let successCount = 0;
   let groupSuccessCount = 0;
@@ -512,6 +513,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       } else {
         // call run buffer because it's already compiled
         runner.run(wasm);
+        if (!runner.pass) failed = true;
         testCount += runner.testCount;
         successCount += runner.testPassCount;
         groupCount += runner.groupCount;
@@ -549,7 +551,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     if (count === 0) {
       if (runTests) {
         const end = performance.now();
-        failed = testCount !== successCount || errors.length > 0;
+        failed = failed || errors.length > 0;
         const result = failed ? chalk`{red ✖ FAIL}` : chalk`{green ✔ PASS}`;
 
         for (const error of errors) {

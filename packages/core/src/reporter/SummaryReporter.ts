@@ -3,6 +3,7 @@ import { IWritable } from "../util/IWriteable";
 import { ReflectedValue } from "../util/ReflectedValue";
 import { IReporter } from "./IReporter";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
+import { TestNode } from "../test/TestNode";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -26,22 +27,20 @@ export class SummaryReporter implements IReporter {
     }
   }
 
-  /* istanbul ignore next */
-  public onEnter(): void {}
+  public onEnter(_ctx: TestContext, _node: TestNode): void {}
+
+  public onExit(_ctx: TestContext, _node: TestNode): void {}
 
   /* istanbul ignore next */
-  public onExit(): void {}
-
+  public onStart(_ctx: TestContext): void {}
   /* istanbul ignore next */
-  public onStart(): void {}
+  public onGroupStart(_node: TestNode): void {}
   /* istanbul ignore next */
-  public onGroupStart(): void {}
+  public onGroupFinish(_node: TestNode): void {}
   /* istanbul ignore next */
-  public onGroupFinish(): void {}
+  public onTestStart(_group: TestNode, _test: TestNode): void {}
   /* istanbul ignore next */
-  public onTestStart(): void {}
-  /* istanbul ignore next */
-  public onTestFinish(): void {}
+  public onTestFinish(_group: TestNode, _test: TestNode): void {}
   /* istanbul ignore next */
   public onTodo(): void {}
 

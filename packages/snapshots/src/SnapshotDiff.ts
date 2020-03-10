@@ -21,7 +21,7 @@ export class SnapshotDiff {
       // the snapshot exists, NoChange or Different
       if (right.has(key)) {
         const rightValue = right.get(key)!;
-        const lines = diffLines(value, rightValue);
+        const lines = diffLines(rightValue, value);
         const result = new SnapshotDiffResult();
         result.left = value;
         result.right = rightValue;
@@ -37,7 +37,7 @@ export class SnapshotDiff {
         result.left = value;
         result.right = null;
         result.type = SnapshotDiffResultType.Added;
-        result.changes = diffLines(value, "");
+        result.changes = diffLines("", value);
         this.results.set(key, result);
       }
     }
@@ -49,7 +49,7 @@ export class SnapshotDiff {
         const result = new SnapshotDiffResult();
         result.left = null;
         result.right = value;
-        result.changes = diffLines("", value);
+        result.changes = diffLines(value, "");
         result.type = SnapshotDiffResultType.Removed;
         this.results.set(key, result);
       }
