@@ -208,7 +208,7 @@ export class TestContext {
     this.visit(this.rootNode);
 
     // calculate snapshot diff
-    const snapshotDiff = this.snaphots.diff(this.expectedSnapshots);
+    const snapshotDiff = this.expectedSnapshots.diff(this.snaphots);
 
     // determine if this test suite passed
     const snapshotsPass = Array.from(snapshotDiff.results.values()).reduce(

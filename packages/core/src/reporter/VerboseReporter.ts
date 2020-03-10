@@ -214,10 +214,7 @@ export class VerboseReporter implements IReporter {
     let totalCount = 0;
 
     for (const [name, result] of diff.entries()) {
-      if (
-        result.type === SnapshotDiffResultType.Different ||
-        result.type === SnapshotDiffResultType.Removed
-      ) {
+      if (result.type !== SnapshotDiffResultType.NoChange) {
         this.stdout!.write(chalk`{red [Snapshot]}: ${name}\n`);
 
         const changes = result.changes;

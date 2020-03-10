@@ -5,13 +5,16 @@ exports[`snapshots: onFinish assembly/jest-reporter-snapshot.ts 1`] = `
   Vec3 {
     x: 1.0,
     y: 2.0,
--   z: 3.0
-+   z: 4.0,
-+   a: 10.0
+-   z: 4.0,
+-   a: 10.0
++   z: 3.0
   }
 
 [Snapshot]: this!~is!~removed
-+ false
+- false
+
+[Snapshot]: a few snapshots!~some integer[0]
++ 504
 
     [File]: assembly/jest-reporter-snapshot.ts RTrace: +8
   [Groups]: 3 pass, 3 total

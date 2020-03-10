@@ -176,22 +176,22 @@ export class SummaryReporter implements IReporter {
     }
 
     const diff = suite.snapshotDiff!.results;
-
     for (const [name, result] of diff.entries()) {
-      if (
-        result.type === SnapshotDiffResultType.Different ||
-        result.type === SnapshotDiffResultType.Removed
-      ) {
-        this.stdout!.write(`{red [Snapshot]}: ${name}\n`);
+      if (result.type !== SnapshotDiffResultType.NoChange) {
+        this.stdout!.write(chalk`{red [Snapshot]}: ${name}\n`);
 
         const changes = result.changes;
         for (const change of changes) {
-          if (change.added) {
-            this.stdout!.write(`            {green + ${change.value}}\n`);
-          } else if (change.removed) {
-            this.stdout!.write(`            {red - ${change.value}}\n`);
-          } else {
-            this.stdout!.write(`              ${change.value}\n`);
+          const lines = change.value.split("\n");
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            if (change.added) {
+              this.stdout!.write(chalk`{green + ${line}}\n`);
+            } else if (change.removed) {
+              this.stdout!.write(chalk`{red - ${line}}\n`);
+            } else {
+              this.stdout!.write(chalk`  ${line}\n`);
+            }
           }
         }
         this.stdout!.write("\n");
