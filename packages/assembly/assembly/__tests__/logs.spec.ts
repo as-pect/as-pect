@@ -64,6 +64,16 @@ class CustomDisplayNumberClass {
   }
 }
 
+namespace ExampleNamespace {
+  export class ExampleNestedVector {
+    public constructor(
+      public x: f64 = 0.0,
+      public y: f64 = 0.0,
+      public z: f64 = 0.0,
+    ) {}
+  }
+}
+
 /**
  * This test suite verifies that the log functions do not error when they are called.
  */
@@ -202,6 +212,14 @@ describe("logs", () => {
   test("log class with custom display method that returns an integer", () => {
     let e = new CustomDisplayNumberClass();
     log(e);
+  });
+
+  /**
+   * Log a namespaced class to assert that the transform traverses namespaces.
+   */
+  test("log a namespaced class", () => {
+    let a = new ExampleNamespace.ExampleNestedVector(1, 2, 3);
+    log(a);
   });
 
   /**
