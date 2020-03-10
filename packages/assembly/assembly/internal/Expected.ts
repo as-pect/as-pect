@@ -70,7 +70,10 @@ export class Expected {
    * @param {string} name - The snapshot name.
    */
   static reportSnapshot<T>(actual: T, name: string | null = null): void {
-    reportExpectedSnapshot(Reflect.toReflectedValue(actual), name);
+    reportExpectedSnapshot(
+      Reflect.toReflectedValue(actual, new Map<usize, i32>(), false),
+      name,
+    );
   }
 
   /**

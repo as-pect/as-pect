@@ -60,6 +60,7 @@ export class Reflect {
   public static toReflectedValue<T>(
     value: T,
     seen: Map<usize, i32> = new Map<usize, i32>(),
+    forDisplay: bool = true,
   ): i32 {
     // if T is a reference
     if (isReference<T>()) {
@@ -93,19 +94,23 @@ export class Reflect {
 
       // @ts-ignore: __aspectDisplayAs() can potentially be implemented
       if (isDefined(value.__aspectDisplayAs())) {
-        // @ts-ignore: typesafe call to __aspectDisplayAs()
-        let displayValue = value.__aspectDisplayAs();
-        if (
-          !isInteger(displayValue) &&
-          !isFloat(displayValue) &&
-          !isManaged(displayValue)
-        ) {
-          ERROR(
-            "__aspectDisplayAs() function should return a managed type or a number",
-          );
+        if (forDisplay) {
+          // @ts-ignore: typesafe call to __aspectDisplayAs()
+          let displayValue = value.__aspectDisplayAs();
+          if (
+            !isInteger(displayValue) &&
+            !isFloat(displayValue) &&
+            !isManaged(displayValue)
+          ) {
+            ERROR(
+              "__aspectDisplayAs() function should return a managed type or a number",
+            );
+          }
+          return Reflect.toReflectedValue(displayValue, seen, forDisplay);
         }
-        return Reflect.toReflectedValue(displayValue, seen);
-      } else if (value instanceof ArrayBuffer) {
+      }
+
+      if (value instanceof ArrayBuffer) {
         let reflectedValue = createReflectedValue(
           false,
           false,
@@ -129,6 +134,7 @@ export class Reflect {
             Reflect.toReflectedValue(
               load<u8>(changetype<usize>(value) + <usize>i),
               seen,
+              forDisplay,
             ),
           );
         }
@@ -176,7 +182,7 @@ export class Reflect {
         let length = values.length;
         for (let i = 0; i < length; i++) {
           let value = unchecked(values[i]);
-          let reflectedValueID = Reflect.toReflectedValue(value, seen);
+          let reflectedValueID = Reflect.toReflectedValue(value, seen, forDisplay);
           __aspectPushReflectedObjectValue(reflectedObject, reflectedValueID);
         }
       } else if (value instanceof Map) {
@@ -205,11 +211,11 @@ export class Reflect {
         let length = keys.length;
         for (let i = 0; i < length; i++) {
           let mapKey = unchecked(keys[i]);
-          let reflectedKeyID = Reflect.toReflectedValue(mapKey, seen);
+          let reflectedKeyID = Reflect.toReflectedValue(mapKey, seen, forDisplay);
           __aspectPushReflectedObjectKey(reflectedValue, reflectedKeyID);
 
           let mapValue = value.get(mapKey);
-          let reflectedValueID = Reflect.toReflectedValue(mapValue, seen);
+          let reflectedValueID = Reflect.toReflectedValue(mapValue, seen, forDisplay);
           __aspectPushReflectedObjectValue(reflectedValue, reflectedValueID);
         }
 
@@ -246,6 +252,7 @@ export class Reflect {
           let reflectedArrayValueID = Reflect.toReflectedValue(
             arrayValue,
             seen,
+            forDisplay,
           );
           __aspectPushReflectedObjectValue(
             reflectedValue,
@@ -305,6 +312,7 @@ export class Reflect {
             let reflectedArrayValueID = Reflect.toReflectedValue(
               arrayValue,
               seen,
+              forDisplay,
             );
             __aspectPushReflectedObjectValue(
               reflectedValue,
@@ -316,6 +324,7 @@ export class Reflect {
             let reflectedArrayValueID = Reflect.toReflectedValue(
               arrayValue,
               seen,
+              forDisplay,
             );
             __aspectPushReflectedObjectValue(
               reflectedValue,
