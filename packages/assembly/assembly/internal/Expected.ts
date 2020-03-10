@@ -71,7 +71,7 @@ export class Expected {
    */
   static reportSnapshot<T>(actual: T, name: string | null = null): void {
     reportExpectedSnapshot(
-      Reflect.toReflectedValue(actual, new Map<usize, i32>(), false),
+      Reflect.toReflectedValue(actual, new Map<usize, i32>()),
       name,
     );
   }
