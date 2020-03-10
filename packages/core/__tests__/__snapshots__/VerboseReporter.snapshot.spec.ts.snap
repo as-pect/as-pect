@@ -10,11 +10,11 @@ exports[`snapshots: onFinish assembly/jest-reporter-snapshot.ts 1`] = `
 +   z: 3.0
   }
 
-[Snapshot]: this!~is!~removed
-- false
-
 [Snapshot]: a few snapshots!~some integer[0]
 + 504
+
+[Snapshot]: this!~is!~removed
+- false
 
     [File]: assembly/jest-reporter-snapshot.ts RTrace: +8
   [Groups]: 3 pass, 3 total
