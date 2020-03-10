@@ -5,6 +5,7 @@ import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 import { TestNode } from "../test/TestNode";
 import { IReporter } from "./IReporter";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
+import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
 
 /**
  * This is the default test reporter class for the `asp` command line application. It will pipe
@@ -13,6 +14,9 @@ import { SnapshotDiffResultType } from "@as-pect/snapshots";
 export class VerboseReporter implements IReporter {
   public stdout: IWritable | null = null;
   public stderr: IWritable | null = null;
+
+  /** A set of default stringify properties that can be overridden. */
+  protected stringifyProperties: Partial<StringifyReflectedValueProps> = {};
 
   constructor(_options?: any) {}
 
@@ -93,20 +97,19 @@ export class VerboseReporter implements IReporter {
       );
     } else {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
+      const stringifyIndent2 = Object.assign({}, this.stringifyProperties, { indent: 2 });
 
       if (!test.negated) {
         if (test.actual) {
           this.stdout!.write(
-            `  [Actual]: ${test.actual!.stringify({ indent: 2 }).trimLeft()}\n`,
+            `  [Actual]: ${test.actual!.stringify(stringifyIndent2).trimLeft()}\n`,
           );
         }
         if (test.expected) {
           const expected = test.expected;
           this.stdout!.write(
             `[Expected]: ${expected.negated ? "Not " : ""}${expected
-              .stringify({
-                indent: 2,
-              })
+              .stringify(stringifyIndent2)
               .trimLeft()}\n`,
           );
         }
@@ -265,7 +268,8 @@ ${"~".repeat(80)}\n\n`);
    */
   public onLog(logValue: ReflectedValue): void {
     const chalk = require("chalk");
-    const output: string = logValue.stringify({ indent: 12 }).trimLeft();
+    const indent12 = Object.assign({}, this.stringifyProperties, { indent: 12 });
+    const output: string = logValue.stringify(indent12).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
     const stack = logValue.stack.trim();
     /* istanbul ignore next */

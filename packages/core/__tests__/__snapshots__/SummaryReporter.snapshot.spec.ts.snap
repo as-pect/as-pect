@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots: onFinish assembly/jest-reporter-snapshot.ts 1`] = `
+"❌ assembly/jest-reporter-snapshot.ts Pass: 2 / 2 Todo: 3 Time: 0ms
+{red [Snapshot]}: a few snapshots!~first vec3[0]
+              Vec3 {
+  x: 1.0,
+  y: 2.0,
+
+            {red -   z: 3.0
+}
+            {green +   z: 4.0,
+  a: 10.0
+}
+              }
+
+{red [Snapshot]}: this!~is!~removed
+            {green + false}
+
+"
+`;
