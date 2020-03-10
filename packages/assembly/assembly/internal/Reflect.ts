@@ -182,7 +182,11 @@ export class Reflect {
         let length = values.length;
         for (let i = 0; i < length; i++) {
           let value = unchecked(values[i]);
-          let reflectedValueID = Reflect.toReflectedValue(value, seen, forDisplay);
+          let reflectedValueID = Reflect.toReflectedValue(
+            value,
+            seen,
+            forDisplay,
+          );
           __aspectPushReflectedObjectValue(reflectedObject, reflectedValueID);
         }
       } else if (value instanceof Map) {
@@ -211,11 +215,19 @@ export class Reflect {
         let length = keys.length;
         for (let i = 0; i < length; i++) {
           let mapKey = unchecked(keys[i]);
-          let reflectedKeyID = Reflect.toReflectedValue(mapKey, seen, forDisplay);
+          let reflectedKeyID = Reflect.toReflectedValue(
+            mapKey,
+            seen,
+            forDisplay,
+          );
           __aspectPushReflectedObjectKey(reflectedValue, reflectedKeyID);
 
           let mapValue = value.get(mapKey);
-          let reflectedValueID = Reflect.toReflectedValue(mapValue, seen, forDisplay);
+          let reflectedValueID = Reflect.toReflectedValue(
+            mapValue,
+            seen,
+            forDisplay,
+          );
           __aspectPushReflectedObjectValue(reflectedValue, reflectedValueID);
         }
 

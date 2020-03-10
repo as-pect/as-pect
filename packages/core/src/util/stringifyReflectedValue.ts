@@ -461,7 +461,7 @@ function displayArrayExpanded(
         formatters[
           formatterIndexFor(value.type, ReflectedValueFormatType.Inline)
         ](value, ctx).trimLeft();
-      if ((body.length + result.length) > ctx.maxLineLength) {
+      if (body.length + result.length > ctx.maxLineLength) {
         break;
       }
       body += result;

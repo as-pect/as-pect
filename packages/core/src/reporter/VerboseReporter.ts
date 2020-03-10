@@ -97,12 +97,16 @@ export class VerboseReporter implements IReporter {
       );
     } else {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
-      const stringifyIndent2 = Object.assign({}, this.stringifyProperties, { indent: 2 });
+      const stringifyIndent2 = Object.assign({}, this.stringifyProperties, {
+        indent: 2,
+      });
 
       if (!test.negated) {
         if (test.actual) {
           this.stdout!.write(
-            `  [Actual]: ${test.actual!.stringify(stringifyIndent2).trimLeft()}\n`,
+            `  [Actual]: ${test
+              .actual!.stringify(stringifyIndent2)
+              .trimLeft()}\n`,
           );
         }
         if (test.expected) {
@@ -268,7 +272,9 @@ ${"~".repeat(80)}\n\n`);
    */
   public onLog(logValue: ReflectedValue): void {
     const chalk = require("chalk");
-    const indent12 = Object.assign({}, this.stringifyProperties, { indent: 12 });
+    const indent12 = Object.assign({}, this.stringifyProperties, {
+      indent: 12,
+    });
     const output: string = logValue.stringify(indent12).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
     const stack = logValue.stack.trim();
