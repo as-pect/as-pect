@@ -168,7 +168,7 @@ class MeaningOfLife {
 }
 
 class Overridden {
-  __aspectDisplayAs(): MeaningOfLife {
+  __aspectReflectAs(): MeaningOfLife {
     return new MeaningOfLife();
   }
 }

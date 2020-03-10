@@ -390,7 +390,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     )
     .concat(compilerArgs);
 
-
   let testCount = 0;
   let successCount = 0;
   let groupSuccessCount = 0;

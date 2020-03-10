@@ -1,9 +1,5 @@
 class Vec3 {
-  public constructor(
-    public x: f64 = 0,
-    public y: f64 = 0,
-    public z: f64 = 0,
-  ) {}
+  public constructor(public x: f64 = 0, public y: f64 = 0, public z: f64 = 0) {}
 }
 
 describe("a set of snapshots", () => {

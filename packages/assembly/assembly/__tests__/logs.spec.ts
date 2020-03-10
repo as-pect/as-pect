@@ -50,7 +50,7 @@ class CustomDisplayStringClass {
   x: i32 = 2;
   y: string = "joe";
 
-  __aspectDisplayAs(): String {
+  __aspectReflectAs(): String {
     return this.y + " has " + this.x.toString() + " cookies";
   }
 }
@@ -59,7 +59,7 @@ class CustomDisplayNumberClass {
   x: i32 = 2;
   y: string = "joe";
 
-  __aspectDisplayAs(): i32 {
+  __aspectReflectAs(): i32 {
     return this.y.length + this.x;
   }
 }
