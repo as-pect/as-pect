@@ -602,10 +602,20 @@ export class Reflect {
       let result = false;
       if (isNullable<T>()) {
         // @ts-ignore: __aspectStrictEquals is defined at this point, and left and right cannot be null
-        result = left!.__aspectStrictEquals(right!, stack, cache, [] as StaticArray<i64>);
+        result = left!.__aspectStrictEquals(
+          right!,
+          stack,
+          cache,
+          [] as StaticArray<i64>,
+        );
       } else {
         // @ts-ignore: __aspectStrictEquals is defined at this point
-        result = left.__aspectStrictEquals(right, stack, cache, [] as StaticArray<i64>);
+        result = left.__aspectStrictEquals(
+          right,
+          stack,
+          cache,
+          [] as StaticArray<i64>,
+        );
       }
 
       if (result) {

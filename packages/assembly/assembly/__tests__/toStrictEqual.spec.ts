@@ -1005,3 +1005,22 @@ describe("inherited classes", () => {
     "parent properties should be compared",
   );
 });
+
+class ExamplePrivate {
+  constructor(public a: i32 = 0, private b: i32 = 0) {}
+}
+
+describe("private values", () => {
+  test("classes with private members should not have their private members compared", () => {
+    expect(new ExamplePrivate(1, 2)).toStrictEqual(new ExamplePrivate(1, 4));
+  });
+  throws(
+    "when public members do not differ",
+    () => {
+      expect(new ExamplePrivate(1, 2)).not.toStrictEqual(
+        new ExamplePrivate(1, 4),
+      );
+    },
+    "public members should be compared properly",
+  );
+});
