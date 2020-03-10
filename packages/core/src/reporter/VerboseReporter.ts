@@ -222,12 +222,16 @@ export class VerboseReporter implements IReporter {
 
         const changes = result.changes;
         for (const change of changes) {
-          if (change.added) {
-            this.stdout!.write(chalk`            {green + ${change.value}}\n`);
-          } else if (change.removed) {
-            this.stdout!.write(chalk`            {red - ${change.value}}\n`);
-          } else {
-            this.stdout!.write(chalk`              ${change.value}\n`);
+          const lines = change.value.split("\n");
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            if (change.added) {
+              this.stdout!.write(chalk`{green + ${line}}\n`);
+            } else if (change.removed) {
+              this.stdout!.write(chalk`{red - ${line}}\n`);
+            } else {
+              this.stdout!.write(chalk`  ${line}\n`);
+            }
           }
         }
         this.stdout!.write("\n");
