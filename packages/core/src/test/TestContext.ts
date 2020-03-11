@@ -213,10 +213,6 @@ export class TestContext {
     // determine if this test suite passed
     const snapshotsPass = Array.from(snapshotDiff.results.values()).reduce(
       (result, value) => {
-        if (value.type === SnapshotDiffResultType.Different) {
-          console.log(value.left);
-          console.log(value.right);
-        }
         if (result) {
           return (
             value.type === SnapshotDiffResultType.Added ||
