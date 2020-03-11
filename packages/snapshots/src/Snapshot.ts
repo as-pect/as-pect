@@ -40,14 +40,16 @@ export class Snapshot {
   }
 
   public stringify(): string {
-    return Array.from(this.values.entries())
-      .map(
-        ([key, value]) =>
-          `exports[\`${key.replace(tick, "\\`")}\`] = \`${value.replace(
-            tick,
-            "\\`",
-          )}\`;`,
-      )
-      .join("");
+    return (
+      Array.from(this.values.entries())
+        .map(
+          ([key, value]) =>
+            `exports[\`${key.replace(tick, "\\`")}\`] = \`${value.replace(
+              tick,
+              "\\`",
+            )}\`;`,
+        )
+        .join("\n\n") + "\n"
+    );
   }
 }

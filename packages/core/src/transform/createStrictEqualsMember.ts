@@ -137,12 +137,8 @@ function createStrictEqualsFunctionBody(
   const nameHashes = new Array<number>();
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
-    // if it's an instance member, and it isn't marked private or protected
-    if (
-      member.is(CommonFlags.INSTANCE) &&
-      !member.is(CommonFlags.PRIVATE) &&
-      !member.is(CommonFlags.PROTECTED)
-    ) {
+    // if it's an instance member, regardless of access modifier
+    if (member.is(CommonFlags.INSTANCE)) {
       switch (member.kind) {
         // field declarations automatically get added
         case NodeKind.FIELDDECLARATION: {

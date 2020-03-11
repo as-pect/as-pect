@@ -1,0 +1,21 @@
+exports[`some snapshots!~an integer[0]`] = `1`;
+
+exports[`some snapshots!~a float[0]`] = `3.14`;
+
+exports[`some snapshots!~an integer array[0]`] = `Array<i32> [
+  1,
+  2,
+  3,
+  4,
+  5
+]`;
+
+exports[`some snapshots!~a typed array[0]`] = `Float64Array [ 1.0, 2.0, 3.0, 4.0 ]`;
+
+exports[`some snapshots!~a string[0]`] = `"a string"`;
+
+exports[`some snapshots!~a reference[0]`] = `Vec3 {
+  x: 1.0,
+  y: 2.0,
+  z: 3.0
+}`;

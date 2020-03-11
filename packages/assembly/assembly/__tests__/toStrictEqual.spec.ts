@@ -1011,16 +1011,32 @@ class ExamplePrivate {
 }
 
 describe("private values", () => {
-  test("classes with private members should not have their private members compared", () => {
-    expect(new ExamplePrivate(1, 2)).toStrictEqual(new ExamplePrivate(1, 4));
+  test("classes with private members should have their private members compared", () => {
+    expect(new ExamplePrivate(1, 2)).toStrictEqual(new ExamplePrivate(1, 2));
   });
+
   throws(
-    "when public members do not differ",
+    "when private members do not differ",
     () => {
       expect(new ExamplePrivate(1, 2)).not.toStrictEqual(
-        new ExamplePrivate(1, 4),
+        new ExamplePrivate(1, 2),
       );
     },
-    "public members should be compared properly",
+    "private members should be compared in strictEquality",
+  );
+
+  test("classes with private members that don't equal should not strictly equal each other", () => {
+    expect(new ExamplePrivate(1, 2)).not.toStrictEqual(
+      new ExamplePrivate(1, 4),
+      "private properties differ",
+    );
+  });
+
+  throws(
+    "when private members do not differ",
+    () => {
+      expect(new ExamplePrivate(1, 2)).toStrictEqual(new ExamplePrivate(1, 4));
+    },
+    "private members should be compared in strictEquality",
   );
 });
