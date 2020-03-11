@@ -48,9 +48,9 @@ SnapshotDiff {
     "B" => SnapshotDiffResult {
       "changes": Array [
         Object {
-          "added": undefined,
+          "added": true,
           "count": 5,
-          "removed": true,
+          "removed": undefined,
           "value": "SomeB {
       d: 4,
       e: 5,
@@ -77,18 +77,18 @@ SnapshotDiff {
           "added": undefined,
           "count": 3,
           "removed": true,
-          "value": "      g: 7,
-      h: 8,
-      i: 9
+          "value": "      g: 4,
+      h: 5,
+      i: 6
 ",
         },
         Object {
           "added": true,
           "count": 3,
           "removed": undefined,
-          "value": "      g: 4,
-      h: 5,
-      i: 6
+          "value": "      g: 7,
+      h: 8,
+      i: 9
 ",
         },
         Object {
@@ -111,9 +111,9 @@ SnapshotDiff {
     "D" => SnapshotDiffResult {
       "changes": Array [
         Object {
-          "added": true,
+          "added": undefined,
           "count": 5,
-          "removed": undefined,
+          "removed": true,
           "value": "SomeB {
       d: 1,
       e: 2,
