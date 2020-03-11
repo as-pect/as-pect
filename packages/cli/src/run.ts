@@ -545,7 +545,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         // if the update flag was passed, update the snapshots
         if (cliOptions.update) {
           const snapshots = runner.snapshots;
-          if ((<Snapshot>snapshots).values.size > 0) {
+          if (snapshots.values.size > 0) {
             const output = snapshots.stringify();
             if (!fs.existsSync(snapshotFolder)) fs.mkdirSync(snapshotFolder);
             filePromises.push(writeFile(snapshotsLocation, output));
