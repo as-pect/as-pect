@@ -6806,6 +6806,10 @@
   i32.xor
   local.get $3
   call $assembly/internal/assert/assert
+  local.get $5
+  call $~lib/rt/pure/__release
+  local.get $6
+  call $~lib/rt/pure/__release
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1

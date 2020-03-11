@@ -502,10 +502,13 @@ export class Expectation<T> {
     Expected.clear();
   }
 
-  // @ts-ignore: valueof<T> will throw a compiler if it is not valid
   public toContainEqual<U>(expected: U, message: string = ""): void {
-    // @ts-ignore Array<U> instanceof check
     this.toIncludeEqual<U>(expected, message);
+  }
+
+  public toMatchSnapshot(name: string | null = null): void {
+    assert(i32(!this._not), "Snapshots cannot be negated.");
+    Expected.reportSnapshot(this.actual, name);
   }
 }
 

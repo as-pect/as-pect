@@ -53,6 +53,9 @@ export function stringifyReflectedValue(
   /* istanbul ignore next */
   if (typeof props.maxPropertyCount === "number")
     context.maxPropertyCount = props.maxPropertyCount;
+  /* istanbul ignore next */
+  if (typeof props.maxLineLength === "number")
+    context.maxLineLength = props.maxLineLength;
 
   return formatters[
     formatterIndexFor(reflectedValue.type, ReflectedValueFormatType.Expanded)
@@ -449,7 +452,8 @@ function displayArrayExpanded(
     body += "[";
     let i = 0;
     let length = hostValue.values!.length;
-    for (; i < length; i++) {
+    const count = Math.min(length, ctx.maxPropertyCount);
+    for (; i < count; i++) {
       let value = hostValue.values![i];
       const resultStart = i === 0 ? " " : ", ";
       const result =
@@ -457,7 +461,7 @@ function displayArrayExpanded(
         formatters[
           formatterIndexFor(value.type, ReflectedValueFormatType.Inline)
         ](value, ctx).trimLeft();
-      if (body.length > ctx.maxLineLength) {
+      if (body.length + result.length > ctx.maxLineLength) {
         break;
       }
       body += result;

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots: onFinish assembly/jest-reporter.ts 1`] = `
+"    [File]: assembly/jest-reporter.ts
+  [Groups]: 2 pass, 2 total
+  [Result]: ✖ FAIL
+[Snapshot]: 0 total, 0 added, 0 removed, 0 different
+ [Summary]: 0 pass,  0 fail, 0 total
+    [Time]: 0ms
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+"
+`;
+
+exports[`snapshots: onGroupEnd  1`] = `""`;
+
+exports[`snapshots: onGroupEnd a passing suite 1`] = `
+"
+"
+`;
+
+exports[`snapshots: onGroupStart a passing suite 1`] = `
+"[Describe]: a passing suite
+
+"
+`;

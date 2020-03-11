@@ -2564,6 +2564,10 @@
   call $assembly/internal/assert/assert
   call $assembly/internal/Actual/Actual.clear
   call $assembly/internal/Expected/Expected.clear
+  local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
+  call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )

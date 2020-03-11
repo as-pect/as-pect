@@ -4995,7 +4995,7 @@ exports[`log output Group: logs Test: logs: stringify 19`] = `
   ... +16 properties  }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 20`] = `"  class: Float64Array [ number: 0.0, number: 1.0, number: 2.0, number: 3.0, number: 4.0... +15 items ]"`;
+exports[`log output Group: logs Test: logs: stringify 20`] = `"  class: Float64Array [ number: 0.0, number: 1.0, number: 2.0, number: 3.0... +16 items ]"`;
 
 exports[`log output Group: logs Test: logs: stringify 21`] = `
 "  class: Array<i32> [

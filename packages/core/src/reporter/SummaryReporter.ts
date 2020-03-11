@@ -2,6 +2,8 @@ import { TestContext } from "../test/TestContext";
 import { IWritable } from "../util/IWriteable";
 import { ReflectedValue } from "../util/ReflectedValue";
 import { IReporter } from "./IReporter";
+import { SnapshotDiffResultType } from "@as-pect/snapshots";
+import { TestNode } from "../test/TestNode";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -25,22 +27,20 @@ export class SummaryReporter implements IReporter {
     }
   }
 
-  /* istanbul ignore next */
-  public onEnter(): void {}
+  public onEnter(_ctx: TestContext, _node: TestNode): void {}
+
+  public onExit(_ctx: TestContext, _node: TestNode): void {}
 
   /* istanbul ignore next */
-  public onExit(): void {}
-
+  public onStart(_ctx: TestContext): void {}
   /* istanbul ignore next */
-  public onStart(): void {}
+  public onGroupStart(_node: TestNode): void {}
   /* istanbul ignore next */
-  public onGroupStart(): void {}
+  public onGroupFinish(_node: TestNode): void {}
   /* istanbul ignore next */
-  public onGroupFinish(): void {}
+  public onTestStart(_group: TestNode, _test: TestNode): void {}
   /* istanbul ignore next */
-  public onTestStart(): void {}
-  /* istanbul ignore next */
-  public onTestFinish(): void {}
+  public onTestFinish(_group: TestNode, _test: TestNode): void {}
   /* istanbul ignore next */
   public onTodo(): void {}
 
@@ -172,6 +172,29 @@ export class SummaryReporter implements IReporter {
           .split("\n")
           .join("\n           ")}}\n\n`,
       );
+    }
+
+    const diff = suite.snapshotDiff!.results;
+    for (const [name, result] of diff.entries()) {
+      if (result.type !== SnapshotDiffResultType.NoChange) {
+        this.stdout!.write(chalk`{red [Snapshot]}: ${name}\n`);
+
+        const changes = result.changes;
+        for (const change of changes) {
+          const lines = change.value.split("\n");
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            if (change.added) {
+              this.stdout!.write(chalk`{green + ${line}}\n`);
+            } else if (change.removed) {
+              this.stdout!.write(chalk`{red - ${line}}\n`);
+            } else {
+              this.stdout!.write(chalk`  ${line}\n`);
+            }
+          }
+        }
+        this.stdout!.write("\n");
+      }
     }
   }
 

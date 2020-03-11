@@ -91,21 +91,23 @@ export class Reflect {
         }
       }
 
-      // @ts-ignore: __aspectDisplayAs() can potentially be implemented
-      if (isDefined(value.__aspectDisplayAs())) {
-        // @ts-ignore: typesafe call to __aspectDisplayAs()
-        let displayValue = value.__aspectDisplayAs();
+      // @ts-ignore: __aspectReflectAs() can potentially be implemented
+      if (isDefined(value.__aspectReflectAs())) {
+        // @ts-ignore: typesafe call to __aspectReflectAs()
+        let displayValue = value.__aspectReflectAs();
         if (
           !isInteger(displayValue) &&
           !isFloat(displayValue) &&
           !isManaged(displayValue)
         ) {
           ERROR(
-            "__aspectDisplayAs() function should return a managed type or a number",
+            "__aspectReflectAs() function should return a managed type or a number",
           );
         }
         return Reflect.toReflectedValue(displayValue, seen);
-      } else if (value instanceof ArrayBuffer) {
+      }
+
+      if (value instanceof ArrayBuffer) {
         let reflectedValue = createReflectedValue(
           false,
           false,

@@ -74,7 +74,10 @@ export interface Options {
   nologo: boolean;
   /** Tracks changes made by the cli options */
   changed: Set<string>;
+  /** The number of experimental workers used for compiling. */
   workers: number;
+  /** Indicates of snapshots should be updated. */
+  update: boolean;
 }
 
 /**
@@ -299,6 +302,13 @@ const _Args: CommandLineArgs = {
     type: "i",
     alias: { name: "w" },
     value: 0,
+  },
+
+  update: {
+    description: "Update the snapshots",
+    type: "b",
+    alias: { name: "u" },
+    value: false,
   },
 };
 

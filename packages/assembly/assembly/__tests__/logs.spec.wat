@@ -7581,7 +7581,7 @@
   local.get $0
   call $~lib/util/number/itoa<i32>
  )
- (func $assembly/__tests__/logs.spec/CustomDisplayStringClass#__aspectDisplayAs (; 165 ;) (param $0 i32) (result i32)
+ (func $assembly/__tests__/logs.spec/CustomDisplayStringClass#__aspectReflectAs (; 165 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -7661,7 +7661,7 @@
    return
   end
   local.get $0
-  call $assembly/__tests__/logs.spec/CustomDisplayStringClass#__aspectDisplayAs
+  call $assembly/__tests__/logs.spec/CustomDisplayStringClass#__aspectReflectAs
   local.set $2
   local.get $2
   local.get $1
@@ -7754,7 +7754,7 @@
   i32.store offset=4
   local.get $0
  )
- (func $assembly/__tests__/logs.spec/CustomDisplayNumberClass#__aspectDisplayAs (; 171 ;) (param $0 i32) (result i32)
+ (func $assembly/__tests__/logs.spec/CustomDisplayNumberClass#__aspectReflectAs (; 171 ;) (param $0 i32) (result i32)
   local.get $0
   i32.load offset=4
   call $~lib/string/String#get:length
@@ -7813,7 +7813,7 @@
    return
   end
   local.get $0
-  call $assembly/__tests__/logs.spec/CustomDisplayNumberClass#__aspectDisplayAs
+  call $assembly/__tests__/logs.spec/CustomDisplayNumberClass#__aspectReflectAs
   local.set $2
   local.get $2
   local.get $1

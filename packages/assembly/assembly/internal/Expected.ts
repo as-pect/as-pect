@@ -3,6 +3,10 @@
 declare function reportExpectedReflectedValue(id: i32, negated: i32): void;
 
 // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportExpectedSnapshot")
+declare function reportExpectedSnapshot(id: i32, name: string | null): void;
+
+// @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportExpectedTruthy")
 declare function reportExpectedTruthy(negated: i32): void;
 
@@ -57,6 +61,19 @@ export class Expected {
    */
   static reportFinite(negated: i32 = 0): void {
     reportExpectedFinite(negated);
+  }
+
+  /**
+   * Report a snapshot of type T with a given name.
+   *
+   * @param {T} actual - The actual value.
+   * @param {string} name - The snapshot name.
+   */
+  static reportSnapshot<T>(actual: T, name: string | null = null): void {
+    reportExpectedSnapshot(
+      Reflect.toReflectedValue(actual, new Map<usize, i32>()),
+      name,
+    );
   }
 
   /**

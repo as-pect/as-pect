@@ -4,6 +4,8 @@ import { ReflectedValue } from "../util/ReflectedValue";
 import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 import { TestNode } from "../test/TestNode";
 import { IReporter } from "./IReporter";
+import { SnapshotDiffResultType } from "@as-pect/snapshots";
+import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
 
 /**
  * This is the default test reporter class for the `asp` command line application. It will pipe
@@ -12,6 +14,9 @@ import { IReporter } from "./IReporter";
 export class VerboseReporter implements IReporter {
   public stdout: IWritable | null = null;
   public stderr: IWritable | null = null;
+
+  /** A set of default stringify properties that can be overridden. */
+  protected stringifyProperties: Partial<StringifyReflectedValueProps> = {};
 
   constructor(_options?: any) {}
 
@@ -92,20 +97,23 @@ export class VerboseReporter implements IReporter {
       );
     } else {
       this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
+      const stringifyIndent2 = Object.assign({}, this.stringifyProperties, {
+        indent: 2,
+      });
 
       if (!test.negated) {
         if (test.actual) {
           this.stdout!.write(
-            `  [Actual]: ${test.actual!.stringify({ indent: 2 }).trimLeft()}\n`,
+            `  [Actual]: ${test
+              .actual!.stringify(stringifyIndent2)
+              .trimLeft()}\n`,
           );
         }
         if (test.expected) {
           const expected = test.expected;
           this.stdout!.write(
             `[Expected]: ${expected.negated ? "Not " : ""}${expected
-              .stringify({
-                indent: 2,
-              })
+              .stringify(stringifyIndent2)
               .trimLeft()}\n`,
           );
         }
@@ -199,9 +207,43 @@ export class VerboseReporter implements IReporter {
       );
     }
 
+    const diff = suite.snapshotDiff!.results;
+    let addedCount = 0;
+    let removedCount = 0;
+    let differentCount = 0;
+    let totalCount = 0;
+
+    for (const [name, result] of diff.entries()) {
+      if (result.type !== SnapshotDiffResultType.NoChange) {
+        this.stdout!.write(chalk`{red [Snapshot]}: ${name}\n`);
+
+        const changes = result.changes;
+        for (const change of changes) {
+          const lines = change.value.split("\n");
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            if (change.added) {
+              this.stdout!.write(chalk`{green + ${line}}\n`);
+            } else if (change.removed) {
+              this.stdout!.write(chalk`{red - ${line}}\n`);
+            } else {
+              this.stdout!.write(chalk`  ${line}\n`);
+            }
+          }
+        }
+        this.stdout!.write("\n");
+      }
+      totalCount += 1;
+      addedCount += result.type === SnapshotDiffResultType.Added ? 1 : 0;
+      removedCount += result.type === SnapshotDiffResultType.Removed ? 1 : 0;
+      differentCount +=
+        result.type === SnapshotDiffResultType.Different ? 1 : 0;
+    }
+
     this.stdout!.write(chalk`    [File]: ${suite.fileName}${rTrace}
   [Groups]: {green ${suite.groupCount} pass}, ${suite.groupCount} total
   [Result]: ${result}
+[Snapshot]: ${totalCount} total, ${addedCount} added, ${removedCount} removed, ${differentCount} different
  [Summary]: {green ${suite.testPassCount} pass},  ${failText}, ${
       suite.testCount
     } total
@@ -231,7 +273,10 @@ ${"~".repeat(80)}\n\n`);
    */
   public onLog(logValue: ReflectedValue): void {
     const chalk = require("chalk");
-    const output: string = logValue.stringify({ indent: 12 }).trimLeft();
+    const indent12 = Object.assign({}, this.stringifyProperties, {
+      indent: 12,
+    });
+    const output: string = logValue.stringify(indent12).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
     const stack = logValue.stack.trim();
     /* istanbul ignore next */

@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots: onFinish assembly/jest-reporter.ts 1`] = `
+"❌ assembly/jest-reporter.ts Pass: 0 / 0 Todo: 0 Time: 0ms
+"
+`;
