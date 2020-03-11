@@ -17,6 +17,7 @@ import { writeFile } from "./util/writeFile";
 import { ICommand } from "./worklets/ICommand";
 import { timeDifference } from "@as-pect/core/lib/util/timeDifference";
 import { Snapshot, SnapshotDiffResultType } from "@as-pect/snapshots";
+import { removeFile } from "./util/removeFile";
 
 /**
  * @ignore
@@ -449,7 +450,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       // collect the expected snapshots
       const snapshotsLocation = path.join(
         snapshotFolder,
-        testBaseName + ".spec.snap",
+        testBaseName + ".snap",
       );
 
       // create a test runner
@@ -512,18 +513,47 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       } else {
         // call run buffer because it's already compiled
         runner.run(wasm);
-        if (!runner.pass) failed = true;
-        testCount += runner.testCount;
-        successCount += runner.testPassCount;
-        groupCount += runner.groupCount;
-        groupSuccessCount += runner.groupPassCount;
+        const runnerTestCount = runner.testCount;
+        const runnerTestPassCount = runner.testPassCount;
+        const runnerGroupCount = runner.groupCount;
+        const runnerGroupPassCount = runner.groupPassCount;
+
+        // a snapshot may have failed or a test may have failed
+        if (!runner.pass) {
+          // if we are updating snapshots
+          if (cliOptions.update) {
+            // check the pass count, because we are ignoring snapshot results
+            if (
+              runnerTestCount !== runnerTestPassCount ||
+              runnerGroupCount !== runnerGroupPassCount
+            ) {
+              failed = true;
+            }
+          } else {
+            failed = true;
+          }
+        }
+
+        // statistics
+        testCount += runnerTestCount;
+        successCount += runnerTestPassCount;
+        groupCount += runnerGroupCount;
+        groupSuccessCount += runnerGroupPassCount;
+
         errors.push(...runner.errors); // if there are any errors, add them
 
         // if the update flag was passed, update the snapshots
         if (cliOptions.update) {
-          const output = runner.snaphots.stringify();
-          if (!fs.existsSync(snapshotFolder)) fs.mkdirSync(snapshotFolder);
-          filePromises.push(writeFile(snapshotsLocation, output));
+          const snapshots = runner.snapshots;
+          if (snapshots.values.size > 0) {
+            const output = snapshots.stringify();
+            if (!fs.existsSync(snapshotFolder)) fs.mkdirSync(snapshotFolder);
+            filePromises.push(writeFile(snapshotsLocation, output));
+          } else {
+            if (fs.existsSync(snapshotsLocation)) {
+              filePromises.push(removeFile(snapshotsLocation));
+            }
+          }
         } else {
           // check for any added snapshots
           const result = runner.expectedSnapshots;

@@ -146,7 +146,7 @@ export class TestContext {
   public warnings: IWarning[] = [];
 
   /** A collection of collected snapshots. */
-  public snaphots = new Snapshot();
+  public snapshots = new Snapshot();
 
   /** The expected snapshots. */
   public expectedSnapshots: Snapshot;
@@ -208,15 +208,18 @@ export class TestContext {
     this.visit(this.rootNode);
 
     // calculate snapshot diff
-    const snapshotDiff = this.snaphots.diff(this.expectedSnapshots);
+    const snapshotDiff = this.snapshots.diff(this.expectedSnapshots);
 
     // determine if this test suite passed
     const snapshotsPass = Array.from(snapshotDiff.results.values()).reduce(
       (result, value) => {
-        return !result
-          ? false
-          : value.type === SnapshotDiffResultType.Added ||
-              value.type === SnapshotDiffResultType.NoChange;
+        if (result) {
+          return (
+            value.type === SnapshotDiffResultType.Added ||
+            value.type === SnapshotDiffResultType.NoChange
+          );
+        }
+        return false;
       },
       true,
     );
@@ -1470,7 +1473,7 @@ export class TestContext {
       /* istanbul ignore next */
       return;
     }
-    this.snaphots.add(
+    this.snapshots.add(
       name,
       this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
     );

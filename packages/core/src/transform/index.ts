@@ -32,9 +32,7 @@ function traverseStatements(statements: Statement[]): void {
     if (statement.kind === NodeKind.CLASSDECLARATION) {
       // cast and create a strictEquals function
       const classDeclaration = <ClassDeclaration>statement;
-      classDeclaration.members.push(
-        createStrictEqualsMember(classDeclaration),
-      );
+      classDeclaration.members.push(createStrictEqualsMember(classDeclaration));
       classDeclaration.members.push(
         createAddReflectedValueKeyValuePairsMember(classDeclaration),
       );

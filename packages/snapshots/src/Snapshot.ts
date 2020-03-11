@@ -7,7 +7,7 @@ const tick = /`/g;
 export class Snapshot {
   public static parse(input: string): Snapshot {
     const parser = new Parser(Grammar.fromCompiled(grammar));
-    parser.feed(input);
+    parser.feed(input.replace(/\r/g, ""));
     if (parser.results.length !== 1)
       throw new Error("Ambiguous grammar or parsing.");
     const result = new Snapshot();
@@ -40,14 +40,16 @@ export class Snapshot {
   }
 
   public stringify(): string {
-    return Array.from(this.values.entries())
-      .map(
-        ([key, value]) =>
-          `exports[\`${key.replace(tick, "\\`")}\`] = \`${value.replace(
-            tick,
-            "\\`",
-          )}\`;`,
-      )
-      .join("");
+    return (
+      Array.from(this.values.entries())
+        .map(
+          ([key, value]) =>
+            `exports[\`${key.replace(tick, "\\`")}\`] = \`${value.replace(
+              tick,
+              "\\`",
+            )}\`;`,
+        )
+        .join("\n\n") + "\n"
+    );
   }
 }

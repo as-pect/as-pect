@@ -174,4 +174,7 @@ Snapshot {
 }
 `;
 
-exports[`Snapshot should stringify a given snapshot 1`] = `""`;
+exports[`Snapshot should stringify a given snapshot 1`] = `
+"
+"
+`;
