@@ -140,7 +140,8 @@ function createStrictEqualsFunctionBody(
     // if it's an instance member, and it isn't marked private or protected
     if (
       member.is(CommonFlags.INSTANCE) &&
-      !member.is(CommonFlags.PRIVATE | CommonFlags.PROTECTED)
+      !member.is(CommonFlags.PRIVATE) &&
+      !member.is(CommonFlags.PROTECTED)
     ) {
       switch (member.kind) {
         // field declarations automatically get added
