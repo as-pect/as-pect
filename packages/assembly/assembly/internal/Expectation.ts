@@ -47,12 +47,26 @@ export class Expectation<T> {
    * @param {string} message - The message that describes this assertion.
    */
   public toBe(expected: T, message: string = ""): void {
-    let equals = i32(this.actual == expected);
-    Actual.report(this.actual);
-    Expected.report(expected, this._not);
+    let actual = this.actual;
+    let equals = i32(actual == expected);
+    let negated = this._not;
+    Actual.report(actual);
+
+    if (isReference<T>() && !isFunction<T>()) {
+      if (!negated
+        && changetype<usize>(actual) !== 0
+        && changetype<usize>(expected) !== 0
+        && Reflect.equals(actual, expected) == Reflect.SUCCESSFUL_MATCH) {
+          Expected.report("Serializes to same value.", 0);
+      } else {
+        Expected.report(expected, negated);
+      }
+    } else {
+      Expected.report(expected, negated);
+    }
 
     // The assertion is either the items equal, or the expectation is negated
-    assert(equals ^ this._not, message);
+    assert(equals ^ negated, message);
     Actual.clear();
     Expected.clear();
   }

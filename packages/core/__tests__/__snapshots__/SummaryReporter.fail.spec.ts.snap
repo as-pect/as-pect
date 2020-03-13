@@ -14,8 +14,8 @@ exports[`snapshots: onFinish assembly/jest-reporter.ts 1`] = `
       [Actual]  : 42
      [Log]: \\"another string\\"
    [Error]: ReflectedValue Cannot log ReflectedValue of id -1. Index out of bounds.
-   [Stack]:     at start:assembly/jest-reporter-fail~anonymous|0~anonymous|3 (wasm-function[62]:0x1685)
-               at ../assembly/assembly/internal/call/__call (wasm-function[102]:0x2a73)
+   [Stack]:     at start:assembly/jest-reporter-fail~anonymous|0~anonymous|3 (wasm-function[62]:0x1687)
+               at ../assembly/assembly/internal/call/__call (wasm-function[102]:0x2a75)
 
 "
 `;
