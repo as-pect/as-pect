@@ -1040,3 +1040,42 @@ describe("private values", () => {
     "private members should be compared in strictEquality",
   );
 });
+
+class ArrayLikeClass {
+  [key: number]: number;
+
+  public constructor(public values: i32[] = []) {}
+  otherProp: i32 = 0;
+
+  @operator.binary("[]")
+  __get(index: i32): i32 {
+    return this.values[index];
+  }
+
+  get length(): i32 {
+    return this.values.length;
+  }
+}
+
+describe("ArrayLike", () => {
+  test("same arraylike", () => {
+    let a = new ArrayLikeClass([1, 2, 3]);
+    let b = new ArrayLikeClass([1, 2, 3]);
+
+    // arraylike classes skip property evaluation
+    b.otherProp = 20;
+
+    expect(a).toStrictEqual(b, "arraylike values should match");
+  });
+
+  throws(
+    "different arraylike",
+    () => {
+      let a = new ArrayLikeClass([1, 2, 3]);
+      let b = new ArrayLikeClass([1, 2, 3, 4]);
+
+      expect(a).toStrictEqual(b);
+    },
+    "different arraylike values should throw",
+  );
+});
