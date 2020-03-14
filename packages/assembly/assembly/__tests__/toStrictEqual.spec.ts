@@ -1057,6 +1057,10 @@ class ArrayLikeClass {
   }
 }
 
+class NotArrayLike {
+  constructor(public length: i32 = 1) {}
+}
+
 describe("ArrayLike", () => {
   test("same arraylike", () => {
     let a = new ArrayLikeClass([1, 2, 3]);
@@ -1078,4 +1082,10 @@ describe("ArrayLike", () => {
     },
     "different arraylike values should throw",
   );
+
+  test("two classes with length don't get compared like arrays", () => {
+    let a = new NotArrayLike(42);
+    let b = new NotArrayLike(42);
+    expect(a).toStrictEqual(b, "No compile time error, and compared like regular classes");
+  });
 });
