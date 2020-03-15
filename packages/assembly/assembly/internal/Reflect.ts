@@ -563,36 +563,48 @@ export class Reflect {
           stack.pop();
           return result;
         }
-      }
 
-      // compile time array values should be compared over a for loop
-      if (left instanceof ArrayBufferView) {
-        // @ts-ignore: typesafe access to length
-        let aLength = left.length;
-        // @ts-ignore: typesafe access to length
-        let bLength = right.length;
+        // compile time array values should be compared over a for loop
+        if (isDefined(left.length)) {
+          // @ts-ignore: typesafe access to length
+          let aLength = left.length;
+          // @ts-ignore: typesafe access to length
+          let bLength = right.length;
 
-        // assert the lengths are good
-        if (aLength != bLength) return Reflect.FAILED_MATCH;
+          // assert the lengths are good
+          if (aLength != bLength) return Reflect.FAILED_MATCH;
 
-        // check each item
-        for (let i = 0; i < aLength; i++) {
-          let result = Reflect.equals(
-            // @ts-ignore: typesafe and runtime check safe array access
-            unchecked(left[i]),
-            // @ts-ignore: typesafe and runtime check safe array access
-            unchecked(right[i]),
-            stack,
-            cache,
-          );
-          if (result == Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
+          // check each item
+          for (let i = 0; i < aLength; i++) {
+            if (isDefined(unchecked(left[0]))) {
+              let result = Reflect.equals(
+                // @ts-ignore: typesafe and runtime check safe array access
+                unchecked(left[i]),
+                // @ts-ignore: typesafe and runtime check safe array access
+                unchecked(right[i]),
+                stack,
+                cache,
+              );
+              if (result == Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
+            } else {
+              let result = Reflect.equals(
+                // @ts-ignore: typesafe and runtime check safe array access
+                left[i],
+                // @ts-ignore: typesafe and runtime check safe array access
+                right[i],
+                stack,
+                cache,
+              );
+              if (result == Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
+            }
+          }
+
+          // cache this result
+          cache.push(a);
+          cache.push(b);
+
+          return Reflect.SUCCESSFUL_MATCH;
         }
-
-        // cache this result
-        cache.push(a);
-        cache.push(b);
-
-        return Reflect.SUCCESSFUL_MATCH;
       }
 
       // todo: handle Set<keyof<T>> and Map<keyof<T>, valueof<T>>
