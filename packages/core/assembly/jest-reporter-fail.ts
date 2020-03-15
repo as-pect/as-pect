@@ -2,6 +2,14 @@
 @external("__aspect", "logReflectedValue")
 declare function logReflectedValue(id: i32): void;
 
+class Vec3 {
+  public constructor(
+    public x: f32 = 0,
+    public y: f32 = 0,
+    public z: f32 = 0,
+  ) {}
+}
+
 describe("examples", () => {
   test("example 1", () => {
     expect(1).toBe(1, "Here is an example message");
@@ -39,6 +47,10 @@ describe("examples", () => {
   test("something negated fails", () => {
     log("another string");
     expect(42).not.toBe(42, "42 is 42");
+  });
+
+  test("something using toBe fails with a reference that is similar", () => {
+    expect(new Vec3(1, 2, 3)).toBe(new Vec3(1, 2, 3), "not the same pointer");
   });
 
   todo("example todo");

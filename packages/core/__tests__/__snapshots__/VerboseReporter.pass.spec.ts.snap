@@ -26,8 +26,8 @@ exports[`snapshots: onGroupStart a passing suite 1`] = `
      [Log]: \\"Something else!\\"
    [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[40]:0x13ce)
             at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[41]:0x13fc)
-            at start:assembly/jest-reporter-pass~anonymous|0 (wasm-function[59]:0x1600)
-            at ../assembly/assembly/internal/call/__call (wasm-function[62]:0x163f)
+            at start:assembly/jest-reporter-pass~anonymous|0 (wasm-function[59]:0x1602)
+            at ../assembly/assembly/internal/call/__call (wasm-function[62]:0x1641)
 "
 `;
 
@@ -41,8 +41,8 @@ exports[`snapshots: onTestFinish a passing suite passes 1`] = `
      [Log]: \\"Something!\\"
    [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[40]:0x13ce)
             at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[41]:0x13fc)
-            at start:assembly/jest-reporter-pass~anonymous|0~anonymous|0 (wasm-function[53]:0x1588)
-            at ../assembly/assembly/internal/call/__call (wasm-function[62]:0x163f)
+            at start:assembly/jest-reporter-pass~anonymous|0~anonymous|0 (wasm-function[53]:0x158a)
+            at ../assembly/assembly/internal/call/__call (wasm-function[62]:0x1641)
 "
 `;
 

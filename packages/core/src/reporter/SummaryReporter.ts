@@ -119,6 +119,12 @@ export class SummaryReporter implements IReporter {
           this.stdout!.write(
             chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`,
           );
+          if (test.actual !== null)
+            this.stdout!.write(
+              chalk`      {red.bold [Actual]  :} ${test.actual
+                .stringify({ indent: 2 })
+                .trimLeft()}\n`,
+            );
           if (test.expected !== null) {
             const expected = test.expected;
             this.stdout!.write(
@@ -127,12 +133,6 @@ export class SummaryReporter implements IReporter {
               }${expected.stringify({ indent: 2 }).trimLeft()}\n`,
             );
           }
-          if (test.actual !== null)
-            this.stdout!.write(
-              chalk`      {red.bold [Actual]  :} ${test.actual
-                .stringify({ indent: 2 })
-                .trimLeft()}\n`,
-            );
           /* istanbul ignore next */
           if (this.enableLogging) {
             for (const log of test.logs) {

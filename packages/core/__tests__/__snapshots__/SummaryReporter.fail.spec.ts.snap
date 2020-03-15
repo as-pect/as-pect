@@ -1,21 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snapshots: onFinish assembly/jest-reporter.ts 1`] = `
-"❌ assembly/jest-reporter.ts Pass: 4 / 8 Todo: 1 Time: 0ms
+"❌ assembly/jest-reporter.ts Pass: 4 / 9 Todo: 1 Time: 0ms
   Failed: examples
      [Log]: \\"testing in a group\\"
     ❌ push an error to the error array - 
     ❌ something fails - Here is an example failure message.
-      [Expected]: 42
       [Actual]  : -1
+      [Expected]: 42
     ❌ this should throw but it does not - it should throw
     ❌ something negated fails - 42 is 42
-      [Expected]: Not 42
       [Actual]  : 42
+      [Expected]: Not 42
      [Log]: \\"another string\\"
+    ❌ something using toBe fails with a reference that is similar - not the same pointer
+      [Actual]  : Vec3 {
+      x: 1.0 as f32,
+      y: 2.0 as f32,
+      z: 3.0 as f32
+  }
+      [Expected]: \\"Serializes to same value.\\"
    [Error]: ReflectedValue Cannot log ReflectedValue of id -1. Index out of bounds.
-   [Stack]:     at start:assembly/jest-reporter-fail~anonymous|0~anonymous|3 (wasm-function[62]:0x1685)
-               at ../assembly/assembly/internal/call/__call (wasm-function[102]:0x2a73)
+   [Stack]:     at start:assembly/jest-reporter-fail~anonymous|0~anonymous|3 (wasm-function[63]:0x16f1)
+               at ../assembly/assembly/internal/call/__call (wasm-function[124]:0x328f)
 
 "
 `;

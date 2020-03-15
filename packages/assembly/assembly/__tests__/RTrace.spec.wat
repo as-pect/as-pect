@@ -2337,24 +2337,28 @@
  )
  (func $assembly/internal/Expectation/Expectation<u32>#toBe (; 61 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
   local.get $2
   call $~lib/rt/pure/__retain
   local.set $2
   local.get $0
   i32.load offset=4
+  local.set $3
+  local.get $3
   local.get $1
   i32.eq
-  local.set $3
+  local.set $4
   local.get $0
-  i32.load offset=4
+  i32.load
+  local.set $5
+  local.get $3
   call $assembly/internal/Actual/Actual.report<u32>
   local.get $1
-  local.get $0
-  i32.load
+  local.get $5
   call $assembly/internal/Expected/Expected.report<u32>
-  local.get $3
-  local.get $0
-  i32.load
+  local.get $4
+  local.get $5
   i32.xor
   local.get $2
   call $assembly/internal/assert/assert
