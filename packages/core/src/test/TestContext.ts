@@ -1,4 +1,4 @@
-/// <reference path="../../../../node_modules/assemblyscript/lib/loader/index.d.ts" />
+/// <reference path="./loader.d.ts" />
 
 import { IAspectExports } from "../util/IAspectExports";
 
@@ -18,7 +18,7 @@ import {
   SnapshotDiff,
 } from "@as-pect/snapshots";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
-import { ResultObject, ASUtil } from 'assemblyscript/lib/loader';
+import { ASUtil, ResultObject } from './loader';
 
 const id = (a: string) => a;
 
