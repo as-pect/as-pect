@@ -397,23 +397,22 @@ export class Reflect {
       if (i32(isNaN(left)) & i32(isNaN(right))) return Reflect.SUCCESSFUL_MATCH;
     }
 
-    // short circuit for strings
-    if (left instanceof String) {
-      return Reflect.FAILED_MATCH;
-    }
-
-    // if it's possible for T to be null
-    if (isNullable<T>()) {
-      // mutual exclusion null
-      if (
-        i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == 0)
-      )
+    if (isReference(left)) {
+      // T can always be null if it's a reference, emit a runtime check for it regardless of type
+      if (i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == 0)) {
         return Reflect.FAILED_MATCH;
+      }
     }
 
     // check every reference that isn't a function reference, because `left == right` suffices
     // for a proper comparison
     if (isReference<T>() && !isFunction<T>()) {
+      //safe runtime assertions
+      if (isNullable<T>()) {
+        left = left!;
+        right = right!;
+      }
+
       let a = changetype<usize>(left);
       let b = changetype<usize>(right);
 
@@ -423,6 +422,11 @@ export class Reflect {
         i32((cacheLength & 0x00000001) == 0),
         "cacheLength should be even",
       );
+
+      // short circuit for strings
+      if (left instanceof String) {
+        return Reflect.FAILED_MATCH;
+      }
 
       // check the cache for matched pairs
       for (let i = 0; i < cacheLength; i += 2) {
@@ -454,7 +458,7 @@ export class Reflect {
       if (isDefined(left[0])) {
         // test for safe indexof usage
         // set match
-        if (left instanceof Set) {
+        if (left! instanceof Set) {
           // @ts-ignore: size is a valid property of Set
           if (left.size != right.size) return Reflect.FAILED_MATCH;
           stack.push(a);
@@ -614,23 +618,13 @@ export class Reflect {
       stack.push(b);
 
       let result = false;
-      if (isNullable<T>()) {
-        // @ts-ignore: __aspectStrictEquals is defined at this point, and left and right cannot be null
-        result = left!.__aspectStrictEquals(
-          right!,
-          stack,
-          cache,
-          [] as StaticArray<i64>,
-        );
-      } else {
-        // @ts-ignore: __aspectStrictEquals is defined at this point
-        result = left.__aspectStrictEquals(
-          right,
-          stack,
-          cache,
-          [] as StaticArray<i64>,
-        );
-      }
+      // @ts-ignore: __aspectStrictEquals is defined at this point
+      result = left.__aspectStrictEquals(
+        right,
+        stack,
+        cache,
+        [] as StaticArray<i64>,
+      );
 
       if (result) {
         cache.push(a);

@@ -6226,6 +6226,27 @@
    return
   end
   local.get $0
+  i32.const 0
+  i32.eq
+  local.get $1
+  i32.const 0
+  i32.eq
+  i32.xor
+  if
+   global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
+   local.set $4
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $4
+   return
+  end
+  local.get $0
   local.set $4
   local.get $1
   local.set $5
@@ -6945,6 +6966,23 @@
   i32.eq
   if
    global.get $assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH
+   local.set $4
+   local.get $2
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $4
+   return
+  end
+  local.get $0
+  i32.const 0
+  i32.eq
+  local.get $1
+  i32.const 0
+  i32.eq
+  i32.xor
+  if
+   global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
    local.set $4
    local.get $2
    call $~lib/rt/pure/__release
@@ -8129,6 +8167,9 @@
  )
  (func $assembly/internal/Reflect/Reflect.equals<~lib/string/String> (; 177 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)
   (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
   local.get $0
   call $~lib/rt/pure/__retain
   local.set $0
@@ -8158,8 +8199,43 @@
    local.get $4
    return
   end
-  global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
+  local.get $0
+  i32.const 0
+  i32.eq
+  local.get $1
+  i32.const 0
+  i32.eq
+  i32.xor
+  if
+   global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
+   local.set $4
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $4
+   return
+  end
+  local.get $0
   local.set $4
+  local.get $1
+  local.set $5
+  local.get $3
+  call $~lib/array/Array<usize>#get:length
+  local.set $6
+  local.get $6
+  i32.const 1
+  i32.and
+  i32.const 0
+  i32.eq
+  i32.const 2192
+  call $assembly/internal/assert/assert
+  global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
+  local.set $7
   local.get $0
   call $~lib/rt/pure/__release
   local.get $1
@@ -8168,7 +8244,7 @@
   call $~lib/rt/pure/__release
   local.get $3
   call $~lib/rt/pure/__release
-  local.get $4
+  local.get $7
   return
  )
  (func $assembly/internal/Reflect/Reflect.equals<~lib/string/String>|trampoline (; 178 ;) (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (result i32)

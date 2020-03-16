@@ -1089,3 +1089,11 @@ describe("ArrayLike", () => {
     expect(a).toStrictEqual(b, "No compile time error, and compared like regular classes");
   });
 });
+
+describe("nullable strings and references", () => {
+  test("nullable string", () => {
+    let a: string | null = "test";
+
+    expect<string | null>(a).toStrictEqual("test");
+  });
+});

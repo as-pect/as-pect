@@ -5206,6 +5206,27 @@
    return
   end
   local.get $0
+  i32.const 0
+  i32.eq
+  local.get $1
+  i32.const 0
+  i32.eq
+  i32.xor
+  if
+   global.get $assembly/internal/Reflect/Reflect.FAILED_MATCH
+   local.set $4
+   local.get $0
+   call $~lib/rt/pure/__release
+   local.get $1
+   call $~lib/rt/pure/__release
+   local.get $2
+   call $~lib/rt/pure/__release
+   local.get $3
+   call $~lib/rt/pure/__release
+   local.get $4
+   return
+  end
+  local.get $0
   local.set $4
   local.get $1
   local.set $5
@@ -5890,9 +5911,59 @@
    return
   end
   local.get $0
-  local.set $4
+  local.tee $4
+  if (result i32)
+   local.get $4
+  else
+   i32.const 0
+   i32.const 2912
+   i32.const 414
+   i32.const 15
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.tee $4
+  local.get $0
+  local.tee $5
+  i32.ne
+  if
+   local.get $4
+   call $~lib/rt/pure/__retain
+   local.set $4
+   local.get $5
+   call $~lib/rt/pure/__release
+  end
+  local.get $4
+  local.set $0
   local.get $1
+  local.tee $4
+  if (result i32)
+   local.get $4
+  else
+   i32.const 0
+   i32.const 2912
+   i32.const 415
+   i32.const 16
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.tee $5
+  local.get $1
+  local.tee $4
+  i32.ne
+  if
+   local.get $5
+   call $~lib/rt/pure/__retain
+   local.set $5
+   local.get $4
+   call $~lib/rt/pure/__release
+  end
+  local.get $5
+  local.set $1
+  local.get $0
   local.set $5
+  local.get $1
+  local.set $4
   local.get $3
   call $~lib/array/Array<usize>#get:length
   local.set $6
@@ -5912,8 +5983,8 @@
    local.set $8
    local.get $8
    if
-    local.get $4
     local.get $5
+    local.get $4
     local.get $3
     local.get $7
     call $~lib/array/Array<usize>#__unchecked_get
@@ -5956,8 +6027,8 @@
    local.set $9
    local.get $9
    if
-    local.get $4
     local.get $5
+    local.get $4
     local.get $2
     local.get $8
     call $~lib/array/Array<usize>#__unchecked_get
@@ -5989,39 +6060,17 @@
    end
   end
   local.get $2
-  local.get $4
+  local.get $5
   call $~lib/array/Array<usize>#push
   drop
   local.get $2
-  local.get $5
+  local.get $4
   call $~lib/array/Array<usize>#push
   drop
   i32.const 0
   local.set $8
   local.get $0
-  local.tee $9
-  if (result i32)
-   local.get $9
-  else
-   i32.const 0
-   i32.const 2912
-   i32.const 619
-   i32.const 17
-   call $~lib/builtins/abort
-   unreachable
-  end
   local.get $1
-  local.tee $9
-  if (result i32)
-   local.get $9
-  else
-   i32.const 0
-   i32.const 2912
-   i32.const 620
-   i32.const 10
-   call $~lib/builtins/abort
-   unreachable
-  end
   local.get $2
   local.get $3
   i32.const 0
@@ -6037,11 +6086,11 @@
   local.get $8
   if
    local.get $3
-   local.get $4
+   local.get $5
    call $~lib/array/Array<usize>#push
    drop
    local.get $3
-   local.get $5
+   local.get $4
    call $~lib/array/Array<usize>#push
    drop
   end
