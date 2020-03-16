@@ -10,6 +10,7 @@ export function help() {
   {bold.blueBright SYNTAX}
     {bold.green asp} --init                          Create a test config, an assembly/__tests__ folder and exit.
     {bold.green asp} -i
+    {bold.green asp} --init-wasi                     Create a test config for use with wasi, an assembly/__tests__ folder and exit.
     {bold.green asp} --config=as-pect.config.js      Use a specified configuration
     {bold.green asp} -c as-pect.config.js
     {bold.green asp} --version                       View the version.

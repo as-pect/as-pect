@@ -45,6 +45,10 @@ export function asp(args: string[]) {
     const init = require("./init").init;
     // init script
     init();
+  } else if (cliOptions.initWasi) {
+    const init = require("./init").init;
+
+    init(true);
   } else if (cliOptions.version) {
     // display the version
     console.log(pkg.version);
