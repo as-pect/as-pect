@@ -53,11 +53,13 @@ export class Expectation<T> {
     Actual.report(actual);
 
     if (isReference<T>() && !isFunction<T>()) {
-      if (!negated
-        && changetype<usize>(actual) !== 0
-        && changetype<usize>(expected) !== 0
-        && Reflect.equals(actual, expected) == Reflect.SUCCESSFUL_MATCH) {
-          Expected.report("Serializes to same value.", 0);
+      if (
+        !negated &&
+        changetype<usize>(actual) !== 0 &&
+        changetype<usize>(expected) !== 0 &&
+        Reflect.equals(actual, expected) == Reflect.SUCCESSFUL_MATCH
+      ) {
+        Expected.report("Serializes to same value.", 0);
       } else {
         Expected.report(expected, negated);
       }
