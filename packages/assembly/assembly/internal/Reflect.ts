@@ -393,11 +393,11 @@ export class Reflect {
     if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
 
     // floats should equal each other
-    if (isFloat<T>(left)) {
+    if (isFloat<T>()) {
       if (i32(isNaN(left)) & i32(isNaN(right))) return Reflect.SUCCESSFUL_MATCH;
     }
 
-    if (isReference(left)) {
+    if (isReference<T>()) {
       // T can always be null if it's a reference, emit a runtime check for it regardless of type
       if (
         i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == 0)
