@@ -2,13 +2,14 @@ import { main } from "assemblyscript/cli/asc";
 import {
   instantiateSync as instantiateBuffer,
   ASUtil,
+  ResultObject,
 } from "assemblyscript/lib/loader";
 import { TestContext } from "../../src/test/TestContext";
 import { EmptyReporter } from "../../src/reporter/EmptyReporter";
 import { IAspectExports } from "../../src/util/IAspectExports";
 
 interface ICreateModuleCallbackResult {
-  wasm: ASUtil & IAspectExports;
+  wasm: ResultObject & { exports: ASUtil & IAspectExports; };
   context: TestContext;
 }
 
@@ -22,7 +23,7 @@ export function createTestGroupFilterModule(
   callback: TestContextCallback,
 ): void {
   let context: TestContext;
-  let wasm: ASUtil & IAspectExports;
+  let wasm: ResultObject & { exports: ASUtil & IAspectExports; };
 
   main(
     [
