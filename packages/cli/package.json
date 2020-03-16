@@ -10,10 +10,8 @@
     "test:ci": "jest",
     "test": "jest",
     "test:update-snapshots": "jest -u",
-    "tsc:all": "run-p tsc:default tsc:amd",
-    "tsc:amd": "tsc --outfile lib/as-pect.cli.amd.js --module amd --declaration --declarationMap",
     "tsc:default": "tsc",
-    "tsc": "run-s rimraf tsc:all"
+    "tsc": "run-s rimraf tsc:default"
   },
   "bin": {
     "asp": "bin/asp"

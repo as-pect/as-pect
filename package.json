@@ -5,12 +5,12 @@
     "postinstall": "lerna bootstrap",
     "coveralls": "cat ./packages/core/coverage/lcov.info | coveralls",
     "jest": "jest",
-    "test": "run-s tsc:all test:all",
+    "test": "run-s tsc test:all",
     "test:update-snapshots": "lerna run test:update-snapshots",
-    "test:ci": "run-s tsc:all test:ci:all",
+    "test:ci": "run-s tsc test:ci:all",
     "test:ci:all": "lerna run test:ci",
     "test:all": "lerna run test",
-    "tsc:all": "lerna run tsc:all",
+    "tsc": "lerna run tsc",
     "prettier": "prettier --write \"**/*.ts\" \"**/*.md\""
   },
   "repository": {
