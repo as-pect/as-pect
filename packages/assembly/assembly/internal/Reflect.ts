@@ -399,7 +399,9 @@ export class Reflect {
 
     if (isReference(left)) {
       // T can always be null if it's a reference, emit a runtime check for it regardless of type
-      if (i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == 0)) {
+      if (
+        i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == 0)
+      ) {
         return Reflect.FAILED_MATCH;
       }
     }
@@ -427,16 +429,18 @@ export class Reflect {
   }
 }
 
-function referencesEqual<T>(left: T, right: T, stack: usize[], cache: usize[]): i32 {
+function referencesEqual<T>(
+  left: T,
+  right: T,
+  stack: usize[],
+  cache: usize[],
+): i32 {
   let a = changetype<usize>(left);
   let b = changetype<usize>(right);
 
   let cacheLength = cache.length;
   // must be EVEN or there's a big problem
-  assert(
-    i32((cacheLength & 0x00000001) == 0),
-    "cacheLength should be even",
-  );
+  assert(i32((cacheLength & 0x00000001) == 0), "cacheLength should be even");
 
   // short circuit for strings
   if (left instanceof String) {
@@ -650,7 +654,6 @@ function referencesEqual<T>(left: T, right: T, stack: usize[], cache: usize[]): 
   stack.pop();
   return select(Reflect.SUCCESSFUL_MATCH, Reflect.FAILED_MATCH, result);
 }
-
 
 export namespace Reflect {
   /**

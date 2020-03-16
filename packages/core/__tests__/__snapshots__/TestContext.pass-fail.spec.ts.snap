@@ -526,7 +526,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: before
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: decrements 1`] = `18`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: decrements 1`] = `20`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: expected 1`] = `
 ReflectedValue {
@@ -552,7 +552,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: expect
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: frees 1`] = `10`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: increments 1`] = `19`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: increments 1`] = `21`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: message 1`] = `""`;
 
@@ -732,7 +732,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: b
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: decrements 1`] = `40`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: decrements 1`] = `44`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: expected 1`] = `
 ReflectedValue {
@@ -816,7 +816,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: e
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: frees 1`] = `16`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: increments 1`] = `47`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: increments 1`] = `51`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: message 1`] = `""`;
 
@@ -1454,7 +1454,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: decrements 1`] = `18`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: decrements 1`] = `20`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: expected 1`] = `
 ReflectedValue {
@@ -1480,7 +1480,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: frees 1`] = `10`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: increments 1`] = `19`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: increments 1`] = `21`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: message 1`] = `""`;
 
@@ -1984,7 +1984,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: decrements 1`] = `70`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: decrements 1`] = `74`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: expected 1`] = `
 ReflectedValue {
@@ -2120,7 +2120,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: frees 1`] = `19`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: increments 1`] = `75`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: increments 1`] = `79`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: message 1`] = `""`;
 
@@ -2356,7 +2356,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: decrements 1`] = `40`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: decrements 1`] = `44`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: expected 1`] = `
 ReflectedValue {
@@ -2434,7 +2434,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: frees 1`] = `16`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: increments 1`] = `47`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: increments 1`] = `51`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: message 1`] = `""`;
 

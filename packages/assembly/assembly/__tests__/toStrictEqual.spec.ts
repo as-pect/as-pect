@@ -1086,7 +1086,10 @@ describe("ArrayLike", () => {
   test("two classes with length don't get compared like arrays", () => {
     let a = new NotArrayLike(42);
     let b = new NotArrayLike(42);
-    expect(a).toStrictEqual(b, "No compile time error, and compared like regular classes");
+    expect(a).toStrictEqual(
+      b,
+      "No compile time error, and compared like regular classes",
+    );
   });
 });
 

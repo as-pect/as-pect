@@ -3,11 +3,7 @@
 declare function logReflectedValue(id: i32): void;
 
 class Vec3 {
-  public constructor(
-    public x: f32 = 0,
-    public y: f32 = 0,
-    public z: f32 = 0,
-  ) {}
+  public constructor(public x: f32 = 0, public y: f32 = 0, public z: f32 = 0) {}
 }
 
 describe("examples", () => {

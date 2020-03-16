@@ -3,8 +3,8 @@
 exports[`snapshots: onFinish assembly/jest-reporter.ts 1`] = `
 "
    [Error]: ReflectedValue Cannot log ReflectedValue of id -1. Index out of bounds.
-   [Stack]:     at start:assembly/jest-reporter-fail~anonymous|0~anonymous|3 (wasm-function[63]:0x16f5)
-               at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x334f)
+   [Stack]:     at start:assembly/jest-reporter-fail~anonymous|0~anonymous|3 (wasm-function[63]:0x16f9)
+               at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x33cc)
     [File]: assembly/jest-reporter.ts RTrace: +10
   [Groups]: 2 pass, 2 total
   [Result]: ✖ FAIL
@@ -29,10 +29,10 @@ exports[`snapshots: onGroupStart examples 1`] = `
 "[Describe]: examples
 
      [Log]: \\"testing in a group\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[41]:0x11d5)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[61]:0x16de)
-            at start:assembly/jest-reporter-fail~anonymous|0 (wasm-function[123]:0x3321)
-            at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x334f)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[41]:0x11d9)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[61]:0x16e2)
+            at start:assembly/jest-reporter-fail~anonymous|0 (wasm-function[125]:0x339e)
+            at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x33cc)
 "
 `;
 
@@ -49,10 +49,10 @@ exports[`snapshots: onTestFinish examples example 1 2`] = `
 exports[`snapshots: onTestFinish examples log value 1`] = `
 " [Success]: ✔ log value
      [Log]: \\"testing in a test\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[41]:0x11d5)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[61]:0x16de)
-            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|2 (wasm-function[62]:0x16ee)
-            at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x334f)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[41]:0x11d9)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[61]:0x16e2)
+            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|2 (wasm-function[62]:0x16f2)
+            at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x33cc)
 "
 `;
 
@@ -67,10 +67,10 @@ exports[`snapshots: onTestFinish examples something fails 1`] = `
 [Expected]: 42
  [Message]: Here is an example failure message.
    [Stack]: RuntimeError: unreachable
-            at ../assembly/assembly/internal/assert/assert (wasm-function[44]:0x1232)
-            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[47]:0x127a)
-            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|4 (wasm-function[64]:0x1707)
-            at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x334f)
+            at ../assembly/assembly/internal/assert/assert (wasm-function[44]:0x1236)
+            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[47]:0x127e)
+            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|4 (wasm-function[64]:0x170b)
+            at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x33cc)
 "
 `;
 
@@ -80,15 +80,15 @@ exports[`snapshots: onTestFinish examples something negated fails 1`] = `
 [Expected]: Not 42
  [Message]: 42 is 42
    [Stack]: RuntimeError: unreachable
-            at ../assembly/assembly/internal/assert/assert (wasm-function[44]:0x1232)
-            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[47]:0x127a)
-            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|7 (wasm-function[99]:0x2ab2)
-            at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x334f)
+            at ../assembly/assembly/internal/assert/assert (wasm-function[44]:0x1236)
+            at ../assembly/assembly/internal/Expectation/Expectation<i32>#toBe (wasm-function[47]:0x127e)
+            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|7 (wasm-function[100]:0x2af3)
+            at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x33cc)
      [Log]: \\"another string\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[41]:0x11d5)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[61]:0x16de)
-            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|7 (wasm-function[99]:0x2aa1)
-            at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x334f)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[41]:0x11d9)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[61]:0x16e2)
+            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|7 (wasm-function[100]:0x2ae2)
+            at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x33cc)
 "
 `;
 
@@ -102,10 +102,10 @@ exports[`snapshots: onTestFinish examples something using toBe fails with a refe
 [Expected]: \\"Serializes to same value.\\"
  [Message]: not the same pointer
    [Stack]: RuntimeError: unreachable
-            at ../assembly/assembly/internal/assert/assert (wasm-function[44]:0x1232)
-            at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-reporter-fail/Vec3>#toBe (wasm-function[120]:0x326b)
-            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|8 (wasm-function[121]:0x32b3)
-            at ../assembly/assembly/internal/call/__call (wasm-function[126]:0x334f)
+            at ../assembly/assembly/internal/assert/assert (wasm-function[44]:0x1236)
+            at ../assembly/assembly/internal/Expectation/Expectation<assembly/jest-reporter-fail/Vec3>#toBe (wasm-function[122]:0x32e8)
+            at start:assembly/jest-reporter-fail~anonymous|0~anonymous|8 (wasm-function[123]:0x3330)
+            at ../assembly/assembly/internal/call/__call (wasm-function[128]:0x33cc)
 "
 `;
 
