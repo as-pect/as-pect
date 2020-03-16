@@ -650,7 +650,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7488,
+  "pointer": 7360,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -666,7 +666,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7920,
+      "pointer": 7664,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -683,7 +683,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7920,
+      "pointer": 7664,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -700,7 +700,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7920,
+      "pointer": 7664,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -732,7 +732,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: b
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: decrements 1`] = `36`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: decrements 1`] = `40`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: expected 1`] = `
 ReflectedValue {
@@ -742,7 +742,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7584,
+  "pointer": 7456,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -758,7 +758,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7920,
+      "pointer": 7664,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -775,7 +775,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7920,
+      "pointer": 7664,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -792,7 +792,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7920,
+      "pointer": 7664,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -814,7 +814,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: e
   ]"
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: frees 1`] = `12`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: frees 1`] = `16`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: increments 1`] = `47`;
 
@@ -836,7 +836,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8336,
+  "pointer": 7952,
   "signed": false,
   "size": 1,
   "stack": "Has Stack Trace",
@@ -870,7 +870,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8336,
+  "pointer": 7952,
   "signed": false,
   "size": 1,
   "stack": "Has Stack Trace",
@@ -1142,7 +1142,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8528,
+  "pointer": 8144,
   "signed": false,
   "size": 1,
   "stack": "Has Stack Trace",
@@ -1238,7 +1238,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8560,
+  "pointer": 8176,
   "signed": true,
   "size": 8,
   "stack": "Has Stack Trace",
@@ -1308,7 +1308,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8592,
+  "pointer": 8208,
   "signed": true,
   "size": 8,
   "stack": "Has Stack Trace",
@@ -1500,7 +1500,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8272,
+  "pointer": 7888,
   "signed": true,
   "size": 8,
   "stack": "Has Stack Trace",
@@ -1534,7 +1534,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8272,
+  "pointer": 7888,
   "signed": true,
   "size": 8,
   "stack": "Has Stack Trace",
@@ -1570,7 +1570,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8496,
+  "pointer": 8112,
   "signed": false,
   "size": 1,
   "stack": "Has Stack Trace",
@@ -1640,7 +1640,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8432,
+  "pointer": 8048,
   "signed": false,
   "size": 1,
   "stack": "Has Stack Trace",
@@ -1780,7 +1780,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7568,
+  "pointer": 7440,
   "signed": true,
   "size": 4,
   "stack": "Has Stack Trace",
@@ -1814,7 +1814,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7568,
+  "pointer": 7440,
   "signed": true,
   "size": 4,
   "stack": "Has Stack Trace",
@@ -1918,7 +1918,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7568,
+      "pointer": 7440,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1935,7 +1935,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7568,
+      "pointer": 7440,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1952,7 +1952,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7568,
+      "pointer": 7440,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1984,7 +1984,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: decrements 1`] = `66`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: decrements 1`] = `70`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: expected 1`] = `
 ReflectedValue {
@@ -2062,7 +2062,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7568,
+      "pointer": 7440,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2079,7 +2079,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7568,
+      "pointer": 7440,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2096,7 +2096,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7568,
+      "pointer": 7440,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2118,7 +2118,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0
   }"
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: frees 1`] = `15`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: frees 1`] = `19`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: increments 1`] = `75`;
 
@@ -2210,7 +2210,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8464,
+  "pointer": 8080,
   "signed": false,
   "size": 1,
   "stack": "Has Stack Trace",
@@ -2280,7 +2280,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7776,
+  "pointer": 7520,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -2296,7 +2296,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8240,
+      "pointer": 7856,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2313,7 +2313,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8240,
+      "pointer": 7856,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2330,7 +2330,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8240,
+      "pointer": 7856,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2356,7 +2356,7 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: decrements 1`] = `36`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: decrements 1`] = `40`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: expected 1`] = `
 ReflectedValue {
@@ -2366,7 +2366,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7856,
+  "pointer": 7600,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -2382,7 +2382,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8240,
+      "pointer": 7856,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2399,7 +2399,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8240,
+      "pointer": 7856,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2416,7 +2416,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8240,
+      "pointer": 7856,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2432,7 +2432,7 @@ ReflectedValue {
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: expected-stringify 1`] = `"  class: Float64Array [ number: 4.4, number: 5.5, number: 6.6 ]"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: frees 1`] = `12`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: frees 1`] = `16`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: increments 1`] = `47`;
 
@@ -2454,7 +2454,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8304,
+  "pointer": 7920,
   "signed": false,
   "size": 4,
   "stack": "Has Stack Trace",
@@ -2488,7 +2488,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8304,
+  "pointer": 7920,
   "signed": false,
   "size": 4,
   "stack": "Has Stack Trace",
