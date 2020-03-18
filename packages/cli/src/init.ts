@@ -52,7 +52,9 @@ export function init(wasi: boolean = false) {
     );
   }
 
-  const configFileName: string = wasi ? "as-pect.wasi.config.js" : "as-pect.config.js";
+  const configFileName: string = wasi
+    ? "as-pect.wasi.config.js"
+    : "as-pect.config.js";
   // create the default configuration file
   const configFile = join(process.cwd(), configFileName);
   const configFileSource = join(__dirname, `../init/${configFileName}`);

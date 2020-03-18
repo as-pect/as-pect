@@ -484,7 +484,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
       const memory = new WebAssembly.Memory(memoryDescriptor);
 
-      let wasm: ResultObject & { exports: ASUtil & IAspectExports; };
+      let wasm: ResultObject & { exports: ASUtil & IAspectExports };
 
       if (typeof configurationImports === "function") {
         const createImports = runner.createImports.bind(runner, {

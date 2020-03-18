@@ -5,7 +5,6 @@ export interface ResultObject {
   instance: WebAssembly.Instance;
 }
 
-
 /** Utility mixed in by the loader. */
 export interface ASUtil {
   memory?: WebAssembly.Memory;

@@ -9,7 +9,7 @@ import { EmptyReporter } from "../../src/reporter/EmptyReporter";
 import { IAspectExports } from "../../src/util/IAspectExports";
 
 interface ICreateModuleCallbackResult {
-  wasm: ResultObject & { exports: ASUtil & IAspectExports; };
+  wasm: ResultObject & { exports: ASUtil & IAspectExports };
   context: TestContext;
 }
 
@@ -23,7 +23,7 @@ export function createTestGroupFilterModule(
   callback: TestContextCallback,
 ): void {
   let context: TestContext;
-  let wasm: ResultObject & { exports: ASUtil & IAspectExports; };
+  let wasm: ResultObject & { exports: ASUtil & IAspectExports };
 
   main(
     [

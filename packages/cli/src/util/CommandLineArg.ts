@@ -193,7 +193,8 @@ const _Args: CommandLineArgs = {
   },
 
   initWasi: {
-    description: "Create a test config for use with wasi, an assembly/__tests__ folder and exit.",
+    description:
+      "Create a test config for use with wasi, an assembly/__tests__ folder and exit.",
     type: "b",
     value: false,
   },
