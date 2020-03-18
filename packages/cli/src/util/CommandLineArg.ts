@@ -51,7 +51,6 @@ export interface ICommandLineArg {
 export interface Options {
   [key: string]: ArgValue;
   init: boolean;
-  initWasi: boolean;
   config: string;
   version: boolean;
   help: boolean;
@@ -189,13 +188,6 @@ const _Args: CommandLineArgs = {
     description: "Create a test config, an assembly/__tests__ folder and exit.",
     type: "b",
     alias: { name: "i" },
-    value: false,
-  },
-
-  initWasi: {
-    description:
-      "Create a test config for use with wasi, an assembly/__tests__ folder and exit.",
-    type: "b",
     value: false,
   },
 

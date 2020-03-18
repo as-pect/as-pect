@@ -41,10 +41,10 @@ export function asp(args: string[]) {
   if (cliOptions.types) {
     const types = require("./types").types;
     types();
-  } else if (cliOptions.init || cliOptions.initWasi) {
+  } else if (cliOptions.init) {
     const init = require("./init").init;
     // init script
-    init(cliOptions.initWasi);
+    init();
   } else if (cliOptions.version) {
     // display the version
     console.log(pkg.version);
