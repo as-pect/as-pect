@@ -20,11 +20,9 @@
 		"rimraf": "rimraf lib/*",
 		"test:ci": "jest",
 		"test": "jest",
-		"tsc:all": "run-p tsc:default tsc:amd",
-		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
-		"tsc:default": "tsc",
 		"test:update-snapshots": "jest -u",
-		"tsc": "run-s rimraf tsc:all"
+		"tsc:default": "tsc",
+		"tsc": "run-s rimraf tsc:default"
 	},
 	"bugs": {
 		"url": "https://github.com/jtenner/aspect/issues"
@@ -41,7 +39,7 @@
 		"lib/"
 	],
 	"peerDependencies": {
-		"assemblyscript": "^0.9.4"
+		"assemblyscript": "0.9.4-nightly.20200316"
 	},
 	"devDependencies": {
 		"jest": "^25.1.0",
