@@ -8,7 +8,7 @@ import { join } from "path";
  * This method initializes a new test project. It is opinionated and reflects the needs of 99% of
  * AssemblyScript developers following the standard way of creating a new AssemblyScript project.
  */
-export function init() {
+export function init(wasi: boolean = false) {
   const assemblyFolder = join(process.cwd(), "assembly");
   const testFolder = join(assemblyFolder, "__tests__");
   const typesFileSource = require.resolve("@as-pect/cli/init/init-types.d.ts");
@@ -51,12 +51,16 @@ export function init() {
       createWriteStream(typesFile, "utf-8"),
     );
   }
+
+  const configFileName: string = wasi
+    ? "as-pect.wasi.config.js"
+    : "as-pect.config.js";
   // create the default configuration file
-  const configFile = join(process.cwd(), "as-pect.config.js");
-  const configFileSource = join(__dirname, "../init/as-pect.config.js");
+  const configFile = join(process.cwd(), configFileName);
+  const configFileSource = join(__dirname, `../init/${configFileName}`);
   if (!existsSync(configFile)) {
     console.log(
-      chalk`{bgWhite.black [Log]} Creating file: {yellow ./as-pect.config.js}`,
+      chalk`{bgWhite.black [Log]} Creating file: {yellow ./${configFileName}}`,
     );
     createReadStream(configFileSource, "utf-8").pipe(
       createWriteStream(configFile, "utf-8"),

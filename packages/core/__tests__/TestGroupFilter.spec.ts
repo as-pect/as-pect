@@ -1,11 +1,11 @@
 import { TestContext } from "../src/test/TestContext";
 import { createTestGroupFilterModule } from "./setup/createTestGroupFilterModule";
-import { ASUtil } from "assemblyscript/lib/loader";
+import { ASUtil, ResultObject } from "assemblyscript/lib/loader";
 import { IAspectExports } from "../src/util/IAspectExports";
 import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 
 let context: TestContext;
-let wasm: ASUtil & IAspectExports;
+let wasm: ResultObject & { exports: ASUtil & IAspectExports };
 
 beforeEach(() => {
   return new Promise((resolve, reject) => {
