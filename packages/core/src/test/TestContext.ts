@@ -16,7 +16,6 @@ import {
   SnapshotDiff,
 } from "@as-pect/snapshots";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
-import { ResultObject, ASUtil } from "./loader";
 
 const id = (a: string) => a;
 
@@ -62,7 +61,7 @@ export interface ITestContextParameters {
 /** This class is responsible for collecting and running all the tests in a test binary. */
 export class TestContext {
   /** The web assembly module if it was set. */
-  protected wasm: (ASUtil & IAspectExports) | null = null;
+  protected wasm: IAspectExports | null = null;
 
   /** The name section for function name evaluation. */
   protected nameSection: NameSection | null = null;
@@ -201,11 +200,9 @@ export class TestContext {
    * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
    * process of test collection and evaluation.
    */
-  public run<T extends IAspectExports>(
-    wasm: ResultObject & { exports: ASUtil & T },
-  ): void {
+  public run(wasm: IAspectExports): void {
     // set the wasm
-    this.wasm = wasm.exports;
+    this.wasm = wasm;
 
     // start by visiting the root node
     this.visit(this.rootNode);

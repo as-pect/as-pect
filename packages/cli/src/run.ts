@@ -18,7 +18,7 @@ import { ICommand } from "./worklets/ICommand";
 import { timeDifference } from "@as-pect/core/lib/util/timeDifference";
 import { Snapshot, SnapshotDiffResultType } from "@as-pect/snapshots";
 import { removeFile } from "./util/removeFile";
-import { ResultObject, ASUtil } from "@as-pect/core/lib/test/loader";
+
 /**
  * @ignore
  * This method actually runs the test suites in sequential order synchronously.
@@ -484,7 +484,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
       const memory = new WebAssembly.Memory(memoryDescriptor);
 
-      let wasm: ResultObject & { exports: ASUtil & IAspectExports };
+      let wasm: IAspectExports;
 
       if (typeof configurationImports === "function") {
         const createImports = runner.createImports.bind(runner, {
