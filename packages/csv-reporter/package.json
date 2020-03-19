@@ -5,9 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "tsc:all": "run-p tsc:default tsc:amd",
-    "tsc:amd": "tsc --outfile lib/as-pect.csv-reporter.amd.js --module amd --declaration --declarationMap",
-    "tsc:default": "tsc",
+    "tsc": "tsc",
     "test": "exit 0"
   },
   "repository": {

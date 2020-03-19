@@ -9,9 +9,8 @@
     "test": "jest",
     "test:ci": "jest",
     "test:update-snapshots": "jest -u",
-    "tsc:all": "run-s rimraf nearley tsc:default tsc:amd",
-    "tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
-    "tsc:default": "tsc"
+    "tsc:default": "tsc",
+    "tsc": "run-s rimraf nearley tsc:default"
   },
   "keywords": [
     "snapshots",
