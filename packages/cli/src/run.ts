@@ -8,7 +8,7 @@ import {
   IWarning,
   IReporter,
 } from "@as-pect/core";
-import { IConfiguration, ICompilerFlags } from "./util/IConfiguration";
+import { AspectConfiguration, CompilerFlags } from "./util/AspectConfiguration";
 import glob from "glob";
 import { collectReporter } from "./util/collectReporter";
 import { getTestEntryFiles } from "./util/getTestEntryFiles";
@@ -151,7 +151,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     chalk`{bgWhite.black [Log]} Using configuration {yellow ${configurationPath}}`,
   );
 
-  let configuration: IConfiguration = {};
+  let configuration: AspectConfiguration = {};
 
   try {
     configuration = require(configurationPath) || {};
@@ -194,7 +194,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   }
 
   // Create the compiler flags
-  const flags: ICompilerFlags = Object.assign({}, configuration.flags, {
+  const flags: CompilerFlags = Object.assign({}, configuration.flags, {
     "--validate": [],
     "--debug": [],
     "--binaryFile": ["output.wasm"],

@@ -3,7 +3,7 @@ import { IReporter } from "@as-pect/core";
 /**
  * This is the shape of the compiler flags.
  */
-export interface ICompilerFlags {
+export interface CompilerFlags {
   [flag: string]: string[];
 }
 
@@ -11,7 +11,7 @@ export interface ICompilerFlags {
  * This is an interface describing the shape of an exported configuration for the
  * `as-pect.config.js` file. An empty object should be a valid `as-pect` configuration.
  */
-export interface IConfiguration {
+export interface AspectConfiguration {
   [key: string]: any;
   /**
    * A set of globs that denote files that must be used for testing.
@@ -24,7 +24,7 @@ export interface IConfiguration {
   /**
    * The compiler flags needed for this test suite. Do not forget that a binary file must be output.
    */
-  flags?: ICompilerFlags;
+  flags?: CompilerFlags;
   /**
    * A set of regular expressions that are tested against the file names. If they match, the
    * files will be discluded.
@@ -68,7 +68,9 @@ export interface IConfiguration {
     /** An array of strings that the WebAssembly application will see as command line arguments. The first argument is the virtual path to the WASI command itself. Default: []. */
     args: string[];
     /** An object similar to process.env that the WebAssembly application will see as its environment. Default: {}. */
-    env: any;
+    env: {
+      [envVar: string]: string; // value
+    };
     /** This object represents the WebAssembly application's sandbox directory structure. The string keys of preopens are treated as directories within the sandbox. The corresponding values in preopens are the real paths to those directories on the host machine. */
     preopens: {
       [virtualPath: string]: string;

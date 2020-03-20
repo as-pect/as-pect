@@ -1,5 +1,4 @@
 import { IAspectExports } from "../util/IAspectExports";
-
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
 import { NameSection } from "../util/wasmTools";
