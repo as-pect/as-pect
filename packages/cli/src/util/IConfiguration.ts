@@ -64,7 +64,7 @@ export interface IConfiguration {
    */
   memoryMax?: number;
   /** A wasi configuration. */
-  wasi?:  {
+  wasi?: {
     /** An array of strings that the WebAssembly application will see as command line arguments. The first argument is the virtual path to the WASI command itself. Default: []. */
     args: string[];
     /** An object similar to process.env that the WebAssembly application will see as its environment. Default: {}. */
@@ -75,5 +75,5 @@ export interface IConfiguration {
     };
     /** By default, WASI applications terminate the Node.js process via the __wasi_proc_exit() function. Setting this option to true causes wasi.start() to return the exit code rather than terminate the process. Default: false */
     returnOnExit: boolean;
-  }
+  };
 }
