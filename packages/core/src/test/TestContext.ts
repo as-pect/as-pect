@@ -569,7 +569,7 @@ export class TestContext {
 
     /** Add support for wasi if requested. */
     if (this.wasi) {
-      finalImports.wasi_snapshot_preview1 = this.wasi.wasiImports;
+      finalImports.wasi_snapshot_preview1 = this.wasi.wasiImport;
     }
 
     return finalImports;
