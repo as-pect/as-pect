@@ -72,7 +72,7 @@ export interface AspectConfiguration {
       [envVar: string]: string; // value
     };
     /** This object represents the WebAssembly application's sandbox directory structure. The string keys of preopens are treated as directories within the sandbox. The corresponding values in preopens are the real paths to those directories on the host machine. */
-    preopens?: {
+    preopens: {
       [virtualPath: string]: string;
     };
     /** By default, WASI applications terminate the Node.js process via the __wasi_proc_exit() function. Setting this option to true causes wasi.start() to return the exit code rather than terminate the process. Default: false */
