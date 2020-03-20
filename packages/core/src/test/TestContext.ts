@@ -57,6 +57,8 @@ export interface ITestContextParameters {
   reporter: IReporter;
   /** The expected snapshot output. */
   snapshots?: Snapshot;
+  /** Wasi parameters. */
+  wasi?: any;
 }
 
 /** This class is responsible for collecting and running all the tests in a test binary. */
@@ -155,6 +157,12 @@ export class TestContext {
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
 
+  /** An indicator that wasi should be used. */
+  private wasi: any = null;
+
+  /** The web assembly instance for wasi. */
+  private instance: WebAssembly.Instance | null = null;
+
   constructor(props: ITestContextParameters) {
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
@@ -164,6 +172,17 @@ export class TestContext {
     /* istanbul ignore next */
     if (props.nortrace) this.rtraceEnabled = false;
     if (props.binary) this.nameSection = new NameSection(props.binary);
+    /* istanbul ignore next */
+    if (props.wasi) {
+      /* istanbul ignore next */
+      const { WASI } = require("wasi");
+      /* istanbul ignore next */
+      const v8 = require("v8");
+      /* istanbul ignore next */
+      v8.setFlagsFromString("--experimental-wasi-unstable-preview1 --experimental-wasm-bigint");
+      /* istanbul ignore next */
+      this.wasi = new WASI(props.wasi);
+    }
 
     this.expectedSnapshots = props.snapshots ? props.snapshots : new Snapshot();
 
@@ -206,7 +225,7 @@ export class TestContext {
   ): void {
     // set the wasm
     this.wasm = wasm.exports;
-
+    this.instance = wasm.instance;
     // start by visiting the root node
     this.visit(this.rootNode);
 
@@ -237,71 +256,109 @@ export class TestContext {
     this.reporter.onFinish(this);
   }
 
-  /** Visit a node and evaluate it's children. */
-  protected visit(node: TestNode): void {
-    // validate this node will run
-    if (node !== this.rootNode) {
-      const regexTester =
-        node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
-      if (!regexTester.test(node.name)) return;
+/** Visit a node and evaluate it's children. */
+protected visit(node: TestNode): void {
+  // validate this node will run
+  if (node !== this.rootNode) {
+    const regexTester =
+      node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
+    if (!regexTester.test(node.name)) return;
+  }
+
+  // this node is being tested for sure
+  node.ran = true;
+  if (node.type === TestNodeType.Group) {
+    this.groupRunCount += 1;
+  } else {
+    this.testRunCount += 1;
+  }
+
+  // set the start timer for this node
+  node.start = performance.now();
+
+  // set the rtraceStart value
+  node.rtraceStart = this.blocks.size;
+
+  // set the target node for collection
+  this.targetNode = node;
+
+  // in the case of a throws() test
+  if (node.negated) {
+    const success = this.tryCall(node.callback) === 0; // we want the value to be 0
+    this.reporter.onEnter(this, node);
+    if (success) {
+      node.message = null;
+      node.stackTrace = null;
+      node.pass = true;
+      node.actual = null;
+      node.expected = null;
     }
+    node.end = performance.now();
+    this.addResult(node, success);
+    this.reporter.onExit(this, node);
+    return;
+  }
 
-    // this node is being tested for sure
-    node.ran = true;
-    if (node.type === TestNodeType.Group) {
-      this.groupRunCount += 1;
-    } else {
-      this.testRunCount += 1;
-    }
-
-    // set the start timer for this node
-    node.start = performance.now();
-
-    // set the rtraceStart value
-    node.rtraceStart = this.blocks.size;
-
-    // set the target node for collection
-    this.targetNode = node;
-
-    // in the case of a throws() test
-    if (node.negated) {
-      const success = this.tryCall(node.callback) === 0; // we want the value to be 0
-      this.reporter.onEnter(this, node);
-      if (success) {
-        node.message = null;
-        node.stackTrace = null;
-        node.pass = true;
-        node.actual = null;
-        node.expected = null;
+  // perform test collection and evaluate the node, each node must set pass to `true` if it passes
+  if (node === this.rootNode) {
+    try {
+      /* istanbul ignore next */
+      if (this.wasi) {
+        /* istanbul ignore next */
+        this.wasi.start(this.instance);
+        /* istanbul ignore next */
+      } else {
+        // collect all the top level function pointers, tests, groups, and logs
+        this.wasm!._start();
       }
+    } catch (ex) {
+      this.reporter.onEnter(this, node);
+      /**
+       * If this catch occurs, the entire test suite is completed.
+       * This is a sanity check.
+       */
       node.end = performance.now();
-      this.addResult(node, success);
+      this.addResult(node, false);
       this.reporter.onExit(this, node);
       return;
     }
+  } else {
+    // gather all the tests and groups, validate program state at this level
+    const success = this.tryCall(node.callback) === 1;
+    this.reporter.onEnter(this, node);
+    if (!success) {
+      // collection or test failure, stop traversal of this node
+      this.collectStatistics(node);
+      this.addResult(node, false);
+      this.reporter.onExit(this, node);
+      return;
+    }
+  }
 
-    // perform test collection and evaluate the node, each node must set pass to `true` if it passes
-    if (node === this.rootNode) {
-      try {
-        // collect all the top level function pointers, tests, groups, and logs
-        this.wasm!._start();
-      } catch (ex) {
-        this.reporter.onEnter(this, node);
-        /**
-         * If this catch occurs, the entire test suite is completed.
-         * This is a sanity check.
-         */
-        node.end = performance.now();
-        this.addResult(node, false);
-        this.reporter.onExit(this, node);
-        return;
-      }
-    } else {
-      // gather all the tests and groups, validate program state at this level
-      const success = this.tryCall(node.callback) === 1;
-      this.reporter.onEnter(this, node);
-      if (!success) {
-        // collection or test failure, stop traversal of this node
+  // Errors can occur at any level before you visit them, even if nothing was thrown
+  if (node.errors.length > 0) {
+    this.collectStatistics(node);
+    this.addResult(node, false);
+    this.reporter.onExit(this, node);
+    return;
+  }
+
+  // We now have the responsibility to run each beforeAll callback before traversing children
+  if (!this.runFunctions(node.beforeAll)) {
+    this.collectStatistics(node);
+    this.addResult(node, false);
+    this.reporter.onExit(this, node);
+    return;
+  }
+
+  // now that the tests have been collected and the beforeAll has run, visit each child
+  const children = node.children;
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
+
+    // in the context of running a test, run the beforeEach functions
+    if (child.type === TestNodeType.Test) {
+      if (!this.runBeforeEach(node)) {
         this.collectStatistics(node);
         this.addResult(node, false);
         this.reporter.onExit(this, node);
@@ -309,68 +366,38 @@ export class TestContext {
       }
     }
 
-    // Errors can occur at any level before you visit them, even if nothing was thrown
-    if (node.errors.length > 0) {
-      this.collectStatistics(node);
-      this.addResult(node, false);
-      this.reporter.onExit(this, node);
-      return;
-    }
+    // now we can visit the child
+    this.visit(child);
 
-    // We now have the responsibility to run each beforeAll callback before traversing children
-    if (!this.runFunctions(node.beforeAll)) {
-      this.collectStatistics(node);
-      this.addResult(node, false);
-      this.reporter.onExit(this, node);
-      return;
-    }
-
-    // now that the tests have been collected and the beforeAll has run, visit each child
-    const children = node.children;
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
-
-      // in the context of running a test, run the beforeEach functions
-      if (child.type === TestNodeType.Test) {
-        if (!this.runBeforeEach(node)) {
-          this.collectStatistics(node);
-          this.addResult(node, false);
-          this.reporter.onExit(this, node);
-          return;
-        }
-      }
-
-      // now we can visit the child
-      this.visit(child);
-
-      // in the context of running a test, run the afterEach functions
-      if (child.type === TestNodeType.Test) {
-        if (!this.runAfterEach(node)) {
-          this.collectStatistics(node);
-          this.addResult(node, false);
-          this.reporter.onExit(this, node);
-          return;
-        }
+    // in the context of running a test, run the afterEach functions
+    if (child.type === TestNodeType.Test) {
+      if (!this.runAfterEach(node)) {
+        this.collectStatistics(node);
+        this.addResult(node, false);
+        this.reporter.onExit(this, node);
+        return;
       }
     }
-
-    // We now have the responsibility to run each afterAll callback after traversing children
-    if (!this.runFunctions(node.afterAll)) {
-      this.collectStatistics(node);
-      this.addResult(node, false);
-      this.reporter.onExit(this, node);
-      return;
-    }
-
-    // if any children failed, this node failed too, but assume it passes
-    node.pass = node.children.reduce(
-      (pass: boolean, node: TestNode) => pass && node.pass,
-      true,
-    );
-    node.end = performance.now();
-    this.addResult(node, true);
-    this.reporter.onExit(this, node);
   }
+
+  // We now have the responsibility to run each afterAll callback after traversing children
+  if (!this.runFunctions(node.afterAll)) {
+    this.collectStatistics(node);
+    this.addResult(node, false);
+    this.reporter.onExit(this, node);
+    return;
+  }
+
+  // if any children failed, this node failed too, but assume it passes
+  node.pass = node.children.reduce(
+    (pass: boolean, node: TestNode) => pass && node.pass,
+    true,
+  );
+  node.end = performance.now();
+  this.addResult(node, true);
+  this.reporter.onExit(this, node);
+}
+
 
   /** Report a TestNode */
   private reportTestNode(
@@ -539,6 +566,11 @@ export class TestContext {
     };
     /** Override trace completely. */
     finalImports.env.trace = this.trace.bind(this);
+
+    /** Add support for wasi if requested. */
+    if (this.wasi) {
+      finalImports.wasi_snapshot_preview1 = this.wasi.wasiImports;
+    }
 
     return finalImports;
   }

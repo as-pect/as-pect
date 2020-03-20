@@ -463,6 +463,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         snapshots: fs.existsSync(snapshotsLocation)
           ? Snapshot.parse(fs.readFileSync(snapshotsLocation, "utf8"))
           : new Snapshot(),
+        wasi: configuration.wasi || null,
       });
 
       // detect custom imports

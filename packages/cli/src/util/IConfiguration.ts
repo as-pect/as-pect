@@ -63,4 +63,17 @@ export interface IConfiguration {
    * WASM Memory max size in pages 64kb. Should be positive. Default is disabled or -1.
    */
   memoryMax?: number;
+  /** A wasi configuration. */
+  wasi?:  {
+    /** An array of strings that the WebAssembly application will see as command line arguments. The first argument is the virtual path to the WASI command itself. Default: []. */
+    args: string[];
+    /** An object similar to process.env that the WebAssembly application will see as its environment. Default: {}. */
+    env: any;
+    /** This object represents the WebAssembly application's sandbox directory structure. The string keys of preopens are treated as directories within the sandbox. The corresponding values in preopens are the real paths to those directories on the host machine. */
+    preopens: {
+      [virtualPath: string]: string;
+    };
+    /** By default, WASI applications terminate the Node.js process via the __wasi_proc_exit() function. Setting this option to true causes wasi.start() to return the exit code rather than terminate the process. Default: false */
+    returnOnExit: boolean;
+  }
 }
