@@ -194,4 +194,17 @@ describe("toBe", () => {
     },
     "Function references that should not match, but do, should throw when they are equal.",
   );
+
+  if (ASC_FEATURE_SIMD) {
+    test("v128 toBe equality", () => {
+      expect<v128>(v128(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16))
+        .toBe(v128(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), "v128 values should equal")
+    });
+
+    throws("v128 toBe equality", () => {
+      expect<v128>(v128(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16))
+        .not
+        .toBe(v128(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16))
+    }, "v128 values should equal");
+  }
 });

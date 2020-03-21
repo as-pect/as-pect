@@ -1,3 +1,6 @@
+const v8 = require("v8");
+v8.setFlagsFromString("–-experimental-wasm-simd");
+
 module.exports = {
   /**
    * A set of globs passed to the glob package that qualify typescript files for testing.
@@ -15,6 +18,7 @@ module.exports = {
     "--textFile": ["output.wat"],
     /** To select an appropriate runtime, use the --runtime compiler flag. */
     "--runtime": ["full"], // Acceptable values are: full, half, stub (arena), and none
+    "--enable": ["simd"]
   },
   /**
    * A set of regexp that will disclude source files from testing.

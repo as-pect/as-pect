@@ -23,14 +23,24 @@ export class Expectation<T> {
   /** This is the actual value. */
   actual: T;
 
+  /** When using simd, we need to store a static array. */
+  private simd: StaticArray<u8> | null;
+
   /**
    * Construct an assertion.
    *
    * @param {T} actual - The actual value.
    */
   constructor(actual: T) {
-    this.actual = actual;
+    if (ASC_FEATURE_SIMD && actual instanceof v128) {
+      let simd = this.simd = new StaticArray<u8>(16); // 16 bytes
+      // @ts-ignore
+      v128.store(changetype<usize>(simd), actual);
+    } else {
+      this.actual = actual;
+    }
   }
+
 
   /**
    * This property negates the assertion by setting the internal _not property.
@@ -47,9 +57,16 @@ export class Expectation<T> {
    * @param {string} message - The message that describes this assertion.
    */
   public toBe(expected: T, message: string = ""): void {
-    let actual = this.actual;
-    let equals = i32(actual == expected);
     let negated = this._not;
+
+    let actual: T;
+    if (ASC_FEATURE_SIMD && expected instanceof v128) {
+      actual = v128.load(changetype<usize>(this.simd));
+    } else {
+      actual = this.actual;
+    }
+
+    let equals = i32(actual == expected);
     Actual.report(actual);
 
     if (isReference<T>() && !isFunction<T>()) {
@@ -81,12 +98,21 @@ export class Expectation<T> {
    */
   public toStrictEqual(expected: T, message: string = ""): void {
     let result = Reflect.FAILED_MATCH;
-    result = Reflect.equals(this.actual, expected);
 
-    let equals = i32(result == Reflect.SUCCESSFUL_MATCH);
-    Actual.report(this.actual);
+    // set Actual, Expected values and determine equality
+    if (ASC_FEATURE_SIMD && expected instanceof v128) {
+      let actual = v128.load(changetype<usize>(this.simd));
+      // @ts-ignore: expected is v128
+      result = Reflect.equals(actual, expected);
+      Actual.report(actual);
+    } else {
+      let actual = this.actual;
+      result = Reflect.equals(actual, expected);
+      Actual.report(actual);
+    }
     Expected.report(expected);
 
+    let equals = i32(result == Reflect.SUCCESSFUL_MATCH);
     assert(equals ^ this._not, message);
 
     Actual.clear();

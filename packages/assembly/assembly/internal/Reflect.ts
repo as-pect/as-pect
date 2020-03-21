@@ -61,8 +61,33 @@ export class Reflect {
     value: T,
     seen: Map<usize, i32> = new Map<usize, i32>(),
   ): i32 {
-    // if T is a reference
-    if (isReference<T>()) {
+
+    if (ASC_FEATURE_SIMD && value instanceof v128) {
+      let reflectedValue = createReflectedValue(
+        false,
+        false,
+        false,
+        16,
+        0,
+        false,
+        16,
+        ReflectedValueType.Array,
+        0,
+        "v128",
+        0,
+        true,
+        false,
+      );
+      for (let i = 0; i < 16; i++) {
+        __aspectPushReflectedObjectValue(
+          reflectedValue,
+          // @ts-ignore: value is v128
+          Reflect.toReflectedValue(v128.extract_lane<u8>(value, 1), seen),
+        );
+      }
+      return reflectedValue;
+      // if T is a reference
+    } else if (isReference<T>()) {
       // if the value is null, create a Null reflected value
       if (changetype<usize>(value) == 0) {
         return createReflectedValue(
