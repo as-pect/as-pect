@@ -65,3 +65,5 @@ export function asp(args: string[]) {
 if (typeof require != "undefined" && require.main == module) {
   asp(process.argv.slice(2));
 }
+
+export * from "./util/AspectConfiguration";
