@@ -14,6 +14,8 @@ declare function tryCall(func: () => void): bool;
 // @ts-ignore: Decorators *are* valid here
 @global
 export class Expectation<T> {
+  static autoRelease: usize[] = [];
+
   /**
    * This i32 is set to 1 if the expectation is negated. Using the _not (xor) condition assertion
    * makes assertions very easy to write and understand.
@@ -21,7 +23,46 @@ export class Expectation<T> {
   _not: i32 = 0;
 
   /** This is the actual value. */
-  actual: T;
+  private _actual: u64;
+
+  /** This introduces a level of indirection to prevent v128 generic properties. */
+  get actual(): T {
+    let _actual = this._actual;
+    if (ASC_FEATURE_SIMD && changetype<T>(0) instanceof v128) {
+      // @ts-ignore: T is v128
+      return v128.load(changetype<usize>(this.simd));
+    } else if (isReference<T>()) {
+      return changetype<T>(<usize>_actual);
+    } else if (isInteger<T>()){
+      // @ts-ignore: T is integer, cast is valid
+      return <T>_actual;
+    } else if (isFloat<T>()) {
+      // @ts-ignore: actual was upcast to f64 and reinterpreted as u64
+      return <T>reinterpret<f64>(_actual);
+    }
+    unreachable();
+  }
+
+  set actual(value: T) {
+    if (ASC_FEATURE_SIMD && changetype<T>(0) instanceof v128) {
+      let pointer = this.simd = new StaticArray<u8>(16);
+      // @ts-ignore: value is v128
+      v128.store(changetype<usize>(pointer), value);
+    } else if (isManaged<T>()) {
+      let pointer = __retain(changetype<usize>(value));
+      Expectation.autoRelease.push(pointer);
+      this._actual = <u64>pointer;
+    } else if (isReference<T>()) {
+      let pointer = changetype<usize>(value);
+      this._actual = <u64>pointer;
+    } else if (isFloat<T>()) {
+      // @ts-ignore: value is a float value
+      this._actual = reinterpret<u64>(<f64>value);
+    } else {
+      // @ts-ignore: value is an integer
+      this._actual = <u64>value;
+    }
+  }
 
   /** When using simd, we need to store a static array. */
   private simd: StaticArray<u8> | null;

@@ -18,7 +18,7 @@ module.exports = {
     "--textFile": ["output.wat"],
     /** To select an appropriate runtime, use the --runtime compiler flag. */
     "--runtime": ["full"], // Acceptable values are: full, half, stub (arena), and none
-    "--enable": ["simd"]
+    // "--enable": ["simd"]
   },
   /**
    * A set of regexp that will disclude source files from testing.
