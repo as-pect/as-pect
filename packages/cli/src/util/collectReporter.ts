@@ -83,7 +83,7 @@ export function collectReporter(cliOptions: Options): IReporter {
     const reporter = new SummaryReporter(
       typeof cliOptions.summary === "string"
         ? querystring.parse(cliOptions.summary || "")
-        : {},
+        : { enableLogging: true },
     );
     reporter.stdout = process.stdout;
     reporter.stderr = process.stderr;
