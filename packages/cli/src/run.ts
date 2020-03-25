@@ -8,7 +8,7 @@ import {
   IWarning,
   IReporter,
 } from "@as-pect/core";
-import { AspectConfiguration, CompilerFlags } from "./util/AspectConfiguration";
+import { IConfiguration, ICompilerFlags } from "./util/IConfiguration";
 import glob from "glob";
 import { collectReporter } from "./util/collectReporter";
 import { getTestEntryFiles } from "./util/getTestEntryFiles";
@@ -18,7 +18,7 @@ import { ICommand } from "./worklets/ICommand";
 import { timeDifference } from "@as-pect/core/lib/util/timeDifference";
 import { Snapshot, SnapshotDiffResultType } from "@as-pect/snapshots";
 import { removeFile } from "./util/removeFile";
-import { ResultObject, ASUtil } from "@as-pect/core/lib/test/loader";
+
 /**
  * @ignore
  * This method actually runs the test suites in sequential order synchronously.
@@ -151,7 +151,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     chalk`{bgWhite.black [Log]} Using configuration {yellow ${configurationPath}}`,
   );
 
-  let configuration: AspectConfiguration = {};
+  let configuration: IConfiguration = {};
 
   try {
     configuration = require(configurationPath) || {};
@@ -194,7 +194,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   }
 
   // Create the compiler flags
-  const flags: CompilerFlags = Object.assign({}, configuration.flags, {
+  const flags: ICompilerFlags = Object.assign({}, configuration.flags, {
     "--validate": [],
     "--debug": [],
     "--binaryFile": ["output.wasm"],
@@ -463,7 +463,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         snapshots: fs.existsSync(snapshotsLocation)
           ? Snapshot.parse(fs.readFileSync(snapshotsLocation, "utf8"))
           : new Snapshot(),
-        wasi: configuration.wasi || null,
       });
 
       // detect custom imports
@@ -485,7 +484,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
       const memory = new WebAssembly.Memory(memoryDescriptor);
 
-      let wasm: ResultObject & { exports: ASUtil & IAspectExports };
+      let wasm: IAspectExports;
 
       if (typeof configurationImports === "function") {
         const createImports = runner.createImports.bind(runner, {

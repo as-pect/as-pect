@@ -51,14 +51,12 @@ export function init() {
       createWriteStream(typesFile, "utf-8"),
     );
   }
-
-  const configFileName = "as-pect.config.js";
   // create the default configuration file
-  const configFile = join(process.cwd(), configFileName);
-  const configFileSource = join(__dirname, `../init/${configFileName}`);
+  const configFile = join(process.cwd(), "as-pect.config.js");
+  const configFileSource = join(__dirname, "../init/as-pect.config.js");
   if (!existsSync(configFile)) {
     console.log(
-      chalk`{bgWhite.black [Log]} Creating file: {yellow ./${configFileName}}`,
+      chalk`{bgWhite.black [Log]} Creating file: {yellow ./as-pect.config.js}`,
     );
     createReadStream(configFileSource, "utf-8").pipe(
       createWriteStream(configFile, "utf-8"),
