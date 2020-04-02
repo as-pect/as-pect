@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf ./dist && tsc",
-    "dev": "parcel src/index.html",
+    "dev": "parcel src/index.html *.tsx *.ts",
     "asp:clean": "rimraf ../assembly/assembly/__tests__/**/*.wasm",
     "asp:binary": "asp --output-binary"
   },
