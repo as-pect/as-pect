@@ -39,7 +39,7 @@
 		"lib/"
 	],
 	"peerDependencies": {
-		"assemblyscript": "0.9.4-nightly.20200316"
+		"assemblyscript": "0.9.4-nightly.20200402"
 	},
 	"devDependencies": {
 		"jest": "^25.1.0",

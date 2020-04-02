@@ -5,9 +5,11 @@
   "types": "types/as-pect.d.ts",
   "scripts": {
     "asp:ci": "node ../cli/lib/test --summary",
+    "asp:ci-simd": "node ../cli/lib/test --summary --config as-pect.simd.config.js",
     "asp": "node ../cli/lib/test --verbose",
-    "test:ci": "run-s asp:ci",
-    "test": "run-s asp",
+    "asp:simd": "node ../cli/lib/test --verbose --config as-pect.simd.config.js",
+    "test:ci": "run-s asp:ci asp:ci-simd",
+    "test": "run-s asp asp:simd",
     "tsc": "exit 0",
     "test:update-snapshots": "exit 0"
   },
@@ -32,6 +34,6 @@
     "types/"
   ],
   "peerDependencies": {
-    "assemblyscript": "0.9.4-nightly.20200316"
+    "assemblyscript": "0.9.4-nightly.20200402"
   }
 }

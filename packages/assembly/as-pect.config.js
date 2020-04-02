@@ -1,6 +1,3 @@
-const v8 = require("v8");
-v8.setFlagsFromString("–-experimental-wasm-simd");
-
 module.exports = {
   /**
    * A set of globs passed to the glob package that qualify typescript files for testing.
