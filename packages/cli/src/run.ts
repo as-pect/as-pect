@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { performance } from "perf_hooks";
+import now from "performance-now";
 import * as path from "path";
 import chalk from "chalk";
 import {
@@ -27,7 +27,7 @@ import { removeFile } from "./util/removeFile";
  * @param {string[]} compilerArgs - The `asc` compiler arguments.
  */
 export function run(cliOptions: Options, compilerArgs: string[]): void {
-  const start = performance.now();
+  const start = now();
   const worklets: any[] = [];
 
   /** Collect the assemblyscript module path. */
@@ -140,7 +140,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   }
   console.log(
     chalk`{bgWhite.black [Log]} Compiler loaded in {yellow ${timeDifference(
-      performance.now(),
+      now(),
       start,
     ).toString()}ms}.`,
   );
@@ -579,7 +579,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     // if any tests failed, and they all ran, exit(1)
     if (count === 0) {
       if (runTests) {
-        const end = performance.now();
+        const end = now();
         failed = failed || errors.length > 0;
         const result = failed ? chalk`{red ✖ FAIL}` : chalk`{green ✔ PASS}`;
 
