@@ -38,21 +38,6 @@ export function collectReporter(cliOptions: Options): IReporter {
     );
   }
 
-  if (cliOptions.summary) {
-    const SummaryReporter = require("@as-pect/core").SummaryReporter;
-    const reporter = new SummaryReporter(
-      typeof cliOptions.summary === "string"
-        ? querystring.parse(cliOptions.summary || "")
-        : {},
-    );
-    reporter.stdout = process.stdout;
-    reporter.stderr = process.stderr;
-    reporters.push(reporter);
-    process.stdout.write(
-      chalk`{bgWhite.black [Log]} Using {yellow SummaryReporter}\n`,
-    );
-  }
-
   if (cliOptions.verbose) {
     const VerboseReporter = require("@as-pect/core").VerboseReporter;
     const reporter = new VerboseReporter(
@@ -90,15 +75,26 @@ export function collectReporter(cliOptions: Options): IReporter {
       chalk`{bgWhite.black [Log]} Using custom reporter at: {yellow ${url.pathname}}\n`,
     );
   }
-
-  if (reporters.length === 0) {
+  /**
+   * If there are no other reporters summary is the default.
+   */
+  if (cliOptions.summary || reporters.length == 0) {
     const SummaryReporter = require("@as-pect/core").SummaryReporter;
+    const reporter = new SummaryReporter(
+      typeof cliOptions.summary === "string"
+        ? querystring.parse(cliOptions.summary || "")
+        : { enableLogging: true },
+    );
+    reporter.stdout = process.stdout;
+    reporter.stderr = process.stderr;
+    reporters.push(reporter);
     process.stdout.write(
       chalk`{bgWhite.black [Log]} Using {yellow SummaryReporter}\n`,
     );
-    return new SummaryReporter({
-      enableLogging: true,
-    });
+  }
+  // If only one reporter return it, otherwise, combine them.
+  if (reporters.length === 1) {
+    return reporters[0];
   } else {
     const CombinationReporter = require("@as-pect/core").CombinationReporter;
     return new CombinationReporter(reporters);

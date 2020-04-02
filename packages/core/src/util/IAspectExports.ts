@@ -21,4 +21,22 @@ export interface IAspectExports {
   readonly memory: {
     readonly buffer: ArrayBuffer;
   };
+
+  /** Explicit start function. */
+  _start(): void;
+
+  /** Reads (copies) the value of a string from the module's memory. */
+  __getString(ref: number): string;
+
+  /** Allocates a new array in the module's memory and returns a reference (pointer) to it. */
+  __allocArray(id: number, values: number[]): number;
+
+  /** Reads (copies) the values of an array from the module's memory. */
+  __getArray(ref: number): number[];
+
+  /** Forces a cycle collection. Only relevant if objects potentially forming reference cycles are used. */
+  __collect(): void;
+
+  /** The WebAssembly function Table. */
+  readonly table?: WebAssembly.Table;
 }

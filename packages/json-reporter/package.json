@@ -1,11 +1,13 @@
 {
   "name": "@as-pect/json-reporter",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "description": "Json reporter for as-pect",
   "main": "lib/index.js",
   "types": "lib/index.ts",
   "scripts": {
-    "tsc": "tsc",
+    "tsc:all": "run-p tsc:default tsc:amd",
+    "tsc:amd": "tsc --outfile lib/as-pect.json-reporter.amd.js --module amd --declaration --declarationMap",
+    "tsc:default": "tsc",
     "test": "exit 0"
   },
   "repository": {
@@ -15,6 +17,6 @@
   "author": "Joshua Tenner",
   "license": "MIT",
   "dependencies": {
-    "@as-pect/core": "^3.1.3"
+    "@as-pect/core": "^3.1.4"
   }
 }

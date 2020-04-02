@@ -1,4 +1,5 @@
 import { IAspectExports } from "../util/IAspectExports";
+
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
 import { NameSection } from "../util/wasmTools";
@@ -15,7 +16,6 @@ import {
   SnapshotDiff,
 } from "@as-pect/snapshots";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
-import { ResultObject, ASUtil } from "./loader";
 
 const id = (a: string) => a;
 
@@ -56,14 +56,12 @@ export interface ITestContextParameters {
   reporter: IReporter;
   /** The expected snapshot output. */
   snapshots?: Snapshot;
-  /** Wasi parameters. */
-  wasi?: any;
 }
 
 /** This class is responsible for collecting and running all the tests in a test binary. */
 export class TestContext {
   /** The web assembly module if it was set. */
-  protected wasm: (ASUtil & IAspectExports) | null = null;
+  protected wasm: IAspectExports | null = null;
 
   /** The name section for function name evaluation. */
   protected nameSection: NameSection | null = null;
@@ -156,12 +154,6 @@ export class TestContext {
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
 
-  /** An indicator that wasi should be used. */
-  private wasi: any = null;
-
-  /** The web assembly instance for wasi. */
-  private instance: WebAssembly.Instance | null = null;
-
   constructor(props: ITestContextParameters) {
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
@@ -171,19 +163,6 @@ export class TestContext {
     /* istanbul ignore next */
     if (props.nortrace) this.rtraceEnabled = false;
     if (props.binary) this.nameSection = new NameSection(props.binary);
-    /* istanbul ignore next */
-    if (props.wasi) {
-      /* istanbul ignore next */
-      const { WASI } = require("wasi");
-      /* istanbul ignore next */
-      const v8 = require("v8");
-      /* istanbul ignore next */
-      v8.setFlagsFromString(
-        "--experimental-wasi-unstable-preview1 --experimental-wasm-bigint",
-      );
-      /* istanbul ignore next */
-      this.wasi = new WASI(props.wasi);
-    }
 
     this.expectedSnapshots = props.snapshots ? props.snapshots : new Snapshot();
 
@@ -221,12 +200,10 @@ export class TestContext {
    * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
    * process of test collection and evaluation.
    */
-  public run<T extends IAspectExports>(
-    wasm: ResultObject & { exports: ASUtil & T },
-  ): void {
+  public run(wasm: IAspectExports): void {
     // set the wasm
-    this.wasm = wasm.exports;
-    this.instance = wasm.instance;
+    this.wasm = wasm;
+
     // start by visiting the root node
     this.visit(this.rootNode);
 
@@ -303,15 +280,8 @@ export class TestContext {
     // perform test collection and evaluate the node, each node must set pass to `true` if it passes
     if (node === this.rootNode) {
       try {
-        /* istanbul ignore next */
-        if (this.wasi) {
-          /* istanbul ignore next */
-          this.wasi.start(this.instance);
-          /* istanbul ignore next */
-        } else {
-          // collect all the top level function pointers, tests, groups, and logs
-          this.wasm!._start();
-        }
+        // collect all the top level function pointers, tests, groups, and logs
+        this.wasm!._start();
       } catch (ex) {
         this.reporter.onEnter(this, node);
         /**
@@ -566,11 +536,6 @@ export class TestContext {
     };
     /** Override trace completely. */
     finalImports.env.trace = this.trace.bind(this);
-
-    /** Add support for wasi if requested. */
-    if (this.wasi) {
-      finalImports.wasi_snapshot_preview1 = this.wasi.wasiImport;
-    }
 
     return finalImports;
   }

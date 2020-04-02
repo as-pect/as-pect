@@ -1,11 +1,13 @@
 {
   "name": "@as-pect/csv-reporter",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "description": "csv reporter for as-pect",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "tsc": "tsc",
+    "tsc:all": "run-p tsc:default tsc:amd",
+    "tsc:amd": "tsc --outfile lib/as-pect.csv-reporter.amd.js --module amd --declaration --declarationMap",
+    "tsc:default": "tsc",
     "test": "exit 0"
   },
   "repository": {
@@ -18,6 +20,6 @@
     "csv-stringify": "^5.3.6"
   },
   "dependencies": {
-    "@as-pect/core": "^3.1.3"
+    "@as-pect/core": "^3.1.4"
   }
 }
