@@ -14,7 +14,7 @@ export const useTestData: ({ binary }: { binary: Uint8Array }) => AspectTestData
     ({ data: [ ctx, node ] }) => {
         setTestContext(() => ctx);
         if (node !== null) setTestNodes((prevTestNodes) => [...prevTestNodes, node])
-        if (node === null) setTestEnded(() => true);
+        else setTestEnded(() => true);
       },
     [],
   );

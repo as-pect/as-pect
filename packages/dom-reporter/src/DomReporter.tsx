@@ -1,8 +1,4 @@
-import React, { FC, useState, useCallback, useEffect } from 'react'
-
-import { runTestFromWasmBinary, SetDomReporterData } from './worker/runTestFromWasmBinary';
-import { DomReporterData, ExtractedTestInfo } from './reporter/DomReporter';
-import { TestContext, TestNode } from '@as-pect/core';
+import React, { FC } from 'react'
 import { AspectTestData, useTestData } from './hooks/useTestData';
 
 export const DomReporter: FC<{ binary: Uint8Array}> = ({ binary }) => {

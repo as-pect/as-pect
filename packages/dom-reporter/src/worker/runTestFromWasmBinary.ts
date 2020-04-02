@@ -2,7 +2,11 @@ import { DomReporterData } from '../reporter/DomReporter';
 
 export type SetDomReporterData = (e: DomReporterData) => void;
 
-export const runTestFromWasmBinary = (wasmBinary: Uint8Array, setDomReporterData: SetDomReporterData) => {
+export const runTestFromWasmBinary: (
+  wasmBinary: Uint8Array, setDomReporterData: SetDomReporterData
+) => void = (
+  wasmBinary, setDomReporterData,
+) => {
   const worker = new Worker("./worker.ts");
   worker.addEventListener('message', setDomReporterData);
   worker.postMessage(wasmBinary);
