@@ -29,6 +29,7 @@
     "@as-pect/core": "file:./packages/core",
     "@as-pect/csv-reporter": "file:./packages/csv-reporter",
     "@as-pect/json-reporter": "file:./packages/json-reporter",
+    "@as-pect/dom-reporter": "file:./packages/dom-reporter",
     "@as-pect/snapshots": "file:./packages/snapshots",
     "@types/diff": "^4.0.2",
     "@types/glob": "^7.1.1",
