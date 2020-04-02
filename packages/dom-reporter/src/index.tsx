@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { DomReporter } from './DomReporter';
+import { DomReporter } from './components/DomReporter/DomReporter';
 
 const getWasmBinary = async () => {
   const binary = await fetch("http://localhost:8080/lessThan.spec.wasm");

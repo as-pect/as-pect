@@ -1,8 +1,12 @@
-import React, { FC } from 'react'
-import { AspectTestData, useTestData } from './hooks/useTestData';
+import React, { FC, useEffect } from 'react'
+import { AspectTestData, useTestData } from '../../hooks/useTestData';
 
 export const DomReporter: FC<{ binary: Uint8Array}> = ({ binary }) => {
   const [testContext, testNodes, isTestEnded]: AspectTestData = useTestData({ binary });
+
+  useEffect(() => {
+    console.log(testNodes)
+  }, [testNodes])
 
   return (
     <main>

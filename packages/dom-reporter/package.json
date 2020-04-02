@@ -1,6 +1,6 @@
 {
   "name": "dom-reporter",
-  "version": "0.0.1",
+  "version": "3.1.4",
   "description": "Dom reporter for as-pect",
   "main": "dist/index.js",
   "scripts": {
