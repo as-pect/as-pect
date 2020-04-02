@@ -7,16 +7,10 @@
     "asp:ci": "node ../cli/lib/test --summary",
     "asp:ci-simd": "node ../cli/lib/test --summary --config as-pect.simd.config.js",
     "asp": "node ../cli/lib/test --verbose",
-<<<<<<< HEAD
     "asp:simd": "node ../cli/lib/test --verbose --config as-pect.simd.config.js",
     "test:ci": "run-s asp:ci asp:ci-simd",
     "test": "run-s asp asp:simd",
     "tsc": "exit 0",
-=======
-    "test:ci": "run-s asp:ci",
-    "test": "run-s asp",
-    "tsc:all": "exit 0",
->>>>>>> e9eceda796307f42230acb1ab942a208651b9469
     "test:update-snapshots": "exit 0"
   },
   "repository": {
@@ -40,10 +34,6 @@
     "types/"
   ],
   "peerDependencies": {
-<<<<<<< HEAD
     "assemblyscript": "0.9.4-nightly.20200402"
-=======
-    "assemblyscript": "^0.9.4"
->>>>>>> e9eceda796307f42230acb1ab942a208651b9469
   }
 }
