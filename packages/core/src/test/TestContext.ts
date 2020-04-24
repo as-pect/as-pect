@@ -492,6 +492,7 @@ export class TestContext {
       getRTraceNodeReallocs: this.getRTraceNodeReallocs.bind(this),
       getRTraceIncrements: this.getRTraceIncrements.bind(this),
       getRTraceReallocs: this.getRTraceReallocs.bind(this),
+      reflectLong: this.reflectLong.bind(this),
       logReflectedValue: this.logReflectedValue.bind(this),
       pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
       pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
@@ -1060,7 +1061,7 @@ export class TestContext {
     reflectedTypeValue: ReflectedValueType,
     typeId: number, // idof<T>()
     typeName: number, // nameof<T>()
-    value: number, // usize | Box<T>
+    value: number, // usize
     hasValues: 1 | 0, // bool
     isManaged: 1 | 0, // bool
   ): number {
@@ -1140,11 +1141,8 @@ export class TestContext {
           return new Uint32Array(buffer)[pointer >>> 2];
         }
       case 8:
-        const long = new Long.fromBytesLE(
-          new Uint8Array(buffer, pointer, 8),
-          !signed,
-        );
-        return long.toString();
+        console.log(pointer);
+        return 8;
       /* istanbul ignore next */
       default:
         /* istanbul ignore next */
@@ -1196,6 +1194,10 @@ export class TestContext {
         /* istanbul ignore next */
         return 0;
     }
+  }
+
+  private reflectLong(low: number, high: number, isSigned: boolean): Long {  
+    return new Long(low, high, isSigned);
   }
 
   /**

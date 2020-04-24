@@ -32,6 +32,10 @@ declare function createReflectedValue(
   isManaged: bool,
 ): i32;
 
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reflectLong")
+declare function reflectLong(low: i32, high: i32, isSigned: bool): usize;
+
 // @ts-ignore: external declaration
 @external("__aspect", "pushReflectedObjectValue")
 @global
@@ -357,14 +361,17 @@ export class Reflect {
         return reflectedObjectID;
       }
     } else {
-      // box the number first before passing up the pointer to collect the value
-      let box = new Box<T>(value);
+      // @ts-ignore: value is a number type
+      let val = 
+        !isBoolean<T>() && isInteger<T>() ? reflectLong(<i32>(value & 0xFFFFFFFF), <i32>(value >>> 32), isSigned<T>()) :
+        value;
+
       let reflectedValue = createReflectedValue(
         false,
         false,
         false,
         0,
-        changetype<usize>(box),
+        changetype<usize>(val),
         isSigned<T>(),
         sizeof<T>(),
         isBoolean<T>()
@@ -374,7 +381,7 @@ export class Reflect {
           : ReflectedValueType.Float,
         0,
         nameof<T>(),
-        changetype<usize>(box),
+        changetype<usize>(val),
         false,
         false,
       );
