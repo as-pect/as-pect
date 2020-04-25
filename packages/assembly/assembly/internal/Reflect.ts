@@ -32,6 +32,27 @@ declare function createReflectedValue(
   isManaged: bool,
 ): i32;
 
+// @ts-ignore: linked function decorator
+@external("__aspect", "createReflectedNumber")
+declare function createReflectedNumber(
+  signed: bool,
+  size: i32,
+  reflectedTypeValue: ReflectedValueType,
+  typeName: string,
+  value: usize,
+): i32;
+
+// @ts-ignore: linked function decorator
+@external("__aspect", "createReflectedLong")
+declare function createReflectedLong(
+  signed: bool,
+  size: i32,
+  reflectedTypeValue: ReflectedValueType,
+  typeName: string,
+  lowValue: i32,
+  highValue: i32,
+): i32;
+
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reflectLong")
 declare function reflectLong(low: i32, high: i32, isSigned: bool): usize;
@@ -360,18 +381,9 @@ export class Reflect {
 
         return reflectedObjectID;
       }
-    } else {
-      // @ts-ignore: value is a number type
-      let val = 
-        !isBoolean<T>() && isInteger<T>() ? reflectLong(<i32>(value & 0xFFFFFFFF), <i32>(value >>> 32), isSigned<T>()) :
-        value;
-
-      let reflectedValue = createReflectedValue(
-        false,
-        false,
-        false,
-        0,
-        changetype<usize>(val),
+    } else if (isBoolean<T>() || isFloat<T>() || (isInteger<T>() && sizeof<T>() == 4)) {
+      // boolean, i32, u32, f32, isize, or usize (when targeting 32 bit WebAssembly)
+      let reflectedValue = createReflectedNumber(
         isSigned<T>(),
         sizeof<T>(),
         isBoolean<T>()
@@ -379,12 +391,25 @@ export class Reflect {
           : isInteger<T>()
           ? ReflectedValueType.Integer
           : ReflectedValueType.Float,
-        0,
         nameof<T>(),
-        changetype<usize>(val),
-        false,
-        false,
+        // @ts-ignore: type is bool, i32, f64, or f32 
+        value,
       );
+      return reflectedValue;
+
+    } else if (isInteger<T>() || alignof<T>() === 3) {
+      // u64, i64, isize, or usize (when targeting 64 bit WebAssembly)
+      // @ts-ignore: value is a number
+      let reflectedValue = createReflectedLong(
+        isSigned<T>(),
+        sizeof<T>(),
+        ReflectedValueType.Integer,
+        nameof<T>(),
+        // @ts-ignore: type is bool, i32, f64, or f32 
+        <i32>(value >>> 8),
+        <i32>(value & 0xFFFFFFFF),
+      );
+
       return reflectedValue;
     }
     return 0;

@@ -477,6 +477,8 @@ export class TestContext {
       clearActual: this.clearActual.bind(this),
       clearExpected: this.clearExpected.bind(this),
       createReflectedValue: this.createReflectedValue.bind(this),
+      createReflectedNumber: this.createReflectedNumber.bind(this),
+      createReflectedLong: this.createReflectedLong.bind(this),
       debug: this.debug.bind(this),
       endRTrace: this.endRTrace.bind(this),
       getRTraceAllocations: this.getRTraceAllocations.bind(this),
@@ -1079,13 +1081,7 @@ export class TestContext {
     reflectedValue.values = hasValues ? [] : null;
     reflectedValue.isManaged = isManaged === 1;
 
-    if (
-      reflectedTypeValue === ReflectedValueType.Integer ||
-      reflectedTypeValue === ReflectedValueType.Boolean
-    ) {
-      reflectedValue.value = this.getInteger(value, size, signed === 1);
-      // get long
-    } else if (reflectedTypeValue === ReflectedValueType.String) {
+    if (reflectedTypeValue === ReflectedValueType.String) {
       reflectedValue.value = this.getString(value, "");
     } else if (reflectedTypeValue === ReflectedValueType.Float) {
       reflectedValue.value = this.getFloat(value, size);
@@ -1094,6 +1090,50 @@ export class TestContext {
     } else {
       reflectedValue.value = value;
     }
+
+    return this.reflectedValueCache.push(reflectedValue) - 1;
+  }
+
+  private createReflectedNumber(
+    signed: 1 | 0, // isSigned<T>()
+    size: number, // sizeof<T>()
+    reflectedTypeValue: ReflectedValueType,
+    typeName: number, // nameof<T>()
+    value: number, // usize
+  ): number {
+    const reflectedValue = new ReflectedValue();
+    reflectedValue.signed = signed === 1;
+    reflectedValue.size = size;
+    reflectedValue.type = reflectedTypeValue;
+    reflectedValue.typeName = this.getString(typeName, "");
+
+    if (
+      reflectedTypeValue === ReflectedValueType.Integer ||
+      reflectedTypeValue === ReflectedValueType.Boolean
+    ) {
+      reflectedValue.value = this.getInteger(value, size, signed === 1);
+    } else {
+      reflectedValue.value = value;
+    }
+
+    return this.reflectedValueCache.push(reflectedValue) - 1;
+  }
+
+  private createReflectedLong(
+    signed: 1 | 0, // isSigned<T>()
+    size: number, // sizeof<T>()
+    reflectedTypeValue: ReflectedValueType,
+    typeName: number, // nameof<T>()
+    lowValue: number, // i32
+    highValue: number, // i32
+  ): number {
+    const reflectedValue = new ReflectedValue();
+    reflectedValue.signed = signed === 1;
+    reflectedValue.size = size;
+    reflectedValue.type = reflectedTypeValue;
+    reflectedValue.typeName = this.getString(typeName, "");
+
+    reflectedValue.value = new Long(lowValue, highValue, signed).getString();
 
     return this.reflectedValueCache.push(reflectedValue) - 1;
   }
