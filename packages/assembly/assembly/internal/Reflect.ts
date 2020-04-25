@@ -377,23 +377,7 @@ export class Reflect {
 
         return reflectedObjectID;
       }
-    } else if (isBoolean<T>() || isFloat<T>() || (isInteger<T>() && alignof<T>() <= 2)) {
-      // boolean, i32, u32, f32, isize, usize (when targeting 32 bit WebAssembly), or numbers with less bits
-      let reflectedValue = createReflectedNumber(
-        isSigned<T>(),
-        sizeof<T>(),
-        isBoolean<T>()
-          ? ReflectedValueType.Boolean
-          : isInteger<T>()
-          ? ReflectedValueType.Integer
-          : ReflectedValueType.Float,
-        nameof<T>(),
-        // @ts-ignore: type is bool, i32, f64, or f32 
-        value,
-      );
-      return reflectedValue;
-
-    } else if (isInteger<T>() || alignof<T>() === 3) {
+    } else if (alignof<T>() === 3 && isInteger<T>()) {
       // u64, i64, isize, or usize (when targeting 64 bit WebAssembly)
       // @ts-ignore: value is a number
       let reflectedValue = createReflectedLong(
@@ -407,7 +391,23 @@ export class Reflect {
       );
 
       return reflectedValue;
-    }
+    } else {
+      // boolean, i32, u32, f32, isize, usize (when targeting 32 bit WebAssembly), or numbers with less bits
+      let reflectedValue = createReflectedNumber(
+        isSigned<T>(),
+        sizeof<T>(),
+        isBoolean<T>()
+          ? ReflectedValueType.Boolean
+          : isInteger<T>()
+          ? ReflectedValueType.Integer
+          : ReflectedValueType.Float,
+        nameof<T>(),
+        // @ts-ignore: type is bool, i32, f64, or f32 
+        <f64>value,
+      );
+      return reflectedValue;
+
+    } 
     return 0;
   }
 
