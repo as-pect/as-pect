@@ -53,10 +53,6 @@ declare function createReflectedLong(
   highValue: i32,
 ): i32;
 
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reflectLong")
-declare function reflectLong(low: i32, high: i32, isSigned: bool): usize;
-
 // @ts-ignore: external declaration
 @external("__aspect", "pushReflectedObjectValue")
 @global

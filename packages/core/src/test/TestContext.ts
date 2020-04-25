@@ -494,7 +494,6 @@ export class TestContext {
       getRTraceNodeReallocs: this.getRTraceNodeReallocs.bind(this),
       getRTraceIncrements: this.getRTraceIncrements.bind(this),
       getRTraceReallocs: this.getRTraceReallocs.bind(this),
-      reflectLong: this.reflectLong.bind(this),
       logReflectedValue: this.logReflectedValue.bind(this),
       pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
       pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
@@ -1234,10 +1233,6 @@ export class TestContext {
         /* istanbul ignore next */
         return 0;
     }
-  }
-
-  private reflectLong(low: number, high: number, isSigned: boolean): Long {  
-    return new Long(low, high, isSigned);
   }
 
   /**
