@@ -39,7 +39,7 @@ declare function createReflectedNumber(
   size: i32,
   reflectedTypeValue: ReflectedValueType,
   typeName: string,
-  value: usize,
+  value: f64,
 ): i32;
 
 // @ts-ignore: linked function decorator

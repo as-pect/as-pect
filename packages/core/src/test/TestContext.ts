@@ -1093,27 +1093,29 @@ export class TestContext {
     return this.reflectedValueCache.push(reflectedValue) - 1;
   }
 
+  /**
+   * 
+   * @param signed 
+   * @param size 
+   * @param reflectedTypeValue 
+   * @param typeName 
+   * @param value 
+   */
   private createReflectedNumber(
     signed: 1 | 0, // isSigned<T>()
     size: number, // sizeof<T>()
     reflectedTypeValue: ReflectedValueType,
     typeName: number, // nameof<T>()
-    value: number, // usize
+    value: number, // f64
   ): number {
     const reflectedValue = new ReflectedValue();
     reflectedValue.signed = signed === 1;
     reflectedValue.size = size;
     reflectedValue.type = reflectedTypeValue;
     reflectedValue.typeName = this.getString(typeName, "");
-
-    if (
-      reflectedTypeValue === ReflectedValueType.Integer ||
-      reflectedTypeValue === ReflectedValueType.Boolean
-    ) {
-      reflectedValue.value = this.getInteger(value, size, signed === 1);
-    } else {
-      reflectedValue.value = value;
-    }
+    reflectedValue.value = value;
+    // (()=>value)();
+    // reflectedValue.value = this.getFloat(value, size);
 
     return this.reflectedValueCache.push(reflectedValue) - 1;
   }
@@ -1132,7 +1134,7 @@ export class TestContext {
     reflectedValue.type = reflectedTypeValue;
     reflectedValue.typeName = this.getString(typeName, "");
 
-    reflectedValue.value = new Long(lowValue, highValue, signed).getString();
+    reflectedValue.value = new Long(lowValue, highValue, signed).toString();
 
     return this.reflectedValueCache.push(reflectedValue) - 1;
   }
@@ -1144,58 +1146,7 @@ export class TestContext {
    * @param {number} size - The size of the integer in bytes
    * @param {boolean} signed - If the number is signed
    */
-  private getInteger(pointer: number, size: number, signed: boolean): number {
-    const buffer = this.wasm!.memory.buffer;
-    /* istanbul ignore next */
-    if (pointer + size >= buffer.byteLength) {
-      /* istanbul ignore next */
-      this.pushError({
-        message: `Cannot obtain ${
-          signed ? "" : "un"
-        }signed integer value at pointer ${pointer} of size ${size}: index out of bounds`,
-        stackTrace: this.getLogStackTrace(),
-        type: "ReflectedValue",
-      });
-      /* istanbul ignore next */
-      return 0;
-    }
-
-    switch (size) {
-      case 1:
-        if (signed) {
-          return new Int8Array(buffer)[pointer];
-        } else {
-          return new Uint8Array(buffer)[pointer];
-        }
-      case 2:
-        if (signed) {
-          return new Int16Array(buffer)[pointer >>> 1];
-        } else {
-          return new Uint16Array(buffer)[pointer >>> 1];
-        }
-      case 4:
-        if (signed) {
-          return new Int32Array(buffer)[pointer >>> 2];
-        } else {
-          return new Uint32Array(buffer)[pointer >>> 2];
-        }
-      case 8:
-        console.log(pointer);
-        return 8;
-      /* istanbul ignore next */
-      default:
-        /* istanbul ignore next */
-        this.pushError({
-          message: `Cannot obtain an ${
-            signed ? "" : "un"
-          }signed integer at ${pointer} of size ${size}`,
-          stackTrace: this.getLogStackTrace(),
-          type: "ReflectedValue",
-        });
-        /* istanbul ignore next */
-        return 0;
-    }
-  }
+  
 
   /**
    * Get a boxed float of a given kind at a pointer location.
