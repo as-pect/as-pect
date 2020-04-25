@@ -401,7 +401,7 @@ export class Reflect {
         sizeof<T>(),
         ReflectedValueType.Integer,
         nameof<T>(),
-        // @ts-ignore: type is bool, i32, f64, or f32 
+        // @ts-ignore: value is a 64 bit number
         <i32>(value >>> 8),
         <i32>(value & 0xFFFFFFFF),
       );
