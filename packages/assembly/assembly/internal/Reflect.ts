@@ -377,8 +377,8 @@ export class Reflect {
 
         return reflectedObjectID;
       }
-    } else if (isBoolean<T>() || isFloat<T>() || (isInteger<T>() && sizeof<T>() == 4)) {
-      // boolean, i32, u32, f32, isize, or usize (when targeting 32 bit WebAssembly)
+    } else if (isBoolean<T>() || isFloat<T>() || (isInteger<T>() && alignof<T>() <= 2)) {
+      // boolean, i32, u32, f32, isize, usize (when targeting 32 bit WebAssembly), or numbers with less bits
       let reflectedValue = createReflectedNumber(
         isSigned<T>(),
         sizeof<T>(),

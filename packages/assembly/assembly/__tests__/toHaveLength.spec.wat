@@ -84,15 +84,15 @@
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
  (import "__aspect" "createReflectedValue" (func $assembly/internal/Reflect/createReflectedValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
- (import "__aspect" "createReflectedLong" (func $assembly/internal/Reflect/createReflectedLong (param i32 i32 i32 i32 i32 i32) (result i32)))
+ (import "__aspect" "createReflectedNumber" (func $assembly/internal/Reflect/createReflectedNumber (param i32 i32 i32 i32 f64) (result i32)))
  (import "__aspect" "pushReflectedObjectValue" (func $assembly/internal/Reflect/__aspectPushReflectedObjectValue (param i32 i32)))
  (import "__aspect" "attachStackTraceToReflectedValue" (func $assembly/internal/Reflect/attachStackTraceToReflectedValue (param i32)))
  (import "__aspect" "reportActualReflectedValue" (func $assembly/internal/Actual/reportActualReflectedValue (param i32)))
- (import "__aspect" "createReflectedNumber" (func $assembly/internal/Reflect/createReflectedNumber (param i32 i32 i32 i32 f64) (result i32)))
  (import "__aspect" "reportExpectedReflectedValue" (func $assembly/internal/Expected/reportExpectedReflectedValue (param i32 i32)))
  (import "__aspect" "clearActual" (func $assembly/internal/Actual/clearActual))
  (import "__aspect" "clearExpected" (func $assembly/internal/Expected/clearExpected))
  (import "__aspect" "reportTestNode" (func $assembly/internal/Test/reportTestNode (param i32 i32 i32 i32 i32)))
+ (import "__aspect" "createReflectedLong" (func $assembly/internal/Reflect/createReflectedLong (param i32 i32 i32 i32 i32 i32) (result i32)))
  (import "__aspect" "pushReflectedObjectKey" (func $assembly/internal/Reflect/__aspectPushReflectedObjectKey (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
@@ -3800,16 +3800,8 @@
   i32.const 7
   i32.const 672
   local.get $0
-  i32.const 255
-  i32.and
-  i32.const 8
-  i32.shr_u
-  local.get $0
-  i32.const 255
-  i32.and
-  i32.const -1
-  i32.and
-  call $assembly/internal/Reflect/createReflectedLong
+  f64.convert_i32_u
+  call $assembly/internal/Reflect/createReflectedNumber
   local.set $2
   local.get $2
   local.set $3
@@ -4914,24 +4906,8 @@
   i32.const 7
   i32.const 1600
   local.get $0
-  i32.const 24
-  i32.shl
-  i32.const 24
-  i32.shr_s
-  i32.const 8
-  i32.shr_u
-  i32.const 24
-  i32.shl
-  i32.const 24
-  i32.shr_s
-  local.get $0
-  i32.const 24
-  i32.shl
-  i32.const 24
-  i32.shr_s
-  i32.const -1
-  i32.and
-  call $assembly/internal/Reflect/createReflectedLong
+  f64.convert_i32_s
+  call $assembly/internal/Reflect/createReflectedNumber
   local.set $2
   local.get $2
   local.set $3
@@ -5387,16 +5363,8 @@
   i32.const 7
   i32.const 1680
   local.get $0
-  i32.const 65535
-  i32.and
-  i32.const 8
-  i32.shr_u
-  local.get $0
-  i32.const 65535
-  i32.and
-  i32.const -1
-  i32.and
-  call $assembly/internal/Reflect/createReflectedLong
+  f64.convert_i32_u
+  call $assembly/internal/Reflect/createReflectedNumber
   local.set $2
   local.get $2
   local.set $3
@@ -5852,24 +5820,8 @@
   i32.const 7
   i32.const 1760
   local.get $0
-  i32.const 16
-  i32.shl
-  i32.const 16
-  i32.shr_s
-  i32.const 8
-  i32.shr_u
-  i32.const 16
-  i32.shl
-  i32.const 16
-  i32.shr_s
-  local.get $0
-  i32.const 16
-  i32.shl
-  i32.const 16
-  i32.shr_s
-  i32.const -1
-  i32.and
-  call $assembly/internal/Reflect/createReflectedLong
+  f64.convert_i32_s
+  call $assembly/internal/Reflect/createReflectedNumber
   local.set $2
   local.get $2
   local.set $3
