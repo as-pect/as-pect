@@ -39,7 +39,4 @@ export interface IAspectExports {
 
   /** The WebAssembly function Table. */
   readonly table?: WebAssembly.Table;
-
-  /** The AssemblyScript heap base. */
-  readonly __heap_base: WebAssembly.Global;
 }

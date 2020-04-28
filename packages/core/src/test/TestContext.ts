@@ -207,8 +207,6 @@ export class TestContext {
     // set the wasm
     this.wasm = wasm;
 
-    this.__heap_base = wasm.__heap_base.value;
-
     // start by visiting the root node
     this.visit(this.rootNode);
 
@@ -797,6 +795,9 @@ export class TestContext {
       this.blocks.delete(block);
     }
 
+    // remove any cached strings at this pointer
+    this.cachedStrings.delete(block + 16);
+
     this.nodeBlocks.delete(block);
   }
 
@@ -1008,9 +1009,7 @@ export class TestContext {
     if (pointer <= 0) return defaultValue;
     if (this.cachedStrings.has(pointer)) return this.cachedStrings.get(pointer)!;
     const result = this.wasm!.__getString(pointer);
-    if (pointer < this.__heap_base) {
-      this.cachedStrings.set(pointer, result);
-    }
+    this.cachedStrings.set(pointer, result);
     return result;
   }
 
