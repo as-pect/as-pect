@@ -154,9 +154,6 @@ export class TestContext {
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
 
-  /** The heap base, for string caching. */
-  protected __heap_base: number = 0;
-
   constructor(props: ITestContextParameters) {
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
