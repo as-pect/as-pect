@@ -1003,7 +1003,8 @@ export class TestContext {
    * a default value.
    */
   protected getString(pointer: number, defaultValue: string): string {
-    if (pointer <= 0) return defaultValue;
+    pointer >>>= 0;
+    if (pointer === 0) return defaultValue;
     if (this.cachedStrings.has(pointer)) return this.cachedStrings.get(pointer)!;
     const result = this.wasm!.__getString(pointer);
     this.cachedStrings.set(pointer, result);
