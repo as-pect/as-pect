@@ -22,11 +22,11 @@
   "license": "MIT",
   "devDependencies": {
     "@types/nearley": "^2.11.1",
-    "jest": "^25.1.0",
-    "ts-jest": "^25.2.1"
+    "jest": "^25.4.0",
+    "ts-jest": "^25.4.0"
   },
   "dependencies": {
     "diff": "^4.0.2",
-    "nearley": "^2.19.1"
+    "nearley": "^2.19.2"
   }
 }

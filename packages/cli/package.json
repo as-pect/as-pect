@@ -37,7 +37,7 @@
   "dependencies": {
     "@as-pect/assembly": "^3.1.2",
     "@as-pect/core": "^3.1.4",
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "glob": "^7.1.6"
   },
   "peerDependencies": {
