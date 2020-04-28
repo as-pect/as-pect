@@ -23,3 +23,5 @@ import { Expected } from "./internal/Expected";
 export { __call } from "./internal/call";
 export { __ignoreLogs } from "./internal/log";
 export { __disableRTrace, __getUsizeArrayId } from "./internal/RTrace";
+// @ts-ignore: This can be exported
+export { __heap_base }

@@ -154,6 +154,9 @@ export class TestContext {
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
 
+  /** The heap base, for string caching. */
+  protected __heap_base: number = 0;
+
   constructor(props: ITestContextParameters) {
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
@@ -203,6 +206,8 @@ export class TestContext {
   public run(wasm: IAspectExports): void {
     // set the wasm
     this.wasm = wasm;
+
+    this.__heap_base = wasm.__heap_base.value;
 
     // start by visiting the root node
     this.visit(this.rootNode);
@@ -992,12 +997,21 @@ export class TestContext {
     );
   }
 
+  /** A map of strings that can be cached because they are static. */
+  private cachedStrings = new Map<number, string>();
+
   /**
    * Gets a string from the wasm module, unless the module string is null. Otherwise it returns
    * a default value.
    */
-  private getString(pointer: number, defaultValue: string): string {
-    return pointer === 0 ? defaultValue : this.wasm!.__getString(pointer);
+  protected getString(pointer: number, defaultValue: string): string {
+    if (pointer <= 0) return defaultValue;
+    if (this.cachedStrings.has(pointer)) return this.cachedStrings.get(pointer)!;
+    const result = this.wasm!.__getString(pointer);
+    if (pointer < this.__heap_base) {
+      this.cachedStrings.set(pointer, result);
+    }
+    return result;
   }
 
   /**

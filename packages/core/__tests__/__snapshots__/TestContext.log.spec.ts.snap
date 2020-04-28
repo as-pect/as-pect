@@ -22,13 +22,33 @@ ReflectedValue {
 
 exports[`log output Group: logs Test: logs: log 2`] = `
 ReflectedValue {
+  "isManaged": true,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 7712,
+  "signed": false,
+  "size": 13,
+  "stack": "",
+  "type": 2,
+  "typeId": 1,
+  "typeName": "String",
+  "value": "Calculated 42",
+  "values": null,
+}
+`;
+
+exports[`log output Group: logs Test: logs: log 3`] = `
+ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7296,
+  "pointer": 7904,
   "signed": true,
   "size": 4,
   "stack": "",
@@ -40,7 +60,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 3`] = `
+exports[`log output Group: logs Test: logs: log 4`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": true,
@@ -60,7 +80,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 4`] = `
+exports[`log output Group: logs Test: logs: log 5`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -120,7 +140,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 7152,
+  "pointer": 7760,
   "signed": false,
   "size": 24,
   "stack": "",
@@ -136,7 +156,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7376,
+      "pointer": 7984,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -153,7 +173,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7376,
+      "pointer": 7984,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -170,7 +190,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7376,
+      "pointer": 7984,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -184,7 +204,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 5`] = `
+exports[`log output Group: logs Test: logs: log 6`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -192,7 +212,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7200,
+  "pointer": 7808,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -208,7 +228,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 8016,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -225,7 +245,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 8016,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -242,7 +262,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 8016,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -256,26 +276,6 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 6`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 7408,
-  "signed": true,
-  "size": 8,
-  "stack": "",
-  "type": 7,
-  "typeId": 0,
-  "typeName": "i64",
-  "value": "9999999999999",
-  "values": null,
-}
-`;
-
 exports[`log output Group: logs Test: logs: log 7`] = `
 ReflectedValue {
   "isManaged": false,
@@ -284,14 +284,14 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
-  "signed": false,
-  "size": 4,
+  "pointer": 8016,
+  "signed": true,
+  "size": 8,
   "stack": "",
   "type": 7,
   "typeId": 0,
-  "typeName": "u32",
-  "value": 1234567,
+  "typeName": "i64",
+  "value": "9999999999999",
   "values": null,
 }
 `;
@@ -304,14 +304,14 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 8016,
   "signed": false,
-  "size": 8,
+  "size": 4,
   "stack": "",
   "type": 7,
   "typeId": 0,
-  "typeName": "u64",
-  "value": "999999999999",
+  "typeName": "u32",
+  "value": 1234567,
   "values": null,
 }
 `;
@@ -324,14 +324,14 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
-  "signed": true,
-  "size": 1,
+  "pointer": 8016,
+  "signed": false,
+  "size": 8,
   "stack": "",
   "type": 7,
   "typeId": 0,
-  "typeName": "i8",
-  "value": -1,
+  "typeName": "u64",
+  "value": "999999999999",
   "values": null,
 }
 `;
@@ -344,13 +344,13 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 8016,
   "signed": true,
-  "size": 2,
+  "size": 1,
   "stack": "",
   "type": 7,
   "typeId": 0,
-  "typeName": "i16",
+  "typeName": "i8",
   "value": -1,
   "values": null,
 }
@@ -364,14 +364,14 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
-  "signed": false,
-  "size": 1,
+  "pointer": 8016,
+  "signed": true,
+  "size": 2,
   "stack": "",
-  "type": 9,
+  "type": 7,
   "typeId": 0,
-  "typeName": "bool",
-  "value": 1,
+  "typeName": "i16",
+  "value": -1,
   "values": null,
 }
 `;
@@ -384,7 +384,27 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 8016,
+  "signed": false,
+  "size": 1,
+  "stack": "",
+  "type": 9,
+  "typeId": 0,
+  "typeName": "bool",
+  "value": 1,
+  "values": null,
+}
+`;
+
+exports[`log output Group: logs Test: logs: log 13`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 8016,
   "signed": false,
   "size": 1,
   "stack": "",
@@ -396,7 +416,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 13`] = `
+exports[`log output Group: logs Test: logs: log 14`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -404,7 +424,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7024,
+  "pointer": 7552,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -420,7 +440,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 8016,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -437,7 +457,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 8016,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -454,7 +474,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 8016,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -468,7 +488,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 14`] = `
+exports[`log output Group: logs Test: logs: log 15`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -476,7 +496,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7088,
+  "pointer": 7616,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -492,7 +512,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 8016,
       "signed": true,
       "size": 1,
       "stack": "",
@@ -509,7 +529,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 8016,
       "signed": true,
       "size": 1,
       "stack": "",
@@ -526,7 +546,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 8016,
       "signed": true,
       "size": 1,
       "stack": "",
@@ -540,7 +560,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 15`] = `
+exports[`log output Group: logs Test: logs: log 16`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -560,7 +580,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 16`] = `
+exports[`log output Group: logs Test: logs: log 17`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -580,7 +600,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 17`] = `
+exports[`log output Group: logs Test: logs: log 18`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -592,7 +612,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -609,7 +629,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1488,
+      "pointer": 2032,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -626,7 +646,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1520,
+      "pointer": 2064,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -640,7 +660,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 7264,
+  "pointer": 7872,
   "signed": false,
   "size": 24,
   "stack": "",
@@ -656,7 +676,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7488,
+      "pointer": 8096,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -673,7 +693,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7488,
+      "pointer": 8096,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -690,7 +710,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7488,
+      "pointer": 8096,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -704,7 +724,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 18`] = `
+exports[`log output Group: logs Test: logs: log 19`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -712,7 +732,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7264,
+  "pointer": 7872,
   "signed": false,
   "size": 20,
   "stack": "",
@@ -728,7 +748,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -745,7 +765,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -762,7 +782,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -779,7 +799,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -796,7 +816,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -813,7 +833,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -830,7 +850,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -847,7 +867,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -864,7 +884,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -881,7 +901,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -898,7 +918,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -915,7 +935,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -932,7 +952,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -949,7 +969,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -966,7 +986,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -983,7 +1003,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -1000,7 +1020,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -1017,7 +1037,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -1034,7 +1054,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -1051,7 +1071,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7536,
+      "pointer": 8144,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -1065,7 +1085,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 19`] = `
+exports[`log output Group: logs Test: logs: log 20`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1077,7 +1097,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1094,7 +1114,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1488,
+      "pointer": 2032,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1111,7 +1131,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1520,
+      "pointer": 2064,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1128,7 +1148,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1664,
+      "pointer": 2208,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1145,7 +1165,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1696,
+      "pointer": 2240,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1162,7 +1182,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1728,
+      "pointer": 2272,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1179,7 +1199,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1760,
+      "pointer": 2304,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1196,7 +1216,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1792,
+      "pointer": 2336,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1213,7 +1233,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1824,
+      "pointer": 2368,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1230,7 +1250,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1856,
+      "pointer": 2400,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1247,7 +1267,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1888,
+      "pointer": 2432,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1264,7 +1284,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1920,
+      "pointer": 2464,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1281,7 +1301,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1952,
+      "pointer": 2496,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1298,7 +1318,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 2528,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1315,7 +1335,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2016,
+      "pointer": 2560,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1332,7 +1352,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2048,
+      "pointer": 2592,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1349,7 +1369,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2080,
+      "pointer": 2624,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1366,7 +1386,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2112,
+      "pointer": 2656,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1383,7 +1403,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2144,
+      "pointer": 2688,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1400,7 +1420,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2176,
+      "pointer": 2720,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1417,7 +1437,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2208,
+      "pointer": 2752,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1434,7 +1454,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2240,
+      "pointer": 2784,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1451,7 +1471,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2272,
+      "pointer": 2816,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1516,12 +1536,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 208,
-  "pointer": 7392,
+  "pointer": 8000,
   "signed": false,
   "size": 208,
   "stack": "",
   "type": 1,
-  "typeId": 18,
+  "typeId": 19,
   "typeName": "LotsOfFields",
   "value": 0,
   "values": Array [
@@ -1532,7 +1552,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7792,
+      "pointer": 8400,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1549,7 +1569,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7792,
+      "pointer": 8400,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1566,7 +1586,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7792,
+      "pointer": 8400,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1583,7 +1603,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1600,7 +1620,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1617,7 +1637,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1634,7 +1654,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1651,7 +1671,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1668,7 +1688,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1685,7 +1705,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1702,7 +1722,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1719,7 +1739,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1736,7 +1756,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1753,7 +1773,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1770,7 +1790,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1787,7 +1807,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1804,7 +1824,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1821,7 +1841,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1838,7 +1858,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1855,7 +1875,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7664,
+      "pointer": 8272,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1872,7 +1892,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7792,
+      "pointer": 8400,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1889,7 +1909,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7792,
+      "pointer": 8400,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1906,7 +1926,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7792,
+      "pointer": 8400,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1923,7 +1943,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7792,
+      "pointer": 8400,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1940,7 +1960,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7792,
+      "pointer": 8400,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1957,7 +1977,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7792,
+      "pointer": 8400,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -1971,7 +1991,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 20`] = `
+exports[`log output Group: logs Test: logs: log 21`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1979,12 +1999,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7616,
+  "pointer": 8224,
   "signed": false,
   "size": 20,
   "stack": "",
   "type": 11,
-  "typeId": 19,
+  "typeId": 20,
   "typeName": "Float64Array",
   "value": 0,
   "values": Array [
@@ -1995,7 +2015,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2012,7 +2032,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2029,7 +2049,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2046,7 +2066,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2063,7 +2083,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2080,7 +2100,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2097,7 +2117,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2114,7 +2134,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2131,7 +2151,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2148,7 +2168,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2165,7 +2185,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2182,7 +2202,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2199,7 +2219,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2216,7 +2236,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2233,7 +2253,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2250,7 +2270,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2267,7 +2287,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2284,7 +2304,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2301,7 +2321,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2318,7 +2338,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7968,
+      "pointer": 8576,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -2332,7 +2352,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 21`] = `
+exports[`log output Group: logs Test: logs: log 22`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2340,7 +2360,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7824,
+  "pointer": 8432,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -2356,7 +2376,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8032,
+      "pointer": 8640,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -2373,7 +2393,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8032,
+      "pointer": 8640,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -2390,7 +2410,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8032,
+      "pointer": 8640,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -2404,7 +2424,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 22`] = `
+exports[`log output Group: logs Test: logs: log 23`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2416,7 +2436,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2433,7 +2453,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1488,
+      "pointer": 2032,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2450,7 +2470,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1520,
+      "pointer": 2064,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2467,7 +2487,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1664,
+      "pointer": 2208,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2481,12 +2501,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 16,
-  "pointer": 7888,
+  "pointer": 8496,
   "signed": false,
   "size": 16,
   "stack": "",
   "type": 1,
-  "typeId": 20,
+  "typeId": 21,
   "typeName": "Circular",
   "value": 0,
   "values": Array [
@@ -2497,7 +2517,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8096,
+      "pointer": 8704,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -2515,7 +2535,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8368,
+      "pointer": 8976,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -2537,7 +2557,7 @@ ReflectedValue {
       "size": 4,
       "stack": "",
       "type": 1,
-      "typeId": 21,
+      "typeId": 22,
       "typeName": "Array<assembly/jest-log/Circular>",
       "value": 0,
       "values": null,
@@ -2546,7 +2566,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 23`] = `
+exports[`log output Group: logs Test: logs: log 24`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2554,12 +2574,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7920,
+  "pointer": 8528,
   "signed": false,
   "size": 1,
   "stack": "",
   "type": 10,
-  "typeId": 21,
+  "typeId": 22,
   "typeName": "Array<assembly/jest-log/Circular>",
   "value": 0,
   "values": Array [
@@ -2574,7 +2594,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1456,
+          "pointer": 2000,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2591,7 +2611,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1488,
+          "pointer": 2032,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2608,7 +2628,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1520,
+          "pointer": 2064,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2625,7 +2645,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1664,
+          "pointer": 2208,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2639,12 +2659,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 16,
-      "pointer": 7984,
+      "pointer": 8592,
       "signed": false,
       "size": 16,
       "stack": "",
       "type": 1,
-      "typeId": 20,
+      "typeId": 21,
       "typeName": "Circular",
       "value": 0,
       "values": Array [
@@ -2655,7 +2675,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 8464,
+          "pointer": 9072,
           "signed": true,
           "size": 4,
           "stack": "",
@@ -2677,7 +2697,7 @@ ReflectedValue {
           "size": 4,
           "stack": "",
           "type": 1,
-          "typeId": 20,
+          "typeId": 21,
           "typeName": "Circular",
           "value": 0,
           "values": null,
@@ -2689,7 +2709,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 8064,
+          "pointer": 8672,
           "signed": true,
           "size": 4,
           "stack": "",
@@ -2706,7 +2726,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 24`] = `
+exports[`log output Group: logs Test: logs: log 25`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2718,7 +2738,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2732,12 +2752,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 8016,
+  "pointer": 8624,
   "signed": false,
   "size": 4,
   "stack": "",
   "type": 1,
-  "typeId": 23,
+  "typeId": 24,
   "typeName": "NestedA",
   "value": 0,
   "values": Array [
@@ -2752,7 +2772,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1488,
+          "pointer": 2032,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2766,12 +2786,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 8048,
+      "pointer": 8656,
       "signed": false,
       "size": 4,
       "stack": "",
       "type": 1,
-      "typeId": 24,
+      "typeId": 25,
       "typeName": "NestedB",
       "value": 0,
       "values": Array [
@@ -2786,7 +2806,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 1520,
+              "pointer": 2064,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -2800,12 +2820,12 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 4,
-          "pointer": 8368,
+          "pointer": 8976,
           "signed": false,
           "size": 4,
           "stack": "",
           "type": 1,
-          "typeId": 25,
+          "typeId": 26,
           "typeName": "NestedC",
           "value": 0,
           "values": Array [
@@ -2820,7 +2840,7 @@ ReflectedValue {
                   "negated": false,
                   "nullable": false,
                   "offset": 0,
-                  "pointer": 1664,
+                  "pointer": 2208,
                   "signed": false,
                   "size": 1,
                   "stack": "",
@@ -2834,12 +2854,12 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 4,
-              "pointer": 8400,
+              "pointer": 9008,
               "signed": false,
               "size": 4,
               "stack": "",
               "type": 1,
-              "typeId": 26,
+              "typeId": 27,
               "typeName": "NestedD",
               "value": 0,
               "values": Array [
@@ -2854,7 +2874,7 @@ ReflectedValue {
                       "negated": false,
                       "nullable": false,
                       "offset": 0,
-                      "pointer": 1696,
+                      "pointer": 2240,
                       "signed": false,
                       "size": 1,
                       "stack": "",
@@ -2868,12 +2888,12 @@ ReflectedValue {
                   "negated": false,
                   "nullable": false,
                   "offset": 4,
-                  "pointer": 8432,
+                  "pointer": 9040,
                   "signed": false,
                   "size": 4,
                   "stack": "",
                   "type": 1,
-                  "typeId": 27,
+                  "typeId": 28,
                   "typeName": "NestedE",
                   "value": 0,
                   "values": Array [
@@ -2888,7 +2908,7 @@ ReflectedValue {
                           "negated": false,
                           "nullable": false,
                           "offset": 0,
-                          "pointer": 1728,
+                          "pointer": 2272,
                           "signed": false,
                           "size": 1,
                           "stack": "",
@@ -2902,12 +2922,12 @@ ReflectedValue {
                       "negated": false,
                       "nullable": false,
                       "offset": 8,
-                      "pointer": 8464,
+                      "pointer": 9072,
                       "signed": false,
                       "size": 8,
                       "stack": "",
                       "type": 1,
-                      "typeId": 28,
+                      "typeId": 29,
                       "typeName": "NestedF",
                       "value": 0,
                       "values": Array [
@@ -2918,7 +2938,7 @@ ReflectedValue {
                           "negated": false,
                           "nullable": false,
                           "offset": 0,
-                          "pointer": 9056,
+                          "pointer": 9664,
                           "signed": true,
                           "size": 8,
                           "stack": "",
@@ -2942,7 +2962,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 25`] = `
+exports[`log output Group: logs Test: logs: log 26`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3006,7 +3026,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 8640,
+      "pointer": 9248,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -3022,7 +3042,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9024,
+          "pointer": 9632,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -3039,7 +3059,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9024,
+          "pointer": 9632,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -3056,128 +3076,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 8832,
-          "signed": true,
-          "size": 8,
-          "stack": "",
-          "type": 8,
-          "typeId": 0,
-          "typeName": "f64",
-          "value": 3,
-          "values": null,
-        },
-      ],
-    },
-    ReflectedValue {
-      "isManaged": true,
-      "isNull": false,
-      "keys": Array [
-        ReflectedValue {
-          "isManaged": true,
-          "isNull": false,
-          "keys": null,
-          "negated": false,
-          "nullable": false,
-          "offset": 0,
-          "pointer": 736,
-          "signed": false,
-          "size": 1,
-          "stack": "",
-          "type": 2,
-          "typeId": 1,
-          "typeName": "String",
-          "value": "x",
-          "values": null,
-        },
-        ReflectedValue {
-          "isManaged": true,
-          "isNull": false,
-          "keys": null,
-          "negated": false,
-          "nullable": false,
-          "offset": 0,
-          "pointer": 800,
-          "signed": false,
-          "size": 1,
-          "stack": "",
-          "type": 2,
-          "typeId": 1,
-          "typeName": "String",
-          "value": "y",
-          "values": null,
-        },
-        ReflectedValue {
-          "isManaged": true,
-          "isNull": false,
-          "keys": null,
-          "negated": false,
-          "nullable": false,
-          "offset": 0,
-          "pointer": 832,
-          "signed": false,
-          "size": 1,
-          "stack": "",
-          "type": 2,
-          "typeId": 1,
-          "typeName": "String",
-          "value": "z",
-          "values": null,
-        },
-      ],
-      "negated": false,
-      "nullable": false,
-      "offset": 24,
-      "pointer": 8736,
-      "signed": false,
-      "size": 24,
-      "stack": "",
-      "type": 1,
-      "typeId": 7,
-      "typeName": "Vec3",
-      "value": 0,
-      "values": Array [
-        ReflectedValue {
-          "isManaged": false,
-          "isNull": false,
-          "keys": null,
-          "negated": false,
-          "nullable": false,
-          "offset": 0,
-          "pointer": 8832,
-          "signed": true,
-          "size": 8,
-          "stack": "",
-          "type": 8,
-          "typeId": 0,
-          "typeName": "f64",
-          "value": 1,
-          "values": null,
-        },
-        ReflectedValue {
-          "isManaged": false,
-          "isNull": false,
-          "keys": null,
-          "negated": false,
-          "nullable": false,
-          "offset": 0,
-          "pointer": 8832,
-          "signed": true,
-          "size": 8,
-          "stack": "",
-          "type": 8,
-          "typeId": 0,
-          "typeName": "f64",
-          "value": 2,
-          "values": null,
-        },
-        ReflectedValue {
-          "isManaged": false,
-          "isNull": false,
-          "keys": null,
-          "negated": false,
-          "nullable": false,
-          "offset": 0,
-          "pointer": 8832,
+          "pointer": 9440,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -3193,12 +3092,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8496,
+  "pointer": 9104,
   "signed": false,
-  "size": 2,
+  "size": 1,
   "stack": "",
   "type": 4,
-  "typeId": 29,
+  "typeId": 30,
   "typeName": "Map<assembly/jest-log/Vec3,i32>",
   "value": 0,
   "values": Array [
@@ -3209,24 +3108,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 8992,
-      "signed": true,
-      "size": 4,
-      "stack": "",
-      "type": 7,
-      "typeId": 0,
-      "typeName": "i32",
-      "value": 43,
-      "values": null,
-    },
-    ReflectedValue {
-      "isManaged": false,
-      "isNull": false,
-      "keys": null,
-      "negated": false,
-      "nullable": false,
-      "offset": 0,
-      "pointer": 8992,
+      "pointer": 9600,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -3240,7 +3122,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 26`] = `
+exports[`log output Group: logs Test: logs: log 27`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -3253,14 +3135,14 @@ ReflectedValue {
   "size": 0,
   "stack": "",
   "type": 6,
-  "typeId": 153,
+  "typeId": 161,
   "typeName": "Function",
   "value": "start:assembly/jest-log~anonymous|0~anonymous|0~thisIsTheFunctionName",
   "values": null,
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 27`] = `
+exports[`log output Group: logs Test: logs: log 28`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3272,7 +3154,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3286,12 +3168,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 8784,
+  "pointer": 9392,
   "signed": false,
   "size": 4,
   "stack": "",
   "type": 1,
-  "typeId": 31,
+  "typeId": 32,
   "typeName": "NestedForInlineFunctionA",
   "value": 0,
   "values": Array [
@@ -3306,7 +3188,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1488,
+          "pointer": 2032,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3320,12 +3202,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 8816,
+      "pointer": 9424,
       "signed": false,
       "size": 4,
       "stack": "",
       "type": 1,
-      "typeId": 32,
+      "typeId": 33,
       "typeName": "NestedForInlineFunctionB",
       "value": 0,
       "values": Array [
@@ -3340,7 +3222,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 1520,
+              "pointer": 2064,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3354,12 +3236,12 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 4,
-          "pointer": 8848,
+          "pointer": 9456,
           "signed": false,
           "size": 4,
           "stack": "",
           "type": 1,
-          "typeId": 33,
+          "typeId": 34,
           "typeName": "NestedForInlineFunctionC",
           "value": 0,
           "values": Array [
@@ -3388,7 +3270,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 28`] = `
+exports[`log output Group: logs Test: logs: log 29`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3400,7 +3282,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3414,12 +3296,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 8880,
+  "pointer": 9488,
   "signed": false,
   "size": 4,
   "stack": "",
   "type": 1,
-  "typeId": 34,
+  "typeId": 35,
   "typeName": "NestedForInlineStringA",
   "value": 0,
   "values": Array [
@@ -3434,7 +3316,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1488,
+          "pointer": 2032,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3448,12 +3330,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 8912,
+      "pointer": 9520,
       "signed": false,
       "size": 4,
       "stack": "",
       "type": 1,
-      "typeId": 35,
+      "typeId": 36,
       "typeName": "NestedForInlineStringB",
       "value": 0,
       "values": Array [
@@ -3468,7 +3350,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 1520,
+              "pointer": 2064,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3482,12 +3364,12 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 4,
-          "pointer": 8944,
+          "pointer": 9552,
           "signed": false,
           "size": 4,
           "stack": "",
           "type": 1,
-          "typeId": 36,
+          "typeId": 37,
           "typeName": "NestedForInlineStringC",
           "value": 0,
           "values": Array [
@@ -3498,7 +3380,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 3200,
+              "pointer": 3728,
               "signed": false,
               "size": 18,
               "stack": "",
@@ -3506,134 +3388,6 @@ ReflectedValue {
               "typeId": 1,
               "typeName": "String",
               "value": "The Inlined String",
-              "values": null,
-            },
-          ],
-        },
-      ],
-    },
-  ],
-}
-`;
-
-exports[`log output Group: logs Test: logs: log 29`] = `
-ReflectedValue {
-  "isManaged": true,
-  "isNull": false,
-  "keys": Array [
-    ReflectedValue {
-      "isManaged": true,
-      "isNull": false,
-      "keys": null,
-      "negated": false,
-      "nullable": false,
-      "offset": 0,
-      "pointer": 1456,
-      "signed": false,
-      "size": 1,
-      "stack": "",
-      "type": 2,
-      "typeId": 1,
-      "typeName": "String",
-      "value": "a",
-      "values": null,
-    },
-  ],
-  "negated": false,
-  "nullable": false,
-  "offset": 4,
-  "pointer": 8976,
-  "signed": false,
-  "size": 4,
-  "stack": "",
-  "type": 1,
-  "typeId": 37,
-  "typeName": "NestedForInlineU8A",
-  "value": 0,
-  "values": Array [
-    ReflectedValue {
-      "isManaged": true,
-      "isNull": false,
-      "keys": Array [
-        ReflectedValue {
-          "isManaged": true,
-          "isNull": false,
-          "keys": null,
-          "negated": false,
-          "nullable": false,
-          "offset": 0,
-          "pointer": 1488,
-          "signed": false,
-          "size": 1,
-          "stack": "",
-          "type": 2,
-          "typeId": 1,
-          "typeName": "String",
-          "value": "b",
-          "values": null,
-        },
-      ],
-      "negated": false,
-      "nullable": false,
-      "offset": 4,
-      "pointer": 9008,
-      "signed": false,
-      "size": 4,
-      "stack": "",
-      "type": 1,
-      "typeId": 38,
-      "typeName": "NestedForInlineU8B",
-      "value": 0,
-      "values": Array [
-        ReflectedValue {
-          "isManaged": true,
-          "isNull": false,
-          "keys": Array [
-            ReflectedValue {
-              "isManaged": true,
-              "isNull": false,
-              "keys": null,
-              "negated": false,
-              "nullable": false,
-              "offset": 0,
-              "pointer": 1520,
-              "signed": false,
-              "size": 1,
-              "stack": "",
-              "type": 2,
-              "typeId": 1,
-              "typeName": "String",
-              "value": "c",
-              "values": null,
-            },
-          ],
-          "negated": false,
-          "nullable": false,
-          "offset": 1,
-          "pointer": 9040,
-          "signed": false,
-          "size": 1,
-          "stack": "",
-          "type": 1,
-          "typeId": 39,
-          "typeName": "NestedForInlineU8C",
-          "value": 0,
-          "values": Array [
-            ReflectedValue {
-              "isManaged": false,
-              "isNull": false,
-              "keys": null,
-              "negated": false,
-              "nullable": false,
-              "offset": 0,
-              "pointer": 9152,
-              "signed": false,
-              "size": 1,
-              "stack": "",
-              "type": 7,
-              "typeId": 0,
-              "typeName": "u8",
-              "value": 42,
               "values": null,
             },
           ],
@@ -3656,7 +3410,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3670,13 +3424,13 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9072,
+  "pointer": 9584,
   "signed": false,
   "size": 4,
   "stack": "",
   "type": 1,
-  "typeId": 40,
-  "typeName": "NestedForInlineBoolA",
+  "typeId": 38,
+  "typeName": "NestedForInlineU8A",
   "value": 0,
   "values": Array [
     ReflectedValue {
@@ -3690,7 +3444,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1488,
+          "pointer": 2032,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3704,13 +3458,13 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 9104,
+      "pointer": 9616,
       "signed": false,
       "size": 4,
       "stack": "",
       "type": 1,
-      "typeId": 41,
-      "typeName": "NestedForInlineBoolB",
+      "typeId": 39,
+      "typeName": "NestedForInlineU8B",
       "value": 0,
       "values": Array [
         ReflectedValue {
@@ -3724,7 +3478,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 1520,
+              "pointer": 2064,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3738,13 +3492,13 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 1,
-          "pointer": 9136,
+          "pointer": 9648,
           "signed": false,
           "size": 1,
           "stack": "",
           "type": 1,
-          "typeId": 42,
-          "typeName": "NestedForInlineBoolC",
+          "typeId": 40,
+          "typeName": "NestedForInlineU8C",
           "value": 0,
           "values": Array [
             ReflectedValue {
@@ -3754,14 +3508,14 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 9248,
+              "pointer": 9760,
               "signed": false,
               "size": 1,
               "stack": "",
-              "type": 9,
+              "type": 7,
               "typeId": 0,
-              "typeName": "bool",
-              "value": 1,
+              "typeName": "u8",
+              "value": 42,
               "values": null,
             },
           ],
@@ -3784,7 +3538,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3798,12 +3552,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9168,
+  "pointer": 9680,
   "signed": false,
   "size": 4,
   "stack": "",
   "type": 1,
-  "typeId": 40,
+  "typeId": 41,
   "typeName": "NestedForInlineBoolA",
   "value": 0,
   "values": Array [
@@ -3818,7 +3572,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1488,
+          "pointer": 2032,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3832,12 +3586,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 9200,
+      "pointer": 9712,
       "signed": false,
       "size": 4,
       "stack": "",
       "type": 1,
-      "typeId": 41,
+      "typeId": 42,
       "typeName": "NestedForInlineBoolB",
       "value": 0,
       "values": Array [
@@ -3852,7 +3606,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 1520,
+              "pointer": 2064,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3866,12 +3620,12 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 1,
-          "pointer": 9232,
+          "pointer": 9744,
           "signed": false,
           "size": 1,
           "stack": "",
           "type": 1,
-          "typeId": 42,
+          "typeId": 43,
           "typeName": "NestedForInlineBoolC",
           "value": 0,
           "values": Array [
@@ -3882,14 +3636,14 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 9344,
+              "pointer": 9856,
               "signed": false,
               "size": 1,
               "stack": "",
               "type": 9,
               "typeId": 0,
               "typeName": "bool",
-              "value": 0,
+              "value": 1,
               "values": null,
             },
           ],
@@ -3912,7 +3666,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3926,13 +3680,13 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9264,
+  "pointer": 9776,
   "signed": false,
   "size": 4,
   "stack": "",
   "type": 1,
-  "typeId": 43,
-  "typeName": "NestedTypeImpliedArrayA",
+  "typeId": 41,
+  "typeName": "NestedForInlineBoolA",
   "value": 0,
   "values": Array [
     ReflectedValue {
@@ -3946,7 +3700,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1488,
+          "pointer": 2032,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3960,13 +3714,13 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 9296,
+      "pointer": 9808,
       "signed": false,
       "size": 4,
       "stack": "",
       "type": 1,
-      "typeId": 44,
-      "typeName": "NestedTypeImpliedArrayB",
+      "typeId": 42,
+      "typeName": "NestedForInlineBoolB",
       "value": 0,
       "values": Array [
         ReflectedValue {
@@ -3980,7 +3734,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 1520,
+              "pointer": 2064,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3993,68 +3747,32 @@ ReflectedValue {
           ],
           "negated": false,
           "nullable": false,
-          "offset": 4,
-          "pointer": 9328,
+          "offset": 1,
+          "pointer": 9840,
           "signed": false,
-          "size": 4,
+          "size": 1,
           "stack": "",
           "type": 1,
-          "typeId": 45,
-          "typeName": "NestedTypeImpliedArrayC",
+          "typeId": 43,
+          "typeName": "NestedForInlineBoolC",
           "value": 0,
           "values": Array [
             ReflectedValue {
-              "isManaged": true,
+              "isManaged": false,
               "isNull": false,
               "keys": null,
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 9360,
+              "pointer": 9952,
               "signed": false,
               "size": 1,
               "stack": "",
-              "type": 10,
-              "typeId": 47,
-              "typeName": "Array<~lib/array/Array<u8>>",
+              "type": 9,
+              "typeId": 0,
+              "typeName": "bool",
               "value": 0,
-              "values": Array [
-                ReflectedValue {
-                  "isManaged": true,
-                  "isNull": false,
-                  "keys": null,
-                  "negated": false,
-                  "nullable": false,
-                  "offset": 0,
-                  "pointer": 9424,
-                  "signed": false,
-                  "size": 1,
-                  "stack": "",
-                  "type": 10,
-                  "typeId": 46,
-                  "typeName": "Array<u8>",
-                  "value": 0,
-                  "values": Array [
-                    ReflectedValue {
-                      "isManaged": false,
-                      "isNull": false,
-                      "keys": null,
-                      "negated": false,
-                      "nullable": false,
-                      "offset": 0,
-                      "pointer": 9568,
-                      "signed": false,
-                      "size": 1,
-                      "stack": "",
-                      "type": 7,
-                      "typeId": 0,
-                      "typeName": "u8",
-                      "value": 0,
-                      "values": null,
-                    },
-                  ],
-                },
-              ],
+              "values": null,
             },
           ],
         },
@@ -4076,7 +3794,171 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1520,
+      "pointer": 2000,
+      "signed": false,
+      "size": 1,
+      "stack": "",
+      "type": 2,
+      "typeId": 1,
+      "typeName": "String",
+      "value": "a",
+      "values": null,
+    },
+  ],
+  "negated": false,
+  "nullable": false,
+  "offset": 4,
+  "pointer": 9872,
+  "signed": false,
+  "size": 4,
+  "stack": "",
+  "type": 1,
+  "typeId": 44,
+  "typeName": "NestedTypeImpliedArrayA",
+  "value": 0,
+  "values": Array [
+    ReflectedValue {
+      "isManaged": true,
+      "isNull": false,
+      "keys": Array [
+        ReflectedValue {
+          "isManaged": true,
+          "isNull": false,
+          "keys": null,
+          "negated": false,
+          "nullable": false,
+          "offset": 0,
+          "pointer": 2032,
+          "signed": false,
+          "size": 1,
+          "stack": "",
+          "type": 2,
+          "typeId": 1,
+          "typeName": "String",
+          "value": "b",
+          "values": null,
+        },
+      ],
+      "negated": false,
+      "nullable": false,
+      "offset": 4,
+      "pointer": 9904,
+      "signed": false,
+      "size": 4,
+      "stack": "",
+      "type": 1,
+      "typeId": 45,
+      "typeName": "NestedTypeImpliedArrayB",
+      "value": 0,
+      "values": Array [
+        ReflectedValue {
+          "isManaged": true,
+          "isNull": false,
+          "keys": Array [
+            ReflectedValue {
+              "isManaged": true,
+              "isNull": false,
+              "keys": null,
+              "negated": false,
+              "nullable": false,
+              "offset": 0,
+              "pointer": 2064,
+              "signed": false,
+              "size": 1,
+              "stack": "",
+              "type": 2,
+              "typeId": 1,
+              "typeName": "String",
+              "value": "c",
+              "values": null,
+            },
+          ],
+          "negated": false,
+          "nullable": false,
+          "offset": 4,
+          "pointer": 9936,
+          "signed": false,
+          "size": 4,
+          "stack": "",
+          "type": 1,
+          "typeId": 46,
+          "typeName": "NestedTypeImpliedArrayC",
+          "value": 0,
+          "values": Array [
+            ReflectedValue {
+              "isManaged": true,
+              "isNull": false,
+              "keys": null,
+              "negated": false,
+              "nullable": false,
+              "offset": 0,
+              "pointer": 9968,
+              "signed": false,
+              "size": 1,
+              "stack": "",
+              "type": 10,
+              "typeId": 48,
+              "typeName": "Array<~lib/array/Array<u8>>",
+              "value": 0,
+              "values": Array [
+                ReflectedValue {
+                  "isManaged": true,
+                  "isNull": false,
+                  "keys": null,
+                  "negated": false,
+                  "nullable": false,
+                  "offset": 0,
+                  "pointer": 10032,
+                  "signed": false,
+                  "size": 1,
+                  "stack": "",
+                  "type": 10,
+                  "typeId": 47,
+                  "typeName": "Array<u8>",
+                  "value": 0,
+                  "values": Array [
+                    ReflectedValue {
+                      "isManaged": false,
+                      "isNull": false,
+                      "keys": null,
+                      "negated": false,
+                      "nullable": false,
+                      "offset": 0,
+                      "pointer": 10176,
+                      "signed": false,
+                      "size": 1,
+                      "stack": "",
+                      "type": 7,
+                      "typeId": 0,
+                      "typeName": "u8",
+                      "value": 0,
+                      "values": null,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+`;
+
+exports[`log output Group: logs Test: logs: log 34`] = `
+ReflectedValue {
+  "isManaged": true,
+  "isNull": false,
+  "keys": Array [
+    ReflectedValue {
+      "isManaged": true,
+      "isNull": false,
+      "keys": null,
+      "negated": false,
+      "nullable": false,
+      "offset": 0,
+      "pointer": 2064,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4090,12 +3972,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9488,
+  "pointer": 10096,
   "signed": false,
   "size": 4,
   "stack": "",
   "type": 1,
-  "typeId": 45,
+  "typeId": 46,
   "typeName": "NestedTypeImpliedArrayC",
   "value": 0,
   "values": Array [
@@ -4106,12 +3988,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 9520,
+      "pointer": 10128,
       "signed": false,
       "size": 1,
       "stack": "",
       "type": 10,
-      "typeId": 47,
+      "typeId": 48,
       "typeName": "Array<~lib/array/Array<u8>>",
       "value": 0,
       "values": Array [
@@ -4122,12 +4004,12 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9584,
+          "pointer": 10192,
           "signed": false,
           "size": 1,
           "stack": "",
           "type": 10,
-          "typeId": 46,
+          "typeId": 47,
           "typeName": "Array<u8>",
           "value": 0,
           "values": Array [
@@ -4138,7 +4020,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 9824,
+              "pointer": 10432,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -4156,7 +4038,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 34`] = `
+exports[`log output Group: logs Test: logs: log 35`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4164,12 +4046,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 9648,
+  "pointer": 10256,
   "signed": false,
   "size": 4,
   "stack": "",
   "type": 10,
-  "typeId": 30,
+  "typeId": 31,
   "typeName": "Array<assembly/jest-log/Vec3>",
   "value": 0,
   "values": Array [
@@ -4232,7 +4114,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 9712,
+      "pointer": 10320,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -4248,7 +4130,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 10080,
+          "pointer": 10688,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4265,7 +4147,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 10080,
+          "pointer": 10688,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4282,7 +4164,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9952,
+          "pointer": 10560,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4353,7 +4235,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 9760,
+      "pointer": 10368,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -4369,7 +4251,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9984,
+          "pointer": 10592,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4386,7 +4268,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9984,
+          "pointer": 10592,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4403,7 +4285,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9984,
+          "pointer": 10592,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4474,7 +4356,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 9808,
+      "pointer": 10416,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -4490,7 +4372,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9984,
+          "pointer": 10592,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4507,7 +4389,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9984,
+          "pointer": 10592,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4524,7 +4406,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9984,
+          "pointer": 10592,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4595,7 +4477,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 9856,
+      "pointer": 10464,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -4611,7 +4493,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9984,
+          "pointer": 10592,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4628,7 +4510,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9984,
+          "pointer": 10592,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4645,7 +4527,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 9984,
+          "pointer": 10592,
           "signed": true,
           "size": 8,
           "stack": "",
@@ -4661,7 +4543,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 35`] = `
+exports[`log output Group: logs Test: logs: log 36`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4669,12 +4551,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 9904,
+  "pointer": 10512,
   "signed": false,
   "size": 1,
   "stack": "",
   "type": 10,
-  "typeId": 48,
+  "typeId": 49,
   "typeName": "Array<assembly/jest-log/Vec3 | null>",
   "value": 0,
   "values": Array [
@@ -4699,7 +4581,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 36`] = `
+exports[`log output Group: logs Test: logs: log 37`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4711,7 +4593,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 4672,
+      "pointer": 5200,
       "signed": false,
       "size": 3,
       "stack": "",
@@ -4725,12 +4607,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 10144,
+  "pointer": 10752,
   "signed": false,
   "size": 4,
   "stack": "",
   "type": 1,
-  "typeId": 50,
+  "typeId": 51,
   "typeName": "MeaningOfLife",
   "value": 0,
   "values": Array [
@@ -4741,7 +4623,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 10208,
+      "pointer": 10816,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -4755,7 +4637,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 37`] = `
+exports[`log output Group: logs Test: logs: log 38`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4767,7 +4649,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1456,
+      "pointer": 2000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4784,7 +4666,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1520,
+      "pointer": 2064,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4801,7 +4683,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1488,
+      "pointer": 2032,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4818,7 +4700,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1664,
+      "pointer": 2208,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4832,12 +4714,12 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 12,
-  "pointer": 10000,
+  "pointer": 10608,
   "signed": false,
   "size": 12,
   "stack": "",
   "type": 1,
-  "typeId": 51,
+  "typeId": 52,
   "typeName": "Child",
   "value": 0,
   "values": Array [
@@ -4848,7 +4730,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 10272,
+      "pointer": 10880,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -4865,7 +4747,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 10272,
+      "pointer": 10880,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -4882,7 +4764,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 10208,
+      "pointer": 10816,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -4899,7 +4781,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 10080,
+      "pointer": 10688,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -4915,11 +4797,13 @@ ReflectedValue {
 
 exports[`log output Group: logs Test: logs: stringify 1`] = `"  string: \\"Hello world!\\""`;
 
-exports[`log output Group: logs Test: logs: stringify 2`] = `"  number: 42"`;
+exports[`log output Group: logs Test: logs: stringify 2`] = `"  string: \\"Calculated 42\\""`;
 
-exports[`log output Group: logs Test: logs: stringify 3`] = `"  class: <Vec3>null"`;
+exports[`log output Group: logs Test: logs: stringify 3`] = `"  number: 42"`;
 
-exports[`log output Group: logs Test: logs: stringify 4`] = `
+exports[`log output Group: logs Test: logs: stringify 4`] = `"  class: <Vec3>null"`;
+
+exports[`log output Group: logs Test: logs: stringify 5`] = `
 "  class: Vec3 {
       string: x: number: 1.0,
       string: y: number: 2.0,
@@ -4927,7 +4811,7 @@ exports[`log output Group: logs Test: logs: stringify 4`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 5`] = `
+exports[`log output Group: logs Test: logs: stringify 6`] = `
 "  class: Array<i32> [
       number: 1,
       number: 2,
@@ -4935,29 +4819,29 @@ exports[`log output Group: logs Test: logs: stringify 5`] = `
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 6`] = `"  number: 9999999999999 keyword: as class: i64"`;
+exports[`log output Group: logs Test: logs: stringify 7`] = `"  number: 9999999999999 keyword: as class: i64"`;
 
-exports[`log output Group: logs Test: logs: stringify 7`] = `"  number: 1234567 keyword: as class: u32"`;
+exports[`log output Group: logs Test: logs: stringify 8`] = `"  number: 1234567 keyword: as class: u32"`;
 
-exports[`log output Group: logs Test: logs: stringify 8`] = `"  number: 999999999999 keyword: as class: u64"`;
+exports[`log output Group: logs Test: logs: stringify 9`] = `"  number: 999999999999 keyword: as class: u64"`;
 
-exports[`log output Group: logs Test: logs: stringify 9`] = `"  number: -1 keyword: as class: i8"`;
+exports[`log output Group: logs Test: logs: stringify 10`] = `"  number: -1 keyword: as class: i8"`;
 
-exports[`log output Group: logs Test: logs: stringify 10`] = `"  number: -1 keyword: as class: i16"`;
+exports[`log output Group: logs Test: logs: stringify 11`] = `"  number: -1 keyword: as class: i16"`;
 
-exports[`log output Group: logs Test: logs: stringify 11`] = `"  keyword: true"`;
+exports[`log output Group: logs Test: logs: stringify 12`] = `"  keyword: true"`;
 
-exports[`log output Group: logs Test: logs: stringify 12`] = `"  keyword: false"`;
+exports[`log output Group: logs Test: logs: stringify 13`] = `"  keyword: false"`;
 
-exports[`log output Group: logs Test: logs: stringify 13`] = `"  class: Uint8Array [ number: 0, number: 1, number: 2 ]"`;
+exports[`log output Group: logs Test: logs: stringify 14`] = `"  class: Uint8Array [ number: 0, number: 1, number: 2 ]"`;
 
-exports[`log output Group: logs Test: logs: stringify 14`] = `"  class: Int8Array [ number: -1, number: -2, number: -3 ]"`;
+exports[`log output Group: logs Test: logs: stringify 15`] = `"  class: Int8Array [ number: -1, number: -2, number: -3 ]"`;
 
-exports[`log output Group: logs Test: logs: stringify 15`] = `"  class: [Function 1: assembly/jest-log/IdFunction]"`;
+exports[`log output Group: logs Test: logs: stringify 16`] = `"  class: [Function 1: assembly/jest-log/IdFunction]"`;
 
-exports[`log output Group: logs Test: logs: stringify 16`] = `"  string: \\"trace: The thing! 1, 2, 3, 4, 5\\""`;
+exports[`log output Group: logs Test: logs: stringify 17`] = `"  string: \\"trace: The thing! 1, 2, 3, 4, 5\\""`;
 
-exports[`log output Group: logs Test: logs: stringify 17`] = `
+exports[`log output Group: logs Test: logs: stringify 18`] = `
 "  class: UnmanagedClass {
       string: a: number: 1.0,
       string: b: number: 2.0,
@@ -4965,7 +4849,7 @@ exports[`log output Group: logs Test: logs: stringify 17`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 18`] = `
+exports[`log output Group: logs Test: logs: stringify 19`] = `
 "  class: Array<i32> [
       number: 0,
       number: 1,
@@ -4980,7 +4864,7 @@ exports[`log output Group: logs Test: logs: stringify 18`] = `
   ... +0 values  ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 19`] = `
+exports[`log output Group: logs Test: logs: stringify 20`] = `
 "  class: LotsOfFields {
       string: a: number: 1.0,
       string: b: number: 1.0,
@@ -4995,9 +4879,9 @@ exports[`log output Group: logs Test: logs: stringify 19`] = `
   ... +16 properties  }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 20`] = `"  class: Float64Array [ number: 0.0, number: 1.0, number: 2.0, number: 3.0... +16 items ]"`;
+exports[`log output Group: logs Test: logs: stringify 21`] = `"  class: Float64Array [ number: 0.0, number: 1.0, number: 2.0, number: 3.0... +16 items ]"`;
 
-exports[`log output Group: logs Test: logs: stringify 21`] = `
+exports[`log output Group: logs Test: logs: stringify 22`] = `
 "  class: Array<i32> [
       number: 1,
       number: 2,
@@ -5005,7 +4889,7 @@ exports[`log output Group: logs Test: logs: stringify 21`] = `
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 22`] = `
+exports[`log output Group: logs Test: logs: stringify 23`] = `
 "  class: Circular {
       string: a: number: 1.0 keyword: as class: f32,
       string: b: class: [Circular Reference],
@@ -5014,7 +4898,7 @@ exports[`log output Group: logs Test: logs: stringify 22`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 23`] = `
+exports[`log output Group: logs Test: logs: stringify 24`] = `
 "  class: Array<assembly/jest-log/Circular> [
       {
           string: a: number: 1.0 keyword: as class: f32,
@@ -5025,7 +4909,7 @@ exports[`log output Group: logs Test: logs: stringify 23`] = `
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 24`] = `
+exports[`log output Group: logs Test: logs: stringify 25`] = `
 "  class: NestedA {
       string: a: class: NestedB {
           string: b: class: NestedC {
@@ -5035,16 +4919,15 @@ exports[`log output Group: logs Test: logs: stringify 24`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 25`] = `
+exports[`log output Group: logs Test: logs: stringify 26`] = `
 "  class: Map<assembly/jest-log/Vec3,i32> {
-      class: [Vec3]: number: 43,
       class: [Vec3]: number: 44
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 26`] = `"  class: [Function 2: start:assembly/jest-log~anonymous|0~anonymous|0~thisIsTheFunctionName]"`;
+exports[`log output Group: logs Test: logs: stringify 27`] = `"  class: [Function 2: start:assembly/jest-log~anonymous|0~anonymous|0~thisIsTheFunctionName]"`;
 
-exports[`log output Group: logs Test: logs: stringify 27`] = `
+exports[`log output Group: logs Test: logs: stringify 28`] = `
 "  class: NestedForInlineFunctionA {
       string: a: class: NestedForInlineFunctionB {
           string: b: class: NestedForInlineFunctionC {
@@ -5054,7 +4937,7 @@ exports[`log output Group: logs Test: logs: stringify 27`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 28`] = `
+exports[`log output Group: logs Test: logs: stringify 29`] = `
 "  class: NestedForInlineStringA {
       string: a: class: NestedForInlineStringB {
           string: b: class: NestedForInlineStringC {
@@ -5064,7 +4947,7 @@ exports[`log output Group: logs Test: logs: stringify 28`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 29`] = `
+exports[`log output Group: logs Test: logs: stringify 30`] = `
 "  class: NestedForInlineU8A {
       string: a: class: NestedForInlineU8B {
           string: b: class: NestedForInlineU8C {
@@ -5074,7 +4957,7 @@ exports[`log output Group: logs Test: logs: stringify 29`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 30`] = `
+exports[`log output Group: logs Test: logs: stringify 31`] = `
 "  class: NestedForInlineBoolA {
       string: a: class: NestedForInlineBoolB {
           string: b: class: NestedForInlineBoolC {
@@ -5084,7 +4967,7 @@ exports[`log output Group: logs Test: logs: stringify 30`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 31`] = `
+exports[`log output Group: logs Test: logs: stringify 32`] = `
 "  class: NestedForInlineBoolA {
       string: a: class: NestedForInlineBoolB {
           string: b: class: NestedForInlineBoolC {
@@ -5094,7 +4977,7 @@ exports[`log output Group: logs Test: logs: stringify 31`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 32`] = `
+exports[`log output Group: logs Test: logs: stringify 33`] = `
 "  class: NestedTypeImpliedArrayA {
       string: a: class: NestedTypeImpliedArrayB {
           string: b: class: NestedTypeImpliedArrayC {
@@ -5104,7 +4987,7 @@ exports[`log output Group: logs Test: logs: stringify 32`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 33`] = `
+exports[`log output Group: logs Test: logs: stringify 34`] = `
 "  class: NestedTypeImpliedArrayC {
       string: c: class: Array<~lib/array/Array<u8>> [
           [
@@ -5114,7 +4997,7 @@ exports[`log output Group: logs Test: logs: stringify 33`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 34`] = `
+exports[`log output Group: logs Test: logs: stringify 35`] = `
 "  class: Array<assembly/jest-log/Vec3> [
       {
           string: x: number: 1.0,
@@ -5139,19 +5022,19 @@ exports[`log output Group: logs Test: logs: stringify 34`] = `
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 35`] = `
+exports[`log output Group: logs Test: logs: stringify 36`] = `
 "  class: Array<assembly/jest-log/Vec3 | null> [
       null
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 36`] = `
+exports[`log output Group: logs Test: logs: stringify 37`] = `
 "  class: MeaningOfLife {
       string: its: number: 42
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 37`] = `
+exports[`log output Group: logs Test: logs: stringify 38`] = `
 "  class: Child {
       string: a: number: 0,
       string: c: number: 2,
@@ -5188,7 +5071,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7296,
+  "pointer": 7824,
   "signed": true,
   "size": 4,
   "stack": "",
@@ -5280,7 +5163,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 7152,
+  "pointer": 7680,
   "signed": false,
   "size": 24,
   "stack": "",
@@ -5296,7 +5179,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7376,
+      "pointer": 7904,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -5313,7 +5196,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7376,
+      "pointer": 7904,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -5330,7 +5213,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7376,
+      "pointer": 7904,
       "signed": true,
       "size": 8,
       "stack": "",
@@ -5352,7 +5235,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7200,
+  "pointer": 7728,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -5368,7 +5251,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 7936,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -5385,7 +5268,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 7936,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -5402,7 +5285,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 7936,
       "signed": true,
       "size": 4,
       "stack": "",
@@ -5424,7 +5307,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 7936,
   "signed": true,
   "size": 8,
   "stack": "",
@@ -5444,7 +5327,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 7936,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -5464,7 +5347,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 7936,
   "signed": false,
   "size": 8,
   "stack": "",
@@ -5484,7 +5367,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 7936,
   "signed": true,
   "size": 1,
   "stack": "",
@@ -5504,7 +5387,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 7936,
   "signed": true,
   "size": 2,
   "stack": "",
@@ -5524,7 +5407,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 7936,
   "signed": false,
   "size": 1,
   "stack": "",
@@ -5544,7 +5427,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7408,
+  "pointer": 7936,
   "signed": false,
   "size": 1,
   "stack": "",
@@ -5564,7 +5447,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7024,
+  "pointer": 7552,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -5580,7 +5463,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 7936,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -5597,7 +5480,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 7936,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -5614,7 +5497,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 7936,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -5636,7 +5519,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7088,
+  "pointer": 7616,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -5652,7 +5535,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 7936,
       "signed": true,
       "size": 1,
       "stack": "",
@@ -5669,7 +5552,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 7936,
       "signed": true,
       "size": 1,
       "stack": "",
@@ -5686,7 +5569,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 7408,
+      "pointer": 7936,
       "signed": true,
       "size": 1,
       "stack": "",

@@ -47,91 +47,91 @@ exports[`snapshots: onGroupStart logs 1`] = `
 "[Describe]: logs
 
      [Log]: \\"Hello world!\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[49]:0x16f4)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x7378)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[49]:0x170a)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x765c)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: 42
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<i32> (wasm-function[53]:0x17a7)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x737c)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<i32> (wasm-function[53]:0x17bd)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x7660)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: <Vec3>null
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[66]:0x24b4)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x7380)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[66]:0x24ca)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x7664)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Vec3 {
                 x: 1.0,
                 y: 2.0,
                 z: 3.0
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[70]:0x25f8)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73a3)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[70]:0x260e)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x7687)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Array<i32> [
                 1,
                 2,
                 3
             ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[76]:0x278c)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73b4)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[76]:0x27a2)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x7698)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: 9999999999999 as i64
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<i64> (wasm-function[80]:0x283f)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73be)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<i64> (wasm-function[80]:0x2855)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76a2)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: 1234567 as u32
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<u32> (wasm-function[84]:0x28ee)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73c5)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<u32> (wasm-function[84]:0x2904)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76a9)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: 999999999999 as u64
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<u64> (wasm-function[88]:0x299d)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73ce)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<u64> (wasm-function[88]:0x29b3)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76b2)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: -1 as i8
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<i8> (wasm-function[92]:0x2a4c)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73d2)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<i8> (wasm-function[92]:0x2a62)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76b6)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: -1 as i16
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<i16> (wasm-function[96]:0x2afb)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73d6)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<i16> (wasm-function[96]:0x2b11)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76ba)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: true
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<bool> (wasm-function[100]:0x2baa)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73da)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<bool> (wasm-function[100]:0x2bc0)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76be)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: false
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<bool> (wasm-function[100]:0x2baa)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73de)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<bool> (wasm-function[100]:0x2bc0)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76c2)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Uint8Array [ 0, 1, 2 ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[107]:0x2d56)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73e2)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[107]:0x2d6c)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76c6)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Int8Array [ -1, -2, -3 ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[112]:0x2ea9)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73e6)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[112]:0x2ebf)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76ca)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: [Function 1: ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[115]:0x2f63)
-            at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x73ea)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[115]:0x2f79)
+            at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x76ce)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: \\"trace: The thing! 1, 2, 3, 4, 5\\"
-   [Stack]: at start:assembly/jest-log~anonymous|0 (wasm-function[297]:0x741e)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at start:assembly/jest-log~anonymous|0 (wasm-function[304]:0x7702)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
 "
 `;
 
@@ -144,100 +144,105 @@ exports[`snapshots: onGroupStart snapshots 1`] = `
 exports[`snapshots: onTestFinish logs logs 1`] = `
 " [Success]: ✔ logs RTrace: +4
      [Log]: \\"Hello world!\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[49]:0x16f4)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x6fb0)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[49]:0x170a)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x727b)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
+     [Log]: \\"Calculated 42\\"
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[49]:0x170a)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x728a)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: 42
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<i32> (wasm-function[53]:0x17a7)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x6fb4)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<i32> (wasm-function[53]:0x17bd)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x728e)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: <Vec3>null
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[66]:0x24b4)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x6fb8)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3 | null> (wasm-function[66]:0x24ca)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x7292)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Vec3 {
                 x: 1.0,
                 y: 2.0,
                 z: 3.0
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[70]:0x25f8)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x6fdb)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/Vec3> (wasm-function[70]:0x260e)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72b5)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Array<i32> [
                 1,
                 2,
                 3
             ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[76]:0x278c)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x6fec)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[76]:0x27a2)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72c6)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: 9999999999999 as i64
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<i64> (wasm-function[80]:0x283f)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x6ff6)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<i64> (wasm-function[80]:0x2855)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72d0)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: 1234567 as u32
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<u32> (wasm-function[84]:0x28ee)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x6ffd)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<u32> (wasm-function[84]:0x2904)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72d7)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: 999999999999 as u64
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<u64> (wasm-function[88]:0x299d)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7006)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<u64> (wasm-function[88]:0x29b3)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72e0)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: -1 as i8
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<i8> (wasm-function[92]:0x2a4c)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x700a)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<i8> (wasm-function[92]:0x2a62)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72e4)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: -1 as i16
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<i16> (wasm-function[96]:0x2afb)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x700e)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<i16> (wasm-function[96]:0x2b11)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72e8)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: true
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<bool> (wasm-function[100]:0x2baa)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7012)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<bool> (wasm-function[100]:0x2bc0)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72ec)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: false
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<bool> (wasm-function[100]:0x2baa)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7016)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<bool> (wasm-function[100]:0x2bc0)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72f0)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Uint8Array [ 0, 1, 2 ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[107]:0x2d56)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x701a)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/typedarray/Uint8Array> (wasm-function[107]:0x2d6c)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72f4)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Int8Array [ -1, -2, -3 ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[112]:0x2ea9)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x701e)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/typedarray/Int8Array> (wasm-function[112]:0x2ebf)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72f8)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: [Function 1: ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[115]:0x2f63)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7022)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<(i: i32) => i32> (wasm-function[115]:0x2f79)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x72fc)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: \\"trace: The thing! 1, 2, 3, 4, 5\\"
-   [Stack]: at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7056)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x7330)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: UnmanagedClass {
                 a: 1.0,
                 b: 2.0,
                 c: 3.0
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/UnmanagedClass> (wasm-function[120]:0x3134)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7060)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/UnmanagedClass> (wasm-function[127]:0x33f3)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x733a)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Array<i32> [
                 0,
                 1,
@@ -260,10 +265,10 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                 18,
                 19
             ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[76]:0x278c)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x709a)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[76]:0x27a2)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x7376)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: LotsOfFields {
                 a: 1.0,
                 b: 1.0,
@@ -292,34 +297,34 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                 y: 1.0,
                 z: 1.0
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/LotsOfFields> (wasm-function[133]:0x3acd)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x70a3)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/LotsOfFields> (wasm-function[140]:0x3d93)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x737f)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Float64Array [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0... +10 items ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/typedarray/Float64Array> (wasm-function[140]:0x3c7e)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x70dd)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/typedarray/Float64Array> (wasm-function[147]:0x3f44)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x73b9)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Array<i32> [
                 1,
                 2,
                 3
             ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[76]:0x278c)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x70ef)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/array/Array<i32>> (wasm-function[76]:0x27a2)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x73cb)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Circular {
                 a: 1.0 as f32,
                 b: [Circular Reference],
                 c: 3.0 as f32,
                 d: <Array<assembly/jest-log/Circular>>null
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/Circular> (wasm-function[151]:0x40bc)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x711f)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/Circular> (wasm-function[158]:0x4382)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x73fb)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Array<assembly/jest-log/Circular> [
                 {
                     a: 1.0 as f32,
@@ -328,10 +333,10 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     d: [Circular Reference]
                 }
             ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/array/Array<assembly/jest-log/Circular>> (wasm-function[156]:0x4279)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7161)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/array/Array<assembly/jest-log/Circular>> (wasm-function[163]:0x4540)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x743d)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: NestedA {
                 a: NestedB {
                     b: NestedC {
@@ -339,23 +344,22 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     }
                 }
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedA> (wasm-function[176]:0x497f)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x716b)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedA> (wasm-function[183]:0x4c46)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x7447)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Map<assembly/jest-log/Vec3,i32> {
-                [Vec3]: 42,
                 [Vec3]: 44
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/map/Map<assembly/jest-log/Vec3,i32>> (wasm-function[194]:0x50bb)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x71fb)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/map/Map<assembly/jest-log/Vec3,i32>> (wasm-function[201]:0x5384)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x74d7)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: [Function 2: ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<() => ~lib/string/String> (wasm-function[198]:0x517e)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7200)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<() => ~lib/string/String> (wasm-function[205]:0x5447)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x74dc)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: NestedForInlineFunctionA {
                 a: NestedForInlineFunctionB {
                     b: NestedForInlineFunctionC {
@@ -363,10 +367,10 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     }
                 }
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineFunctionA> (wasm-function[211]:0x5594)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x720a)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineFunctionA> (wasm-function[218]:0x585d)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x74e6)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: NestedForInlineStringA {
                 a: NestedForInlineStringB {
                     b: NestedForInlineStringC {
@@ -374,10 +378,10 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     }
                 }
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineStringA> (wasm-function[222]:0x5946)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7214)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineStringA> (wasm-function[229]:0x5c0f)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x74f0)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: NestedForInlineU8A {
                 a: NestedForInlineU8B {
                     b: NestedForInlineU8C {
@@ -385,10 +389,10 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     }
                 }
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineU8A> (wasm-function[233]:0x5cf7)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x721e)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineU8A> (wasm-function[240]:0x5fc0)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x74fa)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: NestedForInlineBoolA {
                 a: NestedForInlineBoolB {
                     b: NestedForInlineBoolC {
@@ -396,10 +400,10 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     }
                 }
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineBoolA> (wasm-function[244]:0x60a8)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7228)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineBoolA> (wasm-function[251]:0x6371)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x7504)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: NestedForInlineBoolA {
                 a: NestedForInlineBoolB {
                     b: NestedForInlineBoolC {
@@ -407,10 +411,10 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     }
                 }
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineBoolA> (wasm-function[244]:0x60a8)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7241)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedForInlineBoolA> (wasm-function[251]:0x6371)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x751d)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: NestedTypeImpliedArrayA {
                 a: NestedTypeImpliedArrayB {
                     b: NestedTypeImpliedArrayC {
@@ -418,10 +422,10 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     }
                 }
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedTypeImpliedArrayA> (wasm-function[261]:0x667b)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x724b)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedTypeImpliedArrayA> (wasm-function[268]:0x6944)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x7527)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: NestedTypeImpliedArrayC {
                 c: Array<~lib/array/Array<u8>> [
                     [
@@ -429,10 +433,10 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     ]
                 ]
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedTypeImpliedArrayC> (wasm-function[263]:0x66e2)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x7255)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/NestedTypeImpliedArrayC> (wasm-function[270]:0x69ab)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x7531)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Array<assembly/jest-log/Vec3> [
                 {
                     x: 1.0,
@@ -455,34 +459,34 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                     z: 3.0
                 }
             ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/array/Array<assembly/jest-log/Vec3>> (wasm-function[267]:0x6873)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x72b0)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/array/Array<assembly/jest-log/Vec3>> (wasm-function[274]:0x6b3d)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x758c)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Array<assembly/jest-log/Vec3 | null> [
                 null
             ]
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<~lib/array/Array<assembly/jest-log/Vec3 | null>> (wasm-function[274]:0x6a4a)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x72c6)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<~lib/array/Array<assembly/jest-log/Vec3 | null>> (wasm-function[281]:0x6d15)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x75a2)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: MeaningOfLife {
                 its: 42
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/Overridden> (wasm-function[282]:0x6c64)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x72d0)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/Overridden> (wasm-function[289]:0x6f2f)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x75ac)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
      [Log]: Child {
                 a: 0,
                 c: 2,
                 b: 4,
                 d: 6
             }
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16c6)
-            at ../assembly/assembly/internal/log/log<assembly/jest-log/Child> (wasm-function[292]:0x6f9d)
-            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x72da)
-            at ../assembly/assembly/internal/call/__call (wasm-function[320]:0x77e6)
+   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[48]:0x16dc)
+            at ../assembly/assembly/internal/log/log<assembly/jest-log/Child> (wasm-function[299]:0x7268)
+            at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[300]:0x75b6)
+            at ../assembly/assembly/internal/call/__call (wasm-function[327]:0x7aca)
 "
 `;
 
