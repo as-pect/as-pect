@@ -792,6 +792,9 @@ export class TestContext {
       this.blocks.delete(block);
     }
 
+    // remove any cached strings at this pointer
+    this.cachedStrings.delete(block + 16);
+
     this.nodeBlocks.delete(block);
   }
 
@@ -992,12 +995,20 @@ export class TestContext {
     );
   }
 
+  /** A map of strings that can be cached because they are static. */
+  private cachedStrings = new Map<number, string>();
+
   /**
    * Gets a string from the wasm module, unless the module string is null. Otherwise it returns
    * a default value.
    */
-  private getString(pointer: number, defaultValue: string): string {
-    return pointer === 0 ? defaultValue : this.wasm!.__getString(pointer);
+  protected getString(pointer: number, defaultValue: string): string {
+    pointer >>>= 0;
+    if (pointer === 0) return defaultValue;
+    if (this.cachedStrings.has(pointer)) return this.cachedStrings.get(pointer)!;
+    const result = this.wasm!.__getString(pointer);
+    this.cachedStrings.set(pointer, result);
+    return result;
   }
 
   /**
