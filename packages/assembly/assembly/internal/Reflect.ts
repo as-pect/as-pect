@@ -32,6 +32,27 @@ declare function createReflectedValue(
   isManaged: bool,
 ): i32;
 
+// @ts-ignore: linked function decorator
+@external("__aspect", "createReflectedNumber")
+declare function createReflectedNumber(
+  signed: bool,
+  size: i32,
+  reflectedTypeValue: ReflectedValueType,
+  typeName: string,
+  value: f64,
+): i32;
+
+// @ts-ignore: linked function decorator
+@external("__aspect", "createReflectedLong")
+declare function createReflectedLong(
+  signed: bool,
+  size: i32,
+  reflectedTypeValue: ReflectedValueType,
+  typeName: string,
+  lowValue: i32,
+  highValue: i32,
+): i32;
+
 // @ts-ignore: external declaration
 @external("__aspect", "pushReflectedObjectValue")
 @global
@@ -356,15 +377,23 @@ export class Reflect {
 
         return reflectedObjectID;
       }
+    } else if (alignof<T>() === 3 && isInteger<T>()) {
+      // u64, i64, isize, or usize (when targeting 64 bit WebAssembly)
+      // @ts-ignore: value is a number
+      let reflectedValue = createReflectedLong(
+        isSigned<T>(),
+        sizeof<T>(),
+        ReflectedValueType.Integer,
+        nameof<T>(),
+        // @ts-ignore: value is a 64 bit number
+        <i32>(value >>> 32),
+        <i32>(value & 0xFFFFFFFF),
+      );
+
+      return reflectedValue;
     } else {
-      // box the number first before passing up the pointer to collect the value
-      let box = new Box<T>(value);
-      let reflectedValue = createReflectedValue(
-        false,
-        false,
-        false,
-        0,
-        changetype<usize>(box),
+      // boolean, i32, u32, f32, isize, usize (when targeting 32 bit WebAssembly), or numbers with less bits
+      let reflectedValue = createReflectedNumber(
         isSigned<T>(),
         sizeof<T>(),
         isBoolean<T>()
@@ -372,14 +401,13 @@ export class Reflect {
           : isInteger<T>()
           ? ReflectedValueType.Integer
           : ReflectedValueType.Float,
-        0,
         nameof<T>(),
-        changetype<usize>(box),
-        false,
-        false,
+        // @ts-ignore: type is bool, i32, f64, or f32 
+        <f64>value,
       );
       return reflectedValue;
-    }
+
+    } 
     return 0;
   }
 
