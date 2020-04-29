@@ -7170,7 +7170,7 @@
   i32.const 7
   i32.const 1968
   local.get $0
-  i64.const 8
+  i64.const 32
   i64.shr_u
   i32.wrap_i64
   local.get $0
@@ -7633,7 +7633,7 @@
   i32.const 7
   i32.const 2048
   local.get $0
-  i64.const 8
+  i64.const 32
   i64.shr_u
   i32.wrap_i64
   local.get $0
