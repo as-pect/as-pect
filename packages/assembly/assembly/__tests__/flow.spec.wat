@@ -8,7 +8,6 @@
  (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
- (type $i32_i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32 i32)))
  (import "env" "memory" (memory $0 1))
  (data (i32.const 16) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00")
  (data (i32.const 64) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00")
@@ -32,15 +31,17 @@
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
- (import "__aspect" "reportBeforeAll" (func $assembly/internal/Test/reportBeforeAll (param i32)))
- (import "__aspect" "reportBeforeEach" (func $assembly/internal/Test/reportBeforeEach (param i32)))
- (import "__aspect" "reportAfterEach" (func $assembly/internal/Test/reportAfterEach (param i32)))
- (import "__aspect" "reportAfterAll" (func $assembly/internal/Test/reportAfterAll (param i32)))
- (import "__aspect" "reportTestNode" (func $assembly/internal/Test/reportTestNode (param i32 i32 i32 i32 i32)))
+ (import "__aspect" "beforeAll" (func $assembly/internal/Test/beforeAll (param i32)))
+ (import "__aspect" "beforeEach" (func $assembly/internal/Test/beforeEach (param i32)))
+ (import "__aspect" "afterEach" (func $assembly/internal/Test/afterEach (param i32)))
+ (import "__aspect" "afterAll" (func $assembly/internal/Test/afterAll (param i32)))
+ (import "__aspect" "it" (func $assembly/internal/Test/it (param i32 i32)))
+ (import "__aspect" "throws" (func $assembly/internal/Test/throws (param i32 i32 i32)))
+ (import "__aspect" "describe" (func $assembly/internal/Test/describe (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
  (table $0 17 funcref)
- (elem (i32.const 1) $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 $start:assembly/internal/noOp~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/flow.spec~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|1)
+ (elem (i32.const 1) $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7 $start:assembly/__tests__/flow.spec~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 $start:assembly/__tests__/flow.spec~anonymous|1 $start:assembly/internal/noOp~anonymous|0)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
  (global $~lib/gc/gc.auto (mut i32) (i32.const 1))
@@ -49,8 +50,8 @@
  (global $assembly/__tests__/flow.spec/afterEachRan (mut i32) (i32.const 0))
  (global $assembly/__tests__/flow.spec/afterAllRan (mut i32) (i32.const 0))
  (global $assembly/__tests__/flow.spec/testCount (mut i32) (i32.const 0))
- (global $assembly/internal/noOp/noOp i32 (i32.const 2))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
+ (global $assembly/internal/noOp/noOp i32 (i32.const 16))
  (global $assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $assembly/internal/Reflect/Reflect.FAILED_MATCH i32 (i32.const 0))
  (global $assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH i32 (i32.const 1))
@@ -74,7 +75,7 @@
  (export "__ignoreLogs" (func $assembly/internal/log/__ignoreLogs))
  (export "__disableRTrace" (func $assembly/internal/RTrace/__disableRTrace))
  (export "__getUsizeArrayId" (func $assembly/internal/RTrace/__getUsizeArrayId))
- (func $~lib/rt/tlsf/removeBlock (; 10 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/removeBlock (; 12 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -284,7 +285,7 @@
    end
   end
  )
- (func $~lib/rt/tlsf/insertBlock (; 11 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/insertBlock (; 13 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -634,7 +635,7 @@
   local.get $7
   i32.store offset=4
  )
- (func $~lib/rt/tlsf/addMemory (; 12 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/rt/tlsf/addMemory (; 14 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -782,7 +783,7 @@
   call $~lib/rt/tlsf/insertBlock
   i32.const 1
  )
- (func $~lib/rt/tlsf/maybeInitialize (; 13 ;) (result i32)
+ (func $~lib/rt/tlsf/maybeInitialize (; 15 ;) (result i32)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -932,7 +933,7 @@
   end
   local.get $0
  )
- (func $~lib/rt/tlsf/prepareSize (; 14 ;) (param $0 i32) (result i32)
+ (func $~lib/rt/tlsf/prepareSize (; 16 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -961,7 +962,7 @@
   i32.gt_u
   select
  )
- (func $~lib/rt/tlsf/searchBlock (; 15 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/searchBlock (; 17 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -1144,7 +1145,7 @@
   end
   local.get $7
  )
- (func $~lib/rt/tlsf/growMemory (; 16 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/growMemory (; 18 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -1228,7 +1229,7 @@
   call $~lib/rt/tlsf/addMemory
   drop
  )
- (func $~lib/rt/tlsf/prepareBlock (; 17 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/rt/tlsf/prepareBlock (; 19 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   (local $5 i32)
@@ -1323,7 +1324,7 @@
    i32.store
   end
  )
- (func $~lib/rt/tlsf/allocateBlock (; 18 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/rt/tlsf/allocateBlock (; 20 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   global.get $~lib/rt/tlsf/collectLock
@@ -1434,7 +1435,7 @@
   call $~lib/rt/rtrace/onalloc
   local.get $4
  )
- (func $~lib/rt/tlsf/__alloc (; 19 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/__alloc (; 21 ;) (param $0 i32) (param $1 i32) (result i32)
   call $~lib/rt/tlsf/maybeInitialize
   local.get $0
   local.get $1
@@ -1442,7 +1443,7 @@
   i32.const 16
   i32.add
  )
- (func $~lib/rt/pure/increment (; 20 ;) (param $0 i32)
+ (func $~lib/rt/pure/increment (; 22 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -1487,7 +1488,7 @@
    unreachable
   end
  )
- (func $~lib/rt/pure/__retain (; 21 ;) (param $0 i32) (result i32)
+ (func $~lib/rt/pure/__retain (; 23 ;) (param $0 i32) (result i32)
   local.get $0
   global.get $~lib/heap/__heap_base
   i32.gt_u
@@ -1499,7 +1500,7 @@
   end
   local.get $0
  )
- (func $~lib/rt/pure/__release (; 22 ;) (param $0 i32)
+ (func $~lib/rt/pure/__release (; 24 ;) (param $0 i32)
   local.get $0
   global.get $~lib/heap/__heap_base
   i32.gt_u
@@ -1510,18 +1511,11 @@
    call $~lib/rt/pure/decrement
   end
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 (; 23 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0 (; 25 ;)
   global.get $assembly/__tests__/flow.spec/beforeAllRan
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/beforeAllRan
- )
- (func $start:assembly/internal/noOp~anonymous|0 (; 24 ;)
-  nop
- )
- (func $assembly/internal/Test/beforeAll (; 25 ;) (param $0 i32)
-  local.get $0
-  call $assembly/internal/Test/reportBeforeAll
  )
  (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1 (; 26 ;)
   global.get $assembly/__tests__/flow.spec/beforeEachRan
@@ -1529,123 +1523,67 @@
   i32.add
   global.set $assembly/__tests__/flow.spec/beforeEachRan
  )
- (func $assembly/internal/Test/beforeEach (; 27 ;) (param $0 i32)
-  local.get $0
-  call $assembly/internal/Test/reportBeforeEach
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 (; 28 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2 (; 27 ;)
   global.get $assembly/__tests__/flow.spec/afterEachRan
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/afterEachRan
  )
- (func $assembly/internal/Test/afterEach (; 29 ;) (param $0 i32)
-  local.get $0
-  call $assembly/internal/Test/reportAfterEach
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 (; 30 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3 (; 28 ;)
   global.get $assembly/__tests__/flow.spec/afterAllRan
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/afterAllRan
  )
- (func $assembly/internal/Test/afterAll (; 31 ;) (param $0 i32)
-  local.get $0
-  call $assembly/internal/Test/reportAfterAll
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 (; 32 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4 (; 29 ;)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
  )
- (func $assembly/internal/Test/it (; 33 ;) (param $0 i32) (param $1 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  i32.const 0
-  local.get $0
-  local.get $1
-  i32.const 0
-  i32.const 0
-  call $assembly/internal/Test/reportTestNode
-  local.get $0
-  call $~lib/rt/pure/__release
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5 (; 34 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5 (; 30 ;)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6 (; 35 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6 (; 31 ;)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7 (; 36 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7 (; 32 ;)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 1
   i32.add
   global.set $assembly/__tests__/flow.spec/testCount
   unreachable
  )
- (func $assembly/internal/Test/throws (; 37 ;) (param $0 i32) (param $1 i32) (param $2 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  local.get $2
-  call $~lib/rt/pure/__retain
-  local.set $2
-  i32.const 0
-  local.get $0
-  local.get $1
-  i32.const 1
-  local.get $2
-  call $assembly/internal/Test/reportTestNode
-  local.get $0
-  call $~lib/rt/pure/__release
-  local.get $2
-  call $~lib/rt/pure/__release
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0 (; 38 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|0 (; 33 ;)
   i32.const 1
   call $assembly/internal/Test/beforeAll
-  i32.const 3
+  i32.const 2
   call $assembly/internal/Test/beforeEach
-  i32.const 4
+  i32.const 3
   call $assembly/internal/Test/afterEach
-  i32.const 5
+  i32.const 4
   call $assembly/internal/Test/afterAll
+  i32.const 240
+  i32.const 5
+  call $assembly/internal/Test/it
   i32.const 240
   i32.const 6
   call $assembly/internal/Test/it
   i32.const 240
   i32.const 7
   call $assembly/internal/Test/it
-  i32.const 240
-  i32.const 8
-  call $assembly/internal/Test/it
   i32.const 320
-  i32.const 9
+  i32.const 8
   i32.const 0
   call $assembly/internal/Test/throws
  )
- (func $assembly/internal/Test/describe (; 39 ;) (param $0 i32) (param $1 i32)
-  local.get $0
-  call $~lib/rt/pure/__retain
-  local.set $0
-  i32.const 1
-  local.get $0
-  local.get $1
-  i32.const 0
-  i32.const 0
-  call $assembly/internal/Test/reportTestNode
-  local.get $0
-  call $~lib/rt/pure/__release
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 (; 40 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0 (; 34 ;)
   global.get $assembly/__tests__/flow.spec/beforeEachRan
   i32.const 4
   i32.eq
@@ -1659,7 +1597,7 @@
    unreachable
   end
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 (; 41 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1 (; 35 ;)
   global.get $assembly/__tests__/flow.spec/beforeAllRan
   i32.const 1
   i32.eq
@@ -1673,7 +1611,7 @@
    unreachable
   end
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 (; 42 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2 (; 36 ;)
   global.get $assembly/__tests__/flow.spec/afterEachRan
   i32.const 4
   i32.eq
@@ -1687,7 +1625,7 @@
    unreachable
   end
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 (; 43 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3 (; 37 ;)
   global.get $assembly/__tests__/flow.spec/afterAllRan
   i32.const 1
   i32.eq
@@ -1701,7 +1639,7 @@
    unreachable
   end
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 (; 44 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4 (; 38 ;)
   global.get $assembly/__tests__/flow.spec/testCount
   i32.const 4
   i32.eq
@@ -1715,55 +1653,58 @@
    unreachable
   end
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1 (; 45 ;)
+ (func $start:assembly/__tests__/flow.spec~anonymous|1 (; 39 ;)
   i32.const 416
-  i32.const 11
+  i32.const 10
   call $assembly/internal/Test/it
   i32.const 656
-  i32.const 12
+  i32.const 11
   call $assembly/internal/Test/it
   i32.const 816
-  i32.const 13
+  i32.const 12
   call $assembly/internal/Test/it
   i32.const 976
-  i32.const 14
+  i32.const 13
   call $assembly/internal/Test/it
   i32.const 1136
-  i32.const 15
+  i32.const 14
   call $assembly/internal/Test/it
  )
- (func $start:assembly/__tests__/flow.spec (; 46 ;)
+ (func $start:assembly/__tests__/flow.spec (; 40 ;)
   i32.const 192
-  i32.const 10
+  i32.const 9
   call $assembly/internal/Test/describe
   i32.const 384
-  i32.const 16
+  i32.const 15
   call $assembly/internal/Test/describe
  )
- (func $~setArgumentsLength (; 47 ;) (param $0 i32)
+ (func $start:assembly/internal/noOp~anonymous|0 (; 41 ;)
+  nop
+ )
+ (func $~setArgumentsLength (; 42 ;) (param $0 i32)
   local.get $0
   global.set $~argumentsLength
  )
- (func $assembly/internal/call/__call (; 48 ;) (param $0 i32)
+ (func $assembly/internal/call/__call (; 43 ;) (param $0 i32)
   i32.const 0
   global.set $~argumentsLength
   local.get $0
   call_indirect (type $none_=>_none)
  )
- (func $assembly/internal/log/__ignoreLogs (; 49 ;) (param $0 i32)
+ (func $assembly/internal/log/__ignoreLogs (; 44 ;) (param $0 i32)
   local.get $0
   i32.const 0
   i32.ne
   global.set $assembly/internal/log/ignoreLogs
  )
- (func $assembly/internal/RTrace/__disableRTrace (; 50 ;)
+ (func $assembly/internal/RTrace/__disableRTrace (; 45 ;)
   i32.const 0
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
- (func $assembly/internal/RTrace/__getUsizeArrayId (; 51 ;) (result i32)
+ (func $assembly/internal/RTrace/__getUsizeArrayId (; 46 ;) (result i32)
   i32.const 3
  )
- (func $~start (; 52 ;)
+ (func $~start (; 47 ;)
   global.get $~started
   if
    return
@@ -1773,10 +1714,10 @@
   end
   call $start:assembly/__tests__/flow.spec
  )
- (func $~lib/rt/pure/__collect (; 53 ;)
+ (func $~lib/rt/pure/__collect (; 48 ;)
   return
  )
- (func $~lib/rt/tlsf/freeBlock (; 54 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/freeBlock (; 49 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $1
   i32.load
@@ -1792,7 +1733,7 @@
   local.get $1
   call $~lib/rt/rtrace/onfree
  )
- (func $~lib/rt/pure/decrement (; 55 ;) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 50 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -1869,7 +1810,7 @@
    i32.store offset=4
   end
  )
- (func $~lib/rt/pure/__visit (; 56 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 51 ;) (param $0 i32) (param $1 i32)
   local.get $0
   global.get $~lib/heap/__heap_base
   i32.lt_u
@@ -1893,10 +1834,10 @@
   i32.sub
   call $~lib/rt/pure/decrement
  )
- (func $~lib/array/Array<usize>#__visit_impl (; 57 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/array/Array<usize>#__visit_impl (; 52 ;) (param $0 i32) (param $1 i32)
   nop
  )
- (func $~lib/rt/__visit_members (; 58 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 53 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $block$4$break
    block $switch$1$default

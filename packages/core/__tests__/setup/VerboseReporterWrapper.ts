@@ -54,7 +54,7 @@ export class VerboseReporterWrapper extends VerboseReporter {
   }
   onFinish(ctx: TestContext): void {
     this.writer.reset();
-    ctx.rootNode.visit(e => {
+    ctx.rootNode.visit((e) => {
       e.start = 0;
       e.end = 0;
     });

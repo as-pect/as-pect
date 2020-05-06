@@ -120,7 +120,7 @@ export class TestNode {
   get groupTodos(): string[] {
     return (<string[]>[]).concat.apply(
       this.todos,
-      this.groupTests.map(e => e.todos),
+      this.groupTests.map((e) => e.todos),
     );
   }
 
@@ -140,7 +140,7 @@ export class TestNode {
   /** Get all the groups beneath this node. */
   get childGroups(): TestNode[] {
     const result: TestNode[] = [];
-    this.visit(node => {
+    this.visit((node) => {
       if (node.type === TestNodeType.Group) result.push(node);
     });
     return result;

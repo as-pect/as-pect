@@ -474,11 +474,16 @@ export class TestContext {
       attachStackTraceToReflectedValue: this.attachStackTraceToReflectedValue.bind(
         this,
       ),
+      afterAll: this.reportAfterAll.bind(this),
+      afterEach: this.reportAfterEach.bind(this),
+      beforeAll: this.reportBeforeAll.bind(this),
+      beforeEach: this.reportBeforeEach.bind(this),
       clearActual: this.clearActual.bind(this),
       clearExpected: this.clearExpected.bind(this),
       createReflectedValue: this.createReflectedValue.bind(this),
       createReflectedNumber: this.createReflectedNumber.bind(this),
       createReflectedLong: this.createReflectedLong.bind(this),
+      describe: this.describe.bind(this),
       debug: this.debug.bind(this),
       endRTrace: this.endRTrace.bind(this),
       getRTraceAllocations: this.getRTraceAllocations.bind(this),
@@ -494,14 +499,12 @@ export class TestContext {
       getRTraceNodeReallocs: this.getRTraceNodeReallocs.bind(this),
       getRTraceIncrements: this.getRTraceIncrements.bind(this),
       getRTraceReallocs: this.getRTraceReallocs.bind(this),
+      it: this.it.bind(this),
+      itThrows: this.throws.bind(this),
       logReflectedValue: this.logReflectedValue.bind(this),
       pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
       pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
       reportActualReflectedValue: this.reportActualReflectedValue.bind(this),
-      reportAfterAll: this.reportAfterAll.bind(this),
-      reportAfterEach: this.reportAfterEach.bind(this),
-      reportBeforeAll: this.reportBeforeAll.bind(this),
-      reportBeforeEach: this.reportBeforeEach.bind(this),
       reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
       reportExpectedFinite: this.reportExpectedFinite.bind(this),
       reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(
@@ -509,10 +512,13 @@ export class TestContext {
       ),
       reportExpectedSnapshot: this.reportExpectedSnapshot.bind(this),
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
-      reportTestNode: this.reportTestNode.bind(this),
-      reportTodo: this.reportTodo.bind(this),
       startRTrace: this.startRTrace.bind(this),
+      test: this.it.bind(this),
+      throws: this.throws.bind(this),
+      todo: this.reportTodo.bind(this),
       tryCall: this.tryCall.bind(this),
+      xit: this.xit.bind(this),
+      xtest: this.xit.bind(this),
     };
 
     /** If RTrace is enabled, add it to the imports. */
@@ -540,6 +546,50 @@ export class TestContext {
     finalImports.env.trace = this.trace.bind(this);
 
     return finalImports;
+  }
+
+  /**
+   * This function describes a test group.
+   *
+   * @param {number} description - The test suite description string pointer.
+   * @param {number} runner - The pointer to a test suite callback
+   */
+  private describe(description: number = 0, runner: number = 0): void {
+    this.reportTestNode(TestNodeType.Group, description, runner, 0, 0);
+  }
+
+  /**
+   * This function sets up a test node.
+   *
+   * @param description - The test description string pointer
+   * @param runner - The pointer to a test callback
+   */
+  private it(description: number, runner: number): void {
+    this.reportTestNode(TestNodeType.Test, description, runner, 0, 0);
+  }
+
+  /**
+   * This function expects a throws from a test node.
+   *
+   * @param description - The test description string pointer
+   * @param runner - The pointer to a test callback
+   * @param message - The pointer to an additional assertion message in string
+   */
+  private throws(
+    description: number,
+    runner: number,
+    message: number = 0,
+  ): void {
+    this.reportTestNode(TestNodeType.Test, description, runner, 1, message);
+  }
+
+  /**
+   * This function does not run a test, treats a test as a todo.
+   * @param description - The test description string pointer
+   * @param _callback - The pointer to a test callback
+   */
+  private xit(description: number, _callback: number): void {
+    this.reportTodo(description);
   }
 
   /**
@@ -1007,7 +1057,8 @@ export class TestContext {
   protected getString(pointer: number, defaultValue: string): string {
     pointer >>>= 0;
     if (pointer === 0) return defaultValue;
-    if (this.cachedStrings.has(pointer)) return this.cachedStrings.get(pointer)!;
+    if (this.cachedStrings.has(pointer))
+      return this.cachedStrings.get(pointer)!;
     const result = this.wasm!.__getString(pointer);
     this.cachedStrings.set(pointer, result);
     return result;
@@ -1116,6 +1167,9 @@ export class TestContext {
     return this.reflectedValueCache.push(reflectedValue) - 1;
   }
 
+  /**
+   * Create reflection of a long number (not supported directly from javascript)
+   */
   private createReflectedLong(
     signed: 1 | 0, // isSigned<T>()
     size: number, // sizeof<T>()

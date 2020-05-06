@@ -26,7 +26,7 @@ describe("TestGroup filtering", () => {
     context.groupRegex = /two/i;
     context.run(wasm);
     let count = 0;
-    context.rootNode.visit(node => {
+    context.rootNode.visit((node) => {
       if (node.type === TestNodeType.Group && node.ran) count += 1;
     });
     expect(count).toBe(1);
@@ -38,7 +38,7 @@ describe("TestGroup filtering", () => {
     context.run(wasm);
 
     let count = 0;
-    context.rootNode.visit(node => {
+    context.rootNode.visit((node) => {
       if (node.type === TestNodeType.Test && node.ran) count += 1;
     });
     expect(count).toBe(3);

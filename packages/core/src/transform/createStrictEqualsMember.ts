@@ -388,7 +388,7 @@ function createSuperCallExpression(
           TypeNode.createAssertionExpression(
             AssertionKind.AS,
             TypeNode.createArrayLiteralExpression(
-              hashValues.map(e =>
+              hashValues.map((e) =>
                 TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range),
               ),
               range,

@@ -387,7 +387,7 @@ export class Reflect {
         nameof<T>(),
         // @ts-ignore: value is a 64 bit number
         <i32>(value >>> 32),
-        <i32>(value & 0xFFFFFFFF),
+        <i32>(value & 0xffffffff),
       );
 
       return reflectedValue;
@@ -402,12 +402,11 @@ export class Reflect {
           ? ReflectedValueType.Integer
           : ReflectedValueType.Float,
         nameof<T>(),
-        // @ts-ignore: type is bool, i32, f64, or f32 
+        // @ts-ignore: type is bool, i32, f64, or f32
         <f64>value,
       );
       return reflectedValue;
-
-    } 
+    }
     return 0;
   }
 

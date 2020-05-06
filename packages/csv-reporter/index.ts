@@ -54,8 +54,8 @@ module.exports = class CSVReporter implements IReporter {
   protected onGroupFinish(group: TestNode): void {
     if (group.children.length === 0) return;
 
-    group.groupTests.forEach(test => this.onTestFinish(group, test));
-    group.groupTodos.forEach(desc => this.onTodo(group, desc));
+    group.groupTests.forEach((test) => this.onTestFinish(group, test));
+    group.groupTodos.forEach((desc) => this.onTodo(group, desc));
   }
 
   protected onTestFinish(group: TestNode, test: TestNode) {

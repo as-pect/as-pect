@@ -8,7 +8,7 @@ import { unlink } from "fs";
  */
 export function removeFile(file: string): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    unlink(file, err => {
+    unlink(file, (err) => {
       if (err) reject(err);
       else resolve();
     });

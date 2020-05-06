@@ -24,7 +24,7 @@ describe("RTrace output", () => {
     expect(ctx.allocationCount).toMatchSnapshot("allocationCount");
     expect(ctx.errors).toMatchSnapshot("errors"); // matches empty array
   });
-  ctx.rootNode.visit(group => {
+  ctx.rootNode.visit((group) => {
     if (group.type === TestNodeType.Group) {
       test(`Group: ${group.name}`, () => {
         expect(group.rtraceStart).toMatchSnapshot(`rtraceStart`);
