@@ -44,7 +44,7 @@
 		"assemblyscript": "^0.9.4"
 	},
 	"devDependencies": {
-		"jest": "^25.4.0",
-		"ts-jest": "^25.4.0"
+		"jest": "^26.0.1",
+		"ts-jest": "^25.5.0"
 	}
 }
