@@ -1082,8 +1082,6 @@ export class TestContext {
 
     if (reflectedTypeValue === ReflectedValueType.String) {
       reflectedValue.value = this.getString(value, "");
-    } else if (reflectedTypeValue === ReflectedValueType.Float) {
-      reflectedValue.value = this.getFloat(value, size);
     } else if (reflectedTypeValue === ReflectedValueType.Function) {
       reflectedValue.value = this.funcName(value);
     } else {
@@ -1094,12 +1092,13 @@ export class TestContext {
   }
 
   /**
-   * 
-   * @param signed 
-   * @param size 
-   * @param reflectedTypeValue 
-   * @param typeName 
-   * @param value 
+   * Create a reflected number value.
+   *
+   * @param {1 | 0} signed - Indicate if the value is signed.
+   * @param {number} size - The size of the value in bytes.
+   * @param {ReflectedValueType} reflectedTypeValue - The ReflectedValueType
+   * @param {number} typeName - The name of the type.
+   * @param {number} value - The value itself
    */
   private createReflectedNumber(
     signed: 1 | 0, // isSigned<T>()
@@ -1114,9 +1113,6 @@ export class TestContext {
     reflectedValue.type = reflectedTypeValue;
     reflectedValue.typeName = this.getString(typeName, "");
     reflectedValue.value = value;
-    // (()=>value)();
-    // reflectedValue.value = this.getFloat(value, size);
-
     return this.reflectedValueCache.push(reflectedValue) - 1;
   }
 
@@ -1137,53 +1133,6 @@ export class TestContext {
     reflectedValue.value = new Long(lowValue, highValue, signed).toString();
 
     return this.reflectedValueCache.push(reflectedValue) - 1;
-  }
-
-  /**
-   * Get a boxed integer of a given kind at a pointer location.
-   *
-   * @param {number} pointer - The pointer location of the number
-   * @param {number} size - The size of the integer in bytes
-   * @param {boolean} signed - If the number is signed
-   */
-  
-
-  /**
-   * Get a boxed float of a given kind at a pointer location.
-   *
-   * @param {number} pointer - The pointer location of the number
-   * @param {number} size - The size of the float in bytes.
-   */
-  private getFloat(pointer: number, size: number): number {
-    const buffer = this.wasm!.memory.buffer;
-    /* istanbul ignore next */
-    if (pointer + size >= buffer.byteLength) {
-      /* istanbul ignore next */
-      this.pushError({
-        message: `Cannot obtain a float value at pointer ${pointer} of size ${size}: index out of bounds`,
-        stackTrace: this.getLogStackTrace(),
-        type: "ReflectedValue",
-      });
-      /* istanbul ignore next */
-      return 0;
-    }
-    switch (size) {
-      case 4:
-        return new Float32Array(buffer)[pointer >>> 2];
-      case 8:
-        return new Float64Array(buffer)[pointer >>> 3];
-      /* istanbul ignore next */
-      default:
-        // sanity checks
-        /* istanbul ignore next */
-        this.pushError({
-          message: `Cannot obtain a float at ${pointer} of size ${size}`,
-          stackTrace: this.getLogStackTrace(),
-          type: "ReflectedValue",
-        });
-        /* istanbul ignore next */
-        return 0;
-    }
   }
 
   /**
