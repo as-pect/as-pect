@@ -1,4 +1,3 @@
-import { TestNodeType } from "./TestNodeType";
 import { noOp } from "./noOp";
 
 // @ts-ignore: Decorators *are* valid here!
@@ -42,12 +41,12 @@ export declare function xit(description: string, callback: () => void): void;
 export declare function xtest(description: string, callback: () => void): void;
 
 // @ts-ignore: decorators *are* valid here
-@external("__aspect", "it")
+@external("__aspect", "reportTestTypeNode")
 @global
 export declare function it(description: string, runner: () => void): void;
 
 // @ts-ignore: decorators *are* valid here
-@external("__aspect", "test")
+@external("__aspect", "reportTestTypeNode")
 @global
 export declare function test(description: string, runner: () => void): void;
 
@@ -72,7 +71,7 @@ export declare function throws(
 ): void;
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "describe")
+@external("__aspect", "reportGroupTypeNode")
 @global
 export declare function describe(
   // @ts-ignore: this is a valid syntax

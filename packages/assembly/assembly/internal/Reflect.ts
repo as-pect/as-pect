@@ -2,7 +2,6 @@ import { ArrayBufferView } from "arraybuffer";
 import { Set } from "set";
 import { assert } from "./assert";
 import { ReflectedValueType } from "./ReflectedValueType";
-import { Box } from "./Box";
 
 function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
   return bool(

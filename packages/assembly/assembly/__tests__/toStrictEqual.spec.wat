@@ -311,14 +311,14 @@
  (import "__aspect" "reportExpectedReflectedValue" (func $assembly/internal/Expected/reportExpectedReflectedValue (param i32 i32)))
  (import "__aspect" "clearActual" (func $assembly/internal/Actual/clearActual))
  (import "__aspect" "clearExpected" (func $assembly/internal/Expected/clearExpected))
- (import "__aspect" "it" (func $assembly/internal/Test/it (param i32 i32)))
- (import "__aspect" "throws" (func $assembly/internal/Test/throws (param i32 i32 i32)))
+ (import "__aspect" "reportTestTypeNode" (func $assembly/internal/Test/it (param i32 i32)))
+ (import "__aspect" "reportNegatedTestNode" (func $assembly/internal/Test/throws (param i32 i32 i32)))
  (import "__aspect" "createReflectedValue" (func $assembly/internal/Reflect/createReflectedValue (param i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32 i32) (result i32)))
  (import "__aspect" "pushReflectedObjectKey" (func $assembly/internal/Reflect/__aspectPushReflectedObjectKey (param i32 i32)))
  (import "__aspect" "pushReflectedObjectValue" (func $assembly/internal/Reflect/__aspectPushReflectedObjectValue (param i32 i32)))
- (import "__aspect" "itThrows" (func $assembly/internal/Test/itThrows (param i32 i32 i32)))
- (import "__aspect" "describe" (func $assembly/internal/Test/describe (param i32 i32)))
- (import "__aspect" "test" (func $assembly/internal/Test/test (param i32 i32)))
+ (import "__aspect" "reportNegatedTestNode" (func $assembly/internal/Test/itThrows (param i32 i32 i32)))
+ (import "__aspect" "reportGroupTypeNode" (func $assembly/internal/Test/describe (param i32 i32)))
+ (import "__aspect" "reportTestTypeNode" (func $assembly/internal/Test/test (param i32 i32)))
  (import "__aspect" "afterEach" (func $assembly/internal/Test/afterEach (param i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (table $0 86 funcref)
@@ -6131,7 +6131,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 31
    call $~lib/builtins/abort
    unreachable
@@ -6143,7 +6143,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 38
    call $~lib/builtins/abort
    unreachable
@@ -10978,7 +10978,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 31
    call $~lib/builtins/abort
    unreachable
@@ -10990,7 +10990,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 38
    call $~lib/builtins/abort
    unreachable
@@ -12291,7 +12291,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 31
    call $~lib/builtins/abort
    unreachable
@@ -12303,7 +12303,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 38
    call $~lib/builtins/abort
    unreachable
@@ -12679,7 +12679,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 31
    call $~lib/builtins/abort
    unreachable
@@ -12691,7 +12691,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 38
    call $~lib/builtins/abort
    unreachable
@@ -30132,7 +30132,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 31
    call $~lib/builtins/abort
    unreachable
@@ -30144,7 +30144,7 @@
   else
    i32.const 0
    i32.const 3328
-   i32.const 440
+   i32.const 438
    i32.const 38
    call $~lib/builtins/abort
    unreachable

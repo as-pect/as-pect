@@ -483,7 +483,6 @@ export class TestContext {
       createReflectedValue: this.createReflectedValue.bind(this),
       createReflectedNumber: this.createReflectedNumber.bind(this),
       createReflectedLong: this.createReflectedLong.bind(this),
-      describe: this.describe.bind(this),
       debug: this.debug.bind(this),
       endRTrace: this.endRTrace.bind(this),
       getRTraceAllocations: this.getRTraceAllocations.bind(this),
@@ -499,7 +498,6 @@ export class TestContext {
       getRTraceNodeReallocs: this.getRTraceNodeReallocs.bind(this),
       getRTraceIncrements: this.getRTraceIncrements.bind(this),
       getRTraceReallocs: this.getRTraceReallocs.bind(this),
-      it: this.it.bind(this),
       logReflectedValue: this.logReflectedValue.bind(this),
       pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
       pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
@@ -511,11 +509,11 @@ export class TestContext {
         ),
       reportNegatedTestNode: this.reportNegatedTestNode.bind(this),
       reportTodo: this.reportTodo.bind(this),
+      reportTestTypeNode: this.reportTestTypeNode.bind(this),
+      reportGroupTypeNode: this.reportGroupTypeNode.bind(this),
       reportExpectedSnapshot: this.reportExpectedSnapshot.bind(this),
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
       startRTrace: this.startRTrace.bind(this),
-      test: this.it.bind(this),
-      todo: this.reportTodo.bind(this),
       tryCall: this.tryCall.bind(this),
     };
 
@@ -547,12 +545,12 @@ export class TestContext {
   }
 
   /**
-   * This function describes a test group.
+   * This function sets up a test group.
    *
    * @param {number} description - The test suite description string pointer.
    * @param {number} runner - The pointer to a test suite callback
    */
-  private describe(description: number = 0, runner: number = 0): void {
+  private reportGroupTypeNode(description: number = 0, runner: number = 0): void {
     this.reportTestNode(TestNodeType.Group, description, runner, 0, 0);
   }
 
@@ -562,7 +560,7 @@ export class TestContext {
    * @param description - The test description string pointer
    * @param runner - The pointer to a test callback
    */
-  private it(description: number, runner: number): void {
+  private reportTestTypeNode(description: number, runner: number): void {
     this.reportTestNode(TestNodeType.Test, description, runner, 0, 0);
   }
 

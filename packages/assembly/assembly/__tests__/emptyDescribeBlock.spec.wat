@@ -17,7 +17,7 @@
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
- (import "__aspect" "describe" (func $assembly/internal/Test/describe (param i32 i32)))
+ (import "__aspect" "reportGroupTypeNode" (func $assembly/internal/Test/describe (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
  (table $0 3 funcref)
