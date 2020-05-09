@@ -500,7 +500,6 @@ export class TestContext {
       getRTraceIncrements: this.getRTraceIncrements.bind(this),
       getRTraceReallocs: this.getRTraceReallocs.bind(this),
       it: this.it.bind(this),
-      itThrows: this.throws.bind(this),
       logReflectedValue: this.logReflectedValue.bind(this),
       pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
       pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
@@ -509,16 +508,15 @@ export class TestContext {
       reportExpectedFinite: this.reportExpectedFinite.bind(this),
       reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(
         this,
-      ),
+        ),
+      reportNegatedTestNode: this.reportNegatedTestNode.bind(this),
+      reportTodo: this.reportTodo.bind(this),
       reportExpectedSnapshot: this.reportExpectedSnapshot.bind(this),
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
       startRTrace: this.startRTrace.bind(this),
       test: this.it.bind(this),
-      throws: this.throws.bind(this),
       todo: this.reportTodo.bind(this),
       tryCall: this.tryCall.bind(this),
-      xit: this.xit.bind(this),
-      xtest: this.xit.bind(this),
     };
 
     /** If RTrace is enabled, add it to the imports. */
@@ -575,21 +573,12 @@ export class TestContext {
    * @param runner - The pointer to a test callback
    * @param message - The pointer to an additional assertion message in string
    */
-  private throws(
+  private reportNegatedTestNode(
     description: number,
     runner: number,
     message: number = 0,
   ): void {
     this.reportTestNode(TestNodeType.Test, description, runner, 1, message);
-  }
-
-  /**
-   * This function does not run a test, treats a test as a todo.
-   * @param description - The test description string pointer
-   * @param _callback - The pointer to a test callback
-   */
-  private xit(description: number, _callback: number): void {
-    this.reportTodo(description);
   }
 
   /**
@@ -669,8 +658,9 @@ export class TestContext {
    * This function reports a single "todo" item in a test suite.
    *
    * @param {number} todoPointer - The todo description string pointer.
+   * @param {number} _callbackPointer - The test callback function pointer.
    */
-  private reportTodo(todoPointer: number): void {
+  private reportTodo(todoPointer: number, _callbackPointer: number): void {
     this.targetNode.todos.push(
       this.getString(todoPointer, "No todo() value provided."),
     );

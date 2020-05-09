@@ -22,7 +22,7 @@ export declare function afterEach(callback: () => void): void;
 export declare function afterAll(callback: () => void): void;
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "todo")
+@external("__aspect", "reportTodo")
 @global
 export declare function todo(description: string): void;
 
@@ -32,12 +32,12 @@ export declare function todo(description: string): void;
 export declare function debug(): void;
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "xit")
+@external("__aspect", "reportTodo")
 @global
 export declare function xit(description: string, callback: () => void): void;
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "xtest")
+@external("__aspect", "reportTodo")
 @global
 export declare function xtest(description: string, callback: () => void): void;
 
@@ -52,7 +52,7 @@ export declare function it(description: string, runner: () => void): void;
 export declare function test(description: string, runner: () => void): void;
 
 // @ts-ignore: decorators *are* valid here
-@external("__aspect", "itThrows")
+@external("__aspect", "reportNegatedTestNode")
 @global
 export declare function itThrows(
   description: string,
@@ -62,7 +62,7 @@ export declare function itThrows(
 ): void;
 
 // @ts-ignore: decorators *are* valid here
-@external("__aspect", "throws")
+@external("__aspect", "reportNegatedTestNode")
 @global
 export declare function throws(
   description: string,
