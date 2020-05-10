@@ -1172,7 +1172,11 @@ export class TestContext {
     reflectedValue.type = reflectedTypeValue;
     reflectedValue.typeName = this.getString(typeName, "");
 
-    reflectedValue.value = new Long(lowValue, highValue, signed).toString();
+    reflectedValue.value = Long.fromBits(
+      lowValue >>> 0,
+      highValue >>> 0,
+      signed === 0,
+    ).toString();
 
     return this.reflectedValueCache.push(reflectedValue) - 1;
   }
