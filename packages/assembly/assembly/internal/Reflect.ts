@@ -371,9 +371,9 @@ export class Reflect {
         ReflectedValueType.Integer,
         nameof<T>(),
         // @ts-ignore: value is a 64 bit number
-        <i32>(value >>> 32),
-        // @ts-ignore: value is a 64 bit number
         <i32>(value & 0xffffffff),
+        // @ts-ignore: value is a 64 bit number
+        <i32>(value >>> 32),
       );
 
       return reflectedValue;

@@ -64,11 +64,11 @@ exports[`snapshots: onGroupStart logs 1`] = `
                 3
             ]
    [Stack]: Has Stack Trace
-     [Log]: 5652756399868872984 as i64
+     [Log]: 9999999999999 as i64
    [Stack]: Has Stack Trace
      [Log]: 1234567 as u32
    [Stack]: Has Stack Trace
-     [Log]: -3124073178620493592 as u64
+     [Log]: 999999999999 as u64
    [Stack]: Has Stack Trace
      [Log]: -1 as i8
    [Stack]: Has Stack Trace
@@ -117,11 +117,11 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                 3
             ]
    [Stack]: Has Stack Trace
-     [Log]: 5652756399868872984 as i64
+     [Log]: 9999999999999 as i64
    [Stack]: Has Stack Trace
      [Log]: 1234567 as u32
    [Stack]: Has Stack Trace
-     [Log]: -3124073178620493592 as u64
+     [Log]: 999999999999 as u64
    [Stack]: Has Stack Trace
      [Log]: -1 as i8
    [Stack]: Has Stack Trace
