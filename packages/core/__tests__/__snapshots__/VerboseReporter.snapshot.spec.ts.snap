@@ -301,7 +301,7 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
             at ../assembly/assembly/internal/log/log<assembly/jest-log/LotsOfFields> (wasm-function[134]:0x3bfe)
             at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x71b0)
             at ../assembly/assembly/internal/call/__call (wasm-function[317]:0x78b1)
-     [Log]: Float64Array [ 0.0, 1.0, 2.0... +17 items ]
+     [Log]: Float64Array [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0... +10 items ]
    [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[51]:0x1723)
             at ../assembly/assembly/internal/log/log<~lib/typedarray/Float64Array> (wasm-function[141]:0x3daf)
             at start:assembly/jest-log~anonymous|0~anonymous|0 (wasm-function[293]:0x71ea)
