@@ -550,10 +550,7 @@ export class TestContext {
    * @param {number} description - The test suite description string pointer.
    * @param {number} runner - The pointer to a test suite callback
    */
-  private reportGroupTypeNode(
-    description: number,
-    runner: number,
-  ): void {
+  private reportGroupTypeNode(description: number, runner: number): void {
     this.reportTestNode(TestNodeType.Group, description, runner, 0, 0);
   }
 
