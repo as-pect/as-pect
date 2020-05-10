@@ -474,6 +474,10 @@ export class TestContext {
       attachStackTraceToReflectedValue: this.attachStackTraceToReflectedValue.bind(
         this,
       ),
+      afterAll: this.reportAfterAll.bind(this),
+      afterEach: this.reportAfterEach.bind(this),
+      beforeAll: this.reportBeforeAll.bind(this),
+      beforeEach: this.reportBeforeEach.bind(this),
       clearActual: this.clearActual.bind(this),
       clearExpected: this.clearExpected.bind(this),
       createReflectedValue: this.createReflectedValue.bind(this),
@@ -498,19 +502,17 @@ export class TestContext {
       pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
       pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
       reportActualReflectedValue: this.reportActualReflectedValue.bind(this),
-      reportAfterAll: this.reportAfterAll.bind(this),
-      reportAfterEach: this.reportAfterEach.bind(this),
-      reportBeforeAll: this.reportBeforeAll.bind(this),
-      reportBeforeEach: this.reportBeforeEach.bind(this),
       reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
       reportExpectedFinite: this.reportExpectedFinite.bind(this),
       reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(
         this,
       ),
+      reportNegatedTestNode: this.reportNegatedTestNode.bind(this),
+      reportTodo: this.reportTodo.bind(this),
+      reportTestTypeNode: this.reportTestTypeNode.bind(this),
+      reportGroupTypeNode: this.reportGroupTypeNode.bind(this),
       reportExpectedSnapshot: this.reportExpectedSnapshot.bind(this),
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
-      reportTestNode: this.reportTestNode.bind(this),
-      reportTodo: this.reportTodo.bind(this),
       startRTrace: this.startRTrace.bind(this),
       tryCall: this.tryCall.bind(this),
     };
@@ -540,6 +542,44 @@ export class TestContext {
     finalImports.env.trace = this.trace.bind(this);
 
     return finalImports;
+  }
+
+  /**
+   * This function sets up a test group.
+   *
+   * @param {number} description - The test suite description string pointer.
+   * @param {number} runner - The pointer to a test suite callback
+   */
+  private reportGroupTypeNode(
+    description: number = 0,
+    runner: number = 0,
+  ): void {
+    this.reportTestNode(TestNodeType.Group, description, runner, 0, 0);
+  }
+
+  /**
+   * This function sets up a test node.
+   *
+   * @param description - The test description string pointer
+   * @param runner - The pointer to a test callback
+   */
+  private reportTestTypeNode(description: number, runner: number): void {
+    this.reportTestNode(TestNodeType.Test, description, runner, 0, 0);
+  }
+
+  /**
+   * This function expects a throws from a test node.
+   *
+   * @param description - The test description string pointer
+   * @param runner - The pointer to a test callback
+   * @param message - The pointer to an additional assertion message in string
+   */
+  private reportNegatedTestNode(
+    description: number,
+    runner: number,
+    message: number = 0,
+  ): void {
+    this.reportTestNode(TestNodeType.Test, description, runner, 1, message);
   }
 
   /**
@@ -619,8 +659,9 @@ export class TestContext {
    * This function reports a single "todo" item in a test suite.
    *
    * @param {number} todoPointer - The todo description string pointer.
+   * @param {number} _callbackPointer - The test callback function pointer.
    */
-  private reportTodo(todoPointer: number): void {
+  private reportTodo(todoPointer: number, _callbackPointer: number): void {
     this.targetNode.todos.push(
       this.getString(todoPointer, "No todo() value provided."),
     );
@@ -1007,7 +1048,8 @@ export class TestContext {
   protected getString(pointer: number, defaultValue: string): string {
     pointer >>>= 0;
     if (pointer === 0) return defaultValue;
-    if (this.cachedStrings.has(pointer)) return this.cachedStrings.get(pointer)!;
+    if (this.cachedStrings.has(pointer))
+      return this.cachedStrings.get(pointer)!;
     const result = this.wasm!.__getString(pointer);
     this.cachedStrings.set(pointer, result);
     return result;
@@ -1116,6 +1158,9 @@ export class TestContext {
     return this.reflectedValueCache.push(reflectedValue) - 1;
   }
 
+  /**
+   * Create reflection of a long number (not supported directly from javascript)
+   */
   private createReflectedLong(
     signed: 1 | 0, // isSigned<T>()
     size: number, // sizeof<T>()

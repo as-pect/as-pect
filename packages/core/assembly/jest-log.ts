@@ -211,7 +211,7 @@ describe("logs", () => {
 
   test("logs", () => {
     log("Hello world!");
-    log("Calculated " + (42).toString())
+    log("Calculated " + (42).toString());
     log(42);
     log<Vec3 | null>(null);
     log(new Vec3(1, 2, 3));

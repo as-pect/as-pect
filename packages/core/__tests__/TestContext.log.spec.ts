@@ -25,16 +25,16 @@ const stringifyOptions: Partial<StringifyReflectedValueProps> = {
   maxLineLength: 80,
   maxPropertyCount: 10,
   maxExpandLevel: 3,
-  classNameFormatter: name => "class: " + name,
-  keywordFormatter: keyword => "keyword: " + keyword,
-  numberFormatter: number => "number: " + number,
-  stringFormatter: str => "string: " + str,
+  classNameFormatter: (name) => "class: " + name,
+  keywordFormatter: (keyword) => "keyword: " + keyword,
+  numberFormatter: (number) => "number: " + number,
+  stringFormatter: (str) => "string: " + str,
 };
 
 describe("log output", () => {
   test("Overall Statistics", () => {});
 
-  ctx.rootNode.visit(group => {
+  ctx.rootNode.visit((group) => {
     if (group.type === TestNodeType.Group) {
       test(`Group: ${group.name}`, () => {
         for (const log of group.logs) {

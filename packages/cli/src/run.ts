@@ -627,7 +627,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       worklets[i % length].postMessage(workload);
     }
 
-    worklets.forEach(worklet => {
+    worklets.forEach((worklet) => {
       worklet.on("message", (e: ICommand) => {
         runBinary(e.props.error, e.props.file, e.props.binary);
       });
@@ -651,7 +651,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
             try {
               const results = fs
                 .readdirSync(folder)
-                .filter(file => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
+                .filter((file) => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
               folderMap.set(folder, results);
               return results;
             } catch (e) {

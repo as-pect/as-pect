@@ -1,35 +1,29 @@
-import { TestNodeType } from "./TestNodeType";
 import { noOp } from "./noOp";
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportBeforeEach")
-declare function reportBeforeEach(callback: () => void): void;
+@external("__aspect", "beforeEach")
+@global
+export declare function beforeEach(callback: () => void): void;
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportBeforeAll")
-declare function reportBeforeAll(callback: () => void): void;
+@external("__aspect", "beforeAll")
+@global
+export declare function beforeAll(callback: () => void): void;
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportAfterEach")
-declare function reportAfterEach(callback: () => void): void;
+@external("__aspect", "afterEach")
+@global
+export declare function afterEach(callback: () => void): void;
 
 // @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportAfterAll")
-declare function reportAfterAll(callback: () => void): void;
+@external("__aspect", "afterAll")
+@global
+export declare function afterAll(callback: () => void): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "reportTodo")
-declare function reportTodo(description: string): void;
-
-// @ts-ignore: Decorators *are* valid here!
-@external("__aspect", "reportTestNode")
-declare function reportTestNode(
-  type: TestNodeType,
-  description: string,
-  callback: () => void,
-  negated: bool,
-  message: string | null,
-): void;
+@global
+export declare function todo(description: string): void;
 
 // @ts-ignore: Decorators *are* valid here!
 @external("__aspect", "debug")
@@ -37,84 +31,51 @@ declare function reportTestNode(
 export declare function debug(): void;
 
 // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportTodo")
 @global
-export function todo(description: string): void {
-  reportTodo(description);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function xit(description: string, callback: () => void): void {
-  todo(description);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function xtest(description: string, callback: () => void): void {
-  todo(description);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function it(description: string, runner: () => void): void {
-  reportTestNode(TestNodeType.Test, description, runner, false, null);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function test(description: string, runner: () => void): void {
-  reportTestNode(TestNodeType.Test, description, runner, false, null);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function beforeEach(callback: () => void): void {
-  reportBeforeEach(callback);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function beforeAll(callback: () => void): void {
-  reportBeforeAll(callback);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function afterEach(callback: () => void): void {
-  reportAfterEach(callback);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function afterAll(callback: () => void): void {
-  reportAfterAll(callback);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function itThrows(
-  description: string,
-  runner: () => void,
-  message: string | null = null,
-): void {
-  reportTestNode(TestNodeType.Test, description, runner, true, message);
-}
-
-// @ts-ignore: decorators *are* valid here
-@global
-export function throws(
-  description: string,
-  runner: () => void,
-  message: string | null = null,
-): void {
-  reportTestNode(TestNodeType.Test, description, runner, true, message);
-}
+export declare function xit(description: string, callback: () => void): void;
 
 // @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportTodo")
 @global
-export function describe(
+export declare function xtest(description: string, callback: () => void): void;
+
+// @ts-ignore: decorators *are* valid here
+@external("__aspect", "reportTestTypeNode")
+@global
+export declare function it(description: string, runner: () => void): void;
+
+// @ts-ignore: decorators *are* valid here
+@external("__aspect", "reportTestTypeNode")
+@global
+export declare function test(description: string, runner: () => void): void;
+
+// @ts-ignore: decorators *are* valid here
+@external("__aspect", "reportNegatedTestNode")
+@global
+export declare function itThrows(
+  description: string,
+  runner: () => void,
+  // @ts-ignore: this is a valid syntax
+  message: string | null = null,
+): void;
+
+// @ts-ignore: decorators *are* valid here
+@external("__aspect", "reportNegatedTestNode")
+@global
+export declare function throws(
+  description: string,
+  runner: () => void,
+  // @ts-ignore: this is a valid syntax
+  message: string | null = null,
+): void;
+
+// @ts-ignore: Decorators *are* valid here!
+@external("__aspect", "reportGroupTypeNode")
+@global
+export declare function describe(
+  // @ts-ignore: this is a valid syntax
   description: string = "",
+  // @ts-ignore: this is a valid syntax
   runner: () => void = noOp,
-): void {
-  reportTestNode(TestNodeType.Group, description, runner, false, null);
-}
+): void;

@@ -24,10 +24,10 @@ const stringifyOptions: Partial<StringifyReflectedValueProps> = {
   maxLineLength: 80,
   maxPropertyCount: 10,
   maxExpandLevel: 3,
-  classNameFormatter: name => "class: " + name,
-  keywordFormatter: keyword => "keyword: " + keyword,
-  numberFormatter: number => "number: " + number,
-  stringFormatter: str => "string: " + str,
+  classNameFormatter: (name) => "class: " + name,
+  keywordFormatter: (keyword) => "keyword: " + keyword,
+  numberFormatter: (number) => "number: " + number,
+  stringFormatter: (str) => "string: " + str,
 };
 
 describe("pass-fail output", () => {
@@ -35,7 +35,7 @@ describe("pass-fail output", () => {
     expect(ctx.pass).toMatchSnapshot("pass");
   });
 
-  ctx.rootNode.visit(group => {
+  ctx.rootNode.visit((group) => {
     test(`Node: ${group.namespace}`, () => {
       expect(group.pass).toMatchSnapshot(`pass`);
       expect(group.ran).toMatchSnapshot("ran");
