@@ -4886,12 +4886,12 @@
   i32.const 7
   i32.const 1984
   local.get $0
-  i64.const 32
-  i64.shr_u
-  i32.wrap_i64
-  local.get $0
   i64.const 4294967295
   i64.and
+  i32.wrap_i64
+  local.get $0
+  i64.const 32
+  i64.shr_u
   i32.wrap_i64
   call $assembly/internal/Reflect/createReflectedLong
   local.set $2

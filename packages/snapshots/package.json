@@ -23,10 +23,10 @@
   "devDependencies": {
     "@types/nearley": "^2.11.1",
     "jest": "^26.0.1",
-    "ts-jest": "^25.5.0"
+    "ts-jest": "^25.5.1"
   },
   "dependencies": {
     "diff": "^4.0.2",
-    "nearley": "^2.19.2"
+    "nearley": "^2.19.3"
   }
 }
