@@ -551,8 +551,8 @@ export class TestContext {
    * @param {number} runner - The pointer to a test suite callback
    */
   private reportGroupTypeNode(
-    description: number = 0,
-    runner: number = 0,
+    description: number,
+    runner: number,
   ): void {
     this.reportTestNode(TestNodeType.Group, description, runner, 0, 0);
   }
@@ -577,7 +577,7 @@ export class TestContext {
   private reportNegatedTestNode(
     description: number,
     runner: number,
-    message: number = 0,
+    message: number,
   ): void {
     this.reportTestNode(TestNodeType.Test, description, runner, 1, message);
   }

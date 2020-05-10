@@ -321,29 +321,15 @@ export class Reflect {
         // loop over each array item and push it to the reflected value
         for (let i = 0; i < length; i++) {
           // @ts-ignore: index signature in arraylike
-          if (isDefined(unchecked(value[0]))) {
-            // @ts-ignore: index signature in arraylike
-            let arrayValue = unchecked(value[i]);
-            let reflectedArrayValueID = Reflect.toReflectedValue(
-              arrayValue,
-              seen,
-            );
-            __aspectPushReflectedObjectValue(
-              reflectedValue,
-              reflectedArrayValueID,
-            );
-          } else {
-            // @ts-ignore: index signature in arraylike
-            let arrayValue = value[i];
-            let reflectedArrayValueID = Reflect.toReflectedValue(
-              arrayValue,
-              seen,
-            );
-            __aspectPushReflectedObjectValue(
-              reflectedValue,
-              reflectedArrayValueID,
-            );
-          }
+          let arrayValue = unchecked(value[i]);
+          let reflectedArrayValueID = Reflect.toReflectedValue(
+            arrayValue,
+            seen,
+          );
+          __aspectPushReflectedObjectValue(
+            reflectedValue,
+            reflectedArrayValueID,
+          );
         }
         return reflectedValue;
       } else {
@@ -386,6 +372,7 @@ export class Reflect {
         nameof<T>(),
         // @ts-ignore: value is a 64 bit number
         <i32>(value >>> 32),
+        // @ts-ignore: value is a 64 bit number
         <i32>(value & 0xffffffff),
       );
 
@@ -614,6 +601,7 @@ function referencesEqual<T>(
     }
 
     // compile time array values should be compared over a for loop
+    // @ts-ignore: typesafe access to length
     if (isDefined(left.length)) {
       // @ts-ignore: typesafe access to length
       let aLength = left.length;
@@ -625,27 +613,15 @@ function referencesEqual<T>(
 
       // check each item
       for (let i = 0; i < aLength; i++) {
-        if (isDefined(unchecked(left[0]))) {
-          let result = Reflect.equals(
-            // @ts-ignore: typesafe and runtime check safe array access
-            unchecked(left[i]),
-            // @ts-ignore: typesafe and runtime check safe array access
-            unchecked(right[i]),
-            stack,
-            cache,
-          );
-          if (result == Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
-        } else {
-          let result = Reflect.equals(
-            // @ts-ignore: typesafe and runtime check safe array access
-            left[i],
-            // @ts-ignore: typesafe and runtime check safe array access
-            right[i],
-            stack,
-            cache,
-          );
-          if (result == Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
-        }
+        let result = Reflect.equals(
+          // @ts-ignore: typesafe and runtime check safe array access
+          unchecked(left[i]),
+          // @ts-ignore: typesafe and runtime check safe array access
+          unchecked(right[i]),
+          stack,
+          cache,
+        );
+        if (result == Reflect.FAILED_MATCH) return Reflect.FAILED_MATCH;
       }
 
       // cache this result
