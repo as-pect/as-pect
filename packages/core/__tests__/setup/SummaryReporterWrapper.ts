@@ -1,5 +1,6 @@
 import { SummaryReporter, TestNode, TestContext } from "../../src";
 import stripAnsi from "strip-ansi";
+import { removeStackTraces } from "./removeStackTraces";
 
 export class SummaryReporterWrapper extends SummaryReporter {
   public writer: any;
@@ -21,6 +22,7 @@ export class SummaryReporterWrapper extends SummaryReporter {
   }
   onGroupStart(group: TestNode): void {
     this.writer.reset();
+    removeStackTraces(group);
     super.onGroupStart(group);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onGroupStart ${group.name}`, result);
@@ -28,6 +30,7 @@ export class SummaryReporterWrapper extends SummaryReporter {
   }
   onGroupFinish(group: TestNode): void {
     this.writer.reset();
+    removeStackTraces(group);
     super.onGroupFinish(group);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onGroupEnd ${group.name}`, result);
@@ -35,6 +38,8 @@ export class SummaryReporterWrapper extends SummaryReporter {
   }
   onTestStart(group: TestNode, testResult: TestNode): void {
     this.writer.reset();
+    removeStackTraces(group);
+    removeStackTraces(testResult);
     super.onTestStart(group, testResult);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onTestStart ${group.name} ${testResult.name}`, result);
@@ -42,6 +47,8 @@ export class SummaryReporterWrapper extends SummaryReporter {
   }
   onTestFinish(group: TestNode, testResult: TestNode): void {
     this.writer.reset();
+    removeStackTraces(group);
+    removeStackTraces(testResult);
     super.onTestFinish(group, testResult);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onTestFinish ${group.name} ${testResult.name}`, result);
@@ -55,6 +62,9 @@ export class SummaryReporterWrapper extends SummaryReporter {
     });
     ctx.rootNode.start = 0;
     ctx.rootNode.end = 0;
+    ctx.errors.forEach((e) => {
+      e.stackTrace = e.stackTrace ? "Has Stack Trace" : "No Stack Trace";
+    });
     super.onFinish(ctx);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onFinish ${ctx.fileName}`, result);

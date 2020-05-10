@@ -1507,12 +1507,12 @@ ReflectedValue {
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
-  "value": "12390559269718589437",
+  "value": "18446744063709551617",
   "values": null,
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: actual-stringify 1`] = `"  number: 12390559269718589437 keyword: as class: i64"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: actual-stringify 1`] = `"  number: 18446744063709551617 keyword: as class: i64"`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: afterAllPointers 1`] = `0`;
 
@@ -1541,12 +1541,12 @@ ReflectedValue {
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
-  "value": "6056184808285929474",
+  "value": "9999999999",
   "values": null,
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: expected-stringify 1`] = `"  number: 6056184808285929474 keyword: as class: i64"`;
+exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: expected-stringify 1`] = `"  number: 9999999999 keyword: as class: i64"`;
 
 exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: frees 1`] = `6`;
 

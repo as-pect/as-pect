@@ -291,7 +291,7 @@ ReflectedValue {
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
-  "value": "5652756399868872984",
+  "value": "9999999999999",
   "values": null,
 }
 `;
@@ -331,7 +331,7 @@ ReflectedValue {
   "type": 7,
   "typeId": 0,
   "typeName": "u64",
-  "value": "-3124073178620493592",
+  "value": "999999999999",
   "values": null,
 }
 `;
@@ -4957,11 +4957,11 @@ exports[`log output Group: logs Test: logs: stringify 6`] = `
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 7`] = `"  number: 5652756399868872984 keyword: as class: i64"`;
+exports[`log output Group: logs Test: logs: stringify 7`] = `"  number: 9999999999999 keyword: as class: i64"`;
 
 exports[`log output Group: logs Test: logs: stringify 8`] = `"  number: 1234567 keyword: as class: u32"`;
 
-exports[`log output Group: logs Test: logs: stringify 9`] = `"  number: -3124073178620493592 keyword: as class: u64"`;
+exports[`log output Group: logs Test: logs: stringify 9`] = `"  number: 999999999999 keyword: as class: u64"`;
 
 exports[`log output Group: logs Test: logs: stringify 10`] = `"  number: -1 keyword: as class: i8"`;
 
@@ -5453,7 +5453,7 @@ ReflectedValue {
   "type": 7,
   "typeId": 0,
   "typeName": "i64",
-  "value": "5652756399868872984",
+  "value": "9999999999999",
   "values": null,
 }
 `;
@@ -5493,7 +5493,7 @@ ReflectedValue {
   "type": 7,
   "typeId": 0,
   "typeName": "u64",
-  "value": "-3124073178620493592",
+  "value": "999999999999",
   "values": null,
 }
 `;

@@ -1,5 +1,6 @@
 import { VerboseReporter, TestNode, TestContext } from "../../src";
 import stripAnsi from "strip-ansi";
+import { removeStackTraces } from "./removeStackTraces";
 
 export class VerboseReporterWrapper extends VerboseReporter {
   public writer: any;
@@ -25,6 +26,7 @@ export class VerboseReporterWrapper extends VerboseReporter {
   }
   onGroupStart(group: TestNode): void {
     this.writer.reset();
+    removeStackTraces(group);
     super.onGroupStart(group);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onGroupStart ${group.name}`, result);
@@ -32,6 +34,7 @@ export class VerboseReporterWrapper extends VerboseReporter {
   }
   onGroupFinish(group: TestNode): void {
     this.writer.reset();
+    removeStackTraces(group);
     // @ts-ignore
     super.onGroupFinish(group);
     const result = stripAnsi(this.writer.result);
@@ -40,6 +43,8 @@ export class VerboseReporterWrapper extends VerboseReporter {
   }
   onTestStart(group: TestNode, testResult: TestNode): void {
     this.writer.reset();
+    removeStackTraces(group);
+    removeStackTraces(testResult);
     super.onTestStart(group, testResult);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onTestStart ${group.name} ${testResult.name}`, result);
@@ -47,6 +52,8 @@ export class VerboseReporterWrapper extends VerboseReporter {
   }
   onTestFinish(group: TestNode, testResult: TestNode): void {
     this.writer.reset();
+    removeStackTraces(group);
+    removeStackTraces(testResult);
     super.onTestFinish(group, testResult);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onTestFinish ${group.name} ${testResult.name}`, result);
@@ -60,6 +67,9 @@ export class VerboseReporterWrapper extends VerboseReporter {
     });
     ctx.rootNode.start = 0;
     ctx.rootNode.end = 0;
+    ctx.errors.forEach((e) => {
+      e.stackTrace = e.stackTrace ? "Has Stack Trace" : "No Stack Trace";
+    });
     super.onFinish(ctx);
     const result = stripAnsi(this.writer.result);
     this.addSnapshot(`onFinish ${ctx.fileName}`, result);

@@ -24,10 +24,7 @@ exports[`snapshots: onGroupStart a passing suite 1`] = `
 "[Describe]: a passing suite
 
      [Log]: \\"Something else!\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[43]:0x1430)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[44]:0x145e)
-            at start:assembly/jest-reporter-pass~anonymous|0 (wasm-function[58]:0x15ed)
-            at ../assembly/assembly/internal/call/__call (wasm-function[61]:0x1617)
+   [Stack]: Has Stack Trace
 "
 `;
 
@@ -39,10 +36,7 @@ exports[`snapshots: onTestFinish a passing suite it throws successfully! 1`] = `
 exports[`snapshots: onTestFinish a passing suite passes 1`] = `
 " [Success]: ✔ passes
      [Log]: \\"Something!\\"
-   [Stack]: at ../assembly/assembly/internal/Reflect/Reflect.attachStackTrace (wasm-function[43]:0x1430)
-            at ../assembly/assembly/internal/log/log<~lib/string/String> (wasm-function[44]:0x145e)
-            at start:assembly/jest-reporter-pass~anonymous|0~anonymous|0 (wasm-function[55]:0x15b5)
-            at ../assembly/assembly/internal/call/__call (wasm-function[61]:0x1617)
+   [Stack]: Has Stack Trace
 "
 `;
 
