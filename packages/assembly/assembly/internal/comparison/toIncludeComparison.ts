@@ -29,10 +29,8 @@ export function toIncludeComparison<T, U>(
    * Assert that the actual value is not null.
    */
   Actual.report(actual);
-  if (isNullable<T>()) {
-    Expected.report("null", 1);
-    assert(i32(actual !== null), "");
-  }
+  Expected.report("null", 1);
+  assert(i32(actual !== null), 0, "");
 
   /**
    * Always report that the comparison is looking for an included value. It will be negated by the
@@ -47,11 +45,15 @@ export function toIncludeComparison<T, U>(
 
   // test for Sets
   if (actual instanceof Set) {
+    // @ts-ignore
     includes = actual.has(expected);
   } else {
     if (!isDefined(actual.length))
       ERROR("Can only call toInclude on array-like objects or Sets.");
+
+    // @ts-ignore: typesafe length access
     let length = <indexof<T>>actual.length;
+    // @ts-ignore: typesafe check
     if (isDefined(unchecked(actual[0]))) {
       // @ts-ignore: if T does not have a length property, it will throw a compiler error.
       for (let i = <indexof<T>>0; i < length; i++) {
@@ -77,5 +79,5 @@ export function toIncludeComparison<T, U>(
    * If the item is included, report "Included", otherwise report "Not Included".
    */
   Actual.report(includes ? "Included" : "Not Included");
-  assert(negated ^ i32(includes), message);
+  assert(i32(includes), negated, message);
 }

@@ -68,7 +68,7 @@ export class Expectation<T> {
     }
 
     // The assertion is either the items equal, or the expectation is negated
-    assert(equals ^ negated, message);
+    assert(equals, negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -87,7 +87,7 @@ export class Expectation<T> {
     Actual.report(this.actual);
     Expected.report(expected);
 
-    assert(equals ^ this._not, message);
+    assert(equals, this._not, message);
 
     Actual.clear();
     Expected.clear();
@@ -114,31 +114,22 @@ export class Expectation<T> {
     Expected.reportTruthy(negated);
 
     if (isReference(actual)) {
-      if (isNullable<T>()) {
-        // strings require an extra length check
-        if (actual instanceof String) {
-          let truthy = i32(changetype<usize>(actual) != 0 && actual.length > 0);
-          assert(truthy ^ negated, message);
-        } else {
-          let truthy = i32(changetype<usize>(actual) != 0);
-          assert(truthy ^ negated, message);
-        }
+
+      // strings require an extra length check
+      if (actual instanceof String) {
+        let truthy = i32(changetype<usize>(actual) != 0 && actual.length > 0);
+        assert(truthy, negated, message);
       } else {
-        // strings require an extra length check
-        if (actual instanceof String) {
-          let truthy = i32(actual.length > 0);
-          assert(truthy ^ negated, message);
-        } else {
-          assert(i32(!negated), message);
-        }
+        let truthy = i32(changetype<usize>(actual) != 0);
+        assert(truthy, negated, message);
       }
     } else {
       if (isFloat<T>(actual)) {
         let truthy = i32(!isNaN(actual) && actual != 0.0);
-        assert(truthy ^ negated, message);
+        assert(truthy, negated, message);
       } else if (isInteger<T>(actual)) {
         let truthy = i32(actual != 0);
-        assert(truthy ^ negated, message);
+        assert(truthy, negated, message);
       }
     }
 
@@ -153,32 +144,22 @@ export class Expectation<T> {
     Expected.reportFalsy(negated);
 
     if (isReference(actual)) {
-      if (isNullable<T>()) {
-        // strings require an extra length check
-        if (actual instanceof String) {
-          let falsy = i32(changetype<usize>(actual) == 0 || actual.length == 0);
-          assert(falsy ^ negated, message);
-        } else {
-          let falsy = i32(changetype<usize>(actual) == 0);
-          assert(falsy ^ negated, message);
-        }
+      // strings require an extra length check
+      if (actual instanceof String) {
+        let falsy = i32(changetype<usize>(actual) == 0 || actual.length == 0);
+        assert(falsy, negated, message);
       } else {
-        // strings require an extra length check
-        if (actual instanceof String) {
-          let falsy = i32(actual.length == 0);
-          assert(falsy ^ negated, message);
-        } else {
-          assert(negated, message);
-        }
+        let falsy = i32(changetype<usize>(actual) == 0);
+        assert(falsy, negated, message);
       }
     } else {
       if (isFloat<T>(actual)) {
         // @ts-ignore: actual is a float value
         let falsy = i32(isNaN(actual) || actual == 0.0);
-        assert(falsy ^ negated, message);
+        assert(falsy, negated, message);
       } else if (isInteger<T>(actual)) {
         let falsy = i32(actual == 0);
-        assert(falsy ^ negated, message);
+        assert(falsy, negated, message);
       }
     }
 
@@ -207,7 +188,7 @@ export class Expectation<T> {
      * The expectation should throw by default, and will be negated by `Expectation.negated` later.
      */
     Expected.report("Throws", negated);
-    assert(negated ^ throws, message);
+    assert(throws, negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -223,32 +204,36 @@ export class Expectation<T> {
         "Invalid call to toBeGreaterThan. Generic type T must have an operator implemented for the greaterThan (>) operation.",
       );
 
-    if (isNullable<T>()) {
+    if (isReference(actual)) {
       // Perform reference type null checks
       assert(
-        i32(expected !== null),
+        i32(changetype<usize>(expected) != 0),
+        0,
         "Nullable comparison fails, expected value is null.",
       );
       assert(
-        i32(actual !== null),
+        i32(changetype<usize>(actual) != 0),
+        0,
         "Nullable comparison fails, actual value is null.",
       );
     }
 
     // Compare float types
-    if (isFloat<T>(actual)) {
+    if (isFloat(actual)) {
       assert(
-        i32(!isNaN<T>(expected)),
+        i32(!isNaN(expected)),
+        0,
         "Value comparison fails, expected value is NaN.",
       );
       assert(
-        i32(!isNaN<T>(actual)),
+        i32(!isNaN(actual)),
+        0,
         "Value comparison fails, actual value is NaN.",
       );
     }
 
     // do actual greater than comparison
-    assert(negated ^ i32(actual > expected), message);
+    assert(i32(actual > expected), negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -265,32 +250,36 @@ export class Expectation<T> {
         "Invalid call to toBeGreaterThanOrEqual. Generic type T must have an operator implemented for the greaterThanOrEqual (>=) operation.",
       );
 
-    if (isNullable<T>()) {
+    if (isReference(actual)) {
       // Perform reference type null checks
       assert(
-        i32(expected !== null),
+        i32(changetype<usize>(expected) != 0),
+        0,
         "Nullable comparison fails, expected value is null.",
       );
       assert(
-        i32(actual !== null),
+        i32(changetype<usize>(actual) != 0),
+        0,
         "Nullable comparison fails, actual value is null.",
       );
     }
 
     // Compare float types
-    if (isFloat<T>()) {
+    if (isFloat(actual)) {
       assert(
-        i32(!isNaN<T>(expected)),
+        i32(!isNaN(expected)),
+        0,
         "Value comparison fails, expected value is NaN.",
       );
       assert(
-        i32(!isNaN<T>(actual)),
+        i32(!isNaN(actual)),
+        0,
         "Value comparison fails, actual value is NaN.",
       );
     }
 
     // do actual greater than comparison
-    assert(negated ^ i32(actual >= expected), message);
+    assert(i32(actual >= expected), negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -306,32 +295,36 @@ export class Expectation<T> {
         "Invalid call to toBeLessThan. Generic type T must have an operator implemented for the lessThan (<) operation.",
       );
 
-    if (isNullable<T>()) {
+    if (isNullable(actual)) {
       // Perform reference type null checks
       assert(
         i32(expected !== null),
+        0,
         "Nullable comparison fails, expected value is null.",
       );
       assert(
         i32(actual !== null),
+        0,
         "Nullable comparison fails, actual value is null.",
       );
     }
 
     // Compare float types
-    if (isFloat<T>()) {
+    if (isFloat(actual)) {
       assert(
-        i32(!isNaN<T>(expected)),
+        i32(!isNaN(expected)),
+        0,
         "Value comparison fails, expected value is NaN.",
       );
       assert(
-        i32(!isNaN<T>(actual)),
+        i32(!isNaN(actual)),
+        0,
         "Value comparison fails, actual value is NaN.",
       );
     }
 
     // do actual less than comparison
-    assert(negated ^ i32(actual < expected), message);
+    assert(i32(actual < expected), negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -347,32 +340,36 @@ export class Expectation<T> {
         "Invalid call to toBeLessThanOrEqual. Generic type T must have an operator implemented for the lessThanOrEqual (<=) operation.",
       );
 
-    if (isNullable<T>()) {
+    if (isReference(actual)) {
       // Perform reference type null checks
       assert(
-        i32(expected !== null),
+        i32(changetype<usize>(expected) != 0),
+        0,
         "Nullable comparison fails, expected value is null.",
       );
       assert(
-        i32(actual !== null),
+        i32(changetype<usize>(actual) != 0),
+        0,
         "Nullable comparison fails, actual value is null.",
       );
     }
 
     // Compare float types
-    if (isFloat<T>()) {
+    if (isFloat(actual)) {
       assert(
-        i32(!isNaN<T>(expected)),
+        i32(!isNaN(expected)),
+        0,
         "Value comparison fails, expected value is NaN.",
       );
       assert(
-        i32(!isNaN<T>(actual)),
+        i32(!isNaN(actual)),
+        0,
         "Value comparison fails, actual value is NaN.",
       );
     }
 
     // do actual less than comparison
-    assert(negated ^ i32(actual <= expected), message);
+    assert(i32(actual <= expected), negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -385,7 +382,7 @@ export class Expectation<T> {
       Actual.report(actual);
       Expected.report(<usize>0, negated);
       // @ts-ignore: actual is instanceof number type
-      assert(negated ^ i32(actual == 0), message);
+      assert(i32(actual == 0), negated, message);
       Actual.clear();
       Expected.clear();
     } else if (isReference(actual)) {
@@ -396,7 +393,7 @@ export class Expectation<T> {
       } else {
         Expected.report<T | null>(null, negated);
       }
-      assert(negated ^ i32(changetype<usize>(actual) == 0), message);
+      assert(i32(changetype<usize>(actual) == 0), negated, message);
       Actual.clear();
       Expected.clear();
     } else {
@@ -423,10 +420,12 @@ export class Expectation<T> {
     // both actual and expected values must be finite
     assert(
       i32(isFinite(actual)),
+      0,
       "toBeCloseTo assertion fails because a actual value is not finite",
     );
     assert(
       i32(isFinite(expected)),
+      0,
       "toBeCloseTo assertion fails because expected value is not finite.",
     );
 
@@ -436,7 +435,7 @@ export class Expectation<T> {
      */
     // @ts-ignore tooling errors because T does not extend a numeric value type. This compiles just fine.
     let isClose = i32(abs<T>(expected - actual) < Math.pow(0.1, decimalPlaces));
-    assert(negated ^ isClose, message);
+    assert(isClose, negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -454,7 +453,7 @@ export class Expectation<T> {
     Expected.report<T>(NaN, negated);
 
     let isNaNValue = i32(isNaN(actual));
-    assert(isNaNValue ^ negated, message);
+    assert(isNaNValue, negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -470,7 +469,7 @@ export class Expectation<T> {
     Expected.reportFinite(negated);
 
     let isFiniteValue = i32(isFinite(actual));
-    assert(isFiniteValue ^ negated, message);
+    assert(isFiniteValue, negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -496,7 +495,7 @@ export class Expectation<T> {
     Expected.report(length);
 
     let lengthsEqual = i32(length == expected);
-    assert(lengthsEqual ^ negated, message);
+    assert(lengthsEqual, negated, message);
     Actual.clear();
     Expected.clear();
   }
@@ -523,7 +522,7 @@ export class Expectation<T> {
   }
 
   public toMatchSnapshot(name: string | null = null): void {
-    assert(i32(!this._not), "Snapshots cannot be negated.");
+    assert(i32(!this._not), 0, "Snapshots cannot be negated.");
     Expected.reportSnapshot(this.actual, name);
   }
 }

@@ -230,7 +230,6 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
             }
    [Stack]: Has Stack Trace
      [Log]: Map<assembly/jest-log/Vec3,i32> {
-                [Vec3]: 42,
                 [Vec3]: 44
             }
    [Stack]: Has Stack Trace

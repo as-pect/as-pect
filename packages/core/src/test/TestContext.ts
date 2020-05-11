@@ -471,6 +471,7 @@ export class TestContext {
     }
 
     finalImports.__aspect = {
+      assert: this.assert.bind(this),
       attachStackTraceToReflectedValue: this.attachStackTraceToReflectedValue.bind(
         this,
       ),
@@ -1471,5 +1472,19 @@ export class TestContext {
       name,
       this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
     );
+  }
+
+  /**
+   * Perform an assertion.
+   *
+   * @param {number} condition - The assertion condition.
+   * @param {number} negated - An indicator that the assertion is negated.
+   * @param {number} message - A pointer to the assertion message.
+   */
+  private assert(condition: number, negated: number, message: number): void {
+    if (condition ^ negated) return;
+    const decodedMessage = this.getString(message, "No message specified.");
+    this.message = decodedMessage;
+    throw new Error(decodedMessage);
   }
 }

@@ -453,7 +453,7 @@ function referencesEqual<T>(
 
   let cacheLength = cache.length;
   // must be EVEN or there's a big problem
-  assert(i32((cacheLength & 0x00000001) == 0), "cacheLength should be even");
+  assert(i32((cacheLength & 0x00000001) == 0), 0, "cacheLength should be even");
 
   // short circuit for strings
   if (left instanceof String) {

@@ -20,7 +20,8 @@ export function toIncludeEqualComparison<T, U>(
   negated: i32,
   message: string,
 ): void {
-  if (!isDefined(actual[0])) {
+  // @ts-ignore
+  if (!isDefined(unchecked(actual[0]))) {
     ERROR(
       "Cannot call toIncludeEquals on actual value of type T where T does not have an index signature.",
     );
@@ -32,7 +33,7 @@ export function toIncludeEqualComparison<T, U>(
   Actual.report(actual);
   if (isNullable<T>()) {
     Expected.report("null", 1);
-    assert(i32(actual !== null), "");
+    assert(i32(actual !== null), 0, null);
   }
 
   /**
@@ -64,15 +65,19 @@ export function toIncludeEqualComparison<T, U>(
       }
     }
   } else {
+    // @ts-ignore: typesafe length check
     if (!isDefined(actual.length))
       ERROR("Can only call toIncludeEquals on array-like objects or Sets.");
+
+    // @ts-ignore: typesafe access to length
     let length = <indexof<T>>actual.length;
 
+    // @ts-ignore: typesafe check for access
     if (isDefined(unchecked(actual[0]))) {
       // @ts-ignore: if T does not have a length property, it will throw a compiler error.
       for (let i = <indexof<T>>0; i < length; i++) {
-        // @ts-ignore: if this expression does not work, it will throw a compiler error.
         if (
+          // @ts-ignore: if this expression does not work, it will throw a compiler error.
           Reflect.equals(unchecked(actual[i]), expected) ===
           Reflect.SUCCESSFUL_MATCH
         ) {
@@ -96,5 +101,5 @@ export function toIncludeEqualComparison<T, U>(
    * If the item is included, report "Included", otherwise report "Not Included".
    */
   Actual.report(includes ? "Included" : "Not Included");
-  assert(negated ^ i32(includes), message);
+  assert(i32(includes), negated, message);
 }
