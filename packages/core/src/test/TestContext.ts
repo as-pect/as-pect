@@ -6,7 +6,7 @@ import { NameSection } from "../util/wasmTools";
 import { ReflectedValue } from "../util/ReflectedValue";
 import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
 import { TestNode } from "./TestNode";
-import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
+import { TestNodeType } from "../util/TestNodeType";
 import { IReporter } from "../reporter/IReporter";
 import { performance } from "perf_hooks";
 import { IWarning } from "./IWarning";

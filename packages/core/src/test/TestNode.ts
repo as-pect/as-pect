@@ -1,4 +1,4 @@
-import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
+import { TestNodeType } from "../util/TestNodeType";
 import { IWarning } from "./IWarning";
 import { ReflectedValue } from "../util/ReflectedValue";
 import { timeDifference } from "../util/timeDifference";

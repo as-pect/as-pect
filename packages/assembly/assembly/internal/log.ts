@@ -4,11 +4,6 @@ declare function logReflectedValue(value: i32): void;
 
 let ignoreLogs: bool = false;
 
-/**
- * This method is called by the test runner to circumvent item logging.
- *
- * @param {bool} value - Wether to ignore log values or not.
- */
 export function __ignoreLogs(value: bool): void {
   ignoreLogs = value;
 }

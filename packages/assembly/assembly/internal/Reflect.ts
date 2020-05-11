@@ -71,12 +71,6 @@ declare function __aspectPushReflectedObjectKey(
 @global
 // @ts-ignore: global decorator is allowed here
 export class Reflect {
-  /**
-   * Create a reflected value for inspection.
-   *
-   * @param {T} value - The value to be inspected.
-   * @param {Map<usize, i32>} seen - A map of pointers to ReflectedValue ids for caching purposes.
-   */
   public static toReflectedValue<T>(
     value: T,
     seen: Map<usize, i32> = new Map<usize, i32>(),
@@ -432,11 +426,6 @@ export class Reflect {
     }
   }
 
-  /**
-   * Attach a stack trace to a value.
-   *
-   * @param {i32} id - The reflected value to attach the current stack trace to.
-   */
   public static attachStackTrace(id: i32): void {
     attachStackTraceToReflectedValue(id);
   }
@@ -658,21 +647,7 @@ function referencesEqual<T>(
 }
 
 export namespace Reflect {
-  /**
-   * A return value from the Reflect.equals function used to indicate two values
-   * do not strictly equal each other.
-   */
   export const FAILED_MATCH = 0;
-  /**
-   * A return value from the Reflect.equals function used to indicate two values
-   * strictly equal each other.
-   */
   export const SUCCESSFUL_MATCH = 1;
-  /**
-   * A return value from the Reflect.equals function used to indicate two values
-   * potentially strictly equal each other, but because the pair is currently
-   * resolving because of circular references, we cannot confirm it's a succesful
-   * match. Instead, we *assume* it's succesful and ignore the current pair.
-   */
   export const DEFER_MATCH = 2;
 }

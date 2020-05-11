@@ -2,16 +2,6 @@ import { Actual } from "../Actual";
 import { Expected } from "../Expected";
 import { assert } from "../assert";
 
-/**
- * This method performs an "include" comparison. The expectation is that the expected value is
- * included in the actual array.
- *
- * @param T - The expectation type.
- * @param {T extends Array<U>} actual - The actual value.
- * @param {U} expected - The expected value.
- * @param {i32} negated - The indicator that the assertion is negated.
- * @param {string} message - The message provided to the TestResult if the comparison fails.
- */
 export function toIncludeComparison<T, U>(
   actual: T,
   expected: U,
@@ -25,33 +15,27 @@ export function toIncludeComparison<T, U>(
     );
   }
 
-  /**
-   * Assert that the actual value is not null.
-   */
+  // Assert that the actual value is not null.
   Actual.report(actual);
   if (isNullable<T>()) {
     Expected.report("null", 1);
     assert(i32(actual !== null), "");
   }
 
-  /**
-   * Always report that the comparison is looking for an included value. It will be negated by the
-   * Expected.negated property later.
-   */
+  // We always expect the value to be included
   Expected.report("Included", negated);
+  // assume it isn't included
+  let includes: bool = false;
 
-  /**
-   * This loop inspects each item and validates if the expected value is included in the array.
-   */
-  let includes = false;
-
-  // test for Sets
   if (actual instanceof Set) {
     includes = actual.has(expected);
   } else {
+    // @ts-ignore: typesafe check
     if (!isDefined(actual.length))
       ERROR("Can only call toInclude on array-like objects or Sets.");
+    // @ts-ignore: typesafe access
     let length = <indexof<T>>actual.length;
+    // @ts-ignore: typesafe check
     if (isDefined(unchecked(actual[0]))) {
       // @ts-ignore: if T does not have a length property, it will throw a compiler error.
       for (let i = <indexof<T>>0; i < length; i++) {
@@ -73,9 +57,6 @@ export function toIncludeComparison<T, U>(
     }
   }
 
-  /**
-   * If the item is included, report "Included", otherwise report "Not Included".
-   */
   Actual.report(includes ? "Included" : "Not Included");
   assert(negated ^ i32(includes), message);
 }

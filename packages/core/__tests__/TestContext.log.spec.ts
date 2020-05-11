@@ -1,7 +1,6 @@
-import { TestContext } from "../src/test/TestContext";
+import { TestContext, TestNodeType } from "../src";
 import { createLogModule } from "./setup/createLogModule";
 import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue";
-import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 
 let ctx: TestContext;
 

@@ -1,6 +1,5 @@
-import { TestContext } from "../src/test/TestContext";
+import { TestContext, TestNodeType } from "../src";
 import { createRTraceModule } from "./setup/createRTraceModule";
-import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 
 let ctx: TestContext;
 

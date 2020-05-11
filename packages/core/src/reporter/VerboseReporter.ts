@@ -1,7 +1,7 @@
 import { TestContext } from "../test/TestContext";
 import { IWritable } from "../util/IWriteable";
 import { ReflectedValue } from "../util/ReflectedValue";
-import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
+import { TestNodeType } from "../util/TestNodeType";
 import { TestNode } from "../test/TestNode";
 import { IReporter } from "./IReporter";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";

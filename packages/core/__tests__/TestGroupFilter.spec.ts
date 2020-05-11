@@ -1,8 +1,7 @@
-import { TestContext } from "../src/test/TestContext";
+import { TestContext, TestNodeType } from "../src";
 import { createTestGroupFilterModule } from "./setup/createTestGroupFilterModule";
 import { ASUtil } from "assemblyscript/lib/loader";
 import { IAspectExports } from "../src/util/IAspectExports";
-import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
 
 let context: TestContext;
 let wasm: ASUtil & IAspectExports;

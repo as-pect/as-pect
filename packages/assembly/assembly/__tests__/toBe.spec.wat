@@ -3755,7 +3755,7 @@
    call $~lib/rt/pure/__release
    local.get $1
    i32.const 640
-   i32.const 9
+   i32.const 2
    i32.const 18
    call $~lib/builtins/abort
    unreachable
@@ -5850,7 +5850,7 @@
   else
    i32.const 0
    i32.const 2912
-   i32.const 425
+   i32.const 419
    i32.const 31
    call $~lib/builtins/abort
    unreachable
@@ -5862,7 +5862,7 @@
   else
    i32.const 0
    i32.const 2912
-   i32.const 425
+   i32.const 419
    i32.const 38
    call $~lib/builtins/abort
    unreachable
