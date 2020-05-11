@@ -153,23 +153,13 @@ export class Expectation<T> {
     Expected.reportFalsy(negated);
 
     if (isReference(actual)) {
-      if (isNullable<T>()) {
-        // strings require an extra length check
-        if (actual instanceof String) {
-          let falsy = i32(changetype<usize>(actual) == 0 || actual.length == 0);
-          assert(falsy ^ negated, message);
-        } else {
-          let falsy = i32(changetype<usize>(actual) == 0);
-          assert(falsy ^ negated, message);
-        }
+      // strings require an extra length check
+      if (actual instanceof String) {
+        let falsy = i32(changetype<usize>(actual) == 0 || actual.length == 0);
+        assert(falsy ^ negated, message);
       } else {
-        // strings require an extra length check
-        if (actual instanceof String) {
-          let falsy = i32(actual.length == 0);
-          assert(falsy ^ negated, message);
-        } else {
-          assert(negated, message);
-        }
+        let falsy = i32(changetype<usize>(actual) == 0);
+        assert(falsy ^ negated, message);
       }
     } else {
       if (isFloat<T>(actual)) {
@@ -223,15 +213,15 @@ export class Expectation<T> {
         "Invalid call to toBeGreaterThan. Generic type T must have an operator implemented for the greaterThan (>) operation.",
       );
 
-    if (isNullable<T>()) {
+    if (isReference<T>()) {
       // Perform reference type null checks
       assert(
-        i32(expected !== null),
-        "Nullable comparison fails, expected value is null.",
+        i32(changetype<usize>(expected) != 0),
+        "Value comparison fails, expected value is null.",
       );
       assert(
-        i32(actual !== null),
-        "Nullable comparison fails, actual value is null.",
+        i32(changetype<usize>(actual) != 0),
+        "Value comparison fails, actual value is null.",
       );
     }
 
@@ -265,15 +255,15 @@ export class Expectation<T> {
         "Invalid call to toBeGreaterThanOrEqual. Generic type T must have an operator implemented for the greaterThanOrEqual (>=) operation.",
       );
 
-    if (isNullable<T>()) {
+    if (isReference<T>()) {
       // Perform reference type null checks
       assert(
-        i32(expected !== null),
-        "Nullable comparison fails, expected value is null.",
+        i32(changetype<usize>(expected) != 0),
+        "Value comparison fails, expected value is null.",
       );
       assert(
-        i32(actual !== null),
-        "Nullable comparison fails, actual value is null.",
+        i32(changetype<usize>(actual) != 0),
+        "Value comparison fails, actual value is null.",
       );
     }
 
@@ -306,15 +296,15 @@ export class Expectation<T> {
         "Invalid call to toBeLessThan. Generic type T must have an operator implemented for the lessThan (<) operation.",
       );
 
-    if (isNullable<T>()) {
+    if (isReference<T>()) {
       // Perform reference type null checks
       assert(
-        i32(expected !== null),
-        "Nullable comparison fails, expected value is null.",
+        i32(changetype<usize>(expected) != 0),
+        "Value comparison fails, expected value is null.",
       );
       assert(
-        i32(actual !== null),
-        "Nullable comparison fails, actual value is null.",
+        i32(changetype<usize>(actual) != 0),
+        "Value comparison fails, actual value is null.",
       );
     }
 
@@ -347,15 +337,15 @@ export class Expectation<T> {
         "Invalid call to toBeLessThanOrEqual. Generic type T must have an operator implemented for the lessThanOrEqual (<=) operation.",
       );
 
-    if (isNullable<T>()) {
+    if (isReference<T>()) {
       // Perform reference type null checks
       assert(
-        i32(expected !== null),
-        "Nullable comparison fails, expected value is null.",
+        i32(changetype<usize>(expected) != 0),
+        "Value comparison fails, expected value is null.",
       );
       assert(
-        i32(actual !== null),
-        "Nullable comparison fails, actual value is null.",
+        i32(changetype<usize>(actual) != 0),
+        "Value comparison fails, actual value is null.",
       );
     }
 
@@ -390,6 +380,8 @@ export class Expectation<T> {
       Expected.clear();
     } else if (isReference(actual)) {
       Actual.report(actual);
+
+      // this call to isNullable is to make type checking consistent
       if (isNullable(actual)) {
         // @ts-ignore T is nullable
         Expected.report<T>(null, negated);
@@ -414,9 +406,7 @@ export class Expectation<T> {
 
     // must be called on a float T
     if (!isFloat<T>())
-      ERROR(
-        "Expectation<T>#toBeCloseTo must be called with a Float value type T.",
-      );
+      ERROR("toBeCloseTo must be called with a Float value type T.");
     Actual.report(actual);
     Expected.report(expected, negated);
 
@@ -447,7 +437,7 @@ export class Expectation<T> {
 
     // must be called on a float T
     if (!isFloat<T>())
-      ERROR("Expectation<T>#toBeNaN must be called with a Float value type T.");
+      ERROR("toBeNaN must be called with a Float value type T.");
     Actual.report(actual);
 
     // @ts-ignore: The compiler should pass bit count (64/32 bit float to the report function)
@@ -465,7 +455,7 @@ export class Expectation<T> {
 
     // must be called on a float T
     if (!isFloat<T>())
-      ERROR("Expectation<T>#toBeNaN must be called with a Float value type T.");
+      ERROR("toBeNaN must be called with a Float value type T.");
     Actual.report(actual);
     Expected.reportFinite(negated);
 
@@ -486,7 +476,7 @@ export class Expectation<T> {
       // @ts-ignore: This results in a compile time check for a length property with a better error message
       if (!isDefined(actual.length))
         ERROR(
-          "Expectation<T>#toHaveLength cannot be called on type T where T.length is not defined.",
+          "toHaveLength cannot be called on type T where T.length is not defined.",
         );
       // @ts-ignore: This results in a compile time check for a length property with a better error message
       length = actual.length;

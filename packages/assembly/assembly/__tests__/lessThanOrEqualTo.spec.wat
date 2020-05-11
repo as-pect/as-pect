@@ -56,15 +56,15 @@
  (data (i32.const 3376) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00S\00t\00r\00i\00n\00g\00")
  (data (i32.const 3408) "\02\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00y\00")
  (data (i32.const 3440) "\02\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00z\00")
- (data (i32.const 3472) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00s\00e\00t\00u\00p\00/\00V\00e\00c\003\00.\00t\00s\00")
- (data (i32.const 3552) "P\00\00\00\01\00\00\00\01\00\00\00P\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
- (data (i32.const 3648) "\00\00\00\00\01\00\00\00\08\00\00\00\00\00\00\00")
- (data (i32.const 3664) "d\00\00\00\01\00\00\00\01\00\00\00d\00\00\00N\00u\00l\00l\00a\00b\00l\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
- (data (i32.const 3792) "`\00\00\00\01\00\00\00\01\00\00\00`\00\00\00N\00u\00l\00l\00a\00b\00l\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
- (data (i32.const 3904) "\98\00\00\00\01\00\00\00\01\00\00\00\98\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00L\00e\00s\00s\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
- (data (i32.const 4080) "T\00\00\00\01\00\00\00\01\00\00\00T\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
- (data (i32.const 4192) "\9c\00\00\00\01\00\00\00\01\00\00\00\9c\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00L\00e\00s\00s\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
- (data (i32.const 4368) "\0b\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\98\04\01\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
+ (data (i32.const 3472) "^\00\00\00\01\00\00\00\01\00\00\00^\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
+ (data (i32.const 3584) "Z\00\00\00\01\00\00\00\01\00\00\00Z\00\00\00V\00a\00l\00u\00e\00 \00c\00o\00m\00p\00a\00r\00i\00s\00o\00n\00 \00f\00a\00i\00l\00s\00,\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
+ (data (i32.const 3696) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00s\00e\00t\00u\00p\00/\00V\00e\00c\003\00.\00t\00s\00")
+ (data (i32.const 3776) "P\00\00\00\01\00\00\00\01\00\00\00P\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
+ (data (i32.const 3872) "\00\00\00\00\01\00\00\00\08\00\00\00\00\00\00\00")
+ (data (i32.const 3888) "\98\00\00\00\01\00\00\00\01\00\00\00\98\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00L\00e\00s\00s\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00a\00c\00t\00u\00a\00l\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
+ (data (i32.const 4064) "T\00\00\00\01\00\00\00\01\00\00\00T\00\00\00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00")
+ (data (i32.const 4176) "\9c\00\00\00\01\00\00\00\01\00\00\00\9c\00\00\00T\00h\00e\00 \00t\00o\00B\00e\00L\00e\00s\00s\00T\00h\00a\00n\00O\00r\00E\00q\00u\00a\00l\00T\00o\00 \00f\00u\00n\00c\00t\00i\00o\00n\00 \00s\00h\00o\00u\00l\00d\00 \00t\00h\00r\00o\00w\00 \00i\00f\00 \00t\00h\00e\00 \00e\00x\00p\00e\00c\00t\00e\00d\00 \00v\00a\00l\00u\00e\00 \00i\00s\00 \00n\00u\00l\00l\00.\00")
+ (data (i32.const 4352) "\0b\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\98\04\01\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\93\00\00\00\02\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
@@ -99,8 +99,8 @@
  (global $assembly/internal/noOp/noOp i32 (i32.const 13))
  (global $assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $~started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 4368))
- (global $~lib/heap/__heap_base i32 (i32.const 4460))
+ (global $~lib/rt/__rtti_base i32 (i32.const 4352))
+ (global $~lib/heap/__heap_base i32 (i32.const 4444))
  (export "__setArgumentsLength" (func $~setArgumentsLength))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
@@ -4482,7 +4482,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 3488
+   i32.const 3712
    i32.const 40
    i32.const 4
    call $~lib/builtins/abort
@@ -4492,7 +4492,7 @@
   i32.eqz
   if
    i32.const 0
-   i32.const 3488
+   i32.const 3712
    i32.const 41
    i32.const 4
    call $~lib/builtins/abort
@@ -4507,7 +4507,7 @@
    local.get $3
   else
    i32.const 0
-   i32.const 3488
+   i32.const 3712
    i32.const 43
    i32.const 23
    call $~lib/builtins/abort
@@ -4544,6 +4544,16 @@
   local.get $1
   local.get $4
   call $assembly/internal/Expected/Expected.report<assembly/__tests__/setup/Vec3/Vec3>
+  local.get $1
+  i32.const 0
+  i32.ne
+  i32.const 3488
+  call $assembly/internal/assert/assert
+  local.get $3
+  i32.const 0
+  i32.ne
+  i32.const 3600
+  call $assembly/internal/assert/assert
   local.get $4
   local.get $3
   local.get $1
@@ -4704,7 +4714,7 @@
   local.get $1
   i32.const 0
   i32.const 8
-  i32.const 3664
+  i32.const 3888
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $3
@@ -4807,12 +4817,12 @@
   local.get $1
   i32.const 0
   i32.ne
-  i32.const 3680
+  i32.const 3488
   call $assembly/internal/assert/assert
   local.get $3
   i32.const 0
   i32.ne
-  i32.const 3808
+  i32.const 3600
   call $assembly/internal/assert/assert
   local.get $4
   local.get $3
@@ -4885,13 +4895,13 @@
   i32.const 2864
   i32.const 9
   call $assembly/internal/Test/it
-  i32.const 3568
+  i32.const 3792
   i32.const 10
-  i32.const 3920
+  i32.const 3904
   call $assembly/internal/Test/throws
-  i32.const 4096
+  i32.const 4080
   i32.const 11
-  i32.const 4208
+  i32.const 4192
   call $assembly/internal/Test/throws
  )
  (func $start:assembly/__tests__/lessThanOrEqualTo.spec (; 99 ;)
