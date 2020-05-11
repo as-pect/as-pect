@@ -50,9 +50,10 @@ export class Expectation<T> {
     let actual = this.actual;
     let equals = i32(actual == expected);
     let negated = this._not;
+
     Actual.report(actual);
 
-    if (isReference<T>() && !isFunction<T>()) {
+    if (isReference(actual) && !isFunction(actual)) {
       if (
         !negated &&
         changetype<usize>(actual) !== 0 &&
@@ -114,7 +115,7 @@ export class Expectation<T> {
     Expected.reportTruthy(negated);
 
     if (isReference(actual)) {
-      if (isNullable<T>()) {
+      if (isNullable(actual)) {
         // strings require an extra length check
         if (actual instanceof String) {
           let truthy = i32(changetype<usize>(actual) != 0 && actual.length > 0);
@@ -133,10 +134,10 @@ export class Expectation<T> {
         }
       }
     } else {
-      if (isFloat<T>(actual)) {
+      if (isFloat(actual)) {
         let truthy = i32(!isNaN(actual) && actual != 0.0);
         assert(truthy ^ negated, message);
-      } else if (isInteger<T>(actual)) {
+      } else if (isInteger(actual)) {
         let truthy = i32(actual != 0);
         assert(truthy ^ negated, message);
       }
@@ -162,11 +163,11 @@ export class Expectation<T> {
         assert(falsy ^ negated, message);
       }
     } else {
-      if (isFloat<T>(actual)) {
+      if (isFloat(actual)) {
         // @ts-ignore: actual is a float value
         let falsy = i32(isNaN(actual) || actual == 0.0);
         assert(falsy ^ negated, message);
-      } else if (isInteger<T>(actual)) {
+      } else if (isInteger(actual)) {
         let falsy = i32(actual == 0);
         assert(falsy ^ negated, message);
       }
@@ -180,7 +181,7 @@ export class Expectation<T> {
     let actual = this.actual;
     let negated = this._not;
 
-    if (!isFunction<T>())
+    if (!isFunction(this.actual))
       ERROR(
         "Expectation#toThrow assertion called on actual T where T is not a function reference",
       );
@@ -189,8 +190,8 @@ export class Expectation<T> {
         "Expectation#toThrow assertion called on actual T where T is not a function reference with signature () => void",
       );
 
-    let func = changetype<() => void>(actual);
-    let throws = i32(!tryCall(func));
+    // @ts-ignore: safe tryCall
+    let throws = i32(!tryCall(actual));
     Actual.report(throws ? "Throws" : "Not Throws");
 
     /**
@@ -226,13 +227,13 @@ export class Expectation<T> {
     }
 
     // Compare float types
-    if (isFloat<T>(actual)) {
+    if (isFloat(actual)) {
       assert(
-        i32(!isNaN<T>(expected)),
+        i32(!isNaN(expected)),
         "Value comparison fails, expected value is NaN.",
       );
       assert(
-        i32(!isNaN<T>(actual)),
+        i32(!isNaN(actual)),
         "Value comparison fails, actual value is NaN.",
       );
     }
@@ -247,8 +248,8 @@ export class Expectation<T> {
     let actual = this.actual;
     let negated = this._not;
 
-    Actual.report<T>(actual);
-    Expected.report<T>(expected, negated);
+    Actual.report(actual);
+    Expected.report(expected, negated);
 
     if (!isDefined(actual >= expected))
       ERROR(
@@ -329,8 +330,8 @@ export class Expectation<T> {
   public toBeLessThanOrEqual(expected: T, message: string = ""): void {
     let actual = this.actual;
     let negated = this._not;
-    Actual.report<T>(actual);
-    Expected.report<T>(expected, negated);
+    Actual.report(actual);
+    Expected.report(expected, negated);
 
     if (!isDefined(actual > expected))
       ERROR(
@@ -481,8 +482,8 @@ export class Expectation<T> {
       // @ts-ignore: This results in a compile time check for a length property with a better error message
       length = actual.length;
     }
-    Actual.report(actual);
 
+    Actual.report(actual);
     Expected.report(length);
 
     let lengthsEqual = i32(length == expected);

@@ -2505,7 +2505,6 @@
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
-  (local $7 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
@@ -2516,35 +2515,33 @@
   i32.load
   local.set $3
   local.get $2
-  local.set $4
-  local.get $4
   call $assembly/internal/Expectation/tryCall
   i32.eqz
-  local.set $5
-  local.get $5
+  local.set $4
+  local.get $4
   if (result i32)
    i32.const 544
    call $~lib/rt/pure/__retain
-   local.tee $6
+   local.tee $5
   else
    i32.const 576
    call $~lib/rt/pure/__retain
-   local.tee $7
+   local.tee $6
   end
   call $assembly/internal/Actual/Actual.report<~lib/string/String>
   i32.const 544
   local.get $3
   call $assembly/internal/Expected/Expected.report<~lib/string/String>
   local.get $3
-  local.get $5
+  local.get $4
   i32.xor
   local.get $1
   call $assembly/internal/assert/assert
   call $assembly/internal/Actual/Actual.clear
   call $assembly/internal/Expected/Expected.clear
-  local.get $6
+  local.get $5
   call $~lib/rt/pure/__release
-  local.get $7
+  local.get $6
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
