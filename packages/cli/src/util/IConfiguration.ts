@@ -1,4 +1,5 @@
 import { IReporter } from "@as-pect/core";
+import { WASIOptions } from "wasi";
 
 /**
  * This is the shape of the compiler flags.
@@ -63,4 +64,8 @@ export interface IConfiguration {
    * WASM Memory max size in pages 64kb. Should be positive. Default is disabled or -1.
    */
   memoryMax?: number;
+  /**
+   * WASI options, if any are provided, wasi will be enabled.
+   */
+  wasi?: WASIOptions;
 }

@@ -13,7 +13,6 @@ export function createRTraceModule(
   let ctx: TestContext;
   main(
     [
-      "--validate",
       "--debug",
       "--binaryFile",
       "output.wasm",

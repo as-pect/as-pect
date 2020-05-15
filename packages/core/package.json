@@ -41,7 +41,7 @@
 		"lib/"
 	],
 	"peerDependencies": {
-		"assemblyscript": "^0.9.4"
+		"assemblyscript": "^0.10.0"
 	},
 	"devDependencies": {
 		"jest": "^26.0.1",

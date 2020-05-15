@@ -15,7 +15,6 @@ export function createReporterModule(
   let ctx: TestContext;
   main(
     [
-      "--validate",
       "--debug",
       "--binaryFile",
       "output.wasm",

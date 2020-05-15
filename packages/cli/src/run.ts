@@ -2,12 +2,7 @@ import * as fs from "fs";
 import { performance } from "perf_hooks";
 import * as path from "path";
 import chalk from "chalk";
-import {
-  IAspectExports,
-  TestContext,
-  IWarning,
-  IReporter,
-} from "@as-pect/core";
+import { TestContext, IWarning, IReporter } from "@as-pect/core";
 import { IConfiguration, ICompilerFlags } from "./util/IConfiguration";
 import glob from "glob";
 import { collectReporter } from "./util/collectReporter";
@@ -195,7 +190,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   // Create the compiler flags
   const flags: ICompilerFlags = Object.assign({}, configuration.flags, {
-    "--validate": [],
     "--debug": [],
     "--binaryFile": ["output.wasm"],
     "--explicitStart": [],
@@ -453,6 +447,11 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         testBaseName + ".snap",
       );
 
+      let wasi: any = null;
+      if (configuration.wasi) {
+        const WASI = require("wasi");
+        wasi = new WASI(configuration.wasi);
+      }
       // create a test runner
       const runner = new TestContext({
         fileName: file,
@@ -463,6 +462,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         snapshots: fs.existsSync(snapshotsLocation)
           ? Snapshot.parse(fs.readFileSync(snapshotsLocation, "utf8"))
           : new Snapshot(),
+        wasi,
       });
 
       // detect custom imports
@@ -484,19 +484,19 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
       const memory = new WebAssembly.Memory(memoryDescriptor);
 
-      let wasm: IAspectExports;
+      let result: any;
 
       if (typeof configurationImports === "function") {
         const createImports = runner.createImports.bind(runner, {
           env: { memory },
         });
-        wasm = configurationImports(
+        result = configurationImports(
           memory,
           createImports,
           instantiateSync,
           binary,
         );
-        if (!wasm) {
+        if (!result) {
           console.error(
             chalk`{red [Error]} Imports configuration function did not return an AssemblyScript module. (Did you forget to return it?)`,
           );
@@ -505,14 +505,14 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       } else {
         const imports = runner.createImports(configurationImports);
         imports.env.memory = memory;
-        wasm = instantiateSync(binary, imports);
+        result = instantiateSync(binary, imports);
       }
 
       if (runner.errors.length > 0) {
         errors.push(...runner.errors);
       } else {
         // call run buffer because it's already compiled
-        runner.run(wasm);
+        runner.run(result);
         const runnerTestCount = runner.testCount;
         const runnerTestPassCount = runner.testPassCount;
         const runnerGroupCount = runner.groupCount;

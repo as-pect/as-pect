@@ -19,7 +19,7 @@ export = class AspectTransform extends Transform {
    */
   afterParse(parser: Parser): void {
     // for each program source
-    for (const source of parser.program.sources) {
+    for (const source of parser.sources) {
       traverseStatements(source.statements);
     }
   }
