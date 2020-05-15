@@ -447,7 +447,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
         testBaseName + ".snap",
       );
 
-      let wasi: any = null;
+      let wasi: import("wasi").WASI | null = null;
       if (configuration.wasi) {
         const WASI = require("wasi");
         wasi = new WASI(configuration.wasi);

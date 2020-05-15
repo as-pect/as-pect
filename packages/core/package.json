@@ -19,11 +19,11 @@
 	"scripts": {
 		"rimraf": "rimraf lib/*",
 		"test:ci": "jest",
-		"test": "jest",
+		"test": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
 		"tsc:all": "run-p tsc:default tsc:amd",
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
 		"tsc:default": "tsc",
-		"test:update-snapshots": "jest -u",
+		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js -u",
 		"tsc": "run-s rimraf tsc:all"
 	},
 	"bugs": {

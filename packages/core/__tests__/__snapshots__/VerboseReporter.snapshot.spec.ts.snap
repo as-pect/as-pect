@@ -34,18 +34,6 @@ exports[`snapshots: onGroupEnd logs 1`] = `
 "    [Todo]: one
     [Todo]: two
     [Todo]: three
-
-"
-`;
-
-exports[`snapshots: onGroupEnd snapshots 1`] = `
-"
-"
-`;
-
-exports[`snapshots: onGroupStart logs 1`] = `
-"[Describe]: logs
-
      [Log]: \\"Hello world!\\"
    [Stack]: Has Stack Trace
      [Log]: 42
@@ -86,6 +74,18 @@ exports[`snapshots: onGroupStart logs 1`] = `
    [Stack]: Has Stack Trace
      [Log]: \\"trace: The thing! 1, 2, 3, 4, 5\\"
    [Stack]: Has Stack Trace
+
+"
+`;
+
+exports[`snapshots: onGroupEnd snapshots 1`] = `
+"
+"
+`;
+
+exports[`snapshots: onGroupStart logs 1`] = `
+"[Describe]: logs
+
 "
 `;
 

@@ -16,15 +16,15 @@ exports[`snapshots: onFinish assembly/jest-reporter.ts 1`] = `
 exports[`snapshots: onGroupEnd  1`] = `""`;
 
 exports[`snapshots: onGroupEnd a passing suite 1`] = `
-"
+"     [Log]: \\"Something else!\\"
+   [Stack]: Has Stack Trace
+
 "
 `;
 
 exports[`snapshots: onGroupStart a passing suite 1`] = `
 "[Describe]: a passing suite
 
-     [Log]: \\"Something else!\\"
-   [Stack]: Has Stack Trace
 "
 `;
 

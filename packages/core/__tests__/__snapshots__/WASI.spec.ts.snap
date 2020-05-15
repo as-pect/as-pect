@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshots: onFinish assembly/jest-log.ts 1`] = `""`;
+
+exports[`snapshots: onGroupEnd  1`] = `""`;
+
+exports[`snapshots: onGroupStart  1`] = `""`;

@@ -16,7 +16,8 @@ import {
   SnapshotDiff,
 } from "@as-pect/snapshots";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
-import { WASI } from "wasi";
+
+type WASI = import("wasi").WASI;
 
 const id = (a: string) => a;
 
