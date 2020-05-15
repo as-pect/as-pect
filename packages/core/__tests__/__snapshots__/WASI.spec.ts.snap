@@ -1,7 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshots: onFinish assembly/jest-log.ts 1`] = `""`;
+exports[`snapshots: onFinish assembly/jest-log.ts 1`] = `
+"    [File]: assembly/jest-log.ts
+  [Groups]: 1 pass, 1 total
+  [Result]: ✔ PASS
+[Snapshot]: 0 total, 0 added, 0 removed, 0 different
+ [Summary]: 1 pass,  0 fail, 1 total
+    [Time]: 0ms
 
-exports[`snapshots: onGroupEnd  1`] = `""`;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-exports[`snapshots: onGroupStart  1`] = `""`;
+"
+`;
+
+exports[`snapshots: onGroupEnd  1`] = `
+"
+"
+`;
+
+exports[`snapshots: onTestFinish  output 1`] = `
+" [Success]: ✔ output
+     [Log]: 0 as u16
+   [Stack]: Has Stack Trace
+"
+`;
+
+exports[`snapshots: onTestStart  output 1`] = `""`;

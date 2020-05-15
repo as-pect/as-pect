@@ -1,5 +1,5 @@
 import { main } from "assemblyscript/cli/asc";
-import { instantiateSync as instantiateBuffer } from "assemblyscript/lib/loader";
+import { instantiate } from "assemblyscript/lib/loader";
 import { TestContext } from "../../src/test/TestContext";
 import { IAspectExports } from "../../src/util/IAspectExports";
 import { WASI } from "wasi";
@@ -12,7 +12,7 @@ export function createWasiModule(
   reporter: IReporter,
   callback: TestContextCallback,
 ): void {
-  let ctx: TestContext;
+  let binary: Uint8Array;
   main(
     [
       "--debug",
@@ -30,27 +30,32 @@ export function createWasiModule(
     {
       writeFile(fileName: string, contents: Uint8Array) {
         if (fileName === "output.wasm") {
-          const wasi = new WASI({
-            args: process.argv,
-            env: process.env,
-          });
-          ctx = new TestContext({
-            reporter,
-            fileName: "assembly/jest-log.ts",
-            binary: contents,
-            wasi,
-          });
-          const result = instantiateBuffer<IAspectExports>(
-            contents,
-            ctx.createImports(linked),
-          );
-          ctx.run(result);
+          binary = contents;
         }
       },
     },
     (err: Error | null) => {
       if (err) callback(err);
-      else callback(null, ctx);
+      else {
+        const wasi = new WASI({
+          args: process.argv,
+          env: process.env,
+          preopens: {},
+        });
+        const ctx = new TestContext({
+          reporter,
+          fileName: "assembly/jest-log.ts",
+          binary,
+          wasi,
+        });
+        instantiate<IAspectExports>(
+          binary,
+          ctx.createImports(linked),
+        ).then(result => {
+          ctx.run(result);
+          callback(null, ctx);
+        });
+      }
       return 0;
     },
   );

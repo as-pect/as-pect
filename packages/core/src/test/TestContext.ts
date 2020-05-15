@@ -34,7 +34,7 @@ const stringifyOptions: Partial<StringifyReflectedValueProps> = {
 };
 
 type InstantiateResult = {
-  instance: WebAssembly.Instance;
+  // instance: WebAssembly.Instance;
   exports: IAspectExports;
 };
 
@@ -135,8 +135,8 @@ export class TestContext {
   /** The wasi instance associated with this module */
   private wasi: WASI | null = null;
 
-  /** The module instance */
-  private instance: WebAssembly.Instance | null = null;
+  /** The module instance. */
+  // private instance: WebAssembly.Instance | null = null;
   /**
    * RTrace is a funciton that helps with debugging reference counting and can be used to find
    * leaks. If it is enabled, it will be included automatically by the bootstrap in the
@@ -217,7 +217,7 @@ export class TestContext {
   public run(wasm: InstantiateResult): void {
     // set the wasm
     this.wasm = wasm.exports;
-    this.instance = wasm.instance;
+
     // start by visiting the root node
     this.visit(this.rootNode);
 
@@ -295,12 +295,13 @@ export class TestContext {
     if (node === this.rootNode) {
       try {
         if (this.wasi) {
-          this.wasi.start(this.instance!);
+          this.wasiStart();
         } else {
           // collect all the top level function pointers, tests, groups, and logs
           this.wasm!._start();
         }
       } catch (ex) {
+        console.log(ex);
         this.reporter.onEnter(this, node);
         /**
          * If this catch occurs, the entire test suite is completed.
@@ -1493,5 +1494,18 @@ export class TestContext {
       name,
       this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
     );
+  }
+
+  private wasiStart(): void {
+    const symbols = Object.getOwnPropertySymbols(this.wasi);
+    const kStartedSymbol = symbols
+      .filter(symbol => symbol.toString().includes("kStarted"))[0];
+    const setMemorySymbol = symbols
+      .filter(symbol => symbol.toString().includes("setMemory"))[0];
+    // @ts-ignore: jest workaround
+    this.wasi![setMemorySymbol](this.wasm!.memory);
+    // @ts-ignore: jest workaround
+    this.wasi![kStartedSymbol] = true;
+    this.wasm!._start();
   }
 }
