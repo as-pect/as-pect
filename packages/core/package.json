@@ -18,7 +18,7 @@
 	],
 	"scripts": {
 		"rimraf": "rimraf lib/*",
-		"test:ci": "jest",
+		"test:ci": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
 		"test": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
 		"tsc:all": "run-p tsc:default tsc:amd",
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
