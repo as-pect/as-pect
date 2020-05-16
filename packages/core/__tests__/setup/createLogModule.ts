@@ -13,7 +13,6 @@ export function createLogModule(
   let ctx: TestContext;
   main(
     [
-      "--validate",
       "--debug",
       "--binaryFile",
       "output.wasm",

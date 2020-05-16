@@ -8,3 +8,4 @@ export * from "./test/TestContext";
 export * from "./test/TestNode";
 export * from "./util/IAspectExports";
 export * from "./util/ReflectedValue";
+export * from "./util/TestNodeType";

@@ -6,7 +6,7 @@ import { NameSection } from "../util/wasmTools";
 import { ReflectedValue } from "../util/ReflectedValue";
 import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
 import { TestNode } from "./TestNode";
-import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
+import { TestNodeType } from "../util/TestNodeType";
 import { IReporter } from "../reporter/IReporter";
 import { performance } from "perf_hooks";
 import { IWarning } from "./IWarning";
@@ -16,6 +16,8 @@ import {
   SnapshotDiff,
 } from "@as-pect/snapshots";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
+
+type WASI = import("wasi").WASI;
 
 const id = (a: string) => a;
 
@@ -29,6 +31,12 @@ const stringifyOptions: Partial<StringifyReflectedValueProps> = {
   numberFormatter: id,
   stringFormatter: id,
   tab: 2,
+};
+
+type InstantiateResult = {
+  // instance: WebAssembly.Instance;
+  exports: IAspectExports;
+  instance: WebAssembly.Instance;
 };
 
 /**
@@ -56,6 +64,8 @@ export interface ITestContextParameters {
   reporter: IReporter;
   /** The expected snapshot output. */
   snapshots?: Snapshot;
+  /** WASI, if provided. */
+  wasi?: WASI | null;
 }
 
 /** This class is responsible for collecting and running all the tests in a test binary. */
@@ -123,6 +133,14 @@ export class TestContext {
   /** A collection of all the generated namespaces for shapshot purposes. */
   protected namespaces: Set<string> = new Set<string>();
 
+  /** The wasi instance associated with this module */
+  private wasi: WASI | null = null;
+
+  /** The WebAssembly.Instance object. */
+  private instance: WebAssembly.Instance | null = null;
+
+  /** The module instance. */
+  // private instance: WebAssembly.Instance | null = null;
   /**
    * RTrace is a funciton that helps with debugging reference counting and can be used to find
    * leaks. If it is enabled, it will be included automatically by the bootstrap in the
@@ -163,7 +181,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (props.nortrace) this.rtraceEnabled = false;
     if (props.binary) this.nameSection = new NameSection(props.binary);
-
+    if (props.wasi) this.wasi = props.wasi;
     this.expectedSnapshots = props.snapshots ? props.snapshots : new Snapshot();
 
     this.reporter = props.reporter;
@@ -200,9 +218,10 @@ export class TestContext {
    * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
    * process of test collection and evaluation.
    */
-  public run(wasm: IAspectExports): void {
+  public run(wasm: InstantiateResult): void {
     // set the wasm
-    this.wasm = wasm;
+    this.wasm = wasm.exports;
+    this.instance = wasm.instance;
 
     // start by visiting the root node
     this.visit(this.rootNode);
@@ -280,9 +299,14 @@ export class TestContext {
     // perform test collection and evaluate the node, each node must set pass to `true` if it passes
     if (node === this.rootNode) {
       try {
-        // collect all the top level function pointers, tests, groups, and logs
-        this.wasm!._start();
+        if (this.wasi) {
+          this.wasi!.start(this.instance!);
+        } else {
+          // collect all the top level function pointers, tests, groups, and logs
+          this.wasm!._start();
+        }
       } catch (ex) {
+        console.log(ex);
         this.reporter.onEnter(this, node);
         /**
          * If this catch occurs, the entire test suite is completed.
@@ -541,6 +565,10 @@ export class TestContext {
     /** Override trace completely. */
     finalImports.env.trace = this.trace.bind(this);
 
+    // add wasi support if requested
+    if (this.wasi) {
+      finalImports.wasi_snapshot_preview1 = this.wasi.wasiImport;
+    }
     return finalImports;
   }
 

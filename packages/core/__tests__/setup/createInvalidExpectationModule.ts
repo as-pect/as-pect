@@ -10,7 +10,6 @@ export function createModule(linked: any, callback: TestContextCallback): void {
   let ctx: TestContext;
   main(
     [
-      "--validate",
       "--debug",
       "--binaryFile",
       "output.wasm",

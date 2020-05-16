@@ -1,9 +1,6 @@
-import { IReporter } from "../../packages/core/src/reporter/IReporter";
-import { TestContext } from "../core/src/test/TestContext";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
-import { TestNode } from "../core/src/test/TestNode";
-import { TestNodeType } from "@as-pect/assembly/assembly/internal/TestNodeType";
+import { TestNodeType, TestContext, IReporter, TestNode } from "@as-pect/core";
 
 /**
  * This class reports all relevant test statistics to a JSON file located at

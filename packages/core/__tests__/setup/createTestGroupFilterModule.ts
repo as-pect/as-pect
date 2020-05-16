@@ -8,7 +8,10 @@ import { EmptyReporter } from "../../src/reporter/EmptyReporter";
 import { IAspectExports } from "../../src/util/IAspectExports";
 
 interface ICreateModuleCallbackResult {
-  wasm: ASUtil & IAspectExports;
+  result: {
+    instance: WebAssembly.Instance;
+    exports: ASUtil & IAspectExports;
+  };
   context: TestContext;
 }
 
@@ -22,11 +25,13 @@ export function createTestGroupFilterModule(
   callback: TestContextCallback,
 ): void {
   let context: TestContext;
-  let wasm: ASUtil & IAspectExports;
+  let result: {
+    instance: WebAssembly.Instance;
+    exports: ASUtil & IAspectExports;
+  };
 
   main(
     [
-      "--validate",
       "--debug",
       "--binaryFile",
       "output.wasm",
@@ -43,7 +48,7 @@ export function createTestGroupFilterModule(
             reporter: new EmptyReporter(),
             fileName: "assembly/jest-filter.ts",
           });
-          wasm = instantiateBuffer<IAspectExports>(
+          result = instantiateBuffer<IAspectExports>(
             contents,
             context.createImports(linked),
           );
@@ -52,7 +57,7 @@ export function createTestGroupFilterModule(
     },
     (err: Error | null) => {
       if (err) callback(err);
-      else callback(null, { context, wasm });
+      else callback(null, { context, result });
       return 0;
     },
   );
