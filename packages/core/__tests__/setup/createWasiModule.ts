@@ -42,19 +42,41 @@ export function createWasiModule(
           env: process.env,
           preopens: {},
         });
+
+        /**
+         * The wasi.start function runs in a seperate vm, so it's required
+         * to mock the start function manually, or the test will fail an
+         * instanceof check. Specifically, WebAssembly.Instance will be
+         * a different class in the VM.
+         */
+        wasi.start = jest.fn((instance: WebAssembly.Instance) => {
+          const symbols = Object.getOwnPropertySymbols(wasi);
+          const kStartedSymbol = symbols.filter((symbol) =>
+            symbol.toString().includes("kStarted"),
+          )[0];
+          const setMemorySymbol = symbols.filter((symbol) =>
+            symbol.toString().includes("setMemory"),
+          )[0];
+
+          // @ts-ignore: symbol access mock
+          wasi[setMemorySymbol](instance.exports.memory);
+          // @ts-ignore: symbol access mock
+          wasi[kStartedSymbol] = true;
+          // @ts-ignore: _start is an exported function
+          instance.exports._start();
+        });
         const ctx = new TestContext({
           reporter,
           fileName: "assembly/jest-log.ts",
           binary,
           wasi,
         });
-        instantiate<IAspectExports>(
-          binary,
-          ctx.createImports(linked),
-        ).then(result => {
-          ctx.run(result);
-          callback(null, ctx);
-        });
+        instantiate<IAspectExports>(binary, ctx.createImports(linked)).then(
+          (result) => {
+            ctx.run(result);
+            callback(null, ctx);
+          },
+        );
       }
       return 0;
     },

@@ -36,6 +36,7 @@ const stringifyOptions: Partial<StringifyReflectedValueProps> = {
 type InstantiateResult = {
   // instance: WebAssembly.Instance;
   exports: IAspectExports;
+  instance: WebAssembly.Instance;
 };
 
 /**
@@ -135,6 +136,9 @@ export class TestContext {
   /** The wasi instance associated with this module */
   private wasi: WASI | null = null;
 
+  /** The WebAssembly.Instance object. */
+  private instance: WebAssembly.Instance | null = null;
+
   /** The module instance. */
   // private instance: WebAssembly.Instance | null = null;
   /**
@@ -217,6 +221,7 @@ export class TestContext {
   public run(wasm: InstantiateResult): void {
     // set the wasm
     this.wasm = wasm.exports;
+    this.instance = wasm.instance;
 
     // start by visiting the root node
     this.visit(this.rootNode);
@@ -295,7 +300,7 @@ export class TestContext {
     if (node === this.rootNode) {
       try {
         if (this.wasi) {
-          this.wasiStart();
+          this.wasi!.start(this.instance!);
         } else {
           // collect all the top level function pointers, tests, groups, and logs
           this.wasm!._start();
@@ -1494,18 +1499,5 @@ export class TestContext {
       name,
       this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
     );
-  }
-
-  private wasiStart(): void {
-    const symbols = Object.getOwnPropertySymbols(this.wasi);
-    const kStartedSymbol = symbols
-      .filter(symbol => symbol.toString().includes("kStarted"))[0];
-    const setMemorySymbol = symbols
-      .filter(symbol => symbol.toString().includes("setMemory"))[0];
-    // @ts-ignore: jest workaround
-    this.wasi![setMemorySymbol](this.wasm!.memory);
-    // @ts-ignore: jest workaround
-    this.wasi![kStartedSymbol] = true;
-    this.wasm!._start();
   }
 }
