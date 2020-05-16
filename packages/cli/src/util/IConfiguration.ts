@@ -1,5 +1,4 @@
 import { IReporter } from "@as-pect/core";
-import { WASIOptions } from "wasi";
 
 /**
  * This is the shape of the compiler flags.
@@ -67,5 +66,5 @@ export interface IConfiguration {
   /**
    * WASI options, if any are provided, wasi will be enabled.
    */
-  wasi?: WASIOptions;
+  wasi?: import("wasi").WASIOptions;
 }
