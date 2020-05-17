@@ -1,0 +1,60 @@
+Configuration and CLI parser
+
+# Testing Configuration
+- [x] config: The configuration location (default: "./as-pect.config.js")
+- [x] (S) include: use globs to determine main modules (default: [])
+   - Must be provided, no defaults added. Forces an exit code of 1.
+   - Must result in a set of files found. Forces an exit code of 1.
+- [x] (S) disclude: use globs to determine files discluded as modules (default: [])
+- [x] (S) add: use globs to determine files that need to be added to each compilation (default: [])
+
+- [x] (s) test: cli flag only regex to filter tests (default: "(:?)")
+- [x] (s) group: cli flag only regex to filter tests (default: "(:?)")
+
+- [x] reporter: config only, IReporter (errors if summary or verbose is passed)
+- [x] (b) verbose: boolean (errors if a reporter is passed or summary is passed) (default: false)
+- [x] (b) summary: boolean (errors if a reporter is passed or verbose is passed) (default: false)
+- [x] (b) csv: boolean (default: false)
+- [x] (b) json: boolean (default: false)
+
+# Compiler Configuration
+- [x] (s) compiler: define the compiler location (default: "assemblyscript")
+- [x] flags: string[] in config, "--" rest in cli (default: [])
+   - CLI flags are CONCATENATED with the config and the "--" rest parameters
+- [x] (b) outputBinary: boolean that outputs the wasm file (default: false)
+
+# Module Configuration
+
+- [x] imports: config only, object or function or null (default: {})
+- [x] (i) memorySize: web assembly memory in pages (default: 10)
+- [x] (i) memoryMax: web assembly memory in pages (default: -1)
+- [x] (b) defaultWasi: use default wasi configuration (errors if a wasi configuration is passed)
+- [x] wasi: config only, wasi config (errors if defaultWasi is passed)
+
+# Flags (default: false)
+- [ ] (b) help
+- [ ] (b) init
+- [ ] (b) portable
+- [ ] (b) types
+
+# CLI flag scripts
+- [ ] help.ts
+- [ ] init.ts
+- [ ] portable.ts
+- [ ] types.ts
+
+# bootstrap
+- [ ] test.ts -> bootstrap from node
+
+Implement the cli run algorithm
+- [ ] run.ts Top level promise with success exit code one
+- [ ] AspectRunContext
+  - exitCode
+  - startTime
+  - endTime
+  - testCount
+  - groupCount
+  - testPassCount
+  - groupPassCount
+  - pass
+- [ ] asni-colors
