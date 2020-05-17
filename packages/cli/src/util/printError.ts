@@ -2,6 +2,14 @@ import { IProcessConfiguration } from "../IProcessConfiguration";
 import { AspectErrorCode } from "./AspectErrorCode";
 
 export function printError(
+  errcode:
+    | AspectErrorCode.ASP_100_InvalidCLIArgument
+    | AspectErrorCode.ASP_101_InvalidConfiguration,
+  config: IProcessConfiguration,
+  option: string,
+  reason: string,
+): void;
+export function printError(
   errcode: AspectErrorCode,
   config: IProcessConfiguration,
   ...rest: string[]
