@@ -1,5 +1,5 @@
 import { TestContext } from "../test/TestContext";
-import { IWritable } from "../util/IWriteable";
+import { IWritable } from "../util/IWritable";
 import { ReflectedValue } from "../util/ReflectedValue";
 import { IReporter } from "./IReporter";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
