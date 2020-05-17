@@ -3,7 +3,7 @@ import { IProcessConfiguration } from "./IProcessConfiguration";
 import { IWritable } from "@as-pect/core/src/util/IWritable";
 
 export interface IASCProps {
-  stdout: IWritable; // use any type to quelch error
+  stdout: IWritable;
   stderr: IWritable;
   listFiles(dirname: string, baseDir: string): string[];
   readFile(filename: string, baseDir: string): Uint8Array | null;
