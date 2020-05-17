@@ -43,5 +43,9 @@ export async function tryResolveCompiler(
     : path.dirname(require.resolve(locationParameter)); // module resolve
   const compilerLocation = path.join(resolvedFolder, "dist/asc");
   context.asc = require(compilerLocation);
+  const optionsLocation = path.join(resolvedFolder, "cli/util/options");
+  const { parse, help } = require(optionsLocation);
+  context.parse = parse;
+  context.help = help;
   return context;
 }

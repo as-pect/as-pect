@@ -4,8 +4,8 @@ import { printError } from "../util/printError";
 
 export async function tryResolveConfig(context: AspectRunContext): Promise<AspectRunContext> {
   const path = require("path");
-  if (context.parsed) {
-    const configLocation = path.resolve(context.parsed.options.config);
+  if (context.parseResult) {
+    const configLocation = path.resolve(context.parseResult.options.config);
     context.config = require(configLocation);
   } else {
     const path = require("path");
