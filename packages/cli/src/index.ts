@@ -1,5 +1,6 @@
 import { IProcessConfiguration } from "./IProcessConfiguration";
 import { tryResolveCompiler } from "./tasks/tryResolveCompiler";
+import { tryResolveConfig } from "./tasks/tryResolveConfig";
 import { AspectRunContext } from "./AspectRunContext";
 
 export function asp(argv: string[], config: IProcessConfiguration): void {
@@ -9,5 +10,5 @@ export function asp(argv: string[], config: IProcessConfiguration): void {
     files: [],
     exitCode: 0,
   };
-  tryResolveCompiler(context).then(resolveConfig).then(assertCompiler);
+  tryResolveCompiler(context).then(tryResolveConfig).then(assertCompiler);
 }
