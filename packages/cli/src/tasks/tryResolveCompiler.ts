@@ -16,9 +16,13 @@ import { IAspectConfiguration } from "../IAspectConfiguration";
 export async function tryResolveCompiler(
   context: AspectRunContext,
 ): Promise<AspectRunContext> {
-  const argv = context.argv!;
   const process = context.process!;
-  let index = argv.indexOf("--compiler");
+  let index = context.argv.indexOf("--");
+  const argv = index === -1
+    ? context.argv
+    : context.argv.slice(0, index);
+
+  index = argv.indexOf("--compiler");
   // if no -C or --config flag is passed, we need to skip this step.
   if (index === -1) index = argv.indexOf("-C");
   if (index === -1) return context;
