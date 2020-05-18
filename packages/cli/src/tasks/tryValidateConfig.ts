@@ -1,5 +1,15 @@
 import { AspectRunContext } from "../AspectRunContext";
-import { assertIsObject, assertKeysInObject, assertIsStringArray, assertIsTrue, assertNotProvided, assertIsString, assertIsImports, assertIsInteger, assertIsReporter } from "../util/assert";
+import {
+  assertIsObject,
+  assertKeysInObject,
+  assertIsStringArray,
+  assertIsTrue,
+  assertNotProvided,
+  assertIsString,
+  assertIsImports,
+  assertIsInteger,
+  assertIsReporter,
+} from "../util/assert";
 
 export async function tryValidateConfig(
   context: AspectRunContext,
@@ -46,9 +56,12 @@ export async function tryValidateConfig(
       assertIsImports(context, config.imports, "imports");
     }
     if (config.include) assertIsStringArray(context, config.include, "include");
-    if (config.maxMemory) assertIsInteger(context, config.maxMemory, "maxMemory");
-    if (config.memorySize) assertIsInteger(context, config.memorySize, "memorySize");
-    if (config.outputBinary) assertIsTrue(context, config.outputBinary, "outputBinary");
+    if (config.maxMemory)
+      assertIsInteger(context, config.maxMemory, "maxMemory");
+    if (config.memorySize)
+      assertIsInteger(context, config.memorySize, "memorySize");
+    if (config.outputBinary)
+      assertIsTrue(context, config.outputBinary, "outputBinary");
     if (config.reporter) assertIsReporter(context, config.reporter, "reporter");
   }
 
