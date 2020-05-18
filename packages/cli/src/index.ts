@@ -8,6 +8,7 @@ import { assertNoUnknown } from "./tasks/assertNoUnkown";
 import { printError } from "./util/printError";
 import { AspectErrorCode } from "./util/AspectErrorCode";
 import { exit } from "./tasks/exit";
+import { unexpectedError } from "./tasks/unexpectedError";
 
 export function asp(argv: string[], config: IProcessConfiguration): void {
   const context: AspectRunContext = {
@@ -22,17 +23,6 @@ export function asp(argv: string[], config: IProcessConfiguration): void {
     .then(assertCompiler)
     .then(parseArgv)
     .then(assertNoUnknown)
-    .catch((reason) => {
-      printError(
-        AspectErrorCode.ASP_001_AnUnexpectedErrorOccured,
-        context.process,
-        reason.toString(),
-      );
-      if (context.files.length) {
-        Promise.all(context.files)
-          .then(() => exit(context));
-      } else {
-        exit(context);
-      }
-    });
+    .catch(unexpectedError.bind(null, context))
+    .then(() => exit(context));
 }
