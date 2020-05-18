@@ -24,5 +24,5 @@ export function asp(argv: string[], config: IProcessConfiguration): void {
     .then(parseArgv)
     .then(assertNoUnknown)
     .catch(unexpectedError.bind(null, context))
-    .then(() => exit(context));
+    .finally(() => exit(context));
 }
