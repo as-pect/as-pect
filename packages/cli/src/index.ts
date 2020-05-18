@@ -23,6 +23,6 @@ export function asp(argv: string[], config: IProcessConfiguration): void {
     .then(assertCompiler)
     .then(parseArgv)
     .then(assertNoUnknown)
-    .catch(unexpectedError.bind(null, context))
+    .catch((reason) => unexpectedError(reason, context))
     .finally(() => exit(context));
 }
