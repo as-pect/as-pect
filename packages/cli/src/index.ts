@@ -18,7 +18,9 @@ export function asp(argv: string[], config: IProcessConfiguration): void {
     exitCode: 0,
   };
 
-  config.stdout.write("as-pect cli v" + require("../package.json").version + "\n\n");
+  config.stdout.write(
+    "as-pect cli v" + require("../package.json").version + "\n\n",
+  );
 
   tryResolveCompiler(context)
     .then(tryResolveConfig)

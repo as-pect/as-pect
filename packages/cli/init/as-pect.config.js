@@ -10,44 +10,52 @@ module.exports = {
   /**
    * All the compiler flags needed for this test suite. Make sure that a binary file is output.
    */
-  flags: {
+  flags: [
     /** To output a wat file, uncomment the following line. */
-    // "--textFile": ["output.wat"],
+    // "--textFile", "output.wat",
     /** A runtime must be provided here. */
-    "--runtime": ["full"], // Acceptable values are: full, half, stub (arena), and none
-  },
+    "--runtime", "full", // Acceptable values are: full, half, stub (arena), and none
+    "--binary", "output.wasm", // required by the aspect cli
+    // define all use variables here
+    "--use", "ASC_RTRACE=1" // ASC_RTRACE enables memory leak detection
+  ],
   /**
-   * A set of regexp that will disclude source files from testing.
+   * A set of globs that will disclude source files from testing.
    */
-  disclude: [/node_modules/],
+  disclude: ["**/node_modules"],
   /**
    * Add your required AssemblyScript imports here.
+   *
+   * Notes:
+   * - `memory` is the WebAssembly.Memory
+   * - `createImports` must be called on your imports
+   * - `instantiate` is the loader instantiation method that returns a promise
+   * - `binary` is the wasm binary compiled by AssemblyScript
    */
-  imports(memory, createImports, instantiateSync, binary) {
+  imports(memory, createImports, instantiate, binary) {
     let instance; // Imports can reference this
     const myImports = {
       // put your web assembly imports here, and return the module
     };
-    instance = instantiateSync(binary, createImports(myImports));
-    return instance;
+    return instantiate(binary, createImports(myImports))
+      .then((result) => {
+        instance = result.exports;
+        return result;
+      });
   },
   /**
    * Add a custom reporter here if you want one. The following example is in typescript.
    *
    * @example
-   * import { TestReporter, TestGroup, TestResult, TestContext } from "as-pect";
+   * import { IReporter, TestNode, TestContext } from "as-pect";
    *
-   * export class CustomReporter extends TestReporter {
-   *   // implement each abstract method here
-   *   public abstract onStart(suite: TestContext): void;
-   *   public abstract onGroupStart(group: TestGroup): void;
-   *   public abstract onGroupFinish(group: TestGroup): void;
-   *   public abstract onTestStart(group: TestGroup, result: TestResult): void;
-   *   public abstract onTestFinish(group: TestGroup, result: TestResult): void;
-   *   public abstract onFinish(suite: TestContext): void;
+   * export interface IReporter {
+   *   onEnter(ctx: TestContext, node: TestNode): void;
+   *   onExit(ctx: TestContext, node: TestNode): void;
+   *   onFinish(ctx: TestContext): void;
    * }
    */
-  // reporter: new CustomReporter(),
+  // reporter: {},
   /**
    * Specify if the binary wasm file should be written to the file system.
    */
