@@ -2,6 +2,11 @@ import { IProcessConfiguration } from "../IProcessConfiguration";
 import { AspectErrorCode } from "./AspectErrorCode";
 
 export function printError(
+  errcode: AspectErrorCode.ASP_001_AnUnexpectedErrorOccured,
+  config: IProcessConfiguration,
+  reason: string,
+): void;
+export function printError(
   errcode:
     | AspectErrorCode.ASP_100_InvalidCLIArgument
     | AspectErrorCode.ASP_101_InvalidConfiguration,
