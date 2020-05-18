@@ -19,7 +19,6 @@ export interface IASC {
   ): void;
 }
 
-
 export interface IOptionalRunContextProps {
   /** The assemblyscript help text generation function. */
   help: typeof import("assemblyscript/cli/util/options").help;

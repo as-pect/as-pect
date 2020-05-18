@@ -9,6 +9,7 @@ import { printError } from "./util/printError";
 import { AspectErrorCode } from "./util/AspectErrorCode";
 import { exit } from "./tasks/exit";
 import { unexpectedError } from "./tasks/unexpectedError";
+import { tryValidateConfig } from "./tasks/tryValidateConfig";
 
 export function asp(argv: string[], config: IProcessConfiguration): void {
   const context: AspectRunContext = {

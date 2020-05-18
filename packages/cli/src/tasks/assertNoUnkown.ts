@@ -2,7 +2,9 @@ import { AspectRunContext } from "../AspectRunContext";
 import { printError } from "../util/printError";
 import { AspectErrorCode } from "../util/AspectErrorCode";
 
-export async function assertNoUnknown(context: AspectRunContext): Promise<AspectRunContext> {
+export async function assertNoUnknown(
+  context: AspectRunContext,
+): Promise<AspectRunContext> {
   const result = context.parseResult!; // we know this is the correct value now
   const unknown = result.unknown;
   if (unknown.length) {

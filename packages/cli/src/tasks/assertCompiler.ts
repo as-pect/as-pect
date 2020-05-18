@@ -6,7 +6,9 @@ import { AspectRunContext } from "../AspectRunContext";
  * to the configuration object for the location of the compiler, otherwise
  * we default to "assemblyscript".
  */
-export async function assertCompiler(context: AspectRunContext): Promise<AspectRunContext> {
+export async function assertCompiler(
+  context: AspectRunContext,
+): Promise<AspectRunContext> {
   // if asc exists, we are all resolved
   if (context.asc) return context;
 

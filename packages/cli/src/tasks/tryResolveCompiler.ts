@@ -1,11 +1,6 @@
-import { IProcessConfiguration } from "../IProcessConfiguration";
 import { printError } from "../util/printError";
 import { AspectErrorCode } from "../util/AspectErrorCode";
-import {
-  IOptionalRunContextProps,
-  AspectRunContext,
-} from "../AspectRunContext";
-import { IAspectConfiguration } from "../IAspectConfiguration";
+import { AspectRunContext } from "../AspectRunContext";
 
 /**
  * Return the assemblyscript folder.
@@ -18,9 +13,7 @@ export async function tryResolveCompiler(
 ): Promise<AspectRunContext> {
   const process = context.process!;
   let index = context.argv.indexOf("--");
-  const argv = index === -1
-    ? context.argv
-    : context.argv.slice(0, index);
+  const argv = index === -1 ? context.argv : context.argv.slice(0, index);
 
   index = argv.indexOf("--compiler");
   // if no -C or --config flag is passed, we need to skip this step.

@@ -2,7 +2,9 @@ import { AspectRunContext } from "../AspectRunContext";
 import { AspectErrorCode } from "../util/AspectErrorCode";
 import { printError } from "../util/printError";
 
-export async function tryResolveConfig(context: AspectRunContext): Promise<AspectRunContext> {
+export async function tryResolveConfig(
+  context: AspectRunContext,
+): Promise<AspectRunContext> {
   const path = require("path");
   if (context.parseResult) {
     const configLocation = path.resolve(context.parseResult.options.config);
@@ -10,9 +12,7 @@ export async function tryResolveConfig(context: AspectRunContext): Promise<Aspec
   } else {
     const path = require("path");
     let index = context.argv.indexOf("--");
-    const argv = index === -1
-      ? context.argv
-      : context.argv.slice(0, index);
+    const argv = index === -1 ? context.argv : context.argv.slice(0, index);
 
     // we need to obtain the url for the as-pect config manually
     index = argv.indexOf("--config");
