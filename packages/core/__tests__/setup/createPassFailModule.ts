@@ -13,7 +13,6 @@ export function createPassFailModule(
   let ctx: TestContext;
   main(
     [
-      "--validate",
       "--debug",
       "--binaryFile",
       "output.wasm",

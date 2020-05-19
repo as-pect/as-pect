@@ -47,9 +47,6 @@ export class VerboseReporter implements IReporter {
     const chalk = require("chalk");
     /* istanbul ignore next */
     if (group.name) this.stdout!.write(chalk`[Describe]: ${group.name}\n\n`);
-    for (const logValue of group.logs) {
-      this.onLog(logValue);
-    }
   }
 
   /**
@@ -62,6 +59,10 @@ export class VerboseReporter implements IReporter {
 
     for (const todo of group.groupTodos) {
       this.onTodo(group, todo);
+    }
+
+    for (const logValue of group.logs) {
+      this.onLog(logValue);
     }
 
     this.stdout!.write("\n");

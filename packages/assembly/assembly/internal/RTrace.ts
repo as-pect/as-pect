@@ -132,9 +132,10 @@ export class RTrace {
       ERROR("Cannot get typeId of type T when T is not a reference.");
     if (isFunction<T>())
       ERROR("Cannot get typeId of type T when T is a function.");
-    if (isNullable<T>()) {
-      assert(reference != null, "Cannot get typeId of reference that is null.");
-    }
+    assert(
+      changetype<usize>(reference) != 0,
+      "Cannot get typeId of reference that is null.",
+    );
 
     return RTrace.typeIdOf(changetype<usize>(reference));
   }
@@ -148,9 +149,10 @@ export class RTrace {
       ERROR("Cannot get size of type T when T is not a reference.");
     if (isFunction<T>())
       ERROR("Cannot get size of type T when T is a function");
-    if (isNullable<T>()) {
-      assert(reference != null, "Cannot get size of reference that is null.");
-    }
+    assert(
+      changetype<usize>(reference) != 0,
+      "Cannot get size of reference that is null.",
+    );
 
     return RTrace.sizeOf(changetype<usize>(reference));
   }
@@ -173,13 +175,11 @@ export class RTrace {
       ERROR("Cannot get refCount of type T when T is not a reference.");
     if (isFunction<T>())
       ERROR("Cannot get refCount of type T when T is a function");
-    if (isNullable<T>()) {
-      assert(
-        reference != null,
-        "Cannot get refCount of reference that is null.",
-      );
-    }
 
+    assert(
+      changetype<usize>(reference) != 0,
+      "Cannot get refCount of reference that is null.",
+    );
     let count = RTrace.refCountOf(changetype<usize>(reference));
     return ASC_OPTIMIZE_LEVEL > 0 ? count : count - 1;
   }

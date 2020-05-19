@@ -1,6 +1,6 @@
 {
 	"name": "@as-pect/core",
-	"version": "3.1.6",
+	"version": "3.2.0",
 	"description": "Write AssemblyScript tests at blazing fast speeds",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
@@ -18,12 +18,12 @@
 	],
 	"scripts": {
 		"rimraf": "rimraf lib/*",
-		"test:ci": "jest",
-		"test": "jest",
+		"test:ci": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
+		"test": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
 		"tsc:all": "run-p tsc:default tsc:amd",
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
 		"tsc:default": "tsc",
-		"test:update-snapshots": "jest -u",
+		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js -u",
 		"tsc": "run-s rimraf tsc:all"
 	},
 	"bugs": {
@@ -31,8 +31,8 @@
 	},
 	"homepage": "https://github.com/jtenner/as-pect#readme",
 	"dependencies": {
-		"@as-pect/assembly": "^3.1.6",
-		"@as-pect/snapshots": "^3.1.6",
+		"@as-pect/assembly": "^3.2.0",
+		"@as-pect/snapshots": "^3.2.0",
 		"chalk": "^4.0.0",
 		"long": "^4.0.0"
 	},
@@ -41,7 +41,7 @@
 		"lib/"
 	],
 	"peerDependencies": {
-		"assemblyscript": "^0.9.4"
+		"assemblyscript": "^0.10.0"
 	},
 	"devDependencies": {
 		"jest": "^26.0.1",
