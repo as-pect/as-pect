@@ -240,3 +240,11 @@ describe("nested fail in beforeAll", () => {
     });
   });
 });
+
+let a = [1, 2, 3];
+
+describe("toHaveLength", () => {
+  test("fails", () => {
+    expect(a).toHaveLength(5, "the reason");
+  });
+});

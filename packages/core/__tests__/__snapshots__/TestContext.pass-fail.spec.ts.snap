@@ -650,7 +650,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7296,
+  "pointer": 7488,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -742,7 +742,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7392,
+  "pointer": 7584,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -1902,7 +1902,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 7072,
+  "pointer": 7264,
   "signed": false,
   "size": 24,
   "stack": "Has Stack Trace",
@@ -2046,7 +2046,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 7152,
+  "pointer": 7344,
   "signed": false,
   "size": 24,
   "stack": "Has Stack Trace",
@@ -2280,7 +2280,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7456,
+  "pointer": 7648,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -2366,7 +2366,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7536,
+  "pointer": 7728,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -2593,5 +2593,101 @@ exports[`pass-fail output Node: !~pass-fail[0]: ran 1`] = `true`;
 exports[`pass-fail output Node: !~pass-fail[0]: reallocs 1`] = `0`;
 
 exports[`pass-fail output Node: !~pass-fail[0]: type 1`] = `1`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: actual 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": true,
+  "size": 4,
+  "stack": "Has Stack Trace",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i32",
+  "value": 3,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: actual-stringify 1`] = `"  number: 3"`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: allocations 1`] = `7`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: decrements 1`] = `8`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: expected 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": true,
+  "size": 4,
+  "stack": "Has Stack Trace",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i32",
+  "value": 5,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: expected-stringify 1`] = `"  number: 5"`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: frees 1`] = `6`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: increments 1`] = `9`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: message 1`] = `"the reason"`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: type 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: allocations 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: decrements 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: frees 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: increments 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: message 1`] = `null`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: pass 1`] = `false`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: ran 1`] = `true`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: reallocs 1`] = `0`;
+
+exports[`pass-fail output Node: !~toHaveLength[0]: type 1`] = `1`;
 
 exports[`pass-fail output Overall Statistics: pass 1`] = `false`;

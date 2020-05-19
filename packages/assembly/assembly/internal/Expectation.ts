@@ -430,7 +430,6 @@ export class Expectation<T> {
     let actual = this.actual;
     let negated = this._not;
     let length = <i32>0;
-
     if (actual instanceof ArrayBuffer) {
       length = actual.byteLength;
     } else {
@@ -440,11 +439,11 @@ export class Expectation<T> {
           "toHaveLength cannot be called on type T where T.length is not defined.",
         );
       // @ts-ignore: This results in a compile time check for a length property with a better error message
-      length = actual.length;
+      length = <i32>actual.length;
     }
 
-    Actual.report(actual);
-    Expected.report(length);
+    Actual.report(length);
+    Expected.report(expected, negated);
 
     let lengthsEqual = i32(length == expected);
     assert(lengthsEqual ^ negated, message);
