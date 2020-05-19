@@ -1,2 +1,2 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint
 require("../lib/index.js").asp(process.argv.slice(2));
