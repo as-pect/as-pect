@@ -340,7 +340,7 @@ export class Expectation<T> {
       Actual.clear();
       Expected.clear();
     } else {
-      ERROR("toBeNull assertion must be called with a reference type T.");
+      ERROR("toBeNull assertion must be called with a reference type T or usize.");
     }
   }
 
