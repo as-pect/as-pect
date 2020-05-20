@@ -4255,8 +4255,6 @@
   drop
   local.get $3
   call $assembly/internal/Actual/Actual.report<assembly/__tests__/setup/Vec3/Vec3 | null>
-  i32.const 1
-  drop
   i32.const 0
   local.get $2
   call $assembly/internal/Expected/Expected.report<assembly/__tests__/setup/Vec3/Vec3 | null>
@@ -4545,6 +4543,25 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
+ (func $assembly/internal/Expected/Expected.report<assembly/__tests__/setup/Vec3/Vec3> (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.set $0
+  local.get $0
+  i32.const 1
+  global.set $~argumentsLength
+  i32.const 0
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<assembly/__tests__/setup/Vec3/Vec3>@varargs
+  local.set $2
+  local.get $2
+  call $assembly/internal/Reflect/Reflect.attachStackTrace
+  local.get $2
+  local.get $1
+  call $assembly/internal/Expected/reportExpectedReflectedValue
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
  (func $assembly/internal/Expectation/Expectation<assembly/__tests__/setup/Vec3/Vec3>#toBeNull (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -4565,10 +4582,8 @@
   local.get $3
   call $assembly/internal/Actual/Actual.report<assembly/__tests__/setup/Vec3/Vec3>
   i32.const 0
-  drop
-  i32.const 0
   local.get $2
-  call $assembly/internal/Expected/Expected.report<assembly/__tests__/setup/Vec3/Vec3 | null>
+  call $assembly/internal/Expected/Expected.report<assembly/__tests__/setup/Vec3/Vec3>
   local.get $2
   local.get $3
   i32.const 0

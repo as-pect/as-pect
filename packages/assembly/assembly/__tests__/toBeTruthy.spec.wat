@@ -4836,8 +4836,6 @@
   call $assembly/internal/Expected/Expected.reportTruthy
   i32.const 1
   drop
-  i32.const 1
-  drop
   i32.const 0
   drop
   local.get $2
