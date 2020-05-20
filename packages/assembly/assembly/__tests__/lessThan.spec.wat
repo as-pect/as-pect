@@ -4741,8 +4741,6 @@
   i32.ne
   i32.const 3472
   call $assembly/internal/assert/assert
-  i32.const 0
-  drop
   local.get $4
   local.get $3
   local.get $1
@@ -5039,8 +5037,6 @@
   i32.ne
   i32.const 3472
   call $assembly/internal/assert/assert
-  i32.const 0
-  drop
   local.get $4
   local.get $3
   local.get $1
