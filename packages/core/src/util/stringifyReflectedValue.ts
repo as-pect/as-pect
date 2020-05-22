@@ -47,6 +47,8 @@ export function stringifyReflectedValue(
   /* istanbul ignore next */
   if (props.numberFormatter) context.numberFormatter = props.numberFormatter;
   /* istanbul ignore next */
+  if (props.maxExpandLevel) context.maxExpandLevel = props.maxExpandLevel;
+  /* istanbul ignore next */
   if (typeof props.indent === "number") context.indent = props.indent;
   /* istanbul ignore next */
   if (typeof props.tab === "number") context.tab = props.tab;
