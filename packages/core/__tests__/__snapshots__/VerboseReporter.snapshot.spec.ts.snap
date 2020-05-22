@@ -224,7 +224,13 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
      [Log]: NestedA {
                 a: NestedB {
                     b: NestedC {
-                        c: [NestedD]
+                        c: NestedD {
+                            d: NestedE {
+                                e: NestedF {
+                                    f: 42.0
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -239,7 +245,7 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
      [Log]: NestedForInlineFunctionA {
                 a: NestedForInlineFunctionB {
                     b: NestedForInlineFunctionC {
-                        c: [Function]
+                        c: [Function 3: ]
                     }
                 }
             }
@@ -279,7 +285,11 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
      [Log]: NestedTypeImpliedArrayA {
                 a: NestedTypeImpliedArrayB {
                     b: NestedTypeImpliedArrayC {
-                        c: Array<~lib/array/Array<u8>> [ [ 0 ] ]
+                        c: Array<~lib/array/Array<u8>> [
+                            [
+                                0
+                            ]
+                        ]
                     }
                 }
             }
