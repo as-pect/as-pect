@@ -1,2 +1,21 @@
-#!/usr/bin/env node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint
-require("../lib/index.js").asp(process.argv.slice(2));
+#!/usr/bin/env node
+
+const { spawn } = require("child_process");
+
+const spawned = spawn("node", [
+  "--experimental-wasm-bigint",
+  "--experimental-wasi-unstable-preview1",
+  require.resolve("../lib/test"),
+  ...process.argv.slice(2),
+], {
+  env: Object.assign({}, process.env, {
+    FORCE_COLOR: "2"
+  })
+});
+
+spawned.stdout.pipe(process.stdout);
+spawned.stderr.pipe(process.stderr);
+spawned.ref();
+spawned.on("exit", (code, signal) => {
+  process.exit(code);
+});
