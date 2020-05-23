@@ -449,7 +449,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
       let wasi: import("wasi").WASI | null = null;
       if (configuration.wasi) {
-        const WASI = require("wasi");
+        const { WASI } = require("wasi");
         wasi = new WASI(configuration.wasi);
       }
       // create a test runner
