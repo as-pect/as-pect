@@ -43,8 +43,8 @@ export interface IAspectConfiguration {
   disclude: string[];
 
   /**
-   * The globs, seperated by ',' that indicate the files to add
-   * as entry points for testing modules.
+   * The globs that indicate the files to add as entry points for
+   * testing modules.
    *
    * Note that this set of globs will be concatenated with any globs
    * that are passed to the cli.
@@ -96,7 +96,7 @@ export interface IAspectConfiguration {
    *
    * @default -1
    */
-  maxMemory: number;
+  memoryMax: number;
 
   /**
    * Use a default wasi configuration that only sets the env

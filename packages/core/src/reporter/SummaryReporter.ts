@@ -12,19 +12,9 @@ import { TestNode } from "../test/TestNode";
  */
 export class SummaryReporter implements IReporter {
   private enableLogging: boolean = true;
-
   constructor(options?: any) {
-    /* istanbul ignore next */
-    if (options) {
-      // can be "false" from cli
-      /* istanbul ignore next */
-      if (
-        !options.enableLogging ||
-        /* istanbul ignore next */ options.enableLogging === "false"
-      )
-        /* istanbul ignore next */
-        this.enableLogging = false;
-    }
+    this.stdout = options?.stdout ?? process.stdout;
+    this.stderr = options?.stderr ?? process.stderr;
   }
 
   public onEnter(_ctx: TestContext, _node: TestNode): void {}

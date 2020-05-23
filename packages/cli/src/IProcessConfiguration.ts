@@ -4,4 +4,5 @@ export interface IProcessConfiguration {
   stderr: IWritable;
   stdout: IWritable;
   exit(code: number): void;
+  env: Record<string, string>;
 }

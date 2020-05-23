@@ -1,6 +1,7 @@
 import { IAspectConfiguration } from "./IAspectConfiguration";
 import { IProcessConfiguration } from "./IProcessConfiguration";
 import { IWritable } from "@as-pect/core/src/util/IWritable";
+import { IAspectEffectiveConfig } from "./util/IAspectEffectiveConfig";
 
 export interface IASCProps {
   stdout: IWritable;
@@ -25,7 +26,7 @@ export interface IOptionalRunContextProps {
   /** The assemblyscript cli parse function. */
   parse: typeof import("assemblyscript/cli/util/options").parse;
   /** The result of calling the assemblyscript cli parse function. */
-  parseResult: import("assemblyscript/cli/util/options").Result;
+  cli: import("assemblyscript/cli/util/options").Result;
   /** The retreived as-pect config file. */
   config: Partial<IAspectConfiguration>;
   /** The assemblyscript compiler cli interface itself. */
@@ -41,6 +42,8 @@ export interface IRequiredRunContextProps {
   process: IProcessConfiguration;
   /** The exit code used to exit the program. It starts as 0, and can only be set to 1 otherwise. */
   exitCode: number;
+  /** The effective configuration for this run. */
+  effective: IAspectEffectiveConfig;
 }
 
 export type AspectRunContext = Partial<IOptionalRunContextProps> &

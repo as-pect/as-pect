@@ -9,6 +9,7 @@ import { exit } from "./tasks/exit";
 import { unexpectedError } from "./tasks/unexpectedError";
 import { tryValidateConfig } from "./tasks/tryValidateConfig";
 import { help } from "assemblyscript/cli/util/options";
+import { globAllRelevantFiles } from "./tasks/globAllRelevantFiles";
 
 export function asp(argv: string[], config: IProcessConfiguration): void {
   const context: AspectRunContext = {
@@ -16,6 +17,21 @@ export function asp(argv: string[], config: IProcessConfiguration): void {
     process: config,
     files: [],
     exitCode: 0,
+    effective: {
+      debug: false,
+      include: [],
+      add: [],
+      disclude: [],
+      test: /(?:)/,
+      group: /(?:)/,
+      reporter: null,
+      outputBinary: false,
+      memorySize: 10,
+      memoryMax: -1,
+      wasi: null,
+      flags: [],
+      imports: null,
+    },
   };
 
   config.stdout.write(
@@ -28,9 +44,11 @@ export function asp(argv: string[], config: IProcessConfiguration): void {
     .then(assertCompiler)
     .then(parseArgv)
     .then(assertNoUnknown)
+    .then(createEffectiveConfiguration)
+    .then(globAllRelevantFiles)
     .then((context) => {
       // parseArgv sets the parseResult property
-      const result = context.parseResult!;
+      const result = context.cli!;
       const process = context.process;
       const options = result.options;
 

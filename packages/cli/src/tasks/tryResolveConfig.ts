@@ -6,8 +6,8 @@ export async function tryResolveConfig(
   context: AspectRunContext,
 ): Promise<AspectRunContext> {
   const path = require("path");
-  if (context.parseResult) {
-    const configLocation = path.resolve(context.parseResult.options.config);
+  if (context.cli) {
+    const configLocation = path.resolve(context.cli.options.config);
     context.config = require(configLocation);
   } else {
     const path = require("path");

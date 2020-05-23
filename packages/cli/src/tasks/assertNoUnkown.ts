@@ -5,7 +5,7 @@ import { AspectErrorCode } from "../util/AspectErrorCode";
 export async function assertNoUnknown(
   context: AspectRunContext,
 ): Promise<AspectRunContext> {
-  const result = context.parseResult!; // we know this is the correct value now
+  const result = context.cli!; // we know this is the correct value now
   const unknown = result.unknown;
   if (unknown.length) {
     for (let i = 0; i < unknown.length; i++) {

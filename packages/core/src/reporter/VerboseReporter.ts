@@ -16,9 +16,14 @@ export class VerboseReporter implements IReporter {
   public stderr: IWritable | null = null;
 
   /** A set of default stringify properties that can be overridden. */
-  protected stringifyProperties: Partial<StringifyReflectedValueProps> = { maxExpandLevel: 10 };
+  protected stringifyProperties: Partial<StringifyReflectedValueProps> = {
+    maxExpandLevel: 10,
+  };
 
-  constructor(_options?: any) {}
+  constructor(options?: any) {
+    this.stdout = options.stdout ?? process.stdout;
+    this.stderr = options.stderr ?? process.stderr;
+  }
 
   onEnter(_ctx: TestContext, node: TestNode): void {
     if (node.type === TestNodeType.Group) {
