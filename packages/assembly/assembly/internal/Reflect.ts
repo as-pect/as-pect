@@ -639,7 +639,7 @@ function referencesEqual<T>(
   let result = false;
   // @ts-ignore: __aspectStrictEquals is defined at this point
   result = (isNullable(left) ? left! : left).__aspectStrictEquals(
-    (isNullable(right) ? right! : right),
+    isNullable(right) ? right! : right,
     stack,
     cache,
     [] as StaticArray<i64>,

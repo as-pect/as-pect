@@ -117,7 +117,10 @@ export class Expectation<T> {
     if (isReference(actual)) {
       // strings require an extra length check
       if (actual instanceof String) {
-        let falsy = i32(changetype<usize>(actual) == 0 || changetype<string>(actual).length == 0);
+        let falsy = i32(
+          changetype<usize>(actual) == 0 ||
+            changetype<string>(actual).length == 0,
+        );
         assert(falsy ^ negated, message);
       } else {
         let falsy = i32(changetype<usize>(actual) == 0);
@@ -340,7 +343,9 @@ export class Expectation<T> {
       Actual.clear();
       Expected.clear();
     } else {
-      ERROR("toBeNull assertion must be called with a reference type T or usize.");
+      ERROR(
+        "toBeNull assertion must be called with a reference type T or usize.",
+      );
     }
   }
 
