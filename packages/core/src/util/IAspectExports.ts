@@ -2,6 +2,7 @@
  * This is the shape of the exported functions provided by the `as-pect` test suite.
  */
 export interface IAspectExports {
+  [key: string]: unknown;
   /**
    * This method calls a function pointer that matches the `() => void` type.
    *

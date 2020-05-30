@@ -21,7 +21,7 @@
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
  (table $0 3 funcref)
- (elem (i32.const 1) $start:assembly/__tests__/emptyDescribeBlock.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
+ (elem (i32.const 1) $start:assembly/__tests__/emptyDescribeBlock.spec~anonymous|0~nonClosure $start:assembly/internal/noOp~anonymous|0~nonClosure)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
@@ -1354,7 +1354,7 @@
   if
    i32.const 0
    i32.const 32
-   i32.const 501
+   i32.const 500
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -1401,7 +1401,7 @@
      if
       i32.const 0
       i32.const 32
-      i32.const 513
+      i32.const 512
       i32.const 20
       call $~lib/builtins/abort
       unreachable
@@ -1422,7 +1422,7 @@
     if
      i32.const 0
      i32.const 32
-     i32.const 518
+     i32.const 517
      i32.const 18
      call $~lib/builtins/abort
      unreachable
@@ -1443,7 +1443,7 @@
   if
    i32.const 0
    i32.const 32
-   i32.const 521
+   i32.const 520
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -1554,7 +1554,7 @@
    call $~lib/rt/pure/decrement
   end
  )
- (func $start:assembly/__tests__/emptyDescribeBlock.spec~anonymous|0
+ (func $start:assembly/__tests__/emptyDescribeBlock.spec~anonymous|0~nonClosure
   nop
  )
  (func $start:assembly/__tests__/emptyDescribeBlock.spec
@@ -1562,14 +1562,70 @@
   i32.const 1
   call $assembly/internal/Test/describe
  )
- (func $start:assembly/internal/noOp~anonymous|0
+ (func $start:assembly/internal/noOp~anonymous|0~nonClosure
   nop
  )
  (func $assembly/internal/call/__call (param $0 i32)
-  i32.const 0
-  global.set $~argumentsLength
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
   local.get $0
-  call_indirect (type $none_=>_none)
+  local.set $1
+  local.get $1
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $1
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $1
+  local.set $0
+  local.get $0
+  local.set $2
+  local.get $2
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if
+   local.get $2
+   i32.const 4
+   i32.shl
+   i32.const 0
+   global.set $~argumentsLength
+   local.get $2
+   i32.const 4
+   i32.shl
+   i32.load
+   call_indirect (type $i32_=>_none)
+  else
+   i32.const 0
+   global.set $~argumentsLength
+   local.get $2
+   call_indirect (type $none_=>_none)
+  end
+  local.get $0
+  local.set $3
+  local.get $3
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $3
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
+  call $~lib/rt/pure/__release
  )
  (func $assembly/internal/log/__ignoreLogs (param $0 i32)
   local.get $0
@@ -1616,6 +1672,13 @@
   drop
   local.get $1
   call $~lib/rt/rtrace/onfree
+ )
+ (func $~lib/rt/pure/finalize (param $0 i32)
+  i32.const 0
+  drop
+  global.get $~lib/rt/tlsf/ROOT
+  local.get $0
+  call $~lib/rt/tlsf/freeBlock
  )
  (func $~lib/rt/pure/decrement (param $0 i32)
   (local $1 i32)
@@ -1673,9 +1736,8 @@
     call $~lib/builtins/abort
     unreachable
    end
-   global.get $~lib/rt/tlsf/ROOT
    local.get $0
-   call $~lib/rt/tlsf/freeBlock
+   call $~lib/rt/pure/finalize
   else
    i32.const 1
    drop

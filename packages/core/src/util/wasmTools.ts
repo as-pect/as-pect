@@ -32,7 +32,7 @@ export class WasmBuffer {
     this.off += name_len;
     //@ts-ignore
     return String.fromCharCodes(
-      this.u8array.slice(this.off - name_len, this.off),
+      this.u8array.slice(this.off - name_len, this.off) as any,
     );
   }
 

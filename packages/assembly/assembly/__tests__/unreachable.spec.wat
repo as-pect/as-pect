@@ -53,8 +53,8 @@
  (import "__aspect" "reportGroupTypeNode" (func $assembly/internal/Test/describe (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
- (table $0 16 funcref)
- (elem (i32.const 1) $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|1 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2~anonymous|0 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~anonymous|0 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~anonymous|0 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~anonymous|0 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5 $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|6 $start:assembly/__tests__/unreachable.spec~anonymous|0 $start:assembly/internal/noOp~anonymous|0)
+ (table $0 49 funcref)
+ (elem (i32.const 1) $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|1~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~nonClosure~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~nonClosure~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~nonClosure~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~nonClosure~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|6~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|1~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|2~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|2~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|2~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|3~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|3~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|3~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~nonClosure~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~nonClosure~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~nonClosure~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~nonClosure~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|6~nonClosure $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure $start:assembly/internal/noOp~anonymous|0~nonClosure)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
@@ -66,7 +66,7 @@
  (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
- (global $assembly/internal/noOp/noOp i32 (i32.const 15))
+ (global $assembly/internal/noOp/noOp i32 (i32.const 48))
  (global $assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
@@ -1389,7 +1389,7 @@
   if
    i32.const 0
    i32.const 32
-   i32.const 501
+   i32.const 500
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -1436,7 +1436,7 @@
      if
       i32.const 0
       i32.const 32
-      i32.const 513
+      i32.const 512
       i32.const 20
       call $~lib/builtins/abort
       unreachable
@@ -1457,7 +1457,7 @@
     if
      i32.const 0
      i32.const 32
-     i32.const 518
+     i32.const 517
      i32.const 18
      call $~lib/builtins/abort
      unreachable
@@ -1478,7 +1478,7 @@
   if
    i32.const 0
    i32.const 32
-   i32.const 521
+   i32.const 520
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -1589,21 +1589,27 @@
    call $~lib/rt/pure/decrement
   end
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|0
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|0~nonClosure
   i32.const 0
   global.set $assembly/__tests__/unreachable.spec/counter
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|1
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|1~nonClosure
   i32.const 1
   global.set $assembly/__tests__/unreachable.spec/counter
   unreachable
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2~anonymous|0
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2~anonymous|0~nonClosure
   i32.const 1
   global.set $assembly/__tests__/unreachable.spec/counter
   unreachable
  )
  (func "$assembly/internal/Expectation/Expectation<() => void>#constructor" (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
   local.get $0
   i32.eqz
   if
@@ -1619,15 +1625,128 @@
   local.get $0
   i32.const 0
   i32.store offset=4
-  local.get $0
   local.get $1
+  local.set $2
+  local.get $2
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $2
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $2
+  local.set $1
+  local.get $0
+  local.tee $3
+  local.get $1
+  local.tee $4
+  local.get $3
+  i32.load offset=4
+  local.tee $5
+  i32.ne
+  if
+   local.get $4
+   local.set $6
+   local.get $6
+   i32.const -2147483648
+   i32.and
+   i32.const -2147483648
+   i32.eq
+   if (result i32)
+    local.get $6
+    i32.const 4
+    i32.shl
+   else
+    i32.const 0
+   end
+   call $~lib/rt/pure/__retain
+   drop
+   local.get $6
+   local.set $4
+   local.get $5
+   local.set $7
+   local.get $7
+   i32.const -2147483648
+   i32.and
+   i32.const -2147483648
+   i32.eq
+   if (result i32)
+    local.get $7
+    i32.const 4
+    i32.shl
+   else
+    i32.const 0
+   end
+   call $~lib/rt/pure/__release
+  end
+  local.get $4
   i32.store offset=4
+  local.get $1
+  local.set $3
+  local.get $3
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $3
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
+  call $~lib/rt/pure/__release
   local.get $0
  )
  (func "$assembly/internal/Expectation/expect<() => void>" (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $0
+  local.set $1
+  local.get $1
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $1
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $1
+  local.set $0
   i32.const 0
   local.get $0
   call "$assembly/internal/Expectation/Expectation<() => void>#constructor"
+  local.set $3
+  local.get $0
+  local.set $2
+  local.get $2
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $2
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
+  call $~lib/rt/pure/__release
+  local.get $3
  )
  (func $~lib/util/hash/hash32 (param $0 i32) (result i32)
   (local $1 i32)
@@ -1789,7 +1908,7 @@
   if
    i32.const 656
    i32.const 720
-   i32.const 111
+   i32.const 104
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -2446,46 +2565,6 @@
   local.get $3
   return
  )
- (func $~lib/map/Map<usize,i32>#clear (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  local.tee $1
-  i32.const 0
-  i32.const 16
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $2
-  local.get $1
-  i32.load
-  call $~lib/rt/pure/__release
-  local.get $2
-  i32.store
-  local.get $0
-  i32.const 4
-  i32.const 1
-  i32.sub
-  i32.store offset=4
-  local.get $0
-  local.tee $2
-  i32.const 0
-  i32.const 48
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $1
-  local.get $2
-  i32.load offset=8
-  call $~lib/rt/pure/__release
-  local.get $1
-  i32.store offset=8
-  local.get $0
-  i32.const 4
-  i32.store offset=12
-  local.get $0
-  i32.const 0
-  i32.store offset=16
-  local.get $0
-  i32.const 0
-  i32.store offset=20
- )
  (func $~lib/map/Map<usize,i32>#constructor (param $0 i32) (result i32)
   local.get $0
   i32.eqz
@@ -2498,15 +2577,25 @@
   end
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 4
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store
   local.get $0
-  i32.const 0
+  i32.const 4
+  i32.const 1
+  i32.sub
   i32.store offset=4
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 12
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store offset=8
   local.get $0
-  i32.const 0
+  i32.const 4
   i32.store offset=12
   local.get $0
   i32.const 0
@@ -2514,8 +2603,6 @@
   local.get $0
   i32.const 0
   i32.store offset=20
-  local.get $0
-  call $~lib/map/Map<usize,i32>#clear
   local.get $0
  )
  (func $assembly/internal/Reflect/Reflect.toReflectedValue<~lib/string/String>@varargs (param $0 i32) (param $1 i32) (result i32)
@@ -2614,15 +2701,33 @@
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
   local.get $1
   call $~lib/rt/pure/__retain
   local.set $1
   local.get $0
   i32.load offset=4
+  local.set $3
+  local.get $3
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $3
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $3
   local.set $2
   local.get $0
   i32.load
-  local.set $3
+  local.set $4
   i32.const 1
   i32.eqz
   drop
@@ -2633,38 +2738,58 @@
   local.get $2
   call $assembly/internal/Expectation/tryCall
   i32.eqz
-  local.set $4
-  local.get $4
+  local.set $5
+  local.get $5
   if (result i32)
    i32.const 544
    call $~lib/rt/pure/__retain
-   local.tee $5
+   local.tee $6
   else
    i32.const 576
    call $~lib/rt/pure/__retain
-   local.tee $6
+   local.tee $7
   end
   call $assembly/internal/Actual/Actual.report<~lib/string/String>
   i32.const 544
-  local.get $3
-  call $assembly/internal/Expected/Expected.report<~lib/string/String>
-  local.get $3
   local.get $4
+  call $assembly/internal/Expected/Expected.report<~lib/string/String>
+  local.get $4
+  local.get $5
   i32.xor
   local.get $1
   call $assembly/internal/assert/assert
   call $assembly/internal/Actual/Actual.clear
   call $assembly/internal/Expected/Expected.clear
-  local.get $5
+  local.get $2
+  local.set $8
+  local.get $8
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $8
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
   call $~lib/rt/pure/__release
   local.get $6
+  call $~lib/rt/pure/__release
+  local.get $7
   call $~lib/rt/pure/__release
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|2~nonClosure
   (local $0 i32)
-  i32.const 3
+  i32.const 4
   call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   i32.const 448
@@ -2672,7 +2797,7 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~anonymous|0
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~anonymous|0~nonClosure
   i32.const 1
   global.set $assembly/__tests__/unreachable.spec/counter
  )
@@ -2683,10 +2808,14 @@
   local.get $0
   call $~lib/rt/pure/__retain
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|3~nonClosure
   (local $0 i32)
   (local $1 i32)
-  i32.const 5
+  i32.const 7
   call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
@@ -2698,15 +2827,20 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~anonymous|0
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~anonymous|0~nonClosure
   i32.const 1
   global.set $assembly/__tests__/unreachable.spec/counter
   unreachable
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~anonymous|0~nonClosure
   (local $0 i32)
   (local $1 i32)
-  i32.const 7
+  i32.const 10
   call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
@@ -2718,9 +2852,34 @@
   local.get $1
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~nonClosure~anonymous|0~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~nonClosure~anonymous|0~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~nonClosure~anonymous|0~nonClosure
   (local $0 i32)
-  i32.const 8
+  (local $1 i32)
+  i32.const 13
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
+  local.tee $1
+  i32.const 1136
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|4~nonClosure
+  (local $0 i32)
+  i32.const 14
   call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   i32.const 1152
@@ -2728,13 +2887,17 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~anonymous|0
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~anonymous|0~nonClosure
   i32.const 1
   global.set $assembly/__tests__/unreachable.spec/counter
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~anonymous|0~nonClosure
   (local $0 i32)
-  i32.const 10
+  i32.const 17
   call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   i32.const 1136
@@ -2742,9 +2905,27 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~nonClosure~anonymous|0~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~nonClosure~anonymous|0~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~nonClosure~anonymous|0~nonClosure
   (local $0 i32)
-  i32.const 11
+  i32.const 20
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  i32.const 1136
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|5~nonClosure
+  (local $0 i32)
+  i32.const 21
   call "$assembly/internal/Expectation/expect<() => void>"
   local.tee $0
   i32.const 1424
@@ -2903,7 +3084,7 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|6
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~anonymous|6~nonClosure
   (local $0 i32)
   global.get $assembly/__tests__/unreachable.spec/counter
   call $assembly/internal/Expectation/expect<i32>
@@ -2914,41 +3095,266 @@
   local.get $0
   call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/unreachable.spec~anonymous|0
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|0~nonClosure
+  i32.const 0
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|1~nonClosure
   i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|2~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|2~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|2~nonClosure
+  (local $0 i32)
+  i32.const 27
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  i32.const 448
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|3~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|3~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|3~nonClosure
+  (local $0 i32)
+  (local $1 i32)
+  i32.const 30
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
+  local.tee $1
+  i32.const 448
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~anonymous|0~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~anonymous|0~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~anonymous|0~nonClosure
+  (local $0 i32)
+  (local $1 i32)
+  i32.const 33
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
+  local.tee $1
+  i32.const 1136
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~nonClosure~anonymous|0~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~nonClosure~anonymous|0~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+  unreachable
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~nonClosure~anonymous|0~nonClosure
+  (local $0 i32)
+  (local $1 i32)
+  i32.const 36
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  call "$assembly/internal/Expectation/Expectation<() => void>#get:not"
+  local.tee $1
+  i32.const 1136
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $1
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|4~nonClosure
+  (local $0 i32)
+  i32.const 37
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  i32.const 1152
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~anonymous|0~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~anonymous|0~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~anonymous|0~nonClosure
+  (local $0 i32)
+  i32.const 40
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  i32.const 1136
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~nonClosure~anonymous|0~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~nonClosure~anonymous|0~nonClosure~anonymous|0~nonClosure
+  i32.const 1
+  global.set $assembly/__tests__/unreachable.spec/counter
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~nonClosure~anonymous|0~nonClosure
+  (local $0 i32)
+  i32.const 43
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  i32.const 1136
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|5~nonClosure
+  (local $0 i32)
+  i32.const 44
+  call "$assembly/internal/Expectation/expect<() => void>"
+  local.tee $0
+  i32.const 1424
+  call "$assembly/internal/Expectation/Expectation<() => void>#toThrow"
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure~anonymous|6~nonClosure
+  (local $0 i32)
+  global.get $assembly/__tests__/unreachable.spec/counter
+  call $assembly/internal/Expectation/expect<i32>
+  local.tee $0
+  i32.const 1
+  i32.const 1136
+  call $assembly/internal/Expectation/Expectation<i32>#toBe
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/unreachable.spec~anonymous|0~nonClosure
+  i32.const 24
   call $assembly/internal/Test/beforeEach
   i32.const 240
-  i32.const 2
+  i32.const 25
   i32.const 320
   call $assembly/internal/Test/throws
   i32.const 384
-  i32.const 4
+  i32.const 28
   call $assembly/internal/Test/it
   i32.const 960
-  i32.const 6
+  i32.const 31
   call $assembly/internal/Test/it
   i32.const 1024
-  i32.const 9
+  i32.const 38
   call $assembly/internal/Test/it
   i32.const 1296
-  i32.const 12
+  i32.const 45
   call $assembly/internal/Test/it
-  i32.const 13
+  i32.const 46
   call $assembly/internal/Test/afterEach
  )
  (func $start:assembly/__tests__/unreachable.spec
   i32.const 192
-  i32.const 14
+  i32.const 47
   call $assembly/internal/Test/describe
  )
- (func $start:assembly/internal/noOp~anonymous|0
+ (func $start:assembly/internal/noOp~anonymous|0~nonClosure
   nop
  )
  (func $assembly/internal/call/__call (param $0 i32)
-  i32.const 0
-  global.set $~argumentsLength
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
   local.get $0
-  call_indirect (type $none_=>_none)
+  local.set $1
+  local.get $1
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $1
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
+  call $~lib/rt/pure/__retain
+  drop
+  local.get $1
+  local.set $0
+  local.get $0
+  local.set $2
+  local.get $2
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if
+   local.get $2
+   i32.const 4
+   i32.shl
+   i32.const 0
+   global.set $~argumentsLength
+   local.get $2
+   i32.const 4
+   i32.shl
+   i32.load
+   call_indirect (type $i32_=>_none)
+  else
+   i32.const 0
+   global.set $~argumentsLength
+   local.get $2
+   call_indirect (type $none_=>_none)
+  end
+  local.get $0
+  local.set $3
+  local.get $3
+  i32.const -2147483648
+  i32.and
+  i32.const -2147483648
+  i32.eq
+  if (result i32)
+   local.get $3
+   i32.const 4
+   i32.shl
+  else
+   i32.const 0
+  end
+  call $~lib/rt/pure/__release
  )
  (func $assembly/internal/log/__ignoreLogs (param $0 i32)
   local.get $0
@@ -2995,6 +3401,13 @@
   drop
   local.get $1
   call $~lib/rt/rtrace/onfree
+ )
+ (func $~lib/rt/pure/finalize (param $0 i32)
+  i32.const 0
+  drop
+  global.get $~lib/rt/tlsf/ROOT
+  local.get $0
+  call $~lib/rt/tlsf/freeBlock
  )
  (func $~lib/rt/pure/decrement (param $0 i32)
   (local $1 i32)
@@ -3052,9 +3465,8 @@
     call $~lib/builtins/abort
     unreachable
    end
-   global.get $~lib/rt/tlsf/ROOT
    local.get $0
-   call $~lib/rt/tlsf/freeBlock
+   call $~lib/rt/pure/finalize
   else
    i32.const 1
    drop
@@ -3146,18 +3558,29 @@
   block $switch$1$default
    block $switch$1$case$8
     block $switch$1$case$6
-     block $switch$1$case$4
-      block $switch$1$case$2
-       local.get $0
-       i32.const 8
-       i32.sub
-       i32.load
-       br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$6 $switch$1$case$2 $switch$1$case$8 $switch$1$default
+     block $switch$1$case$5
+      block $switch$1$case$4
+       block $switch$1$case$2
+        local.get $0
+        i32.const 8
+        i32.sub
+        i32.load
+        br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$5 $switch$1$case$6 $switch$1$case$2 $switch$1$case$8 $switch$1$default
+       end
+       return
+      end
+      local.get $0
+      i32.load
+      local.tee $2
+      if
+       local.get $2
+       local.get $1
+       call $~lib/rt/pure/__visit
       end
       return
      end
      local.get $0
-     i32.load
+     i32.load offset=4
      local.tee $2
      if
       local.get $2

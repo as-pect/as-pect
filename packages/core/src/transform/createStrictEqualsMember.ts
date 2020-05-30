@@ -33,6 +33,11 @@ export function createStrictEqualsMember(
   // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: StaticArray<i64>): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
+    null,
+    CommonFlags.PUBLIC |
+      CommonFlags.INSTANCE |
+      CommonFlags.GENERIC |
+      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     [
       TypeNode.createTypeParameter(
         TypeNode.createIdentifierExpression("T", range),
@@ -79,11 +84,6 @@ export function createStrictEqualsMember(
       range,
     ),
     createStrictEqualsFunctionBody(classDeclaration),
-    null,
-    CommonFlags.PUBLIC |
-      CommonFlags.INSTANCE |
-      CommonFlags.GENERIC |
-      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     range,
   );
 }
@@ -276,10 +276,10 @@ function createDefaultParameter(
   range: Range,
 ): ParameterNode {
   return TypeNode.createParameter(
+    ParameterKind.DEFAULT,
     TypeNode.createIdentifierExpression(name, range),
     typeNode,
     null,
-    ParameterKind.DEFAULT,
     range,
   );
 }

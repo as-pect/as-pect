@@ -240,7 +240,7 @@ exports[`snapshots: onTestFinish logs logs 1`] = `
                 [Vec3]: 44
             }
    [Stack]: Has Stack Trace
-     [Log]: [Function 2: ]
+     [Log]: [Function 7: ]
    [Stack]: Has Stack Trace
      [Log]: NestedForInlineFunctionA {
                 a: NestedForInlineFunctionB {

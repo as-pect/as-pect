@@ -1,67 +1,57 @@
 (module
- (type $none_=>_none (func))
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_=>_none (func (param i32 i32)))
+ (type $none_=>_none (func))
+ (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
+ (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $none_=>_i32 (func (result i32)))
- (type $i32_=>_i32 (func (param i32) (result i32)))
- (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
+ (type $i32_i32_i32_i32_f64_=>_i32 (func (param i32 i32 i32 i32 f64) (result i32)))
  (import "env" "memory" (memory $0 1))
  (data (i32.const 16) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s\00")
  (data (i32.const 64) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00")
  (data (i32.const 128) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00p\00u\00r\00e\00.\00t\00s\00")
- (data (i32.const 176) "\18\00\00\00\01\00\00\00\01\00\00\00\18\00\00\00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
- (data (i32.const 224) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00 \00t\00h\00i\00s\00 \00e\00x\00a\00m\00p\00l\00e\00 \00t\00e\00s\00t\00")
- (data (i32.const 304) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00t\00h\00i\00s\00 \00t\00e\00s\00t\00 \00s\00h\00o\00u\00l\00d\00 \00r\00u\00n\00")
- (data (i32.const 368) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00f\00l\00o\00w\00")
- (data (i32.const 400) "8\00\00\00\01\00\00\00\01\00\00\008\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
- (data (i32.const 480) "@\00\00\00\01\00\00\00\01\00\00\00@\00\00\00b\00e\00f\00o\00r\00e\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
- (data (i32.const 560) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00_\00_\00t\00e\00s\00t\00s\00_\00_\00/\00f\00l\00o\00w\00.\00s\00p\00e\00c\00.\00t\00s\00")
- (data (i32.const 640) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00o\00n\00c\00e\00")
- (data (i32.const 720) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00b\00e\00f\00o\00r\00e\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
- (data (i32.const 800) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00t\00w\00i\00c\00e\00")
- (data (i32.const 880) ">\00\00\00\01\00\00\00\01\00\00\00>\00\00\00a\00f\00t\00e\00r\00E\00a\00c\00h\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
- (data (i32.const 960) "2\00\00\00\01\00\00\00\01\00\00\002\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00f\00t\00e\00r\00A\00l\00l\00 \00o\00n\00c\00e\00")
- (data (i32.const 1040) "<\00\00\00\01\00\00\00\01\00\00\00<\00\00\00a\00f\00t\00e\00r\00A\00l\00l\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \001\00")
- (data (i32.const 1120) ".\00\00\00\01\00\00\00\01\00\00\00.\00\00\00s\00h\00o\00u\00l\00d\00 \00c\00a\00l\00l\00 \00a\00l\00l\00 \004\00 \00t\00e\00s\00t\00s\00")
- (data (i32.const 1184) "4\00\00\00\01\00\00\00\01\00\00\004\00\00\00t\00e\00s\00t\00 \00r\00u\00n\00 \00c\00o\00u\00n\00t\00 \00s\00h\00o\00u\00l\00d\00 \00b\00e\00 \004\00")
- (data (i32.const 1264) "\04\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\"\01\00\00\00\00\00\00")
+ (data (i32.const 176) "\12\00\00\00\01\00\00\00\01\00\00\00\12\00\00\00a\00 \00c\00l\00o\00s\00u\00r\00e\00")
+ (data (i32.const 224) "\0c\00\00\00\01\00\00\00\01\00\00\00\0c\00\00\00a\00 \00t\00e\00s\00t\00")
+ (data (i32.const 256) "\06\00\00\00\01\00\00\00\01\00\00\00\06\00\00\00i\003\002\00")
+ (data (i32.const 288) "\1c\00\00\00\01\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
+ (data (i32.const 336) "&\00\00\00\01\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00")
+ (data (i32.const 400) "6\00\00\00\01\00\00\00\01\00\00\006\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00a\00s\00s\00e\00r\00t\00.\00t\00s\00")
+ (data (i32.const 480) "\00\00\00\00\01\00\00\00\01\00\00\00\00\00\00\00")
+ (data (i32.const 496) "\06\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\000\t\02\00\00\00\00\00\"\01\00\00\00\00\00\00")
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "rtrace" "onalloc" (func $~lib/rt/rtrace/onalloc (param i32)))
  (import "rtrace" "onincrement" (func $~lib/rt/rtrace/onincrement (param i32)))
- (import "__aspect" "beforeAll" (func $assembly/internal/Test/beforeAll (param i32)))
- (import "__aspect" "beforeEach" (func $assembly/internal/Test/beforeEach (param i32)))
- (import "__aspect" "afterEach" (func $assembly/internal/Test/afterEach (param i32)))
- (import "__aspect" "afterAll" (func $assembly/internal/Test/afterAll (param i32)))
- (import "__aspect" "reportTestTypeNode" (func $assembly/internal/Test/it (param i32 i32)))
- (import "__aspect" "reportNegatedTestNode" (func $assembly/internal/Test/throws (param i32 i32 i32)))
+ (import "__aspect" "createReflectedNumber" (func $assembly/internal/Reflect/createReflectedNumber (param i32 i32 i32 i32 f64) (result i32)))
+ (import "__aspect" "attachStackTraceToReflectedValue" (func $assembly/internal/Reflect/attachStackTraceToReflectedValue (param i32)))
+ (import "__aspect" "reportActualReflectedValue" (func $assembly/internal/Actual/reportActualReflectedValue (param i32)))
+ (import "__aspect" "reportExpectedReflectedValue" (func $assembly/internal/Expected/reportExpectedReflectedValue (param i32 i32)))
+ (import "__aspect" "clearActual" (func $assembly/internal/Actual/clearActual))
+ (import "__aspect" "clearExpected" (func $assembly/internal/Expected/clearExpected))
+ (import "__aspect" "reportTestTypeNode" (func $assembly/internal/Test/test (param i32 i32)))
  (import "__aspect" "reportGroupTypeNode" (func $assembly/internal/Test/describe (param i32 i32)))
  (import "rtrace" "ondecrement" (func $~lib/rt/rtrace/ondecrement (param i32)))
  (import "rtrace" "onfree" (func $~lib/rt/rtrace/onfree (param i32)))
- (table $0 30 funcref)
- (elem (i32.const 1) $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|1~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|2~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|3~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|4~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|5~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|6~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|7~nonClosure $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|0~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|1~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|2~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|3~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|4~nonClosure $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure $start:assembly/internal/noOp~anonymous|0~nonClosure)
+ (table $0 5 funcref)
+ (elem (i32.const 1) $start:assembly/__tests__/closures.spec~anonymous|0~anonymous|0 $start:assembly/__tests__/closures.spec~anonymous|0~nonClosure~anonymous|0 $start:assembly/__tests__/closures.spec~anonymous|0~nonClosure $start:assembly/internal/noOp~anonymous|0~nonClosure)
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
  (global $~lib/gc/gc.auto (mut i32) (i32.const 1))
- (global $assembly/__tests__/flow.spec/beforeEachRan (mut i32) (i32.const 0))
- (global $assembly/__tests__/flow.spec/beforeAllRan (mut i32) (i32.const 0))
- (global $assembly/__tests__/flow.spec/afterEachRan (mut i32) (i32.const 0))
- (global $assembly/__tests__/flow.spec/afterAllRan (mut i32) (i32.const 0))
- (global $assembly/__tests__/flow.spec/testCount (mut i32) (i32.const 0))
- (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
- (global $assembly/internal/noOp/noOp i32 (i32.const 29))
- (global $assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
  (global $assembly/internal/Reflect/Reflect.FAILED_MATCH i32 (i32.const 0))
  (global $assembly/internal/Reflect/Reflect.SUCCESSFUL_MATCH i32 (i32.const 1))
  (global $assembly/internal/Reflect/Reflect.DEFER_MATCH i32 (i32.const 2))
- (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
+ (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $~argumentsLength (mut i32) (i32.const 0))
+ (global $assembly/__tests__/setup/Test.include/meaningOfLife i32 (i32.const 42))
+ (global $assembly/internal/noOp/noOp i32 (i32.const 4))
+ (global $assembly/internal/log/ignoreLogs (mut i32) (i32.const 0))
+ (global $assembly/internal/RTrace/RTrace.enabled (mut i32) (i32.const 1))
  (global $~started (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 1264))
- (global $~lib/heap/__heap_base i32 (i32.const 1300))
+ (global $~lib/rt/__rtti_base i32 (i32.const 496))
+ (global $~lib/heap/__heap_base i32 (i32.const 548))
  (export "_start" (func $~start))
  (export "memory" (memory $0))
  (export "table" (table $0))
@@ -1579,290 +1569,522 @@
    call $~lib/rt/pure/decrement
   end
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|0~nonClosure
-  global.get $assembly/__tests__/flow.spec/beforeAllRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/beforeAllRan
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|1~nonClosure
-  global.get $assembly/__tests__/flow.spec/beforeEachRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/beforeEachRan
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|2~nonClosure
-  global.get $assembly/__tests__/flow.spec/afterEachRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/afterEachRan
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|3~nonClosure
-  global.get $assembly/__tests__/flow.spec/afterAllRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/afterAllRan
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|4~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|5~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|6~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~anonymous|7~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
-  unreachable
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|0~nonClosure
-  global.get $assembly/__tests__/flow.spec/beforeAllRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/beforeAllRan
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|1~nonClosure
-  global.get $assembly/__tests__/flow.spec/beforeEachRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/beforeEachRan
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|2~nonClosure
-  global.get $assembly/__tests__/flow.spec/afterEachRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/afterEachRan
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|3~nonClosure
-  global.get $assembly/__tests__/flow.spec/afterAllRan
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/afterAllRan
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|4~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|5~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|6~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure~anonymous|7~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
-  i32.const 1
-  i32.add
-  global.set $assembly/__tests__/flow.spec/testCount
-  unreachable
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|0~nonClosure
-  i32.const 9
-  call $assembly/internal/Test/beforeAll
-  i32.const 10
-  call $assembly/internal/Test/beforeEach
-  i32.const 11
-  call $assembly/internal/Test/afterEach
-  i32.const 12
-  call $assembly/internal/Test/afterAll
-  i32.const 240
-  i32.const 13
-  call $assembly/internal/Test/it
-  i32.const 240
-  i32.const 14
-  call $assembly/internal/Test/it
-  i32.const 240
-  i32.const 15
-  call $assembly/internal/Test/it
-  i32.const 320
-  i32.const 16
+ (func $assembly/internal/Expectation/Expectation<i32>#constructor (param $0 i32) (param $1 i32) (result i32)
+  local.get $0
+  i32.eqz
+  if
+   i32.const 8
+   i32.const 3
+   call $~lib/rt/tlsf/__alloc
+   call $~lib/rt/pure/__retain
+   local.set $0
+  end
+  local.get $0
   i32.const 0
-  call $assembly/internal/Test/throws
+  i32.store
+  local.get $0
+  i32.const 0
+  i32.store offset=4
+  local.get $0
+  local.get $1
+  i32.store offset=4
+  local.get $0
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|0~nonClosure
-  global.get $assembly/__tests__/flow.spec/beforeEachRan
-  i32.const 4
+ (func $assembly/internal/Expectation/expect<i32> (param $0 i32) (result i32)
+  i32.const 0
+  local.get $0
+  call $assembly/internal/Expectation/Expectation<i32>#constructor
+ )
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<i32> (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  i32.const 0
+  drop
+  i32.const 2
+  i32.const 3
   i32.eq
-  i32.eqz
-  if
-   i32.const 496
-   i32.const 576
-   i32.const 72
-   i32.const 5
-   call $~lib/builtins/abort
-   unreachable
+  if (result i32)
+   i32.const 1
+  else
+   i32.const 0
   end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|1~nonClosure
-  global.get $assembly/__tests__/flow.spec/beforeAllRan
+  drop
   i32.const 1
-  i32.eq
-  i32.eqz
-  if
-   i32.const 736
-   i32.const 576
-   i32.const 80
-   i32.const 5
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|2~nonClosure
-  global.get $assembly/__tests__/flow.spec/afterEachRan
   i32.const 4
-  i32.eq
-  i32.eqz
+  i32.const 7
+  i32.const 272
+  local.get $0
+  f64.convert_i32_s
+  call $assembly/internal/Reflect/createReflectedNumber
+  local.set $2
+  local.get $2
+  local.set $3
+  local.get $1
+  call $~lib/rt/pure/__release
+  local.get $3
+  return
+ )
+ (func $~lib/memory/memory.fill (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i64)
+  (local $10 i32)
+  block $~lib/util/memory/memset|inlined.0
+   local.get $0
+   local.set $5
+   local.get $1
+   local.set $4
+   local.get $2
+   local.set $3
+   i32.const 0
+   i32.const 1
+   i32.gt_s
+   drop
+   local.get $3
+   i32.eqz
+   if
+    br $~lib/util/memory/memset|inlined.0
+   end
+   local.get $5
+   local.get $3
+   i32.add
+   i32.const 4
+   i32.sub
+   local.set $6
+   local.get $5
+   local.get $4
+   i32.store8
+   local.get $6
+   local.get $4
+   i32.store8 offset=3
+   local.get $3
+   i32.const 2
+   i32.le_u
+   if
+    br $~lib/util/memory/memset|inlined.0
+   end
+   local.get $5
+   local.get $4
+   i32.store8 offset=1
+   local.get $5
+   local.get $4
+   i32.store8 offset=2
+   local.get $6
+   local.get $4
+   i32.store8 offset=2
+   local.get $6
+   local.get $4
+   i32.store8 offset=1
+   local.get $3
+   i32.const 6
+   i32.le_u
+   if
+    br $~lib/util/memory/memset|inlined.0
+   end
+   local.get $5
+   local.get $4
+   i32.store8 offset=3
+   local.get $6
+   local.get $4
+   i32.store8
+   local.get $3
+   i32.const 8
+   i32.le_u
+   if
+    br $~lib/util/memory/memset|inlined.0
+   end
+   i32.const 0
+   local.get $5
+   i32.sub
+   i32.const 3
+   i32.and
+   local.set $7
+   local.get $5
+   local.get $7
+   i32.add
+   local.set $5
+   local.get $3
+   local.get $7
+   i32.sub
+   local.set $3
+   local.get $3
+   i32.const -4
+   i32.and
+   local.set $3
+   i32.const -1
+   i32.const 255
+   i32.div_u
+   local.get $4
+   i32.const 255
+   i32.and
+   i32.mul
+   local.set $8
+   local.get $5
+   local.get $3
+   i32.add
+   i32.const 28
+   i32.sub
+   local.set $6
+   local.get $5
+   local.get $8
+   i32.store
+   local.get $6
+   local.get $8
+   i32.store offset=24
+   local.get $3
+   i32.const 8
+   i32.le_u
+   if
+    br $~lib/util/memory/memset|inlined.0
+   end
+   local.get $5
+   local.get $8
+   i32.store offset=4
+   local.get $5
+   local.get $8
+   i32.store offset=8
+   local.get $6
+   local.get $8
+   i32.store offset=16
+   local.get $6
+   local.get $8
+   i32.store offset=20
+   local.get $3
+   i32.const 24
+   i32.le_u
+   if
+    br $~lib/util/memory/memset|inlined.0
+   end
+   local.get $5
+   local.get $8
+   i32.store offset=12
+   local.get $5
+   local.get $8
+   i32.store offset=16
+   local.get $5
+   local.get $8
+   i32.store offset=20
+   local.get $5
+   local.get $8
+   i32.store offset=24
+   local.get $6
+   local.get $8
+   i32.store
+   local.get $6
+   local.get $8
+   i32.store offset=4
+   local.get $6
+   local.get $8
+   i32.store offset=8
+   local.get $6
+   local.get $8
+   i32.store offset=12
+   i32.const 24
+   local.get $5
+   i32.const 4
+   i32.and
+   i32.add
+   local.set $7
+   local.get $5
+   local.get $7
+   i32.add
+   local.set $5
+   local.get $3
+   local.get $7
+   i32.sub
+   local.set $3
+   local.get $8
+   i64.extend_i32_u
+   local.get $8
+   i64.extend_i32_u
+   i64.const 32
+   i64.shl
+   i64.or
+   local.set $9
+   loop $while-continue|0
+    local.get $3
+    i32.const 32
+    i32.ge_u
+    local.set $10
+    local.get $10
+    if
+     local.get $5
+     local.get $9
+     i64.store
+     local.get $5
+     local.get $9
+     i64.store offset=8
+     local.get $5
+     local.get $9
+     i64.store offset=16
+     local.get $5
+     local.get $9
+     i64.store offset=24
+     local.get $3
+     i32.const 32
+     i32.sub
+     local.set $3
+     local.get $5
+     i32.const 32
+     i32.add
+     local.set $5
+     br $while-continue|0
+    end
+   end
+  end
+ )
+ (func $~lib/arraybuffer/ArrayBuffer#constructor (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $1
+  i32.const 1073741808
+  i32.gt_u
   if
-   i32.const 896
-   i32.const 576
-   i32.const 88
-   i32.const 5
+   i32.const 304
+   i32.const 352
+   i32.const 49
+   i32.const 43
    call $~lib/builtins/abort
    unreachable
   end
+  local.get $1
+  i32.const 0
+  call $~lib/rt/tlsf/__alloc
+  local.set $2
+  local.get $2
+  i32.const 0
+  local.get $1
+  call $~lib/memory/memory.fill
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $3
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $3
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|3~nonClosure
-  global.get $assembly/__tests__/flow.spec/afterAllRan
+ (func $~lib/map/Map<usize,i32>#constructor (param $0 i32) (result i32)
+  local.get $0
+  i32.eqz
+  if
+   i32.const 24
+   i32.const 4
+   call $~lib/rt/tlsf/__alloc
+   call $~lib/rt/pure/__retain
+   local.set $0
+  end
+  local.get $0
+  i32.const 0
+  i32.const 4
+  i32.const 4
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  i32.store
+  local.get $0
+  i32.const 4
   i32.const 1
-  i32.eq
-  i32.eqz
-  if
-   i32.const 1056
-   i32.const 576
-   i32.const 96
-   i32.const 5
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~anonymous|4~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
+  i32.sub
+  i32.store offset=4
+  local.get $0
+  i32.const 0
   i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 1200
-   i32.const 576
-   i32.const 103
-   i32.const 5
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|0~nonClosure
-  global.get $assembly/__tests__/flow.spec/beforeEachRan
+  i32.const 12
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
+  i32.store offset=8
+  local.get $0
   i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 496
-   i32.const 576
-   i32.const 72
-   i32.const 5
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.store offset=12
+  local.get $0
+  i32.const 0
+  i32.store offset=16
+  local.get $0
+  i32.const 0
+  i32.store offset=20
+  local.get $0
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|1~nonClosure
-  global.get $assembly/__tests__/flow.spec/beforeAllRan
+ (func $assembly/internal/Reflect/Reflect.toReflectedValue<i32>@varargs (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  block $1of1
+   block $0of1
+    block $outOfRange
+     global.get $~argumentsLength
+     i32.const 1
+     i32.sub
+     br_table $0of1 $1of1 $outOfRange
+    end
+    unreachable
+   end
+   i32.const 0
+   call $~lib/map/Map<usize,i32>#constructor
+   local.tee $2
+   local.set $1
+  end
+  local.get $0
+  local.get $1
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<i32>
+  local.set $3
+  local.get $2
+  call $~lib/rt/pure/__release
+  local.get $3
+ )
+ (func $assembly/internal/Reflect/Reflect.attachStackTrace (param $0 i32)
+  local.get $0
+  call $assembly/internal/Reflect/attachStackTraceToReflectedValue
+ )
+ (func $assembly/internal/Actual/Actual.report<i32> (param $0 i32)
+  (local $1 i32)
+  local.get $0
   i32.const 1
-  i32.eq
-  i32.eqz
-  if
-   i32.const 736
-   i32.const 576
-   i32.const 80
-   i32.const 5
-   call $~lib/builtins/abort
-   unreachable
-  end
+  global.set $~argumentsLength
+  i32.const 0
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<i32>@varargs
+  local.set $1
+  local.get $1
+  call $assembly/internal/Reflect/Reflect.attachStackTrace
+  local.get $1
+  call $assembly/internal/Actual/reportActualReflectedValue
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|2~nonClosure
-  global.get $assembly/__tests__/flow.spec/afterEachRan
-  i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 896
-   i32.const 576
-   i32.const 88
-   i32.const 5
-   call $~lib/builtins/abort
-   unreachable
-  end
- )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|3~nonClosure
-  global.get $assembly/__tests__/flow.spec/afterAllRan
+ (func $assembly/internal/Expected/Expected.report<i32> (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $0
   i32.const 1
-  i32.eq
+  global.set $~argumentsLength
+  i32.const 0
+  call $assembly/internal/Reflect/Reflect.toReflectedValue<i32>@varargs
+  local.set $2
+  local.get $2
+  call $assembly/internal/Reflect/Reflect.attachStackTrace
+  local.get $2
+  local.get $1
+  call $assembly/internal/Expected/reportExpectedReflectedValue
+ )
+ (func $assembly/internal/assert/assert (param $0 i32) (param $1 i32)
+  local.get $1
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $0
   i32.eqz
   if
-   i32.const 1056
-   i32.const 576
-   i32.const 96
-   i32.const 5
+   local.get $1
+   i32.const 416
+   i32.const 2
+   i32.const 19
    call $~lib/builtins/abort
    unreachable
   end
+  local.get $1
+  call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure~anonymous|4~nonClosure
-  global.get $assembly/__tests__/flow.spec/testCount
+ (func $assembly/internal/Actual/Actual.clear
+  call $assembly/internal/Actual/clearActual
+ )
+ (func $assembly/internal/Expected/Expected.clear
+  call $assembly/internal/Expected/clearExpected
+ )
+ (func $assembly/internal/Expectation/Expectation<i32>#toBe (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $2
+  call $~lib/rt/pure/__retain
+  local.set $2
+  local.get $0
+  i32.load offset=4
+  local.set $3
+  local.get $3
+  local.get $1
+  i32.eq
+  local.set $4
+  local.get $0
+  i32.load
+  local.set $5
+  local.get $3
+  call $assembly/internal/Actual/Actual.report<i32>
+  i32.const 0
+  if (result i32)
+   i32.const 0
+   i32.eqz
+  else
+   i32.const 0
+  end
+  drop
+  local.get $1
+  local.get $5
+  call $assembly/internal/Expected/Expected.report<i32>
+  local.get $4
+  local.get $5
+  i32.xor
+  local.get $2
+  call $assembly/internal/assert/assert
+  call $assembly/internal/Actual/Actual.clear
+  call $assembly/internal/Expected/Expected.clear
+  local.get $2
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/closures.spec~anonymous|0~anonymous|0 (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  i32.load offset=4
+  call $assembly/internal/Expectation/expect<i32>
+  local.tee $0
+  i32.const 42
+  i32.const 496
+  call $assembly/internal/Expectation/Expectation<i32>#toBe
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/closures.spec~anonymous|0~nonClosure~anonymous|0 (param $0 i32)
+  (local $1 i32)
+  local.get $0
+  i32.load offset=4
+  call $assembly/internal/Expectation/expect<i32>
+  local.tee $0
+  i32.const 42
+  i32.const 496
+  call $assembly/internal/Expectation/Expectation<i32>#toBe
+  local.get $0
+  call $~lib/rt/pure/__release
+ )
+ (func $start:assembly/__tests__/closures.spec~anonymous|0~nonClosure
+  (local $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  i32.const 42
+  local.set $0
+  i32.const 240
+  i32.const 8
+  i32.const 0
+  call $~lib/rt/tlsf/__alloc
+  call $~lib/rt/pure/__retain
+  local.set $1
+  local.get $1
+  i32.const 2
+  i32.store
+  local.get $1
+  local.set $2
+  local.get $2
+  local.get $0
+  i32.store offset=4
+  local.get $2
   i32.const 4
-  i32.eq
-  i32.eqz
-  if
-   i32.const 1200
-   i32.const 576
-   i32.const 103
-   i32.const 5
-   call $~lib/builtins/abort
-   unreachable
-  end
+  i32.shr_s
+  i32.const -2147483648
+  i32.or
+  call $assembly/internal/Test/test
+  local.get $1
+  call $~lib/rt/pure/__release
  )
- (func $start:assembly/__tests__/flow.spec~anonymous|1~nonClosure
-  i32.const 416
-  i32.const 23
-  call $assembly/internal/Test/it
-  i32.const 656
-  i32.const 24
-  call $assembly/internal/Test/it
-  i32.const 816
-  i32.const 25
-  call $assembly/internal/Test/it
-  i32.const 976
-  i32.const 26
-  call $assembly/internal/Test/it
-  i32.const 1136
-  i32.const 27
-  call $assembly/internal/Test/it
- )
- (func $start:assembly/__tests__/flow.spec
+ (func $start:assembly/__tests__/closures.spec
   i32.const 192
-  i32.const 17
-  call $assembly/internal/Test/describe
-  i32.const 384
-  i32.const 28
+  i32.const 3
   call $assembly/internal/Test/describe
  )
  (func $start:assembly/internal/noOp~anonymous|0~nonClosure
@@ -1941,7 +2163,7 @@
   global.set $assembly/internal/RTrace/RTrace.enabled
  )
  (func $assembly/internal/RTrace/__getUsizeArrayId (result i32)
-  i32.const 3
+  i32.const 5
  )
  (func $~start
   global.get $~started
@@ -1951,7 +2173,7 @@
    i32.const 1
    global.set $~started
   end
-  call $start:assembly/__tests__/flow.spec
+  call $start:assembly/__tests__/closures.spec
  )
  (func $~lib/rt/pure/__collect
   i32.const 1
@@ -2099,6 +2321,26 @@
   i32.sub
   call $~lib/rt/pure/decrement
  )
+ (func $~lib/map/Map<usize,i32>#__visit_impl (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  local.get $0
+  i32.load
+  local.get $1
+  call $~lib/rt/pure/__visit
+  local.get $0
+  i32.load offset=8
+  local.set $2
+  i32.const 0
+  if (result i32)
+   i32.const 1
+  else
+   i32.const 0
+  end
+  drop
+  local.get $2
+  local.get $1
+  call $~lib/rt/pure/__visit
+ )
  (func $~lib/array/Array<usize>#__visit_impl (param $0 i32) (param $1 i32)
   i32.const 0
   drop
@@ -2110,25 +2352,31 @@
  (func $~lib/rt/__visit_members (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $switch$1$default
-   block $switch$1$case$5
-    block $switch$1$case$4
-     block $switch$1$case$2
-      local.get $0
-      i32.const 8
-      i32.sub
-      i32.load
-      br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$5 $switch$1$default
+   block $switch$1$case$7
+    block $switch$1$case$6
+     block $switch$1$case$4
+      block $switch$1$case$2
+       local.get $0
+       i32.const 8
+       i32.sub
+       i32.load
+       br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$2 $switch$1$case$6 $switch$1$case$7 $switch$1$default
+      end
+      return
+     end
+     local.get $0
+     i32.load
+     local.tee $2
+     if
+      local.get $2
+      local.get $1
+      call $~lib/rt/pure/__visit
      end
      return
     end
     local.get $0
-    i32.load
-    local.tee $2
-    if
-     local.get $2
-     local.get $1
-     call $~lib/rt/pure/__visit
-    end
+    local.get $1
+    call $~lib/map/Map<usize,i32>#__visit_impl
     return
    end
    local.get $0
