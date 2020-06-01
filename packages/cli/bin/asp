@@ -2,12 +2,17 @@
 
 const { spawn } = require("child_process");
 
-const spawned = spawn("node", [
-  "--experimental-wasm-bigint",
-  "--experimental-wasi-unstable-preview1",
+let nodeVersion = process.version.match(/^v(\d+)\./)[1];
+
+const args = [
   require.resolve("../lib/test"),
   ...process.argv.slice(2),
-], {
+]
+
+if (nodeVersion >= 12) args.unshift("--experimental-wasm-bigint");
+if (nodeVersion >= 13) args.unshift("--experimental-wasi-unstable-preview1");
+
+const spawned = spawn("node", args, {
   env: Object.assign({}, process.env, {
     FORCE_COLOR: "2"
   })
@@ -16,6 +21,6 @@ const spawned = spawn("node", [
 spawned.stdout.pipe(process.stdout);
 spawned.stderr.pipe(process.stderr);
 spawned.ref();
-spawned.on("exit", (code, signal) => {
+spawned.on("exit", (code, _signal) => {
   process.exit(code);
 });
