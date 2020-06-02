@@ -6,6 +6,7 @@ import {
   Parser,
   Statement,
   Transform,
+  Source,
 } from "./assemblyscript";
 import { createStrictEqualsMember } from "./createStrictEqualsMember";
 import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember";
@@ -18,8 +19,10 @@ export = class AspectTransform extends Transform {
    * @param {Parser} parser - The AssemblyScript parser.
    */
   afterParse(parser: Parser): void {
+    // For backwards compatibility
+    let sources: Source[] = (parser as any).program ? (parser as any).program.sources : parser.sources;
     // for each program source
-    for (const source of parser.sources) {
+    for (const source of sources) {
       traverseStatements(source.statements);
     }
   }
