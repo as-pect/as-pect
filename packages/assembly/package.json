@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/assembly",
-  "version": "3.2.1",
+  "version": "3.2.6",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "types": "types/as-pect.d.ts",
   "scripts": {
