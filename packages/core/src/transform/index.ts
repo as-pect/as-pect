@@ -20,7 +20,9 @@ export = class AspectTransform extends Transform {
    */
   afterParse(parser: Parser): void {
     // For backwards compatibility
-    let sources: Source[] = (parser as any).program ? (parser as any).program.sources : parser.sources;
+    let sources: Source[] = (parser as any).program
+      ? (parser as any).program.sources
+      : parser.sources;
     // for each program source
     for (const source of sources) {
       traverseStatements(source.statements);

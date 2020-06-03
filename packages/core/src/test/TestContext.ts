@@ -220,7 +220,7 @@ export class TestContext {
    */
   public run(wasm: InstantiateResult): void {
     // set the wasm
-    this.wasm = wasm.exports || (<any>wasm as IAspectExports);
+    this.wasm = wasm.exports || ((<any>wasm) as IAspectExports);
     this.instance = wasm.instance;
 
     // start by visiting the root node
