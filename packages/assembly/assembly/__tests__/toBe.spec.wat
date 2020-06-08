@@ -5108,7 +5108,7 @@
   local.get $4
   return
  )
- (func $assembly/__tests__/setup/Vec3/Vec3#__aspectStrictEquals<assembly/__tests__/setup/Vec3/Vec3> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/setup/Vec3/Vec3#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -5410,7 +5410,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/setup/Vec3/Vec3#__aspectStrictEquals<assembly/__tests__/setup/Vec3/Vec3>
+  call $assembly/__tests__/setup/Vec3/Vec3#__aspectStrictEquals
   local.set $8
   local.get $8
   if
