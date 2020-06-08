@@ -1100,3 +1100,32 @@ describe("nullable strings and references", () => {
     expect<string | null>(a).toStrictEqual("test");
   });
 });
+
+export class _A {}
+class _B extends _A {
+  constructor(public a: A | null = null) {
+    super();
+  }
+}
+abstract class Abstract {}
+class Concrete extends Abstract {
+  constructor(public field: u32){
+    super();
+  }
+}
+
+function createAbstract(i: u32): Abstract {
+  return new Concrete(i);
+}
+
+describe("Strict equal subclasses", () => {
+  test("reflect.equals for concrete super class", () => {
+    let b = <_A>(new _B());
+    expect(b).toStrictEqual(b);
+  });
+
+  test("reflect.equal for abstract super class", () => {
+    let a = createAbstract(1);
+    expect(a).toStrictEqual(a);
+  })
+});
