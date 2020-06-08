@@ -16,7 +16,6 @@ import {
   Token,
   TypeNode,
 } from "./assemblyscript";
-import { createGenericTypeParameter } from "./createGenericTypeParameter";
 import { djb2Hash } from "./hash";
 
 /**
@@ -33,20 +32,34 @@ export function createStrictEqualsMember(
   // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: StaticArray<i64>): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
-    [
-      TypeNode.createTypeParameter(
-        TypeNode.createIdentifierExpression("T", range),
-        null,
-        null,
-        range,
-      ),
-    ],
+    null,
     TypeNode.createFunctionType(
       [
         // ref: T,
         createDefaultParameter(
           "ref",
-          createGenericTypeParameter("T", range),
+          TypeNode.createNamedType(
+            TypeNode.createTypeName(
+              TypeNode.createIdentifierExpression(
+                classDeclaration.name.text,
+                range,
+              ),
+              range,
+            ),
+            classDeclaration.isGeneric
+              ? classDeclaration.typeParameters!.map((node) =>
+                  TypeNode.createNamedType(
+                    TypeNode.createTypeName(node.name, range),
+                    null,
+                    false,
+                    range,
+                  ),
+                )
+              : null,
+            false,
+            range,
+          ),
+          //createGenericTypeParameter("this", range),
           range,
         ),
         // stack: usize[]
@@ -82,7 +95,6 @@ export function createStrictEqualsMember(
     null,
     CommonFlags.PUBLIC |
       CommonFlags.INSTANCE |
-      CommonFlags.GENERIC |
       (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     range,
   );

@@ -4832,7 +4832,7 @@
   i32.ge_s
   return
  )
- (func $assembly/__tests__/setup/Vec3/Vec3#__aspectStrictEquals<assembly/__tests__/setup/Vec3/Vec3> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/setup/Vec3/Vec3#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -5134,7 +5134,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/setup/Vec3/Vec3#__aspectStrictEquals<assembly/__tests__/setup/Vec3/Vec3>
+  call $assembly/__tests__/setup/Vec3/Vec3#__aspectStrictEquals
   local.set $8
   local.get $8
   if
@@ -11180,7 +11180,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/__tests__/toStrictEqual.spec/B#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/B> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/B#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -11449,7 +11449,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/toStrictEqual.spec/B#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/B>
+  call $assembly/__tests__/toStrictEqual.spec/B#__aspectStrictEquals
   local.set $8
   local.get $8
   if
@@ -11590,7 +11590,7 @@
   local.get $4
   return
  )
- (func $assembly/__tests__/toStrictEqual.spec/A#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/A> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/A#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -11859,7 +11859,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/toStrictEqual.spec/A#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/A>
+  call $assembly/__tests__/toStrictEqual.spec/A#__aspectStrictEquals
   local.set $8
   local.get $8
   if
@@ -12985,7 +12985,7 @@
   local.get $4
   return
  )
- (func $assembly/__tests__/toStrictEqual.spec/D#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/D> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/D#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -13254,7 +13254,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/toStrictEqual.spec/D#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/D>
+  call $assembly/__tests__/toStrictEqual.spec/D#__aspectStrictEquals
   local.set $8
   local.get $8
   if
@@ -13395,7 +13395,7 @@
   local.get $4
   return
  )
- (func $assembly/__tests__/toStrictEqual.spec/C#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/C> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/C#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -13664,7 +13664,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/toStrictEqual.spec/C#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/C>
+  call $assembly/__tests__/toStrictEqual.spec/C#__aspectStrictEquals
   local.set $8
   local.get $8
   if
@@ -15336,7 +15336,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -15541,7 +15541,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>>
+  call $assembly/__tests__/toStrictEqual.spec/G<assembly/__tests__/toStrictEqual.spec/A>#__aspectStrictEquals
   local.set $8
   local.get $8
   if
@@ -25273,7 +25273,7 @@
   local.get $4
   return
  )
- (func $assembly/__tests__/toStrictEqual.spec/Empty#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/Empty> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/Empty#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -25510,7 +25510,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/toStrictEqual.spec/Empty#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/Empty>
+  call $assembly/__tests__/toStrictEqual.spec/Empty#__aspectStrictEquals
   local.set $8
   local.get $8
   if
@@ -28481,7 +28481,7 @@
   end
   i32.const 1
  )
- (func $assembly/__tests__/toStrictEqual.spec/Parent#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/Child> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/Parent#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -28504,7 +28504,7 @@
    local.get $0
    call $assembly/__tests__/toStrictEqual.spec/Parent#get:a@virtual
    local.get $1
-   call $assembly/__tests__/toStrictEqual.spec/Child#get:a
+   call $assembly/__tests__/toStrictEqual.spec/Parent#get:a@virtual
    local.get $2
    local.get $3
    call $assembly/internal/Reflect/Reflect.equals<i32>
@@ -28573,7 +28573,7 @@
   call $~lib/rt/pure/__release
   local.get $5
  )
- (func $assembly/__tests__/toStrictEqual.spec/Child#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/Child> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/Child#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
@@ -28668,7 +28668,7 @@
   local.tee $5
   call $~lib/staticarray/StaticArray.concat<i64>
   local.tee $6
-  call $assembly/__tests__/toStrictEqual.spec/Parent#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/Child>
+  call $assembly/__tests__/toStrictEqual.spec/Parent#__aspectStrictEquals
   i32.eqz
   if
    i32.const 0
@@ -28849,7 +28849,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/toStrictEqual.spec/Child#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/Child>
+  call $assembly/__tests__/toStrictEqual.spec/Child#__aspectStrictEquals
   local.set $8
   local.get $8
   if
@@ -29482,7 +29482,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/__tests__/toStrictEqual.spec/ExamplePrivate#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/ExamplePrivate> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/ExamplePrivate#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -29719,7 +29719,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/toStrictEqual.spec/ExamplePrivate#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/ExamplePrivate>
+  call $assembly/__tests__/toStrictEqual.spec/ExamplePrivate#__aspectStrictEquals
   local.set $8
   local.get $8
   if
@@ -31148,7 +31148,7 @@
   call $~lib/rt/pure/__release
   local.get $1
  )
- (func $assembly/__tests__/toStrictEqual.spec/NotArrayLike#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/NotArrayLike> (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
+ (func $assembly/__tests__/toStrictEqual.spec/NotArrayLike#__aspectStrictEquals (param $0 i32) (param $1 i32) (param $2 i32) (param $3 i32) (param $4 i32) (result i32)
   (local $5 i32)
   local.get $1
   call $~lib/rt/pure/__retain
@@ -31353,7 +31353,7 @@
   call $~lib/rt/__allocBuffer
   call $~lib/rt/pure/__retain
   local.tee $9
-  call $assembly/__tests__/toStrictEqual.spec/NotArrayLike#__aspectStrictEquals<assembly/__tests__/toStrictEqual.spec/NotArrayLike>
+  call $assembly/__tests__/toStrictEqual.spec/NotArrayLike#__aspectStrictEquals
   local.set $8
   local.get $8
   if
