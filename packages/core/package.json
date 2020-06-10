@@ -33,7 +33,7 @@
 	"dependencies": {
 		"@as-pect/assembly": "^3.2.6",
 		"@as-pect/snapshots": "^3.2.6",
-		"chalk": "^4.0.0",
+		"chalk": "^4.1.0",
 		"long": "^4.0.0"
 	},
 	"files": [
