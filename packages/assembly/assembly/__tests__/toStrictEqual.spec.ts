@@ -1109,7 +1109,7 @@ class _B extends _A {
 }
 abstract class Abstract {}
 class Concrete extends Abstract {
-  constructor(public field: u32){
+  constructor(public field: u32) {
     super();
   }
 }
@@ -1120,12 +1120,12 @@ function createAbstract(i: u32): Abstract {
 
 describe("Strict equal subclasses", () => {
   test("reflect.equals for concrete super class", () => {
-    let b = <_A>(new _B());
+    let b = <_A>new _B();
     expect(b).toStrictEqual(b);
   });
 
   test("reflect.equal for abstract super class", () => {
     let a = createAbstract(1);
     expect(a).toStrictEqual(a);
-  })
+  });
 });
