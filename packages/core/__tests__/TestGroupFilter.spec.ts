@@ -1,7 +1,7 @@
-import { TestContext, TestNodeType } from "../src";
-import { createTestGroupFilterModule } from "./setup/createTestGroupFilterModule";
-import { ASUtil } from "assemblyscript/lib/loader";
+import { TestContext, TestNodeType, EmptyReporter } from "../src";
+import { ASUtil, instantiate } from "assemblyscript/lib/loader";
 import { IAspectExports } from "../src/util/IAspectExports";
+import { promises as fs } from "fs";
 
 let context: TestContext;
 let result: {
@@ -9,17 +9,15 @@ let result: {
   exports: ASUtil & IAspectExports;
 };
 
-beforeEach(() => {
-  return new Promise((resolve, reject) => {
-    createTestGroupFilterModule({}, (err, callbackResult) => {
-      if (err || !callbackResult) reject(err);
-      else {
-        context = callbackResult.context;
-        result = callbackResult.result;
-        resolve();
-      }
-    });
+const binary = fs.readFile("./assembly/jest-filter.wasm");
+
+beforeEach(async () => {
+  const ctx = new TestContext({
+    reporter: new EmptyReporter(),
+    fileName: "assembly/jest-filter.ts",
   });
+  result = await instantiate<IAspectExports>(binary, ctx.createImports({}));
+  context = ctx;
 });
 
 describe("TestGroup filtering", () => {

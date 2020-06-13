@@ -1693,7 +1693,7 @@
   if
    i32.const 0
    i32.const 32
-   i32.const 501
+   i32.const 500
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -1740,7 +1740,7 @@
      if
       i32.const 0
       i32.const 32
-      i32.const 513
+      i32.const 512
       i32.const 20
       call $~lib/builtins/abort
       unreachable
@@ -1761,7 +1761,7 @@
     if
      i32.const 0
      i32.const 32
-     i32.const 518
+     i32.const 517
      i32.const 18
      call $~lib/builtins/abort
      unreachable
@@ -1782,7 +1782,7 @@
   if
    i32.const 0
    i32.const 32
-   i32.const 521
+   i32.const 520
    i32.const 14
    call $~lib/builtins/abort
    unreachable
@@ -2265,7 +2265,7 @@
   if
    i32.const 0
    i32.const 32
-   i32.const 581
+   i32.const 580
    i32.const 3
    call $~lib/builtins/abort
    unreachable
@@ -4028,46 +4028,6 @@
   local.get $3
   return
  )
- (func $~lib/map/Map<usize,i32>#clear (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  local.tee $1
-  i32.const 0
-  i32.const 16
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $2
-  local.get $1
-  i32.load
-  call $~lib/rt/pure/__release
-  local.get $2
-  i32.store
-  local.get $0
-  i32.const 4
-  i32.const 1
-  i32.sub
-  i32.store offset=4
-  local.get $0
-  local.tee $2
-  i32.const 0
-  i32.const 48
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $1
-  local.get $2
-  i32.load offset=8
-  call $~lib/rt/pure/__release
-  local.get $1
-  i32.store offset=8
-  local.get $0
-  i32.const 4
-  i32.store offset=12
-  local.get $0
-  i32.const 0
-  i32.store offset=16
-  local.get $0
-  i32.const 0
-  i32.store offset=20
- )
  (func $~lib/map/Map<usize,i32>#constructor (param $0 i32) (result i32)
   local.get $0
   i32.eqz
@@ -4080,15 +4040,25 @@
   end
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 4
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store
   local.get $0
-  i32.const 0
+  i32.const 4
+  i32.const 1
+  i32.sub
   i32.store offset=4
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 12
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store offset=8
   local.get $0
-  i32.const 0
+  i32.const 4
   i32.store offset=12
   local.get $0
   i32.const 0
@@ -4096,8 +4066,6 @@
   local.get $0
   i32.const 0
   i32.store offset=20
-  local.get $0
-  call $~lib/map/Map<usize,i32>#clear
   local.get $0
  )
  (func $assembly/internal/Reflect/Reflect.toReflectedValue<i32>@varargs (param $0 i32) (param $1 i32) (result i32)
@@ -4992,7 +4960,7 @@
   if
    i32.const 2144
    i32.const 240
-   i32.const 299
+   i32.const 300
    i32.const 21
    call $~lib/builtins/abort
    unreachable
@@ -5482,7 +5450,7 @@
   if
    i32.const 2256
    i32.const 2320
-   i32.const 111
+   i32.const 104
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -10796,7 +10764,7 @@
   i32.const 0
   i32.const 0
   i32.const 6
-  i32.const 31
+  i32.const 24
   i32.const 9104
   local.get $0
   i32.const 0
@@ -16064,46 +16032,6 @@
   local.get $6
   call $~lib/rt/pure/__release
  )
- (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#clear (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  local.tee $1
-  i32.const 0
-  i32.const 16
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $2
-  local.get $1
-  i32.load
-  call $~lib/rt/pure/__release
-  local.get $2
-  i32.store
-  local.get $0
-  i32.const 4
-  i32.const 1
-  i32.sub
-  i32.store offset=4
-  local.get $0
-  local.tee $2
-  i32.const 0
-  i32.const 32
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $1
-  local.get $2
-  i32.load offset=8
-  call $~lib/rt/pure/__release
-  local.get $1
-  i32.store offset=8
-  local.get $0
-  i32.const 4
-  i32.store offset=12
-  local.get $0
-  i32.const 0
-  i32.store offset=16
-  local.get $0
-  i32.const 0
-  i32.store offset=20
- )
  (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#constructor (param $0 i32) (result i32)
   local.get $0
   i32.eqz
@@ -16116,15 +16044,25 @@
   end
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 4
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store
   local.get $0
-  i32.const 0
+  i32.const 4
+  i32.const 1
+  i32.sub
   i32.store offset=4
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 8
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store offset=8
   local.get $0
-  i32.const 0
+  i32.const 4
   i32.store offset=12
   local.get $0
   i32.const 0
@@ -16132,8 +16070,6 @@
   local.get $0
   i32.const 0
   i32.store offset=20
-  local.get $0
-  call $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#clear
   local.get $0
  )
  (func $~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>#find (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
@@ -17682,46 +17618,6 @@
   local.get $6
   call $~lib/rt/pure/__release
  )
- (func $~lib/set/Set<i32>#clear (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  local.tee $1
-  i32.const 0
-  i32.const 16
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $2
-  local.get $1
-  i32.load
-  call $~lib/rt/pure/__release
-  local.get $2
-  i32.store
-  local.get $0
-  i32.const 4
-  i32.const 1
-  i32.sub
-  i32.store offset=4
-  local.get $0
-  local.tee $2
-  i32.const 0
-  i32.const 32
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $1
-  local.get $2
-  i32.load offset=8
-  call $~lib/rt/pure/__release
-  local.get $1
-  i32.store offset=8
-  local.get $0
-  i32.const 4
-  i32.store offset=12
-  local.get $0
-  i32.const 0
-  i32.store offset=16
-  local.get $0
-  i32.const 0
-  i32.store offset=20
- )
  (func $~lib/set/Set<i32>#constructor (param $0 i32) (result i32)
   local.get $0
   i32.eqz
@@ -17734,15 +17630,25 @@
   end
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 4
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store
   local.get $0
-  i32.const 0
+  i32.const 4
+  i32.const 1
+  i32.sub
   i32.store offset=4
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 8
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store offset=8
   local.get $0
-  i32.const 0
+  i32.const 4
   i32.store offset=12
   local.get $0
   i32.const 0
@@ -17750,8 +17656,6 @@
   local.get $0
   i32.const 0
   i32.store offset=20
-  local.get $0
-  call $~lib/set/Set<i32>#clear
   local.get $0
  )
  (func $~lib/set/Set<i32>#find (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
@@ -19628,46 +19532,6 @@
   local.get $9
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<i32,i32>#clear (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  local.tee $1
-  i32.const 0
-  i32.const 16
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $2
-  local.get $1
-  i32.load
-  call $~lib/rt/pure/__release
-  local.get $2
-  i32.store
-  local.get $0
-  i32.const 4
-  i32.const 1
-  i32.sub
-  i32.store offset=4
-  local.get $0
-  local.tee $2
-  i32.const 0
-  i32.const 48
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $1
-  local.get $2
-  i32.load offset=8
-  call $~lib/rt/pure/__release
-  local.get $1
-  i32.store offset=8
-  local.get $0
-  i32.const 4
-  i32.store offset=12
-  local.get $0
-  i32.const 0
-  i32.store offset=16
-  local.get $0
-  i32.const 0
-  i32.store offset=20
- )
  (func $~lib/map/Map<i32,i32>#constructor (param $0 i32) (result i32)
   local.get $0
   i32.eqz
@@ -19680,15 +19544,25 @@
   end
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 4
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store
   local.get $0
-  i32.const 0
+  i32.const 4
+  i32.const 1
+  i32.sub
   i32.store offset=4
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 12
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store offset=8
   local.get $0
-  i32.const 0
+  i32.const 4
   i32.store offset=12
   local.get $0
   i32.const 0
@@ -19696,8 +19570,6 @@
   local.get $0
   i32.const 0
   i32.store offset=20
-  local.get $0
-  call $~lib/map/Map<i32,i32>#clear
   local.get $0
  )
  (func $~lib/map/Map<i32,i32>#find (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
@@ -20210,7 +20082,7 @@
   if
    i32.const 2256
    i32.const 2320
-   i32.const 111
+   i32.const 104
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -21013,46 +20885,6 @@
   local.get $2
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#clear (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  local.tee $1
-  i32.const 0
-  i32.const 16
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $2
-  local.get $1
-  i32.load
-  call $~lib/rt/pure/__release
-  local.get $2
-  i32.store
-  local.get $0
-  i32.const 4
-  i32.const 1
-  i32.sub
-  i32.store offset=4
-  local.get $0
-  local.tee $2
-  i32.const 0
-  i32.const 48
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $1
-  local.get $2
-  i32.load offset=8
-  call $~lib/rt/pure/__release
-  local.get $1
-  i32.store offset=8
-  local.get $0
-  i32.const 4
-  i32.store offset=12
-  local.get $0
-  i32.const 0
-  i32.store offset=16
-  local.get $0
-  i32.const 0
-  i32.store offset=20
- )
  (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#constructor (param $0 i32) (result i32)
   local.get $0
   i32.eqz
@@ -21065,15 +20897,25 @@
   end
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 4
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store
   local.get $0
-  i32.const 0
+  i32.const 4
+  i32.const 1
+  i32.sub
   i32.store offset=4
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 12
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store offset=8
   local.get $0
-  i32.const 0
+  i32.const 4
   i32.store offset=12
   local.get $0
   i32.const 0
@@ -21081,8 +20923,6 @@
   local.get $0
   i32.const 0
   i32.store offset=20
-  local.get $0
-  call $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#clear
   local.get $0
  )
  (func $~lib/map/Map<assembly/__tests__/setup/Vec3/Vec3,i32>#find (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
@@ -21604,7 +21444,7 @@
   if
    i32.const 2256
    i32.const 2320
-   i32.const 111
+   i32.const 104
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -22755,46 +22595,6 @@
   local.get $9
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#clear (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  local.tee $1
-  i32.const 0
-  i32.const 16
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $2
-  local.get $1
-  i32.load
-  call $~lib/rt/pure/__release
-  local.get $2
-  i32.store
-  local.get $0
-  i32.const 4
-  i32.const 1
-  i32.sub
-  i32.store offset=4
-  local.get $0
-  local.tee $2
-  i32.const 0
-  i32.const 48
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $1
-  local.get $2
-  i32.load offset=8
-  call $~lib/rt/pure/__release
-  local.get $1
-  i32.store offset=8
-  local.get $0
-  i32.const 4
-  i32.store offset=12
-  local.get $0
-  i32.const 0
-  i32.store offset=16
-  local.get $0
-  i32.const 0
-  i32.store offset=20
- )
  (func $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#constructor (param $0 i32) (result i32)
   local.get $0
   i32.eqz
@@ -22807,15 +22607,25 @@
   end
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 4
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store
   local.get $0
-  i32.const 0
+  i32.const 4
+  i32.const 1
+  i32.sub
   i32.store offset=4
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 12
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store offset=8
   local.get $0
-  i32.const 0
+  i32.const 4
   i32.store offset=12
   local.get $0
   i32.const 0
@@ -22823,8 +22633,6 @@
   local.get $0
   i32.const 0
   i32.store offset=20
-  local.get $0
-  call $~lib/map/Map<~lib/string/String,assembly/__tests__/setup/Vec3/Vec3>#clear
   local.get $0
  )
  (func $~lib/util/hash/hashStr (param $0 i32) (result i32)
@@ -23943,7 +23751,7 @@
   if
    i32.const 2256
    i32.const 2320
-   i32.const 111
+   i32.const 104
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -26378,46 +26186,6 @@
   local.get $8
   call $~lib/rt/pure/__release
  )
- (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#clear (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  local.get $0
-  local.tee $1
-  i32.const 0
-  i32.const 16
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $2
-  local.get $1
-  i32.load
-  call $~lib/rt/pure/__release
-  local.get $2
-  i32.store
-  local.get $0
-  i32.const 4
-  i32.const 1
-  i32.sub
-  i32.store offset=4
-  local.get $0
-  local.tee $2
-  i32.const 0
-  i32.const 48
-  call $~lib/arraybuffer/ArrayBuffer#constructor
-  local.set $1
-  local.get $2
-  i32.load offset=8
-  call $~lib/rt/pure/__release
-  local.get $1
-  i32.store offset=8
-  local.get $0
-  i32.const 4
-  i32.store offset=12
-  local.get $0
-  i32.const 0
-  i32.store offset=16
-  local.get $0
-  i32.const 0
-  i32.store offset=20
- )
  (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#constructor (param $0 i32) (result i32)
   local.get $0
   i32.eqz
@@ -26430,15 +26198,25 @@
   end
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 4
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store
   local.get $0
-  i32.const 0
+  i32.const 4
+  i32.const 1
+  i32.sub
   i32.store offset=4
   local.get $0
   i32.const 0
+  i32.const 4
+  i32.const 12
+  i32.mul
+  call $~lib/arraybuffer/ArrayBuffer#constructor
   i32.store offset=8
   local.get $0
-  i32.const 0
+  i32.const 4
   i32.store offset=12
   local.get $0
   i32.const 0
@@ -26446,8 +26224,6 @@
   local.get $0
   i32.const 0
   i32.store offset=20
-  local.get $0
-  call $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#clear
   local.get $0
  )
  (func $~lib/map/Map<~lib/set/Set<assembly/__tests__/setup/Vec3/Vec3>,~lib/string/String>#find (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
@@ -27205,7 +26981,7 @@
   if
    i32.const 2256
    i32.const 2320
-   i32.const 111
+   i32.const 104
    i32.const 17
    call $~lib/builtins/abort
    unreachable
@@ -33771,6 +33547,13 @@
    call $~lib/rt/__visit_members
   end
  )
+ (func $~lib/rt/pure/finalize (param $0 i32)
+  i32.const 0
+  drop
+  global.get $~lib/rt/tlsf/ROOT
+  local.get $0
+  call $~lib/rt/tlsf/freeBlock
+ )
  (func $~lib/rt/pure/scanBlack (param $0 i32)
   local.get $0
   local.get $0
@@ -33858,9 +33641,8 @@
    i32.add
    i32.const 5
    call $~lib/rt/__visit_members
-   global.get $~lib/rt/tlsf/ROOT
    local.get $0
-   call $~lib/rt/tlsf/freeBlock
+   call $~lib/rt/pure/finalize
   end
  )
  (func $~lib/rt/pure/__collect
@@ -33933,9 +33715,8 @@
       i32.const 0
      end
      if
-      global.get $~lib/rt/tlsf/ROOT
       local.get $5
-      call $~lib/rt/tlsf/freeBlock
+      call $~lib/rt/pure/finalize
      else
       local.get $5
       local.get $6
@@ -34165,9 +33946,8 @@
    i32.and
    i32.eqz
    if
-    global.get $~lib/rt/tlsf/ROOT
     local.get $0
-    call $~lib/rt/tlsf/freeBlock
+    call $~lib/rt/pure/finalize
    else
     local.get $0
     i32.const -2147483648

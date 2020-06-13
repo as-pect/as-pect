@@ -44,10 +44,7 @@ export function createTestGroupFilterModule(
     {
       writeFile(fileName: string, contents: Uint8Array) {
         if (fileName === "output.wasm") {
-          context = new TestContext({
-            reporter: new EmptyReporter(),
-            fileName: "assembly/jest-filter.ts",
-          });
+          context ;
           result = instantiateBuffer<IAspectExports>(
             contents,
             context.createImports(linked),
