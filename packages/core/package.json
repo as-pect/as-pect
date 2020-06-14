@@ -17,6 +17,7 @@
 		"assemblyscript"
 	],
 	"scripts": {
+		"pretest:reporter-fail": "asc --debug --binaryFile assembly/jest-reporter-fail.wasm --textFile assembly/jest-reporter-fail.wat --explicitStart ./assembly/jest-reporter-fail.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
 		"pretest:reporter-pass": "asc --debug --binaryFile assembly/jest-reporter-pass.wasm --textFile assembly/jest-reporter-pass.wat --explicitStart ./assembly/jest-reporter-pass.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
 		"pretest:wasi": "asc --debug --binaryFile assembly/jest-wasi.wasm --textFile assembly/jest-wasi.wat --explicitStart ./assembly/jest-wasi.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
 		"pretest:rtrace": "asc --debug --binaryFile assembly/jest-rtrace.wasm --textFile assembly/jest-rtrace.wat --explicitStart ./assembly/jest-rtrace.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
@@ -26,10 +27,10 @@
 		"rimraf": "rimraf lib/*",
 		"test:ci": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
 		"test": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
-		"tsc:all": "run-p tsc:default tsc:amd pretest:group-filter pretest:log pretest:pass-fail pretest:rtrace pretest:wasi pretest:reporter-pass",
+		"tsc:all": "run-p tsc:default tsc:amd pretest:group-filter pretest:log pretest:pass-fail pretest:rtrace pretest:wasi pretest:reporter-pass pretest:reporter-fail",
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
 		"tsc:default": "tsc",
-		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js -u VerboseReporter.pass",
+		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js -u SummaryReporter.fail",
 		"tsc": "run-s rimraf tsc:all"
 	},
 	"bugs": {
