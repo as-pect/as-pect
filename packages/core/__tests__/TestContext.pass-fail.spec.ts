@@ -1,22 +1,8 @@
 import { TestContext } from "../src/test/TestContext";
-import { createPassFailModule } from "./setup/createPassFailModule";
 import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue";
-
-let ctx: TestContext;
-
-let start = new Promise<void>((resolve, reject) => {
-  createPassFailModule({}, (err, result) => {
-    if (err) {
-      console.log(err);
-      reject(err);
-    } else {
-      ctx = result!;
-      resolve();
-    }
-  });
-});
-
-beforeAll(() => start);
+import { promises as fs } from "fs";
+import { EmptyReporter } from "../src/reporter/EmptyReporter";
+import { instantiate } from "assemblyscript/lib/loader";
 
 const stringifyOptions: Partial<StringifyReflectedValueProps> = {
   indent: 2,
@@ -31,32 +17,49 @@ const stringifyOptions: Partial<StringifyReflectedValueProps> = {
 };
 
 describe("pass-fail output", () => {
-  test("Overall Statistics", () => {
-    expect(ctx.pass).toMatchSnapshot("pass");
-  });
+  test("Overall Statistics", async () => {
+    const binary = await fs.readFile("./assembly/jest-pass-fail.wasm");
+    const ctx = new TestContext({
+      reporter: new EmptyReporter(),
+      fileName: "./assembly/jest-pass-fail.ts",
+      binary,
+    });
 
-  ctx.rootNode.visit((group) => {
-    test(`Node: ${group.namespace}`, () => {
-      expect(group.pass).toMatchSnapshot(`pass`);
-      expect(group.ran).toMatchSnapshot("ran");
-      expect(group.afterAll.length).toMatchSnapshot(`afterAllPointers`);
-      expect(group.afterEach.length).toMatchSnapshot(`afterEachPointers`);
-      expect(group.beforeEach.length).toMatchSnapshot(`beforeEachPointers`);
-      expect(group.beforeAll.length).toMatchSnapshot(`beforeAllPointers`);
-      expect(group.allocations).toMatchSnapshot("allocations");
-      expect(group.reallocs).toMatchSnapshot("reallocs");
-      expect(group.frees).toMatchSnapshot("frees");
-      expect(group.increments).toMatchSnapshot("increments");
-      expect(group.decrements).toMatchSnapshot("decrements");
+    ctx.run(await instantiate(binary, ctx.createImports()));
+    // process.exit(1);
+    expect(ctx.pass).toMatchSnapshot("pass");
+
+    ctx.rootNode.visit((group) => {
+      expect(group.pass).toMatchSnapshot(`${group.namespace} pass`);
+      expect(group.ran).toMatchSnapshot(`${group.namespace} ran`);
+      expect(group.afterAll.length).toMatchSnapshot(
+        `${group.namespace} afterAllPointers`,
+      );
+      expect(group.afterEach.length).toMatchSnapshot(
+        `${group.namespace} afterEachPointers`,
+      );
+      expect(group.beforeEach.length).toMatchSnapshot(
+        `${group.namespace} beforeEachPointers`,
+      );
+      expect(group.beforeAll.length).toMatchSnapshot(
+        `${group.namespace} beforeAllPointers`,
+      );
+      expect(group.allocations).toMatchSnapshot(
+        `${group.namespace} allocations`,
+      );
+      expect(group.reallocs).toMatchSnapshot(`${group.namespace} reallocs`);
+      expect(group.frees).toMatchSnapshot(`${group.namespace} frees`);
+      expect(group.increments).toMatchSnapshot(`${group.namespace} increments`);
+      expect(group.decrements).toMatchSnapshot(`${group.namespace} decrements`);
 
       if (group.actual) {
         group.actual.stack = group.actual.stack
           ? "Has Stack Trace"
           : "No Stack Trace";
 
-        expect(group.actual).toMatchSnapshot("actual");
+        expect(group.actual).toMatchSnapshot(`${group.namespace} actual`);
         expect(group.actual.stringify(stringifyOptions)).toMatchSnapshot(
-          "actual-stringify",
+          `${group.namespace} actual-stringify`,
         );
       }
 
@@ -65,14 +68,14 @@ describe("pass-fail output", () => {
           ? "Has Stack Trace"
           : "No Stack Trace";
 
-        expect(group.expected).toMatchSnapshot("expected");
+        expect(group.expected).toMatchSnapshot(`${group.namespace} expected`);
         expect(group.expected.stringify(stringifyOptions)).toMatchSnapshot(
-          "expected-stringify",
+          `${group.namespace} expected-stringify`,
         );
       }
 
-      expect(group.message).toMatchSnapshot("message");
-      expect(group.type).toMatchSnapshot("type");
+      expect(group.message).toMatchSnapshot(`${group.namespace} message`);
+      expect(group.type).toMatchSnapshot(`${group.namespace} type`);
     });
   });
 });
