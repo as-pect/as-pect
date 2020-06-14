@@ -21,10 +21,18 @@ describe("RTrace output", () => {
         expect(group.rtraceDelta).toMatchSnapshot(`${group.name} rtraceDelta`);
         expect(group.errors).toMatchSnapshot(`${group.name}errors`); // matches empty array
         for (const groupTest of group.groupTests) {
-          expect(groupTest.rtraceStart).toMatchSnapshot(`${groupTest.namespace} rtraceStart`);
-          expect(groupTest.rtraceEnd).toMatchSnapshot(`${groupTest.namespace} rtraceEnd`);
-          expect(groupTest.rtraceDelta).toMatchSnapshot(`${groupTest.namespace} rtraceDelta`);
-          expect(groupTest.errors).toMatchSnapshot(`${groupTest.namespace} errors`); // matches empty array
+          expect(groupTest.rtraceStart).toMatchSnapshot(
+            `${groupTest.namespace} rtraceStart`,
+          );
+          expect(groupTest.rtraceEnd).toMatchSnapshot(
+            `${groupTest.namespace} rtraceEnd`,
+          );
+          expect(groupTest.rtraceDelta).toMatchSnapshot(
+            `${groupTest.namespace} rtraceDelta`,
+          );
+          expect(groupTest.errors).toMatchSnapshot(
+            `${groupTest.namespace} errors`,
+          ); // matches empty array
         }
       }
     });
