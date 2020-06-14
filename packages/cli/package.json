@@ -41,7 +41,7 @@
     "glob": "^7.1.6"
   },
   "peerDependencies": {
-    "assemblyscript": "^0.10.1"
+    "assemblyscript": "^0.11.0"
   },
   "optionalDependencies": {
     "@as-pect/csv-reporter": "^3.2.7",

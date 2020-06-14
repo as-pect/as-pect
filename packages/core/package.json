@@ -22,7 +22,7 @@
 		"rimraf": "rimraf lib/*",
 		"test:ci": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
 		"test": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
-		"tsc:all": "run-p tsc:default tsc:amd pretest:all pretest:group-filter pretest:log",
+		"tsc:all": "run-p tsc:default tsc:amd pretest:group-filter pretest:log",
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
 		"tsc:default": "tsc",
 		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js -u",
@@ -43,7 +43,7 @@
 		"lib/"
 	],
 	"peerDependencies": {
-		"assemblyscript": "^0.10.1"
+		"assemblyscript": "^0.11.0"
 	},
 	"devDependencies": {
 		"jest": "^26.0.1",

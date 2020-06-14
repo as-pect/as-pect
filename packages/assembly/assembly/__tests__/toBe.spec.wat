@@ -6580,7 +6580,7 @@
   i32.const 0
   i32.const 0
   i32.const 6
-  i32.const 24
+  i32.const 0
   i32.const 4768
   local.get $0
   i32.const 0
