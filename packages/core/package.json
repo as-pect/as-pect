@@ -17,6 +17,7 @@
 		"assemblyscript"
 	],
 	"scripts": {
+		"pretest:wasi": "asc --debug --binaryFile assembly/jest-wasi.wasm --textFile assembly/jest-wasi.wat --explicitStart ./assembly/jest-wasi.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
 		"pretest:rtrace": "asc --debug --binaryFile assembly/jest-rtrace.wasm --textFile assembly/jest-rtrace.wat --explicitStart ./assembly/jest-rtrace.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
 		"pretest:pass-fail": "asc --debug --binaryFile assembly/jest-pass-fail.wasm --textFile assembly/jest-pass-fail.wat --explicitStart ./assembly/jest-pass-fail.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js",
 		"pretest:group-filter": "asc --debug --binaryFile assembly/jest-filter.wasm --textFile assembly/jest-filter.wat --explicitStart ./assembly/jest-filter.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js",
@@ -24,10 +25,10 @@
 		"rimraf": "rimraf lib/*",
 		"test:ci": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
 		"test": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
-		"tsc:all": "run-p tsc:default tsc:amd pretest:group-filter pretest:log pretest:pass-fail pretest:rtrace",
+		"tsc:all": "run-p tsc:default tsc:amd pretest:group-filter pretest:log pretest:pass-fail pretest:rtrace pretest:wasi",
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
 		"tsc:default": "tsc",
-		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js -u",
+		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js -u wasi",
 		"tsc": "run-s rimraf tsc:all"
 	},
 	"bugs": {
