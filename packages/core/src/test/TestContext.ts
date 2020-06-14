@@ -1111,9 +1111,7 @@ export class TestContext {
     /* istanbul ignore next */
     if (nameSection) {
       const result = this.wasm!.table!.get(index);
-      return nameSection.fromIndex(
-        parseInt(result!.name),
-      );
+      return nameSection.fromIndex(parseInt(result!.name));
     }
     /* istanbul ignore next */
     return "";
