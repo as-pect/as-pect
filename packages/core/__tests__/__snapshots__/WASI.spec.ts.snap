@@ -22,7 +22,7 @@ exports[`snapshots: onTestFinish  output 1`] = `
 " [Success]: ✔ output
      [Log]: 0 as u16
    [Stack]: Has Stack Trace
-     [Log]: 7688252867182239167 as u64
+     [Log]: 8666544802590851615 as u64
    [Stack]: Has Stack Trace
 "
 `;
