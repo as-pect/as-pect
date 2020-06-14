@@ -17,6 +17,7 @@
 		"assemblyscript"
 	],
 	"scripts": {
+		"pretest:reporter-top-level-expect": "asc --debug --binaryFile assembly/jest-reporter-top-level-expect.wasm --textFile assembly/jest-reporter-top-level-expect.wat --explicitStart ./assembly/jest-reporter-top-level-expect.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
 		"pretest:reporter-snapshot": "asc --debug --binaryFile assembly/jest-reporter-snapshot.wasm --textFile assembly/jest-reporter-snapshot.wat --explicitStart ./assembly/jest-reporter-snapshot.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
 		"pretest:reporter-flow-error": "asc --debug --binaryFile assembly/jest-reporter-flow-error.wasm --textFile assembly/jest-reporter-flow-error.wat --explicitStart ./assembly/jest-reporter-flow-error.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
 		"pretest:reporter-fail": "asc --debug --binaryFile assembly/jest-reporter-fail.wasm --textFile assembly/jest-reporter-fail.wat --explicitStart ./assembly/jest-reporter-fail.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
@@ -29,10 +30,10 @@
 		"rimraf": "rimraf lib/*",
 		"test:ci": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
 		"test": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js",
-		"tsc:all": "run-p tsc:default tsc:amd pretest:group-filter pretest:log pretest:pass-fail pretest:rtrace pretest:wasi pretest:reporter-pass pretest:reporter-fail pretest:reporter-flow-error pretest:reporter-snapshot",
+		"tsc:all": "run-p tsc:default tsc:amd pretest:group-filter pretest:log pretest:pass-fail pretest:rtrace pretest:wasi pretest:reporter-pass pretest:reporter-fail pretest:reporter-flow-error pretest:reporter-snapshot pretest:reporter-top-level-expect",
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
 		"tsc:default": "tsc",
-		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js -u snapshot",
+		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-wasm-bigint ./node_modules/jest/bin/jest.js -u",
 		"tsc": "run-s rimraf tsc:all"
 	},
 	"bugs": {

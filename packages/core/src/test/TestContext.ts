@@ -219,7 +219,7 @@ export class TestContext {
    * process of test collection and evaluation.
    */
   public run(wasm: InstantiateResult): void {
-    // set the wasm
+    /* istanbul ignore next */
     this.wasm = wasm.exports || ((<any>wasm) as IAspectExports);
     this.instance = wasm.instance;
 

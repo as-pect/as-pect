@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshots: onFinish assembly/jest-reporter.ts 1`] = `""`;
+exports[`snapshots: onFinish ./assembly/jest-reporter-top-level-expect.ts 1`] = `""`;
 
 exports[`snapshots: onGroupEnd  1`] = `""`;
 

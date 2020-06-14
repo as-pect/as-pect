@@ -34,18 +34,7 @@ test("snapshots", async () => {
     // @ts-ignore: _start is an exported function
     instance.exports._start();
   });
-  ctx.run(
-    await instantiate(
-      binary,
-      ctx.createImports({
-        __debug: {
-          log(value: number) {
-            console.log(value);
-          },
-        },
-      }),
-    ),
-  );
+  ctx.run(await instantiate(binary, ctx.createImports()));
   expect(ctx).toBeDefined();
   expect(ctx.pass).toBeTruthy();
   for (const [name, values] of reporter.snapshots.entries()) {
