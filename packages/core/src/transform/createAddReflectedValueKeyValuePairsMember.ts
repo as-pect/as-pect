@@ -33,8 +33,8 @@ export function createAddReflectedValueKeyValuePairsMember(
     ),
     null,
     CommonFlags.PUBLIC |
-    CommonFlags.INSTANCE |
-    (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+      CommonFlags.INSTANCE |
+      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     null,
     TypeNode.createFunctionType(
       [

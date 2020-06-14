@@ -34,8 +34,8 @@ export function createStrictEqualsMember(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
     null,
     CommonFlags.PUBLIC |
-    CommonFlags.INSTANCE |
-    (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+      CommonFlags.INSTANCE |
+      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     null,
     TypeNode.createFunctionType(
       [
@@ -43,10 +43,7 @@ export function createStrictEqualsMember(
         createDefaultParameter(
           "ref",
           TypeNode.createNamedType(
-            TypeNode.createSimpleTypeName(
-              classDeclaration.name.text,
-              range,
-            ),
+            TypeNode.createSimpleTypeName(classDeclaration.name.text, range),
             classDeclaration.isGeneric
               ? classDeclaration.typeParameters!.map((node) =>
                   TypeNode.createNamedType(
