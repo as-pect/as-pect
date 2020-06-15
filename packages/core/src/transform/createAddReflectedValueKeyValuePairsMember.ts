@@ -32,19 +32,24 @@ export function createAddReflectedValueKeyValuePairsMember(
       range,
     ),
     null,
+    CommonFlags.PUBLIC |
+      CommonFlags.INSTANCE |
+      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+    null,
     TypeNode.createFunctionType(
       [
         // reflectedValue: i32
         TypeNode.createParameter(
+          ParameterKind.DEFAULT,
           TypeNode.createIdentifierExpression("reflectedValue", range),
           createGenericTypeParameter("i32", range),
           null,
-          ParameterKind.DEFAULT,
           range,
         ),
 
         // seen: Map<usize, i32>
         TypeNode.createParameter(
+          ParameterKind.DEFAULT,
           TypeNode.createIdentifierExpression("seen", range),
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName("Map", range),
@@ -56,12 +61,12 @@ export function createAddReflectedValueKeyValuePairsMember(
             range,
           ),
           null,
-          ParameterKind.DEFAULT,
           range,
         ),
 
         // ignore: i64[]
         TypeNode.createParameter(
+          ParameterKind.DEFAULT,
           TypeNode.createIdentifierExpression("ignore", range),
           // Array<i64> -> i64[]
           TypeNode.createNamedType(
@@ -71,7 +76,6 @@ export function createAddReflectedValueKeyValuePairsMember(
             range,
           ),
           null,
-          ParameterKind.DEFAULT,
           range,
         ),
       ],
@@ -87,10 +91,6 @@ export function createAddReflectedValueKeyValuePairsMember(
       range,
     ),
     createAddReflectedValueKeyValuePairsFunctionBody(classDeclaration),
-    null,
-    CommonFlags.PUBLIC |
-      CommonFlags.INSTANCE |
-      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     range,
   );
 }

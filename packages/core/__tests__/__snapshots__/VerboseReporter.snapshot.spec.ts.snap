@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshots: onFinish assembly/jest-reporter-snapshot.ts 1`] = `
+exports[`snapshots: onFinish ./assembly/jest-reporter-snapshot.ts 1`] = `
 "[Snapshot]: a few snapshots!~first vec3[0]
   Vec3 {
     x: 1.0,
@@ -16,11 +16,11 @@ exports[`snapshots: onFinish assembly/jest-reporter-snapshot.ts 1`] = `
 [Snapshot]: this!~is!~removed
 - false
 
-    [File]: assembly/jest-reporter-snapshot.ts RTrace: +8
+    [File]: ./assembly/jest-reporter-snapshot.ts RTrace: +10
   [Groups]: 3 pass, 3 total
   [Result]: ✖ FAIL
 [Snapshot]: 5 total, 1 added, 1 removed, 1 different
- [Summary]: 2 pass,  0 fail, 2 total
+ [Summary]: 1 pass,  0 fail, 1 total
     [Time]: 0ms
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -30,64 +30,14 @@ exports[`snapshots: onFinish assembly/jest-reporter-snapshot.ts 1`] = `
 
 exports[`snapshots: onGroupEnd  1`] = `""`;
 
-exports[`snapshots: onGroupEnd logs 1`] = `
-"    [Todo]: one
-    [Todo]: two
-    [Todo]: three
-     [Log]: \\"Hello world!\\"
-   [Stack]: Has Stack Trace
-     [Log]: 42
-   [Stack]: Has Stack Trace
-     [Log]: <Vec3>null
-   [Stack]: Has Stack Trace
-     [Log]: Vec3 {
-                x: 1.0,
-                y: 2.0,
-                z: 3.0
-            }
-   [Stack]: Has Stack Trace
-     [Log]: Array<i32> [
-                1,
-                2,
-                3
-            ]
-   [Stack]: Has Stack Trace
-     [Log]: 9999999999999 as i64
-   [Stack]: Has Stack Trace
-     [Log]: 1234567 as u32
-   [Stack]: Has Stack Trace
-     [Log]: 999999999999 as u64
-   [Stack]: Has Stack Trace
-     [Log]: -1 as i8
-   [Stack]: Has Stack Trace
-     [Log]: -1 as i16
-   [Stack]: Has Stack Trace
-     [Log]: true
-   [Stack]: Has Stack Trace
-     [Log]: false
-   [Stack]: Has Stack Trace
-     [Log]: Uint8Array [ 0, 1, 2 ]
-   [Stack]: Has Stack Trace
-     [Log]: Int8Array [ -1, -2, -3 ]
-   [Stack]: Has Stack Trace
-     [Log]: [Function 1: ]
-   [Stack]: Has Stack Trace
-     [Log]: \\"trace: The thing! 1, 2, 3, 4, 5\\"
-   [Stack]: Has Stack Trace
-
-"
-`;
+exports[`snapshots: onGroupEnd logs 1`] = `""`;
 
 exports[`snapshots: onGroupEnd snapshots 1`] = `
 "
 "
 `;
 
-exports[`snapshots: onGroupStart logs 1`] = `
-"[Describe]: logs
-
-"
-`;
+exports[`snapshots: onGroupStart logs 1`] = `""`;
 
 exports[`snapshots: onGroupStart snapshots 1`] = `
 "[Describe]: snapshots
@@ -95,259 +45,9 @@ exports[`snapshots: onGroupStart snapshots 1`] = `
 "
 `;
 
-exports[`snapshots: onTestFinish logs logs 1`] = `
-" [Success]: ✔ logs RTrace: +4
-     [Log]: \\"Hello world!\\"
-   [Stack]: Has Stack Trace
-     [Log]: \\"Calculated 42\\"
-   [Stack]: Has Stack Trace
-     [Log]: 42
-   [Stack]: Has Stack Trace
-     [Log]: <Vec3>null
-   [Stack]: Has Stack Trace
-     [Log]: Vec3 {
-                x: 1.0,
-                y: 2.0,
-                z: 3.0
-            }
-   [Stack]: Has Stack Trace
-     [Log]: Array<i32> [
-                1,
-                2,
-                3
-            ]
-   [Stack]: Has Stack Trace
-     [Log]: 9999999999999 as i64
-   [Stack]: Has Stack Trace
-     [Log]: 1234567 as u32
-   [Stack]: Has Stack Trace
-     [Log]: 999999999999 as u64
-   [Stack]: Has Stack Trace
-     [Log]: -1 as i8
-   [Stack]: Has Stack Trace
-     [Log]: -1 as i16
-   [Stack]: Has Stack Trace
-     [Log]: true
-   [Stack]: Has Stack Trace
-     [Log]: false
-   [Stack]: Has Stack Trace
-     [Log]: Uint8Array [ 0, 1, 2 ]
-   [Stack]: Has Stack Trace
-     [Log]: Int8Array [ -1, -2, -3 ]
-   [Stack]: Has Stack Trace
-     [Log]: [Function 1: ]
-   [Stack]: Has Stack Trace
-     [Log]: \\"trace: The thing! 1, 2, 3, 4, 5\\"
-   [Stack]: Has Stack Trace
-     [Log]: UnmanagedClass {
-                a: 1.0,
-                b: 2.0,
-                c: 3.0
-            }
-   [Stack]: Has Stack Trace
-     [Log]: Array<i32> [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19
-            ]
-   [Stack]: Has Stack Trace
-     [Log]: LotsOfFields {
-                a: 1.0,
-                b: 1.0,
-                c: 1.0,
-                d: 1.0,
-                e: 1.0,
-                f: 1.0,
-                g: 1.0,
-                h: 1.0,
-                i: 1.0,
-                j: 1.0,
-                k: 1.0,
-                l: 1.0,
-                m: 1.0,
-                n: 1.0,
-                o: 1.0,
-                p: 1.0,
-                q: 1.0,
-                r: 1.0,
-                s: 1.0,
-                t: 1.0,
-                u: 1.0,
-                v: 1.0,
-                w: 1.0,
-                x: 1.0,
-                y: 1.0,
-                z: 1.0
-            }
-   [Stack]: Has Stack Trace
-     [Log]: Float64Array [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0... +10 items ]
-   [Stack]: Has Stack Trace
-     [Log]: Array<i32> [
-                1,
-                2,
-                3
-            ]
-   [Stack]: Has Stack Trace
-     [Log]: Circular {
-                a: 1.0 as f32,
-                b: [Circular Reference],
-                c: 3.0 as f32,
-                d: <Array<assembly/jest-log/Circular>>null
-            }
-   [Stack]: Has Stack Trace
-     [Log]: Array<assembly/jest-log/Circular> [
-                {
-                    a: 1.0 as f32,
-                    b: <Circular>null,
-                    c: 3.0 as f32,
-                    d: [Circular Reference]
-                }
-            ]
-   [Stack]: Has Stack Trace
-     [Log]: NestedA {
-                a: NestedB {
-                    b: NestedC {
-                        c: NestedD {
-                            d: NestedE {
-                                e: NestedF {
-                                    f: 42.0
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-   [Stack]: Has Stack Trace
-     [Log]: Map<assembly/jest-log/Vec3,i32> {
-                [Vec3]: 42,
-                [Vec3]: 44
-            }
-   [Stack]: Has Stack Trace
-     [Log]: [Function 2: ]
-   [Stack]: Has Stack Trace
-     [Log]: NestedForInlineFunctionA {
-                a: NestedForInlineFunctionB {
-                    b: NestedForInlineFunctionC {
-                        c: [Function 3: ]
-                    }
-                }
-            }
-   [Stack]: Has Stack Trace
-     [Log]: NestedForInlineStringA {
-                a: NestedForInlineStringB {
-                    b: NestedForInlineStringC {
-                        c: \\"The Inlined String\\"
-                    }
-                }
-            }
-   [Stack]: Has Stack Trace
-     [Log]: NestedForInlineU8A {
-                a: NestedForInlineU8B {
-                    b: NestedForInlineU8C {
-                        c: 42 as u8
-                    }
-                }
-            }
-   [Stack]: Has Stack Trace
-     [Log]: NestedForInlineBoolA {
-                a: NestedForInlineBoolB {
-                    b: NestedForInlineBoolC {
-                        c: true
-                    }
-                }
-            }
-   [Stack]: Has Stack Trace
-     [Log]: NestedForInlineBoolA {
-                a: NestedForInlineBoolB {
-                    b: NestedForInlineBoolC {
-                        c: false
-                    }
-                }
-            }
-   [Stack]: Has Stack Trace
-     [Log]: NestedTypeImpliedArrayA {
-                a: NestedTypeImpliedArrayB {
-                    b: NestedTypeImpliedArrayC {
-                        c: Array<~lib/array/Array<u8>> [
-                            [
-                                0
-                            ]
-                        ]
-                    }
-                }
-            }
-   [Stack]: Has Stack Trace
-     [Log]: NestedTypeImpliedArrayC {
-                c: Array<~lib/array/Array<u8>> [
-                    [
-                        0
-                    ]
-                ]
-            }
-   [Stack]: Has Stack Trace
-     [Log]: Array<assembly/jest-log/Vec3> [
-                {
-                    x: 1.0,
-                    y: 2.0,
-                    z: 3.0
-                },
-                {
-                    x: 1.0,
-                    y: 2.0,
-                    z: 3.0
-                },
-                {
-                    x: 1.0,
-                    y: 2.0,
-                    z: 3.0
-                },
-                {
-                    x: 1.0,
-                    y: 2.0,
-                    z: 3.0
-                }
-            ]
-   [Stack]: Has Stack Trace
-     [Log]: Array<assembly/jest-log/Vec3 | null> [
-                null
-            ]
-   [Stack]: Has Stack Trace
-     [Log]: MeaningOfLife {
-                its: 42
-            }
-   [Stack]: Has Stack Trace
-     [Log]: Child {
-                a: 0,
-                c: 2,
-                b: 4,
-                d: 6
-            }
-   [Stack]: Has Stack Trace
-"
-`;
-
 exports[`snapshots: onTestFinish snapshots a few snapshots 1`] = `
 " [Success]: ✔ a few snapshots
 "
 `;
-
-exports[`snapshots: onTestStart logs logs 1`] = `""`;
 
 exports[`snapshots: onTestStart snapshots a few snapshots 1`] = `""`;

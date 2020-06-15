@@ -1,22 +1,14 @@
-import { TestContext, TestNodeType } from "../src";
-import { createLogModule } from "./setup/createLogModule";
+import {
+  TestContext,
+  TestNodeType,
+  IAspectExports,
+  EmptyReporter,
+} from "../src";
 import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue";
+import { promises as fs } from "fs";
+import { instantiate } from "assemblyscript/lib/loader";
 
-let ctx: TestContext;
-
-let start = new Promise<void>((resolve, reject) => {
-  createLogModule({}, (err, result) => {
-    if (err) {
-      console.log(err);
-      reject(err);
-    } else {
-      ctx = result!;
-      resolve();
-    }
-  });
-});
-
-beforeEach(() => start);
+const binary = fs.readFile("./assembly/jest-log.wasm");
 
 const stringifyOptions: Partial<StringifyReflectedValueProps> = {
   indent: 2,
@@ -31,39 +23,43 @@ const stringifyOptions: Partial<StringifyReflectedValueProps> = {
 };
 
 describe("log output", () => {
-  test("Overall Statistics", () => {});
-
-  ctx.rootNode.visit((group) => {
-    if (group.type === TestNodeType.Group) {
-      test(`Group: ${group.name}`, () => {
+  test("Overall Statistics", async () => {
+    const contents = await binary;
+    const ctx = new TestContext({
+      reporter: new EmptyReporter(),
+      fileName: "assembly/jest-log.ts",
+      binary: contents,
+    });
+    const result = await instantiate<IAspectExports>(
+      contents,
+      ctx.createImports({}),
+    );
+    ctx.run(result);
+    ctx.rootNode.visit((group) => {
+      if (group.type === TestNodeType.Group) {
         for (const log of group.logs) {
           const stack = log.stack;
           log.stack = "";
-          expect(log).toMatchSnapshot("log");
+          expect(log).toMatchSnapshot(`${group.name} log`);
           log.stack = stack;
         }
         for (const todo of group.todos) {
-          expect(todo).toMatchSnapshot(`todo`);
+          expect(todo).toMatchSnapshot(`${group.name} todo`);
         }
         expect(group.pass).toBeTruthy();
-      });
-
-      describe(`Group: ${group.name}`, () => {
         for (const groupTest of group.groupTests) {
-          test(`Test: ${groupTest.name}`, () => {
-            for (const log of groupTest.logs) {
-              const stack = log.stack;
-              log.stack = "";
-              expect(log).toMatchSnapshot("log");
-              expect(log.stringify(stringifyOptions)).toMatchSnapshot(
-                "stringify",
-              );
-              log.stack = stack;
-            }
-            expect(groupTest.pass).toBeTruthy();
-          });
+          for (const log of groupTest.logs) {
+            const stack = log.stack;
+            log.stack = "";
+            expect(log).toMatchSnapshot(`${group.name} ${test.name} log`);
+            expect(log.stringify(stringifyOptions)).toMatchSnapshot(
+              `${group.name} ${test.name} stringify`,
+            );
+            log.stack = stack;
+          }
+          expect(groupTest.pass).toBeTruthy();
         }
-      });
-    }
+      }
+    });
   });
 });

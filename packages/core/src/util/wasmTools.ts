@@ -30,10 +30,12 @@ export class WasmBuffer {
   readString(off: number = this.off): string {
     const name_len = this.readVaruint(off);
     this.off += name_len;
-    //@ts-ignore
-    return String.fromCharCodes(
-      this.u8array.slice(this.off - name_len, this.off),
-    );
+    const codes = this.u8array.slice(this.off - name_len, this.off);
+    let result = "";
+    for (let i = 0; i < codes.length; i++) {
+      result += String.fromCharCode(codes[i]);
+    }
+    return result;
   }
 
   /** Read a string at an offset without changing the buffere's offset. */

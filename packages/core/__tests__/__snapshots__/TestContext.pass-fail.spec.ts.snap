@@ -1,500 +1,526 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~A test outside of a describe block[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] afterAllPointers 1`] = `1`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] message 1`] = `"This should fail in afterAll"`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]!~should run[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: afterAllPointers 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: message 1`] = `"This should fail in afterAll"`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterAll[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterAll[0]!~should run[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] afterEachPointers 1`] = `1`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] message 1`] = `"This should fail in afterEach"`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]!~should run[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: afterEachPointers 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: message 1`] = `"This should fail in afterEach"`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group afterEach[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~fail on group afterEach[0]!~should run[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] beforeAllPointers 1`] = `1`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] message 1`] = `"This should fail in beforeAll"`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: ran 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]!~shouldn't run[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: beforeAllPointers 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: message 1`] = `"This should fail in beforeAll"`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] ran 1`] = `false`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeAll[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeAll[0]!~shouldn't run[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] beforeEachPointers 1`] = `1`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] message 1`] = `"This should fail in beforeEach"`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: ran 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]!~shouldn't run[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: beforeEachPointers 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: message 1`] = `"This should fail in beforeEach"`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] ran 1`] = `false`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~fail on group beforeEach[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~fail on group beforeEach[0]!~shouldn't run[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: beforeAllPointers 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]!~nested[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] beforeAllPointers 1`] = `1`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~nested fail in beforeAll[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~nested fail in beforeAll[0]!~nested[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] afterAllPointers 1`] = `1`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]!~should run[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: afterAllPointers 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterAll[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterAll[0]!~should run[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] afterEachPointers 1`] = `1`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]!~should run[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: afterEachPointers 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group afterEach[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~pass on group afterEach[0]!~should run[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] beforeAllPointers 1`] = `1`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]!~should run[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: beforeAllPointers 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeAll[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeAll[0]!~should run[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] beforeEachPointers 1`] = `1`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]!~should run[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: beforeEachPointers 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass on group beforeEach[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~pass on group beforeEach[0]!~should run[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] message 1`] = `null`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] pass 1`] = `false`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0] type 1`] = `1`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -514,21 +540,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: actual-stringify 1`] = `"  string: \\"two\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] actual-stringify 1`] = `"  string: \\"two\\""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: allocations 1`] = `11`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: decrements 1`] = `20`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -548,101 +574,101 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: expected-stringify 1`] = `"  string: \\"one\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] expected-stringify 1`] = `"  string: \\"one\\""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: frees 1`] = `10`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: increments 1`] = `21`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should expect strings[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: decrements 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: frees 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: increments 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: message 1`] = `"No Message Provided."`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] message 1`] = `"No Message Provided."`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail when test does not throw[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: message 1`] = `"expected fail"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] message 1`] = `"expected fail"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should fail[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: decrements 1`] = `8`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: frees 1`] = `6`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: increments 1`] = `10`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report a negated test[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -714,7 +740,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: actual-stringify 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] actual-stringify 1`] = `
 "  class: Array<i32> [
       number: 1,
       number: 2,
@@ -722,19 +748,19 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: a
   ]"
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: allocations 1`] = `15`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: decrements 1`] = `38`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -806,7 +832,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: expected-stringify 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] expected-stringify 1`] = `
 "  class: Array<i32> [
       number: 4,
       number: 5,
@@ -814,21 +840,21 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: e
   ]"
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: frees 1`] = `10`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: increments 1`] = `45`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report array values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -848,21 +874,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: actual-stringify 1`] = `"  keyword: false"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] actual-stringify 1`] = `"  keyword: false"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: decrements 1`] = `8`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -882,23 +908,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: expected-stringify 1`] = `"  keyword: true"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] expected-stringify 1`] = `"  keyword: true"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: frees 1`] = `6`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: increments 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report bool values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -918,21 +944,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: actual-stringify 1`] = `"  number: NaN.0"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] actual-stringify 1`] = `"  number: NaN.0"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: allocations 1`] = `4`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: decrements 1`] = `4`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -952,477 +978,49 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: expected-stringify 1`] = `"Finite"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] expected-stringify 1`] = `"Finite"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: frees 1`] = `3`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: increments 1`] = `5`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report expected finite values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: decrements 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: frees 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: increments 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report f32 values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: actual 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 1,
-  "signed": false,
-  "size": 0,
-  "stack": "Has Stack Trace",
-  "type": 6,
-  "typeId": 31,
-  "typeName": "Function",
-  "value": "",
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: actual-stringify 1`] = `"  class: [Function 1: ]"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: allocations 1`] = `7`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: decrements 1`] = `8`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: expected 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 2,
-  "signed": false,
-  "size": 0,
-  "stack": "Has Stack Trace",
-  "type": 6,
-  "typeId": 31,
-  "typeName": "Function",
-  "value": "",
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: expected-stringify 1`] = `"  class: [Function 2: ]"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: frees 1`] = `6`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: increments 1`] = `9`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: message 1`] = `""`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: pass 1`] = `false`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report failed functions[0]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: actual 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": true,
-  "size": 4,
-  "stack": "Has Stack Trace",
-  "type": 7,
-  "typeId": 0,
-  "typeName": "i32",
-  "value": 1,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: actual-stringify 1`] = `"  number: 1"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: allocations 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: decrements 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: expected 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": false,
-  "size": 0,
-  "stack": "No Stack Trace",
-  "type": 14,
-  "typeId": 0,
-  "typeName": null,
-  "value": 0,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: expected-stringify 1`] = `"Falsy"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: frees 1`] = `3`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: increments 1`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: message 1`] = `""`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: pass 1`] = `false`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy expected values[0]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: actual 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": false,
-  "size": 1,
-  "stack": "Has Stack Trace",
-  "type": 9,
-  "typeId": 0,
-  "typeName": "bool",
-  "value": 1,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: actual-stringify 1`] = `"  keyword: true"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: allocations 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: decrements 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: expected 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": false,
-  "size": 0,
-  "stack": "No Stack Trace",
-  "type": 14,
-  "typeId": 0,
-  "typeName": null,
-  "value": 0,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: expected-stringify 1`] = `"Falsy"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: frees 1`] = `3`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: increments 1`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: message 1`] = `""`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: pass 1`] = `false`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report falsy values[0]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: allocations 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: decrements 1`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: frees 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: increments 1`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: message 1`] = `null`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: pass 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[0]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: actual 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": true,
-  "size": 8,
-  "stack": "Has Stack Trace",
-  "type": 8,
-  "typeId": 0,
-  "typeName": "f64",
-  "value": NaN,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: actual-stringify 1`] = `"  number: NaN.0"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: allocations 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: decrements 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: expected 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": false,
-  "size": 0,
-  "stack": "No Stack Trace",
-  "type": 12,
-  "typeId": 0,
-  "typeName": null,
-  "value": 0,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: expected-stringify 1`] = `"Finite"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: frees 1`] = `3`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: increments 1`] = `5`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: message 1`] = `""`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: pass 1`] = `false`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[1]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: actual 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": true,
-  "size": 8,
-  "stack": "Has Stack Trace",
-  "type": 8,
-  "typeId": 0,
-  "typeName": "f64",
-  "value": 3,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: actual-stringify 1`] = `"  number: 3.0"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: allocations 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: decrements 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: expected 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": true,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": false,
-  "size": 0,
-  "stack": "No Stack Trace",
-  "type": 12,
-  "typeId": 0,
-  "typeName": null,
-  "value": 0,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: expected-stringify 1`] = `"Not Finite"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: frees 1`] = `3`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: increments 1`] = `6`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: message 1`] = `""`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: pass 1`] = `false`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report finite values[2]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: allocations 1`] = `7`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: decrements 1`] = `9`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: frees 1`] = `7`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: increments 1`] = `9`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: message 1`] = `null`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: pass 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[0]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: allocations 1`] = `7`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: decrements 1`] = `9`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: frees 1`] = `7`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: increments 1`] = `9`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: message 1`] = `null`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: pass 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report i16 values[1]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1442,21 +1040,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: actual-stringify 1`] = `"  string: \\"Test\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] actual-stringify 1`] = `"  string: \\"Test\\""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: allocations 1`] = `11`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: decrements 1`] = `20`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1476,23 +1074,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: expected-stringify 1`] = `"  string: \\"invalid\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] expected-stringify 1`] = `"  string: \\"invalid\\""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: frees 1`] = `10`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: increments 1`] = `21`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report invalid strings[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1502,106 +1100,36 @@ ReflectedValue {
   "offset": 0,
   "pointer": 0,
   "signed": true,
-  "size": 8,
+  "size": 4,
   "stack": "Has Stack Trace",
   "type": 7,
   "typeId": 0,
-  "typeName": "i64",
-  "value": "-9999999999",
+  "typeName": "i32",
+  "value": 1,
   "values": null,
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: actual-stringify 1`] = `"  number: -9999999999 keyword: as class: i64"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] actual-stringify 1`] = `"  number: 1"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: decrements 1`] = `8`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
   "keys": null,
   "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": true,
-  "size": 8,
-  "stack": "Has Stack Trace",
-  "type": 7,
-  "typeId": 0,
-  "typeName": "i64",
-  "value": "9999999999",
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: expected-stringify 1`] = `"  number: 9999999999 keyword: as class: i64"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: frees 1`] = `6`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: increments 1`] = `9`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: message 1`] = `""`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: pass 1`] = `false`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report long values[0]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: actual 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": false,
-  "nullable": false,
-  "offset": 0,
-  "pointer": 0,
-  "signed": false,
-  "size": 1,
-  "stack": "Has Stack Trace",
-  "type": 9,
-  "typeId": 0,
-  "typeName": "bool",
-  "value": 0,
-  "values": null,
-}
-`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: actual-stringify 1`] = `"  keyword: false"`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: allocations 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: decrements 1`] = `4`;
-
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: expected 1`] = `
-ReflectedValue {
-  "isManaged": false,
-  "isNull": false,
-  "keys": null,
-  "negated": true,
   "nullable": false,
   "offset": 0,
   "pointer": 0,
@@ -1616,23 +1144,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: expected-stringify 1`] = `"Not Falsy"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] expected-stringify 1`] = `"Falsy"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: frees 1`] = `3`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: increments 1`] = `6`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not falsy values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1652,21 +1180,519 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: actual-stringify 1`] = `"  keyword: true"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] actual-stringify 1`] = `"  keyword: true"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: allocations 1`] = `4`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: decrements 1`] = `4`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] expected 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 0,
+  "stack": "No Stack Trace",
+  "type": 14,
+  "typeId": 0,
+  "typeName": null,
+  "value": 0,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] expected-stringify 1`] = `"Falsy"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] message 1`] = `""`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] pass 1`] = `false`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] type 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] message 1`] = `null`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] pass 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] type 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] actual 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": true,
+  "size": 8,
+  "stack": "Has Stack Trace",
+  "type": 8,
+  "typeId": 0,
+  "typeName": "f64",
+  "value": NaN,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] actual-stringify 1`] = `"  number: NaN.0"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] expected 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 0,
+  "stack": "No Stack Trace",
+  "type": 12,
+  "typeId": 0,
+  "typeName": null,
+  "value": 0,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] expected-stringify 1`] = `"Finite"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] message 1`] = `""`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] pass 1`] = `false`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] type 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] actual 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": true,
+  "size": 8,
+  "stack": "Has Stack Trace",
+  "type": 8,
+  "typeId": 0,
+  "typeName": "f64",
+  "value": 3,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] actual-stringify 1`] = `"  number: 3.0"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] expected 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": true,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 0,
+  "stack": "No Stack Trace",
+  "type": 12,
+  "typeId": 0,
+  "typeName": null,
+  "value": 0,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] expected-stringify 1`] = `"Not Finite"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] message 1`] = `""`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] pass 1`] = `false`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] type 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] message 1`] = `null`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] pass 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] type 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] message 1`] = `null`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] pass 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] type 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] actual 1`] = `
+ReflectedValue {
+  "isManaged": true,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3232,
+  "signed": false,
+  "size": 4,
+  "stack": "Has Stack Trace",
+  "type": 2,
+  "typeId": 1,
+  "typeName": "String",
+  "value": "Test",
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] actual-stringify 1`] = `"  string: \\"Test\\""`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] expected 1`] = `
+ReflectedValue {
+  "isManaged": true,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 3264,
+  "signed": false,
+  "size": 7,
+  "stack": "Has Stack Trace",
+  "type": 2,
+  "typeId": 1,
+  "typeName": "String",
+  "value": "invalid",
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] expected-stringify 1`] = `"  string: \\"invalid\\""`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] message 1`] = `""`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] pass 1`] = `false`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] type 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] actual 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": true,
+  "size": 8,
+  "stack": "Has Stack Trace",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i64",
+  "value": "-9999999999",
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] actual-stringify 1`] = `"  number: -9999999999 keyword: as class: i64"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] expected 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": true,
+  "size": 8,
+  "stack": "Has Stack Trace",
+  "type": 7,
+  "typeId": 0,
+  "typeName": "i64",
+  "value": "9999999999",
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] expected-stringify 1`] = `"  number: 9999999999 keyword: as class: i64"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] message 1`] = `""`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] pass 1`] = `false`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] type 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] actual 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 1,
+  "stack": "Has Stack Trace",
+  "type": 9,
+  "typeId": 0,
+  "typeName": "bool",
+  "value": 0,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] actual-stringify 1`] = `"  keyword: false"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] expected 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": true,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 0,
+  "stack": "No Stack Trace",
+  "type": 14,
+  "typeId": 0,
+  "typeName": null,
+  "value": 0,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] expected-stringify 1`] = `"Not Falsy"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] frees 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] increments 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] message 1`] = `""`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] pass 1`] = `false`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] ran 1`] = `true`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] reallocs 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] type 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] actual 1`] = `
+ReflectedValue {
+  "isManaged": false,
+  "isNull": false,
+  "keys": null,
+  "negated": false,
+  "nullable": false,
+  "offset": 0,
+  "pointer": 0,
+  "signed": false,
+  "size": 1,
+  "stack": "Has Stack Trace",
+  "type": 9,
+  "typeId": 0,
+  "typeName": "bool",
+  "value": 1,
+  "values": null,
+}
+`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] actual-stringify 1`] = `"  keyword: true"`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] afterAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] afterEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] allocations 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] beforeAllPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] beforeEachPointers 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] decrements 1`] = `0`;
+
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1686,23 +1712,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: expected-stringify 1`] = `"Not Truthy"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] expected-stringify 1`] = `"Not Truthy"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: frees 1`] = `3`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: increments 1`] = `6`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report not truthy values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": true,
@@ -1722,21 +1748,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: actual-stringify 1`] = `"  class: <Vec3>null"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] actual-stringify 1`] = `"  class: <Vec3>null"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: decrements 1`] = `8`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": true,
@@ -1756,23 +1782,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: expected-stringify 1`] = `"  class: <Vec3>null"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] expected-stringify 1`] = `"  class: <Vec3>null"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: frees 1`] = `6`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: increments 1`] = `10`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report nulls[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1792,21 +1818,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: actual-stringify 1`] = `"  number: 0"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] actual-stringify 1`] = `"  number: 0"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: decrements 1`] = `8`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1826,23 +1852,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: expected-stringify 1`] = `"  number: 42"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] expected-stringify 1`] = `"  number: 42"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: frees 1`] = `6`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: increments 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report number values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1966,7 +1992,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: actual-stringify 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] actual-stringify 1`] = `
 "  class: Vec3 {
       string: x: number: 1.0,
       string: y: number: 2.0,
@@ -1974,19 +2000,19 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0
   }"
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: allocations 1`] = `16`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: decrements 1`] = `68`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2110,7 +2136,7 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: expected-stringify 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] expected-stringify 1`] = `
 "  class: Vec3 {
       string: x: number: 4.0,
       string: y: number: 5.0,
@@ -2118,21 +2144,21 @@ exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0
   }"
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: frees 1`] = `13`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: increments 1`] = `73`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report reference values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -2152,21 +2178,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: actual-stringify 1`] = `"  number: 0"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] actual-stringify 1`] = `"  number: 0"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: allocations 1`] = `4`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: decrements 1`] = `4`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -2186,23 +2212,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: expected-stringify 1`] = `"Truthy"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] expected-stringify 1`] = `"Truthy"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: frees 1`] = `3`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: increments 1`] = `5`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy expected values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -2222,21 +2248,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: actual-stringify 1`] = `"  keyword: false"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] actual-stringify 1`] = `"  keyword: false"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: allocations 1`] = `4`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: decrements 1`] = `4`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -2256,23 +2282,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: expected-stringify 1`] = `"Truthy"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] expected-stringify 1`] = `"Truthy"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: frees 1`] = `3`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: increments 1`] = `5`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report truthy values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2344,21 +2370,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: actual-stringify 1`] = `"  class: Float64Array [ number: 1.1, number: 2.2, number: 3.3 ]"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] actual-stringify 1`] = `"  class: Float64Array [ number: 1.1, number: 2.2, number: 3.3 ]"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: allocations 1`] = `15`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: decrements 1`] = `38`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2430,23 +2456,23 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: expected-stringify 1`] = `"  class: Float64Array [ number: 4.4, number: 5.5, number: 6.6 ]"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] expected-stringify 1`] = `"  class: Float64Array [ number: 4.4, number: 5.5, number: 6.6 ]"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: frees 1`] = `10`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: increments 1`] = `45`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report typedarray values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -2466,21 +2492,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: actual-stringify 1`] = `"  number: 4294967294 keyword: as class: u32"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] actual-stringify 1`] = `"  number: 4294967294 keyword: as class: u32"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: decrements 1`] = `8`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -2500,101 +2526,101 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: expected-stringify 1`] = `"  number: 4294967293 keyword: as class: u32"`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] expected-stringify 1`] = `"  number: 4294967293 keyword: as class: u32"`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: frees 1`] = `6`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: increments 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: message 1`] = `""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] message 1`] = `""`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u32 values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: decrements 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: frees 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: increments 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~should report u64 values[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: decrements 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: frees 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: increments 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: pass 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] pass 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]!~this test should pass[0]: type 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] type 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: decrements 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: increments 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: message 1`] = `null`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] message 1`] = `null`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~pass-fail[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0] type 1`] = `1`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: actual 1`] = `
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] actual 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -2614,21 +2640,21 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: actual-stringify 1`] = `"  number: 3"`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] actual-stringify 1`] = `"  number: 3"`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: afterAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] afterAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: afterEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: allocations 1`] = `7`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] allocations 1`] = `0`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: beforeAllPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] beforeAllPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: beforeEachPointers 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: decrements 1`] = `8`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] decrements 1`] = `0`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: expected 1`] = `
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] expected 1`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -2648,46 +2674,20 @@ ReflectedValue {
 }
 `;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: expected-stringify 1`] = `"  number: 5"`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] expected-stringify 1`] = `"  number: 5"`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: frees 1`] = `6`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] frees 1`] = `0`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: increments 1`] = `9`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] increments 1`] = `0`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: message 1`] = `"the reason"`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] message 1`] = `"the reason"`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: pass 1`] = `false`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] pass 1`] = `false`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: ran 1`] = `true`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] ran 1`] = `true`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: reallocs 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] reallocs 1`] = `0`;
 
-exports[`pass-fail output Node: !~toHaveLength[0]!~fails[0]: type 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: afterAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: afterEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: allocations 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: beforeAllPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: beforeEachPointers 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: decrements 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: frees 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: increments 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: message 1`] = `null`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: pass 1`] = `false`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: ran 1`] = `true`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: reallocs 1`] = `0`;
-
-exports[`pass-fail output Node: !~toHaveLength[0]: type 1`] = `1`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] type 1`] = `0`;
 
 exports[`pass-fail output Overall Statistics: pass 1`] = `false`;

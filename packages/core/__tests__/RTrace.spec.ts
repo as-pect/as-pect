@@ -1,47 +1,40 @@
-import { TestContext, TestNodeType } from "../src";
-import { createRTraceModule } from "./setup/createRTraceModule";
-
-let ctx: TestContext;
-
-let start = new Promise<void>((resolve, reject) => {
-  createRTraceModule({}, (err, result) => {
-    if (err) {
-      console.log(err);
-      reject(err);
-    } else {
-      ctx = result!;
-      resolve();
-    }
-  });
-});
-
-beforeEach(() => start);
+import { TestContext, TestNodeType, EmptyReporter } from "../src";
+import { promises as fs } from "fs";
+import { instantiate } from "assemblyscript/lib/loader";
 
 describe("RTrace output", () => {
-  test("Overall Statistics", () => {
+  test("Overall Statistics", async () => {
+    const binary = await fs.readFile("./assembly/jest-rtrace.wasm");
+    const ctx = new TestContext({
+      binary,
+      reporter: new EmptyReporter(),
+      fileName: "./assembly/jest-rtrace.ts",
+    });
+    ctx.run(await instantiate(binary, ctx.createImports({})));
     expect(ctx.freeCount).toMatchSnapshot("freeCount");
     expect(ctx.allocationCount).toMatchSnapshot("allocationCount");
     expect(ctx.errors).toMatchSnapshot("errors"); // matches empty array
-  });
-  ctx.rootNode.visit((group) => {
-    if (group.type === TestNodeType.Group) {
-      test(`Group: ${group.name}`, () => {
-        expect(group.rtraceStart).toMatchSnapshot(`rtraceStart`);
-        expect(group.rtraceEnd).toMatchSnapshot(`rtraceEnd`);
-        expect(group.rtraceDelta).toMatchSnapshot(`rtraceDelta`);
-        expect(group.errors).toMatchSnapshot(`errors`); // matches empty array
-      });
-
-      describe(`Group: ${group.name}`, () => {
+    ctx.rootNode.visit((group) => {
+      if (group.type === TestNodeType.Group) {
+        expect(group.rtraceStart).toMatchSnapshot(`${group.name} rtraceStart`);
+        expect(group.rtraceEnd).toMatchSnapshot(`${group.name} rtraceEnd`);
+        expect(group.rtraceDelta).toMatchSnapshot(`${group.name} rtraceDelta`);
+        expect(group.errors).toMatchSnapshot(`${group.name}errors`); // matches empty array
         for (const groupTest of group.groupTests) {
-          test(`Test: ${groupTest.name}`, () => {
-            expect(groupTest.rtraceStart).toMatchSnapshot(`rtraceStart`);
-            expect(groupTest.rtraceEnd).toMatchSnapshot(`rtraceEnd`);
-            expect(groupTest.rtraceDelta).toMatchSnapshot(`rtraceDelta`);
-            expect(groupTest.errors).toMatchSnapshot(`errors`); // matches empty array
-          });
+          expect(groupTest.rtraceStart).toMatchSnapshot(
+            `${groupTest.namespace} rtraceStart`,
+          );
+          expect(groupTest.rtraceEnd).toMatchSnapshot(
+            `${groupTest.namespace} rtraceEnd`,
+          );
+          expect(groupTest.rtraceDelta).toMatchSnapshot(
+            `${groupTest.namespace} rtraceDelta`,
+          );
+          expect(groupTest.errors).toMatchSnapshot(
+            `${groupTest.namespace} errors`,
+          ); // matches empty array
         }
-      });
-    }
+      }
+    });
   });
 });

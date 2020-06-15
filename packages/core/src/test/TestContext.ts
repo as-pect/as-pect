@@ -219,7 +219,7 @@ export class TestContext {
    * process of test collection and evaluation.
    */
   public run(wasm: InstantiateResult): void {
-    // set the wasm
+    /* istanbul ignore next */
     this.wasm = wasm.exports || ((<any>wasm) as IAspectExports);
     this.instance = wasm.instance;
 
@@ -306,7 +306,6 @@ export class TestContext {
           this.wasm!._start();
         }
       } catch (ex) {
-        console.log(ex);
         this.reporter.onEnter(this, node);
         /**
          * If this catch occurs, the entire test suite is completed.
@@ -1089,7 +1088,6 @@ export class TestContext {
    */
   private trace(strPointer: number, count: number, ...args: number[]): void {
     const reflectedValue = new ReflectedValue();
-
     reflectedValue.pointer = strPointer;
     reflectedValue.stack = this.getLogStackTrace();
     reflectedValue.typeName = "trace";
@@ -1109,11 +1107,12 @@ export class TestContext {
    * @param {number} index - The function index
    */
   private funcName(index: number): string {
+    const nameSection = this.nameSection;
     /* istanbul ignore next */
-    if (this.nameSection)
-      return this.nameSection.fromIndex(
-        parseInt(this.wasm!.table!.get(index)!.name),
-      );
+    if (nameSection) {
+      const result = this.wasm!.table!.get(index);
+      return nameSection.fromIndex(parseInt(result!.name));
+    }
     /* istanbul ignore next */
     return "";
   }

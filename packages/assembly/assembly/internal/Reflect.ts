@@ -159,7 +159,7 @@ export class Reflect {
           false,
           0,
           ReflectedValueType.Function,
-          idof<T>(),
+          0,
           "Function",
           changetype<usize>(value),
           false,

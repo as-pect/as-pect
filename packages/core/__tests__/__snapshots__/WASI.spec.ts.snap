@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`snapshots: onFinish assembly/jest-log.ts 1`] = `
-"    [File]: assembly/jest-log.ts
+exports[`snapshots: onFinish ./assembly/jest-wasi.ts 1`] = `
+"    [File]: ./assembly/jest-wasi.ts
   [Groups]: 1 pass, 1 total
   [Result]: ✔ PASS
 [Snapshot]: 0 total, 0 added, 0 removed, 0 different

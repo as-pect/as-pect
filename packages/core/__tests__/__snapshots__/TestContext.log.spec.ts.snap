@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`log output Group: logs Test: logs: log 1`] = `
+exports[`log output Overall Statistics: logs it log 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -20,7 +20,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 2`] = `
+exports[`log output Overall Statistics: logs it log 2`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -28,7 +28,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7616,
+  "pointer": 8944,
   "signed": false,
   "size": 13,
   "stack": "",
@@ -40,7 +40,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 3`] = `
+exports[`log output Overall Statistics: logs it log 3`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -60,7 +60,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 4`] = `
+exports[`log output Overall Statistics: logs it log 4`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": true,
@@ -80,7 +80,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 5`] = `
+exports[`log output Overall Statistics: logs it log 5`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -140,7 +140,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 7664,
+  "pointer": 8992,
   "signed": false,
   "size": 24,
   "stack": "",
@@ -204,7 +204,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 6`] = `
+exports[`log output Overall Statistics: logs it log 6`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -212,7 +212,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7712,
+  "pointer": 9040,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -276,7 +276,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 7`] = `
+exports[`log output Overall Statistics: logs it log 7`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -296,7 +296,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 8`] = `
+exports[`log output Overall Statistics: logs it log 8`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -316,7 +316,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 9`] = `
+exports[`log output Overall Statistics: logs it log 9`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -336,7 +336,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 10`] = `
+exports[`log output Overall Statistics: logs it log 10`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -356,7 +356,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 11`] = `
+exports[`log output Overall Statistics: logs it log 11`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -376,7 +376,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 12`] = `
+exports[`log output Overall Statistics: logs it log 12`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -396,7 +396,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 13`] = `
+exports[`log output Overall Statistics: logs it log 13`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -416,7 +416,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 14`] = `
+exports[`log output Overall Statistics: logs it log 14`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -424,7 +424,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7456,
+  "pointer": 8784,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -488,7 +488,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 15`] = `
+exports[`log output Overall Statistics: logs it log 15`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -496,7 +496,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7520,
+  "pointer": 8848,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -560,7 +560,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 16`] = `
+exports[`log output Overall Statistics: logs it log 16`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -573,14 +573,14 @@ ReflectedValue {
   "size": 0,
   "stack": "",
   "type": 6,
-  "typeId": 38,
+  "typeId": 0,
   "typeName": "Function",
   "value": "assembly/jest-log/IdFunction",
   "values": null,
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 17`] = `
+exports[`log output Overall Statistics: logs it log 17`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -600,7 +600,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 18`] = `
+exports[`log output Overall Statistics: logs it log 18`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -612,7 +612,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -629,7 +629,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2016,
+      "pointer": 3344,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -646,7 +646,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2048,
+      "pointer": 3376,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -660,7 +660,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 7776,
+  "pointer": 9104,
   "signed": false,
   "size": 24,
   "stack": "",
@@ -724,7 +724,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 19`] = `
+exports[`log output Overall Statistics: logs it log 19`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -732,7 +732,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7776,
+  "pointer": 9104,
   "signed": false,
   "size": 20,
   "stack": "",
@@ -1085,7 +1085,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 20`] = `
+exports[`log output Overall Statistics: logs it log 20`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1097,7 +1097,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1114,7 +1114,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2016,
+      "pointer": 3344,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1131,7 +1131,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2048,
+      "pointer": 3376,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1148,7 +1148,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2192,
+      "pointer": 3520,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1165,7 +1165,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2224,
+      "pointer": 3552,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1182,7 +1182,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2256,
+      "pointer": 3584,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1199,7 +1199,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2288,
+      "pointer": 3616,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1216,7 +1216,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2320,
+      "pointer": 3648,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1233,7 +1233,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2352,
+      "pointer": 3680,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1250,7 +1250,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2384,
+      "pointer": 3712,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1267,7 +1267,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2416,
+      "pointer": 3744,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1284,7 +1284,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2448,
+      "pointer": 3776,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1301,7 +1301,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2480,
+      "pointer": 3808,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1318,7 +1318,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2512,
+      "pointer": 3840,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1335,7 +1335,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2544,
+      "pointer": 3872,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1352,7 +1352,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2576,
+      "pointer": 3904,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1369,7 +1369,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2608,
+      "pointer": 3936,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1386,7 +1386,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2640,
+      "pointer": 3968,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1403,7 +1403,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2672,
+      "pointer": 4000,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1420,7 +1420,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2704,
+      "pointer": 4032,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1437,7 +1437,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2736,
+      "pointer": 4064,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1454,7 +1454,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2768,
+      "pointer": 4096,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1471,7 +1471,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2800,
+      "pointer": 4128,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -1536,7 +1536,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 208,
-  "pointer": 7904,
+  "pointer": 9232,
   "signed": false,
   "size": 208,
   "stack": "",
@@ -1991,7 +1991,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 21`] = `
+exports[`log output Overall Statistics: logs it log 21`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1999,7 +1999,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8128,
+  "pointer": 9456,
   "signed": false,
   "size": 20,
   "stack": "",
@@ -2352,7 +2352,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 22`] = `
+exports[`log output Overall Statistics: logs it log 22`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2360,7 +2360,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8336,
+  "pointer": 9664,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -2424,7 +2424,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 23`] = `
+exports[`log output Overall Statistics: logs it log 23`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2436,7 +2436,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2453,7 +2453,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2016,
+      "pointer": 3344,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2470,7 +2470,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2048,
+      "pointer": 3376,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2487,7 +2487,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2192,
+      "pointer": 3520,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2501,7 +2501,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 16,
-  "pointer": 8400,
+  "pointer": 9728,
   "signed": false,
   "size": 16,
   "stack": "",
@@ -2566,7 +2566,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 24`] = `
+exports[`log output Overall Statistics: logs it log 24`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2574,7 +2574,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 8432,
+  "pointer": 9760,
   "signed": false,
   "size": 1,
   "stack": "",
@@ -2594,7 +2594,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 1984,
+          "pointer": 3312,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2611,7 +2611,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2016,
+          "pointer": 3344,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2628,7 +2628,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2048,
+          "pointer": 3376,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2645,7 +2645,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2192,
+          "pointer": 3520,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2659,7 +2659,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 16,
-      "pointer": 8496,
+      "pointer": 9824,
       "signed": false,
       "size": 16,
       "stack": "",
@@ -2726,7 +2726,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 25`] = `
+exports[`log output Overall Statistics: logs it log 25`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2738,7 +2738,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -2752,7 +2752,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 8528,
+  "pointer": 9856,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -2772,7 +2772,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2016,
+          "pointer": 3344,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -2786,7 +2786,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 8560,
+      "pointer": 9888,
       "signed": false,
       "size": 4,
       "stack": "",
@@ -2806,7 +2806,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 2048,
+              "pointer": 3376,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -2820,7 +2820,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 4,
-          "pointer": 8880,
+          "pointer": 10208,
           "signed": false,
           "size": 4,
           "stack": "",
@@ -2840,7 +2840,7 @@ ReflectedValue {
                   "negated": false,
                   "nullable": false,
                   "offset": 0,
-                  "pointer": 2192,
+                  "pointer": 3520,
                   "signed": false,
                   "size": 1,
                   "stack": "",
@@ -2854,7 +2854,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 4,
-              "pointer": 8912,
+              "pointer": 10240,
               "signed": false,
               "size": 4,
               "stack": "",
@@ -2874,7 +2874,7 @@ ReflectedValue {
                       "negated": false,
                       "nullable": false,
                       "offset": 0,
-                      "pointer": 2224,
+                      "pointer": 3552,
                       "signed": false,
                       "size": 1,
                       "stack": "",
@@ -2888,7 +2888,7 @@ ReflectedValue {
                   "negated": false,
                   "nullable": false,
                   "offset": 4,
-                  "pointer": 8944,
+                  "pointer": 10272,
                   "signed": false,
                   "size": 4,
                   "stack": "",
@@ -2908,7 +2908,7 @@ ReflectedValue {
                           "negated": false,
                           "nullable": false,
                           "offset": 0,
-                          "pointer": 2256,
+                          "pointer": 3584,
                           "signed": false,
                           "size": 1,
                           "stack": "",
@@ -2922,7 +2922,7 @@ ReflectedValue {
                       "negated": false,
                       "nullable": false,
                       "offset": 8,
-                      "pointer": 8976,
+                      "pointer": 10304,
                       "signed": false,
                       "size": 8,
                       "stack": "",
@@ -2962,7 +2962,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 26`] = `
+exports[`log output Overall Statistics: logs it log 26`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3026,7 +3026,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 9152,
+      "pointer": 10480,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -3147,7 +3147,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 9248,
+      "pointer": 10528,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -3213,7 +3213,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 9008,
+  "pointer": 10336,
   "signed": false,
   "size": 2,
   "stack": "",
@@ -3236,7 +3236,7 @@ ReflectedValue {
       "type": 7,
       "typeId": 0,
       "typeName": "i32",
-      "value": 43,
+      "value": 42,
       "values": null,
     },
     ReflectedValue {
@@ -3260,7 +3260,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 27`] = `
+exports[`log output Overall Statistics: logs it log 27`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -3273,14 +3273,14 @@ ReflectedValue {
   "size": 0,
   "stack": "",
   "type": 6,
-  "typeId": 176,
+  "typeId": 0,
   "typeName": "Function",
   "value": "start:assembly/jest-log~anonymous|0~anonymous|0~thisIsTheFunctionName",
   "values": null,
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 28`] = `
+exports[`log output Overall Statistics: logs it log 28`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3292,7 +3292,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3306,7 +3306,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9296,
+  "pointer": 10624,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -3326,7 +3326,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2016,
+          "pointer": 3344,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3340,7 +3340,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 9328,
+      "pointer": 10656,
       "signed": false,
       "size": 4,
       "stack": "",
@@ -3360,7 +3360,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 2048,
+              "pointer": 3376,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3374,7 +3374,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 4,
-          "pointer": 9360,
+          "pointer": 10688,
           "signed": false,
           "size": 4,
           "stack": "",
@@ -3408,7 +3408,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 29`] = `
+exports[`log output Overall Statistics: logs it log 29`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3420,7 +3420,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3434,7 +3434,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9392,
+  "pointer": 10720,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -3454,7 +3454,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2016,
+          "pointer": 3344,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3468,7 +3468,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 9424,
+      "pointer": 10752,
       "signed": false,
       "size": 4,
       "stack": "",
@@ -3488,7 +3488,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 2048,
+              "pointer": 3376,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3502,7 +3502,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 4,
-          "pointer": 9456,
+          "pointer": 10784,
           "signed": false,
           "size": 4,
           "stack": "",
@@ -3518,7 +3518,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 3712,
+              "pointer": 5040,
               "signed": false,
               "size": 18,
               "stack": "",
@@ -3536,7 +3536,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 30`] = `
+exports[`log output Overall Statistics: logs it log 30`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3548,7 +3548,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3562,7 +3562,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9488,
+  "pointer": 10816,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -3582,7 +3582,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2016,
+          "pointer": 3344,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3596,7 +3596,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 9520,
+      "pointer": 10848,
       "signed": false,
       "size": 4,
       "stack": "",
@@ -3616,7 +3616,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 2048,
+              "pointer": 3376,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3630,7 +3630,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 1,
-          "pointer": 9552,
+          "pointer": 10880,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3664,7 +3664,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 31`] = `
+exports[`log output Overall Statistics: logs it log 31`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3676,7 +3676,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3690,7 +3690,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9584,
+  "pointer": 10912,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -3710,7 +3710,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2016,
+          "pointer": 3344,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3724,7 +3724,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 9616,
+      "pointer": 10944,
       "signed": false,
       "size": 4,
       "stack": "",
@@ -3744,7 +3744,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 2048,
+              "pointer": 3376,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3758,7 +3758,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 1,
-          "pointer": 9648,
+          "pointer": 10976,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3792,7 +3792,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 32`] = `
+exports[`log output Overall Statistics: logs it log 32`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3804,7 +3804,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3818,7 +3818,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9680,
+  "pointer": 11008,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -3838,7 +3838,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2016,
+          "pointer": 3344,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3852,7 +3852,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 9712,
+      "pointer": 11040,
       "signed": false,
       "size": 4,
       "stack": "",
@@ -3872,7 +3872,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 2048,
+              "pointer": 3376,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -3886,7 +3886,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 1,
-          "pointer": 9744,
+          "pointer": 11072,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3920,7 +3920,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 33`] = `
+exports[`log output Overall Statistics: logs it log 33`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3932,7 +3932,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -3946,7 +3946,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 9776,
+  "pointer": 11104,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -3966,7 +3966,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 2016,
+          "pointer": 3344,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -3980,7 +3980,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 4,
-      "pointer": 9808,
+      "pointer": 11136,
       "signed": false,
       "size": 4,
       "stack": "",
@@ -4000,7 +4000,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 2048,
+              "pointer": 3376,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -4014,7 +4014,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 4,
-          "pointer": 9840,
+          "pointer": 11168,
           "signed": false,
           "size": 4,
           "stack": "",
@@ -4030,7 +4030,7 @@ ReflectedValue {
               "negated": false,
               "nullable": false,
               "offset": 0,
-              "pointer": 9872,
+              "pointer": 11200,
               "signed": false,
               "size": 1,
               "stack": "",
@@ -4046,7 +4046,7 @@ ReflectedValue {
                   "negated": false,
                   "nullable": false,
                   "offset": 0,
-                  "pointer": 9936,
+                  "pointer": 11264,
                   "signed": false,
                   "size": 1,
                   "stack": "",
@@ -4084,7 +4084,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 34`] = `
+exports[`log output Overall Statistics: logs it log 34`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4096,7 +4096,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2048,
+      "pointer": 3376,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4110,7 +4110,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 10000,
+  "pointer": 11328,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -4126,7 +4126,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 10032,
+      "pointer": 11360,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4142,7 +4142,7 @@ ReflectedValue {
           "negated": false,
           "nullable": false,
           "offset": 0,
-          "pointer": 10096,
+          "pointer": 11424,
           "signed": false,
           "size": 1,
           "stack": "",
@@ -4176,7 +4176,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 35`] = `
+exports[`log output Overall Statistics: logs it log 35`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4184,7 +4184,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 10160,
+  "pointer": 11488,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -4252,7 +4252,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 10224,
+      "pointer": 11552,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -4373,7 +4373,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 10272,
+      "pointer": 11600,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -4494,7 +4494,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 10320,
+      "pointer": 11648,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -4615,7 +4615,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 24,
-      "pointer": 10368,
+      "pointer": 11696,
       "signed": false,
       "size": 24,
       "stack": "",
@@ -4681,7 +4681,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 36`] = `
+exports[`log output Overall Statistics: logs it log 36`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4689,7 +4689,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 10416,
+  "pointer": 11744,
   "signed": false,
   "size": 1,
   "stack": "",
@@ -4719,7 +4719,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 37`] = `
+exports[`log output Overall Statistics: logs it log 37`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4731,7 +4731,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 5184,
+      "pointer": 6512,
       "signed": false,
       "size": 3,
       "stack": "",
@@ -4745,7 +4745,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 4,
-  "pointer": 10656,
+  "pointer": 11984,
   "signed": false,
   "size": 4,
   "stack": "",
@@ -4775,7 +4775,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: log 38`] = `
+exports[`log output Overall Statistics: logs it log 38`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4787,7 +4787,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 1984,
+      "pointer": 3312,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4804,7 +4804,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2048,
+      "pointer": 3376,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4821,7 +4821,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2016,
+      "pointer": 3344,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4838,7 +4838,7 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2192,
+      "pointer": 3520,
       "signed": false,
       "size": 1,
       "stack": "",
@@ -4852,7 +4852,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 12,
-  "pointer": 10512,
+  "pointer": 11840,
   "signed": false,
   "size": 12,
   "stack": "",
@@ -4933,15 +4933,15 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs Test: logs: stringify 1`] = `"  string: \\"Hello world!\\""`;
+exports[`log output Overall Statistics: logs it stringify 1`] = `"  string: \\"Hello world!\\""`;
 
-exports[`log output Group: logs Test: logs: stringify 2`] = `"  string: \\"Calculated 42\\""`;
+exports[`log output Overall Statistics: logs it stringify 2`] = `"  string: \\"Calculated 42\\""`;
 
-exports[`log output Group: logs Test: logs: stringify 3`] = `"  number: 42"`;
+exports[`log output Overall Statistics: logs it stringify 3`] = `"  number: 42"`;
 
-exports[`log output Group: logs Test: logs: stringify 4`] = `"  class: <Vec3>null"`;
+exports[`log output Overall Statistics: logs it stringify 4`] = `"  class: <Vec3>null"`;
 
-exports[`log output Group: logs Test: logs: stringify 5`] = `
+exports[`log output Overall Statistics: logs it stringify 5`] = `
 "  class: Vec3 {
       string: x: number: 1.0,
       string: y: number: 2.0,
@@ -4949,7 +4949,7 @@ exports[`log output Group: logs Test: logs: stringify 5`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 6`] = `
+exports[`log output Overall Statistics: logs it stringify 6`] = `
 "  class: Array<i32> [
       number: 1,
       number: 2,
@@ -4957,29 +4957,29 @@ exports[`log output Group: logs Test: logs: stringify 6`] = `
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 7`] = `"  number: 9999999999999 keyword: as class: i64"`;
+exports[`log output Overall Statistics: logs it stringify 7`] = `"  number: 9999999999999 keyword: as class: i64"`;
 
-exports[`log output Group: logs Test: logs: stringify 8`] = `"  number: 1234567 keyword: as class: u32"`;
+exports[`log output Overall Statistics: logs it stringify 8`] = `"  number: 1234567 keyword: as class: u32"`;
 
-exports[`log output Group: logs Test: logs: stringify 9`] = `"  number: 999999999999 keyword: as class: u64"`;
+exports[`log output Overall Statistics: logs it stringify 9`] = `"  number: 999999999999 keyword: as class: u64"`;
 
-exports[`log output Group: logs Test: logs: stringify 10`] = `"  number: -1 keyword: as class: i8"`;
+exports[`log output Overall Statistics: logs it stringify 10`] = `"  number: -1 keyword: as class: i8"`;
 
-exports[`log output Group: logs Test: logs: stringify 11`] = `"  number: -1 keyword: as class: i16"`;
+exports[`log output Overall Statistics: logs it stringify 11`] = `"  number: -1 keyword: as class: i16"`;
 
-exports[`log output Group: logs Test: logs: stringify 12`] = `"  keyword: true"`;
+exports[`log output Overall Statistics: logs it stringify 12`] = `"  keyword: true"`;
 
-exports[`log output Group: logs Test: logs: stringify 13`] = `"  keyword: false"`;
+exports[`log output Overall Statistics: logs it stringify 13`] = `"  keyword: false"`;
 
-exports[`log output Group: logs Test: logs: stringify 14`] = `"  class: Uint8Array [ number: 0, number: 1, number: 2 ]"`;
+exports[`log output Overall Statistics: logs it stringify 14`] = `"  class: Uint8Array [ number: 0, number: 1, number: 2 ]"`;
 
-exports[`log output Group: logs Test: logs: stringify 15`] = `"  class: Int8Array [ number: -1, number: -2, number: -3 ]"`;
+exports[`log output Overall Statistics: logs it stringify 15`] = `"  class: Int8Array [ number: -1, number: -2, number: -3 ]"`;
 
-exports[`log output Group: logs Test: logs: stringify 16`] = `"  class: [Function 1: assembly/jest-log/IdFunction]"`;
+exports[`log output Overall Statistics: logs it stringify 16`] = `"  class: [Function 1: assembly/jest-log/IdFunction]"`;
 
-exports[`log output Group: logs Test: logs: stringify 17`] = `"  string: \\"trace: The thing! 1, 2, 3, 4, 5\\""`;
+exports[`log output Overall Statistics: logs it stringify 17`] = `"  string: \\"trace: The thing! 1, 2, 3, 4, 5\\""`;
 
-exports[`log output Group: logs Test: logs: stringify 18`] = `
+exports[`log output Overall Statistics: logs it stringify 18`] = `
 "  class: UnmanagedClass {
       string: a: number: 1.0,
       string: b: number: 2.0,
@@ -4987,7 +4987,7 @@ exports[`log output Group: logs Test: logs: stringify 18`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 19`] = `
+exports[`log output Overall Statistics: logs it stringify 19`] = `
 "  class: Array<i32> [
       number: 0,
       number: 1,
@@ -5002,7 +5002,7 @@ exports[`log output Group: logs Test: logs: stringify 19`] = `
   ... +0 values  ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 20`] = `
+exports[`log output Overall Statistics: logs it stringify 20`] = `
 "  class: LotsOfFields {
       string: a: number: 1.0,
       string: b: number: 1.0,
@@ -5017,9 +5017,9 @@ exports[`log output Group: logs Test: logs: stringify 20`] = `
   ... +16 properties  }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 21`] = `"  class: Float64Array [ number: 0.0, number: 1.0, number: 2.0, number: 3.0... +16 items ]"`;
+exports[`log output Overall Statistics: logs it stringify 21`] = `"  class: Float64Array [ number: 0.0, number: 1.0, number: 2.0, number: 3.0... +16 items ]"`;
 
-exports[`log output Group: logs Test: logs: stringify 22`] = `
+exports[`log output Overall Statistics: logs it stringify 22`] = `
 "  class: Array<i32> [
       number: 1,
       number: 2,
@@ -5027,7 +5027,7 @@ exports[`log output Group: logs Test: logs: stringify 22`] = `
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 23`] = `
+exports[`log output Overall Statistics: logs it stringify 23`] = `
 "  class: Circular {
       string: a: number: 1.0 keyword: as class: f32,
       string: b: class: [Circular Reference],
@@ -5036,7 +5036,7 @@ exports[`log output Group: logs Test: logs: stringify 23`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 24`] = `
+exports[`log output Overall Statistics: logs it stringify 24`] = `
 "  class: Array<assembly/jest-log/Circular> [
       {
           string: a: number: 1.0 keyword: as class: f32,
@@ -5047,7 +5047,7 @@ exports[`log output Group: logs Test: logs: stringify 24`] = `
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 25`] = `
+exports[`log output Overall Statistics: logs it stringify 25`] = `
 "  class: NestedA {
       string: a: class: NestedB {
           string: b: class: NestedC {
@@ -5057,16 +5057,16 @@ exports[`log output Group: logs Test: logs: stringify 25`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 26`] = `
+exports[`log output Overall Statistics: logs it stringify 26`] = `
 "  class: Map<assembly/jest-log/Vec3,i32> {
-      class: [Vec3]: number: 43,
+      class: [Vec3]: number: 42,
       class: [Vec3]: number: 44
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 27`] = `"  class: [Function 2: start:assembly/jest-log~anonymous|0~anonymous|0~thisIsTheFunctionName]"`;
+exports[`log output Overall Statistics: logs it stringify 27`] = `"  class: [Function 2: start:assembly/jest-log~anonymous|0~anonymous|0~thisIsTheFunctionName]"`;
 
-exports[`log output Group: logs Test: logs: stringify 28`] = `
+exports[`log output Overall Statistics: logs it stringify 28`] = `
 "  class: NestedForInlineFunctionA {
       string: a: class: NestedForInlineFunctionB {
           string: b: class: NestedForInlineFunctionC {
@@ -5076,7 +5076,7 @@ exports[`log output Group: logs Test: logs: stringify 28`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 29`] = `
+exports[`log output Overall Statistics: logs it stringify 29`] = `
 "  class: NestedForInlineStringA {
       string: a: class: NestedForInlineStringB {
           string: b: class: NestedForInlineStringC {
@@ -5086,7 +5086,7 @@ exports[`log output Group: logs Test: logs: stringify 29`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 30`] = `
+exports[`log output Overall Statistics: logs it stringify 30`] = `
 "  class: NestedForInlineU8A {
       string: a: class: NestedForInlineU8B {
           string: b: class: NestedForInlineU8C {
@@ -5096,7 +5096,7 @@ exports[`log output Group: logs Test: logs: stringify 30`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 31`] = `
+exports[`log output Overall Statistics: logs it stringify 31`] = `
 "  class: NestedForInlineBoolA {
       string: a: class: NestedForInlineBoolB {
           string: b: class: NestedForInlineBoolC {
@@ -5106,7 +5106,7 @@ exports[`log output Group: logs Test: logs: stringify 31`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 32`] = `
+exports[`log output Overall Statistics: logs it stringify 32`] = `
 "  class: NestedForInlineBoolA {
       string: a: class: NestedForInlineBoolB {
           string: b: class: NestedForInlineBoolC {
@@ -5116,7 +5116,7 @@ exports[`log output Group: logs Test: logs: stringify 32`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 33`] = `
+exports[`log output Overall Statistics: logs it stringify 33`] = `
 "  class: NestedTypeImpliedArrayA {
       string: a: class: NestedTypeImpliedArrayB {
           string: b: class: NestedTypeImpliedArrayC {
@@ -5126,7 +5126,7 @@ exports[`log output Group: logs Test: logs: stringify 33`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 34`] = `
+exports[`log output Overall Statistics: logs it stringify 34`] = `
 "  class: NestedTypeImpliedArrayC {
       string: c: class: Array<~lib/array/Array<u8>> [
           [
@@ -5136,7 +5136,7 @@ exports[`log output Group: logs Test: logs: stringify 34`] = `
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 35`] = `
+exports[`log output Overall Statistics: logs it stringify 35`] = `
 "  class: Array<assembly/jest-log/Vec3> [
       {
           string: x: number: 1.0,
@@ -5161,19 +5161,19 @@ exports[`log output Group: logs Test: logs: stringify 35`] = `
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 36`] = `
+exports[`log output Overall Statistics: logs it stringify 36`] = `
 "  class: Array<assembly/jest-log/Vec3 | null> [
       null
   ]"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 37`] = `
+exports[`log output Overall Statistics: logs it stringify 37`] = `
 "  class: MeaningOfLife {
       string: its: number: 42
   }"
 `;
 
-exports[`log output Group: logs Test: logs: stringify 38`] = `
+exports[`log output Overall Statistics: logs it stringify 38`] = `
 "  class: Child {
       string: a: number: 0,
       string: c: number: 2,
@@ -5182,7 +5182,7 @@ exports[`log output Group: logs Test: logs: stringify 38`] = `
   }"
 `;
 
-exports[`log output Group: logs: log 1`] = `
+exports[`log output Overall Statistics: logs log 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -5202,7 +5202,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 2`] = `
+exports[`log output Overall Statistics: logs log 2`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5222,7 +5222,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 3`] = `
+exports[`log output Overall Statistics: logs log 3`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": true,
@@ -5242,7 +5242,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 4`] = `
+exports[`log output Overall Statistics: logs log 4`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -5302,7 +5302,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 7584,
+  "pointer": 8912,
   "signed": false,
   "size": 24,
   "stack": "",
@@ -5366,7 +5366,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 5`] = `
+exports[`log output Overall Statistics: logs log 5`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -5374,7 +5374,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7632,
+  "pointer": 8960,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -5438,7 +5438,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 6`] = `
+exports[`log output Overall Statistics: logs log 6`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5458,7 +5458,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 7`] = `
+exports[`log output Overall Statistics: logs log 7`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5478,7 +5478,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 8`] = `
+exports[`log output Overall Statistics: logs log 8`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5498,7 +5498,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 9`] = `
+exports[`log output Overall Statistics: logs log 9`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5518,7 +5518,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 10`] = `
+exports[`log output Overall Statistics: logs log 10`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5538,7 +5538,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 11`] = `
+exports[`log output Overall Statistics: logs log 11`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5558,7 +5558,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 12`] = `
+exports[`log output Overall Statistics: logs log 12`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5578,7 +5578,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 13`] = `
+exports[`log output Overall Statistics: logs log 13`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -5586,7 +5586,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7456,
+  "pointer": 8784,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -5650,7 +5650,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 14`] = `
+exports[`log output Overall Statistics: logs log 14`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -5658,7 +5658,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 7520,
+  "pointer": 8848,
   "signed": false,
   "size": 3,
   "stack": "",
@@ -5722,7 +5722,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: log 15`] = `
+exports[`log output Overall Statistics: logs log 15`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5735,14 +5735,14 @@ ReflectedValue {
   "size": 0,
   "stack": "",
   "type": 6,
-  "typeId": 38,
+  "typeId": 0,
   "typeName": "Function",
   "value": "assembly/jest-log/IdFunction",
   "values": null,
 }
 `;
 
-exports[`log output Group: logs: log 16`] = `
+exports[`log output Overall Statistics: logs log 16`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -5762,8 +5762,8 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Group: logs: todo 1`] = `"one"`;
+exports[`log output Overall Statistics: logs todo 1`] = `"one"`;
 
-exports[`log output Group: logs: todo 2`] = `"two"`;
+exports[`log output Overall Statistics: logs todo 2`] = `"two"`;
 
-exports[`log output Group: logs: todo 3`] = `"three"`;
+exports[`log output Overall Statistics: logs todo 3`] = `"three"`;
