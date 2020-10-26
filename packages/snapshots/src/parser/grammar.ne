@@ -1,12 +1,14 @@
 @preprocessor typescript
 
-start -> _ lines _ {% d => {
+start -> _ (lines _):? {% d => {
   const results = d[1];
   const map = new Map<string, string>();
-  for (let i = 0; i < results.length; i++) {
-    const [key, value] = results[i];
-    if (map.has(key)) throw new Error("Invalid snapshot.");
-    map.set(key, value);
+  if (results) {
+    for (let i = 0; i < results[0].length; i++) {
+      const [key, value] = results[0][i];
+      if (map.has(key)) throw new Error("Invalid snapshot.");
+      map.set(key, value);
+    }
   }
   return map;
 } %}

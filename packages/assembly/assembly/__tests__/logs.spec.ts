@@ -34,9 +34,10 @@ class B {
 }
 
 class Empty {
-  s: string;
-  t: Array<A>;
-  m: Map<B, Empty>;
+  constructor() {}
+  s: string | null = null;
+  t: Array<A> | null = null;
+  m: Map<B, Empty> | null = null;
 }
 
 @unmanaged

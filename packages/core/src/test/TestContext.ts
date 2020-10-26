@@ -548,6 +548,8 @@ export class TestContext {
         onincrement: this.onincrement.bind(this),
         ondecrement: this.ondecrement.bind(this),
         onrealloc: this.onrealloc.bind(this),
+        onmove: this.onrealloc.bind(this),
+        onresize: this.onresize.bind(this),
       };
     }
 
@@ -1498,5 +1500,9 @@ export class TestContext {
       name,
       this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
     );
+  }
+
+  onresize(_block: number, _size: number): void {
+    // todo: implement shadow memory stuff
   }
 }

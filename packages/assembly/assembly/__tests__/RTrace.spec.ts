@@ -35,7 +35,7 @@ describe("RTrace", () => {
   });
 
   it("should return a correct reference count of a pointer", () => {
-    let ptr = __alloc(offsetof<Vec3>(), idof<Vec3>());
+    let ptr = __new(offsetof<Vec3>(), idof<Vec3>());
 
     for (let i = 0; i < 5; i++) __retain(ptr);
     expect(RTrace.refCountOf(ptr)).toBe(5);
@@ -65,7 +65,7 @@ describe("RTrace", () => {
   });
 
   it("should return a correct size of a pointer", () => {
-    let ptr = __alloc(offsetof<Vec3>(), idof<Vec3>());
+    let ptr = __new(offsetof<Vec3>(), idof<Vec3>());
     expect(RTrace.sizeOf(ptr)).toBe(offsetof<Vec3>());
   });
 
@@ -82,7 +82,7 @@ describe("RTrace", () => {
   });
 
   it("should return a correct type id of a pointer", () => {
-    let ptr = __alloc(offsetof<Vec3>(), idof<Vec3>());
+    let ptr = __new(offsetof<Vec3>(), idof<Vec3>());
     expect(RTrace.typeIdOf(ptr)).toBe(idof<Vec3>());
   });
 

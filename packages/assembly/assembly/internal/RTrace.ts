@@ -1,4 +1,4 @@
-import { BLOCK, BLOCK_OVERHEAD } from "rt/common";
+import { OBJECT, TOTAL_OVERHEAD } from "rt/common";
 import { REFCOUNT_MASK } from "./runtime";
 
 // @ts-ignore: Decorators *are* valid here
@@ -124,7 +124,7 @@ export class RTrace {
   }
 
   public static typeIdOf(pointer: usize): u32 {
-    return changetype<BLOCK>(pointer - BLOCK_OVERHEAD).rtId;
+    return changetype<OBJECT>(pointer - TOTAL_OVERHEAD).rtId;
   }
 
   public static typeIdOfReference<T>(reference: T): u32 {
@@ -141,7 +141,7 @@ export class RTrace {
   }
 
   public static sizeOf(pointer: usize): u32 {
-    return changetype<BLOCK>(pointer - BLOCK_OVERHEAD).rtSize;
+    return changetype<OBJECT>(pointer - TOTAL_OVERHEAD).rtSize;
   }
 
   public static sizeOfReference<T>(reference: T): u32 {
@@ -166,7 +166,7 @@ export class RTrace {
   }
 
   public static refCountOf(ptr: usize): u32 {
-    return changetype<BLOCK>(ptr - BLOCK_OVERHEAD).gcInfo & REFCOUNT_MASK;
+    return changetype<OBJECT>(ptr - TOTAL_OVERHEAD).gcInfo & REFCOUNT_MASK;
   }
 
   public static refCountOfReference<T>(reference: T): u32 {

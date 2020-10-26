@@ -72,6 +72,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   try {
     let folderUsed = "cli";
     try {
+      console.log("Assemblyscript Folder:" + assemblyScriptFolder);
       /** Next, obtain the compiler, and assert it has a main function. */
       asc = require(path.join(assemblyScriptFolder, "cli", "asc"));
     } catch (ex) {

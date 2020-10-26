@@ -1,4 +1,4 @@
-// Generated automatically by nearley, version 2.19.3
+// Generated automatically by nearley, version 2.19.7
 // http://github.com/Hardmath123/nearley
 // Bypasses TS6133. Allow declared but unused functions.
 // @ts-ignore
@@ -33,13 +33,18 @@ interface Grammar {
 const grammar: Grammar = {
   Lexer: undefined,
   ParserRules: [
-    {"name": "start", "symbols": ["_", "lines", "_"], "postprocess":  d => {
+    {"name": "start$ebnf$1$subexpression$1", "symbols": ["lines", "_"]},
+    {"name": "start$ebnf$1", "symbols": ["start$ebnf$1$subexpression$1"], "postprocess": id},
+    {"name": "start$ebnf$1", "symbols": [], "postprocess": () => null},
+    {"name": "start", "symbols": ["_", "start$ebnf$1"], "postprocess":  d => {
           const results = d[1];
           const map = new Map<string, string>();
-          for (let i = 0; i < results.length; i++) {
-            const [key, value] = results[i];
-            if (map.has(key)) throw new Error("Invalid snapshot.");
-            map.set(key, value);
+          if (results) {
+            for (let i = 0; i < results[0].length; i++) {
+              const [key, value] = results[0][i];
+              if (map.has(key)) throw new Error("Invalid snapshot.");
+              map.set(key, value);
+            }
           }
           return map;
         } },
