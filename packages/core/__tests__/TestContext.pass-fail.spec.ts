@@ -2,7 +2,7 @@ import { TestContext } from "../src/test/TestContext";
 import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue";
 import { promises as fs } from "fs";
 import { EmptyReporter } from "../src/reporter/EmptyReporter";
-import { instantiate } from "assemblyscript/lib/loader";
+import { instantiate } from "assemblyscript/lib/loader/umd";
 
 const stringifyOptions: Partial<StringifyReflectedValueProps> = {
   indent: 2,

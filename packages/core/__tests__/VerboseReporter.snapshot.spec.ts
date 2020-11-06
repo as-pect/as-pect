@@ -1,7 +1,7 @@
 import { VerboseReporterWrapper } from "./setup/VerboseReporterWrapper";
 import { TestContext } from "../src";
 import { promises as fs } from "fs";
-import { instantiate } from "assemblyscript/lib/loader";
+import { instantiate } from "assemblyscript/lib/loader/umd";
 import { Snapshot } from "@as-pect/snapshots";
 
 test("snapshots", async () => {

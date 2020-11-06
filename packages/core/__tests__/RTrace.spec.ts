@@ -1,6 +1,6 @@
 import { TestContext, TestNodeType, EmptyReporter } from "../src";
 import { promises as fs } from "fs";
-import { instantiate } from "assemblyscript/lib/loader";
+import { instantiate } from "assemblyscript/lib/loader/umd";
 
 describe("RTrace output", () => {
   test("Overall Statistics", async () => {

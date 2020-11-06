@@ -95,7 +95,12 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     }
 
     /** Next, collect the loader, and assert it has an instantiateSync method. */
-    let loader = require(path.join(assemblyScriptFolder, "lib", "loader"));
+    let loader;
+    try {
+      loader = require(path.join(assemblyScriptFolder, "lib", "loader"));
+    } catch (ex) {
+      loader = import(path.join(assemblyScriptFolder, "lib", "loader"));
+    }
     if (!loader) {
       throw new Error(`${cliOptions.compiler}/lib/loader has no exports.`);
     }
