@@ -150,18 +150,20 @@ export class Reflect {
         }
         return reflectedValue;
       } else if (isFunction<T>()) {
-        let func: Function = <any>value;
+        let func = value;
         let reflectedValue = createReflectedValue(
           false,
           false,
           isNullable<T>(),
           0,
+          // @ts-ignore has field
           func.index,
           false,
           0,
           ReflectedValueType.Function,
           0,
           "Function",
+          // @ts-ignore has field
           func.index,
           false,
           isManaged<T>(),
