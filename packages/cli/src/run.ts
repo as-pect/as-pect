@@ -99,7 +99,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     try {
       loader = require(path.join(assemblyScriptFolder, "lib", "loader"));
     } catch (ex) {
-      loader = import(path.join(assemblyScriptFolder, "lib", "loader"));
+      loader = require(path.join(assemblyScriptFolder, "lib", "loader", "umd"));
     }
     if (!loader) {
       throw new Error(`${cliOptions.compiler}/lib/loader has no exports.`);
