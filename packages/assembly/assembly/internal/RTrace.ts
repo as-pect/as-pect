@@ -153,8 +153,10 @@ export class RTrace {
       changetype<usize>(reference) != 0,
       "Cannot get size of reference that is null.",
     );
-
-    return RTrace.sizeOf(changetype<usize>(reference));
+    if (isManaged<T>()) {
+      return RTrace.sizeOf(changetype<usize>(reference));
+    }
+    return offsetof<T>();
   }
 
   public static activeBlocks(): usize[] {

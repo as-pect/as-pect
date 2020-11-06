@@ -150,18 +150,19 @@ export class Reflect {
         }
         return reflectedValue;
       } else if (isFunction<T>()) {
+        let func: Function = <any>value;
         let reflectedValue = createReflectedValue(
           false,
           false,
           isNullable<T>(),
           0,
-          changetype<usize>(value),
+          func.index,
           false,
           0,
           ReflectedValueType.Function,
           0,
           "Function",
-          changetype<usize>(value),
+          func.index,
           false,
           isManaged<T>(),
         );
@@ -231,6 +232,7 @@ export class Reflect {
 
         return reflectedValue;
       } else if (value instanceof ArrayBufferView) {
+        // @ts-ignore: has field
         let length = value.length;
 
         // create an arraylike reflected value
