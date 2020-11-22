@@ -242,10 +242,10 @@ exports[`RTrace output Overall Statistics: a group reference counting errorerror
 Array [
   Object {
     "message": "An orphaned dellocation has occurred at block: 6284",
-    "stackTrace": "    at ~lib/rt/tlsf/freeBlock (wasm-function[47]:0x1b88)
-    at ~lib/rt/tlsf/__free (wasm-function[78]:0x2467)
-    at start:assembly/jest-rtrace~anonymous|1~anonymous|0 (wasm-function[79]:0x246e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[153]:0x3314)",
+    "stackTrace": "    at ~lib/rt/tlsf/freeBlock (wasm://wasm/0001a03a:0:7048)
+    at ~lib/rt/tlsf/__free (wasm://wasm/0001a03a:0:9319)
+    at start:assembly/jest-rtrace~anonymous|1~anonymous|0 (wasm://wasm/0001a03a:0:9326)
+    at ../assembly/assembly/internal/call/__call (wasm://wasm/0001a03a:0:13076)",
     "type": "Orphaned Deallocation Error",
   },
 ]
@@ -257,10 +257,10 @@ exports[`RTrace output Overall Statistics: errors 1`] = `
 Array [
   Object {
     "message": "An orphaned dellocation has occurred at block: 6284",
-    "stackTrace": "    at ~lib/rt/tlsf/freeBlock (wasm-function[47]:0x1b88)
-    at ~lib/rt/tlsf/__free (wasm-function[78]:0x2467)
-    at start:assembly/jest-rtrace~anonymous|1~anonymous|0 (wasm-function[79]:0x246e)
-    at ../assembly/assembly/internal/call/__call (wasm-function[153]:0x3314)",
+    "stackTrace": "    at ~lib/rt/tlsf/freeBlock (wasm://wasm/0001a03a:0:7048)
+    at ~lib/rt/tlsf/__free (wasm://wasm/0001a03a:0:9319)
+    at start:assembly/jest-rtrace~anonymous|1~anonymous|0 (wasm://wasm/0001a03a:0:9326)
+    at ../assembly/assembly/internal/call/__call (wasm://wasm/0001a03a:0:13076)",
     "type": "Orphaned Deallocation Error",
   },
 ]
