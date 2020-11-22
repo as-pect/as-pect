@@ -44,7 +44,7 @@ type InstantiateResult = {
  *
  * @param {string} input - The stack trace line.
  */
-const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
+const wasmFilter = (input: string): boolean => /wasm/i.test(input);
 
 /**
  * This is a collection of all the parameters required for intantiating a TestCollector.

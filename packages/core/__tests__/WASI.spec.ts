@@ -24,9 +24,8 @@ test("snapshots", async () => {
       symbol.toString().includes("kStarted"),
     )[0];
     const setMemorySymbol = symbols.filter((symbol) =>
-      symbol.toString().includes("setMemory"),
+      symbol.toString().includes("kSetMemory"),
     )[0];
-
     // @ts-ignore: symbol access mock
     wasi[setMemorySymbol](instance.exports.memory);
     // @ts-ignore: symbol access mock
