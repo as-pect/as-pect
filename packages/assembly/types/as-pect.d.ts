@@ -691,14 +691,14 @@ declare class RTrace {
   public static nodeFrees(): i32;
 
   /**
-   * Gets the current number of reallocations over the course of the TestContext module.
+   * Gets the current number of moves over the course of the TestContext module.
    */
-  public static reallocations(): i32;
+  public static moves(): i32;
 
   /**
-   * Gets the current number of reallocations over the course of the test node.
+   * Gets the current number of moves over the course of the test node.
    */
-  public static nodeReallocations(): i32;
+  public static nodeMoves(): i32;
 
   /**
    * This method triggers a garbage collection.
@@ -750,7 +750,7 @@ declare class RTrace {
   /**
    * Get the current tests allocated blocks.
    */
-  public static activeTestBlocks(): usize[];
+  public static activeNodeBlocks(): usize[];
 
   /**
    * Get the arc reference count of a given pointer to a managed reference.

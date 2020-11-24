@@ -184,11 +184,11 @@ describe("RTrace api", () => {
     log(ref);
   });
 
-  test("RTrace.reallocations()", () => {
-    log(RTrace.reallocations());
+  test("RTrace.moves()", () => {
+    log(RTrace.moves());
   });
 
   test("RTrace.nodeReallocations()", () => {
-    log(RTrace.nodeReallocations());
+    log(RTrace.nodeMoves());
   });
 });

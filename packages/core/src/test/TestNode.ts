@@ -92,7 +92,7 @@ export class TestNode {
   decrements: number = 0;
 
   /** The node reallocations. */
-  reallocs: number = 0;
+  moves: number = 0;
 
   /** The delta number of heap allocations. */
   get rtraceDelta(): number {

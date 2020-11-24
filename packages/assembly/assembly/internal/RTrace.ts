@@ -54,12 +54,12 @@ declare function getRTraceBlocks(): usize[];
 declare function getRTraceNodeBlocks(): usize[];
 
 // @ts-ignore
-@external("__aspect", "getRTraceReallocs")
-declare function getRTraceReallocs(): i32;
+@external("__aspect", "getRTraceMoves")
+declare function getRTraceMoves(): i32;
 
 // @ts-ignore
-@external("__aspect", "getRTraceNodeReallocs")
-declare function getRTraceNodeReallocs(): i32;
+@external("__aspect", "getRTraceNodeMoves")
+declare function getRTraceNodeMoves(): i32;
 
 @global
 export class RTrace {
@@ -186,12 +186,13 @@ export class RTrace {
     return ASC_OPTIMIZE_LEVEL > 0 ? count : count - 1;
   }
 
-  public static reallocations(): i32 {
-    return getRTraceReallocs();
+  /** Count the total number of block moves */
+  public static moves(): i32 {
+    return getRTraceMoves();
   }
 
-  public static nodeReallocations(): i32 {
-    return getRTraceNodeReallocs();
+  public static nodeMoves(): i32 {
+    return getRTraceNodeMoves();
   }
 }
 
