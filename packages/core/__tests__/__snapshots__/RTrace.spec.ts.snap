@@ -56,6 +56,14 @@ exports[`RTrace output Overall Statistics: !~RTrace api[0]!~RTrace.increments()[
 
 exports[`RTrace output Overall Statistics: !~RTrace api[0]!~RTrace.increments()[0] rtraceStart 1`] = `7`;
 
+exports[`RTrace output Overall Statistics: !~RTrace api[0]!~RTrace.moves()[0] errors 1`] = `Array []`;
+
+exports[`RTrace output Overall Statistics: !~RTrace api[0]!~RTrace.moves()[0] rtraceDelta 1`] = `0`;
+
+exports[`RTrace output Overall Statistics: !~RTrace api[0]!~RTrace.moves()[0] rtraceEnd 1`] = `0`;
+
+exports[`RTrace output Overall Statistics: !~RTrace api[0]!~RTrace.moves()[0] rtraceStart 1`] = `34`;
+
 exports[`RTrace output Overall Statistics: !~RTrace api[0]!~RTrace.nodeAllocations()[0] errors 1`] = `Array []`;
 
 exports[`RTrace output Overall Statistics: !~RTrace api[0]!~RTrace.nodeAllocations()[0] rtraceDelta 1`] = `0`;

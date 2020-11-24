@@ -1,5 +1,5 @@
 import { IAspectExports } from "../util/IAspectExports";
-import { Rtrace, BlockInfo } from "assemblyscript/lib/rtrace";
+import { Rtrace, BlockInfo } from "../util/rTrace";
 
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
