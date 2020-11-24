@@ -242,12 +242,12 @@ export class TestContext {
     });
   }
 
-  private onRtraceInfo(message: string): void {
-    this.pushWarning({
-      message,
-      stackTrace: this.getLogStackTrace(),
-      type: "rtrace",
-    });
+  private onRtraceInfo(_message: string): void {
+    // this.pushWarning({
+    //   message,
+    //   stackTrace: this.getLogStackTrace(),
+    //   type: "rtrace",
+    // });
   }
 
   /**
