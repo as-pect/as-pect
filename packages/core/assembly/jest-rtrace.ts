@@ -85,8 +85,8 @@ describe("RTrace tests", () => {
     }
   });
 
-  test("trigger a reallocation", () => {
-    // create a reference that will be reallocated
+  test("trigger a move", () => {
+    // create a reference that will be moved
     let a = __retain(__new(100, idof<ArrayBuffer>()));
 
     // add some things to the heap so tlsf must allocate a new block for "a"
@@ -95,7 +95,7 @@ describe("RTrace tests", () => {
     let d = new Vec3(1, 2, 3);
     let e = new Vec3(1, 2, 3);
     
-    // manually trigger a reallocation
+    // manually trigger a move
     a = __renew(changetype<usize>(a), 10000);
     __release(a);
   });

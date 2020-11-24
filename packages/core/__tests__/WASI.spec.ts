@@ -21,10 +21,10 @@ test("snapshots", async () => {
   wasi.start = jest.fn((instance: WebAssembly.Instance) => {
     const symbols = Object.getOwnPropertySymbols(wasi);
     const kStartedSymbol = symbols.filter((symbol) =>
-      symbol.toString().includes("kStarted"),
+      symbol.toString().toLowerCase().includes("started"),
     )[0];
     const setMemorySymbol = symbols.filter((symbol) =>
-      symbol.toString().includes("kSetMemory"),
+      symbol.toString().toLowerCase().includes("setmemory"),
     )[0];
     // @ts-ignore: symbol access mock
     wasi[setMemorySymbol](instance.exports.memory);
