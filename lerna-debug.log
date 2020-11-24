@@ -1,0 +1,24 @@
+0 silly argv {
+0 silly argv   _: [ 'run' ],
+0 silly argv   lernaVersion: '3.22.1',
+0 silly argv   '$0': 'node_modules/.bin/lerna',
+0 silly argv   script: 'test'
+0 silly argv }
+1 notice cli v3.22.1
+2 verbose rootPath /home/j_tenner/as-pect
+3 info Executing command in 6 packages: "npm run test"
+4 silly npmRunScript test [] @as-pect/assembly
+5 silly getExecOpts /home/j_tenner/as-pect/packages/assembly undefined
+6 silly npmRunScript test [] @as-pect/snapshots
+7 silly getExecOpts /home/j_tenner/as-pect/packages/snapshots undefined
+8 info run Ran npm script 'test' in '@as-pect/snapshots' in 2.0s:
+9 error MaxBufferError: stdout maxBuffer exceeded
+9 error     at PassThrough.<anonymous> (/home/j_tenner/as-pect/node_modules/@lerna/child-process/node_modules/get-stream/index.js:41:19)
+9 error     at PassThrough.emit (events.js:327:22)
+9 error     at addChunk (_stream_readable.js:302:12)
+9 error     at readableAddChunk (_stream_readable.js:274:11)
+9 error     at PassThrough.Readable.push (_stream_readable.js:217:10)
+9 error     at PassThrough.Transform.push (_stream_transform.js:152:32)
+9 error     at PassThrough.afterTransform (_stream_transform.js:96:10)
+9 error     at PassThrough._transform (_stream_passthrough.js:46:3)
+9 error     at PassThrough.Transform._read (_stream_transform.js:191:10)
