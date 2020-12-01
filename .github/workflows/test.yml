@@ -21,5 +21,7 @@ jobs:
       run: npm install
     - name: Test sources
       run: npm run test:ci
-    - name: check coverage
-      run: npm run coveralls
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
