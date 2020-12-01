@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   test:
-    name: "Linux, node ${{ matrix.node_version }}"
+    name: "${{ matrix.os }}, node ${{ matrix.node_version }}"
     runs-on:  ${{ matrix.os }}
     strategy:
       matrix:
@@ -20,6 +20,6 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: Test sources
-      run: npm test:ci
+      run: npm run test:ci
     - name: check coverage
       run: npm run coveralls
