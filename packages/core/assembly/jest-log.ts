@@ -231,7 +231,8 @@ describe("logs", () => {
     log(e);
     __free(changetype<usize>(e));
     let lotsOfValues = new Array<i32>();
-    for (let i = 0; i < 20; i++) lotsOfValues.push(i); // for expanded values
+    __retain(changetype<usize>(lotsOfValues));
+    for (let i = 0; i < 20; i++) lotsOfValues[i] = i; // for expanded values
     log(lotsOfValues);
     log(new LotsOfFields());
     let g = new Float64Array(20);
@@ -278,12 +279,12 @@ describe("logs", () => {
     log(new NestedTypeImpliedArrayA()); // type info is implied in inline position
     log(new NestedTypeImpliedArrayC()); // type info is implied in expanded position
 
-    let lotsOfFieldsArray = new Array<Vec3>(); // implied type information for class display
-    for (let i = 0; i < 4; i++) lotsOfFieldsArray.push(new Vec3(1, 2, 3));
+    let lotsOfFieldsArray = new Array<Vec3>(4); // implied type information for class display
+    for (let i = 0; i < 4; i++) lotsOfFieldsArray[i] = new Vec3(1, 2, 3);
     log(lotsOfFieldsArray);
 
-    let anotherFieldsArray = new Array<Vec3 | null>(); // implied type information on null output
-    anotherFieldsArray.push(null);
+    let anotherFieldsArray = new Array<Vec3 | null>(1); // implied type information on null output
+    anotherFieldsArray[0] = null;
     log(anotherFieldsArray);
     log(new Overridden());
 

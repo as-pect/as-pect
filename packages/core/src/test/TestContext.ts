@@ -237,7 +237,7 @@ export class TestContext {
   private onRtraceError(err: Error, block: BlockInfo): void {
     this.pushError({
       message: `Block: ${block.ptr} => ${err.message}`,
-      stackTrace: err.stack || "No stack trace provided.",
+      stackTrace: err.stack?.split("\n").filter(wasmFilter).join("\n") || "No stack trace provided.",
       type: "rtrace",
     });
   }

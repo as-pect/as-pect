@@ -1,10 +1,11 @@
-// Generated automatically by nearley, version 2.19.8
+// Generated automatically by nearley, version 2.19.9
 // http://github.com/Hardmath123/nearley
 // Bypasses TS6133. Allow declared but unused functions.
 // @ts-ignore
 function id(d: any[]): any { return d[0]; }
 
-interface NearleyToken {  value: any;
+interface NearleyToken {
+  value: any;
   [key: string]: any;
 };
 
@@ -12,7 +13,7 @@ interface NearleyLexer {
   reset: (chunk: string, info: any) => void;
   next: () => NearleyToken | undefined;
   save: () => any;
-  formatError: (token: NearleyToken) => string;
+  formatError: (token: never) => string;
   has: (tokenType: string) => boolean;
 };
 
