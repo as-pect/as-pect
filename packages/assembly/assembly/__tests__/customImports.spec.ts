@@ -1,4 +1,3 @@
-const newListener = <u32>1;
 // prettier-ignore
 @external("linked", "getValue")
 declare function getValue(): i32;

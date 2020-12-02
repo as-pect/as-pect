@@ -1,6 +1,7 @@
 import { Vec3 } from "./setup/Vec3";
 
-let globalVec: Vec3;
+/* eslint-disable-line no-unused-vars */
+let ATo: Vec3;
 
 @unmanaged
 class TestUnmanaged {}
@@ -12,7 +13,7 @@ class TestUnmanaged {}
 describe("RTrace", () => {
   it("should start and end with the correct delta in reference counts", () => {
     RTrace.start(1);
-    globalVec = new Vec3(1, 2, 3);
+    ATo = new Vec3(1, 2, 3);
 
     expect(RTrace.count()).toBeGreaterThan(
       0,
@@ -27,7 +28,7 @@ describe("RTrace", () => {
   });
 
   it("should return a positive number", () => {
-    globalVec = new Vec3(1, 2, 3);
+    ATo = new Vec3(1, 2, 3);
     expect(RTrace.count()).toBeGreaterThan(
       0,
       "RTrace counts should be greater than 0",

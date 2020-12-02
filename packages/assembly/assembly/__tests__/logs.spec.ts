@@ -48,7 +48,7 @@ class UnmanagedClass {
 
 class CustomDisplayStringClass {
   x: i32 = 2;
-  y = "joe";
+  y: string = "joe";
 
   __aspectReflectAs(): string {
     return this.y + " has " + this.x.toString() + " cookies";
@@ -57,7 +57,7 @@ class CustomDisplayStringClass {
 
 class CustomDisplayNumberClass {
   x: i32 = 2;
-  y = "joe";
+  y: string = "joe";
 
   __aspectReflectAs(): i32 {
     return this.y.length + this.x;
