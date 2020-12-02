@@ -94,8 +94,13 @@ describe("RTrace tests", () => {
     let c = new Vec3(1, 2, 3);
     let d = new Vec3(1, 2, 3);
     let e = new Vec3(1, 2, 3);
+<<<<<<< HEAD
     
     // manually trigger a move
+=======
+
+    // manually trigger a reallocation
+>>>>>>> 6e70f2d56a3d8024095ca4f7ca0558872ff5d67d
     a = __renew(changetype<usize>(a), 10000);
     __release(a);
   });

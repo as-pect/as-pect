@@ -34,7 +34,6 @@ class B {
 }
 
 class Empty {
-  constructor() {}
   s: string | null = null;
   t: Array<A> | null = null;
   m: Map<B, Empty> | null = null;
@@ -49,16 +48,16 @@ class UnmanagedClass {
 
 class CustomDisplayStringClass {
   x: i32 = 2;
-  y: string = "joe";
+  y = "joe";
 
-  __aspectReflectAs(): String {
+  __aspectReflectAs(): string {
     return this.y + " has " + this.x.toString() + " cookies";
   }
 }
 
 class CustomDisplayNumberClass {
   x: i32 = 2;
-  y: string = "joe";
+  y = "joe";
 
   __aspectReflectAs(): i32 {
     return this.y.length + this.x;

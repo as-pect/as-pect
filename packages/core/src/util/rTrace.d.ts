@@ -1,28 +1,28 @@
 /** Block information. */
 export declare interface BlockInfo {
   /** Pointer to the block. */
-  ptr: number,
+  ptr: number;
   /** Block size. */
-  size: number,
+  size: number;
   /** Runtime header. */
   header: {
     /** Memory manager info bits. */
-    mmInfo: number,
+    mmInfo: number;
     /** Garbage collector info bits. */
-    gcInfo: number,
+    gcInfo: number;
     /** Runtime id. */
-    rtId: number,
+    rtId: number;
     /** Runtime size. */
-    rtSize: number
-  },
-  toString(): string
+    rtSize: number;
+  };
+  toString(): string;
 }
 
 export declare interface RtraceOptions {
   /** Function being called when a problem is detected. */
-  onerror?: (error: Error, info: BlockInfo) => void,
+  onerror?: (error: Error, info: BlockInfo) => void;
   /** Function being called with information messages. */
-  oninfo?: (msg: string) => void,
+  oninfo?: (msg: string) => void;
   /** Obtains the module's memory instance. */
   getMemory(): WebAssembly.Memory;
 }

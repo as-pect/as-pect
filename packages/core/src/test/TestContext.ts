@@ -171,7 +171,7 @@ export class TestContext {
   /** The expected snapshots. */
   public expectedSnapshots: Snapshot;
 
-  public rtrace: Rtrace & { blocks: Map<number, number>; };
+  public rtrace: Rtrace & { blocks: Map<number, number> };
 
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
@@ -237,7 +237,10 @@ export class TestContext {
   private onRtraceError(err: Error, block: BlockInfo): void {
     this.pushError({
       message: `Block: ${block.ptr} => ${err.message}`,
-      stackTrace: err.stack || "No stack trace provided.",
+      /* istanbul ignore next */
+      stackTrace:
+        err.stack?.split("\n").filter(wasmFilter).join("\n") ||
+        "No stack trace provided.",
       type: "rtrace",
     });
   }
@@ -894,8 +897,8 @@ export class TestContext {
    * This method adds reallocation counts for a given block, then calls super.onmove()
    * to update block information.
    *
-   * @param oldBlock 
-   * @param newBlock 
+   * @param oldBlock
+   * @param newBlock
    */
   public onmove(oldBlock: number, newBlock: number): void {
     this.moveCount += 1;
