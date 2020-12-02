@@ -5,6 +5,9 @@ on:
     - master
   pull_request:
 jobs:
+  check:
+    name: Check syntax
+    run: npm run check
   test:
     name: "${{ matrix.os }}, node ${{ matrix.node_version }}"
     runs-on:  ${{ matrix.os }}
@@ -25,8 +28,6 @@ jobs:
       run: cat ./packages/core/coverage/lcov.info
   finish:
     needs: test
-    steps:
-    - name: prettier
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:

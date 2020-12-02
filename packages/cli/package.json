@@ -16,7 +16,8 @@
     "tsc": "run-s rimraf tsc:all"
   },
   "bin": {
-    "asp": "bin/asp"
+    "asp": "bin/asp",
+    "aspect": "bin/asp"
   },
   "repository": {
     "type": "git",
