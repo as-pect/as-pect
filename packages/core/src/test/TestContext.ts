@@ -237,8 +237,8 @@ export class TestContext {
   private onRtraceError(err: Error, block: BlockInfo): void {
     this.pushError({
       message: `Block: ${block.ptr} => ${err.message}`,
-      /* istanbul ignore next */
       stackTrace:
+        /* istanbul ignore next */
         err.stack?.split("\n").filter(wasmFilter).join("\n") ||
         "No stack trace provided.",
       type: "rtrace",
