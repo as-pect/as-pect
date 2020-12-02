@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+
 // @ts-ignore
 @external("__aspect", "logReflectedValue")
 declare function logReflectedValue(id: i32): void;

@@ -14,11 +14,6 @@ module.exports = {
     sourceType: "module",
     ecmaFeatures: {}
   },
-  globals: {
-    "BigInt64Array": "readonly",
-    "BigUint64Array": "readonly",
-    "__non_webpack_require__": "readonly"
-  },
 
   // === General rules =========================================================
 
@@ -78,43 +73,11 @@ module.exports = {
   },
   overrides: [
 
-    // === JavaScript rules ====================================================
-
-    {
-      env: {
-        "browser": true,
-        "amd": true,
-        "node": true,
-        "es6": true
-      },
-      files: [
-        "**/*.js",
-        "bin/*"
-      ],
-      rules: {
-        // We are testing both ESM and UMD, so don't limit us.
-        "@typescript-eslint/no-var-requires": "off",
-
-        // This rule does not behave well in JS files.
-        "@typescript-eslint/explicit-module-boundary-types": "off",
-
-        // Enforcing to remove function parameters on stubs makes code less
-        // maintainable, so we instead allow unused function parameters.
-        "no-unused-vars": [
-          "warn", {
-            "vars": "local",
-            "args": "none",
-            "ignoreRestSiblings": false
-          }
-        ]
-      }
-    },
-
     // === TypeScript rules ====================================================
 
     {
       files: [
-        "**/*.ts"
+        "**/assembly/**/*.ts"
       ],
       rules: {
         // Enforcing to remove function parameters on stubs makes code less
@@ -122,23 +85,12 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": [
           "warn", {
             "vars": "local",
-            "varsIgnorePattern": "^[A-Z](?:From|To)?$", // ignore type params
+            "varsIgnorePattern": "^_|^[A-Z](?:From|To)?$", // ignore type params
             "args": "none",
             "ignoreRestSiblings": false
           }
-        ]
-      }
-    },
+        ],
 
-    // === AssemblyScript rules (extends TypeScript rules) =====================
-
-    {
-      files: [
-        "**/assembly/**/*.ts",
-        "src/**/*.ts",
-        "lib/parse/src/**/*.ts"
-      ],
-      rules: {
         // Namespaces are quite useful in AssemblyScript
         "@typescript-eslint/no-namespace": "off",
 
@@ -157,8 +109,7 @@ module.exports = {
 
     {
       files: [
-        "src/**/*.ts",
-        "std/assembly/**/*.ts"
+        "**/assembly/**/*.ts"
       ],
       rules: {
         // There is an actual codegen difference here - TODO: revisit
@@ -180,7 +131,7 @@ module.exports = {
 
     {
       files: [
-        "std/assembly/**/*.ts"
+        "**/assembly/**/*.ts"
       ],
       rules: {
         // We are implementing with --noLib, so we shadow all the time
@@ -195,7 +146,7 @@ module.exports = {
 
     {
       files: [
-        "std/**/*.d.ts"
+        "**/assembly/**/*.d.ts"
       ],
       rules: {
         // Often required to achieve compatibility with TypeScript
@@ -209,27 +160,13 @@ module.exports = {
       }
     },
 
-    // === Compiler Definition rules (extends TypeScript rules) ================
-
-    {
-      files: [
-        "./index.d.ts",
-        "./index.release.d.ts",
-      ],
-      rules: {
-        // Our definitions are complicated, and all attempts to describe them
-        // as modules have failed so far. As such, we re-export namespaces.
-        "@typescript-eslint/no-namespace": "off",
-        "@typescript-eslint/triple-slash-reference": "off"
-      }
-    },
+    
 
     // === Test rules (extends TypeScript rules) ===============================
 
     {
       files: [
-        "./tests/compiler/**/*.ts",
-        "./lib/loader/tests/assembly/**/*.ts"
+        "**/assembly/__tests__/**/*.ts"
       ],
       rules: {
         // Tests typically include unusual code patterns on purpose. This is

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /**
  * This is a standard Vec3 Class that contains three float values.
  */
@@ -12,7 +13,7 @@ export class Vec3 {
   protected __equals(reference: Vec3 | null): bool {
     if (reference === this) return true;
     if (reference === null) return false;
-    //@ts-ignore
+    // @ts-ignore
     return (
       this.x == reference.x && this.y == reference.y && this.z == reference.z
     );
