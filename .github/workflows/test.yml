@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Check syntax
     steps:
-      - run: npm install && npm run check
+    - name: Install dependencies
+      run: npm install
+    - name: Check sources
+      run: npm run check
   test:
     name: "${{ matrix.os }}, node ${{ matrix.node_version }}"
     runs-on:  ${{ matrix.os }}
