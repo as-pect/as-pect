@@ -8,7 +8,14 @@ jobs:
   check:
     runs-on: ubuntu-latest
     name: Check syntax
+    strategy:
+      matrix:
+        node_version: ["15"]
     steps:
+    - uses: actions/checkout@v1.0.0
+    - uses: dcodeIO/setup-node-nvm@master
+      with:
+        node-version: ${{ matrix.node_version }}
     - name: Install dependencies
       run: npm install
     - name: Check sources
