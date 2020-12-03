@@ -1,4 +1,4 @@
 packages/assembly/assembly/internal/runtime.ts
 packages/snapshots/src/parser/grammar.ts
 **/lib/**/*.*
-packages/*/assembly/**/*.ts
+node_modules/

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * This is a standard Vec3 Class that contains three float values.
  */
@@ -85,18 +87,18 @@ describe("RTrace tests", () => {
     }
   });
 
-  test("trigger a reallocation", () => {
-    // create a reference that will be reallocated
-    let a = __retain(__alloc(100, idof<ArrayBuffer>()));
+  test("trigger a move", () => {
+    // create a reference that will be moved
+    let a = __retain(__new(100, idof<ArrayBuffer>()));
 
     // add some things to the heap so tlsf must allocate a new block for "a"
     let b = new Vec3(1, 2, 3);
     let c = new Vec3(1, 2, 3);
     let d = new Vec3(1, 2, 3);
     let e = new Vec3(1, 2, 3);
-
-    // manually trigger a reallocation
-    a = __realloc(changetype<usize>(a), 10000);
+    
+    // manually trigger a move
+    a = __renew(changetype<usize>(a), 10000);
     __release(a);
   });
 });
@@ -184,11 +186,11 @@ describe("RTrace api", () => {
     log(ref);
   });
 
-  test("RTrace.reallocations()", () => {
-    log(RTrace.reallocations());
+  test("RTrace.moves()", () => {
+    log(RTrace.moves());
   });
 
   test("RTrace.nodeReallocations()", () => {
-    log(RTrace.nodeReallocations());
+    log(RTrace.nodeMoves());
   });
 });

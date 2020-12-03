@@ -34,9 +34,9 @@ class B {
 }
 
 class Empty {
-  s: string;
-  t: Array<A>;
-  m: Map<B, Empty>;
+  s: string | null = null;
+  t: Array<A> | null = null;
+  m: Map<B, Empty> | null = null;
 }
 
 @unmanaged
@@ -50,7 +50,7 @@ class CustomDisplayStringClass {
   x: i32 = 2;
   y: string = "joe";
 
-  __aspectReflectAs(): String {
+  __aspectReflectAs(): string {
     return this.y + " has " + this.x.toString() + " cookies";
   }
 }

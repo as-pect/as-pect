@@ -1,4 +1,5 @@
 import { IAspectExports } from "../util/IAspectExports";
+import { Rtrace, BlockInfo } from "../util/rTrace";
 
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
@@ -44,7 +45,7 @@ type InstantiateResult = {
  *
  * @param {string} input - The stack trace line.
  */
-const wasmFilter = (input: string): boolean => /wasm-function/i.test(input);
+const wasmFilter = (input: string): boolean => /wasm/i.test(input);
 
 /**
  * This is a collection of all the parameters required for intantiating a TestCollector.
@@ -69,6 +70,7 @@ export interface ITestContextParameters {
 }
 
 /** This class is responsible for collecting and running all the tests in a test binary. */
+
 export class TestContext {
   /** The web assembly module if it was set. */
   protected wasm: IAspectExports | null = null;
@@ -169,10 +171,21 @@ export class TestContext {
   /** The expected snapshots. */
   public expectedSnapshots: Snapshot;
 
+  public rtrace: Rtrace & { blocks: Map<number, number> };
+
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
 
   constructor(props: ITestContextParameters) {
+    // @ts-ignore
+    this.rtrace = new Rtrace({
+      getMemory: () => {
+        return this.wasm!.memory as WebAssembly.Memory;
+      },
+      // @ts-ignore
+      onerror: (err: Error, info: BlockInfo) => this.onRtraceError(err, info),
+      oninfo: (msg: string) => this.onRtraceInfo(msg),
+    });
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
     if (props.testRegex) this.testRegex = props.testRegex;
@@ -215,6 +228,32 @@ export class TestContext {
   }
 
   /**
+   * Track an rtrace error. This method should be bound and passed to the RTrace options.
+   *
+   * @param err - The error.
+   * @param block - BlockInfo
+   */
+  // @ts-ignore
+  private onRtraceError(err: Error, block: BlockInfo): void {
+    this.pushError({
+      message: `Block: ${block.ptr} => ${err.message}`,
+      stackTrace:
+        /* istanbul ignore next */
+        err.stack?.split("\n").filter(wasmFilter).join("\n") ||
+        "No stack trace provided.",
+      type: "rtrace",
+    });
+  }
+
+  private onRtraceInfo(_message: string): void {
+    // this.pushWarning({
+    //   message,
+    //   stackTrace: this.getLogStackTrace(),
+    //   type: "rtrace",
+    // });
+  }
+
+  /**
    * Call this method to start the `__main()` method provided by the `as-pect` exports to start the
    * process of test collection and evaluation.
    */
@@ -234,7 +273,9 @@ export class TestContext {
       (result, value) => {
         if (result) {
           return (
+            // @ts-ignore
             value.type === SnapshotDiffResultType.Added ||
+            // @ts-ignore
             value.type === SnapshotDiffResultType.NoChange
           );
         }
@@ -274,7 +315,7 @@ export class TestContext {
     node.start = performance.now();
 
     // set the rtraceStart value
-    node.rtraceStart = this.blocks.size;
+    node.rtraceStart = this.rtrace.blocks.size;
 
     // set the target node for collection
     this.targetNode = node;
@@ -436,7 +477,7 @@ export class TestContext {
     node.expected = this.expected;
     node.message = this.message;
     node.end = performance.now();
-    node.rtraceEnd = this.blocks.size;
+    node.rtraceEnd = this.rtrace.blocks.size;
   }
 
   /** Add a test or group result to the statistics. */
@@ -518,9 +559,9 @@ export class TestContext {
       getRTraceNodeDecrements: this.getRTraceNodeDecrements.bind(this),
       getRTraceNodeFrees: this.getRTraceNodeFrees.bind(this),
       getRTraceNodeIncrements: this.getRTraceNodeIncrements.bind(this),
-      getRTraceNodeReallocs: this.getRTraceNodeReallocs.bind(this),
+      getRTraceNodeMoves: this.getRTraceNodeMoves.bind(this),
       getRTraceIncrements: this.getRTraceIncrements.bind(this),
-      getRTraceReallocs: this.getRTraceReallocs.bind(this),
+      getRTraceMoves: this.getRTraceMoves.bind(this),
       logReflectedValue: this.logReflectedValue.bind(this),
       pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
       pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
@@ -547,7 +588,8 @@ export class TestContext {
         onfree: this.onfree.bind(this),
         onincrement: this.onincrement.bind(this),
         ondecrement: this.ondecrement.bind(this),
-        onrealloc: this.onrealloc.bind(this),
+        onmove: this.onmove.bind(this),
+        onresize: this.onresize.bind(this),
       };
     }
 
@@ -742,7 +784,7 @@ export class TestContext {
    * This method returns the current rtrace count.
    */
   private getRTraceCount(): number {
-    return this.blocks.size;
+    return this.rtrace.blocks.size;
   }
 
   /**
@@ -751,7 +793,7 @@ export class TestContext {
    * @param {number} label - The RTrace label.
    */
   private startRTrace(label: number): void {
-    this.rtraceLabels.set(label, this.blocks.size);
+    this.rtraceLabels.set(label, this.rtrace.blocks.size);
   }
 
   /**
@@ -762,7 +804,7 @@ export class TestContext {
    * @returns {number}
    */
   private endRTrace(label: number): number {
-    const result = this.blocks.size - this.rtraceLabels.get(label)!;
+    const result = this.rtrace.blocks.size - this.rtraceLabels.get(label)!;
     this.rtraceLabels.delete(label);
     return result;
   }
@@ -790,7 +832,7 @@ export class TestContext {
   /**
    * This is the current number of net reallocations during the `TestContext` execution.
    */
-  protected reallocationCount: number = 0;
+  protected moveCount: number = 0;
 
   /**
    * This map is responsible for keeping track of which blocks are currently allocated by their id.
@@ -807,29 +849,11 @@ export class TestContext {
    *
    * @param {number} block - This is a unique identifier for the affected block.
    */
-  private onalloc(block: number): void {
+  public onalloc(block: number): void {
     this.allocationCount += 1;
     this.targetNode.allocations += 1;
-    /**
-     * This is impossible to test but follows exactly from the AssemblyScript example located
-     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
-     *
-     * Please see this file for further information about how rtrace errors are reported.
-     */
-    /* istanbul ignore next */
-    if (this.blocks.has(block)) {
-      /* istanbul ignore next */
-      this.pushError({
-        message:
-          "A duplicate allocation has occurred at block: " + block.toString(),
-        stackTrace: this.getLogStackTrace(),
-        type: "Allocation Error",
-      });
-    } else {
-      this.blocks.set(block, 0);
-    }
-
     this.nodeBlocks.add(block);
+    this.rtrace.onalloc(block);
   }
 
   /**
@@ -837,32 +861,14 @@ export class TestContext {
    *
    * @param {number} block - This is a unique identifier for the affected block.
    */
-  private onfree(block: number): void {
+  public onfree(block: number): void {
     this.freeCount += 1;
     this.targetNode.frees += 1;
-    /**
-     * This is impossible to test, but follows exactly from the AssemblyScript example located
-     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
-     *
-     * Please see this file for further information about how rtrace errors are reported.
-     */
-    /* istanbul ignore next */
-    if (!this.blocks.has(block)) {
-      /* istanbul ignore next */
-      this.pushError({
-        message:
-          "An orphaned dellocation has occurred at block: " + block.toString(),
-        stackTrace: this.getLogStackTrace(),
-        type: "Orphaned Deallocation Error",
-      });
-    } else {
-      this.blocks.delete(block);
-    }
-
     // remove any cached strings at this pointer
     this.cachedStrings.delete(block + 16);
 
     this.nodeBlocks.delete(block);
+    this.rtrace.onfree(block);
   }
 
   /**
@@ -870,28 +876,10 @@ export class TestContext {
    *
    * @param {number} block - This is a unique identifier for the affected block.
    */
-  private onincrement(block: number): void {
+  public onincrement(block: number): void {
     this.incrementCount += 1;
     this.targetNode.increments += 1;
-    /**
-     * This is impossible to test, but follows exactly from the AssemblyScript example located
-     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
-     *
-     * Please see this file for further information about how rtrace errors are reported.
-     */
-    /* istanbul ignore next */
-    if (!this.blocks.has(block)) {
-      /* istanbul ignore next */
-      this.pushError({
-        message:
-          "An orphaned increment has occurred at block: " + block.toString(),
-        stackTrace: this.getLogStackTrace(),
-        type: "Orphaned Increment Error",
-      });
-    } else {
-      const count = this.blocks.get(block)!;
-      this.blocks.set(block, count + 1);
-    }
+    this.rtrace.onincrement(block);
   }
 
   /**
@@ -899,77 +887,23 @@ export class TestContext {
    *
    * @param {number} block - This is a unique identifier for the affected block.
    */
-  private ondecrement(block: number): void {
+  public ondecrement(block: number): void {
     this.decrementCount += 1;
     this.targetNode.decrements += 1;
-    /**
-     * This is impossible to test, but follows exactly from the AssemblyScript example located
-     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
-     *
-     * Please see this file for further information about how rtrace errors are reported.
-     */
-    /* istanbul ignore next */
-    if (!this.blocks.has(block)) {
-      /* istanbul ignore next */
-      this.pushError({
-        message:
-          "An orphaned decrement has occurred at block: " + block.toString(),
-        stackTrace: this.getLogStackTrace(),
-        type: "Orphaned Decrement Error",
-      });
-    } else {
-      const count = this.blocks.get(block)!;
-      this.blocks.set(block, count - 1);
-    }
+    this.rtrace.ondecrement(block);
   }
 
-  private onrealloc(oldBlock: number, newBlock: number): void {
-    this.reallocationCount += 1;
-    this.targetNode.reallocs += 1;
-    /**
-     * This is impossible to test, but follows exactly from the AssemblyScript example located
-     * at https://github.com/AssemblyScript/assemblyscript/blob/master/lib/rtrace/index.js.
-     *
-     * Please see this file for further information about how rtrace errors are reported.
-     */
-    /* istanbul ignore next */
-    if (!this.blocks.has(oldBlock)) {
-      /* istanbul ignore next */
-      this.pushError({
-        message:
-          "An orphaned realloc has occurred at old block: " +
-          oldBlock.toString(),
-        stackTrace: this.getLogStackTrace(),
-        type: "Orphaned Reallocation Error (old)",
-      });
-    } else {
-      /* istanbul ignore next */
-      if (!this.blocks.has(newBlock)) {
-        /* istanbul ignore next */
-        this.pushError({
-          message:
-            "An orphaned realloc has occurred at new block: " +
-            newBlock.toString(),
-          stackTrace: this.getLogStackTrace(),
-          type: "Orphaned Reallocation Error (new)",
-        });
-      } else {
-        /* istanbul ignore next */
-        let newRc = this.blocks.get(newBlock);
-        /* istanbul ignore next */
-        if (newRc != 0) {
-          /* istanbul ignore next */
-          this.pushError({
-            message: `An invalid realloc error has occurred from ${oldBlock} to ${newBlock}.`,
-            stackTrace: this.getLogStackTrace(),
-            type: "Invalid Reallocation Error",
-          });
-        } else {
-          let oldRc = this.blocks.get(oldBlock)!;
-          this.blocks.set(newBlock, oldRc);
-        }
-      }
-    }
+  /**
+   * This method adds reallocation counts for a given block, then calls super.onmove()
+   * to update block information.
+   *
+   * @param oldBlock
+   * @param newBlock
+   */
+  public onmove(oldBlock: number, newBlock: number): void {
+    this.moveCount += 1;
+    this.targetNode.moves += 1;
+    this.rtrace.onmove(oldBlock, newBlock);
   }
 
   /**
@@ -1031,15 +965,15 @@ export class TestContext {
   /**
    * This linked method gets all the RTrace reallocations for the current TestContext.
    */
-  private getRTraceReallocs(): number {
-    return this.reallocationCount;
+  private getRTraceMoves(): number {
+    return this.moveCount;
   }
 
   /**
    * This linked method gets all the RTrace reallocations for the current TestNode.
    */
-  private getRTraceNodeReallocs(): number {
-    return this.targetNode.reallocs;
+  private getRTraceNodeMoves(): number {
+    return this.targetNode.moves;
   }
 
   /**
@@ -1048,7 +982,7 @@ export class TestContext {
   private getRTraceBlocks(): number {
     return this.wasm!.__allocArray(
       this.wasm!.__getUsizeArrayId(),
-      Array.from(this.blocks.keys()),
+      Array.from(this.rtrace.blocks.keys()),
     );
   }
 
@@ -1498,5 +1432,9 @@ export class TestContext {
       name,
       this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
     );
+  }
+
+  onresize(_block: number, _size: number): void {
+    // todo: implement shadow memory stuff
   }
 }

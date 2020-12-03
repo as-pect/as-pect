@@ -408,8 +408,8 @@ class D {
 }
 
 class Empty {
-  s: string;
-  t: Array<A>;
+  s: string | null = null;
+  t: Array<A> | null = null;
 }
 
 class G<T> {

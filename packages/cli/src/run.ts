@@ -72,6 +72,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   try {
     let folderUsed = "cli";
     try {
+      console.log("Assemblyscript Folder:" + assemblyScriptFolder);
       /** Next, obtain the compiler, and assert it has a main function. */
       asc = require(path.join(assemblyScriptFolder, "cli", "asc"));
     } catch (ex) {
@@ -94,7 +95,12 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     }
 
     /** Next, collect the loader, and assert it has an instantiateSync method. */
-    let loader = require(path.join(assemblyScriptFolder, "lib", "loader"));
+    let loader;
+    try {
+      loader = require(path.join(assemblyScriptFolder, "lib", "loader"));
+    } catch (ex) {
+      loader = require(path.join(assemblyScriptFolder, "lib", "loader", "umd"));
+    }
     if (!loader) {
       throw new Error(`${cliOptions.compiler}/lib/loader has no exports.`);
     }

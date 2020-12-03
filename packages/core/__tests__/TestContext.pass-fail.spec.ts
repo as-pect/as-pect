@@ -2,7 +2,7 @@ import { TestContext } from "../src/test/TestContext";
 import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue";
 import { promises as fs } from "fs";
 import { EmptyReporter } from "../src/reporter/EmptyReporter";
-import { instantiate } from "assemblyscript/lib/loader";
+import { instantiate } from "assemblyscript/lib/loader/umd";
 
 const stringifyOptions: Partial<StringifyReflectedValueProps> = {
   indent: 2,
@@ -47,7 +47,7 @@ describe("pass-fail output", () => {
       expect(group.allocations).toMatchSnapshot(
         `${group.namespace} allocations`,
       );
-      expect(group.reallocs).toMatchSnapshot(`${group.namespace} reallocs`);
+      expect(group.moves).toMatchSnapshot(`${group.namespace} reallocs`);
       expect(group.frees).toMatchSnapshot(`${group.namespace} frees`);
       expect(group.increments).toMatchSnapshot(`${group.namespace} increments`);
       expect(group.decrements).toMatchSnapshot(`${group.namespace} decrements`);

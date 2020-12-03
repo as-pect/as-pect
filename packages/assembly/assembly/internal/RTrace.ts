@@ -1,4 +1,4 @@
-import { BLOCK, BLOCK_OVERHEAD } from "rt/common";
+import { OBJECT, TOTAL_OVERHEAD } from "rt/common";
 import { REFCOUNT_MASK } from "./runtime";
 
 // @ts-ignore: Decorators *are* valid here
@@ -54,12 +54,12 @@ declare function getRTraceBlocks(): usize[];
 declare function getRTraceNodeBlocks(): usize[];
 
 // @ts-ignore
-@external("__aspect", "getRTraceReallocs")
-declare function getRTraceReallocs(): i32;
+@external("__aspect", "getRTraceMoves")
+declare function getRTraceMoves(): i32;
 
 // @ts-ignore
-@external("__aspect", "getRTraceNodeReallocs")
-declare function getRTraceNodeReallocs(): i32;
+@external("__aspect", "getRTraceNodeMoves")
+declare function getRTraceNodeMoves(): i32;
 
 @global
 export class RTrace {
@@ -124,7 +124,7 @@ export class RTrace {
   }
 
   public static typeIdOf(pointer: usize): u32 {
-    return changetype<BLOCK>(pointer - BLOCK_OVERHEAD).rtId;
+    return changetype<OBJECT>(pointer - TOTAL_OVERHEAD).rtId;
   }
 
   public static typeIdOfReference<T>(reference: T): u32 {
@@ -141,7 +141,7 @@ export class RTrace {
   }
 
   public static sizeOf(pointer: usize): u32 {
-    return changetype<BLOCK>(pointer - BLOCK_OVERHEAD).rtSize;
+    return changetype<OBJECT>(pointer - TOTAL_OVERHEAD).rtSize;
   }
 
   public static sizeOfReference<T>(reference: T): u32 {
@@ -153,8 +153,10 @@ export class RTrace {
       changetype<usize>(reference) != 0,
       "Cannot get size of reference that is null.",
     );
-
-    return RTrace.sizeOf(changetype<usize>(reference));
+    if (isManaged<T>()) {
+      return RTrace.sizeOf(changetype<usize>(reference));
+    }
+    return offsetof<T>();
   }
 
   public static activeBlocks(): usize[] {
@@ -166,7 +168,7 @@ export class RTrace {
   }
 
   public static refCountOf(ptr: usize): u32 {
-    return changetype<BLOCK>(ptr - BLOCK_OVERHEAD).gcInfo & REFCOUNT_MASK;
+    return changetype<OBJECT>(ptr - TOTAL_OVERHEAD).gcInfo & REFCOUNT_MASK;
   }
 
   public static refCountOfReference<T>(reference: T): u32 {
@@ -184,12 +186,13 @@ export class RTrace {
     return ASC_OPTIMIZE_LEVEL > 0 ? count : count - 1;
   }
 
-  public static reallocations(): i32 {
-    return getRTraceReallocs();
+  /** Count the total number of block moves */
+  public static moves(): i32 {
+    return getRTraceMoves();
   }
 
-  public static nodeReallocations(): i32 {
-    return getRTraceNodeReallocs();
+  public static nodeMoves(): i32 {
+    return getRTraceNodeMoves();
   }
 }
 

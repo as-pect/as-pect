@@ -1,7 +1,7 @@
 import { SummaryReporterWrapper } from "./setup/SummaryReporterWrapper";
 import { promises as fs } from "fs";
 import { TestContext } from "../src";
-import { instantiate } from "assemblyscript/lib/loader";
+import { instantiate } from "assemblyscript/lib/loader/umd";
 
 test("snapshots", async () => {
   const binary = await fs.readFile("./assembly/jest-reporter-pass.wasm");

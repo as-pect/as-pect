@@ -1,4 +1,4 @@
-// @ts-ignore
+// prettier-ignore
 @external("linked", "getValue")
 declare function getValue(): i32;
 
