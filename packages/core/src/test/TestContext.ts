@@ -1006,10 +1006,10 @@ export class TestContext {
   protected getString(pointer: number, defaultValue: string): string {
     pointer >>>= 0;
     if (pointer === 0) return defaultValue;
-    const result = this.wasm!.__getString(pointer);
     if (this.cachedStrings.has(pointer)) {
       return this.cachedStrings.get(pointer)!;
     }
+    const result = this.wasm!.__getString(pointer);
     this.cachedStrings.set(pointer, result);
     return result;
   }
