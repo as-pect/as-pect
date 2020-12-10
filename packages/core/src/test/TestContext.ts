@@ -865,7 +865,7 @@ export class TestContext {
     this.freeCount += 1;
     this.targetNode.frees += 1;
     // remove any cached strings at this pointer
-    this.cachedStrings.delete(block + 16);
+    this.cachedStrings.delete(block + 20);
 
     this.nodeBlocks.delete(block);
     this.rtrace.onfree(block);
@@ -1006,9 +1006,10 @@ export class TestContext {
   protected getString(pointer: number, defaultValue: string): string {
     pointer >>>= 0;
     if (pointer === 0) return defaultValue;
-    if (this.cachedStrings.has(pointer))
-      return this.cachedStrings.get(pointer)!;
     const result = this.wasm!.__getString(pointer);
+    if (this.cachedStrings.has(pointer)) {
+      return this.cachedStrings.get(pointer)!;
+    }
     this.cachedStrings.set(pointer, result);
     return result;
   }
