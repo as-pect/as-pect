@@ -10,6 +10,12 @@ const PTR_MASK = PTR_SIZE - 1;
 const PTR_VIEW = Uint32Array;
 
 const BLOCK_OVERHEAD = PTR_SIZE;
+const OBJECT_OVERHEAD = 16;
+const TOTAL_OVERHEAD = BLOCK_OVERHEAD + OBJECT_OVERHEAD;
+
+module.exports.BLOCK_OVERHEAD = BLOCK_OVERHEAD;
+module.exports.OBJECT_OVERHEAD = OBJECT_OVERHEAD;
+module.exports.TOTAL_OVERHEAD = TOTAL_OVERHEAD;
 
 const RT_TLSF = "~lib/rt/tlsf/";
 

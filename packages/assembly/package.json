@@ -32,6 +32,6 @@
     "types/"
   ],
   "peerDependencies": {
-    "assemblyscript": "^0.17.7"
+    "assemblyscript": "^0.17.10"
   }
 }

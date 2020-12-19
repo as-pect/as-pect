@@ -1,5 +1,5 @@
 import { IAspectExports } from "../util/IAspectExports";
-import { Rtrace, BlockInfo } from "../util/rTrace";
+import { Rtrace, BlockInfo, TOTAL_OVERHEAD } from "../util/rTrace";
 
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
@@ -288,7 +288,7 @@ export class TestContext {
     this.snapshotDiff = snapshotDiff;
 
     // determine if this test suite passed or failed
-    this.pass = snapshotsPass && this.rootNode.pass;
+    this.pass = Boolean(snapshotsPass) && this.rootNode.pass;
 
     // finish the report
     this.reporter.onFinish(this);
@@ -865,7 +865,7 @@ export class TestContext {
     this.freeCount += 1;
     this.targetNode.frees += 1;
     // remove any cached strings at this pointer
-    this.cachedStrings.delete(block + 20);
+    this.cachedStrings.delete(block + TOTAL_OVERHEAD);
 
     this.nodeBlocks.delete(block);
     this.rtrace.onfree(block);
