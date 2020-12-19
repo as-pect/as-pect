@@ -242,10 +242,10 @@ exports[`RTrace output Overall Statistics: a group reference counting errorerror
 Array [
   Object {
     "message": "Block: 6252 => orphaned free: 6252",
-    "stackTrace": "    at ~lib/rt/tlsf/freeBlock (wasm-function[47]:0x1b8b)
-    at ~lib/rt/tlsf/__free (wasm-function[78]:0x246a)
-    at start:assembly/jest-rtrace~anonymous|1~anonymous|0 (wasm-function[79]:0x2471)
-    at ../assembly/assembly/internal/call/__call (wasm-function[153]:0x3319)",
+    "stackTrace": "    at ~lib/rt/tlsf/freeBlock (wasm://wasm/0001aca6:0:7051)
+    at ~lib/rt/tlsf/__free (wasm://wasm/0001aca6:0:9322)
+    at start:assembly/jest-rtrace~anonymous|1~anonymous|0 (wasm://wasm/0001aca6:0:9329)
+    at ../assembly/assembly/internal/call/__call (wasm://wasm/0001aca6:0:13081)",
     "type": "rtrace",
   },
 ]
@@ -257,10 +257,10 @@ exports[`RTrace output Overall Statistics: errors 1`] = `
 Array [
   Object {
     "message": "Block: 6252 => orphaned free: 6252",
-    "stackTrace": "    at ~lib/rt/tlsf/freeBlock (wasm-function[47]:0x1b8b)
-    at ~lib/rt/tlsf/__free (wasm-function[78]:0x246a)
-    at start:assembly/jest-rtrace~anonymous|1~anonymous|0 (wasm-function[79]:0x2471)
-    at ../assembly/assembly/internal/call/__call (wasm-function[153]:0x3319)",
+    "stackTrace": "    at ~lib/rt/tlsf/freeBlock (wasm://wasm/0001aca6:0:7051)
+    at ~lib/rt/tlsf/__free (wasm://wasm/0001aca6:0:9322)
+    at start:assembly/jest-rtrace~anonymous|1~anonymous|0 (wasm://wasm/0001aca6:0:9329)
+    at ../assembly/assembly/internal/call/__call (wasm://wasm/0001aca6:0:13081)",
     "type": "rtrace",
   },
 ]
