@@ -1,4 +1,4 @@
-// Generated automatically by nearley, version 2.19.9
+// Generated automatically by nearley, version 2.20.1
 // http://github.com/Hardmath123/nearley
 // Bypasses TS6133. Allow declared but unused functions.
 // @ts-ignore

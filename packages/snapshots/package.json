@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "diff": "^5.0.0",
-    "nearley": "^2.19.9"
+    "nearley": "^2.20.1"
   }
 }
