@@ -17,7 +17,7 @@
   "author": "Joshua Tenner",
   "license": "MIT",
   "devDependencies": {
-    "csv-stringify": "^5.5.3"
+    "csv-stringify": "^5.6.1"
   },
   "dependencies": {
     "@as-pect/core": "^5.0.1"
