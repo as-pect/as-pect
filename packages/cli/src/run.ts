@@ -208,18 +208,18 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     configuration.nortrace = true;
   }
 
-  /** RTrace is enabled, and the --use ASC_RTRACE=1 cli option must be present. */
+  /** RTrace is enabled, and the --use RTRACE=1 cli option must be present. */
   if (!configuration.nortrace) {
     if (
       !flags["--use"] ||
-      flags["--use"].includes("ASC_RTRACE=1") ||
-      !compilerArgs.includes("ASC_RTRACE=1")
+      flags["--use"].includes("RTRACE=1") ||
+      !compilerArgs.includes("RTRACE=1")
     ) {
       if (!flags["--use"]) {
-        flags["--use"] = ["ASC_RTRACE=1"];
+        flags["--use"] = ["RTRACE=1"];
         // inspect to see if the flag is used already
-      } else if (!flags["--use"].includes("ASC_RTRACE=1")) {
-        flags["--use"].push("--use", "ASC_RTRACE=1");
+      } else if (!flags["--use"].includes("RTRACE=1")) {
+        flags["--use"].push("--use", "RTRACE=1");
       }
     }
   }
@@ -283,7 +283,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   }
 
   /**
-   * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
+   * If rtrace is enabled, add `--use RTRACE=1` to the command line parameters.
    */
   if (configuration.nortrace) {
     console.log(chalk`{bgWhite.black [Log]} Reference Tracing is disabled.`);
