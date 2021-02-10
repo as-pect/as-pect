@@ -57,8 +57,6 @@ export interface ITestContextParameters {
   groupRegex?: RegExp;
   /** The test file name. */
   fileName?: string;
-  /** Disable RTrace when set to `true`. */
-  nortrace?: boolean;
   /** The web assembly binary. */
   binary?: Uint8Array;
   /** The reporter. */
@@ -143,12 +141,6 @@ export class TestContext {
 
   /** The module instance. */
   // private instance: WebAssembly.Instance | null = null;
-  /**
-   * RTrace is a funciton that helps with debugging reference counting and can be used to find
-   * leaks. If it is enabled, it will be included automatically by the bootstrap in the
-   * assemblyscript imports.
-   */
-  protected rtraceEnabled: boolean = true;
 
   /**
    * A collection of reflected values used to help cache and aid in the creation
@@ -188,8 +180,6 @@ export class TestContext {
     if (props.testRegex) this.testRegex = props.testRegex;
     /* istanbul ignore next */
     if (props.groupRegex) this.groupRegex = props.groupRegex;
-    /* istanbul ignore next */
-    if (props.nortrace) this.rtraceEnabled = false;
     if (props.binary) this.nameSection = new NameSection(props.binary);
     if (props.wasi) this.wasi = props.wasi;
     this.expectedSnapshots = props.snapshots ? props.snapshots : new Snapshot();
@@ -563,20 +553,17 @@ export class TestContext {
       tryCall: this.tryCall.bind(this),
     };
 
-    /** If RTrace is enabled, add it to the imports. */
-    if (this.rtraceEnabled) {
-      finalImports.rtrace = {
-        onalloc: this.onalloc.bind(this),
-        oncollect: this.rtrace.oncollect,
-        onfree: this.onfree.bind(this),
-        oninit: this.rtrace.oninit,
-        onload: this.rtrace.onload,
-        onmove: this.rtrace.onmove,
-        onresize: this.rtrace.onresize,
-        onstore: this.rtrace.onstore,
-        onvisit: this.rtrace.onvisit,
-      };
-    }
+    finalImports.rtrace = {
+      onalloc: this.onalloc.bind(this),
+      oncollect: this.rtrace.oncollect,
+      onfree: this.onfree.bind(this),
+      oninit: this.rtrace.oninit,
+      onload: this.rtrace.onload,
+      onmove: this.rtrace.onmove,
+      onresize: this.rtrace.onresize,
+      onstore: this.rtrace.onstore,
+      onvisit: this.rtrace.onvisit,
+    };
 
     /** add an env object */
     finalImports.env = finalImports.env || {};
