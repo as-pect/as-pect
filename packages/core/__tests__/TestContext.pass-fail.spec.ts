@@ -47,10 +47,7 @@ describe("pass-fail output", () => {
       expect(group.allocations).toMatchSnapshot(
         `${group.namespace} allocations`,
       );
-      expect(group.moves).toMatchSnapshot(`${group.namespace} reallocs`);
       expect(group.frees).toMatchSnapshot(`${group.namespace} frees`);
-      expect(group.increments).toMatchSnapshot(`${group.namespace} increments`);
-      expect(group.decrements).toMatchSnapshot(`${group.namespace} decrements`);
 
       if (group.actual) {
         group.actual.stack = group.actual.stack

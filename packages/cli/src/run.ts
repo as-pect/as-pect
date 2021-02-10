@@ -517,6 +517,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       if (runner.errors.length > 0) {
         errors.push(...runner.errors);
       } else {
+        console.log("running tests...");
         // call run buffer because it's already compiled
         runner.run(result);
         const runnerTestCount = runner.testCount;
@@ -611,7 +612,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       }
 
       Promise.all(filePromises).then(() => {
-        if (failed) process.exit(1);
+        if (failed) {
+          console.log(errors);
+          process.exit(1);
+        }
       });
     }
     return 0;

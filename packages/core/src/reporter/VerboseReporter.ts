@@ -161,22 +161,6 @@ export class VerboseReporter implements IReporter {
         ? `0 fail`
         : chalk`{red ${(count - successCount).toString()} fail}`;
 
-    const rtcount = suite.allocationCount - suite.freeCount;
-
-    const rTrace =
-      rtcount === 0
-        ? /* istanbul ignore next */
-          ""
-        : /* istanbul ignore next */
-          chalk` {yellow RTrace: ${
-            /* istanbul ignore next */
-            rtcount > 0
-              ? /* istanbul ignore next */
-                `+${rtcount}`
-              : /* istanbul ignore next */
-                rtcount.toString()
-          }}`;
-
     // There are currently no warnings provided by the as-pect testing suite
     /* istanbul ignore next */
     for (const warning of suite.warnings) {
@@ -243,7 +227,7 @@ export class VerboseReporter implements IReporter {
         result.type === SnapshotDiffResultType.Different ? 1 : 0;
     }
 
-    this.stdout!.write(chalk`    [File]: ${suite.fileName}${rTrace}
+    this.stdout!.write(chalk`    [File]: ${suite.fileName}
   [Groups]: {green ${suite.groupCount} pass}, ${suite.groupCount} total
   [Result]: ${result}
 [Snapshot]: ${totalCount} total, ${addedCount} added, ${removedCount} removed, ${differentCount} different
