@@ -82,9 +82,13 @@ export class VerboseReporter implements IReporter {
   public onTestFinish(_group: TestNode, test: TestNode): void {
     const chalk = require("chalk");
     if (test.pass) {
+      /* istanbul ignore next */
       const rtraceDelta =
+      /* istanbul ignore next */
         test.rtraceDelta === 0
+        /* istanbul ignore next */
           ? ""
+          /* istanbul ignore next */
           : chalk` {yellow RTrace: ${
               /* istanbul ignore next */
               (test.rtraceDelta > 0
