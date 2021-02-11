@@ -23,7 +23,7 @@
 		"pretest:reporter-fail": "asc --debug --binaryFile assembly/jest-reporter-fail.wasm --textFile assembly/jest-reporter-fail.wat --explicitStart ./assembly/jest-reporter-fail.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use RTRACE=1",
 		"pretest:reporter-pass": "asc --debug --binaryFile assembly/jest-reporter-pass.wasm --textFile assembly/jest-reporter-pass.wat --explicitStart ./assembly/jest-reporter-pass.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use RTRACE=1",
 		"pretest:wasi": "asc --debug --binaryFile assembly/jest-wasi.wasm --textFile assembly/jest-wasi.wat --explicitStart ./assembly/jest-wasi.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use RTRACE=1",
-		"pretest:pass-fail": "asc --debug --binaryFile assembly/jest-pass-fail.wasm --textFile assembly/jest-pass-fail.wat --explicitStart ./assembly/jest-pass-fail.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js",
+		"pretest:pass-fail": "asc --debug --binaryFile assembly/jest-pass-fail.wasm --textFile assembly/jest-pass-fail.wat --explicitStart ./assembly/jest-pass-fail.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use RTRACE=1",
 		"pretest:group-filter": "asc --debug --binaryFile assembly/jest-filter.wasm --textFile assembly/jest-filter.wat --explicitStart ./assembly/jest-filter.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js",
 		"pretest:log": "asc --debug --binaryFile assembly/jest-log.wasm --textFile assembly/jest-log.wat --explicitStart ./assembly/jest-log.ts ../assembly/assembly/index.ts --exportTable --use RTRACE=1 --transform ./lib/transform/index.js",
 		"rimraf": "rimraf lib/*",

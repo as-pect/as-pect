@@ -195,6 +195,7 @@ export class TestContext {
     this.reporter = props.reporter;
 
     if (typeof props.reporter.onEnter !== "function") {
+      /* istanbul ignore next */
       this.pushError({
         message: "Invalid reporter callback: onEnter is not a function",
         stackTrace: "",
@@ -203,6 +204,7 @@ export class TestContext {
     }
 
     if (typeof props.reporter.onExit !== "function") {
+      /* istanbul ignore next */
       this.pushError({
         message: "Invalid reporter callback: onExit is not a function",
         stackTrace: "",
@@ -211,6 +213,7 @@ export class TestContext {
     }
 
     if (typeof props.reporter.onFinish !== "function") {
+      /* istanbul ignore next */
       this.pushError({
         message: "Invalid reporter callback: onFinish is not a function",
         stackTrace: "",
@@ -230,6 +233,7 @@ export class TestContext {
    */
   // @ts-ignore
   private onRtraceError(err: Error, block: BlockInfo): void {
+    /* istanbul ignore next */
     this.pushError({
       message: `Block: ${block.ptr} => ${err.message}`,
       stackTrace:
