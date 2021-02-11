@@ -165,16 +165,24 @@ export class TestContext {
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
 
-  constructor(props: ITestContextParameters) {
-    // @ts-ignore
+  constructor(props: ITestContextParameters) {``
     this.rtrace = new Rtrace({
+      /* istanbul ignore next */
       getMemory: () => {
+        /* istanbul ignore next */
         return this.wasm!.memory as WebAssembly.Memory;
       },
-      // @ts-ignore
-      onerror: (err: Error, info: BlockInfo) => this.onRtraceError(err, info),
-      oninfo: (msg: string) => this.onRtraceInfo(msg),
-    });
+      /* istanbul ignore next */
+      onerror: (err: Error, info: BlockInfo) => {
+        /* istanbul ignore next */
+        return this.onRtraceError(err, info);
+      },
+      /* istanbul ignore next */
+      oninfo: (msg: string) => {
+        /* istanbul ignore next */
+        return this.onRtraceInfo(msg);
+      }
+    }) as Rtrace & { blocks: Map<number, number> };
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
     if (props.testRegex) this.testRegex = props.testRegex;
