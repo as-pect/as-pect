@@ -203,14 +203,14 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   if (
     !flags["--use"] ||
-    flags["--use"].includes("RTRACE=1") ||
-    !compilerArgs.includes("RTRACE=1")
+    flags["--use"].includes("ASC_RTRACE=1") ||
+    !compilerArgs.includes("ASC_RTRACE=1")
   ) {
     if (!flags["--use"]) {
-      flags["--use"] = ["RTRACE=1"];
+      flags["--use"] = ["ASC_RTRACE=1"];
       // inspect to see if the flag is used already
-    } else if (!flags["--use"].includes("RTRACE=1")) {
-      flags["--use"].push("--use", "RTRACE=1");
+    } else if (!flags["--use"].includes("ASC_RTRACE=1")) {
+      flags["--use"].push("--use", "ASC_RTRACE=1");
     }
   }
 
