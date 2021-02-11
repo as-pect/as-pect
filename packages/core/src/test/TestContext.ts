@@ -565,19 +565,9 @@ export class TestContext {
       tryCall: this.tryCall.bind(this),
     };
 
-    finalImports.rtrace = {
-      onalloc: this.onalloc.bind(this),
-      oncollect: this.rtrace.oncollect,
-      onfree: this.onfree.bind(this),
-      oninit: this.rtrace.oninit,
-      onload: this.rtrace.onload,
-      onmove: this.rtrace.onmove,
-      onresize: this.rtrace.onresize,
-      onstore: this.rtrace.onstore,
-      onvisit: this.rtrace.onvisit,
-      // @ts-ignore
-      onyield: this.rtrace.onyield,
-    };
+    this.rtrace.install(finalImports);
+    finalImports.rtrace.onalloc = this.onalloc.bind(this);
+    finalImports.rtrace.onfree = this.onfree.bind(this);
 
     /** add an env object */
     finalImports.env = finalImports.env || {};
