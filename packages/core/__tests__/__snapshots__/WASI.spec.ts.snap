@@ -19,7 +19,7 @@ exports[`snapshots: onGroupEnd  1`] = `
 `;
 
 exports[`snapshots: onTestFinish  output 1`] = `
-" [Success]: ✔ output
+" [Success]: ✔ output RTrace: +3
      [Log]: 0 as u16
    [Stack]: Has Stack Trace
 "

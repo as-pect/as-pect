@@ -426,7 +426,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect stri
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] allocations 1`] = `11`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] beforeAllPointers 1`] = `0`;
 
@@ -468,13 +468,13 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when t
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] beforeAllPointers 1`] = `0`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] frees 1`] = `22`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] message 1`] = `"No Message Provided."`;
 
@@ -508,7 +508,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a ne
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report a negated test[0] beforeAllPointers 1`] = `0`;
 
@@ -608,7 +608,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report arra
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] allocations 1`] = `15`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report array values[0] beforeAllPointers 1`] = `0`;
 
@@ -730,7 +730,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report bool values[0] beforeAllPointers 1`] = `0`;
 
@@ -794,7 +794,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expe
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] beforeAllPointers 1`] = `0`;
 
@@ -822,7 +822,7 @@ ReflectedValue {
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] expected-stringify 1`] = `"Finite"`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] frees 1`] = `17`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] message 1`] = `""`;
 
@@ -836,13 +836,13 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] beforeAllPointers 1`] = `0`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] frees 1`] = `25`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] message 1`] = `null`;
 
@@ -878,7 +878,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report fail
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] beforeAllPointers 1`] = `0`;
 
@@ -906,7 +906,7 @@ ReflectedValue {
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] expected-stringify 1`] = `"  string: \\"invalid\\""`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] frees 1`] = `31`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] message 1`] = `""`;
 
@@ -942,7 +942,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report fals
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy expected values[0] beforeAllPointers 1`] = `0`;
 
@@ -1006,7 +1006,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report fals
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report falsy values[0] beforeAllPointers 1`] = `0`;
 
@@ -1048,7 +1048,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report fini
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[0] beforeAllPointers 1`] = `0`;
 
@@ -1090,7 +1090,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report fini
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[1] beforeAllPointers 1`] = `0`;
 
@@ -1154,7 +1154,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report fini
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report finite values[2] beforeAllPointers 1`] = `0`;
 
@@ -1196,7 +1196,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[0] beforeAllPointers 1`] = `0`;
 
@@ -1216,7 +1216,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report i16 values[1] beforeAllPointers 1`] = `0`;
 
@@ -1258,7 +1258,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report inva
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] allocations 1`] = `11`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] beforeAllPointers 1`] = `0`;
 
@@ -1322,7 +1322,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report long values[0] beforeAllPointers 1`] = `0`;
 
@@ -1386,7 +1386,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not 
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not falsy values[0] beforeAllPointers 1`] = `0`;
 
@@ -1450,7 +1450,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not 
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report not truthy values[0] beforeAllPointers 1`] = `0`;
 
@@ -1514,7 +1514,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report null
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report nulls[0] beforeAllPointers 1`] = `0`;
 
@@ -1578,7 +1578,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report numb
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report number values[0] beforeAllPointers 1`] = `0`;
 
@@ -1752,7 +1752,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report refe
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] allocations 1`] = `16`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] beforeAllPointers 1`] = `0`;
 
@@ -1890,7 +1890,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report refe
   }"
 `;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] frees 1`] = `18`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] message 1`] = `""`;
 
@@ -1926,7 +1926,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report trut
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy expected values[0] beforeAllPointers 1`] = `0`;
 
@@ -1990,7 +1990,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report trut
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] allocations 1`] = `4`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report truthy values[0] beforeAllPointers 1`] = `0`;
 
@@ -2106,7 +2106,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report type
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] allocations 1`] = `15`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] beforeAllPointers 1`] = `0`;
 
@@ -2186,7 +2186,7 @@ ReflectedValue {
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] expected-stringify 1`] = `"  class: Float64Array [ number: 4.4, number: 5.5, number: 6.6 ]"`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] frees 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] frees 1`] = `24`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] message 1`] = `""`;
 
@@ -2222,7 +2222,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u32 values[0] beforeAllPointers 1`] = `0`;
 
@@ -2264,7 +2264,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report u64 values[0] beforeAllPointers 1`] = `0`;
 
@@ -2284,7 +2284,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should p
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~this test should pass[0] beforeAllPointers 1`] = `0`;
 
@@ -2346,7 +2346,7 @@ exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] afterA
 
 exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] allocations 1`] = `0`;
+exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] allocations 1`] = `7`;
 
 exports[`pass-fail output Overall Statistics: !~toHaveLength[0]!~fails[0] beforeAllPointers 1`] = `0`;
 

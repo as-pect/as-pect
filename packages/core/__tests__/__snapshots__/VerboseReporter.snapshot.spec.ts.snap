@@ -46,7 +46,7 @@ exports[`snapshots: onGroupStart snapshots 1`] = `
 `;
 
 exports[`snapshots: onTestFinish snapshots a few snapshots 1`] = `
-" [Success]: ✔ a few snapshots
+" [Success]: ✔ a few snapshots RTrace: -7
 "
 `;
 
