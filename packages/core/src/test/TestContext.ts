@@ -575,6 +575,8 @@ export class TestContext {
       onresize: this.rtrace.onresize,
       onstore: this.rtrace.onstore,
       onvisit: this.rtrace.onvisit,
+      // @ts-ignore
+      onyield: this.rtrace.onyield,
     };
 
     /** add an env object */
