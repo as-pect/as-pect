@@ -183,6 +183,7 @@ export class TestContext {
         return this.onRtraceInfo(msg);
       }
     }) as Rtrace & { blocks: Map<number, number> };
+    /* istanbul ignore next */
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
     if (props.testRegex) this.testRegex = props.testRegex;
@@ -194,6 +195,7 @@ export class TestContext {
 
     this.reporter = props.reporter;
 
+    /* istanbul ignore next */
     if (typeof props.reporter.onEnter !== "function") {
       /* istanbul ignore next */
       this.pushError({
@@ -203,6 +205,7 @@ export class TestContext {
       });
     }
 
+    /* istanbul ignore next */
     if (typeof props.reporter.onExit !== "function") {
       /* istanbul ignore next */
       this.pushError({
@@ -212,6 +215,7 @@ export class TestContext {
       });
     }
 
+    /* istanbul ignore next */
     if (typeof props.reporter.onFinish !== "function") {
       /* istanbul ignore next */
       this.pushError({

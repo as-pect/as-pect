@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TestContext should throw errors when using a bad reporter: Reporter errors 1`] = `
+Array [
+  Object {
+    "message": "Invalid reporter callback: onEnter is not a function",
+    "stackTrace": "",
+    "type": "TestContext Initialization",
+  },
+  Object {
+    "message": "Invalid reporter callback: onExit is not a function",
+    "stackTrace": "",
+    "type": "TestContext Initialization",
+  },
+  Object {
+    "message": "Invalid reporter callback: onFinish is not a function",
+    "stackTrace": "",
+    "type": "TestContext Initialization",
+  },
+]
+`;
