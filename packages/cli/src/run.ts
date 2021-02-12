@@ -596,7 +596,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
       Promise.all(filePromises).then(() => {
         if (failed) {
-          console.log(errors);
+          console.error(errors);
           process.exit(1);
         }
       });
