@@ -969,7 +969,7 @@ describe("nested structures", () => {
 
   afterEach(() => {
     // perform a garbage collection
-    RTrace.collect();
+    __collect()
   });
 });
 

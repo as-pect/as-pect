@@ -16,7 +16,7 @@ exports[`snapshots: onFinish ./assembly/jest-reporter-snapshot.ts 1`] = `
 [Snapshot]: this!~is!~removed
 - false
 
-    [File]: ./assembly/jest-reporter-snapshot.ts RTrace: +10
+    [File]: ./assembly/jest-reporter-snapshot.ts
   [Groups]: 3 pass, 3 total
   [Result]: ✖ FAIL
 [Snapshot]: 5 total, 1 added, 1 removed, 1 different
@@ -46,7 +46,7 @@ exports[`snapshots: onGroupStart snapshots 1`] = `
 `;
 
 exports[`snapshots: onTestFinish snapshots a few snapshots 1`] = `
-" [Success]: ✔ a few snapshots
+" [Success]: ✔ a few snapshots RTrace: -7
 "
 `;
 

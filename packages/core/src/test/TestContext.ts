@@ -57,8 +57,6 @@ export interface ITestContextParameters {
   groupRegex?: RegExp;
   /** The test file name. */
   fileName?: string;
-  /** Disable RTrace when set to `true`. */
-  nortrace?: boolean;
   /** The web assembly binary. */
   binary?: Uint8Array;
   /** The reporter. */
@@ -143,21 +141,12 @@ export class TestContext {
 
   /** The module instance. */
   // private instance: WebAssembly.Instance | null = null;
-  /**
-   * RTrace is a funciton that helps with debugging reference counting and can be used to find
-   * leaks. If it is enabled, it will be included automatically by the bootstrap in the
-   * assemblyscript imports.
-   */
-  protected rtraceEnabled: boolean = true;
 
   /**
    * A collection of reflected values used to help cache and aid in the creation
    * of nested reflected values.
    */
   private reflectedValueCache: ReflectedValue[] = [];
-
-  /* This map collects the starting values for the labels created by `RTrace.start()` */
-  private rtraceLabels: Map<number, number> = new Map();
 
   /** A collection of errors. */
   public errors: IWarning[] = [];
@@ -176,30 +165,39 @@ export class TestContext {
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
 
-  constructor(props: ITestContextParameters) {
-    // @ts-ignore
+  constructor(props: ITestContextParameters) {``
     this.rtrace = new Rtrace({
+      /* istanbul ignore next */
       getMemory: () => {
+        /* istanbul ignore next */
         return this.wasm!.memory as WebAssembly.Memory;
       },
-      // @ts-ignore
-      onerror: (err: Error, info: BlockInfo) => this.onRtraceError(err, info),
-      oninfo: (msg: string) => this.onRtraceInfo(msg),
-    });
+      /* istanbul ignore next */
+      onerror: (err: Error, info: BlockInfo) => {
+        /* istanbul ignore next */
+        return this.onRtraceError(err, info);
+      },
+      /* istanbul ignore next */
+      oninfo: (msg: string) => {
+        /* istanbul ignore next */
+        return this.onRtraceInfo(msg);
+      }
+    }) as Rtrace & { blocks: Map<number, number> };
+    /* istanbul ignore next */
     if (props.fileName) this.fileName = props.fileName;
     /* istanbul ignore next */
     if (props.testRegex) this.testRegex = props.testRegex;
     /* istanbul ignore next */
     if (props.groupRegex) this.groupRegex = props.groupRegex;
-    /* istanbul ignore next */
-    if (props.nortrace) this.rtraceEnabled = false;
     if (props.binary) this.nameSection = new NameSection(props.binary);
     if (props.wasi) this.wasi = props.wasi;
     this.expectedSnapshots = props.snapshots ? props.snapshots : new Snapshot();
 
     this.reporter = props.reporter;
 
+    /* istanbul ignore next */
     if (typeof props.reporter.onEnter !== "function") {
+      /* istanbul ignore next */
       this.pushError({
         message: "Invalid reporter callback: onEnter is not a function",
         stackTrace: "",
@@ -207,7 +205,9 @@ export class TestContext {
       });
     }
 
+    /* istanbul ignore next */
     if (typeof props.reporter.onExit !== "function") {
+      /* istanbul ignore next */
       this.pushError({
         message: "Invalid reporter callback: onExit is not a function",
         stackTrace: "",
@@ -215,7 +215,9 @@ export class TestContext {
       });
     }
 
+    /* istanbul ignore next */
     if (typeof props.reporter.onFinish !== "function") {
+      /* istanbul ignore next */
       this.pushError({
         message: "Invalid reporter callback: onFinish is not a function",
         stackTrace: "",
@@ -235,6 +237,7 @@ export class TestContext {
    */
   // @ts-ignore
   private onRtraceError(err: Error, block: BlockInfo): void {
+    /* istanbul ignore next */
     this.pushError({
       message: `Block: ${block.ptr} => ${err.message}`,
       stackTrace:
@@ -548,20 +551,6 @@ export class TestContext {
       createReflectedNumber: this.createReflectedNumber.bind(this),
       createReflectedLong: this.createReflectedLong.bind(this),
       debug: this.debug.bind(this),
-      endRTrace: this.endRTrace.bind(this),
-      getRTraceAllocations: this.getRTraceAllocations.bind(this),
-      getRTraceBlocks: this.getRTraceBlocks.bind(this),
-      getRTraceCount: this.getRTraceCount.bind(this),
-      getRTraceDecrements: this.getRTraceDecrements.bind(this),
-      getRTraceFrees: this.getRTraceFrees.bind(this),
-      getRTraceNodeAllocations: this.getRTraceNodeAllocations.bind(this),
-      getRTraceNodeBlocks: this.getRTraceNodeBlocks.bind(this),
-      getRTraceNodeDecrements: this.getRTraceNodeDecrements.bind(this),
-      getRTraceNodeFrees: this.getRTraceNodeFrees.bind(this),
-      getRTraceNodeIncrements: this.getRTraceNodeIncrements.bind(this),
-      getRTraceNodeMoves: this.getRTraceNodeMoves.bind(this),
-      getRTraceIncrements: this.getRTraceIncrements.bind(this),
-      getRTraceMoves: this.getRTraceMoves.bind(this),
       logReflectedValue: this.logReflectedValue.bind(this),
       pushReflectedObjectKey: this.pushReflectedObjectKey.bind(this),
       pushReflectedObjectValue: this.pushReflectedObjectValue.bind(this),
@@ -577,21 +566,12 @@ export class TestContext {
       reportGroupTypeNode: this.reportGroupTypeNode.bind(this),
       reportExpectedSnapshot: this.reportExpectedSnapshot.bind(this),
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
-      startRTrace: this.startRTrace.bind(this),
       tryCall: this.tryCall.bind(this),
     };
 
-    /** If RTrace is enabled, add it to the imports. */
-    if (this.rtraceEnabled) {
-      finalImports.rtrace = {
-        onalloc: this.onalloc.bind(this),
-        onfree: this.onfree.bind(this),
-        onincrement: this.onincrement.bind(this),
-        ondecrement: this.ondecrement.bind(this),
-        onmove: this.onmove.bind(this),
-        onresize: this.onresize.bind(this),
-      };
-    }
+    this.rtrace.install(finalImports);
+    finalImports.rtrace.onalloc = this.onalloc.bind(this);
+    finalImports.rtrace.onfree = this.onfree.bind(this);
 
     /** add an env object */
     finalImports.env = finalImports.env || {};
@@ -780,81 +760,8 @@ export class TestContext {
       .join("\n");
   }
 
-  /**
-   * This method returns the current rtrace count.
-   */
-  private getRTraceCount(): number {
-    return this.rtrace.blocks.size;
-  }
-
-  /**
-   * This method starts a new rtrace count label.
-   *
-   * @param {number} label - The RTrace label.
-   */
-  private startRTrace(label: number): void {
-    this.rtraceLabels.set(label, this.rtrace.blocks.size);
-  }
-
-  /**
-   * This method ends an RTrace label and returns the difference between the current and the
-   * starting reference counts.
-   *
-   * @param {number} label - The RTrace label.
-   * @returns {number}
-   */
-  private endRTrace(label: number): number {
-    const result = this.rtrace.blocks.size - this.rtraceLabels.get(label)!;
-    this.rtraceLabels.delete(label);
-    return result;
-  }
-
-  /**
-   * This is the current number of net allocations that occurred during `TestContext` execution.
-   */
-  public allocationCount: number = 0;
-
-  /**
-   * This is the current number of net dellocations that occurred during `TestContext` execution.
-   */
-  public freeCount: number = 0;
-
-  /**
-   * This is the current number of net increments that occurred during `TestContext` execution.
-   */
-  protected incrementCount: number = 0;
-
-  /**
-   * This is the current number of net decrements that occurred during `TestContext` execution.
-   */
-  protected decrementCount: number = 0;
-
-  /**
-   * This is the current number of net reallocations during the `TestContext` execution.
-   */
-  protected moveCount: number = 0;
-
-  /**
-   * This map is responsible for keeping track of which blocks are currently allocated by their id.
-   */
-  protected blocks: Map<number, number> = new Map();
-
-  /**
-   * This set contains all the blocks currently allocated for the current node.
-   */
-  protected nodeBlocks: Set<number> = new Set();
-
-  /**
-   * This method is called when a memory block is allocated on the heap.
-   *
-   * @param {number} block - This is a unique identifier for the affected block.
-   */
-  public onalloc(block: number): void {
-    this.allocationCount += 1;
-    this.targetNode.allocations += 1;
-    this.nodeBlocks.add(block);
-    this.rtrace.onalloc(block);
-  }
+  /** A map of strings that can be cached because they are static. */
+  private cachedStrings = new Map<number, string>();
 
   /**
    * This method is called when a memory block is deallocated from the heap.
@@ -862,142 +769,21 @@ export class TestContext {
    * @param {number} block - This is a unique identifier for the affected block.
    */
   public onfree(block: number): void {
-    this.freeCount += 1;
     this.targetNode.frees += 1;
     // remove any cached strings at this pointer
     this.cachedStrings.delete(block + TOTAL_OVERHEAD);
-
-    this.nodeBlocks.delete(block);
     this.rtrace.onfree(block);
   }
 
   /**
-   * This method is called when a memory block reference count is incremented.
+   * This method is called when a memory block is allocated on the heap.
    *
    * @param {number} block - This is a unique identifier for the affected block.
    */
-  public onincrement(block: number): void {
-    this.incrementCount += 1;
-    this.targetNode.increments += 1;
-    this.rtrace.onincrement(block);
+  public onalloc(block: number): void {
+    this.targetNode.allocations += 1;
+    this.rtrace.onalloc(block);
   }
-
-  /**
-   * This method is called when a memory block reference count is decremented.
-   *
-   * @param {number} block - This is a unique identifier for the affected block.
-   */
-  public ondecrement(block: number): void {
-    this.decrementCount += 1;
-    this.targetNode.decrements += 1;
-    this.rtrace.ondecrement(block);
-  }
-
-  /**
-   * This method adds reallocation counts for a given block, then calls super.onmove()
-   * to update block information.
-   *
-   * @param oldBlock
-   * @param newBlock
-   */
-  public onmove(oldBlock: number, newBlock: number): void {
-    this.moveCount += 1;
-    this.targetNode.moves += 1;
-    this.rtrace.onmove(oldBlock, newBlock);
-  }
-
-  /**
-   * This linked method gets all the RTrace increments for this entire test up until this point.
-   */
-  private getRTraceIncrements(): number {
-    return this.incrementCount;
-  }
-
-  /**
-   * This linked method gets all the RTrace increments for this entire test up until this point.
-   */
-  private getRTraceNodeIncrements(): number {
-    return this.targetNode.increments;
-  }
-
-  /**
-   * This linked method gets all the RTrace decrements for this entire test up until this point.
-   */
-  private getRTraceDecrements(): number {
-    return this.decrementCount;
-  }
-
-  /**
-   * This linked method gets all the RTrace decrements for the current node up until this point.
-   */
-  private getRTraceNodeDecrements(): number {
-    return this.targetNode.decrements;
-  }
-
-  /**
-   * This linked method gets all the RTrace allocations for this entire test up until this point.
-   */
-  private getRTraceAllocations(): number {
-    return this.allocationCount;
-  }
-
-  /**
-   * This linked method gets all the RTrace frees for this entire test up until this point.
-   */
-  private getRTraceFrees(): number {
-    return this.freeCount;
-  }
-
-  /**
-   * This linked method gets all the RTrace increments for this TestNode up until this point.
-   */
-  private getRTraceNodeAllocations(): number {
-    return this.targetNode.allocations;
-  }
-
-  /**
-   * This linked method gets all the RTrace frees for the current TestNode up until this point.
-   */
-  private getRTraceNodeFrees(): number {
-    return this.targetNode.frees;
-  }
-
-  /**
-   * This linked method gets all the RTrace reallocations for the current TestContext.
-   */
-  private getRTraceMoves(): number {
-    return this.moveCount;
-  }
-
-  /**
-   * This linked method gets all the RTrace reallocations for the current TestNode.
-   */
-  private getRTraceNodeMoves(): number {
-    return this.targetNode.moves;
-  }
-
-  /**
-   * This linked method gets all the current RTrace allocations and adds them to an array.
-   */
-  private getRTraceBlocks(): number {
-    return this.wasm!.__allocArray(
-      this.wasm!.__getUsizeArrayId(),
-      Array.from(this.rtrace.blocks.keys()),
-    );
-  }
-
-  /**
-   * This linked method gets all the current RTrace allocations for the current TestNode.
-   */
-  private getRTraceNodeBlocks(): number {
-    return this.wasm!.__allocArray(
-      this.wasm!.__getUsizeArrayId(),
-      Array.from(this.nodeBlocks),
-    );
-  }
-
-  /** A map of strings that can be cached because they are static. */
-  private cachedStrings = new Map<number, string>();
 
   /**
    * Gets a string from the wasm module, unless the module string is null. Otherwise it returns
@@ -1433,9 +1219,5 @@ export class TestContext {
       name,
       this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
     );
-  }
-
-  onresize(_block: number, _size: number): void {
-    // todo: implement shadow memory stuff
   }
 }

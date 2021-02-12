@@ -201,28 +201,19 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     "--explicitStart": [],
   });
 
-  /**
-   * Check to see if rtrace is disabled.
-   */
-  if (cliOptions.nortrace) {
-    configuration.nortrace = true;
-  }
-
-  /** RTrace is enabled, and the --use ASC_RTRACE=1 cli option must be present. */
-  if (!configuration.nortrace) {
-    if (
-      !flags["--use"] ||
-      flags["--use"].includes("ASC_RTRACE=1") ||
-      !compilerArgs.includes("ASC_RTRACE=1")
-    ) {
-      if (!flags["--use"]) {
-        flags["--use"] = ["ASC_RTRACE=1"];
-        // inspect to see if the flag is used already
-      } else if (!flags["--use"].includes("ASC_RTRACE=1")) {
-        flags["--use"].push("--use", "ASC_RTRACE=1");
-      }
+  if (
+    !flags["--use"] ||
+    flags["--use"].includes("ASC_RTRACE=1") ||
+    !compilerArgs.includes("ASC_RTRACE=1")
+  ) {
+    if (!flags["--use"]) {
+      flags["--use"] = ["ASC_RTRACE=1"];
+      // inspect to see if the flag is used already
+    } else if (!flags["--use"].includes("ASC_RTRACE=1")) {
+      flags["--use"].push("--use", "ASC_RTRACE=1");
     }
   }
+
 
   /** If the export table flag exists on the cli options, use the export table flag. */
   if (exportTable) {
@@ -280,13 +271,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   if (outputBinary) {
     console.log(chalk`{bgWhite.black [Log]} Outputing Binary *.wasm files.`);
-  }
-
-  /**
-   * If rtrace is enabled, add `--use ASC_RTRACE=1` to the command line parameters.
-   */
-  if (configuration.nortrace) {
-    console.log(chalk`{bgWhite.black [Log]} Reference Tracing is disabled.`);
   }
 
   /**
@@ -611,7 +595,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       }
 
       Promise.all(filePromises).then(() => {
-        if (failed) process.exit(1);
+        if (failed) {
+          console.error(errors);
+          process.exit(1);
+        }
       });
     }
     return 0;

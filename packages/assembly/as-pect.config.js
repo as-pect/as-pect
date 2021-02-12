@@ -12,9 +12,7 @@ module.exports = {
    */
   flags: {
     /** To output a wat file, uncomment the following line. */
-    "--textFile": ["output.wat"],
-    /** To select an appropriate runtime, use the --runtime compiler flag. */
-    "--runtime": ["full"], // Acceptable values are: full, half, stub (arena), and none
+    "--textFile": ["output.wat"]
   },
   /**
    * A set of regexp that will disclude source files from testing.

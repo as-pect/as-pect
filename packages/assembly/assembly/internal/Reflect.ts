@@ -2,6 +2,7 @@ import { ArrayBufferView } from "arraybuffer";
 import { Set } from "set";
 import { assert } from "./assert";
 import { ReflectedValueType } from "./ReflectedValueType";
+import { OBJECT, OBJECT_OVERHEAD } from "rt/common";
 
 function pairSeen(a1: usize, a2: usize, b1: usize, b2: usize): bool {
   return bool(
@@ -67,6 +68,10 @@ declare function __aspectPushReflectedObjectKey(
   parentID: i32,
   value: i32,
 ): void;
+
+@inline function sizeOf(ptr: usize): i32 {
+  return changetype<OBJECT>(ptr - OBJECT_OVERHEAD).rtSize;
+}
 
 @global
 // @ts-ignore: global decorator is allowed here
@@ -339,7 +344,7 @@ export class Reflect {
           offsetof<T>(),
           changetype<usize>(value),
           false,
-          RTrace.sizeOf(changetype<usize>(value)),
+          sizeOf(changetype<usize>(value)),
           ReflectedValueType.Class,
           isManaged<T>() ? idof<T>() : 0,
           nameof<T>(),

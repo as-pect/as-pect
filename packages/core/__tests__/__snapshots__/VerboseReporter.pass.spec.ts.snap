@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`snapshots: onFinish ./assembly/jest-reporter-pass.ts 1`] = `
-"    [File]: ./assembly/jest-reporter-pass.ts RTrace: +1
+"    [File]: ./assembly/jest-reporter-pass.ts
   [Groups]: 2 pass, 2 total
   [Result]: ✔ PASS
 [Snapshot]: 0 total, 0 added, 0 removed, 0 different
@@ -29,12 +29,12 @@ exports[`snapshots: onGroupStart a passing suite 1`] = `
 `;
 
 exports[`snapshots: onTestFinish a passing suite it throws successfully! 1`] = `
-"  [Throws]: ✔ it throws successfully! RTrace: +1
+"  [Throws]: ✔ it throws successfully! RTrace: -9
 "
 `;
 
 exports[`snapshots: onTestFinish a passing suite passes 1`] = `
-" [Success]: ✔ passes
+" [Success]: ✔ passes RTrace: +10
      [Log]: \\"Something!\\"
    [Stack]: Has Stack Trace
 "

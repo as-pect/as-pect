@@ -4,7 +4,7 @@ exports[`snapshots: onFinish ./assembly/jest-reporter-fail.ts 1`] = `
 "
    [Error]: ReflectedValue Cannot log ReflectedValue of id -1. Index out of bounds.
    [Stack]: Has Stack Trace
-    [File]: ./assembly/jest-reporter-fail.ts RTrace: +10
+    [File]: ./assembly/jest-reporter-fail.ts
   [Groups]: 2 pass, 2 total
   [Result]: ✖ FAIL
 [Snapshot]: 0 total, 0 added, 0 removed, 0 different
@@ -33,17 +33,17 @@ exports[`snapshots: onGroupStart examples 1`] = `
 `;
 
 exports[`snapshots: onTestFinish examples example 1 1`] = `
-" [Success]: ✔ example 1
+" [Success]: ✔ example 1 RTrace: +7
 "
 `;
 
 exports[`snapshots: onTestFinish examples example 1 2`] = `
-" [Success]: ✔ example 1
+" [Success]: ✔ example 1 RTrace: +7
 "
 `;
 
 exports[`snapshots: onTestFinish examples log value 1`] = `
-" [Success]: ✔ log value
+" [Success]: ✔ log value RTrace: -14
      [Log]: \\"testing in a test\\"
    [Stack]: Has Stack Trace
 "
@@ -96,7 +96,7 @@ exports[`snapshots: onTestFinish examples this should throw but it does not 1`] 
 `;
 
 exports[`snapshots: onTestFinish examples when two things should equal each other 1`] = `
-"  [Throws]: ✔ when two things should equal each other RTrace: +5
+"  [Throws]: ✔ when two things should equal each other RTrace: +15
 "
 `;
 

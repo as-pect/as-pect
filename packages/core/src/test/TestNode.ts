@@ -85,12 +85,6 @@ export class TestNode {
   /** The node deallocations */
   frees: number = 0;
 
-  /** The node increments. */
-  increments: number = 0;
-
-  /** The node decrements. */
-  decrements: number = 0;
-
   /** The node reallocations. */
   moves: number = 0;
 

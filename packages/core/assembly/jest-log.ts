@@ -232,7 +232,7 @@ describe("logs", () => {
     log(e);
     __free(changetype<usize>(e));
     let lotsOfValues = new Array<i32>();
-    __retain(changetype<usize>(lotsOfValues));
+    __pin(changetype<usize>(lotsOfValues));
     for (let i = 0; i < 20; i++) lotsOfValues[i] = i; // for expanded values
     log(lotsOfValues);
     log(new LotsOfFields());

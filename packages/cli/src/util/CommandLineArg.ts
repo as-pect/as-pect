@@ -62,7 +62,6 @@ export interface Options {
   memorySize: number;
   memoryMax: number;
   norun: boolean;
-  nortrace: boolean;
   reporter: string;
   portable: boolean;
   compiler: string;
@@ -217,13 +216,6 @@ const _Args: CommandLineArgs = {
     description: "Suppress ASCII art from being printed.",
     type: "b",
     alias: { name: "nl" },
-    value: false,
-  },
-
-  nortrace: {
-    description: "Skip rtrace reference counting calculations.",
-    type: "b",
-    alias: { name: "nr" },
     value: false,
   },
 

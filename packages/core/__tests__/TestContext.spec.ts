@@ -1,14 +1,12 @@
 import { TestContext } from "../src";
 
 describe("TestContext", () => {
-  test("constructor", () => {
-    const t = new TestContext({
-      reporter: {} as any,
-      nortrace: true,
+  it("should throw errors when using a bad reporter", () => {
+    const ctx = new TestContext({
+      // @ts-ignore: This is absolutely on purpose, to make the context error
+      reporter: {}
     });
 
-    expect(t.errors).toMatchSnapshot("errors");
-    const imports = t.createImports();
-    expect(imports.rtrace).not.toBeDefined();
+    expect(ctx.errors).toMatchSnapshot("Reporter errors");
   });
 });
