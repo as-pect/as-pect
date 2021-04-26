@@ -7,6 +7,7 @@
     "asp:ci": "node ../cli/lib/test --summary",
     "asp": "node ../cli/lib/test --verbose",
     "test:ci": "run-s asp:ci",
+    "test:latest:ci": "run-s asp:ci",
     "test": "run-s asp",
     "tsc:all": "exit 0",
     "test:update-snapshots": "exit 0"

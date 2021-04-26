@@ -8,6 +8,7 @@
     "rimraf": "rimraf lib/*",
     "package:version-update": "ncu -u",
     "test:ci": "jest",
+    "test:latest:ci": "jest",
     "test": "jest",
     "test:update-snapshots": "jest -u",
     "tsc:all": "run-p tsc:default tsc:amd",
