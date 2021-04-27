@@ -474,7 +474,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when t
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] frees 1`] = `22`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] frees 1`] = `0`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should fail when test does not throw[0] message 1`] = `"No Message Provided."`;
 
@@ -532,7 +532,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 26672,
+  "pointer": 30064,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -622,7 +622,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 26912,
+  "pointer": 30176,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -822,7 +822,7 @@ ReflectedValue {
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] expected-stringify 1`] = `"Finite"`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] frees 1`] = `17`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] frees 1`] = `0`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report expected finite values[0] message 1`] = `""`;
 
@@ -842,7 +842,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] beforeEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] frees 1`] = `25`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] frees 1`] = `0`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report f32 values[0] message 1`] = `null`;
 
@@ -906,7 +906,7 @@ ReflectedValue {
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] expected-stringify 1`] = `"  string: \\"invalid\\""`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] frees 1`] = `31`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] frees 1`] = `0`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] message 1`] = `""`;
 
@@ -1676,7 +1676,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 26784,
+  "pointer": 27760,
   "signed": false,
   "size": 0,
   "stack": "Has Stack Trace",
@@ -1818,7 +1818,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 26864,
+  "pointer": 27840,
   "signed": false,
   "size": 0,
   "stack": "Has Stack Trace",
@@ -1890,7 +1890,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report refe
   }"
 `;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] frees 1`] = `18`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] frees 1`] = `0`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] message 1`] = `""`;
 
@@ -2036,7 +2036,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 27568,
+  "pointer": 30736,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -2120,7 +2120,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 27648,
+  "pointer": 30816,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -2186,7 +2186,7 @@ ReflectedValue {
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] expected-stringify 1`] = `"  class: Float64Array [ number: 4.4, number: 5.5, number: 6.6 ]"`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] frees 1`] = `24`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] frees 1`] = `0`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report typedarray values[0] message 1`] = `""`;
 

@@ -43,7 +43,7 @@ exports[`snapshots: onTestFinish examples example 1 2`] = `
 `;
 
 exports[`snapshots: onTestFinish examples log value 1`] = `
-" [Success]: ✔ log value RTrace: -14
+" [Success]: ✔ log value RTrace: +3
      [Log]: \\"testing in a test\\"
    [Stack]: Has Stack Trace
 "

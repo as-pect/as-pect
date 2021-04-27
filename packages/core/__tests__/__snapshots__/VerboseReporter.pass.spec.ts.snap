@@ -29,7 +29,7 @@ exports[`snapshots: onGroupStart a passing suite 1`] = `
 `;
 
 exports[`snapshots: onTestFinish a passing suite it throws successfully! 1`] = `
-"  [Throws]: ✔ it throws successfully! RTrace: -9
+"  [Throws]: ✔ it throws successfully! RTrace: +7
 "
 `;
 
