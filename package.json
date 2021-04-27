@@ -2,15 +2,14 @@
   "name": "as-pect",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "scripts": {
-    "postinstall": "lerna bootstrap",
     "coveralls": "cat ./packages/core/coverage/lcov.info | coveralls",
     "jest": "jest",
     "test": "run-s tsc:all test:all",
-    "test:update-snapshots": "lerna run test:update-snapshots",
+    "test:update-snapshots": "yarn workspaces run test:update-snapshots",
     "test:ci": "run-s tsc:all test:ci:all",
-    "test:ci:all": "lerna run test:ci",
-    "test:all": "lerna run test",
-    "tsc:all": "lerna run tsc:all",
+    "test:ci:all": "yarn workspaces run test:ci",
+    "test:all": "yarn workspaces run test",
+    "tsc:all": "yarn workspaces run tsc:all",
     "prettier": "prettier --write \"**/src/**/*.ts\" \"**/*.md\"",
     "lint": "eslint --fix --max-warnings 0 --ext ts \"packages/**/assembly/**/*.ts\"",
     "check": "run-s prettier lint"
@@ -26,12 +25,6 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "devDependencies": {
-    "@as-pect/assembly": "file:./packages/assembly",
-    "@as-pect/cli": "file:./packages/cli",
-    "@as-pect/core": "file:./packages/core",
-    "@as-pect/csv-reporter": "file:./packages/csv-reporter",
-    "@as-pect/json-reporter": "file:./packages/json-reporter",
-    "@as-pect/snapshots": "file:./packages/snapshots",
     "@types/diff": "^5.0.0",
     "@types/glob": "^7.1.3",
     "@types/jest": "^26.0.20",
@@ -50,5 +43,10 @@
     "ts-jest": "^26.5.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
-  }
+  },
+  "dependencies": {},
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true
 }

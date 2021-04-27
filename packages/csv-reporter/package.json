@@ -8,7 +8,8 @@
     "tsc:all": "run-p tsc:default tsc:amd",
     "tsc:amd": "tsc --outfile lib/as-pect.csv-reporter.amd.js --module amd --declaration --declarationMap",
     "tsc:default": "tsc",
-    "test": "exit 0"
+    "test": "exit 0",
+    "test:ci": "exit 0"
   },
   "repository": {
     "type": "git",

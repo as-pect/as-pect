@@ -27,14 +27,14 @@
 		"pretest:group-filter": "asc --debug --binaryFile assembly/jest-filter.wasm --textFile assembly/jest-filter.wat --explicitStart ./assembly/jest-filter.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js",
 		"pretest:log": "asc --debug --binaryFile assembly/jest-log.wasm --textFile assembly/jest-log.wat --explicitStart ./assembly/jest-log.ts ../assembly/assembly/index.ts --exportTable --use ASC_RTRACE=1 --transform ./lib/transform/index.js",
 		"rimraf": "rimraf lib/*",
-		"test:ci": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js",
-		"test": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js",
-		"test:log": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js log",
+		"test:ci": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules --experimental-wasm-bigint ./node_modules/.bin/jest",
+		"test": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules --experimental-wasm-bigint ./node_modules/.bin/jest",
+		"test:log": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules --experimental-wasm-bigint ./node_modules/.bin/jest log",
 		"asc:all": "run-p pretest:group-filter pretest:log pretest:pass-fail pretest:wasi pretest:reporter-pass pretest:reporter-fail pretest:reporter-flow-error pretest:reporter-snapshot pretest:reporter-top-level-expect",
 		"tsc": "run-p tsc:default tsc:amd",
 		"tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
 		"tsc:default": "tsc",
-		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js -u",
+		"test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules --experimental-wasm-bigint ./node_modules/.bin/jest -u",
 		"tsc:all": "run-s rimraf tsc asc:all"
 	},
 	"bugs": {
