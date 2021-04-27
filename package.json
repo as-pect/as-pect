@@ -14,6 +14,7 @@
     "test:ci:all": "lerna run test:ci",
     "test:latest:ci:all": "lerna run test:latest:ci",
     "test:all": "lerna run test",
+    "test:latest:all": "lerna run test:latest",
     "tsc:all": "lerna run tsc:all",
     "prettier": "prettier --write \"**/src/**/*.ts\" \"**/*.md\"",
     "lint": "eslint --fix --max-warnings 0 --ext ts \"packages/**/assembly/**/*.ts\"",
