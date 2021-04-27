@@ -20,45 +20,22 @@ jobs:
       run: npm install
     - name: Check sources
       run: npm run check
-  test-latest:
+  test:
     name: "${{ matrix.os }}, node ${{ matrix.node_version }}"
     runs-on:  ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        node_version: ["current"]
+        node_version: ["16"]
     steps:
     - uses: actions/checkout@v1.0.0
     - uses: dcodeIO/setup-node-nvm@master
       with:
-        node-version: "current"
+        node-version: ${{ matrix.node_version }}
     - name: Install dependencies
       run: npm install
     - name: Test sources
       run: npm run test:latest:ci
-    - name: print coverage data
-      run: cat ./packages/core/coverage/lcov.info
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./packages/core/coverage/lcov.info
-  test-lts:
-    name: "${{ matrix.os }}, node ${{ matrix.node_version }}"
-    runs-on:  ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        node_version: ["lts_latest"]
-    steps:
-    - uses: actions/checkout@v1.0.0
-    - uses: dcodeIO/setup-node-nvm@master
-      with:
-        node-version: "lts_latest"
-    - name: Install dependencies
-      run: npm install
-    - name: Test sources
-      run: npm run test:ci
     - name: print coverage data
       run: cat ./packages/core/coverage/lcov.info
     - name: Coveralls
