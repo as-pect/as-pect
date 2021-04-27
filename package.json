@@ -8,6 +8,7 @@
     "test": "run-s tsc:all test:all",
     "test:latest": "run-s tsc:all test:latest:all",
     "test:update-snapshots": "lerna run test:update-snapshots",
+    "test:latest:update-snapshots": "lerna run test:latest:update-snapshots",
     "test:ci": "run-s tsc:all test:ci:all",
     "test:latest:ci": "run-s tsc:all test:latest:ci:all",
     "test:ci:all": "lerna run test:ci",
@@ -53,6 +54,5 @@
     "ts-jest": "^26.5.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
-  },
-  "dependencies": {}
+  }
 }
