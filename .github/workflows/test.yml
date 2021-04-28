@@ -33,7 +33,7 @@ jobs:
       with:
         node-version: ${{ matrix.node_version }}
     - name: Install dependencies
-      run: npm install
+      run: yarn --frozen-lockfile
     - name: Test sources
       run: npm run test:ci
     - name: print coverage data
