@@ -35,7 +35,7 @@ jobs:
     - name: Install dependencies
       run: yarn --frozen-lockfile
     - name: Test sources
-      run: npm run test:ci
+      run: yarn test:ci
     - name: print coverage data
       run: cat ./packages/core/coverage/lcov.info
     - name: Coveralls
