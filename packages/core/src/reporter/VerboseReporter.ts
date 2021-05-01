@@ -84,12 +84,12 @@ export class VerboseReporter implements IReporter {
     if (test.pass) {
       /* istanbul ignore next */
       const rtraceDelta =
-      /* istanbul ignore next */
-        test.rtraceDelta === 0
         /* istanbul ignore next */
-          ? ""
-          /* istanbul ignore next */
-          : chalk` {yellow RTrace: ${
+        test.rtraceDelta === 0
+          ? /* istanbul ignore next */
+            ""
+          : /* istanbul ignore next */
+            chalk` {yellow RTrace: ${
               /* istanbul ignore next */
               (test.rtraceDelta > 0
                 ? /* istanbul ignore next */

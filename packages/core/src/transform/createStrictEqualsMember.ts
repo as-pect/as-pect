@@ -45,7 +45,7 @@ export function createStrictEqualsMember(
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName(classDeclaration.name.text, range),
             classDeclaration.isGeneric
-              ? classDeclaration.typeParameters!.map((node) =>
+              ? classDeclaration.typeParameters!.map(node =>
                   TypeNode.createNamedType(
                     TypeNode.createSimpleTypeName(node.name.text, range),
                     null,
@@ -394,7 +394,7 @@ function createSuperCallExpression(
           TypeNode.createAssertionExpression(
             AssertionKind.AS,
             TypeNode.createArrayLiteralExpression(
-              hashValues.map((e) =>
+              hashValues.map(e =>
                 TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range),
               ),
               range,

@@ -1,24 +1,24 @@
 /** Block information. */
 export declare interface BlockInfo {
   /** Pointer to the block. */
-  ptr: number,
+  ptr: number;
   /** Block size including overhead. */
-  size: number,
+  size: number;
   /** Memory manager info. */
   mmInfo: {
-    tags: string,
-    size: number
-  },
+    tags: string;
+    size: number;
+  };
   /** Garbage collector info. */
   gcInfo: {
-    color: string,
-    next: number,
-    prev: number
-  },
+    color: string;
+    next: number;
+    prev: number;
+  };
   /** Runtime id. */
-  rtId: number,
+  rtId: number;
   /** Runtime size. */
-  rtSize: number
+  rtSize: number;
 }
 
 type ErrorCallback = (error: Error, info: BlockInfo) => void;
@@ -26,9 +26,9 @@ type InfoCallback = (msg: string) => void;
 
 export declare interface RtraceOptions {
   /** Function being called when a problem is detected. */
-  onerror?: ErrorCallback,
+  onerror?: ErrorCallback;
   /** Function being called with information messages. */
-  oninfo?: InfoCallback,
+  oninfo?: InfoCallback;
   /** Obtains the module's memory instance. */
   getMemory(): WebAssembly.Memory;
 }
@@ -40,7 +40,7 @@ export declare const OBJECT_OVERHEAD: number;
 /** Overhead between a pointer to a block and its managed data. */
 export declare const TOTAL_OVERHEAD: number;
 
-export declare class Rtrace  {
+export declare class Rtrace {
   /** Creates a new `Rtrace` instance. */
   constructor(options: RtraceOptions);
 
@@ -58,7 +58,9 @@ export declare class Rtrace  {
   readonly heapBase: number;
 
   /** Installs Rtrace on the specified imports object. */
-  install(imports: Record<string,Record<string,unknown>>): Record<string,Record<string,unknown>>;
+  install(
+    imports: Record<string, Record<string, unknown>>,
+  ): Record<string, Record<string, unknown>>;
 
   /** Checks if there are any leaks and emits them via `oninfo`. Returns the number of live blocks. */
   check(): number;

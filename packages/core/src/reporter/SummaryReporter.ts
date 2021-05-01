@@ -60,7 +60,7 @@ export class SummaryReporter implements IReporter {
 
     const todos = ([] as string[]).concat.apply(
       [],
-      testGroups.map((e) => e.groupTodos),
+      testGroups.map(e => e.groupTodos),
     ).length;
     const total = suite.testCount;
     const passCount = suite.testPassCount;
