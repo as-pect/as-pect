@@ -37,9 +37,9 @@ jobs:
     - name: Test sources
       run: npm run test:ci
     - name: print coverage data
-      run: cat ./packages/core/coverage/lcov.info
+      run: echo 'repo_token:' ${{ secrets.COVERALLS_GITHUB_TOKEN }} > ./.coveralls.yml | cat ./packages/core/coverage/lcov.info
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
-        github-token: ${{ secrets.COVERALLS_GITHUB_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: ./packages/core/coverage/lcov.info
