@@ -215,7 +215,7 @@ function createIsDefinedIfStatement(
                   TypeNode.createAssertionExpression(
                     AssertionKind.AS,
                     TypeNode.createArrayLiteralExpression(
-                      nameHashes.map((e) =>
+                      nameHashes.map(e =>
                         TypeNode.createIntegerLiteralExpression(
                           f64_as_i64(e),
                           range,

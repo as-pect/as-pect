@@ -319,12 +319,12 @@ export type ArgMap = Map<string, CommandLineArg>;
  */
 export function makeArgMap(args: CommandLineArgs = _Args): ArgMap {
   const res = new Map<string, CommandLineArg>();
-  Object.getOwnPropertyNames(args).forEach((element) => {
+  Object.getOwnPropertyNames(args).forEach(element => {
     let arg = new CommandLineArg(element, _Args[element]);
     res.set(element, arg);
     let aliases = _Args[element].alias;
     if (aliases) {
-      (Array.isArray(aliases) ? aliases : [aliases]).forEach((alias) => {
+      (Array.isArray(aliases) ? aliases : [aliases]).forEach(alias => {
         // short aliases have a `-` prefix to disguish them
         let name = (!alias.long ? "-" : "") + alias.name;
         res.set(name, arg);
