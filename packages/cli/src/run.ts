@@ -214,7 +214,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     }
   }
 
-
   /** If the export table flag exists on the cli options, use the export table flag. */
   if (exportTable) {
     flags["--exportTable"] = [];
