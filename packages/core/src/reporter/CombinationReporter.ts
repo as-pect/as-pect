@@ -10,14 +10,14 @@ export class CombinationReporter implements IReporter {
   constructor(protected reporters: IReporter[]) {}
 
   onEnter(ctx: TestContext, node: TestNode) {
-    this.reporters.forEach(e => e.onEnter(ctx, node));
+    this.reporters.forEach((e) => e.onEnter(ctx, node));
   }
 
   onExit(ctx: TestContext, node: TestNode) {
-    this.reporters.forEach(e => e.onExit(ctx, node));
+    this.reporters.forEach((e) => e.onExit(ctx, node));
   }
 
   onFinish(ctx: TestContext) {
-    this.reporters.forEach(e => e.onFinish(ctx));
+    this.reporters.forEach((e) => e.onFinish(ctx));
   }
 }

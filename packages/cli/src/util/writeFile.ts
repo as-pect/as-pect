@@ -12,7 +12,7 @@ export function writeFile(
   contents: Uint8Array | string,
 ): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    fsWriteFile(file, contents, err => {
+    fsWriteFile(file, contents, (err) => {
       if (err) reject(err);
       else resolve();
     });

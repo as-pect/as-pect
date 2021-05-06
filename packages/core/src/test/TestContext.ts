@@ -165,7 +165,8 @@ export class TestContext {
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
 
-  constructor(props: ITestContextParameters) {``
+  constructor(props: ITestContextParameters) {
+    ``;
     this.rtrace = new Rtrace({
       /* istanbul ignore next */
       getMemory: () => {
@@ -181,7 +182,7 @@ export class TestContext {
       oninfo: (msg: string) => {
         /* istanbul ignore next */
         return this.onRtraceInfo(msg);
-      }
+      },
     }) as Rtrace & { blocks: Map<number, number> };
     /* istanbul ignore next */
     if (props.fileName) this.fileName = props.fileName;
