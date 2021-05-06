@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/cli",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -37,7 +37,7 @@
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
     "@as-pect/assembly": "^6.1.0",
-    "@as-pect/core": "^6.1.0",
+    "@as-pect/core": "^6.1.1",
     "chalk": "^4.1.0",
     "glob": "^7.1.6"
   },
@@ -45,8 +45,8 @@
     "assemblyscript": "^0.18.7"
   },
   "optionalDependencies": {
-    "@as-pect/csv-reporter": "^6.1.0",
-    "@as-pect/json-reporter": "^6.1.0"
+    "@as-pect/csv-reporter": "^6.1.1",
+    "@as-pect/json-reporter": "^6.1.1"
   },
   "files": [
     "init/",
