@@ -350,8 +350,31 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     }
   }
 
+  // If another extension is used create copy of assembly/**/*.ts files
+  if (flags["--extension"]) {
+    const newExt = flags["--extension"][0].replace(".", "");
+    const dirs = [
+      path.resolve(__dirname, "../../assembly/assembly"),
+      path.resolve(__dirname, "../../assembly/assembly/internal"),
+      path.resolve(__dirname, "../../assembly/assembly/internal/comparison")
+    ];
+    dirs.forEach(dir => {
+      const files = fs.readdirSync(dir);
+      files.forEach(file => {
+        if (path.extname(file) === ".ts") {
+          const filename = file.split('.').slice(0, -1).join('.');
+          const newpath = `${dir}/${filename}.${newExt}`;
+          if (!fs.existsSync(newpath)) {
+            fs.copyFile(`${dir}/${file}`, newpath, err => console.log(err));
+          }
+        }
+      });
+    });
+  }
+
   // must include the assembly/index.ts file located in the assembly package
-  const entryPath = require.resolve("@as-pect/assembly/assembly/index.ts");
+  const entryExt = !flags["--extension"] ? "ts" : flags["--extension"][0].replace(".", "");
+  const entryPath = require.resolve("@as-pect/assembly/assembly/index." + entryExt);
   const relativeEntryPath = path.relative(process.cwd(), entryPath);
 
   // add the relativeEntryPath of as-pect to the list of compiled files for each test
