@@ -352,7 +352,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   // If another extension is used create copy of assembly/**/*.ts files
   if (flags["--extension"]) {
-    const newExt = flags["--extension"][0].replace(".", "");
+    console.log(chalk`{bgWhite.black [Log]} Changing extension for injected assembly files`);
+    const newExt = flags["--extension"][0].replace(".", ""); // withoud dot should work
     const dirs = [
       path.resolve(__dirname, "../../assembly/assembly"),
       path.resolve(__dirname, "../../assembly/assembly/internal"),
@@ -365,7 +366,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
           const filename = file.split('.').slice(0, -1).join('.');
           const newpath = `${dir}/${filename}.${newExt}`;
           if (!fs.existsSync(newpath)) {
-            fs.copyFile(`${dir}/${file}`, newpath, err => console.log(err));
+            fs.copyFileSync(`${dir}/${file}`, newpath);
           }
         }
       });
