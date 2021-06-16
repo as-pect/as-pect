@@ -116,6 +116,7 @@ export class Reflect {
         let displayValue = value.__aspectReflectAs();
         if (!isInteger(displayValue)) {
           if (!isFloat(displayValue)) {
+            // @as-covers: ignore compile time check
             if (!isManaged(displayValue)) {
               ERROR(
                 "__aspectReflectAs() function should return a managed type or a number",

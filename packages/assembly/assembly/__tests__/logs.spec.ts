@@ -4,6 +4,17 @@ import { Vec3 } from "./setup/Vec3";
 @unmanaged
 class UnmanagedTest {}
 
+@unmanaged
+class UnmanagedArrayLike {
+  get length(): i32 { return 0; }
+
+  @operator("[]")
+  __get(index: i32): i32 { return index; }
+
+  @operator("[]=")
+  __set(_index: i32, _value: i32): void {}
+}
+
 function IDFunc(i: i32): i32 {
   return i;
 }
@@ -244,5 +255,18 @@ describe("logs", () => {
 
   test("logging an unmanaged null reference", () => {
     log(changetype<UnmanagedClass | null>(0));
+  });
+
+  test("logging a typed array", () => {
+    let a = new Uint8Array(0);
+    log(a);
+  });
+
+  test("logging an array of numbers", () => {
+    log<i32[]>([1, 2, 3]);
+  });
+
+  test("logging a nullable unmanaged arraylike", () => {
+    log(changetype<UnmanagedArrayLike>(1));
   });
 });
