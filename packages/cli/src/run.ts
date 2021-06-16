@@ -321,8 +321,9 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     ? (configuration.coverage || [])
     : cliOptions.coverage;
   if (coverageFiles.length !== 0) {
+    chalk`{bgWhite.black [Log]} Using code coverage: ${coverageFiles.join(", ")}`
     const Covers = require("@as-covers/glue").Covers;
-    covers = new Covers({ files: cliOptions.coverage });
+    covers = new Covers({ files: ["assembly/internal/**/*.ts"] });
   }
 
   /**

@@ -438,16 +438,17 @@ export class Reflect {
     }
 
     // check every reference that isn't a function reference
-    if (isReference<T>() && !isFunction<T>()) {
-      if (isNullable<T>()) {
-        return referencesEqual(left!, right!, stack, cache);
-      } else {
-        return referencesEqual(left, right, stack, cache);
+    if (isReference<T>()) {
+      if (!isFunction<T>()) {
+        if (isNullable<T>()) {
+          return referencesEqual(left!, right!, stack, cache);
+        } else {
+          return referencesEqual(left, right, stack, cache);
+        }
       }
-    } else {
-      // value type, and strict equality cannot be asserted
-      return Reflect.FAILED_MATCH;
     }
+    // value type, and strict equality cannot be asserted
+    return Reflect.FAILED_MATCH;
   }
 
   public static attachStackTrace(id: i32): void {

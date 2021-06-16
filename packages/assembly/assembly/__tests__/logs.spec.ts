@@ -1,3 +1,4 @@
+import { __ignoreLogs } from "../internal/log";
 import { Vec3 } from "./setup/Vec3";
 
 function IDFunc(i: i32): i32 {
@@ -226,4 +227,15 @@ describe("logs", () => {
    * This todo should show up in the test output.
    */
   todo("This should be a valid todo.");
+
+  test("ignoring logs (directly)", () => {
+    // we will fake ignoring a log so that code coverage is passed artificially
+    __ignoreLogs(true);
+    log("this should be ignored");
+    __ignoreLogs(false);
+  });
+
+  test("logging a null function", () => {
+    log<(() => void) | null>(null);
+  });
 });

@@ -868,7 +868,9 @@ export class TestContext {
     reflectedValue.values = hasValues ? [] : null;
     reflectedValue.isManaged = isManaged === 1;
 
-    if (reflectedTypeValue === ReflectedValueType.String) {
+    if (isNull === 1) {
+      reflectedValue.value = "null";
+    } else if (reflectedTypeValue === ReflectedValueType.String) {
       reflectedValue.value = this.getString(value, "");
     } else if (reflectedTypeValue === ReflectedValueType.Function) {
       reflectedValue.value = this.funcName(value);

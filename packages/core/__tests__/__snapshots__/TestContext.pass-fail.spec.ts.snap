@@ -1503,7 +1503,7 @@ ReflectedValue {
   "type": 1,
   "typeId": 11,
   "typeName": "Vec3",
-  "value": 0,
+  "value": "null",
   "values": null,
 }
 `;
@@ -1535,7 +1535,7 @@ ReflectedValue {
   "type": 1,
   "typeId": 11,
   "typeName": "Vec3",
-  "value": 0,
+  "value": "null",
   "values": null,
 }
 `;
