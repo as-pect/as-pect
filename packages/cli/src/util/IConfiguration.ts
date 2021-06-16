@@ -68,4 +68,8 @@ export interface IConfiguration {
    * WASI options, if any are provided, wasi will be enabled.
    */
   wasi?: WASIOptions;
+  /**
+   * Add code coverage to your test with a set of globs.
+   */
+  coverage?: string[];
 }
