@@ -1,6 +1,9 @@
 import { __ignoreLogs } from "../internal/log";
 import { Vec3 } from "./setup/Vec3";
 
+@unmanaged
+class UnmanagedTest {}
+
 function IDFunc(i: i32): i32 {
   return i;
 }
@@ -237,5 +240,9 @@ describe("logs", () => {
 
   test("logging a null function", () => {
     log<(() => void) | null>(null);
+  });
+
+  test("logging an unmanaged null reference", () => {
+    log(changetype<UnmanagedClass | null>(0));
   });
 });
