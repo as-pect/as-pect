@@ -317,11 +317,14 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   /** Potentailly enable code coverage */
   let covers: import("@as-covers/glue").Covers | null = null;
-  const coverageFiles = cliOptions.coverage.length === 0
-    ? (configuration.coverage || [])
-    : cliOptions.coverage;
+  const coverageFiles =
+    cliOptions.coverage.length === 0
+      ? configuration.coverage || []
+      : cliOptions.coverage;
   if (coverageFiles.length !== 0) {
-    chalk`{bgWhite.black [Log]} Using code coverage: ${coverageFiles.join(", ")}`
+    chalk`{bgWhite.black [Log]} Using code coverage: ${coverageFiles.join(
+      ", ",
+    )}`;
     const Covers = require("@as-covers/glue").Covers;
     covers = new Covers({ files: ["assembly/internal/**/*.ts"] });
   }
@@ -336,7 +339,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     flags["--lib"] = flags["--lib"] || [];
     flags["--transform"].unshift(require.resolve("@as-covers/transform/lib"));
     const coversEntryPath = require.resolve("@as-covers/assembly/index.ts");
-    const relativeCoversEntryPath = path.relative(process.cwd(), coversEntryPath);
+    const relativeCoversEntryPath = path.relative(
+      process.cwd(),
+      coversEntryPath,
+    );
     flags["--lib"].push(relativeCoversEntryPath);
   }
   // if covers is enabled, add that entry point too to add the glue code
@@ -515,7 +521,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       } else {
         const imports = runner.createImports(configurationImports);
         imports.env.memory = memory;
-        result = instantiateSync(binary, covers ? covers.installImports(imports) : imports);
+        result = instantiateSync(
+          binary,
+          covers ? covers.installImports(imports) : imports,
+        );
       }
 
       if (runner.errors.length > 0) {

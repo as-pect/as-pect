@@ -157,9 +157,10 @@ const _Args: CommandLineArgs = {
   },
 
   coverage: {
-    description: "Use as-covers for full code coverage of your test suite. (A comma seperated list of globs)",
+    description:
+      "Use as-covers for full code coverage of your test suite. (A comma seperated list of globs)",
     type: "S",
-    value: []
+    value: [],
   },
 
   csv: {
