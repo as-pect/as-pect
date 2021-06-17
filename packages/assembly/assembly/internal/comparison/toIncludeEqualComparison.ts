@@ -61,16 +61,8 @@ export function toIncludeEqualComparison<T, U>(
           break;
         }
       }
-    } else {
-      // @ts-ignore: if T does not have a length property, it will throw a compiler error.
-      for (let i = <indexof<T>>0; i < length; i++) {
-        // @ts-ignore: if this expression does not work, it will throw a compiler error.
-        if (Reflect.equals(actual[i], expected) === Reflect.SUCCESSFUL_MATCH) {
-          includes = true;
-          break;
-        }
-      }
     }
+    // unchecked is always defined...
   }
 
   Actual.report(includes ? "Included" : "Not Included");
