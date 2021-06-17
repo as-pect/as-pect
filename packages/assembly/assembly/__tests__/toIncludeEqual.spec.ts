@@ -143,6 +143,12 @@ describe("toIncludeEqual reference arrays", () => {
   throws("should include a function pointer", () => {
     expect(eventDispatcher.events).not.toIncludeEqual(listener);
   });
+
+  /** Arrays can be nullable. */
+  it("should work with nullable type arrays, and perform null checks", () => {
+    let a: i32[] | null = [1];
+    expect(a).toIncludeEqual(1, "nullable array should have a value");
+  });
 });
 
 let typedarray = new Uint8Array(10);

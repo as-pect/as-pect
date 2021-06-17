@@ -46,19 +46,40 @@ export function toIncludeEqualComparison<T, U>(
     // @ts-ignore: typesafe check
     if (!isDefined(actual.length))
       ERROR("Can only call toIncludeEquals on array-like objects or Sets.");
-    // @ts-ignore: typesafe access
-    let length = <indexof<T>>actual.length;
-    // @ts-ignore: typesafe check
-    if (isDefined(unchecked(actual[0]))) {
-      // @ts-ignore: if T does not have a length property, it will throw a compiler error.
-      for (let i = <indexof<T>>0; i < length; i++) {
-        if (
-          // @ts-ignore: actual[i] type must match expected, or a compiler error will happen
-          Reflect.equals(unchecked(actual[i]), expected) ==
-          Reflect.SUCCESSFUL_MATCH
-        ) {
-          includes = true;
-          break;
+
+    if (isNullable<T>()) {
+      let actualNotNull = actual!;
+      // @ts-ignore: typesafe check
+      if (isDefined(unchecked(actualNotNull[0]))) {
+        // @ts-ignore: typesafe access
+        let length = <indexof<T>>actualNotNull.length;
+        // @ts-ignore: if T does not have a length property, it will throw a compiler error.
+        for (let i = <indexof<T>>0; i < length; i++) {
+          if (
+            // @ts-ignore: actual[i] type must match expected, or a compiler error will happen
+            Reflect.equals(unchecked(actualNotNull[i]), expected) ==
+            Reflect.SUCCESSFUL_MATCH
+          ) {
+            includes = true;
+            break;
+          }
+        }
+      }
+    } else {
+      // @ts-ignore: typesafe check
+      if (isDefined(unchecked(actual[0]))) {
+        // @ts-ignore: typesafe access
+        let length = <indexof<T>>actual.length;
+        // @ts-ignore: if T does not have a length property, it will throw a compiler error.
+        for (let i = <indexof<T>>0; i < length; i++) {
+          if (
+            // @ts-ignore: actual[i] type must match expected, or a compiler error will happen
+            Reflect.equals(unchecked(actual[i]), expected) ==
+            Reflect.SUCCESSFUL_MATCH
+          ) {
+            includes = true;
+            break;
+          }
         }
       }
     }
