@@ -334,7 +334,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   if (covers) {
     flags["--lib"] = flags["--lib"] || [];
-    flags["--transform"].push(require.resolve("@as-covers/transform/lib"));
+    flags["--transform"].unshift(require.resolve("@as-covers/transform/lib"));
     const coversEntryPath = require.resolve("@as-covers/assembly/index.ts");
     const relativeCoversEntryPath = path.relative(process.cwd(), coversEntryPath);
     flags["--lib"].push(relativeCoversEntryPath);
