@@ -183,4 +183,9 @@ describe("toInclude reference arrays", () => {
     },
     "The item should be included in the set.",
   );
+
+  /** Nullable collections require a null check. */
+  it("should check nullable collections", () => {
+    expect<i32[] | null>([1]).toInclude(1);
+  });
 });

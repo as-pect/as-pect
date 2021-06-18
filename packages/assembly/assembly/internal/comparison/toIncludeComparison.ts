@@ -9,11 +9,11 @@ export function toIncludeComparison<T, U>(
   message: string,
 ): void {
   // @ts-ignore: checking if a property is defined is compile safe
-  if (!isDefined(actual[0])) {
+  if (!isDefined(actual[0]))
+    // @as-covers: ignore because this is a compile time error
     ERROR(
       "Cannot call toIncludeEquals on actual value of type T where T does not have an index signature.",
     );
-  }
 
   // Assert that the actual value is not null.
   Actual.report(actual);
@@ -30,33 +30,38 @@ export function toIncludeComparison<T, U>(
   if (actual instanceof Set) {
     includes = actual.has(expected);
   } else {
-    // @ts-ignore: typesafe check
-    if (!isDefined(actual.length))
-      ERROR("Can only call toInclude on array-like objects or Sets.");
-    // @ts-ignore: typesafe access
-    let length = <indexof<T>>actual.length;
-    // @ts-ignore: typesafe check
-    if (isDefined(unchecked(actual[0]))) {
-      // @ts-ignore: if T does not have a length property, it will throw a compiler error.
-      for (let i = <indexof<T>>0; i < length; i++) {
-        // @ts-ignore: if this expression does not work, it will throw a compiler error.
-        if (unchecked(actual[i]) === expected) {
-          includes = true;
-          break;
-        }
-      }
+    if (isNullable(actual)) {
+      includes = includesCheck(actual!, expected);
     } else {
-      // @ts-ignore: if T does not have a length property, it will throw a compiler error.
-      for (let i = <indexof<T>>0; i < length; i++) {
-        // @ts-ignore: if this expression does not work, it will throw a compiler error.
-        if (actual[i] === expected) {
-          includes = true;
-          break;
-        }
-      }
+      includes = includesCheck(actual, expected);
     }
   }
 
   Actual.report(includes ? "Included" : "Not Included");
   assert(negated ^ i32(includes), message);
+}
+
+function includesCheck<T, U>(actual: T, expected: U): bool {
+  // @ts-ignore: typesafe check
+  if (!isDefined(actual.length))
+    // @as-covers: ignore because this is a compile time error
+    ERROR("Can only call toInclude on array-like objects or Sets.");
+
+  if (!isDefined(unchecked(actual[0])))
+    // @as-covers: ignore because this is a compile time error
+    ERROR("Can only call toInclude on array-like objects or Sets.");
+
+  // @ts-ignore: typesafe access
+  let length = <indexof<T>>actual.length;
+  // @ts-ignore: typesafe check
+  if (isDefined(unchecked(actual[0]))) {
+    // @ts-ignore: if T does not have a length property, it will throw a compiler error.
+    for (let i = <indexof<T>>0; i < length; i++) {
+      // @ts-ignore: if this expression does not work, it will throw a compiler error.
+      if (unchecked(actual[i]) === expected) {
+        return true;
+      }
+    }
+  }
+  return false;
 }

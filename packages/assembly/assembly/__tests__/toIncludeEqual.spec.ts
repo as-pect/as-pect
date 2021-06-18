@@ -149,6 +149,22 @@ describe("toIncludeEqual reference arrays", () => {
     let a: i32[] | null = [1];
     expect(a).toIncludeEqual(1, "nullable array should have a value");
   });
+
+  it("should test actually included values in the set", () => {
+    let a = new Vec3(1, 2, 3);
+    let b = new Set<Vec3>();
+    b.add(a);
+    expect(b).toIncludeEqual(a, "Values inside sets should pass toIncludeEqual calls");
+  });
+
+  /** Sets should include values. */
+  it("should match values in sets", () => {
+    let a = new Vec3(1, 2, 3);
+    let b = new Vec3(1, 2, 3);
+    let c = new Set<Vec3>();
+    c.add(a);
+    expect(c).toIncludeEqual(b, "toIncludeEqual should perform strict equality checks on elements.");
+  });
 });
 
 let typedarray = new Uint8Array(10);

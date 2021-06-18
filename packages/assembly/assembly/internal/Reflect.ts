@@ -252,9 +252,7 @@ export class Reflect {
           changetype<usize>(value),
           false,
           length,
-          value instanceof Array
-            ? ReflectedValueType.Array
-            : ReflectedValueType.TypedArray,
+          ReflectedValueType.TypedArray,
           idof<T>(),
           nameof<T>(),
           0,
@@ -386,11 +384,7 @@ export class Reflect {
       let reflectedValue = createReflectedNumber(
         isSigned<T>(),
         sizeof<T>(),
-        isBoolean<T>()
-          ? ReflectedValueType.Boolean
-          : isInteger<T>()
-          ? ReflectedValueType.Integer
-          : ReflectedValueType.Float,
+        ReflectedValueType.Float,
         nameof<T>(),
         // @ts-ignore: type is bool, i32, f64, or f32
         <f64>value,

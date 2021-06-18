@@ -382,6 +382,16 @@ describe("toStrictEqual", () => {
   throws("throws if pointers aren't equal", () => {
     expect(eventDispatcher.events[0]).not.toStrictEqual(listener);
   });
+
+  /** Arrays with exact reference pairs should match. */
+  it("should match arrays with exact reference pairs", () => {
+    let a = new Vec3(1, 2, 3);
+    let b = new Vec3(4, 5, 6);
+
+    let c = [a, b];
+    let d = [a, b];
+    expect(c).toStrictEqual(d, "previously compared pairs should be shortcutted.");
+  });
 });
 
 class A {

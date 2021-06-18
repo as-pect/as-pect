@@ -10,11 +10,11 @@ export function toIncludeEqualComparison<T, U>(
   message: string,
 ): void {
   // @ts-ignore: typesafe check
-  if (!isDefined(actual[0])) {
+  if (!isDefined(actual[0]))
+    // @as-covers: ignore beause this is a compile time error
     ERROR(
       "Cannot call toIncludeEquals on actual value of type T where T does not have an index signature.",
     );
-  }
 
   // Assert that the actual value is not null.
   Actual.report(actual);
