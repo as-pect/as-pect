@@ -532,7 +532,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 30064,
+  "pointer": 30128,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -622,7 +622,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 30176,
+  "pointer": 30240,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -1752,7 +1752,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report refe
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] allocations 1`] = `16`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] allocations 1`] = `17`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] beforeAllPointers 1`] = `0`;
 
@@ -2036,7 +2036,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 30736,
+  "pointer": 30800,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
@@ -2120,7 +2120,7 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 30816,
+  "pointer": 30880,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
