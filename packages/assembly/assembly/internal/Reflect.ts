@@ -114,14 +114,15 @@ export class Reflect {
       if (isDefined(value.__aspectReflectAs())) {
         // @ts-ignore: typesafe call to __aspectReflectAs()
         let displayValue = value.__aspectReflectAs();
-        if (
-          !isInteger(displayValue) &&
-          !isFloat(displayValue) &&
-          !isManaged(displayValue)
-        ) {
-          ERROR(
-            "__aspectReflectAs() function should return a managed type or a number",
-          );
+        if (!isInteger(displayValue)) {
+          if (!isFloat(displayValue)) {
+            // @as-covers: ignore compile time check
+            if (!isManaged(displayValue)) {
+              ERROR(
+                "__aspectReflectAs() function should return a managed type or a number",
+              );
+            }
+          }
         }
         return Reflect.toReflectedValue(displayValue, seen);
       }
@@ -251,9 +252,7 @@ export class Reflect {
           changetype<usize>(value),
           false,
           length,
-          value instanceof Array
-            ? ReflectedValueType.Array
-            : ReflectedValueType.TypedArray,
+          ReflectedValueType.TypedArray,
           idof<T>(),
           nameof<T>(),
           0,
@@ -365,20 +364,31 @@ export class Reflect {
 
         return reflectedObjectID;
       }
-    } else if (alignof<T>() === 3 && isInteger<T>()) {
-      // u64, i64, isize, or usize (when targeting 64 bit WebAssembly)
-      // @ts-ignore: value is a number
-      let reflectedValue = createReflectedLong(
+    } else if (alignof<T>() === 3) {
+      if (isInteger<T>()) {
+        // u64, i64, isize, or usize (when targeting 64 bit WebAssembly)
+        // @ts-ignore: value is a number
+        let reflectedValue = createReflectedLong(
+          isSigned<T>(),
+          sizeof<T>(),
+          ReflectedValueType.Integer,
+          nameof<T>(),
+          // @ts-ignore: value is a 64 bit number
+          <i32>(value & 0xffffffff),
+          // @ts-ignore: value is a 64 bit number
+          <i32>(value >>> 32),
+        );
+        return reflectedValue;
+      }
+      // float64
+      let reflectedValue = createReflectedNumber(
         isSigned<T>(),
         sizeof<T>(),
-        ReflectedValueType.Integer,
+        ReflectedValueType.Float,
         nameof<T>(),
-        // @ts-ignore: value is a 64 bit number
-        <i32>(value & 0xffffffff),
-        // @ts-ignore: value is a 64 bit number
-        <i32>(value >>> 32),
+        // @ts-ignore: type is bool, i32, f64, or f32
+        <f64>value,
       );
-
       return reflectedValue;
     } else {
       // boolean, i32, u32, f32, isize, usize (when targeting 32 bit WebAssembly), or numbers with less bits
@@ -423,16 +433,17 @@ export class Reflect {
     }
 
     // check every reference that isn't a function reference
-    if (isReference<T>() && !isFunction<T>()) {
-      if (isNullable<T>()) {
-        return referencesEqual(left!, right!, stack, cache);
-      } else {
-        return referencesEqual(left, right, stack, cache);
+    if (isReference<T>()) {
+      if (!isFunction<T>()) {
+        if (isNullable<T>()) {
+          return referencesEqual(left!, right!, stack, cache);
+        } else {
+          return referencesEqual(left, right, stack, cache);
+        }
       }
-    } else {
-      // value type, and strict equality cannot be asserted
-      return Reflect.FAILED_MATCH;
     }
+    // value type, and strict equality cannot be asserted
+    return Reflect.FAILED_MATCH;
   }
 
   public static attachStackTrace(id: i32): void {
@@ -637,13 +648,23 @@ function referencesEqual<T>(
   stack.push(b);
 
   let result = false;
-  // @ts-ignore: __aspectStrictEquals is defined at this point
-  result = (isNullable(left) ? left! : left).__aspectStrictEquals(
-    right,
-    stack,
-    cache,
-    [] as StaticArray<i64>,
-  );
+  if (isNullable(left)) {
+    // @ts-ignore: __aspectStrictEquals is defined at this point
+    result = left!.__aspectStrictEquals(
+      right,
+      stack,
+      cache,
+      [] as StaticArray<i64>,
+    );
+  } else {
+    // @ts-ignore: __aspectStrictEquals is defined at this point
+    result = left.__aspectStrictEquals(
+      right,
+      stack,
+      cache,
+      [] as StaticArray<i64>,
+    );
+  }
 
   if (result) {
     cache.push(a);

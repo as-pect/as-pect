@@ -31,23 +31,8 @@ module.exports = {
     instance = instantiateSync(binary, createImports(myImports));
     return instance;
   },
-  /**
-   * Add a custom reporter here if you want one. The following example is in typescript.
-   *
-   * @example
-   * import { TestReporter, TestGroup, TestResult, TestContext } from "as-pect";
-   *
-   * export class CustomReporter extends TestReporter {
-   *   // implement each abstract method here
-   *   public abstract onStart(suite: TestContext): void;
-   *   public abstract onGroupStart(group: TestGroup): void;
-   *   public abstract onGroupFinish(group: TestGroup): void;
-   *   public abstract onTestStart(group: TestGroup, result: TestResult): void;
-   *   public abstract onTestFinish(group: TestGroup, result: TestResult): void;
-   *   public abstract onFinish(suite: TestContext): void;
-   * }
-   */
-  // reporter: new CustomReporter(),
+  /** Enable code coverage. */
+  // coverage: ["assembly/**/*.ts"],
   /**
    * Specify if the binary wasm file should be written to the file system.
    */
