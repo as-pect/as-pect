@@ -384,7 +384,7 @@ export class Expectation<T> {
 
     // calculated: `|expected - actual| < 1 / numberOfDigits`.
     // @ts-ignore tooling errors because T does not extend a numeric value type. This compiles just fine.
-    let isClose = i32(abs(expected - actual) < Math.pow(0.1, decimalPlaces));
+    let isClose = i32(abs(expected - actual) < Math.pow(10, -decimalPlaces));
     assert(negated ^ isClose, message);
     Actual.clear();
     Expected.clear();
