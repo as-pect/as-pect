@@ -167,4 +167,10 @@ describe("toBeTruthy", () => {
     },
     "Non-null references are truthy.",
   );
+
+  /** Strings should be truthy unless their length is 0. */
+  it("should expect strings to be truthy", () => {
+    expect("this string").toBeTruthy();
+    expect("").not.toBeTruthy();
+  });
 });

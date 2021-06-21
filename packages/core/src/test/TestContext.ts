@@ -539,9 +539,8 @@ export class TestContext {
     }
 
     finalImports.__aspect = {
-      attachStackTraceToReflectedValue: this.attachStackTraceToReflectedValue.bind(
-        this,
-      ),
+      attachStackTraceToReflectedValue:
+        this.attachStackTraceToReflectedValue.bind(this),
       afterAll: this.reportAfterAll.bind(this),
       afterEach: this.reportAfterEach.bind(this),
       beforeAll: this.reportBeforeAll.bind(this),
@@ -558,9 +557,8 @@ export class TestContext {
       reportActualReflectedValue: this.reportActualReflectedValue.bind(this),
       reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
       reportExpectedFinite: this.reportExpectedFinite.bind(this),
-      reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(
-        this,
-      ),
+      reportExpectedReflectedValue:
+        this.reportExpectedReflectedValue.bind(this),
       reportNegatedTestNode: this.reportNegatedTestNode.bind(this),
       reportTodo: this.reportTodo.bind(this),
       reportTestTypeNode: this.reportTestTypeNode.bind(this),
@@ -814,10 +812,9 @@ export class TestContext {
     reflectedValue.stack = this.getLogStackTrace();
     reflectedValue.typeName = "trace";
     reflectedValue.type = ReflectedValueType.String;
-    reflectedValue.value = `trace: ${this.getString(
-      strPointer,
-      "",
-    )} ${args.slice(0, count).join(", ")}`;
+    reflectedValue.value = `trace: ${this.getString(strPointer, "")} ${args
+      .slice(0, count)
+      .join(", ")}`;
 
     // push the log value to the logs
     this.targetNode.logs.push(reflectedValue);
@@ -868,7 +865,9 @@ export class TestContext {
     reflectedValue.values = hasValues ? [] : null;
     reflectedValue.isManaged = isManaged === 1;
 
-    if (reflectedTypeValue === ReflectedValueType.String) {
+    if (isNull === 1) {
+      reflectedValue.value = "null";
+    } else if (reflectedTypeValue === ReflectedValueType.String) {
       reflectedValue.value = this.getString(value, "");
     } else if (reflectedTypeValue === ReflectedValueType.Function) {
       reflectedValue.value = this.funcName(value);

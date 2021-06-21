@@ -12,7 +12,8 @@ export function __ignoreLogs(value: bool): void {
 @global
 export function log<T>(value: T): void {
   if (ignoreLogs) return;
-  let reflectedId = Reflect.toReflectedValue(value);
+  // The T parameter must be passed directly
+  let reflectedId = Reflect.toReflectedValue<T>(value);
   Reflect.attachStackTrace(reflectedId);
   logReflectedValue(reflectedId);
 }

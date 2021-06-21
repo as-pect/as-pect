@@ -68,6 +68,7 @@ export interface Options {
   csv: string | boolean;
   json: string | boolean;
   verbose: string | boolean;
+  coverage: string[];
   summary: string | boolean;
   /** Suppress ASCII art from being printed */
   nologo: boolean;
@@ -153,6 +154,13 @@ const _Args: CommandLineArgs = {
     type: "s",
     alias: { name: "c" },
     value: "as-pect.config.js",
+  },
+
+  coverage: {
+    description:
+      "Use as-covers for full code coverage of your test suite. (A comma seperated list of globs)",
+    type: "S",
+    value: [],
   },
 
   csv: {

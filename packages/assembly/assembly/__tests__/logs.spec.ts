@@ -1,4 +1,19 @@
+import { __ignoreLogs } from "../internal/log";
 import { Vec3 } from "./setup/Vec3";
+
+@unmanaged
+class UnmanagedTest {}
+
+@unmanaged
+class UnmanagedArrayLike {
+  get length(): i32 { return 0; }
+
+  @operator("[]")
+  __get(index: i32): i32 { return index; }
+
+  @operator("[]=")
+  __set(_index: i32, _value: i32): void {}
+}
 
 function IDFunc(i: i32): i32 {
   return i;
@@ -226,4 +241,32 @@ describe("logs", () => {
    * This todo should show up in the test output.
    */
   todo("This should be a valid todo.");
+
+  test("ignoring logs (directly)", () => {
+    // we will fake ignoring a log so that code coverage is passed artificially
+    __ignoreLogs(true);
+    log("this should be ignored");
+    __ignoreLogs(false);
+  });
+
+  test("logging a null function", () => {
+    log<(() => void) | null>(null);
+  });
+
+  test("logging an unmanaged null reference", () => {
+    log(changetype<UnmanagedClass | null>(0));
+  });
+
+  test("logging a typed array", () => {
+    let a = new Uint8Array(0);
+    log(a);
+  });
+
+  test("logging an array of numbers", () => {
+    log<i32[]>([1, 2, 3]);
+  });
+
+  test("logging a nullable unmanaged arraylike", () => {
+    log(changetype<UnmanagedArrayLike>(1));
+  });
 });

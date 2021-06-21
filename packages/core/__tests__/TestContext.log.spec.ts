@@ -52,6 +52,7 @@ describe("log output", () => {
           for (const log of groupTest.logs) {
             const stack = log.stack;
             log.stack = "";
+            log.pointer = 0;
             expect(log).toMatchSnapshot(`${group.name} ${test.name} log`);
             expect(log.stringify(stringifyOptions)).toMatchSnapshot(
               `${group.name} ${test.name} stringify`,

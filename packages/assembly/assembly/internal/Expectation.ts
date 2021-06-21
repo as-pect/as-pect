@@ -70,6 +70,7 @@ export class Expectation<T> {
     Expected.clear();
   }
 
+  // @as-covers: ignore because this function is deprecated
   public toBlockEqual(expected: T, message: string = ""): void {
     WARNING(
       "toBlockEqual has been deprecated and results in a toStrictEqual call.",
@@ -146,10 +147,12 @@ export class Expectation<T> {
     let negated = this._not;
 
     if (!isFunction(this.actual))
+      // @as-covers: ignore because this is a compile time error
       ERROR(
-        "Expectation#toThrow assertion called on actual T where T is not a function reference",
+      "Expectation#toThrow assertion called on actual T where T is not a function reference",
       );
     if (idof<T>() != idof<() => void>())
+      // @as-covers: ignore because this is a compile time error
       ERROR(
         "Expectation#toThrow assertion called on actual T where T is not a function reference with signature () => void",
       );
@@ -170,6 +173,7 @@ export class Expectation<T> {
     Expected.report(expected, negated);
 
     if (!isDefined(actual > expected))
+      // @as-covers: ignore because this is a compile time error
       ERROR(
         "Invalid call to toBeGreaterThan. Generic type T must have an operator implemented for the greaterThan (>) operation.",
       );
@@ -212,6 +216,7 @@ export class Expectation<T> {
     Expected.report(expected, negated);
 
     if (!isDefined(actual >= expected))
+      // @as-covers: ignore because this is a compile time error
       ERROR(
         "Invalid call to toBeGreaterThanOrEqual. Generic type T must have an operator implemented for the greaterThanOrEqual (>=) operation.",
       );
@@ -253,6 +258,7 @@ export class Expectation<T> {
     Expected.report(expected, negated);
 
     if (!isDefined(actual < expected))
+      // @as-covers: ignore because this is a compile time error
       ERROR(
         "Invalid call to toBeLessThan. Generic type T must have an operator implemented for the lessThan (<) operation.",
       );
@@ -291,6 +297,7 @@ export class Expectation<T> {
     Expected.report(expected, negated);
 
     if (!isDefined(actual > expected))
+      // @as-covers: ignore because this is a compile time error
       ERROR(
         "Invalid call to toBeLessThanOrEqual. Generic type T must have an operator implemented for the lessThanOrEqual (<=) operation.",
       );
@@ -342,6 +349,7 @@ export class Expectation<T> {
       assert(negated ^ i32(changetype<usize>(actual) == 0), message);
       Actual.clear();
       Expected.clear();
+      // @as-covers: ignore because this is a compile time error
     } else {
       ERROR(
         "toBeNull assertion must be called with a reference type T or usize.",
@@ -359,6 +367,7 @@ export class Expectation<T> {
 
     // must be called on a float T
     if (!isFloat(actual))
+      // @as-covers: ignore because this is a compile time error
       ERROR("toBeCloseTo must be called with a Float value type T.");
     Actual.report(actual);
     Expected.report(expected, negated);
@@ -375,7 +384,7 @@ export class Expectation<T> {
 
     // calculated: `|expected - actual| < 1 / numberOfDigits`.
     // @ts-ignore tooling errors because T does not extend a numeric value type. This compiles just fine.
-    let isClose = i32(abs(expected - actual) < Math.pow(0.1, decimalPlaces));
+    let isClose = i32(abs(expected - actual) < Math.pow(10, -decimalPlaces));
     assert(negated ^ isClose, message);
     Actual.clear();
     Expected.clear();
@@ -387,6 +396,7 @@ export class Expectation<T> {
 
     // must be called on a float T
     if (!isFloat(actual))
+      // @as-covers: ignore because this is a compile time error
       ERROR("toBeNaN must be called with a Float value type T.");
     Actual.report(actual);
 
@@ -405,6 +415,7 @@ export class Expectation<T> {
 
     // must be called on a float T
     if (!isFloat(actual))
+      // @as-covers: ignore because this is a compile time error
       ERROR("toBeNaN must be called with a Float value type T.");
     Actual.report(actual);
     Expected.reportFinite(negated);
@@ -424,6 +435,7 @@ export class Expectation<T> {
     } else {
       // @ts-ignore: This results in a compile time check for a length property with a better error message
       if (!isDefined(actual.length))
+        // @as-covers: ignore because this is a compile time error
         ERROR(
           "toHaveLength cannot be called on type T where T.length is not defined.",
         );
@@ -447,6 +459,7 @@ export class Expectation<T> {
   }
 
   // @ts-ignore: valueof<T> requires that T extends something with an @operator("[]")
+  // @as-covers: ignore because this is just an alias function
   public toContain(expected: valueof<T>, message: string = ""): void {
     this.toInclude(expected, message);
   }
@@ -457,6 +470,7 @@ export class Expectation<T> {
     Expected.clear();
   }
 
+  // @as-covers: ignore because this is an alias
   public toContainEqual<U>(expected: U, message: string = ""): void {
     this.toIncludeEqual(expected, message);
   }
@@ -474,8 +488,8 @@ export function expect<T>(actual: T): Expectation<T> {
 }
 
 // @ts-ignore: decorators *are* valid here
-@global
-export function expectFn(cb: () => void): Expectation<() => void> {
+// @as-covers: ignore because this is deprecated
+@global export function expectFn(cb: () => void): Expectation<() => void> {
   WARNING("expectFn() has been deprecated. Use expect() instead.");
   return new Expectation(cb);
 }

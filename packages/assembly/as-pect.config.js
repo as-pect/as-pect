@@ -29,6 +29,8 @@ module.exports = {
     instance = instantiateSync(binary, createImports(myImports));
     return instance;
   },
+  /** Add code coverage. */
+  coverage: ["assembly/internal/**/*.ts"],
   /** Use the summary reporter. */
   // reporter: new SummaryTestReporter(),
 };

@@ -148,6 +148,15 @@ describe("toStrictEqual", () => {
   });
 
   /**
+   * When types are nullable, references should be strictly equal.
+   */
+  it("should validate references are equal despite the nullable type", () => {
+    let a: Vec3 | null = vec1;
+    let b: Vec3 | null = vec3;
+    expect<Vec3 | null>(a).toStrictEqual(b);
+  });
+
+  /**
    * This is the contrapositive of the previous test.
    */
   throws(
@@ -382,6 +391,16 @@ describe("toStrictEqual", () => {
   throws("throws if pointers aren't equal", () => {
     expect(eventDispatcher.events[0]).not.toStrictEqual(listener);
   });
+
+  /** Arrays with exact reference pairs should match. */
+  it("should match arrays with exact reference pairs", () => {
+    let a = new Vec3(1, 2, 3);
+    let b = new Vec3(4, 5, 6);
+
+    let c = [a, b];
+    let d = [a, b];
+    expect(c).toStrictEqual(d, "previously compared pairs should be shortcutted.");
+  });
 });
 
 class A {
@@ -609,6 +628,14 @@ describe("nested structures", () => {
     );
   });
 
+  /** Sets of different sizes should not be equal. */
+  test("sets of different sizes", () => {
+    let a = new Set<i32>();
+    let b = new Set<i32>();
+    a.add(1);
+    expect(a).not.toStrictEqual(b);
+  });
+
   /**
    * Sets with numeric values should strictly equal each other.
    */
@@ -742,6 +769,14 @@ describe("nested structures", () => {
     b.set(3, 6);
 
     expect(a).toStrictEqual(b, "maps should strictly equal each other");
+  });
+
+  /** Maps of different sizes should be not equal. */
+  test("maps of different sizes", () => {
+    let a = new Map<i32, i32>();
+    let b = new Map<i32, i32>();
+    a.set(1, 2);
+    expect(a).not.toStrictEqual(b);
   });
 
   /**

@@ -170,4 +170,9 @@ describe("toBeFalsy", () => {
     },
     "Non-null references are not falsy.",
   );
+
+  /** Empty strings should be falsy. */
+  it("should be a falsy string", () => {
+    expect("").toBeFalsy();
+  });
 });

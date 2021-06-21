@@ -315,11 +315,37 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     process.exit(1);
   }
 
+  /** Potentailly enable code coverage */
+  let covers: import("@as-covers/glue").Covers | null = null;
+  const coverageFiles =
+    cliOptions.coverage.length === 0
+      ? configuration.coverage || []
+      : cliOptions.coverage;
+  if (coverageFiles.length !== 0) {
+    chalk`{bgWhite.black [Log]} Using code coverage: ${coverageFiles.join(
+      ", ",
+    )}`;
+    const Covers = require("@as-covers/glue").Covers;
+    covers = new Covers({ files: ["assembly/internal/**/*.ts"] });
+  }
+
   /**
    * Add the proper trasform.
    */
   flags["--transform"] = flags["--transform"] || [];
   flags["--transform"].push(require.resolve("@as-pect/core/lib/transform"));
+
+  if (covers) {
+    flags["--lib"] = flags["--lib"] || [];
+    flags["--transform"].unshift(require.resolve("@as-covers/transform/lib"));
+    const coversEntryPath = require.resolve("@as-covers/assembly/index.ts");
+    const relativeCoversEntryPath = path.relative(
+      process.cwd(),
+      coversEntryPath,
+    );
+    flags["--lib"].push(relativeCoversEntryPath);
+  }
+  // if covers is enabled, add that entry point too to add the glue code
 
   /**
    * Concatenate compiler flags.
@@ -500,9 +526,10 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       let result: any;
 
       if (typeof configurationImports === "function") {
-        const createImports = runner.createImports.bind(runner, {
-          env: { memory },
-        });
+        const createImports = (imports: any) => {
+          const results = runner.createImports({ env: { memory } }, imports);
+          return covers ? covers.installImports(results) : results;
+        };
         result = configurationImports(
           memory,
           createImports,
@@ -518,13 +545,17 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       } else {
         const imports = runner.createImports(configurationImports);
         imports.env.memory = memory;
-        result = instantiateSync(binary, imports);
+        result = instantiateSync(
+          binary,
+          covers ? covers.installImports(imports) : imports,
+        );
       }
 
       if (runner.errors.length > 0) {
         errors.push(...runner.errors);
       } else {
         // call run buffer because it's already compiled
+        if (covers) covers.registerLoader(result);
         runner.run(result);
         const runnerTestCount = runner.testCount;
         const runnerTestPassCount = runner.testPassCount;
@@ -609,6 +640,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
           testCount - successCount
         ).toString()} fail, ${testCount.toString()} total
     [Time]: ${timeDifference(end, start).toString()}ms`);
+
+        if (covers) console.log(covers.stringify());
 
         if (worklets.length > 0) {
           for (const worklet of worklets) {
