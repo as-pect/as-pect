@@ -379,23 +379,15 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   // If another extension is used create copy of assembly/**/*.ts files
   if (flags["--extension"]) {
     console.log(chalk`{bgWhite.black [Log]} Changing extension for injected assembly files`);
-    const newExt = flags["--extension"][0].replace(".", ""); // withoud dot should work
-    const dirs = [
-      path.resolve(__dirname, "../../assembly/assembly"),
-      path.resolve(__dirname, "../../assembly/assembly/internal"),
-      path.resolve(__dirname, "../../assembly/assembly/internal/comparison")
-    ];
-    dirs.forEach(dir => {
-      const files = fs.readdirSync(dir);
-      files.forEach(file => {
-        if (path.extname(file) === ".ts") {
-          const filename = file.split('.').slice(0, -1).join('.');
-          const newpath = `${dir}/${filename}.${newExt}`;
-          if (!fs.existsSync(newpath)) {
-            fs.copyFileSync(`${dir}/${file}`, newpath);
-          }
-        }
-      });
+    const newExt = flags["--extension"][0].replace(".", ""); // without dot should work
+    const assemblyFolder = path.dirname(require.resolve("@as-pect/assembly/assembly/index.ts"));
+
+    const files = glob.sync(path.join(assemblyFolder, "**/*.ts"));
+
+    files.forEach(file => {
+      const dirname = path.dirname(file);
+      const basename = path.basename(file, path.extname(file));
+      fs.copyFileSync(file, path.join(dirname, basename + "." + newExt));
     });
   }
 
