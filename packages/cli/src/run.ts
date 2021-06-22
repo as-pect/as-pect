@@ -378,13 +378,17 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   // If another extension is used create copy of assembly/**/*.ts files
   if (flags["--extension"]) {
-    console.log(chalk`{bgWhite.black [Log]} Changing extension for injected assembly files`);
+    console.log(
+      chalk`{bgWhite.black [Log]} Changing extension for injected assembly files`,
+    );
     const newExt = flags["--extension"][0].replace(".", ""); // without dot should work
-    const assemblyFolder = path.dirname(require.resolve("@as-pect/assembly/assembly/index.ts"));
+    const assemblyFolder = path.dirname(
+      require.resolve("@as-pect/assembly/assembly/index.ts"),
+    );
 
     const files = glob.sync(path.join(assemblyFolder, "**/*.ts"));
 
-    files.forEach(file => {
+    files.forEach((file) => {
       const dirname = path.dirname(file);
       const basename = path.basename(file, path.extname(file));
       fs.copyFileSync(file, path.join(dirname, basename + "." + newExt));
@@ -392,8 +396,12 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   }
 
   // must include the assembly/index.ts file located in the assembly package
-  const entryExt = !flags["--extension"] ? "ts" : flags["--extension"][0].replace(".", "");
-  const entryPath = require.resolve("@as-pect/assembly/assembly/index." + entryExt);
+  const entryExt = !flags["--extension"]
+    ? "ts"
+    : flags["--extension"][0].replace(".", "");
+  const entryPath = require.resolve(
+    "@as-pect/assembly/assembly/index." + entryExt,
+  );
   const relativeEntryPath = path.relative(process.cwd(), entryPath);
 
   // add the relativeEntryPath of as-pect to the list of compiled files for each test
