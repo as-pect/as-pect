@@ -326,7 +326,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       ", ",
     )}`;
     const Covers = require("@as-covers/glue").Covers;
-    covers = new Covers({ files: ["assembly/internal/**/*.ts"] });
+    covers = new Covers({ files: coverageFiles });
   }
 
   /**
