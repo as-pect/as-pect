@@ -315,7 +315,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     process.exit(1);
   }
 
-  /** Potentailly enable code coverage */
+  /** Potentailly enable code coverage, using the configurated globs */
   let covers: import("@as-covers/glue").Covers | null = null;
   const coverageFiles =
     cliOptions.coverage.length === 0
