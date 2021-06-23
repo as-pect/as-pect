@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/csv-reporter",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "csv reporter for as-pect",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -20,6 +20,6 @@
     "csv-stringify": "^5.6.2"
   },
   "dependencies": {
-    "@as-pect/core": "^6.2.0"
+    "@as-pect/core": "^6.2.1"
   }
 }
