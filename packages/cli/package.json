@@ -40,6 +40,7 @@
     "@as-pect/assembly": "^6.2.0",
     "@as-pect/core": "^6.2.1",
     "chalk": "^4.1.1",
+    "configinator": "0.0.1",
     "glob": "^7.1.7"
   },
   "peerDependencies": {
@@ -53,5 +54,8 @@
     "init/",
     "lib/",
     "bin/"
-  ]
+  ],
+  "devDependencies": {
+    "@types/node": "^15.14.0"
+  }
 }

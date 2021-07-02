@@ -12,7 +12,7 @@ export function printAsciiArt(version: string): void {
      / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/   
     / ___ |___/ /_____/ /_/ /  __/ /__/ /_     
    /_/  |_/____/     / .___/\\___/\\___/\\__/     
-                    /_/                       _}
+                    /_/                            }
 
 ⚡AS-pect⚡ Test suite runner {bgGreenBright.bold.black [${version}]}
 `);

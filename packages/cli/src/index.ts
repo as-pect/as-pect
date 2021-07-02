@@ -1,67 +1,44 @@
-import { parse } from "./util/CommandLineArg";
-
-/**
- * @ignore
- *
- * Package version is always displayed, either for version or cli ascii art.
- */
+import { parse } from "configinator";
+import { cliConfig, resolveOptionByName } from "./util/configuration";
+import chalk from "chalk";
 const pkg = require("../package.json");
 
-/**
- * This is the command line package version.
- */
-export const version = pkg.version;
+export function asp(args: string[], readFileSync: (file: string, basename: string) => string | null): void {
+  const configState = parse(args, cliConfig, {
+    cwd: process.cwd(),
+    readFileSync,
+  });
 
-export { parse, defaultCliArgs, Options } from "./util/CommandLineArg";
+  if (configState.diagnostics.length > 0) {
+    for (const diag of configState.diagnostics) {
+      console.log(chalk`{red [CLI Error]}: ${diag}`);
+    }
+    process.exit(1);
+  }
 
-/**
- * This is the cli entry point and expects an array of arguments from the command line.
- *
- * @param {string[]} args - The arguments from the command line
- */
-export function asp(args: string[]) {
-  const splitIndex = args.indexOf("--");
-  const hasCompilerArgs = splitIndex !== -1;
-  const aspectArgs: string[] = hasCompilerArgs
-    ? args.slice(0, splitIndex)
-    : args;
-  const compilerArgs: string[] = hasCompilerArgs
-    ? args.slice(splitIndex + 1)
-    : [];
+  if (resolveOptionByName(configState, "version")) {
+    console.log(chalk`{yellow [Version]}: ${pkg.version}`);
+    process.exit(0);
+  }
 
-  // parse the arguments
-  const cliOptions = parse(aspectArgs);
-
-  // Skip ascii art if asked for the version
-  if (!cliOptions.version && !cliOptions.nologo) {
+  if (!resolveOptionByName(configState, "nologo")) {
     const printAsciiArt = require("./util/asciiArt").printAsciiArt;
     printAsciiArt(pkg.version);
   }
 
-  if (cliOptions.types) {
-    const types = require("./types").types;
-    types();
-  } else if (cliOptions.init) {
-    const init = require("./init").init;
-    // init script
-    init();
-  } else if (cliOptions.version) {
-    // display the version
-    console.log(pkg.version);
-  } else if (cliOptions.help) {
-    // display the help file
-    const help = require("./help").help;
-    help();
-  } else if (cliOptions.portable) {
-    const portable = require("./portable").portable;
-    portable();
-  } else {
-    // run the compiler and test suite
-    const run = require("./run").run;
-    run(cliOptions, compilerArgs);
-  }
+  process.exit(0);
 }
 
 if (typeof require != "undefined" && require.main == module) {
-  asp(process.argv.slice(2));
+  const fs = require("fs");
+  const path = require("path");
+
+  asp(process.argv.slice(2), (file: string, basename: string): string | null => {
+    const thePath = path.normalize(path.join(basename, file));
+    try {
+      return fs.readFileSync(thePath, "utf8");
+    } catch (ex) {
+      return null;
+    }
+  });
 }
