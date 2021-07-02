@@ -26,6 +26,18 @@ export function asp(args: string[], readFileSync: (file: string, basename: strin
     printAsciiArt(pkg.version);
   }
 
+  if (resolveOptionByName(configState, "types")) {
+    const types = require("./types").types;
+    types();
+    process.exit(0);
+  }
+
+  if (resolveOptionByName(configState, "portable")) {
+    const portable = require("./portable").portable;
+    portable();
+    process.exit(0);
+  }
+
   process.exit(0);
 }
 

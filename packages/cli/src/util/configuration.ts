@@ -20,6 +20,20 @@ export const cliConfig: Configuration = {
     type: "b",
     defaultValue: false,
   },
+
+  // no-logo: skips the logo
+  types: {
+    name: "types",
+    type: "b",
+    defaultValue: false,
+  },
+
+  // no-logo: skips the logo
+  typortablepes: {
+    name: "portable",
+    type: "b",
+    defaultValue: false,
+  },
 }
 
 export function resolveOptionByName(configState: ConfigurationState, name: string): any {
