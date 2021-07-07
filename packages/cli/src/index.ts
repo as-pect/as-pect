@@ -1,8 +1,9 @@
-import { parse } from "configinator";
+import { parse, ConfigurationFile, ConfigurationOptionValue } from "configinator";
 import { cliConfig, resolveOptionByName } from "./util/configuration";
 import chalk from "chalk";
 const pkg = require("../package.json");
 
+const getFileName = (e: ConfigurationFile) => e.filename;
 export function asp(args: string[], readFileSync: (file: string, basename: string) => string | null): void {
   const configState = parse(args, cliConfig, {
     cwd: process.cwd(),
@@ -38,7 +39,14 @@ export function asp(args: string[], readFileSync: (file: string, basename: strin
     process.exit(0);
   }
 
-  process.exit(0);
+  // need to collect the entry points
+  const includeOptionValue = resolveOptionByName(configState, "include") as ConfigurationFile[];
+  const testFiles = new Set<string>(includeOptionValue.map(getFileName));
+
+  const addOptionValue = resolveOptionByName(configState, "add") as ConfigurationFile[];
+  const addFiles = new Set<string>(addOptionValue.map(getFileName));
+
+  
 }
 
 if (typeof require != "undefined" && require.main == module) {

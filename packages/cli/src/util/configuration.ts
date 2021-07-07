@@ -19,6 +19,7 @@ export const cliConfig: Configuration = {
     name: "nologo",
     type: "b",
     defaultValue: false,
+    description: "Skip the logo. (but why?)"
   },
 
   // no-logo: skips the logo
@@ -26,6 +27,7 @@ export const cliConfig: Configuration = {
     name: "types",
     type: "b",
     defaultValue: false,
+    description: "Add the correct types file to your project to get intelisense for as-pect"
   },
 
   // no-logo: skips the logo
@@ -34,6 +36,14 @@ export const cliConfig: Configuration = {
     type: "b",
     defaultValue: false,
   },
+
+  // primary test files
+  include: {
+    name: "include",
+    type: "G",
+    defaultValue: ["assembly/__tests__/**/*.ts", "assembly/**/*.spec.ts"],
+    description: "Define the primary test entry points with this flag, with an array of globs.",
+  }
 }
 
 export function resolveOptionByName(configState: ConfigurationState, name: string): any {
