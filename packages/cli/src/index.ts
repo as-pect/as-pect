@@ -1,6 +1,8 @@
-import { parse, ConfigurationFile, ConfigurationOptionValue } from "configinator";
+import { parse, ConfigurationFile, ConfigurationRequire } from "configinator";
 import { cliConfig, resolveOptionByName } from "./util/configuration";
+import glob from "glob";
 import chalk from "chalk";
+import { RuntimeContext } from "./util/RuntimeContext";
 const pkg = require("../package.json");
 
 const getFileName = (e: ConfigurationFile) => e.filename;
@@ -40,13 +42,59 @@ export function asp(args: string[], readFileSync: (file: string, basename: strin
   }
 
   // need to collect the entry points
-  const includeOptionValue = resolveOptionByName(configState, "include") as ConfigurationFile[];
-  const testFiles = new Set<string>(includeOptionValue.map(getFileName));
+  const testFileGlobs = resolveOptionByName(configState, "include") as string[];
+  const testFiles = new Set<string>();
+  for (const testFileGlob of testFileGlobs) {
+    for (const testFile of glob.sync(testFileGlob)) {
+      testFiles.add(testFile);
+    }
+  }
 
-  const addOptionValue = resolveOptionByName(configState, "add") as ConfigurationFile[];
-  const addFiles = new Set<string>(addOptionValue.map(getFileName));
+  // included in compilation
+  const addFileGlobs = resolveOptionByName(configState, "add") as string[];
+  const addFiles = new Set<string>();
+  for (const addFileGlob of addFileGlobs) {
+    for (const addFile of glob.sync(addFileGlob)) {
+      addFiles.add(addFile);
+    }
+  }
 
-  
+  // compilation target
+  const target = resolveOptionByName(configState, "target") as string;
+
+  // coverage
+  const coverage = resolveOptionByName(configState, "coverage") as string[];
+  const coverageJson = resolveOptionByName(configState, "coverage-json") as boolean;
+  const coverageYaml = resolveOptionByName(configState, "coverage-yaml") as boolean;
+  const coverageIgnore = resolveOptionByName(configState, "coverage-ignore") as string[];
+
+  // reporters
+  const verbose = resolveOptionByName(configState, "verbose") as boolean;
+  const summary = resolveOptionByName(configState, "summary") as boolean;
+  const reporter = resolveOptionByName(configState, "reporter") as ConfigurationRequire;
+  const json = resolveOptionByName(configState, "json") as boolean;
+  const csv = resolveOptionByName(configState, "csv") as boolean;
+
+  const runtimeContext = new RuntimeContext({
+    testFiles,
+    testFileGlobs,
+    addFiles,
+    addFileGlobs,
+    target,
+    coverage,
+    coverageIgnore,
+    coverageJson,
+    coverageYaml,
+    verbose,
+    summary,
+    reporter,
+    json,
+    csv,
+  });
+
+  runtimeContext.run().then(() => {
+    process.exit(runtimeContext.exitCode);
+  });
 }
 
 if (typeof require != "undefined" && require.main == module) {
@@ -54,9 +102,9 @@ if (typeof require != "undefined" && require.main == module) {
   const path = require("path");
 
   asp(process.argv.slice(2), (file: string, basename: string): string | null => {
-    const thePath = path.normalize(path.join(basename, file));
+    const filePath = path.normalize(path.join(basename, file));
     try {
-      return fs.readFileSync(thePath, "utf8");
+      return fs.readFileSync(filePath, "utf8");
     } catch (ex) {
       return null;
     }

@@ -40,10 +40,18 @@ export const cliConfig: Configuration = {
   // primary test files
   include: {
     name: "include",
-    type: "G",
+    type: "S",
     defaultValue: ["assembly/__tests__/**/*.ts", "assembly/**/*.spec.ts"],
     description: "Define the primary test entry points with this flag, with an array of globs.",
-  }
+  },
+
+  // primary test files
+  add: {
+    name: "add",
+    type: "S",
+    defaultValue: ["assembly/__tests__/**/*.include.ts", "assembly/**/*.spec.include.ts"],
+    description: "Define the test entry points that should be added to every test compilation with an array of globs.",
+  },
 }
 
 export function resolveOptionByName(configState: ConfigurationState, name: string): any {
