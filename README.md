@@ -27,7 +27,7 @@ Other Contributors:
 - [@trusktr](https://github.com/trusktr) - Documentation Changes
 - [@MaxGraey](https://github.com/maxgraey) - Performance API suggestions
 - [@torch2424](https://github.com/torch2424) - Documentation Changes
-- [@dcodeio](https://github.com/dcodeio) - Made AssemblyScript itself!
+- [@dcodeIO](https://github.com/dcodeIO) - Made AssemblyScript itself!
 - [@9oelM](https://github.com/9oelM) - Misc functionalities
 
 ## Special Thanks
