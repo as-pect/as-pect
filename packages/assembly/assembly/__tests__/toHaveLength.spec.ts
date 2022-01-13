@@ -196,3 +196,14 @@ describe("ArrayBuffer", () => {
     );
   });
 });
+
+describe("nullable types", () => {
+  it("should accept nullable types", () => {
+    let t: i32[] | null = [1, 2, 3, 4];
+    expect(t).toHaveLength(4);
+  });
+
+  itThrows("when actual is null", () => {
+    expect<i32[] | null>(null).toHaveLength(5);
+  });
+});

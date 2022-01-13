@@ -439,8 +439,13 @@ export class Expectation<T> {
         ERROR(
           "toHaveLength cannot be called on type T where T.length is not defined.",
         );
-      // @ts-ignore: This results in a compile time check for a length property with a better error message
-      length = <i32>actual.length;
+        if (isNullable(actual)) {
+          // @ts-ignore: This results in a compile time check for a length property with a better error message
+          length = <i32>actual!.length;
+        } else {
+          // @ts-ignore: This results in a compile time check for a length property with a better error message
+          length = <i32>actual.length;
+        }
     }
 
     Actual.report(length);
