@@ -653,7 +653,7 @@ export class TestContext {
     try {
       this.wasm!.__call(pointer);
     } catch (ex) {
-      this.stack = this.getErrorStackTrace(ex);
+      this.stack = this.getErrorStackTrace(ex as Error);
       return 0;
     }
     return 1;
