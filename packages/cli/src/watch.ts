@@ -10,6 +10,8 @@ import chokidar from 'chokidar';
  */
 export function watch(cliOptions: Options, compilerArgs: string[]): void {
   const run = require("./run").run;
+  //@ts-ignore temporary hack to catch exit
+  process.exit = ()=>{}
   chokidar.watch('**/*.ts',{
     ignoreInitial:true
   }).on('all',()=>{
