@@ -55,6 +55,9 @@ export function asp(args: string[]) {
   } else if (cliOptions.portable) {
     const portable = require("./portable").portable;
     portable();
+  } else if(cliOptions.watch){
+    const watch = require("./watch").watch;
+    watch(cliOptions, compilerArgs);
   } else {
     // run the compiler and test suite
     const run = require("./run").run;
