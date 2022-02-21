@@ -40,6 +40,7 @@
     "@as-pect/assembly": "^6.2.0",
     "@as-pect/core": "^6.2.1",
     "chalk": "^4.1.1",
+    "chokidar": "^3.5.3",
     "glob": "^7.1.7"
   },
   "peerDependencies": {

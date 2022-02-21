@@ -227,6 +227,13 @@ const _Args: CommandLineArgs = {
     value: false,
   },
 
+  watch: {
+    description:
+      "Run in watch mode",
+    type: "bs",
+    value: false,
+  },
+
   norun: {
     description: "Skip running tests and output the compiler files.",
     type: "b",
