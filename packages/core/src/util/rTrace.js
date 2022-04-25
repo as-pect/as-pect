@@ -9,13 +9,13 @@ const PTR_SIZE = 1 << PTR_SIZE_BITS;
 const PTR_MASK = PTR_SIZE - 1;
 const PTR_VIEW = Uint32Array;
 
-const BLOCK_OVERHEAD = PTR_SIZE;
-const OBJECT_OVERHEAD = 16;
-const TOTAL_OVERHEAD = BLOCK_OVERHEAD + OBJECT_OVERHEAD;
+export const BLOCK_OVERHEAD = PTR_SIZE;
+export const OBJECT_OVERHEAD = 16;
+export const TOTAL_OVERHEAD = BLOCK_OVERHEAD + OBJECT_OVERHEAD;
 
-module.exports.BLOCK_OVERHEAD = BLOCK_OVERHEAD;
-module.exports.OBJECT_OVERHEAD = OBJECT_OVERHEAD;
-module.exports.TOTAL_OVERHEAD = TOTAL_OVERHEAD;
+// module.exports.BLOCK_OVERHEAD = BLOCK_OVERHEAD;
+// module.exports.OBJECT_OVERHEAD = OBJECT_OVERHEAD;
+// module.exports.TOTAL_OVERHEAD = TOTAL_OVERHEAD;
 
 function assert(x) {
   if (!x) throw Error("assertion failed");
@@ -48,7 +48,7 @@ const gcColorToString = [
   "INVALID"
 ];
 
-class Rtrace {
+export class Rtrace {
 
   constructor(options) {
     this.options = options || {};
@@ -345,4 +345,4 @@ class Rtrace {
   }
 }
 
-module.exports.Rtrace = Rtrace;
+// module.exports.Rtrace = Rtrace;

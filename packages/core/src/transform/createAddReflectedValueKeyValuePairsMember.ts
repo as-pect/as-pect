@@ -11,9 +11,9 @@ import {
   Statement,
   Token,
   TypeNode,
-} from "./assemblyscript";
-import { createGenericTypeParameter } from "./createGenericTypeParameter";
-import { djb2Hash } from "./hash";
+} from "assemblyscript/dist/assemblyscript.js";
+import { createGenericTypeParameter } from "./createGenericTypeParameter.js";
+import { djb2Hash } from "./hash.js";
 
 /**
  * Create a prototype method called __aspectAddReflectedValueKeyValuePairs on a given
@@ -381,7 +381,7 @@ function createPushReflectedObjectValueStatement(
           ),
           null,
           [
-            //this.propertyName
+            // this.propertyName
             TypeNode.createPropertyAccessExpression(
               TypeNode.createThisExpression(range),
               TypeNode.createIdentifierExpression(name, range),

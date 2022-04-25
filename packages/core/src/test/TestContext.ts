@@ -1,5 +1,5 @@
 import { IAspectExports } from "../util/IAspectExports";
-import { Rtrace, BlockInfo, TOTAL_OVERHEAD } from "../util/rTrace";
+import { Rtrace, BlockInfo, TOTAL_OVERHEAD } from "../util/rTrace.js";
 
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";

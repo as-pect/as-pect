@@ -1,8 +1,9 @@
-import { Transform, Parser } from "./assemblyscript";
+import { Parser } from "assemblyscript/dist/assemblyscript.js";
+import { Transform } from "assemblyscript/dist/transform.js";
 
 /**
  * Just an empty transformer.
  */
-export = class AspectTransform extends Transform {
+export default class AspectTransform extends Transform {
   afterParse(_parser: Parser): void {}
-};
+}

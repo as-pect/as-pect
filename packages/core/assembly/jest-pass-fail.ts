@@ -10,10 +10,10 @@ export class Vec3 {
 
   @operator("==")
   protected __equals(reference: Vec3 | null): bool {
-    if (reference === this) return false;
-    if (reference === null) return false;
+    if (reference! === this) return false;
+    if (reference! === null) return false;
     return (
-      this.x == reference.x && this.y == reference.y && this.z == reference.z
+      this.x == reference!.x && this.y == reference!.y && this.z == reference!.z
     );
   }
 }

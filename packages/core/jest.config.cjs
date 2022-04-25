@@ -2,6 +2,15 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   collectCoverage: true,
+  "extensionsToTreatAsEsm": [".ts"],
+  globals: {
+    'ts-jest': {
+      useESM: true,
+    },
+  },
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1'
+  },
   collectCoverageFrom: [
     "**/src/test/*.ts",
     "**/src/util/stringifyReflectedValue.ts",

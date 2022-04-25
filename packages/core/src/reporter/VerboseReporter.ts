@@ -5,6 +5,7 @@ import { TestNodeType } from "../util/TestNodeType";
 import { TestNode } from "../test/TestNode";
 import { IReporter } from "./IReporter";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
+import chalk from "chalk";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
 
 /**
@@ -46,7 +47,6 @@ export class VerboseReporter implements IReporter {
   public onGroupStart(group: TestNode): void {
     /* istanbul ignore next */
     if (group.groupTests.length === 0) return;
-    const chalk = require("chalk");
     /* istanbul ignore next */
     if (group.name) this.stdout!.write(chalk`[Describe]: ${group.name}\n\n`);
   }
@@ -80,7 +80,6 @@ export class VerboseReporter implements IReporter {
    * @param {TestNode} test - The finished TestResult
    */
   public onTestFinish(_group: TestNode, test: TestNode): void {
-    const chalk = require("chalk");
     if (test.pass) {
       /* istanbul ignore next */
       const rtraceDelta =
@@ -153,7 +152,6 @@ export class VerboseReporter implements IReporter {
   public onFinish(suite: TestContext): void {
     /* istanbul ignore next */
     if (suite.rootNode.children.length === 0) return;
-    const chalk = require("chalk");
 
     const result = suite.pass ? chalk`{green ✔ PASS}` : chalk`{red ✖ FAIL}`;
 
@@ -252,7 +250,6 @@ ${"~".repeat(80)}\n\n`);
   /* istanbul ignore next */
   public onTodo(_group: TestNode, todo: string): void {
     /* istanbul ignore next */
-    const chalk = require("chalk");
     /* istanbul ignore next */
     this.stdout!.write(chalk`    {yellow [Todo]:} ${todo}\n`);
   }
@@ -263,7 +260,6 @@ ${"~".repeat(80)}\n\n`);
    * @param {ReflectedValue} logValue - A value to be logged to the console
    */
   public onLog(logValue: ReflectedValue): void {
-    const chalk = require("chalk");
     const indent12 = Object.assign({}, this.stringifyProperties, {
       indent: 12,
     });

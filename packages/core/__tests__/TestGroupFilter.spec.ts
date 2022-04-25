@@ -1,5 +1,5 @@
 import { TestContext, TestNodeType, EmptyReporter } from "../src";
-import { ASUtil, instantiate } from "assemblyscript/lib/loader/umd";
+import { ASUtil, instantiate } from "@assemblyscript/loader";
 import { IAspectExports } from "../src/util/IAspectExports";
 import { promises as fs } from "fs";
 

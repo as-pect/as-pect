@@ -1,6 +1,6 @@
 {
-  "name": "@as-pect/assembly",
-  "version": "6.2.0",
+  "name": "@roaminroe/as-pect-assembly",
+  "version": "6.3.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "types": "types/as-pect.d.ts",
   "scripts": {
@@ -32,6 +32,6 @@
     "types/"
   ],
   "peerDependencies": {
-    "assemblyscript": "^0.19.3"
+    "assemblyscript": "^0.20.6"
   }
 }
