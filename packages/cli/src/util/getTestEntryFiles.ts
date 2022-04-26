@@ -1,5 +1,5 @@
 import glob from "glob";
-import { Options } from "./CommandLineArg";
+import { Options } from "./CommandLineArg.js";
 
 /**
  * @ignore

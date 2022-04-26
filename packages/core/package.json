@@ -1,6 +1,6 @@
 {
-	"name": "@as-pect/core",
-	"version": "6.2.1",
+	"name": "@roaminroe/as-pect-core",
+	"version": "6.3.3",
 	"description": "Write AssemblyScript tests at blazing fast speeds",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",

@@ -1,15 +1,9 @@
-import { ICommand } from "./ICommand";
+import { ICommand } from "./ICommand.js";
 import { readdirSync, readFileSync } from "fs";
 import { join, basename, dirname, extname } from "path";
-import { parentPort, workerData } from "worker_threads";
-import { writeFile } from "../util/writeFile";
-
-/**
- * @ignore
- *
- * This variable holds the AssemblyScript compiler.
- */
-const asc = require(join(workerData.assemblyScriptFolder, "dist", "asc"));
+import { parentPort } from "worker_threads";
+import { writeFile } from "../util/writeFile.js";
+import * as asc from "assemblyscript/dist/asc.js";
 
 /**
  * @ignore
@@ -32,7 +26,7 @@ const folderMap = new Map<string, string[]>();
  * @param {ICommand} command - The command to run. (This is the compiler worklet command.)
  */
 function run(command: ICommand) {
-  let binary: Uint8Array;
+  // let binary: Uint8Array;
   let filePromises: Promise<void>[] = [];
 
   asc.main(
@@ -75,7 +69,7 @@ function run(command: ICommand) {
 
         // get the wasm file
         if (ext === ".wasm") {
-          binary = contents;
+          // binary = contents;
           if (!command.props.outputBinary) return;
         }
         const file = command.props.file;
@@ -86,7 +80,7 @@ function run(command: ICommand) {
         filePromises.push(writeFile(outfileName, contents));
       },
     },
-    (error: any) =>
+    /* (error: any) =>
       Promise.all(filePromises)
         .then(() => {
           parentPort!.postMessage(
@@ -120,7 +114,7 @@ function run(command: ICommand) {
                 : null,
             },
           } as ICommand);
-        }),
+        }),*/
   );
 }
 

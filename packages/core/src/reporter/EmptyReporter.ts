@@ -1,6 +1,6 @@
-import { IReporter } from "./IReporter";
-import { TestContext } from "../test/TestContext";
-import { TestNode } from "../test/TestNode";
+import { IReporter } from "./IReporter.js";
+import { TestContext } from "../test/TestContext.js";
+import { TestNode } from "../test/TestNode.js";
 
 /**
  * This class can be used as a stub reporter to interface with the `TestContext` in the browser.

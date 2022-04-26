@@ -1,12 +1,12 @@
-import { TestContext } from "../test/TestContext";
-import { IWritable } from "../util/IWriteable";
-import { ReflectedValue } from "../util/ReflectedValue";
-import { TestNodeType } from "../util/TestNodeType";
-import { TestNode } from "../test/TestNode";
-import { IReporter } from "./IReporter";
+import { TestContext } from "../test/TestContext.js";
+import { IWritable } from "../util/IWriteable.js";
+import { ReflectedValue } from "../util/ReflectedValue.js";
+import { TestNodeType } from "../util/TestNodeType.js";
+import { TestNode } from "../test/TestNode.js";
+import { IReporter } from "./IReporter.js";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
 import chalk from "chalk";
-import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
+import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue.js";
 
 /**
  * This is the default test reporter class for the `asp` command line application. It will pipe

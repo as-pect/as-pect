@@ -1,9 +1,9 @@
-import { TestContext } from "../test/TestContext";
-import { IWritable } from "../util/IWriteable";
-import { ReflectedValue } from "../util/ReflectedValue";
-import { IReporter } from "./IReporter";
+import { TestContext } from "../test/TestContext.js";
+import { IWritable } from "../util/IWriteable.js";
+import { ReflectedValue } from "../util/ReflectedValue.js";
+import { IReporter } from "./IReporter.js";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
-import { TestNode } from "../test/TestNode";
+import { TestNode } from "../test/TestNode.js";
 import chalk from "chalk";
 
 /**

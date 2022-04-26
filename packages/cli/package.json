@@ -1,9 +1,10 @@
 {
-  "name": "@as-pect/cli",
-  "version": "6.2.4",
+  "name": "@roaminroe/as-pect-cli",
+  "version": "6.3.5",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "type": "module",
   "scripts": {
     "rimraf": "rimraf lib/*",
     "package:version-update": "ncu -u",
@@ -16,8 +17,8 @@
     "tsc": "run-s rimraf tsc:all"
   },
   "bin": {
-    "asp": "bin/asp",
-    "aspect": "bin/asp"
+    "asp": "bin/asp.js",
+    "aspect": "bin/asp.js"
   },
   "repository": {
     "type": "git",
@@ -38,21 +39,21 @@
   "dependencies": {
     "@as-covers/core": "npm:@roaminroe/as-covers-core@^0.3.0",
     "@as-pect/assembly": "npm:@roaminroe/as-pect-assembly@^6.3.0",
-    "@as-pect/core": "^6.2.1",
+    "@as-pect/core": "npm:@roaminroe/as-pect-core@^6.3.3",
     "@as-pect/snapshots": "^6.2.1",
+    "@assemblyscript/loader": "^0.20.6",
     "chalk": "^4.1.1",
     "glob": "^7.1.7"
   },
   "peerDependencies": {
     "assemblyscript": "^0.20.6"
   },
-  "optionalDependencies": {
-    "@as-pect/csv-reporter": "^6.2.1",
-    "@as-pect/json-reporter": "^6.2.1"
-  },
   "files": [
     "init/",
     "lib/",
     "bin/"
-  ]
+  ],
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
 }

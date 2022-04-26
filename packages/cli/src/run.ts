@@ -3,16 +3,22 @@ import { performance } from "perf_hooks";
 import * as path from "path";
 import chalk from "chalk";
 import { TestContext, IWarning, IReporter } from "@as-pect/core";
-import { IConfiguration, ICompilerFlags } from "./util/IConfiguration";
+import { IConfiguration, ICompilerFlags } from "./util/IConfiguration.js";
 import glob from "glob";
-import { collectReporter } from "./util/collectReporter";
-import { getTestEntryFiles } from "./util/getTestEntryFiles";
-import { Options } from "./util/CommandLineArg";
-import { writeFile } from "./util/writeFile";
-import { ICommand } from "./worklets/ICommand";
-import { timeDifference } from "@as-pect/core/lib/util/timeDifference";
+import { collectReporter } from "./util/collectReporter.js";
+import { getTestEntryFiles } from "./util/getTestEntryFiles.js";
+import { Options } from "./util/CommandLineArg.js";
+import { writeFile } from "./util/writeFile.js";
+import { ICommand } from "./worklets/ICommand.js";
+import { timeDifference } from "@as-pect/core/lib/util/timeDifference.js";
 import { Snapshot, SnapshotDiffResultType } from "@as-pect/snapshots";
-import { removeFile } from "./util/removeFile";
+import { removeFile } from "./util/removeFile.js";
+import * as asc from "assemblyscript/dist/asc.js";
+import * as options from "assemblyscript/util/options.js";
+import { Worker } from "worker_threads";
+import { instantiateSync } from "@assemblyscript/loader";
+import { Covers } from "@as-covers/glue/lib/index.js";
+
 
 /**
  * @ignore
@@ -34,8 +40,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
    * Create the compiler worklets if the worker flag is not 0.
    */
   if (cliOptions.workers !== 0) {
-    const Worker = require("worker_threads").Worker;
-
     if (!isFinite(cliOptions.workers)) {
       console.error(
         chalk`{red [Error]} Invalid worker configuration: {yellow ${cliOptions.workers.toString()}}`,
@@ -65,69 +69,9 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
    * running.
    */
   console.log(chalk`{bgWhite.black [Log]} Loading asc compiler`);
-  let asc: any;
-  let instantiateSync: any;
   let parse: any;
   let exportTable: boolean = false;
   try {
-    let folderUsed = "cli";
-    try {
-      console.log("Assemblyscript Folder:" + assemblyScriptFolder);
-      /** Next, obtain the compiler, and assert it has a main function. */
-      asc = require(path.join(assemblyScriptFolder, "cli", "asc"));
-    } catch (ex) {
-      try {
-        folderUsed = "dist";
-        asc = require(path.join(assemblyScriptFolder, "dist", "asc"));
-      } catch (ex) {
-        throw ex;
-      }
-    }
-    if (!asc) {
-      throw new Error(
-        `${cliOptions.compiler}/${folderUsed}/asc has no exports.`,
-      );
-    }
-    if (!asc.main) {
-      throw new Error(
-        `${cliOptions.compiler}/${folderUsed}/asc does not export a main() function.`,
-      );
-    }
-
-    /** Next, collect the loader, and assert it has an instantiateSync method. */
-    let loader;
-    try {
-      loader = require(path.join(assemblyScriptFolder, "lib", "loader"));
-    } catch (ex) {
-      loader = require(path.join(assemblyScriptFolder, "lib", "loader", "umd"));
-    }
-    if (!loader) {
-      throw new Error(`${cliOptions.compiler}/lib/loader has no exports.`);
-    }
-    if (!loader.instantiateSync) {
-      throw new Error(
-        `${cliOptions.compiler}/lib/loader does not export an instantiateSync() method.`,
-      );
-    }
-    instantiateSync = loader.instantiateSync;
-
-    /** Finally, collect the cli options from assemblyscript. */
-    let options = require(path.join(
-      assemblyScriptFolder,
-      "cli",
-      "util",
-      "options",
-    ));
-    if (!options) {
-      throw new Error(`${cliOptions.compiler}/cli/util/options exports null`);
-    }
-
-    if (!options.parse) {
-      throw new Error(
-        `${cliOptions.compiler}/cli/util/options does not export a parse() method.`,
-      );
-    }
-
     if (asc.options.exportTable) {
       exportTable = true;
     }
@@ -325,7 +269,6 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     chalk`{bgWhite.black [Log]} Using code coverage: ${coverageFiles.join(
       ", ",
     )}`;
-    const Covers = require("@as-covers/glue").Covers;
     covers = new Covers({ files: coverageFiles });
   }
 
@@ -684,7 +627,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   } else {
     // for each file, synchronously run each test
     Array.from(testEntryFiles).forEach((file: string) => {
-      let binary: Uint8Array;
+      // let binary: Uint8Array;
 
       asc.main(
         [file, ...finalCompilerArguments],
@@ -726,7 +669,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
             // get the wasm file
             if (ext === ".wasm") {
-              binary = contents;
+              // binary = contents;
               if (!outputBinary) return;
             } else if (ext === ".ts") {
               filePromises.push(writeFile(path.join(baseDir, name), contents));
@@ -740,7 +683,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
             filePromises.push(writeFile(outfileName, contents));
           },
         },
-        (error: any) => runBinary(error, file, binary),
+        //(error: any) => runBinary(error, file, binary),
       );
     });
   }

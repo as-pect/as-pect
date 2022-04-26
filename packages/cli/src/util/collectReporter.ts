@@ -1,5 +1,5 @@
 import { IReporter } from "@as-pect/core";
-import { Options } from "./CommandLineArg";
+import { Options } from "./CommandLineArg.js";
 import querystring from "querystring";
 import chalk from "chalk";
 

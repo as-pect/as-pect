@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-
-const { spawn } = require("child_process");
+import { spawn } from "child_process";
+import * as index from "../lib/index.js";
 
 let nodeVersion = process.version.match(/^v(\d+)\./)[1];
 
 const args = [
-  require.resolve("../lib/test"),
+  index.asp(process.argv.slice(2)),
   ...process.argv.slice(2),
 ]
 

@@ -1,8 +1,8 @@
-import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
+import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType.js";
 import {
   StringifyReflectedValueProps,
   stringifyReflectedValue,
-} from "./stringifyReflectedValue";
+} from "./stringifyReflectedValue.js";
 
 /**
  * A JavaScript object that represents a reflected value from the as-pect testing

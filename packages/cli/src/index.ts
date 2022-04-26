@@ -1,18 +1,26 @@
-import { parse } from "./util/CommandLineArg";
+import { parse } from "./util/CommandLineArg.js";
+import { printAsciiArt } from './util/asciiArt.js';
+import { types } from './types.js';
+import { init } from './init.js';
+import { help } from './help.js';
+import { portable } from './portable.js';
+import { run } from './run.js';
+
 
 /**
  * @ignore
  *
  * Package version is always displayed, either for version or cli ascii art.
  */
-const pkg = require("../package.json");
+import { readFileSync } from 'fs';
+const pkg = JSON.parse(readFileSync('./package.json').toString());
 
 /**
  * This is the command line package version.
  */
 export const version = pkg.version;
 
-export { parse, defaultCliArgs, Options } from "./util/CommandLineArg";
+export { parse, defaultCliArgs, Options } from "./util/CommandLineArg.js";
 
 /**
  * This is the cli entry point and expects an array of arguments from the command line.
@@ -34,15 +42,12 @@ export function asp(args: string[]) {
 
   // Skip ascii art if asked for the version
   if (!cliOptions.version && !cliOptions.nologo) {
-    const printAsciiArt = require("./util/asciiArt").printAsciiArt;
     printAsciiArt(pkg.version);
   }
 
   if (cliOptions.types) {
-    const types = require("./types").types;
     types();
   } else if (cliOptions.init) {
-    const init = require("./init").init;
     // init script
     init();
   } else if (cliOptions.version) {
@@ -50,14 +55,11 @@ export function asp(args: string[]) {
     console.log(pkg.version);
   } else if (cliOptions.help) {
     // display the help file
-    const help = require("./help").help;
     help();
   } else if (cliOptions.portable) {
-    const portable = require("./portable").portable;
     portable();
   } else {
     // run the compiler and test suite
-    const run = require("./run").run;
     run(cliOptions, compilerArgs);
   }
 }

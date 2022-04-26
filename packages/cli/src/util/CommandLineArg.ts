@@ -1,4 +1,4 @@
-import { toCamelCase } from "./strings";
+import { toCamelCase } from "./strings.js";
 
 /**
  * @ignore

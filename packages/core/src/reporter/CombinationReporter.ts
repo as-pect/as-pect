@@ -1,6 +1,6 @@
-import { TestContext } from "../test/TestContext";
-import { IReporter } from "./IReporter";
-import { TestNode } from "../test/TestNode";
+import { TestContext } from "../test/TestContext.js";
+import { IReporter } from "./IReporter.js";
+import { TestNode } from "../test/TestNode.js";
 
 /**
  * This reporter is used to combine a set of reporters into a single reporter object. It uses

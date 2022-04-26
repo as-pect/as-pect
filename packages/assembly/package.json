@@ -3,6 +3,7 @@
   "version": "6.3.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "types": "types/as-pect.d.ts",
+  "type": "module",
   "scripts": {
     "asp:ci": "node ../cli/lib/test --summary",
     "asp": "node ../cli/lib/test --verbose",
