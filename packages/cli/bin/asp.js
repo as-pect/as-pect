@@ -13,6 +13,7 @@ const args = [
 
 if (nodeVersion >= 12 && nodeVersion < 16) args.unshift("--experimental-wasm-bigint");
 if (nodeVersion >= 13) args.unshift("--experimental-wasi-unstable-preview1");
+args.unshift("--experimental-import-meta-resolve");
 
 const spawned = spawn("node", args, {
   env: Object.assign({}, process.env, {

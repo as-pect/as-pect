@@ -1,12 +1,12 @@
 {
-  "name": "@roaminroe/as-pect-assembly",
-  "version": "6.3.1",
+  "name": "@as-pect/assembly",
+  "version": "6.3.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "types": "types/as-pect.d.ts",
   "type": "module",
   "scripts": {
-    "asp:ci": "node ../cli/lib/test --summary",
-    "asp": "node ../cli/lib/test --verbose",
+    "asp:ci": "node ../cli/bin/asp.js --summary",
+    "asp": "node ../cli/bin/asp.js --verbose",
     "test:ci": "run-s asp:ci",
     "test": "run-s asp",
     "tsc:all": "exit 0",

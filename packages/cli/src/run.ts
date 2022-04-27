@@ -266,7 +266,7 @@ export async function run(cliOptions: Options, compilerArgs: string[]): Promise<
   }
 
   /** Potentailly enable code coverage, using the configurated globs */
-  let covers: import("@as-covers/glue").Covers | null = null;
+  let covers: Covers | null = null;
   const coverageFiles =
     cliOptions.coverage.length === 0
       ? configuration.coverage || []
