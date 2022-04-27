@@ -5,7 +5,10 @@ import { init } from './init.js';
 import { help } from './help.js';
 import { portable } from './portable.js';
 import { run } from './run.js';
+import * as url from 'url';
+import * as path from 'path';
 
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 /**
  * @ignore
@@ -13,7 +16,7 @@ import { run } from './run.js';
  * Package version is always displayed, either for version or cli ascii art.
  */
 import { readFileSync } from 'fs';
-const pkg = JSON.parse(readFileSync('./package.json').toString());
+const pkg = JSON.parse(readFileSync(path.normalize(`${__dirname}/../package.json`)).toString());
 
 /**
  * This is the command line package version.
@@ -27,7 +30,7 @@ export { parse, defaultCliArgs, Options } from "./util/CommandLineArg.js";
  *
  * @param {string[]} args - The arguments from the command line
  */
-export function asp(args: string[]) {
+export async function asp(args: string[]) {
   const splitIndex = args.indexOf("--");
   const hasCompilerArgs = splitIndex !== -1;
   const aspectArgs: string[] = hasCompilerArgs
@@ -60,10 +63,8 @@ export function asp(args: string[]) {
     portable();
   } else {
     // run the compiler and test suite
-    run(cliOptions, compilerArgs);
+    await run(cliOptions, compilerArgs);
   }
 }
 
-if (typeof require != "undefined" && require.main == module) {
-  asp(process.argv.slice(2));
-}
+asp(process.argv.slice(2));

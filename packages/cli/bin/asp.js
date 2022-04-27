@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 import { spawn } from "child_process";
-import * as index from "../lib/index.js";
+import * as url from 'url';
+import * as path from "path";
 
-let nodeVersion = process.version.match(/^v(\d+)\./)[1];
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const nodeVersion = process.version.match(/^v(\d+)\./)[1];
 
 const args = [
-  index.asp(process.argv.slice(2)),
+  path.normalize(`${__dirname}/../lib/index.js`),
   ...process.argv.slice(2),
-]
+];
 
 if (nodeVersion >= 12 && nodeVersion < 16) args.unshift("--experimental-wasm-bigint");
 if (nodeVersion >= 13) args.unshift("--experimental-wasi-unstable-preview1");

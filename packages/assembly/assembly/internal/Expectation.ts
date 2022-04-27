@@ -146,11 +146,11 @@ export class Expectation<T> {
     let actual = this.actual;
     let negated = this._not;
 
-    if (!isFunction(this.actual))
-      // @as-covers: ignore because this is a compile time error
-      ERROR(
-      "Expectation#toThrow assertion called on actual T where T is not a function reference",
-      );
+    // if (!isFunction(this.actual))
+    // @as-covers: ignore because this is a compile time error
+    // ERROR(
+    // "Expectation#toThrow assertion called on actual T where T is not a function reference",
+    // );
     if (idof<T>() != idof<() => void>())
       // @as-covers: ignore because this is a compile time error
       ERROR(

@@ -2,6 +2,7 @@ import { IReporter } from "@as-pect/core";
 import { Options } from "./CommandLineArg.js";
 import querystring from "querystring";
 import chalk from "chalk";
+import * as urlPkg from "url";
 
 /**
  * @ignore
@@ -9,37 +10,38 @@ import chalk from "chalk";
  *
  * @param {Options} cliOptions - The command line arguments.
  */
-export function collectReporter(cliOptions: Options): IReporter {
+export async function collectReporter(cliOptions: Options): Promise<IReporter> {
   const reporters: IReporter[] = [];
 
-  if (cliOptions.csv) {
-    const CSVReporter = require("@as-pect/csv-reporter");
-    if (typeof cliOptions.csv === "string") {
-      const options = querystring.parse(cliOptions.csv || "");
-      reporters.push(new CSVReporter(options));
-    } else {
-      reporters.push(new CSVReporter());
-    }
-    process.stdout.write(
-      chalk`{bgWhite.black [Log]} Using {yellow CSVReporter}\n`,
-    );
-  }
+  // if (cliOptions.csv) {
+  //   const CSVReporter = require("@as-pect/csv-reporter");
+  //   if (typeof cliOptions.csv === "string") {
+  //     const options = querystring.parse(cliOptions.csv || "");
+  //     reporters.push(new CSVReporter(options));
+  //   } else {
+  //     reporters.push(new CSVReporter());
+  //   }
+  //   process.stdout.write(
+  //     chalk`{bgWhite.black [Log]} Using {yellow CSVReporter}\n`,
+  //   );
+  // }
 
-  if (cliOptions.json) {
-    const JSONReporter = require("@as-pect/json-reporter");
-    if (typeof cliOptions.json === "string") {
-      const options = querystring.parse(cliOptions.json || "");
-      reporters.push(new JSONReporter(options));
-    } else {
-      reporters.push(new JSONReporter());
-    }
-    process.stdout.write(
-      chalk`{bgWhite.black [Log]} Using {yellow JSONReporter}\n`,
-    );
-  }
+  // if (cliOptions.json) {
+  //   const JSONReporter = require("@as-pect/json-reporter");
+  //   if (typeof cliOptions.json === "string") {
+  //     const options = querystring.parse(cliOptions.json || "");
+  //     reporters.push(new JSONReporter(options));
+  //   } else {
+  //     reporters.push(new JSONReporter());
+  //   }
+  //   process.stdout.write(
+  //     chalk`{bgWhite.black [Log]} Using {yellow JSONReporter}\n`,
+  //   );
+  // }
 
   if (cliOptions.verbose) {
-    const VerboseReporter = require("@as-pect/core").VerboseReporter;
+    const { VerboseReporter } = await import("@as-pect/core");
+
     const reporter = new VerboseReporter(
       typeof cliOptions.summary === "string"
         ? querystring.parse(cliOptions.summary || "")
@@ -54,11 +56,11 @@ export function collectReporter(cliOptions: Options): IReporter {
   }
 
   if (cliOptions.reporter) {
-    const url = require("url").parse(cliOptions.reporter);
+    const url = urlPkg.parse(cliOptions.reporter);
     try {
-      const reporterValue = require(url.pathname);
+      const reporterValue= await import(url.pathname!);
       const Reporter = reporterValue.default || reporterValue;
-      const options = require("querystring").parse(url.query);
+      const options = querystring.parse(url.query!);
       if (typeof Reporter === "function") {
         reporters.push(new Reporter(options));
       } else {
@@ -75,11 +77,13 @@ export function collectReporter(cliOptions: Options): IReporter {
       chalk`{bgWhite.black [Log]} Using custom reporter at: {yellow ${url.pathname}}\n`,
     );
   }
+
   /**
    * If there are no other reporters summary is the default.
    */
   if (cliOptions.summary || reporters.length == 0) {
-    const SummaryReporter = require("@as-pect/core").SummaryReporter;
+    const { SummaryReporter } = await import("@as-pect/core");
+
     const reporter = new SummaryReporter(
       typeof cliOptions.summary === "string"
         ? querystring.parse(cliOptions.summary || "")
@@ -96,7 +100,8 @@ export function collectReporter(cliOptions: Options): IReporter {
   if (reporters.length === 1) {
     return reporters[0];
   } else {
-    const CombinationReporter = require("@as-pect/core").CombinationReporter;
+    const { CombinationReporter } = await import("@as-pect/core");
+
     return new CombinationReporter(reporters);
   }
 }

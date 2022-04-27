@@ -18,7 +18,9 @@ import * as options from "assemblyscript/util/options.js";
 import { Worker } from "worker_threads";
 import { instantiateSync } from "@assemblyscript/loader";
 import { Covers } from "@as-covers/glue/lib/index.js";
+import * as url from 'url';
 
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 /**
  * @ignore
@@ -27,7 +29,7 @@ import { Covers } from "@as-covers/glue/lib/index.js";
  * @param {Options} cliOptions - The command line arguments.
  * @param {string[]} compilerArgs - The `asc` compiler arguments.
  */
-export function run(cliOptions: Options, compilerArgs: string[]): void {
+export async function run(cliOptions: Options, compilerArgs: string[]): Promise<void> {
   const start = performance.now();
   const worklets: any[] = [];
 
@@ -47,7 +49,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       process.exit(1);
     }
 
-    const workletPath = require.resolve("./worklets/compiler");
+    // @ts-ignore
+    const workletPath = await import.meta.resolve("./worklets/compiler");
     for (let i = 0; i < cliOptions.workers; i++) {
       const worklet = new Worker(workletPath, {
         workerData: {
@@ -99,7 +102,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   let configuration: IConfiguration = {};
 
   try {
-    configuration = require(configurationPath) || {};
+    const imp = await import(configurationPath);
+    configuration = imp.default || {};
   } catch (ex) {
     console.error("");
     console.error(
@@ -141,8 +145,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   // Create the compiler flags
   const flags: ICompilerFlags = Object.assign({}, configuration.flags, {
     "--debug": [],
-    "--binaryFile": ["output.wasm"],
-    "--explicitStart": [],
+    "--exportStart": ["_start"],
   });
 
   if (
@@ -168,8 +171,11 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   /** It's useful to notify the user that optimizations will make test compile times slower. */
   if (
+    // eslint-disable-next-line no-prototype-builtins
     flags.hasOwnProperty("-O3") ||
+    // eslint-disable-next-line no-prototype-builtins
     flags.hasOwnProperty("-O2") ||
+    // eslint-disable-next-line no-prototype-builtins
     flags.hasOwnProperty("--optimize") ||
     compilerArgs.includes("-O3") ||
     compilerArgs.includes("-O2") ||
@@ -184,7 +190,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
   // if a reporter is specified in cli arguments, override configuration
   const reporter: IReporter =
-    configuration.reporter || collectReporter(cliOptions);
+    configuration.reporter || await collectReporter(cliOptions);
 
   // include all the file globs
   console.log(
@@ -276,12 +282,13 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
    * Add the proper trasform.
    */
   flags["--transform"] = flags["--transform"] || [];
-  flags["--transform"].push(require.resolve("@as-pect/core/lib/transform"));
+  flags["--transform"].push(path.normalize(`${__dirname}../../core/lib/transform/index.js`));
 
   if (covers) {
     flags["--lib"] = flags["--lib"] || [];
-    flags["--transform"].unshift(require.resolve("@as-covers/transform/lib"));
-    const coversEntryPath = require.resolve("@as-covers/assembly/index.ts");
+    flags["--transform"].push(path.normalize(`${__dirname}../../../@as-covers/transform/lib`));
+
+    const coversEntryPath = path.normalize(`${__dirname}../../../@as-covers/assembly/index.ts`);
     const relativeCoversEntryPath = path.relative(
       process.cwd(),
       coversEntryPath,
@@ -296,7 +303,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   if (compilerArgs.length > 0) {
     console.log(
       chalk`{bgWhite.black [Log]} Adding compiler arguments: ` +
-        compilerArgs.join(" "),
+      compilerArgs.join(" "),
     );
   }
 
@@ -326,7 +333,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     );
     const newExt = flags["--extension"][0].replace(".", ""); // without dot should work
     const assemblyFolder = path.dirname(
-      require.resolve("@as-pect/assembly/assembly/index.ts"),
+      path.normalize(`${__dirname}../../assembly/assembly/index.ts`),
     );
 
     const files = glob.sync(path.join(assemblyFolder, "**/*.ts"));
@@ -342,9 +349,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
   const entryExt = !flags["--extension"]
     ? "ts"
     : flags["--extension"][0].replace(".", "");
-  const entryPath = require.resolve(
-    "@as-pect/assembly/assembly/index." + entryExt,
-  );
+  const entryPath = path.normalize(`${__dirname}../../assembly/assembly/index.${entryExt}`);
+
   const relativeEntryPath = path.relative(process.cwd(), entryPath);
 
   // add the relativeEntryPath of as-pect to the list of compiled files for each test
@@ -392,11 +398,11 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     ...flagList,
   ];
 
-  function runBinary(
+  async function runBinary(
     error: Error | null,
     file: string,
     binary: Uint8Array,
-  ): number {
+  ): Promise<number> {
     // if there are any compilation errors, stop the test suite
     if (error) {
       console.error(
@@ -431,7 +437,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
 
       let wasi: import("wasi").WASI | null = null;
       if (configuration.wasi) {
-        const { WASI } = require("wasi");
+        const { WASI } = await import("wasi");
         wasi = new WASI(configuration.wasi);
       }
       // create a test runner
@@ -453,7 +459,7 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
       );
 
       const configurationImports = fs.existsSync(customImportFileLocation)
-        ? require(customImportFileLocation)
+        ? await import(customImportFileLocation)
         : configuration!.imports ?? {};
 
       const memoryDescriptor: WebAssembly.MemoryDescriptor = {
@@ -580,8 +586,8 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
    [Files]: ${testEntryFiles.size.toString()} total
   [Groups]: ${groupCount.toString()} count, ${groupSuccessCount.toString()} pass
    [Tests]: ${successCount.toString()} pass, ${(
-          testCount - successCount
-        ).toString()} fail, ${testCount.toString()} total
+  testCount - successCount
+).toString()} fail, ${testCount.toString()} total
     [Time]: ${timeDifference(end, start).toString()}ms`);
 
         if (covers) console.log(covers.stringify());
@@ -626,11 +632,11 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
     });
   } else {
     // for each file, synchronously run each test
-    Array.from(testEntryFiles).forEach((file: string) => {
-      // let binary: Uint8Array;
+    Array.from(testEntryFiles).forEach(async (file: string) => {
+      let binary: Uint8Array;
 
-      asc.main(
-        [file, ...finalCompilerArguments],
+      const { error } = await asc.main(
+        [file, ...finalCompilerArguments, '--outFile', `${file.replace('.ts', '.wasm')}`],
         {
           stdout: process.stdout as any, // use any type to quelch error
           stderr: process.stderr as any,
@@ -664,12 +670,12 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
               return null;
             }
           },
-          writeFile(name: string, contents: Uint8Array, baseDir: string = ".") {
+          writeFile(name: string, contents: Uint8Array, baseDir = ".") {
             const ext = path.extname(name);
 
             // get the wasm file
             if (ext === ".wasm") {
-              // binary = contents;
+              binary = contents;
               if (!outputBinary) return;
             } else if (ext === ".ts") {
               filePromises.push(writeFile(path.join(baseDir, name), contents));
@@ -683,8 +689,9 @@ export function run(cliOptions: Options, compilerArgs: string[]): void {
             filePromises.push(writeFile(outfileName, contents));
           },
         },
-        //(error: any) => runBinary(error, file, binary),
       );
+      // @ts-ignore 
+      runBinary(error, file, binary);
     });
   }
 }

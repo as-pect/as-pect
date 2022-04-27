@@ -1,6 +1,6 @@
 {
   "name": "@roaminroe/as-pect-cli",
-  "version": "6.3.5",
+  "version": "6.3.9",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -11,7 +11,7 @@
     "test:ci": "jest",
     "test": "jest",
     "test:update-snapshots": "jest -u",
-    "tsc:all": "run-p tsc:default tsc:amd",
+    "tsc:all": "run-p tsc:default",
     "tsc:amd": "tsc --outfile lib/as-pect.cli.amd.js --module amd --declaration --declarationMap",
     "tsc:default": "tsc",
     "tsc": "run-s rimraf tsc:all"
@@ -38,7 +38,7 @@
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
     "@as-covers/core": "npm:@roaminroe/as-covers-core@^0.3.0",
-    "@as-pect/assembly": "npm:@roaminroe/as-pect-assembly@^6.3.0",
+    "@as-pect/assembly": "npm:@roaminroe/as-pect-assembly@^6.3.1",
     "@as-pect/core": "npm:@roaminroe/as-pect-core@^6.3.3",
     "@as-pect/snapshots": "^6.2.1",
     "@assemblyscript/loader": "^0.20.6",
