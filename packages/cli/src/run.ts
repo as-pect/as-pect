@@ -286,9 +286,11 @@ export async function run(cliOptions: Options, compilerArgs: string[]): Promise<
 
   if (covers) {
     flags["--lib"] = flags["--lib"] || [];
-    flags["--transform"].push(path.normalize(`${__dirname}../../../@as-covers/transform/lib`));
+    // @ts-ignore
+    flags["--transform"].push(await (await import.meta.resolve('@as-covers/transform/lib')).replace('file://', ''));
 
-    const coversEntryPath = path.normalize(`${__dirname}../../../@as-covers/assembly/index.ts`);
+    // @ts-ignore
+    const coversEntryPath = await (await import.meta.resolve('@as-covers/assembly/index.ts')).replace('file://', '');
     const relativeCoversEntryPath = path.relative(
       process.cwd(),
       coversEntryPath,

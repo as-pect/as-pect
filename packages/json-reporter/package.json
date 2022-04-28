@@ -1,5 +1,5 @@
 {
-  "name": "@roaminroe/as-pect-json-reporter",
+  "name": "@as-pect/json-reporter",
   "version": "6.3.0",
   "description": "Json reporter for as-pect",
   "main": "lib/index.js",
@@ -17,6 +17,6 @@
   "author": "Joshua Tenner",
   "license": "MIT",
   "dependencies": {
-    "@as-pect/core": "npm:@roaminroe/as-pect-cli@^6.3.0"
+    "@as-pect/core": "^6.3.0"
   }
 }

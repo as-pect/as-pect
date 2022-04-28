@@ -1,5 +1,5 @@
 {
-  "name": "@roaminroe/as-pect-csv-reporter",
+  "name": "@as-pect/csv-reporter",
   "version": "6.3.0",
   "description": "csv reporter for as-pect",
   "main": "lib/index.js",
@@ -21,6 +21,6 @@
     "csv-stringify": "^5.6.2"
   },
   "dependencies": {
-    "@as-pect/core": "npm:@roaminroe/as-pect-cli@^6.3.0"
+    "@as-pect/core": "^6.3.0"
   }
 }
