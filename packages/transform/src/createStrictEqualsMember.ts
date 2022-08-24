@@ -1,22 +1,31 @@
-import {
-  AssertionKind,
+import { assemblyscript } from "@as-pect/assemblyscript";
+import { djb2Hash } from "./hash.js";
+
+const {
+  TypeNode,
+  Range,
   BlockStatement,
   ClassDeclaration,
-  CommonFlags,
   Expression,
   FieldDeclaration,
   IfStatement,
   MethodDeclaration,
-  NodeKind,
-  ParameterKind,
   ParameterNode,
   PropertyAccessExpression,
-  Range,
   Statement,
   Token,
-  TypeNode,
-} from "assemblyscript/dist/assemblyscript.js";
-import { djb2Hash } from "./hash.js";
+} = assemblyscript;
+type TypeNode = InstanceType<typeof TypeNode>;
+type Range = InstanceType<typeof Range>;
+type BlockStatement = InstanceType<typeof BlockStatement>;
+type ClassDeclaration = InstanceType<typeof ClassDeclaration>;
+type Expression = InstanceType<typeof Expression>;
+type FieldDeclaration = InstanceType<typeof FieldDeclaration>;
+type IfStatement = InstanceType<typeof IfStatement>;
+type MethodDeclaration = InstanceType<typeof MethodDeclaration>;
+type ParameterNode = InstanceType<typeof ParameterNode>;
+type PropertyAccessExpression = InstanceType<typeof PropertyAccessExpression>;
+type Statement = InstanceType<typeof Statement>;
 
 /**
  * This method creates a single FunctionDeclaration that allows Reflect.equals
@@ -33,9 +42,9 @@ export function createStrictEqualsMember(
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
     null,
-    CommonFlags.PUBLIC |
-      CommonFlags.INSTANCE |
-      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+    assemblyscript.CommonFlags.PUBLIC |
+      assemblyscript.CommonFlags.INSTANCE |
+      (classDeclaration.isGeneric ? assemblyscript.CommonFlags.GENERIC_CONTEXT : 0),
     null,
     TypeNode.createFunctionType(
       [
@@ -144,10 +153,10 @@ function createStrictEqualsFunctionBody(
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, regardless of access modifier
-    if (member.is(CommonFlags.INSTANCE)) {
+    if (member.is(assemblyscript.CommonFlags.INSTANCE)) {
       switch (member.kind) {
         // field declarations automatically get added
-        case NodeKind.FIELDDECLARATION: {
+        case assemblyscript.NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
           const hashValue = djb2Hash(member.name.text);
           body.push(
@@ -162,8 +171,8 @@ function createStrictEqualsFunctionBody(
         }
 
         // function declarations can be getters, check the get flag
-        case NodeKind.METHODDECLARATION: {
-          if (member.is(CommonFlags.GET)) {
+        case assemblyscript.NodeKind.METHODDECLARATION: {
+          if (member.is(assemblyscript.CommonFlags.GET)) {
             const methodDeclaration = <MethodDeclaration>member;
             const hashValue = djb2Hash(member.name.text);
             body.push(
@@ -282,7 +291,7 @@ function createDefaultParameter(
   range: Range,
 ): ParameterNode {
   return TypeNode.createParameter(
-    ParameterKind.DEFAULT,
+    assemblyscript.ParameterKind.DEFAULT,
     TypeNode.createIdentifierExpression(name, range),
     typeNode,
     null,
@@ -392,7 +401,7 @@ function createSuperCallExpression(
           TypeNode.createIdentifierExpression("ignore", range),
           // [...] as StaticArray<i64>
           TypeNode.createAssertionExpression(
-            AssertionKind.AS,
+            assemblyscript.AssertionKind.AS,
             TypeNode.createArrayLiteralExpression(
               hashValues.map((e) =>
                 TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range),

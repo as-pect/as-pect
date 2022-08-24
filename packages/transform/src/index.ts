@@ -1,15 +1,25 @@
 // import { Transform } from "assemblyscript/cli/transform";
 import {
+  assemblyscript,
+  transform,
+} from "@as-pect/assemblyscript";
+const { Transform } = transform;
+type Transform = InstanceType<typeof Transform>;
+
+const {
   ClassDeclaration,
   NamespaceDeclaration,
   NodeKind,
   Parser,
   Statement,
   Source,
-} from "assemblyscript/dist/assemblyscript.js";
-import {
-  Transform,
-} from "assemblyscript/dist/transform.js";
+} = assemblyscript;
+type ClassDeclaration = InstanceType<typeof ClassDeclaration>;
+type NamespaceDeclaration = InstanceType<typeof NamespaceDeclaration>;
+type Parser = InstanceType<typeof Parser>;
+type Statement = InstanceType<typeof Statement>;
+type Source = InstanceType<typeof Source>;
+
 
 import { createStrictEqualsMember } from "./createStrictEqualsMember.js";
 import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember.js";

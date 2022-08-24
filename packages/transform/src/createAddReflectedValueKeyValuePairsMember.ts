@@ -1,19 +1,15 @@
-import {
-  AssertionKind,
-  BlockStatement,
-  ClassDeclaration,
-  CommonFlags,
-  FieldDeclaration,
-  MethodDeclaration,
-  NodeKind,
-  ParameterKind,
-  Range,
-  Statement,
-  Token,
-  TypeNode,
-} from "assemblyscript/dist/assemblyscript.js";
+import { assemblyscript } from "@as-pect/assemblyscript";
+
 import { createGenericTypeParameter } from "./createGenericTypeParameter.js";
 import { djb2Hash } from "./hash.js";
+
+const TypeNode = assemblyscript.TypeNode;
+type BlockStatement = assemblyscript.BlockStatement;
+type ClassDeclaration = assemblyscript.ClassDeclaration;
+type FieldDeclaration = assemblyscript.FieldDeclaration;
+type MethodDeclaration = assemblyscript.MethodDeclaration;
+type Range = assemblyscript.Range;
+type Statement = assemblyscript.Statement;
 
 /**
  * Create a prototype method called __aspectAddReflectedValueKeyValuePairs on a given
@@ -32,15 +28,15 @@ export function createAddReflectedValueKeyValuePairsMember(
       range,
     ),
     null,
-    CommonFlags.PUBLIC |
-      CommonFlags.INSTANCE |
-      (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+    assemblyscript.CommonFlags.PUBLIC |
+      assemblyscript.CommonFlags.INSTANCE |
+      (classDeclaration.isGeneric ? assemblyscript.CommonFlags.GENERIC_CONTEXT : 0),
     null,
     TypeNode.createFunctionType(
       [
         // reflectedValue: i32
         TypeNode.createParameter(
-          ParameterKind.DEFAULT,
+          assemblyscript.ParameterKind.DEFAULT,
           TypeNode.createIdentifierExpression("reflectedValue", range),
           createGenericTypeParameter("i32", range),
           null,
@@ -49,7 +45,7 @@ export function createAddReflectedValueKeyValuePairsMember(
 
         // seen: Map<usize, i32>
         TypeNode.createParameter(
-          ParameterKind.DEFAULT,
+          assemblyscript.ParameterKind.DEFAULT,
           TypeNode.createIdentifierExpression("seen", range),
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName("Map", range),
@@ -66,7 +62,7 @@ export function createAddReflectedValueKeyValuePairsMember(
 
         // ignore: i64[]
         TypeNode.createParameter(
-          ParameterKind.DEFAULT,
+          assemblyscript.ParameterKind.DEFAULT,
           TypeNode.createIdentifierExpression("ignore", range),
           // Array<i64> -> i64[]
           TypeNode.createNamedType(
@@ -110,10 +106,10 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, regardless of access modifier
-    if (member.is(CommonFlags.INSTANCE)) {
+    if (member.is(assemblyscript.CommonFlags.INSTANCE)) {
       switch (member.kind) {
         // field declarations automatically get added
-        case NodeKind.FIELDDECLARATION: {
+        case assemblyscript.NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
           const hashValue = djb2Hash(member.name.text);
           pushKeyValueIfStatement(
@@ -127,8 +123,8 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
         }
 
         // function declarations can be getters, check the get flag
-        case NodeKind.METHODDECLARATION: {
-          if (member.is(CommonFlags.GET)) {
+        case assemblyscript.NodeKind.METHODDECLARATION: {
+          if (member.is(assemblyscript.CommonFlags.GET)) {
             const methodDeclaration = <MethodDeclaration>member;
             const hashValue = djb2Hash(member.name.text);
             pushKeyValueIfStatement(
@@ -213,7 +209,7 @@ function createIsDefinedIfStatement(
                   TypeNode.createIdentifierExpression("ignore", range),
                   // [...propNames]
                   TypeNode.createAssertionExpression(
-                    AssertionKind.AS,
+                    assemblyscript.AssertionKind.AS,
                     TypeNode.createArrayLiteralExpression(
                       nameHashes.map((e) =>
                         TypeNode.createIntegerLiteralExpression(
@@ -271,7 +267,7 @@ function pushKeyValueIfStatement(
     // if (!ignore.includes("propName")) { ... }
     TypeNode.createIfStatement(
       TypeNode.createUnaryPrefixExpression(
-        Token.EXCLAMATION,
+        assemblyscript.Token.EXCLAMATION,
         // ignore.includes("propName")
         TypeNode.createCallExpression(
           TypeNode.createPropertyAccessExpression(

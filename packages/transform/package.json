@@ -3,13 +3,15 @@
   "version": "6.2.4",
   "description": "The transform used by the as-pect core and assembly packages to enable strict equality.",
   "main": "lib/index.js",
+  "type": "module",
   "scripts": {
+    "tsc:all": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "peerDependencies": {
-    "assemblyscript": "^0.21.1"
+  "dependencies": {
+    "@as-pect/assemblyscript": "^6.2.4"
   },
   "devDependencies": {
     "typescript": "^4.7.4"

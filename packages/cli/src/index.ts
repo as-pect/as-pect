@@ -9,9 +9,8 @@ import { printAsciiArt } from "./asciiArt.js"
 import { promise as glob } from "glob-promise";
 import { IAspectConfig } from "./IAspectConfig.js";
 
-const { main } = await import("assemblyscript/dist/asc.js");
-const asc = main;
-
+import { asc as cli } from "@as-pect/assemblyscript";
+const asc = cli.main;
 
 program
   .option("-n, --no-logo", "Don't display the as-pect logo.", false)

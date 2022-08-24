@@ -1,5 +1,7 @@
-import { Parser } from "assemblyscript/dist/assemblyscript.js";
-import { Transform } from "assemblyscript/dist/transform.js";
+
+import { transform, assemblyscript } from "@as-pect/assemblyscript";
+type Parser = typeof assemblyscript.Parser;
+const { Transform } = transform;
 
 /**
  * Just an empty transformer.

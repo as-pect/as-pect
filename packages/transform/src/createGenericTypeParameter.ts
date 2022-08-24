@@ -1,4 +1,9 @@
-import { Range, TypeNode } from "assemblyscript/dist/assemblyscript.js";
+import { assemblyscript } from "@as-pect/assemblyscript";
+
+const { TypeNode, Range } = assemblyscript;
+type TypeNode = InstanceType<typeof TypeNode>;
+type Range = InstanceType<typeof Range>;
+
 /**
  * This method makes a generic named parameter.
  *
