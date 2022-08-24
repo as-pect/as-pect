@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-
-const { spawn } = require("child_process");
-
+import { spawn } from "child_process";
+import { process } from "process";
+import { relative } from "path";
 let nodeVersion = process.version.match(/^v(\d+)\./)[1];
 
 const args = [
-  require.resolve("../lib/test"),
+  relative(import.meta.url, "../lib/test.js"),
   ...process.argv.slice(2),
 ]
 

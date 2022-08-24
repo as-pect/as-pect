@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   /**
    * A set of globs passed to the glob package that qualify typescript files for testing.
    */
@@ -23,13 +23,12 @@ module.exports = {
   /**
    * Add your required AssemblyScript imports here.
    */
-  imports(memory, createImports, instantiateSync, binary) {
+  async imports(memory, createImports, instantiate, binary) {
     let instance; // Imports can reference this
     const myImports = {
       // put your web assembly imports here, and return the module
     };
-    instance = instantiateSync(binary, createImports(myImports));
-    return instance;
+    return instantiate(binary, createImports(myImports));
   },
   /** Enable code coverage. */
   // coverage: ["assembly/**/*.ts"],

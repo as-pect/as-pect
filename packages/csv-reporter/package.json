@@ -4,6 +4,7 @@
   "description": "csv reporter for as-pect",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "type": "module",
   "scripts": {
     "tsc:all": "run-p tsc:default tsc:amd",
     "tsc:amd": "tsc --outfile lib/as-pect.csv-reporter.amd.js --module amd --declaration --declarationMap",
@@ -17,7 +18,7 @@
   "author": "Joshua Tenner",
   "license": "MIT",
   "devDependencies": {
-    "csv-stringify": "^5.6.2"
+    "csv-stringify": "^6.2.0"
   },
   "dependencies": {
     "@as-pect/core": "^6.2.1"

@@ -4,6 +4,7 @@
 @external("__aspect", "logReflectedValue")
 declare function logReflectedValue(id: i32): void;
 
+// @ts-ignore: duplicate
 class Vec3 {
   public constructor(public x: f32 = 0, public y: f32 = 0, public z: f32 = 0) {}
 }

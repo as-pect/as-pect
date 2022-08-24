@@ -1,4 +1,4 @@
-import { TestNode } from "../../src";
+import { TestNode } from "../../src/index.js";
 
 export function removeStackTraces(node: TestNode): void {
   node.logs.forEach((e) => {

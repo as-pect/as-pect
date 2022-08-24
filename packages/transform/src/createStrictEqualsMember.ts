@@ -15,8 +15,8 @@ import {
   Statement,
   Token,
   TypeNode,
-} from "./assemblyscript";
-import { djb2Hash } from "./hash";
+} from "assemblyscript/dist/assemblyscript.js";
+import { djb2Hash } from "./hash.js";
 
 /**
  * This method creates a single FunctionDeclaration that allows Reflect.equals

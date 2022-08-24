@@ -5,18 +5,24 @@ import {
   NodeKind,
   Parser,
   Statement,
-  Transform,
   Source,
-} from "./assemblyscript";
-import { createStrictEqualsMember } from "./createStrictEqualsMember";
-import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember";
-export = class AspectTransform extends Transform {
+} from "assemblyscript/dist/assemblyscript.js";
+import {
+  Transform,
+} from "assemblyscript/dist/transform.js";
+
+import { createStrictEqualsMember } from "./createStrictEqualsMember.js";
+import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember.js";
+
+// @ts-ignore
+export default class AspectTransform extends Transform {
   /**
    * This method results in a pure AST transform that inserts a strictEquals member
    * into each ClassDeclaration.
    *
    * @param {Parser} parser - The AssemblyScript parser.
    */
+  // @ts-ignore
   afterParse(parser: Parser): void {
     // For backwards compatibility
     let sources: Source[] = (parser as any).program

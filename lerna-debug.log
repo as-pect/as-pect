@@ -1,0 +1,18 @@
+0 silly argv {
+0 silly argv   _: [ 'create' ],
+0 silly argv   lernaVersion: '5.4.3',
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js',
+0 silly argv   name: 'transform'
+0 silly argv }
+1 notice cli v5.4.3
+2 verbose rootPath C:\Users\Joshua Tenner\Desktop\project\as-pect
+3 error Error: canceled
+3 error     at Interface.<anonymous> (C:\Users\Joshua Tenner\Desktop\project\as-pect\node_modules\read\lib\read.js:66:13)
+3 error     at Interface.emit (node:events:513:28)
+3 error     at [_ttyWrite] [as _ttyWrite] (node:internal/readline/interface:1124:18)
+3 error     at ReadStream.onkeypress (node:internal/readline/interface:273:20)
+3 error     at ReadStream.emit (node:events:513:28)
+3 error     at emitKeys (node:internal/readline/utils:357:14)
+3 error     at emitKeys.next (<anonymous>)
+3 error     at ReadStream.onData (node:internal/readline/emitKeypressEvents:64:36)
+3 error     at ReadStream.emit (node:events:513:28)

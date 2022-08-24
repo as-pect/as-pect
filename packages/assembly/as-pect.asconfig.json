@@ -1,0 +1,15 @@
+{
+  "options": {
+    "outFile": "output.wasm",
+    "textFile": "output.wat",
+    "bindings": "raw",
+    "exportStart": "_start",
+    "exportRuntime": true,
+    "use": ["RTRACE=1"],
+    "debug": true,
+    "exportTable": true,
+    "transform": ["@as-pect/transform"]
+  },
+  "extends": "./asconfig.json",
+  "entries": ["./assembly/index.ts"]
+}

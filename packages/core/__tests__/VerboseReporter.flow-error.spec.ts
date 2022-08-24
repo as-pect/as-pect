@@ -1,7 +1,7 @@
-import { VerboseReporterWrapper } from "./setup/VerboseReporterWrapper";
-import { TestContext } from "../src";
+import { VerboseReporterWrapper } from "./setup/VerboseReporterWrapper.js";
+import { TestContext } from "../src/index.js";
 import { promises as fs } from "fs";
-import { instantiate } from "assemblyscript/lib/loader/umd";
+import { instantiate } from "@assemblyscript/loader";
 
 test("snapshots", async () => {
   const binary = await fs.readFile("./assembly/jest-reporter-flow-error.wasm");

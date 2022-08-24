@@ -1,5 +1,5 @@
-import { ReflectedValue } from "./ReflectedValue";
-import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
+import { ReflectedValue } from "./ReflectedValue.js";
+import { ReflectedValueType } from "./ReflectedValueType.js";
 import chalk from "chalk";
 
 class StringifyContext {

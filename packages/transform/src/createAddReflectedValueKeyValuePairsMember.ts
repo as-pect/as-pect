@@ -11,9 +11,9 @@ import {
   Statement,
   Token,
   TypeNode,
-} from "./assemblyscript";
-import { createGenericTypeParameter } from "./createGenericTypeParameter";
-import { djb2Hash } from "./hash";
+} from "assemblyscript/dist/assemblyscript.js";
+import { createGenericTypeParameter } from "./createGenericTypeParameter.js";
+import { djb2Hash } from "./hash.js";
 
 /**
  * Create a prototype method called __aspectAddReflectedValueKeyValuePairs on a given

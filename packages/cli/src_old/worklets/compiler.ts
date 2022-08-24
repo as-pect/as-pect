@@ -3,13 +3,7 @@ import { readdirSync, readFileSync } from "fs";
 import { join, basename, dirname, extname } from "path";
 import { parentPort, workerData } from "worker_threads";
 import { writeFile } from "../util/writeFile";
-
-/**
- * @ignore
- *
- * This variable holds the AssemblyScript compiler.
- */
-const asc = require(join(workerData.assemblyScriptFolder, "dist", "asc"));
+import asc from "assemblyscript/dist/asc";
 
 /**
  * @ignore

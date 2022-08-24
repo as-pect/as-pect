@@ -1,4 +1,4 @@
-import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
+import { ReflectedValueType } from "./ReflectedValueType.js";
 import {
   StringifyReflectedValueProps,
   stringifyReflectedValue,

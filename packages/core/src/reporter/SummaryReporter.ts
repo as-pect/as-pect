@@ -1,9 +1,10 @@
-import { TestContext } from "../test/TestContext";
-import { IWritable } from "../util/IWriteable";
-import { ReflectedValue } from "../util/ReflectedValue";
-import { IReporter } from "./IReporter";
+import { TestContext } from "../test/TestContext.js";
+import { IWritable } from "../util/IWriteable.js";
+import { ReflectedValue } from "../util/ReflectedValue.js";
+import { IReporter } from "./IReporter.js";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
-import { TestNode } from "../test/TestNode";
+import { TestNode } from "../test/TestNode.js";
+import chalk from "chalk-template";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -53,7 +54,6 @@ export class SummaryReporter implements IReporter {
    * @param {TestContext} suite - The finished test suite.
    */
   public onFinish(suite: TestContext): void {
-    const chalk = require("chalk");
     const testGroups = suite.rootNode.childGroups;
 
     // TODO: Figure out a better way to flatten this array.
@@ -204,7 +204,6 @@ export class SummaryReporter implements IReporter {
    * @param {ReflectedValue} logValue - A value to be logged to the console
    */
   public onLog(logValue: ReflectedValue): void {
-    const chalk = require("chalk");
     const output = logValue.stringify({ indent: 12 }).trimLeft();
     this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
   }

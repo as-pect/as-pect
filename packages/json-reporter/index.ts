@@ -6,7 +6,7 @@ import { TestNodeType, TestContext, IReporter, TestNode } from "@as-pect/core";
  * This class reports all relevant test statistics to a JSON file located at
  * `{testLocation}.spec.json`.
  */
-module.exports = class JSONReporter implements IReporter {
+export default class JSONReporter implements IReporter {
   protected file: WriteStream | null = null;
 
   private first: boolean = true;

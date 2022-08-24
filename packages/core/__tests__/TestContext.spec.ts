@@ -1,4 +1,4 @@
-import { TestContext } from "../src";
+import { TestContext } from "../src/index.js";
 
 describe("TestContext", () => {
   it("should throw errors when using a bad reporter", () => {

@@ -2,7 +2,7 @@
 /**
  * This is a standard Vec3 Class that contains three float values.
  */
-export class Vec3 {
+class Vec3 {
   constructor(public x: f64, public y: f64, public z: f64) {}
 
   magnitude(): f64 {
@@ -11,11 +11,10 @@ export class Vec3 {
 
   @operator("==")
   protected __equals(reference: Vec3 | null): bool {
-    if (reference === this) return true;
-    if (reference === null) return false;
-    // @ts-ignore
+    if (changetype<usize>(reference) == 0) return false;
+    if (changetype<usize>(reference) == changetype<usize>(this)) return true;
     return (
-      this.x == reference.x && this.y == reference.y && this.z == reference.z
+      this.x == reference!.x && this.y == reference!.y && this.z == reference!.z
     );
   }
 }

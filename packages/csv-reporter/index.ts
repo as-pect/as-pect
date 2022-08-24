@@ -1,4 +1,4 @@
-import stringify, { Stringifier } from "csv-stringify";
+import { Stringifier, stringify } from "csv-stringify";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
 import { TestNodeType, TestContext, IReporter, TestNode } from "@as-pect/core";
@@ -22,7 +22,7 @@ const csvColumns = [
  * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
  * contain a set of tests with relevant pass and fail information.
  */
-module.exports = class CSVReporter implements IReporter {
+export default class CSVReporter implements IReporter {
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
 

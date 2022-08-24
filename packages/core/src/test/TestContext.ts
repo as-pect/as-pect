@@ -1,22 +1,22 @@
-import { IAspectExports } from "../util/IAspectExports";
-import { Rtrace, BlockInfo, TOTAL_OVERHEAD } from "../util/rTrace";
+import { IAspectExports } from "../util/IAspectExports.js";
+import { Rtrace, BlockInfo, TOTAL_OVERHEAD } from "../util/rTrace.js";
 
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
-import { NameSection } from "../util/wasmTools";
-import { ReflectedValue } from "../util/ReflectedValue";
-import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
-import { TestNode } from "./TestNode";
-import { TestNodeType } from "../util/TestNodeType";
-import { IReporter } from "../reporter/IReporter";
+import { NameSection } from "../util/wasmTools.js";
+import { ReflectedValue } from "../util/ReflectedValue.js";
+import { ReflectedValueType } from "../util/ReflectedValueType.js";
+import { TestNode } from "./TestNode.js";
+import { TestNodeType } from "../util/TestNodeType.js";
+import { IReporter } from "../reporter/IReporter.js";
 import { performance } from "perf_hooks";
-import { IWarning } from "./IWarning";
+import { IWarning } from "./IWarning.js";
 import {
   Snapshot,
   SnapshotDiffResultType,
   SnapshotDiff,
 } from "@as-pect/snapshots";
-import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
+import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue.js";
 
 type WASI = import("wasi").WASI;
 

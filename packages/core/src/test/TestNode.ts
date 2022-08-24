@@ -1,7 +1,7 @@
-import { TestNodeType } from "../util/TestNodeType";
-import { IWarning } from "./IWarning";
-import { ReflectedValue } from "../util/ReflectedValue";
-import { timeDifference } from "../util/timeDifference";
+import { TestNodeType } from "../util/TestNodeType.js";
+import { IWarning } from "./IWarning.js";
+import { ReflectedValue } from "../util/ReflectedValue.js";
+import { timeDifference } from "../util/timeDifference.js";
 
 export class TestNode {
   /** The TestNode type. */

@@ -3,17 +3,18 @@ import { Options } from "./CommandLineArg";
 import querystring from "querystring";
 import chalk from "chalk";
 
+
 /**
  * @ignore
  * This method inspects the command line arguments and returns the corresponding TestReporter.
  *
  * @param {Options} cliOptions - The command line arguments.
  */
-export function collectReporter(cliOptions: Options): IReporter {
+export async function collectReporter(cliOptions: Options): IReporter {
   const reporters: IReporter[] = [];
 
   if (cliOptions.csv) {
-    const CSVReporter = require("@as-pect/csv-reporter");
+    const CSVReporter = await import("@as-pect/csv-reporter");
     if (typeof cliOptions.csv === "string") {
       const options = querystring.parse(cliOptions.csv || "");
       reporters.push(new CSVReporter(options));

@@ -62,4 +62,13 @@ export function init() {
       createWriteStream(configFile, "utf-8"),
     );
   }
+
+  const asconfigFile = join(process.cwd(), "as-pect.asconfig.json");
+  const asconfigFileSource = join(__dirname, "../init/as-pect.asconfig.json");
+  // create the default asconfig file for aspect (which overrides the default asconfig provided by AS)
+  if (!existsSync(asconfigFile)) {
+    createReadStream(asconfigFileSource, "utf-8").pipe(
+      createWriteStream(asconfigFile, "utf-8"),
+    );
+  }
 }
