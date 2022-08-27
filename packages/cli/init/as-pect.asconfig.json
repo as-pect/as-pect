@@ -5,6 +5,7 @@
     "bindings": "raw",
     "exportStart": "_start",
     "exportRuntime": true,
+    "exportMemory": true,
     "use": ["RTRACE=1"],
     "debug": true,
     "exportTable": true

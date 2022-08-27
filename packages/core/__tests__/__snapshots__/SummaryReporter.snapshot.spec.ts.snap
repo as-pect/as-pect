@@ -2,29 +2,6 @@
 
 exports[`snapshots: onFinish ./assembly/jest-reporter-snapshot.ts 1`] = `
 "❌ ./assembly/jest-reporter-snapshot.ts Pass: 1 / 1 Todo: 0 Time: 0ms
-  Failed: logs
-     [Log]: \\"Hello world!\\"
-     [Log]: 42
-     [Log]: <Vec3>null
-     [Log]: Vec3 {
-                x: 1.0,
-                y: 2.0,
-                z: 3.0
-            }
-     [Log]: Array<i32> [
-                1,
-                2,
-                3
-            ]
-     [Log]: 9999999999999 as i64
-     [Log]: 1234567 as u32
-     [Log]: 999999999999 as u64
-     [Log]: -1 as i8
-     [Log]: -1 as i16
-     [Log]: true
-     [Log]: false
-     [Log]: Uint8Array [ 0, 1, 2 ]
-     [Log]: Int8Array [ -1, -2, -3 ]
 [Snapshot]: a few snapshots!~first vec3[0]
   Vec3 {
     x: 1.0,

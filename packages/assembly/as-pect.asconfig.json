@@ -1,5 +1,6 @@
 {
   "options": {
+    "exportMemory": true,
     "outFile": "output.wasm",
     "textFile": "output.wat",
     "bindings": "raw",

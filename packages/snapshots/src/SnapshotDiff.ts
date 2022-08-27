@@ -1,8 +1,8 @@
-import { Snapshot } from "./Snapshot";
+import { Snapshot } from "./Snapshot.js";
 import {
   SnapshotDiffResult,
   SnapshotDiffResultType,
-} from "./SnapshotDiffResult";
+} from "./SnapshotDiffResult.js";
 import { diffLines } from "diff";
 
 export class SnapshotDiff {

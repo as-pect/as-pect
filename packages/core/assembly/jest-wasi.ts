@@ -1,7 +1,7 @@
-import { random_get } from "wasi";
-
-let output = [0] as StaticArray<u64>;
+import { wasi_crypto } from "@assemblyscript/wasi-shim/assembly/wasi_crypto";
 
 test("output", () => {
-  log(random_get(changetype<usize>(output), sizeof<u64>()));
+  let values = new Uint8Array(100);
+  wasi_crypto.getRandomValues(values);
+  log(<u16>values.length);
 });

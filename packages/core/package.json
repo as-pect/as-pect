@@ -18,15 +18,15 @@
 		"assemblyscript"
 	],
 	"scripts": {
-		"pretest:reporter-top-level-expect": "asc --debug --outFile assembly/jest-reporter-top-level-expect.wasm --textFile assembly/jest-reporter-top-level-expect.wat --exportStart _start ./assembly/jest-reporter-top-level-expect.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
-		"pretest:reporter-snapshot": "asc --debug --outFile assembly/jest-reporter-snapshot.wasm --textFile assembly/jest-reporter-snapshot.wat --exportStart _start ./assembly/jest-reporter-snapshot.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
-		"pretest:reporter-flow-error": "asc --debug --outFile assembly/jest-reporter-flow-error.wasm --textFile assembly/jest-reporter-flow-error.wat --exportStart _start ./assembly/jest-reporter-flow-error.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
-		"pretest:reporter-fail": "asc --debug --outFile assembly/jest-reporter-fail.wasm --textFile assembly/jest-reporter-fail.wat --exportStart _start ./assembly/jest-reporter-fail.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
-		"pretest:reporter-pass": "asc --debug --outFile assembly/jest-reporter-pass.wasm --textFile assembly/jest-reporter-pass.wat --exportStart _start ./assembly/jest-reporter-pass.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
-		"pretest:wasi": "asc --debug --outFile assembly/jest-wasi.wasm --textFile assembly/jest-wasi.wat --exportStart _start ./assembly/jest-wasi.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
-		"pretest:pass-fail": "asc --debug --outFile assembly/jest-pass-fail.wasm --textFile assembly/jest-pass-fail.wat --exportStart _start ./assembly/jest-pass-fail.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js --use ASC_RTRACE=1",
-		"pretest:group-filter": "asc --debug --outFile assembly/jest-filter.wasm --textFile assembly/jest-filter.wat --exportStart _start ./assembly/jest-filter.ts ../assembly/assembly/index.ts --transform ./lib/transform/index.js",
-		"pretest:log": "asc --debug --outFile assembly/jest-log.wasm --textFile assembly/jest-log.wat --exportStart _start ./assembly/jest-log.ts ../assembly/assembly/index.ts --exportTable --use ASC_RTRACE=1 --transform ./lib/transform/index.js",
+		"pretest:reporter-top-level-expect": "asc --debug --outFile assembly/jest-reporter-top-level-expect.wasm --textFile assembly/jest-reporter-top-level-expect.wat --exportStart _start ./assembly/jest-reporter-top-level-expect.ts ../assembly/assembly/index.ts --transform @as-pect/transform --use ASC_RTRACE=1",
+		"pretest:reporter-snapshot": "asc --debug --outFile assembly/jest-reporter-snapshot.wasm --textFile assembly/jest-reporter-snapshot.wat --exportStart _start ./assembly/jest-reporter-snapshot.ts ../assembly/assembly/index.ts --transform @as-pect/transform --use ASC_RTRACE=1",
+		"pretest:reporter-flow-error": "asc --debug --outFile assembly/jest-reporter-flow-error.wasm --textFile assembly/jest-reporter-flow-error.wat --exportStart _start ./assembly/jest-reporter-flow-error.ts ../assembly/assembly/index.ts --transform @as-pect/transform --use ASC_RTRACE=1",
+		"pretest:reporter-fail": "asc --debug --outFile assembly/jest-reporter-fail.wasm --textFile assembly/jest-reporter-fail.wat --exportStart _start ./assembly/jest-reporter-fail.ts ../assembly/assembly/index.ts --transform @as-pect/transform --use ASC_RTRACE=1",
+		"pretest:reporter-pass": "asc --debug --outFile assembly/jest-reporter-pass.wasm --textFile assembly/jest-reporter-pass.wat --exportStart _start ./assembly/jest-reporter-pass.ts ../assembly/assembly/index.ts --transform @as-pect/transform --use ASC_RTRACE=1",
+		"pretest:wasi": "asc --debug --outFile assembly/jest-wasi.wasm --textFile assembly/jest-wasi.wat --exportStart _start ./assembly/jest-wasi.ts ../assembly/assembly/index.ts --transform @as-pect/transform --use ASC_RTRACE=1",
+		"pretest:pass-fail": "asc --debug --outFile assembly/jest-pass-fail.wasm --textFile assembly/jest-pass-fail.wat --exportStart _start ./assembly/jest-pass-fail.ts ../assembly/assembly/index.ts --transform @as-pect/transform --use ASC_RTRACE=1",
+		"pretest:group-filter": "asc --debug --outFile assembly/jest-filter.wasm --textFile assembly/jest-filter.wat --exportStart _start ./assembly/jest-filter.ts ../assembly/assembly/index.ts --transform @as-pect/transform",
+		"pretest:log": "asc --debug --outFile assembly/jest-log.wasm --textFile assembly/jest-log.wat --exportStart _start ./assembly/jest-log.ts ../assembly/assembly/index.ts --exportTable --use ASC_RTRACE=1 --transform @as-pect/transform",
 		"rimraf": "rimraf lib/*",
 		"test:ci": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js",
 		"test": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js",
@@ -55,14 +55,8 @@
 		"lib/"
 	],
 	"devDependencies": {
-		"@assemblyscript/loader": "^0.20.19",
-		"jest": "^28.1.3",
+		"@assemblyscript/loader": "^0.21.2",
+		"jest": "^28.0.0",
 		"ts-jest": "^28.0.8"
-	},
-	"exports": {
-    "transform": {
-      "import": "./lib/transform/index.js",
-      "types": "./lib/transform/index.d.ts"
-    }
 	}
 }

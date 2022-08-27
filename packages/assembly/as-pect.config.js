@@ -8,6 +8,10 @@ export default {
    */
   disclude: [/node_modules/i],
   /**
+   * Add these test files to your test suite.
+   */
+  entries: ["assembly/**/*.spec.ts"],
+  /**
    * Add your required AssemblyScript imports here.
    */
   imports(memory, createImports, instantiateSync, binary) {

@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
-    "@as-covers/core": "0.3.0",
+    "@as-covers/core": "0.3.1",
     "@as-pect/assembly": "^6.2.0",
     "@as-pect/core": "^6.2.1",
     "@as-pect/transform": "^6.2.4",

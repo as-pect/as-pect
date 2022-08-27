@@ -4,12 +4,20 @@ import { createGenericTypeParameter } from "./createGenericTypeParameter.js";
 import { djb2Hash } from "./hash.js";
 
 const TypeNode = assemblyscript.TypeNode;
-type BlockStatement = assemblyscript.BlockStatement;
-type ClassDeclaration = assemblyscript.ClassDeclaration;
-type FieldDeclaration = assemblyscript.FieldDeclaration;
-type MethodDeclaration = assemblyscript.MethodDeclaration;
-type Range = assemblyscript.Range;
-type Statement = assemblyscript.Statement;
+const {
+  BlockStatement,
+  ClassDeclaration,
+  FieldDeclaration,
+  MethodDeclaration,
+  Range,
+  Statement
+} = assemblyscript;
+type BlockStatement = InstanceType<typeof BlockStatement>;
+type ClassDeclaration = InstanceType<typeof ClassDeclaration>;
+type FieldDeclaration = InstanceType<typeof FieldDeclaration>;
+type MethodDeclaration = InstanceType<typeof MethodDeclaration>;
+type Range = InstanceType<typeof Range>;
+type Statement = InstanceType<typeof Statement>;
 
 /**
  * Create a prototype method called __aspectAddReflectedValueKeyValuePairs on a given

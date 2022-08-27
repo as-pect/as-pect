@@ -25,6 +25,6 @@
     "url": "https://github.com/as-pect/as-pect/issues"
   },
   "dependencies": {
-    "assemblyscript": "^0.21.1"
+    "assemblyscript": "^0.21.2"
   }
 }

@@ -1,5 +1,5 @@
 import { program } from "commander";
-import process from "process";
+import process, { stdout } from "process";
 import path from "path";
 import { promises as fs, readdirSync } from "fs";
 import { readFileSync } from "fs";
@@ -10,13 +10,21 @@ import { promise as glob } from "glob-promise";
 import { IAspectConfig } from "./IAspectConfig.js";
 
 import { asc as cli } from "@as-pect/assemblyscript";
+import { init } from "./init.js";
+import { TestContext } from "@as-pect/core";
+import { Snapshot } from "@as-pect/snapshots";
+import { collectReporter } from "./collectReporter.js";
+import { instantiate } from "@assemblyscript/loader";
+
 const asc = cli.main;
 
+// set the cli options
 program
   .option("-n, --no-logo", "Don't display the as-pect logo.", false)
   .option("-c, --config <config_location>", "Specify the location of your [as-pect.config.js]", "./as-pect.config.js")
   .option("-a, --as-config <asconfig_location>", "Specify the location of the as-pect asconfig. (default: `./as-pect.asconfig.json`)", "./as-pect.asconfig.json")
   .option("-v, --version", "Display the as-pect version.", false)
+  .option("--init", "Initialize a testing project.", false)
   // memory options
   .option("--memory-size", "Initial size of imported memory in pages of 64kb. (Default: 10 pages)", "10")
   .option("--memory-max", "Set the maximum amount of memory pages the wasm test modules can use. (Default: -1, no max specified)", "-1")
@@ -53,8 +61,13 @@ export async function asp(argv = process.argv): Promise<void> {
     printAsciiArt();
   }
 
+  if (opts.init) {
+    init();
+    process.exit(0);
+  }
+
   // always print the version and exit if v
-  process.stdout.write(chalk`⚡AS-pect⚡ Test suite runner {bgGreenBright.bold.black [${version}]}`);
+  process.stdout.write(chalk`⚡AS-pect⚡ Test suite runner {bgGreenBright.bold.black [${version}]}\n`);
   if (opts.version) {
     process.exit(0);
   }
@@ -63,6 +76,8 @@ export async function asp(argv = process.argv): Promise<void> {
   const configRelativeLocation = opts.config;
   const configLocation = path.join(cwd, configRelativeLocation);
   const aspectConfig = (await import("file://" + configLocation)).default as IAspectConfig;
+
+  stdout.write(`Using config: ${configLocation}`);
 
   // filter entries using array of regexp
   let entryFilterRegexes = [] as RegExp[];
@@ -77,7 +92,7 @@ export async function asp(argv = process.argv): Promise<void> {
   const entries = new Set<string>();
 
   // Collect all the test files now, filtering out the entry points
-  for (const arg of args) {
+  for (const arg of args.concat(aspectConfig.entries || [])) {
     const entryPoints = await glob(arg);
     for (const entryPoint of entryPoints) {
       // we need to create a test file for each entry point
@@ -110,13 +125,15 @@ export async function asp(argv = process.argv): Promise<void> {
   const fileMap = new Map<string, string>();
   const folderMap = new Map<string, string[]>();
 
+  console.log(entries);
+
   // foreach entry point, we compile it
   for (const entry of entries) {
     const files = new Map<string, Uint8Array>();
     const dir = path.dirname(entry);
+    const basename = path.basename(entry, path.extname(entry));
     const ascArgs = [entry, ...includes, "--config", asconfigLocation];
-    console.log(ascArgs);
-    process.exit(0);
+
     const compiled = await asc(ascArgs, {
       readFile(filename, baseDir) {
         const filePath = path.join(baseDir, filename);
@@ -156,12 +173,73 @@ export async function asp(argv = process.argv): Promise<void> {
     }
 
     // for emitting compiler stats
-    if (opts.S) process.stdout.write(compiled.stats.toString());
+    if (opts.showStats) process.stdout.write(compiled.stats.toString());
+    const binary = files.get("output.wasm")!;
 
     // output the wasm file
-    if (opts.O || aspectConfig.outputBinary) await fs.writeFile(
+    if (opts.outputBinary || aspectConfig.outputBinary) await fs.writeFile(
       path.join(dir, path.basename(entry, path.extname(entry))) + ".wasm",
-      files.get("output.wasm")!,
+      binary,
     );
+
+    // collect the snapshots for this entry in `{dir}/__snapshots__/{basename}.snap`
+    let snapshots: undefined | Snapshot = void 0;
+    const snapshotPath = path.join(dir, "__snapshots__", basename + ".snap");
+    if (await (await fs.stat(snapshotPath)).isFile()) {
+      try {
+        snapshots = Snapshot.parse(await fs.readFile(snapshotPath, "utf8"));
+      } catch (ex) {
+        stdout.write(`An error occurred while parsing snapshot: ${snapshotPath}`);
+        console.error(ex);
+        process.exit(1);
+      }
+    }
+
+    // collect wasi if it exists
+    let wasi: import("wasi").WASI | undefined = void 0;
+    if (opts.wasi) {
+      const { WASI } = await import("wasi");
+      const wasiRelativeLocation = opts.wasi;
+      const wasiLocation = path.join(cwd, wasiRelativeLocation);
+      const wasiConfig = (await import("file://" + wasiLocation)).default;
+      wasi = new WASI(wasiConfig);
+    } else if (aspectConfig.wasi) {
+      const { WASI } = await import("wasi");
+      wasi = new WASI(aspectConfig.wasi);
+    }
+
+    const reporter = await collectReporter(opts, aspectConfig);
+
+    // create the testing host
+    const ctx = new TestContext({
+      reporter,
+      binary: binary,
+      fileName: entry,
+      groupRegex: new RegExp(opts.group),
+      snapshots: snapshots,
+      testRegex: new RegExp(opts.test),
+      wasi: wasi,
+    });
+
+    const descriptor = { initial: parseInt(opts.memorySize) } as WebAssembly.MemoryDescriptor;
+    if (opts.memoryMax) {
+      descriptor.maximum = parseInt(opts.memoryMax);
+    }
+    const memory = new WebAssembly.Memory(descriptor);
+
+    // import the module by generating the assemblyscript imports
+    const module = await aspectConfig
+      .instantiate(
+        memory,
+        (...args: any[]) => ctx.createImports(...args),
+        instantiate,
+        binary,
+      );
+
+    ctx.run({
+      exports: module.instance.exports as any,
+      instance: module.instance,
+    });
   }
 }
+

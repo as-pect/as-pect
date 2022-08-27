@@ -20,7 +20,6 @@ type Parser = InstanceType<typeof Parser>;
 type Statement = InstanceType<typeof Statement>;
 type Source = InstanceType<typeof Source>;
 
-
 import { createStrictEqualsMember } from "./createStrictEqualsMember.js";
 import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember.js";
 

@@ -28,6 +28,7 @@ test("snapshots", async () => {
     ),
   });
   ctx.run(await instantiate(binary, ctx.createImports()));
+
   for (const [name, values] of reporter.snapshots.entries()) {
     for (const value of values) {
       expect(value).toMatchSnapshot(name);

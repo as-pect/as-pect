@@ -1,4 +1,4 @@
-import { SnapshotDiff } from "./SnapshotDiff";
+import { SnapshotDiff } from "./SnapshotDiff.js";
 import { Lexer, createToken, CstParser, CstNode, ParserMethod, CstElement } from "chevrotain";
 
 const string_token = createToken({ name: "string_token", pattern: /`(\\`|[^`])*`/ });
