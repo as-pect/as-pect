@@ -1,23 +1,37 @@
-import { assemblyscript } from "@as-pect/assemblyscript";
-
-import { createGenericTypeParameter } from "./createGenericTypeParameter.js";
-import { djb2Hash } from "./hash.js";
-
-const TypeNode = assemblyscript.TypeNode;
-const {
+// import { } from "@as-pect/;
+import {
+  TypeNode,
   BlockStatement,
   ClassDeclaration,
   FieldDeclaration,
   MethodDeclaration,
   Range,
-  Statement
-} = assemblyscript;
-type BlockStatement = InstanceType<typeof BlockStatement>;
-type ClassDeclaration = InstanceType<typeof ClassDeclaration>;
-type FieldDeclaration = InstanceType<typeof FieldDeclaration>;
-type MethodDeclaration = InstanceType<typeof MethodDeclaration>;
-type Range = InstanceType<typeof Range>;
-type Statement = InstanceType<typeof Statement>;
+  Statement,
+  CommonFlags,
+  ParameterKind,
+  NodeKind,
+  AssertionKind,
+  Token,
+} from "assemblyscript/dist/assemblyscript.js";
+
+import { createGenericTypeParameter } from "./createGenericTypeParameter.js";
+import { djb2Hash } from "./hash.js";
+
+// const TypeNode = TypeNode;
+// const {
+//   BlockStatement,
+//   ClassDeclaration,
+//   FieldDeclaration,
+//   MethodDeclaration,
+//   Range,
+//   Statement
+// } =
+// type BlockStatement = InstanceType<typeof BlockStatement>;
+// type ClassDeclaration = InstanceType<typeof ClassDeclaration>;
+// type FieldDeclaration = InstanceType<typeof FieldDeclaration>;
+// type MethodDeclaration = InstanceType<typeof MethodDeclaration>;
+// type Range = InstanceType<typeof Range>;
+// type Statement = InstanceType<typeof Statement>;
 
 /**
  * Create a prototype method called __aspectAddReflectedValueKeyValuePairs on a given
@@ -25,26 +39,19 @@ type Statement = InstanceType<typeof Statement>;
  *
  * @param {ClassDeclaration} classDeclaration - The target classDeclaration
  */
-export function createAddReflectedValueKeyValuePairsMember(
-  classDeclaration: ClassDeclaration,
-): MethodDeclaration {
+export function createAddReflectedValueKeyValuePairsMember(classDeclaration: ClassDeclaration): MethodDeclaration {
   const range = classDeclaration.name.range;
   // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, ignore: StaticArray<i64>): void
   return TypeNode.createMethodDeclaration(
-    TypeNode.createIdentifierExpression(
-      "__aspectAddReflectedValueKeyValuePairs",
-      range,
-    ),
+    TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range),
     null,
-    assemblyscript.CommonFlags.PUBLIC |
-      assemblyscript.CommonFlags.INSTANCE |
-      (classDeclaration.isGeneric ? assemblyscript.CommonFlags.GENERIC_CONTEXT : 0),
+    CommonFlags.PUBLIC | CommonFlags.INSTANCE | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     null,
     TypeNode.createFunctionType(
       [
         // reflectedValue: i32
         TypeNode.createParameter(
-          assemblyscript.ParameterKind.DEFAULT,
+          ParameterKind.DEFAULT,
           TypeNode.createIdentifierExpression("reflectedValue", range),
           createGenericTypeParameter("i32", range),
           null,
@@ -53,14 +60,11 @@ export function createAddReflectedValueKeyValuePairsMember(
 
         // seen: Map<usize, i32>
         TypeNode.createParameter(
-          assemblyscript.ParameterKind.DEFAULT,
+          ParameterKind.DEFAULT,
           TypeNode.createIdentifierExpression("seen", range),
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName("Map", range),
-            [
-              createGenericTypeParameter("usize", range),
-              createGenericTypeParameter("i32", range),
-            ],
+            [createGenericTypeParameter("usize", range), createGenericTypeParameter("i32", range)],
             false,
             range,
           ),
@@ -70,7 +74,7 @@ export function createAddReflectedValueKeyValuePairsMember(
 
         // ignore: i64[]
         TypeNode.createParameter(
-          assemblyscript.ParameterKind.DEFAULT,
+          ParameterKind.DEFAULT,
           TypeNode.createIdentifierExpression("ignore", range),
           // Array<i64> -> i64[]
           TypeNode.createNamedType(
@@ -84,12 +88,7 @@ export function createAddReflectedValueKeyValuePairsMember(
         ),
       ],
       // : void
-      TypeNode.createNamedType(
-        TypeNode.createSimpleTypeName("void", range),
-        [],
-        false,
-        range,
-      ),
+      TypeNode.createNamedType(TypeNode.createSimpleTypeName("void", range), [], false, range),
       null,
       false,
       range,
@@ -105,42 +104,30 @@ export function createAddReflectedValueKeyValuePairsMember(
  *
  * @param {ClassDeclaration} classDeclaration - The class declaration to be reported
  */
-function createAddReflectedValueKeyValuePairsFunctionBody(
-  classDeclaration: ClassDeclaration,
-): BlockStatement {
+function createAddReflectedValueKeyValuePairsFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
   const nameHashes = new Array<number>();
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, regardless of access modifier
-    if (member.is(assemblyscript.CommonFlags.INSTANCE)) {
+    if (member.is(CommonFlags.INSTANCE)) {
       switch (member.kind) {
         // field declarations automatically get added
-        case assemblyscript.NodeKind.FIELDDECLARATION: {
+        case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
           const hashValue = djb2Hash(member.name.text);
-          pushKeyValueIfStatement(
-            body,
-            member.name.text,
-            hashValue,
-            fieldDeclaration.range,
-          );
+          pushKeyValueIfStatement(body, member.name.text, hashValue, fieldDeclaration.range);
           nameHashes.push(hashValue);
           break;
         }
 
         // function declarations can be getters, check the get flag
-        case assemblyscript.NodeKind.METHODDECLARATION: {
-          if (member.is(assemblyscript.CommonFlags.GET)) {
+        case NodeKind.METHODDECLARATION: {
+          if (member.is(CommonFlags.GET)) {
             const methodDeclaration = <MethodDeclaration>member;
             const hashValue = djb2Hash(member.name.text);
-            pushKeyValueIfStatement(
-              body,
-              member.name.text,
-              hashValue,
-              methodDeclaration.range,
-            );
+            pushKeyValueIfStatement(body, member.name.text, hashValue, methodDeclaration.range);
             nameHashes.push(hashValue);
           }
           break;
@@ -162,10 +149,7 @@ function createAddReflectedValueKeyValuePairsFunctionBody(
  * @param {number[]} nameHashes - The array of property names to ignore in the children
  * @param {Range} range - The reporting range of this statement
  */
-function createIsDefinedIfStatement(
-  nameHashes: number[],
-  range: Range,
-): Statement {
+function createIsDefinedIfStatement(nameHashes: number[], range: Range): Statement {
   // if (isDefined(super.__aspectAddReflectedValueKeyValuePairs))
   //   super.__aspectAddReflectedValueKeyValuePairs(reflectedValue, seen, StaticArray.concat(ignore, [...] as StaticArray<i64>))
   return TypeNode.createIfStatement(
@@ -177,10 +161,7 @@ function createIsDefinedIfStatement(
         // super.__aspectAddReflectedValueKeyValuePairs
         TypeNode.createPropertyAccessExpression(
           TypeNode.createSuperExpression(range),
-          TypeNode.createIdentifierExpression(
-            "__aspectAddReflectedValueKeyValuePairs",
-            range,
-          ),
+          TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range),
           range,
         ),
       ],
@@ -193,10 +174,7 @@ function createIsDefinedIfStatement(
           TypeNode.createCallExpression(
             TypeNode.createPropertyAccessExpression(
               TypeNode.createSuperExpression(range),
-              TypeNode.createIdentifierExpression(
-                "__aspectAddReflectedValueKeyValuePairs",
-                range,
-              ),
+              TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range),
               range,
             ),
             null,
@@ -217,26 +195,14 @@ function createIsDefinedIfStatement(
                   TypeNode.createIdentifierExpression("ignore", range),
                   // [...propNames]
                   TypeNode.createAssertionExpression(
-                    assemblyscript.AssertionKind.AS,
+                    AssertionKind.AS,
                     TypeNode.createArrayLiteralExpression(
-                      nameHashes.map((e) =>
-                        TypeNode.createIntegerLiteralExpression(
-                          f64_as_i64(e),
-                          range,
-                        ),
-                      ),
+                      nameHashes.map((e) => TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range)),
                       range,
                     ),
                     TypeNode.createNamedType(
                       TypeNode.createSimpleTypeName("StaticArray", range),
-                      [
-                        TypeNode.createNamedType(
-                          TypeNode.createSimpleTypeName("i64", range),
-                          null,
-                          false,
-                          range,
-                        ),
-                      ],
+                      [TypeNode.createNamedType(TypeNode.createSimpleTypeName("i64", range), null, false, range)],
                       false,
                       range,
                     ),
@@ -265,17 +231,12 @@ function createIsDefinedIfStatement(
  * @param {string} name - The name of the property
  * @param {Range} range - The range for these statements
  */
-function pushKeyValueIfStatement(
-  body: Statement[],
-  name: string,
-  hashValue: number,
-  range: Range,
-): void {
+function pushKeyValueIfStatement(body: Statement[], name: string, hashValue: number, range: Range): void {
   body.push(
     // if (!ignore.includes("propName")) { ... }
     TypeNode.createIfStatement(
       TypeNode.createUnaryPrefixExpression(
-        assemblyscript.Token.EXCLAMATION,
+        Token.EXCLAMATION,
         // ignore.includes("propName")
         TypeNode.createCallExpression(
           TypeNode.createPropertyAccessExpression(
@@ -286,20 +247,14 @@ function pushKeyValueIfStatement(
           null,
           [
             // hashValue
-            TypeNode.createIntegerLiteralExpression(
-              f64_as_i64(hashValue),
-              range,
-            ),
+            TypeNode.createIntegerLiteralExpression(f64_as_i64(hashValue), range),
           ],
           range,
         ),
         range,
       ),
       TypeNode.createBlockStatement(
-        [
-          createPushReflectedObjectKeyStatement(name, range),
-          createPushReflectedObjectValueStatement(name, range),
-        ],
+        [createPushReflectedObjectKeyStatement(name, range), createPushReflectedObjectValueStatement(name, range)],
         range,
       ),
       null,
@@ -315,17 +270,11 @@ function pushKeyValueIfStatement(
  * @param {string} name - The name of the property
  * @param {Range} range - The reange for this function call
  */
-function createPushReflectedObjectKeyStatement(
-  name: string,
-  range: Range,
-): Statement {
+function createPushReflectedObjectKeyStatement(name: string, range: Range): Statement {
   // __aspectPushReflectedObjectKey(reflectedValue, Reflect.toReflectedValue("propertyName", seen));
   return TypeNode.createExpressionStatement(
     TypeNode.createCallExpression(
-      TypeNode.createIdentifierExpression(
-        "__aspectPushReflectedObjectKey",
-        range,
-      ),
+      TypeNode.createIdentifierExpression("__aspectPushReflectedObjectKey", range),
       null,
       [
         // reflectedValue
@@ -339,10 +288,7 @@ function createPushReflectedObjectKeyStatement(
             range,
           ),
           null,
-          [
-            TypeNode.createStringLiteralExpression(name, range),
-            TypeNode.createIdentifierExpression("seen", range),
-          ],
+          [TypeNode.createStringLiteralExpression(name, range), TypeNode.createIdentifierExpression("seen", range)],
           range,
         ),
       ],
@@ -358,19 +304,13 @@ function createPushReflectedObjectKeyStatement(
  * @param {string} name - The name of the property
  * @param {Range} range - The reange for this function call
  */
-function createPushReflectedObjectValueStatement(
-  name: string,
-  range: Range,
-): Statement {
+function createPushReflectedObjectValueStatement(name: string, range: Range): Statement {
   // __aspectPushReflectedObjectValue(reflectedValue, Reflect.toReflectedValue(this.propertyName, seen, ignore.concat([...])));
   return TypeNode.createExpressionStatement(
     // __aspectPushReflectedObjectValue(reflectedValue, Reflect.toReflectedValue(this.propertyName, seen, ignore.concat([...])))
     TypeNode.createCallExpression(
       // __aspectPushReflectedObjectValue
-      TypeNode.createIdentifierExpression(
-        "__aspectPushReflectedObjectValue",
-        range,
-      ),
+      TypeNode.createIdentifierExpression("__aspectPushReflectedObjectValue", range),
       null,
       [
         // reflectedValue

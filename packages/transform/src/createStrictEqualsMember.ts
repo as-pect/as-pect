@@ -1,7 +1,6 @@
-import { assemblyscript } from "@as-pect/assemblyscript";
 import { djb2Hash } from "./hash.js";
 
-const {
+import {
   TypeNode,
   Range,
   BlockStatement,
@@ -13,19 +12,12 @@ const {
   ParameterNode,
   PropertyAccessExpression,
   Statement,
+  AssertionKind,
+  CommonFlags,
+  NodeKind,
   Token,
-} = assemblyscript;
-type TypeNode = InstanceType<typeof TypeNode>;
-type Range = InstanceType<typeof Range>;
-type BlockStatement = InstanceType<typeof BlockStatement>;
-type ClassDeclaration = InstanceType<typeof ClassDeclaration>;
-type Expression = InstanceType<typeof Expression>;
-type FieldDeclaration = InstanceType<typeof FieldDeclaration>;
-type IfStatement = InstanceType<typeof IfStatement>;
-type MethodDeclaration = InstanceType<typeof MethodDeclaration>;
-type ParameterNode = InstanceType<typeof ParameterNode>;
-type PropertyAccessExpression = InstanceType<typeof PropertyAccessExpression>;
-type Statement = InstanceType<typeof Statement>;
+  ParameterKind,
+} from "assemblyscript/dist/assemblyscript.js";
 
 /**
  * This method creates a single FunctionDeclaration that allows Reflect.equals
@@ -33,18 +25,14 @@ type Statement = InstanceType<typeof Statement>;
  *
  * @param {ClassDeclaration} classDeclaration - The class that requires a new function.
  */
-export function createStrictEqualsMember(
-  classDeclaration: ClassDeclaration,
-): MethodDeclaration {
+export function createStrictEqualsMember(classDeclaration: ClassDeclaration): MethodDeclaration {
   const range = classDeclaration.name.range;
 
   // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: StaticArray<i64>): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
     null,
-    assemblyscript.CommonFlags.PUBLIC |
-      assemblyscript.CommonFlags.INSTANCE |
-      (classDeclaration.isGeneric ? assemblyscript.CommonFlags.GENERIC_CONTEXT : 0),
+    CommonFlags.PUBLIC | CommonFlags.INSTANCE | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
     null,
     TypeNode.createFunctionType(
       [
@@ -55,12 +43,7 @@ export function createStrictEqualsMember(
             TypeNode.createSimpleTypeName(classDeclaration.name.text, range),
             classDeclaration.isGeneric
               ? classDeclaration.typeParameters!.map((node) =>
-                  TypeNode.createNamedType(
-                    TypeNode.createSimpleTypeName(node.name.text, range),
-                    null,
-                    false,
-                    range,
-                  ),
+                  TypeNode.createNamedType(TypeNode.createSimpleTypeName(node.name.text, range), null, false, range),
                 )
               : null,
             false,
@@ -78,14 +61,7 @@ export function createStrictEqualsMember(
           "ignore",
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName("StaticArray", range),
-            [
-              TypeNode.createNamedType(
-                TypeNode.createSimpleTypeName("i64", range),
-                null,
-                false,
-                range,
-              ),
-            ],
+            [TypeNode.createNamedType(TypeNode.createSimpleTypeName("i64", range), null, false, range)],
             false,
             range,
           ),
@@ -110,12 +86,7 @@ export function createStrictEqualsMember(
  * @param {Range} range - The given source range.
  */
 function createSimpleNamedType(name: string, range: Range): TypeNode {
-  return TypeNode.createNamedType(
-    TypeNode.createSimpleTypeName(name, range),
-    null,
-    false,
-    range,
-  );
+  return TypeNode.createNamedType(TypeNode.createSimpleTypeName(name, range), null, false, range);
 }
 
 /**
@@ -126,14 +97,7 @@ function createSimpleNamedType(name: string, range: Range): TypeNode {
 function createArrayType(name: string, range: Range): TypeNode {
   return TypeNode.createNamedType(
     TypeNode.createSimpleTypeName("Array", range),
-    [
-      TypeNode.createNamedType(
-        TypeNode.createSimpleTypeName(name, range),
-        null,
-        false,
-        range,
-      ),
-    ],
+    [TypeNode.createNamedType(TypeNode.createSimpleTypeName(name, range), null, false, range)],
     false,
     range,
   );
@@ -144,44 +108,30 @@ function createArrayType(name: string, range: Range): TypeNode {
  *
  * @param {ClassDeclaration} classDeclaration - The class declaration.
  */
-function createStrictEqualsFunctionBody(
-  classDeclaration: ClassDeclaration,
-): BlockStatement {
+function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
   const nameHashes = new Array<number>();
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, regardless of access modifier
-    if (member.is(assemblyscript.CommonFlags.INSTANCE)) {
+    if (member.is(CommonFlags.INSTANCE)) {
       switch (member.kind) {
         // field declarations automatically get added
-        case assemblyscript.NodeKind.FIELDDECLARATION: {
+        case NodeKind.FIELDDECLARATION: {
           const fieldDeclaration = <FieldDeclaration>member;
           const hashValue = djb2Hash(member.name.text);
-          body.push(
-            createStrictEqualsIfCheck(
-              member.name.text,
-              hashValue,
-              fieldDeclaration.range,
-            ),
-          );
+          body.push(createStrictEqualsIfCheck(member.name.text, hashValue, fieldDeclaration.range));
           nameHashes.push(hashValue);
           break;
         }
 
         // function declarations can be getters, check the get flag
-        case assemblyscript.NodeKind.METHODDECLARATION: {
-          if (member.is(assemblyscript.CommonFlags.GET)) {
+        case NodeKind.METHODDECLARATION: {
+          if (member.is(CommonFlags.GET)) {
             const methodDeclaration = <MethodDeclaration>member;
             const hashValue = djb2Hash(member.name.text);
-            body.push(
-              createStrictEqualsIfCheck(
-                methodDeclaration.name.text,
-                hashValue,
-                methodDeclaration.name.range,
-              ),
-            );
+            body.push(createStrictEqualsIfCheck(methodDeclaration.name.text, hashValue, methodDeclaration.name.range));
             nameHashes.push(hashValue);
           }
           break;
@@ -193,9 +143,7 @@ function createStrictEqualsFunctionBody(
   // if (isDefined(...)) super.__aspectStrictEquals(ref, stack, cache, ignore.concat([...props]));
   body.push(createSuperCallStatement(classDeclaration, nameHashes));
   // return true;
-  body.push(
-    TypeNode.createReturnStatement(TypeNode.createTrueExpression(range), range),
-  );
+  body.push(TypeNode.createReturnStatement(TypeNode.createTrueExpression(range), range));
   return TypeNode.createBlockStatement(body, range);
 }
 
@@ -206,11 +154,7 @@ function createStrictEqualsFunctionBody(
  * @param {string} name - The name of the property.
  * @param {Range} range - The source range for the given property.
  */
-function createStrictEqualsIfCheck(
-  name: string,
-  hashValue: number,
-  range: Range,
-): IfStatement {
+function createStrictEqualsIfCheck(name: string, hashValue: number, range: Range): IfStatement {
   const equalsCheck = TypeNode.createBinaryExpression(
     Token.EQUALS_EQUALS,
     // Reflect.equals(this.prop, ref.prop, stack, cache)
@@ -261,18 +205,10 @@ function createStrictEqualsIfCheck(
   // if (Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAILED_MATCH) return false;
   return TypeNode.createIfStatement(
     // Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAILED_MATCH
-    TypeNode.createBinaryExpression(
-      Token.AMPERSAND_AMPERSAND,
-      includesCheck,
-      equalsCheck,
-      range,
-    ),
+    TypeNode.createBinaryExpression(Token.AMPERSAND_AMPERSAND, includesCheck, equalsCheck, range),
 
     // return false;
-    TypeNode.createReturnStatement(
-      TypeNode.createFalseExpression(range),
-      range,
-    ),
+    TypeNode.createReturnStatement(TypeNode.createFalseExpression(range), range),
     null,
     range,
   );
@@ -285,13 +221,9 @@ function createStrictEqualsIfCheck(
  * @param {TypeNode} typeNode - The type of the parameter.
  * @param {Range} range - The source range of the parameter.
  */
-function createDefaultParameter(
-  name: string,
-  typeNode: TypeNode,
-  range: Range,
-): ParameterNode {
+function createDefaultParameter(name: string, typeNode: TypeNode, range: Range): ParameterNode {
   return TypeNode.createParameter(
-    assemblyscript.ParameterKind.DEFAULT,
+    ParameterKind.DEFAULT,
     TypeNode.createIdentifierExpression(name, range),
     typeNode,
     null,
@@ -306,11 +238,7 @@ function createDefaultParameter(
  * @param {string} property - The name of the identifier representing the property.
  * @param {Range} range - The range of the property access.
  */
-function createPropertyAccess(
-  root: string,
-  property: string,
-  range: Range,
-): PropertyAccessExpression {
+function createPropertyAccess(root: string, property: string, range: Range): PropertyAccessExpression {
   // root.property
   return TypeNode.createPropertyAccessExpression(
     TypeNode.createIdentifierExpression(root, range),
@@ -326,10 +254,7 @@ function createPropertyAccess(
  * @param {ClassDeclaration} classDeclaration - The given class declaration.
  * @param {number[]} nameHashes - A collection of hash values of the comparing class properties.
  */
-function createSuperCallStatement(
-  classDeclaration: ClassDeclaration,
-  nameHashes: number[],
-): Statement {
+function createSuperCallStatement(classDeclaration: ClassDeclaration, nameHashes: number[]): Statement {
   const range = classDeclaration.name.range;
   const ifStatement = TypeNode.createIfStatement(
     TypeNode.createCallExpression(
@@ -347,15 +272,8 @@ function createSuperCallStatement(
     TypeNode.createBlockStatement(
       [
         TypeNode.createIfStatement(
-          TypeNode.createUnaryPrefixExpression(
-            Token.EXCLAMATION,
-            createSuperCallExpression(nameHashes, range),
-            range,
-          ),
-          TypeNode.createReturnStatement(
-            TypeNode.createFalseExpression(range),
-            range,
-          ),
+          TypeNode.createUnaryPrefixExpression(Token.EXCLAMATION, createSuperCallExpression(nameHashes, range), range),
+          TypeNode.createReturnStatement(TypeNode.createFalseExpression(range), range),
           null,
           range,
         ),
@@ -374,10 +292,7 @@ function createSuperCallStatement(
  * @param {number[]} hashValues - The collection of hashed property name values
  * @param {Range} range - The super call expression range
  */
-function createSuperCallExpression(
-  hashValues: number[],
-  range: Range,
-): Expression {
+function createSuperCallExpression(hashValues: number[], range: Range): Expression {
   return TypeNode.createCallExpression(
     TypeNode.createPropertyAccessExpression(
       TypeNode.createSuperExpression(range),
@@ -401,23 +316,14 @@ function createSuperCallExpression(
           TypeNode.createIdentifierExpression("ignore", range),
           // [...] as StaticArray<i64>
           TypeNode.createAssertionExpression(
-            assemblyscript.AssertionKind.AS,
+            AssertionKind.AS,
             TypeNode.createArrayLiteralExpression(
-              hashValues.map((e) =>
-                TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range),
-              ),
+              hashValues.map((e) => TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range)),
               range,
             ),
             TypeNode.createNamedType(
               TypeNode.createSimpleTypeName("StaticArray", range),
-              [
-                TypeNode.createNamedType(
-                  TypeNode.createSimpleTypeName("i64", range),
-                  null,
-                  false,
-                  range,
-                ),
-              ],
+              [TypeNode.createNamedType(TypeNode.createSimpleTypeName("i64", range), null, false, range)],
               false,
               range,
             ),
