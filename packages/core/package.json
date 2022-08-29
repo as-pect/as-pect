@@ -32,9 +32,7 @@
     "test": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js",
     "test:log": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js log",
     "asc:all": "run-p pretest:group-filter pretest:log pretest:pass-fail pretest:wasi pretest:reporter-pass pretest:reporter-fail pretest:reporter-flow-error pretest:reporter-snapshot pretest:reporter-top-level-expect",
-    "tsc": "run-p tsc:default tsc:amd",
-    "tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap || echo \"Typescript has a type error problem and it exited code 1... continuing\"",
-    "tsc:default": "tsc || echo \"Typescript has a type error problem and it exited code 1... continuing\"",
+    "tsc": "tsc",
     "test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js -u",
     "tsc:all": "run-s rimraf tsc asc:all"
   },

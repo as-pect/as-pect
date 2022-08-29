@@ -52,7 +52,9 @@
     "assemblyscript": "^0.21.2"
   },
   "devDependencies": {
-    "assemblyscript": "^0.21.2"
+    "assemblyscript": "^0.21.2",
+    "@as-pect/csv-reporter": "^6.2.1",
+    "@as-pect/json-reporter": "^6.2.1"
   },
   "optionalDependencies": {
     "@as-pect/csv-reporter": "^6.2.1",
