@@ -5,24 +5,23 @@ import { promises as fs, readdirSync } from "fs";
 import { readFileSync } from "fs";
 import url from "url";
 import chalk from "chalk-template";
-import { printAsciiArt } from "./asciiArt.js"
+import { printAsciiArt } from "./asciiArt.js";
 import { promise as glob } from "glob-promise";
 import { IAspectConfig } from "./IAspectConfig.js";
 
-import { asc as cli } from "@as-pect/assemblyscript";
+import { main as asc } from "assemblyscript/dist/asc.js";
 import { init } from "./init.js";
 import { TestContext } from "@as-pect/core";
 import { Snapshot } from "@as-pect/snapshots";
 import { collectReporter } from "./collectReporter.js";
 import { instantiate } from "@assemblyscript/loader";
 
-const asc = cli.main;
-
 // set the cli options
+// prettier-ignore
 program
   .option("-n, --no-logo", "Don't display the as-pect logo.", false)
   .option("-c, --config <config_location>", "Specify the location of your [as-pect.config.js]", "./as-pect.config.js")
-  .option("-a, --as-config <asconfig_location>", "Specify the location of the as-pect asconfig. (default: `./as-pect.asconfig.json`)", "./as-pect.asconfig.json")
+  .option( "-a, --as-config <asconfig_location>", "Specify the location of the as-pect asconfig. (default: `./as-pect.asconfig.json`)", "./as-pect.asconfig.json")
   .option("-v, --version", "Display the as-pect version.", false)
   .option("--init", "Initialize a testing project.", false)
   // memory options
@@ -37,7 +36,7 @@ program
   .option("--no-run", "Skip running tests, and output the binary files.", false)
   .option("-u, --update-snapshots", "Update the existing snapshots.", false)
   .option("--summary", "Use the summary reporter. {yellow (This is the default if no reporter is specified.)}", false)
-  .option("--verbose","Use a more verbose reporter.", false)
+  .option("--verbose", "Use a more verbose reporter.", false)
   .option("--csv", "Use the csv reporter (output results to csv files.)", false)
   .option("--json", "Use the json reporter (output results to json files.)", false)
   .option("--reporter", "Define a custom reporter (path or module)", false)
@@ -45,7 +44,7 @@ program
   .option("-s, --show-stats", "Show compiler stats between compilations.", false);
 
 // const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 export async function asp(argv = process.argv): Promise<void> {
   const opts = program.parse(argv).opts();
@@ -83,8 +82,7 @@ export async function asp(argv = process.argv): Promise<void> {
   let entryFilterRegexes = [] as RegExp[];
   if (opts.disclue) entryFilterRegexes.push(new RegExp(opts.disclude));
   if (aspectConfig.disclude) entryFilterRegexes.push(...aspectConfig.disclude);
-  const filterEntry = (str: string) => entryFilterRegexes
-    .reduce((left, right) => left && !right.test(str), true);
+  const filterEntry = (str: string) => entryFilterRegexes.reduce((left, right) => left && !right.test(str), true);
 
   /** All the included entry points that get added to every compilation. */
   const includes = new Set<string>();
@@ -154,12 +152,10 @@ export async function asp(argv = process.argv): Promise<void> {
         if (folderMap.has(folder)) return folderMap.get(folder)!;
 
         try {
-          const files = readdirSync(folder).filter(
-            file => /^(?!.*\.d\.ts$).*\.ts$/.test(file)
-          );
+          const files = readdirSync(folder).filter((file) => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
           folderMap.set(folder, files);
           return files;
-        } catch(ex) {
+        } catch (ex) {
           return null;
         }
       },
@@ -177,10 +173,8 @@ export async function asp(argv = process.argv): Promise<void> {
     const binary = files.get("output.wasm")!;
 
     // output the wasm file
-    if (opts.outputBinary || aspectConfig.outputBinary) await fs.writeFile(
-      path.join(dir, path.basename(entry, path.extname(entry))) + ".wasm",
-      binary,
-    );
+    if (opts.outputBinary || aspectConfig.outputBinary)
+      await fs.writeFile(path.join(dir, path.basename(entry, path.extname(entry))) + ".wasm", binary);
 
     // collect the snapshots for this entry in `{dir}/__snapshots__/{basename}.snap`
     let snapshots: undefined | Snapshot = void 0;
@@ -221,20 +215,21 @@ export async function asp(argv = process.argv): Promise<void> {
       wasi: wasi,
     });
 
-    const descriptor = { initial: parseInt(opts.memorySize) } as WebAssembly.MemoryDescriptor;
+    const descriptor = {
+      initial: parseInt(opts.memorySize),
+    } as WebAssembly.MemoryDescriptor;
     if (opts.memoryMax) {
       descriptor.maximum = parseInt(opts.memoryMax);
     }
     const memory = new WebAssembly.Memory(descriptor);
 
     // import the module by generating the assemblyscript imports
-    const module = await aspectConfig
-      .instantiate(
-        memory,
-        (...args: any[]) => ctx.createImports(...args),
-        instantiate,
-        binary,
-      );
+    const module = await aspectConfig.instantiate(
+      memory,
+      (...args: any[]) => ctx.createImports(...args),
+      instantiate,
+      binary,
+    );
 
     ctx.run({
       exports: module.instance.exports as any,
@@ -242,4 +237,3 @@ export async function asp(argv = process.argv): Promise<void> {
     });
   }
 }
-

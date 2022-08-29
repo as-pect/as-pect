@@ -1,7 +1,5 @@
-
-import { transform, assemblyscript } from "@as-pect/assemblyscript";
-type Parser = typeof assemblyscript.Parser;
-const { Transform } = transform;
+import { Parser } from "assemblyscript/dist/assemblyscript.js";
+import { Transform } from "assemblyscript/dist/transform.js";
 
 /**
  * Just an empty transformer.
@@ -9,4 +7,4 @@ const { Transform } = transform;
 export default class AspectTransform extends Transform {
   // @ts-ignore
   afterParse(_parser: Parser): void {}
-};
+}

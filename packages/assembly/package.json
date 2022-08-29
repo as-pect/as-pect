@@ -7,8 +7,8 @@
   "scripts": {
     "asp:ci": "node --experimental-wasi-unstable-preview1 ../cli/lib/test.js --summary",
     "asp": "node --experimental-wasi-unstable-preview1 ../cli/lib/test.js --verbose",
-    "test:ci": "run-s asp:ci",
-    "test": "run-s asp",
+    "test:ci": "asp:ci",
+    "test": "asp",
     "tsc:all": "exit 0",
     "test:update-snapshots": "exit 0",
     "asbuild:debug": "asc assembly/index.ts --target debug",
@@ -47,6 +47,8 @@
     }
   },
   "devDependencies": {
-    "assemblyscript": "^0.21.2"
+    "assemblyscript": "^0.21.2",
+    "@as-pect/cli": "^6.2.4",
+    "@as-pect/transform": "^6.2.4"
   }
 }

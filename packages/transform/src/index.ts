@@ -1,24 +1,13 @@
-// import { Transform } from "assemblyscript/cli/transform";
-import {
-  assemblyscript,
-  transform,
-} from "@as-pect/assemblyscript";
-const { Transform } = transform;
-type Transform = InstanceType<typeof Transform>;
+import { Transform } from "assemblyscript/dist/transform.js";
 
-const {
+import {
   ClassDeclaration,
   NamespaceDeclaration,
   NodeKind,
   Parser,
   Statement,
   Source,
-} = assemblyscript;
-type ClassDeclaration = InstanceType<typeof ClassDeclaration>;
-type NamespaceDeclaration = InstanceType<typeof NamespaceDeclaration>;
-type Parser = InstanceType<typeof Parser>;
-type Statement = InstanceType<typeof Statement>;
-type Source = InstanceType<typeof Source>;
+} from "assemblyscript/dist/assemblyscript.js";
 
 import { createStrictEqualsMember } from "./createStrictEqualsMember.js";
 import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember.js";
@@ -42,7 +31,7 @@ export default class AspectTransform extends Transform {
       traverseStatements(source.statements);
     }
   }
-};
+}
 
 function traverseStatements(statements: Statement[]): void {
   // for each statement in the source

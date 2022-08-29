@@ -2,7 +2,9 @@
   "name": "@as-pect/cli",
   "version": "6.2.4",
   "description": "Write AssemblyScript tests at blazing fast speeds",
-  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "types": "lib/index.d.ts",
   "type": "module",
   "scripts": {
@@ -16,8 +18,8 @@
     "tsc": "run-s rimraf tsc:all"
   },
   "bin": {
-    "asp": "bin/asp",
-    "aspect": "bin/asp"
+    "asp": "./bin/asp.js",
+    "aspect": "./bin/asp.js"
   },
   "repository": {
     "type": "git",
@@ -47,7 +49,10 @@
     "glob-promise": "^5.0.0"
   },
   "peerDependencies": {
-    "assemblyscript": "^0.21.1"
+    "assemblyscript": "^0.21.2"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.21.2"
   },
   "optionalDependencies": {
     "@as-pect/csv-reporter": "^6.2.1",

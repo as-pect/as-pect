@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@as-pect/assemblyscript": "^6.2.4"
+    "assemblyscript": "^0.21.2"
   },
   "devDependencies": {
     "typescript": "^4.8.2"
