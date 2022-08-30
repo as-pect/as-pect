@@ -2,6 +2,7 @@ import { WASIOptions } from "wasi";
 import { ResultObject } from "@assemblyscript/loader";
 
 export interface IAspectConfig {
+  coverage?: string[];
   disclude?: RegExp[];
   include?: string[];
   entries?: string[];

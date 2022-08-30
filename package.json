@@ -10,7 +10,7 @@
     "test:ci": "run-s tsc:all test:ci:all",
     "test:ci:all": "lerna run test:ci",
     "test:all": "lerna run test",
-    "tsc:all": "lerna run tsc:all",
+    "tsc:all": "lerna run tsc:all && lerna run tsc:cli",
     "prettier": "prettier --write \"**/src/**/*.ts\" \"**/*.md\"",
     "lint": "eslint --fix --max-warnings 0 --ext ts \"packages/**/assembly/**/*.ts\"",
     "check": "run-s prettier lint"

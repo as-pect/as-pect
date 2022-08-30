@@ -1,4 +1,4 @@
-export class A {}
+class A {}
 class B extends A {
   constructor(public a: A | null = null) {
     super();

@@ -5,11 +5,10 @@
   "main": "lib/index.js",
   "type": "module",
   "scripts": {
-    "tsc:all": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tsc:all": "tsc"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Joshua Tenner <tenner.joshua@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "assemblyscript": "^0.21.2"
   },

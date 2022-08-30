@@ -13,9 +13,8 @@
     "test:ci": "jest",
     "test": "jest",
     "test:update-snapshots": "jest -u",
-    "tsc:all": "run-p tsc:default",
-    "tsc:default": "tsc",
-    "tsc": "run-s rimraf tsc:all"
+    "tsc:cli": "run-s rimraf tsc",
+    "tsc": "tsc"
   },
   "bin": {
     "asp": "./bin/asp.js",

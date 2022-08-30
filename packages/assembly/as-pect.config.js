@@ -14,12 +14,12 @@ export default {
   /**
    * Add your required AssemblyScript imports here.
    */
-  imports(memory, createImports, instantiateSync, binary) {
+  async instantiate(memory, createImports, instantiate, binary) {
     let instance; // Imports can reference this
     const myImports = {
       // put your web assembly imports here, and return the module
     };
-    instance = instantiateSync(binary, createImports(myImports));
+    instance = instantiate(binary, createImports(myImports));
     return instance;
   },
   /** Add code coverage. */

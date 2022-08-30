@@ -61,9 +61,12 @@ export class Snapshot {
     const parser = new SnapshotParser();
     parser.input = tokenizedResult.tokens;
     const node = parser.snapshots();
+    if (!node.children.string_token) return result;
+    
     for (let i = 0; i < node.children.string_token.length; i += 2) {
       let first = parseImageCSTElement(node.children.string_token[i]);
       let second = parseImageCSTElement(node.children.string_token[i + 1]);
+      console.log(first, second);
       result.values.set(first, second);
     }
     return result;

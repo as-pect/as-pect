@@ -4,7 +4,7 @@ import path from "path";
 import { promises as fs, readdirSync } from "fs";
 import { readFileSync } from "fs";
 import url from "url";
-import chalk from "chalk-template";
+import chalk from "chalk";
 import { printAsciiArt } from "./asciiArt.js";
 import { promise as glob } from "glob-promise";
 import { IAspectConfig } from "./IAspectConfig.js";
@@ -12,7 +12,7 @@ import { IAspectConfig } from "./IAspectConfig.js";
 import { main as asc } from "assemblyscript/dist/asc.js";
 import { init } from "./init.js";
 import { TestContext } from "@as-pect/core";
-import { Snapshot } from "@as-pect/snapshots";
+import { Snapshot, SnapshotDiffResultType } from "@as-pect/snapshots";
 import { collectReporter } from "./collectReporter.js";
 import { instantiate } from "@assemblyscript/loader";
 
@@ -46,6 +46,23 @@ program
 // const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
+export const enum SnapshotMode {
+  WriteSnapshots,
+  CompareSnapshots,
+}
+
+export function log(str: string): void {
+  stdout.write(
+    chalk.bgWhite.black("[Log]") + `${str}\n`
+  );
+}
+
+export function warning(str: string): void {
+  stdout.write(
+    chalk.bgYellow.black("[Warning]") + `${str}\n`
+  );
+}
+
 export async function asp(argv = process.argv): Promise<void> {
   const opts = program.parse(argv).opts();
   const pkgLocation = path.join(__dirname, "../package.json");
@@ -66,7 +83,7 @@ export async function asp(argv = process.argv): Promise<void> {
   }
 
   // always print the version and exit if v
-  process.stdout.write(chalk`⚡AS-pect⚡ Test suite runner {bgGreenBright.bold.black [${version}]}\n`);
+  process.stdout.write(`⚡AS-pect⚡ Test suite runner ${chalk.bgGreenBright.bold.black(`[${version}]`)}\n`);
   if (opts.version) {
     process.exit(0);
   }
@@ -76,7 +93,7 @@ export async function asp(argv = process.argv): Promise<void> {
   const configLocation = path.join(cwd, configRelativeLocation);
   const aspectConfig = (await import("file://" + configLocation)).default as IAspectConfig;
 
-  stdout.write(`Using config: ${configLocation}`);
+  stdout.write(`Using config: ${configLocation}\n`);
 
   // filter entries using array of regexp
   let entryFilterRegexes = [] as RegExp[];
@@ -123,7 +140,20 @@ export async function asp(argv = process.argv): Promise<void> {
   const fileMap = new Map<string, string>();
   const folderMap = new Map<string, string[]>();
 
-  console.log(entries);
+  const overallStats = {
+    addedSnapshots: 0,
+    removedSnapshots: 0,
+    passedSnapshots: 0,
+    totalSnapshots: 0,
+    groups: 0,
+    passedGroups: 0,
+    tests: 0,
+    passedTests: 0,
+  }
+
+  if (aspectConfig.coverage) {
+    log(`Using code coverage: ${aspectConfig.coverage.join(", ",)}`)
+  }
 
   // foreach entry point, we compile it
   for (const entry of entries) {
@@ -131,6 +161,8 @@ export async function asp(argv = process.argv): Promise<void> {
     const dir = path.dirname(entry);
     const basename = path.basename(entry, path.extname(entry));
     const ascArgs = [entry, ...includes, "--config", asconfigLocation];
+
+
 
     const compiled = await asc(ascArgs, {
       readFile(filename, baseDir) {
@@ -170,24 +202,24 @@ export async function asp(argv = process.argv): Promise<void> {
 
     // for emitting compiler stats
     if (opts.showStats) process.stdout.write(compiled.stats.toString());
-    const binary = files.get("output.wasm")!;
+    const outputFileKey = Array.from(files.keys()).filter(e => e.endsWith("output.wasm"))[0]!;
+    const binary = files.get(outputFileKey)!;
 
     // output the wasm file
     if (opts.outputBinary || aspectConfig.outputBinary)
       await fs.writeFile(path.join(dir, path.basename(entry, path.extname(entry))) + ".wasm", binary);
 
     // collect the snapshots for this entry in `{dir}/__snapshots__/{basename}.snap`
-    let snapshots: undefined | Snapshot = void 0;
     const snapshotPath = path.join(dir, "__snapshots__", basename + ".snap");
-    if (await (await fs.stat(snapshotPath)).isFile()) {
-      try {
-        snapshots = Snapshot.parse(await fs.readFile(snapshotPath, "utf8"));
-      } catch (ex) {
-        stdout.write(`An error occurred while parsing snapshot: ${snapshotPath}`);
-        console.error(ex);
-        process.exit(1);
-      }
-    }
+    const snapshotMode = opts.updateSnapshots
+      ? SnapshotMode.WriteSnapshots
+      : await fs.access(snapshotPath)
+        .then(() => SnapshotMode.CompareSnapshots)
+        .catch(() => SnapshotMode.WriteSnapshots);
+
+    const snapshots = snapshotMode === SnapshotMode.CompareSnapshots
+      ? Snapshot.parse(await fs.readFile(snapshotPath, "utf8"))
+      : void 0;
 
     // collect wasi if it exists
     let wasi: import("wasi").WASI | undefined = void 0;
@@ -204,6 +236,15 @@ export async function asp(argv = process.argv): Promise<void> {
 
     const reporter = await collectReporter(opts, aspectConfig);
 
+    /** Potentailly enable code coverage, using the configurated globs */
+    let covers: import("@as-covers/glue").Covers | null = null;
+    const coverageFiles = aspectConfig.coverage || [];
+    if (coverageFiles.length !== 0) {
+      const Covers = (await import("@as-covers/glue")).Covers;
+      covers = new Covers({ files: coverageFiles });
+    }
+
+
     // create the testing host
     const ctx = new TestContext({
       reporter,
@@ -219,21 +260,61 @@ export async function asp(argv = process.argv): Promise<void> {
       initial: parseInt(opts.memorySize),
     } as WebAssembly.MemoryDescriptor;
     if (opts.memoryMax) {
-      descriptor.maximum = parseInt(opts.memoryMax);
+      const maximum = parseInt(opts.memoryMax);
+      if (maximum !== -1) {
+        descriptor.maximum = maximum;
+      }
     }
     const memory = new WebAssembly.Memory(descriptor);
 
     // import the module by generating the assemblyscript imports
     const module = await aspectConfig.instantiate(
       memory,
-      (...args: any[]) => ctx.createImports(...args),
+      (...args: any[]) => covers
+        ? covers.installImports(ctx.createImports(...args))
+        : ctx.createImports(...args),
       instantiate,
       binary,
     );
 
-    ctx.run({
-      exports: module.instance.exports as any,
-      instance: module.instance,
-    });
+    ctx.run(module as any);
+
+    if (snapshotMode === SnapshotMode.CompareSnapshots) {
+
+      const expectedSnapshots = ctx.expectedSnapshots;
+      // the diff is garunteed to exist at this point.
+      const diff = ctx.snapshotDiff!;
+
+      let addedSnapshots = 0;
+      // first, loop over every diff, and add each snapshot that was added to the expected snapshots
+      for (const [diffName, diffResult] of diff.results) {
+        addedSnapshots += 1;
+        if (diffResult.type === SnapshotDiffResultType.Added) {
+          expectedSnapshots.add(diffName, diffResult.left!); // Left is the actual value
+        }
+      }
+
+      // if snapshots were added, we need to update them
+      if (addedSnapshots > 0) {
+        overallStats.addedSnapshots += addedSnapshots;
+        await fs.writeFile(snapshotPath, expectedSnapshots.stringify(), "utf8");
+      }
+
+
+    } else {
+      // we are creating the snapshots, make sure the directory exists
+      const snapshotDir = path.dirname(snapshotPath);
+      try {
+        await fs.access(snapshotDir);
+      } catch(ex) {
+        await fs.mkdir(snapshotDir);
+      }
+  
+      // if all the test nodes pass, we need to write the file output
+      if (ctx.rootNode.pass) {
+        const output = ctx.snapshots.stringify();
+        await fs.writeFile(snapshotPath, output, "utf8");
+      }
+    }
   }
 }

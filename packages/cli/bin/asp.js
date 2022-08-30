@@ -2,23 +2,23 @@
 import { spawn } from "child_process";
 import process from "process";
 import path from "path";
-let nodeVersion = parseInt(process.version.match(/^v(\d+)\./)[1]);
+import url from "url";
 
-function relativeFromMeta(metaUrl, relativePath) {
-  return path.resolve(
-    path.dirname(metaUrl.replace("file://", "")),
-    relativePath,
-  );
-}
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+const nodeVersion = parseInt(process.version.match(/^v(\d+)\./)[1]);
+
+const jsPath = path.join(__dirname, "../lib/test.js");
 
 const args = [
-  relativeFromMeta(import.meta.url, "../lib/test.js"),
+  jsPath,
   ...process.argv.slice(2),
 ];
+
 
 if (nodeVersion >= 12 && nodeVersion < 16)
   args.unshift("--experimental-wasm-bigint");
 if (nodeVersion >= 13) args.unshift("--experimental-wasi-unstable-preview1");
+args.unshift("--enable-source-maps");
 
 const spawned = spawn("node", args, {
   env: Object.assign({}, process.env, {

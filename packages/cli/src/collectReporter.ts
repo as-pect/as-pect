@@ -3,9 +3,10 @@ import { IReporter, CombinationReporter, SummaryReporter, VerboseReporter } from
 import { cwd, exit, stderr } from "process";
 import { OptionValues } from "commander";
 import path from "path";
+import process from "process";
 
 /** Collect up the reporter asynchronously because modules could be imported. */
-export async function collectReporter(opts: OptionValues, aspectConfig: IAspectConfig): Promise<IReporter> {
+export async function getReporter(opts: OptionValues, aspectConfig: IAspectConfig): Promise<IReporter> {
   const reporters = [] as IReporter[];
   if (aspectConfig.reporter) {
     const reporterRelativeLocation = aspectConfig.reporter;
@@ -45,4 +46,11 @@ export async function collectReporter(opts: OptionValues, aspectConfig: IAspectC
   }
 
   return new CombinationReporter(reporters);
+}
+
+export async function collectReporter(opts: OptionValues, aspectConfig: IAspectConfig): Promise<IReporter> {
+  const reporter = await getReporter(opts, aspectConfig);
+  reporter.stdout = process.stdout;
+  reporter.stderr = process.stderr;
+  return reporter;
 }

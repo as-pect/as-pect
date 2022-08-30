@@ -1,5 +1,5 @@
 import { TestContext } from "../test/TestContext.js";
-import { IReporter } from "./IReporter.js";
+import { IReporter, IWritable } from "./IReporter.js";
 import { TestNode } from "../test/TestNode.js";
 
 /**
@@ -8,6 +8,22 @@ import { TestNode } from "../test/TestNode.js";
  */
 export class CombinationReporter implements IReporter {
   constructor(protected reporters: IReporter[]) {}
+
+  get stdout(): IWritable | null {
+    return this.reporters[0].stdout;
+  }
+
+  get stderr(): IWritable | null {
+    return this.reporters[0].stderr;
+  }
+
+  set stdout(writer: IWritable | null) {
+    this.reporters.forEach((e) => e.stdout = writer);
+  }
+
+  set stderr(writer: IWritable | null) {
+    this.reporters.forEach((e) => e.stdout = writer);
+  }
 
   onEnter(ctx: TestContext, node: TestNode) {
     this.reporters.forEach((e) => e.onEnter(ctx, node));
