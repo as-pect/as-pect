@@ -172,27 +172,28 @@ export class SummaryReporter implements IReporter {
 
     const diff = suite.snapshotDiff!.results;
     for (const [name, result] of diff.entries()) {
-      if (result.type !== SnapshotDiffResultType.NoChange) {
-        this.stdout!.write(`${chalk.red("[Snapshot]")}: ${name}\n`);
+      if (result.type === SnapshotDiffResultType.NoChange) continue;
+      console.log("A change occurred");
+      this.stdout!.write(`${chalk.red("[Snapshot]")}: ${name}\n`);
 
-        const changes = result.changes;
-        for (const change of changes) {
-          const lines = change.value.split("\n");
-          for (const line of lines) {
-            if (!line.trim()) continue;
-            if (change.added) {
-              this.stdout!.write(
-                chalk.green(`+ ${line}\n`),
-              );
-            } else if (change.removed) {
-              this.stdout!.write(`${chalk.red(`- ${line}`)}\n`);
-            } else {
-              this.stdout!.write(`  ${line}\n`);
-            }
+      const changes = result.changes;
+      for (const change of changes) {
+        const lines = change.value.split("\n");
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          if (change.added) {
+            this.stdout!.write(
+              chalk.green(`+ ${line}\n`),
+            );
+          } else if (change.removed) {
+            this.stdout!.write(`${chalk.red(`- ${line}`)}\n`);
+          } else {
+            this.stdout!.write(`  ${line}\n`);
           }
         }
-        this.stdout!.write("\n");
       }
+      this.stdout!.write("\n");
+      
     }
   }
 

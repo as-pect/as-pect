@@ -7,8 +7,8 @@
   "scripts": {
     "asp:ci": "node --experimental-wasi-unstable-preview1 ../cli/lib/test.js --summary",
     "asp": "node --experimental-wasi-unstable-preview1 ../cli/lib/test.js --verbose",
-    "test:ci": "asp:ci",
-    "test": "asp",
+    "test:ci": "asp --summary",
+    "test": "asp --verbose",
     "tsc:all": "exit 0",
     "test:update-snapshots": "exit 0",
     "asbuild:debug": "asc assembly/index.ts --target debug",
@@ -38,7 +38,8 @@
   ],
   "peerDependencies": {
     "assemblyscript": "^0.21.2",
-    "@as-pect/transform": "^6.2.4"
+    "@as-pect/transform": "^6.2.4",
+    "@as-covers/core": "^0.3.1"
   },
   "exports": {
     ".": {

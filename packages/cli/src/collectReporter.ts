@@ -34,9 +34,7 @@ export async function getReporter(opts: OptionValues, aspectConfig: IAspectConfi
   if (opts.summary) {
     const reporter = new SummaryReporter();
     reporters.push(reporter);
-  }
-
-  if (opts.versbose) {
+  } else if (opts.verbose) {
     const reporter = new VerboseReporter();
     reporters.push(reporter);
   }

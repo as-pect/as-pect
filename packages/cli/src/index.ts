@@ -63,7 +63,7 @@ export function warning(str: string): void {
   );
 }
 
-export async function asp(argv = process.argv): Promise<void> {
+export async function asp(argv: string[]): Promise<void> {
   const opts = program.parse(argv).opts();
   const pkgLocation = path.join(__dirname, "../package.json");
   // get the current cli package version
@@ -149,10 +149,22 @@ export async function asp(argv = process.argv): Promise<void> {
     passedGroups: 0,
     tests: 0,
     passedTests: 0,
+    pass: true,
   }
 
   if (aspectConfig.coverage) {
     log(`Using code coverage: ${aspectConfig.coverage.join(", ",)}`)
+  }
+
+  // coverage happens on a global level
+
+  /** Potentailly enable code coverage, using the configurated globs */
+  let covers: import("@as-covers/glue").Covers | null = null;
+  const coverageFiles = aspectConfig.coverage || [];
+  if (coverageFiles.length !== 0) {
+    log("Using coverage: " + coverageFiles.join(", "));
+    const Covers = (await import("@as-covers/glue")).Covers;
+    covers = new Covers({ files: coverageFiles });
   }
 
   // foreach entry point, we compile it
@@ -160,9 +172,7 @@ export async function asp(argv = process.argv): Promise<void> {
     const files = new Map<string, Uint8Array>();
     const dir = path.dirname(entry);
     const basename = path.basename(entry, path.extname(entry));
-    const ascArgs = [entry, ...includes, "--config", asconfigLocation];
-
-
+    const ascArgs = [entry, ...includes, "--config", asconfigLocation, "--target", covers ? "coverage" : "noCoverage"];
 
     const compiled = await asc(ascArgs, {
       readFile(filename, baseDir) {
@@ -236,15 +246,6 @@ export async function asp(argv = process.argv): Promise<void> {
 
     const reporter = await collectReporter(opts, aspectConfig);
 
-    /** Potentailly enable code coverage, using the configurated globs */
-    let covers: import("@as-covers/glue").Covers | null = null;
-    const coverageFiles = aspectConfig.coverage || [];
-    if (coverageFiles.length !== 0) {
-      const Covers = (await import("@as-covers/glue")).Covers;
-      covers = new Covers({ files: coverageFiles });
-    }
-
-
     // create the testing host
     const ctx = new TestContext({
       reporter,
@@ -277,20 +278,37 @@ export async function asp(argv = process.argv): Promise<void> {
       binary,
     );
 
+    covers?.registerLoader(module);
+
     ctx.run(module as any);
+    overallStats.groups += ctx.groupCount;
+    overallStats.tests += ctx.testCount;
+    overallStats.passedGroups += ctx.groupPassCount;
+    overallStats.passedTests += ctx.testPassCount;
+    overallStats.pass = overallStats.pass && ctx.pass;
 
+    // snapshot mode!
     if (snapshotMode === SnapshotMode.CompareSnapshots) {
-
       const expectedSnapshots = ctx.expectedSnapshots;
       // the diff is garunteed to exist at this point.
       const diff = ctx.snapshotDiff!;
 
+      overallStats.totalSnapshots += expectedSnapshots.values.size;
+
       let addedSnapshots = 0;
       // first, loop over every diff, and add each snapshot that was added to the expected snapshots
       for (const [diffName, diffResult] of diff.results) {
-        addedSnapshots += 1;
         if (diffResult.type === SnapshotDiffResultType.Added) {
+          addedSnapshots += 1;
           expectedSnapshots.add(diffName, diffResult.left!); // Left is the actual value
+          // adding a snapshot is success
+          overallStats.passedSnapshots += 1;
+        }
+        if (diffResult.type === SnapshotDiffResultType.Removed) {
+          overallStats.removedSnapshots += 1;
+        }
+        if (diffResult.type === SnapshotDiffResultType.NoChange) {
+          overallStats.passedSnapshots += 1;
         }
       }
 
@@ -302,6 +320,7 @@ export async function asp(argv = process.argv): Promise<void> {
 
 
     } else {
+      log("Creating Snapshots.")
       // we are creating the snapshots, make sure the directory exists
       const snapshotDir = path.dirname(snapshotPath);
       try {
@@ -309,12 +328,30 @@ export async function asp(argv = process.argv): Promise<void> {
       } catch(ex) {
         await fs.mkdir(snapshotDir);
       }
-  
+
       // if all the test nodes pass, we need to write the file output
       if (ctx.rootNode.pass) {
         const output = ctx.snapshots.stringify();
         await fs.writeFile(snapshotPath, output, "utf8");
       }
     }
+
   }
+
+  // Coverage report
+  if (covers) {
+    stdout.write(chalk.green("\nCoverage Report:\n\n"));
+    stdout.write(covers.stringify());
+  }
+
+
+const summaryString = `
+  [Summary]:
+    [Tests]: ${chalk.green(overallStats.passedTests)} / ${overallStats.tests}
+   [Groups]: ${chalk.green(overallStats.passedGroups)} / ${overallStats.groups}
+[Snapshots]: ${chalk.green(overallStats.passedSnapshots)} / ${overallStats.totalSnapshots}, Added ${overallStats.addedSnapshots}, Changed ${overallStats.removedSnapshots}
+   [Result]: ${overallStats.pass ? chalk.green(`✔ Pass!`) : chalk.red(`❌ Fail`)}
+
+   `;
+  stdout.write(summaryString);
 }

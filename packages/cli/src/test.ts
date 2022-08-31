@@ -1,3 +1,3 @@
 import { asp } from "./index.js";
 
-asp();
+asp(process.argv);
