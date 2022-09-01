@@ -224,10 +224,7 @@ export async function asp(argv: string[]): Promise<void> {
     const snapshotPath = path.join(dir, "__snapshots__", basename + ".snap");
     const snapshotMode = opts.updateSnapshots
       ? SnapshotMode.WriteSnapshots
-      : await fs
-          .access(snapshotPath)
-          .then(() => SnapshotMode.CompareSnapshots)
-          .catch(() => SnapshotMode.WriteSnapshots);
+      : SnapshotMode.CompareSnapshots;
 
     const snapshots =
       snapshotMode === SnapshotMode.CompareSnapshots ? Snapshot.parse(await fs.readFile(snapshotPath, "utf8")) : void 0;

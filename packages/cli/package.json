@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/cli",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "exports": {
     ".": "./lib/index.js"
