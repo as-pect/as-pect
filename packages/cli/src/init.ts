@@ -1,6 +1,8 @@
 import chalk from "chalk";
 import { existsSync, createReadStream, createWriteStream, mkdirSync } from "fs";
 import { join } from "path";
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
 /**
  * @ignore
