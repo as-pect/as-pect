@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/transform",
-  "version": "7.0.0-alpha.0",
+  "version": "7.0.0",
   "description": "The transform used by the as-pect core and assembly packages to enable strict equality.",
   "main": "lib/index.js",
   "type": "module",

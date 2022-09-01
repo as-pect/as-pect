@@ -2,7 +2,7 @@
   "name": "as-pect",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "scripts": {
-    "postinstall": "lerna bootstrap",
+    "postinstall": "lerna bootstrap --hoist",
     "coveralls": "cat ./packages/core/coverage/lcov.info | coveralls",
     "jest": "jest",
     "test": "run-s tsc:all test:all",

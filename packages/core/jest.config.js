@@ -21,8 +21,8 @@ export default {
   },
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
-    chalk: resolve("./node_modules/chalk/source/index.js"),
-    "#ansi-styles": resolve("./node_modules/chalk/source/vendor/ansi-styles/index.js"),
-    "#supports-color": resolve("./node_modules/chalk/source/vendor/supports-color/index.js"),
+    chalk: resolve("../../node_modules/chalk/source/index.js"),
+    "#ansi-styles": resolve("../../node_modules/chalk/source/vendor/ansi-styles/index.js"),
+    "#supports-color": resolve("../../node_modules/chalk/source/vendor/supports-color/index.js"),
   },
 };

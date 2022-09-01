@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/core",
-  "version": "7.0.0-alpha.0",
+  "version": "7.0.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -28,12 +28,12 @@
     "pretest:group-filter": "asc --debug --outFile assembly/jest-filter.wasm --textFile assembly/jest-filter.wat --exportStart _start ./assembly/jest-filter.ts ../assembly/assembly/index.ts --transform @as-pect/transform",
     "pretest:log": "asc --debug --outFile assembly/jest-log.wasm --textFile assembly/jest-log.wat --exportStart _start ./assembly/jest-log.ts ../assembly/assembly/index.ts --exportTable --use ASC_RTRACE=1 --transform @as-pect/transform",
     "rimraf": "rimraf lib/*",
-    "test:ci": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js",
-    "test": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js",
-    "test:log": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js log",
+    "test:ci": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
+    "test": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
+    "test:log": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js log",
     "asc:all": "run-p pretest:group-filter pretest:log pretest:pass-fail pretest:wasi pretest:reporter-pass pretest:reporter-fail pretest:reporter-flow-error pretest:reporter-snapshot pretest:reporter-top-level-expect",
     "tsc": "tsc",
-    "test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js -u",
+    "test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js -u",
     "tsc:all": "run-s rimraf tsc asc:all"
   },
   "bugs": {
@@ -41,8 +41,8 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
-    "@as-pect/assembly": "^7.0.0-alpha.0",
-    "@as-pect/snapshots": "^7.0.0-alpha.0",
+    "@as-pect/assembly": "^7.0.0",
+    "@as-pect/snapshots": "^7.0.0",
     "assemblyscript": "^0.21.2",
     "chalk": "^5.0.1",
     "chalk-template": "^0.4.0",
