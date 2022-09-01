@@ -213,11 +213,16 @@ export async function asp(argv: string[]): Promise<void> {
     // for emitting compiler stats
     if (opts.showStats) process.stdout.write(compiled.stats.toString());
     const outputFileKey = Array.from(files.keys()).filter(e => e.endsWith("output.wasm"))[0]!;
+    const outputWatFileKey = Array.from(files.keys()).filter(e => e.endsWith("output.wat"))[0]!;
     const binary = files.get(outputFileKey)!;
+    const wat = files.get(outputWatFileKey)!;
 
     // output the wasm file
-    if (opts.outputBinary || aspectConfig.outputBinary)
-      await fs.writeFile(path.join(dir, path.basename(entry, path.extname(entry))) + ".wasm", binary);
+    if (opts.outputBinary || aspectConfig.outputBinary) {
+      const baseName = path.join(dir, path.basename(entry, path.extname(entry)));
+      await fs.writeFile(baseName + ".wasm", binary);
+      await fs.writeFile(baseName + ".wat", wat);
+    }
 
     // collect the snapshots for this entry in `{dir}/__snapshots__/{basename}.snap`
     const snapshotPath = path.join(dir, "__snapshots__", basename + ".snap");
@@ -346,7 +351,7 @@ export async function asp(argv: string[]): Promise<void> {
 
 
 const summaryString = `
-  [Summary]:
+  [Summary]
     [Tests]: ${chalk.green(overallStats.passedTests)} / ${overallStats.tests}
    [Groups]: ${chalk.green(overallStats.passedGroups)} / ${overallStats.groups}
 [Snapshots]: ${chalk.green(overallStats.passedSnapshots)} / ${overallStats.totalSnapshots}, Added ${overallStats.addedSnapshots}, Changed ${overallStats.removedSnapshots}
