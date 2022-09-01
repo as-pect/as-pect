@@ -1,18 +1,12 @@
-0 silly argv {
-0 silly argv   _: [ 'create' ],
-0 silly argv   lernaVersion: '5.4.3',
-0 silly argv   '$0': 'node_modules\\lerna\\cli.js',
-0 silly argv   name: 'transform'
-0 silly argv }
-1 notice cli v5.4.3
-2 verbose rootPath C:\Users\Joshua Tenner\Desktop\project\as-pect
-3 error Error: canceled
-3 error     at Interface.<anonymous> (C:\Users\Joshua Tenner\Desktop\project\as-pect\node_modules\read\lib\read.js:66:13)
-3 error     at Interface.emit (node:events:513:28)
-3 error     at [_ttyWrite] [as _ttyWrite] (node:internal/readline/interface:1124:18)
-3 error     at ReadStream.onkeypress (node:internal/readline/interface:273:20)
-3 error     at ReadStream.emit (node:events:513:28)
-3 error     at emitKeys (node:internal/readline/utils:357:14)
-3 error     at emitKeys.next (<anonymous>)
-3 error     at ReadStream.onData (node:internal/readline/emitKeypressEvents:64:36)
-3 error     at ReadStream.emit (node:events:513:28)
+68 error Error: Command failed with exit code 1: npm install --package-lock-only --ignore-scripts
+68 error npm ERR! code ETARGET
+68 error npm ERR! notarget No matching version found for @as-pect/cli@^7.0.0-alpha.0.
+68 error npm ERR! notarget In most cases you or one of your dependencies are requesting
+68 error npm ERR! notarget a package version that doesn't exist.
+68 error
+68 error npm ERR! A complete log of this run can be found in:
+68 error npm ERR!     C:\Users\Joshua Tenner\AppData\Local\npm-cache\_logs\2022-09-01T00_31_22_714Z-debug-0.log
+68 error     at makeError (C:\Users\Joshua Tenner\Desktop\project\as-pect\node_modules\execa\lib\error.js:60:11)
+68 error     at handlePromise (C:\Users\Joshua Tenner\Desktop\project\as-pect\node_modules\execa\index.js:118:26)
+68 error     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+68 error     at async Promise.all (index 0)

@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/assembly",
-  "version": "6.2.0",
+  "version": "7.0.0-alpha.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "types": "types/as-pect.d.ts",
   "type": "module",
@@ -37,9 +37,9 @@
     "types/"
   ],
   "peerDependencies": {
-    "assemblyscript": "^0.21.2",
+    "@as-covers/core": "^0.3.1",
     "@as-pect/transform": "^6.2.4",
-    "@as-covers/core": "^0.3.1"
+    "assemblyscript": "^0.21.2"
   },
   "exports": {
     ".": {
@@ -48,8 +48,8 @@
     }
   },
   "devDependencies": {
-    "assemblyscript": "^0.21.2",
-    "@as-pect/cli": "^6.2.4",
-    "@as-pect/transform": "^6.2.4"
+    "@as-pect/cli": "^7.0.0-alpha.0",
+    "@as-pect/transform": "^7.0.0-alpha.0",
+    "assemblyscript": "^0.21.2"
   }
 }
