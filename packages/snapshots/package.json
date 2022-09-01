@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "rimraf": "rimraf lib",
-    "test": "jest",
-    "test:ci": "jest",
+    "test": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "test:ci": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ./node_modules/jest/bin/jest.js",
     "test:update-snapshots": "jest -u",
     "tsc:all": "run-s rimraf tsc:default",
     "tsc:default": "tsc"
