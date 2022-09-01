@@ -1,7 +1,7 @@
 import { program } from "commander";
 import process, { stdout } from "process";
 import path from "path";
-import { promises as fs, readdirSync } from "fs";
+import { existsSync, promises as fs, readdirSync } from "fs";
 import { readFileSync } from "fs";
 import url from "url";
 import chalk from "chalk";
@@ -227,7 +227,9 @@ export async function asp(argv: string[]): Promise<void> {
       : SnapshotMode.CompareSnapshots;
 
     const snapshots =
-      snapshotMode === SnapshotMode.CompareSnapshots ? Snapshot.parse(await fs.readFile(snapshotPath, "utf8")) : void 0;
+      snapshotMode === SnapshotMode.CompareSnapshots && existsSync(snapshotPath)
+        ? Snapshot.parse(await fs.readFile(snapshotPath, "utf8"))
+        : void 0;
 
     // collect wasi if it exists
     let wasi: import("wasi").WASI | undefined = void 0;
