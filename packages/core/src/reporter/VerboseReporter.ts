@@ -88,15 +88,13 @@ export class VerboseReporter implements IReporter {
           ? /* istanbul ignore next */
             ""
           : /* istanbul ignore next */
-            chalk.yellow(` RTrace: ${
-              /* istanbul ignore next */
-              (test.rtraceDelta > 0
-                ? /* istanbul ignore next */
-                  "+"
-                : /* istanbul ignore next */
-                  "") + test.rtraceDelta.toString()
-                  
-            }`);
+            chalk.yellow(
+              ` RTrace: ${
+                /* istanbul ignore next */
+                (test.rtraceDelta > 0 ? /* istanbul ignore next */ "+" : /* istanbul ignore next */ "") +
+                test.rtraceDelta.toString()
+              }`,
+            );
       this.stdout!.write(
         test.negated
           ? ` ${chalk.green(` [Throws]: ✔`)} ${test.name}${rtraceDelta}\n`
@@ -110,18 +108,12 @@ export class VerboseReporter implements IReporter {
 
       if (!test.negated) {
         if (test.actual) {
-          this.stdout!.write(
-            `  [Actual]: ${test
-              .actual!.stringify(stringifyIndent2)
-              .trimLeft()}\n`,
-          );
+          this.stdout!.write(`  [Actual]: ${test.actual!.stringify(stringifyIndent2).trimLeft()}\n`);
         }
         if (test.expected) {
           const expected = test.expected;
           this.stdout!.write(
-            `[Expected]: ${expected.negated ? "Not " : ""}${expected
-              .stringify(stringifyIndent2)
-              .trimLeft()}\n`,
+            `[Expected]: ${expected.negated ? "Not " : ""}${expected.stringify(stringifyIndent2).trimLeft()}\n`,
           );
         }
       }
@@ -133,9 +125,7 @@ export class VerboseReporter implements IReporter {
 
       /* istanbul ignore next */
       if (test.stackTrace) {
-        this.stdout!.write(
-          `   [Stack]: ${test.stackTrace.split("\n").join("\n        ")}\n`,
-        );
+        this.stdout!.write(`   [Stack]: ${test.stackTrace.split("\n").join("\n        ")}\n`);
       }
     }
 
@@ -159,41 +149,28 @@ export class VerboseReporter implements IReporter {
     const count = suite.testCount;
     const successCount = suite.testPassCount;
 
-    const failText =
-      count === successCount
-        ? `0 fail`
-        : chalk.red(`${(count - successCount).toString()} fail`);
+    const failText = count === successCount ? `0 fail` : chalk.red(`${(count - successCount).toString()} fail`);
 
     // There are currently no warnings provided by the as-pect testing suite
     /* istanbul ignore next */
     for (const warning of suite.warnings) {
       /* istanbul ignore next */
-      this.stdout!.write(
-        `\n${chalk.yellow(` [Warning]`)}: ${warning.type} -> ${warning.message}\n`,
-      );
+      this.stdout!.write(`\n${chalk.yellow(` [Warning]`)}: ${warning.type} -> ${warning.message}\n`);
       /* istanbul ignore next */
       const stack = warning.stackTrace.trim();
       /* istanbul ignore next */
       if (stack) {
         /* istanbul ignore next */
-        this.stdout!.write(
-          `${chalk.yellow(`   [Stack]`)}: ${chalk.yellow(stack
-            .split("\n")
-            .join("\n      "))}}\n`,
-        );
+        this.stdout!.write(`${chalk.yellow(`   [Stack]`)}: ${chalk.yellow(stack.split("\n").join("\n      "))}}\n`);
       }
       /* istanbul ignore next */
       this.stdout!.write("\n");
     }
 
     for (const error of suite.errors) {
+      this.stdout!.write(`\n${chalk.red(`   [Error]`)}: ${error.type} ${error.message}`);
       this.stdout!.write(
-        `\n${chalk.red(`   [Error]`)}: ${error.type} ${error.message}`,
-      );
-      this.stdout!.write(
-        `\n${chalk.red(`   [Stack]`)}: ${chalk.yellow(`${error.stackTrace
-          .split("\n")
-          .join("\n           ")}`)}\n`,
+        `\n${chalk.red(`   [Stack]`)}: ${chalk.yellow(`${error.stackTrace.split("\n").join("\n           ")}`)}\n`,
       );
     }
 
@@ -226,17 +203,14 @@ export class VerboseReporter implements IReporter {
       totalCount += 1;
       addedCount += result.type === SnapshotDiffResultType.Added ? 1 : 0;
       removedCount += result.type === SnapshotDiffResultType.Removed ? 1 : 0;
-      differentCount +=
-        result.type === SnapshotDiffResultType.Different ? 1 : 0;
+      differentCount += result.type === SnapshotDiffResultType.Different ? 1 : 0;
     }
 
     this.stdout!.write(`    [File]: ${suite.fileName}
   [Groups]: ${chalk.green(`${suite.groupCount} pass`)}, ${suite.groupCount} total
   [Result]: ${result}
 [Snapshot]: ${totalCount} total, ${addedCount} added, ${removedCount} removed, ${differentCount} different
- [Summary]: ${chalk.green(`${suite.testPassCount} pass`)},  ${failText}, ${
-      suite.testCount
-    } total
+ [Summary]: ${chalk.green(`${suite.testPassCount} pass`)},  ${failText}, ${suite.testCount} total
     [Time]: ${suite.rootNode.deltaT}ms
 
 ${"~".repeat(80)}\n\n`);
@@ -268,12 +242,7 @@ ${"~".repeat(80)}\n\n`);
     const stack = logValue.stack.trim();
     /* istanbul ignore next */
     if (stack) {
-      this.stdout!.write(
-        `   ${chalk.yellow(`[Stack]:`)} ${stack
-          .trimStart()
-          .split("\n")
-          .join("\n        ")}\n`,
-      );
+      this.stdout!.write(`   ${chalk.yellow(`[Stack]:`)} ${stack.trimStart().split("\n").join("\n        ")}\n`);
     }
   }
 }

@@ -57,8 +57,8 @@ export class SummaryReporter implements IReporter {
     /** Report if all the groups passed. */
     if (suite.pass) {
       this.stdout!.write(
-        chalk.green.bold(`✔ ${suite.fileName} `)
-          + `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`
+        chalk.green.bold(`✔ ${suite.fileName} `) +
+          `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
       /** If logging is enabled, log all the values. */
@@ -78,17 +78,15 @@ export class SummaryReporter implements IReporter {
       }
     } else {
       this.stdout!.write(
-        chalk.red.bold(`❌ ${suite.fileName} `)
-        + `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`
+        chalk.red.bold(`❌ ${suite.fileName} `) +
+          `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
       /** If the group failed, report that the group failed. */
       for (const group of testGroups) {
         /* istanbul ignore next */
         if (group.pass) continue;
-        this.stdout!.write(
-          "  " + chalk.red.bold(`Failed:`) + ` ${group.name}\n`
-        );
+        this.stdout!.write("  " + chalk.red.bold(`Failed:`) + ` ${group.name}\n`);
 
         /** Display the reason if there is one. */
         // if (group.reason)
@@ -104,25 +102,16 @@ export class SummaryReporter implements IReporter {
 
         inner: for (const test of group.groupTests) {
           if (test.pass) continue inner;
-          this.stdout!.write(
-            chalk.red.bold(
-              `    ❌ ${test.name}`
-            ) + ` - ${test.message}\n`,
-          );
+          this.stdout!.write(chalk.red.bold(`    ❌ ${test.name}`) + ` - ${test.message}\n`);
           if (test.actual !== null)
             this.stdout!.write(
-              chalk.red.bold(`      [Actual]  :`)
-              + ` ${test.actual
-                .stringify({ indent: 2 })
-                .trimStart()}\n`
+              chalk.red.bold(`      [Actual]  :`) + ` ${test.actual.stringify({ indent: 2 }).trimStart()}\n`,
             );
           if (test.expected !== null) {
             const expected = test.expected;
             this.stdout!.write(
-              chalk.green.bold(`      [Expected]:`)
-              + ` ${
-                expected.negated ? "Not " : ""
-              }${expected.stringify({ indent: 2 }).trimStart()}\n`
+              chalk.green.bold(`      [Expected]:`) +
+                ` ${expected.negated ? "Not " : ""}${expected.stringify({ indent: 2 }).trimStart()}\n`,
             );
           }
           /* istanbul ignore next */
@@ -138,21 +127,13 @@ export class SummaryReporter implements IReporter {
     // There are no warnings left in the as-pect test suite software
     for (const warning of suite.warnings) {
       /* istanbul ignore next */
-      this.stdout!.write(
-        chalk.yellow(` [Warning]`) +
-        + `: ${warning.type} -> ${warning.message}\n`,
-      );
+      this.stdout!.write(chalk.yellow(` [Warning]`) + +`: ${warning.type} -> ${warning.message}\n`);
       /* istanbul ignore next */
       const stack = warning.stackTrace.trim();
       /* istanbul ignore next */
       if (stack) {
         this.stdout!.write(
-          chalk.yellow(`   [Stack]`)
-          + ": "
-          + chalk.yellow(`${stack
-            .split("\n")
-            .join("\n      ")}`)
-          + "\n",
+          chalk.yellow(`   [Stack]`) + ": " + chalk.yellow(`${stack.split("\n").join("\n      ")}`) + "\n",
         );
       }
       /* istanbul ignore next */
@@ -160,13 +141,9 @@ export class SummaryReporter implements IReporter {
     }
 
     for (const error of suite.errors) {
+      this.stdout!.write(`${chalk.red(`   [Error]`)}: ${error.type} ${error.message}\n`);
       this.stdout!.write(
-        `${chalk.red(`   [Error]`)}: ${error.type} ${error.message}\n`,
-      );
-      this.stdout!.write(
-        `${chalk.red(`   [Stack]`)}: ${chalk.yellow(`${error.stackTrace
-          .split("\n")
-          .join("\n           ")}\n\n`)}`,
+        `${chalk.red(`   [Stack]`)}: ${chalk.yellow(`${error.stackTrace.split("\n").join("\n           ")}\n\n`)}`,
       );
     }
 
@@ -182,9 +159,7 @@ export class SummaryReporter implements IReporter {
         for (const line of lines) {
           if (!line.trim()) continue;
           if (change.added) {
-            this.stdout!.write(
-              chalk.green(`+ ${line}\n`),
-            );
+            this.stdout!.write(chalk.green(`+ ${line}\n`));
           } else if (change.removed) {
             this.stdout!.write(`${chalk.red(`- ${line}`)}\n`);
           } else {
@@ -193,7 +168,6 @@ export class SummaryReporter implements IReporter {
         }
       }
       this.stdout!.write("\n");
-      
     }
   }
 

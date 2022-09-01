@@ -14,7 +14,7 @@ export async function getReporter(opts: OptionValues, aspectConfig: IAspectConfi
     try {
       const reporter = (await import("file://" + reporterLocation)).default as IReporter;
       reporters.push(reporter);
-    } catch(ex) {
+    } catch (ex) {
       stderr.write(`An error occured while trying to import: ${reporterLocation}`);
       console.error(ex);
       exit(1);

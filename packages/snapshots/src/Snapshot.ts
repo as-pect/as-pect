@@ -11,7 +11,7 @@ const exports_token = createToken({ name: "exports_token", pattern: /exports/ })
 const white_space = createToken({
   name: "WhiteSpace",
   pattern: /\s+/,
-  group: Lexer.SKIPPED
+  group: Lexer.SKIPPED,
 });
 const allTokens = [exports_token, equals, string_token, open_bracket, close_bracket, white_space, semicolon];
 const lexer = new Lexer(allTokens);
@@ -98,13 +98,7 @@ export class Snapshot {
   public stringify(): string {
     return (
       Array.from(this.values.entries())
-        .map(
-          ([key, value]) =>
-            `exports[\`${key.replace("`", "\\`")}\`] = \`${value.replace(
-              "`",
-              "\\`",
-            )}\`;`,
-        )
+        .map(([key, value]) => `exports[\`${key.replace("`", "\\`")}\`] = \`${value.replace("`", "\\`")}\`;`)
         .join("\n\n") + "\n"
     );
   }
@@ -113,5 +107,5 @@ export class Snapshot {
 export function parseImageCSTElement(element: CstElement): string {
   // @ts-ignore
   const image = element.image as string;
-  return image.slice(1, -1).replace("\\`", "`")
+  return image.slice(1, -1).replace("\\`", "`");
 }

@@ -18,11 +18,11 @@ export class CombinationReporter implements IReporter {
   }
 
   set stdout(writer: IWritable | null) {
-    this.reporters.forEach((e) => e.stdout = writer);
+    this.reporters.forEach((e) => (e.stdout = writer));
   }
 
   set stderr(writer: IWritable | null) {
-    this.reporters.forEach((e) => e.stdout = writer);
+    this.reporters.forEach((e) => (e.stdout = writer));
   }
 
   onEnter(ctx: TestContext, node: TestNode) {

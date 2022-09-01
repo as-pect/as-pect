@@ -13,6 +13,6 @@ export interface IAspectConfig {
     memory: WebAssembly.Memory,
     createImports: (...args: any[]) => Promise<ResultObject>,
     instantiate: typeof import("@assemblyscript/loader").instantiate,
-    binary: Uint8Array
+    binary: Uint8Array,
   ): Promise<ResultObject>;
 }

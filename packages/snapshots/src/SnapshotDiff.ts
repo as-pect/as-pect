@@ -1,8 +1,5 @@
 import { Snapshot } from "./Snapshot.js";
-import {
-  SnapshotDiffResult,
-  SnapshotDiffResultType,
-} from "./SnapshotDiffResult.js";
+import { SnapshotDiffResult, SnapshotDiffResultType } from "./SnapshotDiffResult.js";
 import { diffLines } from "diff";
 
 export class SnapshotDiff {
@@ -25,10 +22,7 @@ export class SnapshotDiff {
         const result = new SnapshotDiffResult();
         result.left = value;
         result.right = rightValue;
-        result.type =
-          value === rightValue
-            ? SnapshotDiffResultType.NoChange
-            : SnapshotDiffResultType.Different;
+        result.type = value === rightValue ? SnapshotDiffResultType.NoChange : SnapshotDiffResultType.Different;
         result.changes = lines;
         this.results.set(key, result);
       } else {

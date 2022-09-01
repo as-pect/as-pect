@@ -52,15 +52,11 @@ export const enum SnapshotMode {
 }
 
 export function log(str: string): void {
-  stdout.write(
-    chalk.bgWhite.black("[Log]") + `${str}\n`
-  );
+  stdout.write(chalk.bgWhite.black("[Log]") + `${str}\n`);
 }
 
 export function warning(str: string): void {
-  stdout.write(
-    chalk.bgYellow.black("[Warning]") + `${str}\n`
-  );
+  stdout.write(chalk.bgYellow.black("[Warning]") + `${str}\n`);
 }
 
 export async function asp(argv: string[]): Promise<void> {
@@ -150,10 +146,10 @@ export async function asp(argv: string[]): Promise<void> {
     tests: 0,
     passedTests: 0,
     pass: true,
-  }
+  };
 
   if (aspectConfig.coverage) {
-    log(`Using code coverage: ${aspectConfig.coverage.join(", ",)}`)
+    log(`Using code coverage: ${aspectConfig.coverage.join(", ")}`);
   }
 
   // coverage happens on a global level
@@ -212,8 +208,8 @@ export async function asp(argv: string[]): Promise<void> {
 
     // for emitting compiler stats
     if (opts.showStats) process.stdout.write(compiled.stats.toString());
-    const outputFileKey = Array.from(files.keys()).filter(e => e.endsWith("output.wasm"))[0]!;
-    const outputWatFileKey = Array.from(files.keys()).filter(e => e.endsWith("output.wat"))[0]!;
+    const outputFileKey = Array.from(files.keys()).filter((e) => e.endsWith("output.wasm"))[0]!;
+    const outputWatFileKey = Array.from(files.keys()).filter((e) => e.endsWith("output.wat"))[0]!;
     const binary = files.get(outputFileKey)!;
     const wat = files.get(outputWatFileKey)!;
 
@@ -228,13 +224,13 @@ export async function asp(argv: string[]): Promise<void> {
     const snapshotPath = path.join(dir, "__snapshots__", basename + ".snap");
     const snapshotMode = opts.updateSnapshots
       ? SnapshotMode.WriteSnapshots
-      : await fs.access(snapshotPath)
-        .then(() => SnapshotMode.CompareSnapshots)
-        .catch(() => SnapshotMode.WriteSnapshots);
+      : await fs
+          .access(snapshotPath)
+          .then(() => SnapshotMode.CompareSnapshots)
+          .catch(() => SnapshotMode.WriteSnapshots);
 
-    const snapshots = snapshotMode === SnapshotMode.CompareSnapshots
-      ? Snapshot.parse(await fs.readFile(snapshotPath, "utf8"))
-      : void 0;
+    const snapshots =
+      snapshotMode === SnapshotMode.CompareSnapshots ? Snapshot.parse(await fs.readFile(snapshotPath, "utf8")) : void 0;
 
     // collect wasi if it exists
     let wasi: import("wasi").WASI | undefined = void 0;
@@ -276,9 +272,7 @@ export async function asp(argv: string[]): Promise<void> {
     // import the module by generating the assemblyscript imports
     const module = await aspectConfig.instantiate(
       memory,
-      (...args: any[]) => covers
-        ? covers.installImports(ctx.createImports(...args))
-        : ctx.createImports(...args),
+      (...args: any[]) => (covers ? covers.installImports(ctx.createImports(...args)) : ctx.createImports(...args)),
       instantiate,
       binary,
     );
@@ -322,15 +316,13 @@ export async function asp(argv: string[]): Promise<void> {
         overallStats.addedSnapshots += addedSnapshots;
         await fs.writeFile(snapshotPath, expectedSnapshots.stringify(), "utf8");
       }
-
-
     } else {
-      log("Creating Snapshots.")
+      log("Creating Snapshots.");
       // we are creating the snapshots, make sure the directory exists
       const snapshotDir = path.dirname(snapshotPath);
       try {
         await fs.access(snapshotDir);
-      } catch(ex) {
+      } catch (ex) {
         await fs.mkdir(snapshotDir);
       }
 
@@ -340,7 +332,6 @@ export async function asp(argv: string[]): Promise<void> {
         await fs.writeFile(snapshotPath, output, "utf8");
       }
     }
-
   }
 
   // Coverage report
@@ -349,12 +340,13 @@ export async function asp(argv: string[]): Promise<void> {
     stdout.write(covers.stringify());
   }
 
-
-const summaryString = `
+  const summaryString = `
   [Summary]
     [Tests]: ${chalk.green(overallStats.passedTests)} / ${overallStats.tests}
    [Groups]: ${chalk.green(overallStats.passedGroups)} / ${overallStats.groups}
-[Snapshots]: ${chalk.green(overallStats.passedSnapshots)} / ${overallStats.totalSnapshots}, Added ${overallStats.addedSnapshots}, Changed ${overallStats.removedSnapshots}
+[Snapshots]: ${chalk.green(overallStats.passedSnapshots)} / ${overallStats.totalSnapshots}, Added ${
+    overallStats.addedSnapshots
+  }, Changed ${overallStats.removedSnapshots}
    [Result]: ${overallStats.pass ? chalk.green(`✔ Pass!`) : chalk.red(`❌ Fail`)}
 
    `;

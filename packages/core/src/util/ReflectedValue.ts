@@ -1,8 +1,5 @@
 import { ReflectedValueType } from "./ReflectedValueType.js";
-import {
-  StringifyReflectedValueProps,
-  stringifyReflectedValue,
-} from "./stringifyReflectedValue.js";
+import { StringifyReflectedValueProps, stringifyReflectedValue } from "./stringifyReflectedValue.js";
 
 /**
  * A JavaScript object that represents a reflected value from the as-pect testing
