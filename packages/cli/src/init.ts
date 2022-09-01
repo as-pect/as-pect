@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { existsSync, createReadStream, createWriteStream, mkdirSync } from "fs";
+import { existsSync, promises as fs } from "fs";
 import { join } from "path";
 import url from "url";
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -10,70 +10,67 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
  * This method initializes a new test project. It is opinionated and reflects the needs of 99% of
  * AssemblyScript developers following the standard way of creating a new AssemblyScript project.
  */
-export function init() {
+export async function init() {
   const assemblyFolder = join(process.cwd(), "assembly");
   const testFolder = join(assemblyFolder, "__tests__");
   const typesFileSource = require.resolve("@as-pect/cli/init/init-types.d.ts");
-  const typesFile = join(testFolder, "as-pect.d.ts");
+  const typesFileLocation = join(testFolder, "as-pect.d.ts");
 
   console.log("");
-  console.log(chalk`${chalk.bgWhite.black("[Log]")} Initializing test suite files.`);
+  console.log(`${chalk.bgWhite.black("[Log]")} Initializing test suite files.`);
   console.log("");
   // create the assembly folder if it doesn't exist
   if (!existsSync(assemblyFolder)) {
     console.log(
       `${chalk.bgWhite.black ("[Log]")} Creating folder: ${chalk.yellow("./assembly/")}`,
     );
-    mkdirSync(assemblyFolder);
+    await fs.mkdir(assemblyFolder);
   }
   // Create the test folder if it doesn't exist
   if (!existsSync(testFolder)) {
     console.log(
       `${chalk.bgWhite.black("[Log]")} Creating folder: ${chalk.yellow("./assembly/__tests__/")}`,
     );
-    mkdirSync(testFolder);
+    await fs.mkdir(testFolder);
     // create the example file only if the __tests__ folder does not exist
-    const exampleFile = join(testFolder, "example.spec.ts");
+    const exampleFileLocation = join(testFolder, "example.spec.ts");
     const exampleFileSource = join(__dirname, "../init/example.spec.ts");
-    if (!existsSync(exampleFile)) {
+    if (!existsSync(exampleFileLocation)) {
       console.log(
         `${chalk.bgWhite.black("[Log]")} Creating file: ${chalk.yellow("./assembly/__tests__/example.spec.ts")}`,
       );
-      createReadStream(exampleFileSource, "utf-8").pipe(
-        createWriteStream(exampleFile, "utf-8"),
-      );
+      const exampleFile = await fs.readFile(exampleFileSource, "utf8");
+      await fs.writeFile(exampleFileLocation, exampleFile, "utf8");
     }
   }
   // create the types file if it doesn't exist for typescript tooling users
-  if (!existsSync(typesFile)) {
+  if (!existsSync(typesFileLocation)) {
     console.log(
       `${chalk.bgWhite.black("[Log]")} Creating file: ${chalk.yellow("./assembly/__tests__/as-pect.d.ts")}`,
     );
-    createReadStream(typesFileSource, "utf-8").pipe(
-      createWriteStream(typesFile, "utf-8"),
-    );
+    const typesFile = await fs.readFile(typesFileSource, "utf8");
+    await fs.writeFile(typesFileLocation, typesFile, "utf8");
   }
+
   // create the default configuration file
-  const configFile = join(process.cwd(), "as-pect.config.js");
+  const configFileLocation = join(process.cwd(), "as-pect.config.js");
   const configFileSource = join(__dirname, "../init/as-pect.config.js");
-  if (!existsSync(configFile)) {
+  if (!existsSync(configFileLocation)) {
     console.log(
       `${chalk.bgWhite.black("[Log]")} Creating file: ${chalk.yellow("./as-pect.config.js")}`,
     );
-    createReadStream(configFileSource, "utf-8").pipe(
-      createWriteStream(configFile, "utf-8"),
-    );
+    const configFile = await fs.readFile(configFileSource, "utf8");
+    await fs.writeFile(configFileLocation, configFile, "utf8");
   }
 
-  const asconfigFile = join(process.cwd(), "as-pect.asconfig.json");
+  const asconfigFileLocation = join(process.cwd(), "as-pect.asconfig.json");
   const asconfigFileSource = join(__dirname, "../init/as-pect.asconfig.json");
   // create the default asconfig file for aspect (which overrides the default asconfig provided by AS)
-  if (!existsSync(asconfigFile)) {
+  if (!existsSync(asconfigFileLocation)) {
     console.log(
       `${chalk.bgWhite.black("[Log]")} Creating file: ${chalk.yellow("./as-pect.asconfig.json")}`,
     );
-    createReadStream(asconfigFileSource, "utf-8").pipe(
-      createWriteStream(asconfigFile, "utf-8"),
-    );
+    const asconfigFile = await fs.readFile(asconfigFileSource, "utf8");
+    await fs.writeFile(asconfigFileLocation, asconfigFile, "utf8");
   }
 }

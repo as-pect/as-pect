@@ -78,8 +78,8 @@ export async function asp(argv: string[]): Promise<void> {
   }
 
   if (opts.init) {
-    init();
-    process.exit(0);
+    init().then(() => process.exit(0));
+    return;
   }
 
   // always print the version and exit if v
