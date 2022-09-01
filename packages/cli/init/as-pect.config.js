@@ -14,7 +14,7 @@ export default {
   /**
    * Add your required AssemblyScript imports here.
    */
-  async imports(memory, createImports, instantiate, binary) {
+  async instantiate(memory, createImports, instantiate, binary) {
     let instance; // Imports can reference this
     const myImports = {
       // put your web assembly imports here, and return the module
