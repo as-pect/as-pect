@@ -13,7 +13,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 export async function init() {
   const assemblyFolder = join(process.cwd(), "assembly");
   const testFolder = join(assemblyFolder, "__tests__");
-  const typesFileSource = require.resolve("@as-pect/cli/init/init-types.d.ts");
+  const typesFileSource = join(__dirname, "../init/init-types.d.ts");
   const typesFileLocation = join(testFolder, "as-pect.d.ts");
 
   console.log("");
