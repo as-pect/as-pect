@@ -20,5 +20,5 @@
     "exportTable": true
   },
   "extends": "./asconfig.json",
-  "entries": ["./@as-pect/assembly/assembly/index.ts"]
+  "entries": ["./node_modules/@as-pect/assembly/assembly/index.ts"]
 }

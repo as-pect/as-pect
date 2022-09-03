@@ -18,9 +18,10 @@ export default {
     let instance; // Imports can reference this
     const myImports = {
       env: { memory }
-      // put your web assembly imports here, and return the module
+      // put your web assembly imports here, and return the module promise
     };
-    return instantiate(binary, createImports(myImports));
+    instance = instantiate(binary, createImports(myImports));
+    return instance;
   },
   /** Enable code coverage. */
   // coverage: ["assembly/**/*.ts"],

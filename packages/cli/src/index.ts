@@ -32,7 +32,7 @@ program
   .option("-g, --group", "Match test groups with the following regex. (Default `(:?)`)", "(:?)")
   .option("-d, --disclude <regex>", "Match test files with the following regex, disclude them from testing.", void 0)
   .option("-i, --include <globs>", "A comma seperated list of include globs that will include files for each test compilation.", void 0)
-  .option("-o, --output-binary", "Output the wasm binary for each test file.", true)
+  .option("-o, --output-binary", "Output the wasm binary for each test file.", false)
   .option("--no-run", "Skip running tests, and output the binary files.", false)
   .option("-u, --update-snapshots", "Update the existing snapshots.", false)
   .option("--summary", "Use the summary reporter. {yellow (This is the default if no reporter is specified.)}", false)
