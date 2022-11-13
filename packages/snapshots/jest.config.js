@@ -4,9 +4,7 @@ export default {
   testMatch: ["**/__tests__/**/*.spec.[jt]s"],
   extensionsToTreatAsEsm: ['.ts'],
   testPathIgnorePatterns: ["/assembly/", "/node_modules/"],
-  globals: {
-    'ts-jest': {
-      useESM: true,
-    },
-  }
+  transform: {
+    "\\.ts$": ['ts-jest', { useESM: true, }],
+  },
 };

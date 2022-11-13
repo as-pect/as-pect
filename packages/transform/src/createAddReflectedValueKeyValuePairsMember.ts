@@ -45,13 +45,13 @@ export function createAddReflectedValueKeyValuePairsMember(classDeclaration: Cla
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range),
     null,
-    CommonFlags.PUBLIC | CommonFlags.INSTANCE | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+    CommonFlags.Public | CommonFlags.Instance | (classDeclaration.isGeneric ? CommonFlags.GenericContext : 0),
     null,
     TypeNode.createFunctionType(
       [
         // reflectedValue: i32
         TypeNode.createParameter(
-          ParameterKind.DEFAULT,
+          ParameterKind.Default,
           TypeNode.createIdentifierExpression("reflectedValue", range),
           createGenericTypeParameter("i32", range),
           null,
@@ -60,7 +60,7 @@ export function createAddReflectedValueKeyValuePairsMember(classDeclaration: Cla
 
         // seen: Map<usize, i32>
         TypeNode.createParameter(
-          ParameterKind.DEFAULT,
+          ParameterKind.Default,
           TypeNode.createIdentifierExpression("seen", range),
           TypeNode.createNamedType(
             TypeNode.createSimpleTypeName("Map", range),
@@ -74,7 +74,7 @@ export function createAddReflectedValueKeyValuePairsMember(classDeclaration: Cla
 
         // ignore: i64[]
         TypeNode.createParameter(
-          ParameterKind.DEFAULT,
+          ParameterKind.Default,
           TypeNode.createIdentifierExpression("ignore", range),
           // Array<i64> -> i64[]
           TypeNode.createNamedType(
@@ -111,10 +111,10 @@ function createAddReflectedValueKeyValuePairsFunctionBody(classDeclaration: Clas
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, regardless of access modifier
-    if (member.is(CommonFlags.INSTANCE)) {
+    if (member.is(CommonFlags.Instance)) {
       switch (member.kind) {
         // field declarations automatically get added
-        case NodeKind.FIELDDECLARATION: {
+        case NodeKind.FieldDeclaration: {
           const fieldDeclaration = <FieldDeclaration>member;
           const hashValue = djb2Hash(member.name.text);
           pushKeyValueIfStatement(body, member.name.text, hashValue, fieldDeclaration.range);
@@ -123,8 +123,8 @@ function createAddReflectedValueKeyValuePairsFunctionBody(classDeclaration: Clas
         }
 
         // function declarations can be getters, check the get flag
-        case NodeKind.METHODDECLARATION: {
-          if (member.is(CommonFlags.GET)) {
+        case NodeKind.MethodDeclaration: {
+          if (member.is(CommonFlags.Get)) {
             const methodDeclaration = <MethodDeclaration>member;
             const hashValue = djb2Hash(member.name.text);
             pushKeyValueIfStatement(body, member.name.text, hashValue, methodDeclaration.range);
@@ -195,7 +195,7 @@ function createIsDefinedIfStatement(nameHashes: number[], range: Range): Stateme
                   TypeNode.createIdentifierExpression("ignore", range),
                   // [...propNames]
                   TypeNode.createAssertionExpression(
-                    AssertionKind.AS,
+                    AssertionKind.As,
                     TypeNode.createArrayLiteralExpression(
                       nameHashes.map((e) => TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range)),
                       range,
@@ -236,7 +236,7 @@ function pushKeyValueIfStatement(body: Statement[], name: string, hashValue: num
     // if (!ignore.includes("propName")) { ... }
     TypeNode.createIfStatement(
       TypeNode.createUnaryPrefixExpression(
-        Token.EXCLAMATION,
+        Token.Exclamation,
         // ignore.includes("propName")
         TypeNode.createCallExpression(
           TypeNode.createPropertyAccessExpression(

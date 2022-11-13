@@ -32,7 +32,7 @@ export function createStrictEqualsMember(classDeclaration: ClassDeclaration): Me
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
     null,
-    CommonFlags.PUBLIC | CommonFlags.INSTANCE | (classDeclaration.isGeneric ? CommonFlags.GENERIC_CONTEXT : 0),
+    CommonFlags.Public | CommonFlags.Instance | (classDeclaration.isGeneric ? CommonFlags.GenericContext : 0),
     null,
     TypeNode.createFunctionType(
       [
@@ -115,10 +115,10 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, regardless of access modifier
-    if (member.is(CommonFlags.INSTANCE)) {
+    if (member.is(CommonFlags.Instance)) {
       switch (member.kind) {
         // field declarations automatically get added
-        case NodeKind.FIELDDECLARATION: {
+        case NodeKind.FieldDeclaration: {
           const fieldDeclaration = <FieldDeclaration>member;
           const hashValue = djb2Hash(member.name.text);
           body.push(createStrictEqualsIfCheck(member.name.text, hashValue, fieldDeclaration.range));
@@ -127,8 +127,8 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
         }
 
         // function declarations can be getters, check the get flag
-        case NodeKind.METHODDECLARATION: {
-          if (member.is(CommonFlags.GET)) {
+        case NodeKind.MethodDeclaration: {
+          if (member.is(CommonFlags.Get)) {
             const methodDeclaration = <MethodDeclaration>member;
             const hashValue = djb2Hash(member.name.text);
             body.push(createStrictEqualsIfCheck(methodDeclaration.name.text, hashValue, methodDeclaration.name.range));
@@ -156,7 +156,7 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
  */
 function createStrictEqualsIfCheck(name: string, hashValue: number, range: Range): IfStatement {
   const equalsCheck = TypeNode.createBinaryExpression(
-    Token.EQUALS_EQUALS,
+    Token.Equals_Equals,
     // Reflect.equals(this.prop, ref.prop, stack, cache)
     TypeNode.createCallExpression(
       // Reflect.equals
@@ -185,7 +185,7 @@ function createStrictEqualsIfCheck(name: string, hashValue: number, range: Range
 
   // !ignore.includes("prop")
   const includesCheck = TypeNode.createUnaryPrefixExpression(
-    Token.EXCLAMATION,
+    Token.Exclamation,
     // ignore.includes("prop")
     TypeNode.createCallExpression(
       // ignore.includes
@@ -205,7 +205,7 @@ function createStrictEqualsIfCheck(name: string, hashValue: number, range: Range
   // if (Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAILED_MATCH) return false;
   return TypeNode.createIfStatement(
     // Reflect.equals(this.prop, ref.prop, stack, cache) === Reflect.FAILED_MATCH
-    TypeNode.createBinaryExpression(Token.AMPERSAND_AMPERSAND, includesCheck, equalsCheck, range),
+    TypeNode.createBinaryExpression(Token.Ampersand_Ampersand, includesCheck, equalsCheck, range),
 
     // return false;
     TypeNode.createReturnStatement(TypeNode.createFalseExpression(range), range),
@@ -223,7 +223,7 @@ function createStrictEqualsIfCheck(name: string, hashValue: number, range: Range
  */
 function createDefaultParameter(name: string, typeNode: TypeNode, range: Range): ParameterNode {
   return TypeNode.createParameter(
-    ParameterKind.DEFAULT,
+    ParameterKind.Default,
     TypeNode.createIdentifierExpression(name, range),
     typeNode,
     null,
@@ -272,7 +272,7 @@ function createSuperCallStatement(classDeclaration: ClassDeclaration, nameHashes
     TypeNode.createBlockStatement(
       [
         TypeNode.createIfStatement(
-          TypeNode.createUnaryPrefixExpression(Token.EXCLAMATION, createSuperCallExpression(nameHashes, range), range),
+          TypeNode.createUnaryPrefixExpression(Token.Exclamation, createSuperCallExpression(nameHashes, range), range),
           TypeNode.createReturnStatement(TypeNode.createFalseExpression(range), range),
           null,
           range,
@@ -316,7 +316,7 @@ function createSuperCallExpression(hashValues: number[], range: Range): Expressi
           TypeNode.createIdentifierExpression("ignore", range),
           // [...] as StaticArray<i64>
           TypeNode.createAssertionExpression(
-            AssertionKind.AS,
+            AssertionKind.As,
             TypeNode.createArrayLiteralExpression(
               hashValues.map((e) => TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range)),
               range,
