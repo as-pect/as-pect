@@ -1,22 +1,18 @@
-import { IAspectExports } from "../util/IAspectExports";
-import { Rtrace, BlockInfo, TOTAL_OVERHEAD } from "../util/rTrace";
+import { IAspectExports } from "../util/IAspectExports.js";
+import { Rtrace, BlockInfo, TOTAL_OVERHEAD } from "../util/rTrace.js";
 
 // @ts-ignore: Constructor is new Long(low, high, signed);
 import Long from "long";
-import { NameSection } from "../util/wasmTools";
-import { ReflectedValue } from "../util/ReflectedValue";
-import { ReflectedValueType } from "@as-pect/assembly/assembly/internal/ReflectedValueType";
-import { TestNode } from "./TestNode";
-import { TestNodeType } from "../util/TestNodeType";
-import { IReporter } from "../reporter/IReporter";
+import { NameSection } from "../util/wasmTools.js";
+import { ReflectedValue } from "../util/ReflectedValue.js";
+import { ReflectedValueType } from "../util/ReflectedValueType.js";
+import { TestNode } from "./TestNode.js";
+import { TestNodeType } from "../util/TestNodeType.js";
+import { IReporter } from "../reporter/IReporter.js";
 import { performance } from "perf_hooks";
-import { IWarning } from "./IWarning";
-import {
-  Snapshot,
-  SnapshotDiffResultType,
-  SnapshotDiff,
-} from "@as-pect/snapshots";
-import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
+import { IWarning } from "./IWarning.js";
+import { Snapshot, SnapshotDiffResultType, SnapshotDiff } from "@as-pect/snapshots";
+import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue.js";
 
 type WASI = import("wasi").WASI;
 
@@ -243,8 +239,7 @@ export class TestContext {
       message: `Block: ${block.ptr} => ${err.message}`,
       stackTrace:
         /* istanbul ignore next */
-        err.stack?.split("\n").filter(wasmFilter).join("\n") ||
-        "No stack trace provided.",
+        err.stack?.split("\n").filter(wasmFilter).join("\n") || "No stack trace provided.",
       type: "rtrace",
     });
   }
@@ -273,20 +268,17 @@ export class TestContext {
     const snapshotDiff = this.snapshots.diff(this.expectedSnapshots);
 
     // determine if this test suite passed
-    const snapshotsPass = Array.from(snapshotDiff.results.values()).reduce(
-      (result, value) => {
-        if (result) {
-          return (
-            // @ts-ignore
-            value.type === SnapshotDiffResultType.Added ||
-            // @ts-ignore
-            value.type === SnapshotDiffResultType.NoChange
-          );
-        }
-        return false;
-      },
-      true,
-    );
+    const snapshotsPass = Array.from(snapshotDiff.results.values()).reduce((result, value) => {
+      if (result) {
+        return (
+          // @ts-ignore
+          value.type === SnapshotDiffResultType.Added ||
+          // @ts-ignore
+          value.type === SnapshotDiffResultType.NoChange
+        );
+      }
+      return false;
+    }, true);
 
     // store the diff results
     this.snapshotDiff = snapshotDiff;
@@ -302,8 +294,7 @@ export class TestContext {
   protected visit(node: TestNode): void {
     // validate this node will run
     if (node !== this.rootNode) {
-      const regexTester =
-        node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
+      const regexTester = node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
       if (!regexTester.test(node.name)) return;
     }
 
@@ -428,10 +419,7 @@ export class TestContext {
     }
 
     // if any children failed, this node failed too, but assume it passes
-    node.pass = node.children.reduce(
-      (pass: boolean, node: TestNode) => pass && node.pass,
-      true,
-    );
+    node.pass = node.children.reduce((pass: boolean, node: TestNode) => pass && node.pass, true);
     node.end = performance.now();
     this.addResult(node, true);
     this.reporter.onExit(this, node);
@@ -451,9 +439,7 @@ export class TestContext {
     node.name = this.getString(descriptionPointer, node.name);
     node.callback = callbackPointer;
     node.negated = negated === 1;
-    node.message = node.negated
-      ? this.getString(messagePointer, "No Message Provided.")
-      : node.message;
+    node.message = node.negated ? this.getString(messagePointer, "No Message Provided.") : node.message;
 
     // namespacing for snapshots later
     const namespacePrefix = `${parent.namespace}!~${node.name}`;
@@ -539,8 +525,7 @@ export class TestContext {
     }
 
     finalImports.__aspect = {
-      attachStackTraceToReflectedValue:
-        this.attachStackTraceToReflectedValue.bind(this),
+      attachStackTraceToReflectedValue: this.attachStackTraceToReflectedValue.bind(this),
       afterAll: this.reportAfterAll.bind(this),
       afterEach: this.reportAfterEach.bind(this),
       beforeAll: this.reportBeforeAll.bind(this),
@@ -557,8 +542,7 @@ export class TestContext {
       reportActualReflectedValue: this.reportActualReflectedValue.bind(this),
       reportExpectedFalsy: this.reportExpectedFalsy.bind(this),
       reportExpectedFinite: this.reportExpectedFinite.bind(this),
-      reportExpectedReflectedValue:
-        this.reportExpectedReflectedValue.bind(this),
+      reportExpectedReflectedValue: this.reportExpectedReflectedValue.bind(this),
       reportNegatedTestNode: this.reportNegatedTestNode.bind(this),
       reportTodo: this.reportTodo.bind(this),
       reportTestTypeNode: this.reportTestTypeNode.bind(this),
@@ -619,11 +603,7 @@ export class TestContext {
    * @param runner - The pointer to a test callback
    * @param message - The pointer to an additional assertion message in string
    */
-  private reportNegatedTestNode(
-    description: number,
-    runner: number,
-    message: number,
-  ): void {
+  private reportNegatedTestNode(description: number, runner: number, message: number): void {
     this.reportTestNode(TestNodeType.Test, description, runner, 1, message);
   }
 
@@ -707,9 +687,7 @@ export class TestContext {
    * @param {number} _callbackPointer - The test callback function pointer.
    */
   private reportTodo(todoPointer: number, _callbackPointer: number): void {
-    this.targetNode.todos.push(
-      this.getString(todoPointer, "No todo() value provided."),
-    );
+    this.targetNode.todos.push(this.getString(todoPointer, "No todo() value provided."));
   }
 
   /**
@@ -722,18 +700,10 @@ export class TestContext {
    * @param {number} line - The line that reported the error. (Ignored)
    * @param {number} col - The column that reported the error. (Ignored)
    */
-  private abort(
-    reasonPointer: number,
-    fileNamePointer: number,
-    line: number,
-    col: number,
-  ): void {
+  private abort(reasonPointer: number, fileNamePointer: number, line: number, col: number): void {
     this.message = this.getString(
       reasonPointer,
-      `Error in ${this.getString(
-        fileNamePointer,
-        "[No Filename Provided]",
-      )}:${line}:${col} `,
+      `Error in ${this.getString(fileNamePointer, "[No Filename Provided]")}:${line}:${col} `,
     );
   }
 
@@ -742,21 +712,14 @@ export class TestContext {
    */
   protected getErrorStackTrace(ex: Error): string {
     var stackItems = ex.stack!.toString().split("\n");
-    return [stackItems[0], ...stackItems.slice(1).filter(wasmFilter)].join(
-      "\n",
-    );
+    return [stackItems[0], ...stackItems.slice(1).filter(wasmFilter)].join("\n");
   }
 
   /**
    * Gets a log stack trace.
    */
   protected getLogStackTrace(): string {
-    return new Error("Get stack trace.")
-      .stack!.toString()
-      .split("\n")
-      .slice(1)
-      .filter(wasmFilter)
-      .join("\n");
+    return new Error("Get stack trace.").stack!.toString().split("\n").slice(1).filter(wasmFilter).join("\n");
   }
 
   /** A map of strings that can be cached because they are static. */
@@ -812,9 +775,7 @@ export class TestContext {
     reflectedValue.stack = this.getLogStackTrace();
     reflectedValue.typeName = "trace";
     reflectedValue.type = ReflectedValueType.String;
-    reflectedValue.value = `trace: ${this.getString(strPointer, "")} ${args
-      .slice(0, count)
-      .join(", ")}`;
+    reflectedValue.value = `trace: ${this.getString(strPointer, "")} ${args.slice(0, count).join(", ")}`;
 
     // push the log value to the logs
     this.targetNode.logs.push(reflectedValue);
@@ -920,11 +881,7 @@ export class TestContext {
     reflectedValue.type = reflectedTypeValue;
     reflectedValue.typeName = this.getString(typeName, "");
 
-    reflectedValue.value = Long.fromBits(
-      lowValue >>> 0,
-      highValue >>> 0,
-      signed === 0,
-    ).toString();
+    reflectedValue.value = Long.fromBits(lowValue >>> 0, highValue >>> 0, signed === 0).toString();
 
     return this.reflectedValueCache.push(reflectedValue) - 1;
   }
@@ -998,16 +955,10 @@ export class TestContext {
    * @param {number} reflectedValueID - The target reflected value parent.
    * @param {number} childID - The child value by it's id to be pushed.
    */
-  private pushReflectedObjectValue(
-    reflectedValueID: number,
-    childID: number,
-  ): void {
+  private pushReflectedObjectValue(reflectedValueID: number, childID: number): void {
     // each ignored line for test coverage is error reporting for sanity checks
     /* istanbul ignore next */
-    if (
-      reflectedValueID >= this.reflectedValueCache.length ||
-      reflectedValueID < 0
-    ) {
+    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
       /* istanbul ignore next */
       this.pushError({
         message: `Cannot push ReflectedValue of id ${childID} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
@@ -1053,16 +1004,10 @@ export class TestContext {
    * @param {number} reflectedValueID - The target reflected value parent.
    * @param {number} keyId - The target reflected value key to be pushed.
    */
-  private pushReflectedObjectKey(
-    reflectedValueID: number,
-    keyId: number,
-  ): void {
+  private pushReflectedObjectKey(reflectedValueID: number, keyId: number): void {
     // every ignored line for test coverage in this function are sanity checks
     /* istanbul ignore next */
-    if (
-      reflectedValueID >= this.reflectedValueCache.length ||
-      reflectedValueID < 0
-    ) {
+    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
       /* istanbul ignore next */
       this.pushError({
         message: `Cannot push ReflectedValue of id ${keyId} to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
@@ -1159,10 +1104,7 @@ export class TestContext {
    */
   private attachStackTraceToReflectedValue(reflectedValueID: number): void {
     /* istanbul ignore next */
-    if (
-      reflectedValueID >= this.reflectedValueCache.length ||
-      reflectedValueID < 0
-    ) {
+    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
       /* istanbul ignore next */
       this.pushError({
         message: `Cannot push a stack trace to ReflectedValue ${reflectedValueID}. ReflectedValue id out of bounds.`,
@@ -1196,16 +1138,10 @@ export class TestContext {
    * @param {number} reflectedValueID - The id of the reflected actual value.
    * @param {number} namePointer - The name of the snapshot.
    */
-  protected reportExpectedSnapshot(
-    reflectedValueID: number,
-    namePointer: number,
-  ): void {
+  protected reportExpectedSnapshot(reflectedValueID: number, namePointer: number): void {
     const name = `${this.targetNode.name}!~${this.getString(namePointer, "")}`;
     /* istanbul ignore next */
-    if (
-      reflectedValueID >= this.reflectedValueCache.length ||
-      reflectedValueID < 0
-    ) {
+    if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
       /* istanbul ignore next */
       this.pushError({
         message: `Cannot add snapshot ${name} with reflected value ${reflectedValueID}. ReflectedValue id out of bounds.`,
@@ -1215,9 +1151,6 @@ export class TestContext {
       /* istanbul ignore next */
       return;
     }
-    this.snapshots.add(
-      name,
-      this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
-    );
+    this.snapshots.add(name, this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions));
   }
 }

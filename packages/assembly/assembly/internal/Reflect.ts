@@ -416,7 +416,22 @@ export class Reflect {
     cache: usize[] = [],
   ): i32 {
     // use `==` operator to work with operator overloads and strings
-    if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
+    if (isReference(left)) {
+      if (changetype<usize>(left) == changetype<usize>(right)) return Reflect.SUCCESSFUL_MATCH;
+      if (isNullable(left)) {
+        if(
+          i32(changetype<usize>(left) == 0) ^ i32(changetype<usize>(right) == 0)
+        ) {
+          return Reflect.FAILED_MATCH;
+        }
+        // @ts-expect-error: operator overload check
+        if (left! == right!) return Reflect.SUCCESSFUL_MATCH;
+      } else {
+        if (left == right) return Reflect.SUCCESSFUL_MATCH;
+      }
+    } else {
+      if (left == right) return Reflect.SUCCESSFUL_MATCH; // works immutably for string comparison
+    }
 
     // floats should equal each other
     if (isFloat<T>()) {

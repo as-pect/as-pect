@@ -1,8 +1,9 @@
-import { TestContext } from "../src";
-import { VerboseReporterWrapper } from "./setup/VerboseReporterWrapper";
+import { TestContext } from "../src/index.js";
+import { VerboseReporterWrapper } from "./setup/VerboseReporterWrapper.js";
 import { promises as fs } from "fs";
-import { instantiate } from "assemblyscript/lib/loader/umd";
+import { instantiate } from "@assemblyscript/loader";
 import { WASI } from "wasi";
+import { jest } from '@jest/globals';
 
 test("snapshots", async () => {
   const reporter = new VerboseReporterWrapper();

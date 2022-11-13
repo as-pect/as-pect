@@ -1,7 +1,7 @@
-import { SummaryReporterWrapper } from "./setup/SummaryReporterWrapper";
-import { TestContext } from "../src";
+import { SummaryReporterWrapper } from "./setup/SummaryReporterWrapper.js";
+import { TestContext } from "../src/index.js";
 import { promises as fs } from "fs";
-import { instantiate } from "assemblyscript/lib/loader/umd";
+import { instantiate } from "@assemblyscript/loader";
 import { Snapshot } from "@as-pect/snapshots";
 
 test("snapshots", async () => {
@@ -28,6 +28,7 @@ test("snapshots", async () => {
     ),
   });
   ctx.run(await instantiate(binary, ctx.createImports()));
+
   for (const [name, values] of reporter.snapshots.entries()) {
     for (const value of values) {
       expect(value).toMatchSnapshot(name);

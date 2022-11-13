@@ -30,7 +30,29 @@ export class Expectation<T> {
 
   public toBe(expected: T, message: string = ""): void {
     let actual = this.actual;
-    let equals = i32(actual == expected);
+    let equals = 0;
+
+    if (isReference<T>()) {
+      if (isNullable<T>()) {
+        if (changetype<usize>(actual) == 0 && changetype<usize>(expected) == 0) {
+          equals = 1;
+        } else {
+          if (
+            i32(changetype<usize>(actual) == 0)
+            ^ i32(changetype<usize>(expected) == 0)
+          ) {
+            equals = 0;
+          } else {
+            equals = i32(actual! == expected!);
+          }
+        }
+      } else {
+        equals = i32(actual == expected);
+      }
+    } else {
+      equals = i32(actual == expected);
+    }
+
     let negated = this._not;
 
     Actual.report(actual);
@@ -146,11 +168,13 @@ export class Expectation<T> {
     let actual = this.actual;
     let negated = this._not;
 
-    if (!isFunction(this.actual))
+    if (!isFunction(actual)) {
       // @as-covers: ignore because this is a compile time error
+      ERROR(nameof<T>());
       ERROR(
-      "Expectation#toThrow assertion called on actual T where T is not a function reference",
+        "Expectation#toThrow assertion called on actual T where T is not a function reference",
       );
+    }
     if (idof<T>() != idof<() => void>())
       // @as-covers: ignore because this is a compile time error
       ERROR(
@@ -203,7 +227,12 @@ export class Expectation<T> {
     }
 
     // do actual greater than comparison
-    assert(negated ^ i32(actual > expected), message);
+    if (isNullable(actual)) {
+      assert(negated ^ i32(actual! > expected!), message);
+    } else {
+      assert(negated ^ i32(actual > expected), message);
+    }
+
     Actual.clear();
     Expected.clear();
   }
@@ -246,7 +275,12 @@ export class Expectation<T> {
     }
 
     // do actual greater than comparison
-    assert(negated ^ i32(actual >= expected), message);
+    if (isNullable(actual)) {
+      assert(negated ^ i32(actual! >= expected!), message);
+    } else {
+      assert(negated ^ i32(actual >= expected), message);
+    }
+
     Actual.clear();
     Expected.clear();
   }
@@ -285,7 +319,12 @@ export class Expectation<T> {
     }
 
     // do actual less than comparison
-    assert(negated ^ i32(actual < expected), message);
+    if (isNullable(actual)) {
+      assert(negated ^ i32(actual! < expected!), message);
+    } else {
+      assert(negated ^ i32(actual < expected), message);
+    }
+
     Actual.clear();
     Expected.clear();
   }
@@ -296,7 +335,7 @@ export class Expectation<T> {
     Actual.report(actual);
     Expected.report(expected, negated);
 
-    if (!isDefined(actual > expected))
+    if (!isDefined(actual <= expected))
       // @as-covers: ignore because this is a compile time error
       ERROR(
         "Invalid call to toBeLessThanOrEqual. Generic type T must have an operator implemented for the lessThanOrEqual (<=) operation.",
@@ -326,7 +365,12 @@ export class Expectation<T> {
     }
 
     // do actual less than comparison
-    assert(negated ^ i32(actual <= expected), message);
+    if (isNullable(actual)) {
+      assert(negated ^ i32(actual! <= expected!), message);
+    } else {
+      assert(negated ^ i32(actual <= expected), message);
+    }
+
     Actual.clear();
     Expected.clear();
   }

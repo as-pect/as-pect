@@ -1136,7 +1136,8 @@ describe("nullable strings and references", () => {
   });
 });
 
-export class _A {}
+class _A {}
+
 class _B extends _A {
   constructor(public a: A | null = null) {
     super();

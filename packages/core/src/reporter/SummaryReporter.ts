@@ -1,9 +1,10 @@
-import { TestContext } from "../test/TestContext";
-import { IWritable } from "../util/IWriteable";
-import { ReflectedValue } from "../util/ReflectedValue";
-import { IReporter } from "./IReporter";
+import { TestContext } from "../test/TestContext.js";
+import { IWritable } from "../util/IWriteable.js";
+import { ReflectedValue } from "../util/ReflectedValue.js";
+import { IReporter } from "./IReporter.js";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
-import { TestNode } from "../test/TestNode";
+import { TestNode } from "../test/TestNode.js";
+import chalk from "chalk";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -13,19 +14,7 @@ import { TestNode } from "../test/TestNode";
 export class SummaryReporter implements IReporter {
   private enableLogging: boolean = true;
 
-  constructor(options?: any) {
-    /* istanbul ignore next */
-    if (options) {
-      // can be "false" from cli
-      /* istanbul ignore next */
-      if (
-        !options.enableLogging ||
-        /* istanbul ignore next */ options.enableLogging === "false"
-      )
-        /* istanbul ignore next */
-        this.enableLogging = false;
-    }
-  }
+  constructor() {}
 
   public onEnter(_ctx: TestContext, _node: TestNode): void {}
 
@@ -53,7 +42,6 @@ export class SummaryReporter implements IReporter {
    * @param {TestContext} suite - The finished test suite.
    */
   public onFinish(suite: TestContext): void {
-    const chalk = require("chalk");
     const testGroups = suite.rootNode.childGroups;
 
     // TODO: Figure out a better way to flatten this array.
@@ -69,9 +57,8 @@ export class SummaryReporter implements IReporter {
     /** Report if all the groups passed. */
     if (suite.pass) {
       this.stdout!.write(
-        chalk`{green.bold ✔ ${
-          suite.fileName
-        }} Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
+        chalk.green.bold(`✔ ${suite.fileName} `) +
+          `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
       /** If logging is enabled, log all the values. */
@@ -91,16 +78,15 @@ export class SummaryReporter implements IReporter {
       }
     } else {
       this.stdout!.write(
-        chalk`{red.bold ❌ ${
-          suite.fileName
-        }} Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
+        chalk.red.bold(`❌ ${suite.fileName} `) +
+          `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
       /** If the group failed, report that the group failed. */
       for (const group of testGroups) {
         /* istanbul ignore next */
         if (group.pass) continue;
-        this.stdout!.write(chalk`  {red Failed:} ${group.name}\n`);
+        this.stdout!.write("  " + chalk.red.bold(`Failed:`) + ` ${group.name}\n`);
 
         /** Display the reason if there is one. */
         // if (group.reason)
@@ -116,21 +102,16 @@ export class SummaryReporter implements IReporter {
 
         inner: for (const test of group.groupTests) {
           if (test.pass) continue inner;
-          this.stdout!.write(
-            chalk`    {red.bold ❌ ${test.name}} - ${test.message}\n`,
-          );
+          this.stdout!.write(chalk.red.bold(`    ❌ ${test.name}`) + ` - ${test.message}\n`);
           if (test.actual !== null)
             this.stdout!.write(
-              chalk`      {red.bold [Actual]  :} ${test.actual
-                .stringify({ indent: 2 })
-                .trimLeft()}\n`,
+              chalk.red.bold(`      [Actual]  :`) + ` ${test.actual.stringify({ indent: 2 }).trimStart()}\n`,
             );
           if (test.expected !== null) {
             const expected = test.expected;
             this.stdout!.write(
-              chalk`      {green.bold [Expected]:} ${
-                expected.negated ? "Not " : ""
-              }${expected.stringify({ indent: 2 }).trimLeft()}\n`,
+              chalk.green.bold(`      [Expected]:`) +
+                ` ${expected.negated ? "Not " : ""}${expected.stringify({ indent: 2 }).trimStart()}\n`,
             );
           }
           /* istanbul ignore next */
@@ -146,17 +127,13 @@ export class SummaryReporter implements IReporter {
     // There are no warnings left in the as-pect test suite software
     for (const warning of suite.warnings) {
       /* istanbul ignore next */
-      this.stdout!.write(
-        chalk`{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
-      );
+      this.stdout!.write(chalk.yellow(` [Warning]`) + +`: ${warning.type} -> ${warning.message}\n`);
       /* istanbul ignore next */
       const stack = warning.stackTrace.trim();
       /* istanbul ignore next */
       if (stack) {
         this.stdout!.write(
-          chalk`{yellow    [Stack]}: {yellow ${stack
-            .split("\n")
-            .join("\n      ")}}\n`,
+          chalk.yellow(`   [Stack]`) + ": " + chalk.yellow(`${stack.split("\n").join("\n      ")}`) + "\n",
         );
       }
       /* istanbul ignore next */
@@ -164,37 +141,33 @@ export class SummaryReporter implements IReporter {
     }
 
     for (const error of suite.errors) {
+      this.stdout!.write(`${chalk.red(`   [Error]`)}: ${error.type} ${error.message}\n`);
       this.stdout!.write(
-        chalk`{red    [Error]}: ${error.type} ${error.message}\n`,
-      );
-      this.stdout!.write(
-        chalk`{red    [Stack]}: {yellow ${error.stackTrace
-          .split("\n")
-          .join("\n           ")}}\n\n`,
+        `${chalk.red(`   [Stack]`)}: ${chalk.yellow(`${error.stackTrace.split("\n").join("\n           ")}\n\n`)}`,
       );
     }
 
     const diff = suite.snapshotDiff!.results;
     for (const [name, result] of diff.entries()) {
-      if (result.type !== SnapshotDiffResultType.NoChange) {
-        this.stdout!.write(chalk`{red [Snapshot]}: ${name}\n`);
+      if (result.type === SnapshotDiffResultType.NoChange) continue;
+      console.log("A change occurred");
+      this.stdout!.write(`${chalk.red("[Snapshot]")}: ${name}\n`);
 
-        const changes = result.changes;
-        for (const change of changes) {
-          const lines = change.value.split("\n");
-          for (const line of lines) {
-            if (!line.trim()) continue;
-            if (change.added) {
-              this.stdout!.write(chalk`{green + ${line}}\n`);
-            } else if (change.removed) {
-              this.stdout!.write(chalk`{red - ${line}}\n`);
-            } else {
-              this.stdout!.write(chalk`  ${line}\n`);
-            }
+      const changes = result.changes;
+      for (const change of changes) {
+        const lines = change.value.split("\n");
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          if (change.added) {
+            this.stdout!.write(chalk.green(`+ ${line}\n`));
+          } else if (change.removed) {
+            this.stdout!.write(`${chalk.red(`- ${line}`)}\n`);
+          } else {
+            this.stdout!.write(`  ${line}\n`);
           }
         }
-        this.stdout!.write("\n");
       }
+      this.stdout!.write("\n");
     }
   }
 
@@ -204,8 +177,7 @@ export class SummaryReporter implements IReporter {
    * @param {ReflectedValue} logValue - A value to be logged to the console
    */
   public onLog(logValue: ReflectedValue): void {
-    const chalk = require("chalk");
     const output = logValue.stringify({ indent: 12 }).trimLeft();
-    this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
+    this.stdout!.write(chalk.yellow(`     [Log]:`) + ` ${output}\n`);
   }
 }

@@ -1,12 +1,15 @@
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
-import { TestNodeType, TestContext, IReporter, TestNode } from "@as-pect/core";
+import { TestNodeType, TestContext, IReporter, TestNode, IWritable } from "@as-pect/core";
 
 /**
  * This class reports all relevant test statistics to a JSON file located at
  * `{testLocation}.spec.json`.
  */
-module.exports = class JSONReporter implements IReporter {
+export default class JSONReporter implements IReporter {
+  public stdout: IWritable | null = null;
+  public stderr: IWritable | null = null;
+
   protected file: WriteStream | null = null;
 
   private first: boolean = true;

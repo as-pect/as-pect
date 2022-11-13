@@ -1,21 +1,12 @@
-module.exports = {
+export default {
   /**
    * A set of globs passed to the glob package that qualify typescript files for testing.
    */
-  include: ["assembly/__tests__/**/*.spec.ts"],
+  entries: ["assembly/__tests__/**/*.spec.ts"],
   /**
    * A set of globs passed to the glob package that quality files to be added to each test.
    */
-  add: ["assembly/__tests__/**/*.include.ts"],
-  /**
-   * All the compiler flags needed for this test suite. Make sure that a binary file is output.
-   */
-  flags: {
-    /** To output a wat file, uncomment the following line. */
-    // "--textFile": ["output.wat"],
-    /** A runtime must be provided here. */
-    "--runtime": ["incremental"], // Acceptable values are: "incremental", "minimal", and "stub"
-  },
+  include: ["assembly/__tests__/**/*.include.ts"],
   /**
    * A set of regexp that will disclude source files from testing.
    */
@@ -23,12 +14,13 @@ module.exports = {
   /**
    * Add your required AssemblyScript imports here.
    */
-  imports(memory, createImports, instantiateSync, binary) {
+  async instantiate(memory, createImports, instantiate, binary) {
     let instance; // Imports can reference this
     const myImports = {
-      // put your web assembly imports here, and return the module
+      env: { memory }
+      // put your web assembly imports here, and return the module promise
     };
-    instance = instantiateSync(binary, createImports(myImports));
+    instance = instantiate(binary, createImports(myImports));
     return instance;
   },
   /** Enable code coverage. */

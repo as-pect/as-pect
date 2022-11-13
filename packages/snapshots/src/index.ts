@@ -1,3 +1,3 @@
-export * from "./Snapshot";
-export * from "./SnapshotDiff";
-export * from "./SnapshotDiffResult";
+export * from "./Snapshot.js";
+export * from "./SnapshotDiff.js";
+export * from "./SnapshotDiffResult.js";

@@ -1,15 +1,20 @@
 {
   "name": "@as-pect/assembly",
-  "version": "6.2.0",
+  "version": "7.0.1",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "types": "types/as-pect.d.ts",
+  "type": "module",
   "scripts": {
-    "asp:ci": "node ../cli/lib/test --summary",
-    "asp": "node ../cli/lib/test --verbose",
-    "test:ci": "run-s asp:ci",
-    "test": "run-s asp",
+    "asp:ci": "node --experimental-wasi-unstable-preview1 ../cli/lib/test.js --summary",
+    "asp": "node --experimental-wasi-unstable-preview1 ../cli/lib/test.js --verbose",
+    "test:ci": "asp --summary",
+    "test": "asp --verbose",
     "tsc:all": "exit 0",
-    "test:update-snapshots": "exit 0"
+    "test:update-snapshots": "exit 0",
+    "asbuild:debug": "asc assembly/index.ts --target debug",
+    "asbuild:release": "asc assembly/index.ts --target release",
+    "asbuild": "npm run asbuild:debug && npm run asbuild:release",
+    "start": "npx serve ."
   },
   "repository": {
     "type": "git",
@@ -31,7 +36,10 @@
     "assembly/index.ts",
     "types/"
   ],
-  "peerDependencies": {
-    "assemblyscript": "^0.19.3"
+  "exports": {
+    ".": {
+      "import": "./build/release.js",
+      "types": "./build/release.d.ts"
+    }
   }
 }

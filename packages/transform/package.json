@@ -1,0 +1,22 @@
+{
+  "name": "@as-pect/transform",
+  "version": "7.0.1",
+  "description": "The transform used by the as-pect core and assembly packages to enable strict equality.",
+  "main": "lib/index.js",
+  "type": "module",
+  "scripts": {
+    "tsc:all": "tsc"
+  },
+  "author": "Joshua Tenner <tenner.joshua@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "assemblyscript": "^0.21.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.2"
+  },
+  "files": [
+    "lib/",
+    "init/"
+  ]
+}

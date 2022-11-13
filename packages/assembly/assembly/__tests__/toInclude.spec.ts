@@ -73,7 +73,7 @@ referenceSet.add(three);
 /**
  * This value is not included.
  */
-let four = new Vec3(1, 2, 3);
+let four = new Vec3(4, 5, 6);
 
 describe("toInclude reference arrays", () => {
   /**

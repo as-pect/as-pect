@@ -1,11 +1,12 @@
-import { TestContext } from "../test/TestContext";
-import { IWritable } from "../util/IWriteable";
-import { ReflectedValue } from "../util/ReflectedValue";
-import { TestNodeType } from "../util/TestNodeType";
-import { TestNode } from "../test/TestNode";
-import { IReporter } from "./IReporter";
+import { TestContext } from "../test/TestContext.js";
+import { IWritable } from "../util/IWriteable.js";
+import { ReflectedValue } from "../util/ReflectedValue.js";
+import { TestNodeType } from "../util/TestNodeType.js";
+import { TestNode } from "../test/TestNode.js";
+import { IReporter } from "./IReporter.js";
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
-import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue";
+import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue.js";
+import chalk from "chalk";
 
 /**
  * This is the default test reporter class for the `asp` command line application. It will pipe
@@ -46,9 +47,8 @@ export class VerboseReporter implements IReporter {
   public onGroupStart(group: TestNode): void {
     /* istanbul ignore next */
     if (group.groupTests.length === 0) return;
-    const chalk = require("chalk");
     /* istanbul ignore next */
-    if (group.name) this.stdout!.write(chalk`[Describe]: ${group.name}\n\n`);
+    if (group.name) this.stdout!.write(`[Describe]: ${group.name}\n\n`);
   }
 
   /**
@@ -80,7 +80,6 @@ export class VerboseReporter implements IReporter {
    * @param {TestNode} test - The finished TestResult
    */
   public onTestFinish(_group: TestNode, test: TestNode): void {
-    const chalk = require("chalk");
     if (test.pass) {
       /* istanbul ignore next */
       const rtraceDelta =
@@ -89,53 +88,44 @@ export class VerboseReporter implements IReporter {
           ? /* istanbul ignore next */
             ""
           : /* istanbul ignore next */
-            chalk` {yellow RTrace: ${
-              /* istanbul ignore next */
-              (test.rtraceDelta > 0
-                ? /* istanbul ignore next */
-                  "+"
-                : /* istanbul ignore next */
-                  "") + test.rtraceDelta.toString()
-            }}`;
+            chalk.yellow(
+              ` RTrace: ${
+                /* istanbul ignore next */
+                (test.rtraceDelta > 0 ? /* istanbul ignore next */ "+" : /* istanbul ignore next */ "") +
+                test.rtraceDelta.toString()
+              }`,
+            );
       this.stdout!.write(
         test.negated
-          ? chalk` {green  [Throws]: ✔} ${test.name}${rtraceDelta}\n`
-          : chalk` {green [Success]: ✔} ${test.name}${rtraceDelta}\n`,
+          ? ` ${chalk.green(` [Throws]: ✔`)} ${test.name}${rtraceDelta}\n`
+          : ` ${chalk.green(`[Success]: ✔`)} ${test.name}${rtraceDelta}\n`,
       );
     } else {
-      this.stdout!.write(chalk`    {red [Fail]: ✖} ${test.name}\n`);
+      this.stdout!.write(`    ${chalk.red(`[Fail]: ✖`)} ${test.name}\n`);
       const stringifyIndent2 = Object.assign({}, this.stringifyProperties, {
         indent: 2,
       });
 
       if (!test.negated) {
         if (test.actual) {
-          this.stdout!.write(
-            `  [Actual]: ${test
-              .actual!.stringify(stringifyIndent2)
-              .trimLeft()}\n`,
-          );
+          this.stdout!.write(`  [Actual]: ${test.actual!.stringify(stringifyIndent2).trimLeft()}\n`);
         }
         if (test.expected) {
           const expected = test.expected;
           this.stdout!.write(
-            `[Expected]: ${expected.negated ? "Not " : ""}${expected
-              .stringify(stringifyIndent2)
-              .trimLeft()}\n`,
+            `[Expected]: ${expected.negated ? "Not " : ""}${expected.stringify(stringifyIndent2).trimLeft()}\n`,
           );
         }
       }
 
       /* istanbul ignore next */
       if (test.message) {
-        this.stdout!.write(chalk` [Message]: {yellow ${test.message}}\n`);
+        this.stdout!.write(` [Message]: ${chalk.yellow(`${test.message}`)}\n`);
       }
 
       /* istanbul ignore next */
       if (test.stackTrace) {
-        this.stdout!.write(
-          `   [Stack]: ${test.stackTrace.split("\n").join("\n        ")}\n`,
-        );
+        this.stdout!.write(`   [Stack]: ${test.stackTrace.split("\n").join("\n        ")}\n`);
       }
     }
 
@@ -153,48 +143,34 @@ export class VerboseReporter implements IReporter {
   public onFinish(suite: TestContext): void {
     /* istanbul ignore next */
     if (suite.rootNode.children.length === 0) return;
-    const chalk = require("chalk");
 
-    const result = suite.pass ? chalk`{green ✔ PASS}` : chalk`{red ✖ FAIL}`;
+    const result = suite.pass ? chalk.green`✔ PASS` : chalk.red(`✖ FAIL`);
 
     const count = suite.testCount;
     const successCount = suite.testPassCount;
 
-    const failText =
-      count === successCount
-        ? `0 fail`
-        : chalk`{red ${(count - successCount).toString()} fail}`;
+    const failText = count === successCount ? `0 fail` : chalk.red(`${(count - successCount).toString()} fail`);
 
     // There are currently no warnings provided by the as-pect testing suite
     /* istanbul ignore next */
     for (const warning of suite.warnings) {
       /* istanbul ignore next */
-      this.stdout!.write(
-        chalk`\n{yellow  [Warning]}: ${warning.type} -> ${warning.message}\n`,
-      );
+      this.stdout!.write(`\n${chalk.yellow(` [Warning]`)}: ${warning.type} -> ${warning.message}\n`);
       /* istanbul ignore next */
       const stack = warning.stackTrace.trim();
       /* istanbul ignore next */
       if (stack) {
         /* istanbul ignore next */
-        this.stdout!.write(
-          chalk`{yellow    [Stack]}: {yellow ${stack
-            .split("\n")
-            .join("\n      ")}}\n`,
-        );
+        this.stdout!.write(`${chalk.yellow(`   [Stack]`)}: ${chalk.yellow(stack.split("\n").join("\n      "))}}\n`);
       }
       /* istanbul ignore next */
       this.stdout!.write("\n");
     }
 
     for (const error of suite.errors) {
+      this.stdout!.write(`\n${chalk.red(`   [Error]`)}: ${error.type} ${error.message}`);
       this.stdout!.write(
-        chalk`\n{red    [Error]}: ${error.type} ${error.message}`,
-      );
-      this.stdout!.write(
-        chalk`\n{red    [Stack]}: {yellow ${error.stackTrace
-          .split("\n")
-          .join("\n           ")}}\n`,
+        `\n${chalk.red(`   [Stack]`)}: ${chalk.yellow(`${error.stackTrace.split("\n").join("\n           ")}`)}\n`,
       );
     }
 
@@ -206,7 +182,7 @@ export class VerboseReporter implements IReporter {
 
     for (const [name, result] of diff.entries()) {
       if (result.type !== SnapshotDiffResultType.NoChange) {
-        this.stdout!.write(chalk`{red [Snapshot]}: ${name}\n`);
+        this.stdout!.write(`${chalk.red(`[Snapshot]`)}: ${name}\n`);
 
         const changes = result.changes;
         for (const change of changes) {
@@ -214,11 +190,11 @@ export class VerboseReporter implements IReporter {
           for (const line of lines) {
             if (!line.trim()) continue;
             if (change.added) {
-              this.stdout!.write(chalk`{green + ${line}}\n`);
+              this.stdout!.write(`${chalk.green(`+ ${line}`)}\n`);
             } else if (change.removed) {
-              this.stdout!.write(chalk`{red - ${line}}\n`);
+              this.stdout!.write(`${chalk.red(`- ${line}`)}\n`);
             } else {
-              this.stdout!.write(chalk`  ${line}\n`);
+              this.stdout!.write(`  ${line}\n`);
             }
           }
         }
@@ -227,17 +203,14 @@ export class VerboseReporter implements IReporter {
       totalCount += 1;
       addedCount += result.type === SnapshotDiffResultType.Added ? 1 : 0;
       removedCount += result.type === SnapshotDiffResultType.Removed ? 1 : 0;
-      differentCount +=
-        result.type === SnapshotDiffResultType.Different ? 1 : 0;
+      differentCount += result.type === SnapshotDiffResultType.Different ? 1 : 0;
     }
 
-    this.stdout!.write(chalk`    [File]: ${suite.fileName}
-  [Groups]: {green ${suite.groupCount} pass}, ${suite.groupCount} total
+    this.stdout!.write(`    [File]: ${suite.fileName}
+  [Groups]: ${chalk.green(`${suite.groupCount} pass`)}, ${suite.groupCount} total
   [Result]: ${result}
 [Snapshot]: ${totalCount} total, ${addedCount} added, ${removedCount} removed, ${differentCount} different
- [Summary]: {green ${suite.testPassCount} pass},  ${failText}, ${
-      suite.testCount
-    } total
+ [Summary]: ${chalk.green(`${suite.testPassCount} pass`)},  ${failText}, ${suite.testCount} total
     [Time]: ${suite.rootNode.deltaT}ms
 
 ${"~".repeat(80)}\n\n`);
@@ -252,9 +225,7 @@ ${"~".repeat(80)}\n\n`);
   /* istanbul ignore next */
   public onTodo(_group: TestNode, todo: string): void {
     /* istanbul ignore next */
-    const chalk = require("chalk");
-    /* istanbul ignore next */
-    this.stdout!.write(chalk`    {yellow [Todo]:} ${todo}\n`);
+    this.stdout!.write(`    ${chalk.yellow(`[Todo]:`)} ${todo}\n`);
   }
 
   /**
@@ -263,21 +234,15 @@ ${"~".repeat(80)}\n\n`);
    * @param {ReflectedValue} logValue - A value to be logged to the console
    */
   public onLog(logValue: ReflectedValue): void {
-    const chalk = require("chalk");
     const indent12 = Object.assign({}, this.stringifyProperties, {
       indent: 12,
     });
     const output: string = logValue.stringify(indent12).trimLeft();
-    this.stdout!.write(chalk`     {yellow [Log]:} ${output}\n`);
+    this.stdout!.write(`     ${chalk.yellow(`[Log]:`)} ${output}\n`);
     const stack = logValue.stack.trim();
     /* istanbul ignore next */
     if (stack) {
-      this.stdout!.write(
-        chalk`   {yellow [Stack]:} ${stack
-          .trimLeft()
-          .split("\n")
-          .join("\n        ")}\n`,
-      );
+      this.stdout!.write(`   ${chalk.yellow(`[Stack]:`)} ${stack.trimStart().split("\n").join("\n        ")}\n`);
     }
   }
 }

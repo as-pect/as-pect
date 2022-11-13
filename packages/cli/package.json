@@ -1,23 +1,22 @@
 {
   "name": "@as-pect/cli",
-  "version": "6.2.4",
+  "version": "7.0.7",
   "description": "Write AssemblyScript tests at blazing fast speeds",
-  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "types": "lib/index.d.ts",
+  "type": "module",
   "scripts": {
     "rimraf": "rimraf lib/*",
     "package:version-update": "ncu -u",
-    "test:ci": "jest",
-    "test": "jest",
-    "test:update-snapshots": "jest -u",
-    "tsc:all": "run-p tsc:default tsc:amd",
-    "tsc:amd": "tsc --outfile lib/as-pect.cli.amd.js --module amd --declaration --declarationMap",
-    "tsc:default": "tsc",
-    "tsc": "run-s rimraf tsc:all"
+    "test": "exit 0",
+    "tsc:cli": "run-s rimraf tsc",
+    "tsc": "tsc"
   },
   "bin": {
-    "asp": "bin/asp",
-    "aspect": "bin/asp"
+    "asp": "./bin/asp.js",
+    "aspect": "./bin/asp.js"
   },
   "repository": {
     "type": "git",
@@ -36,18 +35,25 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
-    "@as-covers/core": "0.2.1",
-    "@as-pect/assembly": "^6.2.0",
-    "@as-pect/core": "^6.2.1",
-    "chalk": "^4.1.1",
-    "glob": "^7.1.7"
+    "@as-covers/core": "0.3.1",
+    "@as-pect/assembly": "^7.0.1",
+    "@as-pect/core": "^7.0.1",
+    "@as-pect/transform": "^7.0.1",
+    "chalk": "^5.0.1",
+    "chalk-template": "^0.4.0",
+    "commander": "^9.4.0",
+    "glob": "^8.0.3",
+    "glob-promise": "^5.0.0"
   },
   "peerDependencies": {
-    "assemblyscript": "^0.19.3"
+    "assemblyscript": "^0.21.2"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.21.2"
   },
   "optionalDependencies": {
-    "@as-pect/csv-reporter": "^6.2.1",
-    "@as-pect/json-reporter": "^6.2.1"
+    "@as-pect/csv-reporter": "^7.0.1",
+    "@as-pect/json-reporter": "^7.0.1"
   },
   "files": [
     "init/",

@@ -1,16 +1,15 @@
 {
   "name": "@as-pect/snapshots",
-  "version": "6.2.1",
+  "version": "7.0.1",
   "description": "A package for dealing with snapshots",
   "main": "lib/index.js",
+  "type": "module",
   "scripts": {
-    "nearley": "nearleyc src/parser/grammar.ne -o src/parser/grammar.ts",
     "rimraf": "rimraf lib",
-    "test": "jest",
-    "test:ci": "jest",
+    "test": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
+    "test:ci": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
     "test:update-snapshots": "jest -u",
-    "tsc:all": "run-s rimraf nearley tsc:default tsc:amd",
-    "tsc:amd": "tsc --outfile lib/as-pect.core.amd.js --module amd --declaration --declarationMap",
+    "tsc:all": "run-s rimraf tsc:default",
     "tsc:default": "tsc"
   },
   "keywords": [
@@ -21,12 +20,13 @@
   "author": "Joshua Tenner <tenner.joshua@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/nearley": "^2.11.1",
-    "jest": "^27.0.5",
-    "ts-jest": "^27.0.3"
+    "@types/nearley": "^2.11.2",
+    "jest": "^28.0.0",
+    "ts-jest": "^28.0.8"
   },
   "dependencies": {
-    "diff": "^5.0.0",
+    "chevrotain": "^10.3.0",
+    "diff": "^5.1.0",
     "nearley": "^2.20.1"
   }
 }

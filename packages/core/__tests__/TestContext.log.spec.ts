@@ -3,10 +3,10 @@ import {
   TestNodeType,
   IAspectExports,
   EmptyReporter,
-} from "../src";
-import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue";
+} from "../src/index.js";
+import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue.js";
 import { promises as fs } from "fs";
-import { instantiate } from "assemblyscript/lib/loader/umd";
+import { instantiate } from "@assemblyscript/loader";
 
 const binary = fs.readFile("./assembly/jest-log.wasm");
 

@@ -17,7 +17,7 @@ exports[`snapshots: onFinish ./assembly/jest-reporter-snapshot.ts 1`] = `
 - false
 
     [File]: ./assembly/jest-reporter-snapshot.ts
-  [Groups]: 3 pass, 3 total
+  [Groups]: 2 pass, 2 total
   [Result]: ✖ FAIL
 [Snapshot]: 5 total, 1 added, 1 removed, 1 different
  [Summary]: 1 pass,  0 fail, 1 total
@@ -30,14 +30,10 @@ exports[`snapshots: onFinish ./assembly/jest-reporter-snapshot.ts 1`] = `
 
 exports[`snapshots: onGroupEnd  1`] = `""`;
 
-exports[`snapshots: onGroupEnd logs 1`] = `""`;
-
 exports[`snapshots: onGroupEnd snapshots 1`] = `
 "
 "
 `;
-
-exports[`snapshots: onGroupStart logs 1`] = `""`;
 
 exports[`snapshots: onGroupStart snapshots 1`] = `
 "[Describe]: snapshots
