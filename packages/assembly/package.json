@@ -8,7 +8,7 @@
     "asp:ci": "node --experimental-wasi-unstable-preview1 ../cli/lib/test.js --summary",
     "asp": "node --experimental-wasi-unstable-preview1 ../cli/lib/test.js --verbose",
     "test:ci": "asp --summary",
-    "test": "asp --verbose",
+    "test": "asp --verbose --output-binary",
     "tsc:all": "exit 0",
     "test:update-snapshots": "exit 0",
     "asbuild:debug": "asc assembly/index.ts --target debug",

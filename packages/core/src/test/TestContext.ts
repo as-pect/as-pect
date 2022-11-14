@@ -342,6 +342,12 @@ export class TestContext {
           this.wasm!._start();
         }
       } catch (ex) {
+        this.errors.push({
+          message: "The test suite did not run, because an error occurred when trying to start the module.",
+          stackTrace: (ex as Error).stack ?? "",
+          type: "TestContext Initialization",
+        });
+        console.log(ex);
         this.reporter.onEnter(this, node);
         /**
          * If this catch occurs, the entire test suite is completed.

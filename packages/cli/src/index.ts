@@ -9,7 +9,7 @@ import { printAsciiArt } from "./asciiArt.js";
 import { promise as glob } from "glob-promise";
 import { IAspectConfig } from "./IAspectConfig.js";
 
-import { main as asc } from "assemblyscript/dist/asc.js";
+import { main as asc, version as ascVersion } from "assemblyscript/dist/asc.js";
 import { init } from "./init.js";
 import { TestContext } from "@as-pect/core";
 import { Snapshot, SnapshotDiffResultType } from "@as-pect/snapshots";
@@ -90,7 +90,7 @@ export async function asp(argv: string[]): Promise<void> {
   const aspectConfig = (await import("file://" + configLocation)).default as IAspectConfig;
 
   stdout.write(`Using config: ${configLocation}\n`);
-
+  stdout.write(`ASC Version: ${ascVersion}\n`);
   // filter entries using array of regexp
   let entryFilterRegexes = [] as RegExp[];
   if (opts.disclue) entryFilterRegexes.push(new RegExp(opts.disclude));
@@ -277,7 +277,6 @@ export async function asp(argv: string[]): Promise<void> {
     );
 
     covers?.registerLoader(module);
-
     ctx.run(module as any);
     overallStats.groups += ctx.groupCount;
     overallStats.tests += ctx.testCount;
