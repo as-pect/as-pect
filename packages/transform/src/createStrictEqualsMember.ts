@@ -28,7 +28,7 @@ import {
 export function createStrictEqualsMember(classDeclaration: ClassDeclaration): MethodDeclaration {
   const range = classDeclaration.name.range;
 
-  // __aspectStrictEquals(ref: T, stackA: usize[], stackB: usize[], ignore: StaticArray<i64>): bool
+  // __aspectStrictEquals(rawRef: Object, stackA: usize[], stackB: usize[], ignore: StaticArray<i64>): bool
   return TypeNode.createMethodDeclaration(
     TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
     null,
@@ -36,20 +36,15 @@ export function createStrictEqualsMember(classDeclaration: ClassDeclaration): Me
     null,
     TypeNode.createFunctionType(
       [
-        // ref: T,
+        // rawRef: Object,
         createDefaultParameter(
-          "ref",
+          "rawRef",
           TypeNode.createNamedType(
-            TypeNode.createSimpleTypeName(classDeclaration.name.text, range),
-            classDeclaration.isGeneric
-              ? classDeclaration.typeParameters!.map((node) =>
-                  TypeNode.createNamedType(TypeNode.createSimpleTypeName(node.name.text, range), null, false, range),
-                )
-              : null,
+            TypeNode.createSimpleTypeName("Object", range),
+            null,
             false,
             range,
           ),
-          //createGenericTypeParameter("this", range),
           range,
         ),
         // stack: usize[]
@@ -112,6 +107,54 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
   const nameHashes = new Array<number>();
+
+  const rawRef = TypeNode.createIdentifierExpression("rawRef", range);
+  const classType = TypeNode.createNamedType(
+    TypeNode.createSimpleTypeName(classDeclaration.name.text, range),
+    classDeclaration.isGeneric
+      ? classDeclaration.typeParameters!.map((node) =>
+          TypeNode.createNamedType(TypeNode.createSimpleTypeName(node.name.text, range), null, false, range),
+        )
+      : null,
+    false,
+    range
+  );
+
+  // Check if the parameter is an instance of the class; return otherwise
+  body.push(
+    TypeNode.createIfStatement(
+      TypeNode.createUnaryPrefixExpression(
+        Token.Exclamation,
+        TypeNode.createInstanceOfExpression(rawRef, classType, range),
+        range
+      ),
+      TypeNode.createReturnStatement(
+        TypeNode.createFalseExpression(range),
+        range
+      ),
+      null,
+      range
+    )
+  );
+
+  // Cast rawRef into an instance of the class
+  body.push(
+    TypeNode.createVariableStatement(
+      null,
+      [
+        TypeNode.createVariableDeclaration(
+          TypeNode.createIdentifierExpression("ref", range),
+          null,
+          CommonFlags.Const,
+          classType,
+          TypeNode.createAssertionExpression(AssertionKind.As, rawRef, classType, range),
+          range
+        )
+      ],
+      range
+    )
+  );
+
   // for each field declaration, generate a check
   for (const member of classDeclaration.members) {
     // if it's an instance member, regardless of access modifier
