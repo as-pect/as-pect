@@ -20,7 +20,7 @@ exports[`snapshots: onGroupEnd  1`] = `""`;
 
 exports[`snapshots: onGroupEnd examples 1`] = `
 "    [Todo]: example todo
-     [Log]: \\"testing in a group\\"
+     [Log]: "testing in a group"
    [Stack]: Has Stack Trace
 
 "
@@ -44,7 +44,7 @@ exports[`snapshots: onTestFinish examples example 1 2`] = `
 
 exports[`snapshots: onTestFinish examples log value 1`] = `
 " [Success]: ✔ log value RTrace: +3
-     [Log]: \\"testing in a test\\"
+     [Log]: "testing in a test"
    [Stack]: Has Stack Trace
 "
 `;
@@ -70,7 +70,7 @@ exports[`snapshots: onTestFinish examples something negated fails 1`] = `
 [Expected]: Not 42
  [Message]: 42 is 42
    [Stack]: Has Stack Trace
-     [Log]: \\"another string\\"
+     [Log]: "another string"
    [Stack]: Has Stack Trace
 "
 `;
@@ -82,7 +82,7 @@ exports[`snapshots: onTestFinish examples something using toBe fails with a refe
       y: 2.0 as f32,
       z: 3.0 as f32
   }
-[Expected]: \\"Serializes to same value.\\"
+[Expected]: "Serializes to same value."
  [Message]: not the same pointer
    [Stack]: Has Stack Trace
 "

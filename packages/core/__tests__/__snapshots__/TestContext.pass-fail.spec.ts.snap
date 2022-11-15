@@ -413,14 +413,14 @@ ReflectedValue {
   "size": 3,
   "stack": "Has Stack Trace",
   "type": 2,
-  "typeId": 1,
+  "typeId": 2,
   "typeName": "String",
   "value": "two",
   "values": null,
 }
 `;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] actual-stringify 1`] = `"  string: \\"two\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] actual-stringify 1`] = `"  string: "two""`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] afterAllPointers 1`] = `0`;
 
@@ -445,14 +445,14 @@ ReflectedValue {
   "size": 3,
   "stack": "Has Stack Trace",
   "type": 2,
-  "typeId": 1,
+  "typeId": 2,
   "typeName": "String",
   "value": "one",
   "values": null,
 }
 `;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] expected-stringify 1`] = `"  string: \\"one\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] expected-stringify 1`] = `"  string: "one""`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should expect strings[0] frees 1`] = `0`;
 
@@ -532,15 +532,15 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 30128,
+  "pointer": 46832,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
   "type": 10,
-  "typeId": 9,
+  "typeId": 10,
   "typeName": "Array<i32>",
   "value": 0,
-  "values": Array [
+  "values": [
     ReflectedValue {
       "isManaged": false,
       "isNull": false,
@@ -622,15 +622,15 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 30240,
+  "pointer": 46944,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
   "type": 10,
-  "typeId": 9,
+  "typeId": 10,
   "typeName": "Array<i32>",
   "value": 0,
-  "values": Array [
+  "values": [
     ReflectedValue {
       "isManaged": false,
       "isNull": false,
@@ -860,19 +860,19 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 4256,
+  "pointer": 4480,
   "signed": false,
   "size": 4,
   "stack": "Has Stack Trace",
   "type": 2,
-  "typeId": 1,
+  "typeId": 2,
   "typeName": "String",
   "value": "Test",
   "values": null,
 }
 `;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] actual-stringify 1`] = `"  string: \\"Test\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] actual-stringify 1`] = `"  string: "Test""`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] afterAllPointers 1`] = `0`;
 
@@ -892,19 +892,19 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 4288,
+  "pointer": 4512,
   "signed": false,
   "size": 7,
   "stack": "Has Stack Trace",
   "type": 2,
-  "typeId": 1,
+  "typeId": 2,
   "typeName": "String",
   "value": "invalid",
   "values": null,
 }
 `;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] expected-stringify 1`] = `"  string: \\"invalid\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] expected-stringify 1`] = `"  string: "invalid""`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report failed functions[0] frees 1`] = `0`;
 
@@ -1240,19 +1240,19 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 4256,
+  "pointer": 4480,
   "signed": false,
   "size": 4,
   "stack": "Has Stack Trace",
   "type": 2,
-  "typeId": 1,
+  "typeId": 2,
   "typeName": "String",
   "value": "Test",
   "values": null,
 }
 `;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] actual-stringify 1`] = `"  string: \\"Test\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] actual-stringify 1`] = `"  string: "Test""`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] afterAllPointers 1`] = `0`;
 
@@ -1272,19 +1272,19 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 4288,
+  "pointer": 4512,
   "signed": false,
   "size": 7,
   "stack": "Has Stack Trace",
   "type": 2,
-  "typeId": 1,
+  "typeId": 2,
   "typeName": "String",
   "value": "invalid",
   "values": null,
 }
 `;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] expected-stringify 1`] = `"  string: \\"invalid\\""`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] expected-stringify 1`] = `"  string: "invalid""`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report invalid strings[0] frees 1`] = `0`;
 
@@ -1501,7 +1501,7 @@ ReflectedValue {
   "size": 4,
   "stack": "Has Stack Trace",
   "type": 1,
-  "typeId": 11,
+  "typeId": 12,
   "typeName": "Vec3",
   "value": "null",
   "values": null,
@@ -1533,7 +1533,7 @@ ReflectedValue {
   "size": 4,
   "stack": "Has Stack Trace",
   "type": 1,
-  "typeId": 11,
+  "typeId": 12,
   "typeName": "Vec3",
   "value": "null",
   "values": null,
@@ -1620,7 +1620,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report refe
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
-  "keys": Array [
+  "keys": [
     ReflectedValue {
       "isManaged": true,
       "isNull": false,
@@ -1628,12 +1628,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2544,
+      "pointer": 2768,
       "signed": false,
       "size": 1,
       "stack": "",
       "type": 2,
-      "typeId": 1,
+      "typeId": 2,
       "typeName": "String",
       "value": "x",
       "values": null,
@@ -1645,12 +1645,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2576,
+      "pointer": 2800,
       "signed": false,
       "size": 1,
       "stack": "",
       "type": 2,
-      "typeId": 1,
+      "typeId": 2,
       "typeName": "String",
       "value": "y",
       "values": null,
@@ -1662,12 +1662,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2608,
+      "pointer": 2832,
       "signed": false,
       "size": 1,
       "stack": "",
       "type": 2,
-      "typeId": 1,
+      "typeId": 2,
       "typeName": "String",
       "value": "z",
       "values": null,
@@ -1676,15 +1676,15 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 27760,
+  "pointer": 44272,
   "signed": false,
   "size": 0,
   "stack": "Has Stack Trace",
   "type": 1,
-  "typeId": 11,
+  "typeId": 12,
   "typeName": "Vec3",
   "value": 0,
-  "values": Array [
+  "values": [
     ReflectedValue {
       "isManaged": false,
       "isNull": false,
@@ -1752,7 +1752,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report refe
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] afterEachPointers 1`] = `0`;
 
-exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] allocations 1`] = `17`;
+exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] allocations 1`] = `21`;
 
 exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report reference values[0] beforeAllPointers 1`] = `0`;
 
@@ -1762,7 +1762,7 @@ exports[`pass-fail output Overall Statistics: !~pass-fail[0]!~should report refe
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
-  "keys": Array [
+  "keys": [
     ReflectedValue {
       "isManaged": true,
       "isNull": false,
@@ -1770,12 +1770,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2544,
+      "pointer": 2768,
       "signed": false,
       "size": 1,
       "stack": "",
       "type": 2,
-      "typeId": 1,
+      "typeId": 2,
       "typeName": "String",
       "value": "x",
       "values": null,
@@ -1787,12 +1787,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2576,
+      "pointer": 2800,
       "signed": false,
       "size": 1,
       "stack": "",
       "type": 2,
-      "typeId": 1,
+      "typeId": 2,
       "typeName": "String",
       "value": "y",
       "values": null,
@@ -1804,12 +1804,12 @@ ReflectedValue {
       "negated": false,
       "nullable": false,
       "offset": 0,
-      "pointer": 2608,
+      "pointer": 2832,
       "signed": false,
       "size": 1,
       "stack": "",
       "type": 2,
-      "typeId": 1,
+      "typeId": 2,
       "typeName": "String",
       "value": "z",
       "values": null,
@@ -1818,15 +1818,15 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 24,
-  "pointer": 27840,
+  "pointer": 44352,
   "signed": false,
   "size": 0,
   "stack": "Has Stack Trace",
   "type": 1,
-  "typeId": 11,
+  "typeId": 12,
   "typeName": "Vec3",
   "value": 0,
-  "values": Array [
+  "values": [
     ReflectedValue {
       "isManaged": false,
       "isNull": false,
@@ -2036,15 +2036,15 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 30800,
+  "pointer": 47504,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
   "type": 11,
-  "typeId": 16,
+  "typeId": 18,
   "typeName": "Float64Array",
   "value": 0,
-  "values": Array [
+  "values": [
     ReflectedValue {
       "isManaged": false,
       "isNull": false,
@@ -2120,15 +2120,15 @@ ReflectedValue {
   "negated": false,
   "nullable": false,
   "offset": 0,
-  "pointer": 30880,
+  "pointer": 47584,
   "signed": false,
   "size": 3,
   "stack": "Has Stack Trace",
   "type": 11,
-  "typeId": 16,
+  "typeId": 18,
   "typeName": "Float64Array",
   "value": 0,
-  "values": Array [
+  "values": [
     ReflectedValue {
       "isManaged": false,
       "isNull": false,

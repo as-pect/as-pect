@@ -347,7 +347,6 @@ export class TestContext {
           stackTrace: (ex as Error).stack ?? "",
           type: "TestContext Initialization",
         });
-        console.log(ex);
         this.reporter.onEnter(this, node);
         /**
          * If this catch occurs, the entire test suite is completed.
