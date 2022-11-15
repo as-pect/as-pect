@@ -3,7 +3,7 @@
 exports[`snapshots: onFinish ./assembly/jest-reporter-fail.ts 1`] = `
 "❌ ./assembly/jest-reporter-fail.ts Pass: 4 / 9 Todo: 1 Time: 0ms
   Failed: examples
-     [Log]: \\"testing in a group\\"
+     [Log]: "testing in a group"
     ❌ push an error to the error array - 
     ❌ something fails - Here is an example failure message.
       [Actual]  : -1
@@ -12,14 +12,14 @@ exports[`snapshots: onFinish ./assembly/jest-reporter-fail.ts 1`] = `
     ❌ something negated fails - 42 is 42
       [Actual]  : 42
       [Expected]: Not 42
-     [Log]: \\"another string\\"
+     [Log]: "another string"
     ❌ something using toBe fails with a reference that is similar - not the same pointer
       [Actual]  : Vec3 {
       x: 1.0 as f32,
       y: 2.0 as f32,
       z: 3.0 as f32
   }
-      [Expected]: \\"Serializes to same value.\\"
+      [Expected]: "Serializes to same value."
    [Error]: ReflectedValue Cannot log ReflectedValue of id -1. Index out of bounds.
    [Stack]: Has Stack Trace
 

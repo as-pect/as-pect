@@ -1,12 +1,5 @@
 export default {
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/default-esm',
   collectCoverage: false,
-  testMatch: ["**/__tests__/**/*.spec.[jt]s"],
-  extensionsToTreatAsEsm: ['.ts'],
   testPathIgnorePatterns: ["/assembly/", "/node_modules/"],
-  globals: {
-    'ts-jest': {
-      useESM: true,
-    },
-  }
 };

@@ -2,7 +2,7 @@
 
 exports[`snapshots: onFinish ./assembly/jest-reporter-pass.ts 1`] = `
 "✔ ./assembly/jest-reporter-pass.ts Pass: 2 / 2 Todo: 0 Time: 0ms
-     [Log]: \\"Something else!\\"
-     [Log]: \\"Something!\\"
+     [Log]: "Something else!"
+     [Log]: "Something!"
 "
 `;

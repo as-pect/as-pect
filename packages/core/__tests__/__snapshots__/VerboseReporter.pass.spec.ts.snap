@@ -16,7 +16,7 @@ exports[`snapshots: onFinish ./assembly/jest-reporter-pass.ts 1`] = `
 exports[`snapshots: onGroupEnd  1`] = `""`;
 
 exports[`snapshots: onGroupEnd a passing suite 1`] = `
-"     [Log]: \\"Something else!\\"
+"     [Log]: "Something else!"
    [Stack]: Has Stack Trace
 
 "
@@ -35,7 +35,7 @@ exports[`snapshots: onTestFinish a passing suite it throws successfully! 1`] = `
 
 exports[`snapshots: onTestFinish a passing suite passes 1`] = `
 " [Success]: ✔ passes RTrace: +10
-     [Log]: \\"Something!\\"
+     [Log]: "Something!"
    [Stack]: Has Stack Trace
 "
 `;

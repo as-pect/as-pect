@@ -35,12 +35,12 @@ function traverseStatements(statements: Statement[]): void {
   // for each statement in the source
   for (const statement of statements) {
     // find each class declaration
-    if (statement.kind === NodeKind.CLASSDECLARATION) {
+    if (statement.kind === NodeKind.ClassDeclaration) {
       // cast and create a strictEquals function
       const classDeclaration = <ClassDeclaration>statement;
       classDeclaration.members.push(createStrictEqualsMember(classDeclaration));
       classDeclaration.members.push(createAddReflectedValueKeyValuePairsMember(classDeclaration));
-    } else if (statement.kind === NodeKind.NAMESPACEDECLARATION) {
+    } else if (statement.kind === NodeKind.NamespaceDeclaration) {
       const namespaceDeclaration = <NamespaceDeclaration>statement;
       traverseStatements(namespaceDeclaration.members);
     }

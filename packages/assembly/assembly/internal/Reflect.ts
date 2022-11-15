@@ -666,7 +666,7 @@ function referencesEqual<T>(
   if (isNullable(left)) {
     // @ts-ignore: __aspectStrictEquals is defined at this point
     result = left!.__aspectStrictEquals(
-      right,
+      <Object>right,
       stack,
       cache,
       [] as StaticArray<i64>,
@@ -674,7 +674,7 @@ function referencesEqual<T>(
   } else {
     // @ts-ignore: __aspectStrictEquals is defined at this point
     result = left.__aspectStrictEquals(
-      right,
+      <Object>right, // here is the hat trick
       stack,
       cache,
       [] as StaticArray<i64>,

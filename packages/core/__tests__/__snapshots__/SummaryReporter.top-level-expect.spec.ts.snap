@@ -2,5 +2,8 @@
 
 exports[`snapshots: onFinish ./assembly/jest-reporter-top-level-expect.ts 1`] = `
 "❌ ./assembly/jest-reporter-top-level-expect.ts Pass: 0 / 0 Todo: 0 Time: 0ms
+   [Error]: TestContext Initialization The test suite did not run, because an error occurred when trying to start the module.
+   [Stack]: Has Stack Trace
+
 "
 `;
