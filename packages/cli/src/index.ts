@@ -130,6 +130,12 @@ export async function asp(argv: string[]): Promise<void> {
     }
   }
 
+  // Adds defaults and custom transformers
+  let transformers = ["@as-pect/transform"];
+  if (aspectConfig?.transform?.length) {
+    transformers.push(...aspectConfig.transform);
+  }
+
   // grab cli options here
   const asconfigLocation = opts.asConfig;
 
@@ -168,7 +174,16 @@ export async function asp(argv: string[]): Promise<void> {
     const files = new Map<string, Uint8Array>();
     const dir = path.dirname(entry);
     const basename = path.basename(entry, path.extname(entry));
-    const ascArgs = [entry, ...includes, "--config", asconfigLocation, "--target", covers ? "coverage" : "noCoverage"];
+    const ascArgs = [
+      entry,
+      ...includes,
+      "--config",
+      asconfigLocation,
+      "--target",
+      covers ? "coverage" : "noCoverage",
+      "--transform",
+      transformers.join(","),
+    ];
 
     const compiled = await asc(ascArgs, {
       readFile(filename, baseDir) {

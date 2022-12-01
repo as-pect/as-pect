@@ -15,4 +15,5 @@ export interface IAspectConfig {
     instantiate: typeof import("@assemblyscript/loader").instantiate,
     binary: Uint8Array,
   ): Promise<ResultObject>;
+  transform?: string[];
 }

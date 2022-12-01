@@ -2,10 +2,9 @@
   "targets": {
     "coverage": {
       "lib": ["./node_modules/@as-covers/assembly/index.ts"],
-      "transform": ["@as-covers/transform", "@as-pect/transform"]
+      "transform": ["@as-covers/transform"]
     },
     "noCoverage": {
-      "transform": ["@as-pect/transform"]
     }
   },
   "options": {
