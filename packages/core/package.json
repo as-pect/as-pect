@@ -41,6 +41,7 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
+    "@assemblyscript/loader": "^0.24.0",
     "@as-pect/assembly": "^7.0.1",
     "@as-pect/snapshots": "^7.0.1",
     "assemblyscript": "^0.24.0",
@@ -53,7 +54,6 @@
     "lib/"
   ],
   "devDependencies": {
-    "@assemblyscript/loader": "^0.24.0",
     "jest": "^29.3.1",
     "ts-jest": "^29.0.3"
   }
