@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/core",
-  "version": "7.0.1",
+  "version": "8.0.0",
   "description": "Write AssemblyScript tests at blazing fast speeds",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -41,8 +41,8 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
-    "@as-pect/assembly": "^7.0.1",
-    "@as-pect/snapshots": "^7.0.1",
+    "@as-pect/assembly": "^8.0.0",
+    "@as-pect/snapshots": "^8.0.0",
     "assemblyscript": "^0.24.0",
     "chalk": "^5.1.2",
     "chalk-template": "^0.4.0",
