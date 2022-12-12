@@ -1,11 +1,11 @@
 74 error Error: Command failed with exit code 1: npm install --package-lock-only --ignore-scripts
 74 error npm ERR! code ETARGET
-74 error npm ERR! notarget No matching version found for @as-pect/core@^8.0.0.
+74 error npm ERR! notarget No matching version found for @as-pect/core@^8.0.1.
 74 error npm ERR! notarget In most cases you or one of your dependencies are requesting
 74 error npm ERR! notarget a package version that doesn't exist.
 74 error
 74 error npm ERR! A complete log of this run can be found in:
-74 error npm ERR!     C:\Users\tenne\AppData\Local\npm-cache\_logs\2022-11-15T03_42_15_518Z-debug-0.log
+74 error npm ERR!     C:\Users\tenne\AppData\Local\npm-cache\_logs\2022-12-12T21_32_53_427Z-debug-0.log
 74 error     at makeError (C:\Users\tenne\Desktop\Project\as-pect\node_modules\execa\lib\error.js:60:11)
 74 error     at handlePromise (C:\Users\tenne\Desktop\Project\as-pect\node_modules\execa\index.js:118:26)
 74 error     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
