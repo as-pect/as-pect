@@ -35,22 +35,22 @@
   },
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "dependencies": {
-    "@as-covers/core": "0.4.1",
-    "@as-covers/transform": "0.4.1",
+    "@as-covers/core": "0.4.2",
+    "@as-covers/transform": "0.4.2",
     "@as-pect/assembly": "^8.0.0",
     "@as-pect/core": "^8.0.0",
     "@as-pect/transform": "^8.0.0",
-    "chalk": "^5.1.2",
+    "chalk": "^5.2.0",
     "chalk-template": "^0.4.0",
     "commander": "^9.4.1",
     "glob": "^8.0.3",
     "glob-promise": "^5.0.0"
   },
   "peerDependencies": {
-    "assemblyscript": "^0.24.0"
+    "assemblyscript": "^0.25.0"
   },
   "devDependencies": {
-    "assemblyscript": "^0.24.0"
+    "assemblyscript": "^0.25.0"
   },
   "optionalDependencies": {
     "@as-pect/csv-reporter": "^8.0.0",

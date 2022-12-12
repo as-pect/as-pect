@@ -43,9 +43,9 @@
   "dependencies": {
     "@as-pect/assembly": "^8.0.0",
     "@as-pect/snapshots": "^8.0.0",
-    "@assemblyscript/loader": "^0.24.0",
-    "assemblyscript": "^0.24.0",
-    "chalk": "^5.1.2",
+    "@assemblyscript/loader": "^0.25.0",
+    "assemblyscript": "^0.25.0",
+    "chalk": "^5.2.0",
     "chalk-template": "^0.4.0",
     "long": "^5.2.1"
   },

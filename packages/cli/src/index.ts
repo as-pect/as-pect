@@ -348,5 +348,10 @@ export async function asp(argv: string[]): Promise<void> {
    [Result]: ${overallStats.pass ? chalk.green(`✔ Pass!`) : chalk.red(`❌ Fail`)}
 
    `;
+
   stdout.write(summaryString);
+
+  if (!overallStats.pass) {
+    process.exit(1);
+  }
 }

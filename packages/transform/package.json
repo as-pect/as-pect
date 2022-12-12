@@ -10,10 +10,10 @@
   "author": "Joshua Tenner <tenner.joshua@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "assemblyscript": "^0.24.0"
+    "assemblyscript": "^0.25.0"
   },
   "devDependencies": {
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.4"
   },
   "files": [
     "lib/",
