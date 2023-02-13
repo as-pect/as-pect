@@ -73,6 +73,12 @@ declare function __aspectPushReflectedObjectKey(
   return changetype<OBJECT>(ptr - OBJECT_OVERHEAD).rtSize;
 }
 
+export namespace Reflect {
+  export const FAILED_MATCH = 0;
+  export const SUCCESSFUL_MATCH = 1;
+  export const DEFER_MATCH = 2;
+}
+
 @global
 // @ts-ignore: global decorator is allowed here
 export class Reflect {
@@ -689,10 +695,4 @@ function referencesEqual<T>(
   stack.pop();
   stack.pop();
   return select(Reflect.SUCCESSFUL_MATCH, Reflect.FAILED_MATCH, result);
-}
-
-export namespace Reflect {
-  export const FAILED_MATCH = 0;
-  export const SUCCESSFUL_MATCH = 1;
-  export const DEFER_MATCH = 2;
 }

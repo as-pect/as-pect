@@ -3,6 +3,7 @@ import { toIncludeEqualComparison } from "./comparison/toIncludeEqualComparison"
 import { Actual } from "./Actual";
 import { Expected } from "./Expected";
 import { assert } from "./assert";
+import { Reflect } from "./Reflect";
 
 // @ts-ignore: Decorators *are* valid here
 @external("__aspect", "tryCall")
