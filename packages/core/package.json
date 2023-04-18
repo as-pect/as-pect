@@ -44,7 +44,7 @@
     "@as-pect/assembly": "^8.0.1",
     "@as-pect/snapshots": "^8.0.1",
     "@assemblyscript/loader": "^0.25.0",
-    "assemblyscript": "^0.25.0",
+    "assemblyscript": "^0.27.2",
     "chalk": "^5.2.0",
     "chalk-template": "^0.4.0",
     "long": "^5.2.1"

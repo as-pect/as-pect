@@ -1,12 +1,171 @@
-74 error Error: Command failed with exit code 1: npm install --package-lock-only --ignore-scripts
-74 error npm ERR! code ETARGET
-74 error npm ERR! notarget No matching version found for @as-pect/core@^8.0.1.
-74 error npm ERR! notarget In most cases you or one of your dependencies are requesting
-74 error npm ERR! notarget a package version that doesn't exist.
-74 error
-74 error npm ERR! A complete log of this run can be found in:
-74 error npm ERR!     C:\Users\tenne\AppData\Local\npm-cache\_logs\2022-12-12T21_32_53_427Z-debug-0.log
-74 error     at makeError (C:\Users\tenne\Desktop\Project\as-pect\node_modules\execa\lib\error.js:60:11)
-74 error     at handlePromise (C:\Users\tenne\Desktop\Project\as-pect\node_modules\execa\index.js:118:26)
-74 error     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-74 error     at async Promise.all (index 0)
+0 silly argv {
+0 silly argv   _: [ 'bootstrap' ],
+0 silly argv   hoist: true,
+0 silly argv   lernaVersion: '6.6.1',
+0 silly argv   '$0': 'node_modules/.bin/lerna'
+0 silly argv }
+1 notice cli v6.6.1
+2 verbose rootPath /home/jtenner/as-pect
+3 verbose hoist using globs ["**"]
+4 silly npmConfig {
+4 silly npmConfig   registry: undefined,
+4 silly npmConfig   npmClient: 'npm',
+4 silly npmConfig   npmClientArgs: [],
+4 silly npmConfig   mutex: undefined
+4 silly npmConfig }
+5 info Bootstrapping 7 packages
+6 verbose lifecycle preinstall
+7 silly lifecycle No script for "preinstall" in "@as-pect/assembly", continuing
+8 silly lifecycle No script for "preinstall" in "@as-pect/snapshots", continuing
+9 silly lifecycle No script for "preinstall" in "@as-pect/transform", continuing
+10 silly lifecycle No script for "preinstall" in "@as-pect/core", continuing
+11 silly lifecycle No script for "preinstall" in "@as-pect/csv-reporter", continuing
+12 silly lifecycle No script for "preinstall" in "@as-pect/json-reporter", continuing
+13 silly lifecycle No script for "preinstall" in "@as-pect/cli", continuing
+14 silly hasDependencyInstalled as-pect @as-pect/assembly
+15 silly hasDependencyInstalled as-pect @as-pect/cli
+16 silly hasDependencyInstalled as-pect @as-pect/core
+17 silly hasDependencyInstalled as-pect @as-pect/csv-reporter
+18 silly hasDependencyInstalled as-pect @as-pect/json-reporter
+19 silly hasDependencyInstalled as-pect @as-pect/snapshots
+20 silly hasDependencyInstalled as-pect @as-pect/transform
+21 silly hasDependencyInstalled as-pect @assemblyscript/wasi-shim
+22 silly hasDependencyInstalled as-pect @types/diff
+23 silly hasDependencyInstalled as-pect @types/glob
+24 silly hasDependencyInstalled as-pect @types/jest
+25 silly hasDependencyInstalled as-pect @types/node
+26 silly hasDependencyInstalled as-pect @typescript-eslint/eslint-plugin
+27 silly hasDependencyInstalled as-pect @typescript-eslint/parser
+28 silly hasDependencyInstalled as-pect assemblyscript
+29 silly hasDependencyInstalled as-pect coveralls
+30 silly hasDependencyInstalled as-pect eslint
+31 silly hasDependencyInstalled as-pect jest
+32 silly hasDependencyInstalled as-pect lerna
+33 silly hasDependencyInstalled as-pect npm-run-all
+34 silly hasDependencyInstalled as-pect prettier
+35 silly hasDependencyInstalled as-pect rimraf
+36 silly hasDependencyInstalled as-pect strip-ansi
+37 silly hasDependencyInstalled as-pect ts-jest
+38 silly hasDependencyInstalled as-pect ts-node
+39 silly hasDependencyInstalled as-pect typescript
+40 silly hasDependencyInstalled as-pect line-column
+41 silly hasDependencyInstalled as-pect @as-covers/core
+42 silly hasDependencyInstalled as-pect @as-covers/transform
+43 silly hasDependencyInstalled as-pect chalk
+44 silly hasDependencyInstalled as-pect chalk-template
+45 silly hasDependencyInstalled as-pect commander
+46 silly hasDependencyInstalled as-pect glob
+47 silly hasDependencyInstalled as-pect glob-promise
+48 silly hasDependencyInstalled as-pect @assemblyscript/loader
+49 silly hasDependencyInstalled as-pect long
+50 silly hasDependencyInstalled as-pect csv-stringify
+51 silly hasDependencyInstalled as-pect @types/nearley
+52 silly hasDependencyInstalled as-pect chevrotain
+53 silly hasDependencyInstalled as-pect diff
+54 silly hasDependencyInstalled as-pect nearley
+55 silly root dependencies {}
+56 silly leaf dependencies {}
+57 info Installing external dependencies
+58 verbose actions 2 actions, concurrency 4
+59 info hoist Installing hoisted dependencies into root
+60 silly npmInstallDependencies as-pect [
+60 silly npmInstallDependencies   '@as-pect/assembly@file:./packages/assembly',
+60 silly npmInstallDependencies   '@as-pect/cli@file:./packages/cli',
+60 silly npmInstallDependencies   '@as-pect/core@file:./packages/core',
+60 silly npmInstallDependencies   '@as-pect/csv-reporter@file:./packages/csv-reporter',
+60 silly npmInstallDependencies   '@as-pect/json-reporter@file:./packages/json-reporter',
+60 silly npmInstallDependencies   '@as-pect/snapshots@file:./packages/snapshots',
+60 silly npmInstallDependencies   '@as-pect/transform@file:./packages/transform',
+60 silly npmInstallDependencies   '@assemblyscript/wasi-shim@^0.1.0',
+60 silly npmInstallDependencies   '@types/diff@^5.0.2',
+60 silly npmInstallDependencies   '@types/glob@^8.0.0',
+60 silly npmInstallDependencies   '@types/jest@^29.2.4',
+60 silly npmInstallDependencies   '@types/node@^18.11.13',
+60 silly npmInstallDependencies   '@typescript-eslint/eslint-plugin@^5.46.1',
+60 silly npmInstallDependencies   '@typescript-eslint/parser@^5.46.1',
+60 silly npmInstallDependencies   'assemblyscript@^0.25.0',
+60 silly npmInstallDependencies   'coveralls@^3.1.1',
+60 silly npmInstallDependencies   'eslint@^8.29.0',
+60 silly npmInstallDependencies   'jest@^29.3.1',
+60 silly npmInstallDependencies   'lerna@^6.1.0',
+60 silly npmInstallDependencies   'npm-run-all@^4.1.5',
+60 silly npmInstallDependencies   'prettier@^2.8.1',
+60 silly npmInstallDependencies   'rimraf@^3.0.2',
+60 silly npmInstallDependencies   'strip-ansi@^7.0.1',
+60 silly npmInstallDependencies   'ts-jest@^29.0.3',
+60 silly npmInstallDependencies   'ts-node@^10.9.1',
+60 silly npmInstallDependencies   'typescript@^4.9.4',
+60 silly npmInstallDependencies   'line-column@^1.0.2',
+60 silly npmInstallDependencies   '@as-covers/core@0.4.2',
+60 silly npmInstallDependencies   '@as-covers/transform@0.4.2',
+60 silly npmInstallDependencies   'chalk@^5.2.0',
+60 silly npmInstallDependencies   'chalk-template@^0.4.0',
+60 silly npmInstallDependencies   'commander@^9.4.1',
+60 silly npmInstallDependencies   'glob@^8.0.3',
+60 silly npmInstallDependencies   'glob-promise@^5.0.0',
+60 silly npmInstallDependencies   '@assemblyscript/loader@^0.25.0',
+60 silly npmInstallDependencies   'long@^5.2.1',
+60 silly npmInstallDependencies   'csv-stringify@^6.2.3',
+60 silly npmInstallDependencies   '@types/nearley@^2.11.2',
+60 silly npmInstallDependencies   'chevrotain@^10.4.2',
+60 silly npmInstallDependencies   'diff@^5.1.0',
+60 silly npmInstallDependencies   'nearley@^2.20.1'
+60 silly npmInstallDependencies ]
+61 silly npmInstallDependencies backup /home/jtenner/as-pect/package.json
+62 info hoist Pruning hoisted dependencies
+63 silly prune [
+63 silly prune   '/home/jtenner/as-pect/packages/cli/node_modules/assemblyscript',
+63 silly prune   '/home/jtenner/as-pect/packages/core/node_modules/assemblyscript',
+63 silly prune   '/home/jtenner/as-pect/packages/transform/node_modules/assemblyscript',
+63 silly prune   '/home/jtenner/as-pect/packages/core/node_modules/jest',
+63 silly prune   '/home/jtenner/as-pect/packages/snapshots/node_modules/jest',
+63 silly prune   '/home/jtenner/as-pect/packages/core/node_modules/ts-jest',
+63 silly prune   '/home/jtenner/as-pect/packages/snapshots/node_modules/ts-jest',
+63 silly prune   '/home/jtenner/as-pect/packages/transform/node_modules/typescript',
+63 silly prune   '/home/jtenner/as-pect/packages/cli/node_modules/@as-covers/core',
+63 silly prune   '/home/jtenner/as-pect/packages/cli/node_modules/@as-covers/transform',
+63 silly prune   '/home/jtenner/as-pect/packages/cli/node_modules/chalk',
+63 silly prune   '/home/jtenner/as-pect/packages/core/node_modules/chalk',
+63 silly prune   '/home/jtenner/as-pect/packages/cli/node_modules/chalk-template',
+63 silly prune   '/home/jtenner/as-pect/packages/core/node_modules/chalk-template',
+63 silly prune   '/home/jtenner/as-pect/packages/cli/node_modules/commander',
+63 silly prune   '/home/jtenner/as-pect/packages/cli/node_modules/glob',
+63 silly prune   '/home/jtenner/as-pect/packages/cli/node_modules/glob-promise',
+63 silly prune   '/home/jtenner/as-pect/packages/core/node_modules/@assemblyscript/loader',
+63 silly prune   '/home/jtenner/as-pect/packages/core/node_modules/long',
+63 silly prune   '/home/jtenner/as-pect/packages/csv-reporter/node_modules/csv-stringify',
+63 silly prune   '/home/jtenner/as-pect/packages/snapshots/node_modules/@types/nearley',
+63 silly prune   '/home/jtenner/as-pect/packages/snapshots/node_modules/chevrotain',
+63 silly prune   '/home/jtenner/as-pect/packages/snapshots/node_modules/diff',
+63 silly prune   '/home/jtenner/as-pect/packages/snapshots/node_modules/nearley'
+63 silly prune ]
+64 silly rimrafDir /home/jtenner/as-pect/packages/cli/node_modules/assemblyscript
+65 silly rimrafDir /home/jtenner/as-pect/packages/core/node_modules/assemblyscript
+66 silly rimrafDir /home/jtenner/as-pect/packages/transform/node_modules/assemblyscript
+67 silly rimrafDir /home/jtenner/as-pect/packages/core/node_modules/jest
+68 verbose prune /home/jtenner/as-pect/packages/cli/node_modules/assemblyscript
+69 verbose prune /home/jtenner/as-pect/packages/core/node_modules/assemblyscript
+70 verbose prune /home/jtenner/as-pect/packages/transform/node_modules/assemblyscript
+71 verbose prune /home/jtenner/as-pect/packages/core/node_modules/jest
+72 silly rimrafDir /home/jtenner/as-pect/packages/snapshots/node_modules/jest
+73 silly rimrafDir /home/jtenner/as-pect/packages/core/node_modules/ts-jest
+74 silly rimrafDir /home/jtenner/as-pect/packages/snapshots/node_modules/ts-jest
+75 silly rimrafDir /home/jtenner/as-pect/packages/transform/node_modules/typescript
+76 verbose prune /home/jtenner/as-pect/packages/snapshots/node_modules/jest
+77 verbose prune /home/jtenner/as-pect/packages/core/node_modules/ts-jest
+78 verbose prune /home/jtenner/as-pect/packages/snapshots/node_modules/ts-jest
+79 verbose prune /home/jtenner/as-pect/packages/transform/node_modules/typescript
+80 silly rimrafDir /home/jtenner/as-pect/packages/cli/node_modules/@as-covers/core
+81 silly rimrafDir /home/jtenner/as-pect/packages/cli/node_modules/@as-covers/transform
+82 silly rimrafDir /home/jtenner/as-pect/packages/cli/node_modules/chalk
+83 silly rimrafDir /home/jtenner/as-pect/packages/core/node_modules/chalk
+84 verbose prune /home/jtenner/as-pect/packages/cli/node_modules/@as-covers/core
+85 verbose prune /home/jtenner/as-pect/packages/cli/node_modules/@as-covers/transform
+86 silly rimrafDir /home/jtenner/as-pect/packages/cli/node_modules/chalk-template
+87 silly rimrafDir /home/jtenner/as-pect/packages/core/node_modules/chalk-template
+88 verbose prune /home/jtenner/as-pect/packages/cli/node_modules/chalk-template
+89 verbose prune /home/jtenner/as-pect/packages/core/node_modules/chalk-template
+90 error AssertionError [ERR_ASSERTION]: rimraf: callback function required
+90 error     at rimraf (/home/jtenner/as-pect/node_modules/rimraf/rimraf.js:56:10)
+90 error     at rimrafDir (/home/jtenner/as-pect/node_modules/@lerna/legacy-package-management/dist/index.js:3575:56)
+90 error     at concurrency (/home/jtenner/as-pect/node_modules/@lerna/legacy-package-management/dist/index.js:4371:42)

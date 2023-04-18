@@ -47,10 +47,10 @@
     "glob-promise": "^5.0.0"
   },
   "peerDependencies": {
-    "assemblyscript": "^0.25.0"
+    "assemblyscript": "^0.27.2"
   },
   "devDependencies": {
-    "assemblyscript": "^0.25.0"
+    "assemblyscript": "^0.27.2"
   },
   "optionalDependencies": {
     "@as-pect/csv-reporter": "^8.0.1",

@@ -424,7 +424,6 @@ export class Reflect {
         ) {
           return Reflect.FAILED_MATCH;
         }
-        // @ts-expect-error: operator overload check
         if (left! == right!) return Reflect.SUCCESSFUL_MATCH;
       } else {
         if (left == right) return Reflect.SUCCESSFUL_MATCH;
@@ -692,7 +691,7 @@ function referencesEqual<T>(
 }
 
 export namespace Reflect {
-  export const FAILED_MATCH = 0;
-  export const SUCCESSFUL_MATCH = 1;
-  export const DEFER_MATCH = 2;
+  @lazy export const FAILED_MATCH = 0;
+  @lazy export const SUCCESSFUL_MATCH = 1;
+  @lazy export const DEFER_MATCH = 2;
 }
