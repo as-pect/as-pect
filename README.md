@@ -12,7 +12,7 @@ with WebAssembly speeds!
 
 ## Documentation
 
-To view the documentation, it's located [here](https://tenner-joshua.gitbook.io/as-pect/) on the gitbook. If there are any issues with the docs, please feel free to file an issue!
+The [documentation is located at gitbook](https://as-pect.gitbook.io/as-pect/). If there are any issues with the docs, please feel free to file an issue!
 
 ## Contributors
 
