@@ -1,0 +1,101 @@
+import {
+  ClassDeclaration,
+  CommonFlags,
+  FieldDeclaration,
+  MethodDeclaration,
+  NodeKind,
+  Range,
+} from "assemblyscript/dist/assemblyscript.js";
+
+import { djb2Hash } from "./hash.js";
+
+/** The generated method runtime reflection calls for structural equality. */
+export const STRICT_EQUALS_MEMBER_NAME = "__aspectStrictEquals";
+
+/** The generated method runtime reflection calls to enumerate reflected object members. */
+export const ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME = "__aspectAddReflectedValueKeyValuePairs";
+
+/** The kind of class member included in the class reflection member plan. */
+export enum ClassReflectionMemberKind {
+  Field = "field",
+  Getter = "getter",
+}
+
+/** A class member that contributes to generated class reflection behavior. */
+export interface ClassReflectionMember {
+  /** The AssemblyScript member name as it should appear in generated property access. */
+  name: string;
+  /** The stable hash used by generated ignore lists across inheritance. */
+  hash: number;
+  /** The source range used when creating generated AST nodes for this member. */
+  range: Range;
+  /** Whether the generated access reads a field or a getter. */
+  kind: ClassReflectionMemberKind;
+}
+
+/**
+ * The shared class-member plan consumed by every generated class reflection method.
+ *
+ * The plan is the seam between class traversal and method generation: callers do
+ * not need to know how fields and getters are discovered, and traversal rules are
+ * kept in one implementation.
+ */
+export interface ClassReflectionMemberPlan {
+  /** The class declaration being transformed. */
+  classDeclaration: ClassDeclaration;
+  /** The included reflected/equality-relevant members in source order. */
+  members: ClassReflectionMember[];
+  /** The member-name hashes used to suppress inherited duplicates. */
+  hashes: number[];
+}
+
+/**
+ * Create the shared member plan for class reflection generation.
+ *
+ * Instance fields and instance getters are included. Other methods, static
+ * members, and inherited members are intentionally left out; generated super
+ * calls handle inherited members while passing these hashes as the ignore list.
+ *
+ * @param classDeclaration - The class declaration to inspect.
+ */
+export function createClassReflectionMemberPlan(classDeclaration: ClassDeclaration): ClassReflectionMemberPlan {
+  const members = new Array<ClassReflectionMember>();
+
+  for (const member of classDeclaration.members) {
+    if (!member.is(CommonFlags.Instance)) continue;
+
+    switch (member.kind) {
+      case NodeKind.FieldDeclaration: {
+        const fieldDeclaration = <FieldDeclaration>member;
+        const name = fieldDeclaration.name.text;
+        members.push({
+          name,
+          hash: djb2Hash(name),
+          range: fieldDeclaration.range,
+          kind: ClassReflectionMemberKind.Field,
+        });
+        break;
+      }
+
+      case NodeKind.MethodDeclaration: {
+        if (!member.is(CommonFlags.Get)) break;
+
+        const methodDeclaration = <MethodDeclaration>member;
+        const name = methodDeclaration.name.text;
+        members.push({
+          name,
+          hash: djb2Hash(name),
+          range: methodDeclaration.name.range,
+          kind: ClassReflectionMemberKind.Getter,
+        });
+        break;
+      }
+    }
+  }
+
+  return {
+    classDeclaration,
+    members,
+    hashes: members.map((member) => member.hash),
+  };
+}

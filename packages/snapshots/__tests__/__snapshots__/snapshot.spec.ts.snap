@@ -25,7 +25,9 @@ SnapshotDiff {
     "A" => SnapshotDiffResult {
       "changes": [
         {
+          "added": false,
           "count": 5,
+          "removed": false,
           "value": "SomeA {
       a: 1,
       b: 2,
@@ -50,7 +52,7 @@ SnapshotDiff {
         {
           "added": true,
           "count": 5,
-          "removed": undefined,
+          "removed": false,
           "value": "SomeB {
       d: 4,
       e: 5,
@@ -69,12 +71,14 @@ SnapshotDiff {
     "C" => SnapshotDiffResult {
       "changes": [
         {
+          "added": false,
           "count": 1,
+          "removed": false,
           "value": "SomeC {
 ",
         },
         {
-          "added": undefined,
+          "added": false,
           "count": 3,
           "removed": true,
           "value": "      g: 4,
@@ -85,14 +89,16 @@ SnapshotDiff {
         {
           "added": true,
           "count": 3,
-          "removed": undefined,
+          "removed": false,
           "value": "      g: 7,
       h: 8,
       i: 9
 ",
         },
         {
+          "added": false,
           "count": 1,
+          "removed": false,
           "value": "    }",
         },
       ],
@@ -111,7 +117,7 @@ SnapshotDiff {
     "D" => SnapshotDiffResult {
       "changes": [
         {
-          "added": undefined,
+          "added": false,
           "count": 5,
           "removed": true,
           "value": "SomeB {
