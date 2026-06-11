@@ -266,27 +266,27 @@ Potential names:
 
 Tasks:
 
-- [ ] Pick the smallest name that matches the domain.
-- [ ] Add/update `CONTEXT.md` if the name becomes project vocabulary.
+- [x] Pick the smallest name that matches the domain.
+- [x] Add/update `CONTEXT.md` if the name becomes project vocabulary.
 
 ### 3. Concentrate snapshot decisions
 
-- [ ] Move pass/fail calculation out of `TestContext` into snapshot lifecycle implementation.
-- [ ] Move added/removed/changed counting into snapshot lifecycle implementation.
-- [ ] Move update plan creation out of CLI loops.
+- [x] Move pass/fail calculation out of `TestContext` into snapshot lifecycle implementation.
+- [x] Move added/removed/changed counting into snapshot lifecycle implementation.
+- [x] Move update plan creation out of CLI loops.
 - [ ] Expose report facts for reporters.
-- [ ] Keep parse/stringify stable.
+- [x] Keep parse/stringify stable.
 
 ### 4. Separate pure decisions from I/O
 
-- [ ] Keep file read/write in CLI or behind a local adapter.
-- [ ] Let the lifecycle produce an update plan rather than writing directly, unless there is a strong reason otherwise.
-- [ ] Test lifecycle decisions without filesystem access.
+- [x] Keep file read/write in CLI or behind a local adapter.
+- [x] Let the lifecycle produce an update plan rather than writing directly, unless there is a strong reason otherwise.
+- [x] Test lifecycle decisions without filesystem access.
 
 ### 5. Update callers
 
-- [ ] Update `TestContext` to ask the snapshot lifecycle whether snapshots pass.
-- [ ] Update CLI to apply the snapshot update plan.
+- [x] Update `TestContext` to ask the snapshot lifecycle whether snapshots pass.
+- [x] Update CLI to apply the snapshot update plan.
 - [ ] Update reporters to consume snapshot report facts.
 
 ## Tests
@@ -298,11 +298,11 @@ Tasks:
 
 ## Acceptance criteria
 
-- [ ] Snapshot lifecycle decisions are tested directly.
-- [ ] `TestContext` no longer owns snapshot pass/fail rules.
-- [ ] CLI no longer mutates diff results directly.
+- [x] Snapshot lifecycle decisions are tested directly.
+- [x] `TestContext` no longer owns snapshot pass/fail rules.
+- [x] CLI no longer mutates diff results directly.
 - [ ] Reporters render from snapshot report facts.
-- [ ] Existing snapshot file format is preserved.
+- [x] Existing snapshot file format is preserved.
 
 ## Expected benefits
 

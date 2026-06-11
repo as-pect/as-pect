@@ -1,4 +1,4 @@
-import { Snapshot } from "../lib/index.js";
+import { Snapshot, SnapshotLifecycle } from "../lib/index.js";
 
 const inputA = `
 exports[\`A\`] = \`SomeA {
@@ -58,5 +58,40 @@ describe("Snapshot", () => {
     expect(
       Snapshot.parse(inputA).diff(Snapshot.parse(inputB)),
     ).toMatchSnapshot();
+  });
+
+  it("should summarize snapshot lifecycle facts", () => {
+    const lifecycle = new SnapshotLifecycle(Snapshot.parse(inputA), Snapshot.parse(inputB));
+
+    expect(lifecycle.pass).toBe(false);
+    expect(lifecycle.stats).toEqual({
+      totalSnapshots: 3,
+      addedSnapshots: 1,
+      removedSnapshots: 1,
+      changedSnapshots: 1,
+      passedSnapshots: 2,
+    });
+    expect(lifecycle.updatePlan.updates).toEqual([
+      {
+        name: "B",
+        value: "SomeB {\n      d: 4,\n      e: 5,\n      f: 6\n    }",
+      },
+    ]);
+  });
+
+  it("should treat added snapshots as passing update work", () => {
+    const lifecycle = new SnapshotLifecycle(Snapshot.from(new Map([["A", "value"]])), new Snapshot());
+    const updatedSnapshot = lifecycle.updatePlan.applyTo(new Snapshot());
+
+    expect(lifecycle.pass).toBe(true);
+    expect(lifecycle.stats).toEqual({
+      totalSnapshots: 0,
+      addedSnapshots: 1,
+      removedSnapshots: 0,
+      changedSnapshots: 0,
+      passedSnapshots: 1,
+    });
+    expect(lifecycle.updatePlan.shouldWrite).toBe(true);
+    expect(updatedSnapshot.values.get("A[0]")).toBe("value");
   });
 });
