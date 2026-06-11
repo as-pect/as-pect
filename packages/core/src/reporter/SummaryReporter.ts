@@ -2,7 +2,7 @@ import { TestContext } from "../test/TestContext.js";
 import { IWritable } from "../util/IWriteable.js";
 import { ReflectedValue } from "../util/ReflectedValue.js";
 import { IReporter } from "./IReporter.js";
-import { SnapshotDiffResultType } from "@as-pect/snapshots";
+import { SuiteReport } from "./ReportingLifecycle.js";
 import { TestNode } from "../test/TestNode.js";
 import chalk from "chalk";
 
@@ -42,7 +42,8 @@ export class SummaryReporter implements IReporter {
    * @param {TestContext} suite - The finished test suite.
    */
   public onFinish(suite: TestContext): void {
-    const testGroups = suite.rootNode.childGroups;
+    const report = SuiteReport.from(suite);
+    const testGroups = report.rootNode.childGroups;
 
     // TODO: Figure out a better way to flatten this array.
 
@@ -50,14 +51,14 @@ export class SummaryReporter implements IReporter {
       [],
       testGroups.map((e) => e.groupTodos),
     ).length;
-    const total = suite.testCount;
-    const passCount = suite.testPassCount;
-    const deltaT = suite.rootNode.deltaT;
+    const total = report.testCount;
+    const passCount = report.testPassCount;
+    const deltaT = report.rootNode.deltaT;
 
     /** Report if all the groups passed. */
-    if (suite.pass) {
+    if (report.pass) {
       this.stdout!.write(
-        chalk.green.bold(`✔ ${suite.fileName} `) +
+        chalk.green.bold(`✔ ${report.fileName} `) +
           `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
@@ -78,7 +79,7 @@ export class SummaryReporter implements IReporter {
       }
     } else {
       this.stdout!.write(
-        chalk.red.bold(`❌ ${suite.fileName} `) +
+        chalk.red.bold(`❌ ${report.fileName} `) +
           `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
@@ -125,7 +126,7 @@ export class SummaryReporter implements IReporter {
     }
 
     // There are no warnings left in the as-pect test suite software
-    for (const warning of suite.warnings) {
+    for (const warning of report.warnings) {
       /* istanbul ignore next */
       this.stdout!.write(chalk.yellow(` [Warning]`) + +`: ${warning.type} -> ${warning.message}\n`);
       /* istanbul ignore next */
@@ -140,16 +141,14 @@ export class SummaryReporter implements IReporter {
       this.stdout!.write("\n");
     }
 
-    for (const error of suite.errors) {
+    for (const error of report.errors) {
       this.stdout!.write(`${chalk.red(`   [Error]`)}: ${error.type} ${error.message}\n`);
       this.stdout!.write(
         `${chalk.red(`   [Stack]`)}: ${chalk.yellow(`${error.stackTrace.split("\n").join("\n           ")}\n\n`)}`,
       );
     }
 
-    const diff = suite.snapshotDiff!.results;
-    for (const [name, result] of diff.entries()) {
-      if (result.type === SnapshotDiffResultType.NoChange) continue;
+    for (const { name, result } of report.snapshotChanges) {
       console.log("A change occurred");
       this.stdout!.write(`${chalk.red("[Snapshot]")}: ${name}\n`);
 

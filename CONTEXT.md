@@ -24,6 +24,10 @@ _Avoid_: Test component, result object
 An adapter that renders reportable facts from a test suite to stdout, stderr, files, or another output target.
 _Avoid_: Printer, output service
 
+**Reporting lifecycle**:
+The module that publishes test suite events and final suite report facts to reporters through one seam.
+_Avoid_: Reporter manager, output lifecycle service
+
 **Snapshot lifecycle**:
 The rules for parsing expected snapshots, recording actual snapshots, diffing them, deciding pass/fail, and planning updates.
 _Avoid_: Snapshot utility, snapshot manager

@@ -22,7 +22,7 @@ export class CombinationReporter implements IReporter {
   }
 
   set stderr(writer: IWritable | null) {
-    this.reporters.forEach((e) => (e.stdout = writer));
+    this.reporters.forEach((e) => (e.stderr = writer));
   }
 
   onEnter(ctx: TestContext, node: TestNode) {

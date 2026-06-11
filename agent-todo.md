@@ -136,7 +136,7 @@ Create a deep reporting lifecycle module. `TestContext` should publish lifecycle
 
 - [ ] Preserve `SummaryReporter` snapshot output.
 - [ ] Preserve `VerboseReporter` snapshot output.
-- [ ] Add focused tests for `CombinationReporter` writer propagation.
+- [x] Add focused tests for `CombinationReporter` writer propagation.
   - Note: inspect current `stderr` setter behavior; it appears to assign `stdout`.
 - [ ] Add or update tests for CSV and JSON reporter file lifecycle if practical.
 
@@ -151,27 +151,27 @@ Potential names:
 
 Tasks:
 
-- [ ] Pick names that match existing domain language.
-- [ ] If the names are new domain terms, create/update `CONTEXT.md`.
+- [x] Pick names that match existing domain language.
+- [x] If the names are new domain terms, create/update `CONTEXT.md`.
 
 ### 3. Define the reporting seam
 
-- [ ] Define a small interface that hides `TestContext` internals.
-- [ ] Keep the interface focused on reportable facts.
+- [x] Define a small interface that hides `TestContext` internals.
+- [x] Keep the interface focused on reportable facts.
 - [ ] Avoid exposing mutable `TestNode` objects unless required for compatibility.
-- [ ] Consider a compatibility adapter from old `IReporter` to the new seam.
+- [x] Consider a compatibility adapter from old `IReporter` to the new seam.
 
 ### 4. Move lifecycle ordering into one implementation
 
-- [ ] Concentrate `onEnter` / `onExit` / `onFinish` ordering decisions.
+- [x] Concentrate `onEnter` / `onExit` / `onFinish` ordering decisions.
 - [ ] Concentrate group/test filtering rules visible to reporters.
-- [ ] Concentrate snapshot-diff report facts.
+- [x] Concentrate snapshot-diff report facts.
 - [ ] Keep output adapters thin.
 
 ### 5. Update adapters
 
-- [ ] Update `SummaryReporter` to consume the new report facts.
-- [ ] Update `VerboseReporter` to consume the new report facts.
+- [x] Update `SummaryReporter` to consume the new report facts.
+- [x] Update `VerboseReporter` to consume the new report facts.
 - [ ] Update `CSVReporter` to consume the new report facts.
 - [ ] Update `JSONReporter` to consume the new report facts.
 - [ ] Update `CombinationReporter` to combine adapters at the new seam.
@@ -179,23 +179,23 @@ Tasks:
 
 ### 6. Preserve compatibility
 
-- [ ] Preserve exports from `packages/core/src/index.ts` unless intentionally changed.
+- [x] Preserve exports from `packages/core/src/index.ts` unless intentionally changed.
 - [ ] Preserve custom reporter behavior or provide a compatibility adapter.
 - [ ] Document any unavoidable interface changes.
 
 ## Tests
 
-- [ ] `npm run tsc:all`
-- [ ] `npm test`
-- [ ] Focused core reporter tests
+- [x] `npm run tsc:all`
+- [x] `npm test`
+- [x] Focused core reporter tests
 - [ ] Focused csv/json reporter tests if added
 
 ## Acceptance criteria
 
 - [ ] Reporter adapters no longer need to walk mutable `TestNode` internals directly, or the remaining usages are explicitly compatibility-only.
-- [ ] Reporting lifecycle behavior has one test surface.
+- [x] Reporting lifecycle behavior has one test surface.
 - [ ] Summary, verbose, CSV, and JSON adapters still produce equivalent output.
-- [ ] Public compatibility is preserved or documented.
+- [x] Public compatibility is preserved or documented.
 
 ## Expected benefits
 

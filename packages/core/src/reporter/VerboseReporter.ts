@@ -4,8 +4,8 @@ import { ReflectedValue } from "../util/ReflectedValue.js";
 import { TestNodeType } from "../util/TestNodeType.js";
 import { TestNode } from "../test/TestNode.js";
 import { IReporter } from "./IReporter.js";
-import { SnapshotDiffResultType } from "@as-pect/snapshots";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue.js";
+import { SuiteReport } from "./ReportingLifecycle.js";
 import chalk from "chalk";
 
 /**
@@ -141,19 +141,20 @@ export class VerboseReporter implements IReporter {
    * @param {TestContext} suite - The finished test context.
    */
   public onFinish(suite: TestContext): void {
+    const report = SuiteReport.from(suite);
     /* istanbul ignore next */
-    if (suite.rootNode.children.length === 0) return;
+    if (report.rootNode.children.length === 0) return;
 
-    const result = suite.pass ? chalk.green`✔ PASS` : chalk.red(`✖ FAIL`);
+    const result = report.pass ? chalk.green`✔ PASS` : chalk.red(`✖ FAIL`);
 
-    const count = suite.testCount;
-    const successCount = suite.testPassCount;
+    const count = report.testCount;
+    const successCount = report.testPassCount;
 
     const failText = count === successCount ? `0 fail` : chalk.red(`${(count - successCount).toString()} fail`);
 
     // There are currently no warnings provided by the as-pect testing suite
     /* istanbul ignore next */
-    for (const warning of suite.warnings) {
+    for (const warning of report.warnings) {
       /* istanbul ignore next */
       this.stdout!.write(`\n${chalk.yellow(` [Warning]`)}: ${warning.type} -> ${warning.message}\n`);
       /* istanbul ignore next */
@@ -167,51 +168,41 @@ export class VerboseReporter implements IReporter {
       this.stdout!.write("\n");
     }
 
-    for (const error of suite.errors) {
+    for (const error of report.errors) {
       this.stdout!.write(`\n${chalk.red(`   [Error]`)}: ${error.type} ${error.message}`);
       this.stdout!.write(
         `\n${chalk.red(`   [Stack]`)}: ${chalk.yellow(`${error.stackTrace.split("\n").join("\n           ")}`)}\n`,
       );
     }
 
-    const diff = suite.snapshotDiff!.results;
-    let addedCount = 0;
-    let removedCount = 0;
-    let differentCount = 0;
-    let totalCount = 0;
+    const snapshotStats = report.snapshotStats;
 
-    for (const [name, result] of diff.entries()) {
-      if (result.type !== SnapshotDiffResultType.NoChange) {
-        this.stdout!.write(`${chalk.red(`[Snapshot]`)}: ${name}\n`);
+    for (const { name, result } of report.snapshotChanges) {
+      this.stdout!.write(`${chalk.red(`[Snapshot]`)}: ${name}\n`);
 
-        const changes = result.changes;
-        for (const change of changes) {
-          const lines = change.value.split("\n");
-          for (const line of lines) {
-            if (!line.trim()) continue;
-            if (change.added) {
-              this.stdout!.write(`${chalk.green(`+ ${line}`)}\n`);
-            } else if (change.removed) {
-              this.stdout!.write(`${chalk.red(`- ${line}`)}\n`);
-            } else {
-              this.stdout!.write(`  ${line}\n`);
-            }
+      const changes = result.changes;
+      for (const change of changes) {
+        const lines = change.value.split("\n");
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          if (change.added) {
+            this.stdout!.write(`${chalk.green(`+ ${line}`)}\n`);
+          } else if (change.removed) {
+            this.stdout!.write(`${chalk.red(`- ${line}`)}\n`);
+          } else {
+            this.stdout!.write(`  ${line}\n`);
           }
         }
-        this.stdout!.write("\n");
       }
-      totalCount += 1;
-      addedCount += result.type === SnapshotDiffResultType.Added ? 1 : 0;
-      removedCount += result.type === SnapshotDiffResultType.Removed ? 1 : 0;
-      differentCount += result.type === SnapshotDiffResultType.Different ? 1 : 0;
+      this.stdout!.write("\n");
     }
 
-    this.stdout!.write(`    [File]: ${suite.fileName}
-  [Groups]: ${chalk.green(`${suite.groupCount} pass`)}, ${suite.groupCount} total
+    this.stdout!.write(`    [File]: ${report.fileName}
+  [Groups]: ${chalk.green(`${report.groupCount} pass`)}, ${report.groupCount} total
   [Result]: ${result}
-[Snapshot]: ${totalCount} total, ${addedCount} added, ${removedCount} removed, ${differentCount} different
- [Summary]: ${chalk.green(`${suite.testPassCount} pass`)},  ${failText}, ${suite.testCount} total
-    [Time]: ${suite.rootNode.deltaT}ms
+[Snapshot]: ${snapshotStats.total} total, ${snapshotStats.added} added, ${snapshotStats.removed} removed, ${snapshotStats.different} different
+ [Summary]: ${chalk.green(`${report.testPassCount} pass`)},  ${failText}, ${report.testCount} total
+    [Time]: ${report.rootNode.deltaT}ms
 
 ${"~".repeat(80)}\n\n`);
   }
