@@ -39,12 +39,7 @@ export function createStrictEqualsMember(classDeclaration: ClassDeclaration): Me
         // rawRef: Object,
         createDefaultParameter(
           "rawRef",
-          TypeNode.createNamedType(
-            TypeNode.createSimpleTypeName("Object", range),
-            null,
-            false,
-            range,
-          ),
+          TypeNode.createNamedType(TypeNode.createSimpleTypeName("Object", range), null, false, range),
           range,
         ),
         // stack: usize[]
@@ -117,7 +112,7 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
         )
       : null,
     false,
-    range
+    range,
   );
 
   // Check if the parameter is an instance of the class; return otherwise
@@ -126,15 +121,12 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
       TypeNode.createUnaryPrefixExpression(
         Token.Exclamation,
         TypeNode.createInstanceOfExpression(rawRef, classType, range),
-        range
+        range,
       ),
-      TypeNode.createReturnStatement(
-        TypeNode.createFalseExpression(range),
-        range
-      ),
+      TypeNode.createReturnStatement(TypeNode.createFalseExpression(range), range),
       null,
-      range
-    )
+      range,
+    ),
   );
 
   // Cast rawRef into an instance of the class
@@ -148,11 +140,11 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
           CommonFlags.Const,
           classType,
           TypeNode.createAssertionExpression(AssertionKind.As, rawRef, classType, range),
-          range
-        )
+          range,
+        ),
       ],
-      range
-    )
+      range,
+    ),
   );
 
   // for each field declaration, generate a check

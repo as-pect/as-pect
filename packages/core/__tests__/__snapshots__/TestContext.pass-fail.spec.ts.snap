@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`pass-fail output Overall Statistics: !~A test outside of a describe block[0] afterAllPointers 1`] = `0`;
 

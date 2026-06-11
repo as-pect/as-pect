@@ -23,7 +23,7 @@ export default {
     return instance;
   },
   /** Add code coverage. */
-  coverage: ["assembly/internal/**/*.ts"],
+  // coverage: ["assembly/internal/**/*.ts"],
   /** Use the summary reporter. */
   // reporter: new SummaryTestReporter(),
 };

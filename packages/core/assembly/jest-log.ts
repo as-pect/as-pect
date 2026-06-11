@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 /**
  * This is a standard Vec3 Class that contains three float values.
  */

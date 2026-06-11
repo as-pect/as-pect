@@ -6,7 +6,7 @@ import { readFileSync } from "fs";
 import url from "url";
 import chalk from "chalk";
 import { printAsciiArt } from "./asciiArt.js";
-import { promise as glob } from "glob-promise";
+import { glob } from "glob";
 import { IAspectConfig } from "./IAspectConfig.js";
 
 import { main as asc, version as ascVersion } from "assemblyscript/dist/asc.js";
@@ -57,6 +57,10 @@ export function log(str: string): void {
 
 export function warning(str: string): void {
   stdout.write(chalk.bgYellow.black("[Warning]") + `${str}\n`);
+}
+
+function withWasiPreview1(options: import("wasi").WASIOptions): import("wasi").WASIOptions {
+  return { ...options, version: options.version ?? "preview1" } as import("wasi").WASIOptions;
 }
 
 export async function asp(argv: string[]): Promise<void> {
@@ -165,7 +169,7 @@ export async function asp(argv: string[]): Promise<void> {
 
   // foreach entry point, we compile it
   for (const entry of entries) {
-    const files = new Map<string, Uint8Array>();
+    const files = new Map<string, string | Uint8Array>();
     const dir = path.dirname(entry);
     const basename = path.basename(entry, path.extname(entry));
     const ascArgs = [entry, ...includes, "--config", asconfigLocation, "--target", covers ? "coverage" : "noCoverage"];
@@ -210,8 +214,8 @@ export async function asp(argv: string[]): Promise<void> {
     if (opts.showStats) process.stdout.write(compiled.stats.toString());
     const outputFileKey = Array.from(files.keys()).filter((e) => e.endsWith("output.wasm"))[0]!;
     const outputWatFileKey = Array.from(files.keys()).filter((e) => e.endsWith("output.wat"))[0]!;
-    const binary = files.get(outputFileKey)!;
-    const wat = files.get(outputWatFileKey)!;
+    const binary = files.get(outputFileKey)! as Uint8Array;
+    const wat = files.get(outputWatFileKey)! as string;
 
     // output the wasm file
     if (opts.outputBinary || aspectConfig.outputBinary) {
@@ -222,9 +226,7 @@ export async function asp(argv: string[]): Promise<void> {
 
     // collect the snapshots for this entry in `{dir}/__snapshots__/{basename}.snap`
     const snapshotPath = path.join(dir, "__snapshots__", basename + ".snap");
-    const snapshotMode = opts.updateSnapshots
-      ? SnapshotMode.WriteSnapshots
-      : SnapshotMode.CompareSnapshots;
+    const snapshotMode = opts.updateSnapshots ? SnapshotMode.WriteSnapshots : SnapshotMode.CompareSnapshots;
 
     const snapshots =
       snapshotMode === SnapshotMode.CompareSnapshots && existsSync(snapshotPath)
@@ -238,10 +240,10 @@ export async function asp(argv: string[]): Promise<void> {
       const wasiRelativeLocation = opts.wasi;
       const wasiLocation = path.join(cwd, wasiRelativeLocation);
       const wasiConfig = (await import("file://" + wasiLocation)).default;
-      wasi = new WASI(wasiConfig);
+      wasi = new WASI(withWasiPreview1(wasiConfig));
     } else if (aspectConfig.wasi) {
       const { WASI } = await import("wasi");
-      wasi = new WASI(aspectConfig.wasi);
+      wasi = new WASI(withWasiPreview1(aspectConfig.wasi));
     }
 
     const reporter = await collectReporter(opts, aspectConfig);

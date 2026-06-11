@@ -1004,7 +1004,7 @@ describe("nested structures", () => {
 
   afterEach(() => {
     // perform a garbage collection
-    __collect()
+    __collect();
   });
 });
 

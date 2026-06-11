@@ -9,6 +9,7 @@ test("snapshots", async () => {
   const reporter = new VerboseReporterWrapper();
   const binary = await fs.readFile("./assembly/jest-wasi.wasm");
   const wasi = new WASI({
+    version: "preview1",
     args: process.argv,
     env: process.env,
     preopens: {},

@@ -2,8 +2,10 @@ import { resolve } from "path";
 
 
 export default {
-  preset: 'ts-jest',
   testEnvironment: 'node',
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', { useESM: true }],
+  },
   collectCoverage: true,
   collectCoverageFrom: [
     "**/src/test/*.ts",
@@ -14,11 +16,6 @@ export default {
   testMatch: ["**/__tests__/**/*.spec.[jt]s"],
   testPathIgnorePatterns: ["/assembly/", "/node_modules/"],
   extensionsToTreatAsEsm: ['.ts'],
-  globals: {
-    'ts-jest': {
-      useESM: true,
-    },
-  },
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
     chalk: resolve("../../node_modules/chalk/source/index.js"),
