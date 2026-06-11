@@ -1,6 +1,7 @@
 export * from "./reporter/CombinationReporter.js";
 export * from "./reporter/EmptyReporter.js";
 export * from "./reporter/IReporter.js";
+export * from "./reporter/ReportingLifecycle.js";
 export * from "./reporter/SummaryReporter.js";
 export * from "./reporter/VerboseReporter.js";
 export * from "./test/IWarning.js";

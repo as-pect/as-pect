@@ -9,6 +9,7 @@ import { ReflectedValueType } from "../util/ReflectedValueType.js";
 import { TestNode } from "./TestNode.js";
 import { TestNodeType } from "../util/TestNodeType.js";
 import { IReporter } from "../reporter/IReporter.js";
+import { ReportingLifecycle } from "../reporter/ReportingLifecycle.js";
 import { performance } from "perf_hooks";
 import { IWarning } from "./IWarning.js";
 import { Snapshot, SnapshotDiff, SnapshotLifecycle } from "@as-pect/snapshots";
@@ -86,6 +87,9 @@ export class TestContext {
 
   /** The test context's reporter. */
   protected reporter: IReporter;
+
+  /** The reporting lifecycle that publishes test suite facts to the reporter seam. */
+  protected reportingLifecycle: ReportingLifecycle;
 
   /** The place where stack traces are stored when a function pointer errors.  */
   protected stack: string = "";
@@ -194,6 +198,7 @@ export class TestContext {
     this.expectedSnapshots = props.snapshots ? props.snapshots : new Snapshot();
 
     this.reporter = props.reporter;
+    this.reportingLifecycle = new ReportingLifecycle(this, props.reporter);
 
     /* istanbul ignore next */
     if (typeof props.reporter.onEnter !== "function") {
@@ -278,7 +283,7 @@ export class TestContext {
     this.pass = snapshotLifecycle.pass && this.rootNode.pass;
 
     // finish the report
-    this.reporter.onFinish(this);
+    this.reportingLifecycle.finish();
   }
 
   /** Visit a node and evaluate it's children. */
@@ -309,7 +314,7 @@ export class TestContext {
     // in the case of a throws() test
     if (node.negated) {
       const success = this.tryCall(node.callback) === 0; // we want the value to be 0
-      this.reporter.onEnter(this, node);
+      this.reportingLifecycle.enter(node);
       if (success) {
         node.message = null;
         node.stackTrace = null;
@@ -319,7 +324,7 @@ export class TestContext {
       }
       node.end = performance.now();
       this.addResult(node, success);
-      this.reporter.onExit(this, node);
+      this.reportingLifecycle.exit(node);
       return;
     }
 
@@ -338,25 +343,25 @@ export class TestContext {
           stackTrace: (ex as Error).stack ?? "",
           type: "TestContext Initialization",
         });
-        this.reporter.onEnter(this, node);
+        this.reportingLifecycle.enter(node);
         /**
          * If this catch occurs, the entire test suite is completed.
          * This is a sanity check.
          */
         node.end = performance.now();
         this.addResult(node, false);
-        this.reporter.onExit(this, node);
+        this.reportingLifecycle.exit(node);
         return;
       }
     } else {
       // gather all the tests and groups, validate program state at this level
       const success = this.tryCall(node.callback) === 1;
-      this.reporter.onEnter(this, node);
+      this.reportingLifecycle.enter(node);
       if (!success) {
         // collection or test failure, stop traversal of this node
         this.collectStatistics(node);
         this.addResult(node, false);
-        this.reporter.onExit(this, node);
+        this.reportingLifecycle.exit(node);
         return;
       }
     }
@@ -365,7 +370,7 @@ export class TestContext {
     if (node.errors.length > 0) {
       this.collectStatistics(node);
       this.addResult(node, false);
-      this.reporter.onExit(this, node);
+      this.reportingLifecycle.exit(node);
       return;
     }
 
@@ -373,7 +378,7 @@ export class TestContext {
     if (!this.runFunctions(node.beforeAll)) {
       this.collectStatistics(node);
       this.addResult(node, false);
-      this.reporter.onExit(this, node);
+      this.reportingLifecycle.exit(node);
       return;
     }
 
@@ -387,7 +392,7 @@ export class TestContext {
         if (!this.runBeforeEach(node)) {
           this.collectStatistics(node);
           this.addResult(node, false);
-          this.reporter.onExit(this, node);
+          this.reportingLifecycle.exit(node);
           return;
         }
       }
@@ -400,7 +405,7 @@ export class TestContext {
         if (!this.runAfterEach(node)) {
           this.collectStatistics(node);
           this.addResult(node, false);
-          this.reporter.onExit(this, node);
+          this.reportingLifecycle.exit(node);
           return;
         }
       }
@@ -410,7 +415,7 @@ export class TestContext {
     if (!this.runFunctions(node.afterAll)) {
       this.collectStatistics(node);
       this.addResult(node, false);
-      this.reporter.onExit(this, node);
+      this.reportingLifecycle.exit(node);
       return;
     }
 
@@ -418,7 +423,7 @@ export class TestContext {
     node.pass = node.children.reduce((pass: boolean, node: TestNode) => pass && node.pass, true);
     node.end = performance.now();
     this.addResult(node, true);
-    this.reporter.onExit(this, node);
+    this.reportingLifecycle.exit(node);
   }
 
   /** Report a TestNode */
