@@ -164,7 +164,8 @@ Tasks:
 ### 4. Move lifecycle ordering into one implementation
 
 - [x] Concentrate `onEnter` / `onExit` / `onFinish` ordering decisions.
-- [ ] Concentrate group/test filtering rules visible to reporters.
+- [x] Concentrate group/test filtering rules visible to reporters.
+  - Note: `SuiteReport.results` now owns the group/test/todo projection used by file reporters; summary/verbose still use lifecycle compatibility facts.
 - [x] Concentrate snapshot-diff report facts.
 - [ ] Keep output adapters thin.
 
@@ -172,8 +173,8 @@ Tasks:
 
 - [x] Update `SummaryReporter` to consume the new report facts.
 - [x] Update `VerboseReporter` to consume the new report facts.
-- [ ] Update `CSVReporter` to consume the new report facts.
-- [ ] Update `JSONReporter` to consume the new report facts.
+- [x] Update `CSVReporter` to consume the new report facts.
+- [x] Update `JSONReporter` to consume the new report facts.
 - [ ] Update `CombinationReporter` to combine adapters at the new seam.
 - [ ] Keep `EmptyReporter` simple.
 
