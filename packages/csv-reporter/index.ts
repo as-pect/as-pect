@@ -1,22 +1,12 @@
 import { Stringifier, stringify } from "csv-stringify";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
-import { TestNodeType, TestContext, IReporter, TestNode, IWritable } from "@as-pect/core";
+import { TestContext, IReporter, IWritable, SuiteReport, SuiteResultReport } from "@as-pect/core";
 
 /**
  * This is a list of all the columns in the exported csv file.
  */
-const csvColumns = [
-  "Group",
-  "Name",
-  "Ran",
-  "Negated",
-  "Pass",
-  "Runtime",
-  "Message",
-  "Actual",
-  "Expected",
-];
+const csvColumns = ["Group", "Name", "Ran", "Negated", "Pass", "Runtime", "Message", "Actual", "Expected"];
 
 /**
  * This class is responsible for creating a csv file located at {testName}.spec.csv. It will
@@ -29,53 +19,44 @@ export default class CSVReporter implements IReporter {
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
 
-  public onEnter(ctx: TestContext): void {
-    this.output = stringify({ columns: csvColumns });
-    const extension = extname(ctx.fileName);
-    const dir = dirname(ctx.fileName);
-    const base = basename(ctx.fileName, extension);
+  public onEnter(_ctx: TestContext): void {}
+
+  public onExit(_ctx: TestContext): void {}
+
+  public onFinish(ctx: TestContext): void {
+    const report = SuiteReport.from(ctx);
+    const extension = extname(report.fileName);
+    const dir = dirname(report.fileName);
+    const base = basename(report.fileName, extension);
     const outPath = join(process.cwd(), dir, base + ".csv");
+
+    this.output = stringify({ columns: csvColumns });
     this.fileName = createWriteStream(outPath, "utf8");
     this.output.pipe(this.fileName);
     this.output.write(csvColumns);
+
+    for (const result of report.results) {
+      this.onResult(result);
+    }
+
+    this.output.end();
   }
 
-  public onExit(_ctx: TestContext, node: TestNode): void {
-    if (node.type === TestNodeType.Group) {
-      this.onGroupFinish(node);
+  protected onResult(result: SuiteResultReport): void {
+    if (result.type === "test") {
+      this.output!.write([
+        result.groupName,
+        result.ran ? "RAN" : "NOT RUN",
+        result.name,
+        result.negated ? "TRUE" : "FALSE",
+        result.pass ? "PASS" : "FAIL",
+        result.runtime.toString(),
+        result.message,
+        result.actual || "",
+        result.expected || "",
+      ]);
+    } else {
+      this.output!.write([result.groupName, "TODO", result.description, "", "", "", "", "", ""]);
     }
   }
-
-  public onFinish(): void {
-    this.output!.end();
-  }
-
-  protected onGroupFinish(group: TestNode): void {
-    if (group.children.length === 0) return;
-
-    group.groupTests.forEach((test) => this.onTestFinish(group, test));
-    group.groupTodos.forEach((desc) => this.onTodo(group, desc));
-  }
-
-  protected onTestFinish(group: TestNode, test: TestNode) {
-    this.output!.write([
-      group.name,
-      test.ran ? "RAN" : "NOT RUN",
-      test.name,
-      test.negated ? "TRUE" : "FALSE",
-      test.pass ? "PASS" : "FAIL",
-      test.deltaT.toString(),
-      test.message,
-      test.actual ? test.actual.stringify({ indent: 0 }) : "",
-      test.expected
-        ? `${test.negated ? "Not " : ""}${test.expected.stringify({
-            indent: 0,
-          })}`
-        : "",
-    ]);
-  }
-
-  protected onTodo(group: TestNode, desc: string) {
-    this.output!.write([group.name, "TODO", desc, "", "", "", "", "", ""]);
-  }
-};
+}
