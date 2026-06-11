@@ -11,7 +11,7 @@ import { TestNodeType } from "../util/TestNodeType.js";
 import { IReporter } from "../reporter/IReporter.js";
 import { performance } from "perf_hooks";
 import { IWarning } from "./IWarning.js";
-import { Snapshot, SnapshotDiffResultType, SnapshotDiff } from "@as-pect/snapshots";
+import { Snapshot, SnapshotDiff, SnapshotLifecycle } from "@as-pect/snapshots";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue.js";
 
 type WASI = import("wasi").WASI;
@@ -161,6 +161,9 @@ export class TestContext {
   /** The resulting snapshot diff. */
   public snapshotDiff: SnapshotDiff | null = null;
 
+  /** The snapshot lifecycle facts for this completed test suite. */
+  public snapshotLifecycle: SnapshotLifecycle | null = null;
+
   constructor(props: ITestContextParameters) {
     ``;
     this.rtrace = new Rtrace({
@@ -264,27 +267,15 @@ export class TestContext {
     // start by visiting the root node
     this.visit(this.rootNode);
 
-    // calculate snapshot diff
-    const snapshotDiff = this.snapshots.diff(this.expectedSnapshots);
+    // calculate snapshot lifecycle facts
+    const snapshotLifecycle = new SnapshotLifecycle(this.snapshots, this.expectedSnapshots);
 
-    // determine if this test suite passed
-    const snapshotsPass = Array.from(snapshotDiff.results.values()).reduce((result, value) => {
-      if (result) {
-        return (
-          // @ts-ignore
-          value.type === SnapshotDiffResultType.Added ||
-          // @ts-ignore
-          value.type === SnapshotDiffResultType.NoChange
-        );
-      }
-      return false;
-    }, true);
-
-    // store the diff results
-    this.snapshotDiff = snapshotDiff;
+    // store the diff and lifecycle results
+    this.snapshotDiff = snapshotLifecycle.diff;
+    this.snapshotLifecycle = snapshotLifecycle;
 
     // determine if this test suite passed or failed
-    this.pass = Boolean(snapshotsPass) && this.rootNode.pass;
+    this.pass = snapshotLifecycle.pass && this.rootNode.pass;
 
     // finish the report
     this.reporter.onFinish(this);

@@ -12,7 +12,7 @@ import { IAspectConfig } from "./IAspectConfig.js";
 import { main as asc, version as ascVersion } from "assemblyscript/dist/asc.js";
 import { init } from "./init.js";
 import { TestContext } from "@as-pect/core";
-import { Snapshot, SnapshotDiffResultType } from "@as-pect/snapshots";
+import { Snapshot } from "@as-pect/snapshots";
 import { collectReporter } from "./collectReporter.js";
 import { instantiate } from "@assemblyscript/loader";
 
@@ -289,31 +289,18 @@ export async function asp(argv: string[]): Promise<void> {
     // snapshot mode!
     if (snapshotMode === SnapshotMode.CompareSnapshots) {
       const expectedSnapshots = ctx.expectedSnapshots;
-      // the diff is garunteed to exist at this point.
-      const diff = ctx.snapshotDiff!;
+      const snapshotLifecycle = ctx.snapshotLifecycle!;
+      const snapshotStats = snapshotLifecycle.stats;
+      const updatePlan = snapshotLifecycle.updatePlan;
 
-      overallStats.totalSnapshots += expectedSnapshots.values.size;
-
-      let addedSnapshots = 0;
-      // first, loop over every diff, and add each snapshot that was added to the expected snapshots
-      for (const [diffName, diffResult] of diff.results) {
-        if (diffResult.type === SnapshotDiffResultType.Added) {
-          addedSnapshots += 1;
-          expectedSnapshots.add(diffName, diffResult.left!); // Left is the actual value
-          // adding a snapshot is success
-          overallStats.passedSnapshots += 1;
-        }
-        if (diffResult.type === SnapshotDiffResultType.Removed) {
-          overallStats.removedSnapshots += 1;
-        }
-        if (diffResult.type === SnapshotDiffResultType.NoChange) {
-          overallStats.passedSnapshots += 1;
-        }
-      }
+      overallStats.totalSnapshots += snapshotStats.totalSnapshots;
+      overallStats.passedSnapshots += snapshotStats.passedSnapshots;
+      overallStats.removedSnapshots += snapshotStats.removedSnapshots;
 
       // if snapshots were added, we need to update them
-      if (addedSnapshots > 0) {
-        overallStats.addedSnapshots += addedSnapshots;
+      if (updatePlan.shouldWrite) {
+        updatePlan.applyTo(expectedSnapshots);
+        overallStats.addedSnapshots += updatePlan.addedSnapshots;
         await fs.writeFile(snapshotPath, expectedSnapshots.stringify(), "utf8");
       }
     } else {
