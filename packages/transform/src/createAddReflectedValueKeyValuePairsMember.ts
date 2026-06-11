@@ -1,21 +1,22 @@
-// import { } from "@as-pect/;
+import {
+  ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
+  createClassReflectionMemberPlan,
+} from "./ClassReflectionTransform.js";
+
 import {
   TypeNode,
   BlockStatement,
   ClassDeclaration,
-  FieldDeclaration,
   MethodDeclaration,
   Range,
   Statement,
   CommonFlags,
   ParameterKind,
-  NodeKind,
   AssertionKind,
   Token,
 } from "assemblyscript/dist/assemblyscript.js";
 
 import { createGenericTypeParameter } from "./createGenericTypeParameter.js";
-import { djb2Hash } from "./hash.js";
 
 // const TypeNode = TypeNode;
 // const {
@@ -43,7 +44,7 @@ export function createAddReflectedValueKeyValuePairsMember(classDeclaration: Cla
   const range = classDeclaration.name.range;
   // __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, ignore: StaticArray<i64>): void
   return TypeNode.createMethodDeclaration(
-    TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range),
+    TypeNode.createIdentifierExpression(ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME, range),
     null,
     CommonFlags.Public | CommonFlags.Instance | (classDeclaration.isGeneric ? CommonFlags.GenericContext : 0),
     null,
@@ -107,37 +108,15 @@ export function createAddReflectedValueKeyValuePairsMember(classDeclaration: Cla
 function createAddReflectedValueKeyValuePairsFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
-  const nameHashes = new Array<number>();
-  // for each field declaration, generate a check
-  for (const member of classDeclaration.members) {
-    // if it's an instance member, regardless of access modifier
-    if (member.is(CommonFlags.Instance)) {
-      switch (member.kind) {
-        // field declarations automatically get added
-        case NodeKind.FieldDeclaration: {
-          const fieldDeclaration = <FieldDeclaration>member;
-          const hashValue = djb2Hash(member.name.text);
-          pushKeyValueIfStatement(body, member.name.text, hashValue, fieldDeclaration.range);
-          nameHashes.push(hashValue);
-          break;
-        }
+  const memberPlan = createClassReflectionMemberPlan(classDeclaration);
 
-        // function declarations can be getters, check the get flag
-        case NodeKind.MethodDeclaration: {
-          if (member.is(CommonFlags.Get)) {
-            const methodDeclaration = <MethodDeclaration>member;
-            const hashValue = djb2Hash(member.name.text);
-            pushKeyValueIfStatement(body, member.name.text, hashValue, methodDeclaration.range);
-            nameHashes.push(hashValue);
-          }
-          break;
-        }
-      }
-    }
+  // Add key/value reflection for each reflected/equality-relevant class member.
+  for (const member of memberPlan.members) {
+    pushKeyValueIfStatement(body, member.name, member.hash, member.range);
   }
 
   // call into super first after all the property checks have been added
-  body.unshift(createIsDefinedIfStatement(nameHashes, range));
+  body.unshift(createIsDefinedIfStatement(memberPlan.hashes, range));
 
   return TypeNode.createBlockStatement(body, range);
 }
@@ -161,7 +140,7 @@ function createIsDefinedIfStatement(nameHashes: number[], range: Range): Stateme
         // super.__aspectAddReflectedValueKeyValuePairs
         TypeNode.createPropertyAccessExpression(
           TypeNode.createSuperExpression(range),
-          TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range),
+          TypeNode.createIdentifierExpression(ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME, range),
           range,
         ),
       ],
@@ -174,7 +153,7 @@ function createIsDefinedIfStatement(nameHashes: number[], range: Range): Stateme
           TypeNode.createCallExpression(
             TypeNode.createPropertyAccessExpression(
               TypeNode.createSuperExpression(range),
-              TypeNode.createIdentifierExpression("__aspectAddReflectedValueKeyValuePairs", range),
+              TypeNode.createIdentifierExpression(ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME, range),
               range,
             ),
             null,

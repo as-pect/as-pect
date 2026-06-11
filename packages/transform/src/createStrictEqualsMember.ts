@@ -1,4 +1,4 @@
-import { djb2Hash } from "./hash.js";
+import { STRICT_EQUALS_MEMBER_NAME, createClassReflectionMemberPlan } from "./ClassReflectionTransform.js";
 
 import {
   TypeNode,
@@ -6,7 +6,6 @@ import {
   BlockStatement,
   ClassDeclaration,
   Expression,
-  FieldDeclaration,
   IfStatement,
   MethodDeclaration,
   ParameterNode,
@@ -14,7 +13,6 @@ import {
   Statement,
   AssertionKind,
   CommonFlags,
-  NodeKind,
   Token,
   ParameterKind,
 } from "assemblyscript/dist/assemblyscript.js";
@@ -30,7 +28,7 @@ export function createStrictEqualsMember(classDeclaration: ClassDeclaration): Me
 
   // __aspectStrictEquals(rawRef: Object, stackA: usize[], stackB: usize[], ignore: StaticArray<i64>): bool
   return TypeNode.createMethodDeclaration(
-    TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
+    TypeNode.createIdentifierExpression(STRICT_EQUALS_MEMBER_NAME, range),
     null,
     CommonFlags.Public | CommonFlags.Instance | (classDeclaration.isGeneric ? CommonFlags.GenericContext : 0),
     null,
@@ -101,7 +99,7 @@ function createArrayType(name: string, range: Range): TypeNode {
 function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): BlockStatement {
   const body = new Array<Statement>();
   const range = classDeclaration.name.range;
-  const nameHashes = new Array<number>();
+  const memberPlan = createClassReflectionMemberPlan(classDeclaration);
 
   const rawRef = TypeNode.createIdentifierExpression("rawRef", range);
   const classType = TypeNode.createNamedType(
@@ -147,36 +145,13 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
     ),
   );
 
-  // for each field declaration, generate a check
-  for (const member of classDeclaration.members) {
-    // if it's an instance member, regardless of access modifier
-    if (member.is(CommonFlags.Instance)) {
-      switch (member.kind) {
-        // field declarations automatically get added
-        case NodeKind.FieldDeclaration: {
-          const fieldDeclaration = <FieldDeclaration>member;
-          const hashValue = djb2Hash(member.name.text);
-          body.push(createStrictEqualsIfCheck(member.name.text, hashValue, fieldDeclaration.range));
-          nameHashes.push(hashValue);
-          break;
-        }
-
-        // function declarations can be getters, check the get flag
-        case NodeKind.MethodDeclaration: {
-          if (member.is(CommonFlags.Get)) {
-            const methodDeclaration = <MethodDeclaration>member;
-            const hashValue = djb2Hash(member.name.text);
-            body.push(createStrictEqualsIfCheck(methodDeclaration.name.text, hashValue, methodDeclaration.name.range));
-            nameHashes.push(hashValue);
-          }
-          break;
-        }
-      }
-    }
+  // Generate a check for each reflected/equality-relevant class member.
+  for (const member of memberPlan.members) {
+    body.push(createStrictEqualsIfCheck(member.name, member.hash, member.range));
   }
 
   // if (isDefined(...)) super.__aspectStrictEquals(ref, stack, cache, ignore.concat([...props]));
-  body.push(createSuperCallStatement(classDeclaration, nameHashes));
+  body.push(createSuperCallStatement(classDeclaration, memberPlan.hashes));
   // return true;
   body.push(TypeNode.createReturnStatement(TypeNode.createTrueExpression(range), range));
   return TypeNode.createBlockStatement(body, range);
@@ -298,7 +273,7 @@ function createSuperCallStatement(classDeclaration: ClassDeclaration, nameHashes
       [
         TypeNode.createPropertyAccessExpression(
           TypeNode.createSuperExpression(range),
-          TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
+          TypeNode.createIdentifierExpression(STRICT_EQUALS_MEMBER_NAME, range),
           range,
         ),
       ],
@@ -331,7 +306,7 @@ function createSuperCallExpression(hashValues: number[], range: Range): Expressi
   return TypeNode.createCallExpression(
     TypeNode.createPropertyAccessExpression(
       TypeNode.createSuperExpression(range),
-      TypeNode.createIdentifierExpression("__aspectStrictEquals", range),
+      TypeNode.createIdentifierExpression(STRICT_EQUALS_MEMBER_NAME, range),
       range,
     ),
     null,
