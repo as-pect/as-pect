@@ -9,7 +9,6 @@
   "type": "module",
   "scripts": {
     "rimraf": "rimraf lib/*",
-    "package:version-update": "ncu -u",
     "test": "exit 0",
     "tsc:cli": "run-s rimraf tsc",
     "tsc": "tsc"
@@ -40,17 +39,18 @@
     "@as-pect/assembly": "^8.1.0",
     "@as-pect/core": "^8.1.0",
     "@as-pect/transform": "^8.1.0",
-    "chalk": "^5.2.0",
-    "chalk-template": "^0.4.0",
-    "commander": "^9.4.1",
-    "glob": "^8.0.3",
-    "glob-promise": "^5.0.0"
+    "chalk": "^5.6.2",
+    "chalk-template": "^1.1.2",
+    "commander": "^15.0.0",
+    "glob": "^13.0.6",
+    "yaml": "^2.9.0",
+    "@assemblyscript/loader": "^0.27.37"
   },
   "peerDependencies": {
-    "assemblyscript": "^0.27.2"
+    "assemblyscript": "^0.27.37"
   },
   "devDependencies": {
-    "assemblyscript": "^0.27.2"
+    "assemblyscript": "^0.27.37"
   },
   "optionalDependencies": {
     "@as-pect/csv-reporter": "^8.1.0",
@@ -60,5 +60,8 @@
     "init/",
     "lib/",
     "bin/"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

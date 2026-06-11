@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`snapshots: onFinish ./assembly/jest-reporter-snapshot.ts 1`] = `
 "❌ ./assembly/jest-reporter-snapshot.ts Pass: 1 / 1 Todo: 0 Time: 0ms

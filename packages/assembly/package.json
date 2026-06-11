@@ -34,12 +34,16 @@
   "files": [
     "assembly/internal/",
     "assembly/index.ts",
-    "types/"
+    "types/",
+    "build/"
   ],
   "exports": {
     ".": {
       "import": "./build/release.js",
       "types": "./build/release.d.ts"
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

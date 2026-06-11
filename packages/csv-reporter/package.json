@@ -15,10 +15,11 @@
   },
   "author": "Joshua Tenner",
   "license": "MIT",
-  "devDependencies": {
-    "csv-stringify": "^6.2.3"
-  },
   "dependencies": {
-    "@as-pect/core": "^8.1.0"
+    "@as-pect/core": "^8.1.0",
+    "csv-stringify": "^6.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

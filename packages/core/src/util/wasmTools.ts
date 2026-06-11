@@ -58,7 +58,7 @@ export class NameSection {
   private funcNames: Map<number, number> = new Map();
 
   constructor(contents: Uint8Array) {
-    const mod = new WebAssembly.Module(contents);
+    const mod = new WebAssembly.Module(contents as BufferSource);
     const section = WebAssembly.Module.customSections(mod, "name")[0];
     this.section = new WasmBuffer(new Uint8Array(section));
     this.parseSection();

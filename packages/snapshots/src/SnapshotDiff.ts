@@ -5,7 +5,10 @@ import { diffLines } from "diff";
 export class SnapshotDiff {
   results = new Map<string, SnapshotDiffResult>();
 
-  constructor(public left: Snapshot, public right: Snapshot) {
+  constructor(
+    public left: Snapshot,
+    public right: Snapshot,
+  ) {
     this.calculateDiff();
   }
 
