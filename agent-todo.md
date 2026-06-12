@@ -13,38 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 2. Fix JSON reporter output so it writes valid JSON
-
-## Goal
-
-Make `@as-pect/json-reporter` produce parseable JSON files for empty, single-result, and multi-result suites.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/json-reporter/index.ts`
-- `packages/json-reporter/package.json`
-- New tests under `packages/json-reporter/__tests__/`
-
-## Tasks
-
-- [ ] Add focused tests that run the JSON reporter against synthetic `SuiteReport` facts and read the generated file.
-- [ ] Cover an empty report, one test result, multiple test results, and a todo result.
-- [ ] Fix the writer to close the JSON array with `]` before ending the stream.
-- [ ] Ensure tests wait for file write completion instead of racing the stream.
-- [ ] Enable a real `test` script for `@as-pect/json-reporter` instead of `exit 0`.
-
-## Acceptance criteria
-
-- [ ] Generated `.json` files can be parsed with `JSON.parse()`.
-- [ ] Existing reporter interface compatibility is preserved.
-- [ ] Focused JSON reporter tests pass.
-
----
-
 # 3. Fix CSV reporter column/value order
 
 ## Goal

@@ -40,6 +40,7 @@ export default class JSONReporter implements IReporter {
       this.onResult(result);
     }
 
+    this.file.write(this.first ? "]" : "\n]");
     this.file.end();
   }
 
