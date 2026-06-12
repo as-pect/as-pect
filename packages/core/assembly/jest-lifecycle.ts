@@ -22,6 +22,9 @@ const FAILING_AFTER_EACH_TEST_BODY = 14;
 const FAILING_AFTER_EACH = 15;
 const FAILING_AFTER_ALL_TEST_BODY = 16;
 const FAILING_AFTER_ALL = 17;
+const NESTED_FAILING_AFTER_EACH_TEST_BODY = 18;
+const INNER_FAILING_AFTER_EACH = 19;
+const OUTER_AFTER_EACH_AFTER_INNER_FAILURE = 20;
 
 function record(code: i32, message: string): void {
   recordEvent(code);
@@ -119,5 +122,28 @@ describe("failing afterAll hook", () => {
 
   it("body runs before afterAll fails", () => {
     record(FAILING_AFTER_ALL_TEST_BODY, "failing afterAll test body");
+  });
+});
+
+describe("nested failing afterEach hook", () => {
+  afterEach(() => {
+    record(
+      OUTER_AFTER_EACH_AFTER_INNER_FAILURE,
+      "outer afterEach after nested failure",
+    );
+  });
+
+  describe("inner afterEach fails", () => {
+    afterEach(() => {
+      record(INNER_FAILING_AFTER_EACH, "inner failing afterEach hook");
+      expect<i32>(50).toBe(51, "inner afterEach failure marker");
+    });
+
+    it("body runs before inner afterEach fails", () => {
+      record(
+        NESTED_FAILING_AFTER_EACH_TEST_BODY,
+        "nested afterEach test body",
+      );
+    });
   });
 });

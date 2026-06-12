@@ -13,38 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 12. Fix `afterEach` execution order if characterization confirms it is wrong
-
-## Goal
-
-Make nested `afterEach` hooks execute inner-to-outer while preserving `beforeEach` outer-to-inner behavior.
-
-## Blockers
-
-- Characterization now documents current parent-first `afterEach` order in `packages/core/__tests__/TestContext.lifecycle.spec.ts`.
-- If current parent-first `afterEach` behavior is intentional, stop and write an ADR instead of changing behavior.
-
-## Files
-
-- `packages/core/src/test/TestContext.ts`
-- `packages/core/__tests__/TestContext*.spec.ts`
-- Relevant AssemblyScript fixtures under `packages/core/assembly/`
-
-## Tasks
-
-- [ ] Update the `runAfterEach()` traversal to execute the current group before its parent, if the characterized expectation requires it.
-- [ ] Ensure failed `afterEach` hooks mark the correct node failed.
-- [ ] Ensure all applicable `afterEach` hooks still run or intentionally stop according to the documented behavior.
-- [ ] Update focused lifecycle tests in `packages/core/__tests__/TestContext.lifecycle.spec.ts`.
-
-## Acceptance criteria
-
-- [ ] `beforeEach` remains outer-to-inner.
-- [ ] `afterEach` is inner-to-outer if that is the chosen contract.
-- [ ] Focused lifecycle tests pass.
-
----
-
 # 13. Fix hook log/error target-node ownership
 
 ## Goal

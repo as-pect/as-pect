@@ -508,11 +508,11 @@ export class TestContext {
       : this.runFunctions(node.beforeEach);
   }
 
-  /** Run every before each callback in the proper order. */
+  /** Run every after each callback in the proper order. */
   private runAfterEach(node: TestNode): boolean {
     return node.parent
-      ? //run parents first and bail early if the parents failed
-        this.runAfterEach(node.parent) && this.runFunctions(node.afterEach)
+      ? // Run the current group's hooks first and bail early if they fail.
+        this.runFunctions(node.afterEach) && this.runAfterEach(node.parent)
       : this.runFunctions(node.afterEach);
   }
 
