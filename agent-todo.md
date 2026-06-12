@@ -13,35 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 1. Refresh the validation baseline
-
-## Goal
-
-Establish the current repo behavior before changing maintenance-critical paths.
-
-## Blockers
-
-- None.
-
-## Tasks
-
-- [ ] Run root typechecking with the project-supported runtime.
-  - Command: `npm run tsc:all`
-  - Record the Node/npm versions used and any non-failing diagnostics.
-- [ ] Run the full test suite if practical.
-  - Command: `npm test`
-  - Record package-level pass/fail counts.
-- [ ] If the full suite is blocked by environment setup, run focused package tests and record the reason full validation was skipped.
-- [ ] Confirm there are no unexpected tracked changes before starting implementation work.
-
-## Acceptance criteria
-
-- [ ] Baseline typecheck behavior is known.
-- [ ] Baseline test behavior is known, or the environment blocker is documented.
-- [ ] Future slices can distinguish existing failures from introduced failures.
-
----
-
 # 2. Fix JSON reporter output so it writes valid JSON
 
 ## Goal
@@ -50,7 +21,7 @@ Make `@as-pect/json-reporter` produce parseable JSON files for empty, single-res
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -82,7 +53,7 @@ Make `@as-pect/csv-reporter` write rows that match the declared header order.
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -116,7 +87,7 @@ Keep `SummaryReporter` output deterministic and routed through the reporter writ
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -146,7 +117,7 @@ Prevent newly added snapshots from being written back with duplicated suffixes s
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -303,7 +274,7 @@ Make `Reflect.toReflectedValue()` return the reflected value ID for Sets instead
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -335,7 +306,7 @@ Capture current behavior for nested hooks, logs, errors, and target-node ownersh
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -498,7 +469,7 @@ Protect class reflection behavior with focused tests around the `Class-member pl
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -633,7 +604,7 @@ Ensure `@as-pect/assembly` exports files that are actually built and shipped, so
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -703,7 +674,7 @@ Make config, reporter, and WASI config imports work for paths with spaces, speci
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -768,7 +739,7 @@ Make the public config type describe the real instantiate interface so user conf
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 - Slice 22 should be complete if tests dynamically import typed config fixtures.
 
 ## Files
@@ -802,7 +773,7 @@ Remove filesystem/glob ordering as a source of flaky test-session output and sna
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -833,7 +804,7 @@ Prevent test, group, and entry filters from changing behavior across repeated `.
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 
 ## Files
 
@@ -899,7 +870,7 @@ Make function-name lookup robust for missing name sections, UTF-8 names, empty s
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 - Slice 19 is not required, but this work should not conflict with a future Wasm host extraction.
 
 ## Files
@@ -965,7 +936,7 @@ Make `asp --init` predictable, testable without touching the real filesystem, an
 
 ## Blockers
 
-- Slice 1 should be complete or explicitly skipped with a documented environment blocker.
+- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
 - Slice 24 should be complete if init template typing/comments change there.
 
 ## Files
