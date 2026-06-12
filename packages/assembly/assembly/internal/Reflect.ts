@@ -204,6 +204,8 @@ export class Reflect {
           let reflectedValueID = Reflect.toReflectedValue(value, seen);
           __aspectPushReflectedObjectValue(reflectedObject, reflectedValueID);
         }
+
+        return reflectedObject;
       } else if (value instanceof Map) {
         // create a Set reflected object
         let reflectedValue = createReflectedValue(
