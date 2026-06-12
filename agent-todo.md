@@ -13,38 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 11. Characterize test lifecycle hook order and ownership
-
-## Goal
-
-Capture current behavior for nested hooks, logs, errors, and target-node ownership before changing `TestContext` traversal.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/core/src/test/TestContext.ts`
-- `packages/core/__tests__/TestContext*.spec.ts`
-- New or existing AssemblyScript fixtures under `packages/core/assembly/`
-
-## Tasks
-
-- [ ] Add a nested-group fixture that records `beforeAll`, `beforeEach`, test body, `afterEach`, and `afterAll` order.
-- [ ] Add logs in hooks and test bodies so ownership can be asserted.
-- [ ] Add a failing-hook fixture to assert where errors are attached.
-- [ ] Assert current order and ownership explicitly, even if the expected behavior reveals a bug.
-- [ ] Avoid broad snapshots for these tests; assert semantic event arrays and node facts.
-
-## Acceptance criteria
-
-- [ ] Hook order is documented by focused tests.
-- [ ] Log/error ownership is documented by focused tests.
-- [ ] No traversal behavior is changed in this characterization slice.
-
----
-
 # 12. Fix `afterEach` execution order if characterization confirms it is wrong
 
 ## Goal
@@ -53,8 +21,8 @@ Make nested `afterEach` hooks execute inner-to-outer while preserving `beforeEac
 
 ## Blockers
 
-- Slice 11 must be complete.
-- If Slice 11 shows current parent-first `afterEach` behavior is intentional, stop and write an ADR instead of changing behavior.
+- Characterization now documents current parent-first `afterEach` order in `packages/core/__tests__/TestContext.lifecycle.spec.ts`.
+- If current parent-first `afterEach` behavior is intentional, stop and write an ADR instead of changing behavior.
 
 ## Files
 
@@ -67,7 +35,7 @@ Make nested `afterEach` hooks execute inner-to-outer while preserving `beforeEac
 - [ ] Update the `runAfterEach()` traversal to execute the current group before its parent, if the characterized expectation requires it.
 - [ ] Ensure failed `afterEach` hooks mark the correct node failed.
 - [ ] Ensure all applicable `afterEach` hooks still run or intentionally stop according to the documented behavior.
-- [ ] Update focused lifecycle tests from Slice 11.
+- [ ] Update focused lifecycle tests in `packages/core/__tests__/TestContext.lifecycle.spec.ts`.
 
 ## Acceptance criteria
 
@@ -85,14 +53,13 @@ Ensure facts produced by hooks attach to the intended test node or group instead
 
 ## Blockers
 
-- Slice 11 must be complete.
 - Slice 12 should be complete if it changes hook traversal order.
 
 ## Files
 
 - `packages/core/src/test/TestContext.ts`
 - `packages/core/src/test/TestNode.ts` only if a small helper improves locality
-- Focused lifecycle tests from Slice 11
+- Focused lifecycle tests in `packages/core/__tests__/TestContext.lifecycle.spec.ts`
 
 ## Tasks
 
@@ -117,7 +84,6 @@ Make `onReportGroupStart` and `onReportTestStart` either true start events or ex
 
 ## Blockers
 
-- Slice 11 must be complete.
 - Slice 13 should be complete if it changes target-node ownership during callbacks.
 
 ## Files
@@ -249,7 +215,6 @@ Define the smallest safe first extraction for the `Wasm host` module without cha
 
 ## Blockers
 
-- Slice 11 must be complete so traversal/host interactions are characterized.
 - Slice 13 must be complete if target-node ownership changes.
 - Slice 14 must be complete if reporting lifecycle event timing changes.
 
