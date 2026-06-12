@@ -15,6 +15,24 @@ async function createTempDirectory(): Promise<string> {
   return fs.mkdtemp(path.join(process.cwd(), ".tmp-cli-import-"));
 }
 
+async function writeReporterModule(modulePath: string, markerValue: string): Promise<void> {
+  await fs.writeFile(
+    modulePath,
+    `export default {
+      stdout: null,
+      stderr: null,
+      onEnter() {},
+      onExit() {},
+      onFinish() {
+        const key = "${reporterMarkerKey}";
+        globalThis[key] = [...(globalThis[key] || []), "${markerValue}"];
+      }
+    };
+`,
+    "utf8",
+  );
+}
+
 describe("local module imports", () => {
   let tempDirectory = "";
   const originalCwd = process.cwd();
@@ -50,19 +68,7 @@ describe("local module imports", () => {
 
   it("uses safe local imports for custom reporter file paths", async () => {
     const moduleName = "reporter #é space.mjs";
-    await fs.writeFile(
-      path.join(tempDirectory, moduleName),
-      `export default {
-        stdout: null,
-        stderr: null,
-        onEnter() {},
-        onExit() {},
-        onFinish() {
-          globalThis.${reporterMarkerKey} = "special path reporter";
-        }
-      };\n`,
-      "utf8",
-    );
+    await writeReporterModule(path.join(tempDirectory, moduleName), "special path reporter");
     process.chdir(tempDirectory);
     const stdout = { write(_str: string) {} };
     const stderr = { write(_str: string) {} };
@@ -71,8 +77,61 @@ describe("local module imports", () => {
 
     reporter.onFinish({} as never);
 
-    expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toBe("special path reporter");
+    expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toEqual(["special path reporter"]);
     expect(reporter.stdout).toBe(stdout);
     expect(reporter.stderr).toBe(stderr);
+  });
+
+  it("preserves existing custom reporter behavior for local project files without a relative prefix", async () => {
+    const moduleName = "project-reporter.mjs";
+    await writeReporterModule(path.join(tempDirectory, moduleName), "local project reporter");
+    process.chdir(tempDirectory);
+
+    const reporter = await collectReporter({ reporter: moduleName }, aspectConfig);
+
+    reporter.onFinish({} as never);
+
+    expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toEqual(["local project reporter"]);
+  });
+
+  it("imports custom reporters from package module specifiers relative to the project", async () => {
+    const packageDirectory = path.join(tempDirectory, "node_modules", "aspect-test-reporter");
+    await fs.mkdir(packageDirectory, { recursive: true });
+    await fs.writeFile(
+      path.join(packageDirectory, "package.json"),
+      JSON.stringify({ name: "aspect-test-reporter", type: "module", exports: "./index.mjs" }),
+      "utf8",
+    );
+    await writeReporterModule(path.join(packageDirectory, "index.mjs"), "package reporter");
+    process.chdir(tempDirectory);
+
+    const reporter = await collectReporter({ reporter: "aspect-test-reporter" }, aspectConfig);
+
+    reporter.onFinish({} as never);
+
+    expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toEqual(["package reporter"]);
+  });
+
+  it("combines config and CLI reporters in config-first order", async () => {
+    await writeReporterModule(path.join(tempDirectory, "config-reporter.mjs"), "config reporter");
+    await writeReporterModule(path.join(tempDirectory, "cli-reporter.mjs"), "cli reporter");
+    process.chdir(tempDirectory);
+
+    const reporter = await collectReporter(
+      { reporter: "./cli-reporter.mjs" },
+      { ...aspectConfig, reporter: "./config-reporter.mjs" },
+    );
+
+    reporter.onFinish({} as never);
+
+    expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toEqual(["config reporter", "cli reporter"]);
+  });
+
+  it("identifies the custom reporter module that failed to import", async () => {
+    process.chdir(tempDirectory);
+
+    await expect(collectReporter({ reporter: "missing-as-pect-reporter" }, aspectConfig)).rejects.toThrow(
+      /missing-as-pect-reporter/,
+    );
   });
 });

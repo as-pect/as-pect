@@ -313,39 +313,6 @@ Prevent JSON and CSV reporter output from being truncated when the CLI exits soo
 
 ---
 
-# 23. Clarify and test custom reporter import semantics
-
-## Goal
-
-Make `--reporter <reporter>` behavior match its help text, or narrow the help text so users know only file paths are supported.
-
-## Blockers
-
-- Slice 22 should be complete so local path imports are safe before expanding or documenting behavior.
-
-## Files
-
-- `packages/cli/src/index.ts`
-- `packages/cli/src/collectReporter.ts`
-- `packages/cli/__tests__/CliOptions.spec.ts`
-- `packages/cli/__tests__/` for reporter collection tests
-
-## Tasks
-
-- [ ] Decide whether `--reporter` supports package specifiers, local file paths, or both.
-- [ ] If supporting package specifiers, detect relative/absolute paths versus bare specifiers and import each correctly.
-- [ ] If only supporting file paths, update CLI help text to remove “module” wording.
-- [ ] Add tests for config reporter and CLI reporter precedence/combination.
-- [ ] Preserve existing custom reporter behavior for local project files.
-
-## Acceptance criteria
-
-- [ ] CLI help and implementation agree.
-- [ ] Reporter import behavior is covered by focused tests.
-- [ ] Error messages identify which reporter failed to import.
-
----
-
 # 27. Define and correct snapshot total-count semantics
 
 ## Goal
