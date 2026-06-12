@@ -13,37 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 13. Fix hook log/error target-node ownership
-
-## Goal
-
-Ensure facts produced by hooks attach to the intended test node or group instead of the last visited child.
-
-## Blockers
-
-- Slice 12 should be complete if it changes hook traversal order.
-
-## Files
-
-- `packages/core/src/test/TestContext.ts`
-- `packages/core/src/test/TestNode.ts` only if a small helper improves locality
-- Focused lifecycle tests in `packages/core/__tests__/TestContext.lifecycle.spec.ts`
-
-## Tasks
-
-- [ ] Define the intended ownership rule for `beforeAll`, `beforeEach`, test body, `afterEach`, and `afterAll` logs/errors.
-- [ ] Make `runFunctions()` or hook execution accept an explicit target node instead of relying on stale `this.targetNode` state.
-- [ ] Restore the parent target after child visits where needed.
-- [ ] Assert logs, warnings, errors, actual, expected, and messages attach to the intended node.
-
-## Acceptance criteria
-
-- [ ] Hook-produced facts no longer attach to stale child nodes.
-- [ ] Existing reporter behavior changes only where the previous ownership was demonstrably wrong.
-- [ ] Focused lifecycle and core tests pass.
-
----
-
 # 14. Characterize and correct reporting lifecycle start-event ordering
 
 ## Goal
@@ -52,7 +21,7 @@ Make `onReportGroupStart` and `onReportTestStart` either true start events or ex
 
 ## Blockers
 
-- Slice 13 should be complete if it changes target-node ownership during callbacks.
+- None.
 
 ## Files
 
@@ -183,7 +152,6 @@ Define the smallest safe first extraction for the `Wasm host` module without cha
 
 ## Blockers
 
-- Slice 13 must be complete if target-node ownership changes.
 - Slice 14 must be complete if reporting lifecycle event timing changes.
 
 ## Files
