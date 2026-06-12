@@ -28,6 +28,14 @@ _Avoid_: Printer, output service
 The module that publishes test suite events and final suite report facts to reporters through one seam.
 _Avoid_: Reporter manager, output lifecycle service
 
+**Suite report**:
+The stable reportable facts for one completed test suite: counts, groups, tests, todos, warnings, errors, snapshot stats, and snapshot change lines.
+_Avoid_: Reporter model, result DTO
+
+**Report event**:
+A reporting lifecycle event that carries a suite report, group report, or test report to reporter adapters. Compatibility-only event fields may expose the old `TestContext` or `TestNode` seam for legacy reporters.
+_Avoid_: Callback payload, event DTO
+
 **Snapshot lifecycle**:
 The rules for parsing expected snapshots, recording actual snapshots, diffing them, deciding pass/fail, and planning updates.
 _Avoid_: Snapshot utility, snapshot manager

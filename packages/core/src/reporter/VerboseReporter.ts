@@ -5,7 +5,15 @@ import { TestNodeType } from "../util/TestNodeType.js";
 import { TestNode } from "../test/TestNode.js";
 import { IReporter } from "./IReporter.js";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue.js";
-import { SuiteReport } from "./ReportingLifecycle.js";
+import {
+  GroupReportEvent,
+  SnapshotReportLine,
+  SuiteGroupReport,
+  SuiteReport,
+  SuiteReportEvent,
+  SuiteTestReport,
+  TestReportEvent,
+} from "./ReportingLifecycle.js";
 import chalk from "chalk";
 
 /**
@@ -39,16 +47,51 @@ export class VerboseReporter implements IReporter {
     }
   }
 
+  public onReportGroupStart(event: GroupReportEvent): void {
+    if (this.onGroupStart !== VerboseReporter.prototype.onGroupStart) {
+      this.onGroupStart(event.node);
+      return;
+    }
+    this.writeGroupStart(event.group);
+  }
+
+  public onReportGroupFinish(event: GroupReportEvent): void {
+    if (this.onGroupFinish !== VerboseReporter.prototype.onGroupFinish) {
+      this.onGroupFinish(event.node);
+      return;
+    }
+    this.writeGroupFinish(event.group);
+  }
+
+  public onReportTestStart(event: TestReportEvent): void {
+    if (this.onTestStart !== VerboseReporter.prototype.onTestStart) {
+      this.onTestStart(event.groupNode, event.node);
+    }
+  }
+
+  public onReportTestFinish(event: TestReportEvent): void {
+    if (this.onTestFinish !== VerboseReporter.prototype.onTestFinish) {
+      this.onTestFinish(event.groupNode, event.node);
+      return;
+    }
+    this.writeTestFinish(event.test);
+  }
+
+  public onReportFinish(event: SuiteReportEvent): void {
+    if (this.onFinish !== VerboseReporter.prototype.onFinish) {
+      this.onFinish(event.context);
+      return;
+    }
+    this.writeReport(event.report);
+  }
+
   /**
    * This method reports a TestGroup is starting.
    *
    * @param {TestNode} group - The started test group.
    */
   public onGroupStart(group: TestNode): void {
-    /* istanbul ignore next */
-    if (group.groupTests.length === 0) return;
-    /* istanbul ignore next */
-    if (group.name) this.stdout!.write(`[Describe]: ${group.name}\n\n`);
+    this.writeGroupStart(SuiteReport.groupFromNode(group));
   }
 
   /**
@@ -57,17 +100,7 @@ export class VerboseReporter implements IReporter {
    * @param {TestGroup} group - The finished TestGroup.
    */
   public onGroupFinish(group: TestNode): void {
-    if (group.groupTests.length === 0) return;
-
-    for (const todo of group.groupTodos) {
-      this.onTodo(group, todo);
-    }
-
-    for (const logValue of group.logs) {
-      this.onLog(logValue);
-    }
-
-    this.stdout!.write("\n");
+    this.writeGroupFinish(SuiteReport.groupFromNode(group));
   }
 
   /** This method is a stub for onTestStart(). */
@@ -79,7 +112,41 @@ export class VerboseReporter implements IReporter {
    * @param {TestNode} _group - The TestGroup that the TestResult belongs to.
    * @param {TestNode} test - The finished TestResult
    */
-  public onTestFinish(_group: TestNode, test: TestNode): void {
+  public onTestFinish(group: TestNode, test: TestNode): void {
+    this.writeTestFinish(SuiteReport.testFromNode(group, test));
+  }
+
+  /**
+   * This method reports that a TestContext has finished.
+   *
+   * @param {TestContext} suite - The finished test context.
+   */
+  public onFinish(suite: TestContext): void {
+    this.writeReport(SuiteReport.from(suite));
+  }
+
+  private writeGroupStart(group: SuiteGroupReport): void {
+    /* istanbul ignore next */
+    if (group.tests.length === 0) return;
+    /* istanbul ignore next */
+    if (group.name) this.stdout!.write(`[Describe]: ${group.name}\n\n`);
+  }
+
+  private writeGroupFinish(group: SuiteGroupReport): void {
+    if (group.tests.length === 0) return;
+
+    for (const todo of group.todos) {
+      this.onTodo(todo);
+    }
+
+    for (const logValue of group.logs) {
+      this.onLog(logValue);
+    }
+
+    this.stdout!.write("\n");
+  }
+
+  private writeTestFinish(test: SuiteTestReport): void {
     if (test.pass) {
       /* istanbul ignore next */
       const rtraceDelta =
@@ -107,11 +174,11 @@ export class VerboseReporter implements IReporter {
       });
 
       if (!test.negated) {
-        if (test.actual) {
-          this.stdout!.write(`  [Actual]: ${test.actual!.stringify(stringifyIndent2).trimLeft()}\n`);
+        if (test.actualValue) {
+          this.stdout!.write(`  [Actual]: ${test.actualValue.stringify(stringifyIndent2).trimLeft()}\n`);
         }
-        if (test.expected) {
-          const expected = test.expected;
+        if (test.expectedValue) {
+          const expected = test.expectedValue;
           this.stdout!.write(
             `[Expected]: ${expected.negated ? "Not " : ""}${expected.stringify(stringifyIndent2).trimLeft()}\n`,
           );
@@ -135,15 +202,9 @@ export class VerboseReporter implements IReporter {
     }
   }
 
-  /**
-   * This method reports that a TestContext has finished.
-   *
-   * @param {TestContext} suite - The finished test context.
-   */
-  public onFinish(suite: TestContext): void {
-    const report = SuiteReport.from(suite);
+  private writeReport(report: SuiteReport): void {
     /* istanbul ignore next */
-    if (report.rootNode.children.length === 0) return;
+    if (!report.hasResults) return;
 
     const result = report.pass ? chalk.green`✔ PASS` : chalk.red(`✖ FAIL`);
 
@@ -175,46 +236,44 @@ export class VerboseReporter implements IReporter {
       );
     }
 
-    const snapshotStats = report.snapshotStats;
-
-    for (const { name, result } of report.snapshotChanges) {
-      this.stdout!.write(`${chalk.red(`[Snapshot]`)}: ${name}\n`);
-
-      const changes = result.changes;
-      for (const change of changes) {
-        const lines = change.value.split("\n");
-        for (const line of lines) {
-          if (!line.trim()) continue;
-          if (change.added) {
-            this.stdout!.write(`${chalk.green(`+ ${line}`)}\n`);
-          } else if (change.removed) {
-            this.stdout!.write(`${chalk.red(`- ${line}`)}\n`);
-          } else {
-            this.stdout!.write(`  ${line}\n`);
-          }
-        }
-      }
+    for (const change of report.snapshotChanges) {
+      this.stdout!.write(`${chalk.red(`[Snapshot]`)}: ${change.name}\n`);
+      this.writeSnapshotLines(change.lines);
       this.stdout!.write("\n");
     }
+
+    const snapshotStats = report.snapshotStats;
 
     this.stdout!.write(`    [File]: ${report.fileName}
   [Groups]: ${chalk.green(`${report.groupCount} pass`)}, ${report.groupCount} total
   [Result]: ${result}
 [Snapshot]: ${snapshotStats.total} total, ${snapshotStats.added} added, ${snapshotStats.removed} removed, ${snapshotStats.different} different
  [Summary]: ${chalk.green(`${report.testPassCount} pass`)},  ${failText}, ${report.testCount} total
-    [Time]: ${report.rootNode.deltaT}ms
+    [Time]: ${report.rootRuntime}ms
 
 ${"~".repeat(80)}\n\n`);
+  }
+
+  private writeSnapshotLines(lines: SnapshotReportLine[]): void {
+    for (const line of lines) {
+      if (line.type === "added") {
+        this.stdout!.write(`${chalk.green(`+ ${line.value}`)}\n`);
+      } else if (line.type === "removed") {
+        this.stdout!.write(`${chalk.red(`- ${line.value}`)}\n`);
+      } else {
+        this.stdout!.write(`  ${line.value}\n`);
+      }
+    }
   }
 
   /**
    * This method reports a todo to stdout.
    *
-   * @param {TestGroup} _group - The test group the todo belongs to.
    * @param {string} todo - The todo.
    */
   /* istanbul ignore next */
-  public onTodo(_group: TestNode, todo: string): void {
+  public onTodo(groupOrTodo: TestNode | string, maybeTodo?: string): void {
+    const todo = typeof groupOrTodo === "string" ? groupOrTodo : maybeTodo!;
     /* istanbul ignore next */
     this.stdout!.write(`    ${chalk.yellow(`[Todo]:`)} ${todo}\n`);
   }

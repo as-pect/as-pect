@@ -2,7 +2,13 @@ import { TestContext } from "../test/TestContext.js";
 import { IWritable } from "../util/IWriteable.js";
 import { ReflectedValue } from "../util/ReflectedValue.js";
 import { IReporter } from "./IReporter.js";
-import { SuiteReport } from "./ReportingLifecycle.js";
+import {
+  SnapshotReportLine,
+  SuiteGroupReport,
+  SuiteReport,
+  SuiteReportEvent,
+  SuiteTestReport,
+} from "./ReportingLifecycle.js";
 import { TestNode } from "../test/TestNode.js";
 import chalk from "chalk";
 
@@ -36,55 +42,55 @@ export class SummaryReporter implements IReporter {
   public stdout: IWritable | null = null;
   public stderr: IWritable | null = null;
 
+  public onReportFinish(event: SuiteReportEvent): void {
+    if (this.onFinish !== SummaryReporter.prototype.onFinish) {
+      this.onFinish(event.context);
+      return;
+    }
+    this.writeReport(event.report);
+  }
+
   /**
    * This method reports a test context is finished running.
    *
    * @param {TestContext} suite - The finished test suite.
    */
   public onFinish(suite: TestContext): void {
-    const report = SuiteReport.from(suite);
-    const testGroups = report.rootNode.childGroups;
+    this.writeReport(SuiteReport.from(suite));
+  }
 
-    // TODO: Figure out a better way to flatten this array.
-
-    const todos = ([] as string[]).concat.apply(
-      [],
-      testGroups.map((e) => e.groupTodos),
-    ).length;
+  private writeReport(report: SuiteReport): void {
+    const groups = report.groups;
     const total = report.testCount;
     const passCount = report.testPassCount;
-    const deltaT = report.rootNode.deltaT;
+    const deltaT = report.rootRuntime;
 
     /** Report if all the groups passed. */
     if (report.pass) {
       this.stdout!.write(
         chalk.green.bold(`✔ ${report.fileName} `) +
-          `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
+          `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${report.todoCount.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
       /** If logging is enabled, log all the values. */
       /* istanbul ignore next */
       if (this.enableLogging) {
-        for (const group of testGroups) {
-          for (const log of group.logs) {
-            this.onLog(log);
-          }
+        for (const group of groups) {
+          this.writeGroupLogs(group);
 
-          for (const test of group.groupTests) {
-            for (const log of test.logs) {
-              this.onLog(log);
-            }
+          for (const test of group.tests) {
+            this.writeTestLogs(test);
           }
         }
       }
     } else {
       this.stdout!.write(
         chalk.red.bold(`❌ ${report.fileName} `) +
-          `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${todos.toString()} Time: ${deltaT.toString()}ms\n`,
+          `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${report.todoCount.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
       /** If the group failed, report that the group failed. */
-      for (const group of testGroups) {
+      for (const group of groups) {
         /* istanbul ignore next */
         if (group.pass) continue;
         this.stdout!.write("  " + chalk.red.bold(`Failed:`) + ` ${group.name}\n`);
@@ -96,20 +102,18 @@ export class SummaryReporter implements IReporter {
         /** Log each log item in the failed group. */
         /* istanbul ignore next */
         if (this.enableLogging) {
-          for (const log of group.logs) {
-            this.onLog(log);
-          }
+          this.writeGroupLogs(group);
         }
 
-        inner: for (const test of group.groupTests) {
+        inner: for (const test of group.tests) {
           if (test.pass) continue inner;
           this.stdout!.write(chalk.red.bold(`    ❌ ${test.name}`) + ` - ${test.message}\n`);
-          if (test.actual !== null)
+          if (test.actualValue !== null)
             this.stdout!.write(
-              chalk.red.bold(`      [Actual]  :`) + ` ${test.actual.stringify({ indent: 2 }).trimStart()}\n`,
+              chalk.red.bold(`      [Actual]  :`) + ` ${test.actualValue.stringify({ indent: 2 }).trimStart()}\n`,
             );
-          if (test.expected !== null) {
-            const expected = test.expected;
+          if (test.expectedValue !== null) {
+            const expected = test.expectedValue;
             this.stdout!.write(
               chalk.green.bold(`      [Expected]:`) +
                 ` ${expected.negated ? "Not " : ""}${expected.stringify({ indent: 2 }).trimStart()}\n`,
@@ -117,9 +121,7 @@ export class SummaryReporter implements IReporter {
           }
           /* istanbul ignore next */
           if (this.enableLogging) {
-            for (const log of test.logs) {
-              this.onLog(log);
-            }
+            this.writeTestLogs(test);
           }
         }
       }
@@ -148,25 +150,35 @@ export class SummaryReporter implements IReporter {
       );
     }
 
-    for (const { name, result } of report.snapshotChanges) {
+    for (const change of report.snapshotChanges) {
       console.log("A change occurred");
-      this.stdout!.write(`${chalk.red("[Snapshot]")}: ${name}\n`);
-
-      const changes = result.changes;
-      for (const change of changes) {
-        const lines = change.value.split("\n");
-        for (const line of lines) {
-          if (!line.trim()) continue;
-          if (change.added) {
-            this.stdout!.write(chalk.green(`+ ${line}\n`));
-          } else if (change.removed) {
-            this.stdout!.write(`${chalk.red(`- ${line}`)}\n`);
-          } else {
-            this.stdout!.write(`  ${line}\n`);
-          }
-        }
-      }
+      this.stdout!.write(`${chalk.red("[Snapshot]")}: ${change.name}\n`);
+      this.writeSnapshotLines(change.lines);
       this.stdout!.write("\n");
+    }
+  }
+
+  private writeGroupLogs(group: SuiteGroupReport): void {
+    for (const log of group.logs) {
+      this.onLog(log);
+    }
+  }
+
+  private writeTestLogs(test: SuiteTestReport): void {
+    for (const log of test.logs) {
+      this.onLog(log);
+    }
+  }
+
+  private writeSnapshotLines(lines: SnapshotReportLine[]): void {
+    for (const line of lines) {
+      if (line.type === "added") {
+        this.stdout!.write(chalk.green(`+ ${line.value}\n`));
+      } else if (line.type === "removed") {
+        this.stdout!.write(`${chalk.red(`- ${line.value}`)}\n`);
+      } else {
+        this.stdout!.write(`  ${line.value}\n`);
+      }
     }
   }
 

@@ -74,6 +74,36 @@ describe("SuiteReport", () => {
 
     const report = SuiteReport.from(createSuite(rootNode, snapshotLifecycle));
 
+    expect(report.groups).toEqual([
+      {
+        type: "group",
+        name: "math",
+        pass: false,
+        runtime: 0,
+        hasChildren: true,
+        logs: [],
+        todos: ["subtracts"],
+        tests: [
+          {
+            type: "test",
+            groupName: "math",
+            name: "adds",
+            ran: true,
+            negated: false,
+            pass: true,
+            runtime: 5,
+            message: "ok",
+            stackTrace: null,
+            rtraceDelta: 0,
+            logs: [],
+            actual: null,
+            expected: null,
+            actualValue: null,
+            expectedValue: null,
+          },
+        ],
+      },
+    ]);
     expect(report.results).toEqual([
       {
         type: "test",
@@ -84,8 +114,13 @@ describe("SuiteReport", () => {
         pass: true,
         runtime: 5,
         message: "ok",
+        stackTrace: null,
+        rtraceDelta: 0,
+        logs: [],
         actual: null,
         expected: null,
+        actualValue: null,
+        expectedValue: null,
       },
       {
         type: "todo",
@@ -97,6 +132,23 @@ describe("SuiteReport", () => {
 });
 
 describe("ReportingLifecycle", () => {
+  function createSuite(rootNode: TestNode): TestContext {
+    const snapshotLifecycle = new SnapshotLifecycle(new Snapshot(), new Snapshot());
+    return {
+      fileName: "assembly/example.spec.ts",
+      pass: true,
+      testCount: 1,
+      testPassCount: 1,
+      groupCount: 1,
+      groupPassCount: 1,
+      rootNode,
+      warnings: [],
+      errors: [],
+      snapshotLifecycle,
+      snapshotDiff: snapshotLifecycle.diff,
+    } as unknown as TestContext;
+  }
+
   it("should publish lifecycle events through the compatibility reporter seam", () => {
     const reporter = new EmptyReporter();
     const calls: string[] = [];
@@ -112,5 +164,44 @@ describe("ReportingLifecycle", () => {
     lifecycle.finish();
 
     expect(calls).toEqual(["enter", "exit", "finish"]);
+  });
+
+  it("should publish report facts through the reporting seam", () => {
+    const reporter = new EmptyReporter();
+    const calls: string[] = [];
+    const rootNode = new TestNode();
+    rootNode.type = TestNodeType.Group;
+    rootNode.name = "root";
+    const group = new TestNode();
+    group.type = TestNodeType.Group;
+    group.name = "math";
+    group.parent = rootNode;
+    rootNode.children.push(group);
+    const test = new TestNode();
+    test.type = TestNodeType.Test;
+    test.name = "adds";
+    test.parent = group;
+    test.pass = true;
+    group.children.push(test);
+    reporter.onReportGroupStart = (event) => calls.push(`group:start:${event.group.name}`);
+    reporter.onReportTestStart = (event) => calls.push(`test:start:${event.group.name}:${event.test.name}`);
+    reporter.onReportTestFinish = (event) => calls.push(`test:finish:${event.group.name}:${event.test.name}`);
+    reporter.onReportGroupFinish = (event) => calls.push(`group:finish:${event.group.name}`);
+    reporter.onReportFinish = (event) => calls.push(`finish:${event.report.fileName}`);
+    const lifecycle = new ReportingLifecycle(createSuite(rootNode), reporter);
+
+    lifecycle.enter(group);
+    lifecycle.enter(test);
+    lifecycle.exit(test);
+    lifecycle.exit(group);
+    lifecycle.finish();
+
+    expect(calls).toEqual([
+      "group:start:math",
+      "test:start:math:adds",
+      "test:finish:math:adds",
+      "group:finish:math",
+      "finish:assembly/example.spec.ts",
+    ]);
   });
 });
