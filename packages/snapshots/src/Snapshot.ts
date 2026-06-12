@@ -1,6 +1,27 @@
 import { SnapshotDiff } from "./SnapshotDiff.js";
 import { Lexer, createToken, CstParser, CstNode, ParserMethod, CstElement } from "chevrotain";
 
+interface SnapshotSyntaxError {
+  message: string;
+}
+
+export class SnapshotParseError extends Error {
+  public readonly lexerErrors: string[];
+  public readonly parserErrors: string[];
+
+  constructor(lexerErrors: SnapshotSyntaxError[], parserErrors: SnapshotSyntaxError[]) {
+    const details = [...lexerErrors, ...parserErrors].map((error) => error.message);
+    super(
+      details.length > 0
+        ? `Failed to parse snapshot file:\n${details.map((detail) => `- ${detail}`).join("\n")}`
+        : "Failed to parse snapshot file.",
+    );
+    this.name = "SnapshotParseError";
+    this.lexerErrors = lexerErrors.map((error) => error.message);
+    this.parserErrors = parserErrors.map((error) => error.message);
+  }
+}
+
 const string_token = createToken({ name: "string_token", pattern: /`(\\`|[^`])*`/ });
 
 const open_bracket = createToken({ name: "open_bracket", pattern: /\[/ });
@@ -56,17 +77,35 @@ export class SnapshotParser extends CstParser {
 
 export class Snapshot {
   public static parse(input: string): Snapshot {
-    let result = new Snapshot();
+    const result = new Snapshot();
     const tokenizedResult = lexer.tokenize(input);
+
+    if (tokenizedResult.errors.length > 0) {
+      throw new SnapshotParseError(tokenizedResult.errors, []);
+    }
+
     const parser = new SnapshotParser();
     parser.input = tokenizedResult.tokens;
     const node = parser.snapshots();
-    if (!node.children.string_token) return result;
 
-    for (let i = 0; i < node.children.string_token.length; i += 2) {
-      let first = parseImageCSTElement(node.children.string_token[i]);
-      let second = parseImageCSTElement(node.children.string_token[i + 1]);
-      result.values.set(first, second);
+    if (parser.errors.length > 0) {
+      throw new SnapshotParseError([], parser.errors);
+    }
+
+    const stringTokens = node.children.string_token;
+    if (!stringTokens) return result;
+
+    for (let i = 0; i < stringTokens.length; i += 2) {
+      const keyToken = stringTokens[i];
+      const valueToken = stringTokens[i + 1];
+
+      if (!valueToken) {
+        throw new SnapshotParseError([], [{ message: "Snapshot entry is missing a value." }]);
+      }
+
+      const key = parseImageCSTElement(keyToken);
+      const value = parseImageCSTElement(valueToken);
+      result.values.set(key, value);
     }
     return result;
   }
@@ -103,14 +142,20 @@ export class Snapshot {
   public stringify(): string {
     return (
       Array.from(this.values.entries())
-        .map(([key, value]) => `exports[\`${key.replace("`", "\\`")}\`] = \`${value.replace("`", "\\`")}\`;`)
+        .map(([key, value]) => `exports[\`${escapeSnapshotString(key)}\`] = \`${escapeSnapshotString(value)}\`;`)
         .join("\n\n") + "\n"
     );
   }
 }
 
+function escapeSnapshotString(input: string): string {
+  return input.replace(/`/g, "\\`");
+}
+
 export function parseImageCSTElement(element: CstElement): string {
-  // @ts-ignore
-  const image = element.image as string;
-  return image.slice(1, -1).replace("\\`", "`");
+  if (!("image" in element)) {
+    throw new SnapshotParseError([], [{ message: "Expected a snapshot string token." }]);
+  }
+
+  return element.image.slice(1, -1).replace(/\\`/g, "`");
 }
