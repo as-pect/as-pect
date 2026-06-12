@@ -35,6 +35,8 @@
     "asc:all": "run-p pretest:group-filter pretest:log pretest:lifecycle pretest:pass-fail pretest:wasi pretest:reporter-pass pretest:reporter-fail pretest:reporter-flow-error pretest:reporter-snapshot pretest:reporter-top-level-expect",
     "tsc": "tsc",
     "test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js -u",
+    "bench": "npm run tsc:all --workspace @as-pect/snapshots && run-s rimraf tsc bench:run",
+    "bench:run": "node bench/core.bench.mjs",
     "tsc:all": "run-s rimraf tsc asc:all"
   },
   "bugs": {
