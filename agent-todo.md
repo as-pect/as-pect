@@ -75,6 +75,7 @@ Make the CLI a small shell that parses terminal options, delegates test executio
   - `--reporter <reporter>` now accepts a value and participates in reporter collection.
   - `--no-run` now maps to compile-only output.
   - `--no-logo` now disables logo output.
+  - `--memory-size <pages>` and `--memory-max <pages>` accept page-count values and are validated while creating the test session configuration.
 
 ## Design questions
 
@@ -89,8 +90,8 @@ Make the CLI a small shell that parses terminal options, delegates test executio
   - First slice: the test session accepts stdout/stderr streams for compiler, reporter, and session log writes. Summary/coverage header printing stays in the CLI shell.
 - [x] How should compiler `readFile`, `writeFile`, and `listFiles` caching be tested?
   - Added injectable test-session dependencies for compiler, glob, and filesystem; focused no-run test asserts repeated compiler `readFile`/`listFiles` requests hit the local caches once.
-- [ ] How should coverage and WASI adapters be represented?
-  - First slice preserved existing behavior in `TestSession`; deeper adapter shape is still open.
+- [x] How should coverage and WASI adapters be represented?
+  - Decision for item 2: keep coverage and WASI as local test-session runtime adapters. Coverage remains the `@as-covers/glue` adapter installed around `ctx.createImports(...)`; WASI remains the config-driven adapter normalized with `preview1`. A deeper adapter module is not needed until the `WasmHost` extraction creates a better host seam.
 
 ## Implementation checklist
 
@@ -125,8 +126,8 @@ Make the CLI a small shell that parses terminal options, delegates test executio
   - Version/init/config loading/logo/exit are CLI shell concerns; test execution options belong to `TestSessionConfig`. Reporter stdout/stderr remains an injected adapter.
 - [x] Validate regex options in one place.
   - `createTestSessionConfig()` now creates test/group regexes and entry filter regexes once.
-- [ ] Validate memory options in one place.
-  - Still parsed at memory creation time to preserve existing behavior; invalid memory values need a separate validation slice.
+- [x] Validate memory options in one place.
+  - `createTestSessionConfig()` now parses and validates `--memory-size` / `--memory-max` once into a `WebAssembly.MemoryDescriptor`; execution reuses that descriptor when instantiating each wasm memory.
 - [x] Define a test session result with pass/fail, counts, snapshot stats, and printable summary facts.
 
 ### 2.3 Extract session execution
@@ -138,8 +139,8 @@ Make the CLI a small shell that parses terminal options, delegates test executio
 - [x] Move wasm instantiate/run orchestration into the test session implementation.
 - [x] Move per-entry result aggregation into the test session implementation.
 - [x] Use the existing snapshot lifecycle and update plan from `@as-pect/snapshots`.
-- [ ] Keep snapshot filesystem reads/writes at an explicit I/O seam.
-  - Partial: snapshot reads/writes are localized in `TestSession`, but not yet behind an injectable filesystem seam.
+- [x] Keep snapshot filesystem reads/writes at an explicit I/O seam.
+  - Snapshot reads/writes are localized in `TestSession` and go through the injectable `TestSessionDependencies.fileSystem` seam; no separate snapshot-store adapter is needed for this extraction.
 - [x] Keep coverage behavior compatible.
 - [x] Keep WASI behavior compatible.
 
@@ -158,14 +159,16 @@ Make the CLI a small shell that parses terminal options, delegates test executio
 ## Tests
 
 - [x] `npm run tsc:all`
-  - Result: passed after extracting `TestSession` and after the CLI option/no-run slice.
+  - Result: passed after extracting `TestSession`, after the CLI option/no-run slice, and after centralizing memory option validation.
 - [x] `npm test`
-  - Result: passed after enabling/running the CLI Jest tests and after the CLI option/no-run slice.
+  - Result: passed after enabling/running the CLI Jest tests, after the CLI option/no-run slice, and after centralizing memory option validation.
 - [x] Focused tests for `TestSession` without `process.exit()`.
-  - Added `packages/cli/__tests__/TestSession.spec.ts` for session config, compile-only execution, compiler file-cache behavior, and summary formatting.
+  - Added `packages/cli/__tests__/TestSession.spec.ts` for session config, memory descriptor validation, compile-only execution, compiler file-cache behavior, and summary formatting.
+  - Command: `corepack npm run test --workspace @as-pect/cli`
+  - Result: passed.
 - [x] Manual smoke test of the CLI against an existing AssemblyScript test fixture.
-  - Command: `cd packages/assembly && node ../cli/bin/asp.js --no-logo assembly/__tests__/empty.spec.ts`
-  - Result: passed; `--no-logo` no longer prints the logo. The positional entry is still combined with config entries, matching the pre-existing entry aggregation behavior.
+  - Command: `cd packages/assembly && node ../cli/bin/asp.js --no-logo --memory-size 12 --memory-max 24 assembly/__tests__/empty.spec.ts`
+  - Result: passed; `--no-logo` no longer prints the logo and memory page-count options are accepted. The positional entry is still combined with config entries, matching the pre-existing entry aggregation behavior.
 
 ## Acceptance criteria
 
@@ -174,7 +177,7 @@ Make the CLI a small shell that parses terminal options, delegates test executio
 - [x] Process exit is outside the deep test session module.
 - [x] Compiler/file/snapshot orchestration has locality.
 - [x] User-visible CLI behavior is preserved, except for explicitly characterized bug fixes.
-  - Explicit fixes: `--no-logo`, `--no-run`, `--disclude`, `--include`, and `--reporter <reporter>` now map according to their documented CLI help.
+  - Explicit fixes: `--no-logo`, `--no-run`, `--disclude`, `--include`, `--reporter <reporter>`, `--memory-size <pages>`, and `--memory-max <pages>` now map according to their documented CLI help.
 
 ---
 

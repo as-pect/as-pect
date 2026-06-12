@@ -31,6 +31,13 @@ describe("CLI option parsing", () => {
     expect(opts.updateSnapshots).toBe(true);
   });
 
+  it("maps memory options to page counts", () => {
+    const opts = parseOptions(["--memory-size", "4", "--memory-max", "8"]);
+
+    expect(opts.memorySize).toBe("4");
+    expect(opts.memoryMax).toBe("8");
+  });
+
   it("maps --reporter to a custom reporter location", () => {
     expect(parseOptions(["--reporter", "./reporter.js"]).reporter).toBe("./reporter.js");
   });

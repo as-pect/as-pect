@@ -61,6 +61,26 @@ describe("Test session configuration", () => {
     expect(config.outputBinary).toBe(true);
     expect(config.updateSnapshots).toBe(true);
   });
+
+  it("maps memory options into a WebAssembly memory descriptor", () => {
+    const config = createConfig({ memoryMax: "8", memorySize: "4" });
+
+    expect(config.memory).toEqual({ initial: 4, maximum: 8 });
+  });
+
+  it("omits the maximum memory limit when --memory-max is -1", () => {
+    const config = createConfig({ memoryMax: "-1", memorySize: "4" });
+
+    expect(config.memory).toEqual({ initial: 4 });
+  });
+
+  it("rejects invalid memory options before execution", () => {
+    expect(() => createConfig({ memorySize: "1.5" })).toThrow("--memory-size must be an integer");
+    expect(() => createConfig({ memoryMax: "-2" })).toThrow("--memory-max must be a non-negative");
+    expect(() => createConfig({ memoryMax: "3", memorySize: "4" })).toThrow(
+      "--memory-max must be greater than or equal to --memory-size",
+    );
+  });
 });
 
 describe("Test session execution", () => {
