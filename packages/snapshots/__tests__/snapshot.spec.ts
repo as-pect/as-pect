@@ -1,4 +1,4 @@
-import { Snapshot, SnapshotLifecycle, SnapshotUpdatePlan } from "../lib/index.js";
+import { Snapshot, SnapshotLifecycle, SnapshotParseError, SnapshotUpdatePlan } from "../lib/index.js";
 
 const inputA = `
 exports[\`A\`] = \`SomeA {
@@ -52,6 +52,31 @@ describe("Snapshot", () => {
 
   it("should stringify a given snapshot", () => {
     expect(Snapshot.from(map).stringify()).toMatchSnapshot();
+  });
+
+  it("should round-trip keys and values containing multiple backticks", () => {
+    const values = new Map([["key`with``ticks", "value `one` and ``two``"]]);
+    const text = Snapshot.from(values).stringify();
+
+    expect(text).toContain("exports[`key\\`with\\`\\`ticks`] = `value \\`one\\` and \\`\\`two\\`\\``;");
+    expect(Array.from(Snapshot.parse(text).values.entries())).toEqual(Array.from(values.entries()));
+  });
+
+  it("should throw an explicit parse error for unterminated snapshot strings", () => {
+    expect(() => Snapshot.parse("exports[`A`] = `unterminated;")).toThrow(SnapshotParseError);
+  });
+
+  it("should throw an explicit parse error for malformed snapshot syntax", () => {
+    let error: unknown;
+
+    try {
+      Snapshot.parse("exports[`A`] = `value`");
+    } catch (ex) {
+      error = ex;
+    }
+
+    expect(error).toBeInstanceOf(SnapshotParseError);
+    expect((error as SnapshotParseError).parserErrors.length).toBeGreaterThan(0);
   });
 
   it("should diff snapshots", () => {

@@ -13,33 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 7. Harden snapshot parsing and string escaping
-
-## Goal
-
-Make snapshot parse/stringify behavior correct for malformed input and repeated backticks.
-
-## Files
-
-- `packages/snapshots/src/Snapshot.ts`
-- `packages/snapshots/__tests__/snapshot.spec.ts`
-
-## Tasks
-
-- [ ] Add tests for snapshot keys and values containing multiple backticks.
-- [ ] Add tests for lexer/parser errors so malformed snapshot files fail loudly or return a documented error mode.
-- [ ] Replace single-occurrence escaping/unescaping with global behavior.
-- [ ] Check `lexer.tokenize(input).errors` and parser errors before trusting parsed CST children.
-- [ ] Preserve the existing snapshot file format for valid inputs.
-
-## Acceptance criteria
-
-- [ ] Multiple backticks round-trip correctly.
-- [ ] Malformed snapshot input has an explicit tested behavior.
-- [ ] Existing valid snapshot parse/stringify tests still pass.
-
----
-
 # 8. Add a no-dependency snapshot benchmark harness
 
 ## Goal
