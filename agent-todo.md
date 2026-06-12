@@ -112,40 +112,6 @@ Measure runtime cost for `Reflect.equals` before optimizing Set, Map, array, cla
 
 ---
 
-# 19. Prepare a small Wasm host extraction plan from characterized behavior
-
-## Goal
-
-Define the smallest safe first extraction for the `Wasm host` module without changing external `__aspect` import names.
-
-## Blockers
-
-- Slice 14 must be complete if reporting lifecycle event timing changes.
-
-## Files
-
-- `packages/core/src/test/TestContext.ts`
-- `packages/core/src/util/IAspectExports.ts`
-- `packages/core/src/util/ReflectedValue.ts`
-- `packages/core/src/util/rTrace.d.ts`
-- `CONTEXT.md` only if new domain terms are needed
-
-## Tasks
-
-- [ ] List the facts suite traversal needs from the host: strings, reflected values, abort messages, trace logs, rtrace deltas, and callback invocation.
-- [ ] List the facts the host needs from suite traversal: current target node, snapshot recorder, error recorder, and function-name lookup context.
-- [ ] Decide whether `TestContext.createImports()` remains as a compatibility method delegating to the new module.
-- [ ] Identify the first extraction slice that moves code without changing behavior.
-- [ ] Write the plan as comments in the TODO item or as a short design note if implementation will happen later.
-
-## Acceptance criteria
-
-- [ ] The first Wasm host extraction slice is small enough to review independently.
-- [ ] External `__aspect` names remain explicitly protected.
-- [ ] No code extraction happens in this planning slice unless it is trivial and separately tested.
-
----
-
 # 21. Add a reporter finalization seam or make file reporters write atomically
 
 ## Goal
