@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "type": "module",
   "scripts": {
-    "tsc:all": "tsc"
+    "tsc:all": "tsc",
+    "test": "npm run tsc:all && node --test __tests__/*.test.js"
   },
   "author": "Joshua Tenner <tenner.joshua@gmail.com>",
   "license": "MIT",

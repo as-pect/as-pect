@@ -176,40 +176,6 @@ Reduce fragile wasm-backed reporter snapshots by testing reporter behavior throu
 
 ---
 
-# 16. Add transform tests for the class-member plan
-
-## Goal
-
-Protect class reflection behavior with focused tests around the `Class-member plan` seam.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/transform/src/ClassReflectionTransform.ts`
-- `packages/transform/src/createStrictEqualsMember.ts`
-- `packages/transform/src/createAddReflectedValueKeyValuePairsMember.ts`
-- New tests under `packages/transform/__tests__/`
-- `packages/transform/package.json`
-
-## Tasks
-
-- [ ] Add tests for instance fields included in source order.
-- [ ] Add tests for instance getters included in source order.
-- [ ] Add tests that static members and normal methods are excluded.
-- [ ] Add tests for inherited duplicate suppression behavior if practical through generated output or a compiled fixture.
-- [ ] Enable a real transform package test script if one is missing.
-
-## Acceptance criteria
-
-- [ ] Class-member plan behavior is covered without relying only on end-to-end AssemblyScript tests.
-- [ ] Transform package tests pass.
-- [ ] No generated reflection behavior changes unless explicitly intended.
-
----
-
 # 17. Add core benchmarks for reporting and reflected-value stringify
 
 ## Goal
