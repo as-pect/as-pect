@@ -512,38 +512,6 @@ Make snapshot summary stats intuitive and internally consistent for added, remov
 
 ---
 
-# 28. Harden wasm name-section parsing
-
-## Goal
-
-Make function-name lookup robust for missing name sections, UTF-8 names, empty sections, and valid offsets that are `0`.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-- Slice 19 is not required, but this work should not conflict with a future Wasm host extraction.
-
-## Files
-
-- `packages/core/src/util/wasmTools.ts`
-- New or existing core tests under `packages/core/__tests__/`
-
-## Tasks
-
-- [ ] Add tests for wasm binaries with no name section or an empty name section.
-- [ ] Add tests for UTF-8 function names if practical with a small synthetic name-section buffer.
-- [ ] Add tests proving a stored name pointer of `0` is treated as present if that case is valid for the parser.
-- [ ] Replace manual byte-to-character decoding with `TextDecoder` where appropriate.
-- [ ] Make `NameSection` fail gracefully when the name custom section is absent.
-
-## Acceptance criteria
-
-- [ ] Missing or malformed name sections do not crash normal test execution.
-- [ ] Function names decode as UTF-8.
-- [ ] `fromIndex()` distinguishes missing map entries from offset `0` entries.
-
----
-
 # 29. Make transform generation idempotent and collision-safe
 
 ## Goal

@@ -1,3 +1,5 @@
+const utf8Decoder = new TextDecoder("utf-8");
+
 /**
  * A Buffer for reading wasm sections.
  */
@@ -11,14 +13,15 @@ export class WasmBuffer {
   readVaruint(off: number = this.off) {
     var val = 0;
     var shl = 0;
-    var byt;
     var pos = off;
-    do {
-      byt = this.u8array[pos++];
+
+    while (pos < this.u8array.length) {
+      const byt = this.u8array[pos++];
       val |= (byt & 0x7f) << shl;
       if (!(byt & 0x80)) break;
       shl += 7;
-    } while (true);
+    }
+
     this.off = pos;
     return val;
   }
@@ -29,13 +32,10 @@ export class WasmBuffer {
    */
   readString(off: number = this.off): string {
     const name_len = this.readVaruint(off);
-    this.off += name_len;
-    const codes = this.u8array.slice(this.off - name_len, this.off);
-    let result = "";
-    for (let i = 0; i < codes.length; i++) {
-      result += String.fromCharCode(codes[i]);
-    }
-    return result;
+    const start = this.off;
+    const end = Math.min(start + name_len, this.u8array.length);
+    this.off = end;
+    return utf8Decoder.decode(this.u8array.subarray(start, end));
   }
 
   /** Read a string at an offset without changing the buffere's offset. */
@@ -60,32 +60,47 @@ export class NameSection {
   constructor(contents: Uint8Array) {
     const mod = new WebAssembly.Module(contents as BufferSource);
     const section = WebAssembly.Module.customSections(mod, "name")[0];
-    this.section = new WasmBuffer(new Uint8Array(section));
+    this.section = new WasmBuffer(section ? new Uint8Array(section) : new Uint8Array());
     this.parseSection();
   }
 
   fromIndex(i: number): string {
-    const ptr = this.funcNames.get(i);
-    if (!ptr) return "Function " + i;
-    return this.section.peekString(ptr);
+    if (!this.funcNames.has(i)) return "Function " + i;
+    return this.section.peekString(this.funcNames.get(i)!);
   }
 
-  /** Parses */
+  /** Parses the wasm name custom section. */
   private parseSection(): void {
-    const off = this.off;
-    const kind = this.readVaruint();
-    if (kind != 1) {
-      this.off = off;
-      return;
+    const sectionLength = this.section.u8array.length;
+
+    while (this.off < sectionLength) {
+      const kind = this.readVaruint();
+      const end = Math.min(this.readVaruint() + this.off, sectionLength);
+
+      if (kind == 1) {
+        this.parseFunctionNames(end);
+      }
+
+      this.off = end;
     }
-    const end = this.readVaruint() + this.off;
+  }
+
+  /** Parse the function-name subsection. */
+  private parseFunctionNames(end: number): void {
     const count = this.readVaruint();
     let numRead = 0;
+
     while (numRead < count && this.off < end) {
       const index = this.readVaruint();
-      this.funcNames.set(index, this.off);
+      if (this.off >= end) return;
+
+      const ptr = this.off;
       const len = this.readVaruint();
-      this.off += len;
+      const nameEnd = this.off + len;
+      if (nameEnd > end) return;
+
+      this.funcNames.set(index, ptr);
+      this.off = nameEnd;
       numRead++;
     }
   }
