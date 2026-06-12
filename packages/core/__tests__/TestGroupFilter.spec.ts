@@ -50,4 +50,30 @@ describe("TestGroup filtering", () => {
     context.run(result);
     expect(context.testRunCount).toBe(0);
   });
+
+  test.each([/group/g, /group/y])("group filtering is stable for stateful regex %s", (regex) => {
+    // @ts-ignore setting the protected groupRegex property is just for testing
+    context.groupRegex = regex;
+    context.run(result);
+
+    let count = 0;
+    context.rootNode.visit((node) => {
+      if (node.type === TestNodeType.Group && node.ran) count += 1;
+    });
+    expect(count).toBe(3);
+    expect(regex.lastIndex).toBe(0);
+  });
+
+  test.each([/test/g, /test/y])("test filtering is stable for stateful regex %s", (regex) => {
+    // @ts-ignore setting the protected testRegex property is just for testing
+    context.testRegex = regex;
+    context.run(result);
+
+    let count = 0;
+    context.rootNode.visit((node) => {
+      if (node.type === TestNodeType.Test && node.ran) count += 1;
+    });
+    expect(count).toBe(12);
+    expect(regex.lastIndex).toBe(0);
+  });
 });

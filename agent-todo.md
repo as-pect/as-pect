@@ -541,39 +541,6 @@ Remove filesystem/glob ordering as a source of flaky test-session output and sna
 
 ---
 
-# 26. Guard regex filters against stateful `g` and `y` flags
-
-## Goal
-
-Prevent test, group, and entry filters from changing behavior across repeated `.test()` calls when users provide global or sticky regexes.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/cli/src/TestSession.ts`
-- `packages/core/src/test/TestContext.ts`
-- `packages/core/__tests__/TestGroupFilter.spec.ts`
-- `packages/cli/__tests__/TestSession.spec.ts`
-
-## Tasks
-
-- [ ] Add failing tests using global or sticky regexes for entry disclude filters.
-- [ ] Add failing tests using global or sticky regexes for test and group filters.
-- [ ] Choose a small fix: reset `lastIndex = 0` before every `.test()`, or clone regexes without stateful flags when creating config.
-- [ ] Apply the fix consistently for CLI entry filters and core test/group filters.
-- [ ] Document the chosen behavior in comments only if it is not obvious from tests.
-
-## Acceptance criteria
-
-- [ ] Repeated filtering with `/.../g` or `/.../y` is deterministic.
-- [ ] Existing non-stateful regex behavior remains unchanged.
-- [ ] Focused CLI and core filter tests pass.
-
----
-
 # 27. Define and correct snapshot total-count semantics
 
 ## Goal
