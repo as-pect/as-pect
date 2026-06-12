@@ -14,6 +14,9 @@
     "asbuild:debug": "asc assembly/index.ts --target debug",
     "asbuild:release": "asc assembly/index.ts --target release",
     "asbuild": "npm run asbuild:debug && npm run asbuild:release",
+    "bench:reflect": "npm run bench:reflect:build && npm run bench:reflect:run",
+    "bench:reflect:build": "node -e \"require('node:fs').mkdirSync('bench/build',{recursive:true})\" && asc bench/assembly/reflect-equality.ts --outFile bench/build/reflect-equality.wasm --textFile bench/build/reflect-equality.wat --optimizeLevel 3 --shrinkLevel 0 --transform @as-pect/transform",
+    "bench:reflect:run": "node bench/reflect-equality.bench.mjs",
     "package:check": "node scripts/validate-package-shape.mjs",
     "prepack": "npm run tsc:all",
     "start": "npx serve ."

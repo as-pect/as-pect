@@ -7,6 +7,7 @@
     "test:update-snapshots": "corepack npm run test:update-snapshots --workspaces --if-present",
     "bench:snapshots": "corepack npm run bench --workspace @as-pect/snapshots",
     "bench:core": "corepack npm run bench --workspace @as-pect/core",
+    "bench:assembly-reflect": "corepack npm run bench:reflect --workspace @as-pect/assembly",
     "test:ci": "run-s tsc:all test:ci:all",
     "test:ci:all": "corepack npm run test:ci --workspaces --if-present",
     "test:all": "corepack npm run test --workspaces --if-present",
