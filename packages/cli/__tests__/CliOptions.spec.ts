@@ -8,6 +8,12 @@ function parseOptions(args: string[]) {
 }
 
 describe("CLI option parsing", () => {
+  it("describes --reporter as accepting local paths and package modules", () => {
+    expect(createCliProgram().helpInformation().replace(/\s+/g, " ")).toContain(
+      "Define a custom reporter (local path or package module)",
+    );
+  });
+
   it("maps --version without requiring config", () => {
     expect(parseOptions(["--version"]).version).toBe(true);
   });

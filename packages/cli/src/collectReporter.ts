@@ -1,17 +1,59 @@
 import type { IAspectConfig } from "./IAspectConfig.js";
 import { CombinationReporter, SummaryReporter, VerboseReporter, type IReporter, type IWritable } from "@as-pect/core";
-import { cwd } from "process";
 import type { OptionValues } from "commander";
+import { existsSync } from "fs";
 import path from "path";
-import process from "process";
+import process, { cwd } from "process";
+import { fileURLToPath, pathToFileURL } from "url";
 import { importLocalModule } from "./importLocalModule.js";
 
-async function importCustomReporter(reporterRelativeLocation: string): Promise<IReporter> {
-  const reporterLocation = path.resolve(cwd(), reporterRelativeLocation);
+function isExplicitLocalSpecifier(reporterLocation: string): boolean {
+  return (
+    reporterLocation.startsWith("./") ||
+    reporterLocation.startsWith("../") ||
+    reporterLocation === "." ||
+    reporterLocation === ".." ||
+    path.isAbsolute(reporterLocation) ||
+    reporterLocation.startsWith("file:")
+  );
+}
+
+function resolveReporterLocalPath(reporterLocation: string): string | null {
+  if (reporterLocation.startsWith("file:")) {
+    return fileURLToPath(reporterLocation);
+  }
+
+  const candidatePath = path.resolve(cwd(), reporterLocation);
+  if (isExplicitLocalSpecifier(reporterLocation) || existsSync(candidatePath)) {
+    return candidatePath;
+  }
+
+  return null;
+}
+
+async function importReporterModule(reporterLocation: string): Promise<IReporter> {
+  const localPath = resolveReporterLocalPath(reporterLocation);
+  if (localPath) {
+    try {
+      return (await importLocalModule<{ default: IReporter }>(localPath)).default;
+    } catch (ex) {
+      throw new Error(
+        `An error occurred while trying to import custom reporter "${reporterLocation}" from ${localPath}`,
+        {
+          cause: ex,
+        },
+      );
+    }
+  }
+
   try {
-    return (await importLocalModule<{ default: IReporter }>(reporterLocation)).default;
+    const parentUrl = pathToFileURL(path.join(cwd(), "package.json")).href;
+    const moduleSpecifier = import.meta.resolve(reporterLocation, parentUrl);
+    return (await import(moduleSpecifier)).default as IReporter;
   } catch (ex) {
-    throw new Error(`An error occured while trying to import: ${reporterLocation}`, { cause: ex });
+    throw new Error(`An error occurred while trying to import custom reporter module "${reporterLocation}"`, {
+      cause: ex,
+    });
   }
 }
 
@@ -19,11 +61,11 @@ async function importCustomReporter(reporterRelativeLocation: string): Promise<I
 export async function getReporter(opts: OptionValues, aspectConfig: IAspectConfig): Promise<IReporter> {
   const reporters = [] as IReporter[];
   if (aspectConfig.reporter) {
-    reporters.push(await importCustomReporter(aspectConfig.reporter));
+    reporters.push(await importReporterModule(aspectConfig.reporter));
   }
 
   if (typeof opts.reporter === "string") {
-    reporters.push(await importCustomReporter(opts.reporter));
+    reporters.push(await importReporterModule(opts.reporter));
   }
 
   if (opts.json) {

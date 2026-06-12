@@ -37,7 +37,7 @@ export function createCliProgram(): Command {
     .option("--verbose", "Use a more verbose reporter.", false)
     .option("--csv", "Use the csv reporter (output results to csv files.)", false)
     .option("--json", "Use the json reporter (output results to json files.)", false)
-    .option("--reporter <reporter>", "Define a custom reporter (path or module)", void 0)
+    .option("--reporter <reporter>", "Define a custom reporter (local path or package module)", void 0)
     // other options
     .option("-s, --show-stats", "Show compiler stats between compilations.", false);
 }
