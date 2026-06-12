@@ -13,37 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 8. Add a no-dependency snapshot benchmark harness
-
-## Goal
-
-Create actual benchmarks for snapshot parse, diff, lifecycle, and stringify paths before optimizing them.
-
-## Blockers
-
-- Slice 7 should be complete, so benchmark cases measure corrected parsing behavior.
-
-## Files
-
-- New benchmark files under `packages/snapshots/bench/`
-- Root `package.json` or `packages/snapshots/package.json`
-
-## Tasks
-
-- [ ] Implement a small benchmark runner with `node:perf_hooks`; do not add a benchmark dependency.
-- [ ] Add cases for 1k unchanged snapshots, 1k added snapshots, 1k changed snapshots, large multiline values, and repeated-backtick values.
-- [ ] Print stable machine-readable results, preferably JSON lines.
-- [ ] Add an npm script that runs only the snapshot benchmarks.
-- [ ] Document that benchmark output is informational and not a pass/fail test gate unless thresholds are added later.
-
-## Acceptance criteria
-
-- [ ] Snapshot benchmark command runs locally without extra dependencies.
-- [ ] Results identify parse, diff, lifecycle, and stringify timing separately.
-- [ ] Benchmark files do not alter package runtime behavior.
-
----
-
 # 9. Skip expensive line diffs for unchanged snapshots
 
 ## Goal
@@ -52,7 +21,7 @@ Improve snapshot diff performance for the common unchanged-snapshot case.
 
 ## Blockers
 
-- Slice 8 should be complete so the change has before/after benchmark numbers.
+- None. Slice 8 is complete, so this slice can collect before/after benchmark numbers.
 
 ## Files
 
