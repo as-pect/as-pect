@@ -1,7 +1,7 @@
 import path from "path";
 import { existsSync, promises as fs, readdirSync, readFileSync } from "fs";
 import chalk from "chalk";
-import { glob } from "glob";
+import { glob as defaultGlob } from "glob";
 import { main as asc } from "assemblyscript/dist/asc.js";
 import { instantiate } from "@assemblyscript/loader";
 import { TestContext, type IWritable } from "@as-pect/core";
@@ -26,6 +26,8 @@ export interface TestSessionCliOptions {
   memoryMax?: string;
   memorySize?: string;
   outputBinary?: boolean;
+  reporter?: string | boolean;
+  run?: boolean;
   showStats?: boolean;
   summary?: boolean;
   test?: string;
@@ -51,6 +53,7 @@ export interface TestSessionConfig {
   aspectConfig: IAspectConfig;
   asconfigLocation: string;
   cwd: string;
+  dependencies: TestSessionDependencies;
   entryFilterRegexes: RegExp[];
   groupRegex: RegExp;
   includeGlobs: string[];
@@ -58,6 +61,7 @@ export interface TestSessionConfig {
   memorySize: string;
   options: TestSessionCliOptions;
   outputBinary: boolean;
+  runTests: boolean;
   showStats: boolean;
   stderr: NodeJS.WritableStream;
   stdout: NodeJS.WritableStream;
@@ -81,6 +85,49 @@ export interface TestSessionCompileFailure {
 
 export type TestSessionResult = TestSessionSuccess | TestSessionCompileFailure;
 
+type CompilerIo = {
+  listFiles(dirname: string, baseDir: string): string[] | null;
+  readFile(filename: string, baseDir: string): string | null;
+  stderr: NodeJS.WritableStream;
+  stdout: NodeJS.WritableStream;
+  writeFile(filename: string, contents: string | Uint8Array, baseDir: string): void;
+};
+
+type CompilerResult = {
+  error?: unknown;
+  stats: { toString(): string };
+};
+
+export interface TestSessionFileSystem {
+  access(path: string): Promise<void>;
+  existsSync(path: string): boolean;
+  mkdir(path: string): Promise<void>;
+  readFile(path: string, encoding: BufferEncoding): Promise<string>;
+  readFileSync(path: string, encoding: BufferEncoding): string;
+  readdirSync(path: string): string[];
+  writeFile(path: string, contents: string | Uint8Array, encoding?: BufferEncoding): Promise<void>;
+}
+
+export interface TestSessionDependencies {
+  compile(args: string[], io: CompilerIo): Promise<CompilerResult>;
+  fileSystem: TestSessionFileSystem;
+  glob(pattern: string): Promise<string[]>;
+}
+
+const defaultDependencies: TestSessionDependencies = {
+  compile: asc,
+  fileSystem: {
+    access: fs.access,
+    existsSync,
+    mkdir: fs.mkdir,
+    readFile: fs.readFile,
+    readFileSync,
+    readdirSync,
+    writeFile: fs.writeFile,
+  },
+  glob: defaultGlob,
+};
+
 export class TestSession {
   public constructor(private readonly config: TestSessionConfig) {}
 
@@ -95,6 +142,7 @@ export interface CreateTestSessionConfigOptions {
   asconfigLocation: string;
   cwd: string;
   options: TestSessionCliOptions;
+  dependencies?: Partial<TestSessionDependencies>;
   stderr?: NodeJS.WritableStream;
   stdout?: NodeJS.WritableStream;
 }
@@ -126,22 +174,19 @@ export function createTestSessionConfig({
   aspectConfig,
   asconfigLocation,
   cwd,
+  dependencies,
   options,
   stderr = process.stderr,
   stdout = process.stdout,
 }: CreateTestSessionConfigOptions): TestSessionConfig {
   const entryFilterRegexes = [] as RegExp[];
 
-  // Preserve the current CLI option mapping during extraction. The commander option is named
-  // `disclude`, but the existing CLI checks `disclue`; a later characterization slice can fix it.
-  if (options.disclue) entryFilterRegexes.push(new RegExp(options.disclude!));
+  if (options.disclude) entryFilterRegexes.push(new RegExp(options.disclude));
   if (aspectConfig.disclude) entryFilterRegexes.push(...aspectConfig.disclude);
 
   const includeGlobs = [] as string[];
 
-  // Preserve the current CLI option mapping during extraction. The commander option is named
-  // `include`, but the existing CLI reads `I`; a later characterization slice can fix it.
-  if (options.include) includeGlobs.push(...options.I!.split(","));
+  if (options.include) includeGlobs.push(...options.include.split(","));
   if (aspectConfig.include) includeGlobs.push(...aspectConfig.include);
   if (includeGlobs.length === 0) includeGlobs.push("assembly/__tests__/**/*.include.ts");
 
@@ -150,13 +195,15 @@ export function createTestSessionConfig({
     aspectConfig,
     asconfigLocation,
     cwd,
+    dependencies: { ...defaultDependencies, ...dependencies },
     entryFilterRegexes,
     groupRegex: new RegExp(options.group || "(:?)"),
     includeGlobs,
     memoryMax: options.memoryMax || "-1",
     memorySize: options.memorySize || "10",
     options,
-    outputBinary: Boolean(options.outputBinary || aspectConfig.outputBinary),
+    outputBinary: Boolean(options.outputBinary || aspectConfig.outputBinary || options.run === false),
+    runTests: options.run !== false,
     showStats: Boolean(options.showStats),
     stderr,
     stdout,
@@ -185,6 +232,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     aspectConfig,
     asconfigLocation,
     cwd,
+    dependencies,
     entryFilterRegexes,
     groupRegex,
     includeGlobs,
@@ -192,6 +240,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     memorySize,
     options,
     outputBinary,
+    runTests,
     showStats,
     stderr,
     stdout,
@@ -206,6 +255,8 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
   const fileMap = new Map<string, string>();
   const folderMap = new Map<string, string[]>();
   const stats = createInitialStats();
+
+  const { compile, fileSystem, glob } = dependencies;
 
   for (const arg of args.concat(aspectConfig.entries || [])) {
     const entryPoints = await glob(arg);
@@ -239,12 +290,12 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     const basename = path.basename(entry, path.extname(entry));
     const ascArgs = [entry, ...includes, "--config", asconfigLocation, "--target", covers ? "coverage" : "noCoverage"];
 
-    const compiled = await asc(ascArgs, {
+    const compiled = await compile(ascArgs, {
       readFile(filename, baseDir) {
         const filePath = path.join(baseDir, filename);
         if (fileMap.has(filePath)) return fileMap.get(filePath)!;
         try {
-          const contents = readFileSync(filePath, "utf8");
+          const contents = fileSystem.readFileSync(filePath, "utf8");
           fileMap.set(filePath, contents);
           return contents;
         } catch (ex) {
@@ -259,7 +310,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
         if (folderMap.has(folder)) return folderMap.get(folder)!;
 
         try {
-          const files = readdirSync(folder).filter((file) => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
+          const files = fileSystem.readdirSync(folder).filter((file) => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
           folderMap.set(folder, files);
           return files;
         } catch (ex) {
@@ -287,16 +338,18 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
 
     if (outputBinary) {
       const baseName = path.join(dir, path.basename(entry, path.extname(entry)));
-      await fs.writeFile(baseName + ".wasm", binary);
-      await fs.writeFile(baseName + ".wat", wat);
+      await fileSystem.writeFile(baseName + ".wasm", binary);
+      await fileSystem.writeFile(baseName + ".wat", wat);
     }
 
     const snapshotPath = path.join(dir, "__snapshots__", basename + ".snap");
     const snapshotMode = updateSnapshots ? SnapshotMode.WriteSnapshots : SnapshotMode.CompareSnapshots;
 
+    if (!runTests) continue;
+
     const snapshots =
-      snapshotMode === SnapshotMode.CompareSnapshots && existsSync(snapshotPath)
-        ? Snapshot.parse(await fs.readFile(snapshotPath, "utf8"))
+      snapshotMode === SnapshotMode.CompareSnapshots && fileSystem.existsSync(snapshotPath)
+        ? Snapshot.parse(await fileSystem.readFile(snapshotPath, "utf8"))
         : void 0;
 
     let wasi: import("wasi").WASI | undefined = void 0;
@@ -362,20 +415,20 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
       if (updatePlan.shouldWrite) {
         updatePlan.applyTo(expectedSnapshots);
         stats.addedSnapshots += updatePlan.addedSnapshots;
-        await fs.writeFile(snapshotPath, expectedSnapshots.stringify(), "utf8");
+        await fileSystem.writeFile(snapshotPath, expectedSnapshots.stringify(), "utf8");
       }
     } else {
       writeLog(stdout, "Creating Snapshots.");
       const snapshotDir = path.dirname(snapshotPath);
       try {
-        await fs.access(snapshotDir);
+        await fileSystem.access(snapshotDir);
       } catch (ex) {
-        await fs.mkdir(snapshotDir);
+        await fileSystem.mkdir(snapshotDir);
       }
 
       if (ctx.rootNode.pass) {
         const output = ctx.snapshots.stringify();
-        await fs.writeFile(snapshotPath, output, "utf8");
+        await fileSystem.writeFile(snapshotPath, output, "utf8");
       }
     }
   }

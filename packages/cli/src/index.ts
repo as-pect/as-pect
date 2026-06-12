@@ -1,4 +1,4 @@
-import { program } from "commander";
+import { Command } from "commander";
 import process, { stdout } from "process";
 import path from "path";
 import { promises as fs } from "fs";
@@ -11,32 +11,37 @@ import { version as ascVersion } from "assemblyscript/dist/asc.js";
 import { init } from "./init.js";
 import { createTestSessionConfig, formatTestSessionSummary, SnapshotMode, TestSession } from "./TestSession.js";
 
-// set the cli options
-// prettier-ignore
-program
-  .option("-n, --no-logo", "Don't display the as-pect logo.", false)
-  .option("-c, --config <config_location>", "Specify the location of your [as-pect.config.js]", "./as-pect.config.js")
-  .option( "-a, --as-config <asconfig_location>", "Specify the location of the as-pect asconfig. (default: `./as-pect.asconfig.json`)", "./as-pect.asconfig.json")
-  .option("-v, --version", "Display the as-pect version.", false)
-  .option("--init", "Initialize a testing project.", false)
-  // memory options
-  .option("--memory-size", "Initial size of imported memory in pages of 64kb. (Default: 10 pages)", "10")
-  .option("--memory-max", "Set the maximum amount of memory pages the wasm test modules can use. (Default: -1, no max specified)", "-1")
-  // testing options (regular arguments get passed as globs to find test files)
-  .option("-t, --test", "Match tests with the following regex. (Default: `(:?)`)", "(:?)")
-  .option("-g, --group", "Match test groups with the following regex. (Default `(:?)`)", "(:?)")
-  .option("-d, --disclude <regex>", "Match test files with the following regex, disclude them from testing.", void 0)
-  .option("-i, --include <globs>", "A comma seperated list of include globs that will include files for each test compilation.", void 0)
-  .option("-o, --output-binary", "Output the wasm binary for each test file.", false)
-  .option("--no-run", "Skip running tests, and output the binary files.", false)
-  .option("-u, --update-snapshots", "Update the existing snapshots.", false)
-  .option("--summary", "Use the summary reporter. {yellow (This is the default if no reporter is specified.)}", false)
-  .option("--verbose", "Use a more verbose reporter.", false)
-  .option("--csv", "Use the csv reporter (output results to csv files.)", false)
-  .option("--json", "Use the json reporter (output results to json files.)", false)
-  .option("--reporter", "Define a custom reporter (path or module)", false)
-  // other options
-  .option("-s, --show-stats", "Show compiler stats between compilations.", false);
+export function createCliProgram(): Command {
+  // set the cli options
+  // prettier-ignore
+  return new Command()
+    .argument("[globs...]", "Test entry globs")
+    .option("-n, --no-logo", "Don't display the as-pect logo.")
+    .option("-c, --config <config_location>", "Specify the location of your [as-pect.config.js]", "./as-pect.config.js")
+    .option( "-a, --as-config <asconfig_location>", "Specify the location of the as-pect asconfig. (default: `./as-pect.asconfig.json`)", "./as-pect.asconfig.json")
+    .option("-v, --version", "Display the as-pect version.", false)
+    .option("--init", "Initialize a testing project.", false)
+    // memory options
+    .option("--memory-size", "Initial size of imported memory in pages of 64kb. (Default: 10 pages)", "10")
+    .option("--memory-max", "Set the maximum amount of memory pages the wasm test modules can use. (Default: -1, no max specified)", "-1")
+    // testing options (regular arguments get passed as globs to find test files)
+    .option("-t, --test", "Match tests with the following regex. (Default: `(:?)`)", "(:?)")
+    .option("-g, --group", "Match test groups with the following regex. (Default `(:?)`)", "(:?)")
+    .option("-d, --disclude <regex>", "Match test files with the following regex, disclude them from testing.", void 0)
+    .option("-i, --include <globs>", "A comma seperated list of include globs that will include files for each test compilation.", void 0)
+    .option("-o, --output-binary", "Output the wasm binary for each test file.", false)
+    .option("--no-run", "Skip running tests, and output the binary files.")
+    .option("-u, --update-snapshots", "Update the existing snapshots.", false)
+    .option("--summary", "Use the summary reporter. {yellow (This is the default if no reporter is specified.)}", false)
+    .option("--verbose", "Use a more verbose reporter.", false)
+    .option("--csv", "Use the csv reporter (output results to csv files.)", false)
+    .option("--json", "Use the json reporter (output results to json files.)", false)
+    .option("--reporter <reporter>", "Define a custom reporter (path or module)", void 0)
+    // other options
+    .option("-s, --show-stats", "Show compiler stats between compilations.", false);
+}
+
+export const program = createCliProgram();
 
 // const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
@@ -60,8 +65,8 @@ export async function asp(argv: string[]): Promise<void> {
   const args = program.args;
   const cwd = process.cwd();
 
-  // We print the ascii art if !n and !v
-  if (!opts.noLogo && !opts.version) {
+  // We print the ascii art if the logo has not been disabled and this is not a version request.
+  if (opts.logo !== false && !opts.version) {
     printAsciiArt();
   }
 
