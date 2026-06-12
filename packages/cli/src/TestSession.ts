@@ -23,8 +23,8 @@ export interface TestSessionCliOptions {
   I?: string;
   include?: string;
   json?: boolean;
-  memoryMax?: string;
-  memorySize?: string;
+  memoryMax?: string | number;
+  memorySize?: string | number;
   outputBinary?: boolean;
   reporter?: string | boolean;
   run?: boolean;
@@ -57,8 +57,7 @@ export interface TestSessionConfig {
   entryFilterRegexes: RegExp[];
   groupRegex: RegExp;
   includeGlobs: string[];
-  memoryMax: string;
-  memorySize: string;
+  memory: WebAssembly.MemoryDescriptor;
   options: TestSessionCliOptions;
   outputBinary: boolean;
   runTests: boolean;
@@ -169,6 +168,45 @@ function withWasiPreview1(options: import("wasi").WASIOptions): import("wasi").W
   return { ...options, version: options.version ?? "preview1" } as import("wasi").WASIOptions;
 }
 
+function parseMemoryPageOption(
+  optionName: string,
+  value: string | number | undefined,
+  defaultValue: number,
+  allowUnspecified: boolean,
+): number {
+  const valueToParse = value ?? defaultValue;
+  const parsedValue = typeof valueToParse === "number" ? valueToParse : Number(valueToParse);
+
+  if (!Number.isInteger(parsedValue)) {
+    throw new Error(`${optionName} must be an integer number of WebAssembly memory pages.`);
+  }
+
+  if (allowUnspecified && parsedValue === -1) {
+    return parsedValue;
+  }
+
+  if (parsedValue < 0) {
+    throw new Error(`${optionName} must be a non-negative number of WebAssembly memory pages.`);
+  }
+
+  return parsedValue;
+}
+
+function createMemoryDescriptor(options: TestSessionCliOptions): WebAssembly.MemoryDescriptor {
+  const initial = parseMemoryPageOption("--memory-size", options.memorySize, 10, false);
+  const maximum = parseMemoryPageOption("--memory-max", options.memoryMax, -1, true);
+
+  if (maximum === -1) {
+    return { initial };
+  }
+
+  if (maximum < initial) {
+    throw new Error("--memory-max must be greater than or equal to --memory-size.");
+  }
+
+  return { initial, maximum };
+}
+
 export function createTestSessionConfig({
   args,
   aspectConfig,
@@ -199,8 +237,7 @@ export function createTestSessionConfig({
     entryFilterRegexes,
     groupRegex: new RegExp(options.group || "(:?)"),
     includeGlobs,
-    memoryMax: options.memoryMax || "-1",
-    memorySize: options.memorySize || "10",
+    memory: createMemoryDescriptor(options),
     options,
     outputBinary: Boolean(options.outputBinary || aspectConfig.outputBinary || options.run === false),
     runTests: options.run !== false,
@@ -236,8 +273,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     entryFilterRegexes,
     groupRegex,
     includeGlobs,
-    memoryMax,
-    memorySize,
+    memory,
     options,
     outputBinary,
     runTests,
@@ -376,19 +412,10 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
       wasi,
     });
 
-    const descriptor = {
-      initial: parseInt(memorySize),
-    } as WebAssembly.MemoryDescriptor;
-    if (memoryMax) {
-      const maximum = parseInt(memoryMax);
-      if (maximum !== -1) {
-        descriptor.maximum = maximum;
-      }
-    }
-    const memory = new WebAssembly.Memory(descriptor);
+    const wasmMemory = new WebAssembly.Memory(memory);
 
     const module = await aspectConfig.instantiate(
-      memory,
+      wasmMemory,
       (...args: any[]) => (covers ? covers.installImports(ctx.createImports(...args)) : ctx.createImports(...args)),
       instantiate,
       binary,

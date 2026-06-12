@@ -22,8 +22,8 @@ export function createCliProgram(): Command {
     .option("-v, --version", "Display the as-pect version.", false)
     .option("--init", "Initialize a testing project.", false)
     // memory options
-    .option("--memory-size", "Initial size of imported memory in pages of 64kb. (Default: 10 pages)", "10")
-    .option("--memory-max", "Set the maximum amount of memory pages the wasm test modules can use. (Default: -1, no max specified)", "-1")
+    .option("--memory-size <pages>", "Initial size of imported memory in pages of 64kb. (Default: 10 pages)", "10")
+    .option("--memory-max <pages>", "Set the maximum amount of memory pages the wasm test modules can use. (Default: -1, no max specified)", "-1")
     // testing options (regular arguments get passed as globs to find test files)
     .option("-t, --test", "Match tests with the following regex. (Default: `(:?)`)", "(:?)")
     .option("-g, --group", "Match test groups with the following regex. (Default `(:?)`)", "(:?)")
