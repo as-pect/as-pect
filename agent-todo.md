@@ -448,37 +448,6 @@ Make the public config type describe the real instantiate interface so user conf
 
 ---
 
-# 25. Make entry and include discovery order deterministic
-
-## Goal
-
-Remove filesystem/glob ordering as a source of flaky test-session output and snapshot differences.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/cli/src/TestSession.ts`
-- `packages/cli/__tests__/TestSession.spec.ts`
-
-## Tasks
-
-- [ ] Sort glob results before adding them to entry and include collections.
-- [ ] Ensure entries from CLI args and config entries preserve the intended precedence while producing deterministic final order.
-- [ ] Sort include files before passing them to the compiler.
-- [ ] Add tests where the injected glob dependency returns files in random or reverse order.
-- [ ] Assert compiler invocation order is stable.
-
-## Acceptance criteria
-
-- [ ] Test entry compilation order is deterministic.
-- [ ] Include file order is deterministic.
-- [ ] Existing entry aggregation behavior is preserved except for intentional sorting.
-
----
-
 # 27. Define and correct snapshot total-count semantics
 
 ## Goal

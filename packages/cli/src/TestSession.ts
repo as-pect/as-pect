@@ -176,6 +176,16 @@ function regexMatches(regex: RegExp, value: string): boolean {
   }
 }
 
+function compareDiscoveredPaths(left: string, right: string): number {
+  if (left < right) return -1;
+  if (left > right) return 1;
+  return 0;
+}
+
+function sortDiscoveredPaths(paths: string[]): string[] {
+  return [...paths].sort(compareDiscoveredPaths);
+}
+
 function withWasiPreview1(options: import("wasi").WASIOptions): import("wasi").WASIOptions {
   return { ...options, version: options.version ?? "preview1" } as import("wasi").WASIOptions;
 }
@@ -318,14 +328,14 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
   const { compile, fileSystem, glob } = dependencies;
 
   for (const arg of args.concat(aspectConfig.entries || [])) {
-    const entryPoints = await glob(arg);
+    const entryPoints = sortDiscoveredPaths(await glob(arg));
     for (const entryPoint of entryPoints) {
       if (filterEntry(entryPoint)) entries.add(entryPoint);
     }
   }
 
   for (const includedGlob of includeGlobs) {
-    const includedFiles = await glob(includedGlob);
+    const includedFiles = sortDiscoveredPaths(await glob(includedGlob));
     for (const includedFile of includedFiles) {
       includes.add(includedFile);
     }
@@ -343,11 +353,20 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     covers = new Covers({ files: coverageFiles });
   }
 
+  const includeFiles = sortDiscoveredPaths(Array.from(includes));
+
   for (const entry of entries) {
     const files = new Map<string, string | Uint8Array>();
     const dir = path.dirname(entry);
     const basename = path.basename(entry, path.extname(entry));
-    const ascArgs = [entry, ...includes, "--config", asconfigLocation, "--target", covers ? "coverage" : "noCoverage"];
+    const ascArgs = [
+      entry,
+      ...includeFiles,
+      "--config",
+      asconfigLocation,
+      "--target",
+      covers ? "coverage" : "noCoverage",
+    ];
 
     const compiled = await compile(ascArgs, {
       readFile(filename, baseDir) {
@@ -369,7 +388,9 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
         if (folderMap.has(folder)) return folderMap.get(folder)!;
 
         try {
-          const files = fileSystem.readdirSync(folder).filter((file) => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
+          const files = sortDiscoveredPaths(
+            fileSystem.readdirSync(folder).filter((file) => /^(?!.*\.d\.ts$).*\.ts$/.test(file)),
+          );
           folderMap.set(folder, files);
           return files;
         } catch (ex) {

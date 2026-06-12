@@ -88,13 +88,13 @@ describe("Test session execution", () => {
   it("can compile without running tests or instantiating wasm", async () => {
     const writes = new Map<string, string | Uint8Array>();
     const readFileSync = jest.fn(() => "export const value = 1;");
-    const readdirSync = jest.fn(() => ["dependency.ts", "dependency.d.ts"]);
+    const readdirSync = jest.fn(() => ["z-dependency.ts", "dependency.d.ts", "a-dependency.ts"]);
     const instantiate = jest.fn();
     const compile = jest.fn(async (_args, io) => {
       io.readFile("entry.ts", "/workspace");
       io.readFile("entry.ts", "/workspace");
-      io.listFiles("assembly", "/workspace");
-      io.listFiles("assembly", "/workspace");
+      expect(io.listFiles("assembly", "/workspace")).toEqual(["a-dependency.ts", "z-dependency.ts"]);
+      expect(io.listFiles("assembly", "/workspace")).toEqual(["a-dependency.ts", "z-dependency.ts"]);
       io.writeFile("build/output.wasm", new Uint8Array([1, 2, 3]), "/workspace");
       io.writeFile("build/output.wat", "(module)", "/workspace");
       return { stats: { toString: () => "compiler stats" } };
@@ -133,6 +133,110 @@ describe("Test session execution", () => {
     expect(writes.get("assembly/__tests__/entry.spec.wat")).toBe("(module)");
     expect(readFileSync).toHaveBeenCalledTimes(1);
     expect(readdirSync).toHaveBeenCalledTimes(1);
+  });
+
+  it("sorts discovered entries while preserving CLI and config glob precedence", async () => {
+    const compile = jest.fn(async (_args, io) => {
+      io.writeFile("build/output.wasm", new Uint8Array([1, 2, 3]), "/workspace");
+      io.writeFile("build/output.wat", "(module)", "/workspace");
+      return { stats: { toString: () => "compiler stats" } };
+    });
+    const dependencies: Partial<TestSessionDependencies> = {
+      compile,
+      fileSystem: {
+        access: jest.fn(async () => void 0),
+        existsSync: jest.fn(() => false),
+        mkdir: jest.fn(async () => void 0),
+        readFile: jest.fn(async () => ""),
+        readFileSync: jest.fn(() => ""),
+        readdirSync: jest.fn(() => []),
+        writeFile: jest.fn(async () => void 0),
+      },
+      glob: jest.fn(async (pattern) => {
+        switch (pattern) {
+          case "assembly/__tests__/cli-*.spec.ts":
+            return ["assembly/__tests__/cli-z.spec.ts", "assembly/__tests__/cli-a.spec.ts"];
+          case "assembly/__tests__/focused-*.spec.ts":
+            return ["assembly/__tests__/focused-b.spec.ts", "assembly/__tests__/focused-a.spec.ts"];
+          case "assembly/config/*.spec.ts":
+            return ["assembly/config/z.spec.ts", "assembly/config/a.spec.ts"];
+          default:
+            return [];
+        }
+      }),
+    };
+
+    const config = createTestSessionConfig({
+      args: ["assembly/__tests__/cli-*.spec.ts", "assembly/__tests__/focused-*.spec.ts"],
+      aspectConfig: { ...aspectConfig, entries: ["assembly/config/*.spec.ts"] },
+      asconfigLocation: "./as-pect.asconfig.json",
+      cwd: "/workspace",
+      dependencies,
+      options: { run: false },
+    });
+
+    await new TestSession(config).run();
+
+    expect(compile.mock.calls.map((call) => call[0][0])).toEqual([
+      "assembly/__tests__/cli-a.spec.ts",
+      "assembly/__tests__/cli-z.spec.ts",
+      "assembly/__tests__/focused-a.spec.ts",
+      "assembly/__tests__/focused-b.spec.ts",
+      "assembly/config/a.spec.ts",
+      "assembly/config/z.spec.ts",
+    ]);
+  });
+
+  it("sorts discovered include files before passing them to the compiler", async () => {
+    const compile = jest.fn(async (_args, io) => {
+      io.writeFile("build/output.wasm", new Uint8Array([1, 2, 3]), "/workspace");
+      io.writeFile("build/output.wat", "(module)", "/workspace");
+      return { stats: { toString: () => "compiler stats" } };
+    });
+    const dependencies: Partial<TestSessionDependencies> = {
+      compile,
+      fileSystem: {
+        access: jest.fn(async () => void 0),
+        existsSync: jest.fn(() => false),
+        mkdir: jest.fn(async () => void 0),
+        readFile: jest.fn(async () => ""),
+        readFileSync: jest.fn(() => ""),
+        readdirSync: jest.fn(() => []),
+        writeFile: jest.fn(async () => void 0),
+      },
+      glob: jest.fn(async (pattern) => {
+        switch (pattern) {
+          case "assembly/__tests__/*.spec.ts":
+            return ["assembly/__tests__/entry.spec.ts"];
+          case "assembly/setup/*.include.ts":
+            return ["assembly/setup/z.include.ts", "assembly/setup/a.include.ts", "assembly/setup/m.include.ts"];
+          default:
+            return [];
+        }
+      }),
+    };
+
+    const config = createTestSessionConfig({
+      args: ["assembly/__tests__/*.spec.ts"],
+      aspectConfig: { ...aspectConfig, include: ["assembly/setup/*.include.ts"] },
+      asconfigLocation: "./as-pect.asconfig.json",
+      cwd: "/workspace",
+      dependencies,
+      options: { run: false },
+    });
+
+    await new TestSession(config).run();
+
+    expect(compile.mock.calls[0][0]).toEqual([
+      "assembly/__tests__/entry.spec.ts",
+      "assembly/setup/a.include.ts",
+      "assembly/setup/m.include.ts",
+      "assembly/setup/z.include.ts",
+      "--config",
+      "./as-pect.asconfig.json",
+      "--target",
+      "noCoverage",
+    ]);
   });
 
   it.each([/skip/g, /assembly\/__tests__\/skip/y])(
