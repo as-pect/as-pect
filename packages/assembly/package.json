@@ -9,11 +9,13 @@
     "asp": "node --experimental-wasi-unstable-preview1 ../cli/lib/test.js --verbose",
     "test:ci": "asp --summary",
     "test": "asp --verbose --output-binary",
-    "tsc:all": "exit 0",
+    "tsc:all": "npm run asbuild:release && npm run package:check",
     "test:update-snapshots": "exit 0",
     "asbuild:debug": "asc assembly/index.ts --target debug",
     "asbuild:release": "asc assembly/index.ts --target release",
     "asbuild": "npm run asbuild:debug && npm run asbuild:release",
+    "package:check": "node scripts/validate-package-shape.mjs",
+    "prepack": "npm run tsc:all",
     "start": "npx serve ."
   },
   "repository": {

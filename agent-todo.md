@@ -311,40 +311,6 @@ Define the smallest safe first extraction for the `Wasm host` module without cha
 
 ---
 
-# 20. Validate and fix the `@as-pect/assembly` published package shape
-
-## Goal
-
-Ensure `@as-pect/assembly` exports files that are actually built and shipped, so the package works outside the monorepo.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/assembly/package.json`
-- `packages/assembly/asconfig.json`
-- `packages/assembly/tsconfig.json`
-- `packages/assembly/assembly/index.ts`
-- Any generated package output under `packages/assembly/build/` only if it is intentionally produced by the build
-
-## Tasks
-
-- [ ] Add a package-shape validation test or script that checks every `exports` and `types` target in `packages/assembly/package.json` exists after the documented build command.
-- [ ] Decide whether `@as-pect/assembly` should publish generated `build/release.js` / `build/release.d.ts` files or export source/type files that already exist.
-- [ ] If generated files are required, make `tsc:all` or another package build script produce them reliably.
-- [ ] If existing files should be exported, update `package.json` exports/files to match the real shipped package shape.
-- [ ] Run `npm pack --dry-run` for the workspace package if practical and record the shipped file list in the slice notes.
-
-## Acceptance criteria
-
-- [ ] The package's declared export and type files exist after the package build.
-- [ ] The package's `files` list includes the declared export and type files.
-- [ ] The fix is validated without relying on monorepo-only path resolution.
-
----
-
 # 21. Add a reporter finalization seam or make file reporters write atomically
 
 ## Goal
