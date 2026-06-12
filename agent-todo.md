@@ -13,40 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 3. Fix CSV reporter column/value order
-
-## Goal
-
-Make `@as-pect/csv-reporter` write rows that match the declared header order.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/csv-reporter/index.ts`
-- `packages/csv-reporter/package.json`
-- New tests under `packages/csv-reporter/__tests__/`
-
-## Tasks
-
-- [ ] Add focused tests that run the CSV reporter against synthetic `SuiteReport` facts and read the generated file.
-- [ ] Assert the header order is `Group,Name,Ran,Negated,Pass,Runtime,Message,Actual,Expected`.
-- [ ] Assert test rows put the test name under `Name` and `RAN` / `NOT RUN` under `Ran`.
-- [ ] Assert todo rows use the same column order.
-- [ ] Fix the row writer or header order; prefer preserving the documented header and changing rows.
-- [ ] Ensure tests wait for stream completion.
-- [ ] Enable a real `test` script for `@as-pect/csv-reporter` instead of `exit 0`.
-
-## Acceptance criteria
-
-- [ ] CSV header and row values align.
-- [ ] Focused CSV reporter tests pass.
-- [ ] Existing output file location behavior is preserved.
-
----
-
 # 4. Remove stray SummaryReporter output and fix warning formatting
 
 ## Goal

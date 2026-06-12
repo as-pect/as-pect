@@ -53,8 +53,8 @@ export default class CSVReporter implements IReporter {
     if (result.type === "test") {
       this.output!.write([
         result.groupName,
-        result.ran ? "RAN" : "NOT RUN",
         result.name,
+        result.ran ? "RAN" : "NOT RUN",
         result.negated ? "TRUE" : "FALSE",
         result.pass ? "PASS" : "FAIL",
         result.runtime.toString(),
@@ -63,7 +63,7 @@ export default class CSVReporter implements IReporter {
         result.expected || "",
       ]);
     } else {
-      this.output!.write([result.groupName, "TODO", result.description, "", "", "", "", "", ""]);
+      this.output!.write([result.groupName, result.description, "TODO", "", "", "", "", "", ""]);
     }
   }
 }
