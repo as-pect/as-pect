@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "tsc:all": "tsc",
-    "test": "exit 0"
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
