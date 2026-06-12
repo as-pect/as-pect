@@ -1,4 +1,5 @@
 import { CombinationReporter, IReporter, IWritable, TestContext, TestNode } from "../src/index.js";
+import type { SuiteReport } from "../src/index.js";
 
 class RecordingReporter implements IReporter {
   public stdout: IWritable | null = null;
@@ -48,5 +49,75 @@ describe("CombinationReporter", () => {
 
     expect(first.entries).toEqual(["enter", "exit", "finish"]);
     expect(second.entries).toEqual(["enter", "exit", "finish"]);
+  });
+
+  it("should combine reporters at the reporting seam and fall back to compatibility callbacks", () => {
+    const reportingSeam = new RecordingReporter();
+    const compatibilitySeam = new RecordingReporter();
+    const reporter = new CombinationReporter([reportingSeam, compatibilitySeam]);
+    const ctx = {} as TestContext;
+    const group = { name: "math" } as TestNode;
+    const test = { name: "adds" } as TestNode;
+    reportingSeam.onReportGroupStart = (event) => reportingSeam.entries.push(`report-group-start:${event.group.name}`);
+    reportingSeam.onReportTestFinish = (event) => reportingSeam.entries.push(`report-test-finish:${event.test.name}`);
+    reportingSeam.onReportFinish = (event) => reportingSeam.entries.push(`report-finish:${event.report.fileName}`);
+
+    reporter.onReportGroupStart({
+      context: ctx,
+      node: group,
+      group: {
+        type: "group",
+        name: "math",
+        pass: true,
+        runtime: 0,
+        hasChildren: true,
+        logs: [],
+        todos: [],
+        tests: [],
+      },
+    });
+    reporter.onReportTestFinish({
+      context: ctx,
+      groupNode: group,
+      node: test,
+      group: {
+        type: "group",
+        name: "math",
+        pass: true,
+        runtime: 0,
+        hasChildren: true,
+        logs: [],
+        todos: [],
+        tests: [],
+      },
+      test: {
+        type: "test",
+        groupName: "math",
+        name: "adds",
+        ran: true,
+        negated: false,
+        pass: true,
+        runtime: 0,
+        message: null,
+        stackTrace: null,
+        rtraceDelta: 0,
+        logs: [],
+        actual: null,
+        expected: null,
+        actualValue: null,
+        expectedValue: null,
+      },
+    });
+    reporter.onReportFinish({
+      context: ctx,
+      report: { fileName: "assembly/example.spec.ts" } as SuiteReport,
+    });
+
+    expect(reportingSeam.entries).toEqual([
+      "report-group-start:math",
+      "report-test-finish:adds",
+      "report-finish:assembly/example.spec.ts",
+    ]);
+    expect(compatibilitySeam.entries).toEqual(["enter", "exit", "finish"]);
   });
 });

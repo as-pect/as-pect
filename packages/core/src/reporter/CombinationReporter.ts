@@ -1,6 +1,7 @@
 import { TestContext } from "../test/TestContext.js";
 import { IReporter, IWritable } from "./IReporter.js";
 import { TestNode } from "../test/TestNode.js";
+import type { GroupReportEvent, SuiteReportEvent, TestReportEvent } from "./ReportingLifecycle.js";
 
 /**
  * This reporter is used to combine a set of reporters into a single reporter object. It uses
@@ -35,5 +36,55 @@ export class CombinationReporter implements IReporter {
 
   onFinish(ctx: TestContext) {
     this.reporters.forEach((e) => e.onFinish(ctx));
+  }
+
+  onReportGroupStart(event: GroupReportEvent): void {
+    this.reporters.forEach((reporter) => {
+      if (reporter.onReportGroupStart) {
+        reporter.onReportGroupStart(event);
+      } else {
+        reporter.onEnter(event.context, event.node);
+      }
+    });
+  }
+
+  onReportGroupFinish(event: GroupReportEvent): void {
+    this.reporters.forEach((reporter) => {
+      if (reporter.onReportGroupFinish) {
+        reporter.onReportGroupFinish(event);
+      } else {
+        reporter.onExit(event.context, event.node);
+      }
+    });
+  }
+
+  onReportTestStart(event: TestReportEvent): void {
+    this.reporters.forEach((reporter) => {
+      if (reporter.onReportTestStart) {
+        reporter.onReportTestStart(event);
+      } else {
+        reporter.onEnter(event.context, event.node);
+      }
+    });
+  }
+
+  onReportTestFinish(event: TestReportEvent): void {
+    this.reporters.forEach((reporter) => {
+      if (reporter.onReportTestFinish) {
+        reporter.onReportTestFinish(event);
+      } else {
+        reporter.onExit(event.context, event.node);
+      }
+    });
+  }
+
+  onReportFinish(event: SuiteReportEvent): void {
+    this.reporters.forEach((reporter) => {
+      if (reporter.onReportFinish) {
+        reporter.onReportFinish(event);
+      } else {
+        reporter.onFinish(event.context);
+      }
+    });
   }
 }

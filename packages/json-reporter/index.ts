@@ -1,6 +1,6 @@
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
-import { TestContext, IReporter, IWritable, SuiteReport, SuiteResultReport } from "@as-pect/core";
+import { TestContext, IReporter, IWritable, SuiteReport, SuiteReportEvent, SuiteResultReport } from "@as-pect/core";
 
 /**
  * This class reports all relevant test statistics to a JSON file located at
@@ -18,8 +18,15 @@ export default class JSONReporter implements IReporter {
 
   public onExit(_ctx: TestContext): void {}
 
+  public onReportFinish(event: SuiteReportEvent): void {
+    this.writeReport(event.report);
+  }
+
   public onFinish(ctx: TestContext): void {
-    const report = SuiteReport.from(ctx);
+    this.writeReport(SuiteReport.from(ctx));
+  }
+
+  protected writeReport(report: SuiteReport): void {
     const extension = extname(report.fileName);
     const dir = dirname(report.fileName);
     const base = basename(report.fileName, extension);
