@@ -12,13 +12,14 @@ export default {
    */
   disclude: [/node_modules/],
   /**
-   * Add your required AssemblyScript imports here.
+   * Add your required AssemblyScript imports here. The createImports callback
+   * returns the WebAssembly imports object passed to AssemblyScript's loader.
    */
   async instantiate(memory, createImports, instantiate, binary) {
     let instance; // Imports can reference this
     const myImports = {
       env: { memory }
-      // put your web assembly imports here, and return the module promise
+      // put your WebAssembly imports here
     };
     instance = instantiate(binary, createImports(myImports));
     return instance;

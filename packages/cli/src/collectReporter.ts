@@ -1,7 +1,7 @@
-import { IAspectConfig } from "./IAspectConfig.js";
-import { IReporter, CombinationReporter, SummaryReporter, VerboseReporter, IWritable } from "@as-pect/core";
+import type { IAspectConfig } from "./IAspectConfig.js";
+import { CombinationReporter, SummaryReporter, VerboseReporter, type IReporter, type IWritable } from "@as-pect/core";
 import { cwd } from "process";
-import { OptionValues } from "commander";
+import type { OptionValues } from "commander";
 import path from "path";
 import process from "process";
 import { importLocalModule } from "./importLocalModule.js";
