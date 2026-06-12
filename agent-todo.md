@@ -313,39 +313,6 @@ Prevent JSON and CSV reporter output from being truncated when the CLI exits soo
 
 ---
 
-# 27. Define and correct snapshot total-count semantics
-
-## Goal
-
-Make snapshot summary stats intuitive and internally consistent for added, removed, changed, and unchanged snapshots.
-
-## Blockers
-
-- Slice 6 must be complete so changed/removed CLI stats are already correct.
-
-## Files
-
-- `packages/snapshots/src/SnapshotLifecycle.ts`
-- `packages/snapshots/__tests__/snapshot.spec.ts`
-- `packages/cli/src/TestSession.ts`
-- `packages/cli/__tests__/TestSession.spec.ts`
-
-## Tasks
-
-- [ ] Decide whether `totalSnapshots` means expected snapshots, actual snapshots, or the union of expected and actual keys.
-- [ ] Add tests for all-added, all-removed, all-unchanged, all-changed, and mixed snapshot sets.
-- [ ] Update `SnapshotLifecycle.calculateStats()` to implement the chosen contract.
-- [ ] Update CLI summary tests if the visible totals change.
-- [ ] Document the stats contract in the `SnapshotLifecycleStats` interface comments.
-
-## Acceptance criteria
-
-- [ ] `passedSnapshots / totalSnapshots` cannot produce confusing results such as passed count greater than total.
-- [ ] Snapshot stats tests cover added, removed, changed, and unchanged cases.
-- [ ] CLI summary uses the same stats contract as the snapshot package.
-
----
-
 # 29. Make transform generation idempotent and collision-safe
 
 ## Goal

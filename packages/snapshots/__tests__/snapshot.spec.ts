@@ -1,4 +1,10 @@
-import { Snapshot, SnapshotDiffResultType, SnapshotLifecycle, SnapshotParseError, SnapshotUpdatePlan } from "../lib/index.js";
+import {
+  Snapshot,
+  SnapshotDiffResultType,
+  SnapshotLifecycle,
+  SnapshotParseError,
+  SnapshotUpdatePlan,
+} from "../lib/index.js";
 
 const inputA = `
 exports[\`A\`] = \`SomeA {
@@ -40,6 +46,7 @@ exports[\`D\`] = \`SomeB {
 `;
 
 const map = new Map<string, string>();
+const snapshotFrom = (entries: [string, string][]): Snapshot => Snapshot.from(new Map(entries));
 
 describe("Snapshot", () => {
   it("should be instanceof Snapshot", () => {
@@ -80,9 +87,7 @@ describe("Snapshot", () => {
   });
 
   it("should diff snapshots", () => {
-    expect(
-      Snapshot.parse(inputA).diff(Snapshot.parse(inputB)),
-    ).toMatchSnapshot();
+    expect(Snapshot.parse(inputA).diff(Snapshot.parse(inputB))).toMatchSnapshot();
   });
 
   it("should keep compatible unchanged snapshot line changes", () => {
@@ -114,7 +119,7 @@ describe("Snapshot", () => {
 
     expect(lifecycle.pass).toBe(false);
     expect(lifecycle.stats).toEqual({
-      totalSnapshots: 3,
+      totalSnapshots: 4,
       addedSnapshots: 1,
       removedSnapshots: 1,
       changedSnapshots: 1,
@@ -134,7 +139,7 @@ describe("Snapshot", () => {
 
     expect(lifecycle.pass).toBe(true);
     expect(lifecycle.stats).toEqual({
-      totalSnapshots: 0,
+      totalSnapshots: 1,
       addedSnapshots: 1,
       removedSnapshots: 0,
       changedSnapshots: 0,
@@ -142,6 +147,82 @@ describe("Snapshot", () => {
     });
     expect(lifecycle.updatePlan.shouldWrite).toBe(true);
     expect(Array.from(updatedSnapshot.values.entries())).toEqual([["A", "value"]]);
+  });
+
+  it.each([
+    {
+      name: "all-added",
+      actual: [["A", "actual A"]] as [string, string][],
+      expected: [] as [string, string][],
+      stats: {
+        totalSnapshots: 1,
+        addedSnapshots: 1,
+        removedSnapshots: 0,
+        changedSnapshots: 0,
+        passedSnapshots: 1,
+      },
+    },
+    {
+      name: "all-removed",
+      actual: [] as [string, string][],
+      expected: [["A", "expected A"]] as [string, string][],
+      stats: {
+        totalSnapshots: 1,
+        addedSnapshots: 0,
+        removedSnapshots: 1,
+        changedSnapshots: 0,
+        passedSnapshots: 0,
+      },
+    },
+    {
+      name: "all-unchanged",
+      actual: [["A", "value A"]] as [string, string][],
+      expected: [["A", "value A"]] as [string, string][],
+      stats: {
+        totalSnapshots: 1,
+        addedSnapshots: 0,
+        removedSnapshots: 0,
+        changedSnapshots: 0,
+        passedSnapshots: 1,
+      },
+    },
+    {
+      name: "all-changed",
+      actual: [["A", "actual A"]] as [string, string][],
+      expected: [["A", "expected A"]] as [string, string][],
+      stats: {
+        totalSnapshots: 1,
+        addedSnapshots: 0,
+        removedSnapshots: 0,
+        changedSnapshots: 1,
+        passedSnapshots: 0,
+      },
+    },
+    {
+      name: "mixed",
+      actual: [
+        ["added", "new value"],
+        ["changed", "actual value"],
+        ["unchanged", "same value"],
+      ] as [string, string][],
+      expected: [
+        ["changed", "expected value"],
+        ["removed", "old value"],
+        ["unchanged", "same value"],
+      ] as [string, string][],
+      stats: {
+        totalSnapshots: 4,
+        addedSnapshots: 1,
+        removedSnapshots: 1,
+        changedSnapshots: 1,
+        passedSnapshots: 2,
+      },
+    },
+  ])("should count $name snapshot stats using the union of expected and actual keys", ({ actual, expected, stats }) => {
+    const lifecycle = new SnapshotLifecycle(snapshotFrom(actual), snapshotFrom(expected));
+
+    expect(lifecycle.stats).toEqual(stats);
+    expect(lifecycle.stats.passedSnapshots).toBeLessThanOrEqual(lifecycle.stats.totalSnapshots);
   });
 
   it("should apply added snapshot updates using exact diff keys", () => {
@@ -157,9 +238,7 @@ describe("Snapshot", () => {
         value: "actual value",
       },
     ]);
-    expect(Array.from(updatedSnapshot.values.entries())).toEqual([
-      ["test!~name[0]", "actual value"],
-    ]);
+    expect(Array.from(updatedSnapshot.values.entries())).toEqual([["test!~name[0]", "actual value"]]);
     expect(updatedSnapshot.values.has("test!~name[0][0]")).toBe(false);
   });
 
@@ -181,13 +260,9 @@ describe("Snapshot", () => {
 
   it("should let update plans overwrite exact keys without allocating suffixes", () => {
     const plan = new SnapshotUpdatePlan([{ name: "test!~name[0]", value: "new value" }]);
-    const updatedSnapshot = plan.applyTo(
-      Snapshot.from(new Map([["test!~name[0]", "old value"]])),
-    );
+    const updatedSnapshot = plan.applyTo(Snapshot.from(new Map([["test!~name[0]", "old value"]])));
 
-    expect(Array.from(updatedSnapshot.values.entries())).toEqual([
-      ["test!~name[0]", "new value"],
-    ]);
+    expect(Array.from(updatedSnapshot.values.entries())).toEqual([["test!~name[0]", "new value"]]);
   });
 
   it("should continue to allocate unique keys when adding snapshots", () => {
