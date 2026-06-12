@@ -170,38 +170,6 @@ Improve snapshot diff performance for the common unchanged-snapshot case.
 
 ---
 
-# 10. Fix AssemblyScript Set reflection return value
-
-## Goal
-
-Make `Reflect.toReflectedValue()` return the reflected value ID for Sets instead of falling through to `0`.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/assembly/assembly/internal/Reflect.ts`
-- Assembly fixture tests under `packages/assembly/assembly/__tests__/`
-- Core reporter snapshots only if output intentionally changes
-
-## Tasks
-
-- [ ] Add an AssemblyScript regression test for reflecting a top-level Set.
-- [ ] Add a regression test for reflecting a nested Set after another reflected value has already been created.
-- [ ] Add a regression test for Set snapshots or logs if that is the most stable observable behavior.
-- [ ] Return `reflectedObject` from the `value instanceof Set` branch.
-- [ ] Run focused assembly tests and any affected core reporter snapshots.
-
-## Acceptance criteria
-
-- [ ] Set reflection returns the correct reflected value ID.
-- [ ] Nested Set reflection no longer aliases an unrelated reflected value.
-- [ ] Assembly package tests pass.
-
----
-
 # 11. Characterize test lifecycle hook order and ownership
 
 ## Goal

@@ -19,3 +19,11 @@ exports[`some snapshots!~a reference[0]`] = `Vec3 {
   y: 2.0,
   z: 3.0
 }`;
+
+exports[`some snapshots!~a value before a set[0]`] = `42`;
+
+exports[`some snapshots!~a set after another reflected value[0]`] = `Set<i32> [ 1, 2 ]`;
+
+exports[`some snapshots!~a nested set after another reflected value[0]`] = `SetHolder {
+  values: Set<i32> [ 1, 2 ]
+}`;

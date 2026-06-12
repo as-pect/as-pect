@@ -321,6 +321,12 @@ formatters[formatterIndexFor(ReflectedValueType.TypedArray, ReflectedValueFormat
 formatters[formatterIndexFor(ReflectedValueType.TypedArray, ReflectedValueFormatType.Key)] = displayClassWithSpacing;
 formatters[formatterIndexFor(ReflectedValueType.TypedArray, ReflectedValueFormatType.Value)] = displayArrayExpanded;
 
+// Set
+formatters[formatterIndexFor(ReflectedValueType.Set, ReflectedValueFormatType.Expanded)] = displayArrayExpanded;
+formatters[formatterIndexFor(ReflectedValueType.Set, ReflectedValueFormatType.Inline)] = displayArrayExpanded;
+formatters[formatterIndexFor(ReflectedValueType.Set, ReflectedValueFormatType.Key)] = displayClassWithSpacing;
+formatters[formatterIndexFor(ReflectedValueType.Set, ReflectedValueFormatType.Value)] = displayArrayExpanded;
+
 // Map
 formatters[formatterIndexFor(ReflectedValueType.Map, ReflectedValueFormatType.Expanded)] = displayClassExpanded;
 formatters[formatterIndexFor(ReflectedValueType.Map, ReflectedValueFormatType.Inline)] = displayClassNoSpacing;

@@ -1,3 +1,14 @@
+import { Reflect as AspectReflect } from "../internal/Reflect";
+
+class ReflectedSetHolder {
+  values: Set<i32> = new Set<i32>();
+
+  constructor() {
+    this.values.add(1);
+    this.values.add(2);
+  }
+}
+
 /**
  * This test describes the types that are output from the expect function.
  */
@@ -40,5 +51,41 @@ describe("unit types", () => {
       offsetof<Expectation<i32>>("_not"),
     );
     assert(notValue, "The expect function was not negated.");
+  });
+
+  it("should return a reflected value id for a top-level Set", () => {
+    var previousReflectedValueID = AspectReflect.toReflectedValue(42);
+    var values = new Set<i32>();
+    values.add(1);
+    values.add(2);
+
+    var reflectedSetID = AspectReflect.toReflectedValue(values);
+
+    assert(
+      reflectedSetID != previousReflectedValueID,
+      "Reflect.toReflectedValue() should return the Set's reflected value id, not alias a previous value.",
+    );
+    assert(
+      reflectedSetID > previousReflectedValueID,
+      "Reflect.toReflectedValue() should return the newly-created Set reflected value id.",
+    );
+  });
+
+  it("should reserve a distinct reflected value id for nested Sets", () => {
+    var seen = new Map<usize, i32>();
+    var previousReflectedValueID = AspectReflect.toReflectedValue("before set", seen);
+    var holder = new ReflectedSetHolder();
+
+    AspectReflect.toReflectedValue(holder, seen);
+    var reflectedNestedSetID = AspectReflect.toReflectedValue(holder.values, seen);
+
+    assert(
+      reflectedNestedSetID != previousReflectedValueID,
+      "Nested Set reflection should keep its own reflected value id after an earlier value exists.",
+    );
+    assert(
+      reflectedNestedSetID > previousReflectedValueID,
+      "Nested Set reflection should cache a newly-created Set reflected value id.",
+    );
   });
 });
