@@ -66,26 +66,29 @@ Make the CLI a small shell that parses terminal options, delegates test executio
 
 ## Current verified state
 
-- No `TestSession` implementation was found.
-- `packages/cli/src/index.ts` still contains the monolithic `asp()` flow.
+- `TestSession` now lives in `packages/cli/src/TestSession.ts`.
+- `packages/cli/src/index.ts` is a small CLI shell around config loading, terminal output, `TestSession`, and process exit mapping.
 - `CONTEXT.md` already defines **Test session** vocabulary.
-- Likely CLI option issues to characterize before changing behavior:
-  - `opts.disclue` is checked, but the option is named `disclude`.
-  - `opts.include` is checked, but the code reads `opts.I.split(",")`.
-  - `--reporter` is declared without a value placeholder and appears to be unused by `collectReporter()` except through config.
+- Characterized CLI option issues fixed intentionally in this slice:
+  - `--disclude <regex>` now maps to an entry filter regex.
+  - `--include <globs>` now splits comma-separated include globs.
+  - `--reporter <reporter>` now accepts a value and participates in reporter collection.
+  - `--no-run` now maps to compile-only output.
+  - `--no-logo` now disables logo output.
 
 ## Design questions
 
 - [x] What is the minimal interface for running a test session?
   - First slice: `createTestSessionConfig(...)` plus `new TestSession(config).run()` returns a `TestSessionResult`; the CLI loads terminal config and maps the result to output/exit.
-- [ ] Which options are CLI-only and which belong to the test session?
-  - First slice separates config/version/init/exit as CLI shell concerns; test/group/include/disclude/memory/output/snapshot/reporter/coverage/WASI still feed the test session for compatibility.
+- [x] Which options are CLI-only and which belong to the test session?
+  - CLI-only: `--version`, `--init`, `--config`, logo display, summary/coverage printing, and process exit mapping.
+  - Test session: entry globs, include/disclude, test/group regex, memory, output binary, no-run, snapshot updates, reporter selection, coverage, and WASI.
 - [x] Should process exit be completely outside the test session?
   - First slice: compile failures and reporter import failures no longer call `process.exit()` from session/report collection; `asp()` maps them to exit.
 - [x] Should stdout/stderr writes be adapters?
   - First slice: the test session accepts stdout/stderr streams for compiler, reporter, and session log writes. Summary/coverage header printing stays in the CLI shell.
-- [ ] How should compiler `readFile`, `writeFile`, and `listFiles` caching be tested?
-  - First slice moved the caches into `TestSession`; focused tests still need a seam around compiler invocation to assert cache hits without running asc.
+- [x] How should compiler `readFile`, `writeFile`, and `listFiles` caching be tested?
+  - Added injectable test-session dependencies for compiler, glob, and filesystem; focused no-run test asserts repeated compiler `readFile`/`listFiles` requests hit the local caches once.
 - [ ] How should coverage and WASI adapters be represented?
   - First slice preserved existing behavior in `TestSession`; deeper adapter shape is still open.
 
@@ -95,28 +98,35 @@ Make the CLI a small shell that parses terminal options, delegates test executio
 
 - [x] Add tests around CLI option mapping if no tests exist.
   - Added focused `TestSession` configuration tests under `packages/cli/__tests__/` and enabled the CLI Jest script.
-- [ ] Confirm current behavior for `--version`.
-- [ ] Confirm current behavior for `--init`.
-- [ ] Confirm current behavior for `--no-run`.
-- [ ] Confirm current behavior for `--output-binary`.
-- [ ] Confirm current behavior for `--update-snapshots`.
+- [x] Confirm current behavior for `--version`.
+  - Added CLI option parsing coverage; version remains a CLI-only early exit flag.
+- [x] Confirm current behavior for `--init`.
+  - Added CLI option parsing coverage; init remains a CLI-only early exit flag.
+- [x] Confirm current behavior for `--no-run`.
+  - Characterized the broken commander mapping and fixed it intentionally: `--no-run` now maps to compile-only mode and writes binaries.
+- [x] Confirm current behavior for `--output-binary`.
+  - Added CLI/session configuration coverage for output binary mapping.
+- [x] Confirm current behavior for `--update-snapshots`.
+  - Added CLI/session configuration coverage for snapshot update mapping.
 - [x] Characterize and then fix or preserve the current `--disclude` behavior intentionally.
-  - Characterized/preserved for this slice: commander sets `disclude`, while the existing mapping checks `disclue`, so CLI `--disclude` does not add an entry filter.
+  - Fixed intentionally: CLI `--disclude <regex>` now contributes an entry filter regex.
 - [x] Characterize and then fix or preserve the current `--include` behavior intentionally.
-  - Characterized/preserved for this slice: commander sets `include`, while the existing mapping reads `I`, so CLI `--include` still throws before discovery.
-- [ ] Characterize and then fix or preserve the current `--reporter` behavior intentionally.
-- [ ] Add tests for entry/include discovery if practical.
+  - Fixed intentionally: CLI `--include <globs>` now splits comma-separated include globs.
+- [x] Characterize and then fix or preserve the current `--reporter` behavior intentionally.
+  - Fixed intentionally: `--reporter <reporter>` now accepts a value and adds a custom reporter alongside config reporters.
+- [x] Add tests for entry/include discovery if practical.
+  - Added focused test-session execution coverage with injected glob/compiler dependencies; full real-compiler entry discovery remains covered by smoke/full tests.
 - [x] Add tests for summary result formatting if practical.
 
 ### 2.2 Define session configuration and result
 
 - [x] Create a typed session configuration from commander options plus `IAspectConfig`.
-- [ ] Separate terminal-only concerns from session concerns.
-  - Partial: version/init/config loading/exit are CLI shell concerns; reporter selection and some output/logging still need cleaner terminal/session boundaries.
+- [x] Separate terminal-only concerns from session concerns.
+  - Version/init/config loading/logo/exit are CLI shell concerns; test execution options belong to `TestSessionConfig`. Reporter stdout/stderr remains an injected adapter.
 - [x] Validate regex options in one place.
   - `createTestSessionConfig()` now creates test/group regexes and entry filter regexes once.
 - [ ] Validate memory options in one place.
-  - Still parsed at memory creation time to preserve existing behavior.
+  - Still parsed at memory creation time to preserve existing behavior; invalid memory values need a separate validation slice.
 - [x] Define a test session result with pass/fail, counts, snapshot stats, and printable summary facts.
 
 ### 2.3 Extract session execution
@@ -138,8 +148,8 @@ Make the CLI a small shell that parses terminal options, delegates test executio
 - [x] Keep command names: `asp` and `aspect`.
 - [x] Keep config defaults compatible.
 - [x] Keep output binary behavior compatible.
-- [ ] Keep no-run behavior compatible.
-  - Still needs explicit characterization; this slice preserves the existing ignored `--no-run` mapping.
+- [x] Keep no-run behavior compatible.
+  - Fixed intentionally to match the documented option: compile entries, write `.wasm`/`.wat`, skip wasm instantiation/test execution/snapshot handling.
 - [x] Keep snapshot update behavior compatible.
 - [x] Keep stdout/stderr writing at the edge where practical.
 - [x] Keep `process.exit()` only in the CLI shell.
@@ -148,14 +158,14 @@ Make the CLI a small shell that parses terminal options, delegates test executio
 ## Tests
 
 - [x] `npm run tsc:all`
-  - Result: passed after extracting `TestSession`.
+  - Result: passed after extracting `TestSession` and after the CLI option/no-run slice.
 - [x] `npm test`
-  - Result: passed after enabling/running the CLI Jest tests.
+  - Result: passed after enabling/running the CLI Jest tests and after the CLI option/no-run slice.
 - [x] Focused tests for `TestSession` without `process.exit()`.
-  - Added `packages/cli/__tests__/TestSession.spec.ts` for session config characterization and summary formatting.
+  - Added `packages/cli/__tests__/TestSession.spec.ts` for session config, compile-only execution, compiler file-cache behavior, and summary formatting.
 - [x] Manual smoke test of the CLI against an existing AssemblyScript test fixture.
-  - Command: `cd packages/assembly && node ../cli/bin/asp.js --no-logo`
-  - Result: passed with 358 / 358 tests, 79 / 79 groups, and 6 / 6 snapshots. Note: `--no-logo` still printed the logo, matching an existing commander `--no-*` mapping issue not yet in this task list.
+  - Command: `cd packages/assembly && node ../cli/bin/asp.js --no-logo assembly/__tests__/empty.spec.ts`
+  - Result: passed; `--no-logo` no longer prints the logo. The positional entry is still combined with config entries, matching the pre-existing entry aggregation behavior.
 
 ## Acceptance criteria
 
@@ -163,8 +173,8 @@ Make the CLI a small shell that parses terminal options, delegates test executio
 - [x] Test session behavior is testable without starting a separate process.
 - [x] Process exit is outside the deep test session module.
 - [x] Compiler/file/snapshot orchestration has locality.
-- [ ] User-visible CLI behavior is preserved, except for explicitly characterized bug fixes.
-  - Broad behavior is preserved by moving the existing flow; remaining option characterization/fixes (`--version`, `--init`, `--no-run`, `--output-binary`, `--update-snapshots`, `--reporter`) still need follow-up.
+- [x] User-visible CLI behavior is preserved, except for explicitly characterized bug fixes.
+  - Explicit fixes: `--no-logo`, `--no-run`, `--disclude`, `--include`, and `--reporter <reporter>` now map according to their documented CLI help.
 
 ---
 

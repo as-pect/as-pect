@@ -5,18 +5,24 @@ import { OptionValues } from "commander";
 import path from "path";
 import process from "process";
 
+async function importCustomReporter(reporterRelativeLocation: string): Promise<IReporter> {
+  const reporterLocation = path.join(cwd(), reporterRelativeLocation);
+  try {
+    return (await import("file://" + reporterLocation)).default as IReporter;
+  } catch (ex) {
+    throw new Error(`An error occured while trying to import: ${reporterLocation}`, { cause: ex });
+  }
+}
+
 /** Collect up the reporter asynchronously because modules could be imported. */
 export async function getReporter(opts: OptionValues, aspectConfig: IAspectConfig): Promise<IReporter> {
   const reporters = [] as IReporter[];
   if (aspectConfig.reporter) {
-    const reporterRelativeLocation = aspectConfig.reporter;
-    const reporterLocation = path.join(cwd(), reporterRelativeLocation);
-    try {
-      const reporter = (await import("file://" + reporterLocation)).default as IReporter;
-      reporters.push(reporter);
-    } catch (ex) {
-      throw new Error(`An error occured while trying to import: ${reporterLocation}`, { cause: ex });
-    }
+    reporters.push(await importCustomReporter(aspectConfig.reporter));
+  }
+
+  if (typeof opts.reporter === "string") {
+    reporters.push(await importCustomReporter(opts.reporter));
   }
 
   if (opts.json) {
