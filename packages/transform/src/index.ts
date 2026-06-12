@@ -2,6 +2,7 @@ import { Transform } from "assemblyscript/dist/transform.js";
 
 import {
   ClassDeclaration,
+  InterfaceDeclaration,
   NamespaceDeclaration,
   NodeKind,
   Parser,
@@ -11,6 +12,10 @@ import {
 
 import { createStrictEqualsMember } from "./createStrictEqualsMember.js";
 import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember.js";
+import {
+  createInterfaceAddReflectedValueKeyValuePairsMember,
+  createInterfaceStrictEqualsMember,
+} from "./createInterfaceReflectionMembers.js";
 import {
   ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
   STRICT_EQUALS_MEMBER_NAME,
@@ -45,7 +50,10 @@ function traverseStatements(statements: Statement[]): void {
       // cast and create the generated class reflection methods
       const classDeclaration = <ClassDeclaration>statement;
 
-      const shouldGenerateStrictEquals = shouldGenerateClassReflectionMember(classDeclaration, STRICT_EQUALS_MEMBER_NAME);
+      const shouldGenerateStrictEquals = shouldGenerateClassReflectionMember(
+        classDeclaration,
+        STRICT_EQUALS_MEMBER_NAME,
+      );
       const shouldGenerateReflectedPairs = shouldGenerateClassReflectionMember(
         classDeclaration,
         ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
@@ -58,6 +66,29 @@ function traverseStatements(statements: Statement[]): void {
       if (shouldGenerateReflectedPairs) {
         classDeclaration.members.push(
           markGeneratedClassReflectionMember(createAddReflectedValueKeyValuePairsMember(classDeclaration)),
+        );
+      }
+    } else if (statement.kind === NodeKind.InterfaceDeclaration) {
+      const interfaceDeclaration = <InterfaceDeclaration>statement;
+
+      const shouldGenerateStrictEquals = shouldGenerateClassReflectionMember(
+        interfaceDeclaration,
+        STRICT_EQUALS_MEMBER_NAME,
+      );
+      const shouldGenerateReflectedPairs = shouldGenerateClassReflectionMember(
+        interfaceDeclaration,
+        ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
+      );
+
+      if (shouldGenerateStrictEquals) {
+        interfaceDeclaration.members.push(
+          markGeneratedClassReflectionMember(createInterfaceStrictEqualsMember(interfaceDeclaration)),
+        );
+      }
+
+      if (shouldGenerateReflectedPairs) {
+        interfaceDeclaration.members.push(
+          markGeneratedClassReflectionMember(createInterfaceAddReflectedValueKeyValuePairsMember(interfaceDeclaration)),
         );
       }
     } else if (statement.kind === NodeKind.NamespaceDeclaration) {
