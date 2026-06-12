@@ -76,75 +76,95 @@ Make the CLI a small shell that parses terminal options, delegates test executio
 
 ## Design questions
 
-- [ ] What is the minimal interface for running a test session?
+- [x] What is the minimal interface for running a test session?
+  - First slice: `createTestSessionConfig(...)` plus `new TestSession(config).run()` returns a `TestSessionResult`; the CLI loads terminal config and maps the result to output/exit.
 - [ ] Which options are CLI-only and which belong to the test session?
-- [ ] Should process exit be completely outside the test session?
-- [ ] Should stdout/stderr writes be adapters?
+  - First slice separates config/version/init/exit as CLI shell concerns; test/group/include/disclude/memory/output/snapshot/reporter/coverage/WASI still feed the test session for compatibility.
+- [x] Should process exit be completely outside the test session?
+  - First slice: compile failures and reporter import failures no longer call `process.exit()` from session/report collection; `asp()` maps them to exit.
+- [x] Should stdout/stderr writes be adapters?
+  - First slice: the test session accepts stdout/stderr streams for compiler, reporter, and session log writes. Summary/coverage header printing stays in the CLI shell.
 - [ ] How should compiler `readFile`, `writeFile`, and `listFiles` caching be tested?
+  - First slice moved the caches into `TestSession`; focused tests still need a seam around compiler invocation to assert cache hits without running asc.
 - [ ] How should coverage and WASI adapters be represented?
+  - First slice preserved existing behavior in `TestSession`; deeper adapter shape is still open.
 
 ## Implementation checklist
 
 ### 2.1 Characterize CLI behavior
 
-- [ ] Add tests around CLI option mapping if no tests exist.
+- [x] Add tests around CLI option mapping if no tests exist.
+  - Added focused `TestSession` configuration tests under `packages/cli/__tests__/` and enabled the CLI Jest script.
 - [ ] Confirm current behavior for `--version`.
 - [ ] Confirm current behavior for `--init`.
 - [ ] Confirm current behavior for `--no-run`.
 - [ ] Confirm current behavior for `--output-binary`.
 - [ ] Confirm current behavior for `--update-snapshots`.
-- [ ] Characterize and then fix or preserve the current `--disclude` behavior intentionally.
-- [ ] Characterize and then fix or preserve the current `--include` behavior intentionally.
+- [x] Characterize and then fix or preserve the current `--disclude` behavior intentionally.
+  - Characterized/preserved for this slice: commander sets `disclude`, while the existing mapping checks `disclue`, so CLI `--disclude` does not add an entry filter.
+- [x] Characterize and then fix or preserve the current `--include` behavior intentionally.
+  - Characterized/preserved for this slice: commander sets `include`, while the existing mapping reads `I`, so CLI `--include` still throws before discovery.
 - [ ] Characterize and then fix or preserve the current `--reporter` behavior intentionally.
 - [ ] Add tests for entry/include discovery if practical.
-- [ ] Add tests for summary result formatting if practical.
+- [x] Add tests for summary result formatting if practical.
 
 ### 2.2 Define session configuration and result
 
-- [ ] Create a typed session configuration from commander options plus `IAspectConfig`.
+- [x] Create a typed session configuration from commander options plus `IAspectConfig`.
 - [ ] Separate terminal-only concerns from session concerns.
-- [ ] Validate regex options in one place.
+  - Partial: version/init/config loading/exit are CLI shell concerns; reporter selection and some output/logging still need cleaner terminal/session boundaries.
+- [x] Validate regex options in one place.
+  - `createTestSessionConfig()` now creates test/group regexes and entry filter regexes once.
 - [ ] Validate memory options in one place.
-- [ ] Define a test session result with pass/fail, counts, snapshot stats, and printable summary facts.
+  - Still parsed at memory creation time to preserve existing behavior.
+- [x] Define a test session result with pass/fail, counts, snapshot stats, and printable summary facts.
 
 ### 2.3 Extract session execution
 
-- [ ] Move entry discovery into the test session implementation.
-- [ ] Move include discovery into the test session implementation.
-- [ ] Move compiler invocation into the test session implementation.
-- [ ] Move compiler file caching into the test session implementation or a local adapter.
-- [ ] Move wasm instantiate/run orchestration into the test session implementation.
-- [ ] Move per-entry result aggregation into the test session implementation.
-- [ ] Use the existing snapshot lifecycle and update plan from `@as-pect/snapshots`.
+- [x] Move entry discovery into the test session implementation.
+- [x] Move include discovery into the test session implementation.
+- [x] Move compiler invocation into the test session implementation.
+- [x] Move compiler file caching into the test session implementation or a local adapter.
+- [x] Move wasm instantiate/run orchestration into the test session implementation.
+- [x] Move per-entry result aggregation into the test session implementation.
+- [x] Use the existing snapshot lifecycle and update plan from `@as-pect/snapshots`.
 - [ ] Keep snapshot filesystem reads/writes at an explicit I/O seam.
-- [ ] Keep coverage behavior compatible.
-- [ ] Keep WASI behavior compatible.
+  - Partial: snapshot reads/writes are localized in `TestSession`, but not yet behind an injectable filesystem seam.
+- [x] Keep coverage behavior compatible.
+- [x] Keep WASI behavior compatible.
 
 ### 2.4 Reduce the CLI shell
 
-- [ ] Keep command names: `asp` and `aspect`.
-- [ ] Keep config defaults compatible.
-- [ ] Keep output binary behavior compatible.
+- [x] Keep command names: `asp` and `aspect`.
+- [x] Keep config defaults compatible.
+- [x] Keep output binary behavior compatible.
 - [ ] Keep no-run behavior compatible.
-- [ ] Keep snapshot update behavior compatible.
-- [ ] Keep stdout/stderr writing at the edge where practical.
-- [ ] Keep `process.exit()` only in the CLI shell.
-- [ ] Make `asp()` small enough to review as terminal glue.
+  - Still needs explicit characterization; this slice preserves the existing ignored `--no-run` mapping.
+- [x] Keep snapshot update behavior compatible.
+- [x] Keep stdout/stderr writing at the edge where practical.
+- [x] Keep `process.exit()` only in the CLI shell.
+- [x] Make `asp()` small enough to review as terminal glue.
 
 ## Tests
 
-- [ ] `npm run tsc:all`
-- [ ] `npm test`
-- [ ] Focused tests for `TestSession` without `process.exit()`.
-- [ ] Manual smoke test of the CLI against an existing AssemblyScript test fixture.
+- [x] `npm run tsc:all`
+  - Result: passed after extracting `TestSession`.
+- [x] `npm test`
+  - Result: passed after enabling/running the CLI Jest tests.
+- [x] Focused tests for `TestSession` without `process.exit()`.
+  - Added `packages/cli/__tests__/TestSession.spec.ts` for session config characterization and summary formatting.
+- [x] Manual smoke test of the CLI against an existing AssemblyScript test fixture.
+  - Command: `cd packages/assembly && node ../cli/bin/asp.js --no-logo`
+  - Result: passed with 358 / 358 tests, 79 / 79 groups, and 6 / 6 snapshots. Note: `--no-logo` still printed the logo, matching an existing commander `--no-*` mapping issue not yet in this task list.
 
 ## Acceptance criteria
 
-- [ ] `asp()` is a small CLI shell.
-- [ ] Test session behavior is testable without starting a separate process.
-- [ ] Process exit is outside the deep test session module.
-- [ ] Compiler/file/snapshot orchestration has locality.
+- [x] `asp()` is a small CLI shell.
+- [x] Test session behavior is testable without starting a separate process.
+- [x] Process exit is outside the deep test session module.
+- [x] Compiler/file/snapshot orchestration has locality.
 - [ ] User-visible CLI behavior is preserved, except for explicitly characterized bug fixes.
+  - Broad behavior is preserved by moving the existing flow; remaining option characterization/fixes (`--version`, `--init`, `--no-run`, `--output-binary`, `--update-snapshots`, `--reporter`) still need follow-up.
 
 ---
 
