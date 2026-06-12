@@ -4,11 +4,12 @@ import { cwd } from "process";
 import { OptionValues } from "commander";
 import path from "path";
 import process from "process";
+import { importLocalModule } from "./importLocalModule.js";
 
 async function importCustomReporter(reporterRelativeLocation: string): Promise<IReporter> {
-  const reporterLocation = path.join(cwd(), reporterRelativeLocation);
+  const reporterLocation = path.resolve(cwd(), reporterRelativeLocation);
   try {
-    return (await import("file://" + reporterLocation)).default as IReporter;
+    return (await importLocalModule<{ default: IReporter }>(reporterLocation)).default;
   } catch (ex) {
     throw new Error(`An error occured while trying to import: ${reporterLocation}`, { cause: ex });
   }

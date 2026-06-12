@@ -6,6 +6,7 @@ import url from "url";
 import chalk from "chalk";
 import { printAsciiArt } from "./asciiArt.js";
 import { IAspectConfig } from "./IAspectConfig.js";
+import { importLocalModule } from "./importLocalModule.js";
 
 import { version as ascVersion } from "assemblyscript/dist/asc.js";
 import { init } from "./init.js";
@@ -83,8 +84,8 @@ export async function asp(argv: string[]): Promise<void> {
 
   // First collect the as-pect.config.js
   const configRelativeLocation = opts.config;
-  const configLocation = path.join(cwd, configRelativeLocation);
-  const aspectConfig = (await import("file://" + configLocation)).default as IAspectConfig;
+  const configLocation = path.resolve(cwd, configRelativeLocation);
+  const aspectConfig = (await importLocalModule<{ default: IAspectConfig }>(configLocation)).default;
 
   stdout.write(`Using config: ${configLocation}\n`);
   stdout.write(`ASC Version: ${ascVersion}\n`);
