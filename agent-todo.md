@@ -25,21 +25,26 @@ Know the current behavior before continuing architecture work.
 
 ## Tasks
 
-- [ ] Run typechecking with a supported Node version.
+- [x] Run typechecking with a supported Node version.
   - Command: `npm run tsc:all`
-  - Record the exact command, Node version, npm version, and result in this file or the implementation notes.
-- [ ] Run the full test suite with a supported Node version.
+  - Runtime: Node `v26.3.0`, npm `11.16.0`, corepack `0.24.0`
+  - Result: passed. Node emitted a `url.parse()` deprecation warning from tooling; AssemblyScript emitted existing `AS210` informational diagnostics for `jest-pass-fail.ts` and `jest-log.ts`.
+- [x] Run the full test suite with a supported Node version.
   - Command: `npm test`
-  - Record the exact command, Node version, npm version, and result in this file or the implementation notes.
-- [ ] If the full suite is too slow or blocked by environment setup, run focused package tests first and document why.
-- [ ] Run `npm run check` if practical.
-- [ ] Confirm generated review artifacts remain confined to `.pi/reports/` and do not affect package behavior.
+  - Runtime: Node `v26.3.0`, npm `11.16.0`, corepack `0.24.0`
+  - Result: passed. The core package reported 17 passing Jest suites, 24 passing tests, and 743 passing snapshots; the snapshots package reported 1 passing Jest suite, 6 passing tests, and 3 passing snapshots; assembly tests passed with 358 / 358 tests, 79 / 79 groups, and 6 / 6 snapshots.
+- [x] If the full suite is too slow or blocked by environment setup, run focused package tests first and document why.
+  - Note: not needed; the full suite completed with the supported runtime.
+- [x] Run `npm run check` if practical.
+  - Result: passed. `prettier --write` tried to format `.pi/skills` markdown files; those incidental formatting changes were reverted because they are unrelated to package behavior.
+- [x] Confirm generated review artifacts remain confined to `.pi/reports/` and do not affect package behavior.
+  - Confirmed: `.pi/reports/architecture-review-20260611-144134.html` remains untracked and outside package code.
 
 ## Acceptance criteria
 
-- [ ] Baseline typecheck behavior is known.
-- [ ] Baseline test behavior is known.
-- [ ] Any environment-related failures are separated from code failures.
+- [x] Baseline typecheck behavior is known.
+- [x] Baseline test behavior is known.
+- [x] Any environment-related failures are separated from code failures.
 
 ---
 
