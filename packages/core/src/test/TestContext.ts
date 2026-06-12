@@ -44,6 +44,15 @@ type InstantiateResult = {
  */
 const wasmFilter = (input: string): boolean => /wasm/i.test(input);
 
+function regexMatches(regex: RegExp, value: string): boolean {
+  regex.lastIndex = 0;
+  try {
+    return regex.test(value);
+  } finally {
+    regex.lastIndex = 0;
+  }
+}
+
 /**
  * This is a collection of all the parameters required for intantiating a TestCollector.
  */
@@ -291,7 +300,7 @@ export class TestContext {
     // validate this node will run
     if (node !== this.rootNode) {
       const regexTester = node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
-      if (!regexTester.test(node.name)) return;
+      if (!regexMatches(regexTester, node.name)) return;
     }
 
     // this node is being tested for sure

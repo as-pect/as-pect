@@ -167,6 +167,15 @@ function writeLog(stdout: IWritable, str: string): void {
   stdout.write(chalk.bgWhite.black("[Log]") + `${str}\n`);
 }
 
+function regexMatches(regex: RegExp, value: string): boolean {
+  regex.lastIndex = 0;
+  try {
+    return regex.test(value);
+  } finally {
+    regex.lastIndex = 0;
+  }
+}
+
 function withWasiPreview1(options: import("wasi").WASIOptions): import("wasi").WASIOptions {
   return { ...options, version: options.version ?? "preview1" } as import("wasi").WASIOptions;
 }
@@ -299,7 +308,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
   } = config;
 
   const filterEntry = (str: string): boolean =>
-    entryFilterRegexes.reduce((left, right) => left && !right.test(str), true);
+    entryFilterRegexes.reduce((left, right) => left && !regexMatches(right, str), true);
   const includes = new Set<string>();
   const entries = new Set<string>();
   const fileMap = new Map<string, string>();

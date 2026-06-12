@@ -134,6 +134,53 @@ describe("Test session execution", () => {
     expect(readFileSync).toHaveBeenCalledTimes(1);
     expect(readdirSync).toHaveBeenCalledTimes(1);
   });
+
+  it.each([/skip/g, /assembly\/__tests__\/skip/y])(
+    "applies %s entry disclude filters deterministically",
+    async (discludeRegex) => {
+      const compile = jest.fn(async (_args, io) => {
+        io.writeFile("build/output.wasm", new Uint8Array([1, 2, 3]), "/workspace");
+        io.writeFile("build/output.wat", "(module)", "/workspace");
+        return { stats: { toString: () => "compiler stats" } };
+      });
+      const dependencies: Partial<TestSessionDependencies> = {
+        compile,
+        fileSystem: {
+          access: jest.fn(async () => void 0),
+          existsSync: jest.fn(() => false),
+          mkdir: jest.fn(async () => void 0),
+          readFile: jest.fn(async () => ""),
+          readFileSync: jest.fn(() => ""),
+          readdirSync: jest.fn(() => []),
+          writeFile: jest.fn(async () => void 0),
+        },
+        glob: jest.fn(async (pattern) =>
+          pattern.includes("*.spec.ts")
+            ? [
+                "assembly/__tests__/skip-one.spec.ts",
+                "assembly/__tests__/skip-two.spec.ts",
+                "assembly/__tests__/keep.spec.ts",
+              ]
+            : [],
+        ),
+      };
+
+      const config = createTestSessionConfig({
+        args: ["assembly/__tests__/*.spec.ts"],
+        aspectConfig: { ...aspectConfig, disclude: [discludeRegex] },
+        asconfigLocation: "./as-pect.asconfig.json",
+        cwd: "/workspace",
+        dependencies,
+        options: { run: false },
+      });
+
+      await new TestSession(config).run();
+
+      expect(compile).toHaveBeenCalledTimes(1);
+      expect(compile.mock.calls[0][0][0]).toBe("assembly/__tests__/keep.spec.ts");
+      expect(discludeRegex.lastIndex).toBe(0);
+    },
+  );
 });
 
 describe("Test session summary formatting", () => {
