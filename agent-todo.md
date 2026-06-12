@@ -13,36 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 4. Remove stray SummaryReporter output and fix warning formatting
-
-## Goal
-
-Keep `SummaryReporter` output deterministic and routed through the reporter writer only.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/core/src/reporter/SummaryReporter.ts`
-- `packages/core/__tests__/SummaryReporter*.spec.ts` or focused new reporter tests
-
-## Tasks
-
-- [ ] Add or update tests that exercise snapshot-change output without allowing direct `console.log()` writes.
-- [ ] Remove the stray `console.log("A change occurred")` from snapshot-change reporting.
-- [ ] Fix warning formatting so it writes `: ${warning.type} -> ${warning.message}` instead of producing `NaN`.
-- [ ] Prefer semantic assertions for the warning/snapshot-change behavior instead of broad snapshots.
-
-## Acceptance criteria
-
-- [ ] Summary reporter writes only to its configured writer.
-- [ ] Warning lines are human-readable and do not include `NaN`.
-- [ ] Focused core reporter tests pass.
-
----
-
 # 5. Fix snapshot update plans to preserve exact snapshot keys
 
 ## Goal

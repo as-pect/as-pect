@@ -130,7 +130,7 @@ export class SummaryReporter implements IReporter {
     // There are no warnings left in the as-pect test suite software
     for (const warning of report.warnings) {
       /* istanbul ignore next */
-      this.stdout!.write(chalk.yellow(` [Warning]`) + +`: ${warning.type} -> ${warning.message}\n`);
+      this.stdout!.write(chalk.yellow(` [Warning]`) + `: ${warning.type} -> ${warning.message}\n`);
       /* istanbul ignore next */
       const stack = warning.stackTrace.trim();
       /* istanbul ignore next */
@@ -151,7 +151,6 @@ export class SummaryReporter implements IReporter {
     }
 
     for (const change of report.snapshotChanges) {
-      console.log("A change occurred");
       this.stdout!.write(`${chalk.red("[Snapshot]")}: ${change.name}\n`);
       this.writeSnapshotLines(change.lines);
       this.stdout!.write("\n");
