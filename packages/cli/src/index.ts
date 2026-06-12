@@ -5,7 +5,7 @@ import { promises as fs } from "fs";
 import url from "url";
 import chalk from "chalk";
 import { printAsciiArt } from "./asciiArt.js";
-import { IAspectConfig } from "./IAspectConfig.js";
+import type { IAspectConfig } from "./IAspectConfig.js";
 import { importLocalModule } from "./importLocalModule.js";
 
 import { version as ascVersion } from "assemblyscript/dist/asc.js";
@@ -48,6 +48,13 @@ export const program = createCliProgram();
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 export { SnapshotMode };
+export type {
+  AspectCreateImports,
+  AspectImports,
+  AspectInstantiate,
+  AspectInstantiateResult,
+  IAspectConfig,
+} from "./IAspectConfig.js";
 
 export function log(str: string): void {
   stdout.write(chalk.bgWhite.black("[Log]") + `${str}\n`);

@@ -6,7 +6,7 @@ import { main as asc } from "assemblyscript/dist/asc.js";
 import { instantiate } from "@assemblyscript/loader";
 import { TestContext, type IWritable } from "@as-pect/core";
 import { Snapshot, type SnapshotLifecycleStats } from "@as-pect/snapshots";
-import { IAspectConfig } from "./IAspectConfig.js";
+import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter } from "./collectReporter.js";
 import { importLocalModule } from "./importLocalModule.js";
 
@@ -457,13 +457,12 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     });
 
     const wasmMemory = new WebAssembly.Memory(memory);
+    const createImports: AspectCreateImports = (...imports: AspectImports[]) => {
+      const testImports = ctx.createImports(...imports) as AspectImports;
+      return covers ? (covers.installImports(testImports) as AspectImports) : testImports;
+    };
 
-    const module = await aspectConfig.instantiate(
-      wasmMemory,
-      (...args: any[]) => (covers ? covers.installImports(ctx.createImports(...args)) : ctx.createImports(...args)),
-      instantiate,
-      binary,
-    );
+    const module = await aspectConfig.instantiate(wasmMemory, createImports, instantiate, binary);
 
     covers?.registerLoader(module);
     ctx.run(module as any);

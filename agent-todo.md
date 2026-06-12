@@ -346,40 +346,6 @@ Make `--reporter <reporter>` behavior match its help text, or narrow the help te
 
 ---
 
-# 24. Correct the `IAspectConfig.instantiate()` type contract
-
-## Goal
-
-Make the public config type describe the real instantiate interface so user configs can be typechecked accurately.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-- Slice 22 should be complete if tests dynamically import typed config fixtures.
-
-## Files
-
-- `packages/cli/src/IAspectConfig.ts`
-- `packages/cli/init/as-pect.config.js`
-- `packages/assembly/as-pect.config.js`
-- `packages/cli/__tests__/` for config typing/fixture tests
-
-## Tasks
-
-- [ ] Define a precise type for the `createImports` callback that returns a WebAssembly imports object, not a `Promise<ResultObject>`.
-- [ ] Replace broad `any` callback parameters where a small local type can describe the interface without overfitting.
-- [ ] Update init/template config comments if the contract becomes clearer.
-- [ ] Add a fixture or compile-time test proving a normal user config typechecks against `IAspectConfig`.
-- [ ] Preserve runtime config compatibility.
-
-## Acceptance criteria
-
-- [ ] `IAspectConfig.instantiate()` matches the actual call shape used by `TestSession`.
-- [ ] Template configs remain valid examples.
-- [ ] CLI typechecking passes without weakening the public type back to `any`.
-
----
-
 # 27. Define and correct snapshot total-count semantics
 
 ## Goal
