@@ -99,26 +99,30 @@ describe("TestContext lifecycle characterization", () => {
     ]);
   });
 
-  it("documents current log ownership for nested hooks and test bodies", async () => {
+  it("attaches nested hook logs to their owning groups and test body logs to tests", async () => {
     const { ctx } = await runLifecycleContext();
     const lifecycleOrder = findChild(ctx.rootNode, "lifecycle order");
     const outerTest = findChild(lifecycleOrder, "outer test");
     const inner = findChild(lifecycleOrder, "inner");
     const innerTest = findChild(inner, "inner test");
 
-    expect(logValues(lifecycleOrder)).toEqual(["outer beforeAll", "outer beforeEach"]);
-    expect(logValues(outerTest)).toEqual(["outer test body", "outer afterEach"]);
-    expect(logValues(inner)).toEqual(["inner beforeAll", "outer beforeEach", "inner beforeEach"]);
-    expect(logValues(innerTest)).toEqual([
-      "inner test body",
-      "inner afterEach",
+    // Hook facts belong to the group that declared the hook. Test body facts
+    // belong to the test node. This keeps afterEach/afterAll hooks from
+    // inheriting the last visited child as their stale target.
+    expect(logValues(lifecycleOrder)).toEqual([
+      "outer beforeAll",
+      "outer beforeEach",
       "outer afterEach",
-      "inner afterAll",
+      "outer beforeEach",
+      "outer afterEach",
       "outer afterAll",
     ]);
+    expect(logValues(outerTest)).toEqual(["outer test body"]);
+    expect(logValues(inner)).toEqual(["inner beforeAll", "inner beforeEach", "inner afterEach", "inner afterAll"]);
+    expect(logValues(innerTest)).toEqual(["inner test body"]);
   });
 
-  it("documents current failing-hook fact ownership", async () => {
+  it("attaches failing-hook facts to the group that declared the hook", async () => {
     const { ctx, events } = await runLifecycleContext();
     const failingBeforeAll = findChild(ctx.rootNode, "failing beforeAll hook");
     const afterBeforeAllFailure = findChild(failingBeforeAll, "should not run after beforeAll fails");
@@ -158,17 +162,17 @@ describe("TestContext lifecycle characterization", () => {
     expect(failingAfterEach.message).toBe("afterEach failure marker");
     expect(reflectedValueValue(failingAfterEach, "actual")).toBe(30);
     expect(reflectedValueValue(failingAfterEach, "expected")).toBe(31);
-    expect(logValues(failingAfterEach)).toEqual([]);
+    expect(logValues(failingAfterEach)).toEqual(["failing afterEach hook"]);
     expect(afterEachBody.pass).toBe(true);
-    expect(logValues(afterEachBody)).toEqual(["failing afterEach test body", "failing afterEach hook"]);
+    expect(logValues(afterEachBody)).toEqual(["failing afterEach test body"]);
 
     expect(failingAfterAll.pass).toBe(false);
     expect(failingAfterAll.message).toBe("afterAll failure marker");
     expect(reflectedValueValue(failingAfterAll, "actual")).toBe(40);
     expect(reflectedValueValue(failingAfterAll, "expected")).toBe(41);
-    expect(logValues(failingAfterAll)).toEqual([]);
+    expect(logValues(failingAfterAll)).toEqual(["failing afterAll hook"]);
     expect(afterAllBody.pass).toBe(true);
-    expect(logValues(afterAllBody)).toEqual(["failing afterAll test body", "failing afterAll hook"]);
+    expect(logValues(afterAllBody)).toEqual(["failing afterAll test body"]);
 
     expect(nestedFailingAfterEach.pass).toBe(false);
     expect(logValues(nestedFailingAfterEach)).toEqual([]);
@@ -176,8 +180,8 @@ describe("TestContext lifecycle characterization", () => {
     expect(innerAfterEachFails.message).toBe("inner afterEach failure marker");
     expect(reflectedValueValue(innerAfterEachFails, "actual")).toBe(50);
     expect(reflectedValueValue(innerAfterEachFails, "expected")).toBe(51);
-    expect(logValues(innerAfterEachFails)).toEqual([]);
+    expect(logValues(innerAfterEachFails)).toEqual(["inner failing afterEach hook"]);
     expect(nestedAfterEachBody.pass).toBe(true);
-    expect(logValues(nestedAfterEachBody)).toEqual(["nested afterEach test body", "inner failing afterEach hook"]);
+    expect(logValues(nestedAfterEachBody)).toEqual(["nested afterEach test body"]);
   });
 });

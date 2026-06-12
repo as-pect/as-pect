@@ -297,142 +297,141 @@ export class TestContext {
 
   /** Visit a node and evaluate it's children. */
   protected visit(node: TestNode): void {
-    // validate this node will run
-    if (node !== this.rootNode) {
-      const regexTester = node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
-      if (!regexMatches(regexTester, node.name)) return;
-    }
-
-    // this node is being tested for sure
-    node.ran = true;
-    if (node.type === TestNodeType.Group) {
-      this.groupRunCount += 1;
-    } else {
-      this.testRunCount += 1;
-    }
-
-    // set the start timer for this node
-    node.start = performance.now();
-
-    // set the rtraceStart value
-    node.rtraceStart = this.rtrace.blocks.size;
-
-    // set the target node for collection
-    this.targetNode = node;
-
-    // in the case of a throws() test
-    if (node.negated) {
-      const success = this.tryCall(node.callback) === 0; // we want the value to be 0
-      this.reportingLifecycle.enter(node);
-      if (success) {
-        node.message = null;
-        node.stackTrace = null;
-        node.pass = true;
-        node.actual = null;
-        node.expected = null;
+    this.withTargetNode(node, () => {
+      // validate this node will run
+      if (node !== this.rootNode) {
+        const regexTester = node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
+        if (!regexMatches(regexTester, node.name)) return;
       }
-      node.end = performance.now();
-      this.addResult(node, success);
-      this.reportingLifecycle.exit(node);
-      return;
-    }
 
-    // perform test collection and evaluate the node, each node must set pass to `true` if it passes
-    if (node === this.rootNode) {
-      try {
-        if (this.wasi) {
-          this.wasi!.start(this.instance!);
-        } else {
-          // collect all the top level function pointers, tests, groups, and logs
-          this.wasm!._start();
-        }
-      } catch (ex) {
-        this.errors.push({
-          message: "The test suite did not run, because an error occurred when trying to start the module.",
-          stackTrace: (ex as Error).stack ?? "",
-          type: "TestContext Initialization",
-        });
+      // this node is being tested for sure
+      node.ran = true;
+      if (node.type === TestNodeType.Group) {
+        this.groupRunCount += 1;
+      } else {
+        this.testRunCount += 1;
+      }
+
+      // set the start timer for this node
+      node.start = performance.now();
+
+      // set the rtraceStart value
+      node.rtraceStart = this.rtrace.blocks.size;
+
+      // in the case of a throws() test
+      if (node.negated) {
+        const success = this.tryCall(node.callback) === 0; // we want the value to be 0
         this.reportingLifecycle.enter(node);
-        /**
-         * If this catch occurs, the entire test suite is completed.
-         * This is a sanity check.
-         */
+        if (success) {
+          node.message = null;
+          node.stackTrace = null;
+          node.pass = true;
+          node.actual = null;
+          node.expected = null;
+        }
         node.end = performance.now();
-        this.addResult(node, false);
+        this.addResult(node, success);
         this.reportingLifecycle.exit(node);
         return;
       }
-    } else {
-      // gather all the tests and groups, validate program state at this level
-      const success = this.tryCall(node.callback) === 1;
-      this.reportingLifecycle.enter(node);
-      if (!success) {
-        // collection or test failure, stop traversal of this node
+
+      // perform test collection and evaluate the node, each node must set pass to `true` if it passes
+      if (node === this.rootNode) {
+        try {
+          if (this.wasi) {
+            this.wasi!.start(this.instance!);
+          } else {
+            // collect all the top level function pointers, tests, groups, and logs
+            this.wasm!._start();
+          }
+        } catch (ex) {
+          this.errors.push({
+            message: "The test suite did not run, because an error occurred when trying to start the module.",
+            stackTrace: (ex as Error).stack ?? "",
+            type: "TestContext Initialization",
+          });
+          this.reportingLifecycle.enter(node);
+          /**
+           * If this catch occurs, the entire test suite is completed.
+           * This is a sanity check.
+           */
+          node.end = performance.now();
+          this.addResult(node, false);
+          this.reportingLifecycle.exit(node);
+          return;
+        }
+      } else {
+        // gather all the tests and groups, validate program state at this level
+        const success = this.tryCall(node.callback) === 1;
+        this.reportingLifecycle.enter(node);
+        if (!success) {
+          // collection or test failure, stop traversal of this node
+          this.collectStatistics(node);
+          this.addResult(node, false);
+          this.reportingLifecycle.exit(node);
+          return;
+        }
+      }
+
+      // Errors can occur at any level before you visit them, even if nothing was thrown
+      if (node.errors.length > 0) {
         this.collectStatistics(node);
         this.addResult(node, false);
         this.reportingLifecycle.exit(node);
         return;
       }
-    }
 
-    // Errors can occur at any level before you visit them, even if nothing was thrown
-    if (node.errors.length > 0) {
-      this.collectStatistics(node);
-      this.addResult(node, false);
-      this.reportingLifecycle.exit(node);
-      return;
-    }
+      // We now have the responsibility to run each beforeAll callback before traversing children
+      if (!this.runFunctions(node.beforeAll, node)) {
+        this.collectStatistics(node);
+        this.addResult(node, false);
+        this.reportingLifecycle.exit(node);
+        return;
+      }
 
-    // We now have the responsibility to run each beforeAll callback before traversing children
-    if (!this.runFunctions(node.beforeAll)) {
-      this.collectStatistics(node);
-      this.addResult(node, false);
-      this.reportingLifecycle.exit(node);
-      return;
-    }
+      // now that the tests have been collected and the beforeAll has run, visit each child
+      const children = node.children;
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
 
-    // now that the tests have been collected and the beforeAll has run, visit each child
-    const children = node.children;
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
+        // in the context of running a test, run the beforeEach functions
+        if (child.type === TestNodeType.Test) {
+          if (!this.runBeforeEach(node)) {
+            this.collectStatistics(node);
+            this.addResult(node, false);
+            this.reportingLifecycle.exit(node);
+            return;
+          }
+        }
 
-      // in the context of running a test, run the beforeEach functions
-      if (child.type === TestNodeType.Test) {
-        if (!this.runBeforeEach(node)) {
-          this.collectStatistics(node);
-          this.addResult(node, false);
-          this.reportingLifecycle.exit(node);
-          return;
+        // now we can visit the child
+        this.visit(child);
+
+        // in the context of running a test, run the afterEach functions
+        if (child.type === TestNodeType.Test) {
+          if (!this.runAfterEach(node)) {
+            this.collectStatistics(node);
+            this.addResult(node, false);
+            this.reportingLifecycle.exit(node);
+            return;
+          }
         }
       }
 
-      // now we can visit the child
-      this.visit(child);
-
-      // in the context of running a test, run the afterEach functions
-      if (child.type === TestNodeType.Test) {
-        if (!this.runAfterEach(node)) {
-          this.collectStatistics(node);
-          this.addResult(node, false);
-          this.reportingLifecycle.exit(node);
-          return;
-        }
+      // We now have the responsibility to run each afterAll callback after traversing children
+      if (!this.runFunctions(node.afterAll, node)) {
+        this.collectStatistics(node);
+        this.addResult(node, false);
+        this.reportingLifecycle.exit(node);
+        return;
       }
-    }
 
-    // We now have the responsibility to run each afterAll callback after traversing children
-    if (!this.runFunctions(node.afterAll)) {
-      this.collectStatistics(node);
-      this.addResult(node, false);
+      // if any children failed, this node failed too, but assume it passes
+      node.pass = node.children.reduce((pass: boolean, node: TestNode) => pass && node.pass, true);
+      node.end = performance.now();
+      this.addResult(node, true);
       this.reportingLifecycle.exit(node);
-      return;
-    }
-
-    // if any children failed, this node failed too, but assume it passes
-    node.pass = node.children.reduce((pass: boolean, node: TestNode) => pass && node.pass, true);
-    node.end = performance.now();
-    this.addResult(node, true);
-    this.reportingLifecycle.exit(node);
+    });
   }
 
   /** Report a TestNode */
@@ -492,28 +491,41 @@ export class TestContext {
     this.todoCount += node.todos.length;
   }
 
-  /** Run a series of callbacks into web assembly. */
-  private runFunctions(funcs: number[]): boolean {
-    for (let i = 0; i < funcs.length; i++) {
-      if (this.tryCall(funcs[i]) === 0) return false;
+  /** Temporarily route collected facts to a specific node. */
+  private withTargetNode<T>(node: TestNode, callback: () => T): T {
+    const previousTargetNode = this.targetNode;
+    this.targetNode = node;
+    try {
+      return callback();
+    } finally {
+      this.targetNode = previousTargetNode;
     }
-    return true;
+  }
+
+  /** Run a series of callbacks into web assembly against an explicit fact owner. */
+  private runFunctions(funcs: number[], targetNode: TestNode): boolean {
+    return this.withTargetNode(targetNode, () => {
+      for (let i = 0; i < funcs.length; i++) {
+        if (this.tryCall(funcs[i]) === 0) return false;
+      }
+      return true;
+    });
   }
 
   /** Run every before each callback in the proper order. */
   private runBeforeEach(node: TestNode): boolean {
     return node.parent
       ? //run parents first and bail early if the parents failed
-        this.runBeforeEach(node.parent) && this.runFunctions(node.beforeEach)
-      : this.runFunctions(node.beforeEach);
+        this.runBeforeEach(node.parent) && this.runFunctions(node.beforeEach, node)
+      : this.runFunctions(node.beforeEach, node);
   }
 
   /** Run every after each callback in the proper order. */
   private runAfterEach(node: TestNode): boolean {
     return node.parent
       ? // Run the current group's hooks first and bail early if they fail.
-        this.runFunctions(node.afterEach) && this.runAfterEach(node.parent)
-      : this.runFunctions(node.afterEach);
+        this.runFunctions(node.afterEach, node) && this.runAfterEach(node.parent)
+      : this.runFunctions(node.afterEach, node);
   }
 
   /**
