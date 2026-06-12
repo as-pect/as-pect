@@ -13,48 +13,11 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 5. Fix snapshot update plans to preserve exact snapshot keys
-
-## Goal
-
-Prevent newly added snapshots from being written back with duplicated suffixes such as `[0][0]`.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/snapshots/src/Snapshot.ts`
-- `packages/snapshots/src/SnapshotLifecycle.ts`
-- `packages/snapshots/__tests__/snapshot.spec.ts`
-- `packages/core/src/test/TestContext.ts` only if the naming contract needs clarification
-
-## Tasks
-
-- [ ] Add a failing regression test where the actual snapshot already has a generated key suffix like `test!~name[0]`.
-- [ ] Assert `SnapshotUpdatePlan.applyTo()` writes the exact diff key, not a newly suffixed key.
-- [ ] Add a small exact-set interface to `Snapshot` if needed, keeping `add()` behavior unchanged for allocation of new keys.
-- [ ] Confirm existing `Snapshot.add()` callers still allocate unique keys.
-- [ ] Update snapshot lifecycle tests to cover added snapshots and existing snapshot files.
-
-## Acceptance criteria
-
-- [ ] Added snapshot updates preserve exact keys.
-- [ ] No existing snapshot key allocation behavior regresses.
-- [ ] Focused snapshots package tests pass.
-
----
-
 # 6. Report changed and removed snapshot counts separately in CLI summaries
 
 ## Goal
 
 Make final test-session summaries accurately distinguish added, changed, and removed snapshots.
-
-## Blockers
-
-- Slice 5 should be complete, because this slice depends on trusted `SnapshotLifecycle` stats.
 
 ## Files
 
@@ -82,10 +45,6 @@ Make final test-session summaries accurately distinguish added, changed, and rem
 ## Goal
 
 Make snapshot parse/stringify behavior correct for malformed input and repeated backticks.
-
-## Blockers
-
-- Slice 5 should be complete if it changes `Snapshot` interfaces.
 
 ## Files
 
@@ -677,7 +636,7 @@ Make snapshot summary stats intuitive and internally consistent for added, remov
 
 ## Blockers
 
-- Slices 5 and 6 must be complete so exact-key updates and changed/removed CLI stats are already correct.
+- Slice 6 must be complete so changed/removed CLI stats are already correct.
 
 ## Files
 

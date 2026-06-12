@@ -91,6 +91,11 @@ export class Snapshot {
     }
   }
 
+  public set(key: string, value: string): this {
+    this.values.set(key, value);
+    return this;
+  }
+
   public diff(other: Snapshot): SnapshotDiff {
     return new SnapshotDiff(this, other);
   }

@@ -1,4 +1,4 @@
-import { Snapshot, SnapshotLifecycle } from "../lib/index.js";
+import { Snapshot, SnapshotLifecycle, SnapshotUpdatePlan } from "../lib/index.js";
 
 const inputA = `
 exports[\`A\`] = \`SomeA {
@@ -92,6 +92,64 @@ describe("Snapshot", () => {
       passedSnapshots: 1,
     });
     expect(lifecycle.updatePlan.shouldWrite).toBe(true);
-    expect(updatedSnapshot.values.get("A[0]")).toBe("value");
+    expect(Array.from(updatedSnapshot.values.entries())).toEqual([["A", "value"]]);
+  });
+
+  it("should apply added snapshot updates using exact diff keys", () => {
+    const lifecycle = new SnapshotLifecycle(
+      Snapshot.from(new Map([["test!~name[0]", "actual value"]])),
+      new Snapshot(),
+    );
+    const updatedSnapshot = lifecycle.updatePlan.applyTo(new Snapshot());
+
+    expect(lifecycle.updatePlan.updates).toEqual([
+      {
+        name: "test!~name[0]",
+        value: "actual value",
+      },
+    ]);
+    expect(Array.from(updatedSnapshot.values.entries())).toEqual([
+      ["test!~name[0]", "actual value"],
+    ]);
+    expect(updatedSnapshot.values.has("test!~name[0][0]")).toBe(false);
+  });
+
+  it("should preserve existing snapshot files when applying added snapshot updates", () => {
+    const expected = Snapshot.from(new Map([["test!~name[0]", "existing value"]]));
+    const actual = Snapshot.from(
+      new Map([
+        ["test!~name[0]", "existing value"],
+        ["test!~name[1]", "new value"],
+      ]),
+    );
+    const updatedSnapshot = new SnapshotLifecycle(actual, expected).updatePlan.applyTo(expected);
+
+    expect(Array.from(updatedSnapshot.values.entries())).toEqual([
+      ["test!~name[0]", "existing value"],
+      ["test!~name[1]", "new value"],
+    ]);
+  });
+
+  it("should let update plans overwrite exact keys without allocating suffixes", () => {
+    const plan = new SnapshotUpdatePlan([{ name: "test!~name[0]", value: "new value" }]);
+    const updatedSnapshot = plan.applyTo(
+      Snapshot.from(new Map([["test!~name[0]", "old value"]])),
+    );
+
+    expect(Array.from(updatedSnapshot.values.entries())).toEqual([
+      ["test!~name[0]", "new value"],
+    ]);
+  });
+
+  it("should continue to allocate unique keys when adding snapshots", () => {
+    const snapshot = new Snapshot();
+
+    snapshot.add("test!~name", "first value");
+    snapshot.add("test!~name", "second value");
+
+    expect(Array.from(snapshot.values.entries())).toEqual([
+      ["test!~name[0]", "first value"],
+      ["test!~name[1]", "second value"],
+    ]);
   });
 });

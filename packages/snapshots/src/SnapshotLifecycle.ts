@@ -28,7 +28,7 @@ export class SnapshotUpdatePlan {
 
   public applyTo(snapshot: Snapshot): Snapshot {
     for (const update of this.updates) {
-      snapshot.add(update.name, update.value);
+      snapshot.set(update.name, update.value);
     }
     return snapshot;
   }
