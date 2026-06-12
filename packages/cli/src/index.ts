@@ -1,20 +1,15 @@
 import { program } from "commander";
 import process, { stdout } from "process";
 import path from "path";
-import { existsSync, promises as fs, readdirSync } from "fs";
-import { readFileSync } from "fs";
+import { promises as fs } from "fs";
 import url from "url";
 import chalk from "chalk";
 import { printAsciiArt } from "./asciiArt.js";
-import { glob } from "glob";
 import { IAspectConfig } from "./IAspectConfig.js";
 
-import { main as asc, version as ascVersion } from "assemblyscript/dist/asc.js";
+import { version as ascVersion } from "assemblyscript/dist/asc.js";
 import { init } from "./init.js";
-import { TestContext } from "@as-pect/core";
-import { Snapshot } from "@as-pect/snapshots";
-import { collectReporter } from "./collectReporter.js";
-import { instantiate } from "@assemblyscript/loader";
+import { createTestSessionConfig, formatTestSessionSummary, SnapshotMode, TestSession } from "./TestSession.js";
 
 // set the cli options
 // prettier-ignore
@@ -46,10 +41,7 @@ program
 // const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-export const enum SnapshotMode {
-  WriteSnapshots,
-  CompareSnapshots,
-}
+export { SnapshotMode };
 
 export function log(str: string): void {
   stdout.write(chalk.bgWhite.black("[Log]") + `${str}\n`);
@@ -57,10 +49,6 @@ export function log(str: string): void {
 
 export function warning(str: string): void {
   stdout.write(chalk.bgYellow.black("[Warning]") + `${str}\n`);
-}
-
-function withWasiPreview1(options: import("wasi").WASIOptions): import("wasi").WASIOptions {
-  return { ...options, version: options.version ?? "preview1" } as import("wasi").WASIOptions;
 }
 
 export async function asp(argv: string[]): Promise<void> {
@@ -95,252 +83,38 @@ export async function asp(argv: string[]): Promise<void> {
 
   stdout.write(`Using config: ${configLocation}\n`);
   stdout.write(`ASC Version: ${ascVersion}\n`);
-  // filter entries using array of regexp
-  let entryFilterRegexes = [] as RegExp[];
-  if (opts.disclue) entryFilterRegexes.push(new RegExp(opts.disclude));
-  if (aspectConfig.disclude) entryFilterRegexes.push(...aspectConfig.disclude);
-  const filterEntry = (str: string) => entryFilterRegexes.reduce((left, right) => left && !right.test(str), true);
 
-  /** All the included entry points that get added to every compilation. */
-  const includes = new Set<string>();
-  /** All of the test entry points to be compiled. */
-  const entries = new Set<string>();
-
-  // Collect all the test files now, filtering out the entry points
-  for (const arg of args.concat(aspectConfig.entries || [])) {
-    const entryPoints = await glob(arg);
-    for (const entryPoint of entryPoints) {
-      // we need to create a test file for each entry point
-      if (filterEntry(entryPoint)) entries.add(entryPoint);
-    }
-  }
-
-  // Now collect all the additional included entry points.
-  // This must include an entry that ends with `@as-pect/assembly/assembly/index.ts`
-  const includedGlobs = [] as string[];
-
-  // opts.I is a comma seperated list of globs
-  if (opts.include) includedGlobs.push(...opts.I.split(","));
-  if (aspectConfig.include) includedGlobs.push(...aspectConfig.include);
-
-  // if no files are specified to be included, then we include the following glob pattern
-  if (includedGlobs.length === 0) includedGlobs.push("assembly/__tests__/**/*.include.ts");
-
-  // for each glob, add them to the set of included files
-  for (const includedGlob of includedGlobs) {
-    const includedFiles = await glob(includedGlob);
-    for (const includedFile of includedFiles) {
-      includes.add(includedFile);
-    }
-  }
-
-  // grab cli options here
-  const asconfigLocation = opts.asConfig;
-
-  const fileMap = new Map<string, string>();
-  const folderMap = new Map<string, string[]>();
-
-  const overallStats = {
-    addedSnapshots: 0,
-    removedSnapshots: 0,
-    passedSnapshots: 0,
-    totalSnapshots: 0,
-    groups: 0,
-    passedGroups: 0,
-    tests: 0,
-    passedTests: 0,
-    pass: true,
-  };
-
-  if (aspectConfig.coverage) {
-    log(`Using code coverage: ${aspectConfig.coverage.join(", ")}`);
-  }
-
-  // coverage happens on a global level
-
-  /** Potentailly enable code coverage, using the configurated globs */
-  let covers: import("@as-covers/glue").Covers | null = null;
-  const coverageFiles = aspectConfig.coverage || [];
-  if (coverageFiles.length !== 0) {
-    log("Using coverage: " + coverageFiles.join(", "));
-    const Covers = (await import("@as-covers/glue")).Covers;
-    covers = new Covers({ files: coverageFiles });
-  }
-
-  // foreach entry point, we compile it
-  for (const entry of entries) {
-    const files = new Map<string, string | Uint8Array>();
-    const dir = path.dirname(entry);
-    const basename = path.basename(entry, path.extname(entry));
-    const ascArgs = [entry, ...includes, "--config", asconfigLocation, "--target", covers ? "coverage" : "noCoverage"];
-
-    const compiled = await asc(ascArgs, {
-      readFile(filename, baseDir) {
-        const filePath = path.join(baseDir, filename);
-        if (fileMap.has(filePath)) return fileMap.get(filePath)!;
-        try {
-          const contents = readFileSync(filePath, "utf8");
-          fileMap.set(filePath, contents);
-          return contents;
-        } catch (ex) {
-          return null;
-        }
-      },
-      writeFile(filename, contents, _baseDir) {
-        files.set(filename, contents);
-      },
-      listFiles(dirname, baseDir) {
-        const folder = path.join(baseDir, dirname);
-        if (folderMap.has(folder)) return folderMap.get(folder)!;
-
-        try {
-          const files = readdirSync(folder).filter((file) => /^(?!.*\.d\.ts$).*\.ts$/.test(file));
-          folderMap.set(folder, files);
-          return files;
-        } catch (ex) {
-          return null;
-        }
-      },
-      stderr: process.stderr,
-      stdout: process.stdout,
-    });
-
-    if (compiled.error) {
-      console.error(compiled.error);
-      process.exit(1);
-    }
-
-    // for emitting compiler stats
-    if (opts.showStats) process.stdout.write(compiled.stats.toString());
-    const outputFileKey = Array.from(files.keys()).filter((e) => e.endsWith("output.wasm"))[0]!;
-    const outputWatFileKey = Array.from(files.keys()).filter((e) => e.endsWith("output.wat"))[0]!;
-    const binary = files.get(outputFileKey)! as Uint8Array;
-    const wat = files.get(outputWatFileKey)! as string;
-
-    // output the wasm file
-    if (opts.outputBinary || aspectConfig.outputBinary) {
-      const baseName = path.join(dir, path.basename(entry, path.extname(entry)));
-      await fs.writeFile(baseName + ".wasm", binary);
-      await fs.writeFile(baseName + ".wat", wat);
-    }
-
-    // collect the snapshots for this entry in `{dir}/__snapshots__/{basename}.snap`
-    const snapshotPath = path.join(dir, "__snapshots__", basename + ".snap");
-    const snapshotMode = opts.updateSnapshots ? SnapshotMode.WriteSnapshots : SnapshotMode.CompareSnapshots;
-
-    const snapshots =
-      snapshotMode === SnapshotMode.CompareSnapshots && existsSync(snapshotPath)
-        ? Snapshot.parse(await fs.readFile(snapshotPath, "utf8"))
-        : void 0;
-
-    // collect wasi if it exists
-    let wasi: import("wasi").WASI | undefined = void 0;
-    if (opts.wasi) {
-      const { WASI } = await import("wasi");
-      const wasiRelativeLocation = opts.wasi;
-      const wasiLocation = path.join(cwd, wasiRelativeLocation);
-      const wasiConfig = (await import("file://" + wasiLocation)).default;
-      wasi = new WASI(withWasiPreview1(wasiConfig));
-    } else if (aspectConfig.wasi) {
-      const { WASI } = await import("wasi");
-      wasi = new WASI(withWasiPreview1(aspectConfig.wasi));
-    }
-
-    const reporter = await collectReporter(opts, aspectConfig);
-
-    // create the testing host
-    const ctx = new TestContext({
-      reporter,
-      binary: binary,
-      fileName: entry,
-      groupRegex: new RegExp(opts.group),
-      snapshots: snapshots,
-      testRegex: new RegExp(opts.test),
-      wasi: wasi,
-    });
-
-    const descriptor = {
-      initial: parseInt(opts.memorySize),
-    } as WebAssembly.MemoryDescriptor;
-    if (opts.memoryMax) {
-      const maximum = parseInt(opts.memoryMax);
-      if (maximum !== -1) {
-        descriptor.maximum = maximum;
-      }
-    }
-    const memory = new WebAssembly.Memory(descriptor);
-
-    // import the module by generating the assemblyscript imports
-    const module = await aspectConfig.instantiate(
-      memory,
-      (...args: any[]) => (covers ? covers.installImports(ctx.createImports(...args)) : ctx.createImports(...args)),
-      instantiate,
-      binary,
+  let result;
+  try {
+    const session = new TestSession(
+      createTestSessionConfig({
+        args,
+        aspectConfig,
+        asconfigLocation: opts.asConfig,
+        cwd,
+        options: opts,
+      }),
     );
 
-    covers?.registerLoader(module);
-    ctx.run(module as any);
-    overallStats.groups += ctx.groupCount;
-    overallStats.tests += ctx.testCount;
-    overallStats.passedGroups += ctx.groupPassCount;
-    overallStats.passedTests += ctx.testPassCount;
-    overallStats.pass = overallStats.pass && ctx.pass;
-
-    // snapshot mode!
-    if (snapshotMode === SnapshotMode.CompareSnapshots) {
-      const expectedSnapshots = ctx.expectedSnapshots;
-      const snapshotLifecycle = ctx.snapshotLifecycle!;
-      const snapshotStats = snapshotLifecycle.stats;
-      const updatePlan = snapshotLifecycle.updatePlan;
-
-      overallStats.totalSnapshots += snapshotStats.totalSnapshots;
-      overallStats.passedSnapshots += snapshotStats.passedSnapshots;
-      overallStats.removedSnapshots += snapshotStats.removedSnapshots;
-
-      // if snapshots were added, we need to update them
-      if (updatePlan.shouldWrite) {
-        updatePlan.applyTo(expectedSnapshots);
-        overallStats.addedSnapshots += updatePlan.addedSnapshots;
-        await fs.writeFile(snapshotPath, expectedSnapshots.stringify(), "utf8");
-      }
-    } else {
-      log("Creating Snapshots.");
-      // we are creating the snapshots, make sure the directory exists
-      const snapshotDir = path.dirname(snapshotPath);
-      try {
-        await fs.access(snapshotDir);
-      } catch (ex) {
-        await fs.mkdir(snapshotDir);
-      }
-
-      // if all the test nodes pass, we need to write the file output
-      if (ctx.rootNode.pass) {
-        const output = ctx.snapshots.stringify();
-        await fs.writeFile(snapshotPath, output, "utf8");
-      }
-    }
+    result = await session.run();
+  } catch (ex) {
+    console.error(ex);
+    process.exit(1);
   }
 
-  // Coverage report
-  if (covers) {
+  if (result.compilerError) {
+    console.error(result.compilerError);
+    process.exit(1);
+  }
+
+  if (result.coverageReport) {
     stdout.write(chalk.green("\nCoverage Report:\n\n"));
-    stdout.write(covers.stringify());
+    stdout.write(result.coverageReport);
   }
 
-  const summaryString = `
-  [Summary]
-    [Tests]: ${chalk.green(overallStats.passedTests)} / ${overallStats.tests}
-   [Groups]: ${chalk.green(overallStats.passedGroups)} / ${overallStats.groups}
-[Snapshots]: ${chalk.green(overallStats.passedSnapshots)} / ${overallStats.totalSnapshots}, Added ${
-    overallStats.addedSnapshots
-  }, Changed ${overallStats.removedSnapshots}
-   [Result]: ${overallStats.pass ? chalk.green(`✔ Pass!`) : chalk.red(`❌ Fail`)}
+  stdout.write(formatTestSessionSummary(result));
 
-   `;
-
-  stdout.write(summaryString);
-
-  if (!overallStats.pass) {
+  if (!result.pass) {
     process.exit(1);
   }
 }

@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "rimraf": "rimraf lib/*",
-    "test": "exit 0",
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
     "tsc:cli": "run-s rimraf tsc",
     "tsc": "tsc"
   },

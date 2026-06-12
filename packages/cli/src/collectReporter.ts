@@ -1,6 +1,6 @@
 import { IAspectConfig } from "./IAspectConfig.js";
-import { IReporter, CombinationReporter, SummaryReporter, VerboseReporter } from "@as-pect/core";
-import { cwd, exit, stderr } from "process";
+import { IReporter, CombinationReporter, SummaryReporter, VerboseReporter, IWritable } from "@as-pect/core";
+import { cwd } from "process";
 import { OptionValues } from "commander";
 import path from "path";
 import process from "process";
@@ -15,9 +15,7 @@ export async function getReporter(opts: OptionValues, aspectConfig: IAspectConfi
       const reporter = (await import("file://" + reporterLocation)).default as IReporter;
       reporters.push(reporter);
     } catch (ex) {
-      stderr.write(`An error occured while trying to import: ${reporterLocation}`);
-      console.error(ex);
-      exit(1);
+      throw new Error(`An error occured while trying to import: ${reporterLocation}`, { cause: ex });
     }
   }
 
@@ -46,9 +44,18 @@ export async function getReporter(opts: OptionValues, aspectConfig: IAspectConfi
   return new CombinationReporter(reporters);
 }
 
-export async function collectReporter(opts: OptionValues, aspectConfig: IAspectConfig): Promise<IReporter> {
+export interface ReporterOutput {
+  stderr: IWritable;
+  stdout: IWritable;
+}
+
+export async function collectReporter(
+  opts: OptionValues,
+  aspectConfig: IAspectConfig,
+  output: ReporterOutput = { stderr: process.stderr, stdout: process.stdout },
+): Promise<IReporter> {
   const reporter = await getReporter(opts, aspectConfig);
-  reporter.stdout = process.stdout;
-  reporter.stderr = process.stderr;
+  reporter.stdout = output.stdout;
+  reporter.stderr = output.stderr;
   return reporter;
 }
