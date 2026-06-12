@@ -8,6 +8,8 @@ import {
 } from "../src/TestSession.js";
 import { IAspectConfig } from "../src/IAspectConfig.js";
 
+const minimalWasmBinary = new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]);
+
 const aspectConfig: IAspectConfig = {
   instantiate() {
     throw new Error("not used by these configuration tests");
@@ -133,6 +135,85 @@ describe("Test session execution", () => {
     expect(writes.get("assembly/__tests__/entry.spec.wat")).toBe("(module)");
     expect(readFileSync).toHaveBeenCalledTimes(1);
     expect(readdirSync).toHaveBeenCalledTimes(1);
+  });
+
+  it("waits for reporter flush completion before resolving", async () => {
+    const events: string[] = [];
+    let releaseFlush!: () => void;
+    let resolveFlushStarted!: () => void;
+    const flushStarted = new Promise<void>((resolve) => {
+      resolveFlushStarted = resolve;
+    });
+    const reporter = {
+      stderr: null,
+      stdout: null,
+      onEnter() {},
+      onExit() {},
+      onFinish() {
+        events.push("finish");
+      },
+      async onFlush() {
+        events.push("flush:start");
+        resolveFlushStarted();
+        await new Promise<void>((resolveFlush) => {
+          releaseFlush = resolveFlush;
+        });
+        events.push("flush:end");
+      },
+    };
+    const collectReporter = jest.fn(async () => reporter);
+    const compile = jest.fn(async (_args, io) => {
+      io.writeFile("build/output.wasm", minimalWasmBinary, "/workspace");
+      io.writeFile("build/output.wat", "(module)", "/workspace");
+      return { stats: { toString: () => "compiler stats" } };
+    });
+    const instantiate = jest.fn(async (memory: WebAssembly.Memory) => ({
+      exports: {
+        _start() {},
+        memory,
+      },
+      instance: {} as WebAssembly.Instance,
+    }));
+    const dependencies: Partial<TestSessionDependencies> = {
+      collectReporter,
+      compile,
+      fileSystem: {
+        access: jest.fn(async () => void 0),
+        existsSync: jest.fn(() => false),
+        mkdir: jest.fn(async () => void 0),
+        readFile: jest.fn(async () => ""),
+        readFileSync: jest.fn(() => ""),
+        readdirSync: jest.fn(() => []),
+        writeFile: jest.fn(async () => void 0),
+      },
+      glob: jest.fn(async (pattern) => (pattern.includes("*.spec.ts") ? ["assembly/__tests__/entry.spec.ts"] : [])),
+    };
+
+    const config = createTestSessionConfig({
+      args: ["assembly/__tests__/*.spec.ts"],
+      aspectConfig: { ...aspectConfig, instantiate },
+      asconfigLocation: "./as-pect.asconfig.json",
+      cwd: "/workspace",
+      dependencies,
+      options: {},
+    });
+
+    const result = new TestSession(config).run();
+    let resolved = false;
+    result.then(() => {
+      resolved = true;
+    });
+
+    await flushStarted;
+    await Promise.resolve();
+
+    expect(resolved).toBe(false);
+    expect(events).toEqual(["finish", "flush:start"]);
+
+    releaseFlush();
+    await expect(result).resolves.toMatchObject({ pass: true });
+
+    expect(events).toEqual(["finish", "flush:start", "flush:end"]);
   });
 
   it("sorts discovered entries while preserving CLI and config glob precedence", async () => {

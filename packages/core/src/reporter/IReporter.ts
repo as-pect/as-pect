@@ -12,4 +12,5 @@ export interface IReporter extends ReportAdapter {
   onEnter(ctx: TestContext, node: TestNode): void;
   onExit(ctx: TestContext, node: TestNode): void;
   onFinish(ctx: TestContext): void;
+  onFlush?(): Promise<void> | void;
 }

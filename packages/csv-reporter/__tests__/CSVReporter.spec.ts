@@ -1,19 +1,12 @@
 import { mkdtemp, readFile, rm } from "fs/promises";
 import { join, relative } from "path";
-import { finished } from "stream/promises";
 import CSVReporter from "../index.js";
 import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
 
 class TestCSVReporter extends CSVReporter {
   public async writeAndWait(report: Pick<SuiteReport, "fileName" | "results">): Promise<void> {
     this.onReportFinish({ report: report as SuiteReport, context: undefined as never });
-
-    const stream = this.fileName;
-    if (!stream) {
-      throw new Error("CSV reporter did not create an output stream.");
-    }
-
-    await finished(stream);
+    await this.onFlush();
   }
 }
 

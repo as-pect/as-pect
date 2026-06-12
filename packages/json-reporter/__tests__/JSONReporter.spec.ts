@@ -6,21 +6,7 @@ import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
 class TestJSONReporter extends JSONReporter {
   public async writeAndWait(report: Pick<SuiteReport, "fileName" | "results">): Promise<void> {
     this.onReportFinish({ report: report as SuiteReport, context: undefined as never });
-
-    const stream = this.file;
-    if (!stream) {
-      throw new Error("JSON reporter did not create an output stream.");
-    }
-
-    await new Promise<void>((resolve, reject) => {
-      if (stream.writableFinished) {
-        resolve();
-        return;
-      }
-
-      stream.once("finish", resolve);
-      stream.once("error", reject);
-    });
+    await this.onFlush();
   }
 }
 

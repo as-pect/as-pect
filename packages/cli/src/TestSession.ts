@@ -7,7 +7,7 @@ import { instantiate } from "@assemblyscript/loader";
 import { TestContext, type IWritable } from "@as-pect/core";
 import { Snapshot, type SnapshotLifecycleStats } from "@as-pect/snapshots";
 import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspectConfig.js";
-import { collectReporter } from "./collectReporter.js";
+import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
 import { importLocalModule } from "./importLocalModule.js";
 
 export const enum SnapshotMode {
@@ -109,13 +109,21 @@ export interface TestSessionFileSystem {
   writeFile(path: string, contents: string | Uint8Array, encoding?: BufferEncoding): Promise<void>;
 }
 
+export type TestSessionReporterCollector = (
+  options: TestSessionCliOptions,
+  aspectConfig: IAspectConfig,
+  output: ReporterOutput,
+) => ReturnType<typeof defaultCollectReporter>;
+
 export interface TestSessionDependencies {
+  collectReporter?: TestSessionReporterCollector;
   compile(args: string[], io: CompilerIo): Promise<CompilerResult>;
   fileSystem: TestSessionFileSystem;
   glob(pattern: string): Promise<string[]>;
 }
 
 const defaultDependencies: TestSessionDependencies = {
+  collectReporter: defaultCollectReporter,
   compile: asc,
   fileSystem: {
     access: fs.access,
@@ -326,6 +334,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
   const stats = createInitialStats();
 
   const { compile, fileSystem, glob } = dependencies;
+  const collectReporter = dependencies.collectReporter ?? defaultCollectReporter;
 
   for (const arg of args.concat(aspectConfig.entries || [])) {
     const entryPoints = sortDiscoveredPaths(await glob(arg));
@@ -466,6 +475,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
 
     covers?.registerLoader(module);
     ctx.run(module as any);
+    await reporter.onFlush?.();
     stats.groups += ctx.groupCount;
     stats.tests += ctx.testCount;
     stats.passedGroups += ctx.groupPassCount;
