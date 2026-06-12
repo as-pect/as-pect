@@ -1,71 +1,52 @@
-import stripAnsi from "strip-ansi";
-import { SummaryReporter, type SuiteReport, type SuiteReportEvent, type TestContext } from "../src/index.js";
+import {
+  errorSuiteReport,
+  failingSuiteReport,
+  passingSuiteReport,
+  snapshotChangeSuiteReport,
+  todoSuiteReport,
+  warningSuiteReport,
+} from "./setup/SuiteReportFixtures.js";
+import { writeSummaryReport } from "./setup/ReporterTestUtils.js";
 
-function createWriter(): { result: string; write(input: string): void } {
-  return {
-    result: "",
-    write(input: string): void {
-      this.result += input;
-    },
-  };
-}
+test("SummaryReporter writes pass totals and captured logs from SuiteReport facts", () => {
+  const output = writeSummaryReport(passingSuiteReport());
 
-function createReport(overrides: Partial<SuiteReport>): SuiteReport {
-  return {
-    fileName: "assembly/example.spec.ts",
-    pass: true,
-    testCount: 0,
-    testPassCount: 0,
-    groupCount: 0,
-    groupPassCount: 0,
-    rootRuntime: 0,
-    hasResults: false,
-    todoCount: 0,
-    rootNode: null,
-    warnings: [],
-    errors: [],
-    snapshotChanges: [],
-    snapshotStats: {
-      total: 0,
-      added: 0,
-      removed: 0,
-      different: 0,
-    },
-    groups: [],
-    results: [],
-    ...overrides,
-  } as unknown as SuiteReport;
-}
+  expect(output).toContain("✔ assembly/pass.spec.ts Pass: 1 / 1 Todo: 0 Time: 5ms\n");
+  expect(output).toContain('[Log]: "group log"\n');
+  expect(output).toContain('[Log]: "test log"\n');
+  expect(output).not.toContain("Failed:");
+});
 
-function writeSummaryReport(report: SuiteReport): string {
-  const reporter = new SummaryReporter();
-  const writer = createWriter();
-  reporter.stdout = writer;
-  reporter.stderr = writer;
+test("SummaryReporter writes failed groups, failed tests, and comparison values", () => {
+  const output = writeSummaryReport(failingSuiteReport());
 
-  reporter.onReportFinish({
-    report,
-    context: null as unknown as TestContext,
-  } as SuiteReportEvent);
+  expect(output).toContain("❌ assembly/fail.spec.ts Pass: 0 / 1 Todo: 0 Time: 8ms\n");
+  expect(output).toContain("Failed: math\n");
+  expect(output).toContain("❌ compares numbers - numbers differ\n");
+  expect(output).toContain("[Actual]  : 1\n");
+  expect(output).toContain("[Expected]: 2\n");
+  expect(output).toContain('[Log]: "failure log"\n');
+});
 
-  return stripAnsi(writer.result);
-}
+test("SummaryReporter includes todo counts from SuiteReport facts", () => {
+  const output = writeSummaryReport(todoSuiteReport());
+
+  expect(output).toContain("✔ assembly/todo.spec.ts Pass: 1 / 1 Todo: 1 Time: 6ms\n");
+});
 
 test("SummaryReporter writes human-readable warning lines", () => {
-  const output = writeSummaryReport(
-    createReport({
-      warnings: [
-        {
-          type: "WarningType",
-          message: "warning message",
-          stackTrace: "",
-        },
-      ],
-    }),
-  );
+  const output = writeSummaryReport(warningSuiteReport());
 
   expect(output).toContain(" [Warning]: WarningType -> warning message\n");
+  expect(output).toContain("[Stack]: warning.ts:1:1\n");
   expect(output).not.toContain("NaN");
+});
+
+test("SummaryReporter writes error lines and preserves multiline stacks", () => {
+  const output = writeSummaryReport(errorSuiteReport());
+
+  expect(output).toContain("[Error]: ErrorType error message\n");
+  expect(output).toContain("[Stack]: error.ts:2:1\n           error.ts:3:1\n");
 });
 
 test("SummaryReporter routes snapshot-change output through its writer only", () => {
@@ -76,25 +57,13 @@ test("SummaryReporter routes snapshot-change output through its writer only", ()
   };
 
   try {
-    const output = writeSummaryReport(
-      createReport({
-        snapshotChanges: [
-          {
-            name: "snapshot group!~snapshot name[0]",
-            lines: [
-              { type: "removed", value: "old snapshot" },
-              { type: "added", value: "new snapshot" },
-            ],
-            result: null,
-          },
-        ],
-      }),
-    );
+    const output = writeSummaryReport(snapshotChangeSuiteReport());
 
     expect(consoleWrites).toEqual([]);
     expect(output).toContain("[Snapshot]: snapshot group!~snapshot name[0]\n");
     expect(output).toContain("- old snapshot\n");
     expect(output).toContain("+ new snapshot\n");
+    expect(output).toContain("  same snapshot\n");
   } finally {
     console.log = originalConsoleLog;
   }

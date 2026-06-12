@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
-
-exports[`snapshots: onFinish ./assembly/jest-reporter-top-level-expect.ts 1`] = `""`;
-
-exports[`snapshots: onGroupEnd  1`] = `""`;
-
-exports[`snapshots: onGroupStart  1`] = `""`;

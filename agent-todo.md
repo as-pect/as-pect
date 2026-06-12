@@ -13,40 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 15. Move reporter tests toward SuiteReport fixtures
-
-## Goal
-
-Reduce fragile wasm-backed reporter snapshots by testing reporter behavior through stable `SuiteReport` facts.
-
-## Blockers
-
-- Slices 2, 3, and 4 should be complete so reporter package bugs do not get preserved in new fixtures.
-- Slice 14 should be complete if reporter lifecycle semantics change.
-
-## Files
-
-- `packages/core/__tests__/SummaryReporter*.spec.ts`
-- `packages/core/__tests__/VerboseReporter*.spec.ts`
-- `packages/core/__tests__/setup/*ReporterWrapper.ts`
-- `packages/core/src/reporter/ReportingLifecycle.ts`
-
-## Tasks
-
-- [ ] Create reusable `SuiteReport` fixture builders for pass, fail, todo, warning, error, and snapshot-change cases.
-- [ ] Add focused semantic assertions for SummaryReporter output from `SuiteReport` facts.
-- [ ] Add focused semantic assertions for VerboseReporter output from `SuiteReport` facts.
-- [ ] Keep a minimal number of wasm-backed smoke tests for end-to-end compatibility.
-- [ ] Remove or shrink broad snapshots that duplicate the new semantic coverage.
-
-## Acceptance criteria
-
-- [ ] Reporter tests are faster and less coupled to wasm fixture details.
-- [ ] End-to-end reporter smoke coverage remains.
-- [ ] Snapshot count is reduced or justified.
-
----
-
 # 17. Add core benchmarks for reporting and reflected-value stringify
 
 ## Goal
