@@ -301,14 +301,14 @@ describe("Test session summary formatting", () => {
         passedTests: 4,
         removedSnapshots: 1,
         tests: 4,
-        totalSnapshots: 3,
+        totalSnapshots: 6,
       },
     });
 
     expect(summary).toContain("[Summary]");
     expect(summary).toContain("[Tests]: 4 / 4");
     expect(summary).toContain("[Groups]: 2 / 2");
-    expect(summary).toContain("[Snapshots]: 3 / 3, Added 1, Changed 2, Removed 1");
+    expect(summary).toContain("[Snapshots]: 3 / 6, Added 1, Changed 2, Removed 1");
     expect(summary).toContain("[Result]: ✔ Pass!");
   });
 

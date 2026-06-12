@@ -3,10 +3,19 @@ import { SnapshotDiff } from "./SnapshotDiff.js";
 import { SnapshotDiffResultType } from "./SnapshotDiffResult.js";
 
 export interface SnapshotLifecycleStats {
+  /**
+   * The number of unique snapshot keys seen across the actual test output and
+   * the expected snapshot file. Added, removed, changed, and unchanged
+   * snapshots each contribute one key to this total.
+   */
   totalSnapshots: number;
+  /** Snapshot keys that were produced by the test run but missing from the expected snapshot file. */
   addedSnapshots: number;
+  /** Snapshot keys that exist in the expected snapshot file but were not produced by the test run. */
   removedSnapshots: number;
+  /** Snapshot keys that exist on both sides with different values. */
   changedSnapshots: number;
+  /** Snapshot keys that either matched exactly or can be added by the update plan. */
   passedSnapshots: number;
 }
 
@@ -46,7 +55,7 @@ export class SnapshotLifecycle {
   ) {
     this.diff = actual.diff(expected);
     this.pass = SnapshotLifecycle.calculatePass(this.diff);
-    this.stats = SnapshotLifecycle.calculateStats(expected, this.diff);
+    this.stats = SnapshotLifecycle.calculateStats(this.diff);
     this.updatePlan = SnapshotLifecycle.createUpdatePlan(this.diff);
   }
 
@@ -59,9 +68,9 @@ export class SnapshotLifecycle {
     return true;
   }
 
-  private static calculateStats(expected: Snapshot, diff: SnapshotDiff): SnapshotLifecycleStats {
+  private static calculateStats(diff: SnapshotDiff): SnapshotLifecycleStats {
     const stats: SnapshotLifecycleStats = {
-      totalSnapshots: expected.values.size,
+      totalSnapshots: diff.results.size,
       addedSnapshots: 0,
       removedSnapshots: 0,
       changedSnapshots: 0,
