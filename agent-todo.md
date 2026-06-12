@@ -13,39 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 17. Add core benchmarks for reporting and reflected-value stringify
-
-## Goal
-
-Create actual performance measurements for hot core paths before attempting optimizations.
-
-## Blockers
-
-- Slice 15 should be complete or at least provide stable `SuiteReport` fixture builders.
-
-## Files
-
-- New benchmark files under `packages/core/bench/`
-- Root `package.json` or `packages/core/package.json`
-- `packages/core/src/reporter/ReportingLifecycle.ts`
-- `packages/core/src/util/stringifyReflectedValue.ts`
-
-## Tasks
-
-- [ ] Implement a small benchmark runner with `node:perf_hooks`; do not add a benchmark dependency.
-- [ ] Add reporting benchmarks for large flat suites, nested suites, many todos, and many logs.
-- [ ] Add stringify benchmarks for large arrays, nested classes, cyclic structures, maps/sets, and property-count limits.
-- [ ] Print stable machine-readable results.
-- [ ] Add an npm script that runs only core benchmarks.
-
-## Acceptance criteria
-
-- [ ] Core benchmark command runs locally without extra dependencies.
-- [ ] Reporting and stringify costs are measured separately.
-- [ ] Benchmark files do not alter package runtime behavior.
-
----
-
 # 18. Add AssemblyScript reflection equality benchmarks
 
 ## Goal
@@ -55,7 +22,6 @@ Measure runtime cost for `Reflect.equals` before optimizing Set, Map, array, cla
 ## Blockers
 
 - Slice 10 should be complete so Set reflection correctness is not confused with equality benchmarks.
-- Slice 17 may provide a reusable benchmark script pattern, but this slice can proceed independently if needed.
 
 ## Files
 
