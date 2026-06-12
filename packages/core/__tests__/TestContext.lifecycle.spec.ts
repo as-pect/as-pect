@@ -23,6 +23,9 @@ const EVENT_NAMES = [
   "failing afterEach hook",
   "failing afterAll test body",
   "failing afterAll hook",
+  "nested afterEach test body",
+  "inner failing afterEach hook",
+  "outer afterEach after nested failure",
 ];
 
 async function runLifecycleContext(): Promise<{
@@ -69,7 +72,7 @@ function reflectedValueValue(node: TestNode, key: "actual" | "expected"): unknow
 }
 
 describe("TestContext lifecycle characterization", () => {
-  it("documents current nested hook execution order", async () => {
+  it("runs nested hooks in their intended order", async () => {
     const { events } = await runLifecycleContext();
 
     expect(events).toEqual([
@@ -81,11 +84,8 @@ describe("TestContext lifecycle characterization", () => {
       "outer beforeEach",
       "inner beforeEach",
       "inner test body",
-      // This captures the current parent-first afterEach traversal. It may be
-      // changed by a later behavior slice, but this characterization does not
-      // change traversal semantics.
-      "outer afterEach",
       "inner afterEach",
+      "outer afterEach",
       "inner afterAll",
       "outer afterAll",
       "failing beforeAll hook",
@@ -94,6 +94,8 @@ describe("TestContext lifecycle characterization", () => {
       "failing afterEach hook",
       "failing afterAll test body",
       "failing afterAll hook",
+      "nested afterEach test body",
+      "inner failing afterEach hook",
     ]);
   });
 
@@ -109,8 +111,8 @@ describe("TestContext lifecycle characterization", () => {
     expect(logValues(inner)).toEqual(["inner beforeAll", "outer beforeEach", "inner beforeEach"]);
     expect(logValues(innerTest)).toEqual([
       "inner test body",
-      "outer afterEach",
       "inner afterEach",
+      "outer afterEach",
       "inner afterAll",
       "outer afterAll",
     ]);
@@ -126,9 +128,15 @@ describe("TestContext lifecycle characterization", () => {
     const afterEachBody = findChild(failingAfterEach, "body runs before afterEach fails");
     const failingAfterAll = findChild(ctx.rootNode, "failing afterAll hook");
     const afterAllBody = findChild(failingAfterAll, "body runs before afterAll fails");
+    const nestedFailingAfterEach = findChild(ctx.rootNode, "nested failing afterEach hook");
+    const innerAfterEachFails = findChild(nestedFailingAfterEach, "inner afterEach fails");
+    const nestedAfterEachBody = findChild(innerAfterEachFails, "body runs before inner afterEach fails");
 
     expect(events).not.toContain("should not run after beforeAll fails");
     expect(events).not.toContain("should not run after beforeEach fails");
+    // afterEach remains fail-fast: once the inner hook fails, outer afterEach
+    // hooks are intentionally skipped instead of running with overwritten facts.
+    expect(events).not.toContain("outer afterEach after nested failure");
 
     expect(failingBeforeAll.pass).toBe(false);
     expect(failingBeforeAll.message).toBe("beforeAll failure marker");
@@ -161,5 +169,15 @@ describe("TestContext lifecycle characterization", () => {
     expect(logValues(failingAfterAll)).toEqual([]);
     expect(afterAllBody.pass).toBe(true);
     expect(logValues(afterAllBody)).toEqual(["failing afterAll test body", "failing afterAll hook"]);
+
+    expect(nestedFailingAfterEach.pass).toBe(false);
+    expect(logValues(nestedFailingAfterEach)).toEqual([]);
+    expect(innerAfterEachFails.pass).toBe(false);
+    expect(innerAfterEachFails.message).toBe("inner afterEach failure marker");
+    expect(reflectedValueValue(innerAfterEachFails, "actual")).toBe(50);
+    expect(reflectedValueValue(innerAfterEachFails, "expected")).toBe(51);
+    expect(logValues(innerAfterEachFails)).toEqual([]);
+    expect(nestedAfterEachBody.pass).toBe(true);
+    expect(logValues(nestedAfterEachBody)).toEqual(["nested afterEach test body", "inner failing afterEach hook"]);
   });
 });
