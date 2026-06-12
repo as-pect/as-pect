@@ -94,8 +94,17 @@ export interface SuiteReportEvent {
 }
 
 export interface ReportAdapter {
+  /**
+   * Called before a user-authored group callback is invoked to collect that group's hooks,
+   * tests, and nested groups. Start event report facts only include values known at that point;
+   * use the matching finish event for complete group facts.
+   */
   onReportGroupStart?(event: GroupReportEvent): void;
   onReportGroupFinish?(event: GroupReportEvent): void;
+  /**
+   * Called before the test callback is invoked. Start event report facts only include values known
+   * before execution; use the matching finish event for pass/fail, runtime, log, and error facts.
+   */
   onReportTestStart?(event: TestReportEvent): void;
   onReportTestFinish?(event: TestReportEvent): void;
   onReportFinish?(event: SuiteReportEvent): void;

@@ -127,8 +127,6 @@ export class VerboseReporter implements IReporter {
 
   private writeGroupStart(group: SuiteGroupReport): void {
     /* istanbul ignore next */
-    if (group.tests.length === 0) return;
-    /* istanbul ignore next */
     if (group.name) this.stdout!.write(`[Describe]: ${group.name}\n\n`);
   }
 

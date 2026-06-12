@@ -318,10 +318,16 @@ export class TestContext {
       // set the rtraceStart value
       node.rtraceStart = this.rtrace.blocks.size;
 
+      // Start reporting before non-root group collection or test body execution.
+      // The root node keeps its historical finish-only behavior because it is the
+      // synthetic suite container rather than a user-authored describe block.
+      if (node !== this.rootNode) {
+        this.reportingLifecycle.enter(node);
+      }
+
       // in the case of a throws() test
       if (node.negated) {
         const success = this.tryCall(node.callback) === 0; // we want the value to be 0
-        this.reportingLifecycle.enter(node);
         if (success) {
           node.message = null;
           node.stackTrace = null;
@@ -363,7 +369,6 @@ export class TestContext {
       } else {
         // gather all the tests and groups, validate program state at this level
         const success = this.tryCall(node.callback) === 1;
-        this.reportingLifecycle.enter(node);
         if (!success) {
           // collection or test failure, stop traversal of this node
           this.collectStatistics(node);
