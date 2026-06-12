@@ -5,7 +5,7 @@ import { glob as defaultGlob } from "glob";
 import { main as asc } from "assemblyscript/dist/asc.js";
 import { instantiate } from "@assemblyscript/loader";
 import { TestContext, type IWritable } from "@as-pect/core";
-import { Snapshot } from "@as-pect/snapshots";
+import { Snapshot, type SnapshotLifecycleStats } from "@as-pect/snapshots";
 import { IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter } from "./collectReporter.js";
 import { importLocalModule } from "./importLocalModule.js";
@@ -39,6 +39,7 @@ export interface TestSessionCliOptions {
 
 export interface TestSessionStats {
   addedSnapshots: number;
+  changedSnapshots: number;
   removedSnapshots: number;
   passedSnapshots: number;
   totalSnapshots: number;
@@ -150,6 +151,7 @@ export interface CreateTestSessionConfigOptions {
 function createInitialStats(): TestSessionStats {
   return {
     addedSnapshots: 0,
+    changedSnapshots: 0,
     removedSnapshots: 0,
     passedSnapshots: 0,
     totalSnapshots: 0,
@@ -250,6 +252,17 @@ export function createTestSessionConfig({
   };
 }
 
+export function accumulateTestSessionSnapshotStats(
+  testSessionStats: TestSessionStats,
+  snapshotLifecycleStats: SnapshotLifecycleStats,
+): void {
+  testSessionStats.totalSnapshots += snapshotLifecycleStats.totalSnapshots;
+  testSessionStats.passedSnapshots += snapshotLifecycleStats.passedSnapshots;
+  testSessionStats.addedSnapshots += snapshotLifecycleStats.addedSnapshots;
+  testSessionStats.changedSnapshots += snapshotLifecycleStats.changedSnapshots;
+  testSessionStats.removedSnapshots += snapshotLifecycleStats.removedSnapshots;
+}
+
 export function formatTestSessionSummary(result: Pick<TestSessionResult, "pass" | "stats">): string {
   const { stats } = result;
   return `
@@ -258,7 +271,7 @@ export function formatTestSessionSummary(result: Pick<TestSessionResult, "pass" 
    [Groups]: ${chalk.green(stats.passedGroups)} / ${stats.groups}
 [Snapshots]: ${chalk.green(stats.passedSnapshots)} / ${stats.totalSnapshots}, Added ${
     stats.addedSnapshots
-  }, Changed ${stats.removedSnapshots}
+  }, Changed ${stats.changedSnapshots}, Removed ${stats.removedSnapshots}
    [Result]: ${result.pass ? chalk.green(`✔ Pass!`) : chalk.red(`❌ Fail`)}
 
    `;
@@ -436,13 +449,10 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
       const snapshotStats = snapshotLifecycle.stats;
       const updatePlan = snapshotLifecycle.updatePlan;
 
-      stats.totalSnapshots += snapshotStats.totalSnapshots;
-      stats.passedSnapshots += snapshotStats.passedSnapshots;
-      stats.removedSnapshots += snapshotStats.removedSnapshots;
+      accumulateTestSessionSnapshotStats(stats, snapshotStats);
 
       if (updatePlan.shouldWrite) {
         updatePlan.applyTo(expectedSnapshots);
-        stats.addedSnapshots += updatePlan.addedSnapshots;
         await fileSystem.writeFile(snapshotPath, expectedSnapshots.stringify(), "utf8");
       }
     } else {

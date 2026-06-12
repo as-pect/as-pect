@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 import {
+  accumulateTestSessionSnapshotStats,
   createTestSessionConfig,
   formatTestSessionSummary,
   TestSession,
@@ -141,12 +142,13 @@ describe("Test session summary formatting", () => {
       pass: true,
       stats: {
         addedSnapshots: 1,
+        changedSnapshots: 2,
         groups: 2,
         pass: true,
         passedGroups: 2,
         passedSnapshots: 3,
         passedTests: 4,
-        removedSnapshots: 0,
+        removedSnapshots: 1,
         tests: 4,
         totalSnapshots: 3,
       },
@@ -155,7 +157,65 @@ describe("Test session summary formatting", () => {
     expect(summary).toContain("[Summary]");
     expect(summary).toContain("[Tests]: 4 / 4");
     expect(summary).toContain("[Groups]: 2 / 2");
-    expect(summary).toContain("[Snapshots]: 3 / 3, Added 1, Changed 0");
+    expect(summary).toContain("[Snapshots]: 3 / 3, Added 1, Changed 2, Removed 1");
     expect(summary).toContain("[Result]: ✔ Pass!");
+  });
+
+  it("labels changed and removed snapshot counts separately", () => {
+    const summary = formatTestSessionSummary({
+      pass: false,
+      stats: {
+        addedSnapshots: 0,
+        changedSnapshots: 3,
+        groups: 0,
+        pass: false,
+        passedGroups: 0,
+        passedSnapshots: 1,
+        passedTests: 0,
+        removedSnapshots: 2,
+        tests: 0,
+        totalSnapshots: 6,
+      },
+    });
+
+    expect(summary).toContain("Added 0, Changed 3, Removed 2");
+  });
+});
+
+describe("Test session snapshot stats aggregation", () => {
+  it("accumulates added, changed, removed, passed, and total snapshot counts", () => {
+    const stats = {
+      addedSnapshots: 1,
+      changedSnapshots: 2,
+      groups: 0,
+      pass: true,
+      passedGroups: 0,
+      passedSnapshots: 3,
+      passedTests: 0,
+      removedSnapshots: 4,
+      tests: 0,
+      totalSnapshots: 5,
+    };
+
+    accumulateTestSessionSnapshotStats(stats, {
+      addedSnapshots: 6,
+      changedSnapshots: 7,
+      passedSnapshots: 8,
+      removedSnapshots: 9,
+      totalSnapshots: 10,
+    });
+
+    expect(stats).toEqual({
+      addedSnapshots: 7,
+      changedSnapshots: 9,
+      groups: 0,
+      pass: true,
+      passedGroups: 0,
+      passedSnapshots: 11,
+      passedTests: 0,
+      removedSnapshots: 13,
+      tests: 0,
+      totalSnapshots: 15,
+    });
   });
 });

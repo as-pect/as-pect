@@ -13,33 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 6. Report changed and removed snapshot counts separately in CLI summaries
-
-## Goal
-
-Make final test-session summaries accurately distinguish added, changed, and removed snapshots.
-
-## Files
-
-- `packages/cli/src/TestSession.ts`
-- `packages/cli/__tests__/TestSession.spec.ts`
-
-## Tasks
-
-- [ ] Add `changedSnapshots` to `TestSessionStats`.
-- [ ] Accumulate `snapshotLifecycle.stats.changedSnapshots` during compare mode.
-- [ ] Keep `removedSnapshots` as removed snapshots only.
-- [ ] Update `formatTestSessionSummary()` to print changed and removed counts with accurate labels.
-- [ ] Add focused tests for summary formatting and aggregation.
-
-## Acceptance criteria
-
-- [ ] CLI summary no longer labels removed snapshots as changed snapshots.
-- [ ] Snapshot stats remain backward-compatible where possible.
-- [ ] Focused CLI tests pass.
-
----
-
 # 7. Harden snapshot parsing and string escaping
 
 ## Goal
