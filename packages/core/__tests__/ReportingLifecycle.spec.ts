@@ -1,5 +1,13 @@
 import { Snapshot, SnapshotLifecycle } from "@as-pect/snapshots";
-import { EmptyReporter, ReportingLifecycle, SuiteReport, TestContext, TestNode, TestNodeType } from "../src/index.js";
+import {
+  EmptyReporter,
+  IAspectExports,
+  ReportingLifecycle,
+  SuiteReport,
+  TestContext,
+  TestNode,
+  TestNodeType,
+} from "../src/index.js";
 
 describe("SuiteReport", () => {
   function createSuite(rootNode: TestNode, snapshotLifecycle: SnapshotLifecycle): TestContext {
@@ -164,6 +172,76 @@ describe("ReportingLifecycle", () => {
     lifecycle.finish();
 
     expect(calls).toEqual(["enter", "exit", "finish"]);
+  });
+
+  it("should publish start events before group collection and test execution", () => {
+    const events: string[] = [];
+    const reporter = new EmptyReporter();
+    const ctx = new TestContext({
+      reporter,
+      fileName: "assembly/generated.spec.ts",
+    });
+    const strings = new Map<number, string>([
+      [1, "math"],
+      [2, "adds"],
+    ]);
+    const exports = {
+      memory: new WebAssembly.Memory({ initial: 1 }),
+      _start(): void {
+        events.push("collect:root");
+        (ctx as unknown as { reportGroupTypeNode(description: number, runner: number): void }).reportGroupTypeNode(
+          1,
+          10,
+        );
+      },
+      __call(pointer: number): void {
+        if (pointer === 10) {
+          events.push("collect:group:math");
+          (ctx as unknown as { reportTestTypeNode(description: number, runner: number): void }).reportTestTypeNode(
+            2,
+            20,
+          );
+          return;
+        }
+
+        if (pointer === 20) {
+          events.push("execute:test:adds");
+        }
+      },
+      __getString(pointer: number): string {
+        return strings.get(pointer)!;
+      },
+    };
+    reporter.onReportGroupStart = (event) => {
+      if (event.node.name) {
+        events.push(`report:group:start:${event.node.name}:children=${event.node.children.length}`);
+      }
+    };
+    reporter.onReportTestStart = (event) => events.push(`report:test:start:${event.test.name}:pass=${event.test.pass}`);
+    reporter.onReportTestFinish = (event) =>
+      events.push(`report:test:finish:${event.test.name}:pass=${event.test.pass}`);
+    reporter.onReportGroupFinish = (event) => {
+      if (event.node.name) {
+        events.push(`report:group:finish:${event.group.name}:children=${event.node.children.length}`);
+      }
+    };
+    reporter.onReportFinish = (event) => events.push(`report:finish:${event.report.fileName}`);
+
+    ctx.run({
+      exports: exports as unknown as IAspectExports,
+      instance: {} as WebAssembly.Instance,
+    });
+
+    expect(events).toEqual([
+      "collect:root",
+      "report:group:start:math:children=0",
+      "collect:group:math",
+      "report:test:start:adds:pass=false",
+      "execute:test:adds",
+      "report:test:finish:adds:pass=true",
+      "report:group:finish:math:children=1",
+      "report:finish:assembly/generated.spec.ts",
+    ]);
   });
 
   it("should publish report facts through the reporting seam", () => {

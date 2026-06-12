@@ -13,38 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 14. Characterize and correct reporting lifecycle start-event ordering
-
-## Goal
-
-Make `onReportGroupStart` and `onReportTestStart` either true start events or explicitly documented compatibility events.
-
-## Blockers
-
-- None.
-
-## Files
-
-- `packages/core/src/test/TestContext.ts`
-- `packages/core/src/reporter/ReportingLifecycle.ts`
-- `packages/core/__tests__/ReportingLifecycle.spec.ts`
-
-## Tasks
-
-- [ ] Add a reporter adapter test that records event order around group collection and test execution.
-- [ ] Decide whether start events should fire before callback execution or retain the current compatibility order.
-- [ ] If changing behavior, move reporting lifecycle `enter()` calls before the work they describe.
-- [ ] If retaining behavior, document the compatibility semantics in code comments and tests.
-- [ ] Ensure legacy `onEnter` / `onExit` reporters still receive compatible callbacks.
-
-## Acceptance criteria
-
-- [ ] Reporting lifecycle event order has focused tests.
-- [ ] Start-event semantics are no longer ambiguous.
-- [ ] Legacy reporter adapters remain compatible.
-
----
-
 # 15. Move reporter tests toward SuiteReport fixtures
 
 ## Goal
