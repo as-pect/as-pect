@@ -13,37 +13,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 
 ---
 
-# 9. Skip expensive line diffs for unchanged snapshots
-
-## Goal
-
-Improve snapshot diff performance for the common unchanged-snapshot case.
-
-## Blockers
-
-- None. Slice 8 is complete, so this slice can collect before/after benchmark numbers.
-
-## Files
-
-- `packages/snapshots/src/SnapshotDiff.ts`
-- `packages/snapshots/__tests__/snapshot.spec.ts`
-- `packages/snapshots/bench/`
-
-## Tasks
-
-- [ ] Add or confirm tests that unchanged snapshots still produce `NoChange` results with compatible change-line behavior.
-- [ ] In `SnapshotDiff.calculateDiff()`, check exact value equality before calling `diffLines()`.
-- [ ] Decide and test whether unchanged results need an empty `changes` array or the previous `diffLines()` unchanged payload.
-- [ ] Run snapshot benchmarks before and after the change and record the result in the PR or commit message.
-
-## Acceptance criteria
-
-- [ ] Unchanged snapshots avoid unnecessary `diffLines()` work.
-- [ ] Reporter snapshot-change output remains compatible.
-- [ ] Snapshot tests and benchmark command pass/run.
-
----
-
 # 11. Characterize test lifecycle hook order and ownership
 
 ## Goal

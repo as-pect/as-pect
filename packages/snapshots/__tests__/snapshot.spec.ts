@@ -1,4 +1,4 @@
-import { Snapshot, SnapshotLifecycle, SnapshotParseError, SnapshotUpdatePlan } from "../lib/index.js";
+import { Snapshot, SnapshotDiffResultType, SnapshotLifecycle, SnapshotParseError, SnapshotUpdatePlan } from "../lib/index.js";
 
 const inputA = `
 exports[\`A\`] = \`SomeA {
@@ -83,6 +83,30 @@ describe("Snapshot", () => {
     expect(
       Snapshot.parse(inputA).diff(Snapshot.parse(inputB)),
     ).toMatchSnapshot();
+  });
+
+  it("should keep compatible unchanged snapshot line changes", () => {
+    const value = "line one\nline two\n";
+    const diff = Snapshot.from(new Map([["A", value]])).diff(Snapshot.from(new Map([["A", value]])));
+    const result = diff.results.get("A")!;
+
+    expect(result.type).toBe(SnapshotDiffResultType.NoChange);
+    expect(result.changes).toEqual([
+      {
+        count: 2,
+        added: false,
+        removed: false,
+        value,
+      },
+    ]);
+  });
+
+  it("should keep empty unchanged snapshots as empty line-change payloads", () => {
+    const diff = Snapshot.from(new Map([["A", ""]])).diff(Snapshot.from(new Map([["A", ""]])));
+    const result = diff.results.get("A")!;
+
+    expect(result.type).toBe(SnapshotDiffResultType.NoChange);
+    expect(result.changes).toEqual([]);
   });
 
   it("should summarize snapshot lifecycle facts", () => {
