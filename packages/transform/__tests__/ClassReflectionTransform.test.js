@@ -37,6 +37,15 @@ function findParsedClass(parser, className) {
   throw new Error(`Unable to find parsed class ${className}`);
 }
 
+function findParsedInterface(parser, interfaceName) {
+  for (const source of parser.sources) {
+    const found = findInterfaceInStatements(source.statements, interfaceName);
+    if (found) return found;
+  }
+
+  throw new Error(`Unable to find parsed interface ${interfaceName}`);
+}
+
 function findClassInStatements(statements, className) {
   for (const statement of statements) {
     if (statement.kind === NodeKind.ClassDeclaration && statement.name.text === className) {
@@ -45,6 +54,21 @@ function findClassInStatements(statements, className) {
 
     if (statement.kind === NodeKind.NamespaceDeclaration) {
       const found = findClassInStatements(statement.members, className);
+      if (found) return found;
+    }
+  }
+
+  return null;
+}
+
+function findInterfaceInStatements(statements, interfaceName) {
+  for (const statement of statements) {
+    if (statement.kind === NodeKind.InterfaceDeclaration && statement.name.text === interfaceName) {
+      return statement;
+    }
+
+    if (statement.kind === NodeKind.NamespaceDeclaration) {
+      const found = findInterfaceInStatements(statement.members, interfaceName);
       if (found) return found;
     }
   }
@@ -90,6 +114,12 @@ function transformParsedSource(parser) {
 
 function countClassMethods(classDeclaration, name) {
   return classDeclaration.members.filter(
+    (member) => member.kind === NodeKind.MethodDeclaration && member.name.text === name,
+  ).length;
+}
+
+function countInterfaceMethods(interfaceDeclaration, name) {
+  return interfaceDeclaration.members.filter(
     (member) => member.kind === NodeKind.MethodDeclaration && member.name.text === name,
   ).length;
 }
@@ -144,6 +174,33 @@ test("class reflection transform is idempotent for the same parsed source", () =
 
   assert.equal(countClassMethods(classDeclaration, STRICT_EQUALS_MEMBER_NAME), 1);
   assert.equal(countClassMethods(classDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 1);
+});
+
+test("class reflection transform augments interfaces with reflection contracts", () => {
+  const parser = parseSource(`interface ComparableValue {
+  }
+
+  class ConcreteValue implements ComparableValue {
+    value: i32 = 1;
+  }`);
+
+  transformParsedSource(parser);
+
+  const interfaceDeclaration = findParsedInterface(parser, "ComparableValue");
+  assert.equal(countInterfaceMethods(interfaceDeclaration, STRICT_EQUALS_MEMBER_NAME), 1);
+  assert.equal(countInterfaceMethods(interfaceDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 1);
+});
+
+test("class reflection transform is idempotent for interface reflection contracts", () => {
+  const parser = parseSource(`interface StableInterface {
+  }`);
+
+  transformParsedSource(parser);
+  transformParsedSource(parser);
+
+  const interfaceDeclaration = findParsedInterface(parser, "StableInterface");
+  assert.equal(countInterfaceMethods(interfaceDeclaration, STRICT_EQUALS_MEMBER_NAME), 1);
+  assert.equal(countInterfaceMethods(interfaceDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 1);
 });
 
 test("class reflection transform rejects user-defined generated method collisions", () => {

@@ -1165,3 +1165,38 @@ describe("Strict equal subclasses", () => {
     expect(a).toStrictEqual(a);
   });
 });
+
+interface StrictEqualInterfaceValue {}
+
+class StrictEqualInterfaceImplementation implements StrictEqualInterfaceValue {
+  constructor(public value: i32) {}
+}
+
+interface StrictEqualGenericInterfaceValue<T> {}
+
+class StrictEqualGenericInterfaceImplementation<T> implements StrictEqualGenericInterfaceValue<T> {
+  constructor(public value: T) {}
+}
+
+describe("Strict equal interfaces", () => {
+  test("compares interface-typed class values structurally", () => {
+    let actual: StrictEqualInterfaceValue = new StrictEqualInterfaceImplementation(1);
+    let expected: StrictEqualInterfaceValue = new StrictEqualInterfaceImplementation(1);
+
+    expect<StrictEqualInterfaceValue>(actual).toStrictEqual(expected);
+  });
+
+  test("detects different interface-typed class values", () => {
+    let actual: StrictEqualInterfaceValue = new StrictEqualInterfaceImplementation(1);
+    let expected: StrictEqualInterfaceValue = new StrictEqualInterfaceImplementation(2);
+
+    expect<StrictEqualInterfaceValue>(actual).not.toStrictEqual(expected);
+  });
+
+  test("compares generic interface-typed class values structurally", () => {
+    let actual: StrictEqualGenericInterfaceValue<i32> = new StrictEqualGenericInterfaceImplementation<i32>(1);
+    let expected: StrictEqualGenericInterfaceValue<i32> = new StrictEqualGenericInterfaceImplementation<i32>(1);
+
+    expect<StrictEqualGenericInterfaceValue<i32>>(actual).toStrictEqual(expected);
+  });
+});
