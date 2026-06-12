@@ -11,6 +11,12 @@ import {
 
 import { createStrictEqualsMember } from "./createStrictEqualsMember.js";
 import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember.js";
+import {
+  ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
+  STRICT_EQUALS_MEMBER_NAME,
+  markGeneratedClassReflectionMember,
+  shouldGenerateClassReflectionMember,
+} from "./ClassReflectionTransform.js";
 
 // @ts-ignore
 export default class AspectTransform extends Transform {
@@ -36,10 +42,24 @@ function traverseStatements(statements: Statement[]): void {
   for (const statement of statements) {
     // find each class declaration
     if (statement.kind === NodeKind.ClassDeclaration) {
-      // cast and create a strictEquals function
+      // cast and create the generated class reflection methods
       const classDeclaration = <ClassDeclaration>statement;
-      classDeclaration.members.push(createStrictEqualsMember(classDeclaration));
-      classDeclaration.members.push(createAddReflectedValueKeyValuePairsMember(classDeclaration));
+
+      const shouldGenerateStrictEquals = shouldGenerateClassReflectionMember(classDeclaration, STRICT_EQUALS_MEMBER_NAME);
+      const shouldGenerateReflectedPairs = shouldGenerateClassReflectionMember(
+        classDeclaration,
+        ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
+      );
+
+      if (shouldGenerateStrictEquals) {
+        classDeclaration.members.push(markGeneratedClassReflectionMember(createStrictEqualsMember(classDeclaration)));
+      }
+
+      if (shouldGenerateReflectedPairs) {
+        classDeclaration.members.push(
+          markGeneratedClassReflectionMember(createAddReflectedValueKeyValuePairsMember(classDeclaration)),
+        );
+      }
     } else if (statement.kind === NodeKind.NamespaceDeclaration) {
       const namespaceDeclaration = <NamespaceDeclaration>statement;
       traverseStatements(namespaceDeclaration.members);
