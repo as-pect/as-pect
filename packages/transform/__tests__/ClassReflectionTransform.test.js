@@ -3,8 +3,11 @@ import assert from "node:assert/strict";
 
 import { ASTBuilder, NodeKind, Parser } from "assemblyscript/dist/assemblyscript.js";
 
+import AspectTransform from "../lib/index.js";
 import {
+  ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
   ClassReflectionMemberKind,
+  STRICT_EQUALS_MEMBER_NAME,
   createClassReflectionMemberPlan,
 } from "../lib/ClassReflectionTransform.js";
 import { createAddReflectedValueKeyValuePairsMember } from "../lib/createAddReflectedValueKeyValuePairsMember.js";
@@ -15,15 +18,38 @@ function parseClass(sourceText, className) {
   parser.parseFile(sourceText, "class-reflection-plan.spec.ts", true);
   parser.finish();
 
+  return findParsedClass(parser, className);
+}
+
+function parseSource(sourceText) {
+  const parser = new Parser();
+  parser.parseFile(sourceText, "class-reflection-plan.spec.ts", true);
+  parser.finish();
+  return parser;
+}
+
+function findParsedClass(parser, className) {
   for (const source of parser.sources) {
-    for (const statement of source.statements) {
-      if (statement.kind === NodeKind.ClassDeclaration && statement.name.text === className) {
-        return statement;
-      }
-    }
+    const found = findClassInStatements(source.statements, className);
+    if (found) return found;
   }
 
   throw new Error(`Unable to find parsed class ${className}`);
+}
+
+function findClassInStatements(statements, className) {
+  for (const statement of statements) {
+    if (statement.kind === NodeKind.ClassDeclaration && statement.name.text === className) {
+      return statement;
+    }
+
+    if (statement.kind === NodeKind.NamespaceDeclaration) {
+      const found = findClassInStatements(statement.members, className);
+      if (found) return found;
+    }
+  }
+
+  return null;
 }
 
 function getPlanEntries(sourceText, className) {
@@ -56,6 +82,16 @@ function getSuperIgnoreLiterals(generatedSource) {
     .split(",")
     .map((literal) => literal.trim())
     .filter(Boolean);
+}
+
+function transformParsedSource(parser) {
+  new AspectTransform().afterParse(parser);
+}
+
+function countClassMethods(classDeclaration, name) {
+  return classDeclaration.members.filter(
+    (member) => member.kind === NodeKind.MethodDeclaration && member.name.text === name,
+  ).length;
 }
 
 test("class-member plan includes instance fields and getters in source order", () => {
@@ -94,6 +130,52 @@ test("class-member plan excludes static members and non-getter methods", () => {
     { name: "includedField", kind: ClassReflectionMemberKind.Field },
     { name: "includedGetter", kind: ClassReflectionMemberKind.Getter },
   ]);
+});
+
+test("class reflection transform is idempotent for the same parsed source", () => {
+  const parser = parseSource(`class StableTransform {
+    value: i32 = 1;
+  }`);
+
+  transformParsedSource(parser);
+  transformParsedSource(parser);
+
+  const classDeclaration = findParsedClass(parser, "StableTransform");
+
+  assert.equal(countClassMethods(classDeclaration, STRICT_EQUALS_MEMBER_NAME), 1);
+  assert.equal(countClassMethods(classDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 1);
+});
+
+test("class reflection transform rejects user-defined generated method collisions", () => {
+  const parser = parseSource(`class UserCollision {
+    value: i32 = 1;
+    __aspectStrictEquals(): bool { return true; }
+  }`);
+
+  assert.throws(
+    () => transformParsedSource(parser),
+    /Cannot generate __aspectStrictEquals for class UserCollision because that member already exists\./,
+  );
+
+  const classDeclaration = findParsedClass(parser, "UserCollision");
+  assert.equal(countClassMethods(classDeclaration, STRICT_EQUALS_MEMBER_NAME), 1);
+  assert.equal(countClassMethods(classDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 0);
+});
+
+test("class reflection transform rejects user-defined reflected-pairs method collisions", () => {
+  const parser = parseSource(`class UserCollision {
+    value: i32 = 1;
+    __aspectAddReflectedValueKeyValuePairs(): void {}
+  }`);
+
+  assert.throws(
+    () => transformParsedSource(parser),
+    /Cannot generate __aspectAddReflectedValueKeyValuePairs for class UserCollision because that member already exists\./,
+  );
+
+  const classDeclaration = findParsedClass(parser, "UserCollision");
+  assert.equal(countClassMethods(classDeclaration, STRICT_EQUALS_MEMBER_NAME), 0);
+  assert.equal(countClassMethods(classDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 1);
 });
 
 test("generated members pass local source-order hashes to super for inherited duplicate suppression", () => {

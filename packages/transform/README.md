@@ -30,6 +30,8 @@ The member plan excludes:
 
 Each planned member carries its name, source range, getter/field kind, and `djb2` name hash. Generated methods pass these hashes through `ignore: StaticArray<i64>` when calling `super` so inherited generated methods do not duplicate members overridden by a child class.
 
+Hash values intentionally remain the compatibility seam with existing generated code. If two inherited member names ever collide under `djb2`, the generated ignore list treats them as the same inherited member and suppresses the parent entry deterministically; the transform does not rename members or attempt a runtime fallback.
+
 ## Runtime relationship
 
 `@as-pect/assembly` uses the generated methods in two places:
@@ -45,3 +47,5 @@ The transform and runtime therefore share a seam: the transform owns the generat
 - Keep the `ignore` hash behavior stable so inherited and overridden members are not reported twice.
 - Keep generated behavior dependency-free; this package should remain a small local transform.
 - Preserve source order when adding reflected/equality-relevant members so reporter output remains stable.
+- Keep transform generation idempotent for the same parsed source; repeated passes should not append duplicate generated members.
+- Reject user-authored `__aspectStrictEquals` or `__aspectAddReflectedValueKeyValuePairs` members with a clear transform error instead of silently overwriting them.
