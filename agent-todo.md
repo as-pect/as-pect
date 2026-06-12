@@ -538,38 +538,6 @@ Prevent JSON and CSV reporter output from being truncated when the CLI exits soo
 
 ---
 
-# 22. Replace string-built `file://` imports with `pathToFileURL()`
-
-## Goal
-
-Make config, reporter, and WASI config imports work for paths with spaces, special characters, Windows separators, and non-ASCII characters.
-
-## Blockers
-
-- Validation baseline should be current; latest baseline is recorded in `VALIDATION_BASELINE.md`.
-
-## Files
-
-- `packages/cli/src/index.ts`
-- `packages/cli/src/collectReporter.ts`
-- `packages/cli/src/TestSession.ts`
-- `packages/cli/__tests__/` for focused path/import tests
-
-## Tasks
-
-- [ ] Replace `import("file://" + path)` patterns with `import(pathToFileURL(path).href)`.
-- [ ] Add focused tests for paths containing spaces or URL-significant characters where practical.
-- [ ] Confirm config import, custom reporter import, and WASI config import all use the same safe file-url helper.
-- [ ] Keep error messages displaying readable filesystem paths, not encoded URLs.
-
-## Acceptance criteria
-
-- [ ] All local dynamic imports use `pathToFileURL()`.
-- [ ] Import behavior works for at least one path with a space or URL-significant character in a focused test.
-- [ ] Existing CLI import behavior remains compatible.
-
----
-
 # 23. Clarify and test custom reporter import semantics
 
 ## Goal

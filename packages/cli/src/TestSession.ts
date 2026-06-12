@@ -8,6 +8,7 @@ import { TestContext, type IWritable } from "@as-pect/core";
 import { Snapshot } from "@as-pect/snapshots";
 import { IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter } from "./collectReporter.js";
+import { importLocalModule } from "./importLocalModule.js";
 
 export const enum SnapshotMode {
   WriteSnapshots,
@@ -392,8 +393,8 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     if (options.wasi) {
       const { WASI } = await import("wasi");
       const wasiRelativeLocation = options.wasi;
-      const wasiLocation = path.join(cwd, wasiRelativeLocation);
-      const wasiConfig = (await import("file://" + wasiLocation)).default;
+      const wasiLocation = path.resolve(cwd, wasiRelativeLocation);
+      const wasiConfig = (await importLocalModule<{ default: import("wasi").WASIOptions }>(wasiLocation)).default;
       wasi = new WASI(withWasiPreview1(wasiConfig));
     } else if (aspectConfig.wasi) {
       const { WASI } = await import("wasi");
