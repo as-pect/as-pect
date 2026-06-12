@@ -1,6 +1,7 @@
 import { Stringifier, stringify } from "csv-stringify";
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
+import { finished } from "stream/promises";
 import { TestContext, IReporter, IWritable, SuiteReport, SuiteReportEvent, SuiteResultReport } from "@as-pect/core";
 
 /**
@@ -18,6 +19,7 @@ export default class CSVReporter implements IReporter {
 
   protected output: Stringifier | null = null;
   protected fileName: WriteStream | null = null;
+  protected pendingWrite: Promise<void> = Promise.resolve();
 
   public onEnter(_ctx: TestContext): void {}
 
@@ -31,6 +33,10 @@ export default class CSVReporter implements IReporter {
     this.writeReport(SuiteReport.from(ctx));
   }
 
+  public onFlush(): Promise<void> {
+    return this.pendingWrite;
+  }
+
   protected writeReport(report: SuiteReport): void {
     const extension = extname(report.fileName);
     const dir = dirname(report.fileName);
@@ -40,6 +46,7 @@ export default class CSVReporter implements IReporter {
     this.output = stringify({ columns: csvColumns });
     this.fileName = createWriteStream(outPath, "utf8");
     this.output.pipe(this.fileName);
+    this.pendingWrite = Promise.all([finished(this.output), finished(this.fileName)]).then(() => undefined);
     this.output.write(csvColumns);
 
     for (const result of report.results) {

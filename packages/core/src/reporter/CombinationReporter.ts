@@ -38,6 +38,10 @@ export class CombinationReporter implements IReporter {
     this.reporters.forEach((e) => e.onFinish(ctx));
   }
 
+  async onFlush(): Promise<void> {
+    await Promise.all(this.reporters.map((reporter) => reporter.onFlush?.()));
+  }
+
   onReportGroupStart(event: GroupReportEvent): void {
     this.reporters.forEach((reporter) => {
       if (reporter.onReportGroupStart) {

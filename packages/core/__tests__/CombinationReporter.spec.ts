@@ -51,6 +51,44 @@ describe("CombinationReporter", () => {
     expect(second.entries).toEqual(["enter", "exit", "finish"]);
   });
 
+  it("should wait for every reporter that implements the optional flush seam", async () => {
+    const first = new RecordingReporter();
+    const second = new RecordingReporter();
+    const reporter = new CombinationReporter([first, second]);
+    const calls: string[] = [];
+    let releaseFirst!: () => void;
+    let releaseSecond!: () => void;
+
+    first.onFlush = async () => {
+      calls.push("first:start");
+      await new Promise<void>((resolve) => {
+        releaseFirst = resolve;
+      });
+      calls.push("first:end");
+    };
+    second.onFlush = async () => {
+      calls.push("second:start");
+      await new Promise<void>((resolve) => {
+        releaseSecond = resolve;
+      });
+      calls.push("second:end");
+    };
+
+    const flushed = reporter.onFlush();
+    await Promise.resolve();
+
+    expect(calls).toEqual(["first:start", "second:start"]);
+
+    releaseFirst();
+    await Promise.resolve();
+    expect(calls).toEqual(["first:start", "second:start", "first:end"]);
+
+    releaseSecond();
+    await flushed;
+
+    expect(calls).toEqual(["first:start", "second:start", "first:end", "second:end"]);
+  });
+
   it("should combine reporters at the reporting seam and fall back to compatibility callbacks", () => {
     const reportingSeam = new RecordingReporter();
     const compatibilitySeam = new RecordingReporter();

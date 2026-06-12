@@ -1,5 +1,6 @@
 import { WriteStream, createWriteStream } from "fs";
 import { basename, extname, dirname, join } from "path";
+import { finished } from "stream/promises";
 import { TestContext, IReporter, IWritable, SuiteReport, SuiteReportEvent, SuiteResultReport } from "@as-pect/core";
 
 /**
@@ -11,6 +12,7 @@ export default class JSONReporter implements IReporter {
   public stderr: IWritable | null = null;
 
   protected file: WriteStream | null = null;
+  protected pendingWrite: Promise<void> = Promise.resolve();
 
   private first: boolean = true;
 
@@ -26,6 +28,10 @@ export default class JSONReporter implements IReporter {
     this.writeReport(SuiteReport.from(ctx));
   }
 
+  public onFlush(): Promise<void> {
+    return this.pendingWrite;
+  }
+
   protected writeReport(report: SuiteReport): void {
     const extension = extname(report.fileName);
     const dir = dirname(report.fileName);
@@ -33,6 +39,7 @@ export default class JSONReporter implements IReporter {
     const outPath = join(process.cwd(), dir, base + ".json");
 
     this.file = createWriteStream(outPath, "utf8");
+    this.pendingWrite = finished(this.file).then(() => undefined);
     this.file.write("[");
     this.first = true;
 
