@@ -1,6 +1,7 @@
 import { Snapshot } from "./Snapshot.js";
 import { SnapshotDiffResult, SnapshotDiffResultType } from "./SnapshotDiffResult.js";
 import { diffLines } from "diff";
+import type { Change } from "diff";
 
 export class SnapshotDiff {
   results = new Map<string, SnapshotDiffResult>();
@@ -21,12 +22,18 @@ export class SnapshotDiff {
       // the snapshot exists, NoChange or Different
       if (right.has(key)) {
         const rightValue = right.get(key)!;
-        const lines = diffLines(rightValue, value);
         const result = new SnapshotDiffResult();
         result.left = value;
         result.right = rightValue;
-        result.type = value === rightValue ? SnapshotDiffResultType.NoChange : SnapshotDiffResultType.Different;
-        result.changes = lines;
+
+        if (value === rightValue) {
+          result.type = SnapshotDiffResultType.NoChange;
+          result.changes = createUnchangedLineChanges(value);
+        } else {
+          result.type = SnapshotDiffResultType.Different;
+          result.changes = diffLines(rightValue, value);
+        }
+
         this.results.set(key, result);
       } else {
         // it was added
@@ -52,4 +59,27 @@ export class SnapshotDiff {
       }
     }
   }
+}
+
+function createUnchangedLineChanges(value: string): Change[] {
+  if (value === "") return [];
+
+  return [
+    {
+      count: countLines(value),
+      added: false,
+      removed: false,
+      value,
+    },
+  ];
+}
+
+function countLines(value: string): number {
+  let lineCount = 1;
+
+  for (let i = 0; i < value.length; i++) {
+    if (value.charCodeAt(i) === 10) lineCount += 1;
+  }
+
+  return value.endsWith("\n") ? lineCount - 1 : lineCount;
 }
