@@ -3,12 +3,27 @@ import {
   TestNodeType,
   IAspectExports,
   EmptyReporter,
+  ReflectedValue,
 } from "../src/index.js";
 import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue.js";
 import { promises as fs } from "fs";
 import { instantiate } from "@assemblyscript/loader";
 
 const binary = fs.readFile("./assembly/jest-log.wasm");
+
+function normalizePointers(value: ReflectedValue, seen = new Set<ReflectedValue>()): void {
+  if (seen.has(value)) return;
+  seen.add(value);
+  value.pointer = 0;
+
+  for (const key of value.keys ?? []) {
+    normalizePointers(key, seen);
+  }
+
+  for (const child of value.values ?? []) {
+    normalizePointers(child, seen);
+  }
+}
 
 const stringifyOptions: Partial<StringifyReflectedValueProps> = {
   indent: 2,
@@ -40,6 +55,7 @@ describe("log output", () => {
         for (const log of group.logs) {
           const stack = log.stack;
           log.stack = "";
+          normalizePointers(log);
           expect(log).toMatchSnapshot(`${group.name} log`);
           log.stack = stack;
         }
@@ -51,7 +67,7 @@ describe("log output", () => {
           for (const log of groupTest.logs) {
             const stack = log.stack;
             log.stack = "";
-            log.pointer = 0;
+            normalizePointers(log);
             expect(log).toMatchSnapshot(`${group.name} ${groupTest.name} log`);
             expect(log.stringify(stringifyOptions)).toMatchSnapshot(
               `${group.name} ${groupTest.name} stringify`,
