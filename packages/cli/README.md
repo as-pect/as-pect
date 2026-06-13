@@ -45,6 +45,44 @@ If you maintain a custom `as-pect.asconfig.json`, make sure it includes the cove
 }
 ```
 
+## AssemblyScript compiler options
+
+`as-pect.config.js` configures test discovery, host imports, reporters, WASI, coverage globs, and output behavior. It is not an `asc` compiler configuration file.
+
+Put AssemblyScript compiler options, including the `asc --lib` option, in `as-pect.asconfig.json`. `asp` invokes the compiler with that file and selects either the `noCoverage` target or the `coverage` target, so target-specific options must be present on the target that will run.
+
+For example, add custom library components to tests like this:
+
+```json
+{
+  "targets": {
+    "coverage": {
+      "lib": ["./assembly/test-lib", "./node_modules/@as-covers/assembly/index.ts"],
+      "transform": ["@as-covers/transform", "@as-pect/transform"]
+    },
+    "noCoverage": {
+      "lib": ["./assembly/test-lib"],
+      "transform": ["@as-pect/transform"]
+    }
+  },
+  "options": {
+    "exportMemory": true,
+    "outFile": "output.wasm",
+    "textFile": "output.wat",
+    "bindings": "raw",
+    "exportStart": "_start",
+    "exportRuntime": true,
+    "use": ["RTRACE=1"],
+    "debug": true,
+    "exportTable": true
+  },
+  "extends": "./asconfig.json",
+  "entries": ["./node_modules/@as-pect/assembly/assembly/index.ts"]
+}
+```
+
+Keep using `as-pect.config.js` for JavaScript-side WebAssembly imports through `instantiate(...)`. Use `as-pect.asconfig.json` for AssemblyScript-side compile-time inputs such as `lib`, `path`, `transform`, and `use`.
+
 ## Contributors
 
 To contribute please see [CONTRIBUTING.md](./CONTRIBUTING.md).

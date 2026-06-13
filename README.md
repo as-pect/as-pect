@@ -26,6 +26,10 @@ export default {
 
 When coverage is enabled, `asp` uses the `coverage` target from `as-pect.asconfig.json`, which wires in `@as-covers/assembly` and `@as-covers/transform`, then prints the coverage report after the test run. See [`packages/cli/README.md`](./packages/cli/README.md#code-coverage) for the target configuration details.
 
+## AssemblyScript compiler options
+
+`as-pect.config.js` configures the test runner. Put AssemblyScript compiler options in `as-pect.asconfig.json` instead. For example, configure the `asc --lib` option as a `lib` array on the `noCoverage` target, and also on the `coverage` target when coverage is enabled. See [`packages/cli/README.md`](./packages/cli/README.md#assemblyscript-compiler-options) for an example.
+
 ## Development and publishing
 
 This repository uses npm workspaces for local package linking and Changesets for versioning/publishing.
