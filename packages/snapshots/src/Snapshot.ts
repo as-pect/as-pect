@@ -73,8 +73,6 @@ export class SnapshotParser extends CstParser {
   }
 }
 
-// TODO: Add parser combinator grammar here
-
 export class Snapshot {
   public static parse(input: string): Snapshot {
     const result = new Snapshot();
