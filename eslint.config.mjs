@@ -14,6 +14,7 @@ export default [
       "packages/assembly/assembly/internal/**",
       "packages/assembly/assembly/__tests__/setup/Test.include.ts",
       "packages/core/assembly/jest-reporter-fail.ts",
+      "packages/core/assembly/jest-lifecycle.ts",
       "**/lib/**",
       "node_modules/**",
       "coverage/**",
