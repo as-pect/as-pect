@@ -3,6 +3,9 @@ import {
   failingSuiteReport,
   passingSuiteReport,
   snapshotChangeSuiteReport,
+  suiteGroupReport,
+  suiteReport,
+  suiteTestReport,
   todoSuiteReport,
   warningSuiteReport,
 } from "./setup/SuiteReportFixtures.js";
@@ -12,6 +15,21 @@ import {
   writeVerboseReport,
   writeVerboseTestFinish,
 } from "./setup/ReporterTestUtils.js";
+
+test("VerboseReporter skips files that only collected filtered-out tests", () => {
+  const skippedTest = suiteTestReport({ name: "skipped by filter", ran: false, pass: true });
+  const output = writeVerboseReport(
+    suiteReport({
+      fileName: "assembly/skipped.spec.ts",
+      pass: true,
+      hasResults: false,
+      groups: [suiteGroupReport({ tests: [skippedTest] })],
+      results: [skippedTest],
+    }),
+  );
+
+  expect(output).toBe("");
+});
 
 test("VerboseReporter writes group starts from SuiteReport group facts", () => {
   const [group] = passingSuiteReport().groups;

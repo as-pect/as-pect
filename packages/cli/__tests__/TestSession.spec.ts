@@ -219,6 +219,88 @@ describe("Test session execution", () => {
     expect(events).toEqual(["finish", "flush:start", "flush:end"]);
   });
 
+  it("aggregates stats only for entries with executed results", async () => {
+    const strings = new Map([
+      [1, "matched group"],
+      [2, "matched test"],
+    ]);
+    const reporter = {
+      stderr: null,
+      stdout: null,
+      onEnter() {},
+      onExit() {},
+      onFinish() {},
+    };
+    const collectReporter = jest.fn(async () => reporter);
+    const modulesWithResults: boolean[] = [];
+    const compile = jest.fn(async (args, io) => {
+      modulesWithResults.push(args[0].includes("matched"));
+      io.writeFile("build/output.wasm", minimalWasmBinary, "/workspace");
+      io.writeFile("build/output.wat", "(module)", "/workspace");
+      return { stats: { toString: () => "compiler stats" } };
+    });
+    const instantiate = jest.fn(
+      async (
+        memory: WebAssembly.Memory,
+        createImports: Parameters<IAspectConfig["instantiate"]>[1],
+        _instantiate: Parameters<IAspectConfig["instantiate"]>[2],
+        _binary: Uint8Array,
+      ) => {
+        const imports = createImports({ env: { memory } }) as any;
+        const hasResults = modulesWithResults.shift() ?? false;
+        const exports = {
+          memory,
+          _start() {
+            if (hasResults) imports.__aspect.reportGroupTypeNode(1, 10);
+          },
+          __call(pointer: number) {
+            if (pointer === 10) imports.__aspect.reportTestTypeNode(2, 20);
+          },
+          __getString(pointer: number) {
+            return strings.get(pointer) ?? "";
+          },
+        };
+        return { exports, instance: {} as WebAssembly.Instance };
+      },
+    );
+    const dependencies: Partial<TestSessionDependencies> = {
+      collectReporter,
+      compile,
+      fileSystem: {
+        access: jest.fn(async () => void 0),
+        existsSync: jest.fn(() => false),
+        mkdir: jest.fn(async () => void 0),
+        readFile: jest.fn(async () => ""),
+        readFileSync: jest.fn(() => ""),
+        readdirSync: jest.fn(() => []),
+        writeFile: jest.fn(async () => void 0),
+      },
+      glob: jest.fn(async (pattern) =>
+        pattern.includes("*.spec.ts")
+          ? ["assembly/__tests__/skipped.spec.ts", "assembly/__tests__/matched.spec.ts"]
+          : [],
+      ),
+    };
+
+    const config = createTestSessionConfig({
+      args: ["assembly/__tests__/*.spec.ts"],
+      aspectConfig: { ...aspectConfig, instantiate },
+      asconfigLocation: "./as-pect.asconfig.json",
+      cwd: "/workspace",
+      dependencies,
+      options: {},
+    });
+
+    const result = await new TestSession(config).run();
+
+    expect(result.pass).toBe(true);
+    expect(result.stats.tests).toBe(1);
+    expect(result.stats.passedTests).toBe(1);
+    expect(result.stats.groups).toBe(2);
+    expect(result.stats.passedGroups).toBe(2);
+    expect(compile).toHaveBeenCalledTimes(2);
+  });
+
   it("sorts discovered entries while preserving CLI and config glob precedence", async () => {
     const compile = jest.fn(async (_args, io) => {
       io.writeFile("build/output.wasm", new Uint8Array([1, 2, 3]), "/workspace");

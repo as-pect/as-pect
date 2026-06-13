@@ -33,6 +33,8 @@ export default class JSONReporter implements IReporter {
   }
 
   protected writeReport(report: SuiteReport): void {
+    if (report.hasResults === false) return;
+
     const extension = extname(report.fileName);
     const dir = dirname(report.fileName);
     const base = basename(report.fileName, extension);
