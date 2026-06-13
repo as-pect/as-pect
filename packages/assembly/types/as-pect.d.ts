@@ -335,6 +335,23 @@ declare class Expectation<T> {
   toThrow(message?: string): void;
 
   /**
+   * If the value is callable, it calls the function and fails the expectation unless it throws with a
+   * message or stack trace that includes the expected message.
+   *
+   * @param {string} expectedMessage - The expected thrown message substring.
+   * @param {string} message - The optional message that describes the expectation.
+   *
+   * @example
+   *
+   * ```ts
+   * expectFn((): void => {
+   *   throw new Error("cats cannot bark");
+   * }).toThrowWith("cannot bark");
+   * ```
+   */
+  toThrowWith(expectedMessage: string, message?: string): void;
+
+  /**
    * This expecation asserts that the value is truthy, like in javascript. If the value is a string,
    * then strings of length 0 are not truthy.
    *

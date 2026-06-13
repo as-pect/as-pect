@@ -9,6 +9,10 @@ import { assert } from "./assert";
 declare function tryCall(func: () => void): bool;
 
 // @ts-ignore: Decorators *are* valid here
+@external("__aspect", "errorMessageIncludes")
+declare function errorMessageIncludes(expectedMessage: string): bool;
+
+// @ts-ignore: Decorators *are* valid here
 @global
 export class Expectation<T> {
   /**
@@ -186,6 +190,34 @@ export class Expectation<T> {
     Actual.report(throws ? "Throws" : "Not Throws");
     Expected.report("Throws", negated);
     assert(negated ^ throws, message);
+    Actual.clear();
+    Expected.clear();
+  }
+
+  public toThrowWith(expectedMessage: string, message: string = ""): void {
+    let actual = this.actual;
+    let negated = this._not;
+
+    if (!isFunction(actual)) {
+      // @as-covers: ignore because this is a compile time error
+      ERROR(nameof<T>());
+      ERROR(
+        "Expectation#toThrowWith assertion called on actual T where T is not a function reference",
+      );
+    }
+    if (idof<T>() != idof<() => void>())
+      // @as-covers: ignore because this is a compile time error
+      ERROR(
+        "Expectation#toThrowWith assertion called on actual T where T is not a function reference with signature () => void",
+      );
+
+    // @ts-ignore: safe tryCall
+    let throws = i32(!tryCall(actual));
+    let matches = throws;
+    if (matches) matches = i32(errorMessageIncludes(expectedMessage));
+    Actual.report(throws ? "Throws" : "Not Throws");
+    Expected.report("Throws with message: " + expectedMessage, negated);
+    assert(negated ^ matches, message);
     Actual.clear();
     Expected.clear();
   }
