@@ -137,13 +137,13 @@ export class SuiteReport {
     this.groupCount = suite.groupCount;
     this.groupPassCount = suite.groupPassCount;
     this.rootRuntime = suite.rootNode.deltaT;
-    this.hasResults = suite.rootNode.children.length > 0;
     this.rootNode = suite.rootNode;
     this.warnings = suite.warnings;
     this.errors = suite.errors;
     this.groups = SuiteReport.collectGroups(suite.rootNode);
     this.todoCount = this.groups.reduce((count, group) => count + group.todos.length, 0);
     this.results = SuiteReport.collectResults(this.groups);
+    this.hasResults = suite.testCount > 0 || suite.todoCount > 0 || this.warnings.length > 0 || this.errors.length > 0;
 
     const snapshotDiff = suite.snapshotLifecycle ? suite.snapshotLifecycle.diff : suite.snapshotDiff!;
     const snapshotStats = suite.snapshotLifecycle ? suite.snapshotLifecycle.stats : null;

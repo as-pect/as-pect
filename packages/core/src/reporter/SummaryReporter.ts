@@ -60,6 +60,8 @@ export class SummaryReporter implements IReporter {
   }
 
   private writeReport(report: SuiteReport): void {
+    if (!report.hasResults) return;
+
     const groups = report.groups;
     const total = report.testCount;
     const passCount = report.testPassCount;

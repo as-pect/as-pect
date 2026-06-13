@@ -304,7 +304,10 @@ export class TestContext {
       // validate this node will run
       if (node !== this.rootNode) {
         const regexTester = node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
-        if (!regexMatches(regexTester, node.name)) return;
+        if (!regexMatches(regexTester, node.name)) {
+          node.pass = true;
+          return;
+        }
       }
 
       // this node is being tested for sure

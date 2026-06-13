@@ -4,7 +4,7 @@ import chalk from "chalk";
 import { glob as defaultGlob } from "glob";
 import { main as asc } from "assemblyscript/dist/asc.js";
 import { instantiate } from "@assemblyscript/loader";
-import { TestContext, type IWritable } from "@as-pect/core";
+import { SuiteReport, TestContext, type IWritable } from "@as-pect/core";
 import { Snapshot, type SnapshotLifecycleStats } from "@as-pect/snapshots";
 import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
@@ -476,6 +476,9 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     covers?.registerLoader(module);
     ctx.run(module as any);
     await reporter.onFlush?.();
+
+    if (!SuiteReport.from(ctx).hasResults) continue;
+
     stats.groups += ctx.groupCount;
     stats.tests += ctx.testCount;
     stats.passedGroups += ctx.groupPassCount;
