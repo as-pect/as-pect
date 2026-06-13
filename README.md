@@ -13,6 +13,19 @@ with WebAssembly speeds!
 
 The [documentation is located at gitbook](https://as-pect.gitbook.io/as-pect/). If there are any issues with the docs, please feel free to file an issue!
 
+## Code coverage
+
+AssemblyScript line and branch coverage is provided through [`as-covers`](https://www.npmjs.com/package/@as-covers/core). In projects created with `asp --init`, enable it by adding coverage globs to `as-pect.config.js`:
+
+```js
+export default {
+  // ...the rest of your as-pect config
+  coverage: ["assembly/**/*.ts"],
+};
+```
+
+When coverage is enabled, `asp` uses the `coverage` target from `as-pect.asconfig.json`, which wires in `@as-covers/assembly` and `@as-covers/transform`, then prints the coverage report after the test run. See [`packages/cli/README.md`](./packages/cli/README.md#code-coverage) for the target configuration details.
+
 ## Development and publishing
 
 This repository uses npm workspaces for local package linking and Changesets for versioning/publishing.
