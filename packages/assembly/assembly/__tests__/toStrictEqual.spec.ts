@@ -24,6 +24,54 @@ store<f64>(changetype<usize>(buff3), 4.0);
 store<f64>(changetype<usize>(buff3), 5.0, 8);
 store<f64>(changetype<usize>(buff3), 6.0, 16);
 
+class StrictEqualsUsesFalseOperator {
+  value: i32;
+
+  constructor(value: i32) {
+    this.value = value;
+  }
+
+  @operator("==")
+  private __equals(other: StrictEqualsUsesFalseOperator): bool {
+    return false;
+  }
+}
+
+class StrictEqualsUsesTrueOperator {
+  value: i32;
+
+  constructor(value: i32) {
+    this.value = value;
+  }
+
+  @operator("==")
+  protected __equals(other: StrictEqualsUsesTrueOperator): bool {
+    return true;
+  }
+}
+
+class ParentStrictEqualsUsesFalseOperator {
+  parentValue: i32;
+
+  constructor(parentValue: i32) {
+    this.parentValue = parentValue;
+  }
+
+  @operator("==")
+  protected __equals(other: ParentStrictEqualsUsesFalseOperator): bool {
+    return false;
+  }
+}
+
+class ChildStrictEqualsUsesInheritedOperator extends ParentStrictEqualsUsesFalseOperator {
+  childValue: i32;
+
+  constructor(parentValue: i32, childValue: i32) {
+    super(parentValue);
+    this.childValue = childValue;
+  }
+}
+
 /**
  * This test suite is responsible for verifing that all the memcmp operations used by toStrictEqual
  * function properly.
@@ -224,6 +272,36 @@ describe("toStrictEqual", () => {
       expect(buff1).toStrictEqual(buff3);
     },
     "Non-strictEqual array buffers should throw when they are expected to strictly equal each other.",
+  );
+
+  /**
+   * Classes with custom equality should treat that operator as authoritative.
+   */
+  throws(
+    "when an equality operator rejects otherwise structurally equal references",
+    () => {
+      expect(new StrictEqualsUsesFalseOperator(1)).toStrictEqual(
+        new StrictEqualsUsesFalseOperator(1),
+      );
+    },
+  );
+
+  it("should pass when an equality operator accepts structurally different references", () => {
+    expect(new StrictEqualsUsesTrueOperator(1)).toStrictEqual(
+      new StrictEqualsUsesTrueOperator(2),
+    );
+  });
+
+  /**
+   * Inherited custom equality should also be treated as authoritative.
+   */
+  throws(
+    "when an inherited equality operator rejects otherwise structurally equal references",
+    () => {
+      expect(new ChildStrictEqualsUsesInheritedOperator(1, 2)).toStrictEqual(
+        new ChildStrictEqualsUsesInheritedOperator(1, 2),
+      );
+    },
   );
 
   /**

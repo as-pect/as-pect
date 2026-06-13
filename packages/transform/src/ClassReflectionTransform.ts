@@ -2,6 +2,8 @@ import {
   ClassDeclaration,
   CommonFlags,
   FieldDeclaration,
+  LiteralKind,
+  StringLiteralExpression,
   MethodDeclaration,
   NodeKind,
   Range,
@@ -14,6 +16,9 @@ export const STRICT_EQUALS_MEMBER_NAME = "__aspectStrictEquals";
 
 /** The generated method runtime reflection calls to enumerate reflected object members. */
 export const ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME = "__aspectAddReflectedValueKeyValuePairs";
+
+/** The generated marker inherited by classes that should defer strict equality to @operator("=="). */
+export const HAS_EQ_OPERATOR_MEMBER_NAME = "__aspectHasEqOperator";
 
 const generatedClassReflectionMembers = new WeakSet<MethodDeclaration>();
 
@@ -88,6 +93,40 @@ export interface ClassReflectionMemberPlan {
   members: ClassReflectionMember[];
   /** The member-name hashes used to suppress inherited duplicates. */
   hashes: number[];
+}
+
+/** Return true when the class declares a local AssemblyScript equality operator overload. */
+export function hasLocalEqualsOperator(classDeclaration: ClassDeclaration): boolean {
+  for (const member of classDeclaration.members) {
+    if (member.kind !== NodeKind.MethodDeclaration) continue;
+
+    const methodDeclaration = <MethodDeclaration>member;
+    if (!methodDeclaration.decorators) continue;
+
+    for (const decorator of methodDeclaration.decorators) {
+      if (!decorator.args || decorator.args.length === 0) continue;
+      if (!isOperatorDecoratorName(decorator.name)) continue;
+
+      const operatorName = decorator.args[0];
+      if (!operatorName) continue;
+      if (operatorName.kind !== NodeKind.Literal) continue;
+      if ((<StringLiteralExpression>operatorName).literalKind !== LiteralKind.String) continue;
+      if ((<StringLiteralExpression>operatorName).value === "==") return true;
+    }
+  }
+
+  return false;
+}
+
+function isOperatorDecoratorName(name: { kind: NodeKind; text?: string; expression?: unknown }): boolean {
+  if (name.kind === NodeKind.Identifier) return name.text === "operator";
+
+  if (name.kind === NodeKind.PropertyAccess) {
+    const propertyAccess = <{ expression: { kind: NodeKind; text?: string } }>name;
+    return propertyAccess.expression.kind === NodeKind.Identifier && propertyAccess.expression.text === "operator";
+  }
+
+  return false;
 }
 
 /**
