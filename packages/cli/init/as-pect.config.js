@@ -24,7 +24,11 @@ export default {
     instance = instantiate(binary, createImports(myImports));
     return instance;
   },
-  /** Enable code coverage. */
+  /**
+   * Enable line and branch coverage with as-covers for the matching AssemblyScript files.
+   * When this array is non-empty, asp compiles with the `coverage` target in
+   * as-pect.asconfig.json and prints a coverage report after the test run.
+   */
   // coverage: ["assembly/**/*.ts"],
   /**
    * Specify if the binary wasm file should be written to the file system.
