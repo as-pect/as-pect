@@ -1,4 +1,8 @@
-import { STRICT_EQUALS_MEMBER_NAME, createClassReflectionMemberPlan } from "./ClassReflectionTransform.js";
+import {
+  HAS_EQ_OPERATOR_MEMBER_NAME,
+  STRICT_EQUALS_MEMBER_NAME,
+  createClassReflectionMemberPlan,
+} from "./ClassReflectionTransform.js";
 
 import {
   TypeNode,
@@ -63,6 +67,22 @@ export function createStrictEqualsMember(classDeclaration: ClassDeclaration): Me
       range,
     ),
     createStrictEqualsFunctionBody(classDeclaration),
+    range,
+  );
+}
+
+/** Create the inherited marker used to tell strict equality to defer to @operator("=="). */
+export function createHasEqualsOperatorMember(classDeclaration: ClassDeclaration): MethodDeclaration {
+  const range = classDeclaration.name.range;
+
+  // protected __aspectHasEqOperator(): bool { return true; }
+  return TypeNode.createMethodDeclaration(
+    TypeNode.createIdentifierExpression(HAS_EQ_OPERATOR_MEMBER_NAME, range),
+    null,
+    CommonFlags.Protected | CommonFlags.Instance | (classDeclaration.isGeneric ? CommonFlags.GenericContext : 0),
+    null,
+    TypeNode.createFunctionType([], createSimpleNamedType("bool", range), null, false, range),
+    TypeNode.createBlockStatement([TypeNode.createReturnStatement(TypeNode.createTrueExpression(range), range)], range),
     range,
   );
 }
@@ -145,6 +165,9 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
     ),
   );
 
+  // If this class, or a parent class, defines @operator("=="), strict equality uses that operator as authoritative.
+  body.push(createEqualsOperatorDelegationStatement(range));
+
   // Generate a check for each reflected/equality-relevant class member.
   for (const member of memberPlan.members) {
     body.push(createStrictEqualsIfCheck(member.name, member.hash, member.range));
@@ -157,13 +180,35 @@ function createStrictEqualsFunctionBody(classDeclaration: ClassDeclaration): Blo
   return TypeNode.createBlockStatement(body, range);
 }
 
-/**
- * This function generates a single IfStatement with a nested ReturnStatement
- * to validate a nested property on a given class.
- *
- * @param {string} name - The name of the property.
- * @param {Range} range - The source range for the given property.
- */
+/** Create the optional fast path that lets user-defined equality decide strict equality. */
+function createEqualsOperatorDelegationStatement(range: Range): IfStatement {
+  return TypeNode.createIfStatement(
+    TypeNode.createCallExpression(
+      TypeNode.createIdentifierExpression("isDefined", range),
+      null,
+      [
+        TypeNode.createPropertyAccessExpression(
+          TypeNode.createThisExpression(range),
+          TypeNode.createIdentifierExpression(HAS_EQ_OPERATOR_MEMBER_NAME, range),
+          range,
+        ),
+      ],
+      range,
+    ),
+    TypeNode.createReturnStatement(
+      TypeNode.createBinaryExpression(
+        Token.Equals_Equals,
+        TypeNode.createThisExpression(range),
+        TypeNode.createIdentifierExpression("ref", range),
+        range,
+      ),
+      range,
+    ),
+    null,
+    range,
+  );
+}
+
 function createStrictEqualsIfCheck(name: string, hashValue: number, range: Range): IfStatement {
   const equalsCheck = TypeNode.createBinaryExpression(
     Token.Equals_Equals,

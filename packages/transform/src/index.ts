@@ -10,7 +10,7 @@ import {
   Source,
 } from "assemblyscript/dist/assemblyscript.js";
 
-import { createStrictEqualsMember } from "./createStrictEqualsMember.js";
+import { createHasEqualsOperatorMember, createStrictEqualsMember } from "./createStrictEqualsMember.js";
 import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember.js";
 import {
   createInterfaceAddReflectedValueKeyValuePairsMember,
@@ -18,7 +18,9 @@ import {
 } from "./createInterfaceReflectionMembers.js";
 import {
   ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
+  HAS_EQ_OPERATOR_MEMBER_NAME,
   STRICT_EQUALS_MEMBER_NAME,
+  hasLocalEqualsOperator,
   markGeneratedClassReflectionMember,
   shouldGenerateClassReflectionMember,
 } from "./ClassReflectionTransform.js";
@@ -58,6 +60,16 @@ function traverseStatements(statements: Statement[]): void {
         classDeclaration,
         ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
       );
+      const shouldGenerateEqualsMarker = shouldGenerateClassReflectionMember(
+        classDeclaration,
+        HAS_EQ_OPERATOR_MEMBER_NAME,
+      );
+
+      if (hasLocalEqualsOperator(classDeclaration) && shouldGenerateEqualsMarker) {
+        classDeclaration.members.push(
+          markGeneratedClassReflectionMember(createHasEqualsOperatorMember(classDeclaration)),
+        );
+      }
 
       if (shouldGenerateStrictEquals) {
         classDeclaration.members.push(markGeneratedClassReflectionMember(createStrictEqualsMember(classDeclaration)));

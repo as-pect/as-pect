@@ -7,11 +7,13 @@ import AspectTransform from "../lib/index.js";
 import {
   ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
   ClassReflectionMemberKind,
+  HAS_EQ_OPERATOR_MEMBER_NAME,
   STRICT_EQUALS_MEMBER_NAME,
   createClassReflectionMemberPlan,
+  hasLocalEqualsOperator,
 } from "../lib/ClassReflectionTransform.js";
 import { createAddReflectedValueKeyValuePairsMember } from "../lib/createAddReflectedValueKeyValuePairsMember.js";
-import { createStrictEqualsMember } from "../lib/createStrictEqualsMember.js";
+import { createHasEqualsOperatorMember, createStrictEqualsMember } from "../lib/createStrictEqualsMember.js";
 
 function parseClass(sourceText, className) {
   const parser = new Parser();
@@ -217,6 +219,74 @@ test("class reflection transform rejects user-defined generated method collision
   const classDeclaration = findParsedClass(parser, "UserCollision");
   assert.equal(countClassMethods(classDeclaration, STRICT_EQUALS_MEMBER_NAME), 1);
   assert.equal(countClassMethods(classDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 0);
+});
+
+test("class reflection transform detects local equality operator overloads", () => {
+  assert.equal(
+    hasLocalEqualsOperator(
+      parseClass(
+        `class UsesEquals {
+          @operator("==")
+          protected __equals(other: UsesEquals): bool { return true; }
+        }`,
+        "UsesEquals",
+      ),
+    ),
+    true,
+  );
+
+  assert.equal(
+    hasLocalEqualsOperator(
+      parseClass(
+        `class UsesOtherOperator {
+          @operator(">")
+          protected __greater(other: UsesOtherOperator): bool { return true; }
+        }`,
+        "UsesOtherOperator",
+      ),
+    ),
+    false,
+  );
+});
+
+test("class reflection transform generates inherited equality marker for classes with equality operator overloads", () => {
+  const parser = parseSource(`class UsesEquals {
+    @operator("==")
+    protected __equals(other: UsesEquals): bool { return true; }
+  }`);
+
+  transformParsedSource(parser);
+
+  const classDeclaration = findParsedClass(parser, "UsesEquals");
+  assert.equal(countClassMethods(classDeclaration, HAS_EQ_OPERATOR_MEMBER_NAME), 1);
+});
+
+test("class reflection transform rejects user-defined equality marker collisions", () => {
+  const parser = parseSource(`class UserCollision {
+    protected __aspectHasEqOperator(): bool { return true; }
+  }`);
+
+  assert.throws(
+    () => transformParsedSource(parser),
+    /Cannot generate __aspectHasEqOperator for class UserCollision because that member already exists\./,
+  );
+});
+
+test("generated strict equality delegates to equality operator marker before structural fields", () => {
+  const classDeclaration = parseClass(
+    `class UsesEquals {
+      value: i32 = 1;
+      @operator("==")
+      protected __equals(other: UsesEquals): bool { return true; }
+    }`,
+    "UsesEquals",
+  );
+
+  const markerSource = ASTBuilder.build(createHasEqualsOperatorMember(classDeclaration));
+  const strictEqualsSource = ASTBuilder.build(createStrictEqualsMember(classDeclaration));
+
+  assert.match(markerSource, /protected __aspectHasEqOperator\(\): bool/);
+  assertInOrder(strictEqualsSource, ["const ref: UsesEquals", "isDefined(this.__aspectHasEqOperator)", "return this == ref", "this.value"]);
 });
 
 test("class reflection transform rejects user-defined reflected-pairs method collisions", () => {
