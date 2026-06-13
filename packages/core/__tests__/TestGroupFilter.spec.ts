@@ -11,6 +11,14 @@ let result: {
 
 const binary = fs.readFile("./assembly/jest-filter.wasm");
 
+function countRanNodes(type: TestNodeType): number {
+  let count = 0;
+  context.rootNode.visit((node) => {
+    if (node.type === type && node.ran) count += 1;
+  });
+  return count;
+}
+
 beforeEach(async () => {
   const ctx = new TestContext({
     reporter: new EmptyReporter(),
@@ -21,27 +29,58 @@ beforeEach(async () => {
 });
 
 describe("TestGroup filtering", () => {
-  test("group filtering", () => {
+  test("group filtering only runs matching groups and preserves matching failures", () => {
     // @ts-ignore setting the protected groupRegex property is just for testing
     context.groupRegex = /two/i;
     context.run(result);
-    let count = 0;
-    context.rootNode.visit((node) => {
-      if (node.type === TestNodeType.Group && node.ran) count += 1;
-    });
-    expect(count).toBe(1);
+
+    expect(countRanNodes(TestNodeType.Group)).toBe(1);
+    expect(context.testCount).toBe(4);
+    expect(context.testPassCount).toBe(2);
+    expect(context.pass).toBe(false);
+    expect(SuiteReport.from(context).hasResults).toBe(true);
   });
 
-  test("test filtering", () => {
+  test("test filtering only runs matching tests and preserves matching failures", () => {
     // @ts-ignore setting the protected testRegex property is just for testing
     context.testRegex = /two/i;
     context.run(result);
 
-    let count = 0;
-    context.rootNode.visit((node) => {
-      if (node.type === TestNodeType.Test && node.ran) count += 1;
-    });
-    expect(count).toBe(3);
+    expect(countRanNodes(TestNodeType.Test)).toBe(3);
+    expect(context.testCount).toBe(3);
+    expect(context.testPassCount).toBe(0);
+    expect(context.pass).toBe(false);
+    expect(SuiteReport.from(context).hasResults).toBe(true);
+  });
+
+  test("combined group and test filters only run matching tests in matching groups", () => {
+    // @ts-ignore setting the protected groupRegex property is just for testing
+    context.groupRegex = /two/i;
+    // @ts-ignore setting the protected testRegex property is just for testing
+    context.testRegex = /one/i;
+    context.run(result);
+
+    expect(countRanNodes(TestNodeType.Group)).toBe(1);
+    expect(countRanNodes(TestNodeType.Test)).toBe(1);
+    expect(context.testCount).toBe(1);
+    expect(context.testPassCount).toBe(1);
+    expect(context.pass).toBe(true);
+    expect(SuiteReport.from(context).hasResults).toBe(true);
+  });
+
+  test("combined filters preserve failures from matching tests", () => {
+    // @ts-ignore setting the protected groupRegex property is just for testing
+    context.groupRegex = /two/i;
+    // @ts-ignore setting the protected testRegex property is just for testing
+    context.testRegex = /two/i;
+    context.run(result);
+
+    expect(countRanNodes(TestNodeType.Group)).toBe(1);
+    expect(countRanNodes(TestNodeType.Test)).toBe(1);
+    expect(context.testCount).toBe(1);
+    expect(context.testPassCount).toBe(0);
+    expect(context.pass).toBe(false);
+    expect(SuiteReport.from(context).hasResults).toBe(true);
   });
 
   test("group filtering with no group matching skips the suite without failing", () => {
@@ -49,12 +88,7 @@ describe("TestGroup filtering", () => {
     context.groupRegex = /five/i;
     context.run(result);
 
-    let ranUserGroups = 0;
-    context.rootNode.visit((node) => {
-      if (node.type === TestNodeType.Group && node.ran) ranUserGroups += 1;
-    });
-
-    expect(ranUserGroups).toBe(0);
+    expect(countRanNodes(TestNodeType.Group)).toBe(0);
     expect(context.testRunCount).toBe(0);
     expect(context.testCount).toBe(0);
     expect(context.pass).toBe(true);
@@ -77,11 +111,7 @@ describe("TestGroup filtering", () => {
     context.groupRegex = regex;
     context.run(result);
 
-    let count = 0;
-    context.rootNode.visit((node) => {
-      if (node.type === TestNodeType.Group && node.ran) count += 1;
-    });
-    expect(count).toBe(3);
+    expect(countRanNodes(TestNodeType.Group)).toBe(3);
     expect(regex.lastIndex).toBe(0);
   });
 
@@ -90,11 +120,7 @@ describe("TestGroup filtering", () => {
     context.testRegex = regex;
     context.run(result);
 
-    let count = 0;
-    context.rootNode.visit((node) => {
-      if (node.type === TestNodeType.Test && node.ran) count += 1;
-    });
-    expect(count).toBe(12);
+    expect(countRanNodes(TestNodeType.Test)).toBe(12);
     expect(regex.lastIndex).toBe(0);
   });
 });

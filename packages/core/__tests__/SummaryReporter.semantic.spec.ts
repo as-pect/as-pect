@@ -3,14 +3,31 @@ import {
   failingSuiteReport,
   passingSuiteReport,
   snapshotChangeSuiteReport,
+  suiteGroupReport,
   suiteReport,
+  suiteTestReport,
   todoSuiteReport,
   warningSuiteReport,
 } from "./setup/SuiteReportFixtures.js";
 import { writeSummaryReport } from "./setup/ReporterTestUtils.js";
 
-test("SummaryReporter skips files with no executed results", () => {
+test("SummaryReporter skips files with no collected results", () => {
   const output = writeSummaryReport(suiteReport());
+
+  expect(output).toBe("");
+});
+
+test("SummaryReporter skips files that only collected filtered-out tests", () => {
+  const skippedTest = suiteTestReport({ name: "skipped by filter", ran: false, pass: true });
+  const output = writeSummaryReport(
+    suiteReport({
+      fileName: "assembly/skipped.spec.ts",
+      pass: true,
+      hasResults: false,
+      groups: [suiteGroupReport({ tests: [skippedTest] })],
+      results: [skippedTest],
+    }),
+  );
 
   expect(output).toBe("");
 });

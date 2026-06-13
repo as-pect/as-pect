@@ -1,10 +1,10 @@
-import { mkdtemp, readFile, rm } from "fs/promises";
+import { access, mkdtemp, readFile, rm } from "fs/promises";
 import { join, relative } from "path";
 import JSONReporter from "../index.js";
 import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
 
 class TestJSONReporter extends JSONReporter {
-  public async writeAndWait(report: Pick<SuiteReport, "fileName" | "results">): Promise<void> {
+  public async writeAndWait(report: Pick<SuiteReport, "fileName" | "hasResults" | "results">): Promise<void> {
     this.onReportFinish({ report: report as SuiteReport, context: undefined as never });
     await this.onFlush();
   }
@@ -31,6 +31,23 @@ function testResult(overrides: Partial<SuiteResultReport> = {}): SuiteResultRepo
   } as SuiteResultReport;
 }
 
+async function reporterCreatesFile(report: Pick<SuiteReport, "hasResults" | "results">): Promise<boolean> {
+  const tempDir = await mkdtemp(join(process.cwd(), "tmp-json-reporter-"));
+  const fileName = join(relative(process.cwd(), tempDir), "example.spec.ts");
+  const reporter = new TestJSONReporter();
+  const outputPath = join(tempDir, "example.spec.json");
+
+  try {
+    await reporter.writeAndWait({ fileName, ...report });
+    await access(outputPath);
+    return true;
+  } catch {
+    return false;
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
 async function runReporter(results: SuiteResultReport[]): Promise<unknown> {
   const tempDir = await mkdtemp(join(process.cwd(), "tmp-json-reporter-"));
   const fileName = join(relative(process.cwd(), tempDir), "example.spec.ts");
@@ -46,6 +63,15 @@ async function runReporter(results: SuiteResultReport[]): Promise<unknown> {
 }
 
 describe("JSONReporter", () => {
+  it("does not write a file for reports with no executed results", async () => {
+    await expect(
+      reporterCreatesFile({
+        hasResults: false,
+        results: [testResult({ name: "skipped by filter", ran: false })],
+      }),
+    ).resolves.toBe(false);
+  });
+
   it("writes parseable JSON for an empty report", async () => {
     await expect(runReporter([])).resolves.toEqual([]);
   });
