@@ -71,6 +71,86 @@ describe("unreachable", () => {
   });
 
   /**
+   * This test validates that a toThrowWith assertion checks a thrown error message.
+   */
+  it("toThrowWith should pass when the callback throws a matching message", () => {
+    expect(() => {
+      counter = 1;
+      throw new Error("expected failure message");
+    }).toThrowWith("failure message");
+  });
+
+  /**
+   * This test validates that a toThrowWith assertion checks an abort/assertion message.
+   */
+  it("toThrowWith should pass when an assertion throws a matching message", () => {
+    expect(() => {
+      counter = 1;
+      assert(false, "expected assertion message");
+    }).toThrowWith("assertion message");
+  });
+
+  /**
+   * This test validates that a toThrowWith assertion fails when no error is thrown.
+   */
+  it("toThrowWith should throw if the callback does not throw", () => {
+    expect(() => {
+      expect(() => {
+        counter = 1;
+      }).toThrowWith("failure message");
+    }).toThrow(
+      "functions that do not throw should cause toThrowWith assertions to throw.",
+    );
+  });
+
+  /**
+   * This test validates that a toThrowWith assertion fails when the thrown message does not match.
+   */
+  it("toThrowWith should throw if the callback throws a different message", () => {
+    expect(() => {
+      expect(() => {
+        counter = 1;
+        throw new Error("actual failure message");
+      }).toThrowWith("expected failure message");
+    }).toThrow(
+      "functions that throw a different message should cause toThrowWith assertions to throw.",
+    );
+  });
+
+  /**
+   * This test validates that a negated toThrowWith assertion passes when no error is thrown.
+   */
+  it("not.toThrowWith should pass when the callback does not throw", () => {
+    expect(() => {
+      counter = 1;
+    }).not.toThrowWith("failure message");
+  });
+
+  /**
+   * This test validates that a negated toThrowWith assertion passes when another message is thrown.
+   */
+  it("not.toThrowWith should pass when the callback throws a different message", () => {
+    expect(() => {
+      counter = 1;
+      throw new Error("actual failure message");
+    }).not.toThrowWith("expected failure message");
+  });
+
+  /**
+   * This test validates that a negated toThrowWith assertion fails when the thrown message matches.
+   */
+  it("not.toThrowWith should throw if the callback throws a matching message", () => {
+    expect(() => {
+      expect(() => {
+        counter = 1;
+        throw new Error("expected failure message");
+      }).not.toThrowWith("failure message");
+    }).toThrow(
+      "functions that throw a matching message should cause negated toThrowWith assertions to throw.",
+    );
+  });
+
+  /**
    * This after each setup function validates that the tested callback was run, and the test results
    * are reliable.
    */

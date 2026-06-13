@@ -106,6 +106,9 @@ export class TestContext {
   /** The place where the abort() messages are stored. */
   protected message: string = "";
 
+  /** The most recent tryCall error text for nested throw-message expectations. */
+  protected lastErrorText: string = "";
+
   /** The collected actual value. */
   protected actual: ReflectedValue | null = null;
 
@@ -577,6 +580,7 @@ export class TestContext {
       reportExpectedSnapshot: this.reportExpectedSnapshot.bind(this),
       reportExpectedTruthy: this.reportExpectedTruthy.bind(this),
       tryCall: this.tryCall.bind(this),
+      errorMessageIncludes: this.errorMessageIncludes.bind(this),
     };
 
     this.rtrace.install(finalImports);
@@ -657,13 +661,29 @@ export class TestContext {
     /* istanbul ignore next */
     if (pointer < 0) return 1;
 
+    this.stack = "";
+    this.message = "";
+    this.lastErrorText = "";
+
     try {
       this.wasm!.__call(pointer);
     } catch (ex) {
       this.stack = this.getErrorStackTrace(ex as Error);
+      this.lastErrorText = `${this.message}\n${(ex as Error).message}\n${this.stack}`;
       return 0;
     }
     return 1;
+  }
+
+  /**
+   * Check the most recent tryCall failure message and stack trace for an expected substring.
+   *
+   * @param expectedMessagePointer - A pointer to the expected message substring.
+   * @returns {1 | 0} - If the most recent error text contains the expected string, it returns 1.
+   */
+  protected errorMessageIncludes(expectedMessagePointer: number): 1 | 0 {
+    const expectedMessage = this.getString(expectedMessagePointer, "");
+    return this.lastErrorText.includes(expectedMessage) ? 1 : 0;
   }
 
   /**
