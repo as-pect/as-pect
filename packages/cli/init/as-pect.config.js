@@ -12,13 +12,16 @@ export default {
    */
   disclude: [/node_modules/],
   /**
-   * Add your required AssemblyScript imports here. The createImports callback
-   * returns the WebAssembly imports object passed to AssemblyScript's loader.
+   * AssemblyScript compiler options live in as-pect.asconfig.json, not this file.
+   * For example, add custom `lib` entries there when replacing asc --lib.
+   *
+   * Add your required JavaScript/WebAssembly imports here. The createImports
+   * callback returns the WebAssembly imports object passed to AssemblyScript's loader.
    */
   async instantiate(memory, createImports, instantiate, binary) {
     let instance; // Imports can reference this
     const myImports = {
-      env: { memory }
+      env: { memory },
       // put your WebAssembly imports here
     };
     instance = instantiate(binary, createImports(myImports));
