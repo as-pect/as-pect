@@ -88,9 +88,9 @@ export class TestNode {
   /** The node reallocations. */
   moves: number = 0;
 
-  /** The delta number of heap allocations. */
+  /** The delta number of live heap allocations after a garbage collection. */
   get rtraceDelta(): number {
-    return this.allocations - this.frees;
+    return this.rtraceEnd - this.rtraceStart;
   }
 
   /** The difference between the start and end TestNode runtime. */

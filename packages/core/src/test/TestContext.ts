@@ -315,6 +315,11 @@ export class TestContext {
         this.testRunCount += 1;
       }
 
+      // Give the tracing garbage collector a chance to release blocks from earlier tests before
+      // capturing this test's live-block baseline. Allocation/free event counts are noisy with a
+      // tracing collector; the live block count after collection is the useful leak signal.
+      if (node.type === TestNodeType.Test) this.collectGarbage();
+
       // set the start timer for this node
       node.start = performance.now();
 
@@ -338,7 +343,7 @@ export class TestContext {
           node.actual = null;
           node.expected = null;
         }
-        node.end = performance.now();
+        this.finishTimingAndRtrace(node);
         this.addResult(node, success);
         this.reportingLifecycle.exit(node);
         return;
@@ -436,7 +441,7 @@ export class TestContext {
 
       // if any children failed, this node failed too, but assume it passes
       node.pass = node.children.reduce((pass: boolean, node: TestNode) => pass && node.pass, true);
-      node.end = performance.now();
+      this.finishTimingAndRtrace(node);
       this.addResult(node, true);
       this.reportingLifecycle.exit(node);
     });
@@ -483,8 +488,25 @@ export class TestContext {
     node.actual = this.actual;
     node.expected = this.expected;
     node.message = this.message;
+    this.finishTimingAndRtrace(node);
+  }
+
+  /** Capture end timing and live rtrace blocks after giving test garbage a chance to collect. */
+  private finishTimingAndRtrace(node: TestNode): void {
+    if (node.type === TestNodeType.Test) this.collectGarbage();
     node.end = performance.now();
     node.rtraceEnd = this.rtrace.blocks.size;
+  }
+
+  /** Force a tracing GC cycle when the test module exports the AssemblyScript runtime hook. */
+  private collectGarbage(): void {
+    try {
+      this.wasm?.__collect?.();
+    } catch (ex) {
+      // AssemblyScript loader shims throw this when a module was not built with exportRuntime.
+      // In that case, preserve the previous no-op behavior for suites that cannot be collected.
+      if (!String((ex as Error).message).includes("exportRuntime")) throw ex;
+    }
   }
 
   /** Add a test or group result to the statistics. */
