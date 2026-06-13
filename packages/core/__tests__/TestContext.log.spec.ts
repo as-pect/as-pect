@@ -35,7 +35,6 @@ describe("log output", () => {
       ctx.createImports({}),
     );
     ctx.run(result);
-    console.log(ctx.errors);
     ctx.rootNode.visit((group) => {
       if (group.type === TestNodeType.Group) {
         for (const log of group.logs) {
