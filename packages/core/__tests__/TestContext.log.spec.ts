@@ -52,9 +52,9 @@ describe("log output", () => {
             const stack = log.stack;
             log.stack = "";
             log.pointer = 0;
-            expect(log).toMatchSnapshot(`${group.name} ${test.name} log`);
+            expect(log).toMatchSnapshot(`${group.name} ${groupTest.name} log`);
             expect(log.stringify(stringifyOptions)).toMatchSnapshot(
-              `${group.name} ${test.name} stringify`,
+              `${group.name} ${groupTest.name} stringify`,
             );
             log.stack = stack;
           }

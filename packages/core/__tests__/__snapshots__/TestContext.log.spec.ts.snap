@@ -580,7 +580,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 1`] = `
+exports[`log output Overall Statistics: logs logs log 1`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -600,7 +600,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 2`] = `
+exports[`log output Overall Statistics: logs logs log 2`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -620,7 +620,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 3`] = `
+exports[`log output Overall Statistics: logs logs log 3`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -640,7 +640,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 4`] = `
+exports[`log output Overall Statistics: logs logs log 4`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": true,
@@ -660,7 +660,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 5`] = `
+exports[`log output Overall Statistics: logs logs log 5`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -784,7 +784,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 6`] = `
+exports[`log output Overall Statistics: logs logs log 6`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -856,7 +856,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 7`] = `
+exports[`log output Overall Statistics: logs logs log 7`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -876,7 +876,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 8`] = `
+exports[`log output Overall Statistics: logs logs log 8`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -896,7 +896,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 9`] = `
+exports[`log output Overall Statistics: logs logs log 9`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -916,7 +916,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 10`] = `
+exports[`log output Overall Statistics: logs logs log 10`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -936,7 +936,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 11`] = `
+exports[`log output Overall Statistics: logs logs log 11`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -956,7 +956,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 12`] = `
+exports[`log output Overall Statistics: logs logs log 12`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -976,7 +976,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 13`] = `
+exports[`log output Overall Statistics: logs logs log 13`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -996,7 +996,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 14`] = `
+exports[`log output Overall Statistics: logs logs log 14`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1068,7 +1068,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 15`] = `
+exports[`log output Overall Statistics: logs logs log 15`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1140,7 +1140,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 16`] = `
+exports[`log output Overall Statistics: logs logs log 16`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1160,7 +1160,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 17`] = `
+exports[`log output Overall Statistics: logs logs log 17`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1180,7 +1180,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 18`] = `
+exports[`log output Overall Statistics: logs logs log 18`] = `
 ReflectedValue {
   "isManaged": false,
   "isNull": false,
@@ -1304,7 +1304,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 19`] = `
+exports[`log output Overall Statistics: logs logs log 19`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -1665,7 +1665,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 20`] = `
+exports[`log output Overall Statistics: logs logs log 20`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2571,7 +2571,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 21`] = `
+exports[`log output Overall Statistics: logs logs log 21`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -2932,7 +2932,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 22`] = `
+exports[`log output Overall Statistics: logs logs log 22`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3004,7 +3004,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 23`] = `
+exports[`log output Overall Statistics: logs logs log 23`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3146,7 +3146,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 24`] = `
+exports[`log output Overall Statistics: logs logs log 24`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3306,7 +3306,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 25`] = `
+exports[`log output Overall Statistics: logs logs log 25`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3542,7 +3542,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 26`] = `
+exports[`log output Overall Statistics: logs logs log 26`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3978,7 +3978,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 27`] = `
+exports[`log output Overall Statistics: logs logs log 27`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -3998,7 +3998,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 28`] = `
+exports[`log output Overall Statistics: logs logs log 28`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4126,7 +4126,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 29`] = `
+exports[`log output Overall Statistics: logs logs log 29`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4254,7 +4254,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 30`] = `
+exports[`log output Overall Statistics: logs logs log 30`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4382,7 +4382,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 31`] = `
+exports[`log output Overall Statistics: logs logs log 31`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4510,7 +4510,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 32`] = `
+exports[`log output Overall Statistics: logs logs log 32`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4638,7 +4638,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 33`] = `
+exports[`log output Overall Statistics: logs logs log 33`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4802,7 +4802,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 34`] = `
+exports[`log output Overall Statistics: logs logs log 34`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -4894,7 +4894,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 35`] = `
+exports[`log output Overall Statistics: logs logs log 35`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -5399,7 +5399,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 36`] = `
+exports[`log output Overall Statistics: logs logs log 36`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -5437,7 +5437,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 37`] = `
+exports[`log output Overall Statistics: logs logs log 37`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -5493,7 +5493,7 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test log 38`] = `
+exports[`log output Overall Statistics: logs logs log 38`] = `
 ReflectedValue {
   "isManaged": true,
   "isNull": false,
@@ -5651,15 +5651,15 @@ ReflectedValue {
 }
 `;
 
-exports[`log output Overall Statistics: logs test stringify 1`] = `"  string: "Hello world!""`;
+exports[`log output Overall Statistics: logs logs stringify 1`] = `"  string: "Hello world!""`;
 
-exports[`log output Overall Statistics: logs test stringify 2`] = `"  string: "Calculated 42""`;
+exports[`log output Overall Statistics: logs logs stringify 2`] = `"  string: "Calculated 42""`;
 
-exports[`log output Overall Statistics: logs test stringify 3`] = `"  number: 42"`;
+exports[`log output Overall Statistics: logs logs stringify 3`] = `"  number: 42"`;
 
-exports[`log output Overall Statistics: logs test stringify 4`] = `"  class: <Vec3>null"`;
+exports[`log output Overall Statistics: logs logs stringify 4`] = `"  class: <Vec3>null"`;
 
-exports[`log output Overall Statistics: logs test stringify 5`] = `
+exports[`log output Overall Statistics: logs logs stringify 5`] = `
 "  class: Vec3 {
       string: x: number: 1.0,
       string: y: number: 2.0,
@@ -5667,7 +5667,7 @@ exports[`log output Overall Statistics: logs test stringify 5`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 6`] = `
+exports[`log output Overall Statistics: logs logs stringify 6`] = `
 "  class: Array<i32> [
       number: 1,
       number: 2,
@@ -5675,29 +5675,29 @@ exports[`log output Overall Statistics: logs test stringify 6`] = `
   ]"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 7`] = `"  number: 9999999999999 keyword: as class: i64"`;
+exports[`log output Overall Statistics: logs logs stringify 7`] = `"  number: 9999999999999 keyword: as class: i64"`;
 
-exports[`log output Overall Statistics: logs test stringify 8`] = `"  number: 1234567 keyword: as class: u32"`;
+exports[`log output Overall Statistics: logs logs stringify 8`] = `"  number: 1234567 keyword: as class: u32"`;
 
-exports[`log output Overall Statistics: logs test stringify 9`] = `"  number: 999999999999 keyword: as class: u64"`;
+exports[`log output Overall Statistics: logs logs stringify 9`] = `"  number: 999999999999 keyword: as class: u64"`;
 
-exports[`log output Overall Statistics: logs test stringify 10`] = `"  number: -1 keyword: as class: i8"`;
+exports[`log output Overall Statistics: logs logs stringify 10`] = `"  number: -1 keyword: as class: i8"`;
 
-exports[`log output Overall Statistics: logs test stringify 11`] = `"  number: -1 keyword: as class: i16"`;
+exports[`log output Overall Statistics: logs logs stringify 11`] = `"  number: -1 keyword: as class: i16"`;
 
-exports[`log output Overall Statistics: logs test stringify 12`] = `"  keyword: true"`;
+exports[`log output Overall Statistics: logs logs stringify 12`] = `"  keyword: true"`;
 
-exports[`log output Overall Statistics: logs test stringify 13`] = `"  keyword: false"`;
+exports[`log output Overall Statistics: logs logs stringify 13`] = `"  keyword: false"`;
 
-exports[`log output Overall Statistics: logs test stringify 14`] = `"  class: Uint8Array [ number: 0, number: 1, number: 2 ]"`;
+exports[`log output Overall Statistics: logs logs stringify 14`] = `"  class: Uint8Array [ number: 0, number: 1, number: 2 ]"`;
 
-exports[`log output Overall Statistics: logs test stringify 15`] = `"  class: Int8Array [ number: -1, number: -2, number: -3 ]"`;
+exports[`log output Overall Statistics: logs logs stringify 15`] = `"  class: Int8Array [ number: -1, number: -2, number: -3 ]"`;
 
-exports[`log output Overall Statistics: logs test stringify 16`] = `"  class: [Function 0: assembly/jest-log/IdFunction]"`;
+exports[`log output Overall Statistics: logs logs stringify 16`] = `"  class: [Function 0: assembly/jest-log/IdFunction]"`;
 
-exports[`log output Overall Statistics: logs test stringify 17`] = `"  string: "trace: The thing! 1, 2, 3, 4, 5""`;
+exports[`log output Overall Statistics: logs logs stringify 17`] = `"  string: "trace: The thing! 1, 2, 3, 4, 5""`;
 
-exports[`log output Overall Statistics: logs test stringify 18`] = `
+exports[`log output Overall Statistics: logs logs stringify 18`] = `
 "  class: UnmanagedClass {
       string: a: number: 1.0,
       string: b: number: 2.0,
@@ -5705,7 +5705,7 @@ exports[`log output Overall Statistics: logs test stringify 18`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 19`] = `
+exports[`log output Overall Statistics: logs logs stringify 19`] = `
 "  class: Array<i32> [
       number: 0,
       number: 1,
@@ -5720,7 +5720,7 @@ exports[`log output Overall Statistics: logs test stringify 19`] = `
   ... +0 values  ]"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 20`] = `
+exports[`log output Overall Statistics: logs logs stringify 20`] = `
 "  class: LotsOfFields {
       string: a: number: 1.0,
       string: b: number: 1.0,
@@ -5735,9 +5735,9 @@ exports[`log output Overall Statistics: logs test stringify 20`] = `
   ... +16 properties  }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 21`] = `"  class: Float64Array [ number: 0.0, number: 1.0, number: 2.0, number: 3.0... +16 items ]"`;
+exports[`log output Overall Statistics: logs logs stringify 21`] = `"  class: Float64Array [ number: 0.0, number: 1.0, number: 2.0, number: 3.0... +16 items ]"`;
 
-exports[`log output Overall Statistics: logs test stringify 22`] = `
+exports[`log output Overall Statistics: logs logs stringify 22`] = `
 "  class: Array<i32> [
       number: 1,
       number: 2,
@@ -5745,7 +5745,7 @@ exports[`log output Overall Statistics: logs test stringify 22`] = `
   ]"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 23`] = `
+exports[`log output Overall Statistics: logs logs stringify 23`] = `
 "  class: Circular {
       string: a: number: 1.0 keyword: as class: f32,
       string: b: class: [Circular Reference],
@@ -5754,7 +5754,7 @@ exports[`log output Overall Statistics: logs test stringify 23`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 24`] = `
+exports[`log output Overall Statistics: logs logs stringify 24`] = `
 "  class: Array<assembly/jest-log/Circular> [
       {
           string: a: number: 1.0 keyword: as class: f32,
@@ -5765,7 +5765,7 @@ exports[`log output Overall Statistics: logs test stringify 24`] = `
   ]"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 25`] = `
+exports[`log output Overall Statistics: logs logs stringify 25`] = `
 "  class: NestedA {
       string: a: class: NestedB {
           string: b: class: NestedC {
@@ -5775,7 +5775,7 @@ exports[`log output Overall Statistics: logs test stringify 25`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 26`] = `
+exports[`log output Overall Statistics: logs logs stringify 26`] = `
 "  class: Map<assembly/jest-log/Vec3,i32> {
       class: [Vec3]: number: 42,
       class: [Vec3]: number: 43,
@@ -5783,9 +5783,9 @@ exports[`log output Overall Statistics: logs test stringify 26`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 27`] = `"  class: [Function 0: start:assembly/jest-log~anonymous|0~anonymous|0~thisIsTheFunctionName|0]"`;
+exports[`log output Overall Statistics: logs logs stringify 27`] = `"  class: [Function 0: start:assembly/jest-log~anonymous|0~anonymous|0~thisIsTheFunctionName|0]"`;
 
-exports[`log output Overall Statistics: logs test stringify 28`] = `
+exports[`log output Overall Statistics: logs logs stringify 28`] = `
 "  class: NestedForInlineFunctionA {
       string: a: class: NestedForInlineFunctionB {
           string: b: class: NestedForInlineFunctionC {
@@ -5795,7 +5795,7 @@ exports[`log output Overall Statistics: logs test stringify 28`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 29`] = `
+exports[`log output Overall Statistics: logs logs stringify 29`] = `
 "  class: NestedForInlineStringA {
       string: a: class: NestedForInlineStringB {
           string: b: class: NestedForInlineStringC {
@@ -5805,7 +5805,7 @@ exports[`log output Overall Statistics: logs test stringify 29`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 30`] = `
+exports[`log output Overall Statistics: logs logs stringify 30`] = `
 "  class: NestedForInlineU8A {
       string: a: class: NestedForInlineU8B {
           string: b: class: NestedForInlineU8C {
@@ -5815,7 +5815,7 @@ exports[`log output Overall Statistics: logs test stringify 30`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 31`] = `
+exports[`log output Overall Statistics: logs logs stringify 31`] = `
 "  class: NestedForInlineBoolA {
       string: a: class: NestedForInlineBoolB {
           string: b: class: NestedForInlineBoolC {
@@ -5825,7 +5825,7 @@ exports[`log output Overall Statistics: logs test stringify 31`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 32`] = `
+exports[`log output Overall Statistics: logs logs stringify 32`] = `
 "  class: NestedForInlineBoolA {
       string: a: class: NestedForInlineBoolB {
           string: b: class: NestedForInlineBoolC {
@@ -5835,7 +5835,7 @@ exports[`log output Overall Statistics: logs test stringify 32`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 33`] = `
+exports[`log output Overall Statistics: logs logs stringify 33`] = `
 "  class: NestedTypeImpliedArrayA {
       string: a: class: NestedTypeImpliedArrayB {
           string: b: class: NestedTypeImpliedArrayC {
@@ -5845,7 +5845,7 @@ exports[`log output Overall Statistics: logs test stringify 33`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 34`] = `
+exports[`log output Overall Statistics: logs logs stringify 34`] = `
 "  class: NestedTypeImpliedArrayC {
       string: c: class: Array<~lib/array/Array<u8>> [
           [
@@ -5855,7 +5855,7 @@ exports[`log output Overall Statistics: logs test stringify 34`] = `
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 35`] = `
+exports[`log output Overall Statistics: logs logs stringify 35`] = `
 "  class: Array<assembly/jest-log/Vec3> [
       {
           string: x: number: 1.0,
@@ -5880,19 +5880,19 @@ exports[`log output Overall Statistics: logs test stringify 35`] = `
   ]"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 36`] = `
+exports[`log output Overall Statistics: logs logs stringify 36`] = `
 "  class: Array<assembly/jest-log/Vec3|null> [
       null
   ]"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 37`] = `
+exports[`log output Overall Statistics: logs logs stringify 37`] = `
 "  class: MeaningOfLife {
       string: its: number: 42
   }"
 `;
 
-exports[`log output Overall Statistics: logs test stringify 38`] = `
+exports[`log output Overall Statistics: logs logs stringify 38`] = `
 "  class: Child {
       string: a: number: 0,
       string: c: number: 2,
