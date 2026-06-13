@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Architecture review — as-pect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });
+    </script>
+    <style>
+      .seam { border-style: dashed; }
+      .deep { background: linear-gradient(135deg, #0f172a, #1e293b); color: white; }
+      .leak { color: #dc2626; }
+      .card-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .mini-label { font-size: 0.68rem; letter-spacing: .08em; text-transform: uppercase; }
+      .mermaid svg { max-width: 100%; }
+    </style>
+  </head>
+  <body class="bg-stone-50 text-slate-900 font-sans">
+    <main class="max-w-6xl mx-auto px-6 py-12 space-y-12">
+      <header class="space-y-6">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Architecture review</p>
+          <h1 class="text-4xl font-serif font-semibold tracking-tight">as-pect</h1>
+          <p class="text-sm text-slate-500 mt-2">June 11, 2026 · no CONTEXT.md or docs/adr/ found</p>
+        </div>
+        <div class="grid md:grid-cols-4 gap-3 text-sm">
+          <div class="rounded-lg border bg-white p-3"><span class="inline-block w-4 h-4 border border-slate-500 align-middle mr-2"></span>solid box = module</div>
+          <div class="rounded-lg border bg-white p-3"><span class="inline-block w-4 h-4 border border-dashed border-slate-500 align-middle mr-2"></span>dashed line = seam</div>
+          <div class="rounded-lg border bg-white p-3"><span class="leak font-bold mr-2">→</span>red arrow = leakage</div>
+          <div class="rounded-lg border bg-white p-3"><span class="inline-block w-4 h-4 rounded bg-slate-900 align-middle mr-2"></span>dark box = deep module</div>
+        </div>
+      </header>
+
+      <section id="candidates" class="space-y-10">
+        <article id="reporting-lifecycle" class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+          <div class="p-6 space-y-5">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 class="text-2xl font-semibold">Deepen the reporting lifecycle</h2>
+                <p class="text-slate-500 text-sm mt-1">Make reporting one real seam instead of letting every reporter learn the test tree.</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="rounded-full bg-emerald-100 text-emerald-800 px-3 py-1 text-xs font-semibold">Strong</span>
+                <span class="rounded-full bg-indigo-100 text-indigo-800 px-3 py-1 text-xs font-semibold">ports &amp; adapters</span>
+              </div>
+            </div>
+
+            <div>
+              <p class="mini-label text-slate-500 mb-2">Files</p>
+              <div class="font-mono text-sm text-slate-700 grid md:grid-cols-2 gap-x-6 gap-y-1">
+                <span>packages/core/src/reporter/IReporter.ts</span>
+                <span>packages/core/src/test/TestContext.ts</span>
+                <span>packages/core/src/reporter/SummaryReporter.ts</span>
+                <span>packages/core/src/reporter/VerboseReporter.ts</span>
+                <span>packages/csv-reporter/index.ts</span>
+                <span>packages/json-reporter/index.ts</span>
+              </div>
+            </div>
+
+            <div class="grid card-grid gap-4">
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">Before</p>
+                <div class="rounded-lg bg-white border p-4">
+                  <pre class="mermaid">
+flowchart TB
+  TC[TestContext] -->|onEnter/onExit/onFinish| IR[IReporter]
+  IR --> SR[SummaryReporter]
+  IR --> VR[VerboseReporter]
+  IR --> CSV[CSVReporter]
+  IR --> JSON[JSONReporter]
+  CSV -.reads.-> TN[TestNode internals]
+  JSON -.reads.-> TN
+  SR -.walks.-> TN
+  VR -.walks.-> TN
+  CSV -.opens on every enter.-> FS[(files)]
+  JSON -.opens on every enter.-> FS
+  classDef leak stroke:#dc2626,color:#dc2626,stroke-width:2px;
+  class TN,FS leak
+                  </pre>
+                </div>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">After</p>
+                <div class="relative h-[320px] rounded-lg bg-white border p-5 overflow-hidden">
+                  <div class="absolute inset-x-6 top-6 h-12 rounded-lg border border-dashed border-slate-400 flex items-center justify-center mini-label text-slate-600">reporting seam</div>
+                  <div class="absolute left-8 top-28 w-[38%] h-36 rounded-xl border border-slate-300 flex items-center justify-center text-center font-semibold">TestContext<br><span class="text-xs font-normal text-slate-500">publishes lifecycle facts</span></div>
+                  <div class="absolute right-8 top-24 w-[40%] h-44 rounded-xl deep flex items-center justify-center text-center font-semibold shadow-lg">Reporting lifecycle module<br><span class="text-xs font-normal text-slate-300">event ordering · suite view · snapshot facts</span></div>
+                  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 700 320">
+                    <defs><marker id="arrow1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#334155" /></marker></defs>
+                    <line x1="310" y1="160" x2="390" y2="160" stroke="#334155" stroke-width="2" marker-end="url(#arrow1)" />
+                  </svg>
+                  <div class="absolute bottom-5 right-8 grid grid-cols-2 gap-2 text-xs">
+                    <span class="rounded border px-2 py-1 bg-slate-50">Summary adapter</span>
+                    <span class="rounded border px-2 py-1 bg-slate-50">Verbose adapter</span>
+                    <span class="rounded border px-2 py-1 bg-slate-50">CSV adapter</span>
+                    <span class="rounded border px-2 py-1 bg-slate-50">JSON adapter</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
+              <div><p class="mini-label text-slate-500">Problem</p><p>Reporter adapters cross the seam and depend on TestContext/TestNode shape, so the interface is almost as complex as the implementation.</p></div>
+              <div><p class="mini-label text-slate-500">Solution</p><p>Concentrate lifecycle ordering and reportable suite facts in one deep reporting module, then keep output adapters thin.</p></div>
+              <div><p class="mini-label text-slate-500">Benefits</p><ul class="list-disc pl-5"><li>locality: reporter bugs concentrate</li><li>leverage: four adapters benefit</li><li>tests hit one interface</li><li>TestNode stops leaking</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="test-session" class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+          <div class="p-6 space-y-5">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 class="text-2xl font-semibold">Deepen the test session module</h2>
+                <p class="text-slate-500 text-sm mt-1">Collapse discovery, compile, instantiate, run, snapshots, and summary into one local story.</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="rounded-full bg-emerald-100 text-emerald-800 px-3 py-1 text-xs font-semibold">Strong</span>
+                <span class="rounded-full bg-sky-100 text-sky-800 px-3 py-1 text-xs font-semibold">in-process</span>
+              </div>
+            </div>
+
+            <div>
+              <p class="mini-label text-slate-500 mb-2">Files</p>
+              <div class="font-mono text-sm text-slate-700 grid md:grid-cols-2 gap-x-6 gap-y-1">
+                <span>packages/cli/src/index.ts</span>
+                <span>packages/cli/src/IAspectConfig.ts</span>
+                <span>packages/cli/src/collectReporter.ts</span>
+                <span>packages/core/src/test/TestContext.ts</span>
+                <span>packages/snapshots/src/Snapshot.ts</span>
+                <span>packages/snapshots/src/SnapshotDiff.ts</span>
+              </div>
+            </div>
+
+            <div class="grid card-grid gap-4">
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">Before</p>
+                <div class="rounded-lg bg-white border p-4">
+                  <pre class="mermaid">
+sequenceDiagram
+  participant CLI as asp()
+  participant FS as fs/glob
+  participant ASC as asc
+  participant CFG as as-pect config
+  participant CORE as TestContext
+  participant SNAP as Snapshot
+  CLI->>FS: discover entries/includes
+  CLI->>ASC: compile entry
+  CLI->>CFG: instantiate(memory, imports)
+  CLI->>CORE: createImports + run
+  CORE->>SNAP: diff
+  CLI->>SNAP: mutate/write files
+  CLI->>CLI: aggregate summary + process.exit
+                  </pre>
+                </div>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">After</p>
+                <div class="h-[320px] rounded-lg bg-white border p-4 flex items-center justify-center">
+                  <div class="w-full max-w-md rounded-2xl deep p-5 shadow-lg">
+                    <p class="mini-label text-slate-300">deep module</p>
+                    <h3 class="text-xl font-semibold mt-1">Test session</h3>
+                    <div class="grid grid-cols-2 gap-2 mt-4 text-xs text-slate-900">
+                      <span class="rounded bg-white/90 px-2 py-2">entry discovery</span>
+                      <span class="rounded bg-white/90 px-2 py-2">compile cache</span>
+                      <span class="rounded bg-white/90 px-2 py-2">coverage wiring</span>
+                      <span class="rounded bg-white/90 px-2 py-2">WASI wiring</span>
+                      <span class="rounded bg-white/90 px-2 py-2">snapshot lifecycle</span>
+                      <span class="rounded bg-white/90 px-2 py-2">summary result</span>
+                    </div>
+                    <div class="mt-4 rounded-lg border border-dashed border-slate-400 p-3 text-center text-slate-200">CLI calls one seam</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
+              <div><p class="mini-label text-slate-500">Problem</p><p>The CLI module is shallow because callers, tests, and maintainers must know every step of one test file run.</p></div>
+              <div><p class="mini-label text-slate-500">Solution</p><p>Move the whole test session implementation behind one deep module, leaving CLI parsing and terminal exit outside it.</p></div>
+              <div><p class="mini-label text-slate-500">Benefits</p><ul class="list-disc pl-5"><li>locality: runner bugs concentrate</li><li>leverage: CLI becomes small</li><li>snapshot rules stop leaking</li><li>session tests avoid process.exit</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="wasm-host" class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+          <div class="p-6 space-y-5">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 class="text-2xl font-semibold">Deepen the wasm host module</h2>
+                <p class="text-slate-500 text-sm mt-1">Put the linked functions, reflection cache, rtrace, and abort/trace handling behind one host seam.</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="rounded-full bg-amber-100 text-amber-800 px-3 py-1 text-xs font-semibold">Worth exploring</span>
+                <span class="rounded-full bg-indigo-100 text-indigo-800 px-3 py-1 text-xs font-semibold">ports &amp; adapters</span>
+              </div>
+            </div>
+
+            <div>
+              <p class="mini-label text-slate-500 mb-2">Files</p>
+              <div class="font-mono text-sm text-slate-700 grid md:grid-cols-2 gap-x-6 gap-y-1">
+                <span>packages/core/src/test/TestContext.ts</span>
+                <span>packages/core/src/util/ReflectedValue.ts</span>
+                <span>packages/assembly/assembly/internal/Reflect.ts</span>
+                <span>packages/assembly/assembly/internal/Actual.ts</span>
+                <span>packages/assembly/assembly/internal/Expected.ts</span>
+                <span>packages/assembly/assembly/internal/Test.ts</span>
+              </div>
+            </div>
+
+            <div class="grid card-grid gap-4">
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">Before</p>
+                <div class="rounded-lg bg-white border p-4">
+                  <pre class="mermaid">
+flowchart LR
+  AS[Test AssemblyScript] -->|25 __aspect externs| CI[TestContext.createImports]
+  CI --> TREE[test tree]
+  CI --> RV[ReflectedValue cache]
+  CI --> RT[rtrace]
+  CI --> ENV[env.abort/trace]
+  CI --> SNAP[snapshots]
+  RV -.magic ids.-> AS
+  TREE -.targetNode state.-> CI
+  classDef leak stroke:#dc2626,color:#dc2626,stroke-width:2px;
+  class RV,TREE leak
+                  </pre>
+                </div>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">After</p>
+                <div class="relative h-[320px] rounded-lg bg-white border p-4 overflow-hidden">
+                  <div class="absolute left-5 right-5 top-6 rounded-lg border border-dashed border-slate-400 p-2 text-center mini-label text-slate-600">wasm host seam</div>
+                  <div class="absolute left-8 top-28 w-48 rounded-xl border p-4 text-center font-semibold">TestContext<br><span class="text-xs font-normal text-slate-500">suite traversal</span></div>
+                  <div class="absolute right-8 top-20 bottom-8 w-72 rounded-2xl deep p-5 shadow-lg">
+                    <p class="mini-label text-slate-300">deep module</p>
+                    <h3 class="font-semibold text-lg">Wasm host</h3>
+                    <div class="mt-4 grid gap-2 text-xs text-slate-900">
+                      <span class="rounded bg-white/90 px-2 py-1">linked functions</span>
+                      <span class="rounded bg-white/90 px-2 py-1">pointer/string translation</span>
+                      <span class="rounded bg-white/90 px-2 py-1">reflection cache</span>
+                      <span class="rounded bg-white/90 px-2 py-1">rtrace events</span>
+                      <span class="rounded bg-white/90 px-2 py-1">abort/trace capture</span>
+                    </div>
+                  </div>
+                  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 700 320">
+                    <defs><marker id="arrow2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#334155" /></marker></defs>
+                    <line x1="250" y1="164" x2="390" y2="164" stroke="#334155" stroke-width="2" marker-end="url(#arrow2)" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
+              <div><p class="mini-label text-slate-500">Problem</p><p>TestContext mixes suite traversal with wasm host implementation details, so its interface hides little and its implementation is hard to test locally.</p></div>
+              <div><p class="mini-label text-slate-500">Solution</p><p>Concentrate host translation behind one module and let TestContext consume host facts instead of owning every linked function.</p></div>
+              <div><p class="mini-label text-slate-500">Benefits</p><ul class="list-disc pl-5"><li>locality: pointer bugs concentrate</li><li>leverage: reflection tests improve</li><li>external seam becomes named</li><li>TestContext shrinks</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="snapshot-lifecycle" class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+          <div class="p-6 space-y-5">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 class="text-2xl font-semibold">Deepen the snapshot lifecycle</h2>
+                <p class="text-slate-500 text-sm mt-1">Keep parse, diff, pass/fail, update, and reporting rules in one place.</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="rounded-full bg-amber-100 text-amber-800 px-3 py-1 text-xs font-semibold">Worth exploring</span>
+                <span class="rounded-full bg-cyan-100 text-cyan-800 px-3 py-1 text-xs font-semibold">local-substitutable</span>
+              </div>
+            </div>
+
+            <div>
+              <p class="mini-label text-slate-500 mb-2">Files</p>
+              <div class="font-mono text-sm text-slate-700 grid md:grid-cols-2 gap-x-6 gap-y-1">
+                <span>packages/snapshots/src/Snapshot.ts</span>
+                <span>packages/snapshots/src/SnapshotDiff.ts</span>
+                <span>packages/core/src/test/TestContext.ts</span>
+                <span>packages/core/src/reporter/SummaryReporter.ts</span>
+                <span>packages/core/src/reporter/VerboseReporter.ts</span>
+                <span>packages/cli/src/index.ts</span>
+              </div>
+            </div>
+
+            <div class="grid card-grid gap-4">
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">Before</p>
+                <div class="h-[320px] rounded-lg bg-white border p-5">
+                  <div class="grid grid-cols-2 gap-3 text-sm">
+                    <div class="rounded border p-3">Snapshot<br><span class="text-xs text-slate-500">parse/stringify</span></div>
+                    <div class="rounded border p-3">SnapshotDiff<br><span class="text-xs text-slate-500">diff results</span></div>
+                    <div class="rounded border p-3 leak border-red-300">TestContext<br><span class="text-xs">pass/fail rule</span></div>
+                    <div class="rounded border p-3 leak border-red-300">CLI<br><span class="text-xs">update/write rule</span></div>
+                    <div class="rounded border p-3 leak border-red-300">SummaryReporter<br><span class="text-xs">render diff</span></div>
+                    <div class="rounded border p-3 leak border-red-300">VerboseReporter<br><span class="text-xs">render diff</span></div>
+                  </div>
+                  <div class="mt-5 border-t border-dashed border-slate-400 pt-4 text-xs text-slate-500 text-center">one snapshot concept crosses many seams</div>
+                </div>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">After</p>
+                <div class="h-[320px] rounded-lg bg-white border p-5 flex items-center justify-center">
+                  <div class="rounded-2xl deep p-5 w-full max-w-md shadow-lg">
+                    <p class="mini-label text-slate-300">deep module</p>
+                    <h3 class="text-xl font-semibold">Snapshot lifecycle</h3>
+                    <div class="mt-4 grid grid-cols-2 gap-2 text-xs text-slate-900">
+                      <span class="rounded bg-white/90 px-2 py-2">load expected</span>
+                      <span class="rounded bg-white/90 px-2 py-2">record actual</span>
+                      <span class="rounded bg-white/90 px-2 py-2">diff</span>
+                      <span class="rounded bg-white/90 px-2 py-2">pass/fail</span>
+                      <span class="rounded bg-white/90 px-2 py-2">update</span>
+                      <span class="rounded bg-white/90 px-2 py-2">report facts</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
+              <div><p class="mini-label text-slate-500">Problem</p><p>Snapshot rules leak across snapshots, core, reporters, and CLI, so a change in expected behavior requires edits in several modules.</p></div>
+              <div><p class="mini-label text-slate-500">Solution</p><p>Deepen snapshots from parse/diff storage into the module that owns snapshot lifecycle decisions.</p></div>
+              <div><p class="mini-label text-slate-500">Benefits</p><ul class="list-disc pl-5"><li>locality: snapshot rules concentrate</li><li>leverage: reporters reuse facts</li><li>CLI stops mutating diff</li><li>snapshot tests become direct</li></ul></div>
+            </div>
+          </div>
+        </article>
+
+        <article id="class-reflection-transform" class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+          <div class="p-6 space-y-5">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 class="text-2xl font-semibold">Deepen the class reflection transform</h2>
+                <p class="text-slate-500 text-sm mt-1">Generate strict equality and reflected key/value methods from one class-member plan.</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="rounded-full bg-slate-100 text-slate-800 px-3 py-1 text-xs font-semibold">Speculative</span>
+                <span class="rounded-full bg-sky-100 text-sky-800 px-3 py-1 text-xs font-semibold">in-process</span>
+              </div>
+            </div>
+
+            <div>
+              <p class="mini-label text-slate-500 mb-2">Files</p>
+              <div class="font-mono text-sm text-slate-700 grid md:grid-cols-2 gap-x-6 gap-y-1">
+                <span>packages/transform/src/index.ts</span>
+                <span>packages/transform/src/createStrictEqualsMember.ts</span>
+                <span>packages/transform/src/createAddReflectedValueKeyValuePairsMember.ts</span>
+                <span>packages/transform/src/createGenericTypeParameter.ts</span>
+                <span>packages/assembly/assembly/internal/Reflect.ts</span>
+                <span>packages/transform/README.md</span>
+              </div>
+            </div>
+
+            <div class="grid card-grid gap-4">
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">Before</p>
+                <div class="rounded-lg bg-white border p-4">
+                  <pre class="mermaid">
+flowchart TB
+  Transform[AspectTransform] --> Strict[createStrictEqualsMember]
+  Transform --> ReflectKV[createAddReflectedValueKeyValuePairsMember]
+  Strict --> WalkA[class member walk]
+  ReflectKV --> WalkB[class member walk]
+  WalkA -.hash + ignore.-> Magic[generated method names]
+  WalkB -.hash + ignore.-> Magic
+  Magic --> Runtime[Reflect.equals / Reflect.toReflectedValue]
+  classDef leak stroke:#dc2626,color:#dc2626,stroke-width:2px;
+  class WalkA,WalkB,Magic leak
+                  </pre>
+                </div>
+              </div>
+              <div class="rounded-xl border border-slate-200 p-4 bg-stone-50">
+                <p class="mini-label text-slate-500 mb-3">After</p>
+                <div class="h-[320px] rounded-lg bg-white border p-5 flex items-center justify-center">
+                  <div class="w-full max-w-lg">
+                    <div class="rounded-xl deep p-4 text-center shadow-lg">Class reflection transform<br><span class="text-xs text-slate-300">one member plan · two generated behaviours</span></div>
+                    <div class="grid grid-cols-2 gap-4 mt-6 text-sm text-center">
+                      <div class="rounded-lg border p-4 bg-slate-50">strict equality method</div>
+                      <div class="rounded-lg border p-4 bg-slate-50">reflected key/value method</div>
+                    </div>
+                    <div class="mt-6 rounded-lg border border-dashed border-slate-400 p-3 text-center text-xs text-slate-500">runtime Reflect depends on one documented generated shape</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
+              <div><p class="mini-label text-slate-500">Problem</p><p>The transform modules duplicate class-member traversal and generate magic methods that runtime reflection must know implicitly.</p></div>
+              <div><p class="mini-label text-slate-500">Solution</p><p>Concentrate class-member planning in one transform module and keep generated behaviours behind that implementation.</p></div>
+              <div><p class="mini-label text-slate-500">Benefits</p><ul class="list-disc pl-5"><li>locality: transform rules concentrate</li><li>leverage: two methods share plan</li><li>README can name seam</li><li>runtime magic documented</li></ul></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="top-recommendation" class="rounded-2xl deep p-8 shadow-lg">
+        <p class="mini-label text-slate-300">Top recommendation</p>
+        <h2 class="text-2xl font-semibold mt-2">Start with <a class="underline decoration-emerald-400" href="#reporting-lifecycle">Deepen the reporting lifecycle</a>.</h2>
+        <p class="mt-3 text-slate-200 max-w-3xl">It has a real seam already: Summary, Verbose, CSV, JSON, and Combination are multiple adapters. Deepening it gives immediate locality, protects external reporters, and creates a smaller test surface before touching the larger TestContext and CLI modules.</p>
+      </section>
+    </main>
+  </body>
+</html>
