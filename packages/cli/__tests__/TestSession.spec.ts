@@ -211,8 +211,11 @@ describe("Test session execution", () => {
     expect(events).toEqual(["finish", "flush:start"]);
 
     releaseFlush();
-    await expect(result).resolves.toMatchObject({ pass: true });
+    const completed = await result;
 
+    expect(completed).toMatchObject({ pass: true });
+    expect(completed.stats.groups).toBe(0);
+    expect(completed.stats.tests).toBe(0);
     expect(events).toEqual(["finish", "flush:start", "flush:end"]);
   });
 

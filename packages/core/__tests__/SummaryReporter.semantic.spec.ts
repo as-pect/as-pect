@@ -3,10 +3,17 @@ import {
   failingSuiteReport,
   passingSuiteReport,
   snapshotChangeSuiteReport,
+  suiteReport,
   todoSuiteReport,
   warningSuiteReport,
 } from "./setup/SuiteReportFixtures.js";
 import { writeSummaryReport } from "./setup/ReporterTestUtils.js";
+
+test("SummaryReporter skips files with no executed results", () => {
+  const output = writeSummaryReport(suiteReport());
+
+  expect(output).toBe("");
+});
 
 test("SummaryReporter writes pass totals and captured logs from SuiteReport facts", () => {
   const output = writeSummaryReport(passingSuiteReport());
