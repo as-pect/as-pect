@@ -329,16 +329,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S7 — Mark expected values as negated for `toStrictEqual().not`
-
-- **Epic:** E13
-- **Problem:** `Expectation.toStrictEqual()` calls `Expected.report(expected)` without passing `this._not`, so failed `expect(a).not.toStrictEqual(b)` assertions behave correctly but report the expected value as non-negated.
-- **Files:** `packages/assembly/assembly/internal/Expectation.ts`, `packages/assembly/assembly/__tests__/toStrictEqual.spec.ts`, core pass/fail reporter tests if needed
-- **Fix:** Pass `this._not` into `Expected.report(expected, this._not)` in `toStrictEqual()`.
-- **Tests to add/update:** A failing negated strict-equality assertion should expose an expected reflected value with `negated === true` and render `Not` in reporter output where expected values are shown.
-- **Done when:** `toStrictEqual` reports negation consistently with other expectation methods.
-- **Validation:** `npm run test:ci --workspace @as-pect/assembly`; run core reporter/pass-fail tests if reporter output fixtures change.
-
 ### Slice E13-S8 — Align `toBeCloseTo` tolerance with decimal-place semantics
 
 - **Epic:** E13
@@ -373,8 +363,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S7** — Mark expected values as negated for `toStrictEqual().not`.
-2. **E13-S8** — Align `toBeCloseTo` tolerance with decimal-place semantics.
-3. **E13-S9** — Correct the `toBeFinite` non-float compile-time error message.
+1. **E13-S8** — Align `toBeCloseTo` tolerance with decimal-place semantics.
+2. **E13-S9** — Correct the `toBeFinite` non-float compile-time error message.
+3. **E13-S10** — Use stable TestNode namespaces for snapshot keys.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.

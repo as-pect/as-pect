@@ -59,6 +59,10 @@ describe("pass-fail", () => {
     expect<i32>(0).toBe(42);
   });
 
+  it("should report negated strict equal expected values", () => {
+    expect<i32>(3).not.toStrictEqual(3);
+  });
+
   it("should report nulls", () => {
     expect<Vec3 | null>(null).not.toBeNull();
   });

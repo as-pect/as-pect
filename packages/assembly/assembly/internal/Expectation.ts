@@ -87,10 +87,11 @@ export class Expectation<T> {
     result = Reflect.equals(this.actual, expected);
 
     let equals = i32(result == Reflect.SUCCESSFUL_MATCH);
+    let negated = this._not;
     Actual.report(this.actual);
-    Expected.report(expected);
+    Expected.report(expected, negated);
 
-    assert(equals ^ this._not, message);
+    assert(equals ^ negated, message);
 
     Actual.clear();
     Expected.clear();

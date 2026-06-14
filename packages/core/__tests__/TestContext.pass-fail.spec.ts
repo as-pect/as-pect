@@ -50,7 +50,7 @@ describe("pass-fail output", () => {
     expect(passFail.type).toBe(TestNodeType.Group);
     expect(passFail.pass).toBe(false);
     expect(passFail.ran).toBe(true);
-    expect(passFail.groupTests).toHaveLength(29);
+    expect(passFail.groupTests).toHaveLength(30);
 
     const passingAssertion = findChild(passFail, "this test should pass");
     expect(passingAssertion.pass).toBe(true);
@@ -74,6 +74,12 @@ describe("pass-fail output", () => {
     expect(numberMismatch.pass).toBe(false);
     expect(reflectedValueValue(numberMismatch, "actual")).toBe(0);
     expect(reflectedValueValue(numberMismatch, "expected")).toBe(42);
+
+    const negatedStrictEqual = findChild(passFail, "should report negated strict equal expected values");
+    expect(negatedStrictEqual.pass).toBe(false);
+    expect(reflectedValueValue(negatedStrictEqual, "actual")).toBe(3);
+    expect(reflectedValueValue(negatedStrictEqual, "expected")).toBe(3);
+    expect(negatedStrictEqual.expected!.negated).toBe(true);
 
     const passingThrows = findChild(passFail, "should report a negated test");
     expect(passingThrows.pass).toBe(true);
