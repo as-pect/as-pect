@@ -40,19 +40,10 @@ When updating this file after a maintenance change:
 
 **Validation:** focused CLI option tests and smoke tests for common `asp` invocations.
 
-### Slice E12-S1 — Characterize CLI option parsing behavior
-
-- **Epic:** E12
-- **Scope:** Add focused tests for documented `asp`/`aspect` options, config path handling, help/version output, invalid option errors, and common positional arguments before replacing Commander.
-- **Files:** `packages/cli/src/index.ts`, `packages/cli/__tests__/CliOptions.spec.ts`, CLI README/help documentation if present
-- **Tests to add/update:** CLI option characterization tests
-- **Done when:** the supported command surface is explicit enough to guide a local parser replacement.
-- **Validation:** focused CLI option tests.
-
 ### Slice E12-S2 — Replace Commander with a local option parser
 
 - **Epic:** E12
-- **Scope:** Implement a small parser for the documented CLI surface and route existing command setup through it without changing supported user-facing options intentionally.
+- **Scope:** Implement a small parser for the documented CLI surface and route existing command setup through it without changing supported user-facing options intentionally. Use the CLI option characterization tests to preserve current behavior unless a user-facing clarification is intentional.
 - **Files:** `packages/cli/src/index.ts`, optional local parser module, CLI tests and docs
 - **Tests to add/update:** update CLI option tests for any intentionally clarified error text
 - **Done when:** CLI parsing behavior remains covered and source no longer imports Commander.
@@ -117,8 +108,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E12-S1** — Characterize CLI option parsing behavior.
-2. **E12-S2** — Replace Commander with a local option parser.
-3. **E12-S3** — Remove Commander dependency after parser replacement.
+1. **E12-S2** — Replace Commander with a local option parser.
+2. **E12-S3** — Remove Commander dependency after parser replacement.
+3. **E13-S1** — Characterize one core reporting correctness bug.
 
 This sequence keeps the Commander migration reviewable in smaller steps.

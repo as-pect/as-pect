@@ -1,10 +1,15 @@
-import { createCliProgram } from "../src/index.js";
+import { jest } from "@jest/globals";
+import { asp, createCliProgram } from "../src/index.js";
 
-function parseOptions(args: string[]) {
+function parseCommand(args: string[]) {
   const command = createCliProgram();
   command.exitOverride();
   command.parse(["node", "asp", ...args]);
-  return command.opts();
+  return command;
+}
+
+function parseOptions(args: string[]) {
+  return parseCommand(args).opts();
 }
 
 describe("CLI option parsing", () => {
@@ -14,8 +19,63 @@ describe("CLI option parsing", () => {
     );
   });
 
+  it("lists the supported asp command surface in help output", () => {
+    const help = createCliProgram().name("asp").helpInformation();
+
+    expect(help).toContain("Usage: asp [options] [globs...]");
+    expect(help).toContain("-c, --config <config_location>");
+    expect(help).toContain("-a, --as-config <asconfig_location>");
+    expect(help).toContain("--memory-size <pages>");
+    expect(help).toContain("--memory-max <pages>");
+    expect(help).toContain("-d, --disclude <regex>");
+    expect(help).toContain("-i, --include <globs>");
+    expect(help).toContain("--reporter <reporter>");
+  });
+
+  it("maps default option values used for a normal test session", () => {
+    expect(parseOptions([])).toMatchObject({
+      asConfig: "./as-pect.asconfig.json",
+      config: "./as-pect.config.js",
+      csv: false,
+      group: "(:?)",
+      init: false,
+      json: false,
+      logo: true,
+      memoryMax: "-1",
+      memorySize: "10",
+      outputBinary: false,
+      run: true,
+      showStats: false,
+      summary: false,
+      test: "(:?)",
+      updateSnapshots: false,
+      verbose: false,
+      version: false,
+    });
+  });
+
   it("maps --version without requiring config", () => {
     expect(parseOptions(["--version"]).version).toBe(true);
+  });
+
+  it("prints version output and exits before loading config", async () => {
+    const writes: string[] = [];
+    const writeSpy = jest.spyOn(process.stdout, "write").mockImplementation((chunk: string | Uint8Array): boolean => {
+      writes.push(String(chunk));
+      return true;
+    });
+    const exitSpy = jest.spyOn(process, "exit").mockImplementation((code?: string | number | null): never => {
+      throw new Error(`process.exit:${code ?? ""}`);
+    });
+
+    try {
+      await expect(asp(["node", "asp", "--version"])).rejects.toThrow("process.exit:0");
+    } finally {
+      writeSpy.mockRestore();
+      exitSpy.mockRestore();
+    }
+
+    expect(writes.join("")).toContain("⚡AS-pect⚡ Test suite runner");
   });
 
   it("maps --init without requiring config", () => {
@@ -44,6 +104,19 @@ describe("CLI option parsing", () => {
     expect(opts.memoryMax).toBe("8");
   });
 
+  it("maps config and AssemblyScript config paths", () => {
+    const opts = parseOptions(["--config", "test/as-pect.config.js", "--as-config", "test/asconfig.json"]);
+
+    expect(opts.config).toBe("test/as-pect.config.js");
+    expect(opts.asConfig).toBe("test/asconfig.json");
+  });
+
+  it("collects common positional test entry globs", () => {
+    const command = parseCommand(["assembly/__tests__/**/*.spec.ts", "custom/**/*.spec.ts"]);
+
+    expect(command.args).toEqual(["assembly/__tests__/**/*.spec.ts", "custom/**/*.spec.ts"]);
+  });
+
   it("maps --reporter to a custom reporter location", () => {
     expect(parseOptions(["--reporter", "./reporter.js"]).reporter).toBe("./reporter.js");
   });
@@ -53,5 +126,54 @@ describe("CLI option parsing", () => {
 
     expect(opts.include).toBe("assembly/setup.ts");
     expect(opts.disclude).toBe("skip");
+  });
+
+  it("maps built-in reporter selector flags", () => {
+    const opts = parseOptions(["--summary", "--verbose", "--csv", "--json"]);
+
+    expect(opts.summary).toBe(true);
+    expect(opts.verbose).toBe(true);
+    expect(opts.csv).toBe(true);
+    expect(opts.json).toBe(true);
+  });
+
+  it("maps the show stats flag", () => {
+    expect(parseOptions(["--show-stats"]).showStats).toBe(true);
+  });
+
+  it("characterizes current test and group filter flag parsing", () => {
+    const command = parseCommand(["--test", "adds values", "--group", "math"]);
+
+    expect(command.opts()).toMatchObject({
+      group: true,
+      test: true,
+    });
+    expect(command.args).toEqual(["adds values", "math"]);
+  });
+
+  it("rejects unknown options", () => {
+    const errors: string[] = [];
+    const command = createCliProgram();
+    command.exitOverride();
+    command.configureOutput({
+      writeErr: (str: string) => errors.push(str),
+      writeOut: () => undefined,
+    });
+
+    expect(() => command.parse(["node", "asp", "--unknown"])).toThrow("error: unknown option '--unknown'");
+    expect(errors.join("")).toContain("error: unknown option '--unknown'");
+  });
+
+  it("prints help output and exits successfully", () => {
+    const output: string[] = [];
+    const command = createCliProgram();
+    command.exitOverride();
+    command.configureOutput({
+      writeErr: () => undefined,
+      writeOut: (str: string) => output.push(str),
+    });
+
+    expect(() => command.parse(["node", "asp", "--help"])).toThrow("(outputHelp)");
+    expect(output.join("")).toContain("Usage: asp [options] [globs...]");
   });
 });
