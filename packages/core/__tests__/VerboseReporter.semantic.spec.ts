@@ -86,6 +86,12 @@ test("VerboseReporter writes file summary stats from SuiteReport facts", () => {
   expect(output).toContain("[Time]: 5ms\n");
 });
 
+test("VerboseReporter writes the real passing group count", () => {
+  const output = writeVerboseReport(failingSuiteReport());
+
+  expect(output).toContain("[Groups]: 0 pass, 1 total\n");
+});
+
 test("VerboseReporter writes warnings and errors from SuiteReport facts", () => {
   const warningOutput = writeVerboseReport(warningSuiteReport());
   const errorOutput = writeVerboseReport(errorSuiteReport());

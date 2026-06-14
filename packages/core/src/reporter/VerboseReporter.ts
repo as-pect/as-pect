@@ -265,7 +265,7 @@ export class VerboseReporter implements IReporter {
     const snapshotStats = report.snapshotStats;
 
     this.stdout!.write(`    [File]: ${report.fileName}
-  [Groups]: ${chalk.green(`${report.groupCount} pass`)}, ${report.groupCount} total
+  [Groups]: ${chalk.green(`${report.groupPassCount} pass`)}, ${report.groupCount} total
   [Result]: ${result}
 [Snapshot]: ${snapshotStats.total} total, ${snapshotStats.added} added, ${snapshotStats.removed} removed, ${snapshotStats.different} different
  [Summary]: ${chalk.green(`${report.testPassCount} pass`)},  ${failText}, ${report.testCount} total

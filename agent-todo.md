@@ -329,16 +329,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S4 — Print the real passing group count in VerboseReporter
-
-- **Epic:** E13
-- **Problem:** `VerboseReporter` prints `report.groupCount` as both passing and total groups, so failing suites can display all groups as passing.
-- **Files:** `packages/core/src/reporter/VerboseReporter.ts`, `packages/core/__tests__/VerboseReporter.semantic.spec.ts`
-- **Fix:** Use `report.groupPassCount` for the passing group count and `report.groupCount` for the total group count. Preserve existing output shape except for the corrected number.
-- **Tests to add/update:** A verbose summary for a suite with at least one failing group should render the true passing group count.
-- **Done when:** verbose output no longer claims every group passed when `groupPassCount < groupCount`.
-- **Validation:** `npm run test:ci --workspace @as-pect/core`.
-
 ### Slice E13-S5 — Report truncated expanded arrays with the correct remaining count
 
 - **Epic:** E13
@@ -403,8 +393,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S4** — Print the real passing group count in VerboseReporter.
-2. **E13-S5** — Report truncated expanded arrays with the correct remaining count.
-3. **E13-S6** — Preserve as-pect abort messages when wrapping existing abort imports.
+1. **E13-S5** — Report truncated expanded arrays with the correct remaining count.
+2. **E13-S6** — Preserve as-pect abort messages when wrapping existing abort imports.
+3. **E13-S7** — Mark expected values as negated for `toStrictEqual().not`.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.
