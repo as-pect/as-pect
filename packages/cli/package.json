@@ -8,9 +8,9 @@
   "types": "lib/index.d.ts",
   "type": "module",
   "scripts": {
-    "rimraf": "rimraf lib/*",
+    "clean": "node ../../scripts/clean.mjs lib",
     "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
-    "tsc:cli": "run-s rimraf tsc",
+    "tsc:cli": "run-s clean tsc",
     "tsc": "tsc"
   },
   "bin": {

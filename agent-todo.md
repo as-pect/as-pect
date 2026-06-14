@@ -74,40 +74,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E9 — Remove Rimraf
-
-**Goal:** Replace `rimraf` cleanup scripts with Node built-ins or small local cleanup scripts.
-
-**Primary files:**
-
-- root `package.json`
-- package scripts under `packages/*/package.json`
-- optional local cleanup helper under `scripts/`
-
-**Done when:** `rimraf` is no longer a direct dependency, no package script invokes `rimraf`, and clean/build scripts work cross-platform enough for supported Node versions.
-
-**Validation:** run package build/typecheck commands that previously cleaned generated output.
-
-### Slice E9-S1 — Replace package clean scripts with a local clean helper
-
-- **Epic:** E9
-- **Scope:** Add or reuse a small Node cleanup helper based on built-in `fs.rm`, then update package clean scripts that currently invoke `rimraf`.
-- **Files:** root `package.json`, package `package.json` files, optional `scripts/` helper
-- **Tests to add/update:** helper tests if the cleanup helper has non-trivial path handling
-- **Done when:** package clean/build scripts no longer shell out to the `rimraf` binary.
-- **Validation:** run the touched package build/typecheck commands that include cleanup.
-
-### Slice E9-S2 — Remove the rimraf dependency after clean scripts migrate
-
-- **Epic:** E9
-- **Scope:** Remove the direct `rimraf` dependency from the root workspace once no package script references it.
-- **Files:** `package.json`, `package-lock.json`
-- **Tests to add/update:** none
-- **Done when:** `npm ls rimraf` only shows transitive dependencies, if any, and no checked-in script invokes `rimraf`.
-- **Validation:** `npm run tsc:all` and focused package build/typecheck commands touched by E9-S1.
-
----
-
 ## Epic E10 — Remove npm-run-all2
 
 **Goal:** Remove `npm-run-all2` by replacing `run-s` and `run-p` script orchestration with npm-native sequencing, shell-free Node helpers, or package-specific scripts.
