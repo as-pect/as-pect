@@ -43,31 +43,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** New reporters should depend on Suite report and Report event facts. Legacy callbacks should still work, but through an explicit compatibility adapter rather than leaking through the main report event interface.
 
-### Slice E2-S1 — Characterize reporter compatibility behavior
-
-- **Epic:** E2
-- **Scope:** Add tests that lock down how modern report callbacks and legacy callbacks interact today.
-- **Files:** `packages/core/__tests__/ReportingLifecycle.spec.ts`, `packages/core/__tests__/CombinationReporter.spec.ts`
-- **Tests to add:**
-  - reporter with only legacy callbacks receives `onEnter`, `onExit`, `onFinish`
-  - reporter with report callbacks receives report events and not duplicate legacy callbacks
-  - `CombinationReporter` mixes modern and legacy reporters correctly
-  - subclass overrides of `VerboseReporter` and `SummaryReporter` continue to work
-- **Done when:** compatibility rules are explicit before changing the seam.
-- **Validation:** focused core reporter tests.
-
-### Slice E2-S2 — Introduce a named legacy reporter adapter
-
-- **Epic:** E2
-- **Scope:** Add a small adapter module that translates report events into legacy `onEnter`, `onExit`, and `onFinish` calls where needed.
-- **Files:** new `packages/core/src/reporter/LegacyReporterAdapter.ts`, `IReporter.ts`, `ReportingLifecycle.ts`, `CombinationReporter.ts`
-- **Tests to add/update:**
-  - adapter translates group/test start and finish events
-  - adapter translates suite finish events
-  - adapter does not call legacy callbacks when a reporter provides modern callbacks for that event
-- **Done when:** fallback logic is concentrated in one adapter module instead of repeated in `ReportingLifecycle` and `CombinationReporter`.
-- **Validation:** focused core reporter tests.
-
 ### Slice E2-S3 — Remove compatibility facts from internal event construction
 
 - **Epic:** E2
@@ -405,10 +380,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E2-S1** — Characterize reporter compatibility behavior.
-2. **E2-S2** — Introduce a named legacy reporter adapter.
-3. **E2-S3** — Remove compatibility facts from internal event construction.
-4. **E2-S4** — Convert built-in reporters to pure report facts where possible.
-5. **E3-S1** — Inventory and characterize Wasm host callbacks.
+1. **E2-S3** — Remove compatibility facts from internal event construction.
+2. **E2-S4** — Convert built-in reporters to pure report facts where possible.
+3. **E3-S1** — Inventory and characterize Wasm host callbacks.
 
 This sequence prepares the Reporting lifecycle seam without breaking custom reporters, then moves to Wasm host recording locality.

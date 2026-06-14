@@ -1,6 +1,7 @@
 import { TestContext } from "../test/TestContext.js";
 import { IReporter, IWritable } from "./IReporter.js";
 import { TestNode } from "../test/TestNode.js";
+import { LegacyReporterAdapter } from "./LegacyReporterAdapter.js";
 import type { GroupReportEvent, SuiteReportEvent, TestReportEvent } from "./ReportingLifecycle.js";
 
 /**
@@ -8,7 +9,11 @@ import type { GroupReportEvent, SuiteReportEvent, TestReportEvent } from "./Repo
  * forEach() to call each reporter's function when each method is called.
  */
 export class CombinationReporter implements IReporter {
-  constructor(protected reporters: IReporter[]) {}
+  private readonly reporterAdapters: LegacyReporterAdapter[];
+
+  constructor(protected reporters: IReporter[]) {
+    this.reporterAdapters = reporters.map((reporter) => new LegacyReporterAdapter(reporter));
+  }
 
   get stdout(): IWritable | null {
     return this.reporters[0].stdout;
@@ -43,52 +48,22 @@ export class CombinationReporter implements IReporter {
   }
 
   onReportGroupStart(event: GroupReportEvent): void {
-    this.reporters.forEach((reporter) => {
-      if (reporter.onReportGroupStart) {
-        reporter.onReportGroupStart(event);
-      } else {
-        reporter.onEnter(event.context, event.node);
-      }
-    });
+    this.reporterAdapters.forEach((reporter) => reporter.onReportGroupStart(event));
   }
 
   onReportGroupFinish(event: GroupReportEvent): void {
-    this.reporters.forEach((reporter) => {
-      if (reporter.onReportGroupFinish) {
-        reporter.onReportGroupFinish(event);
-      } else {
-        reporter.onExit(event.context, event.node);
-      }
-    });
+    this.reporterAdapters.forEach((reporter) => reporter.onReportGroupFinish(event));
   }
 
   onReportTestStart(event: TestReportEvent): void {
-    this.reporters.forEach((reporter) => {
-      if (reporter.onReportTestStart) {
-        reporter.onReportTestStart(event);
-      } else {
-        reporter.onEnter(event.context, event.node);
-      }
-    });
+    this.reporterAdapters.forEach((reporter) => reporter.onReportTestStart(event));
   }
 
   onReportTestFinish(event: TestReportEvent): void {
-    this.reporters.forEach((reporter) => {
-      if (reporter.onReportTestFinish) {
-        reporter.onReportTestFinish(event);
-      } else {
-        reporter.onExit(event.context, event.node);
-      }
-    });
+    this.reporterAdapters.forEach((reporter) => reporter.onReportTestFinish(event));
   }
 
   onReportFinish(event: SuiteReportEvent): void {
-    this.reporters.forEach((reporter) => {
-      if (reporter.onReportFinish) {
-        reporter.onReportFinish(event);
-      } else {
-        reporter.onFinish(event.context);
-      }
-    });
+    this.reporterAdapters.forEach((reporter) => reporter.onReportFinish(event));
   }
 }

@@ -1,6 +1,7 @@
 import { SnapshotDiffResultType } from "@as-pect/snapshots";
 import type { SnapshotDiffResult } from "@as-pect/snapshots";
 import type { IReporter } from "./IReporter.js";
+import { LegacyReporterAdapter } from "./LegacyReporterAdapter.js";
 import type { TestContext } from "../test/TestContext.js";
 import type { TestNode } from "../test/TestNode.js";
 import type { IWarning } from "../test/IWarning.js";
@@ -263,14 +264,18 @@ export class SuiteReport {
 }
 
 export class ReportingLifecycle {
+  private readonly reporterAdapter: LegacyReporterAdapter;
+
   public constructor(
     private readonly suite: TestContext,
-    private readonly reporter: IReporter,
-  ) {}
+    reporter: IReporter,
+  ) {
+    this.reporterAdapter = new LegacyReporterAdapter(reporter);
+  }
 
   public enter(node: TestNode): void {
-    if (node.type === TestNodeType.Group && this.reporter.onReportGroupStart) {
-      this.reporter.onReportGroupStart({
+    if (node.type === TestNodeType.Group) {
+      this.reporterAdapter.onReportGroupStart({
         context: this.suite,
         node,
         group: SuiteReport.groupFromNode(node),
@@ -278,24 +283,21 @@ export class ReportingLifecycle {
       return;
     }
 
-    if (node.type === TestNodeType.Test && this.reporter.onReportTestStart) {
+    if (node.type === TestNodeType.Test) {
       const groupNode = node.parent!;
-      this.reporter.onReportTestStart({
+      this.reporterAdapter.onReportTestStart({
         context: this.suite,
         groupNode,
         node,
         group: SuiteReport.groupFromNode(groupNode),
         test: SuiteReport.testFromNode(groupNode, node),
       });
-      return;
     }
-
-    this.reporter.onEnter(this.suite, node);
   }
 
   public exit(node: TestNode): void {
-    if (node.type === TestNodeType.Group && this.reporter.onReportGroupFinish) {
-      this.reporter.onReportGroupFinish({
+    if (node.type === TestNodeType.Group) {
+      this.reporterAdapter.onReportGroupFinish({
         context: this.suite,
         node,
         group: SuiteReport.groupFromNode(node),
@@ -303,30 +305,22 @@ export class ReportingLifecycle {
       return;
     }
 
-    if (node.type === TestNodeType.Test && this.reporter.onReportTestFinish) {
+    if (node.type === TestNodeType.Test) {
       const groupNode = node.parent!;
-      this.reporter.onReportTestFinish({
+      this.reporterAdapter.onReportTestFinish({
         context: this.suite,
         groupNode,
         node,
         group: SuiteReport.groupFromNode(groupNode),
         test: SuiteReport.testFromNode(groupNode, node),
       });
-      return;
     }
-
-    this.reporter.onExit(this.suite, node);
   }
 
   public finish(): void {
-    if (this.reporter.onReportFinish) {
-      this.reporter.onReportFinish({
-        context: this.suite,
-        report: SuiteReport.from(this.suite),
-      });
-      return;
-    }
-
-    this.reporter.onFinish(this.suite);
+    this.reporterAdapter.onReportFinish({
+      context: this.suite,
+      report: SuiteReport.from(this.suite),
+    });
   }
 }

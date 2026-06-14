@@ -56,6 +56,10 @@ _Avoid_: Printer, output service
 The module that publishes test suite events and final suite report facts to reporters through one seam.
 _Avoid_: Reporter manager, output lifecycle service
 
+**Legacy reporter adapter**:
+The compatibility seam that translates Report events to older `onEnter`, `onExit`, and `onFinish` reporter callbacks when a reporter has not implemented the corresponding report callback.
+_Avoid_: Reporter fallback, callback shim
+
 **Suite report**:
 The stable reportable facts for one completed test suite: counts, groups, tests, todos, warnings, errors, snapshot stats, and snapshot change lines.
 _Avoid_: Reporter model, result DTO

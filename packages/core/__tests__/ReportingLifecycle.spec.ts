@@ -4,9 +4,11 @@ import {
   IAspectExports,
   ReportingLifecycle,
   SuiteReport,
+  SummaryReporter,
   TestContext,
   TestNode,
   TestNodeType,
+  VerboseReporter,
 } from "../src/index.js";
 
 describe("SuiteReport", () => {
@@ -160,18 +162,30 @@ describe("ReportingLifecycle", () => {
   it("should publish lifecycle events through the compatibility reporter seam", () => {
     const reporter = new EmptyReporter();
     const calls: string[] = [];
-    const suite = {} as TestContext;
-    const node = new TestNode();
-    reporter.onEnter = () => calls.push("enter");
-    reporter.onExit = () => calls.push("exit");
-    reporter.onFinish = () => calls.push("finish");
-    const lifecycle = new ReportingLifecycle(suite, reporter);
+    const rootNode = new TestNode();
+    rootNode.type = TestNodeType.Group;
+    const group = new TestNode();
+    group.type = TestNodeType.Group;
+    group.name = "math";
+    group.parent = rootNode;
+    rootNode.children.push(group);
+    const test = new TestNode();
+    test.type = TestNodeType.Test;
+    test.name = "adds";
+    test.parent = group;
+    group.children.push(test);
+    reporter.onEnter = (_ctx, node) => calls.push(`enter:${node.name}`);
+    reporter.onExit = (_ctx, node) => calls.push(`exit:${node.name}`);
+    reporter.onFinish = (suite) => calls.push(`finish:${suite.fileName}`);
+    const lifecycle = new ReportingLifecycle(createSuite(rootNode), reporter);
 
-    lifecycle.enter(node);
-    lifecycle.exit(node);
+    lifecycle.enter(group);
+    lifecycle.enter(test);
+    lifecycle.exit(test);
+    lifecycle.exit(group);
     lifecycle.finish();
 
-    expect(calls).toEqual(["enter", "exit", "finish"]);
+    expect(calls).toEqual(["enter:math", "enter:adds", "exit:adds", "exit:math", "finish:assembly/example.spec.ts"]);
   });
 
   it("should publish start events before group collection and test execution", () => {
@@ -261,6 +275,9 @@ describe("ReportingLifecycle", () => {
     test.parent = group;
     test.pass = true;
     group.children.push(test);
+    reporter.onEnter = (_ctx, node) => calls.push(`legacy-enter:${node.name}`);
+    reporter.onExit = (_ctx, node) => calls.push(`legacy-exit:${node.name}`);
+    reporter.onFinish = (suite) => calls.push(`legacy-finish:${suite.fileName}`);
     reporter.onReportGroupStart = (event) => calls.push(`group:start:${event.group.name}`);
     reporter.onReportTestStart = (event) => calls.push(`test:start:${event.group.name}:${event.test.name}`);
     reporter.onReportTestFinish = (event) => calls.push(`test:finish:${event.group.name}:${event.test.name}`);
@@ -281,5 +298,79 @@ describe("ReportingLifecycle", () => {
       "group:finish:math",
       "finish:assembly/example.spec.ts",
     ]);
+  });
+
+  it("should preserve VerboseReporter subclass compatibility overrides behind report callbacks", () => {
+    class CustomVerboseReporter extends VerboseReporter {
+      public entries: string[] = [];
+
+      public onGroupStart(group: TestNode): void {
+        this.entries.push(`group-start:${group.name}`);
+      }
+
+      public onGroupFinish(group: TestNode): void {
+        this.entries.push(`group-finish:${group.name}`);
+      }
+
+      public onTestStart(group: TestNode, test: TestNode): void {
+        this.entries.push(`test-start:${group.name}:${test.name}`);
+      }
+
+      public onTestFinish(group: TestNode, test: TestNode): void {
+        this.entries.push(`test-finish:${group.name}:${test.name}`);
+      }
+
+      public onFinish(suite: TestContext): void {
+        this.entries.push(`finish:${suite.fileName}`);
+      }
+    }
+
+    const reporter = new CustomVerboseReporter();
+    const rootNode = new TestNode();
+    rootNode.type = TestNodeType.Group;
+    const group = new TestNode();
+    group.type = TestNodeType.Group;
+    group.name = "math";
+    group.parent = rootNode;
+    rootNode.children.push(group);
+    const test = new TestNode();
+    test.type = TestNodeType.Test;
+    test.name = "adds";
+    test.parent = group;
+    group.children.push(test);
+    const lifecycle = new ReportingLifecycle(createSuite(rootNode), reporter);
+
+    lifecycle.enter(group);
+    lifecycle.enter(test);
+    lifecycle.exit(test);
+    lifecycle.exit(group);
+    lifecycle.finish();
+
+    expect(reporter.entries).toEqual([
+      "group-start:math",
+      "test-start:math:adds",
+      "test-finish:math:adds",
+      "group-finish:math",
+      "finish:assembly/example.spec.ts",
+    ]);
+  });
+
+  it("should preserve SummaryReporter onFinish subclass overrides behind report callbacks", () => {
+    class CustomSummaryReporter extends SummaryReporter {
+      public entries: string[] = [];
+
+      public onFinish(suite: TestContext): void {
+        this.entries.push(`finish:${suite.fileName}`);
+      }
+    }
+
+    const reporter = new CustomSummaryReporter();
+    const rootNode = new TestNode();
+    rootNode.type = TestNodeType.Group;
+    const lifecycle = new ReportingLifecycle(createSuite(rootNode), reporter);
+
+    lifecycle.finish();
+
+    expect(reporter.entries).toEqual(["finish:assembly/example.spec.ts"]);
   });
 });
