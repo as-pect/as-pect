@@ -62,6 +62,26 @@ describe("Snapshot", () => {
     ]);
   });
 
+  it("should parse snapshot entries with flexible whitespace", () => {
+    const input = "\n\nexports [ `key` ]\n  =\n`value` ;\n";
+
+    expect(snapshotEntries(Snapshot.parse(input))).toEqual([["key", "value"]]);
+  });
+
+  it("should parse compatible snapshot names and values as literal strings", () => {
+    const input = "exports[`outer[0]!~renders \\ path`] = `line one\\nnot escaped newline marker`;";
+
+    expect(snapshotEntries(Snapshot.parse(input))).toEqual([
+      ["outer[0]!~renders \\ path", "line one\\nnot escaped newline marker"],
+    ]);
+  });
+
+  it("should keep the last duplicate parsed snapshot value", () => {
+    const input = "exports[`A`] = `first`;\nexports[`A`] = `second`;";
+
+    expect(snapshotEntries(Snapshot.parse(input))).toEqual([["A", "second"]]);
+  });
+
   it("should stringify a given snapshot", () => {
     expect(Snapshot.from(map).stringify()).toBe("\n");
   });
@@ -94,6 +114,21 @@ describe("Snapshot", () => {
 
     try {
       Snapshot.parse("exports[`A`] = `value`");
+    } catch (ex) {
+      error = ex;
+    }
+
+    expect(error).toBeInstanceOf(SnapshotParseError);
+    expect((error as SnapshotParseError).lexerErrors).toEqual([]);
+    expect((error as SnapshotParseError).parserErrors.length).toBeGreaterThan(0);
+    expect((error as SnapshotParseError).message).toContain("Failed to parse snapshot file:");
+  });
+
+  it("should populate parser error facts for missing snapshot values", () => {
+    let error: unknown;
+
+    try {
+      Snapshot.parse("exports[`A`] = ;");
     } catch (ex) {
       error = ex;
     }

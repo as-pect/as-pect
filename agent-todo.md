@@ -210,15 +210,6 @@ When updating this file after a maintenance change:
 
 **Validation:** focused snapshots package tests, core snapshot/reporting tests, and CLI snapshot tests.
 
-### Slice E11-S1 — Characterize snapshot parser compatibility
-
-- **Epic:** E11
-- **Scope:** Add focused snapshots package tests for the accepted snapshot syntax, stringify round-trips, duplicate keys, escaped content, and current parse error facts before replacing the parser.
-- **Files:** `packages/snapshots/__tests__/snapshot.spec.ts`, snapshot fixtures
-- **Tests to add/update:** snapshots parser characterization tests
-- **Done when:** parser compatibility and parse error expectations are explicit enough to guide a local parser replacement.
-- **Validation:** `npm test --workspace @as-pect/snapshots`.
-
 ### Slice E11-S2 — Replace Chevrotain parser with a local parser
 
 - **Epic:** E11
