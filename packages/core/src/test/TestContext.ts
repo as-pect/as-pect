@@ -115,12 +115,6 @@ export class TestContext {
   /** The most recent tryCall error text for nested throw-message expectations. */
   protected lastErrorText: string = "";
 
-  /** The collected actual value. */
-  protected actual: ReflectedValue | null = null;
-
-  /** The collected expected value. */
-  protected expected: ReflectedValue | null = null;
-
   /** Filter the tests by regex. */
   protected testRegex: RegExp = new RegExp("");
 
@@ -473,10 +467,7 @@ export class TestContext {
 
   /** Obtain the stack trace, actual, expected, and message values, and attach them to a given node. */
   private collectStatistics(node: TestNode): void {
-    node.stackTrace = this.stack;
-    node.actual = this.actual;
-    node.expected = this.expected;
-    node.message = this.message;
+    this.testTreeRecorder.recordFailureFacts(node, this.stack, this.message);
     this.finishTimingAndRtrace(node);
   }
 
@@ -836,7 +827,7 @@ export class TestContext {
     reflectedValue.value = `trace: ${this.getString(strPointer, "")} ${args.slice(0, count).join(", ")}`;
 
     // push the log value to the logs
-    this.targetNode.logs.push(reflectedValue);
+    this.testTreeRecorder.recordLog(this.targetNode, reflectedValue);
   }
 
   /**
@@ -961,7 +952,7 @@ export class TestContext {
       /* istanbul ignore next */
       return;
     }
-    this.targetNode.logs.push(this.reflectedValueCache[id]);
+    this.testTreeRecorder.recordLog(this.targetNode, this.reflectedValueCache[id]);
   }
 
   /**
@@ -982,7 +973,7 @@ export class TestContext {
       /* istanbul ignore next */
       return;
     }
-    this.actual = this.reflectedValueCache[id];
+    this.testTreeRecorder.recordActual(this.reflectedValueCache[id]);
   }
 
   /**
@@ -1003,8 +994,7 @@ export class TestContext {
       /* istanbul ignore next */
       return;
     }
-    this.expected = this.reflectedValueCache[id];
-    this.expected.negated = negated === 1;
+    this.testTreeRecorder.recordExpected(this.reflectedValueCache[id], negated);
   }
 
   /**
@@ -1109,14 +1099,14 @@ export class TestContext {
    * Clear the expected value.
    */
   private clearExpected(): void {
-    this.expected = null;
+    this.testTreeRecorder.clearExpected();
   }
 
   /**
    * Clear the actual value.
    */
   private clearActual(): void {
-    this.actual = null;
+    this.testTreeRecorder.clearActual();
   }
 
   /**
@@ -1125,10 +1115,7 @@ export class TestContext {
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
   private reportExpectedTruthy(negated: number): void {
-    const expected = (this.expected = new ReflectedValue());
-
-    expected.negated = negated === 1;
-    expected.type = ReflectedValueType.Truthy;
+    this.testTreeRecorder.recordExpectedType(ReflectedValueType.Truthy, negated);
   }
 
   /**
@@ -1137,10 +1124,7 @@ export class TestContext {
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
   private reportExpectedFalsy(negated: number): void {
-    const expected = (this.expected = new ReflectedValue());
-
-    expected.negated = negated === 1;
-    expected.type = ReflectedValueType.Falsy;
+    this.testTreeRecorder.recordExpectedType(ReflectedValueType.Falsy, negated);
   }
 
   /**
@@ -1149,10 +1133,7 @@ export class TestContext {
    * @param {1 | 0} negated - An indicator if the expectation is negated.
    */
   private reportExpectedFinite(negated: number): void {
-    const expected = (this.expected = new ReflectedValue());
-
-    expected.negated = negated === 1;
-    expected.type = ReflectedValueType.Finite;
+    this.testTreeRecorder.recordExpectedType(ReflectedValueType.Finite, negated);
   }
 
   /**
