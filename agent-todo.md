@@ -122,19 +122,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** Snapshot parsing, diffing, pass/fail, stats, and update planning stay concentrated in the Snapshot lifecycle module; CLI and reporters consume stable facts.
 
-### Slice E5-S2 — Add snapshot parser error coverage
-
-- **Epic:** E5
-- **Scope:** Ensure malformed snapshot files produce useful `SnapshotParseError` facts.
-- **Files:** `packages/snapshots/__tests__/snapshot.spec.ts`, `Snapshot.ts`
-- **Tests to add/update:**
-  - lexer errors populate `lexerErrors`
-  - parser errors populate `parserErrors`
-  - missing value error remains useful
-  - backtick escaping/unescaping remains stable
-- **Done when:** parser error modes are locked down for CLI callers.
-- **Validation:** focused snapshots package tests.
-
 ### Slice E5-S3 — Keep Suite report snapshot facts independent from diff internals
 
 - **Epic:** E5
@@ -305,8 +292,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E5-S2** — Add snapshot parser error coverage.
-2. **E5-S3** — Keep Suite report snapshot facts independent from diff internals.
-3. **E4-S2** — Extract shared AST type/parameter helpers.
+1. **E5-S3** — Keep Suite report snapshot facts independent from diff internals.
+2. **E4-S2** — Extract shared AST type/parameter helpers.
+3. **E4-S3** — Extract shared inherited ignore-list generation.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.

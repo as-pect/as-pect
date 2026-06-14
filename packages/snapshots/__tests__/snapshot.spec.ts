@@ -74,11 +74,22 @@ describe("Snapshot", () => {
     expect(Array.from(Snapshot.parse(text).values.entries())).toEqual(Array.from(values.entries()));
   });
 
-  it("should throw an explicit parse error for unterminated snapshot strings", () => {
-    expect(() => Snapshot.parse("exports[`A`] = `unterminated;")).toThrow(SnapshotParseError);
+  it("should populate lexer error facts for unterminated snapshot strings", () => {
+    let error: unknown;
+
+    try {
+      Snapshot.parse("exports[`A`] = `unterminated;");
+    } catch (ex) {
+      error = ex;
+    }
+
+    expect(error).toBeInstanceOf(SnapshotParseError);
+    expect((error as SnapshotParseError).lexerErrors.length).toBeGreaterThan(0);
+    expect((error as SnapshotParseError).parserErrors).toEqual([]);
+    expect((error as SnapshotParseError).message).toContain("Failed to parse snapshot file:");
   });
 
-  it("should throw an explicit parse error for malformed snapshot syntax", () => {
+  it("should populate parser error facts for malformed snapshot syntax", () => {
     let error: unknown;
 
     try {
@@ -88,7 +99,16 @@ describe("Snapshot", () => {
     }
 
     expect(error).toBeInstanceOf(SnapshotParseError);
+    expect((error as SnapshotParseError).lexerErrors).toEqual([]);
     expect((error as SnapshotParseError).parserErrors.length).toBeGreaterThan(0);
+    expect((error as SnapshotParseError).message).toContain("Failed to parse snapshot file:");
+  });
+
+  it("should keep missing snapshot value parse errors useful", () => {
+    const error = new SnapshotParseError([], [{ message: "Snapshot entry is missing a value." }]);
+
+    expect(error.parserErrors).toEqual(["Snapshot entry is missing a value."]);
+    expect(error.message).toContain("- Snapshot entry is missing a value.");
   });
 
   it("should diff snapshots", () => {
