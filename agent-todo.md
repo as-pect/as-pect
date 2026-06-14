@@ -51,18 +51,6 @@ When updating this file after a maintenance change:
 - **Done when:** `runTestSession()` becomes a high-level loop over planned entries that delegates one entry at a time.
 - **Validation:** focused CLI package tests, then full CLI test suite.
 
-### Slice E1-S9 — Reduce repeated Suite report construction
-
-- **Epic:** E1
-- **Scope:** Avoid constructing `SuiteReport.from(ctx)` multiple times for the same completed suite in the CLI path.
-- **Files:** `packages/cli/src/TestSession.ts`, maybe `packages/core/src/reporter/ReportingLifecycle.ts` only if needed
-- **Tests to add/update:**
-  - no behavior change in aggregate stats
-  - reporters still receive finish events
-  - empty suites are still ignored for aggregate stats
-- **Done when:** each completed `TestContext` has one suite report fact used by the CLI path.
-- **Validation:** focused CLI and core reporter tests.
-
 ### Slice E1-S10 — Document the Test session entry concept
 
 - **Epic:** E1
