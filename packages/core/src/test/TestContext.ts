@@ -306,12 +306,9 @@ export class TestContext {
   protected visit(node: TestNode): void {
     this.withTargetNode(node, () => {
       // validate this node will run
-      if (node !== this.rootNode) {
-        const regexTester = node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
-        if (!regexMatches(regexTester, node.name)) {
-          node.pass = true;
-          return;
-        }
+      if (!this.shouldRunNode(node)) {
+        node.pass = true;
+        return;
       }
 
       // this node is being tested for sure
@@ -414,27 +411,24 @@ export class TestContext {
       for (let i = 0; i < children.length; i++) {
         const child = children[i];
 
-        // in the context of running a test, run the beforeEach functions
-        if (child.type === TestNodeType.Test) {
-          if (!this.runBeforeEach(node)) {
-            this.collectStatistics(node);
-            this.addResult(node, false);
-            this.reportingLifecycle.exit(node);
-            return;
-          }
+        // in the context of running a matching test, run the beforeEach functions
+        const shouldRunChildHooks = child.type === TestNodeType.Test && this.shouldRunNode(child);
+        if (shouldRunChildHooks && !this.runBeforeEach(node)) {
+          this.collectStatistics(node);
+          this.addResult(node, false);
+          this.reportingLifecycle.exit(node);
+          return;
         }
 
         // now we can visit the child
         this.visit(child);
 
-        // in the context of running a test, run the afterEach functions
-        if (child.type === TestNodeType.Test) {
-          if (!this.runAfterEach(node)) {
-            this.collectStatistics(node);
-            this.addResult(node, false);
-            this.reportingLifecycle.exit(node);
-            return;
-          }
+        // in the context of running a matching test, run the afterEach functions
+        if (shouldRunChildHooks && !this.runAfterEach(node)) {
+          this.collectStatistics(node);
+          this.addResult(node, false);
+          this.reportingLifecycle.exit(node);
+          return;
         }
       }
 
@@ -452,6 +446,13 @@ export class TestContext {
       this.addResult(node, true);
       this.reportingLifecycle.exit(node);
     });
+  }
+
+  /** Check if a collected node should run with the active filters. */
+  private shouldRunNode(node: TestNode): boolean {
+    if (node === this.rootNode) return true;
+    const regexTester = node.type === TestNodeType.Group ? this.groupRegex : this.testRegex;
+    return regexMatches(regexTester, node.name);
   }
 
   /** Report a TestNode */

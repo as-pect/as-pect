@@ -329,16 +329,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S1 — Do not run hooks for filtered-out tests
-
-- **Epic:** E13
-- **Problem:** Filtered-out tests still run parent `beforeEach` and `afterEach` hooks. `TestContext.visit(child)` applies `testRegex` inside the child visit, but the parent traversal already calls hooks before and after that visit.
-- **Files:** `packages/core/src/test/TestContext.ts`, `packages/core/__tests__/TestGroupFilter.spec.ts`, possible filter fixture under `packages/core/assembly/`
-- **Fix:** Decide whether a child test matches the active test filter before running per-test hooks. A skipped child should be marked/pass-preserved consistently with current filtering behavior, but no before/after hooks should execute for it.
-- **Tests to add/update:** A filtered-out test whose `beforeEach` or `afterEach` would fail/mutate state must not run those hooks; matching tests should still run hooks in the existing parent-to-child and child-to-parent order.
-- **Done when:** focused test filtering no longer runs hooks for excluded tests and existing group/test filter behavior remains stable, including stateful regex reset behavior.
-- **Validation:** `npm run test:ci --workspace @as-pect/core`.
-
 ### Slice E13-S2 — Report todo-only groups and root-level todos correctly
 
 - **Epic:** E13
@@ -433,8 +423,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S1** — Do not run hooks for filtered-out tests.
-2. **E13-S2** — Report todo-only groups and root-level todos correctly.
-3. **E13-S3** — Use expectation negation in structured expected strings.
+1. **E13-S2** — Report todo-only groups and root-level todos correctly.
+2. **E13-S3** — Use expectation negation in structured expected strings.
+3. **E13-S4** — Print the real passing group count in VerboseReporter.
 
-This sequence prioritizes confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.
+This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.
