@@ -45,15 +45,6 @@ When updating this file after a maintenance change:
 
 **Validation:** run the Biome format/check command, package typechecks, and focused tests for any touched package.
 
-### Slice E7-S1 — Introduce Biome validation beside existing tools
-
-- **Epic:** E7
-- **Scope:** Add the Biome dev dependency and configuration that captures the repository's current generated-file ignores and formatting/static-check expectations without removing ESLint or Prettier yet.
-- **Files:** `package.json`, `package-lock.json`, Biome configuration file, `.prettierignore`, `eslint.config.mjs`
-- **Tests to add/update:** none
-- **Done when:** Biome can run as an explicit validation command and does not report generated artifacts or intentionally ignored AssemblyScript runtime files.
-- **Validation:** Biome check command plus `npm run tsc:all` if configuration touches TypeScript source inclusion.
-
 ### Slice E7-S2 — Move active check scripts to Biome
 
 - **Epic:** E7
@@ -165,8 +156,7 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E7-S1** — Introduce Biome validation beside existing tools.
-2. **E7-S2** — Move active check scripts to Biome.
-3. **E7-S3** — Remove ESLint and Prettier toolchain files and dependencies.
+1. **E7-S2** — Move active check scripts to Biome.
+2. **E7-S3** — Remove ESLint and Prettier toolchain files and dependencies.
 
-This sequence keeps the Biome migration reviewable in smaller steps.
+This sequence keeps the remaining Biome migration reviewable in smaller steps.

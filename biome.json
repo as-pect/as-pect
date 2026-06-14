@@ -1,0 +1,88 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.0/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!.pi",
+      "!packages/assembly/assembly/internal/runtime.ts",
+      "!packages/snapshots/src/parser/grammar.ts",
+      "!packages/assembly/assembly/internal",
+      "!packages/assembly/assembly/__tests__/setup/Test.include.ts",
+      "!packages/core/assembly/jest-reporter-fail.ts",
+      "!packages/core/assembly/jest-lifecycle.ts",
+      "!**/lib",
+      "!node_modules",
+      "!coverage",
+      "!dist",
+      "!build",
+      "!**/*.wasm",
+      "!**/*.wat"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 120,
+    "includes": ["**/*.md", "!.pi"]
+  },
+  "linter": {
+    "enabled": true,
+    "includes": [
+      "packages/**/assembly/**/*.ts",
+      "!packages/assembly/assembly/internal",
+      "!packages/assembly/assembly/__tests__/setup/Test.include.ts",
+      "!packages/core/assembly/jest-reporter-fail.ts",
+      "!packages/core/assembly/jest-lifecycle.ts"
+    ],
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        "noStaticOnlyClass": "off"
+      },
+      "correctness": {
+        "noConstantCondition": "off",
+        "noUnusedFunctionParameters": "off",
+        "noUnusedImports": "off",
+        "noUnusedPrivateClassMembers": "off",
+        "noUnusedVariables": "off"
+      },
+      "style": {
+        "noNamespace": "off",
+        "noNonNullAssertion": "off",
+        "useArrayLiterals": "off",
+        "useConst": "off",
+        "useImportType": "off",
+        "useTemplate": "off"
+      },
+      "suspicious": {
+        "noAssignInExpressions": "off",
+        "noDoubleEquals": "off",
+        "noEmptyInterface": "off",
+        "noExplicitAny": "off",
+        "noExportsInTest": "off",
+        "noFallthroughSwitchClause": "off",
+        "noShadowRestrictedNames": "off",
+        "noTsIgnore": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "trailingCommas": "all",
+      "semicolons": "always"
+    }
+  },
+  "assist": {
+    "enabled": false
+  }
+}

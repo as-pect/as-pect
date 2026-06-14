@@ -17,6 +17,7 @@
     "tsc:all": "node scripts/run-npm-scripts.mjs tsc:packages tsc:cli",
     "prettier": "prettier --write \"**/src/**/*.ts\" \"**/*.md\"",
     "lint": "eslint --fix --max-warnings 0 \"packages/**/assembly/**/*.ts\"",
+    "biome:check": "biome check .",
     "check": "node scripts/run-npm-scripts.mjs prettier lint",
     "changeset": "changeset",
     "version-packages": "changeset version",
@@ -35,6 +36,7 @@
   "homepage": "https://github.com/jtenner/as-pect#readme",
   "devDependencies": {
     "@assemblyscript/wasi-shim": "^0.1.0",
+    "@biomejs/biome": "^2.5.0",
     "@changesets/cli": "^2.31.0",
     "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
