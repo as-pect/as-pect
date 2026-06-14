@@ -26,32 +26,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E3 — Give the Wasm host a Test tree recording module
-
-**Goal:** Separate host callback recording and Test tree mutation from TestContext execution flow, so the Wasm host has a smaller seam and Test tree state has better locality.
-
-**Primary files:**
-
-- `packages/core/src/test/TestContext.ts`
-- `packages/core/src/test/TestNode.ts`
-- `packages/core/src/util/IAspectExports.ts`
-- `packages/core/__tests__/TestContext.*.spec.ts`
-
-**Target shape:** `TestContext` coordinates execution. A Test tree recording module owns host-import callbacks that add groups, tests, hooks, todos, logs, reflected actual/expected values, abort messages, and snapshots to the current Test node.
-
-### Slice E3-S7 — Reduce public mutable TestNode access where safe
-
-- **Epic:** E3
-- **Scope:** After recorder extraction, identify Test node fields that can be updated through methods or report facts rather than direct public mutation.
-- **Files:** `TestNode.ts`, tests that directly mutate Test nodes
-- **Tests to add/update:**
-  - keep fixture builders simple for tests
-  - preserve public compatibility unless a field is clearly internal and unused externally
-- **Done when:** at least one high-churn mutation path is made local without broad breaking changes.
-- **Validation:** focused core tests.
-
----
-
 ## Epic E4 — Deepen Class reflection generation around the Class-member plan
 
 **Goal:** Make the Class-member plan the central seam for generated class reflection behavior, reducing duplicated AST construction rules and inheritance ignore logic.

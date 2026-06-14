@@ -88,6 +88,62 @@ export class TestNode {
   /** The node reallocations. */
   moves: number = 0;
 
+  /** Add a child node and preserve its parent link. */
+  addChild(node: TestNode): void {
+    node.parent = this;
+    this.children.push(node);
+  }
+
+  /** Add a callback pointer that runs before this group's children. */
+  addBeforeAll(callbackPointer: number): void {
+    this.beforeAll.push(callbackPointer);
+  }
+
+  /** Add a callback pointer that runs before each test below this group. */
+  addBeforeEach(callbackPointer: number): void {
+    this.beforeEach.push(callbackPointer);
+  }
+
+  /** Add a callback pointer that runs after each test below this group. */
+  addAfterEach(callbackPointer: number): void {
+    this.afterEach.push(callbackPointer);
+  }
+
+  /** Add a callback pointer that runs after this group's children. */
+  addAfterAll(callbackPointer: number): void {
+    this.afterAll.push(callbackPointer);
+  }
+
+  /** Add a todo message to this node. */
+  addTodo(todo: string): void {
+    this.todos.push(todo);
+  }
+
+  /** Add a logged reflected value to this node. */
+  addLog(log: ReflectedValue): void {
+    this.logs.push(log);
+  }
+
+  /** Add an error fact to this node. */
+  addError(error: IWarning): void {
+    this.errors.push(error);
+  }
+
+  /** Add a warning fact to this node. */
+  addWarning(warning: IWarning): void {
+    this.warnings.push(warning);
+  }
+
+  /** Count a heap allocation against this node. */
+  recordAllocation(): void {
+    this.allocations += 1;
+  }
+
+  /** Count a heap free against this node. */
+  recordFree(): void {
+    this.frees += 1;
+  }
+
   /** The delta number of live heap allocations after a garbage collection. */
   get rtraceDelta(): number {
     return this.rtraceEnd - this.rtraceStart;

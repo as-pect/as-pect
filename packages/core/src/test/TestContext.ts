@@ -781,7 +781,7 @@ export class TestContext {
    * @param {number} block - This is a unique identifier for the affected block.
    */
   public onfree(block: number): void {
-    this.targetNode.frees += 1;
+    this.targetNode.recordFree();
     // remove any cached strings at this pointer
     this.cachedStrings.delete(block + TOTAL_OVERHEAD);
     this.rtrace.onfree(block);
@@ -793,7 +793,7 @@ export class TestContext {
    * @param {number} block - This is a unique identifier for the affected block.
    */
   public onalloc(block: number): void {
-    this.targetNode.allocations += 1;
+    this.targetNode.recordAllocation();
     this.rtrace.onalloc(block);
   }
 
@@ -1159,7 +1159,7 @@ export class TestContext {
 
   /** Push an error to the errors array. */
   protected pushError(error: IWarning): void {
-    this.targetNode.errors.push(error);
+    this.targetNode.addError(error);
     this.errors.push(error);
   }
 
@@ -1167,7 +1167,7 @@ export class TestContext {
   /* istanbul ignore next */
   protected pushWarning(warning: IWarning): void {
     /* istanbul ignore next */
-    this.targetNode.warnings.push(warning);
+    this.targetNode.addWarning(warning);
     /* istanbul ignore next */
     this.warnings.push(warning);
   }
