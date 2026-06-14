@@ -41,18 +41,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** A Class reflection generation module should own traversal decisions, collision checks, Class-member plan facts, generated strict equality methods, generated key/value methods, generated interface methods, and shared AST vocabulary.
 
-### Slice E4-S4 — Move generated class reflection member orchestration behind one module
-
-- **Epic:** E4
-- **Scope:** Replace generation orchestration in `index.ts` with a function that accepts a class declaration and appends the right generated members.
-- **Files:** `ClassReflectionTransform.ts`, `index.ts`, generated member modules
-- **Tests to add/update:**
-  - generated members are idempotent on repeated transform passes
-  - user-authored collisions still throw useful errors
-  - generated equality marker only appears for local equality operator overloads
-- **Done when:** `traverseStatements()` does not know individual generated member rules.
-- **Validation:** focused transform tests.
-
 ### Slice E4-S5 — Split class and interface collision checks
 
 - **Epic:** E4
@@ -262,8 +250,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E4-S4** — Move generated class reflection member orchestration behind one module.
-2. **E4-S5** — Split class and interface collision checks.
-3. **E4-S6** — Make Class-member plan tests direct.
+1. **E4-S5** — Split class and interface collision checks.
+2. **E4-S6** — Make Class-member plan tests direct.
+3. **E4-S7** — Document Class reflection generation responsibilities.
 
-This sequence continues the Class reflection generation consolidation now that the confirmed snapshot reporting facts are covered.
+This sequence continues the Class reflection generation consolidation now that generated member orchestration is behind one module.
