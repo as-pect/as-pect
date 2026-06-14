@@ -43,29 +43,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** New reporters should depend on Suite report and Report event facts. Legacy callbacks should still work, but through an explicit compatibility adapter rather than leaking through the main report event interface.
 
-### Slice E2-S3 — Remove compatibility facts from internal event construction
-
-- **Epic:** E2
-- **Scope:** Stop making `TestContext` and `TestNode` the default facts reporters must understand internally; keep compatibility available through the legacy adapter.
-- **Files:** `ReportingLifecycle.ts`, `IReporter.ts`, `LegacyReporterAdapter.ts`, reporter tests
-- **Tests to add/update:**
-  - modern reporter tests only assert Suite report, group report, and test report facts
-  - legacy adapter tests cover `TestContext`/`TestNode` access
-- **Done when:** the main report event construction path is centered on reportable facts, with legacy facts isolated.
-- **Validation:** focused core reporter tests, JSON reporter tests, CSV reporter tests.
-
-### Slice E2-S4 — Convert built-in reporters to pure report facts where possible
-
-- **Epic:** E2
-- **Scope:** Update `SummaryReporter`, `VerboseReporter`, `JSONReporter`, and `CSVReporter` so their primary implementation renders Suite report / group report / test report facts.
-- **Files:** built-in reporter files and tests
-- **Tests to add/update:**
-  - reporter semantic tests still pass
-  - JSON/CSV output remains byte-for-byte compatible where existing tests assert output
-  - verbose and summary report rendering still handles snapshots, warnings, errors, logs, todos, rtrace facts
-- **Done when:** built-in reporters do not need `TestContext` or `TestNode` except for explicit legacy override compatibility.
-- **Validation:** focused core reporter tests, JSON reporter tests, CSV reporter tests.
-
 ### Slice E2-S5 — Split report fact creation from event publication
 
 - **Epic:** E2
@@ -375,6 +352,107 @@ When updating this file after a maintenance change:
 - **Tests to add/update:** none
 - **Done when:** package documentation uses the same domain language as implementation discussions.
 - **Validation:** documentation review.
+
+---
+
+## Epic E7 — Remove ESLint
+
+**Goal:** Remove the direct ESLint toolchain from this repository while preserving the project's useful static checks through TypeScript, focused tests, or small local validation scripts.
+
+**Primary files:**
+
+- `package.json`
+- `package-lock.json`
+- `eslint.config.mjs`
+- npm scripts that call `eslint`
+- AssemblyScript source under `packages/**/assembly/**/*.ts`
+
+**Done when:** `eslint`, `@eslint/js`, `globals`, `typescript-eslint`, `@typescript-eslint/eslint-plugin`, and `@typescript-eslint/parser` are no longer direct dependencies, no active script calls ESLint, and replacement validation is documented.
+
+**Validation:** run the replacement validation command, package typechecks, and focused tests for any touched package.
+
+---
+
+## Epic E8 — Remove Chalk
+
+**Goal:** Remove `chalk` from runtime packages without losing readable CLI and reporter output.
+
+**Primary files:**
+
+- `packages/cli/src/index.ts`
+- `packages/cli/src/init.ts`
+- `packages/core/src/reporter/VerboseReporter.ts`
+- `packages/core/src/reporter/SummaryReporter.ts`
+- `packages/core/src/util/stringifyReflectedValue.ts`
+- reporter snapshot/semantic tests
+
+**Done when:** `chalk` is no longer a direct dependency of `@as-pect/cli` or `@as-pect/core`, output coloring is either handled by a small local ANSI helper or intentionally simplified, and reporter tests describe the expected output.
+
+**Validation:** focused CLI tests, core reporter tests, and reporter package tests if output contracts change.
+
+---
+
+## Epic E9 — Remove Rimraf
+
+**Goal:** Replace `rimraf` cleanup scripts with Node built-ins or small local cleanup scripts.
+
+**Primary files:**
+
+- root `package.json`
+- package scripts under `packages/*/package.json`
+- optional local cleanup helper under `scripts/`
+
+**Done when:** `rimraf` is no longer a direct dependency, no package script invokes `rimraf`, and clean/build scripts work cross-platform enough for supported Node versions.
+
+**Validation:** run package build/typecheck commands that previously cleaned generated output.
+
+---
+
+## Epic E10 — Remove npm-run-all2
+
+**Goal:** Remove `npm-run-all2` by replacing `run-s` and `run-p` script orchestration with npm-native sequencing, shell-free Node helpers, or package-specific scripts.
+
+**Primary files:**
+
+- root `package.json`
+- package scripts under `packages/*/package.json`
+- optional local script runner under `scripts/`
+
+**Done when:** `npm-run-all2` is no longer a direct dependency, no script invokes `run-s` or `run-p`, and existing build/test workflows still have clear commands.
+
+**Validation:** `npm test`, `npm run tsc:all`, and focused package commands touched by the migration.
+
+---
+
+## Epic E11 — Remove Chevrotain
+
+**Goal:** Remove `chevrotain` from the snapshots package by replacing the snapshot parser with a small local parser tailored to as-pect snapshot syntax.
+
+**Primary files:**
+
+- `packages/snapshots/src/Snapshot.ts`
+- `packages/snapshots/__tests__/snapshot.spec.ts`
+- snapshot fixtures under `packages/snapshots/__tests__/__snapshots__/`
+
+**Done when:** `chevrotain` is no longer a direct dependency, snapshot parsing/stringifying behavior remains compatible, and parse errors remain useful for callers.
+
+**Validation:** focused snapshots package tests, core snapshot/reporting tests, and CLI snapshot tests.
+
+---
+
+## Epic E12 — Remove Commander
+
+**Goal:** Remove `commander` from the CLI by replacing option parsing with a small local parser that supports the documented `asp`/`aspect` command surface.
+
+**Primary files:**
+
+- `packages/cli/src/index.ts`
+- `packages/cli/__tests__/CliOptions.spec.ts`
+- CLI README/help documentation if present
+
+**Done when:** `commander` is no longer a direct dependency, CLI parsing behavior is covered by tests, and help/version/error output remains acceptable for users.
+
+**Validation:** focused CLI option tests and smoke tests for common `asp` invocations.
 
 ---
 

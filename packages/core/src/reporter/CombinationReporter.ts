@@ -2,6 +2,7 @@ import { TestContext } from "../test/TestContext.js";
 import { IReporter, IWritable } from "./IReporter.js";
 import { TestNode } from "../test/TestNode.js";
 import { LegacyReporterAdapter } from "./LegacyReporterAdapter.js";
+import type { LegacyGroupReportFacts, LegacySuiteReportFacts, LegacyTestReportFacts } from "./LegacyReporterAdapter.js";
 import type { GroupReportEvent, SuiteReportEvent, TestReportEvent } from "./ReportingLifecycle.js";
 
 /**
@@ -48,22 +49,42 @@ export class CombinationReporter implements IReporter {
   }
 
   onReportGroupStart(event: GroupReportEvent): void {
-    this.reporterAdapters.forEach((reporter) => reporter.onReportGroupStart(event));
+    this.reporters.forEach((reporter) => reporter.onReportGroupStart?.(event));
+  }
+
+  onReportGroupStartWithLegacy(event: GroupReportEvent, legacy: LegacyGroupReportFacts): void {
+    this.reporterAdapters.forEach((reporter) => reporter.onReportGroupStart(event, legacy));
   }
 
   onReportGroupFinish(event: GroupReportEvent): void {
-    this.reporterAdapters.forEach((reporter) => reporter.onReportGroupFinish(event));
+    this.reporters.forEach((reporter) => reporter.onReportGroupFinish?.(event));
+  }
+
+  onReportGroupFinishWithLegacy(event: GroupReportEvent, legacy: LegacyGroupReportFacts): void {
+    this.reporterAdapters.forEach((reporter) => reporter.onReportGroupFinish(event, legacy));
   }
 
   onReportTestStart(event: TestReportEvent): void {
-    this.reporterAdapters.forEach((reporter) => reporter.onReportTestStart(event));
+    this.reporters.forEach((reporter) => reporter.onReportTestStart?.(event));
+  }
+
+  onReportTestStartWithLegacy(event: TestReportEvent, legacy: LegacyTestReportFacts): void {
+    this.reporterAdapters.forEach((reporter) => reporter.onReportTestStart(event, legacy));
   }
 
   onReportTestFinish(event: TestReportEvent): void {
-    this.reporterAdapters.forEach((reporter) => reporter.onReportTestFinish(event));
+    this.reporters.forEach((reporter) => reporter.onReportTestFinish?.(event));
+  }
+
+  onReportTestFinishWithLegacy(event: TestReportEvent, legacy: LegacyTestReportFacts): void {
+    this.reporterAdapters.forEach((reporter) => reporter.onReportTestFinish(event, legacy));
   }
 
   onReportFinish(event: SuiteReportEvent): void {
-    this.reporterAdapters.forEach((reporter) => reporter.onReportFinish(event));
+    this.reporters.forEach((reporter) => reporter.onReportFinish?.(event));
+  }
+
+  onReportFinishWithLegacy(event: SuiteReportEvent, legacy: LegacySuiteReportFacts): void {
+    this.reporterAdapters.forEach((reporter) => reporter.onReportFinish(event, legacy));
   }
 }

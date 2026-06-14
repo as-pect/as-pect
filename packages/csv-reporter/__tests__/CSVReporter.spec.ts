@@ -5,7 +5,7 @@ import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
 
 class TestCSVReporter extends CSVReporter {
   public async writeAndWait(report: Pick<SuiteReport, "fileName" | "hasResults" | "results">): Promise<void> {
-    this.onReportFinish({ report: report as SuiteReport, context: undefined as never });
+    this.onReportFinish({ report: report as SuiteReport });
     await this.onFlush();
   }
 }

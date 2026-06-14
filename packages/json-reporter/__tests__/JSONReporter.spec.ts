@@ -5,7 +5,7 @@ import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
 
 class TestJSONReporter extends JSONReporter {
   public async writeAndWait(report: Pick<SuiteReport, "fileName" | "hasResults" | "results">): Promise<void> {
-    this.onReportFinish({ report: report as SuiteReport, context: undefined as never });
+    this.onReportFinish({ report: report as SuiteReport });
     await this.onFlush();
   }
 }

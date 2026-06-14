@@ -71,27 +71,15 @@ export interface SuiteGroupReport {
 
 export interface GroupReportEvent {
   group: SuiteGroupReport;
-  /** Compatibility-only access for old reporter adapters. */
-  context: TestContext;
-  /** Compatibility-only access for old reporter adapters. */
-  node: TestNode;
 }
 
 export interface TestReportEvent {
   group: SuiteGroupReport;
   test: SuiteTestReport;
-  /** Compatibility-only access for old reporter adapters. */
-  context: TestContext;
-  /** Compatibility-only access for old reporter adapters. */
-  groupNode: TestNode;
-  /** Compatibility-only access for old reporter adapters. */
-  node: TestNode;
 }
 
 export interface SuiteReportEvent {
   report: SuiteReport;
-  /** Compatibility-only access for old reporter adapters. */
-  context: TestContext;
 }
 
 export interface ReportAdapter {
@@ -275,52 +263,72 @@ export class ReportingLifecycle {
 
   public enter(node: TestNode): void {
     if (node.type === TestNodeType.Group) {
-      this.reporterAdapter.onReportGroupStart({
-        context: this.suite,
-        node,
-        group: SuiteReport.groupFromNode(node),
-      });
+      this.reporterAdapter.onReportGroupStart(
+        {
+          group: SuiteReport.groupFromNode(node),
+        },
+        {
+          context: this.suite,
+          node,
+        },
+      );
       return;
     }
 
     if (node.type === TestNodeType.Test) {
       const groupNode = node.parent!;
-      this.reporterAdapter.onReportTestStart({
-        context: this.suite,
-        groupNode,
-        node,
-        group: SuiteReport.groupFromNode(groupNode),
-        test: SuiteReport.testFromNode(groupNode, node),
-      });
+      this.reporterAdapter.onReportTestStart(
+        {
+          group: SuiteReport.groupFromNode(groupNode),
+          test: SuiteReport.testFromNode(groupNode, node),
+        },
+        {
+          context: this.suite,
+          groupNode,
+          node,
+        },
+      );
     }
   }
 
   public exit(node: TestNode): void {
     if (node.type === TestNodeType.Group) {
-      this.reporterAdapter.onReportGroupFinish({
-        context: this.suite,
-        node,
-        group: SuiteReport.groupFromNode(node),
-      });
+      this.reporterAdapter.onReportGroupFinish(
+        {
+          group: SuiteReport.groupFromNode(node),
+        },
+        {
+          context: this.suite,
+          node,
+        },
+      );
       return;
     }
 
     if (node.type === TestNodeType.Test) {
       const groupNode = node.parent!;
-      this.reporterAdapter.onReportTestFinish({
-        context: this.suite,
-        groupNode,
-        node,
-        group: SuiteReport.groupFromNode(groupNode),
-        test: SuiteReport.testFromNode(groupNode, node),
-      });
+      this.reporterAdapter.onReportTestFinish(
+        {
+          group: SuiteReport.groupFromNode(groupNode),
+          test: SuiteReport.testFromNode(groupNode, node),
+        },
+        {
+          context: this.suite,
+          groupNode,
+          node,
+        },
+      );
     }
   }
 
   public finish(): void {
-    this.reporterAdapter.onReportFinish({
-      context: this.suite,
-      report: SuiteReport.from(this.suite),
-    });
+    this.reporterAdapter.onReportFinish(
+      {
+        report: SuiteReport.from(this.suite),
+      },
+      {
+        context: this.suite,
+      },
+    );
   }
 }

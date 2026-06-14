@@ -57,15 +57,19 @@ The module that publishes test suite events and final suite report facts to repo
 _Avoid_: Reporter manager, output lifecycle service
 
 **Legacy reporter adapter**:
-The compatibility seam that translates Report events to older `onEnter`, `onExit`, and `onFinish` reporter callbacks when a reporter has not implemented the corresponding report callback.
+The compatibility seam that translates Report events plus separate legacy report facts to older `onEnter`, `onExit`, and `onFinish` reporter callbacks when a reporter has not implemented the corresponding report callback.
 _Avoid_: Reporter fallback, callback shim
+
+**Legacy report facts**:
+Compatibility-only `TestContext` and `TestNode` access passed beside Report events for old reporter callbacks and subclass extension points. These facts must stay out of the public Report event shape.
+_Avoid_: Event payload internals, reporter context fields
 
 **Suite report**:
 The stable reportable facts for one completed test suite: counts, groups, tests, todos, warnings, errors, snapshot stats, and snapshot change lines.
 _Avoid_: Reporter model, result DTO
 
 **Report event**:
-A reporting lifecycle event that carries a suite report, group report, or test report to reporter adapters. Compatibility-only event fields may expose the old `TestContext` or `TestNode` seam for legacy reporters.
+A reporting lifecycle event that carries only suite report, group report, or test report facts to reporter adapters. Compatibility-only `TestContext` or `TestNode` access belongs in legacy report facts instead of the event object.
 _Avoid_: Callback payload, event DTO
 
 **Snapshot lifecycle**:

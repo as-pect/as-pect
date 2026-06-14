@@ -133,34 +133,20 @@ describe("CombinationReporter", () => {
       reportingSeam.entries.push(`report-group-finish:${event.group.name}`);
     reportingSeam.onReportFinish = (event) => reportingSeam.entries.push(`report-finish:${event.report.fileName}`);
 
-    reporter.onReportGroupStart({
-      context: ctx,
-      node: group,
-      group: groupReport,
-    });
-    reporter.onReportTestStart({
-      context: ctx,
-      groupNode: group,
-      node: test,
-      group: groupReport,
-      test: testReport,
-    });
-    reporter.onReportTestFinish({
-      context: ctx,
-      groupNode: group,
-      node: test,
-      group: groupReport,
-      test: testReport,
-    });
-    reporter.onReportGroupFinish({
-      context: ctx,
-      node: group,
-      group: groupReport,
-    });
-    reporter.onReportFinish({
-      context: ctx,
-      report: { fileName: "assembly/example.spec.ts" } as SuiteReport,
-    });
+    reporter.onReportGroupStartWithLegacy({ group: groupReport }, { context: ctx, node: group });
+    reporter.onReportTestStartWithLegacy(
+      { group: groupReport, test: testReport },
+      { context: ctx, groupNode: group, node: test },
+    );
+    reporter.onReportTestFinishWithLegacy(
+      { group: groupReport, test: testReport },
+      { context: ctx, groupNode: group, node: test },
+    );
+    reporter.onReportGroupFinishWithLegacy({ group: groupReport }, { context: ctx, node: group });
+    reporter.onReportFinishWithLegacy(
+      { report: { fileName: "assembly/example.spec.ts" } as SuiteReport },
+      { context: ctx },
+    );
 
     expect(reportingSeam.entries).toEqual([
       "report-group-start:math",

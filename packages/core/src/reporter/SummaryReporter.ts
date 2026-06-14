@@ -9,6 +9,7 @@ import {
   SuiteReportEvent,
   SuiteTestReport,
 } from "./ReportingLifecycle.js";
+import type { LegacySuiteReportFacts } from "./LegacyReporterAdapter.js";
 import { TestNode } from "../test/TestNode.js";
 import chalk from "chalk";
 
@@ -43,11 +44,15 @@ export class SummaryReporter implements IReporter {
   public stderr: IWritable | null = null;
 
   public onReportFinish(event: SuiteReportEvent): void {
+    this.writeReport(event.report);
+  }
+
+  public onReportFinishWithLegacy(event: SuiteReportEvent, legacy: LegacySuiteReportFacts): void {
     if (this.onFinish !== SummaryReporter.prototype.onFinish) {
-      this.onFinish(event.context);
+      this.onFinish(legacy.context);
       return;
     }
-    this.writeReport(event.report);
+    this.onReportFinish(event);
   }
 
   /**

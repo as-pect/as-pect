@@ -227,16 +227,16 @@ describe("ReportingLifecycle", () => {
       },
     };
     reporter.onReportGroupStart = (event) => {
-      if (event.node.name) {
-        events.push(`report:group:start:${event.node.name}:children=${event.node.children.length}`);
+      if (event.group.name) {
+        events.push(`report:group:start:${event.group.name}:children=${event.group.tests.length}`);
       }
     };
     reporter.onReportTestStart = (event) => events.push(`report:test:start:${event.test.name}:pass=${event.test.pass}`);
     reporter.onReportTestFinish = (event) =>
       events.push(`report:test:finish:${event.test.name}:pass=${event.test.pass}`);
     reporter.onReportGroupFinish = (event) => {
-      if (event.node.name) {
-        events.push(`report:group:finish:${event.group.name}:children=${event.node.children.length}`);
+      if (event.group.name) {
+        events.push(`report:group:finish:${event.group.name}:children=${event.group.tests.length}`);
       }
     };
     reporter.onReportFinish = (event) => events.push(`report:finish:${event.report.fileName}`);
@@ -278,11 +278,27 @@ describe("ReportingLifecycle", () => {
     reporter.onEnter = (_ctx, node) => calls.push(`legacy-enter:${node.name}`);
     reporter.onExit = (_ctx, node) => calls.push(`legacy-exit:${node.name}`);
     reporter.onFinish = (suite) => calls.push(`legacy-finish:${suite.fileName}`);
-    reporter.onReportGroupStart = (event) => calls.push(`group:start:${event.group.name}`);
-    reporter.onReportTestStart = (event) => calls.push(`test:start:${event.group.name}:${event.test.name}`);
-    reporter.onReportTestFinish = (event) => calls.push(`test:finish:${event.group.name}:${event.test.name}`);
-    reporter.onReportGroupFinish = (event) => calls.push(`group:finish:${event.group.name}`);
-    reporter.onReportFinish = (event) => calls.push(`finish:${event.report.fileName}`);
+    const eventShapes: string[] = [];
+    reporter.onReportGroupStart = (event) => {
+      eventShapes.push(Object.keys(event).sort().join(","));
+      calls.push(`group:start:${event.group.name}`);
+    };
+    reporter.onReportTestStart = (event) => {
+      eventShapes.push(Object.keys(event).sort().join(","));
+      calls.push(`test:start:${event.group.name}:${event.test.name}`);
+    };
+    reporter.onReportTestFinish = (event) => {
+      eventShapes.push(Object.keys(event).sort().join(","));
+      calls.push(`test:finish:${event.group.name}:${event.test.name}`);
+    };
+    reporter.onReportGroupFinish = (event) => {
+      eventShapes.push(Object.keys(event).sort().join(","));
+      calls.push(`group:finish:${event.group.name}`);
+    };
+    reporter.onReportFinish = (event) => {
+      eventShapes.push(Object.keys(event).sort().join(","));
+      calls.push(`finish:${event.report.fileName}`);
+    };
     const lifecycle = new ReportingLifecycle(createSuite(rootNode), reporter);
 
     lifecycle.enter(group);
@@ -298,6 +314,7 @@ describe("ReportingLifecycle", () => {
       "group:finish:math",
       "finish:assembly/example.spec.ts",
     ]);
+    expect(eventShapes).toEqual(["group", "group,test", "group,test", "group", "report"]);
   });
 
   it("should preserve VerboseReporter subclass compatibility overrides behind report callbacks", () => {

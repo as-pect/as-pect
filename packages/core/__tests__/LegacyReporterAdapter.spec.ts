@@ -57,10 +57,13 @@ describe("LegacyReporterAdapter", () => {
     const reporter = new RecordingReporter();
     const adapter = new LegacyReporterAdapter(reporter);
 
-    adapter.onReportGroupStart({ context: ctx, node: group, group: groupReport });
-    adapter.onReportTestStart({ context: ctx, groupNode: group, node: test, group: groupReport, test: testReport });
-    adapter.onReportTestFinish({ context: ctx, groupNode: group, node: test, group: groupReport, test: testReport });
-    adapter.onReportGroupFinish({ context: ctx, node: group, group: groupReport });
+    adapter.onReportGroupStart({ group: groupReport }, { context: ctx, node: group });
+    adapter.onReportTestStart({ group: groupReport, test: testReport }, { context: ctx, groupNode: group, node: test });
+    adapter.onReportTestFinish(
+      { group: groupReport, test: testReport },
+      { context: ctx, groupNode: group, node: test },
+    );
+    adapter.onReportGroupFinish({ group: groupReport }, { context: ctx, node: group });
 
     expect(reporter.entries).toEqual(["enter:math", "enter:adds", "exit:adds", "exit:math"]);
   });
@@ -69,7 +72,7 @@ describe("LegacyReporterAdapter", () => {
     const reporter = new RecordingReporter();
     const adapter = new LegacyReporterAdapter(reporter);
 
-    adapter.onReportFinish({ context: ctx, report });
+    adapter.onReportFinish({ report }, { context: ctx });
 
     expect(reporter.entries).toEqual(["finish:assembly/example.spec.ts"]);
   });
@@ -83,11 +86,14 @@ describe("LegacyReporterAdapter", () => {
     reporter.onReportGroupFinish = (event) => reporter.entries.push(`report-group-finish:${event.group.name}`);
     reporter.onReportFinish = (event) => reporter.entries.push(`report-finish:${event.report.fileName}`);
 
-    adapter.onReportGroupStart({ context: ctx, node: group, group: groupReport });
-    adapter.onReportTestStart({ context: ctx, groupNode: group, node: test, group: groupReport, test: testReport });
-    adapter.onReportTestFinish({ context: ctx, groupNode: group, node: test, group: groupReport, test: testReport });
-    adapter.onReportGroupFinish({ context: ctx, node: group, group: groupReport });
-    adapter.onReportFinish({ context: ctx, report });
+    adapter.onReportGroupStart({ group: groupReport }, { context: ctx, node: group });
+    adapter.onReportTestStart({ group: groupReport, test: testReport }, { context: ctx, groupNode: group, node: test });
+    adapter.onReportTestFinish(
+      { group: groupReport, test: testReport },
+      { context: ctx, groupNode: group, node: test },
+    );
+    adapter.onReportGroupFinish({ group: groupReport }, { context: ctx, node: group });
+    adapter.onReportFinish({ report }, { context: ctx });
 
     expect(reporter.entries).toEqual([
       "report-group-start:math",

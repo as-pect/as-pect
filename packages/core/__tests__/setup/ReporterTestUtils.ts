@@ -5,7 +5,6 @@ import type {
   SuiteReport,
   SuiteReportEvent,
   SuiteTestReport,
-  TestContext,
   TestReportEvent,
 } from "../../src/index.js";
 import { SummaryReporter, VerboseReporter } from "../../src/index.js";
@@ -81,10 +80,7 @@ export function writeVerboseTestFinish(test: SuiteTestReport, group: SuiteGroupR
   reporter.onReportTestFinish({
     group,
     test,
-    context: null as unknown as TestContext,
-    groupNode: null,
-    node: null,
-  } as unknown as TestReportEvent);
+  } as TestReportEvent);
 
   return stripAnsi(writer.result);
 }
@@ -92,14 +88,11 @@ export function writeVerboseTestFinish(test: SuiteTestReport, group: SuiteGroupR
 function finishEvent(report: SuiteReport): SuiteReportEvent {
   return {
     report,
-    context: null as unknown as TestContext,
-  } as SuiteReportEvent;
+  };
 }
 
 function groupEvent(group: SuiteGroupReport): GroupReportEvent {
   return {
     group,
-    context: null as unknown as TestContext,
-    node: null,
-  } as unknown as GroupReportEvent;
+  };
 }

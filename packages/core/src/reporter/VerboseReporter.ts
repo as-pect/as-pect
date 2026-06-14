@@ -14,6 +14,7 @@ import {
   SuiteTestReport,
   TestReportEvent,
 } from "./ReportingLifecycle.js";
+import type { LegacyGroupReportFacts, LegacySuiteReportFacts, LegacyTestReportFacts } from "./LegacyReporterAdapter.js";
 import chalk from "chalk";
 
 /**
@@ -48,41 +49,61 @@ export class VerboseReporter implements IReporter {
   }
 
   public onReportGroupStart(event: GroupReportEvent): void {
-    if (this.onGroupStart !== VerboseReporter.prototype.onGroupStart) {
-      this.onGroupStart(event.node);
-      return;
-    }
     this.writeGroupStart(event.group);
   }
 
-  public onReportGroupFinish(event: GroupReportEvent): void {
-    if (this.onGroupFinish !== VerboseReporter.prototype.onGroupFinish) {
-      this.onGroupFinish(event.node);
+  public onReportGroupStartWithLegacy(event: GroupReportEvent, legacy: LegacyGroupReportFacts): void {
+    if (this.onGroupStart !== VerboseReporter.prototype.onGroupStart) {
+      this.onGroupStart(legacy.node);
       return;
     }
+    this.onReportGroupStart(event);
+  }
+
+  public onReportGroupFinish(event: GroupReportEvent): void {
     this.writeGroupFinish(event.group);
   }
 
-  public onReportTestStart(event: TestReportEvent): void {
-    if (this.onTestStart !== VerboseReporter.prototype.onTestStart) {
-      this.onTestStart(event.groupNode, event.node);
+  public onReportGroupFinishWithLegacy(event: GroupReportEvent, legacy: LegacyGroupReportFacts): void {
+    if (this.onGroupFinish !== VerboseReporter.prototype.onGroupFinish) {
+      this.onGroupFinish(legacy.node);
+      return;
     }
+    this.onReportGroupFinish(event);
+  }
+
+  public onReportTestStart(_event: TestReportEvent): void {}
+
+  public onReportTestStartWithLegacy(event: TestReportEvent, legacy: LegacyTestReportFacts): void {
+    if (this.onTestStart !== VerboseReporter.prototype.onTestStart) {
+      this.onTestStart(legacy.groupNode, legacy.node);
+      return;
+    }
+    this.onReportTestStart(event);
   }
 
   public onReportTestFinish(event: TestReportEvent): void {
-    if (this.onTestFinish !== VerboseReporter.prototype.onTestFinish) {
-      this.onTestFinish(event.groupNode, event.node);
-      return;
-    }
     this.writeTestFinish(event.test);
   }
 
-  public onReportFinish(event: SuiteReportEvent): void {
-    if (this.onFinish !== VerboseReporter.prototype.onFinish) {
-      this.onFinish(event.context);
+  public onReportTestFinishWithLegacy(event: TestReportEvent, legacy: LegacyTestReportFacts): void {
+    if (this.onTestFinish !== VerboseReporter.prototype.onTestFinish) {
+      this.onTestFinish(legacy.groupNode, legacy.node);
       return;
     }
+    this.onReportTestFinish(event);
+  }
+
+  public onReportFinish(event: SuiteReportEvent): void {
     this.writeReport(event.report);
+  }
+
+  public onReportFinishWithLegacy(event: SuiteReportEvent, legacy: LegacySuiteReportFacts): void {
+    if (this.onFinish !== VerboseReporter.prototype.onFinish) {
+      this.onFinish(legacy.context);
+      return;
+    }
+    this.onReportFinish(event);
   }
 
   /**
