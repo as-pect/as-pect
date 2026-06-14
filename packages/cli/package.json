@@ -39,10 +39,9 @@
     "@as-pect/assembly": "^8.1.0",
     "@as-pect/core": "^8.1.0",
     "@as-pect/transform": "^8.1.0",
-    "commander": "^15.0.0",
+    "@assemblyscript/loader": "^0.28.19",
     "glob": "^13.0.6",
-    "yaml": "^2.9.0",
-    "@assemblyscript/loader": "^0.28.19"
+    "yaml": "^2.9.0"
   },
   "peerDependencies": {
     "assemblyscript": "^0.28.19"

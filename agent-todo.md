@@ -26,31 +26,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E12 — Remove Commander
-
-**Goal:** Remove `commander` from the CLI by replacing option parsing with a small local parser that supports the documented `asp`/`aspect` command surface.
-
-**Primary files:**
-
-- `packages/cli/src/index.ts`
-- `packages/cli/__tests__/CliOptions.spec.ts`
-- CLI README/help documentation if present
-
-**Done when:** `commander` is no longer a direct dependency, CLI parsing behavior is covered by tests, and help/version/error output remains acceptable for users.
-
-**Validation:** focused CLI option tests and smoke tests for common `asp` invocations.
-
-### Slice E12-S3 — Remove Commander dependency after parser replacement
-
-- **Epic:** E12
-- **Scope:** Remove the direct Commander dependency once the local parser is active.
-- **Files:** `packages/cli/package.json`, `package-lock.json`
-- **Tests to add/update:** none
-- **Done when:** package metadata no longer declares Commander directly and no checked-in source imports it.
-- **Validation:** focused CLI option tests and CLI smoke tests.
-
----
-
 ## Epic E13 — Repair core and assembly correctness bugs from June 2026 bug scan
 
 **Goal:** Fix confirmed correctness issues found in `@as-pect/core` and `@as-pect/assembly` without bundling unrelated architecture or dependency work.
@@ -99,8 +74,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E12-S3** — Remove Commander dependency after parser replacement.
-2. **E13-S1** — Characterize one core reporting correctness bug.
-3. **E13-S2** — Fix the characterized core reporting correctness bug.
+1. **E13-S1** — Characterize one core reporting correctness bug.
+2. **E13-S2** — Fix the characterized core reporting correctness bug.
+3. **E13-S3** — Characterize and fix one reflected-value correctness bug.
 
-This sequence keeps the Commander migration reviewable in smaller steps.
+This sequence keeps correctness repairs focused and reviewable.
