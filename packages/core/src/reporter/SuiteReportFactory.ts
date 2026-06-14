@@ -137,8 +137,10 @@ function collectSnapshotLines(result: SnapshotDiffResult): SnapshotReportLine[] 
   const lines: SnapshotReportLine[] = [];
 
   for (const change of result.changes) {
-    for (const value of change.value.split("\n")) {
-      if (!value.trim()) continue;
+    const values = change.value.split("\n");
+    if (values[values.length - 1] === "") values.pop();
+
+    for (const value of values) {
       lines.push({
         type: change.added ? "added" : change.removed ? "removed" : "unchanged",
         value,

@@ -43,24 +43,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S1 — Characterize one core reporting correctness bug
-
-- **Epic:** E13
-- **Scope:** Reproduce one confirmed bug-scan issue in `SuiteReportFactory`, `VerboseReporter`, or `SummaryReporter` with a focused semantic test before changing behavior. If the issue cannot be reproduced from the current code, refine or remove this slice instead of making speculative fixes.
-- **Files:** `packages/core/src/reporter/SuiteReportFactory.ts`, `packages/core/src/reporter/VerboseReporter.ts`, `packages/core/src/reporter/SummaryReporter.ts`, core reporter tests
-- **Tests to add/update:** one focused regression test for the reproduced reporter behavior.
-- **Done when:** the bug is captured by a failing test or the slice is documented as obsolete with evidence.
-- **Validation:** focused core reporter test plus `npm run tsc --workspace @as-pect/core`.
-
-### Slice E13-S2 — Fix the characterized core reporting correctness bug
-
-- **Epic:** E13
-- **Scope:** Implement the smallest fix for the bug characterized by E13-S1 without changing unrelated reporter output contracts.
-- **Files:** `packages/core/src/reporter/SuiteReportFactory.ts`, `packages/core/src/reporter/VerboseReporter.ts`, `packages/core/src/reporter/SummaryReporter.ts`, core reporter tests
-- **Tests to add/update:** keep the E13-S1 regression test passing; add only behavior-focused coverage needed for the fix boundary.
-- **Done when:** the characterized reporter correctness regression is fixed and reporter behavior remains compatible elsewhere.
-- **Validation:** focused core reporter test, `npm run test:ci --workspace @as-pect/core`, and `npm run tsc --workspace @as-pect/core`.
-
 ### Slice E13-S3 — Characterize and fix one reflected-value correctness bug
 
 - **Epic:** E13
@@ -74,8 +56,6 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S1** — Characterize one core reporting correctness bug.
-2. **E13-S2** — Fix the characterized core reporting correctness bug.
-3. **E13-S3** — Characterize and fix one reflected-value correctness bug.
+1. **E13-S3** — Characterize and fix one reflected-value correctness bug.
 
 This sequence keeps correctness repairs focused and reviewable.

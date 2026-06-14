@@ -224,6 +224,22 @@ describe("SuiteReportFactory", () => {
     );
   });
 
+  it("preserves blank lines in snapshot change facts", () => {
+    const actual = Snapshot.from(new Map([["changed", "line one\n\nline three"]]));
+    const expected = Snapshot.from(new Map([["changed", "line one\nline two\nline three"]]));
+    const snapshotLifecycle = new SnapshotLifecycle(actual, expected);
+    const rootNode = new TestNode();
+
+    const report = createSuiteReport(createSuite(rootNode, snapshotLifecycle));
+
+    expect(report.snapshotChanges.find((change) => change.name === "changed")!.lines).toEqual([
+      { type: "unchanged", value: "line one" },
+      { type: "removed", value: "line two" },
+      { type: "added", value: "" },
+      { type: "unchanged", value: "line three" },
+    ]);
+  });
+
   it("uses SnapshotLifecycle stats when they are available", () => {
     const snapshotLifecycle = new SnapshotLifecycle(
       Snapshot.from(new Map([["added by diff", "new snapshot"]])),
