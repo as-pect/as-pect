@@ -68,6 +68,13 @@ test("VerboseReporter writes todos and group logs from group finish facts", () =
   expect(output).toContain("[Todo]: write the edge case\n");
 });
 
+test("VerboseReporter writes todos from todo-only group finish facts", () => {
+  const group = suiteGroupReport({ tests: [], todos: ["write the only case"] });
+  const output = writeVerboseGroupFinish(group);
+
+  expect(output).toContain("[Todo]: write the only case\n");
+});
+
 test("VerboseReporter writes file summary stats from SuiteReport facts", () => {
   const output = writeVerboseReport(passingSuiteReport());
 

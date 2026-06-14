@@ -58,6 +58,26 @@ test("SummaryReporter includes todo counts from SuiteReport facts", () => {
   expect(output).toContain("✔ assembly/todo.spec.ts Pass: 1 / 1 Todo: 1 Time: 6ms\n");
 });
 
+test("SummaryReporter includes todo-only suite counts from SuiteReport facts", () => {
+  const output = writeSummaryReport(
+    suiteReport({
+      fileName: "assembly/todo-only.spec.ts",
+      pass: true,
+      testCount: 0,
+      testPassCount: 0,
+      groupCount: 1,
+      groupPassCount: 1,
+      rootRuntime: 2,
+      hasResults: true,
+      todoCount: 1,
+      groups: [suiteGroupReport({ tests: [], todos: ["write the only case"] })],
+      results: [{ type: "todo", groupName: "math", description: "write the only case" }],
+    }),
+  );
+
+  expect(output).toContain("✔ assembly/todo-only.spec.ts Pass: 0 / 0 Todo: 1 Time: 2ms\n");
+});
+
 test("SummaryReporter writes human-readable warning lines", () => {
   const output = writeSummaryReport(warningSuiteReport());
 

@@ -329,16 +329,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S2 — Report todo-only groups and root-level todos correctly
-
-- **Epic:** E13
-- **Problem:** Todo-only groups and root-level todos are lost or underreported. `createGroupReport()` sets `hasChildren` from `group.children.length`, `collectResults()` skips groups without children, `VerboseReporter.writeGroupFinish()` returns before printing todos when `group.tests.length === 0`, and `SuiteReport.todoCount` is recalculated only from child groups even though `TestContext.todoCount` includes root todos.
-- **Files:** `packages/core/src/reporter/SuiteReportFactory.ts`, `packages/core/src/reporter/VerboseReporter.ts`, `packages/core/src/reporter/SummaryReporter.ts`, `packages/core/src/test/TestContext.ts`, reporter semantic tests, suite report factory tests
-- **Fix:** Treat todos as reportable results even when a group has no test children. Include root-level todos in suite facts or explicitly model them so `SuiteReport.todoCount`, `SuiteReport.results`, and reporter output agree with `TestContext.todoCount`. Ensure verbose output prints todos for todo-only groups.
-- **Tests to add/update:** Suite report tests for a todo-only group and a root-level todo; verbose and summary reporter tests that prove todo-only output is visible and counts are correct.
-- **Done when:** structured report facts and reporter output include todo-only groups and root-level todos without double-counting nested todos.
-- **Validation:** `npm run test:ci --workspace @as-pect/core`.
-
 ### Slice E13-S3 — Use expectation negation in structured expected strings
 
 - **Epic:** E13
@@ -423,8 +413,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S2** — Report todo-only groups and root-level todos correctly.
-2. **E13-S3** — Use expectation negation in structured expected strings.
-3. **E13-S4** — Print the real passing group count in VerboseReporter.
+1. **E13-S3** — Use expectation negation in structured expected strings.
+2. **E13-S4** — Print the real passing group count in VerboseReporter.
+3. **E13-S5** — Report truncated expanded arrays with the correct remaining count.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.

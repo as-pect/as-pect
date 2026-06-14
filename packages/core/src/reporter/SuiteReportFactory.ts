@@ -76,7 +76,7 @@ export function createGroupReport(group: TestNode): SuiteGroupReport {
     name: group.name,
     pass: group.pass,
     runtime: group.deltaT,
-    hasChildren: group.children.length > 0,
+    hasChildren: group.children.length > 0 || group.groupTodos.length > 0,
     logs: group.logs,
     todos: group.groupTodos,
     tests: group.groupTests.map((test) => createTestReport(group, test)),
@@ -111,23 +111,23 @@ function collectGroups(rootNode: TestNode): SuiteGroupReport[] {
   return rootNode.childGroups.map((group) => createGroupReport(group));
 }
 
-function collectResults(groups: SuiteGroupReport[]): SuiteResultReport[] {
-  const results: SuiteResultReport[] = [];
+function collectTodoResults(groupName: string, todos: string[]): SuiteTodoReport[] {
+  return todos.map((description) => ({
+    type: "todo",
+    groupName,
+    description,
+  }));
+}
+
+function collectResults(rootNode: TestNode, groups: SuiteGroupReport[]): SuiteResultReport[] {
+  const results: SuiteResultReport[] = collectTodoResults(rootNode.name, rootNode.groupTodos);
 
   for (const group of groups) {
-    if (!group.hasChildren) continue;
-
     for (const test of group.tests) {
       results.push(test);
     }
 
-    for (const description of group.todos) {
-      results.push({
-        type: "todo",
-        groupName: group.name,
-        description,
-      });
-    }
+    results.push(...collectTodoResults(group.name, group.todos));
   }
 
   return results;
@@ -180,8 +180,8 @@ export class SuiteReport {
     this.warnings = suite.warnings;
     this.errors = suite.errors;
     this.groups = collectGroups(suite.rootNode);
-    this.todoCount = this.groups.reduce((count, group) => count + group.todos.length, 0);
-    this.results = collectResults(this.groups);
+    this.todoCount = suite.todoCount;
+    this.results = collectResults(suite.rootNode, this.groups);
     this.hasResults = suite.testCount > 0 || suite.todoCount > 0 || this.warnings.length > 0 || this.errors.length > 0;
 
     const snapshotDiff = suite.snapshotLifecycle ? suite.snapshotLifecycle.diff : suite.snapshotDiff!;

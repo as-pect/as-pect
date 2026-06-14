@@ -153,7 +153,7 @@ export class VerboseReporter implements IReporter {
   }
 
   private writeGroupFinish(group: SuiteGroupReport): void {
-    if (group.tests.length === 0) return;
+    if (group.tests.length === 0 && group.todos.length === 0 && group.logs.length === 0) return;
 
     for (const todo of group.todos) {
       this.onTodo(todo);

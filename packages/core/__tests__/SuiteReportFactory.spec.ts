@@ -3,7 +3,11 @@ import { TestContext, TestNode, TestNodeType } from "../src/index.js";
 import { createGroupReport, createSuiteReport, createTestReport } from "../src/reporter/SuiteReportFactory.js";
 
 describe("SuiteReportFactory", () => {
-  function createSuite(rootNode: TestNode, snapshotLifecycle: SnapshotLifecycle): TestContext {
+  function createSuite(
+    rootNode: TestNode,
+    snapshotLifecycle: SnapshotLifecycle,
+    overrides: Partial<TestContext> = {},
+  ): TestContext {
     return {
       fileName: "assembly/example.spec.ts",
       pass: false,
@@ -11,12 +15,18 @@ describe("SuiteReportFactory", () => {
       testPassCount: 1,
       groupCount: 2,
       groupPassCount: 1,
+      todoCount: 0,
       rootNode,
       warnings: [],
       errors: [],
       snapshotLifecycle,
       snapshotDiff: snapshotLifecycle.diff,
+      ...overrides,
     } as unknown as TestContext;
+  }
+
+  function createEmptySnapshotLifecycle(): SnapshotLifecycle {
+    return new SnapshotLifecycle(Snapshot.from(new Map()), Snapshot.from(new Map()));
   }
 
   it("creates group and test report facts without a ReportingLifecycle", () => {
@@ -81,6 +91,63 @@ describe("SuiteReportFactory", () => {
       runtime: 5,
       rtraceDelta: 3,
     });
+  });
+
+  it("reports todo-only groups as results", () => {
+    const rootNode = new TestNode();
+    rootNode.type = TestNodeType.Group;
+
+    const group = new TestNode();
+    group.type = TestNodeType.Group;
+    group.name = "later";
+    group.pass = true;
+    group.parent = rootNode;
+    group.addTodo("write coverage");
+    rootNode.addChild(group);
+
+    const report = createSuiteReport(
+      createSuite(rootNode, createEmptySnapshotLifecycle(), {
+        testCount: 0,
+        testPassCount: 0,
+        groupCount: 2,
+        groupPassCount: 2,
+        todoCount: 1,
+      }),
+    );
+
+    expect(report.todoCount).toBe(1);
+    expect(report.groups).toEqual([
+      {
+        type: "group",
+        name: "later",
+        pass: true,
+        runtime: 0,
+        hasChildren: true,
+        logs: [],
+        todos: ["write coverage"],
+        tests: [],
+      },
+    ]);
+    expect(report.results).toEqual([{ type: "todo", groupName: "later", description: "write coverage" }]);
+  });
+
+  it("includes root-level todos in suite report facts", () => {
+    const rootNode = new TestNode();
+    rootNode.type = TestNodeType.Group;
+    rootNode.addTodo("write a root-level case");
+
+    const report = createSuiteReport(
+      createSuite(rootNode, createEmptySnapshotLifecycle(), {
+        testCount: 0,
+        testPassCount: 0,
+        groupCount: 1,
+        groupPassCount: 1,
+        todoCount: 1,
+      }),
+    );
+
+    expect(report.todoCount).toBe(1);
+    expect(report.results).toEqual([{ type: "todo", groupName: "", description: "write a root-level case" }]);
   });
 
   it("creates suite report snapshot stats and change lines without reporter publication", () => {
