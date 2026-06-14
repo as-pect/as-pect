@@ -229,6 +229,21 @@ test("class reflection transform is idempotent for interface reflection contract
   assert.equal(countInterfaceMethods(interfaceDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 1);
 });
 
+test("class reflection transform rejects user-defined interface reflection contract collisions", () => {
+  const parser = parseSource(`interface InterfaceCollision {
+    __aspectStrictEquals(): bool;
+  }`);
+
+  assert.throws(
+    () => transformParsedSource(parser),
+    /Cannot generate __aspectStrictEquals for interface InterfaceCollision because that member already exists\./,
+  );
+
+  const interfaceDeclaration = findParsedInterface(parser, "InterfaceCollision");
+  assert.equal(countInterfaceMethods(interfaceDeclaration, STRICT_EQUALS_MEMBER_NAME), 1);
+  assert.equal(countInterfaceMethods(interfaceDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 0);
+});
+
 test("class reflection transform rejects user-defined generated method collisions", () => {
   const parser = parseSource(`class UserCollision {
     value: i32 = 1;

@@ -41,18 +41,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** A Class reflection generation module should own traversal decisions, collision checks, Class-member plan facts, generated strict equality methods, generated key/value methods, generated interface methods, and shared AST vocabulary.
 
-### Slice E4-S5 — Split class and interface collision checks
-
-- **Epic:** E4
-- **Scope:** `shouldGenerateClassReflectionMember()` currently accepts class and interface declarations in practice. Rename or split it so the interface matches the implementation.
-- **Files:** `ClassReflectionTransform.ts`, `index.ts`, tests
-- **Tests to add/update:**
-  - class collision still rejects user-authored generated member names
-  - interface collision still rejects user-authored generated member names
-  - generated members from previous passes are skipped for both classes and interfaces
-- **Done when:** naming reflects both class and interface reflection generation.
-- **Validation:** focused transform tests.
-
 ### Slice E4-S6 — Make Class-member plan tests direct
 
 - **Epic:** E4
@@ -250,8 +238,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E4-S5** — Split class and interface collision checks.
-2. **E4-S6** — Make Class-member plan tests direct.
-3. **E4-S7** — Document Class reflection generation responsibilities.
+1. **E4-S6** — Make Class-member plan tests direct.
+2. **E4-S7** — Document Class reflection generation responsibilities.
+3. **E5-S4** — Route CLI snapshot writes through Snapshot lifecycle facts.
 
-This sequence continues the Class reflection generation consolidation now that generated member orchestration is behind one module.
+This sequence continues the Class reflection generation consolidation now that class and interface generated-member collision checks are distinct.

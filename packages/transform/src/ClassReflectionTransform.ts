@@ -1,6 +1,7 @@
 import {
   ClassDeclaration,
   CommonFlags,
+  InterfaceDeclaration,
   FieldDeclaration,
   LiteralKind,
   StringLiteralExpression,
@@ -36,22 +37,38 @@ export function markGeneratedClassReflectionMember(methodDeclaration: MethodDecl
  * are skipped on later passes; user-authored collisions are rejected so runtime
  * reflection does not silently call a method with an incompatible signature.
  */
-export function shouldGenerateClassReflectionMember(
-  classDeclaration: ClassDeclaration,
+export function shouldGenerateClassReflectionMember(classDeclaration: ClassDeclaration, memberName: string): boolean {
+  return shouldGenerateReflectionMember(classDeclaration, "class", memberName);
+}
+
+/** Decide whether a generated interface reflection contract can be appended. */
+export function shouldGenerateInterfaceReflectionMember(
+  interfaceDeclaration: InterfaceDeclaration,
   memberName: string,
 ): boolean {
-  const existingMember = findClassMethod(classDeclaration, memberName);
+  return shouldGenerateReflectionMember(interfaceDeclaration, "interface", memberName);
+}
+
+function shouldGenerateReflectionMember(
+  declaration: ClassDeclaration | InterfaceDeclaration,
+  declarationKind: "class" | "interface",
+  memberName: string,
+): boolean {
+  const existingMember = findMethod(declaration, memberName);
 
   if (!existingMember) return true;
   if (generatedClassReflectionMembers.has(existingMember)) return false;
 
   throw new Error(
-    `Cannot generate ${memberName} for class ${classDeclaration.name.text} because that member already exists.`,
+    `Cannot generate ${memberName} for ${declarationKind} ${declaration.name.text} because that member already exists.`,
   );
 }
 
-function findClassMethod(classDeclaration: ClassDeclaration, memberName: string): MethodDeclaration | null {
-  for (const member of classDeclaration.members) {
+function findMethod(
+  declaration: ClassDeclaration | InterfaceDeclaration,
+  memberName: string,
+): MethodDeclaration | null {
+  for (const member of declaration.members) {
     if (member.kind !== NodeKind.MethodDeclaration) continue;
 
     const methodDeclaration = <MethodDeclaration>member;

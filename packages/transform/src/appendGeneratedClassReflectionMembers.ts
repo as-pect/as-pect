@@ -7,6 +7,7 @@ import {
   hasLocalEqualsOperator,
   markGeneratedClassReflectionMember,
   shouldGenerateClassReflectionMember,
+  shouldGenerateInterfaceReflectionMember,
 } from "./ClassReflectionTransform.js";
 import { createAddReflectedValueKeyValuePairsMember } from "./createAddReflectedValueKeyValuePairsMember.js";
 import {
@@ -41,11 +42,11 @@ export function appendGeneratedClassReflectionMembers(classDeclaration: ClassDec
 
 /** Append all generated reflection contracts for an interface declaration. */
 export function appendGeneratedInterfaceReflectionMembers(interfaceDeclaration: InterfaceDeclaration): void {
-  const shouldGenerateStrictEquals = shouldGenerateClassReflectionMember(
+  const shouldGenerateStrictEquals = shouldGenerateInterfaceReflectionMember(
     interfaceDeclaration,
     STRICT_EQUALS_MEMBER_NAME,
   );
-  const shouldGenerateReflectedPairs = shouldGenerateClassReflectionMember(
+  const shouldGenerateReflectedPairs = shouldGenerateInterfaceReflectionMember(
     interfaceDeclaration,
     ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
   );
