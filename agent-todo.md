@@ -329,16 +329,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S6 — Preserve as-pect abort messages when wrapping existing abort imports
-
-- **Epic:** E13
-- **Problem:** `TestContext.createImports()` calls a user/import-provided `env.abort` before `this.abort(...args)`. If the previous abort throws, as-pect never captures the AssemblyScript abort reason into `TestContext.message`.
-- **Files:** `packages/core/src/test/TestContext.ts`, `packages/core/__tests__/TestContext.host-callbacks.spec.ts` or pass/fail tests
-- **Fix:** Capture the as-pect abort message before invoking the previous abort, or invoke as-pect capture in a `finally`, so throwing abort imports do not erase assertion diagnostics. Preserve the previous abort's throwing behavior.
-- **Tests to add/update:** A custom `env.abort` that throws should still leave the failed test with the AssemblyScript abort message; non-throwing abort imports should still be called.
-- **Done when:** abort diagnostics are reliable regardless of imported abort behavior.
-- **Validation:** `npm run test:ci --workspace @as-pect/core`.
-
 ### Slice E13-S7 — Mark expected values as negated for `toStrictEqual().not`
 
 - **Epic:** E13
@@ -383,8 +373,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S6** — Preserve as-pect abort messages when wrapping existing abort imports.
-2. **E13-S7** — Mark expected values as negated for `toStrictEqual().not`.
-3. **E13-S8** — Align `toBeCloseTo` tolerance with decimal-place semantics.
+1. **E13-S7** — Mark expected values as negated for `toStrictEqual().not`.
+2. **E13-S8** — Align `toBeCloseTo` tolerance with decimal-place semantics.
+3. **E13-S9** — Correct the `toBeFinite` non-float compile-time error message.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.

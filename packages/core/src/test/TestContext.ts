@@ -597,9 +597,9 @@ export class TestContext {
     /** Override the abort function */
     const previousAbort = finalImports.env.abort || (() => {});
     finalImports.env.abort = (...args: any[]) => {
-      previousAbort(...args);
       // @ts-ignore
       this.abort(...args);
+      previousAbort(...args);
     };
     /** Override trace completely. */
     finalImports.env.trace = this.trace.bind(this);

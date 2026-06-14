@@ -1,4 +1,5 @@
 import { instantiate } from "@assemblyscript/loader";
+import { jest } from "@jest/globals";
 import { promises as fs } from "fs";
 import { createGroupReport, EmptyReporter, IAspectExports, TestContext, TestNode, TestNodeType } from "../src/index.js";
 import { ReflectedValueType } from "../src/util/ReflectedValueType.js";
@@ -66,6 +67,75 @@ describe("TestContext host callbacks", () => {
     expect(typeof imports.env.abort).toBe("function");
     expect(typeof imports.env.trace).toBe("function");
     expect(imports.rtrace).toBeDefined();
+  });
+
+  test("abort callback preserves the AssemblyScript message when a previous abort import throws", () => {
+    const previousAbort = jest.fn(() => {
+      throw new Error("previous abort failure");
+    });
+    const ctx = new TestContext({ reporter: new EmptyReporter() });
+    const imports = ctx.createImports({
+      env: {
+        abort: previousAbort,
+      },
+    });
+    const strings = new Map([
+      [1, "aborting test"],
+      [2, "AssemblyScript abort reason"],
+      [3, "assembly/file.ts"],
+    ]);
+    const wasm = {
+      _start(): void {
+        imports.__aspect.reportTestTypeNode(1, 101);
+      },
+      __call(pointer: number): void {
+        if (pointer === 101) imports.env.abort(2, 3, 7, 11);
+      },
+      __getString(pointer: number): string {
+        return strings.get(pointer) ?? "";
+      },
+    } as unknown as IAspectExports;
+
+    ctx.run({ exports: wasm, instance: {} as WebAssembly.Instance });
+
+    const abortingTest = findChild(ctx.rootNode, "aborting test");
+    expect(previousAbort).toHaveBeenCalledWith(2, 3, 7, 11);
+    expect(abortingTest.pass).toBe(false);
+    expect(abortingTest.message).toBe("AssemblyScript abort reason");
+    expect(abortingTest.stackTrace).toContain("previous abort failure");
+  });
+
+  test("abort callback still delegates to a non-throwing previous abort import", () => {
+    const previousAbort = jest.fn();
+    const ctx = new TestContext({ reporter: new EmptyReporter() });
+    const imports = ctx.createImports({
+      env: {
+        abort: previousAbort,
+      },
+    });
+    const strings = new Map([
+      [1, "aborting test"],
+      [2, "AssemblyScript abort reason"],
+      [3, "assembly/file.ts"],
+    ]);
+    const wasm = {
+      _start(): void {
+        imports.__aspect.reportTestTypeNode(1, 101);
+      },
+      __call(pointer: number): void {
+        if (pointer === 101) imports.env.abort(2, 3, 7, 11);
+        throw new Error("abort should fail this test");
+      },
+      __getString(pointer: number): string {
+        return strings.get(pointer) ?? "";
+      },
+    } as unknown as IAspectExports;
+
+    ctx.run({ exports: wasm, instance: {} as WebAssembly.Instance });
+
+    const abortingTest = findChild(ctx.rootNode, "aborting test");
+    expect(previousAbort).toHaveBeenCalledWith(2, 3, 7, 11);
+    expect(abortingTest.message).toBe("AssemblyScript abort reason");
   });
 
   test("declaration callbacks preserve parent links and stable duplicate namespaces", () => {
