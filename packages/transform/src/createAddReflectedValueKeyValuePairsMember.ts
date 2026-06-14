@@ -11,11 +11,11 @@ import {
   Range,
   Statement,
   CommonFlags,
-  AssertionKind,
   Token,
 } from "assemblyscript/dist/assemblyscript.js";
 
 import { createDefaultParameter, createMapType, createSimpleNamedType, createStaticArrayType } from "./astHelpers.js";
+import { createInheritedIgnoreListExpression } from "./createInheritedIgnoreListExpression.js";
 
 // const TypeNode = TypeNode;
 // const {
@@ -133,28 +133,7 @@ function createIsDefinedIfStatement(nameHashes: number[], range: Range): Stateme
               // seen,
               TypeNode.createIdentifierExpression("seen", range),
               // StaticArray.concat(ignore, [...])
-              TypeNode.createCallExpression(
-                TypeNode.createPropertyAccessExpression(
-                  TypeNode.createIdentifierExpression("StaticArray", range),
-                  TypeNode.createIdentifierExpression("concat", range),
-                  range,
-                ),
-                null,
-                [
-                  TypeNode.createIdentifierExpression("ignore", range),
-                  // [...propNames]
-                  TypeNode.createAssertionExpression(
-                    AssertionKind.As,
-                    TypeNode.createArrayLiteralExpression(
-                      nameHashes.map((e) => TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range)),
-                      range,
-                    ),
-                    createStaticArrayType("i64", range),
-                    range,
-                  ),
-                ],
-                range,
-              ),
+              createInheritedIgnoreListExpression(nameHashes, range),
             ],
             range,
           ),

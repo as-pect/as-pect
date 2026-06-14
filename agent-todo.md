@@ -41,15 +41,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** A Class reflection generation module should own traversal decisions, collision checks, Class-member plan facts, generated strict equality methods, generated key/value methods, generated interface methods, and shared AST vocabulary.
 
-### Slice E4-S3 — Extract shared inherited ignore-list generation
-
-- **Epic:** E4
-- **Scope:** Concentrate `StaticArray.concat(ignore, [...hashes] as StaticArray<i64>)` construction used by strict equality and reflected key/value generation.
-- **Files:** `createStrictEqualsMember.ts`, `createAddReflectedValueKeyValuePairsMember.ts`, optional new helper module
-- **Tests to add/update:** transform output tests for inheritance and duplicate suppression
-- **Done when:** hash ignore-list AST construction exists in one implementation.
-- **Validation:** focused transform tests.
-
 ### Slice E4-S4 — Move generated class reflection member orchestration behind one module
 
 - **Epic:** E4
@@ -271,8 +262,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E4-S3** — Extract shared inherited ignore-list generation.
-2. **E4-S4** — Move generated class reflection member orchestration behind one module.
-3. **E4-S5** — Split class and interface collision checks.
+1. **E4-S4** — Move generated class reflection member orchestration behind one module.
+2. **E4-S5** — Split class and interface collision checks.
+3. **E4-S6** — Make Class-member plan tests direct.
 
 This sequence continues the Class reflection generation consolidation now that the confirmed snapshot reporting facts are covered.

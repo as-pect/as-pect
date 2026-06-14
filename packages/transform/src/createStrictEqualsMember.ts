@@ -20,6 +20,7 @@ import {
 } from "assemblyscript/dist/assemblyscript.js";
 
 import { createArrayType, createDefaultParameter, createSimpleNamedType, createStaticArrayType } from "./astHelpers.js";
+import { createInheritedIgnoreListExpression } from "./createInheritedIgnoreListExpression.js";
 
 /**
  * This method creates a single FunctionDeclaration that allows Reflect.equals
@@ -306,28 +307,7 @@ function createSuperCallExpression(hashValues: number[], range: Range): Expressi
       TypeNode.createIdentifierExpression("stack", range),
       TypeNode.createIdentifierExpression("cache", range),
       // StaticArray.concat(ignore, [... props] as StaticArray<i64>)
-      TypeNode.createCallExpression(
-        TypeNode.createPropertyAccessExpression(
-          TypeNode.createIdentifierExpression("StaticArray", range),
-          TypeNode.createIdentifierExpression("concat", range),
-          range,
-        ),
-        null,
-        [
-          TypeNode.createIdentifierExpression("ignore", range),
-          // [...] as StaticArray<i64>
-          TypeNode.createAssertionExpression(
-            AssertionKind.As,
-            TypeNode.createArrayLiteralExpression(
-              hashValues.map((e) => TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range)),
-              range,
-            ),
-            createStaticArrayType("i64", range),
-            range,
-          ),
-        ],
-        range,
-      ),
+      createInheritedIgnoreListExpression(hashValues, range),
     ],
     range,
   );
