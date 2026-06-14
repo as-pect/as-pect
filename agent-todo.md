@@ -39,18 +39,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `TestContext` coordinates execution. A Test tree recording module owns host-import callbacks that add groups, tests, hooks, todos, logs, reflected actual/expected values, abort messages, and snapshots to the current Test node.
 
-### Slice E3-S5 — Move snapshot recording into the recorder
-
-- **Epic:** E3
-- **Scope:** Move runtime snapshot recording behind the Test tree recorder or a nested snapshot recording helper.
-- **Files:** `TestContext.ts`, `TestTreeRecorder.ts`, snapshot-related core tests
-- **Tests to add/update:**
-  - snapshot keys use the current Test node namespace
-  - duplicate snapshots for one namespace get stable `[n]` suffixes from `Snapshot.add()`
-  - snapshot lifecycle still receives the same actual snapshots
-- **Done when:** snapshot recording no longer depends on scattered TestContext mutable state.
-- **Validation:** focused core snapshot tests and snapshots package tests if shared behavior moves.
-
 ### Slice E3-S6 — Add a target-node scope helper
 
 - **Epic:** E3
@@ -364,8 +352,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E3-S5** — Move snapshot recording into the recorder.
-2. **E3-S6** — Add a target-node scope helper.
-3. **E3-S7** — Reduce public mutable TestNode access where safe.
+1. **E3-S6** — Add a target-node scope helper.
+2. **E3-S7** — Reduce public mutable TestNode access where safe.
+3. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
 
 This sequence continues the Wasm host recording locality work now that declaration recording and namespace allocation live behind the Test tree recorder.

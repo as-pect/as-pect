@@ -45,7 +45,7 @@ The hierarchy of test nodes collected from AssemblyScript `describe`, `it`, and 
 _Avoid_: Tree structure, node graph
 
 **Test tree recorder**:
-The module that records Wasm host callbacks into the Test tree. It creates group and test nodes, preserves parent/child links, allocates stable snapshot namespaces for duplicate names, and owns declaration-time facts such as hooks, todos, logs, and reflected assertion values.
+The module that records Wasm host callbacks into the Test tree. It creates group and test nodes, preserves parent/child links, allocates stable snapshot namespaces for duplicate names, and owns declaration-time facts such as hooks, todos, logs, reflected assertion values, and runtime snapshot entries.
 _Avoid_: Declaration helper, tree builder service
 
 **Test node**:

@@ -1,3 +1,4 @@
+import { Snapshot } from "@as-pect/snapshots";
 import { ReflectedValue } from "../util/ReflectedValue.js";
 import { ReflectedValueType } from "../util/ReflectedValueType.js";
 import { TestNodeType } from "../util/TestNodeType.js";
@@ -104,6 +105,12 @@ export class TestTreeRecorder {
     target.actual = this.actual;
     target.expected = this.expected;
     target.message = message;
+  }
+
+  /** Record a snapshot value under the active test node's snapshot key. */
+  recordSnapshot(target: TestNode, snapshots: Snapshot, namePointer: number, value: string): void {
+    const name = `${target.name}!~${this.readString(namePointer, "")}`;
+    snapshots.add(name, value);
   }
 
   private createNamespace(parent: TestNode, name: string): string {

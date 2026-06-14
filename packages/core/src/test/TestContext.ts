@@ -1178,18 +1178,25 @@ export class TestContext {
    * @param {number} namePointer - The name of the snapshot.
    */
   protected reportExpectedSnapshot(reflectedValueID: number, namePointer: number): void {
-    const name = `${this.targetNode.name}!~${this.getString(namePointer, "")}`;
     /* istanbul ignore next */
     if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
       /* istanbul ignore next */
       this.pushError({
-        message: `Cannot add snapshot ${name} with reflected value ${reflectedValueID}. ReflectedValue id out of bounds.`,
+        message: `Cannot add snapshot ${this.targetNode.name}!~${this.getString(
+          namePointer,
+          "",
+        )} with reflected value ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
       });
       /* istanbul ignore next */
       return;
     }
-    this.snapshots.add(name, this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions));
+    this.testTreeRecorder.recordSnapshot(
+      this.targetNode,
+      this.snapshots,
+      namePointer,
+      this.reflectedValueCache[reflectedValueID].stringify(stringifyOptions),
+    );
   }
 }

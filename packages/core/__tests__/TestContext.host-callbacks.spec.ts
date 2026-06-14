@@ -1,6 +1,7 @@
 import { instantiate } from "@assemblyscript/loader";
 import { promises as fs } from "fs";
 import { createGroupReport, EmptyReporter, IAspectExports, TestContext, TestNode, TestNodeType } from "../src/index.js";
+import { ReflectedValueType } from "../src/util/ReflectedValueType.js";
 
 const snapshotBinary = fs.readFile("./assembly/jest-reporter-snapshot.wasm");
 
@@ -210,6 +211,39 @@ describe("TestContext host callbacks", () => {
     expect(inner.afterEach).toEqual([603]);
     expect(inner.afterAll).toEqual([604]);
     expect(createGroupReport(inner).todos).toEqual(["inner todo"]);
+  });
+
+  test("duplicate snapshot callbacks under one test receive stable suffixes", () => {
+    const ctx = new TestContext({ reporter: new EmptyReporter() });
+    const imports = ctx.createImports();
+    const strings = new Map([
+      [1, "snapshots"],
+      [2, "same snapshot"],
+      [3, "i32"],
+    ]);
+    const wasm = {
+      _start(): void {
+        imports.__aspect.reportTestTypeNode(1, 101);
+      },
+      __call(pointer: number): void {
+        if (pointer !== 101) return;
+
+        const first = imports.__aspect.createReflectedNumber(1, 4, ReflectedValueType.Integer, 3, 1);
+        const second = imports.__aspect.createReflectedNumber(1, 4, ReflectedValueType.Integer, 3, 2);
+        imports.__aspect.reportExpectedSnapshot(first, 2);
+        imports.__aspect.reportExpectedSnapshot(second, 2);
+      },
+      __getString(pointer: number): string {
+        return strings.get(pointer) ?? "";
+      },
+    } as unknown as IAspectExports;
+
+    ctx.run({ exports: wasm, instance: {} as WebAssembly.Instance });
+
+    expect(Array.from(ctx.snapshots.values.entries())).toEqual([
+      ["snapshots!~same snapshot[0]", "1"],
+      ["snapshots!~same snapshot[1]", "2"],
+    ]);
   });
 
   test("snapshot callbacks record under the active test namespace", async () => {
