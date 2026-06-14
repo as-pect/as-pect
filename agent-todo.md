@@ -293,15 +293,6 @@ When updating this file after a maintenance change:
 - **Done when:** the reflected-value bug is fixed or the slice is removed/refined because the issue no longer reproduces.
 - **Validation:** focused reflected-value/core test plus `npm run tsc --workspace @as-pect/core`.
 
-### Slice E13-S4 — Characterize and fix one AssemblyScript expectation correctness bug
-
-- **Epic:** E13
-- **Scope:** Reproduce one confirmed bug-scan issue in `packages/assembly/assembly/internal/Expectation.ts`, then make the smallest compatible fix in the AssemblyScript expectation layer.
-- **Files:** `packages/assembly/assembly/internal/Expectation.ts`, AssemblyScript expectation tests or fixtures
-- **Tests to add/update:** one focused AssemblyScript regression test for the affected expectation behavior.
-- **Done when:** the expectation bug is fixed or the slice is removed/refined because the issue no longer reproduces.
-- **Validation:** `npm run test:ci --workspace @as-pect/assembly` and `npm run tsc:all --workspace @as-pect/assembly`.
-
 ---
 
 ## Suggested first sequence

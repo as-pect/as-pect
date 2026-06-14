@@ -28,8 +28,9 @@ export class Expectation<T> {
   }
 
   public get not(): Expectation<T> {
-    this._not = 1;
-    return this;
+    let expectation = new Expectation<T>(this.actual);
+    expectation._not = 1;
+    return expectation;
   }
 
   public toBe(expected: T, message: string = ""): void {

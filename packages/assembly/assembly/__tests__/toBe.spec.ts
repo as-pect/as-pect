@@ -52,6 +52,15 @@ describe("toBe", () => {
   );
 
   /**
+   * A negated assertion should not permanently mutate a reusable Expectation.
+   */
+  it("should scope negation to the not assertion", () => {
+    let expectation = expect(42);
+    expectation.not.toBe(0, "42 is not 0.");
+    expectation.toBe(42, "42 should still be equal to itself after a negated assertion.");
+  });
+
+  /**
    * This test validates a reference equals itself.
    */
   it("should validate if a reference is itself", () => {
