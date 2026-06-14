@@ -281,6 +281,42 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
+### Slice E13-S1 — Characterize one core reporting correctness bug
+
+- **Epic:** E13
+- **Scope:** Reproduce one confirmed bug-scan issue in `SuiteReportFactory`, `VerboseReporter`, or `SummaryReporter` with a focused semantic test before changing behavior. If the issue cannot be reproduced from the current code, refine or remove this slice instead of making speculative fixes.
+- **Files:** `packages/core/src/reporter/SuiteReportFactory.ts`, `packages/core/src/reporter/VerboseReporter.ts`, `packages/core/src/reporter/SummaryReporter.ts`, core reporter tests
+- **Tests to add/update:** one focused regression test for the reproduced reporter behavior.
+- **Done when:** the bug is captured by a failing test or the slice is documented as obsolete with evidence.
+- **Validation:** focused core reporter test plus `npm run tsc --workspace @as-pect/core`.
+
+### Slice E13-S2 — Fix the characterized core reporting correctness bug
+
+- **Epic:** E13
+- **Scope:** Implement the smallest fix for the bug characterized by E13-S1 without changing unrelated reporter output contracts.
+- **Files:** `packages/core/src/reporter/SuiteReportFactory.ts`, `packages/core/src/reporter/VerboseReporter.ts`, `packages/core/src/reporter/SummaryReporter.ts`, core reporter tests
+- **Tests to add/update:** keep the E13-S1 regression test passing; add only behavior-focused coverage needed for the fix boundary.
+- **Done when:** the characterized reporter correctness regression is fixed and reporter behavior remains compatible elsewhere.
+- **Validation:** focused core reporter test, `npm run test:ci --workspace @as-pect/core`, and `npm run tsc --workspace @as-pect/core`.
+
+### Slice E13-S3 — Characterize and fix one reflected-value correctness bug
+
+- **Epic:** E13
+- **Scope:** Reproduce one confirmed bug-scan issue in `stringifyReflectedValue` or reflected-value handling, then make the smallest compatible fix.
+- **Files:** `packages/core/src/util/stringifyReflectedValue.ts`, core reflected-value tests, relevant AssemblyScript fixture if needed
+- **Tests to add/update:** one focused regression test that describes the reflected-value behavior through a public or semantic seam.
+- **Done when:** the reflected-value bug is fixed or the slice is removed/refined because the issue no longer reproduces.
+- **Validation:** focused reflected-value/core test plus `npm run tsc --workspace @as-pect/core`.
+
+### Slice E13-S4 — Characterize and fix one AssemblyScript expectation correctness bug
+
+- **Epic:** E13
+- **Scope:** Reproduce one confirmed bug-scan issue in `packages/assembly/assembly/internal/Expectation.ts`, then make the smallest compatible fix in the AssemblyScript expectation layer.
+- **Files:** `packages/assembly/assembly/internal/Expectation.ts`, AssemblyScript expectation tests or fixtures
+- **Tests to add/update:** one focused AssemblyScript regression test for the affected expectation behavior.
+- **Done when:** the expectation bug is fixed or the slice is removed/refined because the issue no longer reproduces.
+- **Validation:** `npm run test:ci --workspace @as-pect/assembly` and `npm run tsc:all --workspace @as-pect/assembly`.
+
 ---
 
 ## Suggested first sequence
