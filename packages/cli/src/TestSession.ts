@@ -1,22 +1,18 @@
-import path from "path";
 import { existsSync, promises as fs, readdirSync, readFileSync } from "fs";
 import chalk from "chalk";
 import { glob as defaultGlob } from "glob";
 import { main as asc } from "assemblyscript/dist/asc.js";
-import { instantiate } from "@assemblyscript/loader";
-import { SuiteReport, TestContext, type IWritable } from "@as-pect/core";
-import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspectConfig.js";
+import { type IWritable } from "@as-pect/core";
+import type { IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
-import { createCompilerIoAdapter, createCompilerIoCache, type AssemblyScriptCompilerIo } from "./CompilerIo.js";
-import { extractCompilerOutput } from "./CompilerOutput.js";
+import { createCompilerIoCache, type AssemblyScriptCompilerIo } from "./CompilerIo.js";
 import { planTestSessionEntries } from "./TestSessionEntries.js";
+import { runTestSessionEntry, type TestSessionEntryCompilerResult } from "./TestSessionEntry.js";
 import {
   accumulateTestSessionSuiteStats,
   createInitialTestSessionStats,
   type TestSessionStats,
 } from "./TestSessionStats.js";
-import { planTestSessionSnapshots, SnapshotMode } from "./TestSessionSnapshots.js";
-import { createTestSessionWasi } from "./TestSessionWasi.js";
 
 export { accumulateTestSessionSnapshotStats } from "./TestSessionStats.js";
 export type { TestSessionStats } from "./TestSessionStats.js";
@@ -80,11 +76,6 @@ export interface TestSessionCompileFailure {
 
 export type TestSessionResult = TestSessionSuccess | TestSessionCompileFailure;
 
-type CompilerResult = {
-  error?: unknown;
-  stats: { toString(): string };
-};
-
 export interface TestSessionFileSystem {
   access(path: string): Promise<void>;
   existsSync(path: string): boolean;
@@ -103,7 +94,7 @@ export type TestSessionReporterCollector = (
 
 export interface TestSessionDependencies {
   collectReporter?: TestSessionReporterCollector;
-  compile(args: string[], io: AssemblyScriptCompilerIo): Promise<CompilerResult>;
+  compile(args: string[], io: AssemblyScriptCompilerIo): Promise<TestSessionEntryCompilerResult>;
   fileSystem: TestSessionFileSystem;
   glob(pattern: string): Promise<string[]>;
 }
@@ -289,104 +280,41 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
   }
 
   for (const entry of entries) {
-    const { io: compilerIo, outputFiles: files } = createCompilerIoAdapter({
-      cache: compilerIoCache,
+    const entryResult = await runTestSessionEntry({
+      aspectConfig,
+      asconfigLocation,
+      collectReporter,
+      compile,
+      compilerIoCache,
+      coverage: covers,
+      cwd,
+      entry,
       fileSystem,
+      groupRegex,
+      includeFiles,
+      log: (message) => writeLog(stdout, message),
+      memory,
+      options,
+      outputBinary,
+      runTests,
+      showStats,
       stderr,
       stdout,
+      testRegex,
+      updateSnapshots,
     });
-    const dir = path.dirname(entry);
-    const ascArgs = [
-      entry,
-      ...includeFiles,
-      "--config",
-      asconfigLocation,
-      "--target",
-      covers ? "coverage" : "noCoverage",
-    ];
 
-    const compiled = await compile(ascArgs, compilerIo);
-
-    if (compiled.error) {
+    if (entryResult.compilerError) {
       return {
-        compilerError: compiled.error,
+        compilerError: entryResult.compilerError,
         coverageReport: null,
         pass: false,
         stats,
       };
     }
 
-    if (showStats) stdout.write(compiled.stats.toString());
-    const { binary, wat } = extractCompilerOutput(files);
-
-    if (outputBinary) {
-      const baseName = path.join(dir, path.basename(entry, path.extname(entry)));
-      await fileSystem.writeFile(baseName + ".wasm", binary);
-      await fileSystem.writeFile(baseName + ".wat", wat);
-    }
-
-    if (!runTests) continue;
-
-    const snapshotPlan = await planTestSessionSnapshots({
-      entry,
-      fileSystem,
-      log: (message) => writeLog(stdout, message),
-      updateSnapshots,
-    });
-    const snapshots = snapshotPlan.expectedSnapshots;
-
-    const wasi = await createTestSessionWasi({
-      cliWasi: options.wasi,
-      configWasi: aspectConfig.wasi,
-      cwd,
-    });
-
-    const reporter = await collectReporter(options, aspectConfig, { stderr, stdout });
-
-    const ctx = new TestContext({
-      reporter,
-      binary,
-      fileName: entry,
-      groupRegex,
-      snapshots,
-      testRegex,
-      wasi,
-    });
-
-    const wasmMemory = new WebAssembly.Memory(memory);
-    const createImports: AspectCreateImports = (...imports: AspectImports[]) => {
-      const testImports = ctx.createImports(...imports) as AspectImports;
-      return covers ? (covers.installImports(testImports) as AspectImports) : testImports;
-    };
-
-    const module = await aspectConfig.instantiate(wasmMemory, createImports, instantiate, binary);
-
-    covers?.registerLoader(module);
-    ctx.run(module as any);
-    await reporter.onFlush?.();
-
-    const suiteReport = SuiteReport.from(ctx);
-    if (!suiteReport.hasResults) continue;
-
-    const suiteStatsFacts = {
-      groups: suiteReport.groupCount,
-      hasResults: suiteReport.hasResults,
-      pass: suiteReport.pass,
-      passedGroups: suiteReport.groupPassCount,
-      passedTests: suiteReport.testPassCount,
-      tests: suiteReport.testCount,
-    };
-
-    if (snapshotPlan.mode === SnapshotMode.CompareSnapshots) {
-      const expectedSnapshots = ctx.expectedSnapshots;
-      const snapshotLifecycle = ctx.snapshotLifecycle!;
-      const updatePlan = snapshotLifecycle.updatePlan;
-
-      accumulateTestSessionSuiteStats(stats, { ...suiteStatsFacts, snapshotStats: snapshotLifecycle.stats });
-      await snapshotPlan.applySnapshotWrites({ expectedSnapshots, updatePlan });
-    } else {
-      accumulateTestSessionSuiteStats(stats, suiteStatsFacts);
-      await snapshotPlan.applySnapshotWrites({ actualSnapshots: ctx.snapshots, rootPassed: ctx.rootNode.pass });
+    if (entryResult.suiteStatsFacts) {
+      accumulateTestSessionSuiteStats(stats, entryResult.suiteStatsFacts);
     }
   }
 

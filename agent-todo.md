@@ -26,42 +26,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E1 — Deepen the Test session entry lifecycle
-
-**Goal:** Concentrate the per-entry Test session lifecycle behind a smaller interface so entry discovery, compiler IO, coverage, wasm instantiation, snapshots, reporters, WASI, and stats have better locality.
-
-**Primary files:**
-
-- `packages/cli/src/TestSession.ts`
-- `packages/cli/src/index.ts`
-- `packages/cli/__tests__/TestSession.spec.ts`
-
-**Target shape:** `runTestSession()` should coordinate high-level Test session flow. Per-entry behavior should live behind a Test session entry module with focused helpers/adapters and test coverage at that seam.
-
-### Slice E1-S8 — Extract per-entry execution into a Test session entry module
-
-- **Epic:** E1
-- **Scope:** Create the deep module that compiles one planned entry, optionally writes binaries, instantiates wasm, runs `TestContext`, flushes reporters, and returns suite facts/write plans.
-- **Files:** `packages/cli/src/TestSession.ts`, new `packages/cli/src/TestSessionEntry.ts`
-- **Tests to add/update:**
-  - compile-only `--no-run` writes binary outputs and skips wasm execution
-  - `outputBinary` writes `.wasm` and `.wat`
-  - reporter is collected per run entry when tests execute
-  - `onFlush` is awaited after a suite run
-- **Done when:** `runTestSession()` becomes a high-level loop over planned entries that delegates one entry at a time.
-- **Validation:** focused CLI package tests, then full CLI test suite.
-
-### Slice E1-S10 — Document the Test session entry concept
-
-- **Epic:** E1
-- **Scope:** If the Test session entry module is introduced, add the term to `CONTEXT.md` and summarize its responsibility.
-- **Files:** `CONTEXT.md`, any new module docs/comments
-- **Tests to add/update:** none unless terminology appears in generated/help output
-- **Done when:** future agents can name the Test session entry module without rediscovering its purpose.
-- **Validation:** documentation review.
-
----
-
 ## Epic E2 — Seal the Reporting lifecycle seam
 
 **Goal:** Make Suite report facts the main reporter interface and isolate legacy `TestContext` / `TestNode` callback compatibility behind adapters, improving locality for reporter behavior.
@@ -441,12 +405,10 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E1-S1** — Characterize multi-entry Test session behavior.
-2. **E1-S2** — Extract Test session entry discovery.
-3. **E1-S3** — Isolate compiler IO caching.
-4. **E1-S5** — Extract snapshot file planning for Test sessions.
-5. **E1-S8** — Extract per-entry execution into a Test session entry module.
-6. **E2-S1** — Characterize reporter compatibility behavior.
-7. **E2-S2** — Introduce a named legacy reporter adapter.
+1. **E2-S1** — Characterize reporter compatibility behavior.
+2. **E2-S2** — Introduce a named legacy reporter adapter.
+3. **E2-S3** — Remove compatibility facts from internal event construction.
+4. **E2-S4** — Convert built-in reporters to pure report facts where possible.
+5. **E3-S1** — Inventory and characterize Wasm host callbacks.
 
-This sequence tackles the highest-leverage Test session locality first, then prepares the Reporting lifecycle seam without breaking custom reporters.
+This sequence prepares the Reporting lifecycle seam without breaking custom reporters, then moves to Wasm host recording locality.

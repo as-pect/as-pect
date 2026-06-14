@@ -12,6 +12,10 @@ _Avoid_: Runner service, CLI workflow
 The ordered test entries and include files for a Test session after CLI/config globs are expanded, filtered, sorted, and deduplicated.
 _Avoid_: Discovered file batch, glob result set
 
+**Test session entry**:
+The lifecycle for one planned AssemblyScript test entry: compiling with shared compiler IO, optionally writing compiler artifacts, optionally instantiating and executing wasm, flushing reporters, and returning suite facts with snapshot write decisions.
+_Avoid_: Entry runner, spec file executor
+
 **Compiler IO adapter**:
 The AssemblyScript compiler-facing file system seam that reads source files, lists source directories, caches successful lookups across a Test session, and captures compiler output files in memory.
 _Avoid_: Filesystem wrapper, compiler cache helper
