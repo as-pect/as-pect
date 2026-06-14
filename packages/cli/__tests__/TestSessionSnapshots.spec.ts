@@ -104,24 +104,38 @@ describe("Test session snapshot planning", () => {
     });
 
     await plan.applySnapshotWrites({
-      actualSnapshots: new Snapshot(),
+      expectedSnapshots: new Snapshot(),
       rootPassed: true,
+      updatePlan: {
+        shouldWrite: false,
+        applyTo(snapshot: Snapshot) {
+          return snapshot;
+        },
+      },
     });
 
     expect(fileSystem.access).toHaveBeenCalledWith("assembly/__tests__/__snapshots__");
     expect(fileSystem.mkdir).toHaveBeenCalledWith("assembly/__tests__/__snapshots__");
   });
 
-  it("writes actual snapshots in write mode only when the root test node passes", async () => {
+  it("writes snapshots from a lifecycle update plan in write mode only when the root test node passes", async () => {
     const passingFileSystem = createFileSystem();
     const passingPlan = await planTestSessionSnapshots({
       entry: "assembly/__tests__/entry.spec.ts",
       fileSystem: passingFileSystem,
       updateSnapshots: true,
     });
-    const actualSnapshots = Snapshot.from(new Map([["test[0]", "actual"]]));
 
-    await passingPlan.applySnapshotWrites({ actualSnapshots, rootPassed: true });
+    await passingPlan.applySnapshotWrites({
+      expectedSnapshots: new Snapshot(),
+      rootPassed: true,
+      updatePlan: {
+        shouldWrite: true,
+        applyTo(snapshot: Snapshot) {
+          return snapshot.set("test[0]", "actual");
+        },
+      },
+    });
 
     expect(passingFileSystem.writeFile).toHaveBeenCalledWith(
       "assembly/__tests__/__snapshots__/entry.spec.snap",
@@ -136,7 +150,16 @@ describe("Test session snapshot planning", () => {
       updateSnapshots: true,
     });
 
-    await failingPlan.applySnapshotWrites({ actualSnapshots, rootPassed: false });
+    await failingPlan.applySnapshotWrites({
+      expectedSnapshots: new Snapshot(),
+      rootPassed: false,
+      updatePlan: {
+        shouldWrite: true,
+        applyTo(snapshot: Snapshot) {
+          return snapshot.set("test[0]", "actual");
+        },
+      },
+    });
 
     expect(failingFileSystem.writeFile).not.toHaveBeenCalled();
   });

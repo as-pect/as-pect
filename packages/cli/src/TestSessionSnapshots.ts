@@ -25,8 +25,9 @@ export interface CompareSnapshotWriteFacts {
 }
 
 export interface WriteSnapshotWriteFacts {
-  actualSnapshots: Snapshot;
+  expectedSnapshots: Snapshot;
   rootPassed: boolean;
+  updatePlan: SnapshotUpdatePlanLike;
 }
 
 export type SnapshotWriteFacts = CompareSnapshotWriteFacts | WriteSnapshotWriteFacts;
@@ -109,5 +110,6 @@ async function applyWriteSnapshotWrites(
 
   if (!facts.rootPassed) return;
 
-  await fileSystem.writeFile(snapshotPath, facts.actualSnapshots.stringify(), "utf8");
+  facts.updatePlan.applyTo(facts.expectedSnapshots);
+  await fileSystem.writeFile(snapshotPath, facts.expectedSnapshots.stringify(), "utf8");
 }

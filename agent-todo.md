@@ -26,32 +26,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E5 — Keep snapshot lifecycle behavior deep and explicit
-
-**Goal:** Preserve the existing Snapshot lifecycle depth while improving test coverage and CLI integration around update plans and reportable snapshot facts.
-
-**Primary files:**
-
-- `packages/snapshots/src/Snapshot.ts`
-- `packages/snapshots/src/SnapshotDiff.ts`
-- `packages/snapshots/src/SnapshotLifecycle.ts`
-- `packages/snapshots/__tests__/snapshot.spec.ts`
-- `packages/core/src/reporter/ReportingLifecycle.ts`
-- `packages/cli/src/TestSession.ts`
-
-**Target shape:** Snapshot parsing, diffing, pass/fail, stats, and update planning stay concentrated in the Snapshot lifecycle module; CLI and reporters consume stable facts.
-
-### Slice E5-S4 — Route CLI snapshot writes through Snapshot lifecycle facts
-
-- **Epic:** E5
-- **Scope:** As part of E1 extraction, ensure CLI snapshot writes use `SnapshotLifecycle.updatePlan` and stats rather than duplicating diff rules.
-- **Files:** `packages/cli/src/TestSession.ts`, possible E1 snapshot module
-- **Tests to add/update:** CLI compare/update snapshot tests
-- **Done when:** CLI snapshot handling delegates all pass/fail/update decisions to Snapshot lifecycle.
-- **Validation:** focused CLI and snapshots package tests.
-
----
-
 ## Epic E7 — Replace ESLint and Prettier with Biome
 
 **Goal:** Remove the direct ESLint and Prettier toolchains from this repository while preserving useful formatting and static checks through Biome, TypeScript, focused tests, or small local validation scripts.
@@ -332,9 +306,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E5-S4** — Route CLI snapshot writes through Snapshot lifecycle facts.
-2. **E7-S1** — Introduce Biome validation beside existing tools.
-3. **E7-S2** — Move active check scripts to Biome.
-4. **E7-S3** — Remove ESLint and Prettier toolchain files and dependencies.
+1. **E7-S1** — Introduce Biome validation beside existing tools.
+2. **E7-S2** — Move active check scripts to Biome.
+3. **E7-S3** — Remove ESLint and Prettier toolchain files and dependencies.
 
-This sequence keeps the Snapshot lifecycle integration first while making the Biome migration reviewable in smaller steps.
+This sequence keeps the Biome migration reviewable in smaller steps.

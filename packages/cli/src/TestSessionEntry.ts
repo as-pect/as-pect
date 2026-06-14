@@ -193,9 +193,15 @@ export async function runTestSessionEntry({
     };
   }
 
-  await snapshotPlan.applySnapshotWrites({ actualSnapshots: ctx.snapshots, rootPassed: ctx.rootNode.pass });
-  return {
-    compilerError: null,
-    suiteStatsFacts,
-  };
+  {
+    const expectedSnapshots = ctx.expectedSnapshots;
+    const snapshotLifecycle = ctx.snapshotLifecycle!;
+    const updatePlan = snapshotLifecycle.updatePlan;
+
+    await snapshotPlan.applySnapshotWrites({ expectedSnapshots, rootPassed: ctx.rootNode.pass, updatePlan });
+    return {
+      compilerError: null,
+      suiteStatsFacts: { ...suiteStatsFacts, snapshotStats: snapshotLifecycle.stats },
+    };
+  }
 }

@@ -3,6 +3,7 @@ import { createCompilerIoCache } from "../src/CompilerIo.js";
 import { runTestSessionEntry } from "../src/TestSessionEntry.js";
 import { IAspectConfig } from "../src/IAspectConfig.js";
 import { TestSessionDependencies } from "../src/TestSession.js";
+import { ReflectedValueType } from "../../core/src/util/ReflectedValueType.js";
 
 const minimalWasmBinary = new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]);
 
@@ -136,6 +137,65 @@ describe("Test session entry", () => {
         passedGroups: 2,
         passedTests: 1,
         tests: 1,
+      },
+    });
+  });
+
+  it("returns snapshot lifecycle stats when update mode writes snapshots", async () => {
+    const strings = new Map([
+      [1, "snapshots"],
+      [2, "current value"],
+      [3, "i32"],
+    ]);
+    const writes = new Map<string, string | Uint8Array>();
+    const fileSystem = {
+      ...createNoopFileSystem(),
+      writeFile: jest.fn(async (filePath: string, contents: string | Uint8Array) => {
+        writes.set(filePath, contents);
+      }),
+    };
+    const instantiate = jest.fn<IAspectConfig["instantiate"]>(async (memory, createImports) => {
+      const imports = createImports({ env: { memory } }) as any;
+      return {
+        exports: {
+          memory,
+          _start() {
+            imports.__aspect.reportTestTypeNode(1, 10);
+          },
+          __call(pointer: number) {
+            if (pointer !== 10) return;
+            const value = imports.__aspect.createReflectedNumber(1, 4, ReflectedValueType.Integer, 3, 7);
+            imports.__aspect.reportExpectedSnapshot(value, 2);
+          },
+          __getString(pointer: number) {
+            return strings.get(pointer) ?? "";
+          },
+        },
+        instance: {} as WebAssembly.Instance,
+      };
+    });
+    const options = createEntryOptions({
+      aspectConfig: { instantiate },
+      fileSystem,
+      updateSnapshots: true,
+    });
+
+    const result = await runTestSessionEntry(options);
+
+    expect(writes.get("assembly/__tests__/__snapshots__/entry.spec.snap")).toBe(
+      "exports[`snapshots[0]!~current value[0]`] = `7`;\n",
+    );
+    expect(result).toMatchObject({
+      compilerError: null,
+      suiteStatsFacts: {
+        pass: true,
+        snapshotStats: {
+          addedSnapshots: 1,
+          changedSnapshots: 0,
+          passedSnapshots: 1,
+          removedSnapshots: 0,
+          totalSnapshots: 1,
+        },
       },
     });
   });
