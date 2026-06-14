@@ -38,19 +38,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `runTestSession()` should coordinate high-level Test session flow. Per-entry behavior should live behind a Test session entry module with focused helpers/adapters and test coverage at that seam.
 
-### Slice E1-S3 — Isolate compiler IO caching
-
-- **Epic:** E1
-- **Scope:** Extract the AssemblyScript compiler IO adapter that caches file reads and directory listings.
-- **Files:** `packages/cli/src/TestSession.ts`, optional new `packages/cli/src/CompilerIo.ts`
-- **Tests to add/update:**
-  - cached `readFile` avoids duplicate file system reads
-  - cached `listFiles` avoids duplicate directory reads
-  - missing files/directories return `null` without throwing
-  - `.d.ts` files are excluded from `listFiles`
-- **Done when:** The compiler adapter can be tested without running a full Test session.
-- **Validation:** focused CLI package tests.
-
 ### Slice E1-S4 — Make compiler output extraction explicit
 
 - **Epic:** E1

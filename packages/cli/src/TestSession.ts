@@ -8,8 +8,9 @@ import { SuiteReport, TestContext, type IWritable } from "@as-pect/core";
 import { Snapshot, type SnapshotLifecycleStats } from "@as-pect/snapshots";
 import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
+import { createCompilerIoAdapter, createCompilerIoCache, type AssemblyScriptCompilerIo } from "./CompilerIo.js";
 import { importLocalModule } from "./importLocalModule.js";
-import { planTestSessionEntries, sortDiscoveredPaths } from "./TestSessionEntries.js";
+import { planTestSessionEntries } from "./TestSessionEntries.js";
 
 export const enum SnapshotMode {
   WriteSnapshots,
@@ -87,14 +88,6 @@ export interface TestSessionCompileFailure {
 
 export type TestSessionResult = TestSessionSuccess | TestSessionCompileFailure;
 
-type CompilerIo = {
-  listFiles(dirname: string, baseDir: string): string[] | null;
-  readFile(filename: string, baseDir: string): string | null;
-  stderr: NodeJS.WritableStream;
-  stdout: NodeJS.WritableStream;
-  writeFile(filename: string, contents: string | Uint8Array, baseDir: string): void;
-};
-
 type CompilerResult = {
   error?: unknown;
   stats: { toString(): string };
@@ -118,7 +111,7 @@ export type TestSessionReporterCollector = (
 
 export interface TestSessionDependencies {
   collectReporter?: TestSessionReporterCollector;
-  compile(args: string[], io: CompilerIo): Promise<CompilerResult>;
+  compile(args: string[], io: AssemblyScriptCompilerIo): Promise<CompilerResult>;
   fileSystem: TestSessionFileSystem;
   glob(pattern: string): Promise<string[]>;
 }
@@ -307,8 +300,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     updateSnapshots,
   } = config;
 
-  const fileMap = new Map<string, string>();
-  const folderMap = new Map<string, string[]>();
+  const compilerIoCache = createCompilerIoCache();
   const stats = createInitialStats();
 
   const { compile, fileSystem, glob } = dependencies;
@@ -335,7 +327,12 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
   }
 
   for (const entry of entries) {
-    const files = new Map<string, string | Uint8Array>();
+    const { io: compilerIo, outputFiles: files } = createCompilerIoAdapter({
+      cache: compilerIoCache,
+      fileSystem,
+      stderr,
+      stdout,
+    });
     const dir = path.dirname(entry);
     const basename = path.basename(entry, path.extname(entry));
     const ascArgs = [
@@ -347,38 +344,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
       covers ? "coverage" : "noCoverage",
     ];
 
-    const compiled = await compile(ascArgs, {
-      readFile(filename, baseDir) {
-        const filePath = path.join(baseDir, filename);
-        if (fileMap.has(filePath)) return fileMap.get(filePath)!;
-        try {
-          const contents = fileSystem.readFileSync(filePath, "utf8");
-          fileMap.set(filePath, contents);
-          return contents;
-        } catch (ex) {
-          return null;
-        }
-      },
-      writeFile(filename, contents, _baseDir) {
-        files.set(filename, contents);
-      },
-      listFiles(dirname, baseDir) {
-        const folder = path.join(baseDir, dirname);
-        if (folderMap.has(folder)) return folderMap.get(folder)!;
-
-        try {
-          const files = sortDiscoveredPaths(
-            fileSystem.readdirSync(folder).filter((file) => /^(?!.*\.d\.ts$).*\.ts$/.test(file)),
-          );
-          folderMap.set(folder, files);
-          return files;
-        } catch (ex) {
-          return null;
-        }
-      },
-      stderr,
-      stdout,
-    });
+    const compiled = await compile(ascArgs, compilerIo);
 
     if (compiled.error) {
       return {

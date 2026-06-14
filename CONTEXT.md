@@ -12,6 +12,10 @@ _Avoid_: Runner service, CLI workflow
 The ordered test entries and include files for a Test session after CLI/config globs are expanded, filtered, sorted, and deduplicated.
 _Avoid_: Discovered file batch, glob result set
 
+**Compiler IO adapter**:
+The AssemblyScript compiler-facing file system seam that reads source files, lists source directories, caches successful lookups across a Test session, and captures compiler output files in memory.
+_Avoid_: Filesystem wrapper, compiler cache helper
+
 **Test suite**:
 The collected tests and groups for a single AssemblyScript test binary.
 _Avoid_: Spec bundle, test file model
