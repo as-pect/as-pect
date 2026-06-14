@@ -1,6 +1,5 @@
 import type { IAspectConfig } from "./IAspectConfig.js";
 import { CombinationReporter, SummaryReporter, VerboseReporter, type IReporter, type IWritable } from "@as-pect/core";
-import type { OptionValues } from "commander";
 import { existsSync } from "fs";
 import path from "path";
 import process, { cwd } from "process";
@@ -57,8 +56,16 @@ async function importReporterModule(reporterLocation: string): Promise<IReporter
   }
 }
 
+export interface CliReporterOptions {
+  csv?: boolean;
+  json?: boolean;
+  reporter?: string | boolean;
+  summary?: boolean;
+  verbose?: boolean;
+}
+
 /** Collect up the reporter asynchronously because modules could be imported. */
-export async function getReporter(opts: OptionValues, aspectConfig: IAspectConfig): Promise<IReporter> {
+export async function getReporter(opts: CliReporterOptions, aspectConfig: IAspectConfig): Promise<IReporter> {
   const reporters = [] as IReporter[];
   if (aspectConfig.reporter) {
     reporters.push(await importReporterModule(aspectConfig.reporter));
@@ -99,7 +106,7 @@ export interface ReporterOutput {
 }
 
 export async function collectReporter(
-  opts: OptionValues,
+  opts: CliReporterOptions,
   aspectConfig: IAspectConfig,
   output: ReporterOutput = { stderr: process.stderr, stdout: process.stdout },
 ): Promise<IReporter> {

@@ -82,8 +82,9 @@ describe("CLI option parsing", () => {
     expect(parseOptions(["--init"]).init).toBe(true);
   });
 
-  it("maps --no-logo as disabled logo output", () => {
+  it("maps logo aliases as disabled logo output", () => {
     expect(parseOptions(["--no-logo"]).logo).toBe(false);
+    expect(parseOptions(["-n"]).logo).toBe(false);
   });
 
   it("maps --no-run as compile-only mode", () => {
@@ -95,6 +96,16 @@ describe("CLI option parsing", () => {
 
     expect(opts.outputBinary).toBe(true);
     expect(opts.updateSnapshots).toBe(true);
+  });
+
+  it("maps documented short aliases", () => {
+    const opts = parseOptions(["-c", "test/as-pect.config.js", "-a", "test/asconfig.json", "-o", "-u", "-s"]);
+
+    expect(opts.config).toBe("test/as-pect.config.js");
+    expect(opts.asConfig).toBe("test/asconfig.json");
+    expect(opts.outputBinary).toBe(true);
+    expect(opts.updateSnapshots).toBe(true);
+    expect(opts.showStats).toBe(true);
   });
 
   it("maps memory options to page counts", () => {
@@ -175,5 +186,18 @@ describe("CLI option parsing", () => {
 
     expect(() => command.parse(["node", "asp", "--help"])).toThrow("(outputHelp)");
     expect(output.join("")).toContain("Usage: asp [options] [globs...]");
+  });
+
+  it("uses the aspect alias in help output when invoked that way", () => {
+    const output: string[] = [];
+    const command = createCliProgram();
+    command.exitOverride();
+    command.configureOutput({
+      writeErr: () => undefined,
+      writeOut: (str: string) => output.push(str),
+    });
+
+    expect(() => command.parse(["node", "aspect", "--help"])).toThrow("(outputHelp)");
+    expect(output.join("")).toContain("Usage: aspect [options] [globs...]");
   });
 });
