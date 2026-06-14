@@ -11,6 +11,10 @@ with WebAssembly speeds!
 
 To view the documentation, it's located [here](https://tenner-joshua.gitbook.io/as-pect/) on the gitbook. If there are any issues with the docs, please feel free to file an issue!
 
+## Reporter API
+
+This package writes CSV rows from the Suite report facts delivered to `onReportFinish({ report })`. Custom file reporters should prefer the report event callbacks from `@as-pect/core` and treat `onFinish(ctx)` as a legacy compatibility callback.
+
 ## Contributors
 
 To contribute please see [CONTRIBUTING.md](./CONTRIBUTING.md).

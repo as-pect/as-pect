@@ -26,45 +26,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E2 — Seal the Reporting lifecycle seam
-
-**Goal:** Make Suite report facts the main reporter interface and isolate legacy `TestContext` / `TestNode` callback compatibility behind adapters, improving locality for reporter behavior.
-
-**Primary files:**
-
-- `packages/core/src/reporter/ReportingLifecycle.ts`
-- `packages/core/src/reporter/IReporter.ts`
-- `packages/core/src/reporter/CombinationReporter.ts`
-- `packages/core/src/reporter/SummaryReporter.ts`
-- `packages/core/src/reporter/VerboseReporter.ts`
-- `packages/json-reporter/index.ts`
-- `packages/csv-reporter/index.ts`
-- reporter tests under `packages/core/__tests__`, `packages/json-reporter/__tests__`, and `packages/csv-reporter/__tests__`
-
-**Target shape:** New reporters should depend on Suite report and Report event facts. Legacy callbacks should still work, but through an explicit compatibility adapter rather than leaking through the main report event interface.
-
-### Slice E2-S5 — Split report fact creation from event publication
-
-- **Epic:** E2
-- **Scope:** Separate Suite report/group report/test report creation from the module that decides which reporter callback to invoke.
-- **Files:** `ReportingLifecycle.ts`, optional new `packages/core/src/reporter/SuiteReportFactory.ts`
-- **Tests to add/update:**
-  - group/test report facts can be created directly in tests without a full Reporting lifecycle
-  - snapshot change lines and stats still match existing behavior
-- **Done when:** fact construction has its own test surface and publication logic is smaller.
-- **Validation:** focused core reporter tests.
-
-### Slice E2-S6 — Document reporter interface migration guidance
-
-- **Epic:** E2
-- **Scope:** Update reporter documentation to recommend report events and explain legacy callback compatibility.
-- **Files:** `packages/core/README.md`, reporter package readmes if relevant, `CONTEXT.md` if terminology changes
-- **Tests to add/update:** none
-- **Done when:** custom reporter authors know which interface to implement and which callbacks are compatibility-only.
-- **Validation:** documentation review.
-
----
-
 ## Epic E3 — Give the Wasm host a Test tree recording module
 
 **Goal:** Separate host callback recording and Test tree mutation from TestContext execution flow, so the Wasm host has a smaller seam and Test tree state has better locality.
@@ -461,8 +422,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E2-S3** — Remove compatibility facts from internal event construction.
-2. **E2-S4** — Convert built-in reporters to pure report facts where possible.
-3. **E3-S1** — Inventory and characterize Wasm host callbacks.
+1. **E3-S1** — Inventory and characterize Wasm host callbacks.
+2. **E3-S2** — Introduce a Test tree recorder for declarations.
+3. **E3-S3** — Move hook and todo recording into the recorder.
 
-This sequence prepares the Reporting lifecycle seam without breaking custom reporters, then moves to Wasm host recording locality.
+This sequence starts the Wasm host recording locality work now that the Reporting lifecycle seam is fact-first and compatibility-aware.

@@ -11,6 +11,20 @@ with WebAssembly speeds!
 
 To view the documentation, it's located [here](https://tenner-joshua.gitbook.io/as-pect/) on the gitbook. If there are any issues with the docs, please feel free to file an issue!
 
+## Reporter interface guidance
+
+Custom reporters should prefer the report event callbacks exposed by `IReporter`:
+
+- `onReportGroupStart(event)` and `onReportGroupFinish(event)` receive `{ group }` facts.
+- `onReportTestStart(event)` and `onReportTestFinish(event)` receive `{ group, test }` facts.
+- `onReportFinish(event)` receives `{ report }` facts for the completed suite.
+
+These events carry stable Suite report facts that are ready to render. New reporters should read from `SuiteGroupReport`, `SuiteTestReport`, and `SuiteReport` instead of walking `TestContext` or mutable `TestNode` state.
+
+The older `onEnter(ctx, node)`, `onExit(ctx, node)`, and `onFinish(ctx)` callbacks remain available for compatibility with existing reporters and subclasses. Treat them as legacy extension points for migration only. The Reporting lifecycle now keeps compatibility-only `TestContext` and `TestNode` facts behind the legacy reporter adapter so they do not leak into report event payloads.
+
+If a reporter needs to create report facts directly, use `createGroupReport(node)`, `createTestReport(group, test)`, or `createSuiteReport(ctx)` from `@as-pect/core`.
+
 ## Contributors
 
 To contribute please see [CONTRIBUTING.md](./CONTRIBUTING.md).

@@ -2,13 +2,14 @@ import { TestContext } from "../test/TestContext.js";
 import { IWritable } from "../util/IWriteable.js";
 import { ReflectedValue } from "../util/ReflectedValue.js";
 import { IReporter } from "./IReporter.js";
+import type { SuiteReportEvent } from "./ReportingLifecycle.js";
 import {
+  createSuiteReport,
   SnapshotReportLine,
   SuiteGroupReport,
   SuiteReport,
-  SuiteReportEvent,
   SuiteTestReport,
-} from "./ReportingLifecycle.js";
+} from "./SuiteReportFactory.js";
 import type { LegacySuiteReportFacts } from "./LegacyReporterAdapter.js";
 import { TestNode } from "../test/TestNode.js";
 import chalk from "chalk";
@@ -61,7 +62,7 @@ export class SummaryReporter implements IReporter {
    * @param {TestContext} suite - The finished test suite.
    */
   public onFinish(suite: TestContext): void {
-    this.writeReport(SuiteReport.from(suite));
+    this.writeReport(createSuiteReport(suite));
   }
 
   private writeReport(report: SuiteReport): void {

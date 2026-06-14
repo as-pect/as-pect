@@ -53,8 +53,12 @@ An adapter that renders reportable facts from a test suite to stdout, stderr, fi
 _Avoid_: Printer, output service
 
 **Reporting lifecycle**:
-The module that publishes test suite events and final suite report facts to reporters through one seam.
+The module that publishes test suite events and final suite report facts to reporters through one seam. It delegates report fact construction instead of walking test nodes itself.
 _Avoid_: Reporter manager, output lifecycle service
+
+**Suite report factory**:
+The module that builds suite, group, test, todo, and snapshot report facts from `TestContext` and `TestNode` state before reporter publication.
+_Avoid_: Reporter event builder, output model factory
 
 **Legacy reporter adapter**:
 The compatibility seam that translates Report events plus separate legacy report facts to older `onEnter`, `onExit`, and `onFinish` reporter callbacks when a reporter has not implemented the corresponding report callback.

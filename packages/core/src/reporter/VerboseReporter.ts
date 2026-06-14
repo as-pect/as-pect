@@ -5,15 +5,16 @@ import { TestNodeType } from "../util/TestNodeType.js";
 import { TestNode } from "../test/TestNode.js";
 import { IReporter } from "./IReporter.js";
 import { StringifyReflectedValueProps } from "../util/stringifyReflectedValue.js";
+import type { GroupReportEvent, SuiteReportEvent, TestReportEvent } from "./ReportingLifecycle.js";
 import {
-  GroupReportEvent,
+  createGroupReport,
+  createSuiteReport,
+  createTestReport,
   SnapshotReportLine,
   SuiteGroupReport,
   SuiteReport,
-  SuiteReportEvent,
   SuiteTestReport,
-  TestReportEvent,
-} from "./ReportingLifecycle.js";
+} from "./SuiteReportFactory.js";
 import type { LegacyGroupReportFacts, LegacySuiteReportFacts, LegacyTestReportFacts } from "./LegacyReporterAdapter.js";
 import chalk from "chalk";
 
@@ -112,7 +113,7 @@ export class VerboseReporter implements IReporter {
    * @param {TestNode} group - The started test group.
    */
   public onGroupStart(group: TestNode): void {
-    this.writeGroupStart(SuiteReport.groupFromNode(group));
+    this.writeGroupStart(createGroupReport(group));
   }
 
   /**
@@ -121,7 +122,7 @@ export class VerboseReporter implements IReporter {
    * @param {TestGroup} group - The finished TestGroup.
    */
   public onGroupFinish(group: TestNode): void {
-    this.writeGroupFinish(SuiteReport.groupFromNode(group));
+    this.writeGroupFinish(createGroupReport(group));
   }
 
   /** This method is a stub for onTestStart(). */
@@ -134,7 +135,7 @@ export class VerboseReporter implements IReporter {
    * @param {TestNode} test - The finished TestResult
    */
   public onTestFinish(group: TestNode, test: TestNode): void {
-    this.writeTestFinish(SuiteReport.testFromNode(group, test));
+    this.writeTestFinish(createTestReport(group, test));
   }
 
   /**
@@ -143,7 +144,7 @@ export class VerboseReporter implements IReporter {
    * @param {TestContext} suite - The finished test context.
    */
   public onFinish(suite: TestContext): void {
-    this.writeReport(SuiteReport.from(suite));
+    this.writeReport(createSuiteReport(suite));
   }
 
   private writeGroupStart(group: SuiteGroupReport): void {
