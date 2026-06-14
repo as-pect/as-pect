@@ -26,23 +26,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E4 — Deepen Class reflection generation around the Class-member plan
-
-**Goal:** Make the Class-member plan the central seam for generated class reflection behavior, reducing duplicated AST construction rules and inheritance ignore logic.
-
-**Primary files:**
-
-- `packages/transform/src/ClassReflectionTransform.ts`
-- `packages/transform/src/createStrictEqualsMember.ts`
-- `packages/transform/src/createAddReflectedValueKeyValuePairsMember.ts`
-- `packages/transform/src/createInterfaceReflectionMembers.ts`
-- `packages/transform/src/index.ts`
-- `packages/transform/__tests__/ClassReflectionTransform.test.js`
-
-**Target shape:** A Class reflection generation module should own traversal decisions, collision checks, Class-member plan facts, generated strict equality methods, generated key/value methods, generated interface methods, and shared AST vocabulary.
-
----
-
 ## Epic E5 — Keep snapshot lifecycle behavior deep and explicit
 
 **Goal:** Preserve the existing Snapshot lifecycle depth while improving test coverage and CLI integration around update plans and reportable snapshot facts.
@@ -66,28 +49,6 @@ When updating this file after a maintenance change:
 - **Tests to add/update:** CLI compare/update snapshot tests
 - **Done when:** CLI snapshot handling delegates all pass/fail/update decisions to Snapshot lifecycle.
 - **Validation:** focused CLI and snapshots package tests.
-
----
-
-## Epic E6 — Improve architecture-facing documentation and validation loops
-
-**Goal:** Keep future maintenance slices aligned with project language, compatibility expectations, and validation commands.
-
-**Primary files:**
-
-- `CONTEXT.md`
-- package readmes
-- `VALIDATION_BASELINE.md`
-- tests across touched packages
-
-### Slice E6-S2 — Add architecture vocabulary reminders to package readmes
-
-- **Epic:** E6
-- **Scope:** Where a package readme already describes a major project concept, align names with `CONTEXT.md` terms such as Test session, Test suite, Reporter, Reporting lifecycle, Snapshot lifecycle, Wasm host, Class reflection transform, and Class-member plan.
-- **Files:** package readmes and `CONTEXT.md`
-- **Tests to add/update:** none
-- **Done when:** package documentation uses the same domain language as implementation discussions.
-- **Validation:** documentation review.
 
 ---
 
@@ -217,7 +178,6 @@ When updating this file after a maintenance change:
 ## Suggested first sequence
 
 1. **E5-S4** — Route CLI snapshot writes through Snapshot lifecycle facts.
-2. **E6-S2** — Add architecture vocabulary reminders to package readmes.
-3. **E7** — Replace ESLint and Prettier with Biome.
+2. **E7** — Replace ESLint and Prettier with Biome.
 
-This sequence moves on from Class reflection generation now that its responsibilities are documented.
+This sequence keeps the Snapshot lifecycle integration first while the remaining dependency-removal epics are sliced into smaller review boundaries.

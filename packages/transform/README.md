@@ -2,7 +2,7 @@
 
 AssemblyScript transform for `as-pect` reflection support.
 
-The transform injects the generated class reflection shape that the runtime helpers in `@as-pect/assembly` depend on when tests compare class instances or print reflected object values.
+This package implements the Class reflection transform. It injects the generated class reflection shape that the runtime helpers in `@as-pect/assembly` depend on when tests compare class instances or print reflected object values.
 
 ## Generated shape
 
@@ -15,7 +15,7 @@ These method names are compatibility-sensitive. `packages/assembly/assembly/inte
 
 ## ClassReflectionTransform
 
-`ClassReflectionTransform` is the module that owns the shared class-member plan for generated class reflection behavior. It inspects each class once and records the instance members that should participate in both strict equality and reflected key/value generation.
+`ClassReflectionTransform` is the module that owns the shared Class-member plan for generated class reflection behavior. It inspects each class once and records the instance members that should participate in both strict equality and reflected key/value generation.
 
 The member plan includes, in source order:
 

@@ -13,6 +13,10 @@ with WebAssembly speeds!
 
 The [documentation is located at gitbook](https://as-pect.gitbook.io/as-pect/). If there are any issues with the docs, please feel free to file an issue!
 
+## Architecture vocabulary
+
+This repository uses the project terms in [`CONTEXT.md`](./CONTEXT.md) when describing internals. The CLI coordinates a Test session, `@as-pect/core` owns Test suite facts and the Reporting lifecycle, `@as-pect/snapshots` owns the Snapshot lifecycle, and `@as-pect/transform` owns the Class reflection transform and Class-member plan.
+
 ## Code coverage
 
 AssemblyScript line and branch coverage is provided through [`as-covers`](https://www.npmjs.com/package/@as-covers/core). In projects created with `asp --init`, enable it by adding coverage globs to `as-pect.config.js`:
@@ -28,7 +32,7 @@ When coverage is enabled, `asp` uses the `coverage` target from `as-pect.asconfi
 
 ## AssemblyScript compiler options
 
-`as-pect.config.js` configures the test runner. Put AssemblyScript compiler options in `as-pect.asconfig.json` instead. For example, configure the `asc --lib` option as a `lib` array on the `noCoverage` target, and also on the `coverage` target when coverage is enabled. See [`packages/cli/README.md`](./packages/cli/README.md#assemblyscript-compiler-options) for an example.
+`as-pect.config.js` configures the Test session. Put AssemblyScript compiler options in `as-pect.asconfig.json` instead. For example, configure the `asc --lib` option as a `lib` array on the `noCoverage` target, and also on the `coverage` target when coverage is enabled. See [`packages/cli/README.md`](./packages/cli/README.md#assemblyscript-compiler-options) for an example.
 
 ## Snapshot names
 

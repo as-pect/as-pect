@@ -11,6 +11,12 @@ with WebAssembly speeds!
 
 To view the documentation, it's located [here](https://tenner-joshua.gitbook.io/as-pect/) on the gitbook. If there are any issues with the docs, please feel free to file an issue!
 
+## Test session vocabulary
+
+The CLI drives each Test session from configuration to report output. `as-pect.config.js` defines the Test session entry plan, JavaScript-side Wasm host imports through `instantiate(...)`, reporters, WASI options, coverage globs, and output behavior. `as-pect.asconfig.json` remains the AssemblyScript compiler configuration used to produce compiler output for each planned entry.
+
+Snapshot file paths and write modes are part of the Test session snapshot plan. Snapshot pass/fail and update decisions come from the Snapshot lifecycle in `@as-pect/snapshots` before the CLI writes files.
+
 ## Code coverage
 
 `as-pect` uses [`as-covers`](https://www.npmjs.com/package/@as-covers/core) for AssemblyScript line and branch coverage. The `asp --init` template already creates an `as-pect.asconfig.json` with two compiler targets:
@@ -47,7 +53,7 @@ If you maintain a custom `as-pect.asconfig.json`, make sure it includes the cove
 
 ## AssemblyScript compiler options
 
-`as-pect.config.js` configures test discovery, host imports, reporters, WASI, coverage globs, and output behavior. It is not an `asc` compiler configuration file.
+`as-pect.config.js` configures the Test session entry plan, Wasm host imports, reporters, WASI, coverage globs, and output behavior. It is not an `asc` compiler configuration file.
 
 Put AssemblyScript compiler options, including the `asc --lib` option, in `as-pect.asconfig.json`. `asp` invokes the compiler with that file and selects either the `noCoverage` target or the `coverage` target, so target-specific options must be present on the target that will run.
 
