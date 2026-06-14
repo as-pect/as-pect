@@ -14,6 +14,16 @@ Only valid positive work that needs to be done should exist in this file. In pra
 - Preserve compatibility for existing users unless the slice explicitly says it is a compatibility migration slice.
 - When a slice creates a new project concept, update `CONTEXT.md` in the same change.
 
+## TODO hygiene checklist
+
+When updating this file after a maintenance change:
+
+- Remove completed slices instead of leaving historical status notes in the active list.
+- Split broad slices when the next useful review boundary is smaller than the current description.
+- Keep one epic link per slice, and move cross-epic follow-up into a separate slice.
+- Add or update validation notes so the next agent can run the smallest command that proves the work.
+- Re-check hidden work in epic prose; convert it into explicit slices or delete it if it is obsolete.
+
 ---
 
 ## Epic E1 — Deepen the Test session entry lifecycle
@@ -515,15 +525,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 - `VALIDATION_BASELINE.md`
 - tests across touched packages
 
-### Slice E6-S1 — Add validation commands per package to `VALIDATION_BASELINE.md`
-
-- **Epic:** E6
-- **Scope:** Document focused validation commands for CLI, core, snapshots, transform, CSV reporter, and JSON reporter packages.
-- **Files:** `VALIDATION_BASELINE.md`, `package.json`, package `package.json` files as references
-- **Tests to add/update:** none
-- **Done when:** agents can pick the smallest useful validation command for each slice.
-- **Validation:** documentation review.
-
 ### Slice E6-S2 — Add architecture vocabulary reminders to package readmes
 
 - **Epic:** E6
@@ -531,15 +532,6 @@ Only valid positive work that needs to be done should exist in this file. In pra
 - **Files:** package readmes and `CONTEXT.md`
 - **Tests to add/update:** none
 - **Done when:** package documentation uses the same domain language as implementation discussions.
-- **Validation:** documentation review.
-
-### Slice E6-S3 — Add issue-ready TODO hygiene checklist
-
-- **Epic:** E6
-- **Scope:** Add a short checklist to this file for removing completed slices, splitting broad slices, and adding validation notes after each maintenance change.
-- **Files:** `agent-todo.md`
-- **Tests to add/update:** none
-- **Done when:** future agents have clear maintenance rules for this TODO file.
 - **Validation:** documentation review.
 
 ---

@@ -1,6 +1,6 @@
 # Validation baseline
 
-Verified: June 12, 2026
+Verified: June 13, 2026
 
 This file records the repository-wide validation baseline for maintenance slices that need to distinguish pre-existing behavior from newly introduced failures.
 
@@ -38,6 +38,25 @@ Non-failing diagnostics observed during `@as-pect/core` AssemblyScript fixture c
 
 - `INFO AS210: Expression is never 'null'.` in `packages/core/assembly/jest-pass-fail.ts` for three `reference!` property accesses on line 17.
 - `INFO AS210: Expression is never 'null'.` in `packages/core/assembly/jest-log.ts` for three `reference!` property accesses on line 16.
+
+## Focused package validation commands
+
+Use these commands when a maintenance slice touches a single package or a package family. Prefer the smallest package-level command that proves the changed seam, then run the broader root checks when shared behavior, generated artifacts, or cross-package contracts changed.
+
+| Package                  | Typecheck / build command                            | Focused test command                          | Notes                                                                                                                                       |
+| ------------------------ | ---------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@as-pect/assembly`      | `npm run tsc:all --workspace @as-pect/assembly`      | `npm test --workspace @as-pect/assembly`      | The test command runs the CLI from `packages/cli/lib`; run `npm run tsc:cli` first when CLI sources or a clean checkout may leave it stale. |
+| `@as-pect/snapshots`     | `npm run tsc:all --workspace @as-pect/snapshots`     | `npm test --workspace @as-pect/snapshots`     | Use for Snapshot parser, diff, lifecycle, stats, and benchmark-adjacent changes.                                                            |
+| `@as-pect/transform`     | `npm run tsc:all --workspace @as-pect/transform`     | `npm test --workspace @as-pect/transform`     | The package test command also runs TypeScript before Node's test runner.                                                                    |
+| `@as-pect/core`          | `npm run tsc:all --workspace @as-pect/core`          | `npm test --workspace @as-pect/core`          | `tsc:all` rebuilds the AssemblyScript wasm fixtures through the `asc:all` pretest scripts.                                                  |
+| `@as-pect/csv-reporter`  | `npm run tsc:all --workspace @as-pect/csv-reporter`  | `npm test --workspace @as-pect/csv-reporter`  | Keep the command listed even when no focused assertions exist yet; reporter seam work should add tests here when behavior changes.          |
+| `@as-pect/json-reporter` | `npm run tsc:all --workspace @as-pect/json-reporter` | `npm test --workspace @as-pect/json-reporter` | Keep the command listed even when no focused assertions exist yet; reporter seam work should add tests here when behavior changes.          |
+| `@as-pect/cli`           | `npm run tsc:cli --workspace @as-pect/cli`           | `npm test --workspace @as-pect/cli`           | Use for Test session, CLI config, reporter loading, snapshot file planning, WASI option, and compile/run integration changes.               |
+
+Root-level commands remain the broad compatibility checks:
+
+- `npm run tsc:all` for all package typechecking and generated core fixtures.
+- `npm test` for all workspace test scripts.
 
 ## Full test suite
 
