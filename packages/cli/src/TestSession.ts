@@ -9,6 +9,7 @@ import { Snapshot, type SnapshotLifecycleStats } from "@as-pect/snapshots";
 import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
 import { importLocalModule } from "./importLocalModule.js";
+import { planTestSessionEntries, sortDiscoveredPaths } from "./TestSessionEntries.js";
 
 export const enum SnapshotMode {
   WriteSnapshots,
@@ -175,25 +176,6 @@ function writeLog(stdout: IWritable, str: string): void {
   stdout.write(chalk.bgWhite.black("[Log]") + `${str}\n`);
 }
 
-function regexMatches(regex: RegExp, value: string): boolean {
-  regex.lastIndex = 0;
-  try {
-    return regex.test(value);
-  } finally {
-    regex.lastIndex = 0;
-  }
-}
-
-function compareDiscoveredPaths(left: string, right: string): number {
-  if (left < right) return -1;
-  if (left > right) return 1;
-  return 0;
-}
-
-function sortDiscoveredPaths(paths: string[]): string[] {
-  return [...paths].sort(compareDiscoveredPaths);
-}
-
 function withWasiPreview1(options: import("wasi").WASIOptions): import("wasi").WASIOptions {
   return { ...options, version: options.version ?? "preview1" } as import("wasi").WASIOptions;
 }
@@ -325,10 +307,6 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     updateSnapshots,
   } = config;
 
-  const filterEntry = (str: string): boolean =>
-    entryFilterRegexes.reduce((left, right) => left && !regexMatches(right, str), true);
-  const includes = new Set<string>();
-  const entries = new Set<string>();
   const fileMap = new Map<string, string>();
   const folderMap = new Map<string, string[]>();
   const stats = createInitialStats();
@@ -336,19 +314,13 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
   const { compile, fileSystem, glob } = dependencies;
   const collectReporter = dependencies.collectReporter ?? defaultCollectReporter;
 
-  for (const arg of args.concat(aspectConfig.entries || [])) {
-    const entryPoints = sortDiscoveredPaths(await glob(arg));
-    for (const entryPoint of entryPoints) {
-      if (filterEntry(entryPoint)) entries.add(entryPoint);
-    }
-  }
-
-  for (const includedGlob of includeGlobs) {
-    const includedFiles = sortDiscoveredPaths(await glob(includedGlob));
-    for (const includedFile of includedFiles) {
-      includes.add(includedFile);
-    }
-  }
+  const { entries, includeFiles } = await planTestSessionEntries({
+    args,
+    configEntries: aspectConfig.entries,
+    entryFilterRegexes,
+    glob,
+    includeGlobs,
+  });
 
   if (aspectConfig.coverage) {
     writeLog(stdout, `Using code coverage: ${aspectConfig.coverage.join(", ")}`);
@@ -361,8 +333,6 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     const Covers = (await import("@as-covers/glue")).Covers;
     covers = new Covers({ files: coverageFiles });
   }
-
-  const includeFiles = sortDiscoveredPaths(Array.from(includes));
 
   for (const entry of entries) {
     const files = new Map<string, string | Uint8Array>();

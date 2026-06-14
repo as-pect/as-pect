@@ -8,6 +8,10 @@ This context names the project-specific testing and reflection concepts used by 
 A full run of one or more AssemblyScript test entries through compilation, wasm instantiation, execution, reporting, and snapshot handling.
 _Avoid_: Runner service, CLI workflow
 
+**Test session entry plan**:
+The ordered test entries and include files for a Test session after CLI/config globs are expanded, filtered, sorted, and deduplicated.
+_Avoid_: Discovered file batch, glob result set
+
 **Test suite**:
 The collected tests and groups for a single AssemblyScript test binary.
 _Avoid_: Spec bundle, test file model

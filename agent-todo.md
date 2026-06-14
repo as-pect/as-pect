@@ -38,15 +38,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `runTestSession()` should coordinate high-level Test session flow. Per-entry behavior should live behind a Test session entry module with focused helpers/adapters and test coverage at that seam.
 
-### Slice E1-S2 — Extract Test session entry discovery
-
-- **Epic:** E1
-- **Scope:** Move entry/include discovery and filtering out of `runTestSession()` into a small module or function with a clear interface.
-- **Files:** `packages/cli/src/TestSession.ts`, optional new `packages/cli/src/TestSessionEntries.ts`
-- **Tests to add/update:** Unit tests for entry filtering, include defaults, sorted output, and `RegExp.lastIndex` safety.
-- **Done when:** `runTestSession()` receives already-planned entries/includes and no longer owns glob iteration details.
-- **Validation:** focused CLI package tests.
-
 ### Slice E1-S3 — Isolate compiler IO caching
 
 - **Epic:** E1
