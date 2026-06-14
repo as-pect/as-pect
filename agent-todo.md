@@ -39,20 +39,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `TestContext` coordinates execution. A Test tree recording module owns host-import callbacks that add groups, tests, hooks, todos, logs, reflected actual/expected values, abort messages, and snapshots to the current Test node.
 
-### Slice E3-S1 — Inventory and characterize Wasm host callbacks
-
-- **Epic:** E3
-- **Scope:** Add or tighten tests around every `__aspect` import exposed by `TestContext.createImports()`.
-- **Files:** `packages/core/src/test/TestContext.ts`, `packages/core/__tests__/TestContext.*.spec.ts`
-- **Tests to add/update:**
-  - group/test declaration callback creates the right Test node facts
-  - before/after hook callbacks attach to the current target node
-  - todo/log callbacks attach to the current target node
-  - actual/expected/message/stack facts attach to failed tests
-  - snapshot callback records under the expected namespace
-- **Done when:** host callback behavior is explicit before extraction.
-- **Validation:** focused core TestContext tests.
-
 ### Slice E3-S2 — Introduce a Test tree recorder for declarations
 
 - **Epic:** E3
@@ -422,8 +408,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E3-S1** — Inventory and characterize Wasm host callbacks.
-2. **E3-S2** — Introduce a Test tree recorder for declarations.
-3. **E3-S3** — Move hook and todo recording into the recorder.
+1. **E3-S2** — Introduce a Test tree recorder for declarations.
+2. **E3-S3** — Move hook and todo recording into the recorder.
+3. **E3-S4** — Move log and reflected value recording into the recorder.
 
-This sequence starts the Wasm host recording locality work now that the Reporting lifecycle seam is fact-first and compatibility-aware.
+This sequence starts the Wasm host recording locality work now that host callback behavior is characterized and the Reporting lifecycle seam is fact-first and compatibility-aware.

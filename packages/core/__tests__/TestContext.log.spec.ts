@@ -1,11 +1,4 @@
-import {
-  TestContext,
-  TestNodeType,
-  IAspectExports,
-  EmptyReporter,
-  ReflectedValue,
-  TestNode,
-} from "../src/index.js";
+import { TestContext, TestNodeType, IAspectExports, EmptyReporter, ReflectedValue, TestNode } from "../src/index.js";
 import { StringifyReflectedValueProps } from "../src/util/stringifyReflectedValue.js";
 import { promises as fs } from "fs";
 import { instantiate } from "@assemblyscript/loader";
@@ -90,11 +83,11 @@ describe("log output", () => {
     expect(group.todos).toEqual(["one", "two", "three"]);
 
     expect(group.logs.map((log) => log.value)).toEqual(expect.arrayContaining(["Hello world!", 42, "null"]));
-    expect(group.logs.filter((log) => log.typeName === "bool")).toHaveLength(2);
+    expect(group.logs.filter((log) => log.typeName === "bool").map((log) => log.value)).toEqual([1, 0]);
     expect(groupTest.logs.map((log) => log.value)).toEqual(
       expect.arrayContaining(["Hello world!", "Calculated 42", 42, "null"]),
     );
-    expect(groupTest.logs.filter((log) => log.typeName === "bool")).toHaveLength(2);
+    expect(groupTest.logs.filter((log) => log.typeName === "bool").map((log) => log.value)).toEqual([1, 0]);
 
     const groupVec3 = findLog(group.logs, (log) => log.typeName === "Vec3" && !log.isNull);
     const testVec3 = findLog(groupTest.logs, (log) => log.typeName === "Vec3" && !log.isNull);
