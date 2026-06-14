@@ -39,17 +39,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `TestContext` coordinates execution. A Test tree recording module owns host-import callbacks that add groups, tests, hooks, todos, logs, reflected actual/expected values, abort messages, and snapshots to the current Test node.
 
-### Slice E3-S3 — Move hook and todo recording into the recorder
-
-- **Epic:** E3
-- **Scope:** Move before/after hook pointer registration and todo collection behind the Test tree recorder.
-- **Files:** `TestContext.ts`, `TestTreeRecorder.ts`, `TestNode.ts`
-- **Tests to add/update:**
-  - `beforeAll`, `beforeEach`, `afterEach`, `afterAll` are registered on the correct group
-  - todos appear in the correct Suite report group facts
-- **Done when:** hook/todo mutation is concentrated in the recorder.
-- **Validation:** focused core lifecycle and reporting tests.
-
 ### Slice E3-S4 — Move log and reflected value recording into the recorder
 
 - **Epic:** E3
@@ -387,8 +376,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E3-S3** — Move hook and todo recording into the recorder.
-2. **E3-S4** — Move log and reflected value recording into the recorder.
-3. **E3-S5** — Move snapshot recording into the recorder.
+1. **E3-S4** — Move log and reflected value recording into the recorder.
+2. **E3-S5** — Move snapshot recording into the recorder.
+3. **E3-S6** — Add a target-node scope helper.
 
 This sequence continues the Wasm host recording locality work now that declaration recording and namespace allocation live behind the Test tree recorder.

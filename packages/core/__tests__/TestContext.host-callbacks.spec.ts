@@ -1,6 +1,6 @@
 import { instantiate } from "@assemblyscript/loader";
 import { promises as fs } from "fs";
-import { EmptyReporter, IAspectExports, TestContext, TestNode, TestNodeType } from "../src/index.js";
+import { createGroupReport, EmptyReporter, IAspectExports, TestContext, TestNode, TestNodeType } from "../src/index.js";
 
 const snapshotBinary = fs.readFile("./assembly/jest-reporter-snapshot.wasm");
 
@@ -135,6 +135,81 @@ describe("TestContext host callbacks", () => {
       "!~outer[0]!~inner[0]",
       "!~outer[0]!~inner[0]!~duplicate[0]",
     ]);
+  });
+
+  test("hook and todo callbacks record on the active group", () => {
+    const ctx = new TestContext({ reporter: new EmptyReporter() });
+    const imports = ctx.createImports();
+    const strings = new Map([
+      [1, "outer"],
+      [2, "inner"],
+      [3, "root todo"],
+      [4, "outer todo"],
+      [5, "inner todo"],
+      [6, "child"],
+    ]);
+    const callbacks = new Map<number, () => void>([
+      [
+        101,
+        () => {
+          imports.__aspect.beforeAll(501);
+          imports.__aspect.beforeEach(502);
+          imports.__aspect.afterEach(503);
+          imports.__aspect.afterAll(504);
+          imports.__aspect.reportTodo(4, 0);
+          imports.__aspect.reportGroupTypeNode(2, 201);
+          imports.__aspect.reportTestTypeNode(6, 301);
+        },
+      ],
+      [
+        201,
+        () => {
+          imports.__aspect.beforeAll(601);
+          imports.__aspect.beforeEach(602);
+          imports.__aspect.afterEach(603);
+          imports.__aspect.afterAll(604);
+          imports.__aspect.reportTodo(5, 0);
+          imports.__aspect.reportTestTypeNode(6, 302);
+        },
+      ],
+    ]);
+    const wasm = {
+      _start(): void {
+        imports.__aspect.beforeAll(401);
+        imports.__aspect.beforeEach(402);
+        imports.__aspect.afterEach(403);
+        imports.__aspect.afterAll(404);
+        imports.__aspect.reportTodo(3, 0);
+        imports.__aspect.reportGroupTypeNode(1, 101);
+      },
+      __call(pointer: number): void {
+        callbacks.get(pointer)?.();
+      },
+      __getString(pointer: number): string {
+        return strings.get(pointer) ?? "";
+      },
+    } as unknown as IAspectExports;
+
+    ctx.run({ exports: wasm, instance: {} as WebAssembly.Instance });
+
+    const outer = findChild(ctx.rootNode, "outer");
+    const inner = findChild(outer, "inner");
+
+    expect(ctx.rootNode.beforeAll).toEqual([401]);
+    expect(ctx.rootNode.beforeEach).toEqual([402]);
+    expect(ctx.rootNode.afterEach).toEqual([403]);
+    expect(ctx.rootNode.afterAll).toEqual([404]);
+    expect(ctx.rootNode.todos).toEqual(["root todo"]);
+    expect(outer.beforeAll).toEqual([501]);
+    expect(outer.beforeEach).toEqual([502]);
+    expect(outer.afterEach).toEqual([503]);
+    expect(outer.afterAll).toEqual([504]);
+    expect(createGroupReport(outer).todos).toEqual(["outer todo"]);
+    expect(inner.beforeAll).toEqual([601]);
+    expect(inner.beforeEach).toEqual([602]);
+    expect(inner.afterEach).toEqual([603]);
+    expect(inner.afterAll).toEqual([604]);
+    expect(createGroupReport(inner).todos).toEqual(["inner todo"]);
   });
 
   test("snapshot callbacks record under the active test namespace", async () => {

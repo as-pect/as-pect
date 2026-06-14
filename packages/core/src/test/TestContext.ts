@@ -704,7 +704,7 @@ export class TestContext {
    * @param {number} callbackPointer - The callback that should run before each test.
    */
   private reportBeforeEach(callbackPointer: number): void {
-    this.targetNode.beforeEach.push(callbackPointer);
+    this.testTreeRecorder.recordBeforeEach(this.targetNode, callbackPointer);
   }
 
   /**
@@ -715,7 +715,7 @@ export class TestContext {
    * current context.
    */
   private reportBeforeAll(callbackPointer: number): void {
-    this.targetNode.beforeAll.push(callbackPointer);
+    this.testTreeRecorder.recordBeforeAll(this.targetNode, callbackPointer);
   }
 
   /**
@@ -724,7 +724,7 @@ export class TestContext {
    * @param {number} callbackPointer - The callback that should run before each test group.
    */
   private reportAfterEach(callbackPointer: number): void {
-    this.targetNode.afterEach.push(callbackPointer);
+    this.testTreeRecorder.recordAfterEach(this.targetNode, callbackPointer);
   }
 
   /**
@@ -735,7 +735,7 @@ export class TestContext {
    * current context.
    */
   private reportAfterAll(callbackPointer: number): void {
-    this.targetNode.afterAll.push(callbackPointer);
+    this.testTreeRecorder.recordAfterAll(this.targetNode, callbackPointer);
   }
 
   /**
@@ -745,7 +745,7 @@ export class TestContext {
    * @param {number} _callbackPointer - The test callback function pointer.
    */
   private reportTodo(todoPointer: number, _callbackPointer: number): void {
-    this.targetNode.todos.push(this.getString(todoPointer, "No todo() value provided."));
+    this.testTreeRecorder.recordTodo(this.targetNode, todoPointer);
   }
 
   /**

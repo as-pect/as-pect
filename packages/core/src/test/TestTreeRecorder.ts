@@ -31,6 +31,31 @@ export class TestTreeRecorder {
     return node;
   }
 
+  /** Record a beforeAll hook callback on the active group. */
+  recordBeforeAll(target: TestNode, callbackPointer: number): void {
+    target.beforeAll.push(callbackPointer);
+  }
+
+  /** Record a beforeEach hook callback on the active group. */
+  recordBeforeEach(target: TestNode, callbackPointer: number): void {
+    target.beforeEach.push(callbackPointer);
+  }
+
+  /** Record an afterEach hook callback on the active group. */
+  recordAfterEach(target: TestNode, callbackPointer: number): void {
+    target.afterEach.push(callbackPointer);
+  }
+
+  /** Record an afterAll hook callback on the active group. */
+  recordAfterAll(target: TestNode, callbackPointer: number): void {
+    target.afterAll.push(callbackPointer);
+  }
+
+  /** Record a todo declaration on the active group. */
+  recordTodo(target: TestNode, todoPointer: number): void {
+    target.todos.push(this.readString(todoPointer, "No todo() value provided."));
+  }
+
   private createNamespace(parent: TestNode, name: string): string {
     const namespacePrefix = `${parent.namespace}!~${name}`;
     let i = 0;
