@@ -1,8 +1,11 @@
 import { SnapshotDiff } from "./SnapshotDiff.js";
-import { Lexer, createToken, CstParser, CstNode, ParserMethod, CstElement } from "chevrotain";
 
 interface SnapshotSyntaxError {
   message: string;
+}
+
+export interface SnapshotStringElement {
+  image: string;
 }
 
 export class SnapshotParseError extends Error {
@@ -22,89 +25,117 @@ export class SnapshotParseError extends Error {
   }
 }
 
-const string_token = createToken({ name: "string_token", pattern: /`(\\`|[^`])*`/ });
+export class SnapshotParser {
+  private position = 0;
+  public readonly lexerErrors: SnapshotSyntaxError[] = [];
+  public readonly parserErrors: SnapshotSyntaxError[] = [];
 
-const open_bracket = createToken({ name: "open_bracket", pattern: /\[/ });
-const close_bracket = createToken({ name: "close_bracket", pattern: /\]/ });
-const equals = createToken({ name: "equals", pattern: /=/ });
-const semicolon = createToken({ name: "semicolon", pattern: /;/ });
-const exports_token = createToken({ name: "exports_token", pattern: /exports/ });
-const white_space = createToken({
-  name: "WhiteSpace",
-  pattern: /\s+/,
-  group: Lexer.SKIPPED,
-});
-const allTokens = [exports_token, equals, string_token, open_bracket, close_bracket, white_space, semicolon];
-const lexer = new Lexer(allTokens);
+  constructor(private readonly input: string) {}
 
-export class SnapshotParser extends CstParser {
-  snapshots!: ParserMethod<unknown[], CstNode>;
-  string!: ParserMethod<unknown[], CstNode>;
-  ws!: ParserMethod<unknown[], CstNode>;
+  public parse(): Map<string, string> {
+    const values = new Map<string, string>();
 
-  constructor() {
-    super(allTokens);
-    const $ = this;
+    this.skipWhitespace();
+    while (!this.isAtEnd()) {
+      const entry = this.parseSnapshotEntry();
+      if (!entry) break;
 
-    $.RULE("snapshots", () => {
-      $.SUBRULE(this.ws);
-      $.MANY(() => {
-        $.CONSUME(exports_token);
-        $.CONSUME(open_bracket);
-        $.CONSUME(string_token);
-        $.CONSUME(close_bracket);
-        $.SUBRULE1(this.ws);
-        $.CONSUME(equals);
-        $.SUBRULE2(this.ws);
-        $.CONSUME1(string_token);
-        $.SUBRULE3(this.ws);
-        $.CONSUME(semicolon);
-        $.SUBRULE4(this.ws);
-      });
-    });
+      values.set(entry.key, entry.value);
+      this.skipWhitespace();
+    }
 
-    $.RULE("ws", () => {
-      $.OPTION(() => {
-        $.CONSUME(white_space);
-      });
-    });
+    return values;
+  }
 
-    this.performSelfAnalysis();
+  private parseSnapshotEntry(): { key: string; value: string } | null {
+    if (!this.consumeLiteral("exports")) return null;
+    this.skipWhitespace();
+
+    if (!this.consumeLiteral("[")) return null;
+    this.skipWhitespace();
+
+    const key = this.parseSnapshotString();
+    if (key === null) return null;
+    this.skipWhitespace();
+
+    if (!this.consumeLiteral("]")) return null;
+    this.skipWhitespace();
+
+    if (!this.consumeLiteral("=")) return null;
+    this.skipWhitespace();
+
+    const value = this.parseSnapshotString();
+    if (value === null) return null;
+    this.skipWhitespace();
+
+    if (!this.consumeLiteral(";")) return null;
+    return { key, value };
+  }
+
+  private consumeLiteral(literal: string): boolean {
+    if (this.input.startsWith(literal, this.position)) {
+      this.position += literal.length;
+      return true;
+    }
+
+    this.parserErrors.push({ message: `Expected ${JSON.stringify(literal)} at offset ${this.position}.` });
+    return false;
+  }
+
+  private parseSnapshotString(): string | null {
+    if (this.input[this.position] !== "`") {
+      this.parserErrors.push({ message: `Expected a snapshot string at offset ${this.position}.` });
+      return null;
+    }
+
+    const start = this.position;
+    this.position++;
+
+    while (!this.isAtEnd()) {
+      const char = this.input[this.position];
+
+      if (char === "\\" && this.input[this.position + 1] === "`") {
+        this.position += 2;
+        continue;
+      }
+
+      if (char === "`") {
+        this.position++;
+        return parseSnapshotStringImage(this.input.slice(start, this.position));
+      }
+
+      this.position++;
+    }
+
+    this.lexerErrors.push({ message: `Unterminated snapshot string starting at offset ${start}.` });
+    return null;
+  }
+
+  private skipWhitespace(): void {
+    while (!this.isAtEnd() && /\s/.test(this.input[this.position])) {
+      this.position++;
+    }
+  }
+
+  private isAtEnd(): boolean {
+    return this.position >= this.input.length;
   }
 }
 
 export class Snapshot {
   public static parse(input: string): Snapshot {
     const result = new Snapshot();
-    const tokenizedResult = lexer.tokenize(input);
+    const parser = new SnapshotParser(input);
+    result.values = parser.parse();
 
-    if (tokenizedResult.errors.length > 0) {
-      throw new SnapshotParseError(tokenizedResult.errors, []);
+    if (parser.lexerErrors.length > 0) {
+      throw new SnapshotParseError(parser.lexerErrors, []);
     }
 
-    const parser = new SnapshotParser();
-    parser.input = tokenizedResult.tokens;
-    const node = parser.snapshots();
-
-    if (parser.errors.length > 0) {
-      throw new SnapshotParseError([], parser.errors);
+    if (parser.parserErrors.length > 0) {
+      throw new SnapshotParseError([], parser.parserErrors);
     }
 
-    const stringTokens = node.children.string_token;
-    if (!stringTokens) return result;
-
-    for (let i = 0; i < stringTokens.length; i += 2) {
-      const keyToken = stringTokens[i];
-      const valueToken = stringTokens[i + 1];
-
-      if (!valueToken) {
-        throw new SnapshotParseError([], [{ message: "Snapshot entry is missing a value." }]);
-      }
-
-      const key = parseImageCSTElement(keyToken);
-      const value = parseImageCSTElement(valueToken);
-      result.values.set(key, value);
-    }
     return result;
   }
 
@@ -150,10 +181,18 @@ function escapeSnapshotString(input: string): string {
   return input.replace(/`/g, "\\`");
 }
 
-export function parseImageCSTElement(element: CstElement): string {
-  if (!("image" in element)) {
+function parseSnapshotStringImage(image: string): string {
+  return image.slice(1, -1).replace(/\\`/g, "`");
+}
+
+export function parseImageCSTElement(element: unknown): string {
+  if (!isSnapshotStringElement(element)) {
     throw new SnapshotParseError([], [{ message: "Expected a snapshot string token." }]);
   }
 
-  return element.image.slice(1, -1).replace(/\\`/g, "`");
+  return parseSnapshotStringImage(element.image);
+}
+
+function isSnapshotStringElement(element: unknown): element is SnapshotStringElement {
+  return typeof element === "object" && element !== null && "image" in element && typeof element.image === "string";
 }

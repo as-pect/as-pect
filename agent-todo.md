@@ -210,15 +210,6 @@ When updating this file after a maintenance change:
 
 **Validation:** focused snapshots package tests, core snapshot/reporting tests, and CLI snapshot tests.
 
-### Slice E11-S2 — Replace Chevrotain parser with a local parser
-
-- **Epic:** E11
-- **Scope:** Implement a small parser tailored to as-pect snapshot files and remove the generated Chevrotain grammar path.
-- **Files:** `packages/snapshots/src/Snapshot.ts`, parser modules under `packages/snapshots/src/`, snapshot fixtures
-- **Tests to add/update:** update parser tests only for intentional compatibility-preserving error message changes
-- **Done when:** snapshots parse/stringify behavior remains compatible without importing Chevrotain at runtime.
-- **Validation:** snapshots, core snapshot/reporting, and CLI snapshot tests.
-
 ### Slice E11-S3 — Remove Chevrotain dependency after parser replacement
 
 - **Epic:** E11
