@@ -47,6 +47,7 @@ exports[\`D\`] = \`SomeB {
 
 const map = new Map<string, string>();
 const snapshotFrom = (entries: [string, string][]): Snapshot => Snapshot.from(new Map(entries));
+const snapshotEntries = (snapshot: Snapshot): [string, string][] => Array.from(snapshot.values.entries());
 
 describe("Snapshot", () => {
   it("should be instanceof Snapshot", () => {
@@ -54,11 +55,15 @@ describe("Snapshot", () => {
   });
 
   it("should parse a snapshot file", () => {
-    expect(Snapshot.parse(inputA)).toMatchSnapshot();
+    expect(snapshotEntries(Snapshot.parse(inputA))).toEqual([
+      ["A", "SomeA {\n      a: 1,\n      b: 2,\n      c: 3\n    }"],
+      ["B", "SomeB {\n      d: 4,\n      e: 5,\n      f: 6\n    }"],
+      ["C", "SomeC {\n      g: 7,\n      h: 8,\n      i: 9\n    }"],
+    ]);
   });
 
   it("should stringify a given snapshot", () => {
-    expect(Snapshot.from(map).stringify()).toMatchSnapshot();
+    expect(Snapshot.from(map).stringify()).toBe("\n");
   });
 
   it("should round-trip keys and values containing multiple backticks", () => {
@@ -87,7 +92,19 @@ describe("Snapshot", () => {
   });
 
   it("should diff snapshots", () => {
-    expect(Snapshot.parse(inputA).diff(Snapshot.parse(inputB))).toMatchSnapshot();
+    const diff = Snapshot.parse(inputA).diff(Snapshot.parse(inputB));
+
+    expect(Array.from(diff.results.keys())).toEqual(["A", "B", "C", "D"]);
+    expect(diff.results.get("A")?.type).toBe(SnapshotDiffResultType.NoChange);
+    expect(diff.results.get("B")?.type).toBe(SnapshotDiffResultType.Added);
+    expect(diff.results.get("C")?.type).toBe(SnapshotDiffResultType.Different);
+    expect(diff.results.get("D")?.type).toBe(SnapshotDiffResultType.Removed);
+    expect(diff.results.get("C")?.changes).toEqual([
+      { count: 1, added: false, removed: false, value: "SomeC {\n" },
+      { count: 3, added: false, removed: true, value: "      g: 4,\n      h: 5,\n      i: 6\n" },
+      { count: 3, added: true, removed: false, value: "      g: 7,\n      h: 8,\n      i: 9\n" },
+      { count: 1, added: false, removed: false, value: "    }" },
+    ]);
   });
 
   it("should keep compatible unchanged snapshot line changes", () => {

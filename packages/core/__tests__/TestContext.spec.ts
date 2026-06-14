@@ -7,6 +7,22 @@ describe("TestContext", () => {
       reporter: {}
     });
 
-    expect(ctx.errors).toMatchSnapshot("Reporter errors");
+    expect(ctx.errors).toEqual([
+      {
+        message: "Invalid reporter callback: onEnter is not a function",
+        stackTrace: "",
+        type: "TestContext Initialization",
+      },
+      {
+        message: "Invalid reporter callback: onExit is not a function",
+        stackTrace: "",
+        type: "TestContext Initialization",
+      },
+      {
+        message: "Invalid reporter callback: onFinish is not a function",
+        stackTrace: "",
+        type: "TestContext Initialization",
+      },
+    ]);
   });
 });
