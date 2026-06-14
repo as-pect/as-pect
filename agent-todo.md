@@ -41,19 +41,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** A Class reflection generation module should own traversal decisions, collision checks, Class-member plan facts, generated strict equality methods, generated key/value methods, generated interface methods, and shared AST vocabulary.
 
-### Slice E4-S6 — Make Class-member plan tests direct
-
-- **Epic:** E4
-- **Scope:** Add tests that exercise `createClassReflectionMemberPlan()` directly without snapshotting full transform output.
-- **Files:** `ClassReflectionTransform.ts`, `ClassReflectionTransform.test.js`
-- **Tests to add/update:**
-  - member order follows source order
-  - hashes match `djb2Hash(name)`
-  - ranges are taken from fields/getters as intended
-  - only instance fields/getters are included
-- **Done when:** Class-member plan behavior has its own test surface.
-- **Validation:** focused transform tests.
-
 ### Slice E4-S7 — Document Class reflection generation responsibilities
 
 - **Epic:** E4
@@ -238,8 +225,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E4-S6** — Make Class-member plan tests direct.
-2. **E4-S7** — Document Class reflection generation responsibilities.
-3. **E5-S4** — Route CLI snapshot writes through Snapshot lifecycle facts.
+1. **E4-S7** — Document Class reflection generation responsibilities.
+2. **E5-S4** — Route CLI snapshot writes through Snapshot lifecycle facts.
+3. **E6-S2** — Add architecture vocabulary reminders to package readmes.
 
-This sequence continues the Class reflection generation consolidation now that class and interface generated-member collision checks are distinct.
+This sequence continues the Class reflection generation consolidation now that the Class-member plan has direct behavior coverage.

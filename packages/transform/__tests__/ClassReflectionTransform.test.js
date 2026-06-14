@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { ASTBuilder, NodeKind, Parser } from "assemblyscript/dist/assemblyscript.js";
 
 import AspectTransform from "../lib/index.js";
+import { djb2Hash } from "../lib/hash.js";
 import {
   ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME,
   ClassReflectionMemberKind,
@@ -87,6 +88,12 @@ function getPlanEntries(sourceText, className) {
     name: member.name,
     kind: member.kind,
   }));
+}
+
+function findClassMember(classDeclaration, memberName) {
+  const member = classDeclaration.members.find((member) => member.name && member.name.text === memberName);
+  assert.ok(member, `Expected ${classDeclaration.name.text} to have member ${memberName}`);
+  return member;
 }
 
 function assertInOrder(text, orderedNeedles) {
@@ -178,6 +185,43 @@ test("class-member plan excludes static members and non-getter methods", () => {
     { name: "includedField", kind: ClassReflectionMemberKind.Field },
     { name: "includedGetter", kind: ClassReflectionMemberKind.Getter },
   ]);
+});
+
+test("class-member plan hashes match member names", () => {
+  const plan = createClassReflectionMemberPlan(
+    parseClass(
+      `class HashedMembers {
+        first: i32 = 1;
+        get second(): i32 { return 2; }
+      }`,
+      "HashedMembers",
+    ),
+  );
+
+  assert.deepEqual(
+    plan.members.map((member) => member.hash),
+    [djb2Hash("first"), djb2Hash("second")],
+  );
+  assert.deepEqual(plan.hashes, [djb2Hash("first"), djb2Hash("second")]);
+});
+
+test("class-member plan keeps field and getter source ranges", () => {
+  const classDeclaration = parseClass(
+    `class RangedMembers {
+      fieldRange: i32 = 1;
+      get getterRange(): i32 { return 2; }
+    }`,
+    "RangedMembers",
+  );
+
+  const fieldDeclaration = findClassMember(classDeclaration, "fieldRange");
+  const getterDeclaration = findClassMember(classDeclaration, "getterRange");
+  const plan = createClassReflectionMemberPlan(classDeclaration);
+
+  assert.equal(plan.members[0].name, "fieldRange");
+  assert.equal(plan.members[0].range, fieldDeclaration.range);
+  assert.equal(plan.members[1].name, "getterRange");
+  assert.equal(plan.members[1].range, getterDeclaration.name.range);
 });
 
 test("class reflection transform is idempotent for the same parsed source", () => {
