@@ -122,18 +122,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** Snapshot parsing, diffing, pass/fail, stats, and update planning stay concentrated in the Snapshot lifecycle module; CLI and reporters consume stable facts.
 
-### Slice E5-S3 — Keep Suite report snapshot facts independent from diff internals
-
-- **Epic:** E5
-- **Scope:** Strengthen tests that reporters use `snapshotChanges` and `snapshotStats` instead of interpreting diff internals.
-- **Files:** `packages/core/__tests__/ReportingLifecycle.spec.ts`, reporter semantic tests
-- **Tests to add/update:**
-  - added/removed/unchanged snapshot lines render with correct line types
-  - stats are correct when `SnapshotLifecycle.stats` exists
-  - compatibility-only `result` remains available for now
-- **Done when:** reportable snapshot facts are safe to use as the reporter interface.
-- **Validation:** focused core reporter tests.
-
 ### Slice E5-S4 — Route CLI snapshot writes through Snapshot lifecycle facts
 
 - **Epic:** E5
@@ -292,8 +280,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E5-S3** — Keep Suite report snapshot facts independent from diff internals.
-2. **E4-S2** — Extract shared AST type/parameter helpers.
-3. **E4-S3** — Extract shared inherited ignore-list generation.
+1. **E4-S2** — Extract shared AST type/parameter helpers.
+2. **E4-S3** — Extract shared inherited ignore-list generation.
+3. **E4-S4** — Move generated class reflection member orchestration behind one module.
 
-This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.
+This sequence continues the Class reflection generation consolidation now that the confirmed snapshot reporting facts are covered.

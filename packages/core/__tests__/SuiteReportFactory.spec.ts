@@ -184,15 +184,15 @@ describe("SuiteReportFactory", () => {
     const actual = Snapshot.from(
       new Map([
         ["same", "1"],
-        ["added", "2"],
-        ["changed", "actual"],
+        ["added", "new snapshot"],
+        ["changed", "same line\nnew line\n"],
       ]),
     );
     const expected = Snapshot.from(
       new Map([
         ["same", "1"],
-        ["changed", "expected"],
-        ["removed", "3"],
+        ["changed", "same line\nold line\n"],
+        ["removed", "old snapshot"],
       ]),
     );
     const snapshotLifecycle = new SnapshotLifecycle(actual, expected);
@@ -208,9 +208,43 @@ describe("SuiteReportFactory", () => {
       different: 1,
     });
     expect(report.snapshotChanges.map((change) => change.name)).toEqual(["added", "changed", "removed"]);
-    expect(report.snapshotChanges.find((change) => change.name === "changed")!.lines).toEqual([
-      { type: "removed", value: "expected" },
-      { type: "added", value: "actual" },
+    expect(report.snapshotChanges.find((change) => change.name === "added")!.lines).toEqual([
+      { type: "added", value: "new snapshot" },
     ]);
+    expect(report.snapshotChanges.find((change) => change.name === "changed")!.lines).toEqual([
+      { type: "unchanged", value: "same line" },
+      { type: "removed", value: "old line" },
+      { type: "added", value: "new line" },
+    ]);
+    expect(report.snapshotChanges.find((change) => change.name === "removed")!.lines).toEqual([
+      { type: "removed", value: "old snapshot" },
+    ]);
+    expect(report.snapshotChanges.find((change) => change.name === "added")!.result).toBe(
+      snapshotLifecycle.diff.results.get("added"),
+    );
+  });
+
+  it("uses SnapshotLifecycle stats when they are available", () => {
+    const snapshotLifecycle = new SnapshotLifecycle(
+      Snapshot.from(new Map([["added by diff", "new snapshot"]])),
+      Snapshot.from(new Map()),
+    );
+    (snapshotLifecycle as unknown as { stats: SnapshotLifecycle["stats"] }).stats = {
+      totalSnapshots: 7,
+      addedSnapshots: 2,
+      removedSnapshots: 3,
+      changedSnapshots: 4,
+      passedSnapshots: 0,
+    };
+    const rootNode = new TestNode();
+
+    const report = createSuiteReport(createSuite(rootNode, snapshotLifecycle));
+
+    expect(report.snapshotStats).toEqual({
+      total: 7,
+      added: 2,
+      removed: 3,
+      different: 4,
+    });
   });
 });

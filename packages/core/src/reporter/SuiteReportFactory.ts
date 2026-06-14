@@ -195,9 +195,11 @@ export class SuiteReport {
 
     for (const [name, result] of snapshotDiff.results.entries()) {
       total += 1;
-      if (result.type === SnapshotDiffResultType.Added) added += 1;
-      if (result.type === SnapshotDiffResultType.Removed) removed += 1;
-      if (result.type === SnapshotDiffResultType.Different) different += 1;
+      if (!snapshotStats) {
+        if (result.type === SnapshotDiffResultType.Added) added += 1;
+        if (result.type === SnapshotDiffResultType.Removed) removed += 1;
+        if (result.type === SnapshotDiffResultType.Different) different += 1;
+      }
       if (result.type !== SnapshotDiffResultType.NoChange) {
         this.snapshotChanges.push({
           name,
@@ -209,7 +211,7 @@ export class SuiteReport {
 
     this.snapshotStats = snapshotStats
       ? {
-          total,
+          total: snapshotStats.totalSnapshots,
           added: snapshotStats.addedSnapshots,
           removed: snapshotStats.removedSnapshots,
           different: snapshotStats.changedSnapshots,

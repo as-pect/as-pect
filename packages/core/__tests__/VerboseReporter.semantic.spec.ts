@@ -86,6 +86,24 @@ test("VerboseReporter writes file summary stats from SuiteReport facts", () => {
   expect(output).toContain("[Time]: 5ms\n");
 });
 
+test("VerboseReporter writes snapshot totals from SuiteReport snapshotStats", () => {
+  const output = writeVerboseReport(
+    suiteReport({
+      fileName: "assembly/snapshot-stats.spec.ts",
+      hasResults: true,
+      snapshotChanges: [],
+      snapshotStats: {
+        total: 4,
+        added: 1,
+        removed: 2,
+        different: 3,
+      },
+    }),
+  );
+
+  expect(output).toContain("[Snapshot]: 4 total, 1 added, 2 removed, 3 different\n");
+});
+
 test("VerboseReporter writes the real passing group count", () => {
   const output = writeVerboseReport(failingSuiteReport());
 
