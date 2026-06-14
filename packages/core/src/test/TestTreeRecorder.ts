@@ -137,8 +137,17 @@ export class TestTreeRecorder {
 
   /** Record a snapshot value under the active test node's snapshot key. */
   recordSnapshot(target: TestNode, snapshots: Snapshot, namePointer: number, value: string): void {
-    const name = `${target.name}!~${this.readString(namePointer, "")}`;
-    snapshots.add(name, value);
+    snapshots.add(this.createSnapshotKey(target, this.readString(namePointer, "")), value);
+  }
+
+  /** Build the external snapshot key prefix for a test node and explicit snapshot name. */
+  createSnapshotKey(target: TestNode, snapshotName: string): string {
+    const namespace = this.toSnapshotNamespace(target);
+    return `${namespace}!~${snapshotName}`;
+  }
+
+  private toSnapshotNamespace(target: TestNode): string {
+    return target.namespace.startsWith("!~") ? target.namespace.slice(2) : target.namespace;
   }
 
   private createNamespace(parent: TestNode, name: string): string {

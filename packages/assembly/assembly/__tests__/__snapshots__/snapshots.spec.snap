@@ -1,8 +1,8 @@
-exports[`some snapshots!~an integer[0]`] = `1`;
+exports[`a set of snapshots[0]!~some snapshots[0]!~an integer[0]`] = `1`;
 
-exports[`some snapshots!~a float[0]`] = `3.14`;
+exports[`a set of snapshots[0]!~some snapshots[0]!~a float[0]`] = `3.14`;
 
-exports[`some snapshots!~an integer array[0]`] = `Array<i32> [
+exports[`a set of snapshots[0]!~some snapshots[0]!~an integer array[0]`] = `Array<i32> [
   1,
   2,
   3,
@@ -10,20 +10,20 @@ exports[`some snapshots!~an integer array[0]`] = `Array<i32> [
   5
 ]`;
 
-exports[`some snapshots!~a typed array[0]`] = `Float64Array [ 1.0, 2.0, 3.0, 4.0 ]`;
+exports[`a set of snapshots[0]!~some snapshots[0]!~a typed array[0]`] = `Float64Array [ 1.0, 2.0, 3.0, 4.0 ]`;
 
-exports[`some snapshots!~a string[0]`] = `"a string"`;
+exports[`a set of snapshots[0]!~some snapshots[0]!~a string[0]`] = `"a string"`;
 
-exports[`some snapshots!~a reference[0]`] = `Vec3 {
+exports[`a set of snapshots[0]!~some snapshots[0]!~a reference[0]`] = `Vec3 {
   x: 1.0,
   y: 2.0,
   z: 3.0
 }`;
 
-exports[`some snapshots!~a value before a set[0]`] = `42`;
+exports[`a set of snapshots[0]!~some snapshots[0]!~a value before a set[0]`] = `42`;
 
-exports[`some snapshots!~a set after another reflected value[0]`] = `Set<i32> [ 1, 2 ]`;
+exports[`a set of snapshots[0]!~some snapshots[0]!~a set after another reflected value[0]`] = `Set<i32> [ 1, 2 ]`;
 
-exports[`some snapshots!~a nested set after another reflected value[0]`] = `SetHolder {
+exports[`a set of snapshots[0]!~some snapshots[0]!~a nested set after another reflected value[0]`] = `SetHolder {
   values: Set<i32> [ 1, 2 ]
 }`;

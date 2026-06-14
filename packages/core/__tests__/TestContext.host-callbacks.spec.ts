@@ -373,8 +373,50 @@ describe("TestContext host callbacks", () => {
     ctx.run({ exports: wasm, instance: {} as WebAssembly.Instance });
 
     expect(Array.from(ctx.snapshots.values.entries())).toEqual([
-      ["snapshots!~same snapshot[0]", "1"],
-      ["snapshots!~same snapshot[1]", "2"],
+      ["snapshots[0]!~same snapshot[0]", "1"],
+      ["snapshots[0]!~same snapshot[1]", "2"],
+    ]);
+  });
+
+  test("duplicate test names isolate snapshot suffixes per test namespace", () => {
+    const ctx = new TestContext({ reporter: new EmptyReporter() });
+    const imports = ctx.createImports();
+    const strings = new Map([
+      [1, "outer"],
+      [2, "duplicate"],
+      [3, "same snapshot"],
+      [4, "i32"],
+    ]);
+    const wasm = {
+      _start(): void {
+        imports.__aspect.reportGroupTypeNode(1, 101);
+      },
+      __call(pointer: number): void {
+        if (pointer === 101) {
+          imports.__aspect.reportTestTypeNode(2, 201);
+          imports.__aspect.reportTestTypeNode(2, 202);
+          return;
+        }
+
+        const reflectedValue = imports.__aspect.createReflectedNumber(1, 4, ReflectedValueType.Integer, 4, pointer);
+        imports.__aspect.reportExpectedSnapshot(reflectedValue, 3);
+
+        if (pointer === 201) {
+          const secondValue = imports.__aspect.createReflectedNumber(1, 4, ReflectedValueType.Integer, 4, 1201);
+          imports.__aspect.reportExpectedSnapshot(secondValue, 3);
+        }
+      },
+      __getString(pointer: number): string {
+        return strings.get(pointer) ?? "";
+      },
+    } as unknown as IAspectExports;
+
+    ctx.run({ exports: wasm, instance: {} as WebAssembly.Instance });
+
+    expect(Array.from(ctx.snapshots.values.entries())).toEqual([
+      ["outer[0]!~duplicate[0]!~same snapshot[0]", "201"],
+      ["outer[0]!~duplicate[0]!~same snapshot[1]", "1201"],
+      ["outer[0]!~duplicate[1]!~same snapshot[0]", "202"],
     ]);
   });
 
@@ -390,14 +432,14 @@ describe("TestContext host callbacks", () => {
 
     expect(ctx.pass).toBe(true);
     expect(Array.from(ctx.snapshots.values.keys())).toEqual([
-      "a few snapshots!~first vec3[0]",
-      "a few snapshots!~a string[0]",
-      "a few snapshots!~some integer[0]",
-      "a few snapshots!~some float value[0]",
+      "snapshots[0]!~a few snapshots[0]!~first vec3[0]",
+      "snapshots[0]!~a few snapshots[0]!~a string[0]",
+      "snapshots[0]!~a few snapshots[0]!~some integer[0]",
+      "snapshots[0]!~a few snapshots[0]!~some float value[0]",
     ]);
-    expect(ctx.snapshots.values.get("a few snapshots!~first vec3[0]")).toContain("Vec3 {");
-    expect(ctx.snapshots.values.get("a few snapshots!~a string[0]")).toBe('"some string"');
-    expect(ctx.snapshots.values.get("a few snapshots!~some integer[0]")).toBe("504");
-    expect(ctx.snapshots.values.get("a few snapshots!~some float value[0]")).toBe("3.14");
+    expect(ctx.snapshots.values.get("snapshots[0]!~a few snapshots[0]!~first vec3[0]")).toContain("Vec3 {");
+    expect(ctx.snapshots.values.get("snapshots[0]!~a few snapshots[0]!~a string[0]")).toBe('"some string"');
+    expect(ctx.snapshots.values.get("snapshots[0]!~a few snapshots[0]!~some integer[0]")).toBe("504");
+    expect(ctx.snapshots.values.get("snapshots[0]!~a few snapshots[0]!~some float value[0]")).toBe("3.14");
   });
 });

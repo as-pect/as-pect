@@ -1183,11 +1183,10 @@ export class TestContext {
     /* istanbul ignore next */
     if (reflectedValueID >= this.reflectedValueCache.length || reflectedValueID < 0) {
       /* istanbul ignore next */
+      const snapshotName = this.getString(namePointer, "");
+      const snapshotKey = this.testTreeRecorder.createSnapshotKey(this.targetNode, snapshotName);
       this.pushError({
-        message: `Cannot add snapshot ${this.targetNode.name}!~${this.getString(
-          namePointer,
-          "",
-        )} with reflected value ${reflectedValueID}. ReflectedValue id out of bounds.`,
+        message: `Cannot add snapshot ${snapshotKey} with reflected value ${reflectedValueID}. ReflectedValue id out of bounds.`,
         stackTrace: this.getLogStackTrace(),
         type: "ReflectedValue",
       });

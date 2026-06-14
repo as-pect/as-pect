@@ -50,15 +50,15 @@ describe.each(["SummaryReporter", "VerboseReporter"] as const)("%s wasm smoke co
       "./assembly/jest-reporter-snapshot.wasm",
       Snapshot.from(
         new Map<string, string>([
-          ["a few snapshots!~first vec3[0]", "Vec3 {\n  x: 1.0,\n  y: 2.0,\n  z: 4.0,\n  a: 10.0\n}"],
-          ["a few snapshots!~a string[0]", '"some string"'],
-          ["a few snapshots!~some float value[0]", "3.14"],
+          ["snapshots[0]!~a few snapshots[0]!~first vec3[0]", "Vec3 {\n  x: 1.0,\n  y: 2.0,\n  z: 4.0,\n  a: 10.0\n}"],
+          ["snapshots[0]!~a few snapshots[0]!~a string[0]", '"some string"'],
+          ["snapshots[0]!~a few snapshots[0]!~some float value[0]", "3.14"],
           ["this!~is!~removed", "false"],
         ]),
       ),
     );
 
-    expect(output).toContain("[Snapshot]: a few snapshots!~first vec3[0]");
+    expect(output).toContain("[Snapshot]: snapshots[0]!~a few snapshots[0]!~first vec3[0]");
     expect(output).toContain("- ");
     expect(output).toContain("+ ");
   });

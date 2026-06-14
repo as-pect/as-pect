@@ -25,6 +25,16 @@ The older `onEnter(ctx, node)`, `onExit(ctx, node)`, and `onFinish(ctx)` callbac
 
 If a reporter needs to create report facts directly, use `createGroupReport(node)`, `createTestReport(group, test)`, or `createSuiteReport(ctx)` from `@as-pect/core`.
 
+## Snapshot key format
+
+`@as-pect/core` records snapshots under the full Test node namespace plus the explicit snapshot name passed by AssemblyScript code. A key contains each `describe`/`it` segment and duplicate-safe indexes before the snapshot name, for example:
+
+```text
+outer[0]!~duplicate[1]!~renders value[0]
+```
+
+This is a breaking change from the older test-name-only snapshot keys. The namespace-derived format makes duplicate test names and repeated snapshot names deterministic because each snapshot is tied to the exact Test node that created it. Existing snapshot files should be regenerated or migrated for the next major release.
+
 ## Contributors
 
 To contribute please see [CONTRIBUTING.md](./CONTRIBUTING.md).

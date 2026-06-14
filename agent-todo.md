@@ -329,22 +329,12 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S10 — Use stable TestNode namespaces for snapshot keys
-
-- **Epic:** E13
-- **Problem:** `TestTreeRecorder` creates duplicate-safe `TestNode.namespace` values for snapshot purposes, but `TestContext.reportExpectedSnapshot()` builds snapshot names from only `this.targetNode.name` and the snapshot name. `Snapshot.add()` avoids overwrites by appending indexes, but duplicate test names become order-dependent instead of tied to stable test namespaces.
-- **Files:** `packages/core/src/test/TestContext.ts`, `packages/core/src/test/TestTreeRecorder.ts`, `packages/core/__tests__/TestContext.host-callbacks.spec.ts`, snapshot fixtures in core/assembly if keys intentionally change
-- **Fix:** Build snapshot keys from `this.targetNode.namespace` plus the explicit snapshot name, while planning any compatibility migration for existing snapshot files. If compatibility requires retaining current external keys, document that decision and remove or repurpose the misleading “for snapshot purposes” namespace ownership.
-- **Tests to add/update:** Duplicate test names with snapshots should produce deterministic namespace-derived keys that do not shift when siblings are reordered; existing non-duplicate snapshot behavior should remain understandable or have a documented migration.
-- **Done when:** snapshot key generation either uses stable test namespaces or the code/docs clearly describe why it intentionally does not.
-- **Validation:** `npm run test:ci --workspace @as-pect/core`, `npm run test:ci --workspace @as-pect/assembly`, and focused snapshot update review if fixture names change.
-
 ---
 
 ## Suggested first sequence
 
-1. **E13-S10** — Use stable TestNode namespaces for snapshot keys.
-2. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
-3. **E5-S1** — Add direct Snapshot lifecycle update-plan tests.
+1. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
+2. **E5-S1** — Add direct Snapshot lifecycle update-plan tests.
+3. **E5-S2** — Add snapshot parser error coverage.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.
