@@ -38,18 +38,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `runTestSession()` should coordinate high-level Test session flow. Per-entry behavior should live behind a Test session entry module with focused helpers/adapters and test coverage at that seam.
 
-### Slice E1-S1 — Characterize multi-entry Test session behavior
-
-- **Epic:** E1
-- **Scope:** Add focused tests that lock down current behavior when multiple test entries are discovered and run in sorted order.
-- **Files:** `packages/cli/__tests__/TestSession.spec.ts`
-- **Tests to add:**
-  - entries from CLI args and config entries are globbed, sorted, deduplicated, and filtered by `disclude`
-  - include files are globbed, sorted, deduplicated, and passed to every compile call
-  - stats aggregate across more than one suite
-- **Done when:** The existing implementation passes the new tests without production changes, or production changes are limited to preserving documented current behavior.
-- **Validation:** focused CLI package tests.
-
 ### Slice E1-S2 — Extract Test session entry discovery
 
 - **Epic:** E1

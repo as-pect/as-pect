@@ -25,6 +25,16 @@ const createConfig = (options: Parameters<typeof createTestSessionConfig>[0]["op
     options,
   });
 
+const createNoopFileSystem = (): TestSessionDependencies["fileSystem"] => ({
+  access: jest.fn(async () => void 0),
+  existsSync: jest.fn(() => false),
+  mkdir: jest.fn(async () => void 0),
+  readFile: jest.fn(async () => ""),
+  readFileSync: jest.fn(() => ""),
+  readdirSync: jest.fn(() => []),
+  writeFile: jest.fn(async () => void 0),
+});
+
 describe("Test session configuration", () => {
   it("uses the default include glob when no include options are supplied", () => {
     const config = createConfig({});
@@ -301,7 +311,78 @@ describe("Test session execution", () => {
     expect(compile).toHaveBeenCalledTimes(2);
   });
 
-  it("sorts discovered entries while preserving CLI and config glob precedence", async () => {
+  it("aggregates stats across more than one completed suite", async () => {
+    const strings = new Map([
+      [1, "matched group"],
+      [2, "matched test"],
+    ]);
+    const reporter = {
+      stderr: null,
+      stdout: null,
+      onEnter() {},
+      onExit() {},
+      onFinish() {},
+    };
+    const collectReporter = jest.fn(async () => reporter);
+    const compile = jest.fn(async (_args, io) => {
+      io.writeFile("build/output.wasm", minimalWasmBinary, "/workspace");
+      io.writeFile("build/output.wat", "(module)", "/workspace");
+      return { stats: { toString: () => "compiler stats" } };
+    });
+    const instantiate = jest.fn(
+      async (
+        memory: WebAssembly.Memory,
+        createImports: Parameters<IAspectConfig["instantiate"]>[1],
+        _instantiate: Parameters<IAspectConfig["instantiate"]>[2],
+        _binary: Uint8Array,
+      ) => {
+        const imports = createImports({ env: { memory } }) as any;
+        const exports = {
+          memory,
+          _start() {
+            imports.__aspect.reportGroupTypeNode(1, 10);
+          },
+          __call(pointer: number) {
+            if (pointer === 10) imports.__aspect.reportTestTypeNode(2, 20);
+          },
+          __getString(pointer: number) {
+            return strings.get(pointer) ?? "";
+          },
+        };
+        return { exports, instance: {} as WebAssembly.Instance };
+      },
+    );
+    const dependencies: Partial<TestSessionDependencies> = {
+      collectReporter,
+      compile,
+      fileSystem: createNoopFileSystem(),
+      glob: jest.fn(async (pattern) =>
+        pattern.includes("*.spec.ts")
+          ? ["assembly/__tests__/suite-b.spec.ts", "assembly/__tests__/suite-a.spec.ts"]
+          : [],
+      ),
+    };
+
+    const config = createTestSessionConfig({
+      args: ["assembly/__tests__/*.spec.ts"],
+      aspectConfig: { ...aspectConfig, instantiate },
+      asconfigLocation: "./as-pect.asconfig.json",
+      cwd: "/workspace",
+      dependencies,
+      options: {},
+    });
+
+    const result = await new TestSession(config).run();
+
+    expect(result.pass).toBe(true);
+    expect(result.stats.tests).toBe(2);
+    expect(result.stats.passedTests).toBe(2);
+    expect(result.stats.groups).toBe(4);
+    expect(result.stats.passedGroups).toBe(4);
+    expect(compile).toHaveBeenCalledTimes(2);
+  });
+
+  it("sorts, deduplicates, and filters entries while preserving CLI and config glob precedence", async () => {
     const compile = jest.fn(async (_args, io) => {
       io.writeFile("build/output.wasm", new Uint8Array([1, 2, 3]), "/workspace");
       io.writeFile("build/output.wat", "(module)", "/workspace");
@@ -309,23 +390,20 @@ describe("Test session execution", () => {
     });
     const dependencies: Partial<TestSessionDependencies> = {
       compile,
-      fileSystem: {
-        access: jest.fn(async () => void 0),
-        existsSync: jest.fn(() => false),
-        mkdir: jest.fn(async () => void 0),
-        readFile: jest.fn(async () => ""),
-        readFileSync: jest.fn(() => ""),
-        readdirSync: jest.fn(() => []),
-        writeFile: jest.fn(async () => void 0),
-      },
+      fileSystem: createNoopFileSystem(),
       glob: jest.fn(async (pattern) => {
         switch (pattern) {
           case "assembly/__tests__/cli-*.spec.ts":
-            return ["assembly/__tests__/cli-z.spec.ts", "assembly/__tests__/cli-a.spec.ts"];
-          case "assembly/__tests__/focused-*.spec.ts":
-            return ["assembly/__tests__/focused-b.spec.ts", "assembly/__tests__/focused-a.spec.ts"];
+            return [
+              "assembly/__tests__/cli-z.spec.ts",
+              "assembly/__tests__/cli-skip.spec.ts",
+              "assembly/__tests__/cli-a.spec.ts",
+              "assembly/__tests__/cli-a.spec.ts",
+            ];
+          case "assembly/shared/*.spec.ts":
+            return ["assembly/shared/b.spec.ts", "assembly/shared/a.spec.ts"];
           case "assembly/config/*.spec.ts":
-            return ["assembly/config/z.spec.ts", "assembly/config/a.spec.ts"];
+            return ["assembly/config/z.spec.ts", "assembly/config/skip.spec.ts", "assembly/config/a.spec.ts"];
           default:
             return [];
         }
@@ -333,12 +411,12 @@ describe("Test session execution", () => {
     };
 
     const config = createTestSessionConfig({
-      args: ["assembly/__tests__/cli-*.spec.ts", "assembly/__tests__/focused-*.spec.ts"],
-      aspectConfig: { ...aspectConfig, entries: ["assembly/config/*.spec.ts"] },
+      args: ["assembly/__tests__/cli-*.spec.ts", "assembly/shared/*.spec.ts"],
+      aspectConfig: { ...aspectConfig, entries: ["assembly/config/*.spec.ts", "assembly/shared/*.spec.ts"] },
       asconfigLocation: "./as-pect.asconfig.json",
       cwd: "/workspace",
       dependencies,
-      options: { run: false },
+      options: { disclude: "skip", run: false },
     });
 
     await new TestSession(config).run();
@@ -346,14 +424,14 @@ describe("Test session execution", () => {
     expect(compile.mock.calls.map((call) => call[0][0])).toEqual([
       "assembly/__tests__/cli-a.spec.ts",
       "assembly/__tests__/cli-z.spec.ts",
-      "assembly/__tests__/focused-a.spec.ts",
-      "assembly/__tests__/focused-b.spec.ts",
+      "assembly/shared/a.spec.ts",
+      "assembly/shared/b.spec.ts",
       "assembly/config/a.spec.ts",
       "assembly/config/z.spec.ts",
     ]);
   });
 
-  it("sorts discovered include files before passing them to the compiler", async () => {
+  it("sorts and deduplicates include files before passing them to every compiler call", async () => {
     const compile = jest.fn(async (_args, io) => {
       io.writeFile("build/output.wasm", new Uint8Array([1, 2, 3]), "/workspace");
       io.writeFile("build/output.wat", "(module)", "/workspace");
@@ -361,21 +439,15 @@ describe("Test session execution", () => {
     });
     const dependencies: Partial<TestSessionDependencies> = {
       compile,
-      fileSystem: {
-        access: jest.fn(async () => void 0),
-        existsSync: jest.fn(() => false),
-        mkdir: jest.fn(async () => void 0),
-        readFile: jest.fn(async () => ""),
-        readFileSync: jest.fn(() => ""),
-        readdirSync: jest.fn(() => []),
-        writeFile: jest.fn(async () => void 0),
-      },
+      fileSystem: createNoopFileSystem(),
       glob: jest.fn(async (pattern) => {
         switch (pattern) {
           case "assembly/__tests__/*.spec.ts":
-            return ["assembly/__tests__/entry.spec.ts"];
+            return ["assembly/__tests__/entry-b.spec.ts", "assembly/__tests__/entry-a.spec.ts"];
           case "assembly/setup/*.include.ts":
-            return ["assembly/setup/z.include.ts", "assembly/setup/a.include.ts", "assembly/setup/m.include.ts"];
+            return ["assembly/setup/z.include.ts", "assembly/shared.include.ts"];
+          case "assembly/env/*.include.ts":
+            return ["assembly/env/b.include.ts", "assembly/shared.include.ts", "assembly/env/a.include.ts"];
           default:
             return [];
         }
@@ -384,24 +456,29 @@ describe("Test session execution", () => {
 
     const config = createTestSessionConfig({
       args: ["assembly/__tests__/*.spec.ts"],
-      aspectConfig: { ...aspectConfig, include: ["assembly/setup/*.include.ts"] },
+      aspectConfig,
       asconfigLocation: "./as-pect.asconfig.json",
       cwd: "/workspace",
       dependencies,
-      options: { run: false },
+      options: { include: "assembly/setup/*.include.ts,assembly/env/*.include.ts", run: false },
     });
 
     await new TestSession(config).run();
 
-    expect(compile.mock.calls[0][0]).toEqual([
-      "assembly/__tests__/entry.spec.ts",
-      "assembly/setup/a.include.ts",
-      "assembly/setup/m.include.ts",
+    const expectedIncludeArgs = [
+      "assembly/env/a.include.ts",
+      "assembly/env/b.include.ts",
       "assembly/setup/z.include.ts",
+      "assembly/shared.include.ts",
       "--config",
       "./as-pect.asconfig.json",
       "--target",
       "noCoverage",
+    ];
+
+    expect(compile.mock.calls.map((call) => call[0])).toEqual([
+      ["assembly/__tests__/entry-a.spec.ts", ...expectedIncludeArgs],
+      ["assembly/__tests__/entry-b.spec.ts", ...expectedIncludeArgs],
     ]);
   });
 
