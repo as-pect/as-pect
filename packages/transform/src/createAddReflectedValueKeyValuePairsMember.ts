@@ -11,12 +11,11 @@ import {
   Range,
   Statement,
   CommonFlags,
-  ParameterKind,
   AssertionKind,
   Token,
 } from "assemblyscript/dist/assemblyscript.js";
 
-import { createGenericTypeParameter } from "./createGenericTypeParameter.js";
+import { createDefaultParameter, createMapType, createSimpleNamedType, createStaticArrayType } from "./astHelpers.js";
 
 // const TypeNode = TypeNode;
 // const {
@@ -51,45 +50,16 @@ export function createAddReflectedValueKeyValuePairsMember(classDeclaration: Cla
     TypeNode.createFunctionType(
       [
         // reflectedValue: i32
-        TypeNode.createParameter(
-          ParameterKind.Default,
-          TypeNode.createIdentifierExpression("reflectedValue", range),
-          createGenericTypeParameter("i32", range),
-          null,
-          range,
-        ),
+        createDefaultParameter("reflectedValue", createSimpleNamedType("i32", range), range),
 
         // seen: Map<usize, i32>
-        TypeNode.createParameter(
-          ParameterKind.Default,
-          TypeNode.createIdentifierExpression("seen", range),
-          TypeNode.createNamedType(
-            TypeNode.createSimpleTypeName("Map", range),
-            [createGenericTypeParameter("usize", range), createGenericTypeParameter("i32", range)],
-            false,
-            range,
-          ),
-          null,
-          range,
-        ),
+        createDefaultParameter("seen", createMapType("usize", "i32", range), range),
 
         // ignore: i64[]
-        TypeNode.createParameter(
-          ParameterKind.Default,
-          TypeNode.createIdentifierExpression("ignore", range),
-          // Array<i64> -> i64[]
-          TypeNode.createNamedType(
-            TypeNode.createSimpleTypeName("StaticArray", range),
-            [createGenericTypeParameter("i64", range)],
-            false,
-            range,
-          ),
-          null,
-          range,
-        ),
+        createDefaultParameter("ignore", createStaticArrayType("i64", range), range),
       ],
       // : void
-      TypeNode.createNamedType(TypeNode.createSimpleTypeName("void", range), [], false, range),
+      createSimpleNamedType("void", range),
       null,
       false,
       range,
@@ -179,12 +149,7 @@ function createIsDefinedIfStatement(nameHashes: number[], range: Range): Stateme
                       nameHashes.map((e) => TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range)),
                       range,
                     ),
-                    TypeNode.createNamedType(
-                      TypeNode.createSimpleTypeName("StaticArray", range),
-                      [TypeNode.createNamedType(TypeNode.createSimpleTypeName("i64", range), null, false, range)],
-                      false,
-                      range,
-                    ),
+                    createStaticArrayType("i64", range),
                     range,
                   ),
                 ],

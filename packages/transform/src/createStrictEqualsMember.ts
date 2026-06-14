@@ -12,14 +12,14 @@ import {
   Expression,
   IfStatement,
   MethodDeclaration,
-  ParameterNode,
   PropertyAccessExpression,
   Statement,
   AssertionKind,
   CommonFlags,
   Token,
-  ParameterKind,
 } from "assemblyscript/dist/assemblyscript.js";
+
+import { createArrayType, createDefaultParameter, createSimpleNamedType, createStaticArrayType } from "./astHelpers.js";
 
 /**
  * This method creates a single FunctionDeclaration that allows Reflect.equals
@@ -39,26 +39,13 @@ export function createStrictEqualsMember(classDeclaration: ClassDeclaration): Me
     TypeNode.createFunctionType(
       [
         // rawRef: Object,
-        createDefaultParameter(
-          "rawRef",
-          TypeNode.createNamedType(TypeNode.createSimpleTypeName("Object", range), null, false, range),
-          range,
-        ),
+        createDefaultParameter("rawRef", createSimpleNamedType("Object", range), range),
         // stack: usize[]
         createDefaultParameter("stack", createArrayType("usize", range), range),
         // cache: usize[]
         createDefaultParameter("cache", createArrayType("usize", range), range),
         // ignore: StaticArray<i64>
-        createDefaultParameter(
-          "ignore",
-          TypeNode.createNamedType(
-            TypeNode.createSimpleTypeName("StaticArray", range),
-            [TypeNode.createNamedType(TypeNode.createSimpleTypeName("i64", range), null, false, range)],
-            false,
-            range,
-          ),
-          range,
-        ),
+        createDefaultParameter("ignore", createStaticArrayType("i64", range), range),
       ],
       // : bool
       createSimpleNamedType("bool", range),
@@ -83,30 +70,6 @@ export function createHasEqualsOperatorMember(classDeclaration: ClassDeclaration
     null,
     TypeNode.createFunctionType([], createSimpleNamedType("bool", range), null, false, range),
     TypeNode.createBlockStatement([TypeNode.createReturnStatement(TypeNode.createTrueExpression(range), range)], range),
-    range,
-  );
-}
-
-/**
- * This method creates a simple name type with the given name and source range.
- *
- * @param {string} name - The name of the type.
- * @param {Range} range - The given source range.
- */
-function createSimpleNamedType(name: string, range: Range): TypeNode {
-  return TypeNode.createNamedType(TypeNode.createSimpleTypeName(name, range), null, false, range);
-}
-
-/**
- * This method creates an Array<name> type with the given range.
- *
- * @param {Range} range - The source range.
- */
-function createArrayType(name: string, range: Range): TypeNode {
-  return TypeNode.createNamedType(
-    TypeNode.createSimpleTypeName("Array", range),
-    [TypeNode.createNamedType(TypeNode.createSimpleTypeName(name, range), null, false, range)],
-    false,
     range,
   );
 }
@@ -270,23 +233,6 @@ function createStrictEqualsIfCheck(name: string, hashValue: number, range: Range
 }
 
 /**
- * Create a simple default parameter with a name and a type.
- *
- * @param {string} name - The name of the parameter.
- * @param {TypeNode} typeNode - The type of the parameter.
- * @param {Range} range - The source range of the parameter.
- */
-function createDefaultParameter(name: string, typeNode: TypeNode, range: Range): ParameterNode {
-  return TypeNode.createParameter(
-    ParameterKind.Default,
-    TypeNode.createIdentifierExpression(name, range),
-    typeNode,
-    null,
-    range,
-  );
-}
-
-/**
  * This method creates a single property access and passes the given range to the AST.
  *
  * @param {string} root - The name of the identifier representing the root.
@@ -376,12 +322,7 @@ function createSuperCallExpression(hashValues: number[], range: Range): Expressi
               hashValues.map((e) => TypeNode.createIntegerLiteralExpression(f64_as_i64(e), range)),
               range,
             ),
-            TypeNode.createNamedType(
-              TypeNode.createSimpleTypeName("StaticArray", range),
-              [TypeNode.createNamedType(TypeNode.createSimpleTypeName("i64", range), null, false, range)],
-              false,
-              range,
-            ),
+            createStaticArrayType("i64", range),
             range,
           ),
         ],

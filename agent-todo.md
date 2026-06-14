@@ -41,15 +41,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** A Class reflection generation module should own traversal decisions, collision checks, Class-member plan facts, generated strict equality methods, generated key/value methods, generated interface methods, and shared AST vocabulary.
 
-### Slice E4-S2 — Extract shared AST type/parameter helpers
-
-- **Epic:** E4
-- **Scope:** Remove duplicate `createSimpleNamedType`, array/static-array/map type helpers, and default parameter construction from generated member modules.
-- **Files:** new `packages/transform/src/astHelpers.ts`, `createStrictEqualsMember.ts`, `createAddReflectedValueKeyValuePairsMember.ts`, `createInterfaceReflectionMembers.ts`
-- **Tests to add/update:** existing transform tests should pass; add helper-level tests only if behavior is nontrivial
-- **Done when:** generated member modules share one AST vocabulary module.
-- **Validation:** focused transform tests.
-
 ### Slice E4-S3 — Extract shared inherited ignore-list generation
 
 - **Epic:** E4
@@ -280,8 +271,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E4-S2** — Extract shared AST type/parameter helpers.
-2. **E4-S3** — Extract shared inherited ignore-list generation.
-3. **E4-S4** — Move generated class reflection member orchestration behind one module.
+1. **E4-S3** — Extract shared inherited ignore-list generation.
+2. **E4-S4** — Move generated class reflection member orchestration behind one module.
+3. **E4-S5** — Split class and interface collision checks.
 
 This sequence continues the Class reflection generation consolidation now that the confirmed snapshot reporting facts are covered.
