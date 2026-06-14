@@ -32,6 +32,17 @@ Each planned member carries its name, source range, getter/field kind, and `djb2
 
 Hash values intentionally remain the compatibility seam with existing generated code. If two inherited member names ever collide under `djb2`, the generated ignore list treats them as the same inherited member and suppresses the parent entry deterministically; the transform does not rename members or attempt a runtime fallback.
 
+## Generation responsibilities
+
+Class reflection generation is split across a few narrow responsibilities:
+
+- `index.ts` walks parsed sources and namespaces, then delegates class and interface declarations to the generation module.
+- `appendGeneratedClassReflectionMembers.ts` orchestrates which generated members or interface contracts should be appended, including idempotence checks and user-authored collision errors.
+- `ClassReflectionTransform.ts` owns compatibility-sensitive generated member names, generated-member marking, class/interface collision checks, local equality-operator detection, and the Class-member plan.
+- `createStrictEqualsMember.ts`, `createAddReflectedValueKeyValuePairsMember.ts`, and `createInterfaceReflectionMembers.ts` build the generated AssemblyScript AST for each runtime method shape.
+
+This keeps traversal, planning, collision policy, and AST construction separate enough that a change to one generated method does not require re-learning every transform rule.
+
 ## Runtime relationship
 
 `@as-pect/assembly` uses the generated methods in two places:

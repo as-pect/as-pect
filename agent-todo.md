@@ -41,15 +41,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** A Class reflection generation module should own traversal decisions, collision checks, Class-member plan facts, generated strict equality methods, generated key/value methods, generated interface methods, and shared AST vocabulary.
 
-### Slice E4-S7 — Document Class reflection generation responsibilities
-
-- **Epic:** E4
-- **Scope:** Update package documentation or source comments to distinguish Class reflection transform, Class-member plan, and generated member construction.
-- **Files:** `packages/transform/README.md`, `CONTEXT.md` if terminology changes
-- **Tests to add/update:** none
-- **Done when:** future agents can navigate transform responsibilities without reading every generated member module first.
-- **Validation:** documentation review.
-
 ---
 
 ## Epic E5 — Keep snapshot lifecycle behavior deep and explicit
@@ -225,8 +216,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E4-S7** — Document Class reflection generation responsibilities.
-2. **E5-S4** — Route CLI snapshot writes through Snapshot lifecycle facts.
-3. **E6-S2** — Add architecture vocabulary reminders to package readmes.
+1. **E5-S4** — Route CLI snapshot writes through Snapshot lifecycle facts.
+2. **E6-S2** — Add architecture vocabulary reminders to package readmes.
+3. **E7** — Replace ESLint and Prettier with Biome.
 
-This sequence continues the Class reflection generation consolidation now that the Class-member plan has direct behavior coverage.
+This sequence moves on from Class reflection generation now that its responsibilities are documented.
