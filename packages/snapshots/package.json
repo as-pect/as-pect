@@ -11,7 +11,7 @@
     "test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js -u",
     "bench": "npm run tsc:all && node bench/snapshot.bench.mjs",
     "bench:run": "node bench/snapshot.bench.mjs",
-    "tsc:all": "run-s clean tsc:default",
+    "tsc:all": "node ../../scripts/run-npm-scripts.mjs clean tsc:default",
     "tsc:default": "tsc"
   },
   "keywords": [

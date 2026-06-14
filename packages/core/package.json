@@ -32,12 +32,12 @@
     "test:ci": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
     "test": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js",
     "test:log": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js log",
-    "asc:all": "run-p pretest:group-filter pretest:log pretest:lifecycle pretest:pass-fail pretest:wasi pretest:reporter-pass pretest:reporter-fail pretest:reporter-flow-error pretest:reporter-snapshot pretest:reporter-top-level-expect",
+    "asc:all": "node ../../scripts/run-npm-scripts.mjs --parallel pretest:group-filter pretest:log pretest:lifecycle pretest:pass-fail pretest:wasi pretest:reporter-pass pretest:reporter-fail pretest:reporter-flow-error pretest:reporter-snapshot pretest:reporter-top-level-expect",
     "tsc": "tsc",
     "test:update-snapshots": "node --experimental-wasi-unstable-preview1 --experimental-vm-modules ../../node_modules/jest/bin/jest.js -u",
-    "bench": "npm run tsc:all --workspace @as-pect/snapshots && run-s clean tsc bench:run",
+    "bench": "npm run tsc:all --workspace @as-pect/snapshots && node ../../scripts/run-npm-scripts.mjs clean tsc bench:run",
     "bench:run": "node bench/core.bench.mjs",
-    "tsc:all": "run-s clean tsc asc:all"
+    "tsc:all": "node ../../scripts/run-npm-scripts.mjs clean tsc asc:all"
   },
   "bugs": {
     "url": "https://github.com/jtenner/aspect/issues"

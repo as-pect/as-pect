@@ -74,49 +74,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E10 — Remove npm-run-all2
-
-**Goal:** Remove `npm-run-all2` by replacing `run-s` and `run-p` script orchestration with npm-native sequencing, shell-free Node helpers, or package-specific scripts.
-
-**Primary files:**
-
-- root `package.json`
-- package scripts under `packages/*/package.json`
-- optional local script runner under `scripts/`
-
-**Done when:** `npm-run-all2` is no longer a direct dependency, no script invokes `run-s` or `run-p`, and existing build/test workflows still have clear commands.
-
-**Validation:** `npm test`, `npm run tsc:all`, and focused package commands touched by the migration.
-
-### Slice E10-S1 — Replace root run-s orchestration
-
-- **Epic:** E10
-- **Scope:** Rewrite root scripts that use `run-s` into npm-native sequencing or a small local Node runner while preserving the order of typecheck, test, and release workflows.
-- **Files:** root `package.json`, optional `scripts/` helper, validation docs if command names change
-- **Tests to add/update:** helper tests if a local runner has branching or failure aggregation logic
-- **Done when:** root scripts no longer invoke `run-s` and still expose clear `test`, `test:ci`, `tsc:all`, `check`, and `release` commands.
-- **Validation:** `npm run tsc:all`, `npm test`, and dry-run or documented validation for release sequencing.
-
-### Slice E10-S2 — Replace package-level run-s/run-p orchestration
-
-- **Epic:** E10
-- **Scope:** Rewrite package scripts that use `run-s` or `run-p`, especially core AssemblyScript fixture compilation and package clean/typecheck flows.
-- **Files:** package `package.json` files, optional `scripts/` helper
-- **Tests to add/update:** helper tests if a local runner owns parallel execution or failure aggregation
-- **Done when:** package scripts no longer invoke `run-s` or `run-p`.
-- **Validation:** focused package `tsc:all`, core fixture compilation, and relevant package tests.
-
-### Slice E10-S3 — Remove npm-run-all2 after scripts migrate
-
-- **Epic:** E10
-- **Scope:** Remove `npm-run-all2` from direct dependencies once root and package scripts no longer reference `run-s` or `run-p`.
-- **Files:** `package.json`, `package-lock.json`
-- **Tests to add/update:** none
-- **Done when:** no checked-in script invokes `run-s` or `run-p`, and `npm-run-all2` is no longer a direct dependency.
-- **Validation:** `npm run tsc:all` and `npm test`.
-
----
-
 ## Epic E12 — Remove Commander
 
 **Goal:** Remove `commander` from the CLI by replacing option parsing with a small local parser that supports the documented `asp`/`aspect` command surface.

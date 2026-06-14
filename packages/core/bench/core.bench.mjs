@@ -228,6 +228,7 @@ function createReportingCase(name, rootNode) {
     pass: true,
     testCount: metrics.tests,
     testPassCount: metrics.tests,
+    todoCount: metrics.todos,
     groupCount: metrics.groups,
     groupPassCount: metrics.groups,
     rootRuntime: rootNode.deltaT,
@@ -246,6 +247,7 @@ function createEmptySnapshotLifecycle() {
       results: new Map(),
     },
     stats: {
+      totalSnapshots: 0,
       addedSnapshots: 0,
       removedSnapshots: 0,
       changedSnapshots: 0,
@@ -353,10 +355,15 @@ function createPropertyLimitStringifyCase() {
   for (let i = 0; i < 2_000; i++) {
     pushClassProperty(value, `property${i}`, createReflectedInteger(i));
   }
-  return createStringifyCase("property-count-limit", value, { properties: value.keys.length, maxPropertyCount: 25 }, {
-    ...stringifyOptions,
-    maxPropertyCount: 25,
-  });
+  return createStringifyCase(
+    "property-count-limit",
+    value,
+    { properties: value.keys.length, maxPropertyCount: 25 },
+    {
+      ...stringifyOptions,
+      maxPropertyCount: 25,
+    },
+  );
 }
 
 function createStringifyCase(name, value, metrics, options = stringifyOptions) {
