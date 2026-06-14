@@ -329,16 +329,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S5 — Report truncated expanded arrays with the correct remaining count
-
-- **Epic:** E13
-- **Problem:** Expanded array stringification caps `length` to `maxPropertyCount` and then calculates `length - maxPropertyCount`, producing misleading suffixes like `... +0 values` for oversized arrays.
-- **Files:** `packages/core/src/util/stringifyReflectedValue.ts`, stringify/reflected value tests
-- **Fix:** Keep the original value count separate from the displayed count, and calculate the suffix from `originalLength - displayCount`. Only emit the truncation suffix when the original count exceeds `maxPropertyCount`.
-- **Tests to add/update:** A reflected array with more values than `maxPropertyCount` should report the real number of omitted values; an array exactly at the limit should not report `+0 values`.
-- **Done when:** expanded array truncation output is accurate.
-- **Validation:** `npm run test:ci --workspace @as-pect/core`.
-
 ### Slice E13-S6 — Preserve as-pect abort messages when wrapping existing abort imports
 
 - **Epic:** E13
@@ -393,8 +383,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S5** — Report truncated expanded arrays with the correct remaining count.
-2. **E13-S6** — Preserve as-pect abort messages when wrapping existing abort imports.
-3. **E13-S7** — Mark expected values as negated for `toStrictEqual().not`.
+1. **E13-S6** — Preserve as-pect abort messages when wrapping existing abort imports.
+2. **E13-S7** — Mark expected values as negated for `toStrictEqual().not`.
+3. **E13-S8** — Align `toBeCloseTo` tolerance with decimal-place semantics.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.

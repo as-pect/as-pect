@@ -256,20 +256,21 @@ function displayArrayExpanded(hostValue: ReflectedValue, ctx: StringifyContext):
     // expanded only for arrays
     let body = "\n";
     ctx.level += 1;
-    const length = Math.min(hostValue.values!.length, ctx.maxPropertyCount);
-    for (let i = 0; i < length && i < ctx.maxPropertyCount; i++) {
+    const length = hostValue.values!.length;
+    const displayCount = Math.min(length, ctx.maxPropertyCount);
+    for (let i = 0; i < displayCount; i++) {
       const value = hostValue.values![i];
 
       // render expanded value, but trim the whitespace on the left side
       const valueString = formatters[formatterIndexFor(value.type, ReflectedValueFormatType.Expanded)](value, ctx);
-      if (i === length - 1) {
+      if (i === displayCount - 1) {
         // remove trailing comma
         body += `${valueString}\n`;
       } else {
         body += `${valueString},\n`;
       }
     }
-    if (length >= ctx.maxPropertyCount) body += `${spacing}... +${length - ctx.maxPropertyCount} values`;
+    if (length > displayCount) body += `${spacing}... +${length - displayCount} values`;
     ctx.level -= 1;
     ctx.impliedTypeInfo = previousImpliedTypeInfo;
     ctx.seen.delete(hostValue);
