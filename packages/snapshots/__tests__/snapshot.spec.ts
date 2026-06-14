@@ -168,6 +168,47 @@ describe("Snapshot", () => {
 
   it.each([
     {
+      name: "added",
+      actual: [["A", "actual A"]] as [string, string][],
+      expected: [] as [string, string][],
+      pass: true,
+      updates: [{ name: "A", value: "actual A" }],
+      shouldWrite: true,
+    },
+    {
+      name: "removed",
+      actual: [] as [string, string][],
+      expected: [["A", "expected A"]] as [string, string][],
+      pass: false,
+      updates: [],
+      shouldWrite: false,
+    },
+    {
+      name: "changed",
+      actual: [["A", "actual A"]] as [string, string][],
+      expected: [["A", "expected A"]] as [string, string][],
+      pass: false,
+      updates: [],
+      shouldWrite: false,
+    },
+    {
+      name: "unchanged",
+      actual: [["A", "same A"]] as [string, string][],
+      expected: [["A", "same A"]] as [string, string][],
+      pass: true,
+      updates: [],
+      shouldWrite: false,
+    },
+  ])("should derive update plans directly for $name snapshots", ({ actual, expected, pass, updates, shouldWrite }) => {
+    const lifecycle = new SnapshotLifecycle(snapshotFrom(actual), snapshotFrom(expected));
+
+    expect(lifecycle.pass).toBe(pass);
+    expect(lifecycle.updatePlan.updates).toEqual(updates);
+    expect(lifecycle.updatePlan.shouldWrite).toBe(shouldWrite);
+  });
+
+  it.each([
+    {
       name: "all-added",
       actual: [["A", "actual A"]] as [string, string][],
       expected: [] as [string, string][],

@@ -122,19 +122,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** Snapshot parsing, diffing, pass/fail, stats, and update planning stay concentrated in the Snapshot lifecycle module; CLI and reporters consume stable facts.
 
-### Slice E5-S1 — Add direct Snapshot lifecycle update-plan tests
-
-- **Epic:** E5
-- **Scope:** Cover `SnapshotLifecycle.updatePlan` directly for added, removed, changed, and unchanged snapshots.
-- **Files:** `packages/snapshots/__tests__/snapshot.spec.ts`, `SnapshotLifecycle.ts`
-- **Tests to add/update:**
-  - added snapshots pass and produce updates
-  - removed snapshots fail and produce no update
-  - changed snapshots fail and produce no update
-  - unchanged snapshots pass and produce no update
-- **Done when:** update-plan rules are verified without running CLI tests.
-- **Validation:** focused snapshots package tests.
-
 ### Slice E5-S2 — Add snapshot parser error coverage
 
 - **Epic:** E5
@@ -318,8 +305,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E5-S1** — Add direct Snapshot lifecycle update-plan tests.
-2. **E5-S2** — Add snapshot parser error coverage.
-3. **E5-S3** — Keep Suite report snapshot facts independent from diff internals.
+1. **E5-S2** — Add snapshot parser error coverage.
+2. **E5-S3** — Keep Suite report snapshot facts independent from diff internals.
+3. **E4-S2** — Extract shared AST type/parameter helpers.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.
