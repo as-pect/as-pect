@@ -26,36 +26,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E7 — Replace ESLint and Prettier with Biome
-
-**Goal:** Remove the direct ESLint and Prettier toolchains from this repository while preserving useful formatting and static checks through Biome, TypeScript, focused tests, or small local validation scripts.
-
-**Primary files:**
-
-- `package.json`
-- `package-lock.json`
-- `eslint.config.mjs`
-- `.prettierrc.cjs`
-- `.prettierignore`
-- Biome configuration file, if needed
-- npm scripts that call `eslint` or `prettier`
-- AssemblyScript source under `packages/**/assembly/**/*.ts`
-
-**Done when:** `eslint`, `@eslint/js`, `globals`, `typescript-eslint`, `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`, and `prettier` are no longer direct dependencies; Biome is added as a top-level devDependency; no active script calls ESLint or Prettier; and replacement validation is documented.
-
-**Validation:** run the Biome format/check command, package typechecks, and focused tests for any touched package.
-
-### Slice E7-S3 — Remove ESLint and Prettier toolchain files and dependencies
-
-- **Epic:** E7
-- **Scope:** Delete obsolete ESLint/Prettier config files and remove the direct ESLint, TypeScript-ESLint, globals, and Prettier dependencies after replacement commands are active.
-- **Files:** `package.json`, `package-lock.json`, `eslint.config.mjs`, `.prettierrc.cjs`, `.prettierignore`, validation docs
-- **Tests to add/update:** none
-- **Done when:** no active script or checked-in config requires ESLint or Prettier packages, and replacement validation is documented.
-- **Validation:** `npm run check`, `npm run tsc:all`, and focused tests for packages whose formatting changed.
-
----
-
 ## Epic E12 — Remove Commander
 
 **Goal:** Remove `commander` from the CLI by replacing option parsing with a small local parser that supports the documented `asp`/`aspect` command surface.
@@ -147,6 +117,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E7-S3** — Remove ESLint and Prettier toolchain files and dependencies.
+1. **E12-S1** — Characterize CLI option parsing behavior.
+2. **E12-S2** — Replace Commander with a local option parser.
+3. **E12-S3** — Remove Commander dependency after parser replacement.
 
-This sequence keeps the remaining Biome migration reviewable in smaller steps.
+This sequence keeps the Commander migration reviewable in smaller steps.
