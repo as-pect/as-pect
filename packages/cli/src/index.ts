@@ -3,8 +3,8 @@ import process, { stdout } from "process";
 import path from "path";
 import { promises as fs } from "fs";
 import url from "url";
-import chalk from "chalk";
 import { printAsciiArt } from "./asciiArt.js";
+import { ansi } from "./ansi.js";
 import type { IAspectConfig } from "./IAspectConfig.js";
 import { importLocalModule } from "./importLocalModule.js";
 
@@ -57,11 +57,11 @@ export type {
 } from "./IAspectConfig.js";
 
 export function log(str: string): void {
-  stdout.write(chalk.bgWhite.black("[Log]") + `${str}\n`);
+  stdout.write(ansi.blackOnWhite("[Log]") + `${str}\n`);
 }
 
 export function warning(str: string): void {
-  stdout.write(chalk.bgYellow.black("[Warning]") + `${str}\n`);
+  stdout.write(ansi.blackOnYellow("[Warning]") + `${str}\n`);
 }
 
 export async function asp(argv: string[]): Promise<void> {
@@ -84,7 +84,7 @@ export async function asp(argv: string[]): Promise<void> {
   }
 
   // always print the version and exit if v
-  process.stdout.write(`⚡AS-pect⚡ Test suite runner ${chalk.bgGreenBright.bold.black(`[${version}]`)}\n`);
+  process.stdout.write(`⚡AS-pect⚡ Test suite runner ${ansi.boldBlackOnBrightGreen(`[${version}]`)}\n`);
   if (opts.version) {
     process.exit(0);
   }
@@ -121,7 +121,7 @@ export async function asp(argv: string[]): Promise<void> {
   }
 
   if (result.coverageReport) {
-    stdout.write(chalk.green("\nCoverage Report:\n\n"));
+    stdout.write(ansi.green("\nCoverage Report:\n\n"));
     stdout.write(result.coverageReport);
   }
 

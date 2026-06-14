@@ -1,5 +1,5 @@
 import { existsSync, promises as fs, readdirSync, readFileSync } from "fs";
-import chalk from "chalk";
+import { ansi } from "./ansi.js";
 import { glob as defaultGlob } from "glob";
 import { main as asc } from "assemblyscript/dist/asc.js";
 import { type IWritable } from "@as-pect/core";
@@ -134,7 +134,7 @@ export interface CreateTestSessionConfigOptions {
 }
 
 function writeLog(stdout: IWritable, str: string): void {
-  stdout.write(chalk.bgWhite.black("[Log]") + `${str}\n`);
+  stdout.write(ansi.blackOnWhite("[Log]") + `${str}\n`);
 }
 
 function parseMemoryPageOption(
@@ -222,12 +222,12 @@ export function formatTestSessionSummary(result: Pick<TestSessionResult, "pass" 
   const { stats } = result;
   return `
   [Summary]
-    [Tests]: ${chalk.green(stats.passedTests)} / ${stats.tests}
-   [Groups]: ${chalk.green(stats.passedGroups)} / ${stats.groups}
-[Snapshots]: ${chalk.green(stats.passedSnapshots)} / ${stats.totalSnapshots}, Added ${
+    [Tests]: ${ansi.green(stats.passedTests)} / ${stats.tests}
+   [Groups]: ${ansi.green(stats.passedGroups)} / ${stats.groups}
+[Snapshots]: ${ansi.green(stats.passedSnapshots)} / ${stats.totalSnapshots}, Added ${
     stats.addedSnapshots
   }, Changed ${stats.changedSnapshots}, Removed ${stats.removedSnapshots}
-   [Result]: ${result.pass ? chalk.green(`✔ Pass!`) : chalk.red(`❌ Fail`)}
+   [Result]: ${result.pass ? ansi.green(`✔ Pass!`) : ansi.red(`❌ Fail`)}
 
    `;
 }

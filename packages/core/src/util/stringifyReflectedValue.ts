@@ -1,6 +1,6 @@
 import { ReflectedValue } from "./ReflectedValue.js";
 import { ReflectedValueType } from "./ReflectedValueType.js";
-import chalk from "chalk";
+import { ansi } from "./ansi.js";
 
 class StringifyContext {
   public level: number = 0;
@@ -8,10 +8,10 @@ class StringifyContext {
 
   public seen: WeakSet<ReflectedValue> = new WeakSet<ReflectedValue>();
 
-  public keywordFormatter: (prop: string) => string = chalk.yellow;
-  public stringFormatter: (prop: string) => string = chalk.cyan;
-  public classNameFormatter: (prop: string) => string = chalk.green;
-  public numberFormatter: (prop: string) => string = chalk.white;
+  public keywordFormatter: (prop: string) => string = ansi.yellow;
+  public stringFormatter: (prop: string) => string = ansi.cyan;
+  public classNameFormatter: (prop: string) => string = ansi.green;
+  public numberFormatter: (prop: string) => string = ansi.white;
 
   public indent: number = 0;
   public maxPropertyCount: number = 50;

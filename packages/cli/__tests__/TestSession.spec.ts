@@ -35,6 +35,29 @@ const createNoopFileSystem = (): TestSessionDependencies["fileSystem"] => ({
   writeFile: jest.fn(async () => void 0),
 });
 
+function withForcedColor<T>(forceColor: string, callback: () => T): T {
+  const originalForceColor = process.env.FORCE_COLOR;
+  const originalNoColor = process.env.NO_COLOR;
+
+  try {
+    process.env.FORCE_COLOR = forceColor;
+    delete process.env.NO_COLOR;
+    return callback();
+  } finally {
+    if (originalForceColor === undefined) {
+      delete process.env.FORCE_COLOR;
+    } else {
+      process.env.FORCE_COLOR = originalForceColor;
+    }
+
+    if (originalNoColor === undefined) {
+      delete process.env.NO_COLOR;
+    } else {
+      process.env.NO_COLOR = originalNoColor;
+    }
+  }
+}
+
 describe("Test session configuration", () => {
   it("uses the default include glob when no include options are supplied", () => {
     const config = createConfig({});
@@ -600,6 +623,30 @@ describe("Test session summary formatting", () => {
     });
 
     expect(summary).toContain("Added 0, Changed 3, Removed 2");
+  });
+
+  it("keeps counts and result labels colorized when color is forced", () => {
+    const summary = withForcedColor("1", () =>
+      formatTestSessionSummary({
+        pass: true,
+        stats: {
+          addedSnapshots: 0,
+          changedSnapshots: 0,
+          groups: 2,
+          pass: true,
+          passedGroups: 2,
+          passedSnapshots: 1,
+          passedTests: 4,
+          removedSnapshots: 0,
+          tests: 4,
+          totalSnapshots: 1,
+        },
+      }),
+    );
+
+    expect(summary).toContain("[Tests]: \u001B[32m4\u001B[39m / 4");
+    expect(summary).toContain("[Groups]: \u001B[32m2\u001B[39m / 2");
+    expect(summary).toContain("[Result]: \u001B[32m✔ Pass!\u001B[39m");
   });
 });
 

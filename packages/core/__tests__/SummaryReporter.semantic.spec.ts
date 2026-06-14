@@ -9,7 +9,7 @@ import {
   todoSuiteReport,
   warningSuiteReport,
 } from "./setup/SuiteReportFixtures.js";
-import { writeSummaryReport } from "./setup/ReporterTestUtils.js";
+import { withForcedColor, writeSummaryReport, writeSummaryReportRaw } from "./setup/ReporterTestUtils.js";
 
 test("SummaryReporter skips files with no collected results", () => {
   const output = writeSummaryReport(suiteReport());
@@ -39,6 +39,14 @@ test("SummaryReporter writes pass totals and captured logs from SuiteReport fact
   expect(output).toContain('[Log]: "group log"\n');
   expect(output).toContain('[Log]: "test log"\n');
   expect(output).not.toContain("Failed:");
+});
+
+test("SummaryReporter keeps result and comparison labels colorized when color is forced", () => {
+  const output = withForcedColor("1", () => writeSummaryReportRaw(failingSuiteReport()));
+
+  expect(output).toContain("\u001B[1m\u001B[31m❌ assembly/fail.spec.ts \u001B[39m\u001B[22m");
+  expect(output).toContain("\u001B[1m\u001B[31m      [Actual]  :\u001B[39m\u001B[22m");
+  expect(output).toContain("\u001B[1m\u001B[32m      [Expected]:\u001B[39m\u001B[22m");
 });
 
 test("SummaryReporter writes failed groups, failed tests, and comparison values", () => {

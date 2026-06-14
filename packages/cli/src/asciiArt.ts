@@ -1,4 +1,4 @@
-import chalk from "chalk-template";
+import { ansi } from "./ansi.js";
 
 /**
  * @ignore
@@ -7,11 +7,14 @@ import chalk from "chalk-template";
  * @param {string} version - The cli version
  */
 export function printAsciiArt(): void {
-  console.log(chalk`{bold.bgWhite.black ${""}       ___   _____                       __    
-      /   | / ___/      ____  ___  _____/ /_   
-     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/   
-    / ___ |___/ /_____/ /_/ /  __/ /__/ /_     
-   /_/  |_/____/     / .___/\\___/\\___/\\__/     
-                    /_/                        }
-`);
+  const asciiArtLines: readonly (readonly [line: string, width: number])[] = [
+    ["       ___   _____                       __", 47],
+    ["      /   | / ___/      ____  ___  _____/ /_", 47],
+    ["     / /| | \\__ \\______/ __ \\/ _ \\/ ___/ __/", 51],
+    ["    / ___ |___/ /_____/ /_/ /  __/ /__/ /_", 47],
+    ["   /_/  |_/____/     / .___/\\___/\\___/\\__/", 50],
+    ["                    /_/", 47],
+  ];
+
+  console.log(ansi.boldBlackOnWhite(asciiArtLines.map(([line, width]) => line.padEnd(width)).join("\n")));
 }

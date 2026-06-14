@@ -12,7 +12,9 @@ import {
 import {
   writeVerboseGroupFinish,
   writeVerboseGroupStart,
+  withForcedColor,
   writeVerboseReport,
+  writeVerboseReportRaw,
   writeVerboseTestFinish,
 } from "./setup/ReporterTestUtils.js";
 
@@ -84,6 +86,14 @@ test("VerboseReporter writes file summary stats from SuiteReport facts", () => {
   expect(output).toContain("[Snapshot]: 0 total, 0 added, 0 removed, 0 different\n");
   expect(output).toContain("[Summary]: 1 pass,  0 fail, 1 total\n");
   expect(output).toContain("[Time]: 5ms\n");
+});
+
+test("VerboseReporter keeps summary labels colorized when color is forced", () => {
+  const output = withForcedColor("1", () => writeVerboseReportRaw(passingSuiteReport()));
+
+  expect(output).toContain("[Result]: \u001B[32m✔ PASS\u001B[39m\n");
+  expect(output).toContain("[Groups]: \u001B[32m1 pass\u001B[39m, 1 total\n");
+  expect(output).toContain("[Summary]: \u001B[32m1 pass\u001B[39m,  0 fail, 1 total\n");
 });
 
 test("VerboseReporter writes snapshot totals from SuiteReport snapshotStats", () => {

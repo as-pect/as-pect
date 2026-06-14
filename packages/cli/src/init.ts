@@ -1,4 +1,4 @@
-import chalk from "chalk";
+import { ansi } from "./ansi.js";
 import { existsSync, promises as fs } from "fs";
 import { join } from "path";
 import url from "url";
@@ -64,15 +64,10 @@ function writeLine(writer: InitWriter | undefined, text = ""): void {
 }
 
 function writeCreateLog(writer: InitWriter | undefined, itemType: "folder" | "file", displayPath: string): void {
-  writeLine(writer, `${chalk.bgWhite.black("[Log]")} Creating ${itemType}: ${chalk.yellow(displayPath)}`);
+  writeLine(writer, `${ansi.blackOnWhite("[Log]")} Creating ${itemType}: ${ansi.yellow(displayPath)}`);
 }
 
-function addDirectory(
-  plan: InitPlan,
-  fileSystem: InitFileSystemState,
-  path: string,
-  displayPath: string,
-): boolean {
+function addDirectory(plan: InitPlan, fileSystem: InitFileSystemState, path: string, displayPath: string): boolean {
   if (fileSystem.exists(path)) {
     plan.skips.push({ displayPath, path, reason: "already-exists", type: "directory" });
     return false;
@@ -120,13 +115,7 @@ export function createInitPlan({
   const exampleFileLocation = join(testFolder, "example.spec.ts");
   const exampleFileSource = join(templateDirectory, "example.spec.ts");
   if (createsTestFolder) {
-    addFile(
-      plan,
-      fileSystem,
-      exampleFileLocation,
-      "./assembly/__tests__/example.spec.ts",
-      exampleFileSource,
-    );
+    addFile(plan, fileSystem, exampleFileLocation, "./assembly/__tests__/example.spec.ts", exampleFileSource);
   } else if (testFolderExists) {
     plan.skips.push({
       displayPath: "./assembly/__tests__/example.spec.ts",
@@ -195,7 +184,7 @@ export async function init({
   writer = process.stdout,
 }: InitOptions = {}): Promise<void> {
   writeLine(writer);
-  writeLine(writer, `${chalk.bgWhite.black("[Log]")} Initializing test suite files.`);
+  writeLine(writer, `${ansi.blackOnWhite("[Log]")} Initializing test suite files.`);
   writeLine(writer);
 
   const plan = createInitPlan({ cwd, fileSystem, templateDirectory });

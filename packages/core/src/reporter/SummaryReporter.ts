@@ -12,7 +12,7 @@ import {
 } from "./SuiteReportFactory.js";
 import type { LegacySuiteReportFacts } from "./LegacyReporterAdapter.js";
 import { TestNode } from "../test/TestNode.js";
-import chalk from "chalk";
+import { ansi } from "../util/ansi.js";
 
 /**
  * This test reporter should be used when logging output and test validation only needs happen on
@@ -76,7 +76,7 @@ export class SummaryReporter implements IReporter {
     /** Report if all the groups passed. */
     if (report.pass) {
       this.stdout!.write(
-        chalk.green.bold(`✔ ${report.fileName} `) +
+        ansi.boldGreen(`✔ ${report.fileName} `) +
           `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${report.todoCount.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
@@ -93,7 +93,7 @@ export class SummaryReporter implements IReporter {
       }
     } else {
       this.stdout!.write(
-        chalk.red.bold(`❌ ${report.fileName} `) +
+        ansi.boldRed(`❌ ${report.fileName} `) +
           `Pass: ${passCount.toString()} / ${total.toString()} Todo: ${report.todoCount.toString()} Time: ${deltaT.toString()}ms\n`,
       );
 
@@ -101,11 +101,11 @@ export class SummaryReporter implements IReporter {
       for (const group of groups) {
         /* istanbul ignore next */
         if (group.pass) continue;
-        this.stdout!.write("  " + chalk.red.bold(`Failed:`) + ` ${group.name}\n`);
+        this.stdout!.write("  " + ansi.boldRed(`Failed:`) + ` ${group.name}\n`);
 
         /** Display the reason if there is one. */
         // if (group.reason)
-        //   this.stdout!.write(chalk`    {yellow Reason:} ${group.reason}`);
+        //   this.stdout!.write(`    Reason: ${group.reason}`);
 
         /** Log each log item in the failed group. */
         /* istanbul ignore next */
@@ -115,15 +115,15 @@ export class SummaryReporter implements IReporter {
 
         inner: for (const test of group.tests) {
           if (test.pass) continue inner;
-          this.stdout!.write(chalk.red.bold(`    ❌ ${test.name}`) + ` - ${test.message}\n`);
+          this.stdout!.write(ansi.boldRed(`    ❌ ${test.name}`) + ` - ${test.message}\n`);
           if (test.actualValue !== null)
             this.stdout!.write(
-              chalk.red.bold(`      [Actual]  :`) + ` ${test.actualValue.stringify({ indent: 2 }).trimStart()}\n`,
+              ansi.boldRed(`      [Actual]  :`) + ` ${test.actualValue.stringify({ indent: 2 }).trimStart()}\n`,
             );
           if (test.expectedValue !== null) {
             const expected = test.expectedValue;
             this.stdout!.write(
-              chalk.green.bold(`      [Expected]:`) +
+              ansi.boldGreen(`      [Expected]:`) +
                 ` ${expected.negated ? "Not " : ""}${expected.stringify({ indent: 2 }).trimStart()}\n`,
             );
           }
@@ -138,13 +138,13 @@ export class SummaryReporter implements IReporter {
     // There are no warnings left in the as-pect test suite software
     for (const warning of report.warnings) {
       /* istanbul ignore next */
-      this.stdout!.write(chalk.yellow(` [Warning]`) + `: ${warning.type} -> ${warning.message}\n`);
+      this.stdout!.write(ansi.yellow(` [Warning]`) + `: ${warning.type} -> ${warning.message}\n`);
       /* istanbul ignore next */
       const stack = warning.stackTrace.trim();
       /* istanbul ignore next */
       if (stack) {
         this.stdout!.write(
-          chalk.yellow(`   [Stack]`) + ": " + chalk.yellow(`${stack.split("\n").join("\n      ")}`) + "\n",
+          ansi.yellow(`   [Stack]`) + ": " + ansi.yellow(`${stack.split("\n").join("\n      ")}`) + "\n",
         );
       }
       /* istanbul ignore next */
@@ -152,14 +152,14 @@ export class SummaryReporter implements IReporter {
     }
 
     for (const error of report.errors) {
-      this.stdout!.write(`${chalk.red(`   [Error]`)}: ${error.type} ${error.message}\n`);
+      this.stdout!.write(`${ansi.red(`   [Error]`)}: ${error.type} ${error.message}\n`);
       this.stdout!.write(
-        `${chalk.red(`   [Stack]`)}: ${chalk.yellow(`${error.stackTrace.split("\n").join("\n           ")}\n\n`)}`,
+        `${ansi.red(`   [Stack]`)}: ${ansi.yellow(`${error.stackTrace.split("\n").join("\n           ")}\n\n`)}`,
       );
     }
 
     for (const change of report.snapshotChanges) {
-      this.stdout!.write(`${chalk.red("[Snapshot]")}: ${change.name}\n`);
+      this.stdout!.write(`${ansi.red("[Snapshot]")}: ${change.name}\n`);
       this.writeSnapshotLines(change.lines);
       this.stdout!.write("\n");
     }
@@ -180,9 +180,9 @@ export class SummaryReporter implements IReporter {
   private writeSnapshotLines(lines: SnapshotReportLine[]): void {
     for (const line of lines) {
       if (line.type === "added") {
-        this.stdout!.write(chalk.green(`+ ${line.value}\n`));
+        this.stdout!.write(ansi.green(`+ ${line.value}\n`));
       } else if (line.type === "removed") {
-        this.stdout!.write(`${chalk.red(`- ${line.value}`)}\n`);
+        this.stdout!.write(`${ansi.red(`- ${line.value}`)}\n`);
       } else {
         this.stdout!.write(`  ${line.value}\n`);
       }
@@ -196,6 +196,6 @@ export class SummaryReporter implements IReporter {
    */
   public onLog(logValue: ReflectedValue): void {
     const output = logValue.stringify({ indent: 12 }).trimLeft();
-    this.stdout!.write(chalk.yellow(`     [Log]:`) + ` ${output}\n`);
+    this.stdout!.write(ansi.yellow(`     [Log]:`) + ` ${output}\n`);
   }
 }
