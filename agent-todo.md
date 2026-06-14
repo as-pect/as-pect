@@ -41,21 +41,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** A Class reflection generation module should own traversal decisions, collision checks, Class-member plan facts, generated strict equality methods, generated key/value methods, generated interface methods, and shared AST vocabulary.
 
-### Slice E4-S1 — Characterize generated output for fields, getters, inheritance, and interfaces
-
-- **Epic:** E4
-- **Scope:** Add transform tests that pin the behavior of generated class and interface reflection members before refactoring.
-- **Files:** `packages/transform/__tests__/ClassReflectionTransform.test.js`
-- **Tests to add/update:**
-  - instance fields are included
-  - instance getters are included
-  - static members are excluded
-  - inherited duplicate names are ignored through hash lists
-  - interfaces receive reflection member declarations
-  - local `@operator("==")` generates the equality marker
-- **Done when:** transform behavior is well-characterized independent of implementation shape.
-- **Validation:** focused transform tests.
-
 ### Slice E4-S2 — Extract shared AST type/parameter helpers
 
 - **Epic:** E4
@@ -333,8 +318,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
-2. **E5-S1** — Add direct Snapshot lifecycle update-plan tests.
-3. **E5-S2** — Add snapshot parser error coverage.
+1. **E5-S1** — Add direct Snapshot lifecycle update-plan tests.
+2. **E5-S2** — Add snapshot parser error coverage.
+3. **E5-S3** — Keep Suite report snapshot facts independent from diff internals.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.

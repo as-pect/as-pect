@@ -14,6 +14,10 @@ import {
 } from "../lib/ClassReflectionTransform.js";
 import { createAddReflectedValueKeyValuePairsMember } from "../lib/createAddReflectedValueKeyValuePairsMember.js";
 import { createHasEqualsOperatorMember, createStrictEqualsMember } from "../lib/createStrictEqualsMember.js";
+import {
+  createInterfaceAddReflectedValueKeyValuePairsMember,
+  createInterfaceStrictEqualsMember,
+} from "../lib/createInterfaceReflectionMembers.js";
 
 function parseClass(sourceText, className) {
   const parser = new Parser();
@@ -126,6 +130,18 @@ function countInterfaceMethods(interfaceDeclaration, name) {
   ).length;
 }
 
+function findGeneratedMethod(declaration, name) {
+  const method = declaration.members.find(
+    (member) => member.kind === NodeKind.MethodDeclaration && member.name.text === name,
+  );
+  assert.ok(method, `Expected ${declaration.name.text} to have generated method ${name}`);
+  return method;
+}
+
+function buildGeneratedMethod(declaration, name) {
+  return ASTBuilder.build(findGeneratedMethod(declaration, name));
+}
+
 test("class-member plan includes instance fields and getters in source order", () => {
   const entries = getPlanEntries(
     `class MixedMembers {
@@ -191,6 +207,14 @@ test("class reflection transform augments interfaces with reflection contracts",
   const interfaceDeclaration = findParsedInterface(parser, "ComparableValue");
   assert.equal(countInterfaceMethods(interfaceDeclaration, STRICT_EQUALS_MEMBER_NAME), 1);
   assert.equal(countInterfaceMethods(interfaceDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME), 1);
+  assert.equal(
+    buildGeneratedMethod(interfaceDeclaration, STRICT_EQUALS_MEMBER_NAME),
+    "public __aspectStrictEquals(rawRef: Object, stack: Array<usize>, cache: Array<usize>, ignore: StaticArray<i64>): bool",
+  );
+  assert.equal(
+    buildGeneratedMethod(interfaceDeclaration, ADD_REFLECTED_VALUE_KEY_VALUE_PAIRS_MEMBER_NAME),
+    "public __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, ignore: StaticArray<i64>): void",
+  );
 });
 
 test("class reflection transform is idempotent for interface reflection contracts", () => {
@@ -253,12 +277,25 @@ test("class reflection transform generates inherited equality marker for classes
   const parser = parseSource(`class UsesEquals {
     @operator("==")
     protected __equals(other: UsesEquals): bool { return true; }
+  }
+
+  class UsesStructuralEquality {
+    value: i32 = 1;
   }`);
 
   transformParsedSource(parser);
 
   const classDeclaration = findParsedClass(parser, "UsesEquals");
   assert.equal(countClassMethods(classDeclaration, HAS_EQ_OPERATOR_MEMBER_NAME), 1);
+  assert.equal(
+    buildGeneratedMethod(classDeclaration, HAS_EQ_OPERATOR_MEMBER_NAME),
+    `protected __aspectHasEqOperator(): bool {
+  return true;
+}`,
+  );
+
+  const structuralClassDeclaration = findParsedClass(parser, "UsesStructuralEquality");
+  assert.equal(countClassMethods(structuralClassDeclaration, HAS_EQ_OPERATOR_MEMBER_NAME), 0);
 });
 
 test("class reflection transform rejects user-defined equality marker collisions", () => {
@@ -269,6 +306,44 @@ test("class reflection transform rejects user-defined equality marker collisions
   assert.throws(
     () => transformParsedSource(parser),
     /Cannot generate __aspectHasEqOperator for class UserCollision because that member already exists\./,
+  );
+});
+
+test("generated members include instance fields and getters while excluding static members", () => {
+  const classDeclaration = parseClass(
+    `class CharacterizedMembers {
+      instanceField: i32 = 1;
+      static staticField: i32 = 2;
+      get instanceGetter(): string { return "ok"; }
+      static get staticGetter(): i32 { return 3; }
+      utilityMethod(): void {}
+    }`,
+    "CharacterizedMembers",
+  );
+
+  const strictEqualsSource = ASTBuilder.build(createStrictEqualsMember(classDeclaration));
+  const reflectedPairsSource = ASTBuilder.build(createAddReflectedValueKeyValuePairsMember(classDeclaration));
+
+  assertInOrder(strictEqualsSource, ["this.instanceField", "this.instanceGetter"]);
+  assertInOrder(reflectedPairsSource, ['"instanceField"', '"instanceGetter"']);
+  assert.doesNotMatch(strictEqualsSource, /staticField|staticGetter|utilityMethod/);
+  assert.doesNotMatch(reflectedPairsSource, /staticField|staticGetter|utilityMethod/);
+});
+
+test("generated interface reflection declarations pin runtime method signatures", () => {
+  const interfaceDeclaration = findParsedInterface(
+    parseSource(`interface ReflectedContract<T> {
+    }`),
+    "ReflectedContract",
+  );
+
+  assert.equal(
+    ASTBuilder.build(createInterfaceStrictEqualsMember(interfaceDeclaration)),
+    "public __aspectStrictEquals(rawRef: Object, stack: Array<usize>, cache: Array<usize>, ignore: StaticArray<i64>): bool",
+  );
+  assert.equal(
+    ASTBuilder.build(createInterfaceAddReflectedValueKeyValuePairsMember(interfaceDeclaration)),
+    "public __aspectAddReflectedValueKeyValuePairs(reflectedValue: i32, seen: Map<usize, i32>, ignore: StaticArray<i64>): void",
   );
 });
 
@@ -286,7 +361,12 @@ test("generated strict equality delegates to equality operator marker before str
   const strictEqualsSource = ASTBuilder.build(createStrictEqualsMember(classDeclaration));
 
   assert.match(markerSource, /protected __aspectHasEqOperator\(\): bool/);
-  assertInOrder(strictEqualsSource, ["const ref: UsesEquals", "isDefined(this.__aspectHasEqOperator)", "return this == ref", "this.value"]);
+  assertInOrder(strictEqualsSource, [
+    "const ref: UsesEquals",
+    "isDefined(this.__aspectHasEqOperator)",
+    "return this == ref",
+    "this.value",
+  ]);
 });
 
 test("class reflection transform rejects user-defined reflected-pairs method collisions", () => {
