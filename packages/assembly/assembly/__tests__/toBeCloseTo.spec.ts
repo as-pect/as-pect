@@ -21,6 +21,18 @@ describe("toBeCloseTo", () => {
     "1.000001 is close to 1.0, and should throw",
   );
 
+  it("should expect values within half of the decimal-place unit", () => {
+    expect(1.0).toBeCloseTo(1.004, 2, "1.004 rounds to the same hundredth as 1.0");
+  });
+
+  throws(
+    "should throw when values differ by more than half of the decimal-place unit",
+    () => {
+      expect(1.0).toBeCloseTo(1.006, 2);
+    },
+    "1.006 rounds to a different hundredth than 1.0, and should throw",
+  );
+
   /**
    * This test verifies that a value is not close to an expected value of a
    * much higher magnitude.

@@ -459,9 +459,9 @@ export class Expectation<T> {
       "toBeCloseTo assertion fails because expected value is not finite.",
     );
 
-    // calculated: `|expected - actual| < 1 / numberOfDigits`.
+    // Values are close when they are within half of the requested decimal-place unit.
     // @ts-ignore tooling errors because T does not extend a numeric value type. This compiles just fine.
-    let isClose = i32(abs(expected - actual) < Math.pow(10, -decimalPlaces));
+    let isClose = i32(abs(expected - actual) < 0.5 * Math.pow(10, -decimalPlaces));
     assert(negated ^ isClose, message);
     Actual.clear();
     Expected.clear();

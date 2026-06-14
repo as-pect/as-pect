@@ -329,16 +329,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S8 — Align `toBeCloseTo` tolerance with decimal-place semantics
-
-- **Epic:** E13
-- **Problem:** `Expectation.toBeCloseTo()` currently checks `abs(expected - actual) < Math.pow(10, -decimalPlaces)`, which is looser than common Jest-style decimal-place semantics. At `decimalPlaces = 2`, differences under `0.01` pass even when they round to different hundredths.
-- **Files:** `packages/assembly/assembly/internal/Expectation.ts`, `packages/assembly/assembly/__tests__/toBeCloseTo.spec.ts`, type docs if wording needs clarification
-- **Fix:** Use half-unit decimal tolerance, e.g. `abs(expected - actual) < 0.5 * Math.pow(10, -decimalPlaces)`, unless maintainers intentionally choose and document the looser epsilon. Update documentation to match the chosen behavior.
-- **Tests to add/update:** Add boundary cases around `decimalPlaces = 2`, including a difference that is below `0.01` but above/equal to half the hundredth unit and should fail under Jest-compatible semantics.
-- **Done when:** `toBeCloseTo` behavior and documentation agree on decimal-place tolerance.
-- **Validation:** `npm run test:ci --workspace @as-pect/assembly`.
-
 ### Slice E13-S9 — Correct the `toBeFinite` non-float compile-time error message
 
 - **Epic:** E13
@@ -363,8 +353,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S8** — Align `toBeCloseTo` tolerance with decimal-place semantics.
-2. **E13-S9** — Correct the `toBeFinite` non-float compile-time error message.
-3. **E13-S10** — Use stable TestNode namespaces for snapshot keys.
+1. **E13-S9** — Correct the `toBeFinite` non-float compile-time error message.
+2. **E13-S10** — Use stable TestNode namespaces for snapshot keys.
+3. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.

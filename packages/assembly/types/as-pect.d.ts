@@ -479,8 +479,8 @@ declare class Expectation<T> {
    * and T must extend f64 or f32.
    *
    * @param {T extends f64 | f32} value - The expected value to be close to.
-   * @param {i32} decimalPlaces - The number of decimal places used to calculate epsilon. Default is
-   * 2.
+   * @param {i32} decimalPlaces - The number of decimal places used to calculate the half-unit
+   * decimal tolerance. Default is 2.
    * @param {string} message - The optional message that describes this expectation.
    *
    * @example
