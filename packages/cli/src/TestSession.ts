@@ -5,15 +5,21 @@ import { glob as defaultGlob } from "glob";
 import { main as asc } from "assemblyscript/dist/asc.js";
 import { instantiate } from "@assemblyscript/loader";
 import { SuiteReport, TestContext, type IWritable } from "@as-pect/core";
-import type { SnapshotLifecycleStats } from "@as-pect/snapshots";
 import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
 import { createCompilerIoAdapter, createCompilerIoCache, type AssemblyScriptCompilerIo } from "./CompilerIo.js";
 import { extractCompilerOutput } from "./CompilerOutput.js";
 import { importLocalModule } from "./importLocalModule.js";
 import { planTestSessionEntries } from "./TestSessionEntries.js";
+import {
+  accumulateTestSessionSuiteStats,
+  createInitialTestSessionStats,
+  type TestSessionStats,
+} from "./TestSessionStats.js";
 import { planTestSessionSnapshots, SnapshotMode } from "./TestSessionSnapshots.js";
 
+export { accumulateTestSessionSnapshotStats } from "./TestSessionStats.js";
+export type { TestSessionStats } from "./TestSessionStats.js";
 export { SnapshotMode } from "./TestSessionSnapshots.js";
 
 export interface TestSessionCliOptions {
@@ -36,19 +42,6 @@ export interface TestSessionCliOptions {
   updateSnapshots?: boolean;
   verbose?: boolean;
   wasi?: string;
-}
-
-export interface TestSessionStats {
-  addedSnapshots: number;
-  changedSnapshots: number;
-  removedSnapshots: number;
-  passedSnapshots: number;
-  totalSnapshots: number;
-  groups: number;
-  passedGroups: number;
-  tests: number;
-  passedTests: number;
-  pass: boolean;
 }
 
 export interface TestSessionConfig {
@@ -149,21 +142,6 @@ export interface CreateTestSessionConfigOptions {
   stdout?: NodeJS.WritableStream;
 }
 
-function createInitialStats(): TestSessionStats {
-  return {
-    addedSnapshots: 0,
-    changedSnapshots: 0,
-    removedSnapshots: 0,
-    passedSnapshots: 0,
-    totalSnapshots: 0,
-    groups: 0,
-    passedGroups: 0,
-    tests: 0,
-    passedTests: 0,
-    pass: true,
-  };
-}
-
 function writeLog(stdout: IWritable, str: string): void {
   stdout.write(chalk.bgWhite.black("[Log]") + `${str}\n`);
 }
@@ -253,17 +231,6 @@ export function createTestSessionConfig({
   };
 }
 
-export function accumulateTestSessionSnapshotStats(
-  testSessionStats: TestSessionStats,
-  snapshotLifecycleStats: SnapshotLifecycleStats,
-): void {
-  testSessionStats.totalSnapshots += snapshotLifecycleStats.totalSnapshots;
-  testSessionStats.passedSnapshots += snapshotLifecycleStats.passedSnapshots;
-  testSessionStats.addedSnapshots += snapshotLifecycleStats.addedSnapshots;
-  testSessionStats.changedSnapshots += snapshotLifecycleStats.changedSnapshots;
-  testSessionStats.removedSnapshots += snapshotLifecycleStats.removedSnapshots;
-}
-
 export function formatTestSessionSummary(result: Pick<TestSessionResult, "pass" | "stats">): string {
   const { stats } = result;
   return `
@@ -300,7 +267,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
   } = config;
 
   const compilerIoCache = createCompilerIoCache();
-  const stats = createInitialStats();
+  const stats = createInitialTestSessionStats();
 
   const { compile, fileSystem, glob } = dependencies;
   const collectReporter = dependencies.collectReporter ?? defaultCollectReporter;
@@ -408,24 +375,27 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     ctx.run(module as any);
     await reporter.onFlush?.();
 
-    if (!SuiteReport.from(ctx).hasResults) continue;
+    const suiteReport = SuiteReport.from(ctx);
+    if (!suiteReport.hasResults) continue;
 
-    stats.groups += ctx.groupCount;
-    stats.tests += ctx.testCount;
-    stats.passedGroups += ctx.groupPassCount;
-    stats.passedTests += ctx.testPassCount;
-    stats.pass = stats.pass && ctx.pass;
+    const suiteStatsFacts = {
+      groups: suiteReport.groupCount,
+      hasResults: suiteReport.hasResults,
+      pass: suiteReport.pass,
+      passedGroups: suiteReport.groupPassCount,
+      passedTests: suiteReport.testPassCount,
+      tests: suiteReport.testCount,
+    };
 
     if (snapshotPlan.mode === SnapshotMode.CompareSnapshots) {
       const expectedSnapshots = ctx.expectedSnapshots;
       const snapshotLifecycle = ctx.snapshotLifecycle!;
-      const snapshotStats = snapshotLifecycle.stats;
       const updatePlan = snapshotLifecycle.updatePlan;
 
-      accumulateTestSessionSnapshotStats(stats, snapshotStats);
-
+      accumulateTestSessionSuiteStats(stats, { ...suiteStatsFacts, snapshotStats: snapshotLifecycle.stats });
       await snapshotPlan.applySnapshotWrites({ expectedSnapshots, updatePlan });
     } else {
+      accumulateTestSessionSuiteStats(stats, suiteStatsFacts);
       await snapshotPlan.applySnapshotWrites({ actualSnapshots: ctx.snapshots, rootPassed: ctx.rootNode.pass });
     }
   }

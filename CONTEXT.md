@@ -24,6 +24,10 @@ _Avoid_: Build result blob, emitted file map
 The per-entry snapshot file path, expected snapshot loading, compare/write mode, and write/update decisions for a Test session entry.
 _Avoid_: Snapshot file helper, snapshot path utility
 
+**Test session stats accumulator**:
+The aggregate Test session stats seam that folds completed suite facts and snapshot lifecycle stats into the session summary.
+_Avoid_: Stats helper, counter updater
+
 **Test suite**:
 The collected tests and groups for a single AssemblyScript test binary.
 _Avoid_: Spec bundle, test file model

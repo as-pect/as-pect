@@ -38,19 +38,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `runTestSession()` should coordinate high-level Test session flow. Per-entry behavior should live behind a Test session entry module with focused helpers/adapters and test coverage at that seam.
 
-### Slice E1-S6 — Extract per-suite stats accumulation
-
-- **Epic:** E1
-- **Scope:** Move Test session stats updates into a single module/function that accepts suite report facts and snapshot lifecycle facts.
-- **Files:** `packages/cli/src/TestSession.ts`, optional new `packages/cli/src/TestSessionStats.ts`
-- **Tests to add/update:**
-  - empty suites do not affect aggregate stats
-  - group/test pass counts aggregate correctly
-  - snapshot stats aggregate correctly in compare mode
-  - failed suite flips aggregate `pass` to false and stays false
-- **Done when:** stats mutation is no longer spread across the main per-entry loop.
-- **Validation:** focused CLI package tests.
-
 ### Slice E1-S7 — Extract WASI option resolution
 
 - **Epic:** E1
