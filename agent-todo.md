@@ -329,16 +329,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S9 — Correct the `toBeFinite` non-float compile-time error message
-
-- **Epic:** E13
-- **Problem:** `Expectation.toBeFinite()` reports `toBeNaN must be called with a Float value type T.` when invoked on a non-float type.
-- **Files:** `packages/assembly/assembly/internal/Expectation.ts`, assembly expectation tests if compile-error coverage exists
-- **Fix:** Change the diagnostic to name `toBeFinite`.
-- **Tests to add/update:** If the project has compile-error assertion coverage, pin the corrected message; otherwise treat as a focused source-only diagnostic fix.
-- **Done when:** invalid `toBeFinite` usage points users at the correct matcher.
-- **Validation:** `npm run tsc:all --workspace @as-pect/assembly` and `npm run test:ci --workspace @as-pect/assembly`.
-
 ### Slice E13-S10 — Use stable TestNode namespaces for snapshot keys
 
 - **Epic:** E13
@@ -353,8 +343,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S9** — Correct the `toBeFinite` non-float compile-time error message.
-2. **E13-S10** — Use stable TestNode namespaces for snapshot keys.
-3. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
+1. **E13-S10** — Use stable TestNode namespaces for snapshot keys.
+2. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
+3. **E5-S1** — Add direct Snapshot lifecycle update-plan tests.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.

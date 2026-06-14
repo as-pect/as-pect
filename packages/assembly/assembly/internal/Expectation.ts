@@ -493,7 +493,7 @@ export class Expectation<T> {
     // must be called on a float T
     if (!isFloat(actual))
       // @as-covers: ignore because this is a compile time error
-      ERROR("toBeNaN must be called with a Float value type T.");
+      ERROR("toBeFinite must be called with a Float value type T.");
     Actual.report(actual);
     Expected.reportFinite(negated);
 
