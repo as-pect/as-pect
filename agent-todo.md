@@ -45,15 +45,6 @@ When updating this file after a maintenance change:
 
 **Validation:** run the Biome format/check command, package typechecks, and focused tests for any touched package.
 
-### Slice E7-S2 — Move active check scripts to Biome
-
-- **Epic:** E7
-- **Scope:** Replace active root formatting/lint scripts with Biome-backed commands while preserving clear commands for formatting and static checking.
-- **Files:** `package.json`, package docs or validation docs if they mention `npm run check`, Biome configuration file
-- **Tests to add/update:** none
-- **Done when:** `npm run check` and the documented formatting command no longer call ESLint or Prettier.
-- **Validation:** `npm run check`, package typechecks, and focused package tests for any changed source formatting.
-
 ### Slice E7-S3 — Remove ESLint and Prettier toolchain files and dependencies
 
 - **Epic:** E7
@@ -156,7 +147,6 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E7-S2** — Move active check scripts to Biome.
-2. **E7-S3** — Remove ESLint and Prettier toolchain files and dependencies.
+1. **E7-S3** — Remove ESLint and Prettier toolchain files and dependencies.
 
 This sequence keeps the remaining Biome migration reviewable in smaller steps.

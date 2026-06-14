@@ -14,7 +14,7 @@ import { createTestSessionConfig, formatTestSessionSummary, SnapshotMode, TestSe
 
 export function createCliProgram(): Command {
   // set the cli options
-  // prettier-ignore
+  // biome-ignore format: keep the Commander chain compact until the local parser replaces it.
   return new Command()
     .argument("[globs...]", "Test entry globs")
     .option("-n, --no-logo", "Don't display the as-pect logo.")

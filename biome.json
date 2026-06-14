@@ -32,7 +32,7 @@
     "indentWidth": 2,
     "lineEnding": "lf",
     "lineWidth": 120,
-    "includes": ["**/*.md", "!.pi"]
+    "includes": ["**/src/**/*.ts", "**/*.md", "!.pi"]
   },
   "linter": {
     "enabled": true,
