@@ -117,6 +117,42 @@ When updating this file after a maintenance change:
 
 **Validation:** focused CLI tests, core reporter tests, and reporter package tests if output contracts change.
 
+### Slice E8-S1 — Characterize CLI and reporter color contracts
+
+- **Epic:** E8
+- **Scope:** Add focused semantic tests for the colorized CLI/reporter output that must stay readable after Chalk is removed, including disabled-color behavior if the current seams expose it.
+- **Files:** CLI and core reporter tests, possible ANSI snapshot/semantic fixtures
+- **Tests to add/update:** CLI output and core reporter color contract tests
+- **Done when:** the user-visible color behavior that should survive Chalk removal is covered without changing runtime behavior.
+- **Validation:** focused CLI color/output tests and core reporter tests.
+
+### Slice E8-S2 — Replace CLI Chalk usage with a local ANSI helper
+
+- **Epic:** E8
+- **Scope:** Introduce or reuse a small local ANSI helper for `@as-pect/cli` and replace CLI imports of Chalk/chalk-template without changing documented command behavior.
+- **Files:** `packages/cli/src/index.ts`, `packages/cli/src/init.ts`, `packages/cli/src/asciiArt.ts`, CLI ANSI helper/tests
+- **Tests to add/update:** keep E8-S1 CLI characterization tests passing; add helper tests only for non-trivial formatting logic.
+- **Done when:** checked-in CLI source no longer imports Chalk or chalk-template.
+- **Validation:** focused CLI tests plus CLI typecheck.
+
+### Slice E8-S3 — Replace core reporter Chalk usage with a local ANSI helper
+
+- **Epic:** E8
+- **Scope:** Introduce or reuse a small local ANSI helper for `@as-pect/core` reporter output and replace direct Chalk imports in reporters/stringification.
+- **Files:** `packages/core/src/reporter/VerboseReporter.ts`, `packages/core/src/reporter/SummaryReporter.ts`, `packages/core/src/util/stringifyReflectedValue.ts`, core ANSI helper/tests
+- **Tests to add/update:** keep E8-S1 reporter characterization tests passing; add helper tests only for non-trivial formatting logic.
+- **Done when:** checked-in core source no longer imports Chalk.
+- **Validation:** focused core reporter tests plus core typecheck.
+
+### Slice E8-S4 — Remove Chalk dependencies after CLI and core migrate
+
+- **Epic:** E8
+- **Scope:** Remove the direct Chalk/chalk-template dependency declarations and lockfile entries once runtime source no longer imports them.
+- **Files:** `packages/cli/package.json`, `packages/core/package.json`, `package-lock.json`
+- **Tests to add/update:** none
+- **Done when:** `@as-pect/cli` and `@as-pect/core` no longer declare Chalk/chalk-template directly, and checked-in source has no Chalk imports.
+- **Validation:** focused CLI tests, core reporter tests, `npm run tsc --workspace @as-pect/core`, and CLI typecheck.
+
 ---
 
 ## Epic E9 — Remove Rimraf
