@@ -196,31 +196,6 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E11 — Remove Chevrotain
-
-**Goal:** Remove `chevrotain` from the snapshots package by replacing the snapshot parser with a small local parser tailored to as-pect snapshot syntax.
-
-**Primary files:**
-
-- `packages/snapshots/src/Snapshot.ts`
-- `packages/snapshots/__tests__/snapshot.spec.ts`
-- snapshot fixtures under `packages/snapshots/__tests__/__snapshots__/`
-
-**Done when:** `chevrotain` is no longer a direct dependency, snapshot parsing/stringifying behavior remains compatible, and parse errors remain useful for callers.
-
-**Validation:** focused snapshots package tests, core snapshot/reporting tests, and CLI snapshot tests.
-
-### Slice E11-S3 — Remove Chevrotain dependency after parser replacement
-
-- **Epic:** E11
-- **Scope:** Remove the direct Chevrotain dependency and any obsolete parser generation artifacts once the local parser is active.
-- **Files:** `packages/snapshots/package.json`, `package-lock.json`, obsolete parser files
-- **Tests to add/update:** none
-- **Done when:** no checked-in source imports Chevrotain and package metadata no longer declares it directly.
-- **Validation:** snapshots package tests plus core and CLI snapshot tests.
-
----
-
 ## Epic E12 — Remove Commander
 
 **Goal:** Remove `commander` from the CLI by replacing option parsing with a small local parser that supports the documented `asp`/`aspect` command surface.
