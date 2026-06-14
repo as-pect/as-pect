@@ -338,10 +338,129 @@ When updating this file after a maintenance change:
 
 ---
 
+## Epic E13 — Repair core and assembly correctness bugs from June 2026 bug scan
+
+**Goal:** Fix confirmed correctness issues found in `@as-pect/core` and `@as-pect/assembly` without bundling unrelated architecture or dependency work.
+
+**Primary files:**
+
+- `packages/core/src/test/TestContext.ts`
+- `packages/core/src/test/TestNode.ts`
+- `packages/core/src/reporter/SuiteReportFactory.ts`
+- `packages/core/src/reporter/VerboseReporter.ts`
+- `packages/core/src/reporter/SummaryReporter.ts`
+- `packages/core/src/util/stringifyReflectedValue.ts`
+- `packages/assembly/assembly/internal/Expectation.ts`
+- core and assembly tests around lifecycle, reporter facts, stringification, snapshots, and expectations
+
+**Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
+
+### Slice E13-S1 — Do not run hooks for filtered-out tests
+
+- **Epic:** E13
+- **Problem:** Filtered-out tests still run parent `beforeEach` and `afterEach` hooks. `TestContext.visit(child)` applies `testRegex` inside the child visit, but the parent traversal already calls hooks before and after that visit.
+- **Files:** `packages/core/src/test/TestContext.ts`, `packages/core/__tests__/TestGroupFilter.spec.ts`, possible filter fixture under `packages/core/assembly/`
+- **Fix:** Decide whether a child test matches the active test filter before running per-test hooks. A skipped child should be marked/pass-preserved consistently with current filtering behavior, but no before/after hooks should execute for it.
+- **Tests to add/update:** A filtered-out test whose `beforeEach` or `afterEach` would fail/mutate state must not run those hooks; matching tests should still run hooks in the existing parent-to-child and child-to-parent order.
+- **Done when:** focused test filtering no longer runs hooks for excluded tests and existing group/test filter behavior remains stable, including stateful regex reset behavior.
+- **Validation:** `npm run test:ci --workspace @as-pect/core`.
+
+### Slice E13-S2 — Report todo-only groups and root-level todos correctly
+
+- **Epic:** E13
+- **Problem:** Todo-only groups and root-level todos are lost or underreported. `createGroupReport()` sets `hasChildren` from `group.children.length`, `collectResults()` skips groups without children, `VerboseReporter.writeGroupFinish()` returns before printing todos when `group.tests.length === 0`, and `SuiteReport.todoCount` is recalculated only from child groups even though `TestContext.todoCount` includes root todos.
+- **Files:** `packages/core/src/reporter/SuiteReportFactory.ts`, `packages/core/src/reporter/VerboseReporter.ts`, `packages/core/src/reporter/SummaryReporter.ts`, `packages/core/src/test/TestContext.ts`, reporter semantic tests, suite report factory tests
+- **Fix:** Treat todos as reportable results even when a group has no test children. Include root-level todos in suite facts or explicitly model them so `SuiteReport.todoCount`, `SuiteReport.results`, and reporter output agree with `TestContext.todoCount`. Ensure verbose output prints todos for todo-only groups.
+- **Tests to add/update:** Suite report tests for a todo-only group and a root-level todo; verbose and summary reporter tests that prove todo-only output is visible and counts are correct.
+- **Done when:** structured report facts and reporter output include todo-only groups and root-level todos without double-counting nested todos.
+- **Validation:** `npm run test:ci --workspace @as-pect/core`.
+
+### Slice E13-S3 — Use expectation negation in structured expected strings
+
+- **Epic:** E13
+- **Problem:** `SuiteTestReport.expected` uses `test.negated`, which means an `itThrows`/`throws` node, instead of `test.expected.negated`, which means an `expect(...).not` assertion. Failed normal negated assertions can therefore omit `Not` from the structured expected string.
+- **Files:** `packages/core/src/reporter/SuiteReportFactory.ts`, `packages/core/__tests__/SuiteReportFactory.spec.ts`, reporter semantic tests if needed
+- **Fix:** Build the `expected` string from `test.expected.negated` when an expected reflected value exists. Keep `test.negated` available separately for throw-style test nodes.
+- **Tests to add/update:** A failed `expect(...).not` assertion should produce a `SuiteTestReport.expected` string prefixed with `Not`; a throw-style test node should not force unrelated expected values to be negated.
+- **Done when:** modern report facts distinguish test-node negation from expectation negation.
+- **Validation:** `npm run test:ci --workspace @as-pect/core`.
+
+### Slice E13-S4 — Print the real passing group count in VerboseReporter
+
+- **Epic:** E13
+- **Problem:** `VerboseReporter` prints `report.groupCount` as both passing and total groups, so failing suites can display all groups as passing.
+- **Files:** `packages/core/src/reporter/VerboseReporter.ts`, `packages/core/__tests__/VerboseReporter.semantic.spec.ts`
+- **Fix:** Use `report.groupPassCount` for the passing group count and `report.groupCount` for the total group count. Preserve existing output shape except for the corrected number.
+- **Tests to add/update:** A verbose summary for a suite with at least one failing group should render the true passing group count.
+- **Done when:** verbose output no longer claims every group passed when `groupPassCount < groupCount`.
+- **Validation:** `npm run test:ci --workspace @as-pect/core`.
+
+### Slice E13-S5 — Report truncated expanded arrays with the correct remaining count
+
+- **Epic:** E13
+- **Problem:** Expanded array stringification caps `length` to `maxPropertyCount` and then calculates `length - maxPropertyCount`, producing misleading suffixes like `... +0 values` for oversized arrays.
+- **Files:** `packages/core/src/util/stringifyReflectedValue.ts`, stringify/reflected value tests
+- **Fix:** Keep the original value count separate from the displayed count, and calculate the suffix from `originalLength - displayCount`. Only emit the truncation suffix when the original count exceeds `maxPropertyCount`.
+- **Tests to add/update:** A reflected array with more values than `maxPropertyCount` should report the real number of omitted values; an array exactly at the limit should not report `+0 values`.
+- **Done when:** expanded array truncation output is accurate.
+- **Validation:** `npm run test:ci --workspace @as-pect/core`.
+
+### Slice E13-S6 — Preserve as-pect abort messages when wrapping existing abort imports
+
+- **Epic:** E13
+- **Problem:** `TestContext.createImports()` calls a user/import-provided `env.abort` before `this.abort(...args)`. If the previous abort throws, as-pect never captures the AssemblyScript abort reason into `TestContext.message`.
+- **Files:** `packages/core/src/test/TestContext.ts`, `packages/core/__tests__/TestContext.host-callbacks.spec.ts` or pass/fail tests
+- **Fix:** Capture the as-pect abort message before invoking the previous abort, or invoke as-pect capture in a `finally`, so throwing abort imports do not erase assertion diagnostics. Preserve the previous abort's throwing behavior.
+- **Tests to add/update:** A custom `env.abort` that throws should still leave the failed test with the AssemblyScript abort message; non-throwing abort imports should still be called.
+- **Done when:** abort diagnostics are reliable regardless of imported abort behavior.
+- **Validation:** `npm run test:ci --workspace @as-pect/core`.
+
+### Slice E13-S7 — Mark expected values as negated for `toStrictEqual().not`
+
+- **Epic:** E13
+- **Problem:** `Expectation.toStrictEqual()` calls `Expected.report(expected)` without passing `this._not`, so failed `expect(a).not.toStrictEqual(b)` assertions behave correctly but report the expected value as non-negated.
+- **Files:** `packages/assembly/assembly/internal/Expectation.ts`, `packages/assembly/assembly/__tests__/toStrictEqual.spec.ts`, core pass/fail reporter tests if needed
+- **Fix:** Pass `this._not` into `Expected.report(expected, this._not)` in `toStrictEqual()`.
+- **Tests to add/update:** A failing negated strict-equality assertion should expose an expected reflected value with `negated === true` and render `Not` in reporter output where expected values are shown.
+- **Done when:** `toStrictEqual` reports negation consistently with other expectation methods.
+- **Validation:** `npm run test:ci --workspace @as-pect/assembly`; run core reporter/pass-fail tests if reporter output fixtures change.
+
+### Slice E13-S8 — Align `toBeCloseTo` tolerance with decimal-place semantics
+
+- **Epic:** E13
+- **Problem:** `Expectation.toBeCloseTo()` currently checks `abs(expected - actual) < Math.pow(10, -decimalPlaces)`, which is looser than common Jest-style decimal-place semantics. At `decimalPlaces = 2`, differences under `0.01` pass even when they round to different hundredths.
+- **Files:** `packages/assembly/assembly/internal/Expectation.ts`, `packages/assembly/assembly/__tests__/toBeCloseTo.spec.ts`, type docs if wording needs clarification
+- **Fix:** Use half-unit decimal tolerance, e.g. `abs(expected - actual) < 0.5 * Math.pow(10, -decimalPlaces)`, unless maintainers intentionally choose and document the looser epsilon. Update documentation to match the chosen behavior.
+- **Tests to add/update:** Add boundary cases around `decimalPlaces = 2`, including a difference that is below `0.01` but above/equal to half the hundredth unit and should fail under Jest-compatible semantics.
+- **Done when:** `toBeCloseTo` behavior and documentation agree on decimal-place tolerance.
+- **Validation:** `npm run test:ci --workspace @as-pect/assembly`.
+
+### Slice E13-S9 — Correct the `toBeFinite` non-float compile-time error message
+
+- **Epic:** E13
+- **Problem:** `Expectation.toBeFinite()` reports `toBeNaN must be called with a Float value type T.` when invoked on a non-float type.
+- **Files:** `packages/assembly/assembly/internal/Expectation.ts`, assembly expectation tests if compile-error coverage exists
+- **Fix:** Change the diagnostic to name `toBeFinite`.
+- **Tests to add/update:** If the project has compile-error assertion coverage, pin the corrected message; otherwise treat as a focused source-only diagnostic fix.
+- **Done when:** invalid `toBeFinite` usage points users at the correct matcher.
+- **Validation:** `npm run tsc:all --workspace @as-pect/assembly` and `npm run test:ci --workspace @as-pect/assembly`.
+
+### Slice E13-S10 — Use stable TestNode namespaces for snapshot keys
+
+- **Epic:** E13
+- **Problem:** `TestTreeRecorder` creates duplicate-safe `TestNode.namespace` values for snapshot purposes, but `TestContext.reportExpectedSnapshot()` builds snapshot names from only `this.targetNode.name` and the snapshot name. `Snapshot.add()` avoids overwrites by appending indexes, but duplicate test names become order-dependent instead of tied to stable test namespaces.
+- **Files:** `packages/core/src/test/TestContext.ts`, `packages/core/src/test/TestTreeRecorder.ts`, `packages/core/__tests__/TestContext.host-callbacks.spec.ts`, snapshot fixtures in core/assembly if keys intentionally change
+- **Fix:** Build snapshot keys from `this.targetNode.namespace` plus the explicit snapshot name, while planning any compatibility migration for existing snapshot files. If compatibility requires retaining current external keys, document that decision and remove or repurpose the misleading “for snapshot purposes” namespace ownership.
+- **Tests to add/update:** Duplicate test names with snapshots should produce deterministic namespace-derived keys that do not shift when siblings are reordered; existing non-duplicate snapshot behavior should remain understandable or have a documented migration.
+- **Done when:** snapshot key generation either uses stable test namespaces or the code/docs clearly describe why it intentionally does not.
+- **Validation:** `npm run test:ci --workspace @as-pect/core`, `npm run test:ci --workspace @as-pect/assembly`, and focused snapshot update review if fixture names change.
+
+---
+
 ## Suggested first sequence
 
-1. **E3-S7** — Reduce public mutable TestNode access where safe.
-2. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
-3. **E4-S2** — Extract shared AST type/parameter helpers.
+1. **E13-S1** — Do not run hooks for filtered-out tests.
+2. **E13-S2** — Report todo-only groups and root-level todos correctly.
+3. **E13-S3** — Use expectation negation in structured expected strings.
 
-This sequence continues the Wasm host recording locality work now that declaration recording, namespace allocation, and target-node scoping live behind the Test tree recorder.
+This sequence prioritizes confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.
