@@ -19,6 +19,14 @@ function reflectedArray(values: number[]): ReflectedValue {
   return reflected;
 }
 
+function reflectedFloat(value: number): ReflectedValue {
+  const reflected = new ReflectedValue();
+  reflected.type = ReflectedValueType.Float;
+  reflected.typeName = "f64";
+  reflected.value = value;
+  return reflected;
+}
+
 describe("stringifyReflectedValue", () => {
   const plainFormatters = {
     keywordFormatter: identity,
@@ -45,5 +53,12 @@ describe("stringifyReflectedValue", () => {
     });
 
     expect(output).not.toContain("... +0 values");
+  });
+
+  it("does not append a decimal suffix to non-decimal reflected floats", () => {
+    expect(reflectedFloat(Number.NaN).stringify(plainFormatters)).toBe("NaN");
+    expect(reflectedFloat(Number.POSITIVE_INFINITY).stringify(plainFormatters)).toBe("Infinity");
+    expect(reflectedFloat(Number.NEGATIVE_INFINITY).stringify(plainFormatters)).toBe("-Infinity");
+    expect(reflectedFloat(1e21).stringify(plainFormatters)).toBe("1e+21");
   });
 });

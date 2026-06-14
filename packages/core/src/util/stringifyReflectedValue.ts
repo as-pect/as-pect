@@ -105,11 +105,21 @@ function displayClassNoSpacing(reflectedValue: ReflectedValue, ctx: StringifyCon
   return ctx.classNameFormatter(`[${reflectedValue.typeName}]`);
 }
 
-function displayNumberWithSpacing(reflectedValue: ReflectedValue, ctx: StringifyContext): string {
-  let numericString = reflectedValue.value.toString();
-  if (reflectedValue.type === ReflectedValueType.Float && !/\.[0-9]/.test(numericString)) {
+function stringifyNumericValue(reflectedValue: ReflectedValue): string {
+  const numericValue = reflectedValue.value as number;
+  let numericString = numericValue.toString();
+  if (
+    reflectedValue.type === ReflectedValueType.Float &&
+    Number.isFinite(numericValue) &&
+    !/[.eE]/.test(numericString)
+  ) {
     numericString += ".0";
   }
+  return numericString;
+}
+
+function displayNumberWithSpacing(reflectedValue: ReflectedValue, ctx: StringifyContext): string {
+  const numericString = stringifyNumericValue(reflectedValue);
   if (ctx.impliedTypeInfo || reflectedValue.typeName === "i32" || reflectedValue.typeName === "f64") {
     return " ".repeat(ctx.indent + ctx.level * ctx.tab) + ctx.numberFormatter(numericString);
   }
@@ -122,10 +132,7 @@ function displayNumberWithSpacing(reflectedValue: ReflectedValue, ctx: Stringify
 }
 
 function displayNumberNoSpacing(reflectedValue: ReflectedValue, ctx: StringifyContext): string {
-  let numericString = reflectedValue.value.toString();
-  if (reflectedValue.type === ReflectedValueType.Float && !/\.[0-9]/.test(numericString)) {
-    numericString += ".0";
-  }
+  const numericString = stringifyNumericValue(reflectedValue);
   if (ctx.impliedTypeInfo || reflectedValue.typeName === "i32" || reflectedValue.typeName === "f64") {
     return ctx.numberFormatter(numericString);
   }

@@ -26,36 +26,4 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E13 — Repair core and assembly correctness bugs from June 2026 bug scan
-
-**Goal:** Fix confirmed correctness issues found in `@as-pect/core` and `@as-pect/assembly` without bundling unrelated architecture or dependency work.
-
-**Primary files:**
-
-- `packages/core/src/test/TestContext.ts`
-- `packages/core/src/test/TestNode.ts`
-- `packages/core/src/reporter/SuiteReportFactory.ts`
-- `packages/core/src/reporter/VerboseReporter.ts`
-- `packages/core/src/reporter/SummaryReporter.ts`
-- `packages/core/src/util/stringifyReflectedValue.ts`
-- `packages/assembly/assembly/internal/Expectation.ts`
-- core and assembly tests around lifecycle, reporter facts, stringification, snapshots, and expectations
-
-**Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
-
-### Slice E13-S3 — Characterize and fix one reflected-value correctness bug
-
-- **Epic:** E13
-- **Scope:** Reproduce one confirmed bug-scan issue in `stringifyReflectedValue` or reflected-value handling, then make the smallest compatible fix.
-- **Files:** `packages/core/src/util/stringifyReflectedValue.ts`, core reflected-value tests, relevant AssemblyScript fixture if needed
-- **Tests to add/update:** one focused regression test that describes the reflected-value behavior through a public or semantic seam.
-- **Done when:** the reflected-value bug is fixed or the slice is removed/refined because the issue no longer reproduces.
-- **Validation:** focused reflected-value/core test plus `npm run tsc --workspace @as-pect/core`.
-
----
-
-## Suggested first sequence
-
-1. **E13-S3** — Characterize and fix one reflected-value correctness bug.
-
-This sequence keeps correctness repairs focused and reviewable.
+No active maintenance slices remain.
