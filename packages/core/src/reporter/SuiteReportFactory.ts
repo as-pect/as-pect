@@ -98,7 +98,7 @@ export function createTestReport(group: TestNode, test: TestNode): SuiteTestRepo
     logs: test.logs,
     actual: test.actual ? test.actual.stringify({ indent: 0 }) : null,
     expected: test.expected
-      ? `${test.negated ? "Not " : ""}${test.expected.stringify({
+      ? `${test.expected.negated ? "Not " : ""}${test.expected.stringify({
           indent: 0,
         })}`
       : null,

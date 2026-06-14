@@ -1,6 +1,7 @@
 import { Snapshot, SnapshotLifecycle } from "@as-pect/snapshots";
 import { TestContext, TestNode, TestNodeType } from "../src/index.js";
 import { createGroupReport, createSuiteReport, createTestReport } from "../src/reporter/SuiteReportFactory.js";
+import { reflectedInteger } from "./setup/SuiteReportFixtures.js";
 
 describe("SuiteReportFactory", () => {
   function createSuite(
@@ -91,6 +92,35 @@ describe("SuiteReportFactory", () => {
       runtime: 5,
       rtraceDelta: 3,
     });
+  });
+
+  it("uses expected-value negation for structured expected strings", () => {
+    const group = new TestNode();
+    group.name = "math";
+    group.type = TestNodeType.Group;
+
+    const test = new TestNode();
+    test.name = "rejects equal values";
+    test.type = TestNodeType.Test;
+    test.parent = group;
+    test.expected = reflectedInteger(2, true);
+
+    expect(createTestReport(group, test).expected).toBe("Not 2");
+  });
+
+  it("does not use throw-style test negation for structured expected strings", () => {
+    const group = new TestNode();
+    group.name = "math";
+    group.type = TestNodeType.Group;
+
+    const test = new TestNode();
+    test.name = "throws";
+    test.type = TestNodeType.Test;
+    test.parent = group;
+    test.negated = true;
+    test.expected = reflectedInteger(2, false);
+
+    expect(createTestReport(group, test).expected).toBe("2");
   });
 
   it("reports todo-only groups as results", () => {

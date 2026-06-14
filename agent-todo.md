@@ -329,16 +329,6 @@ When updating this file after a maintenance change:
 
 **Validation baseline from discovery:** `npm run test:ci --workspace @as-pect/assembly`, `npm run test:ci --workspace @as-pect/core`, `npm run tsc:all --workspace @as-pect/assembly`, and `npm run tsc --workspace @as-pect/core` passed before fixes.
 
-### Slice E13-S3 — Use expectation negation in structured expected strings
-
-- **Epic:** E13
-- **Problem:** `SuiteTestReport.expected` uses `test.negated`, which means an `itThrows`/`throws` node, instead of `test.expected.negated`, which means an `expect(...).not` assertion. Failed normal negated assertions can therefore omit `Not` from the structured expected string.
-- **Files:** `packages/core/src/reporter/SuiteReportFactory.ts`, `packages/core/__tests__/SuiteReportFactory.spec.ts`, reporter semantic tests if needed
-- **Fix:** Build the `expected` string from `test.expected.negated` when an expected reflected value exists. Keep `test.negated` available separately for throw-style test nodes.
-- **Tests to add/update:** A failed `expect(...).not` assertion should produce a `SuiteTestReport.expected` string prefixed with `Not`; a throw-style test node should not force unrelated expected values to be negated.
-- **Done when:** modern report facts distinguish test-node negation from expectation negation.
-- **Validation:** `npm run test:ci --workspace @as-pect/core`.
-
 ### Slice E13-S4 — Print the real passing group count in VerboseReporter
 
 - **Epic:** E13
@@ -413,8 +403,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E13-S3** — Use expectation negation in structured expected strings.
-2. **E13-S4** — Print the real passing group count in VerboseReporter.
-3. **E13-S5** — Report truncated expanded arrays with the correct remaining count.
+1. **E13-S4** — Print the real passing group count in VerboseReporter.
+2. **E13-S5** — Report truncated expanded arrays with the correct remaining count.
+3. **E13-S6** — Preserve as-pect abort messages when wrapping existing abort imports.
 
 This sequence prioritizes the remaining confirmed core and assembly correctness bugs from the June 2026 scan before continuing architecture or dependency-removal work.
