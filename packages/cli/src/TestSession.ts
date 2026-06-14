@@ -9,6 +9,7 @@ import { Snapshot, type SnapshotLifecycleStats } from "@as-pect/snapshots";
 import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
 import { createCompilerIoAdapter, createCompilerIoCache, type AssemblyScriptCompilerIo } from "./CompilerIo.js";
+import { extractCompilerOutput } from "./CompilerOutput.js";
 import { importLocalModule } from "./importLocalModule.js";
 import { planTestSessionEntries } from "./TestSessionEntries.js";
 
@@ -356,10 +357,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     }
 
     if (showStats) stdout.write(compiled.stats.toString());
-    const outputFileKey = Array.from(files.keys()).filter((e) => e.endsWith("output.wasm"))[0]!;
-    const outputWatFileKey = Array.from(files.keys()).filter((e) => e.endsWith("output.wat"))[0]!;
-    const binary = files.get(outputFileKey)! as Uint8Array;
-    const wat = files.get(outputWatFileKey)! as string;
+    const { binary, wat } = extractCompilerOutput(files);
 
     if (outputBinary) {
       const baseName = path.join(dir, path.basename(entry, path.extname(entry)));

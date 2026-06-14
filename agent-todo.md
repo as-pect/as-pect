@@ -38,18 +38,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `runTestSession()` should coordinate high-level Test session flow. Per-entry behavior should live behind a Test session entry module with focused helpers/adapters and test coverage at that seam.
 
-### Slice E1-S4 — Make compiler output extraction explicit
-
-- **Epic:** E1
-- **Scope:** Replace ad hoc `files.keys().filter(...)[0]!` output lookup with a small extraction module that validates wasm/wat output facts.
-- **Files:** `packages/cli/src/TestSession.ts`, optional new `packages/cli/src/CompilerOutput.ts`
-- **Tests to add/update:**
-  - finds `output.wasm` and `output.wat`
-  - throws a useful error when either output is missing
-  - preserves compile failure result handling when `compiled.error` exists
-- **Done when:** missing compiler output produces a clear error mode rather than a non-null assertion failure.
-- **Validation:** focused CLI package tests.
-
 ### Slice E1-S5 — Extract snapshot file planning for Test sessions
 
 - **Epic:** E1

@@ -147,6 +147,33 @@ describe("Test session execution", () => {
     expect(readdirSync).toHaveBeenCalledTimes(1);
   });
 
+  it("returns compile failures before reading compiler outputs", async () => {
+    const compilerError = new Error("compile failed");
+    const instantiate = jest.fn();
+    const compile = jest.fn(async () => ({ error: compilerError, stats: { toString: () => "compiler stats" } }));
+    const dependencies: Partial<TestSessionDependencies> = {
+      compile,
+      fileSystem: createNoopFileSystem(),
+      glob: jest.fn(async (pattern) => (pattern.includes("*.spec.ts") ? ["assembly/__tests__/entry.spec.ts"] : [])),
+    };
+
+    const config = createTestSessionConfig({
+      args: ["assembly/__tests__/*.spec.ts"],
+      aspectConfig: { ...aspectConfig, instantiate },
+      asconfigLocation: "./as-pect.asconfig.json",
+      cwd: "/workspace",
+      dependencies,
+      options: { run: false },
+    });
+
+    await expect(new TestSession(config).run()).resolves.toMatchObject({
+      compilerError,
+      coverageReport: null,
+      pass: false,
+    });
+    expect(instantiate).not.toHaveBeenCalled();
+  });
+
   it("waits for reporter flush completion before resolving", async () => {
     const events: string[] = [];
     let releaseFlush!: () => void;

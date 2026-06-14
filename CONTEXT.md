@@ -16,6 +16,10 @@ _Avoid_: Discovered file batch, glob result set
 The AssemblyScript compiler-facing file system seam that reads source files, lists source directories, caches successful lookups across a Test session, and captures compiler output files in memory.
 _Avoid_: Filesystem wrapper, compiler cache helper
 
+**Compiler output**:
+The validated `output.wasm` binary and `output.wat` text artifacts emitted by the AssemblyScript compiler for one Test session entry.
+_Avoid_: Build result blob, emitted file map
+
 **Test suite**:
 The collected tests and groups for a single AssemblyScript test binary.
 _Avoid_: Spec bundle, test file model
