@@ -5,18 +5,16 @@ import { glob as defaultGlob } from "glob";
 import { main as asc } from "assemblyscript/dist/asc.js";
 import { instantiate } from "@assemblyscript/loader";
 import { SuiteReport, TestContext, type IWritable } from "@as-pect/core";
-import { Snapshot, type SnapshotLifecycleStats } from "@as-pect/snapshots";
+import type { SnapshotLifecycleStats } from "@as-pect/snapshots";
 import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
 import { createCompilerIoAdapter, createCompilerIoCache, type AssemblyScriptCompilerIo } from "./CompilerIo.js";
 import { extractCompilerOutput } from "./CompilerOutput.js";
 import { importLocalModule } from "./importLocalModule.js";
 import { planTestSessionEntries } from "./TestSessionEntries.js";
+import { planTestSessionSnapshots, SnapshotMode } from "./TestSessionSnapshots.js";
 
-export const enum SnapshotMode {
-  WriteSnapshots,
-  CompareSnapshots,
-}
+export { SnapshotMode } from "./TestSessionSnapshots.js";
 
 export interface TestSessionCliOptions {
   [key: string]: unknown;
@@ -335,7 +333,6 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
       stdout,
     });
     const dir = path.dirname(entry);
-    const basename = path.basename(entry, path.extname(entry));
     const ascArgs = [
       entry,
       ...includeFiles,
@@ -365,15 +362,15 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
       await fileSystem.writeFile(baseName + ".wat", wat);
     }
 
-    const snapshotPath = path.join(dir, "__snapshots__", basename + ".snap");
-    const snapshotMode = updateSnapshots ? SnapshotMode.WriteSnapshots : SnapshotMode.CompareSnapshots;
-
     if (!runTests) continue;
 
-    const snapshots =
-      snapshotMode === SnapshotMode.CompareSnapshots && fileSystem.existsSync(snapshotPath)
-        ? Snapshot.parse(await fileSystem.readFile(snapshotPath, "utf8"))
-        : void 0;
+    const snapshotPlan = await planTestSessionSnapshots({
+      entry,
+      fileSystem,
+      log: (message) => writeLog(stdout, message),
+      updateSnapshots,
+    });
+    const snapshots = snapshotPlan.expectedSnapshots;
 
     let wasi: import("wasi").WASI | undefined = void 0;
     if (options.wasi) {
@@ -419,7 +416,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     stats.passedTests += ctx.testPassCount;
     stats.pass = stats.pass && ctx.pass;
 
-    if (snapshotMode === SnapshotMode.CompareSnapshots) {
+    if (snapshotPlan.mode === SnapshotMode.CompareSnapshots) {
       const expectedSnapshots = ctx.expectedSnapshots;
       const snapshotLifecycle = ctx.snapshotLifecycle!;
       const snapshotStats = snapshotLifecycle.stats;
@@ -427,23 +424,9 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
 
       accumulateTestSessionSnapshotStats(stats, snapshotStats);
 
-      if (updatePlan.shouldWrite) {
-        updatePlan.applyTo(expectedSnapshots);
-        await fileSystem.writeFile(snapshotPath, expectedSnapshots.stringify(), "utf8");
-      }
+      await snapshotPlan.applySnapshotWrites({ expectedSnapshots, updatePlan });
     } else {
-      writeLog(stdout, "Creating Snapshots.");
-      const snapshotDir = path.dirname(snapshotPath);
-      try {
-        await fileSystem.access(snapshotDir);
-      } catch (ex) {
-        await fileSystem.mkdir(snapshotDir);
-      }
-
-      if (ctx.rootNode.pass) {
-        const output = ctx.snapshots.stringify();
-        await fileSystem.writeFile(snapshotPath, output, "utf8");
-      }
+      await snapshotPlan.applySnapshotWrites({ actualSnapshots: ctx.snapshots, rootPassed: ctx.rootNode.pass });
     }
   }
 

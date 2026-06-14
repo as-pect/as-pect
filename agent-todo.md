@@ -38,19 +38,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `runTestSession()` should coordinate high-level Test session flow. Per-entry behavior should live behind a Test session entry module with focused helpers/adapters and test coverage at that seam.
 
-### Slice E1-S5 — Extract snapshot file planning for Test sessions
-
-- **Epic:** E1
-- **Scope:** Move snapshot path calculation, compare/write mode decisions, load behavior, and write/update decisions behind one Test session snapshot module.
-- **Files:** `packages/cli/src/TestSession.ts`, optional new `packages/cli/src/TestSessionSnapshots.ts`
-- **Tests to add/update:**
-  - compare mode loads existing snapshot files only when they exist
-  - update plan writes expected snapshots when `shouldWrite` is true
-  - write mode creates `__snapshots__` directory when missing
-  - write mode writes actual snapshots only when the root test node passes
-- **Done when:** `runTestSession()` asks the snapshot module for expected snapshots and applies a returned write plan.
-- **Validation:** focused CLI package tests plus snapshot package tests if shared types move.
-
 ### Slice E1-S6 — Extract per-suite stats accumulation
 
 - **Epic:** E1

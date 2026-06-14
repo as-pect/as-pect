@@ -20,6 +20,10 @@ _Avoid_: Filesystem wrapper, compiler cache helper
 The validated `output.wasm` binary and `output.wat` text artifacts emitted by the AssemblyScript compiler for one Test session entry.
 _Avoid_: Build result blob, emitted file map
 
+**Test session snapshot plan**:
+The per-entry snapshot file path, expected snapshot loading, compare/write mode, and write/update decisions for a Test session entry.
+_Avoid_: Snapshot file helper, snapshot path utility
+
 **Test suite**:
 The collected tests and groups for a single AssemblyScript test binary.
 _Avoid_: Spec bundle, test file model
