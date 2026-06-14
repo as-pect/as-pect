@@ -355,21 +355,24 @@ When updating this file after a maintenance change:
 
 ---
 
-## Epic E7 — Remove ESLint
+## Epic E7 — Replace ESLint and Prettier with Biome
 
-**Goal:** Remove the direct ESLint toolchain from this repository while preserving the project's useful static checks through TypeScript, focused tests, or small local validation scripts.
+**Goal:** Remove the direct ESLint and Prettier toolchains from this repository while preserving useful formatting and static checks through Biome, TypeScript, focused tests, or small local validation scripts.
 
 **Primary files:**
 
 - `package.json`
 - `package-lock.json`
 - `eslint.config.mjs`
-- npm scripts that call `eslint`
+- `.prettierrc.cjs`
+- `.prettierignore`
+- Biome configuration file, if needed
+- npm scripts that call `eslint` or `prettier`
 - AssemblyScript source under `packages/**/assembly/**/*.ts`
 
-**Done when:** `eslint`, `@eslint/js`, `globals`, `typescript-eslint`, `@typescript-eslint/eslint-plugin`, and `@typescript-eslint/parser` are no longer direct dependencies, no active script calls ESLint, and replacement validation is documented.
+**Done when:** `eslint`, `@eslint/js`, `globals`, `typescript-eslint`, `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`, and `prettier` are no longer direct dependencies; Biome is added as a top-level devDependency; no active script calls ESLint or Prettier; and replacement validation is documented.
 
-**Validation:** run the replacement validation command, package typechecks, and focused tests for any touched package.
+**Validation:** run the Biome format/check command, package typechecks, and focused tests for any touched package.
 
 ---
 
