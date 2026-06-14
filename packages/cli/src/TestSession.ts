@@ -9,7 +9,6 @@ import type { AspectCreateImports, AspectImports, IAspectConfig } from "./IAspec
 import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
 import { createCompilerIoAdapter, createCompilerIoCache, type AssemblyScriptCompilerIo } from "./CompilerIo.js";
 import { extractCompilerOutput } from "./CompilerOutput.js";
-import { importLocalModule } from "./importLocalModule.js";
 import { planTestSessionEntries } from "./TestSessionEntries.js";
 import {
   accumulateTestSessionSuiteStats,
@@ -17,6 +16,7 @@ import {
   type TestSessionStats,
 } from "./TestSessionStats.js";
 import { planTestSessionSnapshots, SnapshotMode } from "./TestSessionSnapshots.js";
+import { createTestSessionWasi } from "./TestSessionWasi.js";
 
 export { accumulateTestSessionSnapshotStats } from "./TestSessionStats.js";
 export type { TestSessionStats } from "./TestSessionStats.js";
@@ -144,10 +144,6 @@ export interface CreateTestSessionConfigOptions {
 
 function writeLog(stdout: IWritable, str: string): void {
   stdout.write(chalk.bgWhite.black("[Log]") + `${str}\n`);
-}
-
-function withWasiPreview1(options: import("wasi").WASIOptions): import("wasi").WASIOptions {
-  return { ...options, version: options.version ?? "preview1" } as import("wasi").WASIOptions;
 }
 
 function parseMemoryPageOption(
@@ -339,17 +335,11 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     });
     const snapshots = snapshotPlan.expectedSnapshots;
 
-    let wasi: import("wasi").WASI | undefined = void 0;
-    if (options.wasi) {
-      const { WASI } = await import("wasi");
-      const wasiRelativeLocation = options.wasi;
-      const wasiLocation = path.resolve(cwd, wasiRelativeLocation);
-      const wasiConfig = (await importLocalModule<{ default: import("wasi").WASIOptions }>(wasiLocation)).default;
-      wasi = new WASI(withWasiPreview1(wasiConfig));
-    } else if (aspectConfig.wasi) {
-      const { WASI } = await import("wasi");
-      wasi = new WASI(withWasiPreview1(aspectConfig.wasi));
-    }
+    const wasi = await createTestSessionWasi({
+      cliWasi: options.wasi,
+      configWasi: aspectConfig.wasi,
+      cwd,
+    });
 
     const reporter = await collectReporter(options, aspectConfig, { stderr, stdout });
 

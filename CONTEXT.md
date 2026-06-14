@@ -28,6 +28,10 @@ _Avoid_: Snapshot file helper, snapshot path utility
 The aggregate Test session stats seam that folds completed suite facts and snapshot lifecycle stats into the session summary.
 _Avoid_: Stats helper, counter updater
 
+**Test session WASI resolver**:
+The CLI/config WASI seam that chooses the effective WASI options for a Test session entry, resolves CLI config paths from the current working directory, and applies the Node `preview1` default without mutating user configuration.
+_Avoid_: WASI helper, WASI config loader
+
 **Test suite**:
 The collected tests and groups for a single AssemblyScript test binary.
 _Avoid_: Spec bundle, test file model

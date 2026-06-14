@@ -38,19 +38,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `runTestSession()` should coordinate high-level Test session flow. Per-entry behavior should live behind a Test session entry module with focused helpers/adapters and test coverage at that seam.
 
-### Slice E1-S7 — Extract WASI option resolution
-
-- **Epic:** E1
-- **Scope:** Move CLI/config WASI resolution into a testable module that preserves CLI override behavior and `preview1` defaulting.
-- **Files:** `packages/cli/src/TestSession.ts`, optional new `packages/cli/src/TestSessionWasi.ts`
-- **Tests to add/update:**
-  - CLI `--wasi` path resolves relative to `cwd`
-  - CLI WASI config wins over config-file WASI settings
-  - config-file WASI settings are used when CLI option is absent
-  - `version` defaults to `preview1` without overwriting an explicit version
-- **Done when:** Test session execution no longer imports WASI config inline.
-- **Validation:** focused CLI package tests.
-
 ### Slice E1-S8 — Extract per-entry execution into a Test session entry module
 
 - **Epic:** E1
