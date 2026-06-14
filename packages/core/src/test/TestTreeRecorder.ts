@@ -16,7 +16,36 @@ export class TestTreeRecorder {
   /** The most recent expected value reported by an assertion. */
   private expected: ReflectedValue | null = null;
 
-  constructor(private readonly readString: TestTreeStringReader) {}
+  /** The current Test node that receives facts from Wasm host callbacks. */
+  private targetNode: TestNode;
+
+  constructor(
+    private readonly readString: TestTreeStringReader,
+    rootNode: TestNode,
+  ) {
+    this.targetNode = rootNode;
+  }
+
+  /** The current Test node that receives facts from Wasm host callbacks. */
+  get currentTargetNode(): TestNode {
+    return this.targetNode;
+  }
+
+  /** Set the current Test node for compatibility with existing TestContext extension seams. */
+  setCurrentTargetNode(node: TestNode): void {
+    this.targetNode = node;
+  }
+
+  /** Temporarily route collected facts to a specific Test node. */
+  withTargetNode<T>(node: TestNode, callback: () => T): T {
+    const previousTargetNode = this.targetNode;
+    this.targetNode = node;
+    try {
+      return callback();
+    } finally {
+      this.targetNode = previousTargetNode;
+    }
+  }
 
   /** Record a group or test declaration under the active parent node. */
   recordDeclaration(

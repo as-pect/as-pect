@@ -86,13 +86,20 @@ export class TestContext {
   /** The top level node for this test suite. */
   public rootNode: TestNode = new TestNode();
 
-  /** Records declaration callbacks into the test tree. */
-  private testTreeRecorder: TestTreeRecorder = new TestTreeRecorder((pointer, defaultValue) =>
-    this.getString(pointer, defaultValue),
+  /** Records Wasm host callbacks into the test tree. */
+  private testTreeRecorder: TestTreeRecorder = new TestTreeRecorder(
+    (pointer, defaultValue) => this.getString(pointer, defaultValue),
+    this.rootNode,
   );
 
   /** The current working node that is collecting logs and callback pointers. */
-  protected targetNode: TestNode = this.rootNode;
+  protected get targetNode(): TestNode {
+    return this.testTreeRecorder.currentTargetNode;
+  }
+
+  protected set targetNode(node: TestNode) {
+    this.testTreeRecorder.setCurrentTargetNode(node);
+  }
 
   /** The name of the AssemblyScript test file. */
   public fileName: string = "";
@@ -503,13 +510,7 @@ export class TestContext {
 
   /** Temporarily route collected facts to a specific node. */
   private withTargetNode<T>(node: TestNode, callback: () => T): T {
-    const previousTargetNode = this.targetNode;
-    this.targetNode = node;
-    try {
-      return callback();
-    } finally {
-      this.targetNode = previousTargetNode;
-    }
+    return this.testTreeRecorder.withTargetNode(node, callback);
   }
 
   /** Run a series of callbacks into web assembly against an explicit fact owner. */

@@ -1,6 +1,6 @@
 # Agent TODO — active maintenance slices
 
-Verified: June 13, 2026
+Verified: June 14, 2026
 
 Only valid positive work that needs to be done should exist in this file. In practice: keep this file limited to actionable, still-active improvement or repair work; remove completed, obsolete, speculative, or purely historical notes. Each slice is intended to be small, atomic, and reviewable on its own.
 
@@ -38,18 +38,6 @@ When updating this file after a maintenance change:
 - `packages/core/__tests__/TestContext.*.spec.ts`
 
 **Target shape:** `TestContext` coordinates execution. A Test tree recording module owns host-import callbacks that add groups, tests, hooks, todos, logs, reflected actual/expected values, abort messages, and snapshots to the current Test node.
-
-### Slice E3-S6 — Add a target-node scope helper
-
-- **Epic:** E3
-- **Scope:** Make the active target node transition explicit with a small helper that safely restores the previous target node after callback execution.
-- **Files:** `TestContext.ts`, `TestTreeRecorder.ts`
-- **Tests to add/update:**
-  - target node is restored after successful callbacks
-  - target node is restored after thrown callbacks
-  - nested groups do not leak active target state into sibling groups/tests
-- **Done when:** current target node handling is local and exception-safe.
-- **Validation:** focused core lifecycle tests.
 
 ### Slice E3-S7 — Reduce public mutable TestNode access where safe
 
@@ -352,8 +340,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E3-S6** — Add a target-node scope helper.
-2. **E3-S7** — Reduce public mutable TestNode access where safe.
-3. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
+1. **E3-S7** — Reduce public mutable TestNode access where safe.
+2. **E4-S1** — Characterize generated output for fields, getters, inheritance, and interfaces.
+3. **E4-S2** — Extract shared AST type/parameter helpers.
 
-This sequence continues the Wasm host recording locality work now that declaration recording and namespace allocation live behind the Test tree recorder.
+This sequence continues the Wasm host recording locality work now that declaration recording, namespace allocation, and target-node scoping live behind the Test tree recorder.

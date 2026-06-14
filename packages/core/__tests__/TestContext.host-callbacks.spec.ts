@@ -213,6 +213,68 @@ describe("TestContext host callbacks", () => {
     expect(createGroupReport(inner).todos).toEqual(["inner todo"]);
   });
 
+  test("target node scope restores around passing and throwing callbacks", () => {
+    const ctx = new TestContext({ reporter: new EmptyReporter() });
+    const imports = ctx.createImports();
+    const strings = new Map([
+      [1, "outer"],
+      [2, "passing test"],
+      [3, "throwing test"],
+      [4, "sibling test"],
+      [5, "i32"],
+    ]);
+    const logNumber = (value: number): void => {
+      const reflectedValue = imports.__aspect.createReflectedNumber(1, 4, ReflectedValueType.Integer, 5, value);
+      imports.__aspect.logReflectedValue(reflectedValue);
+    };
+    const callbacks = new Map<number, () => void>([
+      [
+        101,
+        () => {
+          imports.__aspect.afterEach(401);
+          imports.__aspect.reportTestTypeNode(2, 201);
+          imports.__aspect.reportTestTypeNode(3, 202);
+          imports.__aspect.reportTestTypeNode(4, 203);
+        },
+      ],
+      [201, () => logNumber(1)],
+      [
+        202,
+        () => {
+          logNumber(2);
+          throw new Error("expected host callback failure");
+        },
+      ],
+      [203, () => logNumber(3)],
+      [401, () => logNumber(100)],
+    ]);
+    const wasm = {
+      _start(): void {
+        imports.__aspect.reportGroupTypeNode(1, 101);
+      },
+      __call(pointer: number): void {
+        callbacks.get(pointer)?.();
+      },
+      __getString(pointer: number): string {
+        return strings.get(pointer) ?? "";
+      },
+    } as unknown as IAspectExports;
+
+    ctx.run({ exports: wasm, instance: {} as WebAssembly.Instance });
+
+    const outer = findChild(ctx.rootNode, "outer");
+    const passingTest = findChild(outer, "passing test");
+    const throwingTest = findChild(outer, "throwing test");
+    const siblingTest = findChild(outer, "sibling test");
+
+    expect(outer.logs.map((log) => log.value)).toEqual([100, 100, 100]);
+    expect(passingTest.logs.map((log) => log.value)).toEqual([1]);
+    expect(throwingTest.logs.map((log) => log.value)).toEqual([2]);
+    expect(throwingTest.pass).toBe(false);
+    expect(siblingTest.logs.map((log) => log.value)).toEqual([3]);
+    expect(siblingTest.ran).toBe(true);
+  });
+
   test("duplicate snapshot callbacks under one test receive stable suffixes", () => {
     const ctx = new TestContext({ reporter: new EmptyReporter() });
     const imports = ctx.createImports();
