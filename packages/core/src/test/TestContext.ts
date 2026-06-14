@@ -7,6 +7,7 @@ import { NameSection } from "../util/wasmTools.js";
 import { ReflectedValue } from "../util/ReflectedValue.js";
 import { ReflectedValueType } from "../util/ReflectedValueType.js";
 import { TestNode } from "./TestNode.js";
+import { TestTreeRecorder } from "./TestTreeRecorder.js";
 import { TestNodeType } from "../util/TestNodeType.js";
 import { IReporter } from "../reporter/IReporter.js";
 import { ReportingLifecycle } from "../reporter/ReportingLifecycle.js";
@@ -85,6 +86,11 @@ export class TestContext {
   /** The top level node for this test suite. */
   public rootNode: TestNode = new TestNode();
 
+  /** Records declaration callbacks into the test tree. */
+  private testTreeRecorder: TestTreeRecorder = new TestTreeRecorder((pointer, defaultValue) =>
+    this.getString(pointer, defaultValue),
+  );
+
   /** The current working node that is collecting logs and callback pointers. */
   protected targetNode: TestNode = this.rootNode;
 
@@ -141,9 +147,6 @@ export class TestContext {
 
   /** The number of todos. */
   public todoCount: number = 0;
-
-  /** A collection of all the generated namespaces for shapshot purposes. */
-  protected namespaces: Set<string> = new Set<string>();
 
   /** The wasi instance associated with this module */
   private wasi: WASI | null = null;
@@ -458,31 +461,14 @@ export class TestContext {
     negated: 1 | 0,
     messagePointer: number,
   ): void {
-    const parent = this.targetNode;
-    const node = new TestNode();
-    node.type = type;
-    node.name = this.getString(descriptionPointer, node.name);
-    node.callback = callbackPointer;
-    node.negated = negated === 1;
-    node.message = node.negated ? this.getString(messagePointer, "No Message Provided.") : node.message;
-
-    // namespacing for snapshots later
-    const namespacePrefix = `${parent.namespace}!~${node.name}`;
-    let i = 0;
-    while (true) {
-      const namespace = `${namespacePrefix}[${i}]`;
-      if (this.namespaces.has(namespace)) {
-        i++;
-        continue;
-      }
-      node.namespace = namespace;
-      this.namespaces.add(namespace);
-      break;
-    }
-
-    // fix the node hierarchy
-    node.parent = parent;
-    parent.children.push(node);
+    this.testTreeRecorder.recordDeclaration(
+      this.targetNode,
+      type,
+      descriptionPointer,
+      callbackPointer,
+      negated,
+      messagePointer,
+    );
   }
 
   /** Obtain the stack trace, actual, expected, and message values, and attach them to a given node. */

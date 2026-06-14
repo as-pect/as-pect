@@ -44,6 +44,10 @@ _Avoid_: Spec bundle, test file model
 The hierarchy of test nodes collected from AssemblyScript `describe`, `it`, and related declarations.
 _Avoid_: Tree structure, node graph
 
+**Test tree recorder**:
+The module that records Wasm host declaration callbacks into the Test tree. It creates group and test nodes, preserves parent/child links, and allocates stable snapshot namespaces for duplicate names.
+_Avoid_: Declaration helper, tree builder service
+
 **Test node**:
 A single group or test in the test tree, including its result facts, logs, todos, and child nodes.
 _Avoid_: Test component, result object

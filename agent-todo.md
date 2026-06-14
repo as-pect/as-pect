@@ -39,18 +39,6 @@ When updating this file after a maintenance change:
 
 **Target shape:** `TestContext` coordinates execution. A Test tree recording module owns host-import callbacks that add groups, tests, hooks, todos, logs, reflected actual/expected values, abort messages, and snapshots to the current Test node.
 
-### Slice E3-S2 — Introduce a Test tree recorder for declarations
-
-- **Epic:** E3
-- **Scope:** Move group/test declaration and namespace generation into a Test tree recording module.
-- **Files:** `TestContext.ts`, new `packages/core/src/test/TestTreeRecorder.ts`, maybe `TestNode.ts`
-- **Tests to add/update:**
-  - duplicate test names get stable `[n]` namespaces
-  - nested groups/tests attach to the active target node
-  - parent/child links are preserved
-- **Done when:** `TestContext` delegates declaration recording without directly constructing Test nodes.
-- **Validation:** focused core TestContext tests.
-
 ### Slice E3-S3 — Move hook and todo recording into the recorder
 
 - **Epic:** E3
@@ -108,15 +96,6 @@ When updating this file after a maintenance change:
   - preserve public compatibility unless a field is clearly internal and unused externally
 - **Done when:** at least one high-churn mutation path is made local without broad breaking changes.
 - **Validation:** focused core tests.
-
-### Slice E3-S8 — Document the Test tree recording concept
-
-- **Epic:** E3
-- **Scope:** Add Test tree recording terminology to `CONTEXT.md` if the module lands.
-- **Files:** `CONTEXT.md`
-- **Tests to add/update:** none
-- **Done when:** future agents can distinguish Wasm host, TestContext execution, and Test tree recording responsibilities.
-- **Validation:** documentation review.
 
 ---
 
@@ -408,8 +387,8 @@ When updating this file after a maintenance change:
 
 ## Suggested first sequence
 
-1. **E3-S2** — Introduce a Test tree recorder for declarations.
-2. **E3-S3** — Move hook and todo recording into the recorder.
-3. **E3-S4** — Move log and reflected value recording into the recorder.
+1. **E3-S3** — Move hook and todo recording into the recorder.
+2. **E3-S4** — Move log and reflected value recording into the recorder.
+3. **E3-S5** — Move snapshot recording into the recorder.
 
-This sequence starts the Wasm host recording locality work now that host callback behavior is characterized and the Reporting lifecycle seam is fact-first and compatibility-aware.
+This sequence continues the Wasm host recording locality work now that declaration recording and namespace allocation live behind the Test tree recorder.
