@@ -119,7 +119,11 @@ export default class JUnitReporter implements IReporter {
   public stdout: IWritable | null = null;
   public stderr: IWritable | null = null;
 
-  protected fileOutput: ReporterFileOutput = new ReporterFileOutput();
+  protected fileOutput: ReporterFileOutput;
+
+  public constructor(outputRoot?: string) {
+    this.fileOutput = new ReporterFileOutput(undefined, outputRoot);
+  }
 
   public onEnter(_ctx: TestContext): void {}
 

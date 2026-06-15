@@ -120,6 +120,25 @@ async function runNestedReporter(): Promise<string[][]> {
   }
 }
 
+async function runProjectRootReporter(): Promise<string[][]> {
+  const tempDir = await mkdtemp(join(process.cwd(), "tmp-csv-reporter-root-"));
+  const sourceDir = join(tempDir, "assembly", "__tests__");
+  const reporter = new TestCSVReporter(tempDir);
+
+  try {
+    await mkdir(sourceDir, { recursive: true });
+    await reporter.writeAndWait({
+      fileName: "assembly/__tests__/entry.spec.ts",
+      hasResults: true,
+      results: [testResult()],
+    });
+    const output = await readFile(join(sourceDir, "entry.spec.csv"), "utf8");
+    return parseRows(output);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
 async function writeReportWithMissingOutputDirectory(): Promise<void> {
   const tempDir = await mkdtemp(join(process.cwd(), "tmp-csv-reporter-"));
   const fileName = join(relative(process.cwd(), tempDir), "missing", "entry.spec.ts");
@@ -150,6 +169,13 @@ describe("CSVReporter", () => {
 
   it("writes the CSV file next to a nested test entry", async () => {
     await expect(runNestedReporter()).resolves.toEqual([
+      ["Group", "Name", "Ran", "Negated", "Pass", "Runtime", "Message", "Actual", "Expected"],
+      ["math", "adds values", "RAN", "FALSE", "PASS", "3", "ok", "3", "3"],
+    ]);
+  });
+
+  it("writes project-relative report files under the configured output root", async () => {
+    await expect(runProjectRootReporter()).resolves.toEqual([
       ["Group", "Name", "Ran", "Negated", "Pass", "Runtime", "Message", "Actual", "Expected"],
       ["math", "adds values", "RAN", "FALSE", "PASS", "3", "ok", "3", "3"],
     ]);

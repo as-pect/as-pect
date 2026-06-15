@@ -41,38 +41,6 @@ Use these references when implementing standardized reporter output formats:
 
 ---
 
-## Epic: CLI correctness and Test session seams
-
-### Slice 2C — Decide reporter file-output project path ownership
-
-**Status:** Active
-**Recommendation strength:** Strong
-**Primary files:**
-
-- `packages/cli/src/TestSession.ts`
-- `packages/cli/src/TestSessionEntry.ts`
-- `packages/reporter-output/src/index.ts`
-- `packages/csv-reporter/index.ts`
-- `packages/json-reporter/index.ts`
-- `packages/junit-reporter/index.ts`
-
-**Problem:** File-backed reporters write artifacts next to report file names, but the project path ownership between CLI options, Suite report facts, and `@as-pect/reporter-output` is still implicit.
-
-**Desired behavior:**
-
-- Decide whether file-backed reporters receive resolved output locations from reporter options, Suite report facts, or the shared reporter-output helper.
-- Keep CSV/JSON/JUnit output compatibility unless a separate compatibility migration explicitly says otherwise.
-- Add focused tests around reporter artifact paths once the ownership boundary is chosen.
-
-**Validation:**
-
-- Reporter package tests for touched reporters.
-- `npm test --workspace @as-pect/cli` if Test session wiring changes.
-- Root `npm run tsc:all` and `npm test` if shared reporter-output behavior changes.
-
----
-
-
 ## Epic: Reporter output formats and file-output locality
 
 ### Slice 8 — Add CTRF JSON output as the standardized JSON reporter

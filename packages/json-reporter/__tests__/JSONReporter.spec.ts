@@ -78,6 +78,25 @@ async function runNestedReporter(): Promise<unknown> {
   }
 }
 
+async function runProjectRootReporter(): Promise<unknown> {
+  const tempDir = await mkdtemp(join(process.cwd(), "tmp-json-reporter-root-"));
+  const sourceDir = join(tempDir, "assembly", "__tests__");
+  const reporter = new TestJSONReporter(tempDir);
+
+  try {
+    await mkdir(sourceDir, { recursive: true });
+    await reporter.writeAndWait({
+      fileName: "assembly/__tests__/entry.spec.ts",
+      hasResults: true,
+      results: [testResult()],
+    });
+    const output = await readFile(join(sourceDir, "entry.spec.json"), "utf8");
+    return JSON.parse(output);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
 async function writeReportWithMissingOutputDirectory(): Promise<void> {
   const tempDir = await mkdtemp(join(process.cwd(), "tmp-json-reporter-"));
   const fileName = join(relative(process.cwd(), tempDir), "missing", "entry.spec.ts");
@@ -122,6 +141,22 @@ describe("JSONReporter", () => {
 
   it("writes the JSON file next to a nested test entry", async () => {
     await expect(runNestedReporter()).resolves.toEqual([
+      {
+        group: "math",
+        name: "adds values",
+        ran: true,
+        pass: true,
+        negated: false,
+        runtime: 3,
+        message: null,
+        actual: "3",
+        expected: "3",
+      },
+    ]);
+  });
+
+  it("writes project-relative report files under the configured output root", async () => {
+    await expect(runProjectRootReporter()).resolves.toEqual([
       {
         group: "math",
         name: "adds values",

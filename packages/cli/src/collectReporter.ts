@@ -83,17 +83,17 @@ export async function getReporter(
 
   if (opts.json) {
     const JSONReporter = (await import("@as-pect/json-reporter")).default;
-    reporters.push(new JSONReporter());
+    reporters.push(new JSONReporter(project.cwd));
   }
 
   if (opts.csv) {
     const CSVReporter = (await import("@as-pect/csv-reporter")).default;
-    reporters.push(new CSVReporter());
+    reporters.push(new CSVReporter(project.cwd));
   }
 
   if (opts.junit) {
     const JUnitReporter = (await import("@as-pect/junit-reporter")).default;
-    reporters.push(new JUnitReporter());
+    reporters.push(new JUnitReporter(project.cwd));
   }
 
   if (opts.summary) {

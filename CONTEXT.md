@@ -65,7 +65,7 @@ An adapter that renders reportable facts from a test suite to stdout, stderr, fi
 _Avoid_: Printer, output service
 
 **Reporter file output**:
-The shared file-backed reporter seam that builds output paths next to test entries, skips file creation for reports with no executed results, creates Node write streams, and tracks pending stream flushes for reporter `onFlush()` callbacks.
+The shared file-backed reporter seam that builds output paths next to test entries under an explicit project/output root, skips file creation for reports with no executed results, creates Node write streams, and tracks pending stream flushes for reporter `onFlush()` callbacks.
 _Avoid_: Per-format file plumbing, reporter stream boilerplate
 
 **JUnit XML report**:

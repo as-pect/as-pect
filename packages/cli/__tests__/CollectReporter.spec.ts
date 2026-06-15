@@ -1,6 +1,7 @@
-import { mkdtemp, readFile, rm } from "fs/promises";
+import { mkdir, mkdtemp, readFile, rm } from "fs/promises";
 import { join, relative } from "path";
 import { collectReporter } from "../src/collectReporter.js";
+import { createTestSessionProject } from "../src/TestSessionProject.js";
 import type { IAspectConfig } from "../src/IAspectConfig.js";
 import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
 
@@ -54,6 +55,28 @@ describe("reporter collection", () => {
       const xml = await readFile(join(tempDir, "entry.spec.xml"), "utf8");
       expect(xml).toContain('<testsuite name="tmp-cli-junit-reporter-');
       expect(xml).toContain('<testcase classname="math" name="adds values" time="0.003"/>');
+    } finally {
+      await rm(tempDir, { recursive: true, force: true });
+    }
+  });
+
+  it("anchors built-in file-backed reporters to the Test session project path", async () => {
+    const tempDir = await mkdtemp(join(process.cwd(), "tmp-cli-junit-root-"));
+    const sourceDir = join(tempDir, "assembly", "__tests__");
+
+    try {
+      await mkdir(sourceDir, { recursive: true });
+      const reporter = await collectReporter(
+        { junit: true },
+        aspectConfig,
+        { stderr: process.stderr, stdout: process.stdout },
+        createTestSessionProject(tempDir),
+      );
+      reporter.onReportFinish?.({ report: report("assembly/__tests__/entry.spec.ts") });
+      await reporter.onFlush?.();
+
+      const xml = await readFile(join(sourceDir, "entry.spec.xml"), "utf8");
+      expect(xml).toContain('<testsuite name="assembly/__tests__/entry.spec.ts"');
     } finally {
       await rm(tempDir, { recursive: true, force: true });
     }

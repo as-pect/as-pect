@@ -11,9 +11,13 @@ export default class JSONReporter implements IReporter {
   public stderr: IWritable | null = null;
 
   protected file: Writable | null = null;
-  protected fileOutput: ReporterFileOutput = new ReporterFileOutput();
+  protected fileOutput: ReporterFileOutput;
 
   private first: boolean = true;
+
+  public constructor(outputRoot?: string) {
+    this.fileOutput = new ReporterFileOutput(undefined, outputRoot);
+  }
 
   public onEnter(_ctx: TestContext): void {}
 

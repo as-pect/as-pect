@@ -1,4 +1,4 @@
-import { access, mkdtemp, readFile, rm } from "fs/promises";
+import { access, mkdir, mkdtemp, readFile, rm } from "fs/promises";
 import { join, relative } from "path";
 import JUnitReporter from "../index.js";
 import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
@@ -73,6 +73,20 @@ async function runReporter(input: Partial<SuiteReport> & Pick<SuiteReport, "file
   }
 }
 
+async function runProjectRootReporter(): Promise<string> {
+  const tempDir = await mkdtemp(join(process.cwd(), "tmp-junit-reporter-root-"));
+  const sourceDir = join(tempDir, "assembly", "__tests__");
+  const reporter = new TestJUnitReporter(tempDir);
+
+  try {
+    await mkdir(sourceDir, { recursive: true });
+    await reporter.writeAndWait(report({ fileName: "assembly/__tests__/entry.spec.ts" }));
+    return await readFile(join(sourceDir, "entry.spec.xml"), "utf8");
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
 async function writeReportWithMissingOutputDirectory(): Promise<void> {
   const tempDir = await mkdtemp(join(process.cwd(), "tmp-junit-reporter-"));
   const fileName = join(relative(process.cwd(), tempDir), "missing", "entry.spec.ts");
@@ -105,6 +119,10 @@ describe("JUnitReporter", () => {
 
     expect(xml).toContain('tests="1" failures="0" errors="0" skipped="0" time="0.012"');
     expect(xml).toContain('<testcase classname="math" name="adds values" time="0.003"/>');
+  });
+
+  it("writes project-relative report files under the configured output root", async () => {
+    await expect(runProjectRootReporter()).resolves.toContain('<testsuite name="assembly/__tests__/entry.spec.ts"');
   });
 
   it("writes escaped failure details", async () => {

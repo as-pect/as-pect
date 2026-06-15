@@ -17,6 +17,8 @@ assembly/__tests__/entry.spec.ts -> assembly/__tests__/entry.spec.xml
 
 Empty reports where `SuiteReport.hasResults === false` do not create a file.
 
+When used from the as-pect CLI, output paths are resolved from the Test session project path. Programmatic reporter users may pass an output root to `new JUnitReporter(outputRoot)` to resolve relative `SuiteReport.fileName` values from that root instead of `process.cwd()`.
+
 ## Mapping
 
 The reporter uses Suite report facts from `@as-pect/core`:
