@@ -1,7 +1,7 @@
 {
-  "name": "@as-pect/csv-reporter",
+  "name": "@as-pect/reporter-output",
   "version": "8.1.0",
-  "description": "csv reporter for as-pect",
+  "description": "File output helpers for as-pect reporters",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "type": "module",
@@ -11,15 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jtenner/as-pect/tree/master/packages/csv-reporter"
+    "url": "https://github.com/jtenner/as-pect/tree/master/packages/reporter-output"
   },
   "author": "Joshua Tenner",
   "license": "MIT",
-  "dependencies": {
-    "@as-pect/core": "^8.1.0",
-    "@as-pect/reporter-output": "^8.1.0",
-    "csv-stringify": "^6.7.0"
-  },
   "publishConfig": {
     "access": "public"
   }

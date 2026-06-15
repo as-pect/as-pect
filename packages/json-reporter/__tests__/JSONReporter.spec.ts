@@ -1,4 +1,4 @@
-import { access, mkdtemp, readFile, rm } from "fs/promises";
+import { access, mkdir, mkdtemp, readFile, rm } from "fs/promises";
 import { join, relative } from "path";
 import JSONReporter from "../index.js";
 import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
@@ -54,9 +54,37 @@ async function runReporter(results: SuiteResultReport[]): Promise<unknown> {
   const reporter = new TestJSONReporter();
 
   try {
-    await reporter.writeAndWait({ fileName, results });
+    await reporter.writeAndWait({ fileName, hasResults: true, results });
     const output = await readFile(join(tempDir, "example.spec.json"), "utf8");
     return JSON.parse(output);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
+async function runNestedReporter(): Promise<unknown> {
+  const tempDir = await mkdtemp(join(process.cwd(), "tmp-json-reporter-"));
+  const sourceDir = join(tempDir, "assembly", "__tests__");
+  const fileName = join(relative(process.cwd(), sourceDir), "entry.spec.ts");
+  const reporter = new TestJSONReporter();
+
+  try {
+    await mkdir(sourceDir, { recursive: true });
+    await reporter.writeAndWait({ fileName, hasResults: true, results: [testResult()] });
+    const output = await readFile(join(sourceDir, "entry.spec.json"), "utf8");
+    return JSON.parse(output);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
+async function writeReportWithMissingOutputDirectory(): Promise<void> {
+  const tempDir = await mkdtemp(join(process.cwd(), "tmp-json-reporter-"));
+  const fileName = join(relative(process.cwd(), tempDir), "missing", "entry.spec.ts");
+  const reporter = new TestJSONReporter();
+
+  try {
+    await reporter.writeAndWait({ fileName, hasResults: true, results: [testResult()] });
   } finally {
     await rm(tempDir, { recursive: true, force: true });
   }
@@ -90,6 +118,26 @@ describe("JSONReporter", () => {
         expected: "3",
       },
     ]);
+  });
+
+  it("writes the JSON file next to a nested test entry", async () => {
+    await expect(runNestedReporter()).resolves.toEqual([
+      {
+        group: "math",
+        name: "adds values",
+        ran: true,
+        pass: true,
+        negated: false,
+        runtime: 3,
+        message: null,
+        actual: "3",
+        expected: "3",
+      },
+    ]);
+  });
+
+  it("surfaces output stream errors through flush", async () => {
+    await expect(writeReportWithMissingOutputDirectory()).rejects.toMatchObject({ code: "ENOENT" });
   });
 
   it("writes parseable JSON for multiple test results", async () => {

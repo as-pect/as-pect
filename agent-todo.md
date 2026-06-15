@@ -183,51 +183,6 @@ Use these references when implementing standardized reporter output formats:
 
 ## Epic: Reporter output formats and file-output locality
 
-### Slice 6 — Deepen reporter file output for file-backed reporters
-
-**Status:** Active
-**Recommendation strength:** Worth exploring
-**Primary files:**
-
-- `packages/csv-reporter/index.ts`
-- `packages/json-reporter/index.ts`
-- `packages/csv-reporter/__tests__/CSVReporter.spec.ts`
-- `packages/json-reporter/__tests__/JSONReporter.spec.ts`
-
-**Problem:** CSV and JSON reporter adapters duplicate file path construction, stream creation, pending flush tracking, and empty-report behavior. Each adapter is shallow because callers and tests must care about both report serialization and file-output mechanics.
-
-**Desired behavior:**
-
-- One reporter file output module owns output path construction, stream lifecycle, flush behavior, and empty-report policy.
-- CSV and JSON adapters focus on converting `SuiteReport` facts to rows or objects.
-- Future JUnit XML and CTRF reporters can reuse the same file-output behavior.
-
-**Suggested implementation plan:**
-
-1. Add tests that capture shared file-output behavior for both CSV and JSON before extracting code.
-2. Introduce a small file-output helper in a package that both reporters can use without creating an unwanted dependency cycle. Prefer local duplication until the package placement is obvious.
-3. Avoid adding dependencies for stream handling; current Node stream primitives are sufficient.
-4. Make output root configurable only if needed by the project path resolution slice. Do not mix project path changes into this slice unless it is already completed.
-5. Ensure `onFlush` still waits for all writes to finish.
-
-**Tests to add or update first:**
-
-- File-backed reporter does not create a file when `report.hasResults === false`.
-- Flush waits for stream completion.
-- Output path for `assembly/__tests__/entry.spec.ts` remains `assembly/__tests__/entry.spec.<ext>` for CLI users.
-- Errors from stream creation or write completion are surfaced through `onFlush`.
-
-**Validation:**
-
-- `npm test --workspace @as-pect/csv-reporter`
-- `npm test --workspace @as-pect/json-reporter`
-- `npm run tsc:all --workspace @as-pect/csv-reporter`
-- `npm run tsc:all --workspace @as-pect/json-reporter`
-
-**Compatibility notes:** Preserve current CSV and JSON filenames and output contents in this slice. Format changes belong to the CSV/JSON format slices below.
-
----
-
 ### Slice 7 — Add a JUnit XML reporter
 
 **Status:** Active

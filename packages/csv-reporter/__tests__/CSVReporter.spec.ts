@@ -1,4 +1,4 @@
-import { access, mkdtemp, readFile, rm } from "fs/promises";
+import { access, mkdir, mkdtemp, readFile, rm } from "fs/promises";
 import { join, relative } from "path";
 import CSVReporter from "../index.js";
 import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
@@ -104,6 +104,34 @@ async function runReporter(results: SuiteResultReport[]): Promise<string[][]> {
   }
 }
 
+async function runNestedReporter(): Promise<string[][]> {
+  const tempDir = await mkdtemp(join(process.cwd(), "tmp-csv-reporter-"));
+  const sourceDir = join(tempDir, "assembly", "__tests__");
+  const fileName = join(relative(process.cwd(), sourceDir), "entry.spec.ts");
+  const reporter = new TestCSVReporter();
+
+  try {
+    await mkdir(sourceDir, { recursive: true });
+    await reporter.writeAndWait({ fileName, hasResults: true, results: [testResult()] });
+    const output = await readFile(join(sourceDir, "entry.spec.csv"), "utf8");
+    return parseRows(output);
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
+async function writeReportWithMissingOutputDirectory(): Promise<void> {
+  const tempDir = await mkdtemp(join(process.cwd(), "tmp-csv-reporter-"));
+  const fileName = join(relative(process.cwd(), tempDir), "missing", "entry.spec.ts");
+  const reporter = new TestCSVReporter();
+
+  try {
+    await reporter.writeAndWait({ fileName, hasResults: true, results: [testResult()] });
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
+  }
+}
+
 describe("CSVReporter", () => {
   it("does not write a file for reports with no executed results", async () => {
     await expect(
@@ -118,6 +146,17 @@ describe("CSVReporter", () => {
     await expect(runReporter([])).resolves.toEqual([
       ["Group", "Name", "Ran", "Negated", "Pass", "Runtime", "Message", "Actual", "Expected"],
     ]);
+  });
+
+  it("writes the CSV file next to a nested test entry", async () => {
+    await expect(runNestedReporter()).resolves.toEqual([
+      ["Group", "Name", "Ran", "Negated", "Pass", "Runtime", "Message", "Actual", "Expected"],
+      ["math", "adds values", "RAN", "FALSE", "PASS", "3", "ok", "3", "3"],
+    ]);
+  });
+
+  it("surfaces output stream errors through flush", async () => {
+    await expect(writeReportWithMissingOutputDirectory()).rejects.toMatchObject({ code: "ENOENT" });
   });
 
   it("writes test rows in the same column order as the header", async () => {

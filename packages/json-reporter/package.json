@@ -16,7 +16,8 @@
   "author": "Joshua Tenner",
   "license": "MIT",
   "dependencies": {
-    "@as-pect/core": "^8.1.0"
+    "@as-pect/core": "^8.1.0",
+    "@as-pect/reporter-output": "^8.1.0"
   },
   "publishConfig": {
     "access": "public"

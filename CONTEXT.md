@@ -56,6 +56,10 @@ _Avoid_: Test component, result object
 An adapter that renders reportable facts from a test suite to stdout, stderr, files, or another output target.
 _Avoid_: Printer, output service
 
+**Reporter file output**:
+The shared file-backed reporter seam that builds output paths next to test entries, skips file creation for reports with no executed results, creates Node write streams, and tracks pending stream flushes for reporter `onFlush()` callbacks.
+_Avoid_: Per-format file plumbing, reporter stream boilerplate
+
 **as-pect CSV v1 contract**:
 The as-pect-specific CSV reporter column contract for tabular test results. It preserves the `Group`, `Name`, `Ran`, `Negated`, `Pass`, `Runtime`, `Message`, `Actual`, and `Expected` column order and value vocabulary for spreadsheet-style workflows, without treating CSV as a cross-tool test-result standard.
 _Avoid_: Standard CSV test schema, generic CSV report format

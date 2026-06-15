@@ -1,8 +1,7 @@
 import { Stringifier, stringify } from "csv-stringify";
-import { WriteStream, createWriteStream } from "fs";
-import { basename, extname, dirname, join } from "path";
 import { finished } from "stream/promises";
 import { TestContext, IReporter, IWritable, SuiteReport, SuiteReportEvent, SuiteResultReport } from "@as-pect/core";
+import { ReporterFileOutput } from "@as-pect/reporter-output";
 
 /**
  * This is a list of all the columns in the exported csv file.
@@ -18,8 +17,7 @@ export default class CSVReporter implements IReporter {
   public stderr: IWritable | null = null;
 
   protected output: Stringifier | null = null;
-  protected fileName: WriteStream | null = null;
-  protected pendingWrite: Promise<void> = Promise.resolve();
+  protected fileOutput: ReporterFileOutput = new ReporterFileOutput();
 
   public onEnter(_ctx: TestContext): void {}
 
@@ -34,21 +32,18 @@ export default class CSVReporter implements IReporter {
   }
 
   public onFlush(): Promise<void> {
-    return this.pendingWrite;
+    return this.fileOutput.flush();
   }
 
   protected writeReport(report: SuiteReport): void {
     if (report.hasResults === false) return;
 
-    const extension = extname(report.fileName);
-    const dir = dirname(report.fileName);
-    const base = basename(report.fileName, extension);
-    const outPath = join(process.cwd(), dir, base + ".csv");
+    const fileReport = this.fileOutput.start(report, ".csv");
+    if (fileReport === null) return;
 
     this.output = stringify({ columns: csvColumns });
-    this.fileName = createWriteStream(outPath, "utf8");
-    this.output.pipe(this.fileName);
-    this.pendingWrite = Promise.all([finished(this.output), finished(this.fileName)]).then(() => undefined);
+    this.output.pipe(fileReport.stream);
+    this.fileOutput.trackFlush(finished(this.output).then(() => undefined));
     this.output.write(csvColumns);
 
     for (const result of report.results) {

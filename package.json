@@ -57,6 +57,7 @@
     "packages/snapshots",
     "packages/transform",
     "packages/core",
+    "packages/reporter-output",
     "packages/csv-reporter",
     "packages/json-reporter",
     "packages/cli"

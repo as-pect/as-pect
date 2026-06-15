@@ -1,7 +1,6 @@
-import { WriteStream, createWriteStream } from "fs";
-import { basename, extname, dirname, join } from "path";
-import { finished } from "stream/promises";
+import { Writable } from "stream";
 import { TestContext, IReporter, IWritable, SuiteReport, SuiteReportEvent, SuiteResultReport } from "@as-pect/core";
+import { ReporterFileOutput } from "@as-pect/reporter-output";
 
 /**
  * This class reports all relevant test statistics to a JSON file located at
@@ -11,8 +10,8 @@ export default class JSONReporter implements IReporter {
   public stdout: IWritable | null = null;
   public stderr: IWritable | null = null;
 
-  protected file: WriteStream | null = null;
-  protected pendingWrite: Promise<void> = Promise.resolve();
+  protected file: Writable | null = null;
+  protected fileOutput: ReporterFileOutput = new ReporterFileOutput();
 
   private first: boolean = true;
 
@@ -29,28 +28,26 @@ export default class JSONReporter implements IReporter {
   }
 
   public onFlush(): Promise<void> {
-    return this.pendingWrite;
+    return this.fileOutput.flush();
   }
 
   protected writeReport(report: SuiteReport): void {
     if (report.hasResults === false) return;
 
-    const extension = extname(report.fileName);
-    const dir = dirname(report.fileName);
-    const base = basename(report.fileName, extension);
-    const outPath = join(process.cwd(), dir, base + ".json");
+    const fileReport = this.fileOutput.start(report, ".json");
+    if (fileReport === null) return;
 
-    this.file = createWriteStream(outPath, "utf8");
-    this.pendingWrite = finished(this.file).then(() => undefined);
-    this.file.write("[");
+    const file = fileReport.stream;
+    this.file = file;
+    file.write("[");
     this.first = true;
 
     for (const result of report.results) {
       this.onResult(result);
     }
 
-    this.file.write(this.first ? "]" : "\n]");
-    this.file.end();
+    file.write(this.first ? "]" : "\n]");
+    file.end();
   }
 
   protected onResult(result: SuiteResultReport): void {
