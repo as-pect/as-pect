@@ -2,9 +2,10 @@ import type { IAspectConfig } from "./IAspectConfig.js";
 import { CombinationReporter, SummaryReporter, VerboseReporter, type IReporter, type IWritable } from "@as-pect/core";
 import { existsSync } from "fs";
 import path from "path";
-import process, { cwd } from "process";
+import process from "process";
 import { fileURLToPath, pathToFileURL } from "url";
 import { importLocalModule } from "./importLocalModule.js";
+import { createTestSessionProject, type TestSessionProject } from "./TestSessionProject.js";
 
 function isExplicitLocalSpecifier(reporterLocation: string): boolean {
   return (
@@ -17,12 +18,12 @@ function isExplicitLocalSpecifier(reporterLocation: string): boolean {
   );
 }
 
-function resolveReporterLocalPath(reporterLocation: string): string | null {
+function resolveReporterLocalPath(reporterLocation: string, project: TestSessionProject): string | null {
   if (reporterLocation.startsWith("file:")) {
     return fileURLToPath(reporterLocation);
   }
 
-  const candidatePath = path.resolve(cwd(), reporterLocation);
+  const candidatePath = project.resolvePath(reporterLocation);
   if (isExplicitLocalSpecifier(reporterLocation) || existsSync(candidatePath)) {
     return candidatePath;
   }
@@ -30,8 +31,8 @@ function resolveReporterLocalPath(reporterLocation: string): string | null {
   return null;
 }
 
-async function importReporterModule(reporterLocation: string): Promise<IReporter> {
-  const localPath = resolveReporterLocalPath(reporterLocation);
+async function importReporterModule(reporterLocation: string, project: TestSessionProject): Promise<IReporter> {
+  const localPath = resolveReporterLocalPath(reporterLocation, project);
   if (localPath) {
     try {
       return (await importLocalModule<{ default: IReporter }>(localPath)).default;
@@ -46,7 +47,7 @@ async function importReporterModule(reporterLocation: string): Promise<IReporter
   }
 
   try {
-    const parentUrl = pathToFileURL(path.join(cwd(), "package.json")).href;
+    const parentUrl = pathToFileURL(project.packageJsonPath()).href;
     const moduleSpecifier = import.meta.resolve(reporterLocation, parentUrl);
     return (await import(moduleSpecifier)).default as IReporter;
   } catch (ex) {
@@ -66,14 +67,18 @@ export interface CliReporterOptions {
 }
 
 /** Collect up the reporter asynchronously because modules could be imported. */
-export async function getReporter(opts: CliReporterOptions, aspectConfig: IAspectConfig): Promise<IReporter> {
+export async function getReporter(
+  opts: CliReporterOptions,
+  aspectConfig: IAspectConfig,
+  project: TestSessionProject = createTestSessionProject(process.cwd()),
+): Promise<IReporter> {
   const reporters = [] as IReporter[];
   if (aspectConfig.reporter) {
-    reporters.push(await importReporterModule(aspectConfig.reporter));
+    reporters.push(await importReporterModule(aspectConfig.reporter, project));
   }
 
   if (typeof opts.reporter === "string") {
-    reporters.push(await importReporterModule(opts.reporter));
+    reporters.push(await importReporterModule(opts.reporter, project));
   }
 
   if (opts.json) {
@@ -115,8 +120,9 @@ export async function collectReporter(
   opts: CliReporterOptions,
   aspectConfig: IAspectConfig,
   output: ReporterOutput = { stderr: process.stderr, stdout: process.stdout },
+  project: TestSessionProject = createTestSessionProject(process.cwd()),
 ): Promise<IReporter> {
-  const reporter = await getReporter(opts, aspectConfig);
+  const reporter = await getReporter(opts, aspectConfig, project);
   reporter.stdout = output.stdout;
   reporter.stderr = output.stderr;
   return reporter;

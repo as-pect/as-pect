@@ -124,10 +124,15 @@ describe("Test session entry", () => {
 
     const result = await runTestSessionEntry(options);
 
-    expect(collectReporter).toHaveBeenCalledWith(options.options, options.aspectConfig, {
-      stderr: options.stderr,
-      stdout: options.stdout,
-    });
+    expect(collectReporter).toHaveBeenCalledWith(
+      options.options,
+      options.aspectConfig,
+      {
+        stderr: options.stderr,
+        stdout: options.stdout,
+      },
+      expect.objectContaining({ cwd: options.cwd }),
+    );
     expect(result).toMatchObject({
       compilerError: null,
       suiteStatsFacts: {

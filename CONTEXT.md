@@ -12,6 +12,10 @@ _Avoid_: Runner service, CLI workflow
 The ordered test entries and include files for a Test session after CLI/config globs are expanded, filtered, sorted, and deduplicated.
 _Avoid_: Discovered file batch, glob result set
 
+**Test session project path**:
+The explicit project-root path seam for programmatic Test session runs. It resolves project-relative files and package-resolution anchors from `TestSessionConfig.cwd` instead of ambient `process.cwd()`.
+_Avoid_: Current directory helper, path utils grab bag
+
 **Test session entry**:
 The lifecycle for one planned AssemblyScript test entry: compiling with shared compiler IO, optionally writing compiler artifacts, optionally instantiating and executing wasm, flushing reporters, and returning suite facts with snapshot write decisions.
 _Avoid_: Entry runner, spec file executor

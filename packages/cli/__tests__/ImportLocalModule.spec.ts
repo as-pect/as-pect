@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { collectReporter } from "../src/collectReporter.js";
 import { importLocalModule, toLocalModuleSpecifier } from "../src/importLocalModule.js";
+import { createTestSessionProject } from "../src/TestSessionProject.js";
 import type { IAspectConfig } from "../src/IAspectConfig.js";
 
 const aspectConfig: IAspectConfig = {
@@ -82,6 +83,26 @@ describe("local module imports", () => {
     expect(reporter.stderr).toBe(stderr);
   });
 
+  it("resolves custom reporter file paths from an explicit project path without chdir", async () => {
+    const moduleName = "reporter #é space.mjs";
+    await writeReporterModule(path.join(tempDirectory, moduleName), "project path reporter");
+    const stdout = { write(_str: string) {} };
+    const stderr = { write(_str: string) {} };
+
+    const reporter = await collectReporter(
+      { reporter: `./${moduleName}` },
+      aspectConfig,
+      { stdout, stderr },
+      createTestSessionProject(tempDirectory),
+    );
+
+    reporter.onFinish({} as never);
+
+    expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toEqual(["project path reporter"]);
+    expect(reporter.stdout).toBe(stdout);
+    expect(reporter.stderr).toBe(stderr);
+  });
+
   it("preserves existing custom reporter behavior for local project files without a relative prefix", async () => {
     const moduleName = "project-reporter.mjs";
     await writeReporterModule(path.join(tempDirectory, moduleName), "local project reporter");
@@ -92,6 +113,22 @@ describe("local module imports", () => {
     reporter.onFinish({} as never);
 
     expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toEqual(["local project reporter"]);
+  });
+
+  it("resolves prefixless project reporter files from an explicit project path without chdir", async () => {
+    const moduleName = "project-reporter.mjs";
+    await writeReporterModule(path.join(tempDirectory, moduleName), "explicit project reporter");
+
+    const reporter = await collectReporter(
+      { reporter: moduleName },
+      aspectConfig,
+      undefined,
+      createTestSessionProject(tempDirectory),
+    );
+
+    reporter.onFinish({} as never);
+
+    expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toEqual(["explicit project reporter"]);
   });
 
   it("imports custom reporters from package module specifiers relative to the project", async () => {
@@ -110,6 +147,28 @@ describe("local module imports", () => {
     reporter.onFinish({} as never);
 
     expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toEqual(["package reporter"]);
+  });
+
+  it("imports package reporter modules from an explicit project path without chdir", async () => {
+    const packageDirectory = path.join(tempDirectory, "node_modules", "aspect-project-reporter");
+    await fs.mkdir(packageDirectory, { recursive: true });
+    await fs.writeFile(
+      path.join(packageDirectory, "package.json"),
+      JSON.stringify({ name: "aspect-project-reporter", type: "module", exports: "./index.mjs" }),
+      "utf8",
+    );
+    await writeReporterModule(path.join(packageDirectory, "index.mjs"), "project package reporter");
+
+    const reporter = await collectReporter(
+      { reporter: "aspect-project-reporter" },
+      aspectConfig,
+      undefined,
+      createTestSessionProject(tempDirectory),
+    );
+
+    reporter.onFinish({} as never);
+
+    expect((globalThis as Record<string, unknown>)[reporterMarkerKey]).toEqual(["project package reporter"]);
   });
 
   it("combines config and CLI reporters in config-first order", async () => {

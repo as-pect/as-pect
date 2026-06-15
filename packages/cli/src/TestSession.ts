@@ -13,6 +13,7 @@ import {
   type CreateTestSessionCoverageOptions,
   type TestSessionCoverage,
 } from "./TestSessionCoverage.js";
+import type { TestSessionProject } from "./TestSessionProject.js";
 import {
   accumulateTestSessionSuiteStats,
   createInitialTestSessionStats,
@@ -95,6 +96,7 @@ export type TestSessionReporterCollector = (
   options: TestSessionCliOptions,
   aspectConfig: IAspectConfig,
   output: ReporterOutput,
+  project: TestSessionProject,
 ) => ReturnType<typeof defaultCollectReporter>;
 
 export type TestSessionCoverageFactory = (

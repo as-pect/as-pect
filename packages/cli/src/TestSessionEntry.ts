@@ -10,6 +10,7 @@ import type { TestSessionSuiteStatsFacts } from "./TestSessionStats.js";
 import { createTestSessionWasi } from "./TestSessionWasi.js";
 import type { TestSessionCliOptions, TestSessionFileSystem, TestSessionReporterCollector } from "./TestSession.js";
 import { noTestSessionCoverage, type TestSessionCoverage } from "./TestSessionCoverage.js";
+import { createTestSessionProject } from "./TestSessionProject.js";
 
 export interface TestSessionEntryCompilerResult {
   error?: unknown;
@@ -144,7 +145,7 @@ export async function runTestSessionEntry({
     cwd,
   });
 
-  const reporter = await collectReporter(options, aspectConfig, createReporterOutput(stderr, stdout));
+  const reporter = await collectReporter(options, aspectConfig, createReporterOutput(stderr, stdout), createTestSessionProject(cwd));
 
   const ctx = new TestContext({
     reporter,

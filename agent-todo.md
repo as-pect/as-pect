@@ -43,7 +43,7 @@ Use these references when implementing standardized reporter output formats:
 
 ## Epic: CLI correctness and Test session seams
 
-### Slice 2 — Deepen project path resolution for the Test session
+### Slice 2B — Resolve compiler entry paths and config paths through the project path seam
 
 **Status:** Active
 **Recommendation strength:** Strong
@@ -53,42 +53,51 @@ Use these references when implementing standardized reporter output formats:
 - `packages/cli/src/TestSession.ts`
 - `packages/cli/src/TestSessionEntry.ts`
 - `packages/cli/src/TestSessionEntries.ts`
-- `packages/cli/src/collectReporter.ts`
-- `packages/csv-reporter/index.ts`
-- `packages/json-reporter/index.ts`
+- `packages/cli/__tests__/TestSession.spec.ts`
+- `packages/cli/__tests__/TestSessionEntry.spec.ts`
 
-**Problem:** `TestSessionConfig` carries `cwd`, but several modules still consult ambient `process.cwd()` or pass through relative paths directly. Examples include reporter module resolution in `collectReporter.ts`, file output paths in CSV/JSON reporters, raw `asconfigLocation` compiler args, and glob behavior that depends on the caller's ambient current directory. This makes programmatic Test session usage hard to reason about and spreads project path rules across shallow modules.
+**Problem:** Entry globs, include globs, and the compiler `--config` argument still pass relative paths through multiple modules. Programmatic callers should be able to run a Test session for `cwd` without relying on ambient process cwd.
 
 **Desired behavior:**
 
-- The Test session has one project path module/seam that owns path resolution rules.
-- Programmatic callers can run a Test session for `cwd` without changing the Node process cwd.
-- Reporter loading and reporter file output use explicit project path facts rather than ambient cwd.
-- Compiler config paths, entry globs, include globs, snapshot paths, and artifact paths are resolved consistently.
-
-**Suggested implementation plan:**
-
-1. Add a small project path module in `packages/cli/src/` that accepts `cwd` and exposes named operations instead of raw `path.resolve` calls in callers.
-2. Use that module in `index.ts` when loading `as-pect.config.js` and creating `TestSessionConfig`.
-3. Pass resolved project path facts through Test session dependencies instead of having `collectReporter` call `process.cwd()`.
-4. Decide whether CSV/JSON reporter output paths should be given by reporter options, report facts, or a file-output helper module from the reporter-output epic. If the latter, stop before crossing into reporter file output work and create a follow-up note.
-5. Add tests that deliberately set `cwd` to a fake project path without `process.chdir`.
-6. Update `CONTEXT.md` if the project path module becomes a named project concept.
-
-**Tests to add or update first:**
-
-- Programmatic `TestSession` with `cwd: "/workspace/project"` resolves config, entries, includes, and snapshots relative to that path without changing `process.cwd()`.
-- Custom reporter resolution can be tested with an injected module resolver or explicit cwd; avoid global `process.chdir` in new tests.
-- Output artifact paths for `--output-binary` remain stable.
+- CLI config loading and Test session planning use the Test session project path seam for `cwd`-relative paths.
+- Compiler config paths, entry globs, include globs, snapshot paths, and output-binary artifact paths are resolved consistently.
+- Tests set `cwd` to a fake project path without `process.chdir` and prove compiler args plus artifact paths remain stable.
 
 **Validation:**
 
 - `npm test --workspace @as-pect/cli`
 - `npm run tsc:cli --workspace @as-pect/cli`
-- If reporter packages are touched: `npm test --workspace @as-pect/csv-reporter` and `npm test --workspace @as-pect/json-reporter`.
 - Run root `npm test` before merging because this seam crosses package behavior.
 
-**Compatibility notes:** Preserve existing CLI behavior for normal shell users. The improvement is that non-CLI callers no longer need to mutate global cwd.
+---
+
+### Slice 2C — Decide reporter file-output project path ownership
+
+**Status:** Active
+**Recommendation strength:** Strong
+**Primary files:**
+
+- `packages/cli/src/TestSession.ts`
+- `packages/cli/src/TestSessionEntry.ts`
+- `packages/reporter-output/src/index.ts`
+- `packages/csv-reporter/index.ts`
+- `packages/json-reporter/index.ts`
+- `packages/junit-reporter/index.ts`
+
+**Problem:** File-backed reporters write artifacts next to report file names, but the project path ownership between CLI options, Suite report facts, and `@as-pect/reporter-output` is still implicit.
+
+**Desired behavior:**
+
+- Decide whether file-backed reporters receive resolved output locations from reporter options, Suite report facts, or the shared reporter-output helper.
+- Keep CSV/JSON/JUnit output compatibility unless a separate compatibility migration explicitly says otherwise.
+- Add focused tests around reporter artifact paths once the ownership boundary is chosen.
+
+**Validation:**
+
+- Reporter package tests for touched reporters.
+- `npm test --workspace @as-pect/cli` if Test session wiring changes.
+- Root `npm run tsc:all` and `npm test` if shared reporter-output behavior changes.
 
 ---
 
