@@ -1,0 +1,61 @@
+import { mkdtemp, readFile, rm } from "fs/promises";
+import { join, relative } from "path";
+import { collectReporter } from "../src/collectReporter.js";
+import type { IAspectConfig } from "../src/IAspectConfig.js";
+import type { SuiteReport, SuiteResultReport } from "@as-pect/core";
+
+const aspectConfig: IAspectConfig = {
+  instantiate() {
+    throw new Error("not used by reporter collection tests");
+  },
+};
+
+function testResult(): Extract<SuiteResultReport, { type: "test" }> {
+  return {
+    type: "test",
+    groupName: "math",
+    name: "adds values",
+    ran: true,
+    negated: false,
+    pass: true,
+    runtime: 3,
+    message: null,
+    stackTrace: null,
+    rtraceDelta: 0,
+    logs: [],
+    actual: "3",
+    expected: "3",
+    actualValue: null,
+    expectedValue: null,
+  };
+}
+
+function report(fileName: string): SuiteReport {
+  return {
+    fileName,
+    hasResults: true,
+    rootRuntime: 12,
+    results: [testResult()],
+    errors: [],
+    snapshotChanges: [],
+  } as SuiteReport;
+}
+
+describe("reporter collection", () => {
+  it("creates the JUnit XML reporter when --junit is selected", async () => {
+    const tempDir = await mkdtemp(join(process.cwd(), "tmp-cli-junit-reporter-"));
+    const fileName = join(relative(process.cwd(), tempDir), "entry.spec.ts");
+
+    try {
+      const reporter = await collectReporter({ junit: true }, aspectConfig);
+      reporter.onReportFinish?.({ report: report(fileName) });
+      await reporter.onFlush?.();
+
+      const xml = await readFile(join(tempDir, "entry.spec.xml"), "utf8");
+      expect(xml).toContain('<testsuite name="tmp-cli-junit-reporter-');
+      expect(xml).toContain('<testcase classname="math" name="adds values" time="0.003"/>');
+    } finally {
+      await rm(tempDir, { recursive: true, force: true });
+    }
+  });
+});

@@ -10,6 +10,7 @@ export interface CliOptions {
   include?: string;
   init: boolean;
   json: boolean;
+  junit: boolean;
   logo: boolean;
   memoryMax: string;
   memorySize: string;
@@ -43,6 +44,7 @@ type BooleanOptionName =
   | "csv"
   | "init"
   | "json"
+  | "junit"
   | "outputBinary"
   | "showStats"
   | "summary"
@@ -204,6 +206,13 @@ const BOOLEAN_OPTIONS: BooleanOptionDefinition[] = [
     value: true,
   },
   {
+    description: "Use the JUnit XML reporter (output results to xml files.) (default: false)",
+    display: "--junit",
+    long: "--junit",
+    property: "junit",
+    value: true,
+  },
+  {
     description: "Show compiler stats between compilations. (default: false)",
     display: "-s, --show-stats",
     long: "--show-stats",
@@ -227,6 +236,7 @@ function createDefaultOptions(): CliOptions {
     group: "(:?)",
     init: false,
     json: false,
+    junit: false,
     logo: true,
     memoryMax: "-1",
     memorySize: "10",

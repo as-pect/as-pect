@@ -61,7 +61,7 @@ The shared file-backed reporter seam that builds output paths next to test entri
 _Avoid_: Per-format file plumbing, reporter stream boilerplate
 
 **JUnit XML report**:
-The file-backed CI interchange report emitted by `@as-pect/junit-reporter`. It maps Suite report facts to the common JUnit XML `testsuite`, `testcase`, `failure`, `error`, `skipped`, and `system-out` elements without reading Test tree internals.
+The file-backed CI interchange report selected with `asp --junit` or emitted directly by `@as-pect/junit-reporter`. It maps Suite report facts to the common JUnit XML `testsuite`, `testcase`, `failure`, `error`, `skipped`, and `system-out` elements without reading Test tree internals.
 _Avoid_: xUnit dump, CI XML blob
 
 **as-pect CSV v1 contract**:

@@ -59,6 +59,7 @@ async function importReporterModule(reporterLocation: string): Promise<IReporter
 export interface CliReporterOptions {
   csv?: boolean;
   json?: boolean;
+  junit?: boolean;
   reporter?: string | boolean;
   summary?: boolean;
   verbose?: boolean;
@@ -83,6 +84,11 @@ export async function getReporter(opts: CliReporterOptions, aspectConfig: IAspec
   if (opts.csv) {
     const CSVReporter = (await import("@as-pect/csv-reporter")).default;
     reporters.push(new CSVReporter());
+  }
+
+  if (opts.junit) {
+    const JUnitReporter = (await import("@as-pect/junit-reporter")).default;
+    reporters.push(new JUnitReporter());
   }
 
   if (opts.summary) {

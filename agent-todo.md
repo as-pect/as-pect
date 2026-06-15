@@ -183,42 +183,6 @@ Use these references when implementing standardized reporter output formats:
 
 ## Epic: Reporter output formats and file-output locality
 
-### Slice 7B — Add a built-in JUnit CLI shortcut
-
-**Status:** Active
-**Recommendation strength:** Strong
-**Primary files:**
-
-- `packages/cli/src/collectReporter.ts`
-- `packages/cli/src/CliProgram.ts`
-- `packages/cli/__tests__/CliOptions.spec.ts`
-- `README.md`
-- `packages/cli/README.md`
-
-**Problem:** After the JUnit reporter package exists, users should not need to remember the package name for common CI usage.
-
-**Desired behavior:**
-
-- Users can request JUnit XML with a built-in CLI flag, likely `--junit`.
-- The flag composes with existing reporter selection behavior without changing `--csv`, `--json`, summary, or verbose output.
-- Documentation shows both the shortcut and explicit `--reporter @as-pect/junit-reporter` usage.
-
-**Tests to add first:**
-
-- CLI option parsing recognizes `--junit`.
-- Reporter collection creates the JUnit reporter when `--junit` is set.
-- Existing reporter flags retain their current behavior.
-
-**Validation:**
-
-- `npm test --workspace @as-pect/cli`
-- `npm run tsc:cli --workspace @as-pect/cli`
-- `npm test --workspace @as-pect/junit-reporter` if package wiring changes.
-
-**Compatibility notes:** Additive CLI feature. Do not make JUnit the default reporter.
-
----
-
 ### Slice 8 — Add CTRF JSON output as the standardized JSON reporter
 
 **Status:** Active

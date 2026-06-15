@@ -45,6 +45,7 @@ describe("CLI option parsing", () => {
     expect(help).toContain("-d, --disclude <regex>");
     expect(help).toContain("-i, --include <globs>");
     expect(help).toContain("--reporter <reporter>");
+    expect(help).toContain("--junit");
   });
 
   it("maps default option values used for a normal test session", () => {
@@ -55,6 +56,7 @@ describe("CLI option parsing", () => {
       group: "(:?)",
       init: false,
       json: false,
+      junit: false,
       logo: true,
       memoryMax: "-1",
       memorySize: "10",
@@ -155,12 +157,13 @@ describe("CLI option parsing", () => {
   });
 
   it("maps built-in reporter selector flags", () => {
-    const opts = parseOptions(["--summary", "--verbose", "--csv", "--json"]);
+    const opts = parseOptions(["--summary", "--verbose", "--csv", "--json", "--junit"]);
 
     expect(opts.summary).toBe(true);
     expect(opts.verbose).toBe(true);
     expect(opts.csv).toBe(true);
     expect(opts.json).toBe(true);
+    expect(opts.junit).toBe(true);
   });
 
   it("maps the show stats flag", () => {

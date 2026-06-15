@@ -36,7 +36,7 @@ When coverage is enabled, `asp` uses the `coverage` target from `as-pect.asconfi
 
 ## Reporter output formats
 
-The JUnit XML reporter (`@as-pect/junit-reporter`) writes CI-friendly `.xml` files next to test entries. Install it and use it through the existing custom reporter option: `asp --reporter @as-pect/junit-reporter`. The report maps Suite report facts to common JUnit XML `testsuite`, `testcase`, `failure`, `error`, `skipped`, and `system-out` elements.
+The JUnit XML reporter (`@as-pect/junit-reporter`) writes CI-friendly `.xml` files next to test entries. Use the built-in shortcut `asp --junit`, or install/select the package explicitly with `asp --reporter @as-pect/junit-reporter`. The report maps Suite report facts to common JUnit XML `testsuite`, `testcase`, `failure`, `error`, `skipped`, and `system-out` elements.
 
 The CSV reporter (`@as-pect/csv-reporter`) is documented as the as-pect CSV v1 tabular export. It keeps the stable column order `Group`, `Name`, `Ran`, `Negated`, `Pass`, `Runtime`, `Message`, `Actual`, `Expected` for spreadsheet-style workflows, without claiming to be a cross-tool CSV test-result standard. See [`packages/csv-reporter/readme.md`](./packages/csv-reporter/readme.md#as-pect-csv-v1-contract) for the full column contract.
 
