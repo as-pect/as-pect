@@ -1,4 +1,4 @@
-import process from "process";
+import { type CliShell, processCliShell } from "./CliShell.js";
 
 export interface CliOptions {
   [key: string]: unknown;
@@ -271,11 +271,22 @@ export class CliProgram {
   public args: string[] = [];
   private commandName = "asp";
   private outputConfiguration: CliOutputConfiguration = {};
+  private shell: CliShell;
   private shouldThrowOnExit = false;
   private values = createDefaultOptions();
 
+  public constructor(shell: CliShell = processCliShell) {
+    this.shell = shell;
+  }
+
   public configureOutput(configuration: CliOutputConfiguration): this {
     this.outputConfiguration = configuration;
+    return this;
+  }
+
+  public configureShell(shell: CliShell): this {
+    this.shell = shell;
+    this.outputConfiguration = {};
     return this;
   }
 
@@ -368,7 +379,7 @@ export class CliProgram {
       throw new Error(message);
     }
 
-    process.exit(code);
+    this.shell.exit(code);
   }
 
   private setBooleanOption(property: BooleanOptionName, value: boolean): void {
@@ -408,12 +419,12 @@ export class CliProgram {
   }
 
   private writeErr(str: string): void {
-    const writeErr = this.outputConfiguration.writeErr ?? process.stderr.write.bind(process.stderr);
+    const writeErr = this.outputConfiguration.writeErr ?? this.shell.stderr.write.bind(this.shell.stderr);
     writeErr(str);
   }
 
   private writeOut(str: string): void {
-    const writeOut = this.outputConfiguration.writeOut ?? process.stdout.write.bind(process.stdout);
+    const writeOut = this.outputConfiguration.writeOut ?? this.shell.stdout.write.bind(this.shell.stdout);
     writeOut(str);
   }
 }

@@ -1,4 +1,5 @@
 import { ansi } from "./ansi.js";
+import { processCliShell, type CliWriter } from "./CliShell.js";
 
 /**
  * @ignore
@@ -6,7 +7,7 @@ import { ansi } from "./ansi.js";
  * This method prints the ascii art.
  * @param {string} version - The cli version
  */
-export function printAsciiArt(): void {
+export function printAsciiArt(writer: CliWriter = processCliShell.stdout): void {
   const asciiArtLines: readonly (readonly [line: string, width: number])[] = [
     ["       ___   _____                       __", 47],
     ["      /   | / ___/      ____  ___  _____/ /_", 47],
@@ -16,5 +17,5 @@ export function printAsciiArt(): void {
     ["                    /_/", 47],
   ];
 
-  console.log(ansi.boldBlackOnWhite(asciiArtLines.map(([line, width]) => line.padEnd(width)).join("\n")));
+  writer.write(`${ansi.boldBlackOnWhite(asciiArtLines.map(([line, width]) => line.padEnd(width)).join("\n"))}\n`);
 }

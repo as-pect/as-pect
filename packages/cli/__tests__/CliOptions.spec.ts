@@ -1,4 +1,4 @@
-import { jest } from "@jest/globals";
+import type { CliShell } from "../src/CliShell.js";
 import { asp, createCliProgram } from "../src/index.js";
 
 function parseCommand(args: string[]) {
@@ -10,6 +10,34 @@ function parseCommand(args: string[]) {
 
 function parseOptions(args: string[]) {
   return parseCommand(args).opts();
+}
+
+function createTestShell(): { exits: number[]; shell: CliShell; stderr: string[]; stdout: string[] } {
+  const exits: number[] = [];
+  const stderr: string[] = [];
+  const stdout: string[] = [];
+
+  return {
+    exits,
+    shell: {
+      exit(code: number): never {
+        exits.push(code);
+        throw new Error(`cli.exit:${code}`);
+      },
+      stderr: {
+        write(text: string): void {
+          stderr.push(text);
+        },
+      },
+      stdout: {
+        write(text: string): void {
+          stdout.push(text);
+        },
+      },
+    },
+    stderr,
+    stdout,
+  };
 }
 
 function expectParseError(args: string[], expectedMessage: string) {
@@ -75,24 +103,39 @@ describe("CLI option parsing", () => {
     expect(parseOptions(["--version"]).version).toBe(true);
   });
 
-  it("prints version output and exits before loading config", async () => {
-    const writes: string[] = [];
-    const writeSpy = jest.spyOn(process.stdout, "write").mockImplementation((chunk: string | Uint8Array): boolean => {
-      writes.push(String(chunk));
-      return true;
-    });
-    const exitSpy = jest.spyOn(process, "exit").mockImplementation((code?: string | number | null): never => {
-      throw new Error(`process.exit:${code ?? ""}`);
-    });
+  it("prints version output and exits before loading config through the CLI shell", async () => {
+    const { exits, shell, stdout } = createTestShell();
 
-    try {
-      await expect(asp(["node", "asp", "--version"])).rejects.toThrow("process.exit:0");
-    } finally {
-      writeSpy.mockRestore();
-      exitSpy.mockRestore();
-    }
+    await expect(asp(["node", "asp", "--version"], shell)).rejects.toThrow("cli.exit:0");
 
-    expect(writes.join("")).toContain("⚡AS-pect⚡ Test suite runner");
+    expect(stdout.join("")).toContain("⚡AS-pect⚡ Test suite runner");
+    expect(exits).toEqual([0]);
+  });
+
+  it("writes config load failures to stderr and exits through the CLI shell", async () => {
+    const { exits, shell, stderr } = createTestShell();
+
+    await expect(
+      asp(["node", "asp", "--no-logo", "--config", "./__missing_as_pect_config_for_cli_shell__.js"], shell),
+    ).rejects.toThrow("cli.exit:1");
+
+    expect(stderr.join("")).toContain("__missing_as_pect_config_for_cli_shell__.js");
+    expect(exits).toEqual([1]);
+  });
+
+  it("writes logo output through the CLI shell and respects --no-logo", async () => {
+    const logoRun = createTestShell();
+    await expect(
+      asp(["node", "asp", "--config", "./__missing_as_pect_config_for_cli_shell__.js"], logoRun.shell),
+    ).rejects.toThrow("cli.exit:1");
+
+    const noLogoRun = createTestShell();
+    await expect(
+      asp(["node", "asp", "--no-logo", "--config", "./__missing_as_pect_config_for_cli_shell__.js"], noLogoRun.shell),
+    ).rejects.toThrow("cli.exit:1");
+
+    expect(logoRun.stdout.join("")).toContain("___   _____");
+    expect(noLogoRun.stdout.join("")).not.toContain("___   _____");
   });
 
   it("maps --init without requiring config", () => {

@@ -36,6 +36,10 @@ _Avoid_: Stats helper, counter updater
 The CLI/config WASI seam that chooses the effective WASI options for a Test session entry, resolves CLI config paths from the current working directory, and applies the Node `preview1` default without mutating user configuration.
 _Avoid_: WASI helper, WASI config loader
 
+**CLI shell**:
+The injectable command-line boundary for `asp` stdout, stderr, logo output, and exit decisions. Tests use this seam instead of monkeypatching global process streams or `process.exit`.
+_Avoid_: Process wrapper, console shim
+
 **Test suite**:
 The collected tests and groups for a single AssemblyScript test binary.
 _Avoid_: Spec bundle, test file model

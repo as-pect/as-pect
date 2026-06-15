@@ -92,48 +92,6 @@ Use these references when implementing standardized reporter output formats:
 
 ---
 
-### Slice 5 — Normalize CLI shell output and exit behavior
-
-**Status:** Active
-**Recommendation strength:** Speculative but accepted for future work
-**Primary files:**
-
-- `packages/cli/src/index.ts`
-- `packages/cli/src/CliProgram.ts`
-- `packages/cli/src/asciiArt.ts`
-- `packages/cli/src/init.ts`
-- `packages/cli/__tests__/CliOptions.spec.ts`
-
-**Problem:** CLI output and exit behavior are split across injected writers in `CliProgram`, injected writer support in `init`, direct `process.stdout.write` in `index.ts`, direct `console.error`, direct `process.exit`, and `console.log` in `asciiArt.ts`. Tests currently patch globals to observe output and exit behavior.
-
-**Desired behavior:**
-
-- A CLI shell module owns stdout, stderr, logo output, and exit decisions behind one interface.
-- Tests can exercise CLI behavior without monkeypatching global process streams or `process.exit`.
-- Existing command-line output remains stable unless a test explicitly documents an intentional change.
-
-**Suggested implementation plan:**
-
-1. Introduce an injected CLI shell/output adapter used by `asp`, `CliProgram`, `init`, and `printAsciiArt`.
-2. Make `asp(argv, shell?)` or an equivalent seam possible without changing the public CLI binary behavior.
-3. Return or throw structured exit facts in tests rather than calling `process.exit` directly under test.
-4. Preserve `createCliProgram().exitOverride()` compatibility until a migration path is clear.
-5. Update tests that currently spy on `process.stdout.write` and `process.exit` to use the shell seam.
-
-**Tests to add or update first:**
-
-- `--version` writes version output and returns/exits code 0 through the shell seam.
-- Config load failure writes to stderr and exits code 1 through the shell seam.
-- Logo output uses the configured writer and respects `--no-logo`.
-
-**Validation:**
-
-- `npm test --workspace @as-pect/cli`
-- `npm run tsc:cli --workspace @as-pect/cli`
-
-**Compatibility notes:** Keep CLI binary behavior stable for shell users. This is a testability/locality slice, not an output redesign.
-
----
 
 ## Epic: Reporter output formats and file-output locality
 
