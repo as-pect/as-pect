@@ -9,6 +9,11 @@ import { createCompilerIoCache, type AssemblyScriptCompilerIo } from "./Compiler
 import { planTestSessionEntries } from "./TestSessionEntries.js";
 import { runTestSessionEntry, type TestSessionEntryCompilerResult } from "./TestSessionEntry.js";
 import {
+  createTestSessionCoverage,
+  type CreateTestSessionCoverageOptions,
+  type TestSessionCoverage,
+} from "./TestSessionCoverage.js";
+import {
   accumulateTestSessionSuiteStats,
   createInitialTestSessionStats,
   type TestSessionStats,
@@ -92,9 +97,14 @@ export type TestSessionReporterCollector = (
   output: ReporterOutput,
 ) => ReturnType<typeof defaultCollectReporter>;
 
+export type TestSessionCoverageFactory = (
+  options: CreateTestSessionCoverageOptions,
+) => Promise<TestSessionCoverage>;
+
 export interface TestSessionDependencies {
   collectReporter?: TestSessionReporterCollector;
   compile(args: string[], io: AssemblyScriptCompilerIo): Promise<TestSessionEntryCompilerResult>;
+  createCoverage: TestSessionCoverageFactory;
   fileSystem: TestSessionFileSystem;
   glob(pattern: string): Promise<string[]>;
 }
@@ -102,6 +112,7 @@ export interface TestSessionDependencies {
 const defaultDependencies: TestSessionDependencies = {
   collectReporter: defaultCollectReporter,
   compile: asc,
+  createCoverage: createTestSessionCoverage,
   fileSystem: {
     access: fs.access,
     existsSync,
@@ -256,7 +267,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
   const compilerIoCache = createCompilerIoCache();
   const stats = createInitialTestSessionStats();
 
-  const { compile, fileSystem, glob } = dependencies;
+  const { compile, createCoverage, fileSystem, glob } = dependencies;
   const collectReporter = dependencies.collectReporter ?? defaultCollectReporter;
 
   const { entries, includeFiles } = await planTestSessionEntries({
@@ -267,17 +278,10 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     includeGlobs,
   });
 
-  if (aspectConfig.coverage) {
-    writeLog(stdout, `Using code coverage: ${aspectConfig.coverage.join(", ")}`);
-  }
-
-  let covers: import("@as-covers/glue").Covers | null = null;
-  const coverageFiles = aspectConfig.coverage || [];
-  if (coverageFiles.length !== 0) {
-    writeLog(stdout, "Using coverage: " + coverageFiles.join(", "));
-    const Covers = (await import("@as-covers/glue")).Covers;
-    covers = new Covers({ files: coverageFiles });
-  }
+  const coverage = await createCoverage({
+    coverageFiles: aspectConfig.coverage ?? [],
+    log: (message) => writeLog(stdout, message),
+  });
 
   for (const entry of entries) {
     const entryResult = await runTestSessionEntry({
@@ -286,7 +290,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
       collectReporter,
       compile,
       compilerIoCache,
-      coverage: covers,
+      coverage,
       cwd,
       entry,
       fileSystem,
@@ -320,7 +324,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
 
   return {
     compilerError: null,
-    coverageReport: covers ? covers.stringify() : null,
+    coverageReport: coverage.stringifyReport(),
     pass: stats.pass,
     stats,
   };

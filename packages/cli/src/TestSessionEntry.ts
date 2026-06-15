@@ -9,6 +9,7 @@ import { planTestSessionSnapshots, SnapshotMode } from "./TestSessionSnapshots.j
 import type { TestSessionSuiteStatsFacts } from "./TestSessionStats.js";
 import { createTestSessionWasi } from "./TestSessionWasi.js";
 import type { TestSessionCliOptions, TestSessionFileSystem, TestSessionReporterCollector } from "./TestSession.js";
+import { noTestSessionCoverage, type TestSessionCoverage } from "./TestSessionCoverage.js";
 
 export interface TestSessionEntryCompilerResult {
   error?: unknown;
@@ -20,18 +21,13 @@ export type TestSessionEntryCompiler = (
   io: AssemblyScriptCompilerIo,
 ) => Promise<TestSessionEntryCompilerResult>;
 
-export interface TestSessionCoverage {
-  installImports(imports: AspectImports): unknown;
-  registerLoader(module: unknown): void;
-}
-
 export interface RunTestSessionEntryOptions {
   aspectConfig: IAspectConfig;
   asconfigLocation: string;
   collectReporter: TestSessionReporterCollector;
   compile: TestSessionEntryCompiler;
   compilerIoCache: CompilerIoCache;
-  coverage?: TestSessionCoverage | null;
+  coverage?: TestSessionCoverage;
   cwd: string;
   entry: string;
   fileSystem: TestSessionFileSystem;
@@ -98,6 +94,7 @@ export async function runTestSessionEntry({
     stderr,
     stdout,
   });
+  const coveragePlan = coverage ?? noTestSessionCoverage;
   const dir = path.dirname(entry);
   const ascArgs = [
     entry,
@@ -105,7 +102,7 @@ export async function runTestSessionEntry({
     "--config",
     asconfigLocation,
     "--target",
-    coverage ? "coverage" : "noCoverage",
+    coveragePlan.target,
   ];
 
   const compiled = await compile(ascArgs, compilerIo);
@@ -162,12 +159,12 @@ export async function runTestSessionEntry({
   const wasmMemory = new WebAssembly.Memory(memory);
   const createImports: AspectCreateImports = (...imports: AspectImports[]) => {
     const testImports = ctx.createImports(...imports) as AspectImports;
-    return coverage ? (coverage.installImports(testImports) as AspectImports) : testImports;
+    return coveragePlan.installImports(testImports);
   };
 
   const module = await aspectConfig.instantiate(wasmMemory, createImports, instantiate, binary);
 
-  coverage?.registerLoader(module);
+  coveragePlan.registerLoader(module);
   ctx.run(module as any);
   await reporter.onFlush?.();
 

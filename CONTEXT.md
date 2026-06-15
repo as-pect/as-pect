@@ -64,6 +64,10 @@ _Avoid_: Per-format file plumbing, reporter stream boilerplate
 The file-backed CI interchange report selected with `asp --junit` or emitted directly by `@as-pect/junit-reporter`. It maps Suite report facts to the common JUnit XML `testsuite`, `testcase`, `failure`, `error`, `skipped`, and `system-out` elements without reading Test tree internals.
 _Avoid_: xUnit dump, CI XML blob
 
+**Coverage setup**:
+The Test session seam that decides whether coverage is enabled, selects the compiler target, lazily loads the coverage runtime, installs coverage imports, registers compiled modules, and produces the final coverage report string.
+_Avoid_: Coverage globals, scattered coverage glue
+
 **as-pect CSV v1 contract**:
 The as-pect-specific CSV reporter column contract for tabular test results. It preserves the `Group`, `Name`, `Ran`, `Negated`, `Pass`, `Runtime`, `Message`, `Actual`, and `Expected` column order and value vocabulary for spreadsheet-style workflows, without treating CSV as a cross-tool test-result standard.
 _Avoid_: Standard CSV test schema, generic CSV report format

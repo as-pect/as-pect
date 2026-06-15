@@ -7,6 +7,7 @@ import {
   TestSessionDependencies,
 } from "../src/TestSession.js";
 import { IAspectConfig } from "../src/IAspectConfig.js";
+import type { TestSessionCoverage } from "../src/TestSessionCoverage.js";
 
 const minimalWasmBinary = new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]);
 
@@ -168,6 +169,70 @@ describe("Test session execution", () => {
     expect(writes.get("assembly/__tests__/entry.spec.wat")).toBe("(module)");
     expect(readFileSync).toHaveBeenCalledTimes(1);
     expect(readdirSync).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses the coverage setup module for logging, compiler target selection, hooks, and final report", async () => {
+    const stdoutWrites: string[] = [];
+    const stdout = {
+      write(chunk: string | Uint8Array): boolean {
+        stdoutWrites.push(String(chunk));
+        return true;
+      },
+    } as NodeJS.WritableStream;
+    const reporter = { stderr: null, stdout: null, onEnter() {}, onExit() {}, onFinish() {} };
+    const coverage: TestSessionCoverage = {
+      target: "coverage",
+      installImports: jest.fn((imports) => imports),
+      registerLoader: jest.fn(),
+      stringifyReport: jest.fn(() => "coverage report"),
+    };
+    const createCoverage = jest.fn(async (options) => {
+      options.log?.(`Using coverage: ${options.coverageFiles?.join(", ")}`);
+      return coverage;
+    });
+    const collectReporter = jest.fn(async () => reporter);
+    const compile = jest.fn(async (_args, io) => {
+      io.writeFile("build/output.wasm", minimalWasmBinary, "/workspace");
+      io.writeFile("build/output.wat", "(module)", "/workspace");
+      return { stats: { toString: () => "compiler stats" } };
+    });
+    const instantiate = jest.fn(async (memory: WebAssembly.Memory, createImports: Parameters<IAspectConfig["instantiate"]>[1]) => {
+      createImports({ env: { memory } });
+      return {
+        exports: {
+          _start() {},
+          memory,
+        },
+        instance: {} as WebAssembly.Instance,
+      };
+    });
+    const dependencies: Partial<TestSessionDependencies> = {
+      collectReporter,
+      compile,
+      createCoverage,
+      fileSystem: createNoopFileSystem(),
+      glob: jest.fn(async (pattern) => (pattern.includes("*.spec.ts") ? ["assembly/__tests__/entry.spec.ts"] : [])),
+    };
+
+    const config = createTestSessionConfig({
+      args: ["assembly/__tests__/*.spec.ts"],
+      aspectConfig: { ...aspectConfig, coverage: ["assembly/**/*.ts"], instantiate },
+      asconfigLocation: "./as-pect.asconfig.json",
+      cwd: "/workspace",
+      dependencies,
+      options: {},
+      stdout,
+    });
+
+    const result = await new TestSession(config).run();
+
+    expect(createCoverage).toHaveBeenCalledWith({ coverageFiles: ["assembly/**/*.ts"], log: expect.any(Function) });
+    expect(stdoutWrites.join("")).toContain("Using coverage: assembly/**/*.ts");
+    expect(stdoutWrites.join("")).not.toContain("Using code coverage:");
+    expect(compile.mock.calls[0][0]).toContain("coverage");
+    expect(coverage.installImports).toHaveBeenCalled();
+    expect(coverage.registerLoader).toHaveBeenCalled();
+    expect(result.coverageReport).toBe("coverage report");
   });
 
   it("returns compile failures before reading compiler outputs", async () => {

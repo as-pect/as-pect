@@ -92,52 +92,6 @@ Use these references when implementing standardized reporter output formats:
 
 ---
 
-### Slice 4 — Collapse coverage setup into one Test session module
-
-**Status:** Active
-**Recommendation strength:** Speculative but accepted for future work
-**Primary files:**
-
-- `packages/cli/src/TestSession.ts`
-- `packages/cli/src/TestSessionEntry.ts`
-- `packages/cli/README.md`
-- `README.md`
-
-**Problem:** Coverage behavior is split across Test session logging, dynamic import of `@as-covers/glue`, compiler target selection, import installation, loader registration, and final report printing. `TestSession.ts` also currently logs both `Using code coverage:` and `Using coverage:` for the same configured coverage files.
-
-**Desired behavior:**
-
-- One coverage setup module owns the decision: disabled vs enabled.
-- Coverage logging happens once.
-- Test session entry receives a small prepared coverage adapter or null object.
-- Compiler target selection (`coverage` vs `noCoverage`) is centralized with the coverage decision.
-- Tests can substitute coverage behavior without importing `@as-covers/glue`.
-
-**Suggested implementation plan:**
-
-1. Add a focused test around coverage logging to lock in the desired single log line.
-2. Extract a coverage setup module that takes `aspectConfig.coverage` and a logger/import hook.
-3. Return a small object that exposes only what `TestSessionEntry` needs: target name, install imports, register loader, and stringify report.
-4. Keep dynamic import lazy so projects without coverage do not pay the import cost.
-5. Update docs if user-visible coverage logs or configuration wording changes.
-6. Update `CONTEXT.md` if the coverage setup module becomes a named Test session concept.
-
-**Tests to add or update first:**
-
-- No coverage config: no dynamic import, compiler target `noCoverage`, no coverage report.
-- Coverage config: one log line, compiler target `coverage`, install/register hooks invoked around wasm instantiation.
-- Coverage stringify result still appears after the Test session.
-
-**Validation:**
-
-- `npm test --workspace @as-pect/cli`
-- `npm run tsc:cli --workspace @as-pect/cli`
-- Run `npm test --workspace @as-pect/assembly` if the coverage target wiring or init templates change.
-
-**Compatibility notes:** Preserve the documented `aspectConfig.coverage` option and the `coverage` / `noCoverage` asconfig target names.
-
----
-
 ### Slice 5 — Normalize CLI shell output and exit behavior
 
 **Status:** Active
