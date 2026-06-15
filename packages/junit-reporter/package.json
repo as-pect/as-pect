@@ -1,0 +1,25 @@
+{
+  "name": "@as-pect/junit-reporter",
+  "version": "8.1.0",
+  "description": "JUnit XML reporter for as-pect",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "tsc:all": "tsc",
+    "test": "node --experimental-vm-modules ../../node_modules/jest/bin/jest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jtenner/as-pect/tree/master/packages/junit-reporter"
+  },
+  "author": "Joshua Tenner",
+  "license": "MIT",
+  "dependencies": {
+    "@as-pect/core": "^8.1.0",
+    "@as-pect/reporter-output": "^8.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

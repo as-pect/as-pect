@@ -60,6 +60,7 @@
     "packages/reporter-output",
     "packages/csv-reporter",
     "packages/json-reporter",
+    "packages/junit-reporter",
     "packages/cli"
   ]
 }

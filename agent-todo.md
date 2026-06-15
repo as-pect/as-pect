@@ -183,66 +183,39 @@ Use these references when implementing standardized reporter output formats:
 
 ## Epic: Reporter output formats and file-output locality
 
-### Slice 7 — Add a JUnit XML reporter
+### Slice 7B — Add a built-in JUnit CLI shortcut
 
 **Status:** Active
 **Recommendation strength:** Strong
 **Primary files:**
 
-- New reporter package, likely `packages/junit-reporter/`
-- Root `package.json` workspace list
-- Root and package `package-lock.json` updates if a package is added
 - `packages/cli/src/collectReporter.ts`
 - `packages/cli/src/CliProgram.ts`
 - `packages/cli/__tests__/CliOptions.spec.ts`
 - `README.md`
 - `packages/cli/README.md`
 
-**Problem:** as-pect lacks the de facto CI interchange format for test results. Many CI systems and test-management tools ingest JUnit XML; GitLab unit test reports require JUnit XML artifacts.
+**Problem:** After the JUnit reporter package exists, users should not need to remember the package name for common CI usage.
 
 **Desired behavior:**
 
-- Users can request a JUnit XML report from the CLI, for example `--junit` or `--reporter @as-pect/junit-reporter`.
-- The output is compatible with the common JUnit XML subset used by CI systems.
-- The reporter uses `SuiteReport` facts, not `TestContext` or `TestNode` internals.
-- The reporter is file-backed and flush-safe.
-
-**Suggested mapping:**
-
-- Test session entry / `SuiteReport.fileName` → `<testsuite name="...">`.
-- Test result → `<testcase classname="groupName" name="testName" time="seconds">`.
-- Failed assertion → `<failure message="...">` with stack, actual, and expected text in the element body.
-- Runtime/setup error → `<error message="...">`.
-- Todo or not-run test → `<skipped>`.
-- Logs and snapshot changes → `<system-out>` or `<properties>`; choose the smallest CI-compatible mapping and test it.
-- Durations: convert as-pect milliseconds to JUnit seconds for `time` attributes.
-
-**Suggested implementation plan:**
-
-1. Add the package with no new XML dependency unless escaping becomes too error-prone. A tiny local XML escaper is likely enough.
-2. Build the reporter from `SuiteReportEvent` / `SuiteReport` only.
-3. Add CLI selection if built-in reporter flags are desired. If not, document package reporter usage through `--reporter`.
-4. Reuse reporter file output if Slice 6 is complete; otherwise keep file-output code minimal and prepare it for later consolidation.
-5. Add documentation with a GitLab CI example using `artifacts:reports:junit`.
-6. Update `CONTEXT.md` with a project term for JUnit XML reporter/report if the package introduces one.
+- Users can request JUnit XML with a built-in CLI flag, likely `--junit`.
+- The flag composes with existing reporter selection behavior without changing `--csv`, `--json`, summary, or verbose output.
+- Documentation shows both the shortcut and explicit `--reporter @as-pect/junit-reporter` usage.
 
 **Tests to add first:**
 
-- Passing suite writes valid XML with testsuite/testcase counts.
-- Failing test writes `<failure>` and escapes XML special characters.
-- Suite-level errors write `<error>`.
-- Todo and not-run tests write `<skipped>`.
-- `onFlush` waits for the report file.
-- CLI selection wires stdout/stderr and creates the expected file.
+- CLI option parsing recognizes `--junit`.
+- Reporter collection creates the JUnit reporter when `--junit` is set.
+- Existing reporter flags retain their current behavior.
 
 **Validation:**
 
-- `npm test --workspace @as-pect/junit-reporter` if a package is added.
-- `npm run tsc:all --workspace @as-pect/junit-reporter` if a package is added.
-- `npm test --workspace @as-pect/cli` if CLI flags or reporter collection change.
-- Root `npm run tsc:all` and `npm test` before merging because a workspace is added.
+- `npm test --workspace @as-pect/cli`
+- `npm run tsc:cli --workspace @as-pect/cli`
+- `npm test --workspace @as-pect/junit-reporter` if package wiring changes.
 
-**Compatibility notes:** Additive feature. Do not change existing summary, verbose, JSON, or CSV reporter output in this slice.
+**Compatibility notes:** Additive CLI feature. Do not make JUnit the default reporter.
 
 ---
 

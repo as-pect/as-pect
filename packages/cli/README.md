@@ -23,6 +23,8 @@ Use `asp --test <regex>` or `asp -t <regex>` to run tests whose names match a re
 
 ## Reporter output formats
 
+Install `@as-pect/junit-reporter`, then use `asp --reporter @as-pect/junit-reporter` to write JUnit XML files next to test entries for CI systems that ingest JUnit-style unit test reports. The reporter maps Suite report facts to common `testsuite`, `testcase`, `failure`, `error`, `skipped`, and `system-out` elements.
+
 `@as-pect/csv-reporter` writes the as-pect CSV v1 tabular export for spreadsheet-style workflows. It preserves the column order `Group`, `Name`, `Ran`, `Negated`, `Pass`, `Runtime`, `Message`, `Actual`, `Expected` and does not claim CSV as a cross-tool test-result standard. See [`../csv-reporter/readme.md`](../csv-reporter/readme.md#as-pect-csv-v1-contract) for the full column and value contract.
 
 ## Code coverage

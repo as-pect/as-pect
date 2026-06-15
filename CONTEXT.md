@@ -60,6 +60,10 @@ _Avoid_: Printer, output service
 The shared file-backed reporter seam that builds output paths next to test entries, skips file creation for reports with no executed results, creates Node write streams, and tracks pending stream flushes for reporter `onFlush()` callbacks.
 _Avoid_: Per-format file plumbing, reporter stream boilerplate
 
+**JUnit XML report**:
+The file-backed CI interchange report emitted by `@as-pect/junit-reporter`. It maps Suite report facts to the common JUnit XML `testsuite`, `testcase`, `failure`, `error`, `skipped`, and `system-out` elements without reading Test tree internals.
+_Avoid_: xUnit dump, CI XML blob
+
 **as-pect CSV v1 contract**:
 The as-pect-specific CSV reporter column contract for tabular test results. It preserves the `Group`, `Name`, `Ran`, `Negated`, `Pass`, `Runtime`, `Message`, `Actual`, and `Expected` column order and value vocabulary for spreadsheet-style workflows, without treating CSV as a cross-tool test-result standard.
 _Avoid_: Standard CSV test schema, generic CSV report format
