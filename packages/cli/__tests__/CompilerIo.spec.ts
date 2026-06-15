@@ -32,6 +32,17 @@ describe("Compiler IO adapter", () => {
     expect(fileSystem.readdirSync).toHaveBeenCalledWith("/workspace/assembly");
   });
 
+  it("uses absolute compiler paths without joining them to the compiler base directory", () => {
+    const fileSystem = createFileSystem();
+    const { io } = createCompilerIoAdapter({ fileSystem, stderr, stdout });
+
+    expect(io.readFile("/workspace/project/entry.ts", "/ambient")).toBe("file contents");
+    expect(io.listFiles("/workspace/project/assembly", "/ambient")).toEqual(["a.ts", "z.ts"]);
+
+    expect(fileSystem.readFileSync).toHaveBeenCalledWith("/workspace/project/entry.ts", "utf8");
+    expect(fileSystem.readdirSync).toHaveBeenCalledWith("/workspace/project/assembly");
+  });
+
   it("returns null for missing files and directories", () => {
     const fileSystem = {
       readFileSync: jest.fn(() => {

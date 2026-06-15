@@ -43,35 +43,6 @@ Use these references when implementing standardized reporter output formats:
 
 ## Epic: CLI correctness and Test session seams
 
-### Slice 2B — Resolve compiler entry paths and config paths through the project path seam
-
-**Status:** Active
-**Recommendation strength:** Strong
-**Primary files:**
-
-- `packages/cli/src/index.ts`
-- `packages/cli/src/TestSession.ts`
-- `packages/cli/src/TestSessionEntry.ts`
-- `packages/cli/src/TestSessionEntries.ts`
-- `packages/cli/__tests__/TestSession.spec.ts`
-- `packages/cli/__tests__/TestSessionEntry.spec.ts`
-
-**Problem:** Entry globs, include globs, and the compiler `--config` argument still pass relative paths through multiple modules. Programmatic callers should be able to run a Test session for `cwd` without relying on ambient process cwd.
-
-**Desired behavior:**
-
-- CLI config loading and Test session planning use the Test session project path seam for `cwd`-relative paths.
-- Compiler config paths, entry globs, include globs, snapshot paths, and output-binary artifact paths are resolved consistently.
-- Tests set `cwd` to a fake project path without `process.chdir` and prove compiler args plus artifact paths remain stable.
-
-**Validation:**
-
-- `npm test --workspace @as-pect/cli`
-- `npm run tsc:cli --workspace @as-pect/cli`
-- Run root `npm test` before merging because this seam crosses package behavior.
-
----
-
 ### Slice 2C — Decide reporter file-output project path ownership
 
 **Status:** Active

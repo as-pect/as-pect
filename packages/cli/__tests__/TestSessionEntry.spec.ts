@@ -4,6 +4,7 @@ import { runTestSessionEntry } from "../src/TestSessionEntry.js";
 import { IAspectConfig } from "../src/IAspectConfig.js";
 import { TestSessionDependencies } from "../src/TestSession.js";
 import { ReflectedValueType } from "../../core/src/util/ReflectedValueType.js";
+import { createTestSessionProject } from "../src/TestSessionProject.js";
 
 const minimalWasmBinary = new Uint8Array([0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00]);
 
@@ -69,8 +70,8 @@ describe("Test session entry", () => {
 
     expect(result).toEqual({ compilerError: null, suiteStatsFacts: null });
     expect(options.aspectConfig.instantiate).not.toHaveBeenCalled();
-    expect(writes.get("assembly/__tests__/entry.spec.wasm")).toEqual(minimalWasmBinary);
-    expect(writes.get("assembly/__tests__/entry.spec.wat")).toBe("(module)");
+    expect(writes.get("/workspace/assembly/__tests__/entry.spec.wasm")).toEqual(minimalWasmBinary);
+    expect(writes.get("/workspace/assembly/__tests__/entry.spec.wat")).toBe("(module)");
   });
 
   it("writes outputBinary artifacts when wasm execution is enabled", async () => {
@@ -87,8 +88,77 @@ describe("Test session entry", () => {
 
     expect(result).toEqual({ compilerError: null, suiteStatsFacts: null });
     expect(options.aspectConfig.instantiate).toHaveBeenCalledTimes(1);
-    expect(writes.get("assembly/__tests__/entry.spec.wasm")).toEqual(minimalWasmBinary);
-    expect(writes.get("assembly/__tests__/entry.spec.wat")).toBe("(module)");
+    expect(writes.get("/workspace/assembly/__tests__/entry.spec.wasm")).toEqual(minimalWasmBinary);
+    expect(writes.get("/workspace/assembly/__tests__/entry.spec.wat")).toBe("(module)");
+  });
+
+  it("resolves compiler and artifact paths from the Test session project path", async () => {
+    const strings = new Map([
+      [1, "snapshots"],
+      [2, "current value"],
+      [3, "i32"],
+    ]);
+    const writes = new Map<string, string | Uint8Array>();
+    const fileSystem = {
+      ...createNoopFileSystem(),
+      writeFile: jest.fn(async (filePath: string, contents: string | Uint8Array) => {
+        writes.set(filePath, contents);
+      }),
+    };
+    const compile = jest.fn(async (_args, io) => {
+      io.writeFile("build/output.wasm", minimalWasmBinary, "/not-the-project");
+      io.writeFile("build/output.wat", "(module)", "/not-the-project");
+      return { stats: { toString: () => "compiler stats" } };
+    });
+    const instantiate = jest.fn<IAspectConfig["instantiate"]>(async (memory, createImports) => {
+      const imports = createImports({ env: { memory } }) as any;
+      return {
+        exports: {
+          memory,
+          _start() {
+            imports.__aspect.reportTestTypeNode(1, 10);
+          },
+          __call(pointer: number) {
+            if (pointer !== 10) return;
+            const value = imports.__aspect.createReflectedNumber(1, 4, ReflectedValueType.Integer, 3, 7);
+            imports.__aspect.reportExpectedSnapshot(value, 2);
+          },
+          __getString(pointer: number) {
+            return strings.get(pointer) ?? "";
+          },
+        },
+        instance: {} as WebAssembly.Instance,
+      };
+    });
+    const options = createEntryOptions({
+      asconfigLocation: "config/asconfig.json",
+      aspectConfig: { instantiate },
+      compile,
+      cwd: "/workspace/project",
+      entry: "assembly/__tests__/entry.spec.ts",
+      fileSystem,
+      includeFiles: ["assembly/setup/env.include.ts"],
+      outputBinary: true,
+      project: createTestSessionProject("/workspace/project"),
+      updateSnapshots: true,
+    });
+
+    const result = await runTestSessionEntry(options);
+
+    expect(compile.mock.calls[0][0]).toEqual([
+      "/workspace/project/assembly/__tests__/entry.spec.ts",
+      "/workspace/project/assembly/setup/env.include.ts",
+      "--config",
+      "/workspace/project/config/asconfig.json",
+      "--target",
+      "noCoverage",
+    ]);
+    expect(writes.get("/workspace/project/assembly/__tests__/entry.spec.wasm")).toEqual(minimalWasmBinary);
+    expect(writes.get("/workspace/project/assembly/__tests__/entry.spec.wat")).toBe("(module)");
+    expect(writes.get("/workspace/project/assembly/__tests__/__snapshots__/entry.spec.snap")).toBe(
+      "exports[`snapshots[0]!~current value[0]`] = `7`;\n",
+    );
+    expect(result).toMatchObject({ compilerError: null });
   });
 
   it("collects a reporter for an executed entry and returns suite facts", async () => {
@@ -187,7 +257,7 @@ describe("Test session entry", () => {
 
     const result = await runTestSessionEntry(options);
 
-    expect(writes.get("assembly/__tests__/__snapshots__/entry.spec.snap")).toBe(
+    expect(writes.get("/workspace/assembly/__tests__/__snapshots__/entry.spec.snap")).toBe(
       "exports[`snapshots[0]!~current value[0]`] = `7`;\n",
     );
     expect(result).toMatchObject({

@@ -43,6 +43,10 @@ function isAssemblyScriptSourceFile(file: string): boolean {
   return /^(?!.*\.d\.ts$).*\.ts$/.test(file);
 }
 
+function resolveCompilerPath(location: string, baseDir: string): string {
+  return path.isAbsolute(location) ? location : path.join(baseDir, location);
+}
+
 export function createCompilerIoAdapter({
   cache = createCompilerIoCache(),
   fileSystem,
@@ -54,7 +58,7 @@ export function createCompilerIoAdapter({
     outputFiles,
     io: {
       readFile(filename, baseDir) {
-        const filePath = path.join(baseDir, filename);
+        const filePath = resolveCompilerPath(filename, baseDir);
         if (cache.fileContents.has(filePath)) return cache.fileContents.get(filePath)!;
 
         try {
@@ -69,7 +73,7 @@ export function createCompilerIoAdapter({
         outputFiles.set(filename, contents);
       },
       listFiles(dirname, baseDir) {
-        const directoryPath = path.join(baseDir, dirname);
+        const directoryPath = resolveCompilerPath(dirname, baseDir);
         if (cache.directoryListings.has(directoryPath)) return cache.directoryListings.get(directoryPath)!;
 
         try {

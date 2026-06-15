@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 import { planTestSessionEntries } from "../src/TestSessionEntries.js";
+import { createTestSessionProject } from "../src/TestSessionProject.js";
 
 describe("Test session entry planning", () => {
   it("sorts, deduplicates, and filters entries from CLI args and config entries", async () => {
@@ -81,5 +82,33 @@ describe("Test session entry planning", () => {
     });
 
     expect(plan).toEqual({ entries: ["a.ts", "z.ts"], includeFiles: [] });
+  });
+
+  it("runs entry and include globs from the Test session project path", async () => {
+    const glob = jest.fn(async (pattern: string) => {
+      switch (pattern) {
+        case "assembly/__tests__/*.spec.ts":
+          return ["assembly/__tests__/entry.spec.ts"];
+        case "assembly/setup/*.include.ts":
+          return ["assembly/setup/env.include.ts"];
+        default:
+          return [];
+      }
+    });
+
+    const plan = await planTestSessionEntries({
+      args: ["assembly/__tests__/*.spec.ts"],
+      entryFilterRegexes: [],
+      glob,
+      includeGlobs: ["assembly/setup/*.include.ts"],
+      project: createTestSessionProject("/workspace/project"),
+    });
+
+    expect(plan).toEqual({
+      entries: ["assembly/__tests__/entry.spec.ts"],
+      includeFiles: ["assembly/setup/env.include.ts"],
+    });
+    expect(glob).toHaveBeenCalledWith("assembly/__tests__/*.spec.ts", { cwd: "/workspace/project" });
+    expect(glob).toHaveBeenCalledWith("assembly/setup/*.include.ts", { cwd: "/workspace/project" });
   });
 });

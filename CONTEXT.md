@@ -13,7 +13,7 @@ The ordered test entries and include files for a Test session after CLI/config g
 _Avoid_: Discovered file batch, glob result set
 
 **Test session project path**:
-The explicit project-root path seam for programmatic Test session runs. It resolves project-relative files and package-resolution anchors from `TestSessionConfig.cwd` instead of ambient `process.cwd()`.
+The explicit project-root path seam for programmatic Test session runs. It resolves project-relative globs, compiler entry/config/include paths, compiler artifacts, snapshots, and package-resolution anchors from `TestSessionConfig.cwd` instead of ambient `process.cwd()`.
 _Avoid_: Current directory helper, path utils grab bag
 
 **Test session entry**:
@@ -21,7 +21,7 @@ The lifecycle for one planned AssemblyScript test entry: compiling with shared c
 _Avoid_: Entry runner, spec file executor
 
 **Compiler IO adapter**:
-The AssemblyScript compiler-facing file system seam that reads source files, lists source directories, caches successful lookups across a Test session, and captures compiler output files in memory.
+The AssemblyScript compiler-facing file system seam that reads source files, lists source directories, respects absolute compiler paths, caches successful lookups across a Test session, and captures compiler output files in memory.
 _Avoid_: Filesystem wrapper, compiler cache helper
 
 **Compiler output**:

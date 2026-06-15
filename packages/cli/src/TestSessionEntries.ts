@@ -1,9 +1,18 @@
+import type { TestSessionProject } from "./TestSessionProject.js";
+
+export interface TestSessionGlobOptions {
+  cwd: string;
+}
+
+export type TestSessionGlob = (pattern: string, options?: TestSessionGlobOptions) => Promise<string[]>;
+
 export interface TestSessionEntryDiscoveryOptions {
   args: string[];
   configEntries?: string[];
   entryFilterRegexes: RegExp[];
   includeGlobs: string[];
-  glob(pattern: string): Promise<string[]>;
+  glob: TestSessionGlob;
+  project?: TestSessionProject;
 }
 
 export interface PlannedTestSessionEntries {
@@ -40,19 +49,21 @@ export async function planTestSessionEntries({
   entryFilterRegexes,
   includeGlobs,
   glob,
+  project,
 }: TestSessionEntryDiscoveryOptions): Promise<PlannedTestSessionEntries> {
   const includes = new Set<string>();
   const entries = new Set<string>();
+  const globOptions = project ? { cwd: project.cwd } : undefined;
 
   for (const arg of args.concat(configEntries)) {
-    const entryPoints = sortDiscoveredPaths(await glob(arg));
+    const entryPoints = sortDiscoveredPaths(await glob(arg, globOptions));
     for (const entryPoint of entryPoints) {
       if (shouldKeepEntry(entryFilterRegexes, entryPoint)) entries.add(entryPoint);
     }
   }
 
   for (const includedGlob of includeGlobs) {
-    const includedFiles = sortDiscoveredPaths(await glob(includedGlob));
+    const includedFiles = sortDiscoveredPaths(await glob(includedGlob, globOptions));
     for (const includedFile of includedFiles) {
       includes.add(includedFile);
     }

@@ -10,7 +10,7 @@ import type { TestSessionSuiteStatsFacts } from "./TestSessionStats.js";
 import { createTestSessionWasi } from "./TestSessionWasi.js";
 import type { TestSessionCliOptions, TestSessionFileSystem, TestSessionReporterCollector } from "./TestSession.js";
 import { noTestSessionCoverage, type TestSessionCoverage } from "./TestSessionCoverage.js";
-import { createTestSessionProject } from "./TestSessionProject.js";
+import { createTestSessionProject, type TestSessionProject } from "./TestSessionProject.js";
 
 export interface TestSessionEntryCompilerResult {
   error?: unknown;
@@ -38,6 +38,7 @@ export interface RunTestSessionEntryOptions {
   memory: WebAssembly.MemoryDescriptor;
   options: TestSessionCliOptions;
   outputBinary: boolean;
+  project?: TestSessionProject;
   runTests: boolean;
   showStats: boolean;
   stderr: NodeJS.WritableStream;
@@ -66,6 +67,10 @@ function createReporterOutput(stderr: NodeJS.WritableStream, stdout: NodeJS.Writ
   return { stderr, stdout };
 }
 
+function resolveAll(project: TestSessionProject, locations: string[]): string[] {
+  return locations.map((location) => project.resolvePath(location));
+}
+
 export async function runTestSessionEntry({
   aspectConfig,
   asconfigLocation,
@@ -82,6 +87,7 @@ export async function runTestSessionEntry({
   memory,
   options,
   outputBinary,
+  project = createTestSessionProject(cwd),
   runTests,
   showStats,
   stderr,
@@ -96,12 +102,15 @@ export async function runTestSessionEntry({
     stdout,
   });
   const coveragePlan = coverage ?? noTestSessionCoverage;
-  const dir = path.dirname(entry);
+  const compilerEntry = project.resolvePath(entry);
+  const compilerIncludeFiles = resolveAll(project, includeFiles);
+  const compilerAsconfigLocation = project.resolvePath(asconfigLocation);
+  const dir = path.dirname(compilerEntry);
   const ascArgs = [
-    entry,
-    ...includeFiles,
+    compilerEntry,
+    ...compilerIncludeFiles,
     "--config",
-    asconfigLocation,
+    compilerAsconfigLocation,
     "--target",
     coveragePlan.target,
   ];
@@ -132,7 +141,7 @@ export async function runTestSessionEntry({
   }
 
   const snapshotPlan = await planTestSessionSnapshots({
-    entry,
+    entry: compilerEntry,
     fileSystem,
     log,
     updateSnapshots,
@@ -145,7 +154,7 @@ export async function runTestSessionEntry({
     cwd,
   });
 
-  const reporter = await collectReporter(options, aspectConfig, createReporterOutput(stderr, stdout), createTestSessionProject(cwd));
+  const reporter = await collectReporter(options, aspectConfig, createReporterOutput(stderr, stdout), project);
 
   const ctx = new TestContext({
     reporter,

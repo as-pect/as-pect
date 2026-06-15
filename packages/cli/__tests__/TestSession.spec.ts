@@ -165,8 +165,8 @@ describe("Test session execution", () => {
     expect(result.pass).toBe(true);
     expect(result.stats.tests).toBe(0);
     expect(instantiate).not.toHaveBeenCalled();
-    expect(writes.get("assembly/__tests__/entry.spec.wasm")).toEqual(new Uint8Array([1, 2, 3]));
-    expect(writes.get("assembly/__tests__/entry.spec.wat")).toBe("(module)");
+    expect(writes.get("/workspace/assembly/__tests__/entry.spec.wasm")).toEqual(new Uint8Array([1, 2, 3]));
+    expect(writes.get("/workspace/assembly/__tests__/entry.spec.wat")).toBe("(module)");
     expect(readFileSync).toHaveBeenCalledTimes(1);
     expect(readdirSync).toHaveBeenCalledTimes(1);
   });
@@ -537,12 +537,12 @@ describe("Test session execution", () => {
     await new TestSession(config).run();
 
     expect(compile.mock.calls.map((call) => call[0][0])).toEqual([
-      "assembly/__tests__/cli-a.spec.ts",
-      "assembly/__tests__/cli-z.spec.ts",
-      "assembly/shared/a.spec.ts",
-      "assembly/shared/b.spec.ts",
-      "assembly/config/a.spec.ts",
-      "assembly/config/z.spec.ts",
+      "/workspace/assembly/__tests__/cli-a.spec.ts",
+      "/workspace/assembly/__tests__/cli-z.spec.ts",
+      "/workspace/assembly/shared/a.spec.ts",
+      "/workspace/assembly/shared/b.spec.ts",
+      "/workspace/assembly/config/a.spec.ts",
+      "/workspace/assembly/config/z.spec.ts",
     ]);
   });
 
@@ -581,19 +581,19 @@ describe("Test session execution", () => {
     await new TestSession(config).run();
 
     const expectedIncludeArgs = [
-      "assembly/env/a.include.ts",
-      "assembly/env/b.include.ts",
-      "assembly/setup/z.include.ts",
-      "assembly/shared.include.ts",
+      "/workspace/assembly/env/a.include.ts",
+      "/workspace/assembly/env/b.include.ts",
+      "/workspace/assembly/setup/z.include.ts",
+      "/workspace/assembly/shared.include.ts",
       "--config",
-      "./as-pect.asconfig.json",
+      "/workspace/as-pect.asconfig.json",
       "--target",
       "noCoverage",
     ];
 
     expect(compile.mock.calls.map((call) => call[0])).toEqual([
-      ["assembly/__tests__/entry-a.spec.ts", ...expectedIncludeArgs],
-      ["assembly/__tests__/entry-b.spec.ts", ...expectedIncludeArgs],
+      ["/workspace/assembly/__tests__/entry-a.spec.ts", ...expectedIncludeArgs],
+      ["/workspace/assembly/__tests__/entry-b.spec.ts", ...expectedIncludeArgs],
     ]);
   });
 
@@ -639,7 +639,7 @@ describe("Test session execution", () => {
       await new TestSession(config).run();
 
       expect(compile).toHaveBeenCalledTimes(1);
-      expect(compile.mock.calls[0][0][0]).toBe("assembly/__tests__/keep.spec.ts");
+      expect(compile.mock.calls[0][0][0]).toBe("/workspace/assembly/__tests__/keep.spec.ts");
       expect(discludeRegex.lastIndex).toBe(0);
     },
   );

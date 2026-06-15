@@ -6,14 +6,14 @@ import { type IWritable } from "@as-pect/core";
 import type { IAspectConfig } from "./IAspectConfig.js";
 import { collectReporter as defaultCollectReporter, type ReporterOutput } from "./collectReporter.js";
 import { createCompilerIoCache, type AssemblyScriptCompilerIo } from "./CompilerIo.js";
-import { planTestSessionEntries } from "./TestSessionEntries.js";
+import { planTestSessionEntries, type TestSessionGlob } from "./TestSessionEntries.js";
 import { runTestSessionEntry, type TestSessionEntryCompilerResult } from "./TestSessionEntry.js";
 import {
   createTestSessionCoverage,
   type CreateTestSessionCoverageOptions,
   type TestSessionCoverage,
 } from "./TestSessionCoverage.js";
-import type { TestSessionProject } from "./TestSessionProject.js";
+import { createTestSessionProject, type TestSessionProject } from "./TestSessionProject.js";
 import {
   accumulateTestSessionSuiteStats,
   createInitialTestSessionStats,
@@ -58,6 +58,7 @@ export interface TestSessionConfig {
   memory: WebAssembly.MemoryDescriptor;
   options: TestSessionCliOptions;
   outputBinary: boolean;
+  project: TestSessionProject;
   runTests: boolean;
   showStats: boolean;
   stderr: NodeJS.WritableStream;
@@ -108,7 +109,7 @@ export interface TestSessionDependencies {
   compile(args: string[], io: AssemblyScriptCompilerIo): Promise<TestSessionEntryCompilerResult>;
   createCoverage: TestSessionCoverageFactory;
   fileSystem: TestSessionFileSystem;
-  glob(pattern: string): Promise<string[]>;
+  glob: TestSessionGlob;
 }
 
 const defaultDependencies: TestSessionDependencies = {
@@ -124,7 +125,7 @@ const defaultDependencies: TestSessionDependencies = {
     readdirSync,
     writeFile: fs.writeFile,
   },
-  glob: defaultGlob,
+  glob: (pattern, options) => defaultGlob(pattern, options),
 };
 
 export class TestSession {
@@ -222,6 +223,7 @@ export function createTestSessionConfig({
     memory: createMemoryDescriptor(options),
     options,
     outputBinary: Boolean(options.outputBinary || aspectConfig.outputBinary || options.run === false),
+    project: createTestSessionProject(cwd),
     runTests: options.run !== false,
     showStats: Boolean(options.showStats),
     stderr,
@@ -258,6 +260,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     memory,
     options,
     outputBinary,
+    project,
     runTests,
     showStats,
     stderr,
@@ -278,6 +281,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
     entryFilterRegexes,
     glob,
     includeGlobs,
+    project,
   });
 
   const coverage = await createCoverage({
@@ -302,6 +306,7 @@ export async function runTestSession(config: TestSessionConfig): Promise<TestSes
       memory,
       options,
       outputBinary,
+      project,
       runTests,
       showStats,
       stderr,
