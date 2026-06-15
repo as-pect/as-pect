@@ -74,6 +74,7 @@ describe("CLI option parsing", () => {
     expect(help).toContain("-i, --include <globs>");
     expect(help).toContain("--reporter <reporter>");
     expect(help).toContain("--junit");
+    expect(help).toContain("--ctrf");
   });
 
   it("maps default option values used for a normal test session", () => {
@@ -81,6 +82,7 @@ describe("CLI option parsing", () => {
       asConfig: "./as-pect.asconfig.json",
       config: "./as-pect.config.js",
       csv: false,
+      ctrf: false,
       group: "(:?)",
       init: false,
       json: false,
@@ -200,13 +202,14 @@ describe("CLI option parsing", () => {
   });
 
   it("maps built-in reporter selector flags", () => {
-    const opts = parseOptions(["--summary", "--verbose", "--csv", "--json", "--junit"]);
+    const opts = parseOptions(["--summary", "--verbose", "--csv", "--json", "--junit", "--ctrf"]);
 
     expect(opts.summary).toBe(true);
     expect(opts.verbose).toBe(true);
     expect(opts.csv).toBe(true);
     expect(opts.json).toBe(true);
     expect(opts.junit).toBe(true);
+    expect(opts.ctrf).toBe(true);
   });
 
   it("maps the show stats flag", () => {

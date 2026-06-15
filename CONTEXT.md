@@ -72,6 +72,14 @@ _Avoid_: Per-format file plumbing, reporter stream boilerplate
 The file-backed CI interchange report selected with `asp --junit` or emitted directly by `@as-pect/junit-reporter`. It maps Suite report facts to the common JUnit XML `testsuite`, `testcase`, `failure`, `error`, `skipped`, and `system-out` elements without reading Test tree internals.
 _Avoid_: xUnit dump, CI XML blob
 
+**CTRF JSON report**:
+The file-backed Common Test Report Format selected with `asp --ctrf` or emitted directly by `@as-pect/ctrf-reporter`. It keeps the CTRF root fields `reportFormat`, `specVersion`, and `results`, maps Suite report pass/fail/todo/skipped facts to CTRF test statuses, and nests as-pect-only facts under `extra.asPect`.
+_Avoid_: New JSON mode, generic JSON dump
+
+**Legacy JSON report**:
+The as-pect-specific JSON v1 array output selected with `asp --json` or emitted directly by `@as-pect/json-reporter`. It remains separate from CTRF so existing consumers keep the `group`, `name`, `ran`, `pass`, `negated`, `runtime`, `message`, `actual`, and `expected` object contract.
+_Avoid_: Standard JSON report, CTRF-compatible JSON
+
 **Coverage setup**:
 The Test session seam that decides whether coverage is enabled, selects the compiler target, lazily loads the coverage runtime, installs coverage imports, registers compiled modules, and produces the final coverage report string.
 _Avoid_: Coverage globals, scattered coverage glue

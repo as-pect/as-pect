@@ -59,6 +59,7 @@ async function importReporterModule(reporterLocation: string, project: TestSessi
 
 export interface CliReporterOptions {
   csv?: boolean;
+  ctrf?: boolean;
   json?: boolean;
   junit?: boolean;
   reporter?: string | boolean;
@@ -94,6 +95,11 @@ export async function getReporter(
   if (opts.junit) {
     const JUnitReporter = (await import("@as-pect/junit-reporter")).default;
     reporters.push(new JUnitReporter(project.cwd));
+  }
+
+  if (opts.ctrf) {
+    const CTRFReporter = (await import("@as-pect/ctrf-reporter")).default;
+    reporters.push(new CTRFReporter(project.cwd));
   }
 
   if (opts.summary) {

@@ -27,6 +27,7 @@ export { SnapshotMode } from "./TestSessionSnapshots.js";
 export interface TestSessionCliOptions {
   [key: string]: unknown;
   csv?: boolean;
+  ctrf?: boolean;
   disclude?: string;
   disclue?: string;
   group?: string;
@@ -100,9 +101,7 @@ export type TestSessionReporterCollector = (
   project: TestSessionProject,
 ) => ReturnType<typeof defaultCollectReporter>;
 
-export type TestSessionCoverageFactory = (
-  options: CreateTestSessionCoverageOptions,
-) => Promise<TestSessionCoverage>;
+export type TestSessionCoverageFactory = (options: CreateTestSessionCoverageOptions) => Promise<TestSessionCoverage>;
 
 export interface TestSessionDependencies {
   collectReporter?: TestSessionReporterCollector;

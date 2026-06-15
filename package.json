@@ -61,6 +61,7 @@
     "packages/csv-reporter",
     "packages/json-reporter",
     "packages/junit-reporter",
+    "packages/ctrf-reporter",
     "packages/cli"
   ]
 }

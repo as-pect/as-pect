@@ -38,6 +38,10 @@ When coverage is enabled, `asp` uses the `coverage` target from `as-pect.asconfi
 
 The JUnit XML reporter (`@as-pect/junit-reporter`) writes CI-friendly `.xml` files next to test entries. Use the built-in shortcut `asp --junit`, or install/select the package explicitly with `asp --reporter @as-pect/junit-reporter`. The report maps Suite report facts to common JUnit XML `testsuite`, `testcase`, `failure`, `error`, `skipped`, and `system-out` elements.
 
+The CTRF JSON reporter (`@as-pect/ctrf-reporter`) writes `.ctrf.json` files for tools that ingest the Common Test Report Format. Use the built-in shortcut `asp --ctrf`, or install/select the package explicitly with `asp --reporter @as-pect/ctrf-reporter`. It emits the CTRF root fields `reportFormat`, `specVersion`, and `results`, and keeps as-pect-specific facts under `extra.asPect`. See [`packages/ctrf-reporter/README.md`](./packages/ctrf-reporter/README.md) for details.
+
+The legacy JSON reporter (`@as-pect/json-reporter`) remains the as-pect legacy JSON v1 array format selected by `asp --json`. It is intentionally separate from CTRF so existing JSON consumers keep their current contract. See [`packages/json-reporter/readme.md`](./packages/json-reporter/readme.md#as-pect-legacy-json-v1-contract) for the full shape.
+
 The CSV reporter (`@as-pect/csv-reporter`) is documented as the as-pect CSV v1 tabular export. It keeps the stable column order `Group`, `Name`, `Ran`, `Negated`, `Pass`, `Runtime`, `Message`, `Actual`, `Expected` for spreadsheet-style workflows, without claiming to be a cross-tool CSV test-result standard. See [`packages/csv-reporter/readme.md`](./packages/csv-reporter/readme.md#as-pect-csv-v1-contract) for the full column contract.
 
 ## Snapshot names

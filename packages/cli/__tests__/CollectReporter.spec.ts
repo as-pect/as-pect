@@ -43,6 +43,28 @@ function report(fileName: string): SuiteReport {
 }
 
 describe("reporter collection", () => {
+  it("creates the CTRF JSON reporter when --ctrf is selected", async () => {
+    const tempDir = await mkdtemp(join(process.cwd(), "tmp-cli-ctrf-reporter-"));
+    const fileName = join(relative(process.cwd(), tempDir), "entry.spec.ts");
+
+    try {
+      const reporter = await collectReporter({ ctrf: true }, aspectConfig);
+      reporter.onReportFinish?.({ report: report(fileName) });
+      await reporter.onFlush?.();
+
+      const ctrf = JSON.parse(await readFile(join(tempDir, "entry.spec.ctrf.json"), "utf8"));
+      expect(ctrf).toMatchObject({
+        reportFormat: "CTRF",
+        results: {
+          tool: { name: "as-pect" },
+          tests: [{ name: "adds values", status: "passed" }],
+        },
+      });
+    } finally {
+      await rm(tempDir, { recursive: true, force: true });
+    }
+  });
+
   it("creates the JUnit XML reporter when --junit is selected", async () => {
     const tempDir = await mkdtemp(join(process.cwd(), "tmp-cli-junit-reporter-"));
     const fileName = join(relative(process.cwd(), tempDir), "entry.spec.ts");
@@ -67,7 +89,7 @@ describe("reporter collection", () => {
     try {
       await mkdir(sourceDir, { recursive: true });
       const reporter = await collectReporter(
-        { junit: true },
+        { junit: true, ctrf: true },
         aspectConfig,
         { stderr: process.stderr, stdout: process.stdout },
         createTestSessionProject(tempDir),
@@ -76,7 +98,9 @@ describe("reporter collection", () => {
       await reporter.onFlush?.();
 
       const xml = await readFile(join(sourceDir, "entry.spec.xml"), "utf8");
+      const ctrf = JSON.parse(await readFile(join(sourceDir, "entry.spec.ctrf.json"), "utf8"));
       expect(xml).toContain('<testsuite name="assembly/__tests__/entry.spec.ts"');
+      expect(ctrf.results.tests[0].filePath).toBe("assembly/__tests__/entry.spec.ts");
     } finally {
       await rm(tempDir, { recursive: true, force: true });
     }

@@ -15,6 +15,48 @@ To view the documentation, it's located [here](https://tenner-joshua.gitbook.io/
 
 This package writes JSON from the Suite report facts delivered to `onReportFinish({ report })`. Custom file reporters should prefer the report event callbacks from `@as-pect/core` and treat `onFinish(ctx)` as a legacy compatibility callback.
 
+## as-pect legacy JSON v1 contract
+
+`@as-pect/json-reporter` is the as-pect legacy JSON reporter. It is selected by `asp --json` and intentionally remains separate from the standardized CTRF reporter in `@as-pect/ctrf-reporter`.
+
+The reporter writes one sibling `.json` file per test entry. The file root is an array of result objects in execution order.
+
+Passing and failing tests use this field shape:
+
+```json
+{
+  "group": "math",
+  "name": "adds values",
+  "ran": true,
+  "pass": true,
+  "negated": false,
+  "runtime": 3,
+  "message": null,
+  "actual": "3",
+  "expected": "3"
+}
+```
+
+Failed tests keep the same fields with `pass: false`, assertion text in `message`, and reflected assertion strings in `actual` and `expected` when present.
+
+Todo results use the same object shape for compatibility:
+
+```json
+{
+  "group": "math",
+  "name": "TODO: handles division",
+  "ran": false,
+  "pass": null,
+  "negated": false,
+  "runtime": 0,
+  "message": "",
+  "actual": null,
+  "expected": null
+}
+```
+
+Use `asp --ctrf` or `asp --reporter @as-pect/ctrf-reporter` when a consumer expects CTRF root fields such as `reportFormat`, `specVersion`, and `results`.
+
 ## Contributors
 
 To contribute please see [CONTRIBUTING.md](./CONTRIBUTING.md).

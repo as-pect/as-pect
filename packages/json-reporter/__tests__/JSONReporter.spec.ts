@@ -175,6 +175,61 @@ describe("JSONReporter", () => {
     await expect(writeReportWithMissingOutputDirectory()).rejects.toMatchObject({ code: "ENOENT" });
   });
 
+  it("preserves the as-pect legacy JSON v1 shape for pass, fail, and todo results", async () => {
+    await expect(
+      runReporter([
+        testResult({ name: "adds values", runtime: 3 }),
+        testResult({
+          name: "subtracts values",
+          pass: false,
+          runtime: 5,
+          message: "expected 1",
+          actual: "2",
+          expected: "1",
+        }),
+        {
+          type: "todo",
+          groupName: "math",
+          description: "handles division",
+        },
+      ]),
+    ).resolves.toEqual([
+      {
+        group: "math",
+        name: "adds values",
+        ran: true,
+        pass: true,
+        negated: false,
+        runtime: 3,
+        message: null,
+        actual: "3",
+        expected: "3",
+      },
+      {
+        group: "math",
+        name: "subtracts values",
+        ran: true,
+        pass: false,
+        negated: false,
+        runtime: 5,
+        message: "expected 1",
+        actual: "2",
+        expected: "1",
+      },
+      {
+        group: "math",
+        name: "TODO: handles division",
+        ran: false,
+        pass: null,
+        negated: false,
+        runtime: 0,
+        message: "",
+        actual: null,
+        expected: null,
+      },
+    ]);
+  });
+
   it("writes parseable JSON for multiple test results", async () => {
     await expect(
       runReporter([

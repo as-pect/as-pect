@@ -51,6 +51,7 @@
   },
   "optionalDependencies": {
     "@as-pect/csv-reporter": "^8.1.0",
+    "@as-pect/ctrf-reporter": "^8.1.0",
     "@as-pect/json-reporter": "^8.1.0",
     "@as-pect/junit-reporter": "^8.1.0"
   },

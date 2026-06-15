@@ -5,6 +5,7 @@ export interface CliOptions {
   asConfig: string;
   config: string;
   csv: boolean;
+  ctrf: boolean;
   disclude?: string;
   group: string;
   include?: string;
@@ -42,6 +43,7 @@ type OptionValueName =
   | "test";
 type BooleanOptionName =
   | "csv"
+  | "ctrf"
   | "init"
   | "json"
   | "junit"
@@ -213,6 +215,13 @@ const BOOLEAN_OPTIONS: BooleanOptionDefinition[] = [
     value: true,
   },
   {
+    description: "Use the CTRF JSON reporter (output results to .ctrf.json files.) (default: false)",
+    display: "--ctrf",
+    long: "--ctrf",
+    property: "ctrf",
+    value: true,
+  },
+  {
     description: "Show compiler stats between compilations. (default: false)",
     display: "-s, --show-stats",
     long: "--show-stats",
@@ -233,6 +242,7 @@ function createDefaultOptions(): CliOptions {
     asConfig: "./as-pect.asconfig.json",
     config: "./as-pect.config.js",
     csv: false,
+    ctrf: false,
     group: "(:?)",
     init: false,
     json: false,
