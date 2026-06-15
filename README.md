@@ -34,6 +34,10 @@ When coverage is enabled, `asp` uses the `coverage` target from `as-pect.asconfi
 
 `as-pect.config.js` configures the Test session. Put AssemblyScript compiler options in `as-pect.asconfig.json` instead. For example, configure the `asc --lib` option as a `lib` array on the `noCoverage` target, and also on the `coverage` target when coverage is enabled. See [`packages/cli/README.md`](./packages/cli/README.md#assemblyscript-compiler-options) for an example.
 
+## Reporter output formats
+
+The CSV reporter (`@as-pect/csv-reporter`) is documented as the as-pect CSV v1 tabular export. It keeps the stable column order `Group`, `Name`, `Ran`, `Negated`, `Pass`, `Runtime`, `Message`, `Actual`, `Expected` for spreadsheet-style workflows, without claiming to be a cross-tool CSV test-result standard. See [`packages/csv-reporter/readme.md`](./packages/csv-reporter/readme.md#as-pect-csv-v1-contract) for the full column contract.
+
 ## Snapshot names
 
 Snapshots are keyed by the full Test node namespace plus the explicit snapshot name passed by the test. The namespace includes every `describe`/`it` segment and duplicate-safe indexes, for example:

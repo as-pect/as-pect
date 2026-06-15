@@ -56,6 +56,10 @@ _Avoid_: Test component, result object
 An adapter that renders reportable facts from a test suite to stdout, stderr, files, or another output target.
 _Avoid_: Printer, output service
 
+**as-pect CSV v1 contract**:
+The as-pect-specific CSV reporter column contract for tabular test results. It preserves the `Group`, `Name`, `Ran`, `Negated`, `Pass`, `Runtime`, `Message`, `Actual`, and `Expected` column order and value vocabulary for spreadsheet-style workflows, without treating CSV as a cross-tool test-result standard.
+_Avoid_: Standard CSV test schema, generic CSV report format
+
 **Reporting lifecycle**:
 The module that publishes test suite events and final suite report facts to reporters through one seam. It delegates report fact construction instead of walking test nodes itself.
 _Avoid_: Reporter manager, output lifecycle service

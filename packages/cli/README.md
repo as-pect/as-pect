@@ -21,6 +21,10 @@ Snapshot file paths and write modes are part of the Test session snapshot plan. 
 
 Use `asp --test <regex>` or `asp -t <regex>` to run tests whose names match a regular expression. Use `asp --group <regex>` or `asp -g <regex>` to run groups whose names match a regular expression. These options consume the following argument as the filter pattern; remaining positional arguments are still treated as Test session entry globs.
 
+## Reporter output formats
+
+`@as-pect/csv-reporter` writes the as-pect CSV v1 tabular export for spreadsheet-style workflows. It preserves the column order `Group`, `Name`, `Ran`, `Negated`, `Pass`, `Runtime`, `Message`, `Actual`, `Expected` and does not claim CSV as a cross-tool test-result standard. See [`../csv-reporter/readme.md`](../csv-reporter/readme.md#as-pect-csv-v1-contract) for the full column and value contract.
+
 ## Code coverage
 
 `as-pect` uses [`as-covers`](https://www.npmjs.com/package/@as-covers/core) for AssemblyScript line and branch coverage. The `asp --init` template already creates an `as-pect.asconfig.json` with two compiler targets:

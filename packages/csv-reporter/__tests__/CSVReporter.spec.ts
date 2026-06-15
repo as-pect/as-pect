@@ -32,10 +32,45 @@ function testResult(overrides: Partial<SuiteResultReport> = {}): SuiteResultRepo
 }
 
 function parseRows(output: string): string[][] {
-  return output
-    .trimEnd()
-    .split(/\r?\n/)
-    .map((line) => line.split(","));
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let field = "";
+  let quoted = false;
+
+  for (let i = 0; i < output.length; i++) {
+    const char = output[i];
+    const next = output[i + 1];
+
+    if (quoted) {
+      if (char === '"' && next === '"') {
+        field += '"';
+        i++;
+      } else if (char === '"') {
+        quoted = false;
+      } else {
+        field += char;
+      }
+    } else if (char === '"') {
+      quoted = true;
+    } else if (char === ",") {
+      row.push(field);
+      field = "";
+    } else if (char === "\n") {
+      row.push(field);
+      rows.push(row);
+      row = [];
+      field = "";
+    } else if (char !== "\r") {
+      field += char;
+    }
+  }
+
+  if (field !== "" || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
+
+  return rows;
 }
 
 async function reporterCreatesFile(report: Pick<SuiteReport, "hasResults" | "results">): Promise<boolean> {
@@ -61,7 +96,7 @@ async function runReporter(results: SuiteResultReport[]): Promise<string[][]> {
   const reporter = new TestCSVReporter();
 
   try {
-    await reporter.writeAndWait({ fileName, results });
+    await reporter.writeAndWait({ fileName, hasResults: true, results });
     const output = await readFile(join(tempDir, "example.spec.csv"), "utf8");
     return parseRows(output);
   } finally {
@@ -111,6 +146,30 @@ describe("CSVReporter", () => {
     ).resolves.toEqual([
       ["Group", "Name", "Ran", "Negated", "Pass", "Runtime", "Message", "Actual", "Expected"],
       ["math", "handles division", "TODO", "", "", "", "", "", ""],
+    ]);
+  });
+
+  it("emits values with comma, quote, and newline as parseable CSV fields", async () => {
+    await expect(
+      runReporter([
+        testResult({
+          groupName: "math, core",
+          name: 'quotes "work"',
+          message: "line one\nline two",
+          actual: "1,2",
+          expected: '"1,2"',
+        }),
+      ]),
+    ).resolves.toEqual([
+      ["Group", "Name", "Ran", "Negated", "Pass", "Runtime", "Message", "Actual", "Expected"],
+      ["math, core", 'quotes "work"', "RAN", "FALSE", "PASS", "3", "line one\nline two", "1,2", '"1,2"'],
+    ]);
+  });
+
+  it("keeps null actual and expected values as empty CSV fields", async () => {
+    await expect(runReporter([testResult({ actual: null, expected: null })])).resolves.toEqual([
+      ["Group", "Name", "Ran", "Negated", "Pass", "Runtime", "Message", "Actual", "Expected"],
+      ["math", "adds values", "RAN", "FALSE", "PASS", "3", "ok", "", ""],
     ]);
   });
 });
