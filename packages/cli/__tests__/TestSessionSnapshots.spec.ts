@@ -91,15 +91,70 @@ describe("Test session snapshot planning", () => {
     expect(fileSystem.writeFile).not.toHaveBeenCalled();
   });
 
-  it("creates the snapshots directory in write mode when it is missing", async () => {
+  it("creates the snapshots directory in write mode when a passing suite has snapshots to write", async () => {
     const fileSystem = createFileSystem({
       access: jest.fn(async () => {
         throw new Error("missing");
       }),
     });
+    const log = jest.fn();
     const plan = await planTestSessionSnapshots({
       entry: "assembly/__tests__/entry.spec.ts",
       fileSystem,
+      log,
+      updateSnapshots: true,
+    });
+
+    await plan.applySnapshotWrites({
+      expectedSnapshots: new Snapshot(),
+      rootPassed: true,
+      updatePlan: {
+        shouldWrite: true,
+        applyTo(snapshot: Snapshot) {
+          return snapshot.set("test[0]", "actual");
+        },
+      },
+    });
+
+    expect(log).toHaveBeenCalledWith("Creating Snapshots.");
+    expect(fileSystem.access).toHaveBeenCalledWith("assembly/__tests__/__snapshots__");
+    expect(fileSystem.mkdir).toHaveBeenCalledWith("assembly/__tests__/__snapshots__");
+  });
+
+  it("does not prepare snapshot writes in write mode when the root test node fails", async () => {
+    const fileSystem = createFileSystem();
+    const log = jest.fn();
+    const plan = await planTestSessionSnapshots({
+      entry: "assembly/__tests__/entry.spec.ts",
+      fileSystem,
+      log,
+      updateSnapshots: true,
+    });
+
+    await plan.applySnapshotWrites({
+      expectedSnapshots: new Snapshot(),
+      rootPassed: false,
+      updatePlan: {
+        shouldWrite: true,
+        applyTo(snapshot: Snapshot) {
+          return snapshot.set("test[0]", "actual");
+        },
+      },
+    });
+
+    expect(log).not.toHaveBeenCalled();
+    expect(fileSystem.access).not.toHaveBeenCalled();
+    expect(fileSystem.mkdir).not.toHaveBeenCalled();
+    expect(fileSystem.writeFile).not.toHaveBeenCalled();
+  });
+
+  it("does not prepare snapshot writes in write mode when there are no snapshot updates", async () => {
+    const fileSystem = createFileSystem();
+    const log = jest.fn();
+    const plan = await planTestSessionSnapshots({
+      entry: "assembly/__tests__/entry.spec.ts",
+      fileSystem,
+      log,
       updateSnapshots: true,
     });
 
@@ -114,8 +169,10 @@ describe("Test session snapshot planning", () => {
       },
     });
 
-    expect(fileSystem.access).toHaveBeenCalledWith("assembly/__tests__/__snapshots__");
-    expect(fileSystem.mkdir).toHaveBeenCalledWith("assembly/__tests__/__snapshots__");
+    expect(log).not.toHaveBeenCalled();
+    expect(fileSystem.access).not.toHaveBeenCalled();
+    expect(fileSystem.mkdir).not.toHaveBeenCalled();
+    expect(fileSystem.writeFile).not.toHaveBeenCalled();
   });
 
   it("writes snapshots from a lifecycle update plan in write mode only when the root test node passes", async () => {

@@ -12,6 +12,19 @@ function parseOptions(args: string[]) {
   return parseCommand(args).opts();
 }
 
+function expectParseError(args: string[], expectedMessage: string) {
+  const errors: string[] = [];
+  const command = createCliProgram();
+  command.exitOverride();
+  command.configureOutput({
+    writeErr: (str: string) => errors.push(str),
+    writeOut: () => undefined,
+  });
+
+  expect(() => command.parse(["node", "asp", ...args])).toThrow(expectedMessage);
+  expect(errors.join("")).toContain(expectedMessage);
+}
+
 describe("CLI option parsing", () => {
   it("describes --reporter as accepting local paths and package modules", () => {
     expect(createCliProgram().helpInformation().replace(/\s+/g, " ")).toContain(
@@ -27,6 +40,8 @@ describe("CLI option parsing", () => {
     expect(help).toContain("-a, --as-config <asconfig_location>");
     expect(help).toContain("--memory-size <pages>");
     expect(help).toContain("--memory-max <pages>");
+    expect(help).toContain("-t, --test <regex>");
+    expect(help).toContain("-g, --group <regex>");
     expect(help).toContain("-d, --disclude <regex>");
     expect(help).toContain("-i, --include <globs>");
     expect(help).toContain("--reporter <reporter>");
@@ -152,27 +167,33 @@ describe("CLI option parsing", () => {
     expect(parseOptions(["--show-stats"]).showStats).toBe(true);
   });
 
-  it("characterizes current test and group filter flag parsing", () => {
+  it("maps test and group filter flags to regex values instead of positional globs", () => {
     const command = parseCommand(["--test", "adds values", "--group", "math"]);
 
     expect(command.opts()).toMatchObject({
-      group: true,
-      test: true,
+      group: "math",
+      test: "adds values",
     });
-    expect(command.args).toEqual(["adds values", "math"]);
+    expect(command.args).toEqual([]);
+  });
+
+  it("maps short test and group filter aliases to regex values", () => {
+    const command = parseCommand(["-t", "adds", "-g", "math"]);
+
+    expect(command.opts()).toMatchObject({
+      group: "math",
+      test: "adds",
+    });
+    expect(command.args).toEqual([]);
+  });
+
+  it("rejects missing test and group filter values", () => {
+    expectParseError(["--test"], "error: option '-t, --test <regex>' argument missing");
+    expectParseError(["--group"], "error: option '-g, --group <regex>' argument missing");
   });
 
   it("rejects unknown options", () => {
-    const errors: string[] = [];
-    const command = createCliProgram();
-    command.exitOverride();
-    command.configureOutput({
-      writeErr: (str: string) => errors.push(str),
-      writeOut: () => undefined,
-    });
-
-    expect(() => command.parse(["node", "asp", "--unknown"])).toThrow("error: unknown option '--unknown'");
-    expect(errors.join("")).toContain("error: unknown option '--unknown'");
+    expectParseError(["--unknown"], "error: unknown option '--unknown'");
   });
 
   it("prints help output and exits successfully", () => {

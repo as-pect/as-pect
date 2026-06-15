@@ -99,6 +99,8 @@ async function applyWriteSnapshotWrites(
   facts: WriteSnapshotWriteFacts,
   log: ((message: string) => void) | undefined,
 ): Promise<void> {
+  if (!facts.rootPassed || !facts.updatePlan.shouldWrite) return;
+
   log?.("Creating Snapshots.");
 
   const snapshotDir = path.dirname(snapshotPath);
@@ -107,8 +109,6 @@ async function applyWriteSnapshotWrites(
   } catch (ex) {
     await fileSystem.mkdir(snapshotDir);
   }
-
-  if (!facts.rootPassed) return;
 
   facts.updatePlan.applyTo(facts.expectedSnapshots);
   await fileSystem.writeFile(snapshotPath, facts.expectedSnapshots.stringify(), "utf8");

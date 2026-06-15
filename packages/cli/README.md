@@ -17,6 +17,10 @@ The CLI drives each Test session from configuration to report output. `as-pect.c
 
 Snapshot file paths and write modes are part of the Test session snapshot plan. Snapshot pass/fail and update decisions come from the Snapshot lifecycle in `@as-pect/snapshots` before the CLI writes files.
 
+## CLI filters
+
+Use `asp --test <regex>` or `asp -t <regex>` to run tests whose names match a regular expression. Use `asp --group <regex>` or `asp -g <regex>` to run groups whose names match a regular expression. These options consume the following argument as the filter pattern; remaining positional arguments are still treated as Test session entry globs.
+
 ## Code coverage
 
 `as-pect` uses [`as-covers`](https://www.npmjs.com/package/@as-covers/core) for AssemblyScript line and branch coverage. The `asp --init` template already creates an `as-pect.asconfig.json` with two compiler targets:

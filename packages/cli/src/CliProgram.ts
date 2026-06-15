@@ -29,16 +29,23 @@ interface CliOutputConfiguration {
   writeOut?: (str: string) => void;
 }
 
-type OptionValueName = "asConfig" | "config" | "disclude" | "include" | "memoryMax" | "memorySize" | "reporter";
+type OptionValueName =
+  | "asConfig"
+  | "config"
+  | "disclude"
+  | "group"
+  | "include"
+  | "memoryMax"
+  | "memorySize"
+  | "reporter"
+  | "test";
 type BooleanOptionName =
   | "csv"
-  | "group"
   | "init"
   | "json"
   | "outputBinary"
   | "showStats"
   | "summary"
-  | "test"
   | "updateSnapshots"
   | "verbose"
   | "version";
@@ -95,6 +102,22 @@ const VALUE_OPTIONS: ValueOptionDefinition[] = [
     property: "memoryMax",
   },
   {
+    description: "Match tests with the following regex. (Default: `(:?)`)",
+    display: "-t, --test <regex>",
+    long: "--test",
+    missingArgumentMessage: "error: option '-t, --test <regex>' argument missing",
+    property: "test",
+    short: "-t",
+  },
+  {
+    description: "Match test groups with the following regex. (Default `(:?)`)",
+    display: "-g, --group <regex>",
+    long: "--group",
+    missingArgumentMessage: "error: option '-g, --group <regex>' argument missing",
+    property: "group",
+    short: "-g",
+  },
+  {
     description: "Match test files with the following regex, disclude them from testing.",
     display: "-d, --disclude <regex>",
     long: "--disclude",
@@ -133,22 +156,6 @@ const BOOLEAN_OPTIONS: BooleanOptionDefinition[] = [
     display: "--init",
     long: "--init",
     property: "init",
-    value: true,
-  },
-  {
-    description: "Match tests with the following regex. (Default: `(:?)`)",
-    display: "-t, --test",
-    long: "--test",
-    property: "test",
-    short: "-t",
-    value: true,
-  },
-  {
-    description: "Match test groups with the following regex. (Default `(:?)`)",
-    display: "-g, --group",
-    long: "--group",
-    property: "group",
-    short: "-g",
     value: true,
   },
   {
@@ -277,13 +284,12 @@ export class CliProgram {
       formatOptionLine("-n, --no-logo", "Don't display the as-pect logo."),
       ...VALUE_OPTIONS.slice(0, 2).map((option) => formatOptionLine(option.display, option.description)),
       ...BOOLEAN_OPTIONS.slice(0, 2).map((option) => formatOptionLine(option.display, option.description)),
-      ...VALUE_OPTIONS.slice(2, 4).map((option) => formatOptionLine(option.display, option.description)),
-      ...BOOLEAN_OPTIONS.slice(2, 4).map((option) => formatOptionLine(option.display, option.description)),
-      ...VALUE_OPTIONS.slice(4, 6).map((option) => formatOptionLine(option.display, option.description)),
-      ...BOOLEAN_OPTIONS.slice(4, 5).map((option) => formatOptionLine(option.display, option.description)),
+      ...VALUE_OPTIONS.slice(2, 6).map((option) => formatOptionLine(option.display, option.description)),
+      ...VALUE_OPTIONS.slice(6, 8).map((option) => formatOptionLine(option.display, option.description)),
+      ...BOOLEAN_OPTIONS.slice(2, 3).map((option) => formatOptionLine(option.display, option.description)),
       formatOptionLine("--no-run", "Skip running tests, and output the binary files."),
-      ...BOOLEAN_OPTIONS.slice(5).map((option) => formatOptionLine(option.display, option.description)),
-      ...VALUE_OPTIONS.slice(6).map((option) => formatOptionLine(option.display, option.description)),
+      ...BOOLEAN_OPTIONS.slice(3).map((option) => formatOptionLine(option.display, option.description)),
+      ...VALUE_OPTIONS.slice(8).map((option) => formatOptionLine(option.display, option.description)),
       formatOptionLine("-h, --help", "display help for command"),
     ].join("\n")}\n`;
   }
