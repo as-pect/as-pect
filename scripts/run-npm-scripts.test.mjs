@@ -8,6 +8,7 @@ import { promisify } from "node:util";
 
 const execFileAsync = promisify(execFile);
 const runnerPath = new URL("./run-npm-scripts.mjs", import.meta.url);
+const { createNpmRunSpawnConfig } = await import(runnerPath.href);
 
 async function createPackage(scripts) {
   const cwd = await mkdtemp(join(tmpdir(), "as-pect-runner-"));
@@ -30,6 +31,20 @@ async function run(cwd, ...args) {
     };
   }
 }
+
+test("uses a shell when spawning npm scripts on Windows", () => {
+  const spawnConfig = createNpmRunSpawnConfig("win32");
+
+  assert.equal(spawnConfig.command, "npm.cmd");
+  assert.equal(spawnConfig.options.shell, true);
+});
+
+test("does not use a shell when spawning npm scripts on POSIX platforms", () => {
+  const spawnConfig = createNpmRunSpawnConfig("linux");
+
+  assert.equal(spawnConfig.command, "npm");
+  assert.equal(spawnConfig.options.shell, false);
+});
 
 test("runs npm scripts sequentially in argument order", async () => {
   const cwd = await createPackage({
