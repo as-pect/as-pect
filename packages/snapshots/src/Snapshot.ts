@@ -40,7 +40,7 @@ export class SnapshotParser {
       const entry = this.parseSnapshotEntry();
       if (!entry) break;
 
-      values.set(entry.key, entry.value);
+      values.set(entry.key, normalizeSnapshotValue(entry.value));
       this.skipWhitespace();
     }
 
