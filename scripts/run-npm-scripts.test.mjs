@@ -4,10 +4,12 @@ import { mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { execFile } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 const execFileAsync = promisify(execFile);
 const runnerPath = new URL("./run-npm-scripts.mjs", import.meta.url);
+const runnerFilePath = fileURLToPath(runnerPath);
 const { createNpmRunSpawnConfig } = await import(runnerPath.href);
 
 async function createPackage(scripts) {
@@ -18,7 +20,7 @@ async function createPackage(scripts) {
 
 async function run(cwd, ...args) {
   try {
-    const result = await execFileAsync(process.execPath, [runnerPath.pathname, ...args], {
+    const result = await execFileAsync(process.execPath, [runnerFilePath, ...args], {
       cwd,
       env: { ...process.env, npm_config_loglevel: "silent" },
     });
@@ -32,17 +34,19 @@ async function run(cwd, ...args) {
   }
 }
 
-test("uses a shell when spawning npm scripts on Windows", () => {
-  const spawnConfig = createNpmRunSpawnConfig("win32");
+test("spawns npm scripts through cmd.exe on Windows", () => {
+  const spawnConfig = createNpmRunSpawnConfig("build", "win32");
 
-  assert.equal(spawnConfig.command, "npm.cmd");
-  assert.equal(spawnConfig.options.shell, true);
+  assert.equal(spawnConfig.command, "cmd.exe");
+  assert.deepEqual(spawnConfig.args, ["/d", "/s", "/c", "npm.cmd", "run", "build"]);
+  assert.equal(spawnConfig.options.shell, false);
 });
 
-test("does not use a shell when spawning npm scripts on POSIX platforms", () => {
-  const spawnConfig = createNpmRunSpawnConfig("linux");
+test("spawns npm scripts directly on POSIX platforms", () => {
+  const spawnConfig = createNpmRunSpawnConfig("build", "linux");
 
   assert.equal(spawnConfig.command, "npm");
+  assert.deepEqual(spawnConfig.args, ["run", "build"]);
   assert.equal(spawnConfig.options.shell, false);
 });
 

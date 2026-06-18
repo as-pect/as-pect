@@ -3,13 +3,24 @@
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
-export function createNpmRunSpawnConfig(platform = process.platform) {
-  const isWindows = platform === "win32";
+export function createNpmRunSpawnConfig(script, platform = process.platform) {
+  if (platform === "win32") {
+    return {
+      command: "cmd.exe",
+      args: ["/d", "/s", "/c", "npm.cmd", "run", script],
+      options: {
+        stdio: "inherit",
+        shell: false,
+      },
+    };
+  }
+
   return {
-    command: isWindows ? "npm.cmd" : "npm",
+    command: "npm",
+    args: ["run", script],
     options: {
       stdio: "inherit",
-      shell: isWindows,
+      shell: false,
     },
   };
 }
@@ -26,8 +37,8 @@ function printUsage() {
 
 function runScript(script) {
   return new Promise((resolve) => {
-    const { command, options } = createNpmRunSpawnConfig();
-    const child = spawn(command, ["run", script], options);
+    const { command, args, options } = createNpmRunSpawnConfig(script);
+    const child = spawn(command, args, options);
 
     child.on("error", (error) => {
       console.error(`Failed to start npm script '${script}': ${error.message}`);
