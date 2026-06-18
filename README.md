@@ -28,7 +28,7 @@ export default {
 };
 ```
 
-When coverage is enabled, `asp` uses the `coverage` target from `as-pect.asconfig.json`, which wires in `@as-covers/assembly` and `@as-covers/transform`, then prints the coverage report after the test run. See [`packages/cli/README.md`](./packages/cli/README.md#code-coverage) for the target configuration details.
+When coverage is enabled, `asp` uses the `coverage` target from `as-pect.asconfig.json`, which wires in `@as-covers/assembly` and the `@as-pect/cli` coverage transform wrapper, then prints the coverage report after the test run. See [`packages/cli/README.md`](./packages/cli/README.md#code-coverage) for the target configuration details.
 
 ## AssemblyScript compiler options
 

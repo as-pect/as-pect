@@ -36,7 +36,7 @@ Use `asp --json` for the existing as-pect legacy JSON v1 array format. It remain
 `as-pect` uses [`as-covers`](https://www.npmjs.com/package/@as-covers/core) for AssemblyScript line and branch coverage. The `asp --init` template already creates an `as-pect.asconfig.json` with two compiler targets:
 
 - `noCoverage`, which runs only the `@as-pect/transform` transform.
-- `coverage`, which adds the `@as-covers/assembly` support library and the `@as-covers/transform` transform before `@as-pect/transform`.
+- `coverage`, which adds the `@as-covers/assembly` support library and the `@as-pect/cli` coverage transform wrapper before `@as-pect/transform`.
 
 Enable coverage by uncommenting or adding the `coverage` glob list in `as-pect.config.js`:
 
@@ -49,14 +49,14 @@ export default {
 
 When `coverage` is non-empty, `asp` compiles tests with the `coverage` target, installs the `as-covers` imports, registers each test module with `as-covers`, and prints a coverage report after the run.
 
-If you maintain a custom `as-pect.asconfig.json`, make sure it includes the coverage target shape from the init template:
+If you maintain a custom `as-pect.asconfig.json`, make sure it includes the coverage target shape from the init template. The wrapper delegates to `as-covers` while keeping dependency sources out of the coverage instrumentation pass.
 
 ```json
 {
   "targets": {
     "coverage": {
       "lib": ["./node_modules/@as-covers/assembly/index.ts"],
-      "transform": ["@as-covers/transform", "@as-pect/transform"]
+      "transform": ["./node_modules/@as-pect/cli/init/as-covers-transform.js", "@as-pect/transform"]
     },
     "noCoverage": {
       "transform": ["@as-pect/transform"]
@@ -78,7 +78,7 @@ For example, add custom library components to tests like this:
   "targets": {
     "coverage": {
       "lib": ["./assembly/test-lib", "./node_modules/@as-covers/assembly/index.ts"],
-      "transform": ["@as-covers/transform", "@as-pect/transform"]
+      "transform": ["./node_modules/@as-pect/cli/init/as-covers-transform.js", "@as-pect/transform"]
     },
     "noCoverage": {
       "lib": ["./assembly/test-lib"],

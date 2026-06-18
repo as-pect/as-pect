@@ -2,7 +2,7 @@
   "targets": {
     "coverage": {
       "lib": ["./node_modules/@as-covers/assembly/index.ts"],
-      "transform": ["@as-covers/transform", "@as-pect/transform"]
+      "transform": ["./node_modules/@as-pect/cli/init/as-covers-transform.js", "@as-pect/transform"]
     },
     "noCoverage": {
       "transform": ["@as-pect/transform"]
