@@ -141,7 +141,7 @@ export class Snapshot {
 
   public static from(input: Map<string, string>): Snapshot {
     const snapshot = new Snapshot();
-    snapshot.values = input;
+    snapshot.values = new Map(Array.from(input, ([key, value]) => [key, normalizeSnapshotValue(value)]));
     return snapshot;
   }
 
@@ -152,7 +152,7 @@ export class Snapshot {
     while (true) {
       const snapshotKey = `${key}[${i}]`;
       if (!this.values.has(snapshotKey)) {
-        this.values.set(snapshotKey, value);
+        this.values.set(snapshotKey, normalizeSnapshotValue(value));
         return this;
       }
       i++;
@@ -160,7 +160,7 @@ export class Snapshot {
   }
 
   public set(key: string, value: string): this {
-    this.values.set(key, value);
+    this.values.set(key, normalizeSnapshotValue(value));
     return this;
   }
 
@@ -179,6 +179,10 @@ export class Snapshot {
 
 function escapeSnapshotString(input: string): string {
   return input.replace(/`/g, "\\`");
+}
+
+function normalizeSnapshotValue(value: string): string {
+  return value.replace(/\r\n?/g, "\n");
 }
 
 function parseSnapshotStringImage(image: string): string {

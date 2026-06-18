@@ -86,6 +86,15 @@ describe("Snapshot", () => {
     expect(Snapshot.from(map).stringify()).toBe("\n");
   });
 
+  it("should normalize snapshot value line endings", () => {
+    const snapshot = Snapshot.from(new Map([["A", "line one\r\nline two\rline three"]]));
+
+    expect(snapshot.values.get("A")).toBe("line one\nline two\nline three");
+    expect(snapshot.diff(Snapshot.from(new Map([["A", "line one\nline two\nline three"]]))).results.get("A")?.type).toBe(
+      SnapshotDiffResultType.NoChange,
+    );
+  });
+
   it("should round-trip keys and values containing multiple backticks", () => {
     const values = new Map([["key`with``ticks", "value `one` and ``two``"]]);
     const text = Snapshot.from(values).stringify();
