@@ -1,5 +1,12 @@
 # @as-pect/junit-reporter
 
+## 9.0.1
+
+### Patch Changes
+
+- @as-pect/core@9.0.1
+- @as-pect/reporter-output@9.0.1
+
 ## 9.0.0
 
 ### Patch Changes
