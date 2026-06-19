@@ -1,21 +1,15 @@
 # @as-pect/reporter-output
 
-Shared file-output helpers for as-pect file-backed reporters.
+Shared file-output helpers for `as-pect` file-backed reporters.
 
-`ReporterFileOutput` owns the common mechanics that CSV, JSON, and future file-backed reporters share:
+`ReporterFileOutput` builds output paths next to test entries, skips empty Suite reports, creates write streams, and exposes a flush promise for reporter `onFlush()` implementations.
 
-- building the output path next to the test entry by replacing its extension;
-- skipping file creation when `SuiteReport.hasResults === false`;
-- creating the Node write stream; and
-- exposing a single `flush()` promise that resolves after pending stream work finishes or rejects with stream errors.
+## Documentation
 
-Reporter packages still own their format-specific serialization. They start a file-backed report, write their format to the returned stream, and call `trackFlush()` for any additional serialization stream that must complete before `onFlush()` resolves.
+Detailed file-output behavior and type references live in GitBook:
 
-Example path mapping:
+- [Output files](../../docs/extending/output-files.md)
+- [Custom reporters](../../docs/extending/custom-reporters.md)
+- [`@as-pect/reporter-output` types](../../docs/types/reporter-output.md)
 
-```text
-assembly/__tests__/entry.spec.ts -> assembly/__tests__/entry.spec.json
-assembly/__tests__/entry.spec.ts -> assembly/__tests__/entry.spec.csv
-```
-
-This package intentionally uses Node built-ins only.
+Hosted docs: [as-pect.gitbook.io/as-pect](https://as-pect.gitbook.io/as-pect/).

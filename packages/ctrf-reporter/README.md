@@ -1,23 +1,31 @@
 # @as-pect/ctrf-reporter
 
-Writes [CTRF](https://ctrf.io/) JSON report files for as-pect Test sessions.
+CTRF JSON file reporter for `as-pect` Test sessions.
 
-Use this reporter when another tool expects the Common Test Report Format. The legacy `@as-pect/json-reporter` package remains the as-pect-specific JSON v1 output.
+## Use from the CLI
 
 ```sh
-asp --ctrf
-# or
-asp --reporter @as-pect/ctrf-reporter
+npx asp --ctrf
 ```
 
-For each test entry, the reporter writes a sibling `.ctrf.json` file under the configured project root. The output root contains `reportFormat: "CTRF"`, a `specVersion`, and a `results` object with `tool`, `summary`, and `tests` fields.
+The reporter writes one `.ctrf.json` file per test entry, next to that entry, and skips empty Suite reports. Use it when a consumer expects the Common Test Report Format.
 
-Status mapping:
+## Programmatic use
 
-- Passing test: `passed`
-- Failing test: `failed`
-- Declared todo: `pending`
-- Not-run filtered test: `skipped`
-- Suite-level error: failed CTRF test entry with `extra.asPect.type: "suiteError"`
+```ts
+import CTRFReporter from "@as-pect/ctrf-reporter";
 
-as-pect-only facts such as negation, rtrace deltas, reflected actual/expected values, snapshot changes, and the source Suite report file name are nested under `extra.asPect`.
+const reporter = new CTRFReporter();
+```
+
+Pass an output root to the constructor when relative `SuiteReport.fileName` values should resolve somewhere other than `process.cwd()`.
+
+## Documentation
+
+Detailed CTRF mapping and file-output behavior live in GitBook:
+
+- [Built-in reporters](../../docs/extending/built-in-reporters.md#ctrf-json-reporter)
+- [Output files](../../docs/extending/output-files.md)
+- [Reporter package types](../../docs/types/reporters.md)
+
+Hosted docs: [as-pect.gitbook.io/as-pect](https://as-pect.gitbook.io/as-pect/).

@@ -28,7 +28,7 @@ export default {
     return instance;
   },
   /**
-   * Enable line and branch coverage with as-covers for the matching AssemblyScript files.
+   * Enable as-covers-compatible coverage for the matching AssemblyScript files.
    * When this array is non-empty, asp compiles with the `coverage` target in
    * as-pect.asconfig.json and prints a coverage report after the test run.
    */
