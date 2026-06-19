@@ -1,5 +1,14 @@
 # @as-pect/cli
 
+## 9.0.1
+
+### Patch Changes
+
+- 0d73587: Update coverage support for as-covers 0.5.0 and route initialized coverage builds through an as-pect wrapper transform that instruments project sources while leaving dependency sources alone.
+  - @as-pect/assembly@9.0.1
+  - @as-pect/core@9.0.1
+  - @as-pect/transform@9.0.1
+
 ## 9.0.0
 
 ### Major Changes

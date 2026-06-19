@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/reporter-output",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "File output helpers for as-pect reporters",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

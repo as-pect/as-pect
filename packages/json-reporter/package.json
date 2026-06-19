@@ -1,6 +1,6 @@
 {
   "name": "@as-pect/json-reporter",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Json reporter for as-pect",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -16,8 +16,8 @@
   "author": "Joshua Tenner",
   "license": "MIT",
   "dependencies": {
-    "@as-pect/core": "^9.0.0",
-    "@as-pect/reporter-output": "^9.0.0"
+    "@as-pect/core": "^9.0.1",
+    "@as-pect/reporter-output": "^9.0.1"
   },
   "publishConfig": {
     "access": "public"
